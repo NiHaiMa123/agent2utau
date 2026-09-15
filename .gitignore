@@ -1,0 +1,9 @@
+runs/
+.venv/
+__pycache__/
+*.pyc
+bridge/out/
+bridge/out-sc/
+bridge/OuBridge/bin/
+bridge/OuBridge/obj/
+configs/local.yaml

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "agent2utau run state",
+  "type": "object",
+  "required": ["schema_version", "run_id", "status", "stage"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "run_id": {"type": "string"},
+    "status": {"enum": ["queued", "running", "completed",
+                        "completed_with_warnings", "needs_input",
+                        "failed", "cancelled"]},
+    "stage": {"type": "string"},
+    "progress": {"type": "number", "minimum": 0, "maximum": 1},
+    "artifacts": {"type": "object"},
+    "metrics": {"type": "object"},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "failure_code": {"type": ["string", "null"]},
+    "retryable": {"type": "boolean"},
+    "next_actions": {"type": "array", "items": {"type": "string"}},
+    "updated_at": {"type": "number"}
+  }
+}

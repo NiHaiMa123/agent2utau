@@ -1,0 +1,12 @@
+# agent2utau defaults. Override locally in configs/local.yaml (git-ignored).
+openutau_dir: 'E:\software\OpenUtau-win-x64 (6)'
+default_singer: YousaV1.65b
+reference_dir: 'E:\data\project_opentuau'
+test_source: 'E:\data\music\年轮 - 张碧晨.flac'
+yousa_songs_dir: 'E:\data\music\泠鸢'
+render:
+  timeout_min: 20
+migration:
+  lead_ticks: 480
+  tail_ticks: 480
+  curve_margin: 960

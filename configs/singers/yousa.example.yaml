@@ -1,0 +1,25 @@
+# Singer profile example (this machine's actual install).
+id: YousaV1.65b
+singer_type: diffsinger
+phonemizer: OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer
+renderer: DIFFSINGER
+# character.yaml subbank order == clNN curve indices (1-based)
+subbanks:
+  - Yousa_Bright   # cl01
+  - Yousa_Cute     # cl02
+  - Yousa_Normal   # cl03
+  - Yousa_Whisper  # cl04
+  - Yousa_Classic  # cl05
+# clr option indices = subbank colors sorted alphabetically
+clr_options:
+  - Yousa_Bright   # 0
+  - Yousa_Classic  # 1
+  - Yousa_Cute     # 2
+  - Yousa_Normal   # 3
+  - Yousa_Whisper  # 4
+legacy_color_map:  # old project index -> new clr index, by semantic name
+  "01:Bright": 0
+  "02:Cute": 2
+  "03:Normal": 3
+  "04:Whisper": 4
+  "05:Classic": 1
