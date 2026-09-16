@@ -135,6 +135,26 @@ cd "E:\software\OpenUtau-win-x64 (6)"
 - First diagnostic run crashed only in report-md generation (fixed);
   artifacts all intact, report.json was regenerated post-hoc.
 
+## M2.1.1 diagnostic correctness (run diag-20260916-123749-795c)
+
+- Fixes applied: IQR→cents, time-overlap variant alignment (no index zip),
+  structural F0 fills only <=40ms gaps, GAME known_boundaries init=known
+  (official d3pm), suspicious pass runs on variant A, lyric boundaries are
+  match-evidence only (matched/snap/missing/unsupported).
+- Official spec check: openvpi/GAME me_infer.py inits boundaries=known
+  each loop iteration via remove_mutable_boundaries — our port now matches.
+- Results: A=421 B=420 C=751; A_vs_B 408 matched / 15 pitch disagreements;
+  A_vs_C 416 matched / C adds 335 forced splits / 90 pitch disagreements
+  on matched onsets (forced splits DO change estimator output).
+- GAME raw quality: only 1 tight-evidence wrong_pitch (189.84s, +1186c ≈
+  octave, iqr 7c, cov 1.0 — prime SAFE retune-octave candidate). 39 other
+  wrong_pitch flags all have high dispersion → vibrato/transition smear,
+  NOT confirmed errors. high_dispersion flagged 228/421 at >60c — vibrato
+  legitimately exceeds that; metric kept, flag needs M2.3 calibration.
+- Lyric boundaries vs GAME onsets: 57 matched / 265 possible_snap
+  (80-300ms systematic offset — DTW char starts lag GAME onsets) /
+  1 possible_missing / 26 unsupported.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

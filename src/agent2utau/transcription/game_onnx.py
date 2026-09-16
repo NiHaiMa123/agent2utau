@@ -63,7 +63,9 @@ class GameOnnx:
         if known_boundary_frames is not None:
             idx = known_boundary_frames.astype(int)
             known[0, idx[(idx >= 0) & (idx < T)]] = True
-        boundaries = np.zeros((1, T), dtype=bool)
+        # official GAME d3pm init: boundaries start at known_boundaries
+        # (openvpi/GAME me_infer.py), NOT zeros — matters when known≠∅
+        boundaries = known.copy()
         lang = self._lang_id(language)
         lang_in = {} if lang is None else {"language": lang}
         thr = np.array(seg_threshold, dtype=np.float32)
