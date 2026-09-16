@@ -84,8 +84,26 @@ def _structural_f0(f0: dict) -> np.ndarray:
     return sm
 
 
+def _track_stats(times: np.ndarray, midi: np.ndarray, voiced: np.ndarray,
+                 t0: float, t1: float) -> dict:
+    """Per-F0-track stats over [t0,t1): stable center, IQR (cents), coverage.
+    `midi` here is a RAW midi contour (NaN where unvoiced), not structural."""
+    m = (times >= t0) & (times < t1) & voiced
+    sv = midi[m]
+    sv = sv[np.isfinite(sv)]
+    total = int(((times >= t0) & (times < t1)).sum())
+    if len(sv) < 3:
+        return {"voiced_coverage": round(float(m.sum()) / max(1, total), 3),
+                "center_midi": None, "iqr_cents": None}
+    return {"voiced_coverage": round(float(m.sum()) / max(1, total), 3),
+            "center_midi": round(float(np.median(sv)), 3),
+            "iqr_cents": round(float((np.percentile(sv, 75)
+                                      - np.percentile(sv, 25)) * 100), 1)}
+
+
 def _evidence(note: dict, times: np.ndarray, midi: np.ndarray,
-              voiced: np.ndarray, energy: np.ndarray | None) -> dict:
+              voiced: np.ndarray, energy: np.ndarray | None,
+              fcpe: dict | None = None) -> dict:
     t0, t1 = note["start"], note["start"] + note["dur"]
     m = (times >= t0) & (times < t1)
     total = int(m.sum())
@@ -108,10 +126,38 @@ def _evidence(note: dict, times: np.ndarray, midi: np.ndarray,
         flags.append("weak_f0_evidence")
     if note["dur"] < 0.06:
         flags.append("very_short_isolated_note")
-    return {"voiced_coverage": round(cov, 3),
-            "f0_iqr_cents": None if iqr is None else round(iqr, 1),
-            "err_cents": None if err is None else round(err, 1),
-            "flags": flags}
+    out = {"voiced_coverage": round(cov, 3),
+           "f0_iqr_cents": None if iqr is None else round(iqr, 1),
+           "err_cents": None if err is None else round(err, 1),
+           "flags": flags}
+    if fcpe is not None:
+        # dual-F0 evidence (M2.2B): independent center/IQR per extractor
+        rmv = _track_stats(times, midi, voiced, t0, t1)
+        out["rmvpe"] = rmv
+        ft = fcpe["times"]
+        fmidi = np.where(fcpe["voiced"],
+                         np.log2(np.maximum(fcpe["f0_hz"], 1e-6) / 440.0)
+                         * 12 + 69, np.nan)
+        fcp = _track_stats(ft, fmidi, fcpe["voiced"], t0, t1)
+        out["fcpe"] = fcp
+        if rmv["center_midi"] is not None and fcp["center_midi"] is not None:
+            d = (fcp["center_midi"] - rmv["center_midi"]) * 100
+            out["dual_f0"] = {
+                "rmvpe_vs_fcpe_cents": round(d, 1),
+                "game_vs_rmvpe_cents": out["err_cents"],
+                "game_vs_fcpe_cents": round(
+                    (fcp["center_midi"] - note["tone"]) * 100, 1),
+                # both extractors agree with each other within 50c
+                "extractors_agree": abs(d) <= 50.0,
+                # both extractors jointly disagree with GAME by >100c
+                "both_oppose_game": bool(
+                    out["err_cents"] is not None
+                    and abs(out["err_cents"]) > WRONG_PITCH_CENTS
+                    and abs((fcp["center_midi"] - note["tone"]) * 100)
+                    > WRONG_PITCH_CENTS
+                    and abs(d) <= 50.0),
+            }
+    return out
 
 
 def _boundaries(notes: list[dict]) -> np.ndarray:
@@ -314,18 +360,25 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         }
 
     def _attach_consensus(rec: dict) -> None:
+        """Attach the consensus event with max temporal overlap with this
+        note (start-distance matching fails when split members merge into
+        one event whose median start shifts)."""
         if consensus_raw is None:
             return
-        d = [abs(e["start_median"] - rec["start"]) for e in consensus_raw]
-        if not d:
-            return
-        ei = int(np.argmin(d))
-        if d[ei] <= 0.15:
-            e = consensus_raw[ei]
-            rec["consensus"] = {k: e[k] for k in
+        t0, t1 = rec["start"], rec["start"] + rec["dur"]
+        best, best_ov = None, 0.02  # min 20ms overlap
+        for e in consensus_raw:
+            e0 = e["start_median"]
+            e1 = e0 + e["duration_median"]
+            ov = min(t1, e1) - max(t0, e0)
+            if ov > best_ov:
+                best, best_ov = e, ov
+        if best is not None:
+            rec["consensus"] = {k: best[k] for k in
                                 ("presence_rate", "tone_agreement",
-                                 "tone_mode", "start_iqr_ms",
-                                 "structure_varies", "stability")}
+                                 "tone_median", "start_iqr_ms",
+                                 "run_note_counts", "structure_varies",
+                                 "stability")}
 
     # --- RMVPE + structural F0 (variant D evidence) --------------------------
     log("rmvpe")
@@ -335,6 +388,11 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     struct = _structural_f0(r)
     np.savez(diag_dir / "structural_f0.npz", structural_midi=struct,
              times=r["times"])
+    log("fcpe (dual-F0 evidence)")
+    from ..analysis.f0 import extract_f0
+    fcpe = extract_f0(vocals)
+    np.savez(diag_dir / "fcpe_f0.npz", f0_hz=fcpe["f0_hz"],
+             voiced=fcpe["voiced"], times=fcpe["times"])
     vw2, vsr = sf.read(str(vocals), dtype="float32")
     if vw2.ndim > 1:
         vw2 = vw2.mean(axis=1)
@@ -346,7 +404,7 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     for i, n in enumerate(va):
         if not n["voiced"]:
             continue
-        ev = _evidence(n, times, struct, voiced, energy)
+        ev = _evidence(n, times, struct, voiced, energy, fcpe=fcpe)
         rec = {"id": f"note_{i:04d}", "start": round(n["start"], 3),
                "dur": round(n["dur"], 3), "game_tone": round(n["tone"], 2),
                **ev}
@@ -428,6 +486,19 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     rep["variant_alignment"] = variant_alignment
     rep["octave_candidates"] = [p for p in packets
                               if "possible_octave_error" in p["flags"]]
+    # M2.2B benchmark packets — one file per octave candidate (plan2 §13)
+    for p in rep["octave_candidates"]:
+        bm = {"region": [round(p["start"] - 0.15, 3),
+                         round(p["start"] + p["dur"] + 0.15, 3)],
+              "game": p.get("consensus") or {"tone": p["game_tone"]},
+              "rmvpe": p.get("rmvpe"), "fcpe": p.get("fcpe"),
+              "dual_f0": p.get("dual_f0"),
+              "aligned_structure": (p.get("consensus") or {}).get(
+                  "run_note_counts"),
+              "decision": "pending"}
+        (diag_dir / f"benchmark_octave_{p['start']:.2f}s.json").write_text(
+            json.dumps(bm, ensure_ascii=False, indent=1),
+            encoding="utf-8")
 
     (diag_dir / "diagnostic_report.md").write_text(
         _report_md(rep), encoding="utf-8")

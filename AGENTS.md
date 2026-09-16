@@ -174,6 +174,26 @@ cd "E:\software\OpenUtau-win-x64 (6)"
   median span — edge-touching neighbours don't count (first version flagged
   450/453 unstable; that was a bug).
 
+## M2.2A+M2.2B (run diag-20260916-140357-7b14)
+
+- Formal consensus: `diagnostic/seqalign.py` does pairwise order-preserving
+  DP alignment (match/gap/split/merge ops; cost = onset+IoU-overlap+
+  duration+capped-weak-pitch), union-find over ALL unordered run pairs →
+  run-order independent. Event field renamed tone_mode→tone_median;
+  run_note_counts gives explicit split/merge structure per run.
+- Packets attach consensus by max temporal OVERLAP (not start distance —
+  merged split events shift the median start).
+- 年轮 5+5 runs: raw counts 418-425, zh 418-429. Raw consensus: 397 events
+  = 348 STABLE / 2 VARIABLE / 47 UNSTABLE (43 with split/merge structure
+  variance). consensusA vs consensusB: 390 matched, 14 pitch disagreements.
+- FCPE added as dual-F0: packets carry rmvpe/fcpe center/iqr/coverage +
+  dual_f0 (extractor delta, game-vs-each, agree flags); benchmark packets
+  written per octave candidate (benchmark_octave_*.json).
+- 189.84s resolution: RMVPE=69.958 / FCPE=58.029 / GAME=58.1 — extractors
+  disagree by exactly -1193c (octave). GAME+FCPE agree. NOT a GAME error —
+  it's an RMVPE octave jump. Per plan2 §12: AMBIGUOUS, no SAFE repair.
+  Dual-F0 requirement caught a would-be false repair.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects
