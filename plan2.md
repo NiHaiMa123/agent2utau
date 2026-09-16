@@ -4,13 +4,13 @@
 >
 > 核心原则：**先把“唱对”解决，再把“唱得像泠鸢”解决。**
 >
-> 当前最重要的工程原则：**GAME raw 是主 baseline；先把 diagnostic 做正确，再统计 GAME 真实错误，再决定 repair。歌词边界和 F0 都是证据，不直接替代 GAME。**
+> 当前最重要的工程原则：**GAME raw 是主 baseline；先量清 GAME 自身随机性与真实 residual error，再决定 repair。F0、歌词边界和第二模型都只是证据，不直接替代 GAME。**
 
 ---
 
 ## 1. 当前状态
 
-旧 pipeline 已经具备：
+旧 pipeline 已具备：
 
 - 原曲解码与人声/伴奏分离；
 - FCPE F0；
@@ -31,7 +31,7 @@
 
 能力不足，降级为 fallback，不再作为默认 melody transcription。
 
-### 1.1 Plan2 已完成的 M2.0 / M2.1
+### 1.1 Plan2 已完成的基础设施
 
 当前仓库已经真正接入：
 
@@ -42,36 +42,72 @@
 - RMVPE 16 kHz / hop 160 推理；
 - `diagnose` 命令；
 - GAME USTX + DiffSinger render；
-- RMVPE overlay 与 suspicious-region 初版诊断。
+- RMVPE overlay；
+- GAME raw evidence packets；
+- lyric-boundary matching；
+- variant time-alignment comparison。
 
-《年轮》第一轮结果：
-
-```text
-Variant A — GAME raw:        419 voiced notes
-Variant B — GAME + zh:       417 voiced notes
-Variant C — forced char bd:  760 voiced notes
-```
-
-初版 C validator 标记：
+第一轮诊断曾得到：
 
 ```text
-76 suspicious
-54 wrong_pitch
-16 very_short
-8 weak_f0
+A raw:        419
+B zh:         417
+C forced-bd:  760
 ```
 
-**这些数字目前不能解释成 GAME raw 真有 76 个错误。**
+最初在 C 上得到的 `76 suspicious / 54 wrong_pitch` 已确认**不能代表 GAME raw 的真实错误率**，因为 forced char boundaries 大量增加了 note。
 
-原因是 suspicious 检测跑在 Variant C 上，而 C 把约 349 个 Whisper/歌词字符起点直接作为 `known_boundaries` 强制加入 GAME，note 数从约 417 翻到 760。它更像“原 GAME boundaries + 大量强制字符边界”，不是我们希望的“用歌词证据把 GAME 边界修准”。
+### 1.2 M2.1.1 修正后的《年轮》结果
 
-因此自动 repair 暂停，先进入 **M2.1.1 Diagnostic Correctness**。
+当前修正诊断 run：
+
+```text
+A raw:        421
+B zh:         420
+C forced-bd:  751
+```
+
+已修：
+
+- IQR / dispersion 改为 cents；
+- variant comparison 不再按 note index `zip`；
+- structural F0 只填 <=40 ms 的短 unvoiced gap；
+- GAME `known_boundaries` D3PM 初始化与官方实现对齐；
+- suspicious 检测改为首先跑 GAME raw；
+- lyric boundaries 改为 evidence/matching，不再强制参与主链；
+- forced-boundary 版本降级为 experimental only。
+
+当前 GAME raw 诊断：
+
+```text
+231 flagged / 421 voiced notes
+228 含 high_dispersion
+39 个 wrong_pitch 同时伴随高 dispersion
+1 个 hard-evidence wrong_pitch / octave candidate
+```
+
+其中最强候选：
+
+```text
+~189.84 s
+GAME vs RMVPE ≈ +1186 cents
+F0 IQR ≈ 7 cents
+voiced coverage = 1.0
+```
+
+它是目前首个非常强的 SAFE octave-repair 候选。
+
+但：
+
+> **231 flagged 不是 231 个错误。**
+
+`high_dispersion > 60c` 对真人歌声过于敏感，会把 vibrato / transition / portamento 大量标记出来。因此 high dispersion 后续降级为 feature，不再单独触发 suspicious。
 
 ---
 
 ## 2. 项目定位
 
-GAME 是专门的 singing voice transcription 模型，但真人歌声到离散 note 本身存在模糊性：
+GAME 是专门的 singing voice transcription 模型，但真人歌声到离散 note 存在天然模糊：
 
 - vibrato 是 note 内 modulation 还是多个 note；
 - portamento 什么时候算真正换音；
@@ -81,19 +117,25 @@ GAME 是专门的 singing voice transcription 模型，但真人歌声到离散 
 - octave ambiguity；
 - onset / offset 本身有几十毫秒不确定性。
 
-所以项目不尝试训练一个“总体超过 GAME 的通用转谱器”。
+因此项目不尝试训练一个“总体超过 GAME 的新通用转谱器”。
 
 目标是：
 
-> **GAME + RMVPE/F0 + 歌词边界 + 局部上下文 + 可选 second opinion + DiffSinger render feedback，在 OpenUtau 翻唱这个特定任务上优于 GAME raw。**
+> **GAME + GAME self-consensus + RMVPE/FCPE + 歌词边界 + 局部上下文 + 可选 second opinion + DiffSinger render feedback，在 OpenUtau 翻唱这一特定任务上优于单次 GAME raw。**
 
-即：
+任务从：
 
 ```text
-GAME 给出大部分正确答案
-→ 找少量 suspicious region
-→ 用额外证据判断
-→ 只修强证据错误
+audio → 从零猜整首 MIDI
+```
+
+变成：
+
+```text
+GAME 已给出大部分正确答案
+→ 判断哪些 note/boundary 在 GAME 自身就不稳定
+→ 再叠加 F0 / lyric / context 证据
+→ 只修少量强证据错误
 ```
 
 ---
@@ -114,7 +156,7 @@ GAME 给出大部分正确答案
 - https://github.com/openvpi/dataset-tools
 - https://github.com/openvpi/GAME
 
-其天然工作流就是：
+天然工作流：
 
 ```text
 GAME → note skeleton
@@ -124,7 +166,7 @@ SlurCutter → MIDI refinement
 
 ### 3.2 SlurCutter
 
-把人工修谱动作定义为 repair action：
+把人工修谱动作限制为：
 
 ```text
 retune
@@ -135,23 +177,23 @@ delete_false_note
 insert_missing_note
 ```
 
-目标不是重新设计整套 MIDI，而是尽量自动化“人看 F0 修 GAME”的过程。
+目标是自动化“人看 F0 修 GAME”的过程，而不是重新设计整首 MIDI。
 
 ### 3.3 HachiTune
 
-可借鉴其：
+借鉴：
 
 ```text
 GAME segmentation + RMVPE/FCPE + piano-roll/pitch editor
 ```
 
-默认只参考架构和交互，不直接复制代码。
+默认只参考架构与交互，不直接复制代码。
 
 ### 3.4 ROSVOT
 
 仅作为可选 second opinion / disagreement detector。
 
-第一阶段不要求接入。只有 GAME + RMVPE 仍无法稳定判断大量 region 时再增加。
+第一阶段不要求接入。只有 GAME consensus + 双 F0 仍无法稳定判断大量 region 时才增加。
 
 ---
 
@@ -164,9 +206,11 @@ GAME segmentation + RMVPE/FCPE + piano-roll/pitch editor
   ↓
 解码 / 人声伴奏分离
   ↓
-GAME raw
+GAME raw 多次同配置推理
   ↓
-主旋律 note skeleton
+GAME stochastic consensus
+  ↓
+consensus note skeleton
   +
 RMVPE / FCPE raw F0
   +
@@ -176,7 +220,7 @@ LRC / Whisper lyric boundaries
   ↓
 Validator / Evidence Layer
   ↓
-suspicious regions
+hard suspicious regions
   ↓
 local repair candidates
   ↓
@@ -210,7 +254,7 @@ reference / score / render 三层评价
 
 ### 5.1 GAME：乐谱骨架
 
-默认 source of truth candidate：
+GAME 提供：
 
 - note onset；
 - note offset / duration；
@@ -218,18 +262,25 @@ reference / score / render 三层评价
 - voiced/rest；
 - note sequence。
 
-GAME 不是绝对真值，但默认优先于自制 heuristic。
+GAME raw 是默认 Candidate 0，但**单次 GAME 输出不是绝对确定结果**。
+
+当前 OpenUtau GAME 说明中明确存在 D3PM stochastic boundary removal；ONNX backend 不接受外部 seed 进行稳定复现。因此同一音频、同一参数多次运行可能得到略有不同的 note/boundary。
+
+这不是自动 repair 的障碍，反而可以成为重要证据：
+
+> GAME 自己多次都稳定给出的 note，比单次偶然出现的 note 更可信。
 
 ### 5.2 F0：证据 + 演唱轨迹
 
-RMVPE 为主要 F0 evidence，FCPE 作为 A/B/fallback。
+- RMVPE：主要 evidence；
+- FCPE：第二 F0 opinion / A/B / fallback。
 
 F0 用于：
 
 - 验证 GAME pitch；
 - 验证 boundary；
-- 发现 octave 异常；
-- 发现可能 false/missed split；
+- 确认 octave 异常；
+- 发现 false/missed split candidate；
 - 后续生成 PITD；
 - 比较 render 与 reference。
 
@@ -252,195 +303,62 @@ LRC / Whisper 负责：
 
 **歌词字符起点不是天然 note boundary。**
 
-歌词边界默认只作为 evidence / matching / snapping 的依据，不直接强制新增 GAME boundary。
+歌词边界只作为 matching / snapping / missing-boundary evidence，不直接强制新增 GAME boundary。
 
 ---
 
-# Part B — M2.1.1：先修正 Diagnostic
+# Part B — Diagnostic Correctness
 
-## 6. 当前 Variant C 的定位调整
-
-原设计：
-
-```text
-Variant C = GAME + 所有 char known_boundaries
-```
-
-第一轮《年轮》：
-
-```text
-A 419
-B 417
-C 760
-```
-
-C 几乎把所有字符起点都变成额外 boundary，因此 C 不再作为默认主候选。
-
-新的定位：
-
-- **A / GAME raw：主 baseline；**
-- B / language=zh：辅助实验；
-- C / forced known boundaries：仅用于研究 GAME `known_boundaries` 行为；
-- D / GAME raw + RMVPE：主要诊断路径；
-- E / GAME raw + lyric-boundary overlay：歌词只叠加、不强制修改 note。
-
-自动 repair 之前，所有 suspicious 统计必须首先针对 **A/raw**。
-
----
-
-## 7. Diagnostic 必修的四个问题
-
-### 7.1 修正 `high_dispersion` 单位
-
-当前 structural F0 使用 MIDI semitone 单位，若写：
-
-```python
-IQR > 60
-```
-
-实际含义是 60 semitones，而不是 60 cents。
-
-应统一为 cents，例如：
-
-```text
-f0_iqr_cents = midi_iqr * 100
-```
-
-再与 60 cents 等阈值比较。
-
-诊断字段必须明确单位，避免 `midi / semitone / cents` 混用。
-
-### 7.2 A/B/C 比较禁止按 note index `zip`
-
-A=419、C=760 时，C 只要前面插入一个 note，后续 index 全部错位。
-
-因此 variant 比较必须基于：
-
-```text
-time overlap
-boundary matching
-sequence alignment
-```
-
-而不是：
-
-```text
-note[i] vs note[i]
-```
-
-至少输出：
-
-- matched notes；
-- inserted boundaries；
-- deleted boundaries；
-- pitch disagreement on matched regions；
-- onset/offset drift。
-
-### 7.3 structural F0 只允许插值短 unvoiced gap
-
-当前不能让长静音在滤波前被 `np.interp` 跨越。
-
-例如：
-
-```text
-A4 ---- [800ms silence] ---- B4
-```
-
-不能先伪造一条 A4→B4 连续坡线再 median filter。
-
-只允许填补短 gap，例如初始实验：
-
-```text
-<= 30–50 ms
-```
-
-具体阈值以后按诊断调。
-
-长 gap 保持 NaN / unvoiced。
-
-### 7.4 known_boundaries 路径必须严格核对 GAME ONNX 规范
-
-当使用 `known_boundaries` 时，D3PM 第一个 sampling step 的初始化必须与官方规范/官方实现一致。
-
-尤其核对：
-
-```text
-known_boundaries
-prev_boundaries initial value
-sampling loop
-threshold
-radius
-```
-
-Variant C 只有在这条路径通过与官方 GAME/OpenUtau 的一致性测试后，才能用于算法结论。
-
----
-
-## 8. 新的 Diagnostic Experiment
+## 6. Variant 定位
 
 ### Variant A — GAME raw
 
-```text
-vocal.wav → GAME default
-```
+主 baseline。
 
-这是核心 baseline。
+必须输出：
 
-必须为 A 直接生成：
-
-- `game_raw.json`；
-- `game_raw.ustx`；
+- GAME notes；
+- USTX；
 - vocal render；
-- RMVPE overlay；
-- suspicious regions；
-- evidence packets。
+- RMVPE/FCPE evidence；
+- evidence packets；
+- hard suspicious regions。
 
 ### Variant B — GAME + zh
 
-保留用于确认 language conditioning 的实际影响。
+仅用于研究 language conditioning。
 
-当前《年轮》 A=419 / B=417，说明 zh 条件对 note 数影响很小，但仍保留数据。
+**不能再用单次 A vs 单次 B 的差异直接归因于 language。**
+
+必须先量出同配置 GAME 自身 stochastic variance，再比较 raw consensus 与 zh consensus。
 
 ### Variant C — forced known boundaries
 
-只作为研究实验。
+仅 experimental。
 
-不参与默认 melody selection，也不把其 suspicious 数当 GAME error rate。
+当前《年轮》已经表明它会大量增加 note，并影响 estimator 输出。
 
-重点回答：
+不参与默认 melody selection，也不把其 suspicious 数当作 GAME error rate。
 
-- known boundary 是替换、吸附还是强制新增？
-- 距离已有 GAME boundary 很近时会发生什么？
-- 对 estimator 与 note count 有什么影响？
+### Variant D — GAME raw + F0 overlay
 
-### Variant D — GAME raw + RMVPE overlay
+主要 validation baseline。
 
-这是新的主要 validation baseline。
-
-不改 GAME notes，只输出：
+显示：
 
 ```text
-GAME note rectangles
+GAME notes
 RMVPE raw F0
+FCPE raw F0（后续加入）
 structural F0
 voiced mask
 ```
 
 ### Variant E — GAME raw + lyric-boundary overlay
 
-歌词边界只显示/参与 evidence，不强制进入 GAME。
+歌词边界只参与 evidence。
 
-对每个 lyric boundary 做 nearest-GAME-boundary matching：
-
-```text
-lyric boundary
-     |
-     | distance Δt
-     ↓
-nearest GAME boundary
-```
-
-根据距离 + F0 + energy/onset 分成：
+分类：
 
 ```text
 matched
@@ -449,78 +367,441 @@ possible_missing_boundary
 unsupported_lyric_boundary
 ```
 
----
-
-## 9. 歌词边界的正确用途：matching / snapping / missing-boundary evidence
-
-不要：
+当前《年轮》约：
 
 ```text
-每个汉字开始时间 → 强制插入 GAME boundary
+57 matched
+265 possible_snap
+1 possible_missing
+26 unsupported
+```
+
+其中 80–300 ms 的大量 `possible_snap` 不能直接 snap，因为 Whisper char start、辅音开始、元音/F0 开始、谱面 note onset 并不是同一个概念。
+
+---
+
+## 7. M2.1.1 已完成的 correctness 修复
+
+已完成：
+
+1. dispersion / pitch error 对外统一 cents；
+2. variant comparison 按时间匹配，不再 index zip；
+3. structural F0 只插值短 gap；
+4. known-boundary D3PM init 与官方规范一致；
+5. suspicious 改为 GAME raw-first；
+6. lyric boundary 仅 overlay/matching；
+7. forced-boundary 降级 experimental；
+8. 完整重跑《年轮》。
+
+### 7.1 仍需修 structural F0 filter contamination
+
+当前实现虽然不再跨长静音插值，但 median filter 前仍把 NaN 临时变成 `0.0 MIDI`：
+
+```text
+NaN / long silence
+→ temporary MIDI 0
+→ median_filter
+→ 再设回 NaN
+```
+
+这可能污染长静音两侧的少量 voiced frames。
+
+下一版应改为：
+
+```text
+按连续 voiced island 分段
+→ 每个 island 内单独 median/filter
+→ island 之间绝不互相影响
+```
+
+短 gap <= 30–50 ms 可在同 island 内插值；长 gap 彻底断开。
+
+---
+
+# Part C — M2.1.2：GAME Stochastic Baseline / Consensus
+
+## 8. 为什么必须先测 GAME 自身随机性
+
+同一首《年轮》当前不同完整运行得到：
+
+```text
+raw run #1: 419 notes
+raw run #2: 421 notes
+```
+
+这意味着在比较：
+
+```text
+raw vs zh
+raw vs repaired
+```
+
+之前，必须先知道：
+
+> **同配置 raw vs raw 自己会变化多少。**
+
+否则无法区分：
+
+```text
+真正的 language effect
+```
+
+和：
+
+```text
+GAME D3PM 自身 stochasticity
+```
+
+## 9. 同配置重复推理
+
+对同一个 separated vocal、完全相同参数跑至少 5 次：
+
+```text
+A1 raw
+A2 raw
+A3 raw
+A4 raw
+A5 raw
+```
+
+建议第一版 5 次；如果计算成本低，可扩展到 8–10 次做统计验证。
+
+每次必须记录：
+
+```text
+GAME model hash
+backend
+sampling steps
+boundary threshold
+boundary radius
+score threshold
+language
+input vocal hash
+note count
+```
+
+## 10. 建立 consensus note graph
+
+不能简单按 index 对齐。
+
+按：
+
+```text
+onset proximity
+时间 overlap
+pitch proximity
+sequence order
+```
+
+将多次运行的 note 聚类成 consensus events。
+
+每个 event 至少保存：
+
+```json
+{
+  "start_median": 42.135,
+  "start_iqr_ms": 18,
+  "duration_median": 0.417,
+  "duration_iqr_ms": 26,
+  "tone_mode": 69,
+  "tone_agreement": 0.8,
+  "presence_rate": 1.0,
+  "n_runs": 5
+}
+```
+
+关键指标：
+
+- `presence_rate`：这个 note 在多少次 GAME 里存在；
+- `tone_agreement`：出现时多少次 tone 一致；
+- `start_iqr_ms`；
+- `duration_iqr_ms`；
+- boundary stability；
+- voiced/rest stability。
+
+## 11. Consensus 分类
+
+建议：
+
+```text
+GAME_STABLE
+GAME_VARIABLE
+GAME_UNSTABLE
+```
+
+例如：
+
+### GAME_STABLE
+
+```text
+5/5 runs 都有
+pitch 5/5 一致
+boundary spread < 30 ms
+```
+
+### GAME_VARIABLE
+
+```text
+4/5 runs 有
+或 boundary spread 30–100 ms
+或 pitch 有少量分歧
+```
+
+### GAME_UNSTABLE
+
+```text
+<=3/5 runs 有
+或 split/merge 结构频繁变化
+或 pitch 多解
+```
+
+阈值先作为实验值，后续按《年轮》真实分布校准。
+
+## 12. Consensus 如何参与 repair
+
+GAME consensus 是 evidence，不是独立真值。
+
+### Case A：GAME 稳定，但 F0 反对
+
+```text
+GAME 5/5: A5
+RMVPE:     A4
+FCPE:      A4
+stable F0
+```
+
+这是“模型稳定地犯错”的可能情况，不能因 consensus 高就拒绝修。
+
+需要更高证据门槛。
+
+### Case B：GAME 自己不稳定，F0 明确
+
+```text
+GAME: A5 / A4 / A4 / A5 / A4
+RMVPE: A4
+FCPE:  A4
+```
+
+这是非常强的 repair 候选。
+
+### Case C：GAME 不稳定，F0 也不稳定
+
+```text
+GAME split/merge 多解
+RMVPE/FCPE 在 vibrato/portamento 区也分歧
+```
+
+直接进入 AMBIGUOUS，不自动改。
+
+---
+
+# Part D — F0 Evidence
+
+## 13. 双 F0：RMVPE + FCPE
+
+当前 octave candidate 不能只依赖 RMVPE 一家确认。
+
+对 hard suspicious region 同时提取：
+
+```text
+RMVPE
+FCPE
+```
+
+至少比较：
+
+- voiced/unvoiced；
+- stable center；
+- octave；
+- IQR / dispersion；
+- transition timing。
+
+如果：
+
+```text
+RMVPE + FCPE 都稳定指向同一个 octave/pitch
+```
+
+证据显著增强。
+
+如果两者冲突：
+
+```text
+AMBIGUOUS
+```
+
+不允许 SAFE repair。
+
+## 14. raw F0 与 structural F0
+
+保留：
+
+```text
+raw F0
+→ 去毛刺
+→ 短 gap 插值
+→ voiced-island filtering
+→ structural F0
+```
+
+职责：
+
+- structural F0：note / boundary evidence；
+- raw F0：PITD / vibrato / portamento / intonation。
+
+所有对外 dispersion / pitch error 统一为 cents。
+
+---
+
+# Part E — Validator Calibration
+
+## 15. `high_dispersion` 不再单独触发 suspicious
+
+当前：
+
+```text
+228 / 421 notes high_dispersion > 60c
+```
+
+说明该 flag 对真人歌声没有筛选价值。
+
+以后：
+
+```text
+f0_iqr_cents
+```
+
+只保留为 feature。
+
+禁止：
+
+```text
+IQR > X
+→ suspicious
+```
+
+单条件触发。
+
+## 16. Hard suspicious 使用组合条件
+
+例如 wrong pitch：
+
+```text
+abs(GAME - F0 stable center) > 100c
+AND voiced coverage > 0.8
+AND F0 IQR < calibrated threshold
+AND RMVPE/FCPE agreement sufficiently high
+```
+
+Octave candidate：
+
+```text
+error ≈ 1200c
+AND stable voiced evidence
+AND dual-F0 agree
+```
+
+Boundary candidate：
+
+```text
+GAME boundary unstable across runs
+AND structural F0 changepoint stable
+AND duration remains plausible
+```
+
+## 17. Validator 输出分层
+
+不要再把所有 feature flag 混成一个 suspicious count。
+
+建议输出：
+
+```text
+feature_only
+hard_suspicious
+ambiguous
+healthy
+```
+
+其中：
+
+- `feature_only`：如 high dispersion、vibrato、较弱 lyric offset；
+- `hard_suspicious`：足够值得进入 repair candidate；
+- `ambiguous`：存在问题但无法可靠决定；
+- `healthy`：无需处理。
+
+报告重点显示：
+
+```text
+hard_suspicious count
+ambiguous count
+```
+
+而不是 feature 总数。
+
+---
+
+# Part F — Lyrics Evidence
+
+## 18. lyric boundary 只做 evidence
+
+禁止：
+
+```text
+每个汉字 start → 强制 GAME boundary
 ```
 
 优先：
 
 ```text
-GAME boundary 12.52s
-lyrics boundary 12.57s
-Δt = 50ms
-→ match
-→ boundary confidence increase
-→ 必要时产生 snap candidate
+lyric boundary
+→ nearest GAME consensus boundary
+→ distance + F0 + onset/energy + articulation
+→ match / weak-snap / missing-boundary candidate
 ```
 
-只有同时满足多种证据时，歌词 boundary 才能支持“新增 note boundary”：
+## 19. 先研究 timestamp 语义差异
 
-- 与最近 GAME boundary 距离明显较远；
-- structural F0 出现真实稳定平台变化；
-- voiced/energy/onset 支持；
-- lyric articulation 支持；
-- 插入后 note duration 合理。
+对于 80–300 ms 的大量偏差，需要区分：
 
-否则只记录，不插入。
+```text
+Whisper char timestamp
+辅音起点
+元音起点
+F0 voiced onset
+GAME note onset
+```
+
+这几者可能天然不同。
+
+因此 lyric timestamp 不得直接被当作“更准确的 note onset”。
+
+只有当：
+
+- GAME consensus boundary 不稳定；
+- lyric evidence 支持；
+- structural F0 / energy/onset 也支持；
+
+才生成 boundary-shift / missing-boundary candidate。
 
 ---
 
-## 10. M2.1.1 输出物
+# Part G — Error Taxonomy
+
+## 20. 真实 GAME residual error taxonomy
+
+只有完成：
 
 ```text
-runs/<id>/diagnostic/
-  game_raw.json
-  game_raw.ustx
-  game_raw_vocal.wav
-
-  game_zh.json
-
-  game_forced_boundaries.json        # experimental only
-  game_forced_boundaries.ustx
-
-  rmvpe_f0.npz
-  structural_f0.npz
-
-  raw_evidence_packets.json
-  raw_suspicious_regions.json
-  lyric_boundary_matches.json
-  variant_alignment.json
-  diagnostic_report.md
+GAME stochastic consensus
++
+dual-F0 evidence
++
+validator calibration
 ```
 
-报告必须明确分开：
+之后，才统计 GAME raw 的真实 residual errors。
 
-```text
-GAME raw suspicious
-forced-boundary suspicious
-```
-
-禁止再把二者混成 GAME error count。
-
----
-
-# Part C — Error Taxonomy / Evidence Layer
-
-## 11. 先统计 GAME raw 真实错误
-
-对 A/raw 419 notes 建 taxonomy：
+类型：
 
 ```text
 wrong_pitch
@@ -528,177 +809,98 @@ possible_octave_error
 false_split
 missed_split
 boundary_shift
-very_short_isolated_note
-false_note
+very_short_false_note
 missing_note
 weak_f0_evidence
 lyric_alignment_conflict
 ambiguous_ornament
 ```
 
-报告必须回答：
+报告必须区分：
 
 ```text
-raw note 总数
-healthy 数
-suspicious 数
-人工确认错误 region 数
-各错误类型数量/比例
-RMVPE 是否支持该判断
-歌词边界是否支持该判断
+raw feature flags
+hard suspicious
+人工确认 error
 ```
 
-**只有这个阶段完成，才能决定 Repair Engine 优先级。**
+不能再把 feature flag 当 error count。
 
 ---
 
-## 12. raw F0 与 structural F0
+# Part H — Repair Engine
 
-保留两条 pitch representation：
-
-```text
-raw F0
-→ 去毛刺 + 仅填短 gap + segmentation-friendly smoothing
-→ structural F0
-```
-
-职责：
-
-- structural F0：note pitch / boundary / split-merge evidence；
-- raw F0：PITD / vibrato / portamento / intonation。
-
-structural F0 不能通过重度低通抹掉真实换音，也不能跨长 unvoiced 区插值。
-
-每帧统一保存单位：
-
-```json
-{
-  "time": 42.150,
-  "raw_midi": 69.34,
-  "structural_midi": 69.02,
-  "voiced": true,
-  "energy": 0.073
-}
-```
-
-所有 dispersion / error 指标对外统一使用 cents。
-
----
-
-## 13. Validator
-
-Validator 只发现问题，不直接修改。
-
-每个 GAME raw note 至少计算：
-
-- tone；
-- duration；
-- stable F0 center；
-- voiced coverage；
-- F0 IQR cents；
-- GAME vs F0 cents；
-- left/right boundary F0 change；
-- voiced/unvoiced transition；
-- energy/onset evidence；
-- lyric boundary distance；
-- 前后 interval；
-- optional GAME consensus；
-- optional second-model agreement。
-
-输出：
-
-```text
-healthy
-suspicious
-ambiguous
-```
-
-并保存 evidence packet。
-
----
-
-# Part D — Repair Engine（诊断正确后再实现）
-
-## 14. Repair 原则
+## 21. Repair 原则
 
 目标：
 
-> **保留 GAME 正确的绝大多数 note，只修少量强证据错误。**
+> **GAME 做绝大多数工作；我们只修少量 residual error。**
 
 永久保留：
 
 ```text
-Candidate 0 = GAME raw
+Candidate 0 = GAME raw / GAME consensus baseline
 ```
 
 不得：
 
-- 对整首重新生成 note；
+- 对整首重新生成 notes；
 - 没 evidence 就修改；
-- 为追求分数大面积重写 GAME；
+- 为追求指标大面积改写 GAME；
 - 把 F0 median 再变成主转谱器。
 
-### 14.1 retune
+## 22. SAFE repair
 
-用于明显 wrong pitch。
+第一批只做真实确认过的强证据类型。
 
-必须结合：
+当前最可能首个 SAFE 动作：
 
-- 高 voiced coverage；
-- 稳定 F0 platform；
-- 较低 dispersion；
-- 明显 cents disagreement；
-- 排除 vibrato/portamento；
-- 邻接上下文不冲突。
+```text
+octave retune ±12 semitone
+```
 
-### 14.2 octave repair
+但在正式自动执行前，至少要求：
 
-优先检查 ±12 semitone。
+```text
+GAME consensus 已知
+RMVPE 同意
+FCPE 同意
+稳定 voiced region
+人工试听/检查首个样例通过
+```
 
-满足：
+## 23. 其他 repair actions
 
-- octave 修正后 RMVPE 显著更匹配；
-- 前后音域连续；
-- 没有真实大跳证据；
+### retune
 
-可作为首批 SAFE repair。
+明显 wrong pitch，要求稳定 F0 与上下文支持。
 
-### 14.3 false split / merge
+### false split / merge
 
-不能因为相邻同音就 merge。
+只有 GAME boundary 缺乏声学证据，且多次 GAME 推理本身不稳定时才优先考虑。
 
-必须证明 GAME boundary 缺乏：
+### missed split
 
-- F0 changepoint；
-- energy/onset；
-- voiced transition；
-- lyric articulation；
-- GAME consensus。
+长 note 内存在稳定多个 structural F0 平台。
 
-### 14.4 missed split
+修 boundary 后优先让 GAME estimator 重新估 pitch。
 
-长 note 内若出现多个持续稳定 structural F0 平台，产生 split candidate。
+### boundary shift
 
-修 boundary 后优先让 GAME estimator 重新估 pitch；只有接口无法使用时才由 structural F0 产生候选 tone。
+只在原 boundary 附近小窗口搜索。
 
-### 14.5 boundary shift
+### false / missing note
 
-note 数和 pitch 正确但换音点偏移时，只在原 boundary 周围小窗口搜索。
-
-歌词 boundary 可参与 snap evidence，但不能单独决定位置。
-
-### 14.6 false / missing note
-
-风险较高，默认 PROBABLE / AMBIGUOUS。
+高风险，默认 PROBABLE / AMBIGUOUS。
 
 ---
 
-## 15. Candidate Scorer
+## 24. Candidate Scorer
 
-每个 region 可能有：
+候选：
 
 ```text
-C0 GAME raw
+C0 GAME original/consensus
 C1 retune
 C2 boundary shift
 C3 split
@@ -706,76 +908,67 @@ C4 merge
 C5 combined local repair
 ```
 
-评分证据：
+评分 evidence：
 
 ```text
-pitch_fit
-boundary_fit
-voiced_consistency
+GAME presence consensus
+GAME tone consensus
+GAME boundary stability
+RMVPE agreement
+FCPE agreement
+structural F0 fit
+voiced consistency
 energy/onset evidence
 lyric compatibility
 duration plausibility
-GAME prior
-GAME consensus
-optional second model
 local melodic continuity
 complexity penalty
 unsupported edit penalty
 ```
 
-必须设置 minimum improvement：
+必须设置 minimum improvement。
 
-```text
-C0 0.88 vs C1 0.90 → 不改
-C0 0.58 vs C1 0.93 → 可接受
-```
+原则：
 
-原则：**宁可保留 GAME 的小错误，也不要让 correction 制造新错误。**
+> **宁可保留 GAME 的小错误，也不要让 correction 制造新错误。**
 
 ---
 
-## 16. 三级安全策略
+## 25. 三级安全策略
 
 ### SAFE
 
-可自动接受，但必须 audit：
-
-- 高置信 octave error；
+- dual-F0 + GAME evidence 强一致的 octave error；
 - 极稳定 F0 下明显 wrong pitch；
-- 经过真实数据验证的简单 false split；
-- 小范围 boundary snap，且多证据一致。
+- 已经过真实样本验证的简单错误。
 
 ### PROBABLE
-
-生成多候选，只有显著优于 C0 才接受：
 
 - split；
 - merge；
 - 较大 boundary shift；
 - false/missing note；
-- 部分证据冲突。
+- 轻度 evidence conflict。
 
 ### AMBIGUOUS
-
-不自动改：
 
 - 快速复杂转音；
 - 大 portamento；
 - vibrato 与真实换音难区分；
-- 分离质量差；
-- GAME 多配置不稳定；
-- F0 extractor 冲突；
+- separation 差；
+- GAME stochasticity 高；
+- RMVPE/FCPE 冲突；
 - 多候选接近。
 
-交给 Agent review / 人工试听。
+不自动改，交 Agent review / 人工试听。
 
 ---
 
-# Part E — Lyrics / USTX / PITD
+# Part I — Lyrics / USTX / PITD
 
-## 17. Lyrics ↔ corrected melody
+## 26. Lyrics ↔ corrected melody
 
-在 corrected melody 稳定以后才正式做歌词映射：
+melody 稳定后再映射：
 
 ```text
 1 char → 1 note
@@ -792,15 +985,13 @@ OpenUtau：
 静音：gap / SP
 ```
 
-若歌词与 melody 严重冲突：
+若歌词与 melody 冲突：
 
 - 标 `lyric_alignment_conflict`；
-- 回查歌词 alignment / GAME boundary；
-- 不通过把歌词移动到“最近 voiced block”来伪修复。
+- 回查 alignment / GAME boundary；
+- 不把歌词强行移动到“最近 voiced block”伪修复。
 
----
-
-## 18. 基础 USTX
+## 27. 基础 USTX
 
 第一阶段只含：
 
@@ -810,17 +1001,13 @@ OpenUtau：
 - singer / renderer；
 - phonemizer 必要设置。
 
-此时核心验收只有一个：
+核心验收：
 
 > **不做复杂风格调校，是否已经在唱正确的《年轮》旋律？**
 
-若否，不能进入 style 阶段。
+## 28. raw F0 → constrained PITD
 
----
-
-## 19. raw F0 → constrained PITD
-
-note 骨架通过后，raw F0 才用于：
+note 骨架通过后再做：
 
 - portamento；
 - 音头滑入；
@@ -828,42 +1015,30 @@ note 骨架通过后，raw F0 才用于：
 - vibrato；
 - intonation deviation。
 
-原则：
-
-- 不逐帧硬拷 F0；
-- 去 extractor 毛刺；
-- PITD 围绕 corrected written note；
-- 不能用 PITD 掩盖错误 written note；
-- note 与 PITD 分开评价。
+PITD 不能掩盖 written-note 错误。
 
 ---
 
-# Part F — Evaluation
+# Part J — Evaluation
 
-## 20. Diagnostic level
+## 29. Diagnostic level
 
 至少记录：
 
-- GAME raw note count；
-- raw healthy / suspicious / ambiguous；
-- zh variant note count；
-- forced-boundary variant note count；
-- lyric boundary matched / snap / missing candidates；
--人工确认错误数；
--各 error type；
-- validator false-positive / false-negative 情况。
+- GAME raw 每次 run 的 note count；
+- consensus event count；
+- GAME_STABLE / VARIABLE / UNSTABLE 数；
+- hard suspicious / ambiguous 数；
+- dual-F0 agreement；
+- lyric boundary evidence 分布；
+- 人工确认 error 数；
+- validator false positive / false negative。
 
-### Variant comparison
-
-所有不同 note-count 序列必须使用时间/序列对齐，不允许 index zip。
-
----
-
-## 21. Score level
+## 30. Score level
 
 记录：
 
-- corrected vs raw note count；
+- corrected vs consensus baseline；
 - retune；
 - octave repair；
 - split / merge；
@@ -871,17 +1046,13 @@ note 骨架通过后，raw F0 才用于：
 - ambiguous；
 - GAME preservation ratio。
 
-GAME preservation ratio 应尽量高。
-
----
-
-## 22. F0 / Render level
+## 31. F0 / Render level
 
 比较：
 
 ```text
 reference raw/structural F0
-GAME raw score
+GAME consensus score
 corrected score
 rendered DiffSinger F0
 ```
@@ -897,9 +1068,9 @@ rendered DiffSinger F0
 
 ---
 
-# Part G — 实施顺序
+# Part K — 实施顺序
 
-## 23. Milestones
+## 32. Milestones
 
 ### M2.0 — Foundation survey ✅
 
@@ -907,61 +1078,76 @@ rendered DiffSinger F0
 - OpenUtau backend；
 - dataset-tools / SlurCutter 调研。
 
-### M2.1 — Initial diagnostic ✅，但结论待修正
+### M2.1 — Initial diagnostic ✅
 
-已完成 A/B/C/D 初版。
+初版 A/B/C/D 已完成，但 forced-boundary 结果曾导致错误解读。
 
-已确认：
+### M2.1.1 — Diagnostic correctness ✅ / 基本完成
 
-```text
-A=419
-B=417
-C=760
-```
+已完成：
 
-C 强制字符边界过于激进，C suspicious 不能代表 GAME raw 错误率。
+- cents 单位；
+- time alignment；
+- raw-first validator；
+- lyric evidence-only；
+- known-boundary init；
+- forced C 降级。
 
-### M2.1.1 — Diagnostic correctness ← 当前最高优先级
+剩余小修：
 
-必须完成：
+- structural F0 改成 voiced-island filtering，避免 `NaN→0` median contamination。
 
-1. 修 high-dispersion 单位；
-2. 修 variant time/sequence alignment；
-3. structural F0 只填短 gap；
-4. 核对 known-boundary D3PM 初始化与官方规范；
-5. suspicious 检测改为首先跑在 GAME raw；
-6. 新增 lyric-boundary overlay/matching，不强制插入；
-7. 重新跑《年轮》完整诊断。
+### M2.1.2 — GAME stochastic baseline ← 当前最高优先级
 
-**M2.1.1 未通过前禁止开始自动 repair。**
+必须：
 
-### M2.2 — Raw GAME error taxonomy
+1. 同配置 GAME raw 重跑至少 5 次；
+2. 生成 consensus note graph；
+3. 统计 note count variance；
+4. 统计 onset/duration/pitch stability；
+5. 输出 GAME_STABLE / VARIABLE / UNSTABLE；
+6. raw-vs-zh 比较必须基于各自 consensus，而不是单次运行；
+7. 确认 189.84s octave candidate 在 GAME 多次运行中的稳定性。
 
-人工 + 程序联合确认：
+**M2.1.2 未完成前，不进入正式 SAFE repair。**
 
-- GAME raw 实际错多少；
-- 错误类型；
-- 哪些是 separation / RMVPE / lyric alignment 假象；
-- 哪些值得自动修。
+### M2.2 — Dual-F0 + Raw GAME error taxonomy
+
+- RMVPE + FCPE；
+- 确认 hard suspicious；
+- 人工试听/检查；
+- 得到真实 error distribution。
 
 ### M2.3 — Validator calibration
 
-- 调 suspicious thresholds；
-- 测 false positive；
-- 建 evidence packet；
-- 仍不修改 note。
+- `high_dispersion` 降为 feature-only；
+- suspicious 改成组合条件；
+- 建 hard_suspicious / ambiguous；
+- 测 false positive / false negative。
 
 ### M2.4 — SAFE repair
 
-只实现《年轮》中真实高频、强证据错误。
+只实现《年轮》中已真实确认、证据强的错误类型。
+
+优先测试：
+
+```text
+octave ±12 semitone
+```
 
 ### M2.5 — PROBABLE candidate system
 
-只在实际需要时实现 split / merge / missing note 等复杂动作。
+只在实际需要时实现：
+
+- split；
+- merge；
+- missing / false note；
+- scorer；
+- minimum improvement gate。
 
 ### M2.6 — Optional second opinion
 
-只有 GAME + RMVPE + lyric evidence 仍不足时再接 ROSVOT。
+只有 GAME consensus + RMVPE + FCPE + lyric evidence 仍不足时再接 ROSVOT。
 
 ### M2.7 — Lyrics mapping + base USTX
 
@@ -973,15 +1159,15 @@ raw F0 → constrained PITD → DiffSinger → 三层评价。
 
 ### M2.9 — 《年轮》M2 验收
 
-主要 A/B：
+主要比较：
 
 ```text
-GAME raw
+GAME consensus baseline
 vs
 corrected
 ```
 
-forced-boundary 版本只作为实验材料，不再作为默认最终候选。
+forced-boundary 仅保留实验材料。
 
 通过后冻结 melody score。
 
@@ -991,7 +1177,7 @@ forced-boundary 版本只作为实验材料，不再作为默认最终候选。
 
 ---
 
-## 24. 第二阶段：泠鸢 style profile
+## 33. 第二阶段：泠鸢 style profile
 
 使用泠鸢本人歌曲统计：
 
@@ -1019,19 +1205,19 @@ style layer 不应无理由修改已经冻结的 melody skeleton。
 
 ---
 
-## 25. 最终原则
+## 34. 最终原则
 
-1. **GAME raw 是默认主旋律 baseline。**
-2. **先保证 diagnostic 本身正确，再讨论 GAME 错误率。**
-3. **当前 C=760 的 forced-char-boundary 路径只保留为实验，不做默认主链。**
-4. **RMVPE/F0 是证据与演唱轨迹，不是从零主转谱器。**
-5. **歌词字符边界默认用于 matching/snapping/evidence，不直接强制生成 note boundary。**
-6. **不同 note-count 序列必须按时间/序列对齐，禁止 index zip 比较。**
-7. **structural F0 不跨长 unvoiced gap 插值。**
-8. **所有 pitch dispersion/error 单位必须明确并统一为 cents。**
-9. **known-boundaries GAME 路径必须先与官方 ONNX 行为一致。**
-10. **自动 repair 只针对 GAME raw 的真实 suspicious regions。**
-11. **GAME raw 永远保留为 Candidate 0 / 回退基线。**
+1. **GAME raw / GAME consensus 是默认主旋律 baseline。**
+2. **单次 GAME 输出不等于绝对确定结果，必须量出自身 stochasticity。**
+3. **raw-vs-zh 等比较必须先扣除 same-config stochastic variance。**
+4. **forced-char-boundary 路径只保留为实验。**
+5. **RMVPE + FCPE 是证据与演唱轨迹，不是从零主转谱器。**
+6. **high dispersion 是 feature，不是错误本身。**
+7. **歌词字符边界只用于 matching/snapping/evidence。**
+8. **structural F0 按 voiced islands 处理，不跨长 silence 过滤。**
+9. **所有 pitch dispersion/error 对外统一 cents。**
+10. **自动 repair 只针对 hard suspicious residual errors。**
+11. **GAME baseline 永远保留为 Candidate 0 / 回退基线。**
 12. **只实现真实出现且值得修的错误类型。**
 13. **复杂区域宁可 needs_review，不强行自动修。**
 14. **先把 note 骨架唱对，再生成 PITD。**
