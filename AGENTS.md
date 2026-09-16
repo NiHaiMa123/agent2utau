@@ -409,6 +409,23 @@ B = FROZEN per plan. Next: M2.3.2C structure adjudication
 
 M2.3.2B1/B2/B3 = FROZEN. Next: M2.3.2C structure adjudication.
 
+## M2.3.2B3 final patch — group gate consistency (run diag-20260916-191307-bfc0)
+
+- supporting/opposing independence groups are now derived ONLY from
+  finalized net group_scores via _groups_from_scores() — a raw feature
+  >0.2 inside a net-<=0 group can no longer pass MIN_FAMILIES /
+  change_requires_waveform / extractor_conflict gates. One-way chain:
+  features -> group fusion -> group_scores -> groups -> gates.
+- opposing_independence_groups added for audit (game opposition =
+  1 - game_support when run_tones exist).
+- 年轮 rerun: 60 keep / 7 resolved_change (all provisional when
+  structure pending) / 15 unresolved / 0 repair. note_0385 (184.65s)
+  resolved_change -> 61.87 marked provisional:true, routed to
+  needs_structure_adjudication — provisional cannot repair.
+- Tests: 93 passed (+2 group-gate consistency regressions).
+
+M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

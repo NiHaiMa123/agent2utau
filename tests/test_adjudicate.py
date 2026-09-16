@@ -387,6 +387,45 @@ def test_b3_extra_correlated_feature_cannot_flip_decision():
             == len(adj_yes["supporting_independence_groups"]))
 
 
+def test_b3p_groups_derived_from_net_scores_only():
+    # B3 patch §7.5.1/7.5.4: a raw feature > threshold inside a group
+    # whose NET score is <=0 must NOT mark the group as supporting.
+    from agent2utau.diagnostic.adjudicate import (_groups_from_scores,
+                                                  GROUP_SUPPORT_THR)
+    gs = {"game": 1.0, "rmvpe": 0.9, "fcpe": -0.9,
+          "waveform": 0.0, "context": 0.5}
+    # raw periodicity feature shows support but the fused net is 0
+    opp = {"subharmonic": 0.6}
+    sup, opp_g = _groups_from_scores(gs, opp)
+    assert "waveform" not in sup          # net 0 — not supporting
+    assert "waveform" in opp_g            # but net-opposing
+    assert "fcpe" in opp_g and "fcpe" not in sup
+    assert set(sup) == {"game", "rmvpe"}
+    # consistency invariant: every supporting group has net > threshold
+    for g in sup:
+        assert gs[g] > GROUP_SUPPORT_THR
+
+
+def test_b3p_waveform_net_zero_cannot_pass_change_gate():
+    # §7.5.2/.3: extractor conflict where the winner's waveform NET is
+    # zero must stay unresolved even if a raw waveform member showed
+    # support.
+    wav = _wav_for(58.0)   # true 58; hyp70 gets weak/no real waveform net
+    p = _pkt(game_tone=69.96, rmvpe=69.96, fcpe=58.03,
+             run_tones=[69.96] * 5)
+    third = {"times": np.arange(0, 0.5, 0.01),
+             "midi": np.full(50, 58.0), "voiced_prob": np.full(50, 0.9)}
+    adj = adjudicate(p, wav, SR, third, [])
+    assert adj["extractor_conflict"] is True
+    w = [h for h in adj["hypotheses"]
+         if h["hypothesis"] == adj["winning_hypothesis"]][0]
+    # invariant: no supporting group with net score <= threshold
+    for g in adj["supporting_independence_groups"]:
+        assert w["group_scores"][g] > 0.2
+    if "waveform" not in adj["supporting_independence_groups"]:
+        assert adj["status"] == "unresolved"
+
+
 def test_b2_safe_gate_binds_explicit_target():
     # §9.6: gate verifies the B winning hypothesis, not rmvpe's center.
     from agent2utau.diagnostic.triage import safe_retune_gate

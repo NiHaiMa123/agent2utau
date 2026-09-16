@@ -328,23 +328,15 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
     runner = scored[1] if len(scored) > 1 else None
     margin = round(win["score"] - (runner["score"] if runner else 0.0), 3)
 
-    # independent families actually supporting the winner (exclude the
-    # soft continuity family — it favours whatever is near neighbours)
+    # §7.2 (B3 patch): supporting/opposing groups are derived ONLY from
+    # the finalized net group_scores — a raw feature value can never
+    # bypass group-level semantics. Evidence chain is one-way:
+    # features -> group fusion -> group_scores -> groups -> gates.
+    groups, opposing_groups = _groups_from_scores(
+        win["group_scores"], win["opposing"], has_run_tones=bool(run_tones))
+    # hard families = feature-level audit trail only (no gate use)
     hard_fams = [k for k in win["supporting"]
                  if k != "continuity" and win["supporting"][k] > 0.2]
-
-    # §9.5 (B2): independence GROUPS — pYIN and ACF share the waveform/
-    # correlation mechanism and must not count as two independent votes.
-    INDEPENDENCE_GROUPS = {
-        "game": {"game"},
-        "rmvpe": {"rmvpe"},
-        "fcpe": {"fcpe"},
-        "waveform": {"third_f0", "periodicity", "harmonic_series",
-                     "subharmonic"},
-    }
-    groups = [g for g, members in INDEPENDENCE_GROUPS.items()
-              if any(m in win["supporting"] and win["supporting"][m] > 0.2
-                     for m in members)]
 
     # --- resolution gates (§9.5) --------------------------------------
     reasons = []
@@ -385,11 +377,35 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
             "supporting_features": {k: win["supporting"][k]
                                     for k in sorted(win["supporting"])},
             "supporting_independence_groups": groups,
+            "opposing_independence_groups": opposing_groups,
+            "group_scores": win["group_scores"],
             "opposing_families": sorted(win["opposing"]),
             "reason": "+".join(reasons) if reasons else "converged",
             "extractor_conflict": bool(extractor_conflict),
             "separation_sensitive": sep_sensitive,
             "hypotheses": scored}
+
+
+GROUP_SUPPORT_THR = 0.2
+
+
+def _groups_from_scores(group_scores: dict, opposing_features: dict,
+                        has_run_tones: bool = True):
+    """Derive supporting/opposing independence groups from FINALIZED net
+    group scores only (B3 patch §7.2). `context` is soft and never counts.
+    Returns (supporting_groups, opposing_groups)."""
+    sup = [g for g in ("game", "rmvpe", "fcpe", "waveform")
+           if group_scores.get(g, 0.0) > GROUP_SUPPORT_THR]
+    opp_nets = {"game": (1.0 - group_scores.get("game", 0.0))
+                if has_run_tones else 0.0,
+                "rmvpe": -group_scores.get("rmvpe", 0.0),
+                "fcpe": -group_scores.get("fcpe", 0.0),
+                "waveform": 0.0}
+    for k in ("third_f0", "periodicity", "subharmonic"):
+        opp_nets["waveform"] = max(opp_nets["waveform"],
+                                   opposing_features.get(k, 0.0))
+    opp = [g for g, v in opp_nets.items() if v > GROUP_SUPPORT_THR]
+    return sup, opp
 
 
 def apply_adjudication(rec: dict, adj: dict,
