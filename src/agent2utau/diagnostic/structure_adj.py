@@ -76,6 +76,26 @@ def _dual_delta(ev_r: dict | None, ev_f: dict | None) -> dict:
     }
 
 
+def _one_note_support(pls: list[dict]) -> float:
+    """§8.5 (C2 patch): explicit one-note support — never
+    `1 - split_support`. Missing/low-confidence extractor = neutral 0."""
+    if not pls:
+        return 0.0                        # missing -> neutral
+    if len(pls) == 1:
+        p0 = pls[0]
+        dur_s = min(1.0, p0["dur"] / 0.12)
+        iqr = p0.get("iqr_cents")
+        stab = 1.0 - min(1.0, (iqr if iqr is not None else 100) / 200.0)
+        return round(dur_s * (0.6 + 0.4 * stab), 3)
+    # >=2 plateaus can still mean one written note when the delta is
+    # not meaningful (vibrato/segmentation artifact)
+    ev = _extractor_evidence(pls)
+    mag = abs(ev["pitch_delta_st"])
+    if mag < MIN_STRUCTURE_DELTA_ST:
+        return round(0.3 + 0.7 * (1 - mag / MIN_STRUCTURE_DELTA_ST), 3)
+    return 0.0
+
+
 def _split_support(ev: dict | None) -> float:
     """Graded extractor split support: meaningful delta + both plateaus
     stable & long enough. Two plateaus alone -> 0."""
@@ -218,7 +238,7 @@ def _merge_evidence(p: dict, neighbors: list[dict]) -> tuple[float, dict | None]
 def _game_merge_support(p: dict, neighbors: list[dict]) -> float:
     """Fraction of runs whose REAL GAME note crosses the shared
     boundary (explicit member spans), i.e. GAME itself merged i+j."""
-    spans = (p.get("consensus") or {}).get("member_spans") or {}
+    spans = (p.get("consensus") or {}).get("member_notes") or {}
     if not spans:
         return 0.0
     n_runs = int((p.get("consensus") or {}).get("n_runs")
@@ -232,7 +252,7 @@ def _game_merge_support(p: dict, neighbors: list[dict]) -> float:
         return 0.0
     hit = sum(1 for ms in spans.values()
               if any(s < boundary - 0.04 and e > boundary + 0.04
-                     for s, e in ms))
+                     for s, e, _t in ms))
     return round(hit / max(1, n_runs), 3)
 
 
@@ -262,14 +282,18 @@ def adjudicate_structure(p: dict, times: np.ndarray,
         and dual["magnitude_difference_st"] <= DELTA_MAGNITUDE_AGREE_ST
         and dual["boundary_time_delta_ms"] <= CHANGEPOINT_AGREE_S * 1000)
 
-    # non-F0 boundary family (§8.4B/8.5): boundary-local energy
-    # dip+recovery and/or voiced-probability drop
+    # non-F0 boundary family (§8.4B/8.5): TRULY independent mechanisms
+    # only — boundary-local energy dip+recovery (onset/flux proxies can
+    # join later). RMVPE voiced-mask drop is part of the RMVPE family,
+    # so it boosts sup_r below but can NEVER satisfy the independent
+    # non-F0 requirement (§8.3 final patch).
     be = (_boundary_energy(times, energy, b, t0, t1)
           if b is not None
           else {"dip_prominence": 0.0, "recovery": 0.0, "support": 0.0})
     vdrop = (_boundary_voiced_drop(times, voiced, b)
              if b is not None else 0.0)
-    nonf0 = round(max(be["support"], vdrop), 3)
+    sup_r = round(min(1.0, sup_r + 0.25 * vdrop), 3)   # same family
+    nonf0 = be["support"]
 
     game_one = (sum(1 for c in counts if c == 1) / n_runs
                 if n_runs else 1.0)
@@ -277,12 +301,16 @@ def adjudicate_structure(p: dict, times: np.ndarray,
                   if n_runs else 0.0)
 
     # --- scores -------------------------------------------------------
+    # §8.5: explicit one-note support — missing extractor is neutral,
+    # never free evidence for H0 or opposition to H1.
+    one_r = _one_note_support(pl_r)
+    one_f = _one_note_support(pl_f)
     dur_plaus_h0 = 0.0 if p["dur"] < SHORT_NOTE_S else 1.0
-    scored = {"H0": {"score": round(game_one + (1 - sup_r) + (1 - sup_f)
+    scored = {"H0": {"score": round(game_one + one_r + one_f
                                   + (1 - nonf0) + 0.5 * dur_plaus_h0, 3),
                      "groups": {"game": round(game_one, 3),
-                                "rmvpe": round(1 - sup_r, 3),
-                                "fcpe": round(1 - sup_f, 3),
+                                "rmvpe": one_r,
+                                "fcpe": one_f,
                                 "acoustic_boundary":
                                     round(1 - nonf0, 3)}}}
     hyps = hypotheses_structure(p)

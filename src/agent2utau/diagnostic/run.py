@@ -656,7 +656,13 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     def _virtual_note_packet(rec, span, tag):
         """§8.1 (C2): fresh evidence packet for a virtual candidate
         note span — no reuse of the old note's winner/confidence/margin.
-        tone comes from the span's own plateau/extractor evidence."""
+
+        C2 final patch: the acoustic pitch seed is `candidate_written_
+        pitch`, NOT GAME evidence. Real GAME evidence for the virtual
+        span comes only from the parent's consensus member_notes (real
+        per-run GAME notes overlapping the span). If no run produced a
+        corresponding note -> game_evidence_unavailable -> the game
+        family is neutral, never a fake GAME=1 vote."""
         s, e = span["start"], span["end"]
         vpl = detect_plateaus(times, struct, s, e)
         tone = (vpl[0]["center_midi"] if vpl
@@ -665,12 +671,45 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         vn = {"start": s, "dur": e - s, "tone": tone, "voiced": True}
         ev = _evidence(vn, times, struct, voiced, energy, fcpe=fcpe)
         vrec = {"id": f"{rec['id']}__{tag}", "start": round(s, 3),
-                "dur": round(e - s, 3), "game_tone": round(tone, 2),
+                "dur": round(e - s, 3),
+                "candidate_written_pitch": round(tone, 2),
+                "game_tone": round(tone, 2),   # H0 reference only
                 **ev}
         vrec["plateaus"] = vpl
         vrec["fcpe_plateaus"] = detect_plateaus(fcpe["times"], fcpe_struct,
                                                 s, e)
         vrec["virtual_of"] = rec["id"]
+        vrec["candidate_seed"] = True
+        # real GAME correspondence: per-run member notes overlapping
+        # >=60% of the virtual span -> that run's real GAME answer
+        members = (rec.get("consensus") or {}).get("member_notes") or {}
+        vtones = []
+        for ms in members.values():
+            hit = [t for (ms_, me_, t) in ms
+                   if min(e, me_) - max(s, ms_) >= 0.6 * (e - s)]
+            if hit:
+                vtones.append(float(np.median(hit)))
+        if vtones:
+            vrec["consensus"] = {"run_tones": vtones,
+                                 "n_runs": len(vtones),
+                                 "structure_varies": False,
+                                 "virtual_correspondence": True}
+        else:
+            vrec["game_evidence_unavailable"] = True
+        # §8.4: separation sensitivity recomputed on the virtual span
+        # (seed vs parent written pitch); parent sensitivity is
+        # conservatively inherited either way.
+        ss = _separation_octave_check(mix_wav, mix_sr, wav, sep_sr,
+                                      s, e, tone, rec["game_tone"])
+        parent_sens = bool((rec.get("separation") or {})
+                           .get("separation_sensitive"))
+        if ss or parent_sens:
+            vrec["separation"] = {
+                "separation_sensitive":
+                    parent_sens or bool(ss and ss["separation_sensitive"]),
+                "recomputed_on_virtual_span": bool(ss),
+                "inherited_from_parent": parent_sens,
+                **(ss or {})}
         return vrec
 
     discovery = discover_structure(packets, times, energy)
@@ -738,10 +777,17 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                                   "tone": vrec["game_tone"], **vadj})
 
         b = rec.get("pitch_adjudication") or {}
+        # §8.2 (final patch): finalized structure semantics must be
+        # available to the gate on the FIRST call — pass C's status
+        # explicitly instead of relying on a second gate run.
+        final_status = adj["status"]
+        if final_status == "resolved_keep":
+            rec["final_structure_clear"] = True
         b_gate = (safe_retune_gate(rec, rec.get("plateaus") or [],
                                  rec.get("fcpe_plateaus") or [], nb,
-                                 target_midi=b["winning_hypothesis"])
-                  if (adj["status"] == "resolved_keep"
+                                 target_midi=b["winning_hypothesis"],
+                                 final_structure_status=final_status)
+                  if (final_status == "resolved_keep"
                       and b.get("status") == "resolved_change") else None)
         apply_structure(rec, adj, b_gate=b_gate, virtual_b=virtual_b)
         n_c[adj["status"]] += 1

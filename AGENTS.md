@@ -426,6 +426,34 @@ M2.3.2B1/B2/B3 = FROZEN. Next: M2.3.2C structure adjudication.
 
 M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
 
+## C2 final correctness patch (run diag-20260916-215739-cee0)
+
+- §8.1 virtual notes: `candidate_written_pitch` (acoustic seed) is
+  separate from GAME evidence. Real GAME evidence = per-run member
+  notes (consensus.member_notes now carries [start,end,tone])
+  overlapping >=60% of the virtual span -> real run_tones; no
+  correspondence -> `game_evidence_unavailable` -> game family neutral.
+  An RMVPE-derived seed can never fake a GAME vote.
+- §8.2 production order: `safe_retune_gate(..., final_structure_status)`
+  — the gate sees finalized C semantics on the FIRST call; no reliance
+  on a second pass. run.py sets final_structure_clear before the gate.
+- §8.3: RMVPE voiced-mask drop boosts the RMVPE family (same mechanism)
+  but is removed from the independent non-F0 boundary requirement —
+  only boundary-local energy dip+recovery counts as non-F0 now.
+- §8.4: virtual notes recompute separation sensitivity on their own
+  span (seed vs parent written pitch) AND conservatively inherit a
+  sensitive parent flag — never silently normal.
+- §8.5: H0 uses explicit _one_note_support (stable single plateau /
+  sub-threshold delta); missing extractor = neutral 0, never free
+  evidence.
+- 年轮: 111 keep / 27 TRUE_SPLIT / 24 unresolved; virtual B outcomes
+  47 keep / 6 unresolved / 1 resolved_change -> 22 candidates fully
+  machine-adjudicated (decision resolved_change_candidate), 5 with an
+  unresolved virtual note -> phrase_review. 189.84s unresolved pitch +
+  resolved_keep structure -> phrase_review. 0 repair, Candidate 0
+  unchanged.
+- Tests: 127 passed (+8 final-patch regressions).
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight

@@ -117,10 +117,11 @@ def test_merge_support_from_member_spans():
                     "center_midi": 60.1}],
              pl_f=[{"start": 10.0, "end": 10.05, "dur": 0.05,
                     "center_midi": 60.0}])
-    p["consensus"]["member_spans"] = {
-        "0": [[10.0, 10.4]], "1": [[10.0, 10.4]],
-        "2": [[10.0, 10.05], [10.05, 10.4]],
-        "3": [[10.0, 10.4]], "4": [[10.0, 10.05], [10.05, 10.4]]}
+    p["consensus"]["member_notes"] = {
+        "0": [[10.0, 10.4, 60.0]], "1": [[10.0, 10.4, 60.0]],
+        "2": [[10.0, 10.05, 60.0], [10.05, 10.4, 60.0]],
+        "3": [[10.0, 10.4, 60.0]],
+        "4": [[10.0, 10.05, 60.0], [10.05, 10.4, 60.0]]}
     p["consensus"]["n_runs"] = 5
     nb = {"id": "note_0001", "start": 10.05, "dur": 0.35,
           "plateaus": [{"start": 10.05, "end": 10.40, "dur": 0.35,
@@ -144,9 +145,9 @@ def test_count_zero_is_not_merge_support():
              pl_f=[{"start": 10.0, "end": 10.05, "dur": 0.05,
                     "center_midi": 60.0}],
              counts=[0, 0, 1, 1, 1])      # zeros = absence, NOT merge
-    p["consensus"]["member_spans"] = {"2": [[10.0, 10.05]],
-                                      "3": [[10.0, 10.05]],
-                                      "4": [[10.0, 10.05]]}
+    p["consensus"]["member_notes"] = {"2": [[10.0, 10.05, 60.0]],
+                                      "3": [[10.0, 10.05, 60.0]],
+                                      "4": [[10.0, 10.05, 60.0]]}
     p["consensus"]["n_runs"] = 5
     from agent2utau.diagnostic.structure_adj import _game_merge_support
     nb = {"id": "n", "start": 10.05, "dur": 0.3, "plateaus": []}

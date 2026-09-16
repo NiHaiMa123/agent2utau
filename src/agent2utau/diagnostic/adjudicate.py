@@ -240,12 +240,21 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
         fam_support, fam_oppose = {}, {}
 
         # --- GAME run distribution (continuous — 4/5 vs 3/5 differ) ---
+        # §8.1 (C2 patch): virtual notes must NOT turn their acoustic
+        # pitch seed into a fake GAME vote. With no real per-run GAME
+        # member notes, the game family is neutral (no vote at all).
+        game_unavail = bool(packet.get("game_evidence_unavailable")) \
+            and not run_tones
         if run_tones:
             gsup = float(np.mean(
                 np.abs(np.array(run_tones) - h) <= SUPPORT_ST))
+        elif game_unavail:
+            gsup = 0.0                        # neutral — unavailable
         else:
             gsup = 1.0 if abs(h - packet["game_tone"]) <= SUPPORT_ST else 0.0
-        (fam_support if gsup > 0 else fam_oppose)["game"] = round(gsup, 3)
+        if not game_unavail:
+            (fam_support if gsup > 0 else fam_oppose)["game"] = \
+                round(gsup, 3)
 
         # --- extractor families (each counts once, reliability-weighted)
         for name, blk in (("rmvpe", rmv), ("fcpe", fcp)):

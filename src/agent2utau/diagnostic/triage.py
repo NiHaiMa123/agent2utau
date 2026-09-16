@@ -152,7 +152,8 @@ def _target_plateau(plateaus: list[dict], target_midi: float) -> dict | None:
 def safe_retune_gate(packet: dict, rmvpe_plateaus: list[dict],
                      fcpe_plateaus: list[dict],
                      neighbours: list[dict],
-                     target_midi: float | None = None) -> dict:
+                     target_midi: float | None = None,
+                     final_structure_status: str | None = None) -> dict:
     """Plan §15 SAFE_RETUNE_CANDIDATE gate (M2.3.1), with §5.3/5.4 fix:
     the plateau support must come from TWO INDEPENDENT extractors —
     an RMVPE plateau + RMVPE center is one evidence family, not two.
@@ -179,11 +180,15 @@ def safe_retune_gate(packet: dict, rmvpe_plateaus: list[dict],
     gates = {
         "presence_5of5": cons.get("presence_rate", 0) >= 1.0,
         "tone_agreement_high": cons.get("tone_agreement", 0) >= 0.8,
-        # §8.7 (C2): the FINALIZED C result owns this gate — a confident
-        # C resolved_keep must not be permanently blocked by the raw
-        # historical structure_varies flag (kept in audit).
+        # §8.7/§8.2 (C2): the FINALIZED C result owns this gate —
+        # callers pass final_structure_status so the gate is correct on
+        # the FIRST production call, not only after apply_structure has
+        # had a chance to set packet["final_structure_clear"]. A
+        # confident C resolved_keep must not be permanently blocked by
+        # the raw historical structure_varies flag (kept in audit).
         "no_structure_ambiguity":
             packet.get("final_structure_clear", False)
+            or final_structure_status == "resolved_keep"
             or not cons.get("structure_varies", True),
         "aligned_identity_clear": cons.get("stability") == "GAME_STABLE",
         "extractor_centers_close": dual.get("extractors_agree", False),
