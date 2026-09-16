@@ -2,9 +2,9 @@
 
 > 修订日期：2026-09-16
 >
-> 核心原则：**先把“唱对”解决，再把“唱得像泠鸢”解决。**
+> 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.3.2B 已冻结；M2.3.2C1 已实现但不可冻结；当前最高优先级 = E1 Remote CI + M2.3.2C2 Structure Correctness / Lifecycle Calibration。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2B 已冻结；M2.3.2C2 主体已实现但不可冻结。当前唯一算法优先级 = C2 Final Correctness Patch。不要新增 C3。**
 
 ---
 
@@ -19,9 +19,9 @@
 → multi-run uncertainty graph
 → RMVPE + FCPE + third-F0 + periodicity / spectral evidence
 → orthogonal pitch / structure / identity / separation states
-→ structure 未定：M2.3.2C structure adjudication
+→ structure 未定：C structure adjudication
 → note identity 确定后：在真实/候选 note identity 上运行冻结版 B pitch/octave adjudicator
-→ finalized machine unresolved 才进入 M2.3.2D phrase-level A/B/C review
+→ finalized machine unresolved 才进入 D phrase-level A/B/C review
 → 只修高置信、已 finalized 的局部错误
 → lyrics ↔ melody mapping
 → OpenUtau / DiffSinger 基础渲染
@@ -29,117 +29,36 @@
 → 泠鸢 style profile
 ```
 
-旧主流程：
+旧流程：
 
 ```text
 歌词字符窗口 → F0 median → heuristic split → MIDI
 ```
 
-已确认不足，只保留 fallback，不再作为默认 melody transcription。
+只保留 fallback，不再作为默认 melody transcription。
 
 ---
 
-# 2. 固定事实 / 不再反复推翻的原则
+# 2. 固定架构原则
 
-## 2.1 GAME 是主转谱基座
-
-- GAME raw 是主 melody transcription 来源；
-- lyric char start 不是天然 note boundary；
-- RMVPE / FCPE / third-F0 是 evidence，不从零重建整首谱；
-- correction 只修 residual errors；
-- forced-char-boundary 曾把约 419 notes 扩张到约 760 notes，并制造大量假 suspicious，禁止回到该路线。
-
-## 2.2 GAME 有真实 stochasticity
-
-```text
-single GAME run != deterministic truth
-```
-
-GAME 多 runs 是同一模型 stochastic samples，不是多个独立模型。
-
-Multi-run 用途：
-
-```text
-一致 → 增强置信
-分歧 → 暴露 uncertainty
-```
-
-## 2.3 Consensus 不是最终谱面
-
-Formal sequence alignment 支持：
-
-```text
-match / gap / split / merge
-```
-
-Consensus event 只表示 correspondence + uncertainty。
-
-禁止把：
-
-```text
-start_median / duration_median / tone_median
-```
-
-拼成 synthetic final score。
-
-## 2.4 Candidate 0 必须来自真实 GAME run
-
-Candidate 0 = pairwise alignment cost 最小的真实 GAME medoid run。
-
-Medoid 是 baseline selection，不是 correctness proof。
-
-202s 已证明 GAME 自己可在同一区域产生约 MIDI 65 / 72 两套 stochastic 解：
-
-```text
-medoid selection != pitch truth
-```
-
-## 2.5 F0 measurement 与 score interpretation 分离
-
-F0 measurement：
-
-```text
-RMVPE
-FCPE
-third-F0
-periodicity
-spectral / harmonic / subharmonic evidence
-```
-
-Score interpretation：
-
-```text
-GAME multi-run structure
-cross-F0 plateau / changepoint
-onset / re-attack
-voiced transition / gap
-energy envelope
-lyric articulation
-duration plausibility
-local melodic context
-```
-
-人工不负责猜 MIDI / Hz / cents / octave。
+1. GAME 是默认 melody transcription 基座，但不是 truth。
+2. Candidate 0 必须来自真实 GAME run，不得由 consensus median 合成。
+3. GAME 多 runs 是同一模型 stochastic samples，不是多个独立模型。
+4. Consensus 是 correspondence / uncertainty graph，不是最终 note skeleton。
+5. F0 measurement 与 written-score interpretation 分离。
+6. RMVPE / FCPE / third-F0 是 evidence，不从零替代 GAME 重建整首谱。
+7. 能机器测量的 MIDI / Hz / cents / octave 不交给人工猜。
+8. 单 extractor 或同一 extractor 的多个派生 feature 不能伪装成多张独立票。
+9. structure 未定时，pitch adjudication 只能 provisional；note identity 先定，再 final pitch。
+10. Candidate 0 永不被 adjudication 原地覆盖；所有 change 先作为 candidate artifact。
+11. 0 automatic repair 是合法结果。
+12. 所有修改必须局部、可解释、可审计、可 rollback、可 A/B。
 
 ---
 
-# 3. 当前工程状态
+# 3. 已冻结阶段
 
-## M2.3 / M2.3.1 ✅
-
-已完成：
-
-- real GAME medoid Candidate 0；
-- stochastic consensus；
-- RMVPE + FCPE dual-F0；
-- structural F0；
-- plateau / interior re-triage；
-- SAFE gate 初版；
-- regression packets。
-
-## M2.3.2A / A2 / A3 / A4 ✅ FROZEN
-
-A-stage 已冻结，不新增 A5。
+## 3.1 M2.3.2A / A2 / A3 / A4 ✅ FROZEN
 
 A4 baseline：
 
@@ -153,18 +72,16 @@ A4 baseline：
 0 direct repair
 ```
 
-主要成果：
+冻结 contract：
 
-- pitch / structure / identity / separation 正交状态；
-- pitch / structure adjudication lanes 可共存；
-- structure candidate 不直接进入人工；
+- pitch / structure / identity / separation 正交；
+- pitch / structure lanes 可共存；
 - raw flags 不覆盖 calibrated result；
-- SAFE eligible 不能直接 repair；
-- separator provenance 绑定实际 model path / bytes hash / config hash。
+- structure candidate 不直接进入人工；
+- SAFE eligible 不等于 repair；
+- separator provenance 绑定实际 model path / bytes / config。
 
-## M2.3.2B1 / B2 / B3 ✅ FROZEN
-
-B-stage 不新增 B4。
+## 3.2 M2.3.2B1 / B2 / B3 ✅ FROZEN
 
 关键 commits：
 
@@ -178,265 +95,89 @@ e7500de43e7d99ca9e826430f5005d00281f05a5  B3 final group-gate consistency
 Frozen B contract：
 
 - GAME run-tone distribution 保留连续支持强度；
-- RMVPE / FCPE 各自只算一个 evidence family；
+- RMVPE / FCPE 各自最多一个独立 family；
 - pYIN / ACF / harmonic / subharmonic 先融合为 bounded waveform group；
-- score / margin / supporting groups / gates 使用统一 group-level semantics；
+- final score / margin / supporting groups / gates 使用统一 group-level semantics；
 - raw feature 只用于 audit，不能绕过 group gate；
 - ACF 处理 T / 2T / T/2 octave ambiguity；
-- harmonic evidence 抑制 low-octave harmonic-set superset bias；
-- third-F0 cache 比较当前 `librosa.__version__`；
+- harmonic evidence 避免 lower-octave harmonic-set superset bias；
+- third-F0 cache freshness 比较当前 `librosa.__version__`；
 - `safe_retune_gate(..., target_midi=B.winning_hypothesis)`；
-- 189s / 202s 保持 NO FALSE REPAIR。
+- separation-sensitive 会降低 confidence / 可阻止 resolution；
+- 189s / 202s 永久 no-false-repair regression。
 
-Frozen B latest baseline：
+Frozen B baseline：
 
 ```text
 60 resolved_keep
-7  provisional resolved_change → C
+7 provisional resolved_change → C
 15 unresolved
-0  repair_candidate
-93 local tests reported
+0 repair_candidate
 ```
 
-> 历史上 A/B freeze 发生时仓库尚未建立 remote CI。E1 建立后，**A/B 全部 regression 必须在 remote CI 中补跑并 green；若失败，则对应 frozen contract 自动 reopen。**
-
-## M2.3.2C1 ✅ IMPLEMENTED / ❌ NOT FROZEN
-
-commit：
-
-```text
-676a26eab4dacd8e394eee4529e91e52d219b7db
-```
-
-C1 已实现：
-
-- `discover_structure()` 扫描全部 baseline notes；
-- existing structure lanes + independent discovery 都可进入 C；
-- H0 keep / H1 split / H2 merge / H3 portamento；
-- C 第一阶段只 adjudicate，不修改 Candidate 0；
-- C unresolved 会清 pending，避免无限 loop；
-- resolved_keep 能处理 provisional B 的基础 lifecycle；
-- old B 在 structure change 后会被 invalidated。
-
-C1 《年轮》结果：
-
-```text
-338 packets adjudicated
-287 resolved_keep
-  ├─ 220 clean keep
-  └─ 67 portamento
-47 TRUE_SPLIT_CANDIDATE
-4 unresolved
-0 merge
-0 repair
-106 local tests reported
-```
-
-这些数字**不是 correctness proof**。尤其 47 split candidates 当前必须视为 calibration set，而不是 47 个已确认 GAME 错误。
-
-C1 尚未冻结的原因见 §8 C2。
+B 不新增 B4。
 
 ---
 
-# 4. Remote CI / Freeze Gate — E1（当前 P0 工程要求）
+# 4. E1 Remote CI / Freeze Gate ✅ PASS
 
-## 4.1 当前事实
-
-仓库当前不存在：
-
-```text
-.github/workflows/
-```
-
-因此没有 GitHub Actions remote CI。此前 plan 只规定：
-
-```text
-没有 remote CI 时，不得把 local tests passed 描述成 remote verified
-```
-
-这只是**报告约束**，不是**工程验收约束**，所以不足。
-
-从本次 revision 起，remote CI 变成 hard gate。
-
-## 4.2 必须建立 GitHub Actions
-
-至少创建：
+已建立：
 
 ```text
 .github/workflows/ci.yml
+trigger: push + pull_request
+runner: ubuntu-latest
+Python: 3.11
+core gate: pytest -q
 ```
 
-触发：
+最新已验证 acceptance SHA：
 
 ```text
-push
-pull_request
+d6798a9c70e18d43e12a6b91473b30845a34818a
+GitHub Actions run: 35101379093
+job: pytest
+conclusion: success
+119 passed
 ```
 
-至少包含一个 Linux / Python 3.11 job（项目 `requires-python >=3.11`）：
+因此 E1 已 PASS，不再是当前 blocker。
+
+从 C2 开始，任何 stage 想标记：
 
 ```text
-checkout
-setup Python 3.11
-install project + test dependencies
-pytest -q
-```
-
-允许使用：
-
-```text
-uv sync --dev
-```
-
-或等价、可复现的安装方式。
-
-CI unit/regression suite **不得依赖**：
-
-```text
-E:\ 本地路径
-本地 OpenUtau GUI
-Yousa voicebank
-人工下载但未缓存/未声明的模型
-交互式 UI
-开发者机器已有环境状态
-```
-
-真正依赖本地 OpenUtau / voicebank / 大模型资源的测试应明确分为 integration/local acceptance，不得让基础 CI 假装覆盖它们。
-
-## 4.3 Remote CI hard acceptance
-
-从 C2 开始，任何 milestone / stage 想标记：
-
-```text
-✅ FROZEN
-PASS
-accepted
+FROZEN / PASS / accepted
 ```
 
 必须同时满足：
 
 ```text
-1. local regression suite green
-2. GitHub remote workflow run exists
-3. remote required test job conclusion == success
-4. workflow 对应当前被验收 commit/HEAD，而不是旧 commit
-5. 没有 skipped core regression 来伪造 green
+local regression green
++ current acceptance SHA 对应的 GitHub Actions workflow exists
++ core pytest job == success
++ 不允许拿旧 SHA 的 green run 充数
++ 不允许 skipped core regression 伪造 green
 ```
 
-以下情况一律不得 freeze：
+依赖本地 OpenUtau / Yousa voicebank / E:\ 路径 / 大模型文件的验证单列为 local/integration acceptance，不得假装被 lightweight CI 覆盖。
 
-```text
-CI missing
-CI pending
-CI cancelled
-CI failure
-CI only ran docs/lint but没有跑 core pytest
-remote run 对应旧 SHA
-```
-
-以后 review 不再只看 classic `combined status`；应验证实际 GitHub Actions workflow/check run 是否存在且成功。
-
-## 4.4 Backfill frozen stages
-
-E1 CI 建立后，必须至少覆盖：
-
-```text
-A-stage regressions
-B1/B2/B3 regressions
-189s no-false-repair regression
-202s no-false-repair regression
-C tests
-```
-
-若 frozen A/B regression 在 remote CI 中失败：
-
-```text
-对应 frozen contract 自动 reopen
-```
-
-不得用“本地之前通过过”覆盖 remote failure。
-
-## 4.5 Branch protection（推荐）
-
-如果仓库权限允许，推荐把 CI job 设为 main merge 的 required check。
-
-这不是 C2 算法 correctness 的必要条件，但能防止以后 agent 直接把 failing commit 推进 main。
+如果 frozen A/B regression 在 remote CI 中失败，则对应 frozen contract 自动 reopen。
 
 ---
 
-# 5. Orthogonal state / lifecycle contract
+# 5. Evidence independence contract
 
-```text
-pitch_state:
-  stable
-  suspicious
-  extractor_conflict
-  unresolved
-
-structure_state:
-  stable
-  split_merge_variable
-  candidate
-  unresolved
-
-identity_state:
-  stable
-  variable
-
-separation_state:
-  normal
-  sensitive
-  unknown
-```
-
-Workflow 至少维护：
-
-```text
-routing_needs:
-  pitch_adjudication: bool
-  structure_adjudication: bool
-  phrase_review: bool
-
-pitch_adjudication_status:
-  not_needed
-  pending
-  provisional
-  resolved_keep
-  resolved_change
-  invalidated
-  unresolved
-
-structure_adjudication_status:
-  not_needed
-  pending
-  resolved_keep
-  resolved_change_candidate
-  unresolved
-```
-
-强制：
-
-- evidence state 与 workflow decision 分离；
-- pitch / structure needs 可共存；
-- provisional result 不得 repair；
-- `needs_phrase_review` 只能在 machine-computable lanes 真正结束后产生；
-- Candidate 0 永不被 adjudication 原地覆盖。
-
----
-
-# 6. Evidence independence / audit contract
-
-逻辑独立 group：
+逻辑 family / group：
 
 ```text
 GAME stochastic
 RMVPE
 FCPE
 waveform mechanism group
-musical context（soft）
+musical context (soft)
 ```
 
-相关 waveform：
+相关 waveform feature：
 
 ```text
 pYIN
@@ -445,30 +186,42 @@ harmonic
 subharmonic
 ```
 
-必须先 within-group fusion。
-
-最终：
+必须：
 
 ```text
-supporting_independence_groups
+raw feature
+→ within-group fusion
+→ finalized group_scores
+→ supporting_independence_groups
+→ score / margin / resolution gates
 ```
 
-必须从 finalized net `group_scores` 推导。
+禁止重新从 raw feature 反推一套第二 gate。
 
-raw：
+`opposing_independence_groups` 当前仍可作为 audit-only；除非未来实现正式 group-level opposition，不得用于新增 resolution truth。
+
+### 5.1 Missing evidence rule
+
+全系统统一：
 
 ```text
-supporting_features
-opposing_features
+missing / low-confidence evidence
+!= support
+!= opposition
 ```
 
-只用于解释 / audit。
+缺失 evidence 必须是 neutral。
 
-`opposing_independence_groups` 当前实现仍部分消费 raw opposition，**audit-only**，不得作为新的 gate truth。
+特别禁止：
+
+```text
+extractor 无可用 evidence
+→ 用 1 - support 自动给相反 hypothesis 满分
+```
 
 ---
 
-# 7. Cache / provenance contract
+# 6. Cache / provenance contract
 
 至少覆盖：
 
@@ -481,474 +234,470 @@ GAME model hashes/config
 RMVPE model hash/config
 FCPE model hash/config
 third-F0 vocal_sha256
-third-F0 implementation
-third-F0 runtime version
-third-F0 config
-third-F0 analysis schema
+third-F0 implementation/runtime version/config/schema
 pitch adjudicator schema/config
 structure adjudicator schema/config
 ```
 
-规则：
+任一 input / model / implementation / runtime / config / schema material change：
 
 ```text
-input / model / implementation / runtime version / config / schema changed
 → invalidate affected dependent artifact
 ```
 
-Third-F0 frozen contract：
+---
+
+# 7. M2.3.2C 状态
+
+## C1 ✅ IMPLEMENTED / ❌ NOT FROZEN
+
+commit：
 
 ```text
-cached version == current librosa.__version__
+676a26eab4dacd8e394eee4529e91e52d219b7db
+```
+
+C1 建立：
+
+- all-baseline independent structure discovery；
+- H0 keep / H1 split / H2 merge / H3 portamento；
+- 第一阶段只 adjudicate，不修改 Candidate 0；
+- unresolved 清 pending，避免 loop；
+- provisional-B lifecycle 初版。
+
+C1《年轮》：
+
+```text
+315 discovery entries
+47 TRUE_SPLIT_CANDIDATE
+287 resolved_keep
+4 unresolved
+0 merge
+0 repair
+106 local tests
+```
+
+47 只是 calibration set，不是 47 个已确认 GAME 错误。
+
+## C2 主体 ✅ IMPLEMENTED / ❌ NOT FROZEN
+
+实现 commit：
+
+```text
+f220012cfc26bba04cf6c4d1368c9a8e43069fc0
+7a160cedcb1e200be578b89950555260003d24db  # CI cpu torch fix
+```
+
+C2 已完成：
+
+- per-extractor pre/post plateau center / delta / boundary / stability；
+- dual-F0 **relative delta** agreement，octave-offset invariant；
+- `two plateaus != split support`；
+- split vs portamento competition；
+- boundary-local energy evidence；
+- `run_note_counts==0` 不再作为 merge evidence；
+- consensus 增加真实 per-run `member_spans`；
+- structure change 会生成 virtual note spans 并调用 frozen B；
+- `final_structure_clear` 概念加入 SAFE gate；
+- `split_candidate_stats.json` + discovery stats。
+
+最新《年轮》C2 baseline：
+
+```text
+discovery: 315 → 118 (rate ≈ 0.28)
+119 resolved_keep
+  └─ 79 portamento
+23 TRUE_SPLIT_CANDIDATE
+16 unresolved
+0 merge
+0 repair
+189.84s baseline octave auto-resolved
+202.32 / 202.51 unresolved → phrase review candidate
+```
+
+remote CI：119 passed / green。
+
+但 **C2 仍不可 FROZEN**，原因见下一节。
+
+---
+
+# 8. C2 Final Correctness Patch ← 当前唯一算法 P0
+
+**不要新增 C3。** 以下修复属于 C2 freeze 前 final patch。
+
+## 8.1 P0 — Virtual note 不得把 RMVPE-derived pitch 冒充 GAME evidence
+
+当前实现存在 evidence-independence bug：
+
+```text
+virtual split span
+→ structural RMVPE plateau center
+→ 写入 vrec.game_tone
+→ frozen B 在无 consensus 时把 game_tone 当 GAME support=1
+
+同一 RMVPE 信息又同时进入：
+RMVPE family
+```
+
+结果等价于：
+
+```text
+RMVPE evidence
+→ fake GAME vote
++ real RMVPE vote
+```
+
+这是禁止的。
+
+### 必须拆分概念
+
+Virtual note packet 至少区分：
+
+```text
+candidate_written_pitch / seed_pitch
+GAME evidence distribution
+```
+
+`candidate_written_pitch` 可以来自新 span 的 acoustic estimate，用于提出 hypothesis；**它不是 GAME evidence**。
+
+Frozen B 不能再因为存在 candidate seed 就自动：
+
+```text
+GAME support = 1.0
+```
+
+### Virtual GAME evidence 合法来源
+
+优先扩展 consensus/audit 保存真实：
+
+```text
+member_notes:
+  run_id
+  start
+  end
+  tone
+```
+
+对于 C 提出的 virtual split/merge identity：
+
+```text
+从真实 GAME run notes 与 virtual span 的 correspondence
+→ 构造 GAME support distribution
+```
+
+如果一个 virtual identity 完全由 acoustic evidence 发现，而 GAME runs 没有对应真实 note：
+
+```text
+GAME group = unavailable / neutral
+```
+
+禁止伪造 GAME=1。
+
+### Regression
+
+必须覆盖：
+
+```text
+A. virtual pitch seed 来自 RMVPE，但无真实 GAME member note
+   → GAME group neutral
+   → RMVPE 只能算一次 family
+
+B. 真实 GAME split runs 存在对应 note
+   → GAME group 使用真实 per-run note tones/support
+
+C. 加/删 acoustic seed 不得改变“是否存在 GAME evidence”
 ```
 
 ---
 
-# 8. M2.3.2C2 — Structure Correctness / Lifecycle Calibration ← 当前算法最高优先级
+## 8.2 P0 — `final_structure_clear` 必须在 SAFE gate 计算前生效
 
-C1 架构可保留，但**不得基于 C1 的 47 split candidates 开始 structure repair**。
-
-C2 目标：
+当前生产顺序存在 bug：
 
 ```text
-降低 over-split 风险
-补齐 C → new note identities → frozen B 的闭环
-让 final structure resolution 真正成为后续 gate truth
+C resolved_keep
+→ safe_retune_gate(rec)   # 此时 final_structure_clear 还没设置
+→ apply_structure(rec)
+→ final_structure_clear = true
 ```
 
-## 8.1 P0：resolved_change_candidate 必须重建 candidate notes 并 rerun frozen B
+所以 raw `structure_varies=true` 的 region 即使 C 已 resolved_keep，第一次生产 gate 仍会失败。
 
-C1 当前行为错误：
+### 强制修正
+
+推荐显式接口：
 
 ```text
-C resolved_change_candidate
-→ invalidate old B
-→ phrase_review
+safe_retune_gate(..., final_structure_status=C.status)
 ```
 
-这跳过了机器仍可完成的 pitch adjudication。
-
-C2 强制改为：
+或至少保证：
 
 ```text
-C proposes split / merge / material boundary change
-→ old B = invalidated
-→ 创建 VIRTUAL candidate note identities/spans
-→ 对每颗新 note 重新生成 per-note evidence packet
-→ 在新 note spans 上运行 frozen B
-→ 保存 new-note pitch adjudication results
-→ 只有 frozen B/C 之后仍 unresolved 才允许 phrase review
+C resolved_keep
+→ set final_structure_clear
+→ THEN run SAFE gate
 ```
 
-这里的 virtual notes：
+禁止依赖“之后再算第二次 gate”才能正确。
+
+### Regression
+
+必须增加 **production-order integration regression**：
 
 ```text
-只存在 candidate artifact / audit packet
-不得直接写回 Candidate 0
+raw structure_varies=true
++ C resolved_keep
++ B resolved_change
+→ 单次真实 production flow
+→ SAFE gate 读取 finalized structure semantics
 ```
 
-可复用已计算的 full-track RMVPE / FCPE / third-F0 contours，但**必须按新 span 重新切 per-note evidence**；旧 note 的：
+不是测试：
 
 ```text
-winner
-confidence
-margin
-group_scores
-safe gate
+gate → apply_structure → gate again
 ```
 
-全部不得复用。
-
-### Split
-
-```text
-1 old note
-→ virtual A + virtual B
-→ B(A)
-→ B(B)
-```
-
-### Merge
-
-```text
-old note_i + note_j
-→ virtual merged note
-→ regenerate evidence over merged span
-→ B(merged)
-```
-
-### Boundary shift
-
-只要 pitch evidence extraction window material change：
-
-```text
-invalidate old B
-→ rerun B
-```
-
-## 8.2 C resolved_keep：什么时候 finalize，什么时候 rerun
-
-如果：
-
-```text
-note count unchanged
-start/end unchanged
-pitch evidence span unchanged
-```
-
-则 C `resolved_keep` 可以：
-
-```text
-finalize existing provisional B
-```
-
-不要求无意义地重复计算。
-
-如果 C 虽归类为 keep，但实际修改了用于 pitch evidence 的：
-
-```text
-boundary
-span
-identity mapping
-```
-
-则不能简单 finalize，必须 invalidate + rerun B。
-
-必须有 regression 明确覆盖两种情况。
-
-## 8.3 P0：两个 plateau ≠ 两颗 written notes
-
-C1 当前 H1 过宽：
-
-```text
-len(RMVPE plateaus) >= 2 → RMVPE split support = 1
-len(FCPE plateaus) >= 2 → FCPE split support = 1
-```
-
-这是不允许的。
-
-C2 中每个 extractor 的 structure evidence 至少要描述：
-
-```text
-pre_plateau_center
-post_plateau_center
-pitch_delta_st
-boundary_time
-plateau duration/stability
-```
-
-双 extractor 还要计算：
-
-```text
-boundary_time_delta_ms
-pitch_delta_direction_agreement
-pitch_delta_magnitude_difference
-```
-
-Split support 必须考虑：
-
-```text
-实际 pitch delta 是否 meaningful
-两个 extractor 对 delta 方向是否一致
-两个 extractor 对 delta magnitude 是否兼容
-candidate boundary 是否时间一致
-pre/post plateaus 是否足够稳定且持续足够长
-```
-
-禁止：
-
-```text
-“两个 extractor 都被 plateau detector 切成两段”
-==
-“两个 extractor 都给 H1 满票”
-```
-
-建议把初始 `MIN_STRUCTURE_DELTA_ST` 参数化并通过 synthetic + real distribution calibration，不要把阈值散落成 magic number。
-
-结构 delta 应尽量 octave-offset invariant，例如：
-
-```text
-RMVPE: +3.0 st
-FCPE:  +3.1 st
-```
-
-即使两 extractor 整体相差一个 octave，仍属于 strong relative structure agreement。
-
-## 8.4 P0：H1 split vs H3 portamento/ornament 必须真正竞争
-
-两个 extractor 同时看到 changepoint，只能说明：
-
-```text
-pitch movement 是真实声学现象
-```
-
-不能直接证明：
-
-```text
-written score 必须有 note boundary
-```
-
-C2 对 `TRUE_SPLIT_CANDIDATE` 至少要求以下二者之一：
-
-```text
-A. strong GAME split/boundary support
-   + acoustic/F0 confirmation
-
-或
-
-B. dual-F0 relative-delta agreement
-   + 至少一个独立 non-F0 boundary family
-```
-
-non-F0 boundary family 可包括：
-
-```text
-onset / spectral-flux / re-attack
-voiced→unvoiced→voiced or voiced-probability drop
-boundary-local energy envelope minimum + recovery
-lyric/syllable articulation boundary（若可用）
-```
-
-单纯：
-
-```text
-F0 changepoint agreement
-```
-
-不得独自把 H1 判为 resolved change。
-
-Portamento/ornament hypothesis 必须在 dual-F0 changepoint agree 时仍可参与竞争。
-
-## 8.5 P1：energy discovery 改为 boundary-local，不用 whole-note min/mean
-
-C1：
-
-```text
-min(note_energy) < 0.55 * mean(note_energy)
-```
-
-过宽，正常人声动态也容易触发。
-
-C2 改为围绕 candidate boundary 的局部特征，例如：
-
-```text
-local minimum prominence
-pre/post energy recovery
-energy derivative
-onset strength / spectral flux
-voiced probability dip
-```
-
-如果根本没有 candidate boundary，不应仅因 note 内任意一点能量较低就产生 strong split evidence。
-
-Discovery 可以宽，但 adjudication 必须严格；同时记录：
-
-```text
-all-baseline discovery rate
-entry reason distribution
-false-positive-oriented calibration stats
-```
-
-C1 的：
-
-```text
-315 / 421 notes entered discovery
-```
-
-说明 discovery 很宽，C2 必须量化并收敛，而不是默认这是正常值。
-
-## 8.6 P1：GAME merge evidence 不得把 run_note_counts == 0 当 merge support
-
-Consensus `run_note_counts == 0` 的语义是：
-
-```text
-该 consensus component 在该 run 中没有成员
-```
-
-它可能代表 gap / alignment miss / event absence，**不等于 merge**。
-
-因此禁止：
-
-```text
-count == 0
-→ GAME supports merge
-```
-
-真正 merge support 应来自显式结构关系，例如：
-
-```text
-pairwise alignment 的 merge op
-某 run 中一颗真实 GAME note 跨越 candidate i+j 的 combined span
-per-run boundary distribution 明确缺少中间 boundary
-```
-
-必要时扩展 consensus/audit artifact，保存：
-
-```text
-per-run member note spans
-per-run internal boundaries
-explicit split/merge correspondence
-```
-
-而不是从 `run_note_counts` 猜语义。
-
-## 8.7 P1：final structure resolution 必须覆盖 raw structure_varies 的 gate 阻塞
-
-Raw：
-
-```text
-consensus.structure_varies
-```
-
-是 evidence，不是永久真值。
-
-如果 C 高置信得到：
-
-```text
-structure_adjudication_status = resolved_keep
-```
-
-后续 repair gate 不得仍因历史 raw：
-
-```text
-structure_varies = true
-```
-
-永久失败。
-
-需要显式 final semantics，例如：
-
-```text
-final_structure_clear = C resolved_keep
-```
-
-然后 SAFE/final repair gate 消费：
-
-```text
-finalized structure result
-```
-
-raw `structure_varies` 继续留在 audit 中。
-
-这不要求重开 frozen B scorer；可以在 C/M2.4 的 final gate interface 中解决。
-
-## 8.8 47 split candidates = calibration set，不直接人工逐个听
-
-先生成统计：
-
-```text
-entry source: existing lane vs independent discovery
-GAME one/split support ratio
-RMVPE pre/post delta
-FCPE pre/post delta
-delta direction/magnitude agreement
-boundary time delta
-non-F0 boundary support
-H1/H3 scores
-winner margin
-note duration
-```
-
-目标是先判断：
-
-```text
-47 中有多少是强 split
-多少是 portamento/ornament
-多少只是 plateau segmentation artifact
-多少应 unresolved
-```
-
-不要把 47 个全部直接推给人工。
+因为生产代码并不会自然重跑第二次。
 
 ---
 
-# 9. M2.3.2C2 Acceptance / Regression Matrix
+## 8.3 P0 — RMVPE voiced-drop 不得冒充独立 non-F0 boundary family
 
-C2 必须同时满足 E1 remote CI gate。
-
-## 9.1 Lifecycle
+原则：
 
 ```text
-1. C resolved_change_candidate 会创建 virtual candidate note identities
-2. old B 被 invalidated
-3. 新 note span 重新生成 pitch evidence
-4. frozen B 在每颗 virtual note 上重新执行
-5. old winner/confidence/margin/group_scores 不复用
-6. machine-computable new-note B 未结束前不得 phrase_review
-7. C resolved_keep + unchanged span 可 finalize provisional B
-8. C material span change 即使 note count 不变也必须 rerun B
+dual-F0 agreement
++ independent non-F0 boundary
 ```
 
-## 9.2 Split correctness
+才允许 acoustic-only high-confidence split。
+
+当前：
 
 ```text
-9. two plateaus alone 不等于 full split support
-10. cross-extractor pitch-delta direction/magnitude agreement 被显式计算
-11. boundary-time agreement 被显式计算
-12. small/inconsistent delta regression 不得误判 TRUE_SPLIT
-13. true stable two-note synthetic regression 能判 TRUE_SPLIT
-14. large portamento with dual-F0 agreement 仍允许 H3 赢
-15. F0-only changepoint、无独立 boundary evidence 时不得高置信 auto split
+nonf0 = max(boundary_energy, voiced_drop)
 ```
 
-## 9.3 Boundary evidence
+但 `voiced_drop` 来自 RMVPE track 的 voiced mask，因此它属于 RMVPE mechanism，不是独立 non-F0 family。
+
+### 必须改为
+
+真正独立 boundary group 可来自：
 
 ```text
-16. energy 使用 candidate-boundary-local evidence
-17. ordinary within-note dynamics 不应大量触发 strong split
-18. onset/re-attack 或 voiced-gap evidence 可独立增强 boundary
-19. discovery rate / reason distribution 被记录
+energy envelope
+onset strength
+spectral flux
+re-attack transient
+lyric/syllable articulation (if available)
 ```
 
-## 9.4 Merge
+RMVPE voiced probability / voiced mask：
 
 ```text
-20. run_note_counts==0 不再作为 merge support
-21. merge support 来自 explicit span/boundary correspondence
-22. true merge synthetic regression PASS
-23. gap/event-absence regression 不得误判 merge
+可以增强 RMVPE structure family
+但不得单独满足 independent_non_f0_required
 ```
 
-## 9.5 Final gate semantics
+### Regression
 
 ```text
-24. C resolved_keep 后 raw structure_varies 不得永久阻塞 final repair gate
-25. raw structure evidence 仍保留 audit
-26. Candidate 0 unchanged
-27. 189s NO FALSE REPAIR
-28. 202s NO FALSE REPAIR
-29. frozen B regressions 全部 green
+GAME stable one-note
++ RMVPE/FCPE delta agree
++ RMVPE voiced drop
++ 无 energy/onset/spectral/articulation boundary
+→ 不得仅凭这些判 TRUE_SPLIT
 ```
 
-## 9.6 Remote CI
+---
+
+## 8.4 P1 — Virtual B 必须保留 / 重算 separation sensitivity
+
+当前 virtual note packet 没有可靠携带新 span 的 separation state，可能导致：
 
 ```text
-30. .github/workflows/ci.yml exists
-31. current C2 acceptance SHA 有 remote workflow run
-32. core pytest job success
-33. A/B/C regression suite 在 remote CI 中 green
-34. 不得只凭 local “N tests passed” 标记 C frozen
+parent = separation_sensitive
+→ split virtual note
+→ separation 字段缺失
+→ frozen B 误认为 normal
+→ confidence 被无意提高
 ```
 
-只有 1–34 满足后：
+### 强制规则
+
+优先：
+
+```text
+按 virtual span 重新计算 mix-vs-separated sensitivity
+```
+
+如果暂时无法精确重算：
+
+```text
+parent sensitive=true
+→ child 至少保守继承 sensitive=true
+```
+
+禁止 sensitive parent 由于字段缺失自动变 normal。
+
+Regression：
+
+```text
+parent sensitive
+→ virtual notes
+→ frozen B confidence/gate 仍体现 separation penalty
+```
+
+---
+
+## 8.5 P1 — C H0 的 missing extractor evidence 必须 neutral
+
+当前类似：
+
+```text
+H0 += (1 - RMVPE_split_support)
+H0 += (1 - FCPE_split_support)
+```
+
+会导致：
+
+```text
+extractor evidence missing
+split_support=0
+→ H0 获得 +1 强支持
+```
+
+这是错误语义。
+
+### 必须显式计算 one-note support
+
+例如：
+
+```text
+extractor 可用
++ coverage 足够
++ 单 plateau 稳定
++ span 内无 meaningful changepoint
+→ one_note_support > 0
+```
+
+而：
+
+```text
+extractor missing / low confidence
+→ one_note_support = 0 (neutral)
+```
+
+不能自动等于 `1 - split_support`。
+
+Regression：
+
+```text
+missing RMVPE/FCPE
+→ 不增加 H0 score
+→ 不算 opposing H1 evidence
+```
+
+---
+
+# 9. C2 Freeze Acceptance Matrix
+
+C2 freeze 前必须满足全部要求。
+
+## 9.1 Existing C2 correctness
+
+```text
+1. all-baseline discovery 仍存在，GAME stable-but-wrong 可进入 C
+2. two plateaus alone 不等于 full split support
+3. relative pitch-delta direction / magnitude / boundary-time agreement 显式计算
+4. small/inconsistent delta 不误判 TRUE_SPLIT
+5. true two-note synthetic 可判 TRUE_SPLIT
+6. large portamento 仍可让 H3 赢
+7. F0-only changepoint 无独立 boundary 时不得 high-confidence split
+8. energy evidence 为 boundary-local
+9. run_note_counts==0 不作为 merge support
+10. merge 只用明确 per-run span/boundary correspondence
+11. C first stage 不自动写 Candidate 0
+```
+
+## 9.2 Virtual-note B correctness
+
+```text
+12. structure change -> virtual identities/spans
+13. old B invalidated
+14. 每个 virtual span 重新生成 evidence
+15. frozen B 在 virtual note 上执行
+16. old winner/confidence/margin/group_scores 不复用
+17. candidate pitch seed 与 GAME evidence 字段分离
+18. 无真实 GAME correspondence 时 GAME group neutral
+19. 有真实 GAME correspondence 时只用真实 per-run GAME notes
+20. RMVPE-derived seed 不得产生 fake GAME vote
+21. separation sensitivity 在 virtual span 重算或保守继承
+22. virtual B 未 finalized 时不得提前 phrase_review
+```
+
+## 9.3 Final-gate semantics
+
+```text
+23. C resolved_keep + unchanged span 可 finalize provisional B
+24. material span/identity change 必须 rerun B
+25. final_structure_clear 在 SAFE gate 前生效
+26. raw structure_varies 保留 audit，但不永久阻塞 finalized keep
+27. production-order regression PASS
+```
+
+## 9.4 Evidence independence / missingness
+
+```text
+28. RMVPE voiced-drop 不算 independent non-F0 boundary family
+29. acoustic-only split 至少需要真正跨机制 boundary evidence
+30. missing extractor evidence = neutral
+31. C H0 不得用 1-missing-support 获得假强证据
+32. 同一 evidence family 不得重复计票
+```
+
+## 9.5 Permanent safety regressions
+
+```text
+33. 189s no false repair
+34. 202s no false repair
+35. Candidate 0 unchanged
+36. 0 automatic repair 仍是合法结果
+37. frozen B regressions 全部 green
+```
+
+## 9.6 Remote CI hard gate
+
+```text
+38. local suite green
+39. acceptance SHA 对应 GitHub Actions run exists
+40. pytest job == success
+41. core regressions 无 skipped/disabled 伪 green
+42. remote run 必须对应最终 C2 acceptance SHA
+```
+
+只有 1–42 全部满足后：
 
 ```text
 M2.3.2C = FROZEN
 ```
 
+**不要新增 C3；如果 final patch 未满足，上述 C2 contract 继续保持 OPEN。**
+
 ---
 
 # 10. M2.3.2D — Phrase-Level Human Review
 
-人工只处理 finalized B/C 后仍 unresolved 的音乐语义。
+只处理 finalized B/C 后仍 unresolved 的音乐语义。
 
 可达条件：
 
 ```text
-pitch machine lane not pending/provisional/invalidated-waiting-rerun
+pitch lane not pending / provisional / invalidated-waiting-rerun
 structure lane not pending
-AND
-至少一条 finalized lane == unresolved
+AND 至少一条 finalized lane == unresolved
 ```
 
 才允许：
@@ -957,24 +706,16 @@ AND
 needs_phrase_review
 ```
 
-人工不猜 F0 / MIDI / Hz / cents / octave。
+人工不猜 MIDI / Hz / cents / octave。
 
-Review 单位：
+默认 review 单位：
 
 ```text
-最低约 3s
+3–12s phrase
 常规 5–8s
-最长约 12s
 ```
 
-优先：
-
-```text
-LRC line
-vocal silence
-breath gap
-GAME phrase context
-```
+优先边界：LRC line / vocal silence / breath gap / phrase context。
 
 Review 包：
 
@@ -987,12 +728,7 @@ CANDIDATE_B_PHRASE.wav
 CANDIDATE_C_PHRASE.wav optional
 ```
 
-要求：
-
-- 时间窗一致；
-- singer / phonemizer / color / volume / PITD policy 一致；
-- 除目标 region 外 score 一致；
-- 一次只改变一个待判断因素。
+所有 candidates 除目标因素外必须完全一致。
 
 人工只选：
 
@@ -1007,22 +743,18 @@ Baseline / A / B / C / 都差不多 / 都不对
 进入条件：
 
 ```text
-A frozen contracts remote-regression green
-B frozen contracts remote-regression green
-C frozen + remote CI green
+A frozen regressions remote green
+B frozen regressions remote green
+C frozen + current acceptance SHA remote green
 189s no false repair
 202s no false repair
 phrase review workflow available
 Candidate 0 / rollback contract complete
 ```
 
-第一版优先：
+第一版优先 single-note written-pitch retune。
 
-```text
-single-note written-pitch retune
-```
-
-每个 repair 记录：
+每个 repair 必须记录：
 
 ```text
 region
@@ -1036,15 +768,15 @@ gates passed
 rollback data
 ```
 
-0 SAFE repairs 是合法结果。
+0 SAFE repairs 合法。
 
-禁止覆盖 Candidate 0。
+Structure repair 在 C adjudication precision 验证完成前不得自动执行。
 
 ---
 
 # 12. Lyrics / USTX / PITD
 
-Melody written score 稳定后再映射 lyrics：
+Written melody 稳定后再做 lyrics mapping：
 
 ```text
 1 char → 1 note
@@ -1061,17 +793,9 @@ OpenUtau：
 静音：gap / SP
 ```
 
-歌词冲突标：
-
-```text
-lyric_alignment_conflict
-```
-
-不得靠强移 voiced block 伪修复。
-
 基础 USTX 验收：
 
-> **不做泠鸢 style 和复杂 PITD 时，是否已经唱对旋律和节奏？**
+> 不做泠鸢 style 和复杂 PITD 时，是否已经唱对旋律和节奏？
 
 通过后再加入：
 
@@ -1093,34 +817,31 @@ PITD 不得掩盖 written-note error。
 
 ```text
 GAME run note counts
+per-run GAME member notes/spans/tones
 pairwise alignment costs
 selected medoid + sensitivity
-GAME per-event run tone distribution
-per-run structure/boundary evidence
-match/gap/split/merge counts
+GAME run-tone distribution
+match/gap/split/merge correspondence
 orthogonal states
 routing needs / decision
-pitch adjudication status / provisional / invalidated
-structure adjudication status
+pitch adjudication lifecycle
+structure adjudication lifecycle
 RMVPE / FCPE / third-F0 evidence
-plateau pre/post centers + relative deltas
-changepoint timing agreement
-onset / energy / voiced-gap boundary evidence
-periodicity octave metrics
-spectral octave metrics
+plateau pre/post center + relative delta
+boundary-time agreement
+energy/onset/spectral/articulation boundary evidence
+separation sensitivity
+raw feature evidence
 group_scores
 supporting_independence_groups
-opposing_independence_groups (audit-only unless group-level opposition finalized)
 winner / runner-up / margin
-separation sensitivity
-AUTO_RESOLVED / UNRESOLVED counts
-independent structure discoveries
-structure discovery rate + reason distribution
-virtual candidate note B results
+independent structure discovery stats
+virtual candidate notes
+virtual-note B results
+GAME evidence provenance for each virtual note
 phrase-review count
-regression status
-local test result
-remote CI workflow URL/run id/SHA/conclusion
+local regression result
+remote CI run id / SHA / conclusion
 cache/provenance manifest
 ```
 
@@ -1147,12 +868,12 @@ rollback coverage
 ### M2.2B — Dual-F0 ✅
 ### M2.3 — Residual-error triage ✅
 ### M2.3.1 — Triage calibration ✅
-### M2.3.2A / A2 / A3 / A4 — Correctness + routing/provenance ✅ FROZEN (remote CI backfill required)
-### M2.3.2B1 / B2 / B3 — Pitch/octave adjudication ✅ FROZEN (remote CI backfill required)
-### M2.3.2C1 — Structure adjudication framework ✅ IMPLEMENTED / NOT FROZEN
-### E1 — GitHub Actions remote CI ← 当前 P0 工程 gate
-### M2.3.2C2 — Structure correctness/lifecycle calibration ← 当前算法 P0
-### M2.3.2C — Freeze only after E1 + C2 acceptance
+### M2.3.2A / A2 / A3 / A4 — ✅ FROZEN
+### M2.3.2B1 / B2 / B3 — ✅ FROZEN
+### E1 — GitHub Actions Remote CI — ✅ PASS
+### M2.3.2C1 — ✅ IMPLEMENTED / NOT FROZEN
+### M2.3.2C2 — 主体已实现；Final Correctness Patch ← CURRENT
+### M2.3.2C — Freeze only after §9 full acceptance + current-SHA remote green
 ### M2.3.2D — Phrase-level human review
 ### M2.4 — SAFE repair
 ### M2.5 — PROBABLE structure repair
@@ -1166,51 +887,32 @@ rollback coverage
 
 ---
 
-# 15. 最终原则
+# 15. 最终不可违反的规则
 
-1. **GAME 是默认 melody transcription 基座。**
-2. **Candidate 0 必须来自真实 GAME run。**
-3. **Medoid 是 baseline selection，不是 correctness proof。**
-4. **Consensus 是 uncertainty graph，不是最终 note skeleton。**
-5. **F0 measurement 与 score interpretation 分开。**
-6. **能程序测量的 pitch / octave 不交给人工猜。**
-7. **单 F0 extractor 不能独自推翻 GAME。**
-8. **同一 extractor 的多个 feature 不是多票。**
-9. **GAME 多 runs 是 stochastic samples，不是多个独立模型。**
-10. **GAME stochastic support 保留连续置信度。**
-11. **结构未定时，不做 final written-pitch adjudication。**
-12. **Pitch+structure concurrent region 先解析 note identity，或 B 只能 provisional。**
-13. **C resolved_keep 仅在 identity/span 未变时可 finalize provisional B。**
-14. **C 改变 note identity/time span 后必须 invalidate / regenerate / rerun B。**
-15. **C resolved_change_candidate 不得直接跳过 new-note B 去人工。**
-16. **两个 F0 extractors 都出现 two plateaus，不等于 written score 必须 split。**
-17. **Split 必须比较 cross-extractor relative pitch delta + boundary evidence。**
-18. **F0 changepoint agreement 证明声学 movement，不单独证明 written-note boundary。**
-19. **Portamento/ornament 必须与 split hypothesis 真正竞争。**
-20. **Energy boundary evidence 必须 boundary-local，不用 whole-note min/mean 代替。**
-21. **run_note_counts==0 不得解释为 GAME merge support。**
-22. **Raw structure_varies 是 evidence；final C resolution 才是后续 final gate semantics。**
-23. **Octave ACF 必须处理倍周期歧义。**
-24. **Harmonic score 必须避免低八度 harmonic-set 超集偏置。**
-25. **相关 waveform features 必须先 group fusion。**
-26. **supporting independence groups 必须从 finalized net group scores 推导。**
-27. **raw feature support 不得绕过 group-level gate。**
-28. **opposing_independence_groups 当前仅 audit-only。**
-29. **Cache/provenance 必须真正参与 invalidation。**
-30. **Third-F0 runtime version 必须参与 freshness check。**
-31. **Repair gate 必须显式绑定 adjudicator winning hypothesis。**
-32. **C 必须扫描全部 baseline，防止 GAME stable-but-wrong。**
-33. **C 第一阶段只 adjudicate，不自动 structure repair。**
-34. **B/C 使用 explicit pending/provisional/resolved/invalidated/unresolved lifecycle。**
-35. **needs_phrase_review 只能在 machine-computable lanes 全结束后产生。**
-36. **人工默认审核完整乐句，不审核 isolated note。**
-37. **189s 永久作为 extractor-conflict regression。**
-38. **202s 永久作为 stochastic pitch / identity-variable regression。**
-39. **0 automatic repairs 是合法结果。**
-40. **Candidate 0 永远可 rollback。**
-41. **所有修改必须局部、可解释、可审计、可 A/B。**
-42. **从 C2 起，没有 remote CI green，不允许任何 stage 标记 FROZEN/PASS。**
-43. **Remote CI 必须对应被验收的当前 SHA，不能拿旧 run 充数。**
-44. **A/B frozen regressions 必须在 CI 建立后 backfill；remote failure 会 reopen contract。**
-45. **先把 written score 唱对，再生成 PITD。**
-46. **先“唱对”，再做泠鸢风格。**
+1. GAME 是基座，不是 truth。
+2. Candidate 0 只能来自真实 GAME run。
+3. Consensus 只表示 uncertainty/correspondence。
+4. GAME stochastic runs 不是多个独立模型。
+5. F0 measurement ≠ score interpretation。
+6. missing evidence = neutral。
+7. 单 extractor / 单 mechanism 不得重复计票。
+8. 结构未定时 pitch 只能 provisional。
+9. C 改 identity/span 后 old B 必须 invalidate + regenerate + rerun。
+10. virtual candidate pitch seed 不等于 GAME evidence。
+11. 无真实 GAME virtual correspondence 时 GAME group 必须 neutral。
+12. RMVPE voiced-drop 不算独立 non-F0 family。
+13. F0 changepoint 本身不能证明 written-note boundary。
+14. Split 与 portamento/ornament 必须真实竞争。
+15. `run_note_counts==0` 不代表 merge。
+16. Finalized C semantics 优先于 raw historical structure flag。
+17. SAFE gate 必须在 finalized structure state 生效后计算。
+18. separation-sensitive 不得因 virtual packet 丢字段而消失。
+19. Candidate 0 永不被 adjudication 原地覆盖。
+20. C 第一阶段只 adjudicate，不自动 structure repair。
+21. needs_phrase_review 只能在 machine-computable lanes 结束后产生。
+22. 189s 永久 extractor-conflict regression。
+23. 202s 永久 stochastic pitch/identity regression。
+24. 0 repair 是合法结果。
+25. 从 C2 起，没有当前 acceptance SHA 的 remote CI green，不允许 FROZEN/PASS。
+26. 先把 written score 唱对，再生成 PITD。
+27. 先“唱对”，再做泠鸢风格。
