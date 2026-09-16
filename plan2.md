@@ -1,16 +1,16 @@
-# agent2utau — Plan 2：GAME 主转谱 + 证据驱动校正 + 分阶段演唱建模
+# agent2utau — Plan 2：GAME 主转谱 + 自动证据裁决 + 分阶段演唱建模
 
 > 修订日期：2026-09-16
 >
 > 核心原则：**先把“唱对”解决，再把“唱得像泠鸢”解决。**
 >
-> 当前工程原则：**GAME 提供真实可渲染的乐谱候选；多次 GAME consensus 只作为 uncertainty / evidence graph。先把 residual errors 筛到很少并校准 precision，再允许自动 repair。**
+> 当前工程原则：**GAME 提供真实可渲染的乐谱候选；多次 GAME consensus 只作为 uncertainty / evidence graph。音高测量与 octave / pitch conflict 优先由程序裁决；人工只负责机器仍无法确定的音乐语义与候选听感，并且以完整乐句为审核单位，而不是孤立短切片。**
 
 ---
 
-## 1. 项目目标
+# Part A — 项目目标与已确认事实
 
-输入一首原曲后，系统最终应自动完成：
+## 1. 最终目标流程
 
 ```text
 原曲
@@ -18,17 +18,19 @@
 → GAME 多次转谱
 → 选择真实 GAME medoid run 作为 Candidate 0
 → 多 run consensus uncertainty graph
-→ RMVPE + FCPE 双 F0 证据
+→ RMVPE + FCPE + 第三 F0 / 谐波证据
 → stable plateau / changepoint / onset / energy / lyric evidence
 → residual-error triage
+→ automatic adjudication
 → 只修强证据局部错误
+→ 对仍 unresolved 的结构问题做 phrase-level A/B/C 人工审核
 → lyrics ↔ melody mapping
 → OpenUtau / DiffSinger 基础渲染
 → constrained PITD / 演唱细节
 → 最后再做泠鸢风格迁移
 ```
 
-旧主旋律生成方式：
+旧主旋律方式：
 
 ```text
 歌词字窗口
@@ -40,8 +42,6 @@
 已确认能力不足，只保留为显式 fallback，不再作为默认 melody transcription。
 
 ---
-
-# Part A — 已确认的基础事实
 
 ## 2. 当前已完成基础设施
 
@@ -63,13 +63,17 @@
 - GAME USTX + DiffSinger render；
 - medoid baseline selection；
 - stable plateau detection；
-- residual-error triage。
+- residual-error triage；
+- M2.3.1 SAFE gate；
+- dual-extractor structure evidence；
+- regression cases；
+- listening-set 生成能力。
 
 forced char `known_boundaries` 路径只保留实验用途，不进入默认主链。
 
 ---
 
-## 3. GAME 是主转谱基座，不再用 F0 heuristic 重建整首 MIDI
+## 3. GAME 是主转谱基座
 
 早期 forced-boundary 实验曾出现：
 
@@ -79,21 +83,14 @@ B zh  ≈ 417 notes
 C forced-char-boundary ≈ 760 notes
 ```
 
-C 上的：
+C 上的 suspicious 数不能代表 GAME raw 错误率，因为强制字符边界本身改变了 segmentation 和 estimator。
 
-```text
-76 suspicious
-54 wrong_pitch
-```
-
-不能代表 GAME raw 错误率，因为强制字符边界本身改变了 segmentation 和 estimator。
-
-因此固定原则：
+长期固定原则：
 
 - GAME raw 是主 melody transcription 来源；
 - lyric char start 不是天然 note boundary；
-- RMVPE / FCPE 是 evidence，不是全曲主转谱器；
-- correction 的目标是修少量 GAME residual errors，而不是重写整首谱。
+- RMVPE / FCPE / 第三 F0 都是 evidence，不是全曲主转谱器；
+- correction 只修少量 residual errors，不重写整首谱。
 
 ---
 
@@ -111,19 +108,17 @@ C 上的：
 single GAME run != deterministic truth
 ```
 
-但 stochasticity 本身是有用 evidence：
+stochasticity 本身是 uncertainty evidence：
 
-- 多次都一致 → 更可信；
+- 多次一致 → 更可信；
 - split / merge / pitch 多解 → 局部不确定；
 - 自动 repair 不能依赖单次 GAME。
 
 ---
 
-## 5. M2.2A — Formal sequence alignment ✅
+## 5. Formal sequence alignment ✅
 
-旧的 `150 ms onset greedy clustering` 已废弃为正式依据。
-
-当前 `diagnostic/seqalign.py`：
+当前 `diagnostic/seqalign.py` 使用：
 
 ```text
 order-preserving DP
@@ -156,8 +151,6 @@ order-preserving DP
 43  events 有 split/merge structure variance
 ```
 
-这说明 GAME 主体旋律稳定，真正需要关注的是局部区域。
-
 ---
 
 ## 6. Consensus 只是 evidence graph，不是最终谱面
@@ -168,11 +161,7 @@ order-preserving DP
 397 consensus events != 最终 397 notes
 ```
 
-包含 split / merge 的 component 表示：
-
-> 多次 GAME 对这一局部 musical region 的结构解释不同。
-
-它不是一颗最终 MIDI note。
+包含 split / merge 的 component 只表示局部结构不确定。
 
 禁止把：
 
@@ -186,61 +175,90 @@ tone_median
 
 `event_as_note()` 只能用于 diagnostic / cross-consensus comparison。
 
-union-find component 也只表示 uncertainty region；由于存在 transitive bridging 风险，不负责决定唯一结构。
+union-find component 由于存在 transitive bridging 风险，也不负责决定唯一结构。
 
 ---
 
-## 7. 最终 Candidate 0 必须来自真实 GAME run
+## 7. Candidate 0 必须来自真实 GAME run
 
-正式策略：从多次 raw GAME 中选 **medoid run**：
+从多次 raw GAME 中选 medoid run：
 
 ```text
 对其他 runs 的总 pairwise alignment cost 最小
 ```
 
-当前《年轮》M2.3 run 已选出：
+当前《年轮》M2.3/M2.3.1 已验证这种策略有效。
 
-```text
-Candidate 0 = raw GAME run 3
-voiced notes = 416
-```
-
-这样：
+意义：
 
 - 每颗 baseline note 都来自真实 GAME 推理；
-- 不会产生不存在于任何 run 的 synthetic structure；
-- repair 可以逐项 audit / rollback；
-- corrected score 永远能和 Candidate 0 做 A/B。
+- 不产生不存在于任何 run 的 synthetic structure；
+- correction 可 audit / rollback；
+- 某些 stochastic pitch error 可直接通过 medoid selection 被消除。
+
+202.52s 就是实际案例：早期单次 GAME 曾给出约 MIDI 65.3，而其他 GAME runs 存在约 72.4 解；M2.3.1 的 medoid baseline 选择到了约 72.4，与双 F0 plateau 一致，因此该问题被 baseline selection 自身解决，不再是 SAFE-retune candidate。
 
 ---
 
-# Part B — F0 / Structural Evidence
+# Part B — F0 与 Pitch Evidence
 
-## 8. M2.2B — Dual-F0 ✅
+## 8. Dual-F0 已证明必要 ✅
 
-RMVPE + FCPE 必须共同参与 hard-pitch judgement。
-
-189.84s 已成为关键 regression case：
+189s 附近出现过典型 octave conflict：
 
 ```text
-GAME   ≈ MIDI 58.1
-FCPE   ≈ MIDI 58.03
-RMVPE  ≈ MIDI 69.96
+RMVPE ≈ 高八度候选
+FCPE  ≈ 低八度候选
+GAME  ≈ 其中一个候选
 ```
 
-RMVPE 与 FCPE 相差约一个 octave。
+单看 RMVPE 会产生错误 octave-repair 风险。
 
-工程结论：
+因此：
 
-> **F0_EXTRACTOR_CONFLICT；没有足够证据修改 GAME。**
+> **任何单一 F0 extractor 都不能独自推翻 GAME。**
 
-这证明：任何单一 F0 extractor 都不能独自推翻 GAME。
-
-189.84s 必须永久保留为 regression case，确保未来规则不会重新把它误修成 octave correction。
+189s 区域永久保留为 `F0_EXTRACTOR_CONFLICT / NO-REPAIR` regression case，直到自动 adjudicator 能给出更强证据。
 
 ---
 
-## 9. Structural F0
+## 9. F0 measurement 与 score interpretation 必须分开
+
+这是 M2.3.2 的核心认识。
+
+### F0 measurement
+
+问题：
+
+```text
+这一帧 / 这一稳定区间的 fundamental frequency 是多少？
+```
+
+这是程序更擅长的问题，应由：
+
+- RMVPE；
+- FCPE；
+- 第三独立 F0 estimator；
+- waveform periodicity；
+- harmonic spectrum；
+
+共同处理。
+
+### Score interpretation
+
+问题：
+
+```text
+这一段连续 F0 应记为一颗 note、两颗 note、滑音还是 ornament？
+```
+
+这是 GAME + structure evidence + musical context 的问题。
+
+人工可以参与后者的最终模糊案例，但不应承担“猜 MIDI / 猜 cents / 猜绝对音高”的工作。
+
+---
+
+## 10. Structural F0
 
 当前处理：
 
@@ -258,42 +276,30 @@ raw F0
 
 所有 pitch error / dispersion 对外统一 cents。
 
-`high_dispersion` 只保留为 feature，不单独触发 suspicious。
+`high_dispersion` 只作为 feature，不单独触发 suspicious。
 
 ---
 
-## 10. Full-window median 只适用于结构稳定区域
+## 11. Full-window median 只适用于结构稳定区域
 
-对稳定 note，GAME note window 内的 F0 median 有用。
+对稳定 note，GAME note window 内 F0 median 有用。
 
-但对：
+对以下情况必须优先看 plateau / changepoint：
 
 - split；
 - merge；
 - missed split；
 - portamento；
 - 快速转音；
-- grace / ornament；
+- grace / ornament。
 
-必须优先看 plateau / changepoint，而不是整段 median。
-
-结构 evidence 应尽量独立计算：
-
-```text
-RMVPE raw / structural F0
-→ RMVPE plateaus + changepoints
-
-FCPE raw / structural F0
-→ FCPE plateaus + changepoints
-```
-
-不能只用 RMVPE structural plateau，再把“FCPE 有 F0”当成双结构确认。
+M2.3.1 已加入 note interior / plateau re-triage，实际把大量 vibrato/transition 假阳性消掉。
 
 ---
 
 # Part C — Lyrics Evidence
 
-## 11. Lyric timestamp 永远不是默认 note boundary
+## 12. Lyric timestamp 永远不是默认 note boundary
 
 必须区分：
 
@@ -337,392 +343,483 @@ lyric articulation 支持
 
 ---
 
-# Part D — M2.3 Residual-Error Triage ✅ 初版完成
+# Part D — M2.3 / M2.3.1 当前真实状态
 
-## 12. 当前《年轮》真实 triage 结果
+## 13. M2.3 Residual-Error Triage ✅
 
-Candidate 0：
-
-```text
-GAME medoid run 3
-416 voiced notes
-```
-
-当前 triage：
+初版曾得到：
 
 ```text
+416 baseline notes
 312 GAME_LIKELY_CORRECT
-47  STRUCTURE_HARD_SUSPICIOUS
-37  NEEDS_LISTENING_REVIEW
-16  F0_EXTRACTOR_CONFLICT
-3   AMBIGUOUS_ORNAMENT
-1   PITCH_HARD_SUSPICIOUS
+47  structure-hard
+37  needs-listening
+16  F0 conflicts
+3   ambiguous
+1   pitch-hard
 ```
 
-这说明系统已经把原先几百个粗糙 feature flag 压缩成较小的 review set。
-
-但：
-
-> **这些分类仍是 validator 输出，不等于 confirmed error 数量。**
-
-特别是 47 个 `STRUCTURE_HARD_SUSPICIOUS` 当前不能解释成 47 个确定的 split / merge 错误。
+这些只是 validator 输出，不等于 confirmed errors。
 
 ---
 
-## 13. 202.52s — 首个强 pitch-error 候选
+## 14. M2.3.1 Triage Calibration ✅ 实现完成
 
-当前 evidence：
+M2.3.1 已完成以下收紧：
+
+- `PITCH_HARD_SUSPICIOUS` 与 `SAFE_RETUNE_CANDIDATE` 分层；
+- SAFE gate 加入 GAME presence / tone agreement / structure stability / single plateau / neighbours 等硬条件；
+- wrong-pitch 用 plateau / note-interior center 重判，不再依赖 full-window median；
+- `STRUCTURE_HARD_SUSPICIOUS` 改名 `STRUCTURE_CANDIDATE`；
+- RMVPE / FCPE 独立生成 structure evidence；
+- regression cases 落地；
+- listening-set 生成能力落地。
+
+最新《年轮》结果约为：
 
 ```text
-GAME ≈ 65.3
-RMVPE ≈ 72.30
-FCPE ≈ 72.31
-RMVPE / FCPE IQR ≈ 低且稳定
-structural plateau ≈ 72.28
-GAME 多次运行高度一致
+339 GAME_LIKELY_CORRECT
+45  STRUCTURE_CANDIDATE
+7   NEEDS_LISTENING_REVIEW
+18  F0_EXTRACTOR_CONFLICT（最新 listening set）
+0   PITCH_HARD_SUSPICIOUS
+0   SAFE_RETUNE_CANDIDATE
 ```
 
-差约：
+关键修正：
 
 ```text
-+700 cents
+202.52s
+早期：看起来像 GAME 低约 700c
+M2.3.1：发现 GAME runs 自身 tone-unstable（约 65.3 / 72.4）
+medoid baseline 选择约 72.4
+与 RMVPE / FCPE 稳定 plateau 一致
+→ baseline selection 自行解决
+→ 不需要 retune
 ```
 
-它是目前最强的 GAME wrong-pitch candidate。
-
-但是正式表述应是：
-
-> **first SAFE-retune benchmark candidate**
-
-而不是在 A/B audition 之前直接写成“confirmed error”。
-
-M2.3.1 必须用它校准完整 SAFE gate。
+这是一个重要结论：**程序化 consensus / medoid 可以先消掉一部分错误，不应该过早把问题交给人工。**
 
 ---
 
-# Part E — 当前最高优先级：M2.3.1 Triage Calibration
+## 15. 当前 listening-set 的问题
 
-## 14. 为什么不能直接进入 M2.4
-
-当前 `PITCH_HARD_SUSPICIOUS` 规则主要依赖：
+当前 demo 已生成约 40 组：
 
 ```text
-RMVPE + FCPE agree
-AND both oppose GAME
-AND 两个 extractor IQR 足够低
+SOURCE short clip
+RENDER short clip
 ```
 
-但正式 SAFE repair 还缺少：
+并要求人工判断：
 
-- GAME presence / tone consensus gate；
-- `structure_varies = false` gate；
-- single stable plateau gate；
-- plateau center 与双 F0 center 的一致性；
-- 局部 A/B render；
-- human listening benchmark。
+```text
+这里是高八度还是低八度？
+这里更像 MIDI 65 还是 MIDI 72？
+```
 
-另外当前 structure triage 仍主要使用 RMVPE structural plateau，47 个 structure-hard 的 precision 尚未校准。
+该审核设计不再作为正式流程。
 
-因此：
+原因：
 
-> **M2.3.1 未完成前，禁止进入自动 SAFE repair。**
+1. 普通听者没有绝对音高，不应承担 F0 detector 的职责；
+2. 0.5–1.5s 孤立片段缺乏前后旋律上下文；
+3. 短音、转音、辅音、气声和 DiffSinger 音色都会干扰判断；
+4. 人耳更适合比较完整旋律关系，而不是给 isolated tone 标 MIDI；
+5. 当前系统已经有足够证据继续把 pitch adjudication 自动化。
+
+当前 listening set 保留为 debug/demo，不作为 M2.3.2 的正式人工验收界面。
 
 ---
 
-## 15. 收紧 PITCH SAFE gate
+# Part E — 当前最高优先级：M2.3.2 Automatic Adjudication
 
-`PITCH_HARD_SUSPICIOUS` 和 `SAFE_RETUNE_CANDIDATE` 必须拆开。
+## 16. 总目标
 
-### PITCH_HARD_SUSPICIOUS
-
-程序发现：
+目标是进一步减少：
 
 ```text
-RMVPE + FCPE agree
-AND 两者共同反对 GAME > calibrated threshold
-AND voiced evidence 充分
-```
-
-只表示“值得重点验证”。
-
-### SAFE_RETUNE_CANDIDATE
-
-至少同时满足：
-
-```text
-1. GAME presence_rate 高，优先 5/5
-2. GAME tone agreement 高
-3. consensus structure 不存在 split / merge ambiguity
-4. structure_varies = false
-5. aligned note identity 清楚
-6. RMVPE 与 FCPE center 接近
-7. RMVPE IQR 低
-8. FCPE IQR 低
-9. 两者共同反对 GAME，差值足够大
-10. stable plateau 数 = 1
-11. plateau center 与双 F0 center 一致
-12. 前后相邻 note 不支持另一种合理解释
-13. repair 仅修改当前 note pitch
-14. before / after render 可生成
-15. 首批 benchmark 经人工听感确认
-```
-
-缺任一关键证据 → `NEEDS_LISTENING_REVIEW` 或 `AMBIGUOUS`，不得 SAFE auto-fix。
-
----
-
-## 16. 202.52s benchmark 验收
-
-必须输出局部完整包：
-
-```text
-202.52s 附近原唱混音片段
-separated vocal 片段
-GAME Candidate 0 render
-retune candidate render
-GAME 5 runs note evidence
-consensus evidence
-RMVPE raw / structural F0
-FCPE raw / structural F0
-plateau evidence
-local neighbours
-repair diff
-```
-
-用户试听后：
-
-- 若原唱与 retune candidate 明显一致 → 标记首个 confirmed SAFE-retune case；
-- 若存在音乐语义歧义 → 降级 AMBIGUOUS；
-- 不允许仅因数值好看自动通过。
-
-该案例通过后，才能把同一 gate 推广到全曲其他 pitch-hard regions。
-
----
-
-## 17. Structure-hard 必须降级为 structure candidates
-
-当前 47 个 `STRUCTURE_HARD_SUSPICIOUS` 在校准完成前统一解释为：
-
-```text
+F0_EXTRACTOR_CONFLICT
+NEEDS_LISTENING_REVIEW
 STRUCTURE_CANDIDATE
 ```
 
-不是 confirmed structure error。
+中真正需要人工介入的数量。
 
-正式 hard structure evidence 要求：
+原则：
 
-```text
-GAME runs 有明确 1↔2 / 2↔1 / missing / extra disagreement
-AND RMVPE structural F0 支持特定 plateau / changepoint
-AND FCPE structural F0 独立支持相近 plateau / changepoint
-AND 两个 extractor 的 transition timing 足够接近
-AND onset / energy 支持该 boundary
-AND 新结构 duration 合理
-```
-
-歌词 evidence 可辅助，但不能单独决定 split / merge。
+> **能程序测量的东西不要交给人耳；只有音乐语义仍然多解时才让人选。**
 
 ---
 
-## 18. 双结构证据
+## 17. Pitch / octave conflict 自动裁决
 
-新增每个 structure candidate 的字段：
+对 `F0_EXTRACTOR_CONFLICT` 不再默认人工试听猜音高。
 
-```text
-rmvpe_plateaus
-fcpe_plateaus
-rmvpe_changepoints
-fcpe_changepoints
-plateau_count_agreement
-plateau_pitch_agreement
-changepoint_time_delta_ms
-boundary_onset_support
-energy_support
-lyric_support
-```
-
-建议第一版硬 gate：
+自动 evidence stack：
 
 ```text
-plateau count 一致
-AND 对应 plateau pitch 接近
-AND changepoint timing 在 calibrated tolerance 内
+RMVPE
++
+FCPE
++
+第三独立 F0 estimator
++
+waveform periodicity / autocorrelation
++
+harmonic spectral evidence
++
+GAME multi-run pitch distribution
++
+local melodic context
 ```
 
-如果 RMVPE / FCPE 对结构本身不一致：
+第三 F0 estimator 优先选择与 RMVPE / FCPE 机制足够独立的实现，例如：
 
 ```text
-F0_STRUCTURE_CONFLICT / AMBIGUOUS
+pYIN / YIN
+WORLD Harvest
+CREPE（可作为额外 neural opinion）
 ```
 
-禁止自动 split / merge。
+第一版只需要选一个可靠、易集成、CPU 可运行的独立 estimator；不必一次接全部。
 
 ---
 
-## 19. Structure triage precision calibration
+## 18. Octave adjudicator
 
-不要一次处理 47 个。
-
-先从 47 个 structure candidates 中抽取至少 10 个，尽量覆盖：
+对候选：
 
 ```text
-1↔2 split
-2↔1 merge
-多 plateau
-single plateau but GAME splits
-快速转音
-portamento
-vibrato
-短 note
+F0 = f
+vs
+F0 = 2f
 ```
 
-每个样本输出：
+不能只做 extractor 多数投票。
+
+需要计算：
 
 ```text
-GAME 5-run local piano roll / JSON
-medoid baseline
-RMVPE plateau / changepoint
-FCPE plateau / changepoint
-onset / energy
-source vocal clip
-baseline render clip
-候选结构 render（仅用于人工比较，不自动采用）
+candidate periodicity score
+harmonic-series fit
+subharmonic support
+spectral harmonic summation / comb score
+voiced stability
+extractor confidence / agreement
+GAME-run support
 ```
 
-人工确认：
+例如真实基频较弱但二次谐波很强时：
 
 ```text
-true structure error
-GAME acceptable representation
-ornament ambiguity
-F0 extractor artifact
-alignment artifact
+f      弱
+2f     强
+3f     强
+4f     强
 ```
 
-统计 precision：
+单模型可能误判为 `2f`，但完整 harmonic series 应能支持 `f`。
+
+输出分类：
 
 ```text
-confirmed structure errors / reviewed structure candidates
+AUTO_PITCH_RESOLVED
+AUTO_OCTAVE_RESOLVED
+F0_UNRESOLVED
 ```
 
-若 precision 偏低，继续校准 validator，不进入 split / merge auto-repair。
+只有 `F0_UNRESOLVED` 才允许进入后续人工/第三证据流程。
+
+人工不得被要求输出：
+
+```text
+MIDI 58 / 70
++1200c / -1200c
+Hz 数值
+```
 
 ---
 
-## 20. 37 个 NEEDS_LISTENING_REVIEW
+## 19. Pitch auto-resolution gate
 
-当前其中很多是：
+程序自动决定 pitch 至少要求：
 
 ```text
-双 F0 center 大致一致
-但 vibrato / transition 导致 full-window IQR 高
-GAME vs median 偏约 100–190 cents
+1. GAME note identity / region identity 清楚
+2. 至少两个独立 pitch evidence 支持同一 written-note hypothesis
+3. octave/subharmonic test 不反对
+4. harmonic spectral evidence 支持
+5. local melodic context 不产生明显矛盾
+6. 无显著 structure ambiguity
+7. confidence 高于 calibrated threshold
 ```
 
-这些不能因为“双 F0 agree”就自动 retune。
-
-优先用：
-
-- stable plateau center；
-- note interior center；
-- local melodic context；
-- neighbouring GAME notes；
-
-重新筛选。
-
-大部分预计会回落到：
+若冲突：
 
 ```text
-GAME_LIKELY_CORRECT
-```
-
-或：
-
-```text
-AMBIGUOUS_ORNAMENT
-```
-
-而不是 repair candidate。
-
----
-
-## 21. 16 个 F0_EXTRACTOR_CONFLICT
-
-默认：
-
-```text
+保持 Candidate 0
+标 F0_UNRESOLVED
 NO AUTO REPAIR
 ```
 
-保留到：
-
-- 第三 evidence source；
-- source listening；
-- 或后续更强局部模型；
-
-再处理。
-
-当前不需要为了消灭这些 conflict 立即接 ROSVOT。
-
-如果 conflict 数量和实际影响很小，保持 unresolved 更安全。
+而不是强行让人工猜绝对音高。
 
 ---
 
-## 22. M2.3.1 输出
+## 20. Structure candidate 自动裁决
+
+45 个 `STRUCTURE_CANDIDATE` 不直接交给人工。
+
+自动 evidence：
+
+```text
+GAME 5-run structure distribution
+RMVPE plateau / changepoint
+FCPE plateau / changepoint
+第三 F0 / periodicity（必要时）
+onset strength
+energy change
+voiced/unvoiced transition
+lyric articulation
+note-duration plausibility
+local melodic continuity
+```
+
+尝试区分：
+
+```text
+ONE_NOTE_WITH_PORTAMENTO
+TRUE_SPLIT
+TRUE_MERGE
+GRACE_OR_ORNAMENT
+F0_ARTIFACT
+UNRESOLVED_STRUCTURE
+```
+
+只有 `UNRESOLVED_STRUCTURE` 或多个候选分数接近时才进入人工审核。
+
+---
+
+## 21. Automatic adjudication 输出
 
 新增：
 
 ```text
 runs/<id>/diagnostic/
-  baseline_game.json
-  residual_triage.json
-  residual_triage_summary.json
-  pitch_safe_candidates.json
-  structure_candidates.json
-  structure_dual_f0_evidence.json
-  calibration_review_set.json
-  calibration_results.json
+  pitch_adjudication.json
+  octave_adjudication.json
+  structure_adjudication.json
+  unresolved_pitch_regions.json
+  unresolved_structure_regions.json
+  phrase_review_set.json
   regression_cases/
-    189.84_f0_conflict.json
-    202.52_pitch_candidate.json
 ```
 
-summary 必须严格区分：
+每个 adjudication packet 至少保存：
 
 ```text
-feature
-candidate
-hard suspicious
-human confirmed error
-safe repair candidate
+region
+GAME candidate(s)
+GAME multi-run distribution
+RMVPE evidence
+FCPE evidence
+third-F0 evidence
+periodicity evidence
+harmonic evidence
+structure evidence
+candidate scores
+decision
+confidence
+reason
 ```
-
-禁止把 candidate count 当 confirmed error count。
 
 ---
 
-# Part F — Repair Engine
+# Part F — 人工审核只做 Phrase-Level Musical Review
 
-## 23. M2.4 — SAFE repair 的进入条件
+## 22. 人工审核职责
 
-只有 M2.3.1 完成后才允许开始。
-
-进入条件：
+人工不再承担：
 
 ```text
-202.52s benchmark 已人工确认
-PITCH SAFE gate 固化并有 regression test
-structure-candidate precision 已知
-189.84s regression 不会被误修
+测 F0
+猜 MIDI
+猜 cents
+判断具体 Hz
 ```
 
-第一版 repair 只实现已经真实确认且规则简单的类型。
+人工只负责：
 
-如果最终只有少量 pitch errors，就只做轻量 retune，不为了“完整性”开发重型 repair engine。
+```text
+哪一种完整唱法更像原唱？
+哪一种 note structure 在上下文里更自然？
+A / B / C 是否存在明显听感错误？
+```
+
+主要应用于：
+
+- split vs one-note + slide；
+- merge vs two distinct notes；
+- grace / ornament 是否应记为独立 note；
+- 多个候选结构分数接近；
+- 自动证据仍无法唯一裁决的区域。
 
 ---
 
-## 24. Candidate 0 与修复审计
+## 23. 人工审核单位必须是完整乐句
+
+禁止把 0.5–1.5s 的孤立 note clip 作为默认审核入口。
+
+每个人工 review case 必须先构建 phrase window。
+
+phrase boundary 优先来源：
+
+```text
+LRC 当前歌词行 / phrase
++
+vocal silence / phrase gap
++
+GAME phrase context
+```
+
+建议范围：
+
+```text
+最短约 3s
+常规约 5–8s
+最长约 12s
+```
+
+并保证目标区域前后都有足够上下文，优先包含：
+
+```text
+目标前 2–3 个 notes
+目标 region
+目标后 2–3 个 notes
+```
+
+若单行歌词太短，可向前/后扩展一个短句；若过长，优先在明显 silence / breath 处分割。
+
+---
+
+## 24. Phrase-level A/B/C 包
+
+正式人工审核包：
+
+```text
+SOURCE_PHRASE_original_mix.wav
+SOURCE_PHRASE_separated_vocal.wav
+BASELINE_PHRASE.wav
+CANDIDATE_A_PHRASE.wav
+CANDIDATE_B_PHRASE.wav
+CANDIDATE_C_PHRASE.wav   # 仅有第三候选时
+```
+
+要求：
+
+- 所有 render 使用同一 singer / phonemizer / color / volume / PITD policy；
+- 除目标局部外，Baseline / A / B / C 必须完全相同；
+- 不允许候选间同时改变无关参数；
+- review metadata 明确标目标 region，但不要要求用户识别音名。
+
+用户只需回答：
+
+```text
+A 更像原唱
+B 更像原唱
+C 更像原唱
+Baseline 已经最好
+都差不多
+都不对
+```
+
+---
+
+## 25. Zoom clip 只是辅助放大镜
+
+每个 phrase case 可以额外生成：
+
+```text
+zoom/source.wav
+zoom/baseline.wav
+zoom/candidate_A.wav
+zoom/candidate_B.wav
+```
+
+但流程必须是：
+
+```text
+先听完整乐句
+↓
+能判断 → 结束
+↓
+仍难判断
+↓
+再听 zoom
+```
+
+不能把 zoom 当主审核材料。
+
+---
+
+## 26. Phrase review 结果
+
+输出：
+
+```text
+human_phrase_review.json
+```
+
+只记录 preference / judgement：
+
+```json
+{
+  "region": [188.2, 191.4],
+  "choice": "candidate_b",
+  "confidence": "high|medium|low",
+  "comment": "optional"
+}
+```
+
+人工结果不写成“ground-truth F0”；它只作为 musical-semantic / perceptual evidence。
+
+---
+
+# Part G — Repair Engine
+
+## 27. M2.4 SAFE repair 的进入条件
+
+M2.3.2 达到以下条件后才进入：
+
+```text
+pitch/octet conflicts 有 automatic adjudicator
+189s regression 不会被错误自动修
+pitch auto-resolution 有 confidence gate
+structure candidate 已能先自动筛掉明显 case
+人工 review 已改为 phrase-level A/B/C
+Candidate 0 / rollback contract 保持完整
+```
+
+第一版 repair 仍以：
+
+```text
+single-note pitch retune
+```
+
+为最简单类型。
+
+如果最终没有高置信 SAFE pitch candidate，则允许输出：
+
+```text
+0 automatic repairs
+```
+
+这不是失败。
+
+---
+
+## 28. Candidate 0 与修复审计
 
 永久保留：
 
@@ -740,7 +837,7 @@ evidence
 reason
 confidence
 which gate passed
-A/B render
+phrase-level A/B（若需要）
 rollback information
 ```
 
@@ -748,30 +845,23 @@ rollback information
 
 ---
 
-## 25. SAFE retune
+## 29. SAFE retune
 
-只允许：
+只允许高置信 single-note written-pitch 修正。
 
-```text
-single-note pitch retune
-```
-
-并满足 §15 SAFE gate。
-
-目标 pitch 优先来自：
+目标 pitch 应来自：
 
 ```text
-RMVPE / FCPE agreed stable plateau center
-→ 映射到合理 written-note semitone
+多个独立 evidence 对同一 written-note hypothesis 的一致支持
 ```
 
 不能把任意 raw F0 deviation 直接写成 MIDI note。
 
 ---
 
-## 26. Structure repair 暂不进入 SAFE
+## 30. Structure repair 暂不直接进入 SAFE
 
-第一阶段的：
+以下默认仍属于 PROBABLE / AMBIGUOUS：
 
 ```text
 split
@@ -781,15 +871,13 @@ false note
 large boundary shift
 ```
 
-默认仍属于 PROBABLE / AMBIGUOUS。
+只有某类 automatic adjudication + phrase review 的 precision 足够高，才逐类升级。
 
-只有 structure calibration 证明某类规则 precision 足够高，才逐类升级。
-
-修改 boundary 后优先让 GAME estimator 重新估局部 pitch，而不是重新退回 `median F0 → note`。
+修改 boundary 后优先让 GAME estimator 重新估局部 pitch，而不是退回 `median F0 → note`。
 
 ---
 
-## 27. Candidate scoring
+## 31. Candidate scoring
 
 候选：
 
@@ -805,14 +893,14 @@ C5 local combined repair
 证据包括：
 
 ```text
-GAME presence consensus
-GAME tone consensus
+GAME presence / tone consensus
 GAME structural stability
 sequence-alignment relation
 RMVPE pitch evidence
 FCPE pitch evidence
-RMVPE plateau / changepoint
-FCPE plateau / changepoint
+third-F0 evidence
+periodicity / harmonic evidence
+RMVPE / FCPE plateau + changepoint
 voiced consistency
 energy / onset
 lyric compatibility
@@ -830,9 +918,9 @@ unsupported-edit penalty
 
 ---
 
-# Part G — Lyrics / USTX / PITD
+# Part H — Lyrics / USTX / PITD
 
-## 28. Lyrics ↔ corrected melody
+## 32. Lyrics ↔ corrected melody
 
 melody 稳定后再映射：
 
@@ -851,11 +939,11 @@ OpenUtau：
 静音：gap / SP
 ```
 
-若 lyrics 和 melody 冲突，标 `lyric_alignment_conflict`；不得通过把歌词强移到最近 voiced block 来伪修复。
+lyrics 与 melody 冲突时标 `lyric_alignment_conflict`，不得通过把歌词强移到最近 voiced block 来伪修复。
 
 ---
 
-## 29. 基础 USTX 验收
+## 33. 基础 USTX 验收
 
 第一阶段只含：
 
@@ -869,11 +957,11 @@ OpenUtau：
 
 > **不做泠鸢 style 和复杂 PITD 时，是否已经唱对《年轮》的旋律和节奏？**
 
-未通过不得进入 style 阶段。
+人工验收也以完整乐句/整段为主，不以 isolated note 为主。
 
 ---
 
-## 30. raw F0 → constrained PITD
+## 34. raw F0 → constrained PITD
 
 written score 通过后才加入：
 
@@ -887,9 +975,9 @@ PITD 不得掩盖 written-note 错误。
 
 ---
 
-# Part H — Evaluation
+# Part I — Evaluation
 
-## 31. Diagnostic level
+## 35. Diagnostic level
 
 至少记录：
 
@@ -899,17 +987,20 @@ PITD 不得掩盖 written-note 错误。
 - `1↔1 / gap / split / merge` 数；
 - consensus stability；
 - residual triage 分类；
-- RMVPE / FCPE pitch agreement；
+- RMVPE / FCPE / third-F0 agreement；
+- octave adjudication；
+- harmonic / periodicity evidence；
 - RMVPE / FCPE structure agreement；
-- plateau / changepoint evidence；
 - candidate count；
-- human-confirmed error count；
-- validator precision / false-positive；
+- AUTO_RESOLVED count；
+- UNRESOLVED count；
+- phrase-review count；
+- confirmed repair count；
 - regression-case status。
 
 ---
 
-## 32. Score level
+## 36. Score level
 
 记录：
 
@@ -927,9 +1018,9 @@ GAME preservation ratio 应尽量高。
 
 ---
 
-## 33. Render level
+## 37. Render / listening level
 
-比较：
+机器比较：
 
 ```text
 source / separated vocal F0
@@ -939,107 +1030,97 @@ DiffSinger baseline render
 DiffSinger corrected render
 ```
 
-区分：
+人工比较：
+
+```text
+phrase-level source
+phrase-level baseline
+phrase-level A/B/C candidates
+```
+
+明确区分：
 
 - GAME transcription error；
 - F0 extractor error；
+- octave ambiguity；
 - structure representation ambiguity；
 - lyric alignment error；
 - PITD error；
 - DiffSinger render deviation。
 
-旧 per-note median cents 只能作为辅助指标，不能单独证明旋律正确。
-
 ---
 
-# Part I — Milestones
+# Part J — Milestones
 
-## 34. 当前实施顺序
+## 38. 当前实施顺序
 
 ### M2.0 — Foundation survey ✅
 
-GAME / RMVPE / dataset-tools / SlurCutter 等基础调研完成。
+完成。
 
-### M2.1 — Initial diagnostic ✅
+### M2.1 / M2.1.1 — Initial diagnostic + correctness ✅
 
-完成并纠正 forced-boundary 误读。
-
-### M2.1.1 — Diagnostic correctness ✅
-
-完成 cents、raw-first、time alignment、lyric evidence-only、voiced-island structural F0 等修复。
+完成 forced-boundary 误读修正、cents、raw-first、lyric evidence-only、voiced-island structural F0 等。
 
 ### M2.1.2 — GAME stochastic baseline ✅
 
-完成多次 GAME、stochasticity 测量和初版 consensus。
+完成多次 GAME 与 stochasticity 测量。
 
 ### M2.2A — Formal sequence alignment ✅
 
-完成 DP `match/gap/split/merge` 与 run-order-independent consensus evidence。
+完成 DP `match/gap/split/merge` 与 consensus evidence graph。
 
 ### M2.2B — Dual-F0 evidence ✅
 
-完成 RMVPE + FCPE；189.84s 已成为 extractor-conflict regression case。
+完成 RMVPE + FCPE；189s 成为 extractor-conflict regression case。
 
-### M2.3 — Residual-error triage ✅ 初版完成
+### M2.3 — Residual-error triage ✅
+
+完成 medoid baseline、plateau 初版和全曲 triage。
+
+### M2.3.1 — Triage calibration ✅
 
 完成：
 
-- real GAME medoid baseline；
-- baseline note → consensus evidence mapping；
-- stable plateau 初版；
-- 全曲 triage。
+- SAFE gate；
+- plateau/interior re-triage；
+- needs-listening 大幅减少；
+- structure-hard 降级 structure candidates；
+- dual structure evidence；
+- regression cases；
+- 202s stochastic pitch case 由 medoid baseline 自动解决；
+- 当前 run 0 SAFE pitch candidate。
 
-当前结果：
+旧“40 个短 clip 人工猜音高”的 listening workflow **废弃为正式验收方式**，只保留 debug/demo。
 
-```text
-416 baseline notes
-312 likely-correct
-47 structure candidates
-37 listening-review
-16 F0 conflicts
-3 ambiguous
-1 pitch-hard candidate
-```
-
-### M2.3.1 — Triage calibration ← 当前最高优先级
+### M2.3.2 — Automatic adjudication + phrase review ← 当前最高优先级
 
 必须完成：
 
-1. `PITCH_HARD_SUSPICIOUS` 与 `SAFE_RETUNE_CANDIDATE` 分层；
-2. SAFE gate 加入 GAME consensus / structure stability / single plateau；
-3. 202.52s 生成完整 local A/B benchmark；
-4. 用户人工听感确认 202.52s；
-5. RMVPE 与 FCPE 独立生成 structural plateau / changepoint；
-6. 47 个 structure-hard 统一降为 structure candidates；
-7. 抽至少 10 个 structure candidates 做人工 precision calibration；
-8. 189.84s regression 必须保持 NO-REPAIR；
-9. 输出 confirmed-error 与 candidate 的严格分离统计。
-
-**M2.3.1 未完成前，不进入自动 M2.4。**
+1. 接入至少一个独立第三 F0 estimator；
+2. octave / pitch conflict 增加 periodicity + harmonic spectral adjudication；
+3. 输出 `AUTO_PITCH_RESOLVED / AUTO_OCTAVE_RESOLVED / F0_UNRESOLVED`；
+4. 人工不再输入 MIDI / Hz / cents；
+5. structure candidates 先做自动 evidence scoring；
+6. 只有真正 unresolved structure 才进入 human review；
+7. human review 默认生成 3–12s、常规 5–8s 的完整 phrase；
+8. Baseline / A / B / C 除目标区域外必须完全一致；
+9. zoom clip 只做二级辅助；
+10. 人工只回答 A/B/C/Baseline/都不对/差不多；
+11. 189s conflict 作为 automatic octave-adjudication regression case；
+12. 统计自动解决比例与真正需要人工的比例。
 
 ### M2.4 — SAFE repair
 
-第一版只实现 M2.3.1 已人工确认并能稳定通过 gate 的简单错误类型。
+只实现 M2.3.2 已能稳定自动裁决的简单强证据错误。
 
-优先：
+### M2.5 — PROBABLE structure repair
 
-```text
-single-note pitch retune
-```
-
-### M2.5 — PROBABLE structure candidates
-
-只有 structure calibration precision 足够高时才逐步实现：
-
-- split；
-- merge；
-- missing / false note；
-- boundary shift；
-- scorer / minimum improvement gate。
+只有自动 adjudication + phrase-level calibration 证明 precision 足够高时才逐步实现 split / merge / missing / false note / boundary shift。
 
 ### M2.6 — Optional second opinion
 
-只有 GAME + formal alignment + RMVPE + FCPE + lyric / onset evidence 仍留下大量关键 unresolved regions 时才考虑 ROSVOT。
+只有 GAME + formal alignment + 多 F0 + harmonic/periodicity + lyric/onset evidence 仍留下大量关键 unresolved region 时才考虑 ROSVOT 等额外模型。
 
 ### M2.7 — Lyrics mapping + base USTX
 
@@ -1051,7 +1132,7 @@ raw F0 → constrained PITD → DiffSinger → reference / score / render 三层
 
 ### M2.9 — 《年轮》M2 验收
 
-主要 A/B：
+主要比较：
 
 ```text
 selected real GAME medoid baseline
@@ -1059,7 +1140,7 @@ vs
 corrected score
 ```
 
-人工听感是最终 gate 之一。
+人工听感以完整乐句/完整段落为主，不以孤立 note 为主。
 
 通过后冻结 melody score。
 
@@ -1067,45 +1148,36 @@ corrected score
 
 只有 M2.9 通过后开始。
 
-分析：
-
-- vibrato rate / depth；
-- portamento；
-- 音头；
-- 句尾；
-- breath placement；
-- dynamics；
-- tension / breathiness；
-- voice color；
-- 音区差异。
-
 原则：
 
 > **原唱决定“唱什么”；泠鸢参考决定“怎么唱”。**
 
 ---
 
-# 35. 最终原则
+# 39. 最终原则
 
 1. **GAME 是默认 melody transcription 基座。**
 2. **最终可渲染 baseline 必须来自真实 GAME run，不是 synthetic consensus。**
 3. **Candidate 0 使用 real GAME medoid run。**
 4. **Consensus 是 uncertainty / evidence graph，不是 note skeleton。**
-5. **split / merge component 只表示局部结构不确定，不等于 repair 指令。**
-6. **RMVPE + FCPE 是 evidence，不是主转谱器。**
-7. **单 F0 extractor 永远不能独自推翻 GAME。**
-8. **双 F0 pitch agreement 也不等于自动 SAFE；还必须通过 GAME stability + structure + plateau gate。**
-9. **structure repair 必须要求 RMVPE + FCPE 双结构证据，而不是单 RMVPE plateau。**
-10. **189.84s 永久作为 extractor-conflict NO-REPAIR regression case。**
-11. **202.52s 当前是 SAFE-retune benchmark candidate，人工 A/B 前不写成 confirmed error。**
-12. **47 个 structure-hard 当前只是 candidates，不是 47 个 confirmed errors。**
-13. **37 个 listening-review 优先用 plateau / note-interior evidence 消除 vibrato median 假阳性。**
-14. **high dispersion 是 feature，不是错误。**
-15. **lyric char timestamp 不是 note onset。**
-16. **candidate / hard suspicious / confirmed error / SAFE repair 必须分层统计。**
-17. **如果真实 residual errors 很少，就保持 correction layer 轻量。**
-18. **Candidate 0 永远可 rollback。**
-19. **所有修改必须局部、可解释、可审计、可 A/B。**
-20. **复杂区域宁可 needs_review，不强行自动修。**
-21. **先把 written score 唱对，再生成 PITD。**
-22. **先“唱对”，再做泠鸢风格。**
+5. **RMVPE / FCPE / third-F0 是 evidence，不是主转谱器。**
+6. **F0 measurement 与 score interpretation 必须分开。**
+7. **能由程序测量的 pitch / octave 不交给人工猜。**
+8. **单 F0 extractor 永远不能独自推翻 GAME。**
+9. **octave conflict 要加入 periodicity / harmonic evidence，而不是简单多数投票。**
+10. **自动 evidence 仍冲突时保持 unresolved，不强行 repair。**
+11. **structure candidate 先程序裁决，再决定是否人工。**
+12. **人工审核的默认单位是完整乐句，不是孤立短切片。**
+13. **phrase review 常规 5–8s，并保留目标前后旋律上下文。**
+14. **zoom clip 只是辅助放大镜。**
+15. **人工只做 A/B/C/基线/都不对等相对听感选择，不要求 MIDI / Hz / cents。**
+16. **Baseline / A / B / C 除目标局部外必须完全一致。**
+17. **189s 永久作为 extractor-conflict / octave-adjudication regression case。**
+18. **202s 已证明 medoid baseline 本身能解决部分 stochastic pitch error。**
+19. **candidate / unresolved / auto-resolved / confirmed repair 必须分层统计。**
+20. **如果真实 residual errors 很少，就保持 correction layer 轻量。**
+21. **0 automatic repairs 也是合法结果。**
+22. **Candidate 0 永远可 rollback。**
+23. **所有修改必须局部、可解释、可审计、可 A/B。**
+24. **先把 written score 唱对，再生成 PITD。**
+25. **先“唱对”，再做泠鸢风格。**
