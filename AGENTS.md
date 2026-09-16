@@ -194,6 +194,25 @@ cd "E:\software\OpenUtau-win-x64 (6)"
   it's an RMVPE octave jump. Per plan2 §12: AMBIGUOUS, no SAFE repair.
   Dual-F0 requirement caught a would-be false repair.
 
+## M2.3 residual-error triage (run diag-20260916-144512-a86c)
+
+- `diagnostic/triage.py`: pick_baseline (medoid = min summed pairwise
+  alignment cost; run 3, 416 notes), detect_plateaus (structural-F0 stable
+  segments, <=50c steps, >=80ms, gap-merge only when centers <0.5st apart),
+  classify → GAME_LIKELY_CORRECT / F0_EXTRACTOR_CONFLICT /
+  PITCH_HARD_SUSPICIOUS / STRUCTURE_HARD_SUSPICIOUS / AMBIGUOUS_ORNAMENT /
+  NEEDS_LISTENING_REVIEW.
+- Triage of 416 baseline notes: 312 likely-correct / 47 structure-hard /
+  37 needs-listening / 16 extractor-conflict / 3 ambiguous / **1
+  pitch-hard**.
+- First REAL confirmed error: 202.52s — GAME 5/5 stable at 65.3, but RMVPE
+  72.30 + FCPE 72.31 (iqr ~13c, single plateau 72.28) → GAME is a fifth
+  flat (~700c). First SAFE-retune candidate. NOT an octave.
+- 189.84s correctly lands in F0_EXTRACTOR_CONFLICT.
+- The 37 needs-listening wrong_pitch flags are all vibrato-region median
+  smears (~100-190c, dual extractors agree but IQR too high) — honest
+  review queue, not auto-fixable.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

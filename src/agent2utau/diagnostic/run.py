@@ -358,6 +358,24 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
             "consensus_raw": consensus_stats(consensus_raw),
             "consensus_zh": consensus_stats(consensus_zh),
         }
+        # M2.3 step 1: medoid baseline run = Candidate 0
+        from .triage import pick_baseline
+        bl = pick_baseline(raw_runs)
+        rep["baseline"] = {"run_index": bl["index"],
+                           "total_alignment_cost": bl["total_cost"],
+                           "per_run_costs": bl["costs"],
+                           "n_notes": sum(n["voiced"]
+                                          for n in raw_runs[bl["index"]])}
+        if bl["index"] != 0:
+            va = raw_runs[bl["index"]]
+            notes_json(va, diag_dir / "game_raw.json")
+            (diag_dir / "baseline_game.json").write_text(
+                json.dumps({"run_index": bl["index"], "notes": va},
+                           ensure_ascii=False, indent=1), encoding="utf-8")
+        else:
+            (diag_dir / "baseline_game.json").write_text(
+                json.dumps({"run_index": 0, "notes": va},
+                           ensure_ascii=False, indent=1), encoding="utf-8")
 
     def _attach_consensus(rec: dict) -> None:
         """Attach the consensus event with max temporal overlap with this
@@ -412,6 +430,32 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         packets.append(rec)
         if ev["flags"]:
             suspicious.append(rec)
+
+    # --- M2.3 step 3/4: plateau evidence + triage --------------------------
+    from .triage import detect_plateaus, classify
+    plateau_ev = {}
+    for rec in packets:
+        plats = detect_plateaus(times, struct, rec["start"],
+                                rec["start"] + rec["dur"])
+        rec["plateaus"] = plats
+        rec["triage"] = classify(rec, plats)
+        if plats:
+            plateau_ev[rec["id"]] = plats
+    (diag_dir / "plateau_evidence.json").write_text(
+        json.dumps(plateau_ev, ensure_ascii=False, indent=1),
+        encoding="utf-8")
+    (diag_dir / "residual_triage.json").write_text(
+        json.dumps(packets, ensure_ascii=False, indent=1),
+        encoding="utf-8")
+    triage_counts: dict[str, int] = {}
+    for rec in packets:
+        triage_counts[rec["triage"]] = triage_counts.get(rec["triage"], 0) + 1
+    review = [p for p in packets if p["triage"] != "GAME_LIKELY_CORRECT"]
+    (diag_dir / "review_regions.json").write_text(
+        json.dumps(review, ensure_ascii=False, indent=1),
+        encoding="utf-8")
+    rep["residual_triage_summary"] = {"baseline_notes": len(packets),
+                                      **triage_counts}
     (diag_dir / "raw_evidence_packets.json").write_text(
         json.dumps(packets, ensure_ascii=False, indent=1), encoding="utf-8")
     (diag_dir / "raw_suspicious_regions.json").write_text(
@@ -538,6 +582,12 @@ def _report_md(rep) -> str:
                   f"- zh note counts: {s['zh_note_counts']}",
                   f"- consensus raw: {s['consensus_raw']}",
                   f"- consensus zh: {s['consensus_zh']}", ""]
+    if "residual_triage_summary" in rep:
+        lines += ["", "## M2.3 residual-error triage", ""]
+        for cls, c in sorted(rep["residual_triage_summary"].items(),
+                             key=lambda kv: -kv[1]):
+            lines.append(f"- `{cls}`: {c}")
+        lines.append("")
     lines += ["",
               "## GAME-raw suspicious regions (RMVPE structural evidence)",
               "",
