@@ -121,6 +121,12 @@ def cmd_cover(args) -> int:
     run = Run(Path(cfg["runs_dir"]), new_run_id("cover"))
     run.write_state({"status": "running", "stage": "init",
                      "source": str(src)})
+    run.write_json("request.json", {
+        "source": str(src), "singer": args.singer,
+        "segments": args.segments, "auto_segments": args.auto_segments,
+        "seg_len": args.seg_len, "lyrics": args.lyrics,
+        "lines": args.lines, "asr_model": args.asr_model,
+        "sep_model": args.sep_model, "timeout_min": args.timeout_min})
     try:
         rep = run_cover(src, run, cfg, segments=segments,
                         auto_segments=args.auto_segments,
@@ -129,6 +135,63 @@ def cmd_cover(args) -> int:
                         lyrics=args.lyrics, lines=args.lines,
                         timeout_min=args.timeout_min,
                         progress=lambda m: diag(f"[cover] {m}"))
+        return _out(args, rep)
+    except Exception as e:
+        run.write_state({"status": "failed", "stage": "error",
+                         "failure_code": "internal_error"})
+        emit(exception_payload(e))
+        return 1
+
+
+def cmd_status(args) -> int:
+    from .state import read_state
+    cfg = load_config()
+    st = read_state(Path(cfg["runs_dir"]), args.run_id)
+    if st is None:
+        return fail("no_run", f"no run state for {args.run_id}")
+    out = {"schema_version": "1", "status": st.get("status", "unknown"),
+           "state": st}
+    rep = Path(cfg["runs_dir"]) / args.run_id / "report.json"
+    if rep.exists():
+        import json
+        r = json.loads(rep.read_text(encoding="utf-8"))
+        out["report"] = {k: r[k] for k in
+                         ("n_notes", "n_weak_notes", "quality_confidence",
+                          "pitch_eval", "ustx", "vocal_wav", "mix",
+                          "caveats", "lyrics_source") if k in r}
+        if "pitch_eval" in out["report"]:
+            out["report"]["pitch_eval"] = out["report"]["pitch_eval"].get(
+                "pitch", {})
+    return _out(args, out)
+
+
+def cmd_resume(args) -> int:
+    import json
+    from .pipeline import run_cover, parse_segments
+    from .state import Run
+    cfg = load_config()
+    run_dir = Path(cfg["runs_dir"]) / args.run_id
+    req_path = run_dir / "request.json"
+    if not req_path.exists():
+        return fail("no_request",
+                    f"{args.run_id} has no request.json; cannot resume")
+    req = json.loads(req_path.read_text(encoding="utf-8"))
+    run = Run(Path(cfg["runs_dir"]), args.run_id)
+    run.write_state({"status": "running", "stage": "resumed",
+                     "source": req["source"]})
+    try:
+        rep = run_cover(
+            req["source"], run, cfg,
+            segments=parse_segments(req["segments"]) if req.get("segments")
+            else None,
+            auto_segments=req.get("auto_segments", 2),
+            seg_len=req.get("seg_len", 15.0),
+            asr_model=req.get("asr_model", "large-v3-turbo"),
+            sep_model=req.get("sep_model", "UVR-MDX-NET-Voc_FT.onnx"),
+            lyrics=req.get("lyrics"), lines=req.get("lines"),
+            timeout_min=req.get("timeout_min", 30),
+            progress=lambda m: diag(f"[resume] {m}"))
+        rep["resumed_from"] = args.run_id
         return _out(args, rep)
     except Exception as e:
         run.write_state({"status": "failed", "stage": "error",
@@ -181,6 +244,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--asr-model", default="large-v3-turbo")
     p.add_argument("--sep-model", default="UVR-MDX-NET-Voc_FT.onnx")
     p.add_argument("--timeout-min", type=int, default=30)
+
+    p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
+    p.add_argument("run_id")
+
+    p = sub.add_parser("resume"); p.set_defaults(fn=cmd_resume)
+    p.add_argument("run_id")
 
     return ap
 

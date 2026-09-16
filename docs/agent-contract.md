@@ -63,8 +63,16 @@ phonemization + phrase build, then calls `PlaybackManager.RenderToFiles` /
 `RenderMixdown`. Errors are captured through an `ICmdSubscriber` and
 returned in the JSON result.
 
+- `agent2utau status <run-id>` — read `state.json` + condensed `report.json`.
+- `agent2utau resume <run-id>` — re-execute the stored `request.json` in the
+  same run dir; per-source cache makes decode/separate/F0 instant, and
+  identical phrases hit the OpenUtau render cache.
+
 ## Runs
 
 Each `render-smoke`/`cover` creates `runs/<run-id>/` with `state.json`
-(atomically written), `run.lock`, `audio/`, `iterations/`, `debug/`.
-Original assets, model weights and caches are never committed to git.
+(atomically written), `run.lock`, `request.json`, `audio/`, `iterations/`,
+`debug/`. Per-source deterministic artifacts (decoded wav, separated stems,
+f0.npz) live under `runs/_cache/<md5-of-source-path>/` and are reused by any
+run of the same file. Original assets, model weights and caches are never
+committed to git.

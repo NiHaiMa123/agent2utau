@@ -77,7 +77,7 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     from .analysis.f0 import extract_f0
     from .analysis.notes import build_notes
     from .analysis.onsets import (frame_rms, gate_voiced, voiced_extent,
-                                  detect_onsets)
+                                  voiced_blocks, detect_onsets)
     from .analysis.align import load_lrc, lyric_chars, distribute
     from .openutau.build import build_project, sec_to_tick
     from .openutau.bridge import run_bridge
@@ -141,6 +141,7 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
         vw = vw.mean(axis=1)
     rms = frame_rms(vw, vsr, f0["times"])
     f0g = gate_voiced(f0, rms)
+    all_blocks = voiced_blocks(f0g)
 
     # --- lyric source ----------------------------------------------------
     lrc_lines = None
@@ -165,11 +166,36 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     # --- per-segment analysis -------------------------------------------
     all_notes: list[dict] = []
     seg_payloads = []
+    used_blocks: set[int] = set()
     log("analysis")
     for i, (t0, t1) in enumerate(segments):
         if lrc_lines:
             text = lrc_lines[i]["text"]
             ext = voiced_extent(f0g, t0, t1)
+            # Re-anchor: LRC time can drift from the actual audio (live
+            # arrangements differ). If the window has no/poor voiced
+            # coverage, snap to the nearest voiced block within 4s.
+            span = t1 - t0
+            poor = ext is None or (ext[1] - ext[0]) < 0.4 * span
+            if poor:
+                cand = [(bi, b) for bi, b in enumerate(all_blocks)
+                        if bi not in used_blocks
+                        and b[1] > t0 - 4.0 and b[0] < t1 + 4.0]
+                if cand:
+                    bi, best = max(cand, key=lambda ib: (
+                        min(ib[1][1], t1) - max(ib[1][0], t0),
+                        -abs(ib[1][0] - t0)))
+                    used_blocks.add(bi)
+                    ext = best
+                    rep.setdefault("reanchored", []).append(
+                        {"line": text, "lrc": [t0, t1],
+                         "audio": [round(ext[0], 2), round(ext[1], 2)]})
+            else:
+                # good natural extent: claim overlapping blocks so a later
+                # drifting line can't re-anchor onto them
+                for bi, b in enumerate(all_blocks):
+                    if b[1] > ext[0] and b[0] < ext[1]:
+                        used_blocks.add(bi)
             if ext is None:
                 seg_payloads.append({"start_sec": t0, "end_sec": t1,
                                      "notes": [], "line": text,
@@ -245,7 +271,7 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     if weak > 0.6 or pitch.get("frac_within_100c", 0) < 0.4:
         conf = "low"
     rep["quality_confidence"] = conf
-    rep["caveats"] = caveats(rep)
+    rep["caveats"] = caveats(rep, seg_payloads)
     rep["status"] = "completed"
     run.write_json("report.json", rep)
     run.write_state({"status": "completed", "stage": "done",
@@ -264,7 +290,7 @@ def mono_vocals(mono: Path, vocals: Path) -> Path:
     return out
 
 
-def caveats(rep: dict) -> list[str]:
+def caveats(rep: dict, seg_payloads: list[dict] | None = None) -> list[str]:
     c = []
     if rep.get("n_weak_notes"):
         c.append(f"{rep['n_weak_notes']}/{rep['n_notes']} notes had weak F0 "
@@ -272,7 +298,23 @@ def caveats(rep: dict) -> list[str]:
     p = rep.get("pitch_eval", {}).get("pitch", {})
     if p.get("frac_within_100c", 1) < 0.7:
         c.append("pitch tracking vs source is loose in places")
+    if rep.get("reanchored"):
+        c.append(f"{len(rep['reanchored'])} lyric lines were re-anchored to "
+                 "nearby audio because the LRC time drifted")
+    if seg_payloads:
+        unmatched = [s.get("line", "?") for s in seg_payloads
+                     if s.get("status") == "no_voiced_region"]
+        if unmatched:
+            c.append(f"{len(unmatched)} lines had no sung audio nearby and "
+                     f"were skipped: {unmatched}")
+        weak_seg = sum(1 for s in seg_payloads
+                       if s.get("status") == "few_onsets")
+        if weak_seg:
+            c.append(f"{weak_seg} lines had sparse onsets; char timing there "
+                     "is interpolated")
     c.append("tempo axis is fixed 120bpm, not the song's real BPM")
     c.append("DiffSinger model baseline only; no manual pitch/dyn tuning")
     c.append("no AP/breath notes inserted")
+    c.append("source is a duet; all lines are rendered by the single target "
+             "singer")
     return c

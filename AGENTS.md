@@ -71,3 +71,12 @@ cd "E:\software\OpenUtau-win-x64 (6)"
 - Test: `.venv/Scripts/python.exe -m pytest tests/ -x -q`
 - Known numbers (lines 0:4, CPU): sep 60s, f0 ~3s, render ~40s cold,
   eval median |err| ~47-70c, frac≤100c ~0.7 — baseline quality, not tuned.
+- LRC times drift on live/duet sections (年轮的副歌 splits drift ~2-7s);
+  pipeline re-anchors a poorly-covered line window to the nearest free
+  voiced block (±4s, one block per line) and logs `reanchored` in report.
+  Fully unmatched lines become `no_voiced_region` and are skipped honestly.
+- `status <run-id>` and `resume <run-id>` work; cover stores `request.json`
+  for resume. Full song (29 lines → 285 notes): vocal 175.4s, mix 274.5s,
+  median |err| ~62c, frac≤100c ~0.68, conf=low (many weak-F0 notes).
+- Source is a duet （张碧晨+唐倩 live); every line renders with Yousa —
+  harmony fragments may get odd char timing (flagged, not hidden).
