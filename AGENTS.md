@@ -348,6 +348,43 @@ adjudication for the 76 pitch lanes.
   periodicity counter-evidence -> unresolved -> phrase_review.
 - Tests: 74 passed (+10 B regressions in test_adjudicate.py).
 
+## M2.3.2B2 adjudication correctness/calibration (run diag-20260916-183019-b6e0)
+
+- pitch+structure concurrency: B result marked `provisional`, C runs
+  first; pitch need stays set so a structure change invalidates and
+  re-runs B. Aggregate run_tones are excluded from hypotheses when
+  structure_varies (median over split/merge members is not a real note).
+- ACF octave discrimination: per-hyp score penalized by max(0, R(2T)-R(T))
+  and max(0, R(T/2)-R(T)) — double/half-period correlation can no longer
+  fake octave identity.
+- Harmonic score debiased: matched-fit * (0.5 + 0.5*odd_ratio) — the
+  lower-octave superset bias is gone (odd harmonics of a wrong-low hyp
+  carry no energy).
+- Independence groups: game | rmvpe | fcpe | waveform{pYIN, ACF,
+  harmonic, subharmonic}; resolution needs >=2 groups, a change requires
+  the waveform group, extractor conflict requires waveform + one
+  non-game extractor. pYIN+ACF alone = one group.
+- SAFE gate now takes explicit target_midi (= B winning hypothesis);
+  both extractors' plateaus must support THAT target.
+- Third-F0 cache has own contract: vocal_sha256 + impl/version/config/
+  schema (b2-pyin-1) via _third_f0_fresh().
+- 年轮 rerun: 87 lanes -> 64 resolved_keep / 2 resolved_change
+  (both provisional, routed to structure lane) / 14 unresolved /
+  rest not_needed. decisions: 331 keep / 57 needs_structure_adjudication
+  / 23 auto_resolved / 9 needs_phrase_review. ZERO repair_candidate.
+- 189.84s: winner 58.1 (game+fcpe+waveform groups) but rmvpe opposes +
+  separation sensitive -> unresolved -> phrase_review. No false repair.
+- 202.52s: baseline wrote 65.3 this run; B winner=72.3 (rmvpe+fcpe+
+  waveform, margin 2.04) but periodicity+sep counter -> unresolved.
+  The A-stage SAFE-eligible flag went through B and was honestly
+  rejected — the chain works end to end.
+- Tests: 87 passed (+13 B2 regressions incl. 8-case waveform matrix:
+  true low/high octave, weak & missing fundamental, breathy, vibrato,
+  short note, silence).
+
+B = FROZEN per plan. Next: M2.3.2C structure adjudication
+(57 lanes + independent structure discovery).
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

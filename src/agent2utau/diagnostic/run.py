@@ -27,6 +27,16 @@ MATCH_MS = 80.0
 SNAP_MS = 300.0
 
 
+def _third_f0_fresh(prov: dict, vocal_sha: str, cfg: dict,
+                    schema: str) -> bool:
+    """§9.4 (B2): third-F0 cache valid only when the separated-vocal
+    bytes, implementation/version, config, and schema all match."""
+    return (prov.get("vocal_sha256") == vocal_sha
+            and prov.get("schema") == schema
+            and all(prov.get(k) == v for k, v in cfg.items())
+            and prov.get("version") is not None)
+
+
 def _cache_fresh(man: dict, src_sha: str, sep_model: str,
                  sep_cfg_sha: str, schema: str, sha256_fn) -> bool:
     """§5.4 (A4): cache is fresh only when source content, separator model
@@ -506,24 +516,33 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     if vw2.ndim > 1:
         vw2 = vw2.mean(axis=1)
     # --- M2.3.2B: third F0 family (pYIN) ---------------------------------
-    # Cached per source under the same provenance as the separation --
-    # unchanged vocals bytes => unchanged third-F0 output.
+    # §9.4 (B2): the third-F0 cache has its OWN invalidation contract --
+    # bound to separated-vocal bytes + implementation/version/config/
+    # schema, not merely to whether the separation cache was fresh.
     from .adjudicate import third_f0_pyin
+    vocal_sha = _sha256(vocals)
+    T3_SCHEMA = "b2-pyin-1"
     t3_path = cache / "third_f0.npz"
     t3_prov = cache / "third_f0_provenance.json"
-    if cache_fresh and t3_path.exists() and t3_prov.exists():
-        z = np.load(t3_path)
-        third = {"times": z["times"], "midi": z["midi"],
-                 "voiced_prob": z["voiced_prob"],
-                 "provenance": json.loads(
-                     t3_prov.read_text(encoding="utf-8"))}
-    else:
+    t3_cfg = {"implementation": "librosa.pyin", "fmin_hz": 82.4068892282175,
+              "fmax_hz": 2093.004522404789, "frame_length": 2048,
+              "hop_ms": 10}
+    third = None
+    if t3_path.exists() and t3_prov.exists():
+        prov = json.loads(t3_prov.read_text(encoding="utf-8"))
+        if _third_f0_fresh(prov, vocal_sha, t3_cfg, T3_SCHEMA):
+            z = np.load(t3_path)
+            third = {"times": z["times"], "midi": z["midi"],
+                     "voiced_prob": z["voiced_prob"], "provenance": prov}
+    if third is None:
         log("third-f0 (pyin)")
         third = third_f0_pyin(wav, sep_sr)
+        prov = {**third["provenance"], **t3_cfg,
+                "schema": T3_SCHEMA, "vocal_sha256": vocal_sha}
+        third["provenance"] = prov
         np.savez(t3_path, times=third["times"], midi=third["midi"],
                  voiced_prob=third["voiced_prob"])
-        t3_prov.write_text(json.dumps(third["provenance"],
-                                      ensure_ascii=False, indent=1),
+        t3_prov.write_text(json.dumps(prov, ensure_ascii=False, indent=1),
                            encoding="utf-8")
     rep["third_f0"] = third["provenance"]
 
@@ -611,7 +630,8 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         adj = adjudicate(rec, wav, sep_sr, third, nb)
         rec["pitch_adjudication"] = adj
         gate = (safe_retune_gate(rec, rec.get("plateaus") or [],
-                                 rec.get("fcpe_plateaus") or [], nb)
+                                 rec.get("fcpe_plateaus") or [], nb,
+                                 target_midi=adj["winning_hypothesis"])
                 if adj["status"] == "resolved_change" else None)
         apply_adjudication(rec, adj, gate)
         n_b_resolved[rec["pitch_adjudication"]["status"]] += 1

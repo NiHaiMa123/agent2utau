@@ -151,18 +151,23 @@ def _target_plateau(plateaus: list[dict], target_midi: float) -> dict | None:
 
 def safe_retune_gate(packet: dict, rmvpe_plateaus: list[dict],
                      fcpe_plateaus: list[dict],
-                     neighbours: list[dict]) -> dict:
+                     neighbours: list[dict],
+                     target_midi: float | None = None) -> dict:
     """Plan §15 SAFE_RETUNE_CANDIDATE gate (M2.3.1), with §5.3/5.4 fix:
     the plateau support must come from TWO INDEPENDENT extractors —
-    an RMVPE plateau + RMVPE center is one evidence family, not two."""
+    an RMVPE plateau + RMVPE center is one evidence family, not two.
+
+    §9.6 (B2): `target_midi` is EXPLICIT — when called after a B
+    resolved_change it must be pitch_adjudication.winning_hypothesis,
+    not an implicit RMVPE-derived target. The gate then verifies that
+    BOTH extractors' plateaus support that exact target."""
     cons = packet.get("consensus") or {}
     dual = packet.get("dual_f0") or {}
     rmv, fcp = packet.get("rmvpe") or {}, packet.get("fcpe") or {}
-    target = rmv.get("center_midi")
+    target = (target_midi if target_midi is not None
+              else rmv.get("center_midi"))
     rp = _target_plateau(rmvpe_plateaus, target) if target else None
-    fp = _target_plateau(fcpe_plateaus,
-                         fcp.get("center_midi")) \
-        if fcp.get("center_midi") is not None else None
+    fp = _target_plateau(fcpe_plateaus, target) if target else None
     plateau_overlap = None
     if rp and fp:
         ov = (min(rp["end"], fp["end"]) - max(rp["start"], fp["start"]))

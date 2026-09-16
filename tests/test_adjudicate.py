@@ -124,9 +124,27 @@ def test_b6_pitch_resolution_never_clears_structure_need():
            "confidence": 3.0, "margin": 1.0}
     apply_adjudication(rec, adj, None)
     st = rec["state"]
+    # B2 §9.1: pitch result is provisional while structure unresolved;
+    # the pitch need stays set for the post-C re-run, and structure
+    # adjudication is never cleared by a pitch outcome.
+    assert adj["provisional"] is True
     assert st["routing_needs"]["structure_adjudication"] is True
-    assert st["routing_needs"]["pitch_adjudication"] is False
+    assert st["routing_needs"]["pitch_adjudication"] is True
     assert st["decision"] == "needs_structure_adjudication"
+
+
+def test_b6b_pitch_only_resolution_clears_need():
+    rec = _pkt(dual_delta=2.0)
+    rec["dual_f0"]["extractors_agree"] = True
+    rec["state"] = {"routing_needs": {"pitch_adjudication": True,
+                                    "structure_adjudication": False,
+                                    "phrase_review": False},
+                    "decision": "needs_pitch_adjudication"}
+    adj = {"status": "resolved_keep", "winning_hypothesis": 69.96}
+    apply_adjudication(rec, adj, None)
+    st = rec["state"]
+    assert st["routing_needs"]["pitch_adjudication"] is False
+    assert st["decision"] == "auto_resolved"
 
 
 def test_b7_unresolved_does_not_loop_back_to_b():
@@ -164,3 +182,162 @@ def test_b_hypotheses_include_game_octaves_and_extractors():
     assert any(abs(h - 57.96) < 0.6 for h in hs)   # lower octave
     assert any(abs(h - 81.96) < 0.6 for h in hs)   # upper octave
     assert any(abs(h - 58.03) < 0.6 for h in hs)   # fcpe alternative
+
+
+# ---------------- B2 correctness / calibration ----------------------------
+
+def test_b2_structure_ambiguous_run_tones_not_hypotheses():
+    # §9.1: aggregate run_tones over split/merge members are not real
+    # written notes — excluded when structure_varies.
+    p = _pkt(game_tone=62.0, run_tones=[60.0, 64.0, 62.0])
+    p["consensus"]["structure_varies"] = True
+    hs = hypotheses(p, None)
+    assert 60.0 not in hs and 64.0 not in hs
+    # without structure ambiguity they ARE candidates
+    p["consensus"]["structure_varies"] = False
+    hs = hypotheses(p, None)
+    assert 60.0 in hs and 64.0 in hs
+
+
+def test_b2_mirror_octave_true_low():
+    # true = 58 -> winner 58 (not pushed to 70)
+    wav = _wav_for(58.0)
+    p = _pkt(game_tone=58.0, rmvpe=58.0, fcpe=58.0, dual_delta=2.0)
+    p["dual_f0"]["extractors_agree"] = True
+    adj = adjudicate(p, wav, SR, None, [])
+    assert abs(adj["winning_hypothesis"] - 58.0) <= 0.5
+    assert adj["status"] == "resolved_keep"
+
+
+def test_b2_mirror_octave_true_high():
+    # true = 70 -> the lower candidate 58 must NOT win through ACF
+    # double-period correlation or harmonic-superset bias.
+    wav = _wav_for(70.0)
+    p = _pkt(game_tone=70.0, rmvpe=70.0, fcpe=70.0, dual_delta=2.0)
+    p["dual_f0"]["extractors_agree"] = True
+    adj = adjudicate(p, wav, SR, None, [])
+    assert abs(adj["winning_hypothesis"] - 70.0) <= 0.5
+    assert adj["status"] == "resolved_keep"
+    low = [h for h in adj["hypotheses"]
+           if abs(h["hypothesis"] - 58.0) <= 0.5]
+    hi = [h for h in adj["hypotheses"]
+          if abs(h["hypothesis"] - 70.0) <= 0.5]
+    assert hi[0]["score"] > low[0]["score"]
+
+
+def test_b2_missing_fundamental_conservative():
+    # fundamental removed, harmonics 2..7 of 58 present — must not jump
+    # an octave up to 116-ish or down; conservative: keep or unresolved.
+    f0 = 440.0 * 2 ** ((58.0 - 69) / 12)
+    t = np.arange(int(SR * 0.5)) / SR
+    seg = sum(np.sin(2 * np.pi * k * f0 * t) / k
+              for k in range(2, 8))
+    wav = np.zeros(int(SR * 0.7))
+    wav[: len(seg)] = np.asarray(seg) * 0.4
+    p = _pkt(game_tone=58.0, rmvpe=58.0, fcpe=58.0, dual_delta=2.0)
+    p["dual_f0"]["extractors_agree"] = True
+    adj = adjudicate(p, wav, SR, None, [])
+    assert adj["status"] in ("resolved_keep", "unresolved")
+    assert abs(adj["winning_hypothesis"] - 58.0) <= 0.5 \
+        or adj["status"] == "unresolved"
+
+
+def test_b2_breathy_noisy_signal():
+    rng = np.random.default_rng(2)
+    seg = _seg(65.0, noise=0.25)
+    wav = np.zeros(int(SR * 0.7))
+    wav[: len(seg)] = seg + rng.normal(0, 0.15, len(seg))
+    p = _pkt(game_tone=65.0, rmvpe=65.0, fcpe=65.0, dual_delta=2.0)
+    p["dual_f0"]["extractors_agree"] = True
+    adj = adjudicate(p, wav, SR, None, [])
+    # either confirms 65 or stays unresolved — must not flip octaves
+    assert adj["status"] != "resolved_change" \
+        or abs(adj["winning_hypothesis"] - 65.0) < 6.0
+
+
+def test_b2_silence_unvoiced_unresolved():
+    wav = np.zeros(int(SR * 0.6))
+    p = _pkt()
+    adj = adjudicate(p, wav, SR, None, [])
+    assert adj["status"] == "unresolved"
+
+
+def test_b2_vibrato_keeps_true_f0():
+    f0 = 440.0 * 2 ** ((62.0 - 69) / 12)
+    t = np.arange(int(SR * 0.5)) / SR
+    vib = f0 * (1 + 0.02 * np.sin(2 * np.pi * 5.5 * t))
+    phase = np.cumsum(vib) / SR * 2 * np.pi
+    seg = sum(np.sin(k * phase) / k for k in range(1, 6)) * 0.4
+    wav = np.zeros(int(SR * 0.7))
+    wav[: len(seg)] = np.asarray(seg)
+    p = _pkt(game_tone=62.0, rmvpe=62.0, fcpe=62.0, dual_delta=2.0)
+    p["dual_f0"]["extractors_agree"] = True
+    adj = adjudicate(p, wav, SR, None, [])
+    assert abs(adj["winning_hypothesis"] - 62.0) <= 0.5
+
+
+def test_b2_short_note_low_cycles():
+    wav = _wav_for(70.0, dur=0.12)
+    p = _pkt(game_tone=70.0, dur=0.12, rmvpe=70.0, fcpe=70.0,
+             dual_delta=2.0)
+    p["dual_f0"]["extractors_agree"] = True
+    adj = adjudicate(p, wav, SR, None, [])
+    assert abs(adj["winning_hypothesis"] - 70.0) <= 0.5 \
+        or adj["status"] == "unresolved"
+
+
+def test_b2_pyin_plus_acf_is_one_independence_group():
+    # §9.5: pYIN + ACF share the waveform mechanism — alone they cannot
+    # satisfy the >=2 independent-group requirement.
+    wav = _wav_for(58.0)
+    p = _pkt(game_tone=69.96, rmvpe=None, fcpe=None, dual_delta=0.0)
+    third = {"times": np.array([0.1, 0.2]), "midi": np.array([58.0, 58.0]),
+             "voiced_prob": np.array([0.9, 0.9])}
+    # widen window coverage: fake a dense third track
+    third = {"times": np.arange(0, 0.5, 0.01),
+             "midi": np.full(50, 58.0),
+             "voiced_prob": np.full(50, 0.9)}
+    adj = adjudicate(p, wav, SR, third, [])
+    w = [h for h in adj["hypotheses"]
+         if h["hypothesis"] == adj["winning_hypothesis"]][0]
+    assert adj["supporting_independence_groups"] == ["waveform"] or \
+        adj["status"] == "unresolved"
+
+
+def test_b2_change_requires_waveform_group():
+    # extractors alone (no waveform support) cannot drive a pitch change
+    wav = np.zeros(int(SR * 0.6))  # silence -> no waveform evidence
+    p = _pkt(game_tone=60.0, rmvpe=64.0, fcpe=64.0, dual_delta=5.0)
+    p["dual_f0"]["extractors_agree"] = True
+    p["dual_f0"]["both_oppose_game"] = True
+    p["consensus"]["run_tones"] = [60.0] * 5
+    adj = adjudicate(p, wav, SR, None, [])
+    assert adj["status"] == "unresolved"
+
+
+def test_b2_provisional_when_structure_pending():
+    # §9.1/9.7: pitch+structure concurrent -> B provisional, C first.
+    rec = _pkt()
+    rec["state"] = {"routing_needs": {"pitch_adjudication": True,
+                                    "structure_adjudication": True,
+                                    "phrase_review": False},
+                    "decision": "needs_pitch_adjudication"}
+    adj = {"status": "resolved_keep", "winning_hypothesis": 69.96}
+    apply_adjudication(rec, adj, None)
+    assert adj["provisional"] is True
+    st = rec["state"]
+    assert st["routing_needs"]["pitch_adjudication"] is True  # rerun post-C
+    assert st["decision"] == "needs_structure_adjudication"
+
+
+def test_b2_safe_gate_binds_explicit_target():
+    # §9.6: gate verifies the B winning hypothesis, not rmvpe's center.
+    from agent2utau.diagnostic.triage import safe_retune_gate
+    p = _pkt(game_tone=60.0, rmvpe=64.0, fcpe=64.0)
+    plats = [{"center_midi": 64.0, "start": 0.0, "end": 0.5, "dur": 0.5}]
+    gate = safe_retune_gate(p, plats, plats, [], target_midi=64.0)
+    assert gate["rmvpe_target_plateau"] is not None
+    # a target with no plateau support must fail
+    gate2 = safe_retune_gate(p, plats, plats, [], target_midi=55.0)
+    assert gate2["rmvpe_target_plateau"] is None
+    assert "rmvpe_plateau_supports" in gate2["failed"]

@@ -85,10 +85,15 @@ def hypotheses(packet: dict, third_center: float | None) -> list[float]:
     any extractor center that differs meaningfully (>0.5st)."""
     g = packet["game_tone"]
     hyps = [g, g - 12.0, g + 12.0]
-    # GAME's own alternative answers are hypotheses too (202s case:
-    # runs answered 65.3 vs 72.4 — adjudication must choose between them)
-    for t in (packet.get("consensus") or {}).get("run_tones") or []:
-        hyps.append(float(t))
+    cons = packet.get("consensus") or {}
+    # §9.1 (B2): on structure-ambiguous events, aggregate run_tones are
+    # medians across split/merge members — not real written notes —
+    # so they must not seed hypotheses.
+    if not cons.get("structure_varies"):
+        # GAME's own alternative answers are hypotheses too (202s case:
+        # runs answered 65.3 vs 72.4 — adjudication must choose)
+        for t in cons.get("run_tones") or []:
+            hyps.append(float(t))
     for fam in ("rmvpe", "fcpe"):
         c = (packet.get(fam) or {}).get("center_midi")
         if c is not None:
@@ -104,8 +109,11 @@ def hypotheses(packet: dict, third_center: float | None) -> list[float]:
 
 
 def _acf_scores(seg: np.ndarray, sr: int, hyps: list[float]) -> dict:
-    """Normalized autocorrelation at each hypothesis's lag; also the
-    best-lag implied f0. Uses FFT-based ACF (cheap)."""
+    """Normalized ACF at each hypothesis's lag WITH double-period
+    discrimination (§9.2): a real period T also correlates at 2T, so a
+    raw ACF(T) cannot prove octave identity. Per-hyp score is penalized
+    when the double period (2T) or half period (T/2) correlates better —
+    that means the truth sits an octave away from the hypothesis."""
     if len(seg) < 512:
         return {}
     seg = seg - seg.mean()
@@ -115,20 +123,32 @@ def _acf_scores(seg: np.ndarray, sr: int, hyps: list[float]) -> dict:
     if r[0] <= 0:
         return {}
     r /= r[0]
+
+    def _peak(lag: float) -> float:
+        lo, hi = max(8, int(lag * 0.97)), min(len(r) - 1,
+                                            int(np.ceil(lag * 1.03)))
+        return float(r[lo:hi].max()) if lo < hi else 0.0
+
     out = {}
     for h in hyps:
         lag = sr / midi_to_hz(h)
-        lo, hi = max(8, int(lag * 0.97)), min(len(r) - 1, int(lag * 1.03))
-        if lo >= hi:
-            out[h] = 0.0
-            continue
-        out[h] = round(float(r[lo:hi].max()), 3)
+        r_t = _peak(lag)
+        r_2t = _peak(2 * lag)        # true period 2T => h is octave HIGH
+        r_ht = _peak(lag / 2)        # true period T/2 => h is octave LOW
+        score = r_t - 0.5 * max(0.0, r_2t - r_t) \
+            - 0.5 * max(0.0, r_ht - r_t)
+        out[h] = round(max(0.0, score), 3)
     return out
 
 
 def _harmonic_fit(seg: np.ndarray, sr: int, hyp: float,
                   n_harm: int = 8) -> float:
-    """Fraction of spectral energy landing on k*f0 harmonic bins."""
+    """Octave-discriminative harmonic score (§9.2): naive sum over k*f0
+    bins is biased toward the LOWER candidate (its harmonic set is a
+    superset). Debiased score = matched-fit * odd-harmonic ratio —
+    if the truth is 2*hyp, the odd harmonics of hyp (f,3f,5f…) carry no
+    energy, halving the score; if truth is hyp, odd harmonics are real
+    spectral content."""
     if len(seg) < 512:
         return 0.0
     seg = seg * np.hanning(len(seg))
@@ -136,14 +156,22 @@ def _harmonic_fit(seg: np.ndarray, sr: int, hyp: float,
     freqs = np.fft.rfftfreq(len(seg), 1 / sr)
     total = spec.sum() + 1e-12
     f0 = midi_to_hz(hyp)
-    half_bw = f0 * 0.02  # +-2% around each harmonic
-    hit = 0.0
+    half_bw = f0 * 0.02
+    matched = odd = even = 0.0
     for k in range(1, n_harm + 1):
         f = k * f0
         if f > sr / 2:
             break
-        hit += spec[(freqs >= f - half_bw) & (freqs <= f + half_bw)].sum()
-    return round(float(hit / total), 3)
+        e = float(spec[(freqs >= f - half_bw) & (freqs <= f + half_bw)]
+                  .sum())
+        matched += e
+        if k % 2:
+            odd += e
+        else:
+            even += e
+    fit = matched / total
+    odd_ratio = odd / (odd + even + 1e-12)
+    return round(float(fit * (0.5 + 0.5 * odd_ratio)), 3)
 
 
 def _subharmonic_support(seg: np.ndarray, sr: int, hyp: float) -> float:
@@ -291,9 +319,22 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
     hard_fams = [k for k in win["supporting"]
                  if k != "continuity" and win["supporting"][k] > 0.2]
 
+    # §9.5 (B2): independence GROUPS — pYIN and ACF share the waveform/
+    # correlation mechanism and must not count as two independent votes.
+    INDEPENDENCE_GROUPS = {
+        "game": {"game"},
+        "rmvpe": {"rmvpe"},
+        "fcpe": {"fcpe"},
+        "waveform": {"third_f0", "periodicity", "harmonic_series",
+                     "subharmonic"},
+    }
+    groups = [g for g, members in INDEPENDENCE_GROUPS.items()
+              if any(m in win["supporting"] and win["supporting"][m] > 0.2
+                     for m in members)]
+
     # --- resolution gates (§9.5) --------------------------------------
     reasons = []
-    if len(hard_fams) < MIN_FAMILIES:
+    if len(groups) < MIN_FAMILIES:
         reasons.append("insufficient_independent_families")
     if margin < MIN_MARGIN:
         reasons.append("margin_too_small")
@@ -301,27 +342,35 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
         reasons.append("periodicity_counter")
     if sep_sensitive and win["opposing"]:
         reasons.append("separation_sensitive_conflict")
+    would_change = abs(win["hypothesis"] - packet["game_tone"]) \
+        > SUPPORT_ST
+    if would_change and "waveform" not in groups:
+        # an automatic pitch CHANGE needs octave-discriminative waveform
+        # evidence, not just extractor agreement
+        reasons.append("change_requires_waveform_support")
     extractor_conflict = (dual and abs(dual.get("rmvpe_vs_fcpe_cents")
                                        or 0) > CONFLICT_CENTS)
     if extractor_conflict:
-        # octave-style conflict needs waveform families to converge on
-        # the winner — majority of extractors is never enough
-        wf = {"periodicity", "harmonic_series", "subharmonic"}
-        if not ({"periodicity", "harmonic_series"} & set(hard_fams)):
+        # stricter still: waveform convergence AND at least one
+        # non-GAME extractor on the winner
+        if "waveform" not in groups \
+                or not ({"rmvpe", "fcpe"} & set(groups)):
             reasons.append("extractor_conflict_unresolved_by_waveform")
 
     if reasons:
         status = "unresolved"
     else:
-        status = ("resolved_keep"
-                  if abs(win["hypothesis"] - packet["game_tone"])
-                  <= SUPPORT_ST else "resolved_change")
+        status = ("resolved_keep" if not would_change
+                  else "resolved_change")
 
     return {"status": status,
             "winning_hypothesis": win["hypothesis"],
             "confidence": win["score"],
             "margin": margin,
             "evidence_families": hard_fams,
+            "supporting_features": {k: win["supporting"][k]
+                                    for k in sorted(win["supporting"])},
+            "supporting_independence_groups": groups,
             "opposing_families": sorted(win["opposing"]),
             "reason": "+".join(reasons) if reasons else "converged",
             "extractor_conflict": bool(extractor_conflict),
@@ -344,6 +393,16 @@ def apply_adjudication(rec: dict, adj: dict,
     """
     st = rec["state"]
     needs = st["routing_needs"]
+
+    # §9.1 (B2): pitch+structure concurrency — note identity is not yet
+    # fixed, so this B result is PROVISIONAL and C runs first. The pitch
+    # need stays set: after a structure change the packet must be
+    # regenerated and B re-run.
+    if needs["structure_adjudication"]:
+        adj["provisional"] = True
+        st["decision"] = "needs_structure_adjudication"
+        return
+
     needs["pitch_adjudication"] = False          # B ran once — no loop
 
     if adj["status"] == "resolved_change":
