@@ -16,6 +16,30 @@ import soundfile as sf
 DEFAULT_MODEL = "large-v3-turbo"  # distilled; much faster than large-v3 on CPU
 _HANZI = re.compile(r"[一-鿿]")
 _MODEL = None
+_REPO_LYRICS = Path(__file__).resolve().parents[3] / "data" / "lyrics"
+
+
+def find_lyrics(src_path: str | Path) -> tuple[Path, str] | None:
+    """Discover reference lyrics for a source audio without --lyrics.
+
+    Order: sidecar <stem>.lrc next to the audio, then a title-keyword match
+    in data/lyrics/index.yaml. Returns (path, source_kind) or None.
+    """
+    src = Path(src_path)
+    sidecar = src.with_suffix(".lrc")
+    if sidecar.exists():
+        return sidecar, "sidecar"
+    index = _REPO_LYRICS / "index.yaml"
+    if index.exists():
+        import yaml
+        idx = yaml.safe_load(index.read_text(encoding="utf-8")) or {}
+        stem = src.stem
+        for kw, fname in idx.items():
+            if kw in stem:
+                p = _REPO_LYRICS / fname
+                if p.exists():
+                    return p, "index"
+    return None
 
 
 def _model(name: str):

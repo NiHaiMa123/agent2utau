@@ -77,6 +77,10 @@ returned in the JSON result.
 - `--compare-colors`: additionally renders all 5 colors on the first segment
   into `iterations/colors/<color>_vocal.wav` for audition; listed in
   `report.json.color_comparison`.
+- Lyric auto-discovery: without `--lyrics`, `cover` tries
+  `<audio-stem>.lrc` sidecar then `data/lyrics/index.yaml` title-keyword
+  match before falling back to ASR. `report.json.lyrics_source` records
+  which (`lrc:sidecar:`/`lrc:index:`/`lrc:<path>`/asr).
 - `--no-breaths`: by default an `AP` breath note is auto-inserted at phrase
   starts where a real gap >=0.55s exists (reference-project convention:
   ~0.1-0.75s AP, tone borrowed from the next note). Breaths are excluded

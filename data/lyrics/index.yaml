@@ -1,0 +1,3 @@
+# Song-title keyword -> lyric file, used by `cover` when no --lyrics is
+# given and no <audio-stem>.lrc sidecar exists next to the source.
+年轮: nianlun.lrc

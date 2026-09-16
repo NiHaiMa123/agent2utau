@@ -34,14 +34,17 @@ def extract_f0(wav_path: str | Path, device: str = "cpu",
         import librosa
         wav = librosa.resample(wav, orig_sr=sr, target_sr=44100)
         sr = 44100
-    model = _fcpe(device)
-    hop = model.get_hop_size()
-    wav_t = torch.from_numpy(wav[None, :])
-    n_frames = int(np.ceil(len(wav) / hop)) + 1
-    out = model.infer(wav_t, sr=sr, decoder_mode="local_argmax",
-                      threshold=threshold, f0_min=f0_min, f0_max=f0_max,
-                      interp_uv=True, retur_uv=True,
-                      output_interp_target_length=n_frames)
+    # torchfcpe prints INFO/WARN to stdout — keep CLI stdout JSON-clean
+    import contextlib, sys
+    with contextlib.redirect_stdout(sys.stderr):
+        model = _fcpe(device)
+        hop = model.get_hop_size()
+        wav_t = torch.from_numpy(wav[None, :])
+        n_frames = int(np.ceil(len(wav) / hop)) + 1
+        out = model.infer(wav_t, sr=sr, decoder_mode="local_argmax",
+                          threshold=threshold, f0_min=f0_min, f0_max=f0_max,
+                          interp_uv=True, retur_uv=True,
+                          output_interp_target_length=n_frames)
     f0, uv = out if isinstance(out, tuple) else (out, out > 0)
     f0 = np.asarray(f0.cpu()).squeeze()
     uv = np.asarray(uv.cpu()).squeeze() > 0.5

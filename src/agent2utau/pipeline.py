@@ -77,7 +77,7 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     from .audio.decode import decode, probe_duration
     from .audio.separate import separate
     from .audio.mix import mix
-    from .analysis.lyrics import transcribe
+    from .analysis.lyrics import transcribe, find_lyrics
     from .analysis.f0 import extract_f0
     from .analysis.notes import build_notes
     from .analysis.onsets import (frame_rms, gate_voiced, voiced_extent,
@@ -149,9 +149,16 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
 
     # --- lyric source ----------------------------------------------------
     lrc_lines = None
+    if not lyrics:
+        found = find_lyrics(src)
+        if found:
+            lyrics, kind = found
+            rep["lyrics_source"] = f"lrc:{kind}:{lyrics}"
+            rep.setdefault("caveats", []).append(
+                "lyrics auto-discovered (reference file, not ASR)")
     if lyrics:
         lrc_lines = load_lrc(str(lyrics))
-        rep["lyrics_source"] = f"lrc:{lyrics}"
+        rep.setdefault("lyrics_source", f"lrc:{lyrics}")
         if lines:
             lo, hi = (int(x) for x in lines.split(":"))
             lrc_lines = lrc_lines[lo:hi]
@@ -360,7 +367,7 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     if weak > 0.6 or pitch.get("frac_within_100c", 0) < 0.4:
         conf = "low"
     rep["quality_confidence"] = conf
-    rep["caveats"] = caveats(rep, seg_payloads)
+    rep["caveats"] = rep.get("caveats", []) + caveats(rep, seg_payloads)
     rep["status"] = "completed"
     run.write_json("report.json", rep)
     run.write_state({"status": "completed", "stage": "done",
@@ -412,8 +419,8 @@ def caveats(rep: dict, seg_payloads: list[dict] | None = None) -> list[str]:
             c.append(f"{weak_seg} lines had sparse onsets; char timing there "
                      "is interpolated")
     c.append("tempo axis is fixed 120bpm, not the song's real BPM")
-    c.append("DiffSinger model baseline only; no manual pitch/dyn tuning")
-    c.append("no AP/breath notes inserted")
+    c.append("DiffSinger model baseline + measured-pitd correction only; "
+             "no manual pitch/dyn tuning")
     c.append("source is a duet; all lines are rendered by the single target "
              "singer")
     return c

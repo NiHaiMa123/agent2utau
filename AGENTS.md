@@ -98,6 +98,10 @@ cd "E:\software\OpenUtau-win-x64 (6)"
   phrase starts with a real >=0.55s gap, ~0.32s max, tone = next note;
   `part_start_sec` moves earlier so part-relative positions stay >=0;
   breaths are skipped by pitch eval and pitd building.
+- Lyric discovery: sidecar `<stem>.lrc` then `data/lyrics/index.yaml`
+  (keyword→file, e.g. 年轮→nianlun.lrc) then ASR; `lyrics_source` in report.
+- torchfcpe INFO/WARN prints to stdout → `extract_f0` wraps infer in
+  `redirect_stdout(sys.stderr)`; stdout must stay single-JSON (contract).
 - Reference stats: per-note atk/dec/vel in 有参 projects are all boilerplate
   defaults (100/0/100); real expressiveness lives in hand-shaped pitd/tenc/
   voic/brec curves — NOT statistically transferable (flat medians would be
