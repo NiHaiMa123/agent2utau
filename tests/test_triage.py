@@ -80,7 +80,7 @@ def test_classify_structure_hard():
                         "run_note_counts": [2, 1, 2, 1, 1],
                         "structure_varies": True})
     plats = [{"center_midi": 60.0}, {"center_midi": 63.0}]
-    assert classify(p, plats) == "STRUCTURE_HARD_SUSPICIOUS"
+    assert classify(p, plats) == "STRUCTURE_CANDIDATE"
 
 
 def test_classify_wrong_pitch_single_extractor():

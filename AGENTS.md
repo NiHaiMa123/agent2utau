@@ -213,6 +213,25 @@ cd "E:\software\OpenUtau-win-x64 (6)"
   smears (~100-190c, dual extractors agree but IQR too high) — honest
   review queue, not auto-fixable.
 
+## M2.3.1 triage calibration (run diag-20260916-150733-a6e0)
+
+- PITCH_HARD vs SAFE_RETUNE split: safe_retune_gate() applies 13 hard
+  gates (presence 5/5, tone agreement, no structure ambiguity, extractor
+  centers close, both IQR low, oppose >300c, single plateau matching
+  extractors, neighbours rule, pitch-only edit) + render/listening pending.
+- wrong_pitch flags re-judged by plateau/interior center (not full-window
+  median): NEEDS_LISTENING_REVIEW 37→7, LIKELY_CORRECT 312→339.
+- STRUCTURE_HARD_SUSPICIOUS renamed STRUCTURE_CANDIDATE; each carries
+  dual_structure_evidence (rmvpe/fcpe plateaus, count/pitch agreement,
+  changepoint delta). 45 candidates; calibration_review_set.json = 15
+  samples awaiting human labels.
+- 202.52s RESOLVED BY CONSENSUS, not retune: it's tone-unstable across
+  GAME runs (65.3 vs 72.4, agreement 0.6) — this run's medoid picked the
+  correct 72.4, matching dual-F0's stable plateau. Baseline selection
+  itself fixed it. Recorded as pitch_unstable regression case.
+- 0 PITCH_HARD_SUSPICIOUS / 0 safe candidates in this run — honest result.
+- regression_cases/: per extractor-conflict and pitch-unstable packet.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

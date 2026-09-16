@@ -411,6 +411,7 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     fcpe = extract_f0(vocals)
     np.savez(diag_dir / "fcpe_f0.npz", f0_hz=fcpe["f0_hz"],
              voiced=fcpe["voiced"], times=fcpe["times"])
+    fcpe_struct = _structural_f0(fcpe)
     vw2, vsr = sf.read(str(vocals), dtype="float32")
     if vw2.ndim > 1:
         vw2 = vw2.mean(axis=1)
@@ -432,20 +433,41 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
             suspicious.append(rec)
 
     # --- M2.3 step 3/4: plateau evidence + triage --------------------------
-    from .triage import detect_plateaus, classify
-    plateau_ev = {}
-    for rec in packets:
+    # M2.3.1: dual-extractor structure evidence + calibrated re-triage
+    from .triage import (detect_plateaus, classify, interior_center,
+                         dual_structure_evidence, safe_retune_gate)
+    plateau_ev, dual_struct_ev = {}, {}
+    for idx, rec in enumerate(packets):
         plats = detect_plateaus(times, struct, rec["start"],
                                 rec["start"] + rec["dur"])
+        interior = interior_center(times, struct, rec["start"],
+                                   rec["start"] + rec["dur"])
         rec["plateaus"] = plats
-        rec["triage"] = classify(rec, plats)
+        rec["interior_center_midi"] = (None if interior is None
+                                     else round(interior, 2))
+        rec["triage"] = classify(rec, plats, interior)
         if plats:
             plateau_ev[rec["id"]] = plats
+        if rec["triage"] == "STRUCTURE_CANDIDATE":
+            fpl = detect_plateaus(fcpe["times"], fcpe_struct,
+                                  rec["start"], rec["start"] + rec["dur"])
+            ev2 = dual_structure_evidence(plats, fpl)
+            rec["structure_evidence"] = ev2
+            dual_struct_ev[rec["id"]] = ev2
+        if rec["triage"] == "PITCH_HARD_SUSPICIOUS":
+            nb = [p for p in (packets[idx - 1] if idx else None,
+                              packets[idx + 1]
+                              if idx + 1 < len(packets) else None)
+                  if p]
+            rec["safe_gate"] = safe_retune_gate(rec, plats, nb)
     (diag_dir / "plateau_evidence.json").write_text(
         json.dumps(plateau_ev, ensure_ascii=False, indent=1),
         encoding="utf-8")
     (diag_dir / "residual_triage.json").write_text(
         json.dumps(packets, ensure_ascii=False, indent=1),
+        encoding="utf-8")
+    (diag_dir / "structure_dual_f0_evidence.json").write_text(
+        json.dumps(dual_struct_ev, ensure_ascii=False, indent=1),
         encoding="utf-8")
     triage_counts: dict[str, int] = {}
     for rec in packets:
@@ -454,8 +476,20 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     (diag_dir / "review_regions.json").write_text(
         json.dumps(review, ensure_ascii=False, indent=1),
         encoding="utf-8")
+    pitch_safe = [p for p in packets
+                  if p.get("safe_gate", {}).get("eligible")]
+    (diag_dir / "pitch_safe_candidates.json").write_text(
+        json.dumps(pitch_safe, ensure_ascii=False, indent=1),
+        encoding="utf-8")
+    struct_cands = [p for p in packets
+                    if p["triage"] == "STRUCTURE_CANDIDATE"]
+    (diag_dir / "structure_candidates.json").write_text(
+        json.dumps(struct_cands, ensure_ascii=False, indent=1),
+        encoding="utf-8")
     rep["residual_triage_summary"] = {"baseline_notes": len(packets),
-                                      **triage_counts}
+                                      **triage_counts,
+                                      "safe_retune_candidates":
+                                      len(pitch_safe)}
     (diag_dir / "raw_evidence_packets.json").write_text(
         json.dumps(packets, ensure_ascii=False, indent=1), encoding="utf-8")
     (diag_dir / "raw_suspicious_regions.json").write_text(
@@ -511,6 +545,80 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
             if wav_f:
                 renders[tag]["check"] = analyze_wav(wav_f)
     rep["renders"] = renders
+
+    # --- M2.3.1 regression cases + benchmark clips --------------------------
+    rc_dir = diag_dir / "regression_cases"
+    rc_dir.mkdir(exist_ok=True)
+    for p in rep.get("octave_candidates", []):
+        (rc_dir / f"{p['start']:.2f}_f0_conflict.json").write_text(
+            json.dumps(p, ensure_ascii=False, indent=1), encoding="utf-8")
+    # every extractor-conflict region + every pitch-unstable consensus event
+    # gets a regression case (plan §22 output contract)
+    for p in packets:
+        c = p.get("consensus") or {}
+        if p["triage"] == "F0_EXTRACTOR_CONFLICT":
+            (rc_dir / f"{p['start']:.2f}_f0_conflict.json").write_text(
+                json.dumps(p, ensure_ascii=False, indent=1),
+                encoding="utf-8")
+        elif c.get("tone_agreement", 1.0) < 1.0:
+            (rc_dir / f"{p['start']:.2f}_pitch_unstable.json").write_text(
+                json.dumps(p, ensure_ascii=False, indent=1),
+                encoding="utf-8")
+    raw_wav = (renders.get("game_raw") or {}).get("vocal_wav")
+
+    def _clip(src_wav, out, t0, t1):
+        import soundfile as _sf
+        w, sr = _sf.read(str(src_wav), dtype="float32")
+        i0, i1 = int(t0 * sr), int(t1 * sr)
+        _sf.write(str(out), w[max(0, i0):i1], sr)
+
+    benchmark = []
+    for p in pitch_safe:
+        t0, t1 = p["start"] - 0.6, p["start"] + p["dur"] + 0.6
+        tag = f"{p['start']:.2f}"
+        (rc_dir / f"{tag}_pitch_candidate.json").write_text(
+            json.dumps(p, ensure_ascii=False, indent=1), encoding="utf-8")
+        entry = {"note": p["id"], "start": p["start"],
+                 "game_tone": p["game_tone"],
+                 "target_tone": round(
+                     (p.get("rmvpe") or {}).get("center_midi")
+                     or p["game_tone"], 2)}
+        _clip(vocals, rc_dir / f"{tag}_source_vocal.wav", t0, t1)
+        if raw_wav:
+            _clip(raw_wav, rc_dir / f"{tag}_baseline_render.wav", t0, t1)
+        # retune candidate: ±2 neighbour notes, target note -> extractor tone
+        win = [n for n in va if n["voiced"]
+               and n["start"] >= t0 - 0.4 and n["start"] <= t1 + 0.4]
+        fixed = [dict(n) for n in win]
+        for n in fixed:
+            if abs(n["start"] - p["start"]) < 0.02:
+                n["tone"] = entry["target_tone"]
+        if fixed:
+            ustx = rc_dir / f"{tag}_retune.ustx"
+            build_project(f"bench-{tag}", _notes_to_segments(fixed), ustx,
+                          voice_color="Yousa_Normal")
+            br = run_bridge(cfg, ["render", "--project", str(ustx),
+                                  "--out", str(rc_dir / f"{tag}_retune.wav"),
+                                  "--timeout", str(timeout_min)],
+                            timeout=timeout_min * 60 + 120)
+            entry["retune_render_ok"] = bool(br.get("ok"))
+        benchmark.append(entry)
+    if benchmark:
+        (diag_dir / "benchmark_AB.json").write_text(
+            json.dumps(benchmark, ensure_ascii=False, indent=1),
+            encoding="utf-8")
+
+    # calibration review set: up to 15 evenly-spaced structure candidates
+    if struct_cands:
+        step = max(1, len(struct_cands) // 15)
+        cal = struct_cands[::step][:15]
+        (diag_dir / "calibration_review_set.json").write_text(
+            json.dumps(cal, ensure_ascii=False, indent=1),
+            encoding="utf-8")
+        (diag_dir / "calibration_results.json").write_text(
+            json.dumps({"status": "pending_human_review",
+                        "n_samples": len(cal)}, ensure_ascii=False,
+                       indent=1), encoding="utf-8")
 
     # --- report ---------------------------------------------------------------
     def stats(notes):
