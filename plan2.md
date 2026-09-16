@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2B 已冻结；M2.3.2C2 主体已实现但不可冻结。当前唯一算法优先级 = C2 Final Correctness Patch。不要新增 C3。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2B 已冻结；M2.3.2C2 主体 correctness 已通过，但仍不可冻结。当前唯一算法优先级 = C2 Virtual GAME Correspondence Final Patch。不要新增 C3。**
 
 ---
 
@@ -131,17 +131,15 @@ Python: 3.11
 core gate: pytest -q
 ```
 
-最新已验证 acceptance SHA：
+当前最新已验证代码 acceptance SHA：
 
 ```text
-d6798a9c70e18d43e12a6b91473b30845a34818a
-GitHub Actions run: 35101379093
+58c88471791616ed59aabd94bde8f15330d3eefb
+GitHub Actions run: 35106410775
 job: pytest
 conclusion: success
-119 passed
+127 passed
 ```
-
-因此 E1 已 PASS，不再是当前 blocker。
 
 从 C2 开始，任何 stage 想标记：
 
@@ -153,7 +151,7 @@ FROZEN / PASS / accepted
 
 ```text
 local regression green
-+ current acceptance SHA 对应的 GitHub Actions workflow exists
++ current acceptance SHA 对应 GitHub Actions workflow exists
 + core pytest job == success
 + 不允许拿旧 SHA 的 green run 充数
 + 不允许 skipped core regression 伪造 green
@@ -200,7 +198,7 @@ raw feature
 
 `opposing_independence_groups` 当前仍可作为 audit-only；除非未来实现正式 group-level opposition，不得用于新增 resolution truth。
 
-### 5.1 Missing evidence rule
+## 5.1 Missing evidence rule
 
 全系统统一：
 
@@ -218,6 +216,32 @@ missing / low-confidence evidence
 extractor 无可用 evidence
 → 用 1 - support 自动给相反 hypothesis 满分
 ```
+
+## 5.2 Virtual GAME evidence rule
+
+对于真实 Candidate 0 note：
+
+```text
+GAME stochastic support
+= 全部 GAME runs 上真实 note identity/tone distribution
+```
+
+对于 C 构造的 virtual note：
+
+```text
+candidate_written_pitch / acoustic seed
+!= GAME evidence
+```
+
+Virtual GAME evidence 必须同时满足：
+
+```text
+真实 GAME run member note
++ 与 virtual identity 有结构 correspondence
++ pitch 来自该真实 member note
+```
+
+仅仅时间覆盖 virtual span，不等于 note identity correspondence。
 
 ---
 
@@ -281,330 +305,275 @@ C1《年轮》：
 
 ## C2 主体 ✅ IMPLEMENTED / ❌ NOT FROZEN
 
-实现 commit：
+主要 commits：
 
 ```text
-f220012cfc26bba04cf6c4d1368c9a8e43069fc0
-7a160cedcb1e200be578b89950555260003d24db  # CI cpu torch fix
+f220012cfc26bba04cf6c4d1368c9a8e43069fc0  C2 structure correctness/lifecycle
+7a160cedcb1e200be578b89950555260003d24db  CI cpu torch fix
+58c88471791616ed59aabd94bde8f15330d3eefb  C2 final correctness patch
 ```
 
-C2 已完成：
+C2 已完成并通过 review 的部分：
 
 - per-extractor pre/post plateau center / delta / boundary / stability；
-- dual-F0 **relative delta** agreement，octave-offset invariant；
+- dual-F0 relative-delta agreement，octave-offset invariant；
 - `two plateaus != split support`；
 - split vs portamento competition；
 - boundary-local energy evidence；
+- RMVPE voiced-drop 只增强 RMVPE family，不再冒充 independent non-F0 boundary；
 - `run_note_counts==0` 不再作为 merge evidence；
-- consensus 增加真实 per-run `member_spans`；
+- consensus 保存真实 per-run `member_notes[start,end,tone]`；
 - structure change 会生成 virtual note spans 并调用 frozen B；
-- `final_structure_clear` 概念加入 SAFE gate；
-- `split_candidate_stats.json` + discovery stats。
+- virtual acoustic seed 与 GAME evidence 已拆分；无 GAME correspondence 时 GAME group neutral；
+- `final_structure_status` 在第一次 production SAFE gate 调用时就生效；
+- virtual note separation sensitivity 会重算/保守继承；
+- H0 使用显式 `_one_note_support()`；missing extractor = neutral；
+- `split_candidate_stats.json` + discovery stats；
+- Candidate 0 不修改；0 repair。
 
-最新《年轮》C2 baseline：
+58c8847《年轮》结果：
 
 ```text
-discovery: 315 → 118 (rate ≈ 0.28)
-119 resolved_keep
-  └─ 79 portamento
-23 TRUE_SPLIT_CANDIDATE
-16 unresolved
+111 resolved_keep
+27 TRUE_SPLIT_CANDIDATE
+24 unresolved
 0 merge
+
+virtual B:
+47 resolved_keep
+6 unresolved
+1 resolved_change
+
+22 split candidates fully machine-adjudicated
+5 split candidates have unresolved virtual note → phrase review
 0 repair
-189.84s baseline octave auto-resolved
-202.32 / 202.51 unresolved → phrase review candidate
+Candidate 0 unchanged
 ```
 
-remote CI：119 passed / green。
+Remote CI：
 
-但 **C2 仍不可 FROZEN**，原因见下一节。
+```text
+58c88471791616ed59aabd94bde8f15330d3eefb
+127 passed
+GitHub Actions green
+```
+
+但 **C2 仍不可 FROZEN**。最后 blocker 见下一节。
 
 ---
 
-# 8. C2 Final Correctness Patch ← 当前唯一算法 P0
+# 8. C2 Virtual GAME Correspondence Final Patch ← CURRENT / FINAL BLOCKER
 
-**不要新增 C3。** 以下修复属于 C2 freeze 前 final patch。
+**不要新增 C3。** 这是 C2 freeze 前最后一个 correctness patch。
 
-## 8.1 P0 — Virtual note 不得把 RMVPE-derived pitch 冒充 GAME evidence
+## 8.1 P0 — 时间覆盖 != child note identity correspondence
 
-当前实现存在 evidence-independence bug：
-
-```text
-virtual split span
-→ structural RMVPE plateau center
-→ 写入 vrec.game_tone
-→ frozen B 在无 consensus 时把 game_tone 当 GAME support=1
-
-同一 RMVPE 信息又同时进入：
-RMVPE family
-```
-
-结果等价于：
+58c8847 当前 virtual child 的 GAME correspondence 大致为：
 
 ```text
-RMVPE evidence
-→ fake GAME vote
-+ real RMVPE vote
+real GAME member note overlaps >= 60% of virtual child span
+→ member tone 加入 child vtones
 ```
 
-这是禁止的。
+这个条件仍然过宽。
 
-### 必须拆分概念
-
-Virtual note packet 至少区分：
+例如 C 提出：
 
 ```text
-candidate_written_pitch / seed_pitch
-GAME evidence distribution
+parent: 0.0–0.4
+→ child A: 0.0–0.2
+→ child B: 0.2–0.4
 ```
 
-`candidate_written_pitch` 可以来自新 span 的 acoustic estimate，用于提出 hypothesis；**它不是 GAME evidence**。
-
-Frozen B 不能再因为存在 candidate seed 就自动：
+某 GAME run 实际只有：
 
 ```text
-GAME support = 1.0
+one long note: 0.0–0.4, tone=60
 ```
 
-### Virtual GAME evidence 合法来源
+该 long note 对 child A / B 的 virtual-span coverage 都是 100%。
 
-优先扩展 consensus/audit 保存真实：
+如果只用 coverage：
 
 ```text
-member_notes:
-  run_id
-  start
-  end
-  tone
+同一颗 GAME one-note answer
+→ 被当成 child A 的 GAME pitch vote
+→ 又被当成 child B 的 GAME pitch vote
 ```
 
-对于 C 提出的 virtual split/merge identity：
+这是错误的 note-identity 语义。
+
+该 long note 真正表示的是：
 
 ```text
-从真实 GAME run notes 与 virtual span 的 correspondence
-→ 构造 GAME support distribution
+这个 GAME run 不支持 split boundary
 ```
 
-如果一个 virtual identity 完全由 acoustic evidence 发现，而 GAME runs 没有对应真实 note：
+它可以作为 **GAME structure evidence against split**，但不能同时伪装成两个 child 的独立 pitch identity evidence。
+
+## 8.2 Operation-aware correspondence contract
+
+Virtual correspondence 必须知道 C change 的类型。
+
+### Split candidate
+
+对于：
 
 ```text
-GAME group = unavailable / neutral
+1 parent note
+→ child A + child B
 ```
 
-禁止伪造 GAME=1。
+某个 GAME run 只有在该 run 中存在真实的、结构上分别对应 A/B 的 member notes 时，才允许产生 child pitch evidence。
 
-### Regression
-
-必须覆盖：
+至少要求：
 
 ```text
-A. virtual pitch seed 来自 RMVPE，但无真实 GAME member note
-   → GAME group neutral
-   → RMVPE 只能算一次 family
-
-B. 真实 GAME split runs 存在对应 note
-   → GAME group 使用真实 per-run note tones/support
-
-C. 加/删 acoustic seed 不得改变“是否存在 GAME evidence”
+真实 internal boundary 与 candidate split boundary compatible
++ child note start/end/IoU/span compatibility
++ A/B 对应不同真实 member note identities
 ```
 
----
-
-## 8.2 P0 — `final_structure_clear` 必须在 SAFE gate 计算前生效
-
-当前生产顺序存在 bug：
+更优先复用 formal sequence alignment 已有的：
 
 ```text
-C resolved_keep
-→ safe_retune_gate(rec)   # 此时 final_structure_clear 还没设置
-→ apply_structure(rec)
-→ final_structure_clear = true
+split op / per-run member correspondence / internal boundary relation
 ```
 
-所以 raw `structure_varies=true` 的 region 即使 C 已 resolved_keep，第一次生产 gate 仍会失败。
+而不是重新用单纯 overlap 猜 identity。
 
-### 强制修正
-
-推荐显式接口：
+强制：
 
 ```text
-safe_retune_gate(..., final_structure_status=C.status)
+一颗跨越 candidate split boundary 的 long GAME note
+不得同时贡献给两个 children 的 pitch vote
 ```
 
-或至少保证：
+### Merge candidate
+
+对于：
 
 ```text
-C resolved_keep
-→ set final_structure_clear
-→ THEN run SAFE gate
+note A + note B
+→ virtual merged note
 ```
 
-禁止依赖“之后再算第二次 gate”才能正确。
+真实 GAME run 中一颗跨越 combined span、明确缺少中间 boundary 的 long note，反而可以是合法的 merged identity evidence。
 
-### Regression
+因此 split / merge correspondence 不能共用一个无语义的 overlap rule。
 
-必须增加 **production-order integration regression**：
+## 8.3 P0 — stochastic denominator 必须保留 total GAME runs
+
+当前 virtual packet 若只有部分 runs 找到 member tone，不能写成：
 
 ```text
-raw structure_varies=true
-+ C resolved_keep
-+ B resolved_change
-→ 单次真实 production flow
-→ SAFE gate 读取 finalized structure semantics
+n_runs = len(vtones)
 ```
 
-不是测试：
-
-```text
-gate → apply_structure → gate again
-```
-
-因为生产代码并不会自然重跑第二次。
-
----
-
-## 8.3 P0 — RMVPE voiced-drop 不得冒充独立 non-F0 boundary family
-
-原则：
-
-```text
-dual-F0 agreement
-+ independent non-F0 boundary
-```
-
-才允许 acoustic-only high-confidence split。
-
-当前：
-
-```text
-nonf0 = max(boundary_energy, voiced_drop)
-```
-
-但 `voiced_drop` 来自 RMVPE track 的 voiced mask，因此它属于 RMVPE mechanism，不是独立 non-F0 family。
-
-### 必须改为
-
-真正独立 boundary group 可来自：
-
-```text
-energy envelope
-onset strength
-spectral flux
-re-attack transient
-lyric/syllable articulation (if available)
-```
-
-RMVPE voiced probability / voiced mask：
-
-```text
-可以增强 RMVPE structure family
-但不得单独满足 independent_non_f0_required
-```
-
-### Regression
-
-```text
-GAME stable one-note
-+ RMVPE/FCPE delta agree
-+ RMVPE voiced drop
-+ 无 energy/onset/spectral/articulation boundary
-→ 不得仅凭这些判 TRUE_SPLIT
-```
-
----
-
-## 8.4 P1 — Virtual B 必须保留 / 重算 separation sensitivity
-
-当前 virtual note packet 没有可靠携带新 span 的 separation state，可能导致：
-
-```text
-parent = separation_sensitive
-→ split virtual note
-→ separation 字段缺失
-→ frozen B 误认为 normal
-→ confidence 被无意提高
-```
-
-### 强制规则
-
-优先：
-
-```text
-按 virtual span 重新计算 mix-vs-separated sensitivity
-```
-
-如果暂时无法精确重算：
-
-```text
-parent sensitive=true
-→ child 至少保守继承 sensitive=true
-```
-
-禁止 sensitive parent 由于字段缺失自动变 normal。
-
-Regression：
-
-```text
-parent sensitive
-→ virtual notes
-→ frozen B confidence/gate 仍体现 separation penalty
-```
-
----
-
-## 8.5 P1 — C H0 的 missing extractor evidence 必须 neutral
-
-当前类似：
-
-```text
-H0 += (1 - RMVPE_split_support)
-H0 += (1 - FCPE_split_support)
-```
-
-会导致：
-
-```text
-extractor evidence missing
-split_support=0
-→ H0 获得 +1 强支持
-```
-
-这是错误语义。
-
-### 必须显式计算 one-note support
+然后 frozen B 对这些 matched tones 重新归一化为 100%。
 
 例如：
 
 ```text
-extractor 可用
-+ coverage 足够
-+ 单 plateau 稳定
-+ span 内无 meaningful changepoint
-→ one_note_support > 0
+5 total GAME runs
+1 run 真正产生 child identity，tone 正确
+4 runs 不产生该 child identity
 ```
 
-而：
+错误语义：
 
 ```text
-extractor missing / low confidence
-→ one_note_support = 0 (neutral)
+vtones = [correct]
+n_runs = 1
+GAME tone support = 1/1 = 1.0
 ```
 
-不能自动等于 `1 - split_support`。
-
-Regression：
+正确语义必须保留：
 
 ```text
-missing RMVPE/FCPE
-→ 不增加 H0 score
-→ 不算 opposing H1 evidence
+n_total_runs = 5
+n_child_present = 1
+child_presence_rate = 1/5
+conditional_tone_support = 1/1
+```
+
+GAME child support 必须同时反映：
+
+```text
+identity presence
+×
+pitch agreement given identity present
+```
+
+可以实现为：
+
+```text
+effective_game_support
+= child_presence_rate * conditional_tone_support
+```
+
+或经过校准的等价 formulation。
+
+但禁止把 matched-run denominator 缩小后制造虚假的 GAME=1。
+
+## 8.4 Frozen B compatibility
+
+这次 patch 属于 **C → frozen B adapter semantics**，不得改变普通 Candidate 0 上 frozen B 的行为。
+
+允许：
+
+```text
+virtual packet 增加：
+  game_total_runs
+  game_present_runs
+  game_presence_rate
+  real run-tone-by-run mapping
+  correspondence provenance
+```
+
+如必须扩展 `adjudicate()` 对 virtual packet 的 GAME family 读取方式：
+
+```text
+ordinary Candidate 0 path 必须 bit-for-bit / regression-equivalent 保持原 frozen contract
+```
+
+不得借机重调 B threshold / weight / margin。
+
+## 8.5 Required correspondence audit
+
+每颗 virtual note 至少记录：
+
+```text
+virtual_id
+operation: split | merge | boundary_shift
+parent_id(s)
+span
+candidate_written_pitch
+GAME total run count
+per-run matched member note id/span/tone
+per-run correspondence class
+  child_identity_match
+  parent_spanning_note
+  absent
+  ambiguous
+child_presence_rate
+conditional_tone_support
+effective GAME support
+correspondence rule/version
+```
+
+这样后续才能解释：
+
+```text
+为什么某个 GAME run 给了 child pitch 票
+为什么某个 long note 只算 anti-split structure evidence而不算 child pitch
 ```
 
 ---
 
 # 9. C2 Freeze Acceptance Matrix
 
-C2 freeze 前必须满足全部要求。
+C2 freeze 前必须全部满足。
 
 ## 9.1 Existing C2 correctness
 
@@ -617,74 +586,102 @@ C2 freeze 前必须满足全部要求。
 6. large portamento 仍可让 H3 赢
 7. F0-only changepoint 无独立 boundary 时不得 high-confidence split
 8. energy evidence 为 boundary-local
-9. run_note_counts==0 不作为 merge support
-10. merge 只用明确 per-run span/boundary correspondence
-11. C first stage 不自动写 Candidate 0
+9. RMVPE voiced-drop 不算 independent non-F0 boundary
+10. missing extractor evidence = neutral
+11. run_note_counts==0 不作为 merge support
+12. C first stage 不自动写 Candidate 0
 ```
 
 ## 9.2 Virtual-note B correctness
 
 ```text
-12. structure change -> virtual identities/spans
-13. old B invalidated
-14. 每个 virtual span 重新生成 evidence
-15. frozen B 在 virtual note 上执行
-16. old winner/confidence/margin/group_scores 不复用
-17. candidate pitch seed 与 GAME evidence 字段分离
-18. 无真实 GAME correspondence 时 GAME group neutral
-19. 有真实 GAME correspondence 时只用真实 per-run GAME notes
+13. structure change -> virtual identities/spans
+14. old B invalidated
+15. 每个 virtual span 重新生成 evidence
+16. frozen B 在 virtual note 上执行
+17. old winner/confidence/margin/group_scores 不复用
+18. candidate pitch seed 与 GAME evidence 字段分离
+19. 无真实 GAME child correspondence 时 GAME group neutral
 20. RMVPE-derived seed 不得产生 fake GAME vote
 21. separation sensitivity 在 virtual span 重算或保守继承
 22. virtual B 未 finalized 时不得提前 phrase_review
 ```
 
-## 9.3 Final-gate semantics
+## 9.3 FINAL blocker — identity-aware GAME correspondence
 
 ```text
-23. C resolved_keep + unchanged span 可 finalize provisional B
-24. material span/identity change 必须 rerun B
-25. final_structure_clear 在 SAFE gate 前生效
-26. raw structure_varies 保留 audit，但不永久阻塞 finalized keep
-27. production-order regression PASS
+23. split child correspondence 不能只看 virtual-span overlap
+24. 一颗 parent-spanning GAME long note 不得同时给 child A 和 child B pitch vote
+25. split child pitch vote 必须来自该 run 中真实 child-like note identity
+26. 优先使用 formal alignment / internal-boundary correspondence，而不是纯 overlap heuristic
+27. merge correspondence 与 split correspondence operation-aware，不共用错误语义
+28. GAME total stochastic run count 在 virtual packet 中保留
+29. child presence denominator = total GAME runs，不得缩成 matched runs
+30. conditional tone support 与 identity presence 分开记录
+31. effective GAME support 同时反映 presence × pitch agreement（或等价 calibrated formulation）
+32. ordinary Candidate 0 frozen-B GAME semantics 不变
 ```
 
-## 9.4 Evidence independence / missingness
+## 9.4 Final-gate semantics
 
 ```text
-28. RMVPE voiced-drop 不算 independent non-F0 boundary family
-29. acoustic-only split 至少需要真正跨机制 boundary evidence
-30. missing extractor evidence = neutral
-31. C H0 不得用 1-missing-support 获得假强证据
-32. 同一 evidence family 不得重复计票
+33. C resolved_keep + unchanged span 可 finalize provisional B
+34. material span/identity change 必须 rerun B
+35. final_structure_status 在第一次 SAFE gate 调用就生效
+36. raw structure_varies 保留 audit，但不永久阻塞 finalized keep
+37. production-order regression PASS
 ```
 
-## 9.5 Permanent safety regressions
+## 9.5 Required new regressions
 
 ```text
-33. 189s no false repair
-34. 202s no false repair
-35. Candidate 0 unchanged
-36. 0 automatic repair 仍是合法结果
-37. frozen B regressions 全部 green
+38. 5 runs: 4 个 one-long-note 跨 split boundary + 1 个 true split
+    → long notes 不得同时成为 child A/B pitch evidence
+    → child GAME support 不得因 matched denominator 缩小变成 1.0
+
+39. 5/5 runs 都真正 split，child tone 4/5 一致
+    → child identity presence = 5/5
+    → GAME pitch support 应体现 4/5，而不是其它值
+
+40. 5 runs 中只有 2 runs 真正存在 child identity，且 2/2 tone 一致
+    → conditional tone support = 1.0
+    → presence = 0.4
+    → effective support 不能等于 1.0
+
+41. merge case：真实 long GAME note 跨 combined span
+    → 可成为 merged virtual identity evidence
+    → 不应被 split-child rule 错误排除
+
+42. ordinary Candidate 0 B regression outputs 不因 virtual adapter patch 改变
 ```
 
-## 9.6 Remote CI hard gate
+## 9.6 Permanent safety regressions
 
 ```text
-38. local suite green
-39. acceptance SHA 对应 GitHub Actions run exists
-40. pytest job == success
-41. core regressions 无 skipped/disabled 伪 green
-42. remote run 必须对应最终 C2 acceptance SHA
+43. 189s no false repair
+44. 202s no false repair
+45. Candidate 0 unchanged
+46. 0 automatic repair 仍是合法结果
+47. frozen A/B regressions 全部 green
 ```
 
-只有 1–42 全部满足后：
+## 9.7 Remote CI hard gate
+
+```text
+48. local suite green
+49. FINAL C2 acceptance SHA 对应 GitHub Actions run exists
+50. pytest job == success
+51. core regressions 无 skipped/disabled 伪 green
+52. remote run 必须对应最终 C2 acceptance SHA
+```
+
+只有 1–52 全部满足后：
 
 ```text
 M2.3.2C = FROZEN
 ```
 
-**不要新增 C3；如果 final patch 未满足，上述 C2 contract 继续保持 OPEN。**
+**不要新增 C3。若 correspondence patch 未满足，C2 contract 保持 OPEN。**
 
 ---
 
@@ -816,7 +813,7 @@ PITD 不得掩盖 written-note error。
 至少记录：
 
 ```text
-GAME run note counts
+GAME total run count
 per-run GAME member notes/spans/tones
 pairwise alignment costs
 selected medoid + sensitivity
@@ -838,7 +835,8 @@ winner / runner-up / margin
 independent structure discovery stats
 virtual candidate notes
 virtual-note B results
-GAME evidence provenance for each virtual note
+virtual GAME correspondence provenance
+child presence rate / conditional tone support / effective GAME support
 phrase-review count
 local regression result
 remote CI run id / SHA / conclusion
@@ -872,8 +870,8 @@ rollback coverage
 ### M2.3.2B1 / B2 / B3 — ✅ FROZEN
 ### E1 — GitHub Actions Remote CI — ✅ PASS
 ### M2.3.2C1 — ✅ IMPLEMENTED / NOT FROZEN
-### M2.3.2C2 — 主体已实现；Final Correctness Patch ← CURRENT
-### M2.3.2C — Freeze only after §9 full acceptance + current-SHA remote green
+### M2.3.2C2 — 主体 correctness 已通过；Virtual GAME Correspondence Final Patch ← CURRENT
+### M2.3.2C — Freeze only after §9 full acceptance + final-SHA remote green
 ### M2.3.2D — Phrase-level human review
 ### M2.4 — SAFE repair
 ### M2.5 — PROBABLE structure repair
@@ -899,20 +897,24 @@ rollback coverage
 8. 结构未定时 pitch 只能 provisional。
 9. C 改 identity/span 后 old B 必须 invalidate + regenerate + rerun。
 10. virtual candidate pitch seed 不等于 GAME evidence。
-11. 无真实 GAME virtual correspondence 时 GAME group 必须 neutral。
-12. RMVPE voiced-drop 不算独立 non-F0 family。
-13. F0 changepoint 本身不能证明 written-note boundary。
-14. Split 与 portamento/ornament 必须真实竞争。
-15. `run_note_counts==0` 不代表 merge。
-16. Finalized C semantics 优先于 raw historical structure flag。
-17. SAFE gate 必须在 finalized structure state 生效后计算。
-18. separation-sensitive 不得因 virtual packet 丢字段而消失。
-19. Candidate 0 永不被 adjudication 原地覆盖。
-20. C 第一阶段只 adjudicate，不自动 structure repair。
-21. needs_phrase_review 只能在 machine-computable lanes 结束后产生。
-22. 189s 永久 extractor-conflict regression。
-23. 202s 永久 stochastic pitch/identity regression。
-24. 0 repair 是合法结果。
-25. 从 C2 起，没有当前 acceptance SHA 的 remote CI green，不允许 FROZEN/PASS。
-26. 先把 written score 唱对，再生成 PITD。
-27. 先“唱对”，再做泠鸢风格。
+11. 无真实 GAME virtual identity correspondence 时 GAME group 必须 neutral。
+12. 时间 overlap 本身不等于 virtual child identity correspondence。
+13. 一颗 parent-spanning GAME note 不得同时给 split 后两个 children pitch vote。
+14. Virtual GAME stochastic denominator 必须保留 total GAME runs。
+15. child GAME support 必须同时反映 identity presence 与 pitch agreement。
+16. RMVPE voiced-drop 不算独立 non-F0 family。
+17. F0 changepoint 本身不能证明 written-note boundary。
+18. Split 与 portamento/ornament 必须真实竞争。
+19. `run_note_counts==0` 不代表 merge。
+20. Finalized C semantics 优先于 raw historical structure flag。
+21. SAFE gate 必须在 finalized structure state 生效后计算。
+22. separation-sensitive 不得因 virtual packet 丢字段而消失。
+23. Candidate 0 永不被 adjudication 原地覆盖。
+24. C 第一阶段只 adjudicate，不自动 structure repair。
+25. needs_phrase_review 只能在 machine-computable lanes 结束后产生。
+26. 189s 永久 extractor-conflict regression。
+27. 202s 永久 stochastic pitch/identity regression。
+28. 0 repair 是合法结果。
+29. 从 C2 起，没有最终 acceptance SHA 的 remote CI green，不允许 FROZEN/PASS。
+30. 先把 written score 唱对，再生成 PITD。
+31. 先“唱对”，再做泠鸢风格。
