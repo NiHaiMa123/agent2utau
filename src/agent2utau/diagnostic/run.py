@@ -645,6 +645,56 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                     if p["pitch_adjudication"]["status"] != "not_needed"},
                    ensure_ascii=False, indent=1), encoding="utf-8")
 
+    # --- M2.3.2C: automatic structure adjudication ------------------------
+    # Stage 1: adjudication results ONLY — no automatic split/merge/
+    # boundary repair. Candidate 0 is never modified.
+    # Inputs: (A) existing structure lanes, (B) independent discovery over
+    # ALL baseline notes (GAME-stable-but-wrong must still enter C).
+    from .structure_adj import (discover_structure, adjudicate_structure,
+                                apply_structure)
+    discovery = discover_structure(packets, times, energy)
+    n_c = {"resolved_keep": 0, "resolved_change_candidate": 0,
+           "unresolved": 0, "not_needed": 0}
+    c_classes: dict[str, int] = {}
+    for idx, rec in enumerate(packets):
+        reasons = discovery.get(rec["id"], [])
+        lane = rec["state"]["routing_needs"]["structure_adjudication"]
+        if not lane and not reasons:
+            rec["structure_adjudication"] = {"status": "not_needed"}
+            n_c["not_needed"] += 1
+            continue
+        if reasons and not lane:
+            # independent-discovery entry: mark why it entered C
+            rec["state"]["routing_needs"]["structure_adjudication"] = True
+        nb = [p for p in (packets[idx - 1] if idx else None,
+                          packets[idx + 1]
+                          if idx + 1 < len(packets) else None) if p]
+        adj = adjudicate_structure(rec, times, energy, reasons, nb)
+        rec["structure_adjudication"] = adj
+        b = rec.get("pitch_adjudication") or {}
+        b_gate = (safe_retune_gate(rec, rec.get("plateaus") or [],
+                                 rec.get("fcpe_plateaus") or [], nb,
+                                 target_midi=b["winning_hypothesis"])
+                  if (adj["status"] == "resolved_keep"
+                      and b.get("status") == "resolved_change") else None)
+        apply_structure(rec, adj, b_gate=b_gate)
+        n_c[adj["status"]] += 1
+        c_classes[adj["classification"]] = \
+            c_classes.get(adj["classification"], 0) + 1
+    rep["structure_adjudication_summary"] = {**n_c,
+                                             "classes": c_classes,
+                                             "independent_discovery_entries":
+                                             len(discovery)}
+    (diag_dir / "structure_adjudication.json").write_text(
+        json.dumps({p["id"]: p["structure_adjudication"]
+                    for p in packets
+                    if p["structure_adjudication"]["status"]
+                    != "not_needed"},
+                   ensure_ascii=False, indent=1), encoding="utf-8")
+    (diag_dir / "structure_discovery.json").write_text(
+        json.dumps(discovery, ensure_ascii=False, indent=1),
+        encoding="utf-8")
+
     (diag_dir / "plateau_evidence.json").write_text(
         json.dumps(plateau_ev, ensure_ascii=False, indent=1),
         encoding="utf-8")

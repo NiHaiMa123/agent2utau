@@ -426,6 +426,38 @@ M2.3.2B1/B2/B3 = FROZEN. Next: M2.3.2C structure adjudication.
 
 M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
 
+## M2.3.2C stage-1 structure adjudication (run diag-20260916-194529-c9b0)
+
+- `diagnostic/structure_adj.py`: discovery + hypothesis scoring +
+  §8 lifecycle. Stage 1 produces adjudication ONLY — no automatic
+  split/merge/boundary writes; Candidate 0 untouched.
+- discover_structure() scans ALL baseline notes (not just
+  structure_varies lanes): dual-F0 multi-plateau, cross-extractor
+  changepoint agreement, energy dip / voiced gap, long-note multi
+  plateau, very-short note. GAME-stable-but-wrong enters C.
+- Hypotheses H0 keep / H1 split (boundary = median second-plateau
+  onset) / H2 merge (short-note + plateau continuity into neighbour) /
+  H3 portamento-ornament. Group fusion like B: game_structure | rmvpe |
+  fcpe | acoustic_boundary | duration(soft). Raw features never vote.
+- Classes: RESOLVED_KEEP / TRUE_SPLIT_CANDIDATE / TRUE_MERGE_CANDIDATE /
+  GRACE_OR_ORNAMENT / ONE_NOTE_WITH_PORTAMENTO / F0_ARTIFACT /
+  ALIGNMENT_ARTIFACT / UNRESOLVED_STRUCTURE.
+- C<->B lifecycle (§8): resolved_keep FINALIZES provisional B — final
+  result is then routed (resolved_keep->auto_resolved; unresolved->
+  phrase_review; resolved_change->frozen gate recheck, else demoted to
+  unresolved+review — found the bug where provisional unresolved B was
+  silently keep_baseline'd). resolved_change_candidate INVALIDATES the
+  old B result (status=invalidated, old winner archived, new spans
+  recorded under structure_change_candidate) -> phrase_review for the
+  repair stage. unresolved clears pending (no C loop).
+- 年轮: C adjudicated 338 packets — 287 resolved_keep (220 clean keep +
+  67 portamento) / 47 TRUE_SPLIT_CANDIDATE / 4 unresolved / 0 merge.
+  Discovery entered 315 notes; adjudication disposed them honestly.
+  decisions: 299 keep_baseline / 68 phrase_review / 54 auto_resolved /
+  0 repair. 189.84s: C RESOLVED_KEEP + B unresolved -> phrase_review
+  (octave contested region no longer silently kept).
+- Tests: 106 passed (+13 C-stage incl. lifecycle matrix).
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects
