@@ -65,9 +65,22 @@ def _structural_f0(f0: dict) -> np.ndarray:
             filled[i:j] = np.linspace(midi[i - 1], midi[j], j - i + 2)[1:-1]
         i = j
     width = max(3, int(round(0.07 / frame_s)) | 1)
-    sm = median_filter(np.nan_to_num(filled, nan=0.0), size=width,
-                       mode="nearest")
-    sm[~valid] = np.nan
+    # voiced-island filtering: median-filter each contiguous finite island
+    # separately — NaN must NOT be zero-filled first (that would smear
+    # silence edges into neighbouring voiced frames).
+    sm = np.full_like(filled, np.nan)
+    fin = np.isfinite(filled)
+    i = 0
+    while i < len(filled):
+        if not fin[i]:
+            i += 1
+            continue
+        j = i
+        while j < len(filled) and fin[j]:
+            j += 1
+        w = min(width, (j - i) | 1)
+        sm[i:j] = median_filter(filled[i:j], size=w, mode="nearest")
+        i = j
     return sm
 
 
@@ -164,6 +177,7 @@ def _lyric_boundary_match(boundary_secs: list[float], notes: list[dict],
 
 def run_diagnostic(src: str | Path, run, cfg: dict,
                    language: str = "zh", timeout_min: int = 30,
+                   repeats: int = 1,
                    progress=None) -> dict[str, Any]:
     from ..audio.decode import decode, probe_duration
     from ..audio.separate import separate
@@ -221,10 +235,22 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     log("game variant A: raw")
     va = game.infer(wav)
     notes_json(va, diag_dir / "game_raw.json")
+    raw_runs = [va]
+    for i in range(1, repeats):
+        log(f"game raw repeat {i + 1}/{repeats}")
+        n = game.infer(wav)
+        notes_json(n, diag_dir / f"game_raw_r{i + 1}.json")
+        raw_runs.append(n)
 
     log("game variant B: language=zh")
     vb = game.infer(wav, language=language)
     notes_json(vb, diag_dir / "game_zh.json")
+    zh_runs = [vb]
+    for i in range(1, repeats):
+        log(f"game zh repeat {i + 1}/{repeats}")
+        n = game.infer(wav, language=language)
+        notes_json(n, diag_dir / f"game_zh_r{i + 1}.json")
+        zh_runs.append(n)
 
     # lyric boundaries: sha256-bound lrc + whisper DTW (evidence only)
     known_bounds: list[float] = []
@@ -262,6 +288,45 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     else:
         vc = None
 
+    # --- M2.1.2 GAME stochastic consensus -----------------------------------
+    from .consensus import (build_consensus, consensus_stats,
+                            event_as_note)
+    consensus_raw = consensus_zh = None
+    if repeats > 1:
+        log(f"consensus over {repeats} raw runs")
+        consensus_raw = build_consensus(raw_runs)
+        (diag_dir / "consensus_raw.json").write_text(
+            json.dumps(consensus_raw, ensure_ascii=False, indent=1),
+            encoding="utf-8")
+        log(f"consensus over {repeats} zh runs")
+        consensus_zh = build_consensus(zh_runs)
+        (diag_dir / "consensus_zh.json").write_text(
+            json.dumps(consensus_zh, ensure_ascii=False, indent=1),
+            encoding="utf-8")
+        rep["stochastic"] = {
+            "n_runs": repeats,
+            "raw_note_counts": [sum(n["voiced"] for n in r)
+                                for r in raw_runs],
+            "zh_note_counts": [sum(n["voiced"] for n in r)
+                               for r in zh_runs],
+            "consensus_raw": consensus_stats(consensus_raw),
+            "consensus_zh": consensus_stats(consensus_zh),
+        }
+
+    def _attach_consensus(rec: dict) -> None:
+        if consensus_raw is None:
+            return
+        d = [abs(e["start_median"] - rec["start"]) for e in consensus_raw]
+        if not d:
+            return
+        ei = int(np.argmin(d))
+        if d[ei] <= 0.15:
+            e = consensus_raw[ei]
+            rec["consensus"] = {k: e[k] for k in
+                                ("presence_rate", "tone_agreement",
+                                 "tone_mode", "start_iqr_ms",
+                                 "structure_varies", "stability")}
+
     # --- RMVPE + structural F0 (variant D evidence) --------------------------
     log("rmvpe")
     r = infer_rmvpe(vocals)
@@ -285,6 +350,7 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         rec = {"id": f"note_{i:04d}", "start": round(n["start"], 3),
                "dur": round(n["dur"], 3), "game_tone": round(n["tone"], 2),
                **ev}
+        _attach_consensus(rec)
         packets.append(rec)
         if ev["flags"]:
             suspicious.append(rec)
@@ -298,6 +364,10 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     variant_alignment = {"A_vs_B": _align_variants(va, vb)}
     if vc is not None:
         variant_alignment["A_vs_C_forced"] = _align_variants(va, vc)
+    if consensus_raw is not None and consensus_zh is not None:
+        variant_alignment["consensusA_vs_consensusB"] = _align_variants(
+            [event_as_note(e) for e in consensus_raw],
+            [event_as_note(e) for e in consensus_zh])
     (diag_dir / "variant_alignment.json").write_text(
         json.dumps(variant_alignment, ensure_ascii=False, indent=1),
         encoding="utf-8")
@@ -356,6 +426,8 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                              "n_packets": len(packets)}
     rep["lyric_boundary_match_counts"] = lm_counts
     rep["variant_alignment"] = variant_alignment
+    rep["octave_candidates"] = [p for p in packets
+                              if "possible_octave_error" in p["flags"]]
 
     (diag_dir / "diagnostic_report.md").write_text(
         _report_md(rep), encoding="utf-8")
@@ -387,6 +459,14 @@ def _report_md(rep) -> str:
             f"b_only={a['b_only']}, pitch_disagree>1st="
             f"{a['pitch_disagree_gt1st']}, median_onset_drift="
             f"{a['median_onset_drift_ms']}ms")
+    if "stochastic" in rep:
+        s = rep["stochastic"]
+        lines += ["", "## M2.1.2 GAME stochastic consensus", "",
+                  f"runs: {s['n_runs']} per config", "",
+                  f"- raw note counts: {s['raw_note_counts']}",
+                  f"- zh note counts: {s['zh_note_counts']}",
+                  f"- consensus raw: {s['consensus_raw']}",
+                  f"- consensus zh: {s['consensus_zh']}", ""]
     lines += ["",
               "## GAME-raw suspicious regions (RMVPE structural evidence)",
               "",

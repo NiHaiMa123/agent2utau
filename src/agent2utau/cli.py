@@ -165,6 +165,7 @@ def cmd_diagnose(args) -> int:
     try:
         rep = run_diagnostic(src, run, cfg, language=args.language,
                              timeout_min=args.timeout_min,
+                             repeats=args.repeats,
                              progress=lambda m: diag(f"[diag] {m}"))
         return _out(args, rep)
     except Exception as e:
@@ -295,6 +296,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("source")
     p.add_argument("--language", default="zh")
     p.add_argument("--timeout-min", type=int, default=30)
+    p.add_argument("--repeats", type=int, default=1,
+                   help="same-config GAME reruns per variant (>=5 builds "
+                        "the M2.1.2 stochastic consensus)")
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")

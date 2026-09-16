@@ -155,6 +155,25 @@ cd "E:\software\OpenUtau-win-x64 (6)"
   (80-300ms systematic offset — DTW char starts lag GAME onsets) /
   1 possible_missing / 26 unsupported.
 
+## M2.1.2 GAME stochastic consensus (run diag-20260916-134018-3398)
+
+- `diagnose --repeats N`: N same-config GAME runs per variant (~24s each on
+  the 4.5min vocal, CPU). Consensus in `diagnostic/consensus.py`: events
+  clustered by onset<=150ms; presence_rate/tone_agreement/start_iqr/
+  structure_varies → GAME_STABLE|VARIABLE|UNSTABLE. Suspicious packets get
+  a `consensus` block.
+- GAME IS stochastic: raw note counts 415-425 across 5 runs (zh 418-427).
+- 年轮 consensus raw: 453 events = 338 STABLE / 47 VARIABLE / 68 UNSTABLE.
+- consensus-A vs consensus-B: 437 matched, 14 pitch disagreements — most of
+  the single-run A_vs_B difference was noise; zh effect is small.
+- Octave region ~189.84s: GAME stable-wrong (5/5 presence, tone 58.15
+  consistently vs RMVPE +1183c) but structure varies (190.22s fragment is
+  1/5 runs) → plan Case A: needs dual-F0 (FCPE) confirmation before repair.
+- structural F0 now median-filters per voiced island (no NaN→0 smear).
+- structure_varies check counts notes whose MIDPOINT is inside the event's
+  median span — edge-touching neighbours don't count (first version flagged
+  450/453 unstable; that was a bug).
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects
