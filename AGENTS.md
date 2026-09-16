@@ -385,6 +385,30 @@ adjudication for the 76 pitch lanes.
 B = FROZEN per plan. Next: M2.3.2C structure adjudication
 (57 lanes + independent structure discovery).
 
+## M2.3.2B3 independence/provenance calibration (run diag-20260916-185328-ac80)
+
+- Group-level fusion: hypothesis score = game + rmvpe + fcpe +
+  waveform + 0.5*context, where waveform = max(member features)
+  (bounded) minus opposition — pYIN+ACF+harmonic stacking can no
+  longer inflate a winner's margin. `group_scores` per hypothesis are
+  stored for audit; supporting_independence_groups reported.
+- `_third_f0_fresh` now compares prov.version == CURRENT
+  librosa.__version__ (non-null is not enough) + vocal sha + config +
+  schema.
+- 年轮 rerun (third-F0 cache HIT — contract verified): 65 resolved_keep
+  / 2 resolved_change (both provisional -> structure lane) /
+  16 unresolved. decisions: 331 keep / 59 structure / 24 auto_resolved /
+  12 phrase_review / 0 repair.
+- 189.84s: winner 58.1 (game+fcpe+waveform groups) still unresolved —
+  separation_sensitive_conflict. No false repair.
+- 202.52s: winner 72.42 blocked by periodicity_counter +
+  separation_sensitive + change_requires_waveform — unresolved, human.
+- Tests: 91 passed (+4 B3 regressions: correlated-feature no-inflate,
+  cross-group convergence does help, extra feature can't flip,
+  versioned freshness contract).
+
+M2.3.2B1/B2/B3 = FROZEN. Next: M2.3.2C structure adjudication.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

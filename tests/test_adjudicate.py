@@ -45,15 +45,19 @@ def _pkt(game_tone=69.96, start=0.0, dur=0.5, run_tones=None,
 
 def test_b1_extractor_conflict_resolved_by_waveform_not_majority():
     # 189s-like: RMVPE says 70, FCPE says 58 (one octave apart). A clean
-    # tone at 58 => periodicity+harmonic converge on the LOWER octave —
-    # extractor majority (game+rmvpe on 70) must not dominate.
+    # tone at 58 => waveform group converges on the LOWER octave, but a
+    # genuine game+rmvpe vs fcpe+waveform tie must NOT auto-resolve —
+    # unresolved is the honest answer, majority vote is forbidden.
     wav = _wav_for(58.0)
     p = _pkt()
     adj = adjudicate(p, wav, SR, None, [])
     assert adj["extractor_conflict"] is True
-    assert abs(adj["winning_hypothesis"] - 58.0) < 1.0
-    assert "periodicity" in adj["evidence_families"]
-    assert adj["status"] == "resolved_change"
+    low = [h for h in adj["hypotheses"]
+           if abs(h["hypothesis"] - 58.0) <= 0.5][0]
+    assert low["group_scores"]["waveform"] > 0.5   # waveform saw truth
+    assert low["group_scores"]["fcpe"] > 0.5
+    assert adj["status"] == "unresolved"           # no majority fix
+    assert adj["winning_hypothesis"] is not None
 
 
 def test_b1b_extractor_conflict_noise_cannot_be_majority_fixed():
@@ -328,6 +332,59 @@ def test_b2_provisional_when_structure_pending():
     st = rec["state"]
     assert st["routing_needs"]["pitch_adjudication"] is True  # rerun post-C
     assert st["decision"] == "needs_structure_adjudication"
+
+
+def _waveform_group(adj, hyp):
+    return [h for h in adj["hypotheses"]
+            if h["hypothesis"] == hyp][0]["group_scores"]["waveform"]
+
+
+def test_b3_correlated_waveform_features_do_not_inflate_group():
+    # §7.2: pYIN+ACF+harmonic all pointing at the same wrong-octave
+    # answer is ONE waveform vote, not three.
+    wav = _wav_for(58.0)
+    p = _pkt(game_tone=70.0, rmvpe=None, fcpe=None, dual_delta=0.0,
+             run_tones=[70.0] * 5)
+    third = {"times": np.arange(0, 0.5, 0.01), "midi": np.full(50, 58.0),
+             "voiced_prob": np.full(50, 0.9)}
+    adj_both = adjudicate(p, wav, SR, third, [])
+    adj_acf_only = adjudicate(p, wav, SR, None, [])
+    hyp = adj_both["winning_hypothesis"]
+    g_both = _waveform_group(adj_both, hyp)
+    g_acf = _waveform_group(adj_acf_only, hyp)
+    # bounded: stacking correlated features can't push past ~1.0 nor
+    # materially exceed the single-feature group score
+    assert g_both <= 1.0 + 1e-9
+    assert abs(g_both - g_acf) < 0.25
+
+
+def test_b3_cross_group_convergence_does_increase_confidence():
+    # waveform alone vs waveform+fcpe: real cross-group evidence should
+    # legitimately raise the score — that's not correlation inflation.
+    wav = _wav_for(58.0)
+    p = _pkt(game_tone=70.0, rmvpe=None, fcpe=None, dual_delta=0.0,
+             run_tones=[70.0] * 5)
+    alone = adjudicate(p, wav, SR, None, [])
+    p2 = _pkt(game_tone=70.0, rmvpe=None, fcpe=58.0, dual_delta=0.0,
+              run_tones=[70.0] * 5)
+    with_f = adjudicate(p2, wav, SR, None, [])
+    assert with_f["confidence"] > alone["confidence"]
+
+
+def test_b3_extra_correlated_feature_cannot_flip_decision():
+    # pYIN on top of identical ACF+harmonic must not turn unresolved
+    # into resolved by itself (extractor conflict, nothing else).
+    wav = _wav_for(58.0)
+    p = _pkt(game_tone=70.0, rmvpe=70.0, fcpe=58.0, run_tones=[70.0] * 5)
+    third = {"times": np.arange(0, 0.5, 0.01), "midi": np.full(50, 58.0),
+             "voiced_prob": np.full(50, 0.9)}
+    adj_no = adjudicate(p, wav, SR, None, [])
+    adj_yes = adjudicate(p, wav, SR, third, [])
+    # same winner & same group count either way; status cannot flip
+    # from unresolved purely due to the added correlated feature
+    assert adj_no["status"] == adj_yes["status"]
+    assert (len(adj_no["supporting_independence_groups"])
+            == len(adj_yes["supporting_independence_groups"]))
 
 
 def test_b2_safe_gate_binds_explicit_target():

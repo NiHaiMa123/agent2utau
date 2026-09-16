@@ -288,25 +288,39 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
             cont = round(float(1.0 / (1.0 + leap / 12.0)), 3)
             fam_support["continuity"] = cont
 
-        # --- weighted score ------------------------------------------
-        score = (W_GAME * gsup
-                 + W_EXT * (fam_support.get("rmvpe", 0)
-                            + fam_support.get("fcpe", 0))
-                 + W_THIRD * fam_support.get("third_f0", 0)
-                 + W_PERIOD * fam_support.get("periodicity", 0)
-                 + W_HARM * fam_support.get("harmonic_series", 0)
-                 + W_CONT * fam_support.get("continuity", 0))
-        # opposition subtracts, reliability-weighted
-        score -= (sum(fam_oppose.get(k, 0)
-                      for k in ("rmvpe", "fcpe", "third_f0"))
-                  + 0.5 * sum(fam_oppose.get(k, 0)
-                              for k in ("periodicity", "subharmonic")))
+        # --- group-level fusion (§7.2, B3) ------------------------------
+        # Correlated features inside one mechanism group must not inflate
+        # the final score: waveform members are fused to a BOUNDED group
+        # score (max member — adding correlated features cannot stack
+        # votes), and only group scores enter the final sum.
+        wf_support = max(
+            (fam_support.get(k, 0.0)
+             for k in ("third_f0", "periodicity", "harmonic_series")),
+            default=0.0)
+        wf_oppose = max(
+            (fam_oppose.get(k, 0.0)
+             for k in ("third_f0", "periodicity", "subharmonic")),
+            default=0.0)
+        group_scores = {
+            "game": round(gsup, 3),
+            "rmvpe": round(fam_support.get("rmvpe", 0.0)
+                           - fam_oppose.get("rmvpe", 0.0), 3),
+            "fcpe": round(fam_support.get("fcpe", 0.0)
+                          - fam_oppose.get("fcpe", 0.0), 3),
+            "waveform": round(max(0.0, wf_support - 0.5 * wf_oppose), 3),
+            "context": round(fam_support.get("continuity", 0.0), 3),
+        }
+        score = (W_GAME * group_scores["game"]
+                 + W_EXT * (group_scores["rmvpe"] + group_scores["fcpe"])
+                 + W_THIRD * group_scores["waveform"]
+                 + W_CONT * group_scores["context"])
         if sep_sensitive:
             score *= 0.8      # sensitivity lowers confidence, not truth
         scored.append({"hypothesis": h, "score": round(score, 3),
                        "game_support_ratio": round(gsup, 3),
                        "periodicity": per, "subharmonic": sub,
                        "harmonic_fit": harm,
+                       "group_scores": group_scores,
                        "supporting": fam_support, "opposing": fam_oppose})
 
     scored.sort(key=lambda x: -x["score"])

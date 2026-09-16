@@ -61,6 +61,29 @@ def test_a4_missing_model_file_invalidates(tmp_path):
                           man["separator_config_sha256"], "s1", _sha)
 
 
+def test_b3_third_f0_freshness_contract():
+    # §7.1: version must equal the CURRENT runtime version, not merely
+    # be non-null.
+    from agent2utau.diagnostic.run import _third_f0_fresh
+    cfg = {"implementation": "librosa.pyin", "fmin_hz": 82.4,
+           "fmax_hz": 2093.0, "frame_length": 2048, "hop_ms": 10}
+    prov = {**cfg, "schema": "s1", "vocal_sha256": "v1",
+            "version": "1.0.0"}
+    assert _third_f0_fresh(prov, "v1", cfg, "s1", "1.0.0")
+    # changed runtime version -> stale
+    assert not _third_f0_fresh(prov, "v1", cfg, "s1", "1.1.0")
+    # changed vocal bytes -> stale
+    assert not _third_f0_fresh(prov, "v2", cfg, "s1", "1.0.0")
+    # changed config -> stale
+    bad = dict(cfg, hop_ms=20)
+    assert not _third_f0_fresh(prov, "v1", bad, "s1", "1.0.0")
+    # changed schema -> stale
+    assert not _third_f0_fresh(prov, "v1", cfg, "s2", "1.0.0")
+    # missing version -> stale
+    prov2 = dict(prov, version=None)
+    assert not _third_f0_fresh(prov2, "v1", cfg, "s1", "1.0.0")
+
+
 def test_a4_guessed_path_never_used(tmp_path):
     # manifest must point at the actual resolved path; if the recorded
     # actual path doesn't exist we are stale — even if some guessed

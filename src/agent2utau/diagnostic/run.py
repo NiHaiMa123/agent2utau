@@ -28,13 +28,14 @@ SNAP_MS = 300.0
 
 
 def _third_f0_fresh(prov: dict, vocal_sha: str, cfg: dict,
-                    schema: str) -> bool:
-    """§9.4 (B2): third-F0 cache valid only when the separated-vocal
-    bytes, implementation/version, config, and schema all match."""
+                    schema: str, runtime_version: str) -> bool:
+    """§7.1 (B3): third-F0 cache valid only when the separated-vocal
+    bytes, implementation, CURRENT runtime version, config, and schema
+    all match — a non-null stale version is not enough."""
     return (prov.get("vocal_sha256") == vocal_sha
             and prov.get("schema") == schema
             and all(prov.get(k) == v for k, v in cfg.items())
-            and prov.get("version") is not None)
+            and prov.get("version") == runtime_version)
 
 
 def _cache_fresh(man: dict, src_sha: str, sep_model: str,
@@ -520,6 +521,7 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     # bound to separated-vocal bytes + implementation/version/config/
     # schema, not merely to whether the separation cache was fresh.
     from .adjudicate import third_f0_pyin
+    import librosa as _librosa
     vocal_sha = _sha256(vocals)
     T3_SCHEMA = "b2-pyin-1"
     t3_path = cache / "third_f0.npz"
@@ -530,7 +532,8 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     third = None
     if t3_path.exists() and t3_prov.exists():
         prov = json.loads(t3_prov.read_text(encoding="utf-8"))
-        if _third_f0_fresh(prov, vocal_sha, t3_cfg, T3_SCHEMA):
+        if _third_f0_fresh(prov, vocal_sha, t3_cfg, T3_SCHEMA,
+                           _librosa.__version__):
             z = np.load(t3_path)
             third = {"times": z["times"], "midi": z["midi"],
                      "voiced_prob": z["voiced_prob"], "provenance": prov}
