@@ -179,7 +179,12 @@ def safe_retune_gate(packet: dict, rmvpe_plateaus: list[dict],
     gates = {
         "presence_5of5": cons.get("presence_rate", 0) >= 1.0,
         "tone_agreement_high": cons.get("tone_agreement", 0) >= 0.8,
-        "no_structure_ambiguity": not cons.get("structure_varies", True),
+        # §8.7 (C2): the FINALIZED C result owns this gate — a confident
+        # C resolved_keep must not be permanently blocked by the raw
+        # historical structure_varies flag (kept in audit).
+        "no_structure_ambiguity":
+            packet.get("final_structure_clear", False)
+            or not cons.get("structure_varies", True),
         "aligned_identity_clear": cons.get("stability") == "GAME_STABLE",
         "extractor_centers_close": dual.get("extractors_agree", False),
         "rmvpe_iqr_low": (rmv.get("iqr_cents") or 1e9) <= STABLE_IQR_CENTS,

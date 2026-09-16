@@ -652,10 +652,32 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     # ALL baseline notes (GAME-stable-but-wrong must still enter C).
     from .structure_adj import (discover_structure, adjudicate_structure,
                                 apply_structure)
+
+    def _virtual_note_packet(rec, span, tag):
+        """§8.1 (C2): fresh evidence packet for a virtual candidate
+        note span — no reuse of the old note's winner/confidence/margin.
+        tone comes from the span's own plateau/extractor evidence."""
+        s, e = span["start"], span["end"]
+        vpl = detect_plateaus(times, struct, s, e)
+        tone = (vpl[0]["center_midi"] if vpl
+                else (rec.get("interior_center_midi")
+                      or rec["game_tone"]))
+        vn = {"start": s, "dur": e - s, "tone": tone, "voiced": True}
+        ev = _evidence(vn, times, struct, voiced, energy, fcpe=fcpe)
+        vrec = {"id": f"{rec['id']}__{tag}", "start": round(s, 3),
+                "dur": round(e - s, 3), "game_tone": round(tone, 2),
+                **ev}
+        vrec["plateaus"] = vpl
+        vrec["fcpe_plateaus"] = detect_plateaus(fcpe["times"], fcpe_struct,
+                                                s, e)
+        vrec["virtual_of"] = rec["id"]
+        return vrec
+
     discovery = discover_structure(packets, times, energy)
     n_c = {"resolved_keep": 0, "resolved_change_candidate": 0,
            "unresolved": 0, "not_needed": 0}
     c_classes: dict[str, int] = {}
+    split_stats = []
     for idx, rec in enumerate(packets):
         reasons = discovery.get(rec["id"], [])
         lane = rec["state"]["routing_needs"]["structure_adjudication"]
@@ -669,22 +691,71 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         nb = [p for p in (packets[idx - 1] if idx else None,
                           packets[idx + 1]
                           if idx + 1 < len(packets) else None) if p]
-        adj = adjudicate_structure(rec, times, energy, reasons, nb)
+        adj = adjudicate_structure(rec, times, energy, reasons, nb,
+                                   voiced=voiced)
         rec["structure_adjudication"] = adj
+
+        # §8.8 calibration stats for every packet where H1 competed
+        if "H1" in (adj.get("all_scores") or {}):
+            ee = adj["extractor_evidence"]
+            split_stats.append({
+                "id": rec["id"], "entry": ("lane" if lane
+                                           else "discovery"),
+                "dur": rec["dur"],
+                "game_one": adj["game_structure"]["one_note_ratio"],
+                "game_split": adj["game_structure"]["split_ratio"],
+                "delta_rmvpe_st":
+                    (ee["rmvpe"] or {}).get("pitch_delta_st"),
+                "delta_fcpe_st":
+                    (ee["fcpe"] or {}).get("pitch_delta_st"),
+                "dual_delta_agreement": ee["dual_delta_agreement"],
+                "boundary_time_delta_ms":
+                    (ee["dual_delta"] or {}).get(
+                        "boundary_time_delta_ms"),
+                "non_f0_boundary":
+                    adj["boundary_evidence"]["non_f0_support"],
+                "H1_score": adj["all_scores"].get("H1"),
+                "H3_score": adj["all_scores"].get("H3"),
+                "winner": adj["winning_hypothesis"],
+                "margin": adj["margin"],
+                "classification": adj["classification"]})
+
+        # §8.1 (C2): change candidate -> virtual notes -> frozen B rerun
+        virtual_b = None
+        if adj["status"] == "resolved_change_candidate":
+            detail = adj.get("hypothesis_detail") or {}
+            spans = (detail.get("notes") if detail.get("kind") == "split"
+                     else [detail.get("span")]
+                     if detail.get("kind") == "merge" else [])
+            virtual_b = []
+            for vi, sp in enumerate(spans):
+                if not sp:
+                    continue
+                vrec = _virtual_note_packet(rec, sp, f"v{vi}")
+                vadj = adjudicate(vrec, wav, sep_sr, third, [])
+                virtual_b.append({"id": vrec["id"], "start": vrec["start"],
+                                  "dur": vrec["dur"],
+                                  "tone": vrec["game_tone"], **vadj})
+
         b = rec.get("pitch_adjudication") or {}
         b_gate = (safe_retune_gate(rec, rec.get("plateaus") or [],
                                  rec.get("fcpe_plateaus") or [], nb,
                                  target_midi=b["winning_hypothesis"])
                   if (adj["status"] == "resolved_keep"
                       and b.get("status") == "resolved_change") else None)
-        apply_structure(rec, adj, b_gate=b_gate)
+        apply_structure(rec, adj, b_gate=b_gate, virtual_b=virtual_b)
         n_c[adj["status"]] += 1
         c_classes[adj["classification"]] = \
             c_classes.get(adj["classification"], 0) + 1
-    rep["structure_adjudication_summary"] = {**n_c,
-                                             "classes": c_classes,
-                                             "independent_discovery_entries":
-                                             len(discovery)}
+    reason_counts: dict[str, int] = {}
+    for rs in discovery.values():
+        for r_ in rs:
+            reason_counts[r_] = reason_counts.get(r_, 0) + 1
+    rep["structure_adjudication_summary"] = {
+        **n_c, "classes": c_classes,
+        "independent_discovery_entries": len(discovery),
+        "discovery_rate": round(len(discovery) / max(1, len(packets)), 3),
+        "discovery_reason_counts": reason_counts}
     (diag_dir / "structure_adjudication.json").write_text(
         json.dumps({p["id"]: p["structure_adjudication"]
                     for p in packets
@@ -693,6 +764,9 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                    ensure_ascii=False, indent=1), encoding="utf-8")
     (diag_dir / "structure_discovery.json").write_text(
         json.dumps(discovery, ensure_ascii=False, indent=1),
+        encoding="utf-8")
+    (diag_dir / "split_candidate_stats.json").write_text(
+        json.dumps(split_stats, ensure_ascii=False, indent=1),
         encoding="utf-8")
 
     (diag_dir / "plateau_evidence.json").write_text(

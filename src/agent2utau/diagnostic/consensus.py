@@ -117,6 +117,15 @@ def _finalize(members: list[tuple[int, int]],
         "n_runs_present": int(len(present)),
         "n_runs": n_runs,
         "run_note_counts": counts.tolist(),
+        # §8.6 (C2): explicit per-run member note spans — merge support
+        # must come from real GAME notes crossing a candidate boundary,
+        # never from run_note_counts==0 (which means gap/absence).
+        "member_spans": {str(ri): [[round(n["start"], 3),
+                                  round(n["start"] + n["dur"], 3)]
+                                 for (rj, _), n in zip(members, notes)
+                                 if rj == ri]
+                         for ri in range(n_runs)
+                         if any(rj == ri for rj, _ in members)},
         "structure_varies": structure_varies,
         "stability": cls,
     }
