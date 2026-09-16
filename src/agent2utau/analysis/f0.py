@@ -13,6 +13,7 @@ import numpy as np
 import soundfile as sf
 
 _FCPE = None
+F0_CACHE_VERSION = "fcpe-v2-voiced-mask-native-clock"
 
 
 def _fcpe(device: str = "cpu"):
@@ -38,27 +39,34 @@ def extract_f0(wav_path: str | Path, device: str = "cpu",
     import contextlib, sys
     with contextlib.redirect_stdout(sys.stderr):
         model = _fcpe(device)
+        # hop is measured at the MODEL sample rate, not the input rate.
+        model_sr = model.get_model_sr()
         hop = model.get_hop_size()
         wav_t = torch.from_numpy(wav[None, :])
-        n_frames = int(np.ceil(len(wav) / hop)) + 1
+        n_frames = int(len(wav) / sr * model_sr / hop) + 1
         out = model.infer(wav_t, sr=sr, decoder_mode="local_argmax",
                           threshold=threshold, f0_min=f0_min, f0_max=f0_max,
-                          interp_uv=True, retur_uv=True,
+                          interp_uv=False, retur_uv=True,
                           output_interp_target_length=n_frames)
-    f0, uv = out if isinstance(out, tuple) else (out, out > 0)
+    f0, uv = out
     f0 = np.asarray(f0.cpu()).squeeze()
-    uv = np.asarray(uv.cpu()).squeeze() > 0.5
+    # torchfcpe uv == 1 means UNVOICED (models_infer.py), not voiced.
+    uv = np.asarray(uv.cpu()).squeeze() < 0.5
     assert f0.ndim == 1 and uv.ndim == 1, (f0.shape, uv.shape)
     n = min(n_frames, len(f0), len(uv))
     f0 = f0[:n]; uv = uv[:n]
-    times = np.arange(n) * hop / sr
+    uv &= np.isfinite(f0) & (f0 >= f0_min) & (f0 <= f0_max)
+    f0[~uv] = 0
+    times = np.arange(n) * hop / model_sr
     return {
         "schema_version": "1",
         "backend": f"torchfcpe:{type(model).__name__}",
         "device": device,
-        "sr": sr,
+        "sr": model_sr,
+        "input_sr": sr,
+        "cache_version": F0_CACHE_VERSION,
         "hop": hop,
-        "frame_ms": hop / sr * 1000.0,
+        "frame_ms": hop / model_sr * 1000.0,
         "n_frames": n,
         "f0_hz": f0.astype(np.float32),
         "voiced": uv.astype(bool),

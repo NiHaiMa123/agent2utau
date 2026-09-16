@@ -42,6 +42,8 @@ def evaluate(rendered_wav: str | Path, notes: list[dict], target_f0: dict,
         "n_notes": len(notes),
         "n_evaluated": int(errs.size),
         "n_unvoiced": len(notes) - int(errs.size),
+        "coverage": round(int(errs.size) / max(1, len(notes)), 4),
+        "accuracy_all_notes_100c": round(int((np.abs(errs) <= 100).sum()) / max(1, len(notes)), 4),
     }
     if errs.size:
         stats.update({

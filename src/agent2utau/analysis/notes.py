@@ -15,8 +15,8 @@ import numpy as np
 
 from .f0 import hz_to_midi
 
-MIN_NOTE_SEC = 0.09          # shorter fragments get merged into a neighbour
-SPLIT_SEMITONES = 1.0        # sustained step that triggers a char split
+MIN_NOTE_SEC = 0.09          # minimum sustained stable region for a split
+SPLIT_SEMITONES = 1.25       # sustained step that triggers a char split
 MIN_VOICED_FOR_PITCH = 0.35  # below this the note keeps context pitch
 DEFAULT_TONE = 60            # C4 fallback
 
@@ -36,35 +36,35 @@ def _split_char(f0: dict, t0: float, t1: float) -> list[dict]:
     idx = np.where(m)[0]
     if idx.size < 3:
         return [{"start": t0, "end": t1}]
+    from scipy.ndimage import median_filter
     ts, hz, uv = f0["times"], f0["f0_hz"], f0["voiced"]
-    runs, cur = [], [idx[0], idx[0]]
-    ref = None
-    for i in idx:
-        v = hz_to_midi(np.array([hz[i]]))[0] if uv[i] else None
-        if ref is None and v is not None:
-            ref = v
-        if v is not None and ref is not None and abs(v - ref) >= SPLIT_SEMITONES:
-            runs.append(cur); cur = [i, i]; ref = v
-        else:
-            cur[1] = i
-            if v is not None and ref is not None:
-                ref = 0.7 * ref + 0.3 * v  # track slow drift
-    runs.append(cur)
+    valid = idx[uv[idx]]
+    if valid.size < 3:
+        return [{"start": t0, "end": t1}]
     frame = float(ts[1] - ts[0])
-    segs = [{"start": float(ts[r[0]]), "end": float(ts[r[1]]) + frame}
-            for r in runs]
-    segs[0]["start"], segs[-1]["end"] = t0, t1
-    # merge too-short fragments into the longer neighbour
-    merged = []
-    for s in segs:
-        if merged and s["end"] - s["start"] < MIN_NOTE_SEC:
-            prev = merged[-1]
-            if prev["end"] - prev["start"] >= s["end"] - s["start"]:
-                prev["end"] = s["end"]; continue
-            prev_start = prev["start"]; merged[-1] = s
-            merged[-1]["start"] = prev_start; continue
-        merged.append(s)
-    return merged
+    # Interpolation only helps segmentation within this already aligned
+    # syllable; note pitch/confidence still uses original voiced frames.
+    pitch = np.interp(ts[idx], ts[valid], hz_to_midi(hz[valid]))
+    width = max(3, int(round(0.05 / frame)) | 1)
+    pitch = median_filter(pitch, size=width, mode="nearest")
+    hold = max(3, int(np.ceil(MIN_NOTE_SEC / frame)))
+    base = float(np.median(pitch[:hold]))
+    boundaries, last = [t0], 0
+    j = hold
+    while j + hold <= len(idx):
+        candidate = pitch[j:j + hold]
+        center = float(np.median(candidate))
+        # A single leap or a vibrato half-cycle must not create a new note.
+        if (j - last >= hold and abs(center - base) >= SPLIT_SEMITONES
+                and np.max(np.abs(candidate - center)) < 0.65
+                and t1 - float(ts[idx[j]]) >= MIN_NOTE_SEC):
+            boundaries.append(float(ts[idx[j]]))
+            base, last = center, j
+            j += hold
+        else:
+            j += 1
+    boundaries.append(t1)
+    return [{"start": a, "end": b} for a, b in zip(boundaries, boundaries[1:])]
 
 
 def build_notes(chars: list[dict], f0: dict, prev_tone: int = DEFAULT_TONE
@@ -81,6 +81,7 @@ def build_notes(chars: list[dict], f0: dict, prev_tone: int = DEFAULT_TONE
             notes.append({
                 "lyric": ch["char"] if j == 0 else "+",
                 "start": round(s["start"], 4),
+                "end": round(s["end"], 4),
                 "dur": round(max(0.03, s["end"] - s["start"]), 4),
                 "tone": max(24, min(96, tone)),
                 "conf": conf,

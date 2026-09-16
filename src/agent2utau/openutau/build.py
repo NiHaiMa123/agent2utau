@@ -27,9 +27,15 @@ def sec_to_tick(sec: float) -> int:
 
 
 def _note(n: dict, part_start_sec: float) -> dict:
+    # Quantize boundaries on ONE absolute tick grid. Rounding duration
+    # independently creates 1-tick overlaps; OpenUtau marks those notes
+    # invalid, and can silently omit an entire syllable from the render.
+    anchor = sec_to_tick(part_start_sec)
+    start = sec_to_tick(n["start"]) - anchor
+    end = sec_to_tick(n.get("end", n["start"] + n["dur"])) - anchor
     return {
-        "position": sec_to_tick(n["start"] - part_start_sec),
-        "duration": max(1, sec_to_tick(n["dur"])),
+        "position": start,
+        "duration": max(1, end - start),
         "tone": int(n["tone"]),
         "lyric": n["lyric"],
         "pitch": {"data": [
@@ -70,6 +76,16 @@ def build_project(name: str, segments: list[dict], out_ustx: Path,
         notes = [_note(n, anchor) for n in seg["notes"]]
         if not notes:
             continue
+        for left, right in zip(notes, notes[1:]):
+            gap = right["position"] - left["position"] - left["duration"]
+            if abs(gap) <= 1:
+                left["duration"] = right["position"] - left["position"]
+            if left["duration"] <= 0 or gap < -1:
+                raise ValueError("Overlapping/zero-duration notes in generated USTX")
+            if right["lyric"] == "+" and gap > 1:
+                raise ValueError("An extender must touch the preceding note")
+        if notes[0]["position"] < 0:
+            raise ValueError("A note precedes its part anchor")
         if clr_value is not None:
             # clr is per-phoneme: write indices 0..7 so every phoneme in the
             # note matches (extra indices are simply never queried)

@@ -1,7 +1,8 @@
 """Lyric transcription via faster-whisper (CPU, int8).
 
-Returns segments with per-char timing (whisper words split evenly across
-Hanzi chars — acceptable granularity for note boundaries at M2).
+Returns segments with per-char timing. Multi-character ASR words are split
+evenly as an explicitly approximate fallback; supplied lyrics use acoustic
+attention/DTW through force_align instead of onset-count heuristics.
 """
 
 from __future__ import annotations
@@ -22,8 +23,8 @@ _REPO_LYRICS = Path(__file__).resolve().parents[3] / "data" / "lyrics"
 def find_lyrics(src_path: str | Path) -> tuple[Path, str] | None:
     """Discover reference lyrics for a source audio without --lyrics.
 
-    Order: sidecar <stem>.lrc next to the audio, then a title-keyword match
-    in data/lyrics/index.yaml. Returns (path, source_kind) or None.
+    Order: explicit sidecar, then an exact source SHA256 binding. A song
+    title does not identify a recording/arrangement/timeline.
     """
     src = Path(src_path)
     sidecar = src.with_suffix(".lrc")
@@ -33,12 +34,18 @@ def find_lyrics(src_path: str | Path) -> tuple[Path, str] | None:
     if index.exists():
         import yaml
         idx = yaml.safe_load(index.read_text(encoding="utf-8")) or {}
-        stem = src.stem
-        for kw, fname in idx.items():
-            if kw in stem:
-                p = _REPO_LYRICS / fname
+        import hashlib
+        digest = None
+        for entry in idx.get("recordings", []):
+            if not isinstance(entry, dict) or not entry.get("sha256"):
+                continue
+            if digest is None:
+                with src.open("rb") as f:
+                    digest = hashlib.file_digest(f, "sha256").hexdigest()
+            if entry["sha256"] == digest:
+                p = _REPO_LYRICS / entry["file"]
                 if p.exists():
-                    return p, "index"
+                    return p, "source-sha256"
     return None
 
 
@@ -73,10 +80,16 @@ def transcribe(wav_path: str | Path, model: str = DEFAULT_MODEL,
         wav = wav.mean(axis=1)
     i0, i1 = int(t0 * sr), (int(t1 * sr) if t1 else len(wav))
     clip = wav[i0:i1]
-    segs, _info = _model(model).transcribe(
+    recognizer = _model(model)
+    target_sr = recognizer.feature_extractor.sampling_rate
+    # Arrays bypass faster-whisper's audio decoder/resampler entirely.
+    if sr != target_sr:
+        import librosa
+        clip = librosa.resample(clip, orig_sr=sr, target_sr=target_sr)
+    segs, _info = recognizer.transcribe(
         clip, language="zh", beam_size=beam_size,
-        word_timestamps=True, vad_filter=True,
-        vad_parameters=dict(min_silence_duration_ms=300))
+        word_timestamps=True, vad_filter=False,
+        condition_on_previous_text=False)
     out = []
     for s in segs:
         chars = []
@@ -99,3 +112,47 @@ def transcribe(wav_path: str | Path, model: str = DEFAULT_MODEL,
         "n_segments": len(out),
         "segments": out,
     }
+
+
+def force_align(wav_path: str | Path, text: str, t0: float, t1: float,
+                model: str = DEFAULT_MODEL) -> list[dict]:
+    """Align supplied text using Whisper's acoustic attention + DTW.
+
+    This is a constrained alignment, NOT evidence that the supplied lyrics
+    match this recording. Callers must bind references to the source audio.
+    Probabilities and zero-duration tokens are retained for quality checks.
+    The adapter targets the installed faster-whisper 1.x find_alignment API.
+    """
+    from faster_whisper.tokenizer import Tokenizer
+    from faster_whisper.audio import pad_or_trim
+    import librosa
+
+    if not 0 < t1 - t0 <= 29:
+        raise ValueError("Alignment windows must be in (0, 29] seconds")
+    with sf.SoundFile(str(wav_path)) as audio:
+        sr = audio.samplerate
+        audio.seek(max(0, int(t0 * sr)))
+        clip = audio.read(int((t1 - t0) * sr), dtype="float32")
+    if clip.ndim > 1:
+        clip = clip.mean(axis=1)
+    recognizer = _model(model)
+    target_sr = recognizer.feature_extractor.sampling_rate
+    if sr != target_sr:
+        clip = librosa.resample(clip, orig_sr=sr, target_sr=target_sr)
+    features = recognizer.feature_extractor(clip)
+    frames = min(features.shape[-1] - 1,
+                 int(len(clip) / recognizer.feature_extractor.hop_length))
+    encoded = recognizer.encode(pad_or_trim(features))
+    tokenizer = Tokenizer(recognizer.hf_tokenizer,
+                          recognizer.model.is_multilingual,
+                          task="transcribe", language="zh")
+    words = recognizer.find_alignment(
+        tokenizer, [tokenizer.encode(text)], encoded, frames)[0]
+    chars = []
+    for word in words:
+        for char in _char_spans(word["word"], word["start"], word["end"]):
+            chars.append({**char, "start": round(t0 + char["start"], 4),
+                          "end": round(t0 + char["end"], 4),
+                          "probability": float(word["probability"]),
+                          "method": "whisper-attention-dtw"})
+    return chars

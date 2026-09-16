@@ -215,6 +215,12 @@ namespace Agent2Utau.Bridge {
                     p.name, p.trackNo, p.position, p.Duration,
                     positionMs = project.timeAxis.TickPosToMsPos(p.position),
                     notes = p.notes.Count, renderPhrases = p.renderPhrases.Count,
+                    invalidNotes = p.notes.Where(n => n.Error).Select(n => new {
+                        n.lyric, n.position, n.duration, n.OverlapError,
+                    }).ToArray(),
+                    invalidPhonemes = p.phonemes.Where(ph => ph.Error).Select(ph => new {
+                        ph.phoneme, ph.position, error = ph.ErrorException?.Message,
+                    }).ToArray(),
                     phonemesUpToDate = p.PhonemesUpToDate,
                     phrases = p.renderPhrases.Select(ph => new {
                         ph.position, ph.end, ph.positionMs,
@@ -252,6 +258,19 @@ namespace Agent2Utau.Bridge {
 
         static Dictionary<string, object> Render(Dictionary<string, string> opt) {
             var project = LoadProject(Req(opt, "project"));
+            // A WAV can be produced even when OpenUtau has silently excluded
+            // invalid notes. Fail before export instead of calling that success.
+            foreach (var part in project.parts.OfType<UVoicePart>()) {
+                foreach (var note in part.notes.Where(n => n.Error)) {
+                    Sink.Inst.Errors.Add($"invalid note: {part.name}/{note.lyric} at {note.position}, overlap={note.OverlapError}");
+                }
+                foreach (var ph in part.phonemes.Where(ph => ph.Error)) {
+                    Sink.Inst.Errors.Add($"invalid phoneme: {part.name}/{ph.phoneme} at {ph.position}: {ph.ErrorException?.Message}");
+                }
+            }
+            if (Sink.Inst.Errors.Count > 0) {
+                return new Dictionary<string, object> { ["ok"] = false };
+            }
             var outPath = Req(opt, "out");
             var timeoutMin = opt.TryGetValue("timeout", out var t) ? int.Parse(t) : 20;
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outPath)));

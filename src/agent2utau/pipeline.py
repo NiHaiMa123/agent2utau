@@ -77,12 +77,11 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     from .audio.decode import decode, probe_duration
     from .audio.separate import separate
     from .audio.mix import mix
-    from .analysis.lyrics import transcribe, find_lyrics
-    from .analysis.f0 import extract_f0
+    from .analysis.lyrics import transcribe, find_lyrics, force_align
+    from .analysis.f0 import extract_f0, F0_CACHE_VERSION
     from .analysis.notes import build_notes
-    from .analysis.onsets import (frame_rms, gate_voiced, voiced_extent,
-                                  voiced_blocks, detect_onsets)
-    from .analysis.align import load_lrc, lyric_chars, distribute
+    from .analysis.onsets import frame_rms, gate_voiced, voiced_extent
+    from .analysis.align import load_lrc, lyric_chars, trim_aligned_chars
     from .openutau.build import build_project, sec_to_tick
     from .openutau.bridge import run_bridge
     from .evaluation.wavcheck import analyze_wav
@@ -128,7 +127,8 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
 
     # --- f0 + energy gate (full song, cached) ----------------------------
     log("f0")
-    f0_full_path = cache / "f0.npz"
+    # Legacy f0.npz inverted the unvoiced mask. Never reuse those arrays.
+    f0_full_path = cache / f"f0-{F0_CACHE_VERSION}.npz"
     if f0_full_path.exists():
         f0_np = np.load(f0_full_path)
         f0 = {"f0_hz": f0_np["f0_hz"], "voiced": f0_np["voiced"],
@@ -137,7 +137,8 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     else:
         f0 = _stage(run, "f0", extract_f0,
                     wav_path=mono_vocals(mono, vocals))
-        np.savez(f0_full_path, f0_hz=f0["f0_hz"], voiced=f0["voiced"],
+        np.savez(f0_full_path, cache_version=F0_CACHE_VERSION,
+                 f0_hz=f0["f0_hz"], voiced=f0["voiced"],
                  times=f0["times"], sr=f0["sr"], hop=f0["hop"],
                  backend=f0["backend"])
     vw, vsr = sf.read(str(vocals), dtype="float32")
@@ -145,7 +146,7 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
         vw = vw.mean(axis=1)
     rms = frame_rms(vw, vsr, f0["times"])
     f0g = gate_voiced(f0, rms)
-    all_blocks = voiced_blocks(f0g)
+    rep["f0_version"] = F0_CACHE_VERSION
 
     # --- lyric source ----------------------------------------------------
     lrc_lines = None
@@ -158,6 +159,8 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
                 "lyrics auto-discovered (reference file, not ASR)")
     if lyrics:
         lrc_lines = load_lrc(str(lyrics))
+        if not lrc_lines:
+            raise ValueError("Lyrics need timed LRC entries; no timed lines found")
         rep.setdefault("lyrics_source", f"lrc:{lyrics}")
         if lines:
             lo, hi = (int(x) for x in lines.split(":"))
@@ -177,51 +180,39 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     # --- per-segment analysis -------------------------------------------
     all_notes: list[dict] = []
     seg_payloads = []
-    used_blocks: set[int] = set()
     log("analysis")
     for i, (t0, t1) in enumerate(segments):
         if lrc_lines:
             text = lrc_lines[i]["text"]
-            ext = voiced_extent(f0g, t0, t1)
-            # Re-anchor: LRC time can drift from the actual audio (live
-            # arrangements differ). If the window has no/poor voiced
-            # coverage, snap to the nearest voiced block within 4s.
-            span = t1 - t0
-            poor = ext is None or (ext[1] - ext[0]) < 0.4 * span
-            if poor:
-                cand = [(bi, b) for bi, b in enumerate(all_blocks)
-                        if bi not in used_blocks
-                        and b[1] > t0 - 4.0 and b[0] < t1 + 4.0]
-                if cand:
-                    bi, best = max(cand, key=lambda ib: (
-                        min(ib[1][1], t1) - max(ib[1][0], t0),
-                        -abs(ib[1][0] - t0)))
-                    used_blocks.add(bi)
-                    ext = best
-                    rep.setdefault("reanchored", []).append(
-                        {"line": text, "lrc": [t0, t1],
-                         "audio": [round(ext[0], 2), round(ext[1], 2)]})
-            else:
-                # good natural extent: claim overlapping blocks so a later
-                # drifting line can't re-anchor onto them
-                for bi, b in enumerate(all_blocks):
-                    if b[1] > ext[0] and b[0] < ext[1]:
-                        used_blocks.add(bi)
+            # No nearest-block relocation: it can put the wrong lyric on a
+            # perfectly valid neighbouring phrase. Align text acoustically.
+            ext = voiced_extent(f0g, t0, t1, pad=0.05)
             if ext is None:
                 seg_payloads.append({"start_sec": t0, "end_sec": t1,
                                      "notes": [], "line": text,
                                      "status": "no_voiced_region"})
                 continue
-            ons = detect_onsets(vocals, ext[0], ext[1])
-            chars = lyric_chars(text)
-            aligned = distribute(chars, ons, ext[0], ext[1])
+            key = hashlib.sha256(json.dumps(
+                ["acoustic-v1", asr_model, text, t0, t1],
+                ensure_ascii=False).encode()).hexdigest()[:20]
+            aligned_path = cache / f"alignment-{key}.json"
+            if aligned_path.exists():
+                aligned = json.loads(aligned_path.read_text(encoding="utf-8"))
+            else:
+                log(f"align line {i + 1}/{len(lrc_lines)}")
+                aligned = force_align(vocals, text, t0, t1, model=asr_model)
+                aligned_path.write_text(json.dumps(aligned, ensure_ascii=False), encoding="utf-8")
+            aligned = trim_aligned_chars(aligned, f0g)
+            run.write_json(f"debug/alignment_{i}.json", {"text": text, "chars": aligned})
+            bad = [c for c in aligned if c["end"] - c["start"] < 0.04]
+            if bad or len(aligned) != len(lyric_chars(text)):
+                raise ValueError(f"Collapsed/missing lyric alignment in line {i}: {text}")
             notes, _ = build_notes(aligned, f0g)
             seg_payloads.append({
-                "start_sec": ext[0], "end_sec": ext[1], "notes": notes,
-                "line": text, "lrc_start": t0, "n_onsets": len(ons),
-                "n_chars": len(chars),
-                "status": "ok" if len(ons) >= len(chars) * 0.7
-                else "few_onsets"})
+                "start_sec": aligned[0]["start"], "end_sec": aligned[-1]["end"],
+                "notes": notes, "line": text, "lrc_start": t0,
+                "n_chars": len(aligned), "alignment": "whisper-attention-dtw",
+                "status": "aligned"})
         else:
             asr = _stage(run, f"asr_seg{i}", transcribe, wav_path=vocals,
                          model=asr_model, t0=t0, t1=t1)
@@ -279,7 +270,7 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
                   str(out_i))
         rec["vocal"] = vw
         rec["check"] = analyze_wav(vw)
-        rec["pitch"] = evaluate(vw, all_notes, f0).get("pitch", {})
+        rec["pitch"] = evaluate(vw, all_notes, f0g).get("pitch", {})
         run.write_json(f"iterations/{tag}/eval.json", rec)
         rep["iterations"].append(
             {"tag": tag, "pitch": rec["pitch"],
@@ -353,24 +344,26 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     # --- mix ---------------------------------------------------------------
     mix_wav = audio / "mix.wav"
     log("mix")
-    rep["mix"] = mix(vocal_wav, instr, mix_wav, vocal_gain_db=0.0)
+    rep["mix"] = mix(vocal_wav, instr, mix_wav, reference_vocal=vocals)
 
     # --- evaluate -----------------------------------------------------------
     log("evaluate")
     rep["mix_check"] = analyze_wav(str(mix_wav))
-    rep["pitch_eval"] = evaluate(vocal_wav, all_notes, f0)
+    rep["pitch_eval"] = evaluate(vocal_wav, all_notes, f0g)
     weak = rep["n_weak_notes"] / max(1, rep["n_notes"])
     pitch = rep["pitch_eval"].get("pitch", {})
     conf = "high"
     if weak > 0.3 or pitch.get("frac_within_100c", 0) < 0.7:
         conf = "medium"
-    if weak > 0.6 or pitch.get("frac_within_100c", 0) < 0.4:
+    if weak > 0.6 or pitch.get("frac_within_100c", 0) < 0.4 or pitch.get("coverage", 0) < 0.7:
         conf = "low"
-    rep["quality_confidence"] = conf
+    rep["pitch_confidence"] = conf
+    rep["quality_confidence"] = "unverified"
     rep["caveats"] = rep.get("caveats", []) + caveats(rep, seg_payloads)
-    rep["status"] = "completed"
+    rep["alignment_verified_by_listener"] = False
+    rep["status"] = "completed_with_warnings"
     run.write_json("report.json", rep)
-    run.write_state({"status": "completed", "stage": "done",
+    run.write_state({"status": rep["status"], "stage": "done",
                      "artifacts": [rep["ustx"], vocal_wav, str(mix_wav)]})
     return rep
 
@@ -380,8 +373,10 @@ def _better(a: dict, b: dict) -> bool:
     accuracy is better."""
     if a.get("n_evaluated", 0) < 5:
         return False
-    ka = (a.get("frac_within_100c", 0), -a.get("median_abs_cents", 1e9))
-    kb = (b.get("frac_within_100c", 0), -b.get("median_abs_cents", 1e9))
+    if a.get("coverage", 0) + 0.02 < b.get("coverage", 0):
+        return False
+    ka = (a.get("accuracy_all_notes_100c", 0), -a.get("median_abs_cents", 1e9))
+    kb = (b.get("accuracy_all_notes_100c", 0), -b.get("median_abs_cents", 1e9))
     return ka > kb
 
 
@@ -421,6 +416,6 @@ def caveats(rep: dict, seg_payloads: list[dict] | None = None) -> list[str]:
     c.append("tempo axis is fixed 120bpm, not the song's real BPM")
     c.append("DiffSinger model baseline + measured-pitd correction only; "
              "no manual pitch/dyn tuning")
-    c.append("source is a duet; all lines are rendered by the single target "
-             "singer")
+    c.append("automatic acoustic lyric alignment requires listening verification; "
+             "pitch scores alone do not certify intelligibility")
     return c

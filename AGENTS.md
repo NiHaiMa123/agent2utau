@@ -1,5 +1,37 @@
 # agent2utau working notes
 
+## Audition failure corrections (2026-09-16; overrides historical notes below)
+
+- The old demos were rejected by the user for wrong lyrics, unintelligible
+  singing and weak vocal balance. Historical pitch metrics below used an
+  inverted F0 voiced mask and are INVALID as evidence of quality.
+- torchfcpe `retur_uv=True` returns **unvoiced** (1 = no pitch). Invert it;
+  the native model clock is 160 samples / 16000 Hz = 10 ms. Do not divide
+  its hop by the 44100 Hz input rate. `F0_CACHE_VERSION` invalidates old F0.
+- faster-whisper treats ndarray input as 16 kHz; resample before passing it.
+  Old ASR diagnostics were partly caused by playing 44.1 kHz arrays at 16 kHz.
+  Correctly sampled ASR still makes singing errors; it is supporting evidence.
+- The 274.504s source repeats the verse around 105s. The earlier assertion
+  that it is a live duet was unsupported. `nianlun.lrc` has the wrong later
+  arrangement. Use `nianlun_studio.lrc`, bound to the source SHA256 in
+  `index.yaml`; title keyword matching is no longer allowed.
+- Supplied lyrics now use acoustic attention/DTW alignment from the installed
+  Whisper model, not onset-count distribution or nearest-block relocation.
+  This constrains text; it does not prove that arbitrary supplied text is true.
+- Quantize note start AND end on the same absolute tick grid, then subtract
+  the part anchor. Independently rounding position/duration created 1-tick
+  overlaps; OpenUtau flags/drops the following note, causing missing syllables.
+  Builder checks boundaries; bridge render now rejects invalid notes/phonemes.
+- Mix gain is measured on active aligned 400ms windows, matched to the
+  reference vocal with an accompaniment balance floor. Report actual gains.
+- Pitch metrics now include coverage and accuracy over ALL notes. Lower
+  coverage cannot win variant selection. Outputs awaiting listening checks
+  have `completed_with_warnings`, not a claim of perceptual quality.
+- `resume` retains iterations, pitch strength, voice color and breath settings.
+
+The older M2/M4 observations below are historical context, not current
+acceptance evidence. See `docs/audition-repair-20260916.md` for the repair audit.
+
 ## Environment
 
 - OpenUtau portable install: `E:\software\OpenUtau-win-x64 (6)` (v0.1.570.4,

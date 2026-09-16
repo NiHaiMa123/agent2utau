@@ -126,7 +126,10 @@ def cmd_cover(args) -> int:
         "segments": args.segments, "auto_segments": args.auto_segments,
         "seg_len": args.seg_len, "lyrics": args.lyrics,
         "lines": args.lines, "asr_model": args.asr_model,
-        "sep_model": args.sep_model, "timeout_min": args.timeout_min})
+        "sep_model": args.sep_model, "timeout_min": args.timeout_min,
+        "iters": args.iters, "pitch_strength": args.pitch_strength,
+        "voice_color": args.voice_color, "compare_colors": args.compare_colors,
+        "breaths": not args.no_breaths})
     try:
         rep = run_cover(src, run, cfg, segments=segments,
                         auto_segments=args.auto_segments,
@@ -196,6 +199,11 @@ def cmd_resume(args) -> int:
             sep_model=req.get("sep_model", "UVR-MDX-NET-Voc_FT.onnx"),
             lyrics=req.get("lyrics"), lines=req.get("lines"),
             timeout_min=req.get("timeout_min", 30),
+            iters=req.get("iters", 2),
+            pitch_strength=req.get("pitch_strength", 1.0),
+            voice_color=req.get("voice_color", "Yousa_Normal"),
+            compare_colors=req.get("compare_colors", False),
+            breaths=req.get("breaths", True),
             progress=lambda m: diag(f"[resume] {m}"))
         rep["resumed_from"] = args.run_id
         return _out(args, rep)
@@ -244,7 +252,7 @@ def build_parser() -> argparse.ArgumentParser:
                    help="auto-pick N high-energy vocal windows")
     p.add_argument("--seg-len", type=float, default=15.0)
     p.add_argument("--lyrics", default=None,
-                   help="LRC file; lines get timestamps, chars get onsets")
+                   help="Recording-matched LRC; characters are acoustically aligned")
     p.add_argument("--lines", default=None,
                    help="line range within lyrics file, e.g. '0:4'")
     p.add_argument("--asr-model", default="large-v3-turbo")

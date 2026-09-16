@@ -1,3 +1,6 @@
-# Song-title keyword -> lyric file, used by `cover` when no --lyrics is
-# given and no <audio-stem>.lrc sidecar exists next to the source.
-年轮: nianlun.lrc
+# Reference timing is valid for this exact recording, not every 年轮 file.
+# nianlun.lrc is retained as a legacy, mismatched live-arrangement reference.
+recordings:
+  - sha256: 5f851d3a760f230a532f5a07ab92769b7d813cabfb802eb8e984fe7063524d59
+    file: nianlun_studio.lrc
+    description: 张碧晨，274.504s；声学复核得到的录音室版段落，仍需逐字对齐

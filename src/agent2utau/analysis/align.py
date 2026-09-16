@@ -40,13 +40,36 @@ def load_lrc(path: str) -> list[dict]:
         # strip singer prefixes like "张碧晨：" / "合：" (short tag before ：)
         if "：" in text[:5]:
             text = text.split("：", 1)[1]
-        if lyric_chars(text):
-            out.append({"start": t, "text": text})
+        # Empty timed entries mark instrumental gaps / the end of singing.
+        out.append({"start": t, "text": text})
     out.sort(key=lambda x: x["start"])
     for i, l in enumerate(out[:-1]):
         l["end"] = out[i + 1]["start"]
     if out:
         out[-1]["end"] = out[-1]["start"] + 8.0
+    return [line for line in out if lyric_chars(line["text"])]
+
+
+def trim_aligned_chars(chars: list[dict], f0: dict,
+                       consonant_pad: float = 0.05) -> list[dict]:
+    """Remove leading/trailing silence from acoustic token spans.
+
+    Preserve a small consonant lead; never move a char into a neighbouring
+    phrase or synthesize duration for a collapsed alignment token.
+    """
+    import numpy as np
+    out = []
+    for char in chars:
+        c = dict(char)
+        ts = f0["times"]
+        m = (ts >= c["start"]) & (ts < c["end"]) & f0["voiced"]
+        frames = np.flatnonzero(m)
+        if len(frames):
+            step = float(ts[1] - ts[0]) if len(ts) > 1 else 0.01
+            c["start"] = max(c["start"], float(ts[frames[0]]) - consonant_pad)
+            c["end"] = min(c["end"], float(ts[frames[-1]]) + step + 0.03)
+        c["voiced_frames"] = int(len(frames))
+        out.append(c)
     return out
 
 
