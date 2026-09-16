@@ -232,6 +232,32 @@ cd "E:\software\OpenUtau-win-x64 (6)"
 - 0 PITCH_HARD_SUSPICIOUS / 0 safe candidates in this run — honest result.
 - regression_cases/: per extractor-conflict and pitch-unstable packet.
 
+## M2.3.2A correctness cleanup (run diag-20260916-155157-8730)
+
+- structure_varies gates BEFORE pitch-hard — unstable identity can never
+  be PITCH_HARD (regression test added).
+- Plateau duration is frame-inclusive ((j-i+1)*frame_period); 70/80ms
+  boundary tested.
+- safe_retune_gate requires RMVPE plateau AND FCPE plateau to
+  independently support the target (plateau_center_delta_cents,
+  plateau_overlap_ratio stored) — same-extractor plateau+center is ONE
+  evidence family.
+- Cache provenance: manifest.json binds source_sha256 + separator model +
+  schema (m232a-1); mismatch -> decode/separate re-run.
+- Variant comparisons use the formal DP alignment (splits_merges field);
+  the old 150ms greedy matcher is gone.
+- Medoid is baseline-only: structure-only medoid (pitch_w=0) reported;
+  baseline_selection_uncertain flag when they disagree.
+- Separation sensitivity: spectral-comb check on original mix vs separated
+  vocal at the two candidate fundamentals; separation_sensitive flag.
+- 年轮 rerun: medoid run4, structure-only medoid agrees (uncertain=False).
+  Triage: 337 correct / 36 structure-cand / 14 ambiguous / 17 f0-conflict
+  / 8 needs-listening / 1 pitch-hard. The pitch-hard (202.52s) FAILED the
+  SAFE gate on aligned_identity_clear — consensus stability is VARIABLE
+  (GAME itself splits 65.3/72.4 across runs). Honest rejection: a repair
+  there means picking between GAME's own two answers, needs adjudication
+  not retune.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

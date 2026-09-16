@@ -33,7 +33,7 @@ def _merged(n1: dict, n2: dict) -> dict:
             "voiced": True}
 
 
-def _mcost(n1: dict, n2: dict) -> float:
+def _mcost(n1: dict, n2: dict, pitch_w: float = W_PITCH) -> float:
     a0, a1 = n1["start"], n1["start"] + n1["dur"]
     b0, b1 = n2["start"], n2["start"] + n2["dur"]
     ov = max(0.0, min(a1, b1) - max(a0, b0))
@@ -41,14 +41,16 @@ def _mcost(n1: dict, n2: dict) -> float:
     return (W_ONSET * min(abs(a0 - b0), ONSET_CAP)
             + W_OVL * (1.0 - iou)
             + W_DUR * min(abs(n1["dur"] - n2["dur"]), DUR_CAP)
-            + W_PITCH * min(abs(n1["tone"] - n2["tone"]), PITCH_CAP)
+            + pitch_w * min(abs(n1["tone"] - n2["tone"]), PITCH_CAP)
             / PITCH_CAP)
 
 
-def align_pair(a: list[dict], b: list[dict]) -> list[tuple]:
+def align_pair(a: list[dict], b: list[dict],
+               pitch_w: float = W_PITCH) -> list[tuple]:
     """DP-align two note lists. Returns ops:
     ('m', i, j) | ('ga', i) | ('gb', j) | ('s', i, (j1, j2)) |
-    ('g', (i1, i2), j) — indices into voiced lists a, b."""
+    ('g', (i1, i2), j) — indices into voiced lists a, b.
+    pitch_w=0 gives a structure-only alignment (medoid sensitivity)."""
     A, B = _voiced(a), _voiced(b)
     n, m = len(A), len(B)
     D = np.full((n + 1, m + 1), np.inf)
@@ -62,19 +64,21 @@ def align_pair(a: list[dict], b: list[dict]) -> list[tuple]:
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             cands = [
-                (D[i - 1, j - 1] + _mcost(A[i - 1], B[j - 1]), ("m",)),
+                (D[i - 1, j - 1] + _mcost(A[i - 1], B[j - 1], pitch_w),
+                 ("m",)),
                 (D[i - 1, j] + GAP, ("ga",)),
                 (D[i, j - 1] + GAP, ("gb",)),
             ]
             if j >= 2:
                 cands.append((D[i - 1, j - 2] + SPLIT_MERGE_PEN
-                              + _mcost(A[i - 1], _merged(B[j - 2],
-                                                         B[j - 1])),
+                              + _mcost(A[i - 1],
+                                       _merged(B[j - 2], B[j - 1]),
+                                       pitch_w),
                               ("s",)))
             if i >= 2:
                 cands.append((D[i - 2, j - 1] + SPLIT_MERGE_PEN
                               + _mcost(_merged(A[i - 2], A[i - 1]),
-                                       B[j - 1]),
+                                       B[j - 1], pitch_w),
                               ("g",)))
             k = int(np.argmin([c for c, _ in cands]))
             D[i, j] = cands[k][0]

@@ -166,24 +166,19 @@ def _boundaries(notes: list[dict]) -> np.ndarray:
                     dtype=np.float64)
 
 
-def _align_variants(a: list[dict], b: list[dict],
-                    tol_s: float = 0.15) -> dict:
-    """Greedy onset-time matching between two note sequences."""
-    sa = [(n["start"], n) for n in a if n["voiced"]]
-    sb = [(n["start"], n) for n in b if n["voiced"]]
-    used_b: set[int] = set()
-    matched, pitch_diffs, drifts = [], [], []
-    for t, na in sa:
-        j = min((k for k in range(len(sb)) if k not in used_b),
-                key=lambda k: abs(sb[k][0] - t), default=None)
-        if j is not None and abs(sb[j][0] - t) <= tol_s:
-            used_b.add(j)
-            matched.append((t, sb[j][0]))
-            pitch_diffs.append(round(na["tone"] - sb[j][1]["tone"], 2))
-            drifts.append(round(sb[j][0] - t, 3))
+def _align_variants(a: list[dict], b: list[dict], **_kw) -> dict:
+    """Variant comparison via the formal DP alignment (§5.6) — order-
+    preserving, explicit split/merge ops, no onset-greedy index zip."""
+    from .seqalign import align_pair
+    ops, A, B = align_pair(a, b)
+    matched = [op for op in ops if op[0] == "m"]
+    pitch_diffs = [A[i]["tone"] - B[j]["tone"] for _, i, j in matched]
+    drifts = [B[j]["start"] - A[i]["start"] for _, i, j in matched]
     return {"matched": len(matched),
-            "a_only": len(sa) - len(matched),
-            "b_only": len(sb) - len(used_b),
+            "a_only": sum(1 for op in ops if op[0] == "ga"),
+            "b_only": sum(1 for op in ops if op[0] == "gb"),
+            "splits_merges": sum(1 for op in ops
+                                 if op[0] in ("s", "g")),
             "pitch_disagree_gt1st": int(sum(abs(d) > 1
                                           for d in pitch_diffs)),
             "median_onset_drift_ms": round(float(np.median(drifts)) * 1000, 1)
@@ -243,25 +238,52 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                            "source": str(src),
                            "repair": "none (M2.1.1 diagnostic)"}
 
-    # --- shared per-source cache -------------------------------------------
+    # --- shared per-source cache (§5.5: content-bound provenance) --------
     import hashlib
+
+    def _sha256(p: Path, limit: int | None = None) -> str:
+        h = hashlib.sha256()
+        with open(p, "rb") as f:
+            n = 0
+            while True:
+                b = f.read(1 << 20)
+                if not b or (limit and n >= limit):
+                    break
+                h.update(b)
+                n += len(b)
+        return h.hexdigest()
+
     src_key = hashlib.md5(str(Path(src).resolve()).encode()).hexdigest()[:12]
     cache = Path(cfg["runs_dir"]) / "_cache" / src_key
     cache.mkdir(parents=True, exist_ok=True)
+    src_sha = _sha256(Path(src))
+    man_path = cache / "manifest.json"
+    CACHE_SCHEMA = "m232a-1"
+    sep_model = "UVR-MDX-NET-Voc_FT.onnx"
+    man = json.loads(man_path.read_text(encoding="utf-8")) \
+        if man_path.exists() else {}
+    cache_fresh = (man.get("source_sha256") == src_sha
+                   and man.get("separator_model") == sep_model
+                   and man.get("schema") == CACHE_SCHEMA)
     orig = cache / "original.wav"
-    if not orig.exists():
-        log("decode")
+    sep_json = cache / "separation.json"
+    if not orig.exists() or not cache_fresh:
+        log("decode" + (" (cache invalidated)" if orig.exists() else ""))
         decode(src, orig, mono=False)
     rep["source_duration_s"] = probe_duration(orig)
-    sep_json = cache / "separation.json"
-    if sep_json.exists():
+    if sep_json.exists() and cache_fresh:
         stems = json.loads(sep_json.read_text(encoding="utf-8"))
     else:
         log("separate")
-        stems = separate(wav_path=orig, out_dir=cache,
-                         model="UVR-MDX-NET-Voc_FT.onnx")
+        stems = separate(wav_path=orig, out_dir=cache, model=sep_model)
         sep_json.write_text(json.dumps(stems, ensure_ascii=False, indent=1),
                             encoding="utf-8")
+    man_path.write_text(json.dumps({
+        "schema": CACHE_SCHEMA, "source_sha256": src_sha,
+        "separator_model": sep_model}, ensure_ascii=False, indent=1),
+        encoding="utf-8")
+    rep["cache"] = {"key": src_key, "source_sha256": src_sha[:16],
+                    "fresh": cache_fresh}
     vocals = Path(stems["vocals"])
 
     import soundfile as sf
@@ -271,8 +293,11 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
 
     # --- GAME variants ------------------------------------------------------
     game = GameOnnx(default_model_dir())
-    rep["game"] = {"models": str(default_model_dir()),
-                   "languages": game.languages}
+    md = default_model_dir()
+    rep["game"] = {"models": str(md), "languages": game.languages,
+                   "model_sha256": {n: _sha256(md / f"{n}.onnx")[:16]
+                                    for n in ("encoder", "segmenter",
+                                              "bd2dur", "estimator")}}
 
     def notes_json(notes, path):
         path.write_text(json.dumps(notes, ensure_ascii=False, indent=1),
@@ -358,12 +383,18 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
             "consensus_raw": consensus_stats(consensus_raw),
             "consensus_zh": consensus_stats(consensus_zh),
         }
-        # M2.3 step 1: medoid baseline run = Candidate 0
+        # M2.3 step 1: medoid baseline run = Candidate 0 (§5.7: medoid is
+        # a representative run, NOT a truth vote — report structure-only
+        # medoid as a sensitivity check)
         from .triage import pick_baseline
         bl = pick_baseline(raw_runs)
+        bl_struct = pick_baseline(raw_runs, pitch_w=0.0)
         rep["baseline"] = {"run_index": bl["index"],
                            "total_alignment_cost": bl["total_cost"],
                            "per_run_costs": bl["costs"],
+                           "structure_only_medoid": bl_struct["index"],
+                           "baseline_selection_uncertain":
+                           bl["index"] != bl_struct["index"],
                            "n_notes": sum(n["voiced"]
                                           for n in raw_runs[bl["index"]])}
         if bl["index"] != 0:
@@ -446,11 +477,11 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         rec["interior_center_midi"] = (None if interior is None
                                      else round(interior, 2))
         rec["triage"] = classify(rec, plats, interior)
+        fpl = detect_plateaus(fcpe["times"], fcpe_struct,
+                              rec["start"], rec["start"] + rec["dur"])
         if plats:
             plateau_ev[rec["id"]] = plats
         if rec["triage"] == "STRUCTURE_CANDIDATE":
-            fpl = detect_plateaus(fcpe["times"], fcpe_struct,
-                                  rec["start"], rec["start"] + rec["dur"])
             ev2 = dual_structure_evidence(plats, fpl)
             rec["structure_evidence"] = ev2
             dual_struct_ev[rec["id"]] = ev2
@@ -459,7 +490,7 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                               packets[idx + 1]
                               if idx + 1 < len(packets) else None)
                   if p]
-            rec["safe_gate"] = safe_retune_gate(rec, plats, nb)
+            rec["safe_gate"] = safe_retune_gate(rec, plats, fpl, nb)
     (diag_dir / "plateau_evidence.json").write_text(
         json.dumps(plateau_ev, ensure_ascii=False, indent=1),
         encoding="utf-8")
@@ -552,10 +583,51 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     for p in rep.get("octave_candidates", []):
         (rc_dir / f"{p['start']:.2f}_f0_conflict.json").write_text(
             json.dumps(p, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    # §5.8 separation sensitivity: does the ORIGINAL MIX spectrum prefer a
+    # different fundamental than the separated vocal at this note?
+    def _comb_score(spec, freqs, f_hz):
+        s = 0.0
+        for k in range(1, 5):
+            f = f_hz * k
+            i = int(np.argmin(np.abs(freqs - f)))
+            w = max(2, int(0.03 * f / (freqs[1] - freqs[0])))
+            s += float(spec[max(0, i - w):i + w + 1].max())
+        return s
+
+    def _sep_sensitivity(t0, t1, midi_a, midi_b):
+        """midi_a/b = two candidate fundamentals (e.g. GAME vs extractor).
+        Returns which candidate each signal prefers + conflict flag."""
+        import soundfile as _sf
+        mix, m_sr = _sf.read(str(orig), dtype="float32")
+        if mix.ndim > 1:
+            mix = mix.mean(axis=1)
+        out = {}
+        for tag, w, sr in (("mix", mix, m_sr), ("sep", wav, 44100)):
+            seg = w[int(t0 * sr):int(t1 * sr)]
+            if len(seg) < 256:
+                return None
+            sp = np.abs(np.fft.rfft(seg * np.hanning(len(seg))))
+            fr = np.fft.rfftfreq(len(seg), 1 / sr)
+            fa = 440.0 * 2 ** ((midi_a - 69) / 12)
+            fb = 440.0 * 2 ** ((midi_b - 69) / 12)
+            sa, sb = _comb_score(sp, fr, fa), _comb_score(sp, fr, fb)
+            out[tag] = "a" if sa >= sb else "b"
+        out["separation_sensitive"] = out["mix"] != out["sep"]
+        return out
     # every extractor-conflict region + every pitch-unstable consensus event
-    # gets a regression case (plan §22 output contract)
+    # gets a regression case (plan §22 output contract); pitch-disputed
+    # packets also get the separation-sensitivity check
     for p in packets:
         c = p.get("consensus") or {}
+        if p["triage"] in ("F0_EXTRACTOR_CONFLICT", "PITCH_HARD_SUSPICIOUS",
+                           "NEEDS_LISTENING_REVIEW"):
+            rmc = (p.get("rmvpe") or {}).get("center_midi")
+            if rmc is not None:
+                ss = _sep_sensitivity(p["start"], p["start"] + p["dur"],
+                                      p["game_tone"], rmc)
+                if ss:
+                    p["separation"] = ss
         if p["triage"] == "F0_EXTRACTOR_CONFLICT":
             (rc_dir / f"{p['start']:.2f}_f0_conflict.json").write_text(
                 json.dumps(p, ensure_ascii=False, indent=1),

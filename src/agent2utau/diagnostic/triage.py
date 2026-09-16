@@ -25,15 +25,16 @@ PLATEAU_MATCH_CENTS = 60.0     # plateau center vs extractor center
 SAFE_MIN_ERR_CENTS = 300.0     # both extractors must oppose GAME by this
 
 
-def _op_cost(op, A, B) -> float:
+def _op_cost(op, A, B, pitch_w: float = 0.15) -> float:
     if op[0] == "m":
-        return _mcost(A[op[1]], B[op[2]])
+        return _mcost(A[op[1]], B[op[2]], pitch_w)
     if op[0] in ("ga", "gb"):
         return GAP
     if op[0] == "s":
         return SPLIT_MERGE_PEN + _mcost(A[op[1]],
-                                        _merged_pair(B, op[2]))
-    return SPLIT_MERGE_PEN + _mcost(_merged_pair(A, op[1]), B[op[2]])
+                                        _merged_pair(B, op[2]), pitch_w)
+    return SPLIT_MERGE_PEN + _mcost(_merged_pair(A, op[1]), B[op[2]],
+                                    pitch_w)
 
 
 def _merged_pair(seq, idx):
@@ -41,15 +42,16 @@ def _merged_pair(seq, idx):
     return _merged(seq[idx[0]], seq[idx[1]])
 
 
-def pick_baseline(runs: list[list[dict]]) -> dict:
+def pick_baseline(runs: list[list[dict]], pitch_w: float = 0.15) -> dict:
     """Medoid run: minimal summed pairwise-alignment cost across all runs.
+    pitch_w=0 -> structure-only medoid (plan §5.7 sensitivity check).
     Returns {'index': int, 'total_cost': float, 'costs': [...]}."""
     n = len(runs)
     costs = np.zeros(n)
     for i in range(n):
         for j in range(i + 1, n):
-            ops, A, B = align_pair(runs[i], runs[j])
-            c = sum(_op_cost(op, A, B) for op in ops)
+            ops, A, B = align_pair(runs[i], runs[j], pitch_w=pitch_w)
+            c = sum(_op_cost(op, A, B, pitch_w) for op in ops)
             costs[i] += c
             costs[j] += c
     best = int(np.argmin(costs))
@@ -76,7 +78,10 @@ def detect_plateaus(times: np.ndarray, struct: np.ndarray,
         while j + 1 < len(vs) and fin[j + 1] and \
                 abs(vs[j + 1] - vs[j]) * 100 <= PLATEAU_STEP_CENTS:
             j += 1
-        dur = float(ts[j] - ts[i])
+        # frame-inclusive duration: N frames cover N*frame_period, not
+        # ts[j]-ts[i] (which under-counts one frame near the 80ms cutoff)
+        frame_p = float(ts[1] - ts[0]) if len(ts) > 1 else 0.01
+        dur = (j - i + 1) * frame_p
         if dur >= MIN_PLATEAU_S:
             seg = vs[i:j + 1]
             plats.append({"start": round(float(ts[i]), 3),
@@ -136,14 +141,35 @@ def dual_structure_evidence(rmvpe_pl: list[dict], fcpe_pl: list[dict]
     return ev
 
 
-def safe_retune_gate(packet: dict, plateaus: list[dict],
+def _target_plateau(plateaus: list[dict], target_midi: float) -> dict | None:
+    """The plateau (if any) whose center supports `target_midi`."""
+    for p in plateaus:
+        if abs(p["center_midi"] - target_midi) * 100 <= PLATEAU_MATCH_CENTS:
+            return p
+    return None
+
+
+def safe_retune_gate(packet: dict, rmvpe_plateaus: list[dict],
+                     fcpe_plateaus: list[dict],
                      neighbours: list[dict]) -> dict:
-    """Plan §15 SAFE_RETUNE_CANDIDATE gate. Gates 14/15 (render preview,
-    human listening) are produced downstream and marked 'pending'."""
+    """Plan §15 SAFE_RETUNE_CANDIDATE gate (M2.3.1), with §5.3/5.4 fix:
+    the plateau support must come from TWO INDEPENDENT extractors —
+    an RMVPE plateau + RMVPE center is one evidence family, not two."""
     cons = packet.get("consensus") or {}
     dual = packet.get("dual_f0") or {}
     rmv, fcp = packet.get("rmvpe") or {}, packet.get("fcpe") or {}
-    plat_centers = [p["center_midi"] for p in plateaus]
+    target = rmv.get("center_midi")
+    rp = _target_plateau(rmvpe_plateaus, target) if target else None
+    fp = _target_plateau(fcpe_plateaus,
+                         fcp.get("center_midi")) \
+        if fcp.get("center_midi") is not None else None
+    plateau_overlap = None
+    if rp and fp:
+        ov = (min(rp["end"], fp["end"]) - max(rp["start"], fp["start"]))
+        union = max(rp["end"], fp["end"]) - min(rp["start"], fp["start"])
+        plateau_overlap = round(ov / max(1e-9, union), 3)
+    delta = (round(abs(rp["center_midi"] - fp["center_midi"]) * 100, 1)
+             if rp and fp else None)
     tone = packet["game_tone"]
     gates = {
         "presence_5of5": cons.get("presence_rate", 0) >= 1.0,
@@ -157,17 +183,17 @@ def safe_retune_gate(packet: dict, plateaus: list[dict],
             and min(abs(dual.get("game_vs_rmvpe_cents") or 0),
                     abs(dual.get("game_vs_fcpe_cents") or 0))
             >= SAFE_MIN_ERR_CENTS,
-        "single_stable_plateau": len(plateaus) == 1,
-        "plateau_matches_extractors": bool(
-            plat_centers and rmv.get("center_midi") is not None
-            and abs(plat_centers[0] - rmv["center_midi"]) * 100
-            <= PLATEAU_MATCH_CENTS),
-        # neighbours must not sit at the extractor pitch — otherwise the
-        # 'error' may be a legit melodic skip GAME heard correctly
+        "single_stable_plateau": len(rmvpe_plateaus) == 1,
+        # §5.3: RMVPE plateau AND FCPE plateau must each independently
+        # support the target — not RMVPE-plateau-vs-RMVPE-center.
+        "rmvpe_plateau_supports": rp is not None,
+        "fcpe_plateau_supports": fp is not None,
+        "dual_plateau_agree": (delta is not None
+                               and delta <= PLATEAU_MATCH_CENTS),
         "neighbours_no_alternative": all(
-            abs(nb["game_tone"] - (rmv.get("center_midi") or tone))
+            abs(nb["game_tone"] - (target or tone))
             > 0.5 for nb in neighbours),
-        "pitch_only_edit": True,  # retune touches tone only, by design
+        "pitch_only_edit": True,
         "render_preview": "pending",
         "human_listening": "pending",
     }
@@ -175,6 +201,9 @@ def safe_retune_gate(packet: dict, plateaus: list[dict],
             if v is False and k not in ("render_preview",
                                        "human_listening")]
     return {"gates": gates, "failed": hard,
+            "rmvpe_target_plateau": rp, "fcpe_target_plateau": fp,
+            "plateau_center_delta_cents": delta,
+            "plateau_overlap_ratio": plateau_overlap,
             "eligible": not hard,
             "status": ("awaiting_render_and_listening" if not hard
                        else "rejected")}
@@ -195,15 +224,8 @@ def classify(packet: dict, plateaus: list[dict],
             > DUAL_F0_CONFLICT_CENTS:
         return "F0_EXTRACTOR_CONFLICT"
 
-    # both extractors jointly oppose GAME with stable evidence
-    if (dual.get("both_oppose_game")
-            and (packet.get("rmvpe") or {}).get("iqr_cents", 1e9)
-            <= STABLE_IQR_CENTS
-            and (packet.get("fcpe") or {}).get("iqr_cents", 1e9)
-            <= STABLE_IQR_CENTS):
-        return "PITCH_HARD_SUSPICIOUS"
-
-    # structure disagreement + clear plateau evidence either way
+    # structure ambiguity gates FIRST: an unstable-identity region can
+    # never be pitch-hard regardless of F0 stability (plan §5.1)
     if cons.get("structure_varies"):
         n_pl = len(plateaus)
         spread = (max(p["center_midi"] for p in plateaus)
@@ -216,6 +238,14 @@ def classify(packet: dict, plateaus: list[dict],
             if max(c for c in cons.get("run_note_counts", [1])) >= 2:
                 return "STRUCTURE_CANDIDATE"
         return "AMBIGUOUS_ORNAMENT"
+
+    # both extractors jointly oppose GAME with stable evidence
+    if (dual.get("both_oppose_game")
+            and (packet.get("rmvpe") or {}).get("iqr_cents", 1e9)
+            <= STABLE_IQR_CENTS
+            and (packet.get("fcpe") or {}).get("iqr_cents", 1e9)
+            <= STABLE_IQR_CENTS):
+        return "PITCH_HARD_SUSPICIOUS"
 
     if "wrong_pitch" in flags or "possible_octave_error" in flags:
         # §20: re-judge via plateau/interior center, not the full-window
