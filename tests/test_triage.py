@@ -192,18 +192,34 @@ def test_orthogonal_states_simultaneous():
     assert st["structure_state"] == "split_merge_variable"
     assert st["identity_state"] == "variable"
     assert st["separation_state"] == "sensitive"
-    assert st["decision"] == "needs_adjudication"
+    # A4: pitch+structure needs coexist; decision is the top-priority step
+    assert st["routing_needs"]["pitch_adjudication"] is True
+    assert st["routing_needs"]["structure_adjudication"] is True
+    assert st["decision"] == "needs_pitch_adjudication"
 
 
 def test_a3_stale_wrong_pitch_does_not_override_calibration():
-    # §5.1: raw wrong_pitch flag is a feature only — once calibration judged
-    # GAME_LIKELY_CORRECT, pitch_state must be stable and keep_baseline.
+    # §5.1: raw wrong_pitch flag is a feature only — the calibrated
+    # plateau re-judgement (plateau matches GAME tone) already cleared it,
+    # so pitch_state must be stable and keep_baseline.
     from agent2utau.diagnostic.triage import orthogonal_states
-    p = _pkt(flags=["wrong_pitch"])
+    p = _pkt(flags=["wrong_pitch"], game_tone=60.0,
+             plateaus=[{"center_midi": 60.0}])
     p["triage"] = "GAME_LIKELY_CORRECT"
     st = orthogonal_states(p)
     assert st["pitch_state"] == "stable"
     assert st["decision"] == "keep_baseline"
+
+
+def test_a4_stale_wrong_pitch_flag_needs_no_triage_enum():
+    # §5.3: same calibrated-stable outcome must hold WITHOUT trusting the
+    # legacy triage label — evidence alone decides.
+    from agent2utau.diagnostic.triage import orthogonal_states
+    p = _pkt(flags=["wrong_pitch"], game_tone=60.0,
+             plateaus=[{"center_midi": 60.0}])
+    p["triage"] = "NEEDS_LISTENING_REVIEW"   # stale enum says otherwise
+    st = orthogonal_states(p)
+    assert st["pitch_state"] == "stable"
 
 
 def test_a3_safe_eligible_is_pending_adjudication_not_repair():
@@ -230,7 +246,51 @@ def test_a3_structure_state_independent_of_triage_label():
     st = orthogonal_states(p)
     assert st["pitch_state"] == "extractor_conflict"
     assert st["structure_state"] == "split_merge_variable"
-    assert st["decision"] == "needs_adjudication"
+    assert st["routing_needs"]["pitch_adjudication"] is True
+    assert st["routing_needs"]["structure_adjudication"] is True
+    assert st["decision"] == "needs_pitch_adjudication"
+
+
+def test_a4_structure_candidate_routes_to_structure_adjudication():
+    # A4 §5.1: structure candidates must NOT go straight to human review —
+    # M2.3.2C automatic structure adjudication comes first.
+    from agent2utau.diagnostic.triage import orthogonal_states
+    p = _pkt(consensus={"stability": "GAME_UNSTABLE",
+                        "run_note_counts": [2, 1, 1, 1, 1],
+                        "structure_varies": True},
+             structure_evidence={"plateau_count_agreement": True})
+    st = orthogonal_states(p)
+    assert st["decision"] == "needs_structure_adjudication"
+    assert st["routing_needs"]["structure_adjudication"] is True
+    assert st["routing_needs"]["phrase_review"] is False
+
+
+def test_a4_phrase_review_only_after_bc_unresolved():
+    # A4 §5.1: needs_phrase_review is a post-B/C unresolved outcome.
+    from agent2utau.diagnostic.triage import orthogonal_states
+    p = _pkt(consensus={"stability": "GAME_UNSTABLE",
+                        "run_note_counts": [2, 1, 1],
+                        "structure_varies": True})
+    p["b_c_unresolved"] = True
+    st = orthogonal_states(p)
+    assert st["routing_needs"]["phrase_review"] is True
+    # structure_adjudication still outranks phrase_review while pending
+    assert st["decision"] == "needs_structure_adjudication"
+    # once structure is resolved-stable, phrase review surfaces
+    p["consensus"]["structure_varies"] = False
+    st = orthogonal_states(p)
+    assert st["decision"] == "needs_phrase_review"
+
+
+def test_a4_no_a_stage_state_becomes_repair_candidate():
+    # A4 §5.5.6: nothing at the A stage may produce repair_candidate,
+    # not even a SAFE-eligible packet.
+    from agent2utau.diagnostic.triage import orthogonal_states
+    for extra in ({}, {"safe_gate": {"eligible": True}},
+                  {"triage": "PITCH_HARD_SUSPICIOUS",
+                   "safe_gate": {"eligible": True}}):
+        p = _pkt(**extra)
+        assert orthogonal_states(p)["decision"] != "repair_candidate"
 
 
 def test_classify_wrong_pitch_single_extractor():

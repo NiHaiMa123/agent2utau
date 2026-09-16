@@ -27,6 +27,25 @@ MATCH_MS = 80.0
 SNAP_MS = 300.0
 
 
+def _cache_fresh(man: dict, src_sha: str, sep_model: str,
+                 sep_cfg_sha: str, schema: str, sha256_fn) -> bool:
+    """§5.4 (A4): cache is fresh only when source content, separator model
+    name, ACTUAL resolved model bytes (re-hashed from the recorded real
+    path), separator config, and schema all still match. Missing/unreadable
+    model bytes => stale. Model provenance always comes from separate()'s
+    actual resolved model_path — never a guessed library-internal path."""
+    prev_model_path = man.get("separator_model_path")
+    actual_sha_now = (sha256_fn(Path(prev_model_path))
+                      if prev_model_path and Path(prev_model_path).exists()
+                      else None)
+    return (man.get("source_sha256") == src_sha
+            and man.get("separator_model") == sep_model
+            and actual_sha_now is not None
+            and man.get("separator_model_sha256") == actual_sha_now
+            and man.get("separator_config_sha256") == sep_cfg_sha
+            and man.get("schema") == schema)
+
+
 def _notes_to_segments(notes: list[dict]) -> list[dict]:
     sung = [n for n in notes if n["voiced"] and n["dur"] > 0.01]
     out = [{"lyric": NEUTRAL_LYRIC, "start": round(n["start"], 4),
@@ -291,31 +310,16 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     cache.mkdir(parents=True, exist_ok=True)
     src_sha = _sha256(Path(src))
     man_path = cache / "manifest.json"
-    CACHE_SCHEMA = "m232a3-1"
+    CACHE_SCHEMA = "m232a4-1"
     sep_model = "UVR-MDX-NET-Voc_FT.onnx"
-    # §5.4 (A3): cache must bind source content, separator model BYTES, and
-    # the separator config — not just the model name.
-    # audio-separator's default model dir is the literal "/tmp/..." string;
-    # resolve it the same way the library does so we hash the real file.
-    sep_model_path = Path("/tmp/audio-separator-models") / sep_model
-    if not sep_model_path.exists() and man_path.exists():
-        prev = json.loads(man_path.read_text(encoding="utf-8")) \
-            .get("separator_model_path")
-        if prev and Path(prev).exists():
-            sep_model_path = Path(prev)
-    sep_model_sha = _sha256(sep_model_path) \
-        if sep_model_path.exists() else None
     sep_cfg = {"model": sep_model, "output_format": "WAV",
                "backend": "onnxruntime-cpu"}
     sep_cfg_sha = hashlib.sha256(
         json.dumps(sep_cfg, sort_keys=True).encode()).hexdigest()
     man = json.loads(man_path.read_text(encoding="utf-8")) \
         if man_path.exists() else {}
-    cache_fresh = (man.get("source_sha256") == src_sha
-                   and man.get("separator_model") == sep_model
-                   and man.get("separator_model_sha256") == sep_model_sha
-                   and man.get("separator_config_sha256") == sep_cfg_sha
-                   and man.get("schema") == CACHE_SCHEMA)
+    cache_fresh = _cache_fresh(man, src_sha, sep_model, sep_cfg_sha,
+                             CACHE_SCHEMA, _sha256)
     orig = cache / "original.wav"
     sep_json = cache / "separation.json"
     if not orig.exists() or not cache_fresh:
@@ -332,8 +336,8 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     man_path.write_text(json.dumps({
         "schema": CACHE_SCHEMA, "source_sha256": src_sha,
         "separator_model": sep_model,
-        "separator_model_path": str(sep_model_path),
-        "separator_model_sha256": sep_model_sha,
+        "separator_model_path": stems.get("model_path"),
+        "separator_model_sha256": stems.get("model_sha256"),
         "separator_config": sep_cfg,
         "separator_config_sha256": sep_cfg_sha},
         ensure_ascii=False, indent=1), encoding="utf-8")

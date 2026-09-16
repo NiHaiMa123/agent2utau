@@ -284,6 +284,41 @@ cd "E:\software\OpenUtau-win-x64 (6)"
 - Tests: 54 passed (+3 A3 regressions: stale-flag precedence,
   SAFE->pending routing, structure-state independence).
 
+## M2.3.2A4 routing/provenance finalization (run diag-20260916-171100-5d38)
+
+- Routing split into real lanes: decision enum is now
+  keep_baseline / candidate_pending_adjudication /
+  needs_pitch_adjudication / needs_structure_adjudication /
+  needs_phrase_review (+ auto_resolved, repair_candidate post-B/C).
+  Structure candidates go to needs_structure_adjudication — nothing at
+  A-stage routes to human phrase review (phrase_review is a
+  post-B/C-unresolved outcome via packet `b_c_unresolved`).
+- `state.routing_needs` = {pitch_adjudication, structure_adjudication,
+  phrase_review} — orthogonal needs coexist; `decision` is only the
+  top-priority next step.
+- pitch_state is derived by `pitch_state_from_evidence()` from raw+
+  calibrated evidence (extractor conflict / both_oppose+stable IQR /
+  plateau-rejudged flags / weak_f0) — NEVER from the legacy triage enum.
+  identity_state = tone_agreement<1 only (split/merge variation is
+  structure's axis, not identity's).
+- Separator provenance: manifest stores separate()'s ACTUAL resolved
+  model_path + model_sha256; cache hit re-hashes the recorded real file.
+  No more guessing /tmp/audio-separator-models. Cache logic extracted to
+  `_cache_fresh()` for unit tests.
+- 年轮 rerun: medoid run4 (421 notes). decisions: 338 keep_baseline /
+  76 needs_pitch_adjudication / 7 needs_structure_adjudication.
+  routing_needs totals: pitch=76, structure=51, BOTH=44 — pitch and
+  structure adjudication needs genuinely coexist (189.84s = conflict +
+  structure candidate + identity variable).
+- 202.51s: triage LIKELY_CORRECT but identity variable ->
+  needs_pitch_adjudication (not retune). 202.09s: stale
+  NEEDS_LISTENING_REVIEW enum but calibrated pitch stable ->
+  keep_baseline.
+- Tests: 64 passed (+10 A4 regressions incl. test_cache.py provenance).
+
+A-stage FROZEN per plan. Next: M2.3.2B third-F0 + pitch/octave
+adjudication for the 76 pitch lanes.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

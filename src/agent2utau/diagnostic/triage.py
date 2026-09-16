@@ -218,27 +218,9 @@ def orthogonal_states(packet: dict) -> dict:
     structure-unstable — one `triage` label hid that. Orthogonal states
     + a routing `decision`; legacy `triage` stays as a compat summary."""
     cons = packet.get("consensus") or {}
-    dual = packet.get("dual_f0") or {}
-    flags = set(packet.get("flags") or [])
     sep = packet.get("separation") or {}
 
-    # §5.1 (A3): raw full-window flags are FEATURES only — the calibrated
-    # triage already re-judged them via plateau/interior centers. A stale
-    # wrong_pitch on a GAME_LIKELY_CORRECT packet must not resurrect a
-    # suspicious pitch_state.
-    if dual and abs(dual.get("rmvpe_vs_fcpe_cents") or 0) \
-            > DUAL_F0_CONFLICT_CENTS:
-        pitch = "extractor_conflict"
-    elif dual.get("both_oppose_game") and \
-            packet.get("triage") != "GAME_LIKELY_CORRECT":
-        pitch = "suspicious"
-    elif packet.get("triage") == "NEEDS_LISTENING_REVIEW":
-        pitch = "suspicious"
-    elif packet.get("triage") == "AMBIGUOUS_ORNAMENT" \
-            or "weak_f0_evidence" in flags:
-        pitch = "unresolved"
-    else:
-        pitch = "stable"
+    pitch = pitch_state_from_evidence(packet)
 
     if cons.get("structure_varies"):
         structure = ("candidate" if packet.get("structure_evidence")
@@ -246,32 +228,85 @@ def orthogonal_states(packet: dict) -> dict:
     else:
         structure = "stable"
 
-    identity = ("variable"
-                if (cons.get("tone_agreement", 1.0) < 1.0
-                    or cons.get("stability") in ("GAME_VARIABLE",
-                                                 "GAME_UNSTABLE"))
+    # A4: identity_state reflects GAME's TONE answer stability only —
+    # split/merge variation belongs to structure_state, not identity.
+    # (202.52s: runs answer 65.3 vs 72.4 -> tone_agreement<1 -> variable.)
+    identity = ("variable" if cons.get("tone_agreement", 1.0) < 1.0
                 else "stable")
 
     separation = ("sensitive" if sep.get("separation_sensitive")
                   else ("normal" if sep else "unknown"))
 
+    # §5.2 (A4): orthogonal routing needs — a region can need pitch AND
+    # structure adjudication at once; `decision` is only the next step.
+    # phrase_review is reserved for B/C-unresolved outcomes; nothing in
+    # the A stage may route straight to human review.
+    needs = {
+        "pitch_adjudication": pitch in ("extractor_conflict", "suspicious",
+                                        "unresolved")
+                              or identity == "variable",
+        "structure_adjudication": structure in ("split_merge_variable",
+                                                "candidate"),
+        "phrase_review": bool(packet.get("b_c_unresolved")),
+    }
+
     # §5.3 (A3): SAFE gate passed = eligible for adjudication, NOT auto
     # repair — third-F0/harmonic layer (M2.3.2B) must confirm first.
     if (packet.get("safe_gate") or {}).get("eligible"):
         decision = "candidate_pending_adjudication"
-    elif pitch in ("extractor_conflict", "suspicious"):
-        decision = "needs_adjudication"
-    elif structure != "stable" or packet.get("triage") in (
-            "NEEDS_LISTENING_REVIEW",):
+    elif needs["pitch_adjudication"]:
+        decision = "needs_pitch_adjudication"
+    elif needs["structure_adjudication"]:
+        decision = "needs_structure_adjudication"
+    elif needs["phrase_review"]:
         decision = "needs_phrase_review"
-    elif pitch == "unresolved" or identity == "variable":
-        decision = "needs_adjudication"
     else:
         decision = "keep_baseline"
 
     return {"pitch_state": pitch, "structure_state": structure,
             "identity_state": identity, "separation_state": separation,
-            "decision": decision}
+            "routing_needs": needs, "decision": decision}
+
+
+def pitch_state_from_evidence(packet: dict) -> str:
+    """§5.3 (A4): pitch_state is derived from raw + calibrated evidence —
+    never from the legacy `triage` enum. Raw full-window flags are
+    re-judged here via plateau/interior centers (same calibration
+    `classify` uses), so a stale `wrong_pitch` cannot resurrect a
+    suspicious state on an already-cleared note."""
+    dual = packet.get("dual_f0") or {}
+    flags = set(packet.get("flags") or [])
+    plats = packet.get("plateaus") or []
+    interior = packet.get("interior_center_midi")
+
+    if dual and abs(dual.get("rmvpe_vs_fcpe_cents") or 0) \
+            > DUAL_F0_CONFLICT_CENTS:
+        return "extractor_conflict"
+    if (dual.get("both_oppose_game")
+            and (packet.get("rmvpe") or {}).get("iqr_cents", 1e9)
+            <= STABLE_IQR_CENTS
+            and (packet.get("fcpe") or {}).get("iqr_cents", 1e9)
+            <= STABLE_IQR_CENTS):
+        return "suspicious"
+    if flags & {"wrong_pitch", "possible_octave_error"}:
+        center = None
+        if plats:
+            center = min(plats,
+                         key=lambda p: abs(p["center_midi"]
+                                           - packet["game_tone"])
+                         )["center_midi"]
+        elif interior is not None:
+            center = interior
+        if center is not None:
+            delta_c = abs(center - packet["game_tone"]) * 100
+            if delta_c <= PLATEAU_MATCH_CENTS:
+                return "stable"          # median was smeared, calibrated
+            if dual.get("extractors_agree") and delta_c > PITCH_SUSP_CENTS:
+                return "suspicious"
+        return "unresolved"
+    if "weak_f0_evidence" in flags:
+        return "unresolved"
+    return "stable"
 
 
 def classify(packet: dict, plateaus: list[dict],
