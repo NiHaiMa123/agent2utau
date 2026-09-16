@@ -109,9 +109,32 @@ def cmd_deploy_bridge(args) -> int:
 
 
 def cmd_cover(args) -> int:
-    return fail("not_implemented",
-                "cover pipeline requires M2 (separation/ASR/F0); not yet implemented",
-                next_actions=["run inspect-reference + render-smoke first"])
+    from .pipeline import run_cover, parse_segments
+    from .state import Run, new_run_id
+    cfg = load_config()
+    if not args.source:
+        return fail("missing_source", "cover requires a source audio path")
+    src = Path(args.source)
+    if not src.exists():
+        return fail("missing_source", f"source not found: {src}")
+    segments = parse_segments(args.segments) if args.segments else None
+    run = Run(Path(cfg["runs_dir"]), new_run_id("cover"))
+    run.write_state({"status": "running", "stage": "init",
+                     "source": str(src)})
+    try:
+        rep = run_cover(src, run, cfg, segments=segments,
+                        auto_segments=args.auto_segments,
+                        seg_len=args.seg_len, asr_model=args.asr_model,
+                        sep_model=args.sep_model,
+                        lyrics=args.lyrics, lines=args.lines,
+                        timeout_min=args.timeout_min,
+                        progress=lambda m: diag(f"[cover] {m}"))
+        return _out(args, rep)
+    except Exception as e:
+        run.write_state({"status": "failed", "stage": "error",
+                         "failure_code": "internal_error"})
+        emit(exception_payload(e))
+        return 1
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -146,11 +169,28 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("cover"); p.set_defaults(fn=cmd_cover)
     p.add_argument("source", nargs="?")
     p.add_argument("--singer", default="yousa")
+    p.add_argument("--segments", default=None,
+                   help="comma list of start:end seconds, e.g. '60:75,150:165'")
+    p.add_argument("--auto-segments", type=int, default=2,
+                   help="auto-pick N high-energy vocal windows")
+    p.add_argument("--seg-len", type=float, default=15.0)
+    p.add_argument("--lyrics", default=None,
+                   help="LRC file; lines get timestamps, chars get onsets")
+    p.add_argument("--lines", default=None,
+                   help="line range within lyrics file, e.g. '0:4'")
+    p.add_argument("--asr-model", default="large-v3-turbo")
+    p.add_argument("--sep-model", default="UVR-MDX-NET-Voc_FT.onnx")
+    p.add_argument("--timeout-min", type=int, default=30)
 
     return ap
 
 
 def main(argv: list[str] | None = None) -> int:
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
     args = build_parser().parse_args(argv)
     try:
         return args.fn(args)

@@ -213,8 +213,13 @@ namespace Agent2Utau.Bridge {
                 }).ToArray(),
                 ["voice_parts"] = project.parts.OfType<UVoicePart>().Select(p => new {
                     p.name, p.trackNo, p.position, p.Duration,
+                    positionMs = project.timeAxis.TickPosToMsPos(p.position),
                     notes = p.notes.Count, renderPhrases = p.renderPhrases.Count,
                     phonemesUpToDate = p.PhonemesUpToDate,
+                    phrases = p.renderPhrases.Select(ph => new {
+                        ph.position, ph.end, ph.positionMs,
+                        leadingMs = ph.leadingMs,
+                    }).ToArray(),
                 }).ToArray(),
                 ["wave_parts"] = project.parts.OfType<UWavePart>().Select(p => new {
                     p.name, p.trackNo, p.position, p.relativePath,

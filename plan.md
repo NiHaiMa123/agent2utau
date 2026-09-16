@@ -3,6 +3,8 @@
 > 修订日期：2026-09-15。目标：用户在 Agent 中说“用泠鸢翻唱这首歌”，Agent 调用本地工具，以已安装的泠鸢 DiffSinger + OpenUtau 输出完整翻唱和可编辑工程。
 >
 > 本文是实施计划。已完成的是资源与配置核对，尚未实现 CLI、自动渲染或《年轮》翻唱；文中的命令、目录和接口均为待实现约定。
+>
+> **进度更新（2026-09-16）**：M0/M1 已验收（commit 390edf6：doctor、inspect-reference、migrate-phrase、a2u-bridge 无头渲染、roundtrip、render-smoke）。M2 进行中：`cover` 已跑通《年轮》主歌第一段闭环（分离→F0→LRC对齐→音符→USTX→渲染→混音→评价），实测 CPU 可用；faster-whisper 对歌声转写幻觉严重，暂以 LRC 时间轴 + onset 对齐替代；剩余工作为更大段落覆盖、AP/换气、音高校准收紧与完整评价报告。
 
 ## 1. 需求与“一键”的定义
 

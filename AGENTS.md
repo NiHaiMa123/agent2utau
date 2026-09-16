@@ -46,3 +46,28 @@ cd "E:\software\OpenUtau-win-x64 (6)"
   part.position is project-absolute.
 - Render cache lives in install-dir `Cache\` keyed by phrase hash — repeat
   renders are instant (cache hit); a different phrase is a cold render.
+
+## M2 pipeline (verified on 年轮 verse 1)
+
+- `cover` runs decode→separate→f0→align→notes→ustx→render→mix→eval.
+- `runs/_cache/<md5-of-src-path>/` holds deterministic artifacts
+  (original.wav, mono.wav, stems, f0.npz, separation.json) — reused across runs.
+- Lyrics: LRC file `data/lyrics/nianlun.lrc` (timestamped lines for the Live
+  duet version — matches this flac's timeline). `--lines a:b` selects lines;
+  one USTX part per line at its absolute position.
+- faster-whisper large-v3-turbo HALLUCINATES on singing (even on separated
+  vocals and raw mix) — don't trust ASR-only output for this song.
+- torchfcpe `infer(retur_uv=True)` returns uv shaped (n,1) — must `.squeeze()`
+  fully; `uv & rms` broadcasting silently builds an n×n matrix (ate 24GB).
+- fcpe marks near-silent instrumental bleed as voiced — gate uv by per-frame
+  RMS (>−42dBFS) before block detection (`onsets.gate_voiced`).
+- librosa onset_detect finds ~2x onsets vs chars (vibrato); `align.distribute`
+  merges extra onsets — first onset is pinned as the line-start anchor.
+- BUG FIXED: built-USTX note positions must be part-relative ticks. A previous
+  shift made them absolute → phrases rendered at ~2x timeline position.
+- LRC line-end handling: line window = [start, next_line_start); sung extent
+  is trimmed to actual voiced frames +0.15s pad (`voiced_extent`), so the last
+  char doesn't stretch into the breath gap.
+- Test: `.venv/Scripts/python.exe -m pytest tests/ -x -q`
+- Known numbers (lines 0:4, CPU): sep 60s, f0 ~3s, render ~40s cold,
+  eval median |err| ~47-70c, frac≤100c ~0.7 — baseline quality, not tuned.
