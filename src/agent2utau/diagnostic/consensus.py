@@ -110,6 +110,9 @@ def _finalize(members: list[tuple[int, int]],
         "tone_min": round(float(min(n["tone"] for n in notes)), 2),
         "tone_max": round(float(max(n["tone"] for n in notes)), 2),
         "tone_agreement": round(tone_agree, 3),
+        # §9.4 (B): continuous GAME stochastic evidence — per-run aggregate
+        # tone; adjudication must consume the distribution, not a binary.
+        "run_tones": [round(t, 2) for t in run_tones],
         "presence_rate": round(presence, 3),
         "n_runs_present": int(len(present)),
         "n_runs": n_runs,

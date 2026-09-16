@@ -319,6 +319,35 @@ cd "E:\software\OpenUtau-win-x64 (6)"
 A-stage FROZEN per plan. Next: M2.3.2B third-F0 + pitch/octave
 adjudication for the 76 pitch lanes.
 
+## M2.3.2B pitch/octave adjudication (run diag-20260916-173849-afe0)
+
+- Third F0 = librosa pYIN (v1.0.0, E2-C7, 2048/441@44.1k, 10ms hop),
+  cached in runs/_cache/<key>/third_f0.npz + provenance json.
+- `diagnostic/adjudicate.py`: per-hypothesis scoring across independent
+  families — GAME run_tones distribution (continuous, consensus.py now
+  emits run_tones), RMVPE/FCPE reliability-weighted centers, pYIN,
+  periodicity (FFT-ACF at hyp lag), subharmonic support (f/2 energy
+  penalizes upper-octave hyps), harmonic-series fit, local continuity.
+  Separation sensitivity multiplies confidence x0.8 — never picks winner.
+- Hypotheses = {H0 written tone, +/-12st, extractor centers, GAME
+  run-tone alternatives} deduped at 0.5st.
+- Resolve gates: >=2 hard families, margin>=0.12, periodicity>=0.25,
+  sep-sensitive+opposition blocks, extractor conflict requires waveform
+  family convergence (no extractor majority rule).
+- apply_adjudication(): resolved_keep clears pitch need only; resolved_
+  change needs safe_retune_gate eligible -> repair_candidate else
+  demoted unresolved + phrase_review; unresolved -> phrase_review
+  eligible, pitch need cleared (no B loop). game_tone never overwritten.
+- 年轮 rerun: 87 pitch lanes -> 72 resolved_keep / 0 resolved_change /
+  15 unresolved. Decisions: 323 keep / 69 needs_structure_adjudication /
+  23 auto_resolved / 8 needs_phrase_review. Still ZERO auto-repairs.
+- 189.84s: winner=58.1 (game 0.8 + fcpe 0.95 + pYIN 0.63 + ACF 0.95 +
+  harmonic) BUT rmvpe 0.965 opposes + separation_sensitive ->
+  unresolved -> phrase_review. Majority never decided it.
+- 202.52s: winner=72.42 (written tone, rmvpe+fcpe+harmonic) but
+  periodicity counter-evidence -> unresolved -> phrase_review.
+- Tests: 74 passed (+10 B regressions in test_adjudicate.py).
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

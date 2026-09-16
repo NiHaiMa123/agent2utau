@@ -485,8 +485,8 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
             rec["consensus"] = {k: best[k] for k in
                                 ("presence_rate", "tone_agreement",
                                  "tone_median", "start_iqr_ms",
-                                 "run_note_counts", "structure_varies",
-                                 "stability")}
+                                 "run_note_counts", "run_tones",
+                                 "structure_varies", "stability")}
 
     # --- RMVPE + structural F0 (variant D evidence) --------------------------
     log("rmvpe")
@@ -505,6 +505,28 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     vw2, vsr = sf.read(str(vocals), dtype="float32")
     if vw2.ndim > 1:
         vw2 = vw2.mean(axis=1)
+    # --- M2.3.2B: third F0 family (pYIN) ---------------------------------
+    # Cached per source under the same provenance as the separation --
+    # unchanged vocals bytes => unchanged third-F0 output.
+    from .adjudicate import third_f0_pyin
+    t3_path = cache / "third_f0.npz"
+    t3_prov = cache / "third_f0_provenance.json"
+    if cache_fresh and t3_path.exists() and t3_prov.exists():
+        z = np.load(t3_path)
+        third = {"times": z["times"], "midi": z["midi"],
+                 "voiced_prob": z["voiced_prob"],
+                 "provenance": json.loads(
+                     t3_prov.read_text(encoding="utf-8"))}
+    else:
+        log("third-f0 (pyin)")
+        third = third_f0_pyin(wav, sep_sr)
+        np.savez(t3_path, times=third["times"], midi=third["midi"],
+                 voiced_prob=third["voiced_prob"])
+        t3_prov.write_text(json.dumps(third["provenance"],
+                                      ensure_ascii=False, indent=1),
+                           encoding="utf-8")
+    rep["third_f0"] = third["provenance"]
+
     energy = frame_rms(vw2, vsr, r["times"])
 
     # --- validator on GAME RAW (primary), evidence only ---------------------
@@ -542,6 +564,7 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         rec["triage"] = classify(rec, plats, interior)
         fpl = detect_plateaus(fcpe["times"], fcpe_struct,
                               rec["start"], rec["start"] + rec["dur"])
+        rec["fcpe_plateaus"] = fpl
         if plats:
             plateau_ev[rec["id"]] = plats
         # §5.2 (A3): dual structure evidence whenever GAME structure is
@@ -568,6 +591,37 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                 if ss:
                     rec["separation"] = ss
         rec["state"] = orthogonal_states(rec)
+
+    # --- M2.3.2B: automatic pitch/octave adjudication --------------------
+    # Hypothesis scoring across independent families; GAME run
+    # distribution is consumed continuously, never binarized. Resolved
+    # results clear the pitch need; structure needs are NEVER cleared by
+    # a pitch resolution. No B result overwrites Candidate 0 (game_tone).
+    from .adjudicate import adjudicate, apply_adjudication
+    n_b_resolved = {"resolved_keep": 0, "resolved_change": 0,
+                    "unresolved": 0, "not_needed": 0}
+    for idx, rec in enumerate(packets):
+        if not rec["state"]["routing_needs"]["pitch_adjudication"]:
+            rec["pitch_adjudication"] = {"status": "not_needed"}
+            n_b_resolved["not_needed"] += 1
+            continue
+        nb = [p for p in (packets[idx - 1] if idx else None,
+                          packets[idx + 1]
+                          if idx + 1 < len(packets) else None) if p]
+        adj = adjudicate(rec, wav, sep_sr, third, nb)
+        rec["pitch_adjudication"] = adj
+        gate = (safe_retune_gate(rec, rec.get("plateaus") or [],
+                                 rec.get("fcpe_plateaus") or [], nb)
+                if adj["status"] == "resolved_change" else None)
+        apply_adjudication(rec, adj, gate)
+        n_b_resolved[rec["pitch_adjudication"]["status"]] += 1
+    rep["pitch_adjudication_summary"] = n_b_resolved
+    (diag_dir / "pitch_adjudication.json").write_text(
+        json.dumps({p["id"]: p["pitch_adjudication"]
+                    for p in packets
+                    if p["pitch_adjudication"]["status"] != "not_needed"},
+                   ensure_ascii=False, indent=1), encoding="utf-8")
+
     (diag_dir / "plateau_evidence.json").write_text(
         json.dumps(plateau_ev, ensure_ascii=False, indent=1),
         encoding="utf-8")
