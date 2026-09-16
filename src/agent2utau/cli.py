@@ -152,6 +152,28 @@ def cmd_cover(args) -> int:
         return 1
 
 
+def cmd_diagnose(args) -> int:
+    from .diagnostic.run import run_diagnostic
+    from .state import Run, new_run_id
+    cfg = load_config()
+    src = Path(args.source)
+    if not src.exists():
+        return fail("missing_source", f"source not found: {src}")
+    run = Run(Path(cfg["runs_dir"]), new_run_id("diag"))
+    run.write_state({"status": "running", "stage": "init",
+                     "source": str(src)})
+    try:
+        rep = run_diagnostic(src, run, cfg, language=args.language,
+                             timeout_min=args.timeout_min,
+                             progress=lambda m: diag(f"[diag] {m}"))
+        return _out(args, rep)
+    except Exception as e:
+        run.write_state({"status": "failed", "stage": "error",
+                         "failure_code": "internal_error"})
+        emit(exception_payload(e))
+        return 1
+
+
 def cmd_status(args) -> int:
     from .state import read_state
     cfg = load_config()
@@ -268,6 +290,11 @@ def build_parser() -> argparse.ArgumentParser:
                    help="also render all 5 colors on first segment")
     p.add_argument("--no-breaths", action="store_true",
                    help="don't auto-insert AP breath notes at phrase gaps")
+
+    p = sub.add_parser("diagnose"); p.set_defaults(fn=cmd_diagnose)
+    p.add_argument("source")
+    p.add_argument("--language", default="zh")
+    p.add_argument("--timeout-min", type=int, default=30)
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")

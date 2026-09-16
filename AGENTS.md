@@ -116,6 +116,25 @@ cd "E:\software\OpenUtau-win-x64 (6)"
 - Source is a duet （张碧晨+唐倩 live); every line renders with Yousa —
   harmony fragments may get odd char timing (flagged, not hidden).
 
+## Plan2 M2.0/M2.1 — GAME transcription diagnostic
+
+- GAME + RMVPE onnx weights now installed under OpenUtau `Dependencies/`
+  (`game/` 4 models, `rmvpe/rmvpe.onnx`) — official oudep packages from the
+  svs-index registry, sha256-verified. OpenUtau.Core already wraps them;
+  our Python port (`transcription/game_onnx.py`) adds what the GUI path
+  never uses: the segmenter `known_boundaries` input.
+- `agent2utau diagnose <audio>` → runs/<id>/diagnostic/ with variants
+  A raw / B zh / C boundaries / D rmvpe overlay + ustx + vocal renders +
+  suspicious_regions.json + diagnostic_report.md. NO auto-repair.
+- slicer.py is an exact port of OpenUtau AudioSlicer (openvpi slicer2).
+- Findings on 年轮 (separated vocal, CPU): A=419 notes, B(zh)=417 (~same —
+  language barely changes segmentation), C(+349 DTW char boundaries)=760
+  notes (forces per-char splits), 76 suspicious packets (54 wrong_pitch
+  vs RMVPE structural, 16 very_short, 8 weak evidence). Both renders
+  ~243s non-silent. RMVPE uv semantics: 1=unvoiced, hop 160@16k.
+- First diagnostic run crashed only in report-md generation (fixed);
+  artifacts all intact, report.json was regenerated post-hoc.
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects

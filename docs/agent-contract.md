@@ -101,6 +101,11 @@ Rendering also rejects note/phoneme validation errors before exporting;
   ~0.1-0.75s AP, tone borrowed from the next note). Breaths are excluded
   from pitch evaluation; count is in `report.json.n_breaths`.
 
+- `agent2utau diagnose <audio> [--language zh]` — plan2 M2.1 GAME
+  diagnostic. Runs GAME variants (raw / zh / known-boundaries from
+  sha256-matched lyrics + whisper DTW / +RMVPE overlay), writes USTX +
+  vocal renders + `suspicious_regions.json` + `diagnostic_report.md`
+  under `runs/<id>/diagnostic/`. Detection only — never auto-repairs.
 - `agent2utau status <run-id>` — read `state.json` + condensed `report.json`.
 - `agent2utau resume <run-id>` — re-execute the stored `request.json` in the
   same run dir; per-source cache makes decode/separate/F0 instant, and
