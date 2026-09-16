@@ -72,6 +72,7 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
               iters: int = 2, pitch_strength: float = 1.0,
               voice_color: str | None = "Yousa_Normal",
               compare_colors: bool = False,
+              breaths: bool = True,
               progress=None) -> dict[str, Any]:
     from .audio.decode import decode, probe_duration
     from .audio.separate import separate
@@ -228,6 +229,16 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
         all_notes += notes
     rep["n_notes"] = len(all_notes)
     rep["n_weak_notes"] = sum(1 for n in all_notes if n["conf"] == "weak")
+
+    # breaths: 'AP' notes in real gaps before phrase starts (must precede
+    # curve building — part anchors move earlier where a breath fits)
+    if breaths:
+        from .analysis.breaths import insert_breaths
+        rep["n_breaths"] = insert_breaths(seg_payloads)
+        if rep["n_breaths"]:
+            rep.setdefault("caveats", []).append(
+                "breath notes (AP) auto-inserted at phrase gaps")
+
     score = {"tempo_source": "fixed", "bpm_fixed": 120.0,
              "segments": seg_payloads}
     run.write_json("score.json", score)
@@ -283,8 +294,9 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
         def pitd_curves(s):
             if not s["notes"]:
                 return []
-            c = build_pitd(f0g, s["notes"], s["start_sec"], sec_to_tick,
-                           strength=pitch_strength)
+            c = build_pitd(f0g, s["notes"],
+                           s.get("part_start_sec", s["start_sec"]),
+                           sec_to_tick, strength=pitch_strength)
             return [c] if c else []
         cand = render_variant("iter1_pitd", pitd_curves)
         if cand and _better(cand["pitch"], best["pitch"]):
@@ -300,7 +312,9 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
             for c in colors:
                 log(f"color render {c}")
                 mini = {"notes": first["notes"],
-                        "start_sec": first["start_sec"]}
+                        "start_sec": first["start_sec"],
+                        "part_start_sec": first.get(
+                            "part_start_sec", first["start_sec"])}
                 ustx_c = it_dir / "colors" / f"{c}.ustx"
                 build_project(Path(src).stem, [mini], ustx_c,
                               voice_color=c)

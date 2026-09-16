@@ -66,7 +66,8 @@ def build_project(name: str, segments: list[dict], out_ustx: Path,
     clr_value = project.pop("_voice_color_value", None)
     parts = []
     for i, seg in enumerate(segments):
-        notes = [_note(n, seg["start_sec"]) for n in seg["notes"]]
+        anchor = seg.get("part_start_sec", seg["start_sec"])
+        notes = [_note(n, anchor) for n in seg["notes"]]
         if not notes:
             continue
         if clr_value is not None:
@@ -76,7 +77,7 @@ def build_project(name: str, segments: list[dict], out_ustx: Path,
                 nd["phoneme_expressions"] = [
                     {"index": j, "abbr": "clr", "value": clr_value}
                     for j in range(8)]
-        part_start = sec_to_tick(seg["start_sec"])
+        part_start = sec_to_tick(seg.get("part_start_sec", seg["start_sec"]))
         parts.append({
             "duration": notes[-1]["position"] + notes[-1]["duration"],
             "name": f"seg{i}",

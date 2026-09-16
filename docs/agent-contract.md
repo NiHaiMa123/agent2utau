@@ -77,6 +77,10 @@ returned in the JSON result.
 - `--compare-colors`: additionally renders all 5 colors on the first segment
   into `iterations/colors/<color>_vocal.wav` for audition; listed in
   `report.json.color_comparison`.
+- `--no-breaths`: by default an `AP` breath note is auto-inserted at phrase
+  starts where a real gap >=0.55s exists (reference-project convention:
+  ~0.1-0.75s AP, tone borrowed from the next note). Breaths are excluded
+  from pitch evaluation; count is in `report.json.n_breaths`.
 
 - `agent2utau status <run-id>` — read `state.json` + condensed `report.json`.
 - `agent2utau resume <run-id>` — re-execute the stored `request.json` in the

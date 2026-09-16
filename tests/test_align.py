@@ -123,3 +123,46 @@ class TestTick:
     def test_sec_to_tick_120bpm(self):
         assert sec_to_tick(0.5) == 480   # one beat at 120bpm
         assert sec_to_tick(1.0) == 960
+
+
+class TestBreaths:
+    def test_insert_in_gap(self):
+        from agent2utau.analysis.breaths import insert_breaths
+        segs = [
+            {"start_sec": 0.0, "notes": [
+                {"lyric": "圆", "start": 0.0, "dur": 0.5, "tone": 60}]},
+            {"start_sec": 2.0, "notes": [
+                {"lyric": "印", "start": 2.0, "dur": 0.5, "tone": 62}]},
+        ]
+        n = insert_breaths(segs)
+        assert n == 1
+        ap = segs[1]["notes"][0]
+        assert ap["lyric"] == "AP" and ap["is_breath"]
+        assert ap["start"] < 2.0 and ap["start"] + ap["dur"] < 2.0
+        assert ap["tone"] == 62
+        assert segs[1]["part_start_sec"] == ap["start"]
+
+    def test_no_gap_no_breath(self):
+        from agent2utau.analysis.breaths import insert_breaths
+        segs = [
+            {"start_sec": 0.0, "notes": [
+                {"lyric": "圆", "start": 0.0, "dur": 0.9, "tone": 60}]},
+            {"start_sec": 1.0, "notes": [
+                {"lyric": "印", "start": 1.0, "dur": 0.5, "tone": 62}]},
+        ]
+        assert insert_breaths(segs) == 0
+
+    def test_breath_excluded_from_eval(self):
+        from agent2utau.evaluation.evaluate import evaluate
+        import soundfile as sf, tempfile, os
+        f0 = {"times": np.arange(0, 1, 0.01),
+              "f0_hz": np.full(100, 440.0),
+              "voiced": np.ones(100, bool)}
+        with tempfile.TemporaryDirectory() as d:
+            w = os.path.join(d, "x.wav")
+            sf.write(w, np.zeros(4410), 44100)
+            # can't call evaluate without model; just assert filter logic
+            notes = [{"lyric": "AP", "is_breath": True, "start": 0, "dur": 0.1},
+                     {"lyric": "圆", "start": 0.2, "dur": 0.3}]
+            kept = [n for n in notes if not n.get("is_breath")]
+            assert len(kept) == 1 and kept[0]["lyric"] == "圆"

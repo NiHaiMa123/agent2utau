@@ -94,5 +94,13 @@ cd "E:\software\OpenUtau-win-x64 (6)"
 - `--voice-color NAME` writes per-note per-phoneme clr (sorted color names).
   `--compare-colors` renders all 5 colors on the first segment to
   `iterations/colors/` — verified distinct non-silent output for all 5.
+- `--no-breaths` disables auto AP breath notes (default on): inserted at
+  phrase starts with a real >=0.55s gap, ~0.32s max, tone = next note;
+  `part_start_sec` moves earlier so part-relative positions stay >=0;
+  breaths are skipped by pitch eval and pitd building.
+- Reference stats: per-note atk/dec/vel in 有参 projects are all boilerplate
+  defaults (100/0/100); real expressiveness lives in hand-shaped pitd/tenc/
+  voic/brec curves — NOT statistically transferable (flat medians would be
+  cosmetic). AP breaths ARE transferable (consistent convention).
 - Observed (lines 0:2): baseline med 55c/≤100c .91 vs pitd med 44.2c/.917 —
   pitd won. On 0:4 earlier: baseline ≤100c .75 vs pitd .80 (pitd chosen).

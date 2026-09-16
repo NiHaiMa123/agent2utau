@@ -40,6 +40,8 @@ def build_pitd(f0: dict, notes: list[dict], part_start_sec: float,
     step = max(1, int(round(POINT_EVERY_SEC / (ts[1] - ts[0]))))
     xs, ys = [], []
     for n in notes:
+        if n.get("is_breath"):
+            continue
         t0, t1 = n["start"], n["start"] + n["dur"]
         m = (ts >= t0) & (ts < t1)
         idx = np.where(m)[0][::step]

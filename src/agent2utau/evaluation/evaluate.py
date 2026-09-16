@@ -19,6 +19,7 @@ def evaluate(rendered_wav: str | Path, notes: list[dict], target_f0: dict,
              device: str = "cpu") -> dict[str, Any]:
     """notes use absolute timeline seconds (start/dur)."""
     got = extract_f0(rendered_wav, device=device)
+    notes = [n for n in notes if not n.get("is_breath")]
     errs, per_note = [], []
     for n in notes:
         t0, t1 = n["start"], n["start"] + n["dur"]

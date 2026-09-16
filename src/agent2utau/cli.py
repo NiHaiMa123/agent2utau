@@ -139,6 +139,7 @@ def cmd_cover(args) -> int:
                         voice_color=(None if args.voice_color.lower()
                                      in ("", "none") else args.voice_color),
                         compare_colors=args.compare_colors,
+                        breaths=not args.no_breaths,
                         progress=lambda m: diag(f"[cover] {m}"))
         return _out(args, rep)
     except Exception as e:
@@ -257,6 +258,8 @@ def build_parser() -> argparse.ArgumentParser:
                    help="Yousa_Bright|Classic|Cute|Normal|Whisper")
     p.add_argument("--compare-colors", action="store_true",
                    help="also render all 5 colors on first segment")
+    p.add_argument("--no-breaths", action="store_true",
+                   help="don't auto-insert AP breath notes at phrase gaps")
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")
