@@ -426,6 +426,41 @@ M2.3.2B1/B2/B3 = FROZEN. Next: M2.3.2C structure adjudication.
 
 M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
 
+## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
+
+- `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight
+  install (`pip install -e . --no-deps` + numpy/soundfile/pyyaml/
+  librosa/scipy + cpu torch) — heavy runtime deps are deferred imports.
+  Remote run 35095469372 = SUCCESS on HEAD. No stage may claim FROZEN
+  without remote green on the acceptance SHA (plan2 §4.3/9.6).
+- C2 split support is graded: per-extractor evidence object (pre/post
+  center, delta_st, boundary_time, dur/iqr) + cross-extractor
+  RELATIVE-delta agreement (direction + magnitude<=1st + boundary<=80ms;
+  octave-offset invariant). Two plateaus alone no longer score split.
+- TRUE_SPLIT gate (§8.4): (A) game_split>=0.4 + acoustic confirm, or
+  (B) dual-F0 delta agreement + >=1 non-F0 boundary family
+  (boundary-local energy dip+recovery or voiced drop). F0-only
+  changepoint can never auto-split; H3 portamento competes.
+- Energy evidence is candidate-boundary-local (±60ms dip vs 200ms
+  pre/post context); discovery energy reason requires a candidate
+  boundary. Discovery 315->118 entries (rate 0.28); reason distribution
+  + split_candidate_stats.json recorded for calibration.
+- Merge support = fraction of runs whose REAL member span crosses the
+  shared boundary (consensus events now store member_spans).
+  run_note_counts==0 is gap/absence, never merge support.
+- §8.1 lifecycle closed: change candidate -> virtual note packets
+  (fresh _evidence + plateaus per new span) -> frozen B rerun on each
+  virtual note -> phrase_review ONLY if a virtual B stays unresolved;
+  else decision=resolved_change_candidate (repair still forbidden).
+- final_structure_clear=True on C resolved_keep -> safe gate's
+  no_structure_ambiguity consumes the finalized result, raw
+  structure_varies stays in audit.
+- 年轮: 119 keep (79 portamento) / 23 TRUE_SPLIT (was 47) / 16
+  unresolved / 0 merge / 0 repair. 189.84s auto_resolved (baseline
+  wrote the right octave); 202.32/202.51 unresolved -> phrase_review.
+- Tests: 119 passed (+13 C2 matrix incl. boundary-local energy,
+  member-span merge, virtual-B lifecycle, final-clear gate).
+
 ## M2.3.2C stage-1 structure adjudication (run diag-20260916-194529-c9b0)
 
 - `diagnostic/structure_adj.py`: discovery + hypothesis scoring +
