@@ -63,6 +63,21 @@ phonemization + phrase build, then calls `PlaybackManager.RenderToFiles` /
 `RenderMixdown`. Errors are captured through an `ICmdSubscriber` and
 returned in the JSON result.
 
+`cover` M4 flags:
+
+- `--iters N` (default 2): render variants. iter0 = baseline; iter1 injects a
+  `pitd` curve built from measured source F0 per note
+  (`analysis/pitchcurve.py`, median-filtered, partial-coverage windows).
+  `--pitch-strength 0..1` blends measured cents toward the base tone.
+  The variant with better pitch metrics is chosen; both artifacts stay under
+  `iterations/` and per-iteration metrics are in `report.json.iterations`.
+- `--voice-color NAME` (default `Yousa_Normal`): per-phoneme `clr` expression
+  on every note (indices 0-7; unqueried indices are harmless). Name must be
+  one of the singer's sorted `voice_color_names`.
+- `--compare-colors`: additionally renders all 5 colors on the first segment
+  into `iterations/colors/<color>_vocal.wav` for audition; listed in
+  `report.json.color_comparison`.
+
 - `agent2utau status <run-id>` — read `state.json` + condensed `report.json`.
 - `agent2utau resume <run-id>` — re-execute the stored `request.json` in the
   same run dir; per-source cache makes decode/separate/F0 instant, and

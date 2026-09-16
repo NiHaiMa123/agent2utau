@@ -69,6 +69,9 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
               asr_model: str = "large-v3-turbo",
               sep_model: str = "UVR-MDX-NET-Voc_FT.onnx",
               timeout_min: int = 30,
+              iters: int = 2, pitch_strength: float = 1.0,
+              voice_color: str | None = "Yousa_Normal",
+              compare_colors: bool = False,
               progress=None) -> dict[str, Any]:
     from .audio.decode import decode, probe_duration
     from .audio.separate import separate
@@ -229,30 +232,102 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
              "segments": seg_payloads}
     run.write_json("score.json", score)
 
-    # --- build USTX ------------------------------------------------------
-    ustx = run.dir / "cover.ustx"
-    log("build ustx")
-    build_project(Path(src).stem, seg_payloads, ustx)
-    rep["ustx"] = str(ustx)
+    # --- iterations: baseline render, then measured corrections ----------
+    from .analysis.pitchcurve import build_pitd
+    it_dir = run.dir / "iterations"
+    it_dir.mkdir(exist_ok=True)
+    best: dict | None = None
+    rep["iterations"] = []
 
-    # --- render -----------------------------------------------------------
-    vocal_out = audio / "vocal_render.wav"
-    log("render")
-    br = run_bridge(cfg, ["render", "--project", str(ustx),
-                          "--out", str(vocal_out),
-                          "--timeout", str(timeout_min)],
-                    timeout=timeout_min * 60 + 120)
-    rep["bridge"] = {k: v for k, v in br.items() if k != "files"}
-    if not br.get("ok"):
+    def render_variant(tag: str, curves_fn=None,
+                       color: str | None = None) -> dict | None:
+        for s in seg_payloads:
+            s["curves"] = curves_fn(s) if curves_fn else []
+        ustx_i = it_dir / tag / "cover.ustx"
+        build_project(Path(src).stem, seg_payloads, ustx_i,
+                      voice_color=color or voice_color)
+        out_i = it_dir / tag / "vocal.wav"
+        br = run_bridge(cfg, ["render", "--project", str(ustx_i),
+                              "--out", str(out_i),
+                              "--timeout", str(timeout_min)],
+                        timeout=timeout_min * 60 + 120)
+        rec = {"tag": tag, "ustx": str(ustx_i)}
+        if not br.get("ok"):
+            rec["error"] = "render_failed"
+            rep["iterations"].append(rec)
+            return None
+        files = [f["path"] for f in br.get("files", [])]
+        vw = next((f for f in files if f.lower().endswith(".wav")),
+                  str(out_i))
+        rec["vocal"] = vw
+        rec["check"] = analyze_wav(vw)
+        rec["pitch"] = evaluate(vw, all_notes, f0).get("pitch", {})
+        run.write_json(f"iterations/{tag}/eval.json", rec)
+        rep["iterations"].append(
+            {"tag": tag, "pitch": rec["pitch"],
+             "voiced_fraction": rec["check"]["voiced_fraction"]})
+        return rec
+
+    # iter 0: model baseline (no pitch curves — dspitch predicts)
+    log("iter0 baseline render")
+    best = render_variant("iter0_baseline")
+    if best is None:
         run.write_state({"status": "failed", "stage": "render",
                          "failure_code": "render_failed"})
         rep.update(status="failed", failure_code="render_failed")
         return rep
-    files = [f["path"] for f in br.get("files", [])]
-    vocal_wav = next((f for f in files if f.lower().endswith(".wav")),
-                     str(vocal_out))
+
+    # iter 1: inject measured source F0 as pitd (mixed-performance path)
+    if iters >= 2 and best["pitch"].get("frac_within_100c", 0) < 0.95:
+        log("iter1 pitd-inject render")
+        def pitd_curves(s):
+            if not s["notes"]:
+                return []
+            c = build_pitd(f0g, s["notes"], s["start_sec"], sec_to_tick,
+                           strength=pitch_strength)
+            return [c] if c else []
+        cand = render_variant("iter1_pitd", pitd_curves)
+        if cand and _better(cand["pitch"], best["pitch"]):
+            best = cand
+    # optional: render every voice color on the first non-empty segment as
+    # audition artifacts (user/agent picks by listening, we keep the default)
+    if compare_colors:
+        colors = ["Yousa_Bright", "Yousa_Classic", "Yousa_Cute",
+                  "Yousa_Normal", "Yousa_Whisper"]
+        first = next((s for s in seg_payloads if s["notes"]), None)
+        rep["color_comparison"] = []
+        if first:
+            for c in colors:
+                log(f"color render {c}")
+                mini = {"notes": first["notes"],
+                        "start_sec": first["start_sec"]}
+                ustx_c = it_dir / "colors" / f"{c}.ustx"
+                build_project(Path(src).stem, [mini], ustx_c,
+                              voice_color=c)
+                out_c = it_dir / "colors" / f"{c}.wav"
+                br = run_bridge(cfg, ["render", "--project", str(ustx_c),
+                                      "--out", str(out_c),
+                                      "--timeout", str(timeout_min)],
+                                timeout=timeout_min * 60 + 120)
+                files = [f["path"] for f in br.get("files", [])]
+                wav_c = next((f for f in files
+                              if f.lower().endswith(".wav")), None)
+                rep["color_comparison"].append(
+                    {"color": c, "wav": wav_c,
+                     "ok": bool(br.get("ok"))})
+        rep["voice_color_used"] = voice_color
+    rep["chosen"] = best["tag"]
+    vocal_wav = best["vocal"]
+    ustx = Path(best["ustx"])
+    rep["ustx"] = str(ustx)
     rep["vocal_wav"] = vocal_wav
-    rep["vocal_check"] = analyze_wav(vocal_wav)
+    rep["vocal_check"] = best["check"]
+    # copy winning artifacts to canonical names for convenience
+    import shutil
+    final_ustx = run.dir / "cover.ustx"
+    if str(ustx) != str(final_ustx):
+        shutil.copy2(ustx, final_ustx)
+        rep["ustx"] = str(final_ustx)
 
     # --- mix ---------------------------------------------------------------
     mix_wav = audio / "mix.wav"
@@ -277,6 +352,16 @@ def run_cover(src: str | Path, run: Run, cfg: dict,
     run.write_state({"status": "completed", "stage": "done",
                      "artifacts": [rep["ustx"], vocal_wav, str(mix_wav)]})
     return rep
+
+
+def _better(a: dict, b: dict) -> bool:
+    """Candidate pitch stats `a` beats incumbent `b` if coverage-adjusted
+    accuracy is better."""
+    if a.get("n_evaluated", 0) < 5:
+        return False
+    ka = (a.get("frac_within_100c", 0), -a.get("median_abs_cents", 1e9))
+    kb = (b.get("frac_within_100c", 0), -b.get("median_abs_cents", 1e9))
+    return ka > kb
 
 
 def mono_vocals(mono: Path, vocals: Path) -> Path:

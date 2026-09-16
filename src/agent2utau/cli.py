@@ -134,6 +134,11 @@ def cmd_cover(args) -> int:
                         sep_model=args.sep_model,
                         lyrics=args.lyrics, lines=args.lines,
                         timeout_min=args.timeout_min,
+                        iters=args.iters,
+                        pitch_strength=args.pitch_strength,
+                        voice_color=(None if args.voice_color.lower()
+                                     in ("", "none") else args.voice_color),
+                        compare_colors=args.compare_colors,
                         progress=lambda m: diag(f"[cover] {m}"))
         return _out(args, rep)
     except Exception as e:
@@ -244,6 +249,14 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--asr-model", default="large-v3-turbo")
     p.add_argument("--sep-model", default="UVR-MDX-NET-Voc_FT.onnx")
     p.add_argument("--timeout-min", type=int, default=30)
+    p.add_argument("--iters", type=int, default=2,
+                   help="1=baseline only; 2=also try pitd-inject variant")
+    p.add_argument("--pitch-strength", type=float, default=1.0,
+                   help="0-1 blend of measured F0 into pitd curve")
+    p.add_argument("--voice-color", default="Yousa_Normal",
+                   help="Yousa_Bright|Classic|Cute|Normal|Whisper")
+    p.add_argument("--compare-colors", action="store_true",
+                   help="also render all 5 colors on first segment")
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")

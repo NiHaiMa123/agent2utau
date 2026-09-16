@@ -42,6 +42,9 @@ cd "E:\software\OpenUtau-win-x64 (6)"
 - clr note values index into alphabetically-sorted subbank colors; clNN curves
   index into character.yaml subbank order (1-based). Old->new map:
   {0:0, 1:2, 2:3, 3:4, 4:1}.
+- clr is a PER-PHONEME expression: UPhoneme.GetExpression looks up
+  `phoneme_expressions` by (abbr, phoneme index); write indices 0..7 on every
+  note so all phonemes match (extra indices are never queried — harmless).
 - Part curve xs are part-relative ticks; note positions are part-relative;
   part.position is project-absolute.
 - Render cache lives in install-dir `Cache\` keyed by phrase hash — repeat
@@ -80,3 +83,16 @@ cd "E:\software\OpenUtau-win-x64 (6)"
   median |err| ~62c, frac≤100c ~0.68, conf=low (many weak-F0 notes).
 - Source is a duet （张碧晨+唐倩 live); every line renders with Yousa —
   harmony fragments may get odd char timing (flagged, not hidden).
+
+## M4 (iteration loop + voice color)
+
+- `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects
+  `pitd` curves from measured F0 (`analysis/pitchcurve.build_pitch_curves`,
+  hop=5 ticks, median3, partial-window coverage). Better-metric variant wins;
+  `report.json.iterations` + `chosen` record both, artifacts in
+  `iterations/<tag>/`.
+- `--voice-color NAME` writes per-note per-phoneme clr (sorted color names).
+  `--compare-colors` renders all 5 colors on the first segment to
+  `iterations/colors/` — verified distinct non-silent output for all 5.
+- Observed (lines 0:2): baseline med 55c/≤100c .91 vs pitd med 44.2c/.917 —
+  pitd won. On 0:4 earlier: baseline ≤100c .75 vs pitd .80 (pitd chosen).
