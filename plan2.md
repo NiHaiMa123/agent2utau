@@ -19,9 +19,9 @@
 → multi-run uncertainty graph
 → RMVPE + FCPE + third-F0 + periodicity / spectral evidence
 → orthogonal pitch / structure / identity / separation states
-→ 若 structure 未定：先 structure adjudication
-→ 在确定 note identity 上做 pitch/octave adjudication
-→ finalized machine unresolved 才进入 phrase-level A/B/C review
+→ structure 未定：先 M2.3.2C structure adjudication
+→ note identity 确定后：M2.3.2B finalized pitch/octave adjudication
+→ finalized machine unresolved 才进入 M2.3.2D phrase-level A/B/C review
 → 只修高置信局部错误
 → lyrics ↔ melody mapping
 → OpenUtau / DiffSinger 基础渲染
@@ -169,92 +169,79 @@ A4 baseline：
 
 commit `21be525c...`
 
-已实现：
+完成初版 automatic pitch/octave adjudicator：
 
 - third F0 = `librosa.pyin`；
 - GAME run-tone distribution；
 - RMVPE / FCPE reliability-weighted evidence；
-- pYIN；
-- FFT-ACF；
-- harmonic / subharmonic；
+- pYIN / ACF / harmonic / subharmonic；
 - local continuity；
-- separation sensitivity 只降 confidence；
+- separation sensitivity；
 - `resolved_keep / resolved_change / unresolved` lifecycle；
-- Candidate 0 不被 B 覆盖。
+- Candidate 0 不被覆盖。
 
-B1 rerun：
-
-```text
-87 pitch lanes
-72 resolved_keep
-0 resolved_change
-15 unresolved
-0 repair
-```
-
-B1 未冻结，原因：structure/pitch ordering、octave waveform bias、cache/independence correctness 尚需收紧。
-
-## M2.3.2B2 ✅ IMPLEMENTED / NOT YET FROZEN
+## M2.3.2B2 ✅ IMPLEMENTED
 
 commit `283100704470cbffa1866569ed42b7e6d0ce7b28`
 
-已完成：
+完成 correctness/calibration：
 
-1. pitch+structure concurrent region：
+- pitch+structure concurrent → B provisional，C first；
+- structure ambiguous event 不再使用 aggregate `run_tones` 作为真实 pitch hypothesis；
+- ACF 增加 T / 2T / T/2 octave discrimination；
+- harmonic score 增加 odd-harmonic discrimination，抑制 low-octave harmonic-set superset bias；
+- true-low / true-high / weak fundamental / missing fundamental / breathy / vibrato / short / silence regression；
+- pYIN / ACF / harmonic / subharmonic 归入 waveform correlation group；
+- `safe_retune_gate(..., target_midi=B.winning_hypothesis)`；
+- third-F0 拥有独立 provenance；
+- 189s / 202s 保持 NO REPAIR。
+
+## M2.3.2B3 ✅ IMPLEMENTED / FINAL PATCH PENDING
+
+commit `012cbfdf15253a98d50ca25f8f95c6b2c16c312b`
+
+B3 已完成原计划中的两个 blocker：
+
+1. third-F0 freshness 已比较当前 `librosa.__version__`；
+2. final hypothesis score / margin 已改成 group-level fusion，waveform correlated features 不再 feature-level 叠加。
+
+当前 group-level score：
 
 ```text
-B result = provisional
-→ C first
-→ pitch need 保留
+game
++ rmvpe
++ fcpe
++ bounded waveform group
++ soft context
 ```
 
-2. structure ambiguous event 不再把 aggregate `run_tones` 当真实 pitch hypotheses；
-3. ACF 增加 T / 2T / T/2 octave discrimination；
-4. harmonic score 加 odd-harmonic discrimination，削弱低八度 harmonic-set superset bias；
-5. 新增 true-low / true-high / weak fundamental / missing fundamental / breathy / vibrato / short / silence waveform regressions；
-6. pYIN / ACF / harmonic / subharmonic 在 gate 上归到 waveform correlation group；
-7. `safe_retune_gate(..., target_midi=B.winning_hypothesis)`；
-8. third-F0 增加独立 vocal/config/schema provenance；
-9. 189s / 202s 继续 NO REPAIR。
-
-最新《年轮》B2 rerun：
+waveform 内：
 
 ```text
-87 pitch lanes
-64 resolved_keep
-2  resolved_change  # provisional，转入 C
-14 unresolved
+third-F0 / periodicity / harmonic support
++ periodicity / subharmonic / third-F0 opposition
+→ bounded waveform net group score
+```
+
+最新《年轮》B3 rerun：
+
+```text
+65 resolved_keep
+2  provisional resolved_change → structure lane
+16 unresolved
 0  repair_candidate
-
-final decisions:
-331 keep_baseline
-57 needs_structure_adjudication
-23 auto_resolved
-9  needs_phrase_review
 ```
 
-189.84s：
+关键 regression：
 
 ```text
-winner ≈ 58.1
-GAME + FCPE + waveform 支持
-RMVPE opposition + separation sensitive
-→ unresolved
-→ NO REPAIR
+189s → unresolved → NO REPAIR
+202s → unresolved → NO REPAIR
 ```
 
-202.52s：
+本地报告 91 tests passed；GitHub 当前仍无 remote combined CI status，因此不能把本地测试表述成远端 CI 已验证。
 
-```text
-baseline 本轮写 65.3
-B winner ≈ 72.3
-RMVPE + FCPE + waveform 支持
-periodicity / separation counter-evidence
-→ unresolved
-→ NO REPAIR
-```
-
-本地报告 87 tests passed；GitHub 当前无 remote combined CI status，不能把本地测试表述成远端 CI 已验证。
+**B3 现在只剩一个 final consistency patch。修完后 M2.3.2B 正式 FROZEN，不新增 B4。**
 
 ---
 
@@ -321,28 +308,38 @@ structure_adjudication_status:
 
 禁止按 raw feature 数量简单投票。
 
-逻辑独立源至少区分：
+逻辑独立 group：
 
 ```text
 GAME stochastic
 RMVPE
 FCPE
-waveform / periodicity / spectral mechanism group
-musical context
+waveform mechanism group
+musical context（soft）
 ```
 
 注意：
 
 ```text
 RMVPE raw center + RMVPE plateau
-→ 同一 family
+→ 同一 RMVPE group
 
-pYIN + ACF
-→ 都高度依赖周期机制
-→ 不能机械算两张独立 hard votes
+pYIN + ACF + harmonic + subharmonic
+→ correlated waveform evidence
+→ 先做 within-group fusion
+→ 最终只形成一个 bounded waveform group influence
 ```
 
-B2 已在“resolution gate 数组”层面引入 independence groups，但 **B3 必须继续把 independence 约束推进到实际 score / margin 本身。**
+**最终 score、margin、supporting group、resolution gate 必须使用同一套 group-level semantics。**
+
+raw features：
+
+```text
+supporting_features
+opposing_features
+```
+
+只用于解释 / audit，不允许再作为另一套 group-support 判定源。
 
 ---
 
@@ -374,216 +371,231 @@ input / model / implementation / runtime version / config / schema changed
 → invalidate affected dependent artifact
 ```
 
-“记录 provenance”不等于“真正参与 invalidation”。
+B3 已要求：
+
+```text
+cached third-F0 version == current librosa.__version__
+```
+
+禁止只检查 version 非空。
 
 ---
 
-# 7. M2.3.2B3 — Final Independence / Provenance Calibration ← 当前最高优先级
+# 7. M2.3.2B3 Final Patch — Group Gate Consistency ← 当前最高优先级
 
-B2 主体正确，但还有两个 blocker。**B3 只解决这两个问题，不再扩展新算法。完成后冻结 B，进入 C。**
+> 不新增 B4。该 patch 属于 B3 完成条件。完成后立即冻结 B，进入 C。
 
-## 7.1 Blocker 1：third-F0 runtime version 必须真正参与 cache invalidation
+## 7.1 当前剩余问题
 
-当前 `_third_f0_fresh()` 已检查：
-
-```text
-vocal_sha256
-schema
-implementation/config
-version 字段存在
-```
-
-但当前实现只验证：
+B3 已正确把 hypothesis score 改成 group-level fusion，例如：
 
 ```text
-prov.version is not None
+waveform_group_score =
+bounded support
+− bounded opposition
 ```
 
-并没有验证：
+但当前 `supporting_independence_groups` 仍可能根据 raw：
 
 ```text
-prov.version == 当前运行时 librosa.__version__
+win.supporting[feature] > threshold
 ```
 
-因此可能发生：
+推导，而不是根据融合后的：
 
 ```text
-旧 cache: librosa 1.0.0
-当前环境: librosa 1.x
-配置相同
-→ 旧 third_f0.npz 仍被误认为 fresh
+win.group_scores[group]
 ```
 
-### 必须修改
+推导。
 
-当前 runtime expected provenance 必须显式包含：
+这样会出现 score/gate 语义不一致。
+
+示例：
 
 ```text
-implementation = librosa.pyin
-runtime_version = librosa.__version__
-fmin
-fmax
-frame_length
-hop_length / hop_ms
-voicing config
-schema
-vocal_sha256
+periodicity support = 0.30
+third-F0 opposition = 0.90
+
+waveform net group score
+= max(0, 0.30 - 0.5*0.90)
+= 0
 ```
 
-Fresh 条件必须逐项比较：
+此时正确语义是：
 
 ```text
-cached runtime_version == current runtime_version
+waveform 没有净支持 winner
 ```
 
-禁止只检查 version 字段非空。
+但如果仍从 raw feature 看：
 
-### Regression
+```text
+periodicity support 0.30 > threshold
+```
+
+就可能错误得到：
+
+```text
+"waveform" ∈ supporting_independence_groups
+```
+
+进而错误通过：
+
+```text
+change_requires_waveform_support
+extractor_conflict_unresolved_by_waveform
+MIN_FAMILIES
+```
+
+等 gate。
+
+## 7.2 强制修复
+
+`supporting_independence_groups` 必须**直接从 finalized group_scores 派生**。
+
+推荐：
+
+```text
+group_scores:
+  game
+  rmvpe
+  fcpe
+  waveform
+  context
+```
+
+其中：
+
+```text
+supporting_independence_groups =
+  groups whose FINAL NET group score > calibrated_support_threshold
+```
 
 至少：
 
 ```text
-same vocal + same config + same version → cache hit
-same vocal + changed librosa version → cache stale
-changed vocal bytes → stale
-changed pYIN config → stale
-changed schema → stale
+game:
+  group_scores.game > threshold
+
+rmvpe:
+  group_scores.rmvpe > threshold
+
+fcpe:
+  group_scores.fcpe > threshold
+
+waveform:
+  group_scores.waveform > threshold
 ```
 
-## 7.2 Blocker 2：independence grouping 必须影响 score / margin，而不只影响 gate count
+`context` 保持 soft evidence，默认不计入 hard-family / MIN_FAMILIES。
 
-B2 已正确做到：
+禁止：
 
 ```text
-pYIN + ACF + harmonic + subharmonic
-→ waveform group
+先用 group_scores 算 score/margin
+然后又从 raw supporting_features 重新推 supporting groups
 ```
 
-因此它们不会在 `MIN_FAMILIES` 上被机械算成 4 个独立 family。
-
-但当前 winner score / margin 仍主要按 feature-level 相加：
-
-```text
-GAME
-+ RMVPE
-+ FCPE
-+ pYIN
-+ ACF
-+ harmonic
-+ continuity
-```
-
-也就是说：
-
-```text
-pYIN + ACF + harmonic
-```
-
-虽然 gate 上只有一个 waveform group，仍可能在：
-
-```text
-winner score
-margin_to_runner_up
-```
-
-中贡献多次，从而放大同一相关机制的影响。
-
-### B3 强制改为 group-level fusion
-
-推荐 pipeline：
+必须保证：
 
 ```text
 feature evidence
-↓
-within-group fusion / normalization
-↓
-group scores
-↓
-final hypothesis score / margin
+→ group fusion
+→ group_scores
+→ supporting/opposing groups
+→ score / margin / gates
 ```
 
-至少产生：
+是一条单向、统一的证据链。
+
+## 7.3 Change gate 与 extractor-conflict gate
+
+以下 gate 都必须消费 finalized net groups：
 
 ```text
-game_group_score
-rmvpe_group_score
-fcpe_group_score
-waveform_group_score
-context_group_score  # soft only
+MIN_FAMILIES
+change_requires_waveform_support
+extractor_conflict_unresolved_by_waveform
 ```
-
-waveform group 内可以采用：
-
-```text
-calibrated weighted mean
-或 robust aggregate
-```
-
-但必须：
-
-```text
-固定范围 / cap
-```
-
-防止因为 waveform features 数量增加而自动提高 group 权重。
-
-### 强制性质
 
 例如：
 
 ```text
-Case A:
-waveform only has ACF support = 0.8
-
-Case B:
-同一个底层 octave failure 同时导致
-pYIN=0.8 + ACF=0.8 + harmonic=0.8
+would_change == true
+AND waveform_group_score <= support_threshold
+→ 必须有 change_requires_waveform_support
 ```
 
-Case B 不得仅因为相关 features 更多，就把 waveform group 从“一票”膨胀成三票，并明显人为扩大 winner margin。
+即使某个 waveform raw feature 单独 > threshold，也不能放行。
 
-### Regression
-
-至少：
+Extractor conflict：
 
 ```text
-1. duplicate correlated waveform feature does not materially increase group score
-2. pYIN+ACF+harmonic 同向时仍只占 bounded waveform-group influence
-3. adding another correlated waveform feature cannot alone flip an otherwise unresolved decision
-4. cross-group convergence CAN legitimately increase confidence
-5. GAME + FCPE + waveform 与 GAME + FCPE + 3×waveform-feature 在 independent-group count 上等价
+waveform net group support
++ 至少一个 non-GAME extractor net group support
 ```
 
-## 7.3 B3 不允许破坏 B2 已通过的 contract
+才允许认为 waveform/extractor convergence 存在。
 
-继续必须通过：
+## 7.4 建议增加 opposing group audit
+
+可选但推荐输出：
 
 ```text
-true-low octave regression
-true-high octave mirror regression
-weak fundamental
-missing fundamental
-breathy/noisy
-vibrato
-short note
-silence/unvoiced
-189s NO REPAIR
-202s NO REPAIR
+supporting_independence_groups
+opposing_independence_groups
+group_scores
+```
+
+`opposing_independence_groups` 同样从 group-level net/opposition semantics 派生。
+
+目的不是再加新票，而是让 audit 能明确回答：
+
+```text
+哪些独立机制净支持 winner？
+哪些独立机制净反对 winner？
+```
+
+## 7.5 强制 regression
+
+至少新增：
+
+```text
+1. raw periodicity weak-support + stronger same-group opposition
+   → waveform net score == 0
+   → waveform NOT IN supporting_independence_groups
+
+2. waveform net score == 0
+   → automatic resolved_change 不能靠 waveform gate 通过
+
+3. extractor conflict:
+   raw waveform feature 有支持，但 waveform net group 无支持
+   → 必须保持 unresolved
+
+4. supporting_independence_groups 与 group_scores 一致
+   → 不存在 group_score<=threshold 但 group 被标 supporting
+
+5. 已有 B3 correlated-feature regressions 全部继续通过
+```
+
+## 7.6 B freeze acceptance
+
+B 最终冻结要求：
+
+```text
+third-F0 runtime version freshness PASS
+group-level score fusion PASS
+supporting groups derived from finalized net group scores
+raw feature cannot bypass group gate
+true-low / true-high mirror PASS
+weak/missing fundamental regressions PASS
+189s NO FALSE REPAIR
+202s NO FALSE REPAIR
 safe gate target == B winning hypothesis
-structure-ambiguous run_tones 不进入 final hypotheses
-provisional B 不产生 repair
-```
-
-## 7.4 B3 acceptance
-
-```text
-third-F0 current runtime version participates in freshness check
-feature-level correlated evidence cannot inflate final margin without bound
-final score / margin reflects independence groups
-189s no false repair
-202s no false repair
+provisional B cannot repair
 Candidate 0 unchanged
-all existing B2 regressions remain green
+all B regressions green
 ```
 
 允许：
@@ -595,10 +607,11 @@ repair = 0
 
 不为了自动化率放松 gate。
 
-B3 完成后：
+完成后：
 
 ```text
 M2.3.2B1 / B2 / B3 = FROZEN
+→ 不新增 B4
 → M2.3.2C
 ```
 
@@ -606,15 +619,11 @@ M2.3.2B1 / B2 / B3 = FROZEN
 
 # 8. M2.3.2C — Automatic Structure Adjudication
 
-> B3 完成后正式进入。C 同时承担 concurrent pitch+structure region 的 note-identity resolution。
+> B freeze 后正式进入。C 同时承担 concurrent pitch+structure region 的 note-identity resolution。
 
-当前 B2 rerun 顶层有约：
+当前 B3 rerun 顶层 structure lane 数量以最新 diagnostic 为准；不要硬编码旧的 51/57，rerun 后重新统计。
 
-```text
-57 needs_structure_adjudication
-```
-
-但 C **不能只处理现有 structure_varies cases**。
+C **不能只处理现有 `structure_varies` cases**。
 
 ## 8.1 Existing structure candidates
 
@@ -646,7 +655,7 @@ UNRESOLVED_STRUCTURE
 
 ## 8.2 Independent structure discovery：防止 GAME stable-but-wrong
 
-C 必须扫描所有 Candidate 0 baseline notes，寻找：
+C 必须扫描**所有 Candidate 0 baseline notes**，寻找：
 
 ```text
 GAME 5/5 stable one-note
@@ -674,6 +683,14 @@ GAME structure_varies = false
 
 也必须进入 C。
 
+反向也必须能识别：
+
+```text
+GAME stochastic split
+但 acoustic evidence 支持 single note / portamento
+→ resolved_keep
+```
+
 ## 8.3 C hypotheses
 
 ```text
@@ -683,32 +700,77 @@ H2 = merge candidate
 H3 = one-note-with-portamento / ornament
 ```
 
-候选优先来自真实 GAME run structure 或明确 acoustic boundary evidence。
+候选优先来自：
+
+```text
+真实 GAME run structure
+或明确 acoustic boundary evidence
+```
 
 禁止由 consensus median 拼 whole-score synthetic result。
 
+每个 hypothesis 至少记录：
+
+```text
+GAME structure support ratio
+RMVPE changepoint / plateau support
+FCPE changepoint / plateau support
+third-F0 support if used
+onset / energy support
+lyric articulation support
+duration plausibility
+local melodic context
+supporting groups
+opposing groups
+margin
+reason
+```
+
 ## 8.4 C ↔ provisional B contract
+
+这是 C 的 P0。
 
 如果 C：
 
 ```text
 resolved_keep
 → 当前 note identity 固定
-→ provisional B 必须 finalize 或 rerun
+→ provisional B 必须 finalize / rerun
 → pitch pending 最终被清理
 
 resolved_change_candidate
 → old provisional B INVALID
-→ regenerate pitch packets for new note identities
-→ rerun B
+→ regenerate pitch packets for NEW note identities
+→ rerun frozen B on each actual note
 
 unresolved
 → structure status = unresolved
-→ provisional pitch 不得直接 repair
+→ provisional pitch 不得产生 repair
 → machine lanes 全结束后才进入 D
 ```
 
-这不是注释约定，必须有可执行 lifecycle + regression。
+**这不是注释约定，必须有可执行 lifecycle + regression。**
+
+### 强制 invalidation
+
+C 改变任一：
+
+```text
+note count
+boundary
+note identity
+time span materially used by pitch evidence
+```
+
+都必须：
+
+```text
+invalidate old provisional pitch_adjudication
+regenerate evidence packet
+rerun B
+```
+
+不能沿用旧 note identity 上的 B winner/confidence。
 
 ## 8.5 C result state
 
@@ -721,7 +783,50 @@ structure_adjudication_status:
   unresolved
 ```
 
-第一阶段 structure repair 不自动执行；先验证 adjudication precision。
+第一阶段 structure repair **不自动执行**；先验证 adjudication precision。
+
+## 8.6 C routing / D reachability
+
+C unresolved 后：
+
+```text
+structure_adjudication_status = unresolved
+clear structure pending
+```
+
+不能：
+
+```text
+unresolved
+但 structure_adjudication 仍 pending
+→ 无限回 C
+```
+
+只有：
+
+```text
+pitch_adjudication_status not in {pending, provisional}
+structure_adjudication_status != pending
+AND 至少一条 lane == unresolved
+```
+
+才允许进入 D。
+
+## 8.7 C acceptance / regressions
+
+至少：
+
+```text
+1. existing structure candidates 全部得到 C result
+2. GAME-stable + dual-F0 two-plateau 能被 independent discovery 找到
+3. GAME stable-but-wrong synthetic regression
+4. GAME stochastic split + acoustic single-note 可 resolved_keep
+5. pitch+structure concurrent region：C resolved_keep 后 provisional B 被 finalize/rerun
+6. C structure change 后旧 B invalidated，并在新 note identities 上 rerun
+7. C unresolved 不会无限回 C
+8. unresolved 只有 machine lanes finalized 后才进入 D
+9. no C result directly overwrites Candidate 0
+```
 
 ---
 
@@ -748,6 +853,8 @@ needs_phrase_review
 
 ## 9.2 Review 单位
 
+默认完整乐句：
+
 ```text
 最低约 3s
 常规 5–8s
@@ -757,7 +864,10 @@ needs_phrase_review
 优先：
 
 ```text
-LRC line / vocal silence / breath gap / GAME phrase context
+LRC line
+vocal silence
+breath gap
+GAME phrase context
 ```
 
 尽量包含目标前后各 2–3 notes。
@@ -796,7 +906,7 @@ zoom clip 仅作二级辅助。
 
 ```text
 A frozen
-B3 frozen
+B frozen
 C available
 189s no false repair
 202s no false repair
@@ -817,7 +927,8 @@ region
 before / after
 B/C adjudication result
 winning hypothesis
-independence group scores
+group_scores
+supporting/opposing groups
 confidence / margin
 gates passed
 rollback data
@@ -848,13 +959,27 @@ OpenUtau：
 静音：gap / SP
 ```
 
-歌词冲突标 `lyric_alignment_conflict`，不得靠强移 voiced block 伪修复。
+歌词冲突标：
+
+```text
+lyric_alignment_conflict
+```
+
+不得靠强移 voiced block 伪修复。
 
 基础 USTX 验收：
 
 > **不做泠鸢 style 和复杂 PITD 时，是否已经唱对旋律和节奏？**
 
-通过后再加入 portamento / onset slide / ornament / vibrato / intonation deviation。
+通过后再加入：
+
+```text
+portamento
+onset slide
+ornament
+vibrato
+intonation deviation
+```
 
 PITD 不得掩盖 written-note error。
 
@@ -877,8 +1002,11 @@ structure adjudication status
 RMVPE / FCPE / third-F0 evidence
 periodicity octave metrics
 spectral octave metrics
-supporting features
-independence group scores
+supporting raw features
+opposing raw features
+group_scores
+supporting_independence_groups
+opposing_independence_groups if implemented
 winner / runner-up / margin
 separation sensitivity
 AUTO_RESOLVED / UNRESOLVED counts
@@ -912,30 +1040,37 @@ rollback coverage
 ### M2.3.1 — Triage calibration ✅
 ### M2.3.2A / A2 / A3 / A4 — Correctness + routing/provenance ✅ FROZEN
 ### M2.3.2B1 — Initial pitch/octave adjudicator ✅
-### M2.3.2B2 — Pitch correctness/calibration ✅ IMPLEMENTED / NOT FROZEN
+### M2.3.2B2 — Pitch correctness/calibration ✅
+### M2.3.2B3 — Independence/provenance calibration ✅ IMPLEMENTED / FINAL PATCH PENDING
 
-最新 B2：
+最新 B3：
 
 ```text
-87 pitch lanes
-64 resolved_keep
+65 resolved_keep
 2 provisional resolved_change → C
-14 unresolved
+16 unresolved
 0 repair
+91 local tests reported
 ```
 
-### M2.3.2B3 — Final independence/provenance calibration ← 当前最高优先级
+当前唯一 patch：
 
-只做两件事：
+```text
+supporting_independence_groups / change gates
+必须从 finalized net group_scores 推导
+不得从 raw feature support 反推
+```
 
-1. third-F0 当前 runtime version 真正进入 cache freshness；
-2. final score / margin 改为 independence-group-level fusion，禁止相关 waveform features 数量膨胀影响力。
+修完：
 
-B3 完成后冻结 B，不再新增 B4。
+```text
+M2.3.2B = FROZEN
+不新增 B4
+```
 
-### M2.3.2C — Automatic structure adjudication
+### M2.3.2C — Automatic structure adjudication ← B final patch 后下一阶段
 
-Existing structure candidates + all-baseline independent discovery；同时兑现 provisional-B invalidate/finalize/rerun contract。
+Existing structure candidates + all-baseline independent discovery；兑现 provisional-B invalidate/finalize/rerun contract。
 
 ### M2.3.2D — Phrase-level human review
 
@@ -971,22 +1106,24 @@ Existing structure candidates + all-baseline independent discovery；同时兑�
 14. **Octave ACF 必须处理倍周期歧义。**
 15. **Harmonic score 必须避免低八度 harmonic-set 超集偏置。**
 16. **相关 waveform features 必须先 group fusion，再影响 final score / margin。**
-17. **pYIN 与 ACF 不能机械算作两个完全独立 hard votes。**
-18. **Octave change 优先要求跨机制 evidence convergence。**
-19. **Separation artifact 只作为 uncertainty，不直接当真值。**
-20. **Cache/provenance 必须真正参与 invalidation。**
-21. **Third-F0 runtime version 必须参与 freshness check。**
-22. **Repair gate 必须显式绑定 adjudicator winning hypothesis。**
-23. **Pitch / structure / identity / separation 使用正交状态。**
-24. **C 必须做 independent structure discovery，防止 GAME stable-but-wrong。**
-25. **B/C 有 explicit pending/provisional/resolved/unresolved lifecycle。**
-26. **needs_phrase_review 只能在 machine lanes 全结束后产生。**
-27. **人工默认审核完整乐句，不审核 isolated note。**
-28. **Phrase candidates 除目标局部外必须完全一致。**
-29. **189s 永久作为 extractor-conflict regression。**
-30. **202s 永久作为 stochastic pitch / identity-variable regression。**
-31. **0 automatic repairs 是合法结果。**
-32. **Candidate 0 永远可 rollback。**
-33. **所有修改必须局部、可解释、可审计、可 A/B。**
-34. **先把 written score 唱对，再生成 PITD。**
-35. **先“唱对”，再做泠鸢风格。**
+17. **supporting independence groups 必须从 finalized net group scores 推导。**
+18. **raw feature support 不得绕过 group-level gate。**
+19. **pYIN 与 ACF 不能机械算作两个完全独立 hard votes。**
+20. **Octave change 优先要求跨机制 evidence convergence。**
+21. **Separation artifact 只作为 uncertainty，不直接当真值。**
+22. **Cache/provenance 必须真正参与 invalidation。**
+23. **Third-F0 runtime version 必须参与 freshness check。**
+24. **Repair gate 必须显式绑定 adjudicator winning hypothesis。**
+25. **Pitch / structure / identity / separation 使用正交状态。**
+26. **C 必须做 independent structure discovery，防止 GAME stable-but-wrong。**
+27. **B/C 有 explicit pending/provisional/resolved/unresolved lifecycle。**
+28. **needs_phrase_review 只能在 machine lanes 全结束后产生。**
+29. **人工默认审核完整乐句，不审核 isolated note。**
+30. **Phrase candidates 除目标局部外必须完全一致。**
+31. **189s 永久作为 extractor-conflict regression。**
+32. **202s 永久作为 stochastic pitch / identity-variable regression。**
+33. **0 automatic repairs 是合法结果。**
+34. **Candidate 0 永远可 rollback。**
+35. **所有修改必须局部、可解释、可审计、可 A/B。**
+36. **先把 written score 唱对，再生成 PITD。**
+37. **先“唱对”，再做泠鸢风格。**
