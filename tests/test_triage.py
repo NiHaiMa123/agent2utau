@@ -195,6 +195,44 @@ def test_orthogonal_states_simultaneous():
     assert st["decision"] == "needs_adjudication"
 
 
+def test_a3_stale_wrong_pitch_does_not_override_calibration():
+    # §5.1: raw wrong_pitch flag is a feature only — once calibration judged
+    # GAME_LIKELY_CORRECT, pitch_state must be stable and keep_baseline.
+    from agent2utau.diagnostic.triage import orthogonal_states
+    p = _pkt(flags=["wrong_pitch"])
+    p["triage"] = "GAME_LIKELY_CORRECT"
+    st = orthogonal_states(p)
+    assert st["pitch_state"] == "stable"
+    assert st["decision"] == "keep_baseline"
+
+
+def test_a3_safe_eligible_is_pending_adjudication_not_repair():
+    # §5.3: SAFE gate cannot bypass M2.3.2B.
+    from agent2utau.diagnostic.triage import orthogonal_states
+    p = _pkt()
+    p["triage"] = "PITCH_HARD_SUSPICIOUS"
+    p["dual_f0"]["both_oppose_game"] = True
+    p["safe_gate"] = {"eligible": True}
+    st = orthogonal_states(p)
+    assert st["decision"] == "candidate_pending_adjudication"
+    assert st["decision"] != "repair_candidate"
+
+
+def test_a3_structure_state_independent_of_triage_label():
+    # §5.2: extractor-conflict pitch + structure_varies => both states set.
+    from agent2utau.diagnostic.triage import orthogonal_states
+    p = _pkt(consensus={"stability": "GAME_UNSTABLE",
+                        "run_note_counts": [2, 1, 1],
+                        "structure_varies": True},
+             dual_f0={"rmvpe_vs_fcpe_cents": 1150.0,
+                      "extractors_agree": False, "both_oppose_game": False})
+    p["triage"] = "F0_EXTRACTOR_CONFLICT"
+    st = orthogonal_states(p)
+    assert st["pitch_state"] == "extractor_conflict"
+    assert st["structure_state"] == "split_merge_variable"
+    assert st["decision"] == "needs_adjudication"
+
+
 def test_classify_wrong_pitch_single_extractor():
     p = _pkt(flags=["wrong_pitch"],
              fcpe={"center_midi": 60.5, "iqr_cents": 30},

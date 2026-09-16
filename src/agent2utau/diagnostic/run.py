@@ -291,12 +291,30 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     cache.mkdir(parents=True, exist_ok=True)
     src_sha = _sha256(Path(src))
     man_path = cache / "manifest.json"
-    CACHE_SCHEMA = "m232a-1"
+    CACHE_SCHEMA = "m232a3-1"
     sep_model = "UVR-MDX-NET-Voc_FT.onnx"
+    # §5.4 (A3): cache must bind source content, separator model BYTES, and
+    # the separator config — not just the model name.
+    # audio-separator's default model dir is the literal "/tmp/..." string;
+    # resolve it the same way the library does so we hash the real file.
+    sep_model_path = Path("/tmp/audio-separator-models") / sep_model
+    if not sep_model_path.exists() and man_path.exists():
+        prev = json.loads(man_path.read_text(encoding="utf-8")) \
+            .get("separator_model_path")
+        if prev and Path(prev).exists():
+            sep_model_path = Path(prev)
+    sep_model_sha = _sha256(sep_model_path) \
+        if sep_model_path.exists() else None
+    sep_cfg = {"model": sep_model, "output_format": "WAV",
+               "backend": "onnxruntime-cpu"}
+    sep_cfg_sha = hashlib.sha256(
+        json.dumps(sep_cfg, sort_keys=True).encode()).hexdigest()
     man = json.loads(man_path.read_text(encoding="utf-8")) \
         if man_path.exists() else {}
     cache_fresh = (man.get("source_sha256") == src_sha
                    and man.get("separator_model") == sep_model
+                   and man.get("separator_model_sha256") == sep_model_sha
+                   and man.get("separator_config_sha256") == sep_cfg_sha
                    and man.get("schema") == CACHE_SCHEMA)
     orig = cache / "original.wav"
     sep_json = cache / "separation.json"
@@ -313,8 +331,12 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                             encoding="utf-8")
     man_path.write_text(json.dumps({
         "schema": CACHE_SCHEMA, "source_sha256": src_sha,
-        "separator_model": sep_model}, ensure_ascii=False, indent=1),
-        encoding="utf-8")
+        "separator_model": sep_model,
+        "separator_model_path": str(sep_model_path),
+        "separator_model_sha256": sep_model_sha,
+        "separator_config": sep_cfg,
+        "separator_config_sha256": sep_cfg_sha},
+        ensure_ascii=False, indent=1), encoding="utf-8")
     rep["cache"] = {"key": src_key, "source_sha256": src_sha[:16],
                     "fresh": cache_fresh}
     vocals = Path(stems["vocals"])
@@ -518,7 +540,9 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                               rec["start"], rec["start"] + rec["dur"])
         if plats:
             plateau_ev[rec["id"]] = plats
-        if rec["triage"] == "STRUCTURE_CANDIDATE":
+        # §5.2 (A3): dual structure evidence whenever GAME structure is
+        # unstable — independent of what legacy triage returned
+        if (rec.get("consensus") or {}).get("structure_varies"):
             ev2 = dual_structure_evidence(plats, fpl)
             rec["structure_evidence"] = ev2
             dual_struct_ev[rec["id"]] = ev2

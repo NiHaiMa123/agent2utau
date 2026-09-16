@@ -39,6 +39,7 @@ def separate(wav_path: str | Path, out_dir: Path,
         "vocals": str(stems["vocals"]),
         "instrumental": str(stems["instrumental"]),
         "model": model,
+        "model_path": str(model_file) if model_file else None,
         "model_sha256": _sha256(model_file) if model_file and model_file.exists() else None,
         "backend": "onnxruntime-cpu",
     }

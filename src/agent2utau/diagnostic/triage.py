@@ -222,13 +222,20 @@ def orthogonal_states(packet: dict) -> dict:
     flags = set(packet.get("flags") or [])
     sep = packet.get("separation") or {}
 
+    # §5.1 (A3): raw full-window flags are FEATURES only — the calibrated
+    # triage already re-judged them via plateau/interior centers. A stale
+    # wrong_pitch on a GAME_LIKELY_CORRECT packet must not resurrect a
+    # suspicious pitch_state.
     if dual and abs(dual.get("rmvpe_vs_fcpe_cents") or 0) \
             > DUAL_F0_CONFLICT_CENTS:
         pitch = "extractor_conflict"
-    elif dual.get("both_oppose_game") or "wrong_pitch" in flags \
-            or "possible_octave_error" in flags:
+    elif dual.get("both_oppose_game") and \
+            packet.get("triage") != "GAME_LIKELY_CORRECT":
         pitch = "suspicious"
-    elif "weak_f0_evidence" in flags:
+    elif packet.get("triage") == "NEEDS_LISTENING_REVIEW":
+        pitch = "suspicious"
+    elif packet.get("triage") == "AMBIGUOUS_ORNAMENT" \
+            or "weak_f0_evidence" in flags:
         pitch = "unresolved"
     else:
         pitch = "stable"
@@ -248,8 +255,10 @@ def orthogonal_states(packet: dict) -> dict:
     separation = ("sensitive" if sep.get("separation_sensitive")
                   else ("normal" if sep else "unknown"))
 
+    # §5.3 (A3): SAFE gate passed = eligible for adjudication, NOT auto
+    # repair — third-F0/harmonic layer (M2.3.2B) must confirm first.
     if (packet.get("safe_gate") or {}).get("eligible"):
-        decision = "repair_candidate"
+        decision = "candidate_pending_adjudication"
     elif pitch in ("extractor_conflict", "suspicious"):
         decision = "needs_adjudication"
     elif structure != "stable" or packet.get("triage") in (

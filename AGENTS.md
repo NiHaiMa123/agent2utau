@@ -258,6 +258,32 @@ cd "E:\software\OpenUtau-win-x64 (6)"
   there means picking between GAME's own two answers, needs adjudication
   not retune.
 
+## M2.3.2A3 state/routing cleanup (run diag-20260916-164140-a700)
+
+- Raw full-window flags are FEATURES only — `orthogonal_states` pitch_state
+  is owned by calibrated evidence: extractor_conflict / both_oppose /
+  NEEDS_LISTENING -> suspicious; AMBIGUOUS_ORNAMENT/weak_f0 -> unresolved;
+  GAME_LIKELY_CORRECT -> stable even with stale `wrong_pitch` flag.
+- Structure evidence generation is independent of legacy triage: whenever
+  `consensus.structure_varies`, dual_structure_evidence is computed —
+  verified on note_0393 (189.84s): triage=F0_EXTRACTOR_CONFLICT AND
+  structure_evidence present AND structure_state=candidate.
+- SAFE gate eligible -> decision=`candidate_pending_adjudication`
+  (NOT repair_candidate); M2.3.2B third-F0/harmonic layer must confirm.
+- Cache manifest binds source_sha256 + separator_model +
+  separator_model_path + separator_model_sha256 + separator_config_sha256
+  (schema m232a3-1). NOTE: audio-separator's model dir is the literal
+  "/tmp/audio-separator-models/" — on Windows it resolves against the cwd
+  drive (here E:\tmp\...). separate() now records model_path.
+- 年轮 rerun: medoid run2 (420 notes). Decisions: 330 keep_baseline
+  (was 314 — stale-flag notes recovered) / 45 needs_adjudication /
+  45 needs_phrase_review / 0 candidate_pending_adjudication (no SAFE
+  eligible this run). 202.52s keeps identity_state=variable ->
+  needs_adjudication (not direct retune). 189.84s keeps
+  extractor_conflict + structure candidate + sensitive simultaneously.
+- Tests: 54 passed (+3 A3 regressions: stale-flag precedence,
+  SAFE->pending routing, structure-state independence).
+
 ## M4 (iteration loop + voice color)
 
 - `cover --iters N --pitch-strength f`: iter0 baseline, iter1 injects
