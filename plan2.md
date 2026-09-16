@@ -82,7 +82,7 @@ merge 2↔1
 
 cost 包含 onset / overlap / duration / capped weak pitch。
 
-正式 consensus graph 曾得到约：
+历史 consensus graph 曾得到约：
 
 ```text
 397 events
@@ -106,7 +106,7 @@ sum(pairwise alignment cost) 最小的真实 run
 
 它只是 concrete baseline，不是 ground truth，也不能作为独立 correctness evidence。
 
-202s 案例证明 medoid selection 本身能消掉一部分 stochastic pitch error：GAME runs 对约 MIDI 65 / 72 存在多解；medoid 可以选择到更代表性的真实 run，但“medoid 选中了某个解”不等于这个解天然正确。
+202s 案例证明 GAME 本身可能对同一区域给出约 MIDI 65 / 72 两套 stochastic 解；medoid 可以选择更代表性的真实 run，但“medoid 选中了某个解”不等于这个解天然正确。
 
 ## 2.5 Dual-F0 已证明必要
 
@@ -192,9 +192,9 @@ GAME multi-run structure
 
 旧 40 组 isolated short clips 只保留 debug/demo，不再作为正式人工审核方式。
 
-## 4.2 M2.3.2A correctness cleanup ✅ 主体完成
+## 4.2 M2.3.2A correctness cleanup ✅
 
-最新 commit `44a488d...` 已完成：
+commit `44a488d...` 已完成：
 
 - structure ambiguity 在 pitch-hard 前 gate；
 - plateau duration 改为 frame-inclusive；
@@ -205,203 +205,271 @@ GAME multi-run structure
 - separation-sensitive spectral-comb diagnostic；
 - 新增关键 regression tests。
 
+## 4.3 M2.3.2A2 final correctness cleanup ✅
+
+commit `6937ce8...` 已完成：
+
+- plateau `end = start + dur`，保证 frame-inclusive geometry 一致；
+- RMVPE / FCPE 都要求 unique single plateau；
+- `plateau_overlap_ratio >= 0.5` 进入 SAFE hard gate；
+- multi-plateau / non-overlap dual plateau 会 reject；
+- separation check 使用实际 separated-vocal sample rate；
+- separation spectral comb 明确只作为 uncertainty flag；
+- 每个 packet 新增 `pitch / structure / identity / separation` 正交状态；
+- legacy `triage` 暂时保留为 compatibility summary；
+- 新增对应 unit regressions。
+
 最新《年轮》rerun：
 
 ```text
-medoid = run 4
-structure-only medoid = run 4
-baseline_selection_uncertain = false
-
-337 GAME_LIKELY_CORRECT
-36  STRUCTURE_CANDIDATE
-14  AMBIGUOUS_ORNAMENT
-17  F0_EXTRACTOR_CONFLICT
+333 GAME_LIKELY_CORRECT
+45  STRUCTURE_CANDIDATE
+18  F0_EXTRACTOR_CONFLICT
 8   NEEDS_LISTENING_REVIEW
 1   PITCH_HARD_SUSPICIOUS
+
+routing decisions:
+314 keep_baseline
+65  needs_adjudication
+39  needs_phrase_review
+0   repair_candidate
 ```
 
-202.52s 的 `PITCH_HARD_SUSPICIOUS` 被 SAFE gate 正确拒绝：GAME 自己在约 65.3 / 72.4 之间 tone-unstable，`aligned_identity_clear` 不通过，因此它是 adjudication 问题，不是直接 retune 问题。
+202.52s 的 pitch-hard 仍被 identity gate 拒绝：GAME 自己在约 65.3 / 72.4 之间不稳定，因此不能直接 retune。
 
-这说明 correctness gate 已开始真正阻止误修。
+A2 说明底层 correctness gate 已基本稳定，但最新 review 发现正交状态层还有一小轮语义清理要做。
 
 ---
 
-# 5. M2.3.2A2 — Final Correctness Cleanup ← 当前最高优先级
+# 5. M2.3.2A3 — State / Routing Cleanup ← 当前最高优先级
 
-M2.3.2A 主体完成，但最新 code review 仍发现 4 类必须先清掉的问题。A2 完成前，不进入第三 F0 / harmonic auto-repair。
+A3 是小型 state-machine cleanup，不再扩展底层 F0 算法。完成后即可进入第三 F0 与 octave adjudication。
 
-## 5.1 Plateau `end` 仍有一帧不一致
+## 5.1 Raw pitch flags 不能重新覆盖 calibrated judgement
 
-当前已修：
+当前 `orthogonal_states()` 仍可能直接使用：
 
 ```text
-dur = (j - i + 1) * frame_period
+wrong_pitch
+possible_octave_error
 ```
 
-但保存的：
+这些 raw/full-window flags 来设置：
 
 ```text
-end = ts[j]
+pitch_state = suspicious
 ```
 
-仍使：
+问题是 M2.3.1 已经通过 plateau / interior center 把大量 full-window median 假阳性重新判为：
 
 ```text
-end - start != dur
+GAME_LIKELY_CORRECT
 ```
 
-例如 8 × 10ms frame：
+如果 orthogonal state 再直接读取旧 raw flag，就会把已经被 calibrated triage 清掉的 note 重新送回 `needs_adjudication`。
+
+当前 rerun 的一个明显信号是：
 
 ```text
-start = 1.00
-last sample = 1.07
-dur = 0.08
-真实区间应约为 [1.00, 1.08)
+333 GAME_LIKELY_CORRECT
+但只有
+314 keep_baseline
 ```
 
-必须统一：
+这约 19 个差额需要逐项解释，不能默认是新的真实问题。
+
+### A3 规则
+
+Raw flags 只能作为 feature，不得单独决定最终 `pitch_state`。
+
+推荐 precedence：
 
 ```text
-end = start + dur
+extractor conflict / calibrated hard evidence
+    ↓
+pitch_state = extractor_conflict / suspicious
+
+weak evidence / unresolved identity
+    ↓
+pitch_state = unresolved
+
+plateau/interior re-triage 已支持 GAME
+且无更强当前反证
+    ↓
+pitch_state = stable
 ```
 
-或等价的：
+明确禁止：
 
 ```text
-end = ts[j] + frame_period
+stale wrong_pitch flag
+→ 直接 pitch_state=suspicious
 ```
 
-原因：后续 `plateau_overlap_ratio` 正依赖 `start/end`，当前实现会系统性少算约一帧 overlap。
-
-必须补：
+必须新增 regression：
 
 ```text
-assert abs((end - start) - dur) < tolerance
+legacy/raw flag = wrong_pitch
+calibrated triage = GAME_LIKELY_CORRECT
+无当前 strong opposing evidence
+→ pitch_state = stable
+→ decision = keep_baseline
 ```
 
-## 5.2 SAFE dual-plateau gate 还不够严格
+## 5.2 Structure evidence 必须真正与 pitch triage 正交
 
-当前已经要求：
+当前 dual structure evidence 仍主要在：
 
 ```text
-RMVPE target plateau exists
-FCPE target plateau exists
-plateau center delta <= threshold
+legacy triage == STRUCTURE_CANDIDATE
 ```
 
-但仍缺：
+时才生成。
+
+但一个 region 可以同时：
 
 ```text
-FCPE plateau uniqueness / single-stable condition
-plateau temporal-overlap hard gate
-```
-
-当前 `single_stable_plateau` 只检查 RMVPE：
-
-```text
-len(rmvpe_plateaus) == 1
-```
-
-必须升级为至少：
-
-```text
-RMVPE target hypothesis unique
-AND FCPE target hypothesis unique
-AND plateau_center_delta_cents <= calibrated threshold
-AND plateau_overlap_ratio >= calibrated threshold
-```
-
-第一版建议从：
-
-```text
-plateau_overlap_ratio >= 0.5
-```
-
-开始，再由真实样本校准。
-
-这种情况必须拒绝 SAFE：
-
-```text
-RMVPE: 72 ─────────
-FCPE : 72 ─── / 65 ───
-```
-
-或者：
-
-```text
-RMVPE 72 plateau 与 FCPE 72 plateau 时间几乎不重叠
-```
-
-不能因为“都曾出现过 72”就通过。
-
-## 5.3 Separation sensitivity 只能是 uncertainty flag
-
-当前 mix-vs-separated spectral comb 是有价值的 diagnostic，但不能直接用于决定正确 pitch。
-
-原因：
-
-1. original mix 含伴奏，harmonic energy 可能来自乐器；
-2. octave hypotheses `f` 与 `2f` 共享大量谐波；
-3. 简单 `sum(max around k*f)` 对 octave ambiguity 有结构性偏差；
-4. separated vocal 也可能受模型 artifact 影响。
-
-因此当前字段只允许解释为：
-
-```text
-SEPARATION_SENSITIVE
-→ confidence down
-→ unresolved / further adjudication
-```
-
-禁止：
-
-```text
-mix prefers A → A is truth
-```
-
-同时修掉硬编码：
-
-```text
-("sep", wav, 44100)
-```
-
-必须使用实际 separated-vocal sample rate。
-
-真正 M2.3.2B harmonic adjudicator 后续至少考虑：
-
-```text
-periodicity / autocorrelation
-harmonic-to-noise ratio
-weighted harmonic series
-subharmonic support
-odd/even harmonic relation
-vocal-band weighting
-mix-vs-separation sensitivity
-```
-
-## 5.4 单一 `triage` 标签开始不够表达状态
-
-当前一个 region 可能同时存在：
-
-```text
-pitch extractor conflict
+F0 extractor conflict
 +
-GAME structure instability
-+
-identity instability
-+
-separation sensitivity
+GAME structure_varies
 ```
 
-但单一：
+旧单标签 `classify()` 可能先返回 `F0_EXTRACTOR_CONFLICT`，从而让该 region 没有完整 RMVPE/FCPE structure evidence。
+
+A3 必须改成：
 
 ```text
-triage = F0_EXTRACTOR_CONFLICT
+if consensus.structure_varies:
+    ALWAYS compute RMVPE structure evidence
+    ALWAYS compute FCPE structure evidence
+    ALWAYS compute dual_structure_evidence
 ```
 
-会隐藏其他维度。
+与 legacy `triage` 返回什么无关。
 
-从 A2 开始逐步改成正交状态，旧 `triage` 可暂时保留兼容字段：
+因此：
+
+```text
+pitch_state
+structure_state
+identity_state
+separation_state
+```
+
+必须分别由自己的 evidence path 产生，legacy triage 不再作为其他维度 evidence 的开关。
+
+## 5.3 SAFE gate passed 不能直接等于 `repair_candidate`
+
+M2.3.2B 尚未实现 third-F0 / periodicity / harmonic adjudication。
+
+因此 A 阶段的 SAFE gate 只能说明：
+
+```text
+现有 GAME + RMVPE + FCPE 条件允许进入下一层 pitch adjudication
+```
+
+不能说明：
+
+```text
+已经批准自动改谱
+```
+
+在 M2.3.2B 完成前，routing 应至少区分：
+
+```text
+keep_baseline
+candidate_pending_adjudication
+needs_adjudication
+needs_phrase_review
+auto_resolved
+repair_candidate
+```
+
+A 阶段：
+
+```text
+safe_gate.eligible = true
+→ candidate_pending_adjudication
+```
+
+B 阶段只有在 independent adjudication 通过后：
+
+```text
+candidate_pending_adjudication
+→ auto_resolved
+→ repair_candidate
+```
+
+这样第一个真正通过 SAFE gate 的 note 不会绕过 third-F0 / harmonic layer。
+
+## 5.4 Cache provenance 补 separator model hash / config hash
+
+当前 cache manifest 已有：
+
+```text
+source SHA256
+separator model name
+schema
+```
+
+但只有文件名：
+
+```text
+UVR-MDX-NET-Voc_FT.onnx
+```
+
+仍不足以识别“同名模型文件被替换”的情况。
+
+A3 至少补：
+
+```text
+separator_model_sha256
+separator_config_hash / canonical config
+```
+
+规则：
+
+```text
+source / separator model bytes / separator config 任一改变
+→ separation cache invalid
+```
+
+后续第三 F0 / adjudicator 也沿用同一 provenance contract。
+
+## 5.5 A3 regression requirements
+
+至少补：
+
+```text
+1. stale raw wrong_pitch + calibrated GAME_LIKELY_CORRECT → stable/keep
+2. structure_varies + F0_EXTRACTOR_CONFLICT → 仍生成 dual structure evidence
+3. structure evidence generation independent from legacy triage enum
+4. SAFE eligible before M2.3.2B → candidate_pending_adjudication, not repair_candidate
+5. separator model bytes change → cache invalidation
+6. separator config change → cache invalidation
+7. 189s simultaneously保留 pitch conflict 与其他 orthogonal states
+8. 202s 保持 identity-variable / no direct retune
+```
+
+## 5.6 A3 验收标准
+
+```text
+raw flags = features only
+calibrated evidence owns final pitch_state
+structure evidence is generated independently of pitch classification
+SAFE gate cannot bypass M2.3.2B
+separator cache is content/config bound
+orthogonal states truly independent
+routing counts 可解释
+```
+
+A3 完成后，M2.3.2A 系列正式冻结。
+
+---
+
+# 6. Orthogonal state contract
+
+长期 schema：
 
 ```text
 pitch_state:
@@ -427,58 +495,20 @@ separation_state:
 
 decision:
   keep_baseline
-  auto_resolved
+  candidate_pending_adjudication
   needs_adjudication
   needs_phrase_review
+  auto_resolved
   repair_candidate
 ```
 
 要求：
 
 - 一个 region 可以同时有多个非 stable 状态；
-- `decision` 是最终 workflow routing，不等同于某一 evidence state；
-- 旧 `triage` 只做兼容摘要，不再承载全部语义。
-
----
-
-# 6. M2.3.2A2 测试与验收
-
-至少新增 / 固化：
-
-```text
-1. plateau end-start == duration
-2. 70/80/90ms plateau boundary
-3. structure ambiguity blocks pitch-hard
-4. SAFE requires RMVPE target plateau
-5. SAFE requires FCPE target plateau
-6. FCPE multiple/ambiguous plateau rejects SAFE
-7. non-overlapping dual plateau rejects SAFE
-8. plateau overlap threshold regression
-9. separated vocal non-44.1k uses actual sr
-10. separation-sensitive never directly resolves pitch
-11. same-path source content change invalidates cache
-12. separator model/config change invalidates dependent cache
-13. raw-vs-zh uses formal alignment
-14. full medoid vs structure-only medoid sensitivity
-15. 189s remains NO-AUTO-REPAIR until adjudicator resolves it
-16. 202s remains identity-variable / no direct retune
-17. orthogonal states can represent simultaneous pitch+structure conflict
-18. phrase A/B invariance outside target region
-```
-
-A2 验收：
-
-```text
-plateau geometry internally consistent
-SAFE dual-plateau evidence has pitch + temporal agreement
-separation check only lowers confidence / flags risk
-all audio analysis uses actual sample rate
-orthogonal state schema available
-cache provenance regressions pass
-189s / 202s regressions pass
-```
-
-只有这些通过后，M2.3.2A 才正式冻结。
+- evidence state 与 workflow decision 分离；
+- legacy `triage` 只做 compatibility / reporting summary；
+- 任何单一 legacy enum 都不能阻止其他 evidence path 运行；
+- `repair_candidate` 必须是 adjudication 后状态，不是 pre-adjudication gate 状态。
 
 ---
 
@@ -506,7 +536,7 @@ RMVPE raw center + RMVPE structural plateau
 
 仍属于一个 RMVPE family。
 
-同理 GAME 5 runs 是同模型 stochastic samples，不是 5 个独立模型。
+同理 GAME 多 runs 是同模型 stochastic samples，不是多个独立模型。
 
 confidence 应根据 family agreement / conflict / reliability 计算。
 
@@ -514,25 +544,24 @@ confidence 应根据 family agreement / conflict / reliability 计算。
 
 # 8. Cache / provenance contract
 
-当前 A 已加入：
-
-```text
-source SHA256
-separator model
-analysis schema
-GAME model hashes（report）
-```
-
-最终依赖 provenance 应逐步覆盖：
+A3 后至少覆盖：
 
 ```text
 source_audio_sha256
-separator_model_name/hash/config
-GAME model hashes/config
+separator_model_name
+separator_model_sha256
+separator_config_hash
+analysis schema version
+GAME model hashes/config（report / dependency tracking）
+```
+
+后续逐步加入：
+
+```text
 RMVPE model hash/config
 FCPE model hash/config
 third-F0 version/config
-analysis/adjudicator schema version
+adjudicator schema version
 ```
 
 规则：
@@ -542,13 +571,13 @@ input/model/config changed
 → invalidate only affected dependent artifacts
 ```
 
-不能仅靠 source path 判断缓存有效性。
+不能仅靠 source path 或 model filename 判断缓存有效性。
 
 ---
 
 # 9. M2.3.2B — Automatic Pitch / Octave Adjudication
 
-A2 冻结后再开始。
+A3 冻结后开始。
 
 ## 9.1 第三独立 F0
 
@@ -574,18 +603,20 @@ f vs 2f
 至少使用：
 
 ```text
+GAME family
 RMVPE family
 FCPE family
 third-F0 family
 periodicity / autocorrelation
 subharmonic support
 weighted harmonic-series fit
-GAME run pitch distribution
 local melodic context
 separation sensitivity
 ```
 
-输出到正交状态与 decision：
+简单 mix-vs-separated spectral comb 仍只作为 sensitivity flag，不能自己裁决真值。
+
+输出到正交状态与 routing：
 
 ```text
 pitch_state = stable / suspicious / extractor_conflict / unresolved
@@ -595,13 +626,13 @@ separation_state = normal / sensitive
 decision = keep_baseline / auto_resolved / needs_adjudication
 ```
 
-自动解决必须要求：
+自动解决至少要求：
 
 ```text
 identity clear
 structure stable
 多个独立 evidence families 支持同一 written-note hypothesis
-periodicity/harmonic evidence 不反对
+periodicity / harmonic / subharmonic evidence 不反对
 separation-sensitive 不构成强冲突
 confidence > calibrated threshold
 ```
@@ -612,6 +643,8 @@ confidence > calibrated threshold
 保持 Candidate 0
 NO AUTO REPAIR
 ```
+
+189s 是该阶段的首要 octave-conflict regression。
 
 ---
 
@@ -729,7 +762,7 @@ zoom clip 只做二级辅助。
 必须先满足：
 
 ```text
-M2.3.2A2 correctness frozen
+M2.3.2A3 state cleanup frozen
 pitch/octave adjudicator 可用
 189s regression 不会误修
 202s identity-variable case 不会直接 retune
@@ -818,6 +851,8 @@ selected medoid + medoid sensitivity
 match/gap/split/merge counts
 consensus stability
 pitch_state / structure_state / identity_state / separation_state
+workflow decision
+legacy triage vs calibrated state disagreement count
 RMVPE / FCPE / third-F0 evidence families
 periodicity/harmonic evidence
 plateau center + temporal overlap
@@ -827,6 +862,14 @@ phrase-review count
 regression status
 cache/provenance manifest
 ```
+
+特别增加：
+
+```text
+GAME_LIKELY_CORRECT but decision != keep_baseline
+```
+
+的数量与原因分布，用于检测 stale-state / routing regression。
 
 ## Score
 
@@ -863,23 +906,36 @@ rollback coverage
 
 ### M2.3.1 — Triage calibration ✅
 
-### M2.3.2A — Correctness cleanup ✅ 主体完成
+### M2.3.2A — Correctness cleanup ✅
 
-已完成 structure-first gate、frame-inclusive duration、dual extractor plateau、cache manifest、formal variant alignment、medoid sensitivity、separation diagnostic 与关键单测。
+完成 structure-first gate、frame-inclusive duration、dual extractor plateau、cache manifest、formal variant alignment、medoid sensitivity、separation diagnostic。
 
-### M2.3.2A2 — Final correctness cleanup ← 当前最高优先级
+### M2.3.2A2 — Final correctness cleanup ✅
+
+完成：
+
+1. plateau `end = start + dur`；
+2. RMVPE / FCPE 都要求 unique single plateau；
+3. plateau overlap ≥0.5 hard gate；
+4. non-overlap / multi-plateau rejection；
+5. actual separated-vocal sample rate；
+6. separation flag-only semantics；
+7. orthogonal state schema 初版；
+8. 对应 regression tests。
+
+### M2.3.2A3 — State / routing cleanup ← 当前最高优先级
 
 必须完成：
 
-1. plateau `end = start + dur`；
-2. RMVPE / FCPE target plateau 都要求 unique / stable；
-3. `plateau_overlap_ratio` 真正进入 SAFE gate；
-4. non-overlap dual plateau 必须 reject；
-5. separation diagnostic 使用实际 vocal sample rate；
-6. separation-sensitive 只能降低 confidence，不能直接裁决；
-7. 引入 orthogonal state schema；
-8. 补 cache/config/sample-rate/189s/202s/state regressions；
-9. 所有相关 tests 通过后冻结 A 阶段。
+1. raw `wrong_pitch` / `possible_octave_error` 只做 feature，不得覆盖 calibrated state；
+2. stale raw flag + calibrated correct 必须回到 stable / keep；
+3. 所有 `structure_varies` region 独立生成 dual structure evidence；
+4. structure evidence 不依赖 legacy triage enum；
+5. SAFE eligible 在 B 前只能进入 `candidate_pending_adjudication`；
+6. `repair_candidate` 只能由 automatic adjudication 产生；
+7. separator model SHA256 + config hash 进入 cache provenance；
+8. 补 stale-state / orthogonal-structure / routing / cache regressions；
+9. 解释并收敛 `GAME_LIKELY_CORRECT` 与 `keep_baseline` 之间的异常差额。
 
 ### M2.3.2B — Automatic pitch/octave adjudication
 
@@ -938,25 +994,28 @@ corrected score
 7. **单 F0 extractor 不能独自推翻 GAME。**
 8. **同一 extractor 的 raw / structural features 不是独立票。**
 9. **GAME 多 runs 是 stochastic samples，不是多个独立模型。**
-10. **Pitch-hard 前必须先排除 structure / identity ambiguity。**
-11. **SAFE pitch 必须有 RMVPE + FCPE 独立且时间一致的 plateau 支持。**
-12. **Plateau 的 start/end/duration 必须几何一致。**
-13. **Octave conflict 要看 periodicity / harmonic / subharmonic，不做简单多数投票。**
-14. **Separation artifact 只作为 uncertainty / confidence evidence，不能直接当真值。**
-15. **所有音频分析必须使用实际 sample rate，不写死 44.1k。**
-16. **Cache 必须绑定音频内容与模型/配置 provenance。**
-17. **正式 variant comparison 使用 formal sequence alignment。**
-18. **Evidence confidence 按 family 计算，禁止重复计票。**
-19. **Pitch / structure / identity / separation 使用正交状态，不把全部语义塞进单一 triage enum。**
-20. **Structure candidate 先自动 adjudicate，再决定是否人工。**
-21. **人工默认审核完整乐句，不审核 isolated note。**
-22. **Phrase A/B/C 除目标局部外必须完全一致。**
-23. **Zoom clip 只是辅助。**
-24. **189s 永久作为 extractor-conflict regression。**
-25. **202s 永久作为 stochastic pitch / identity-variable regression。**
-26. **candidate / auto-resolved / unresolved / confirmed repair 分层统计。**
-27. **0 automatic repairs 是合法结果。**
-28. **Candidate 0 永远可 rollback。**
-29. **所有修改必须局部、可解释、可审计、可 A/B。**
-30. **先把 written score 唱对，再生成 PITD。**
-31. **先“唱对”，再做泠鸢风格。**
+10. **Raw flags 只是 feature，不能覆盖后续 calibrated judgement。**
+11. **Pitch / structure / identity / separation evidence path 必须正交。**
+12. **Legacy triage 只能做兼容摘要，不能控制其他 evidence 是否运行。**
+13. **Pitch-hard 前必须先排除 structure / identity ambiguity。**
+14. **SAFE pitch 必须有 RMVPE + FCPE 独立且时间一致的 plateau 支持。**
+15. **Plateau 的 start/end/duration 必须几何一致。**
+16. **Pre-adjudication SAFE candidate 不能直接成为 repair_candidate。**
+17. **Octave conflict 要看 periodicity / harmonic / subharmonic，不做简单多数投票。**
+18. **Separation artifact 只作为 uncertainty / confidence evidence，不能直接当真值。**
+19. **所有音频分析必须使用实际 sample rate，不写死 44.1k。**
+20. **Cache 必须绑定音频内容、模型 bytes 与配置 provenance。**
+21. **正式 variant comparison 使用 formal sequence alignment。**
+22. **Evidence confidence 按 family 计算，禁止重复计票。**
+23. **Structure candidate 先自动 adjudicate，再决定是否人工。**
+24. **人工默认审核完整乐句，不审核 isolated note。**
+25. **Phrase A/B/C 除目标局部外必须完全一致。**
+26. **Zoom clip 只是辅助。**
+27. **189s 永久作为 extractor-conflict regression。**
+28. **202s 永久作为 stochastic pitch / identity-variable regression。**
+29. **candidate / auto-resolved / unresolved / confirmed repair 分层统计。**
+30. **0 automatic repairs 是合法结果。**
+31. **Candidate 0 永远可 rollback。**
+32. **所有修改必须局部、可解释、可审计、可 A/B。**
+33. **先把 written score 唱对，再生成 PITD。**
+34. **先“唱对”，再做泠鸢风格。**
