@@ -131,6 +131,70 @@ def test_safe_gate_requires_dual_plateau():
     assert "fcpe_plateau_supports" in g2["failed"]
 
 
+def test_plateau_end_equals_start_plus_dur():
+    t = np.arange(0, 1.0, 0.01)
+    v = np.where((t >= 0.3) & (t <= 0.6), 60.0, np.nan)
+    for p in detect_plateaus(t, v, 0.0, 1.0):
+        assert abs((p["end"] - p["start"]) - p["dur"]) < 0.011
+
+
+def test_safe_gate_rejects_multi_plateau_fcpe():
+    # §5.2: FCPE shows target AND another plateau -> not unique -> reject
+    p = _pkt(flags=["wrong_pitch"], game_tone=65.0,
+             consensus={"stability": "GAME_STABLE", "presence_rate": 1.0,
+                        "tone_agreement": 1.0, "structure_varies": False,
+                        "run_note_counts": [1] * 5},
+             rmvpe={"center_midi": 72.0, "iqr_cents": 10},
+             fcpe={"center_midi": 72.1, "iqr_cents": 10},
+             dual_f0={"rmvpe_vs_fcpe_cents": 10.0, "extractors_agree": True,
+                      "both_oppose_game": True,
+                      "game_vs_rmvpe_cents": 700.0,
+                      "game_vs_fcpe_cents": 710.0})
+    rp = [{"center_midi": 72.0, "start": 1.0, "end": 1.4}]
+    fp_multi = [{"center_midi": 72.0, "start": 1.0, "end": 1.2},
+                {"center_midi": 65.0, "start": 1.2, "end": 1.4}]
+    g = safe_retune_gate(p, rp, fp_multi, [])
+    assert not g["eligible"]
+    assert "single_stable_plateau" in g["failed"]
+
+
+def test_safe_gate_rejects_nonoverlapping_plateaus():
+    # §5.2: both have the plateau but at different times -> reject
+    p = _pkt(flags=["wrong_pitch"], game_tone=65.0,
+             consensus={"stability": "GAME_STABLE", "presence_rate": 1.0,
+                        "tone_agreement": 1.0, "structure_varies": False,
+                        "run_note_counts": [1] * 5},
+             rmvpe={"center_midi": 72.0, "iqr_cents": 10},
+             fcpe={"center_midi": 72.1, "iqr_cents": 10},
+             dual_f0={"rmvpe_vs_fcpe_cents": 10.0, "extractors_agree": True,
+                      "both_oppose_game": True,
+                      "game_vs_rmvpe_cents": 700.0,
+                      "game_vs_fcpe_cents": 710.0})
+    rp = [{"center_midi": 72.0, "start": 1.0, "end": 1.2}]
+    fp = [{"center_midi": 72.0, "start": 1.3, "end": 1.5}]
+    g = safe_retune_gate(p, rp, fp, [])
+    assert not g["eligible"]
+    assert "plateau_temporal_overlap" in g["failed"]
+
+
+def test_orthogonal_states_simultaneous():
+    # §5.4: pitch conflict + structure unstable + sensitive can coexist
+    from agent2utau.diagnostic.triage import orthogonal_states
+    p = _pkt(flags=["possible_octave_error"],
+             consensus={"stability": "GAME_UNSTABLE",
+                        "run_note_counts": [2, 1, 1, 1, 2],
+                        "structure_varies": True, "tone_agreement": 0.6},
+             dual_f0={"rmvpe_vs_fcpe_cents": -1193.0,
+                      "extractors_agree": False, "both_oppose_game": False},
+             separation={"separation_sensitive": True})
+    st = orthogonal_states(p)
+    assert st["pitch_state"] == "extractor_conflict"
+    assert st["structure_state"] == "split_merge_variable"
+    assert st["identity_state"] == "variable"
+    assert st["separation_state"] == "sensitive"
+    assert st["decision"] == "needs_adjudication"
+
+
 def test_classify_wrong_pitch_single_extractor():
     p = _pkt(flags=["wrong_pitch"],
              fcpe={"center_midi": 60.5, "iqr_cents": 30},

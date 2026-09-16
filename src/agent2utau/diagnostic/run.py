@@ -160,6 +160,39 @@ def _evidence(note: dict, times: np.ndarray, midi: np.ndarray,
     return out
 
 
+def _comb_score(spec: np.ndarray, freqs: np.ndarray, f_hz: float) -> float:
+    s = 0.0
+    for k in range(1, 5):
+        i = int(np.argmin(np.abs(freqs - f_hz * k)))
+        w = max(2, int(0.03 * f_hz * k / (freqs[1] - freqs[0])))
+        s += float(spec[max(0, i - w):i + w + 1].max())
+    return s
+
+
+def _separation_octave_check(mix: np.ndarray, m_sr: int,
+                             sep: np.ndarray, s_sr: int,
+                             t0: float, t1: float,
+                             midi_a: float, midi_b: float) -> dict | None:
+    """§5.8/5.3: uncertainty FLAG only — does the original-mix spectrum
+    prefer a different fundamental than the separated vocal? Mix contains
+    accompaniment so this can never pick the true pitch; a disagreement
+    only lowers confidence."""
+    out = {}
+    fa = 440.0 * 2 ** ((midi_a - 69) / 12)
+    fb = 440.0 * 2 ** ((midi_b - 69) / 12)
+    for tag, w, sr in (("mix", mix, m_sr), ("sep", sep, s_sr)):
+        seg = w[int(t0 * sr):int(t1 * sr)]
+        if len(seg) < 256:
+            return None
+        sp = np.abs(np.fft.rfft(seg * np.hanning(len(seg))))
+        fr = np.fft.rfftfreq(len(seg), 1 / sr)
+        sa, sb = _comb_score(sp, fr, fa), _comb_score(sp, fr, fb)
+        out[tag] = "a" if sa >= sb else "b"
+        out[tag + "_ratio"] = round(sa / max(1e-9, sb), 3)
+    out["separation_sensitive"] = out["mix"] != out["sep"]
+    return out
+
+
 def _boundaries(notes: list[dict]) -> np.ndarray:
     """Note onset times of voiced notes."""
     return np.array([n["start"] for n in notes if n["voiced"]],
@@ -287,7 +320,7 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     vocals = Path(stems["vocals"])
 
     import soundfile as sf
-    wav, sr = sf.read(str(vocals), dtype="float32")
+    wav, sep_sr = sf.read(str(vocals), dtype="float32")
     if wav.ndim > 1:
         wav = wav.mean(axis=1)
 
@@ -466,7 +499,11 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     # --- M2.3 step 3/4: plateau evidence + triage --------------------------
     # M2.3.1: dual-extractor structure evidence + calibrated re-triage
     from .triage import (detect_plateaus, classify, interior_center,
-                         dual_structure_evidence, safe_retune_gate)
+                         dual_structure_evidence, safe_retune_gate,
+                         orthogonal_states)
+    mix_wav, mix_sr = sf.read(str(orig), dtype="float32")
+    if mix_wav.ndim > 1:
+        mix_wav = mix_wav.mean(axis=1)
     plateau_ev, dual_struct_ev = {}, {}
     for idx, rec in enumerate(packets):
         plats = detect_plateaus(times, struct, rec["start"],
@@ -491,6 +528,18 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                               if idx + 1 < len(packets) else None)
                   if p]
             rec["safe_gate"] = safe_retune_gate(rec, plats, fpl, nb)
+        # §5.8: separation sensitivity as an uncertainty flag only
+        if rec["triage"] in ("F0_EXTRACTOR_CONFLICT",
+                             "PITCH_HARD_SUSPICIOUS",
+                             "NEEDS_LISTENING_REVIEW"):
+            rmc = (rec.get("rmvpe") or {}).get("center_midi")
+            if rmc is not None:
+                ss = _separation_octave_check(
+                    mix_wav, mix_sr, wav, sep_sr, rec["start"],
+                    rec["start"] + rec["dur"], rec["game_tone"], rmc)
+                if ss:
+                    rec["separation"] = ss
+        rec["state"] = orthogonal_states(rec)
     (diag_dir / "plateau_evidence.json").write_text(
         json.dumps(plateau_ev, ensure_ascii=False, indent=1),
         encoding="utf-8")
@@ -517,8 +566,13 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     (diag_dir / "structure_candidates.json").write_text(
         json.dumps(struct_cands, ensure_ascii=False, indent=1),
         encoding="utf-8")
+    decision_counts: dict[str, int] = {}
+    for rec in packets:
+        d = rec["state"]["decision"]
+        decision_counts[d] = decision_counts.get(d, 0) + 1
     rep["residual_triage_summary"] = {"baseline_notes": len(packets),
                                       **triage_counts,
+                                      "decisions": decision_counts,
                                       "safe_retune_candidates":
                                       len(pitch_safe)}
     (diag_dir / "raw_evidence_packets.json").write_text(
@@ -584,50 +638,10 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
         (rc_dir / f"{p['start']:.2f}_f0_conflict.json").write_text(
             json.dumps(p, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    # §5.8 separation sensitivity: does the ORIGINAL MIX spectrum prefer a
-    # different fundamental than the separated vocal at this note?
-    def _comb_score(spec, freqs, f_hz):
-        s = 0.0
-        for k in range(1, 5):
-            f = f_hz * k
-            i = int(np.argmin(np.abs(freqs - f)))
-            w = max(2, int(0.03 * f / (freqs[1] - freqs[0])))
-            s += float(spec[max(0, i - w):i + w + 1].max())
-        return s
-
-    def _sep_sensitivity(t0, t1, midi_a, midi_b):
-        """midi_a/b = two candidate fundamentals (e.g. GAME vs extractor).
-        Returns which candidate each signal prefers + conflict flag."""
-        import soundfile as _sf
-        mix, m_sr = _sf.read(str(orig), dtype="float32")
-        if mix.ndim > 1:
-            mix = mix.mean(axis=1)
-        out = {}
-        for tag, w, sr in (("mix", mix, m_sr), ("sep", wav, 44100)):
-            seg = w[int(t0 * sr):int(t1 * sr)]
-            if len(seg) < 256:
-                return None
-            sp = np.abs(np.fft.rfft(seg * np.hanning(len(seg))))
-            fr = np.fft.rfftfreq(len(seg), 1 / sr)
-            fa = 440.0 * 2 ** ((midi_a - 69) / 12)
-            fb = 440.0 * 2 ** ((midi_b - 69) / 12)
-            sa, sb = _comb_score(sp, fr, fa), _comb_score(sp, fr, fb)
-            out[tag] = "a" if sa >= sb else "b"
-        out["separation_sensitive"] = out["mix"] != out["sep"]
-        return out
     # every extractor-conflict region + every pitch-unstable consensus event
-    # gets a regression case (plan §22 output contract); pitch-disputed
-    # packets also get the separation-sensitivity check
+    # gets a regression case (plan §22 output contract)
     for p in packets:
         c = p.get("consensus") or {}
-        if p["triage"] in ("F0_EXTRACTOR_CONFLICT", "PITCH_HARD_SUSPICIOUS",
-                           "NEEDS_LISTENING_REVIEW"):
-            rmc = (p.get("rmvpe") or {}).get("center_midi")
-            if rmc is not None:
-                ss = _sep_sensitivity(p["start"], p["start"] + p["dur"],
-                                      p["game_tone"], rmc)
-                if ss:
-                    p["separation"] = ss
         if p["triage"] == "F0_EXTRACTOR_CONFLICT":
             (rc_dir / f"{p['start']:.2f}_f0_conflict.json").write_text(
                 json.dumps(p, ensure_ascii=False, indent=1),
@@ -764,9 +778,13 @@ def _report_md(rep) -> str:
                   f"- consensus zh: {s['consensus_zh']}", ""]
     if "residual_triage_summary" in rep:
         lines += ["", "## M2.3 residual-error triage", ""]
-        for cls, c in sorted(rep["residual_triage_summary"].items(),
-                             key=lambda kv: -kv[1]):
-            lines.append(f"- `{cls}`: {c}")
+        for cls, c in rep["residual_triage_summary"].items():
+            if isinstance(c, dict):
+                inner = ", ".join(f"{k}={v}" for k, v in
+                                  sorted(c.items(), key=lambda kv: -kv[1]))
+                lines.append(f"- `{cls}`: {inner}")
+            else:
+                lines.append(f"- `{cls}`: {c}")
         lines.append("")
     lines += ["",
               "## GAME-raw suspicious regions (RMVPE structural evidence)",

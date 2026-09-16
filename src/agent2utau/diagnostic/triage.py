@@ -78,14 +78,14 @@ def detect_plateaus(times: np.ndarray, struct: np.ndarray,
         while j + 1 < len(vs) and fin[j + 1] and \
                 abs(vs[j + 1] - vs[j]) * 100 <= PLATEAU_STEP_CENTS:
             j += 1
-        # frame-inclusive duration: N frames cover N*frame_period, not
-        # ts[j]-ts[i] (which under-counts one frame near the 80ms cutoff)
+        # frame-inclusive: N frames cover N*frame_period; end = start+dur
+        # so end-start == dur (plan §5.1 — overlap ratio depends on it)
         frame_p = float(ts[1] - ts[0]) if len(ts) > 1 else 0.01
         dur = (j - i + 1) * frame_p
         if dur >= MIN_PLATEAU_S:
             seg = vs[i:j + 1]
             plats.append({"start": round(float(ts[i]), 3),
-                          "end": round(float(ts[j]), 3),
+                          "end": round(float(ts[i]) + dur, 3),
                           "dur": round(dur, 3),
                           "center_midi": round(float(np.median(seg)), 2),
                           "iqr_cents": round(float(
@@ -183,13 +183,17 @@ def safe_retune_gate(packet: dict, rmvpe_plateaus: list[dict],
             and min(abs(dual.get("game_vs_rmvpe_cents") or 0),
                     abs(dual.get("game_vs_fcpe_cents") or 0))
             >= SAFE_MIN_ERR_CENTS,
-        "single_stable_plateau": len(rmvpe_plateaus) == 1,
-        # §5.3: RMVPE plateau AND FCPE plateau must each independently
-        # support the target — not RMVPE-plateau-vs-RMVPE-center.
+        # §5.2: BOTH extractors must have a unique stable plateau
+        "single_stable_plateau": (len(rmvpe_plateaus) == 1
+                                  and len(fcpe_plateaus) == 1),
         "rmvpe_plateau_supports": rp is not None,
         "fcpe_plateau_supports": fp is not None,
         "dual_plateau_agree": (delta is not None
                                and delta <= PLATEAU_MATCH_CENTS),
+        # §5.2: the two plateaus must actually overlap in time — merely
+        # both containing the target pitch somewhere isn't agreement
+        "plateau_temporal_overlap": (plateau_overlap is not None
+                                    and plateau_overlap >= 0.5),
         "neighbours_no_alternative": all(
             abs(nb["game_tone"] - (target or tone))
             > 0.5 for nb in neighbours),
@@ -207,6 +211,58 @@ def safe_retune_gate(packet: dict, rmvpe_plateaus: list[dict],
             "eligible": not hard,
             "status": ("awaiting_render_and_listening" if not hard
                        else "rejected")}
+
+
+def orthogonal_states(packet: dict) -> dict:
+    """§5.4: a region can be simultaneously pitch-conflicted AND
+    structure-unstable — one `triage` label hid that. Orthogonal states
+    + a routing `decision`; legacy `triage` stays as a compat summary."""
+    cons = packet.get("consensus") or {}
+    dual = packet.get("dual_f0") or {}
+    flags = set(packet.get("flags") or [])
+    sep = packet.get("separation") or {}
+
+    if dual and abs(dual.get("rmvpe_vs_fcpe_cents") or 0) \
+            > DUAL_F0_CONFLICT_CENTS:
+        pitch = "extractor_conflict"
+    elif dual.get("both_oppose_game") or "wrong_pitch" in flags \
+            or "possible_octave_error" in flags:
+        pitch = "suspicious"
+    elif "weak_f0_evidence" in flags:
+        pitch = "unresolved"
+    else:
+        pitch = "stable"
+
+    if cons.get("structure_varies"):
+        structure = ("candidate" if packet.get("structure_evidence")
+                     else "split_merge_variable")
+    else:
+        structure = "stable"
+
+    identity = ("variable"
+                if (cons.get("tone_agreement", 1.0) < 1.0
+                    or cons.get("stability") in ("GAME_VARIABLE",
+                                                 "GAME_UNSTABLE"))
+                else "stable")
+
+    separation = ("sensitive" if sep.get("separation_sensitive")
+                  else ("normal" if sep else "unknown"))
+
+    if (packet.get("safe_gate") or {}).get("eligible"):
+        decision = "repair_candidate"
+    elif pitch in ("extractor_conflict", "suspicious"):
+        decision = "needs_adjudication"
+    elif structure != "stable" or packet.get("triage") in (
+            "NEEDS_LISTENING_REVIEW",):
+        decision = "needs_phrase_review"
+    elif pitch == "unresolved" or identity == "variable":
+        decision = "needs_adjudication"
+    else:
+        decision = "keep_baseline"
+
+    return {"pitch_state": pitch, "structure_state": structure,
+            "identity_state": identity, "separation_state": separation,
+            "decision": decision}
 
 
 def classify(packet: dict, plateaus: list[dict],
