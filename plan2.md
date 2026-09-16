@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把“唱对”解决，再把“唱得像泠鸢”解决。**
 >
-> 当前工程原则：**GAME 提供真实可渲染的 score candidate；多次 GAME consensus 只作为 uncertainty / evidence graph。能由程序测量的 pitch / octave 不交给人工猜；structure 先自动 adjudicate，只有机器仍无法唯一解释的音乐语义才进入完整乐句人工审核。**
+> 当前工程原则：**GAME 提供真实可渲染的 score candidate；multi-run consensus 只作为 uncertainty / evidence graph。能由程序测量的 pitch / octave 不交给人工猜；structure 先自动 adjudicate；只有 B/C 仍无法唯一解释的音乐语义才进入完整乐句人工审核。**
 
 ---
 
@@ -17,11 +17,11 @@
 → formal sequence alignment
 → 选择真实 GAME medoid run 作为 Candidate 0
 → multi-run uncertainty graph
-→ RMVPE + FCPE + third-F0 / periodicity / harmonic evidence
+→ RMVPE + FCPE + third-F0 + periodicity / harmonic evidence
 → orthogonal pitch / structure / identity / separation states
-→ pitch adjudication (M2.3.2B)
-→ structure adjudication (M2.3.2C)
-→ unresolved musical interpretation 才进入 phrase-level A/B/C review
+→ M2.3.2B pitch/octave adjudication
+→ M2.3.2C structure adjudication
+→ B/C unresolved 才进入 M2.3.2D phrase-level A/B/C review
 → 只修高置信局部错误
 → lyrics ↔ melody mapping
 → OpenUtau / DiffSinger 基础渲染
@@ -60,7 +60,7 @@ forced-char-boundary 实验曾把约 419 notes 扩张到约 760 notes，并制�
 single GAME run != deterministic truth
 ```
 
-多 run 的价值是 uncertainty evidence：
+Multi-run 的用途是 uncertainty evidence：
 
 - 多次一致 → 更可信；
 - split / merge / pitch 多解 → 局部不确定；
@@ -101,9 +101,9 @@ sum(pairwise alignment cost) 最小的真实 run
 
 Medoid 只是 concrete baseline，不是 ground truth，也不能作为 correctness 的独立证据。
 
-202s 案例已经证明 GAME 本身可能在同一区域给出约 MIDI 65 / 72 两套 stochastic 解，因此 medoid 选择和 pitch truth 必须分离。
+202s 案例证明 GAME 本身可能在同一区域给出约 MIDI 65 / 72 两套 stochastic 解，因此 medoid selection 和 pitch truth 必须分离。
 
-## 2.5 Dual-F0 是必要的，但不能简单投票
+## 2.5 Dual-F0 必要，但不能简单投票
 
 189s 附近出现：
 
@@ -113,7 +113,7 @@ FCPE  ≈ 低八度候选
 GAME  ≈ 其中一个候选
 ```
 
-因此固定原则：
+固定原则：
 
 > **单一 F0 extractor 永远不能独自推翻 GAME。**
 
@@ -163,7 +163,7 @@ GAME multi-run structure
 + local melodic context
 ```
 
-只有 automatic structure adjudication 后仍有多个合理 musical interpretations，才交给 phrase-level human review。
+只有 automatic structure adjudication 后仍存在多个合理 musical interpretations，才交给 phrase-level human review。
 
 ---
 
@@ -178,275 +178,82 @@ GAME multi-run structure
 - RMVPE + FCPE dual-F0；
 - structural F0；
 - plateau / interior re-triage；
-- structure candidates；
 - SAFE gate 初版；
 - regression packets。
 
 旧 40 组 isolated short clips 仅保留 debug/demo，不再是正式人工审核入口。
 
-## M2.3.2A correctness cleanup ✅
+## M2.3.2A / A2 / A3 / A4 ✅ FROZEN
 
-commit `44a488d...`：
+A-stage 已完成并冻结，不再新增 A5。
+
+主要成果：
 
 - structure ambiguity 优先于 pitch-hard；
-- frame-inclusive plateau duration；
-- RMVPE + FCPE dual plateau；
-- content-bound cache 初版；
-- raw-vs-zh formal DP；
-- medoid sensitivity；
-- separation-sensitive diagnostic。
-
-## M2.3.2A2 final correctness cleanup ✅
-
-commit `6937ce8...`：
-
-- `plateau end = start + dur`；
-- 两 extractor 都要求 unique target plateau；
-- `plateau_overlap_ratio >= 0.5` 进入 SAFE hard gate；
-- multi-plateau / non-overlap reject；
+- plateau frame-inclusive geometry 一致；
+- RMVPE + FCPE unique target plateau + temporal overlap SAFE gate；
 - actual sample rate；
-- separation comb 明确只作为 uncertainty flag；
-- orthogonal state schema 初版。
+- separation comb 只作为 uncertainty flag；
+- raw flags 只作 features，不覆盖 calibrated result；
+- structure evidence 与 legacy triage 解耦；
+- SAFE eligible 只到 `candidate_pending_adjudication`，不直接 repair；
+- pitch / structure / identity / separation 正交状态；
+- pitch / structure adjudication 分 lane；
+- structure candidate 不再直接进入人工；
+- separator cache/provenance 绑定 `separate()` 实际解析出的 model path / bytes hash / config hash。
 
-## M2.3.2A3 state/routing cleanup ✅
-
-commit `5b16d1d...`：
-
-- raw `wrong_pitch / possible_octave_error` 只作为 feature，不再覆盖 calibrated result；
-- `GAME_LIKELY_CORRECT` 即使带 stale raw flag 也保持 pitch stable；
-- 所有 `structure_varies` region 都独立计算 dual structure evidence；
-- SAFE eligible 改为 `candidate_pending_adjudication`，禁止直接 repair；
-- separator provenance 增加 model path / SHA256 / config hash；
-- +3 routing regressions，本地报告 54 tests passed。
+A4 commit：`7587c221...`
 
 最新《年轮》rerun：
 
 ```text
-medoid run 2
-baseline = 420 notes
+medoid = run 4
+baseline = 421 notes
 
-330 keep_baseline
-45  needs_adjudication
-45  needs_phrase_review
-0   candidate_pending_adjudication
-0   repair_candidate
+顶层 decision：
+338 keep_baseline
+76  needs_pitch_adjudication
+7   needs_structure_adjudication
+
+routing_needs：
+pitch     = 76
+structure = 51
+both      = 44
+phrase_review = 0 at A-stage
+repair_candidate = 0
 ```
 
-A3 证明 stale pitch flag 问题已修：`keep_baseline` 从 314 回升到 330。
+解释：
 
-189.84s 当前可以同时表达：
+- `decision` 只是下一步优先动作；
+- 44 个 region 同时需要 pitch + structure adjudication；
+- 所以顶层 76 pitch + 7 structure 与总计 51 structure needs 不矛盾；
+- 421 notes 顶层路由闭合：`338 + 76 + 7 = 421`。
+
+Regression：
 
 ```text
+189.84s
 pitch_state      = extractor_conflict
 structure_state  = candidate
 separation_state = sensitive
-```
+→ multi-axis adjudication
 
-202.52s 继续保持：
-
-```text
-identity_state = variable
-→ no direct retune
-```
-
----
-
-# 5. M2.3.2A4 — Routing / Provenance Finalization ← 当前最高优先级
-
-A4 是 correctness 系列最后一个小阶段。**A4 完成后不再新增 A5，直接进入 M2.3.2B。**
-
-## 5.1 Structure candidate 不能直接进入人工
-
-当前 routing 仍存在：
-
-```text
-structure_state != stable
-→ needs_phrase_review
-```
-
-这与目标架构冲突。
-
-45 个 structure candidate 应先经过 M2.3.2C automatic structure adjudication，而不是现在就交给用户听。
-
-正式 routing 应拆分：
-
-```text
-keep_baseline
-candidate_pending_adjudication
-needs_pitch_adjudication
-needs_structure_adjudication
-needs_phrase_review
-auto_resolved
-repair_candidate
-```
-
-A 阶段 routing：
-
-```text
-pitch conflict / suspicious
+202.51s
+GAME tone answer stochastic / identity variable
 → needs_pitch_adjudication
+→ no direct retune
 
-structure candidate / split_merge_variable
-→ needs_structure_adjudication
-
-SAFE dual-F0 gate eligible
-→ candidate_pending_adjudication
-
-只有之后 B/C 明确 unresolved
-→ needs_phrase_review
+202.09s
+legacy enum stale，但 calibrated pitch stable
+→ keep_baseline
 ```
 
-**禁止：**
-
-```text
-structure candidate
-→ 直接 needs_phrase_review
-```
-
-## 5.2 Pitch 和 structure routing 必须真正分流
-
-同一个 region 可以同时：
-
-```text
-needs_pitch_adjudication
-+
-needs_structure_adjudication
-```
-
-workflow 不应该强迫它只能属于一个 legacy bucket。
-
-建议 state 中增加 routing needs：
-
-```text
-routing_needs:
-  pitch_adjudication: bool
-  structure_adjudication: bool
-  phrase_review: bool
-```
-
-最终 `decision` 只表示当前下一步，不能丢掉其它未完成 adjudication 需求。
-
-优先级建议：
-
-```text
-candidate_pending_adjudication
-> needs_pitch_adjudication
-> needs_structure_adjudication
-> needs_phrase_review
-> keep_baseline
-```
-
-但所有 orthogonal needs 仍保留在 packet 中。
-
-## 5.3 `NEEDS_LISTENING_REVIEW` 不应天然等于 pitch suspicious
-
-Legacy `NEEDS_LISTENING_REVIEW` 可能由不同 raw flags 产生，因此不能永久使用：
-
-```text
-legacy triage enum
-→ pitch_state
-```
-
-目标方向应反转：
-
-```text
-raw + calibrated evidence
-→ pitch_state
-→ structure_state
-→ identity_state
-→ routing needs / decision
-→ legacy triage compatibility summary
-```
-
-A4 不要求一次删除 legacy `triage`，但新逻辑不得依赖 legacy enum 决定另一个正交 state 的含义。
-
-## 5.4 Separator provenance 必须使用实际运行解析出的模型
-
-`separate()` 已能返回：
-
-```text
-model_path
-model_sha256
-```
-
-但当前 `run.py` 在 separation 前仍自行猜：
-
-```text
-/tmp/audio-separator-models/UVR-MDX-NET-Voc_FT.onnx
-```
-
-然后 manifest 主要写入这份预估 path/hash。
-
-这在模型实际路径不同的机器上可能产生：
-
-```text
-pre-run guessed hash = None / wrong path
-actual separator resolved model = valid file
-manifest = guessed provenance
-```
-
-正确 contract：
-
-### cache miss
-
-```text
-run separate()
-→ obtain actual model_path / actual model_sha256
-→ write actual values into separation.json + manifest
-```
-
-### cache hit
-
-```text
-read manifest.actual_model_path
-→ hash current bytes
-→ compare with manifest.actual_model_sha256
-→ config hash / source hash / schema also compare
-```
-
-禁止由 diagnostic 层猜 audio-separator 的内部 model directory 作为最终 truth。
-
-## 5.5 A4 regression requirements
-
-至少新增：
-
-```text
-1. structure candidate -> needs_structure_adjudication, NOT phrase review
-2. unresolved structure after C -> only then needs_phrase_review
-3. pitch conflict -> needs_pitch_adjudication
-4. simultaneous pitch+structure conflict preserves both routing needs
-5. SAFE eligible -> candidate_pending_adjudication
-6. no A-stage state can directly become repair_candidate
-7. actual separate() model_path/hash becomes manifest provenance
-8. guessed model path differs from actual path -> manifest uses actual
-9. actual separator model bytes changed -> cache invalid
-10. separator config changed -> cache invalid
-11. stale raw pitch flag does not resurrect adjudication
-12. 189s remains multi-axis conflict regression
-13. 202s remains identity-variable/no-direct-retune regression
-```
-
-## 5.6 A4 acceptance
-
-```text
-structure candidates no longer go directly to human
-pitch and structure adjudication have separate routing
-orthogonal routing needs can coexist
-legacy triage no longer owns orthogonal semantics
-separator provenance is based on actual resolved model bytes
-all A-stage repairs remain disabled
-```
-
-完成后：
-
-```text
-M2.3.2A / A2 / A3 / A4 = FROZEN
-→ start M2.3.2B
-```
+本地报告 64 tests passed；当前 GitHub 没有 remote combined CI status，因此不能把本地测试表述为远端 CI 已验证。
 
 ---
 
-# 6. Orthogonal state / routing contract
+# 5. Orthogonal state / routing contract
 
 ```text
 pitch_state:
@@ -491,12 +298,12 @@ decision:
 - 一个 region 可以同时有多个 non-stable state；
 - 一个 region 可以同时需要 pitch 与 structure adjudication；
 - legacy `triage` 仅作 compatibility/reporting；
-- `needs_phrase_review` 必须是 B/C adjudication 之后的 unresolved outcome；
+- `needs_phrase_review` 必须是 B/C adjudication 后 unresolved 的结果；
 - `repair_candidate` 必须是 adjudication 后状态。
 
 ---
 
-# 7. Evidence independence
+# 6. Evidence independence
 
 禁止按 raw feature 数量简单投票。
 
@@ -518,11 +325,56 @@ musical-context family
 RMVPE raw center + RMVPE plateau
 ```
 
-仍属于一个 RMVPE family。
+仍属于同一个 RMVPE family。
 
 GAME 5 runs 也是同一模型 stochastic samples，不是 5 个独立模型。
 
-Confidence 按 family agreement / conflict / reliability 计算。
+Confidence 必须按 family agreement / conflict / reliability 计算。
+
+---
+
+# 7. GAME stochastic evidence 必须保留连续置信度
+
+A4 中：
+
+```text
+identity_state = variable if tone_agreement < 1.0
+```
+
+这个 binary state 只用于“是否值得送进 B 检查”，不能在 B 内把所有 variable 当成同等强度的反证。
+
+`tone_agreement` 当前表示：各 GAME run 的 aggregate tone 与 event median 相差 `< 0.5 semitone` 的比例。
+
+B 必须保留并使用连续信息，例如：
+
+```text
+GAME support ratio
+per-run tone distribution
+tone_min / tone_max / spread
+presence_rate
+run count
+structure relation
+```
+
+解释建议：
+
+```text
+5/5 agreement → very strong GAME support
+4/5           → strong support
+3/5           → ambiguous / moderate
+2/5 or lower  → weak support
+```
+
+这些不是硬编码 truth label，而是 evidence strength。
+
+禁止：
+
+```text
+tone_agreement == 1 → true
+tone_agreement < 1  → equally unreliable
+```
+
+尤其 202s：GAME 65/72 两套答案应保留完整 run distribution，而不是只记录 `identity_state=variable`。
 
 ---
 
@@ -553,9 +405,16 @@ input/model/config changed
 
 ---
 
-# 9. M2.3.2B — Automatic Pitch / Octave Adjudication
+# 9. M2.3.2B — Automatic Pitch / Octave Adjudication ← 当前最高优先级
 
-A4 冻结后立即开始。
+A-stage 已冻结，正式进入 B。
+
+当前输入：
+
+```text
+76 pitch-adjudication lanes
+其中 44 个同时有 structure need
+```
 
 ## 9.1 Third-F0
 
@@ -570,15 +429,23 @@ pYIN / YIN
 
 CREPE 可作为额外 neural opinion，但不能因为“模型更多”就自动增加 confidence。
 
-## 9.2 Octave adjudicator
+Third-F0 必须记录：
 
-对于：
+```text
+implementation/version
+config
+frame period
+voicing/confidence
+cache provenance
+```
+
+## 9.2 Pitch hypothesis，不做简单多数投票
+
+对于 octave conflict：
 
 ```text
 f vs 2f
 ```
-
-禁止简单多数投票。
 
 至少结合：
 
@@ -589,49 +456,192 @@ third-F0 family
 periodicity / autocorrelation
 subharmonic support
 weighted harmonic-series fit
-GAME run pitch distribution
+GAME per-run pitch distribution
 local melodic context
 separation sensitivity
 ```
 
 简单 mix/separated spectral comb 仍只能作为 sensitivity flag，不能直接决定 truth。
 
-## 9.3 Output
+## 9.3 Per-hypothesis evidence score
+
+B 应显式生成候选 hypothesis，而不是“哪个 extractor 数量多就选哪个”。
+
+例如：
 
 ```text
-AUTO_PITCH_RESOLVED
-AUTO_OCTAVE_RESOLVED
+H0 = Candidate 0 / GAME current written pitch
+H1 = lower-octave F0 hypothesis
+H2 = upper-octave F0 hypothesis
+H3 = optional local alternative
+```
+
+每个 hypothesis 记录：
+
+```text
+GAME support ratio / run distribution
+RMVPE support + reliability
+FCPE support + reliability
+third-F0 support + reliability
+periodicity score
+subharmonic evidence
+harmonic-series evidence
+local continuity / leap plausibility
+separation sensitivity penalty
+structure status
+```
+
+输出必须包含：
+
+```text
+winning_hypothesis
+score / confidence
+margin_to_second
+supporting evidence families
+opposing evidence families
+reason
+```
+
+## 9.4 GAME evidence 不得二值化
+
+B 内禁止仅使用：
+
+```text
+identity_state = stable / variable
+```
+
+必须消费第 7 节连续 stochastic evidence。
+
+例如 GAME 4/5 支持 H0、1/5 支持 H1，与 3/5 vs 2/5 必须有不同置信度。
+
+## 9.5 自动解决条件
+
+自动 resolution 至少要求：
+
+```text
+多个独立 evidence families 支持同一 hypothesis
+winner 对 runner-up 有足够 margin
+periodicity/harmonic/subharmonic 没有强反证
+GAME stochastic support 被连续地计入，而非二值化
+separation-sensitive 无未解释强冲突
+若同时存在 structure need，不允许假装 structure 已经解决
+```
+
+注意：
+
+```text
+pitch 可 resolved
+structure 仍 pending
+```
+
+是合法状态。
+
+不得因为 pitch solved 就清掉该 region 的 structure need。
+
+## 9.6 B adjudication result state
+
+不要只留一个 `b_c_unresolved` bool。
+
+至少增加：
+
+```text
+pitch_adjudication_status:
+  not_needed
+  pending
+  resolved_keep
+  resolved_change
+  unresolved
+```
+
+必要字段：
+
+```text
+pitch_adjudication:
+  status
+  winning_hypothesis
+  confidence
+  margin
+  evidence_families
+  reason
+```
+
+Routing：
+
+```text
+resolved_keep
+→ clear pitch_adjudication need
+
+resolved_change
+→ candidate_pending_repair / repair_candidate only after repair gates
+
+unresolved
+→ clear repeated B loop
+→ mark phrase_review eligibility
+```
+
+但如果 structure 仍 pending，应先完成 C，再决定是否真的进入 D。
+
+## 9.7 B 输出分类
+
+可保留 reporting class：
+
+```text
+AUTO_PITCH_KEEP
+AUTO_PITCH_CHANGE
+AUTO_OCTAVE_KEEP
+AUTO_OCTAVE_CHANGE
 F0_UNRESOLVED
 SEPARATION_SENSITIVE
 ```
 
-自动 pitch resolution 至少要求：
+这些是 adjudication result，不替代正交 states。
+
+## 9.8 B regression / acceptance
+
+必须覆盖：
 
 ```text
-identity clear
-structure stable / 已完成 structure adjudication
-多个独立 evidence families 支持同一 hypothesis
-periodicity/harmonic evidence 不反对
-separation-sensitive 无强冲突
-confidence > calibrated threshold
+1. 189s octave extractor conflict 不被简单 majority vote 误修
+2. 202s GAME stochastic pitch distribution 被完整消费
+3. 5/5、4/5、3/5 GAME support 对 confidence 影响不同
+4. separation-sensitive 只能降低 confidence / 保留 unresolved
+5. third-F0 failure/low-confidence 不等于反对某 hypothesis
+6. pitch resolved 后不会清掉 concurrent structure need
+7. B unresolved 不会无限重新路由回 B
+8. no B result directly overwrites Candidate 0
 ```
 
-冲突时：
+B 完成标准：
 
 ```text
-保持 Candidate 0
-NO AUTO REPAIR
+76 pitch lanes 全部得到 resolved_keep / resolved_change / unresolved
+189s regression pass
+202s regression pass
+所有 decision 可审计
 ```
-
-189s 是核心 B regression。
 
 ---
 
 # 10. M2.3.2C — Automatic Structure Adjudication
 
-A4 后，当前 structure candidates 全部先进入 C，不直接人工。
+当前已知输入：
 
-Evidence：
+```text
+51 existing structure routing needs
+```
+
+但 C **不能只处理这 51 个**。
+
+## 10.1 Existing structure candidates
+
+对 A-stage 已发现的：
+
+```text
+structure_varies
+split / merge disagreement
+```
+
+使用：
 
 ```text
 GAME multi-run structure distribution
@@ -658,25 +668,178 @@ ALIGNMENT_ARTIFACT
 UNRESOLVED_STRUCTURE
 ```
 
-只有：
+## 10.2 Independent structure discovery：防止 GAME “稳定地错”
+
+这是 C 的强制要求。
+
+当前 A-stage structure lane 主要由：
+
+```text
+consensus.structure_varies == true
+```
+
+触发。
+
+但存在盲区：
+
+```text
+GAME 5/5 都稳定地产生 1 note
+↓
+RMVPE 显示两个稳定 plateau
+FCPE 也显示两个稳定 plateau
+onset / energy / articulation 支持中间 boundary
+↓
+GAME stable-but-structure-wrong
+```
+
+因此 C 必须额外扫描**所有 Candidate 0 baseline notes**，寻找 independent structure evidence。
+
+至少检测：
+
+```text
+dual-F0 multi-plateau agreement
+cross-extractor changepoint agreement
+strong voiced-to-voiced pitch transition
+onset / energy transition
+lyric articulation boundary
+suspiciously merged long note
+suspiciously short neighbouring notes
+```
+
+如果独立证据足够强：
+
+```text
+structure_state = candidate
+routing_needs.structure_adjudication = true
+```
+
+即使：
+
+```text
+GAME structure_varies = false
+```
+
+也必须进入 C。
+
+反向同理：GAME 多 run 偶发 split，但 dual-F0 / onset / articulation 都不支持，可以 adjudicate 为 ONE_NOTE_WITH_PORTAMENTO / GAME stochastic artifact。
+
+## 10.3 C hypothesis scoring
+
+对一个 region 生成真实可解释候选：
+
+```text
+H0 = current GAME structure
+H1 = split candidate
+H2 = merge candidate
+H3 = one-note-with-portamento / ornament
+```
+
+候选应尽量来自真实 GAME run structure 或由明确 boundary evidence 构造，不允许从 consensus median 拼 synthetic whole-score。
+
+每个 hypothesis 记录：
+
+```text
+GAME run structure support
+RMVPE changepoint support
+FCPE changepoint support
+third-F0 support if available
+onset / energy support
+lyric articulation support
+local duration plausibility
+melodic continuity
+```
+
+自动决定必须有足够 score margin；否则 unresolved。
+
+## 10.4 C adjudication result state
+
+至少增加：
+
+```text
+structure_adjudication_status:
+  not_needed
+  pending
+  resolved_keep
+  resolved_change_candidate
+  unresolved
+```
+
+`resolved_change_candidate` 第一阶段只表示：机器高置信认为结构应变，不等于立即自动改谱。
+
+结构 repair 仍需之后单独做 precision calibration。
+
+## 10.5 C → D routing
+
+C 必须显式终止自己的 pending 状态。
+
+禁止：
 
 ```text
 UNRESOLVED_STRUCTURE
+→ b_c_unresolved = true
+但 structure_adjudication 仍为 pending
+→ routing 又回 C
 ```
 
-或多个候选 score 非常接近时，才设置：
+正确逻辑：
 
 ```text
-routing_needs.phrase_review = true
+C unresolved
+→ structure_adjudication_status = unresolved
+→ clear structure_adjudication pending need
+→ phrase_review eligible = true
 ```
 
-Structure repair 第一阶段仍不自动执行；先统计 adjudication precision。
+如果 pitch B 尚 pending：
+
+```text
+先完成 B
+```
+
+只有所有机器 adjudication lane 都不再 pending、且至少一个为 unresolved，才进入 D。
+
+## 10.6 C regression / acceptance
+
+至少覆盖：
+
+```text
+1. existing structure_varies candidates 全部有 C result
+2. GAME-stable + dual-F0 two-plateau case 能被 independent discovery 找到
+3. GAME stable-but-wrong synthetic regression
+4. GAME stochastic split + acoustic evidence single-note 可 resolved_keep
+5. pitch+structure concurrent region 两条 lane 独立结束
+6. C unresolved 不会无限重新路由回 C
+7. unresolved 才能进入 phrase review eligibility
+8. no structure adjudication directly overwrites Candidate 0
+```
 
 ---
 
 # 11. M2.3.2D — Phrase-Level Human Review
 
 人工只处理 B/C 之后仍 unresolved 的音乐语义。
+
+## 11.1 D 的可达条件
+
+必须同时满足：
+
+```text
+pitch_adjudication_status != pending
+structure_adjudication_status != pending
+AND
+至少一条 lane == unresolved
+```
+
+才允许：
+
+```text
+routing_needs.phrase_review = true
+→ decision = needs_phrase_review
+```
+
+这样 D 不会被 B/C priority 永久遮蔽。
+
+## 11.2 人工不做什么
 
 人工不做：
 
@@ -694,7 +857,7 @@ octave guessing
 哪种 note structure 在上下文里更自然？
 ```
 
-## Review 单位
+## 11.3 Review 单位
 
 默认完整乐句：
 
@@ -704,7 +867,7 @@ octave guessing
 最长约 12s
 ```
 
-优先使用：
+优先：
 
 ```text
 LRC line / phrase
@@ -714,7 +877,7 @@ LRC line / phrase
 
 至少尽量包含目标前后各 2–3 notes。
 
-## Review 包
+## 11.4 Review 包
 
 ```text
 SOURCE_PHRASE_original_mix.wav
@@ -748,16 +911,16 @@ zoom clip 只做二级辅助。
 进入条件：
 
 ```text
-A4 frozen
+A-stage frozen
 B pitch/octave adjudicator available
 C structure adjudication available
 189s regression no false repair
-202s identity-variable no direct retune
+202s identity-variable case no direct retune
 phrase review workflow available
 Candidate 0 / rollback contract complete
 ```
 
-第一版只优先：
+第一版优先只做：
 
 ```text
 single-note written-pitch retune
@@ -773,7 +936,7 @@ before / after
 evidence families
 orthogonal states
 adjudication result
-confidence
+confidence / margin
 gates passed
 phrase A/B（若需要）
 rollback data
@@ -781,7 +944,7 @@ rollback data
 
 禁止覆盖 Candidate 0。
 
-Structure repair 默认仍为 PROBABLE / AMBIGUOUS，只有 precision 证明足够高才逐类升级。
+Structure repair 默认仍为 PROBABLE / AMBIGUOUS；只有 precision calibration 证明足够高才逐类升级。
 
 ---
 
@@ -826,17 +989,19 @@ PITD 不得掩盖 written-note error。
 GAME run note counts
 pairwise alignment costs
 selected medoid + medoid sensitivity
+GAME per-event support ratio / tone distribution
 match/gap/split/merge counts
 consensus stability
 pitch_state / structure_state / identity_state / separation_state
 routing_needs / decision
+pitch_adjudication status/result
+structure_adjudication status/result
 RMVPE / FCPE / third-F0 evidence families
-periodicity/harmonic evidence
+periodicity/harmonic/subharmonic evidence
 plateau center + temporal overlap
 separation sensitivity
 AUTO_RESOLVED / UNRESOLVED counts
-pitch-adjudication count
-structure-adjudication count
+independent structure discoveries
 phrase-review count
 regression status
 cache/provenance manifest
@@ -869,34 +1034,21 @@ rollback coverage
 ### M2.3.2A — Correctness cleanup ✅
 ### M2.3.2A2 — Final correctness cleanup ✅
 ### M2.3.2A3 — State/routing cleanup ✅
+### M2.3.2A4 — Routing/provenance finalization ✅ FROZEN
 
-最新 rerun：420-note baseline；330 keep；45 当前 pitch/adjudication path；45 当前 structure path；0 direct repair。
+最新 baseline：421 notes；338 keep；76 pitch lanes；51 structure needs；44 both；A-stage 0 phrase-review / 0 direct repair。
 
-### M2.3.2A4 — Routing/provenance finalization ← 当前最高优先级
+### M2.3.2B — Automatic pitch/octave adjudication ← 当前最高优先级
 
-必须完成：
-
-1. structure candidate 不再直接进人工；
-2. pitch / structure adjudication routing 分流；
-3. simultaneous pitch+structure needs 可共存；
-4. legacy triage 不再决定 orthogonal semantics；
-5. separator manifest 使用 actual resolved model path/hash；
-6. provenance/cache regression；
-7. A-stage 永不直接产生 repair_candidate。
-
-A4 完成后冻结整个 A 系列，不再新增 A5。
-
-### M2.3.2B — Automatic pitch/octave adjudication
-
-Third-F0 + periodicity + harmonic/subharmonic + evidence-family confidence。
+Third-F0 + periodicity + harmonic/subharmonic + GAME continuous stochastic support + per-hypothesis evidence score。
 
 ### M2.3.2C — Automatic structure adjudication
 
-先程序解决 split/merge/portamento/ornament 等结构问题，仅 unresolved 进入人工。
+处理 existing structure candidates，并对所有 baseline notes 做 independent structure discovery，避免 GAME stable-but-wrong 盲区。
 
 ### M2.3.2D — Phrase-level human review
 
-正式生成 3–12s（常规 5–8s）的 source / baseline / A/B/C phrase 包；short clip 仅 zoom/debug。
+只有 B/C lane 已结束且至少一条 unresolved 才进入。正式生成 3–12s（常规 5–8s）的 source / baseline / A/B/C phrase 包；short clip 仅 zoom/debug。
 
 ### M2.4 — SAFE repair
 
@@ -941,23 +1093,26 @@ corrected score
 7. **单 F0 extractor 不能独自推翻 GAME。**
 8. **同一 extractor 的 raw / structural features 不是独立票。**
 9. **GAME 多 runs 是 stochastic samples，不是多个独立模型。**
-10. **Pitch-hard 前必须先排除 structure / identity ambiguity。**
-11. **SAFE dual-F0 必须有独立且时间一致的 RMVPE + FCPE plateau 支持。**
-12. **Octave conflict 必须看 periodicity / harmonic / subharmonic，不做简单多数投票。**
-13. **Separation artifact 只作为 uncertainty，不直接当真值。**
-14. **Cache/provenance 必须绑定实际音频内容与实际模型 bytes/config。**
-15. **Pitch / structure / identity / separation 使用正交状态。**
-16. **Pitch adjudication 与 structure adjudication 必须分流。**
-17. **Structure candidate 必须先 automatic adjudication，不能直接扔给人工。**
-18. **needs_phrase_review 只能是 B/C 之后 unresolved 的结果。**
-19. **人工默认审核完整乐句，不审核 isolated note。**
-20. **Phrase A/B/C 除目标局部外必须完全一致。**
-21. **Zoom clip 只是辅助。**
-22. **189s 永久作为 extractor-conflict regression。**
-23. **202s 永久作为 stochastic pitch / identity-variable regression。**
-24. **candidate / auto-resolved / unresolved / confirmed repair 分层统计。**
-25. **0 automatic repairs 是合法结果。**
-26. **Candidate 0 永远可 rollback。**
-27. **所有修改必须局部、可解释、可审计、可 A/B。**
-28. **先把 written score 唱对，再生成 PITD。**
-29. **先“唱对”，再做泠鸢风格。**
+10. **GAME stochastic support 必须保留连续置信度，不能只二值 stable/variable。**
+11. **Pitch-hard 前必须先排除 structure / identity ambiguity。**
+12. **SAFE dual-F0 必须有独立且时间一致的 RMVPE + FCPE plateau 支持。**
+13. **Octave conflict 必须看 periodicity / harmonic / subharmonic，不做简单多数投票。**
+14. **Separation artifact 只作为 uncertainty，不直接当真值。**
+15. **Cache/provenance 必须绑定实际音频内容与实际模型 bytes/config。**
+16. **Pitch / structure / identity / separation 使用正交状态。**
+17. **Pitch adjudication 与 structure adjudication 必须分 lane，且可共存。**
+18. **Structure candidate 必须先 automatic adjudication，不能直接扔给人工。**
+19. **C 必须做 independent structure discovery，不能只依赖 GAME 自己出现 structure variance。**
+20. **B/C 必须有 explicit pending/resolved/unresolved lifecycle，避免 unresolved 无限回流。**
+21. **needs_phrase_review 只能在所有机器 adjudication lane 不再 pending 后产生。**
+22. **人工默认审核完整乐句，不审核 isolated note。**
+23. **Phrase A/B/C 除目标局部外必须完全一致。**
+24. **Zoom clip 只是辅助。**
+25. **189s 永久作为 extractor-conflict regression。**
+26. **202s 永久作为 stochastic pitch / identity-variable regression。**
+27. **candidate / auto-resolved / unresolved / confirmed repair 分层统计。**
+28. **0 automatic repairs 是合法结果。**
+29. **Candidate 0 永远可 rollback。**
+30. **所有修改必须局部、可解释、可审计、可 A/B。**
+31. **先把 written score 唱对，再生成 PITD。**
+32. **先“唱对”，再做泠鸢风格。**
