@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C 已冻结。D 的主体工作流已由 `0bbb09851033563749d41bb603a43bdfa79fa471` 实现，本机 smoke 已跑通，当前 HEAD `ef0377df6d462c5c2a3ab5267905c9adba473935` 的 GitHub Actions run `35223361700` = success，162 passed。但 review 发现 D 仍有 review-integrity blocker，因此撤回“D FROZEN”状态。当前唯一最高优先级 = **M2.3.2D Final Integrity Patch**；不新增 D2。两个 P0 完成、local real-render smoke 重新通过、最终 acceptance SHA remote CI green 后，D 才允许重新 FROZEN，并进入 M2.4。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C/D 已冻结。D Final Integrity Patch 由 `5c54284` 完成（本机 175 passed；remote CI run `35227944705` on `5c54284` = success，175 passed，无 skip）：(P0-1) `plan_hash`(pre-render) 与 `audio_package_hash`(post-render，含全部实际 WAV bytes + OpenUtau exe/bridge exe/voicebank material hash) 分离，decision 经 `verify_package` 门绑定 `audio_package_hash`；(P0-2) run 级权威状态 `runs/<diag>/review/{decisions.json(append-only), packages.json, review_state.json(atomic)}` + resolver(`current_valid_decision`/`all_current_valid_decisions`/`pending_items`/`rebuild_state`)，跨 generation 连续性成立；(P1) decision snapshot + review CLI index/total/prev/back。本机 real-render smoke `rb-int1`（5 items：pitch-only、structure-unresolved、split/virtual-B、189.84s/202.52s permanent）通过：audio_package_hash 可由 bytes 重算一致、bridge 确定性重渲染 bit-identical、gen1-reject→gen2-select 跨 batch 生命周期、missing-wav 拒绝 review-decide 全部验证。46 个 phrase_review 分路的人工 review 仍是 D 的待办（不构成 freeze blocker）。**当前最高优先级 = M2.4 SAFE Repair（§8），只允许消费 `human_selected_candidate` 且 `audio_package_hash` 与当前有效包一致的 decision。**
 
 ---
 
@@ -286,8 +286,8 @@ batches: rb-smoke1 / rb-smoke2
 但下面的 integrity 问题属于 D 的冻结条件，因此：
 
 ```text
-M2.3.2D = OPEN
-M2.4 human-selected repair = BLOCKED
+M2.3.2D = FROZEN @ 5c54284 (Final Integrity Patch, remote CI 35227944705)
+M2.4 human-selected repair = UNBLOCKED
 ```
 
 **不新增 D2。所有修复都属于 D Final Integrity Patch。**
@@ -952,9 +952,9 @@ rollback coverage
 ### E1 — GitHub Actions Remote CI — ✅ PASS
 ### M2.3.2C1 / C2 — ✅ FROZEN @ c0d2648
 ### M2.3.2D main workflow — ✅ IMPLEMENTED @ 0bbb098
-### M2.3.2D Final Integrity Patch — ← CURRENT
-### M2.3.2D FROZEN — PENDING integrity acceptance
-### M2.4 — SAFE repair — BLOCKED until D freeze
+### M2.3.2D Final Integrity Patch — ✅ DONE @ 5c54284 (CI 35227944705)
+### M2.3.2D FROZEN — ✅ @ 5c54284
+### M2.4 — SAFE repair — ← CURRENT
 ### M2.5 — PROBABLE structure repair
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX

@@ -496,8 +496,8 @@ M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
   (append-only store), render.py (local IO/OpenUtau). CLI:
   `review-batch <diag-run>` / `review` / `review-decide` / `review-status`.
   Batches live at `runs/<diag>/review_batches/<batch_id>/`
-  (items/<id>/manifest.json + OPTION_i.wav/.ustx, phrases/<key>/SOURCE_*,
-  decisions.json).
+  (items/<id>/manifest.json + OPTION_i.wav/.ustx, phrases/<key>/SOURCE_*);
+  authoritative state lives at `runs/<diag>/review/` (see below).
 - Routing: only `state.decision == needs_phrase_review` packets become
   items. Split parent + virtual children and merge partners form ONE
   target_group (union-find over shared note ids); unrelated unresolved
@@ -516,21 +516,50 @@ M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
   phrase anchor at t=0, one shared gain per item, PCM_16, sha256 per wav.
   Bridge `render` emits `<stem>_vocal.wav` — take the path from
   `br["files"]`, not the requested name.
-- Decisions: `decisions.json` append-only revisions bound to
-  package_hash; OPTION_i→baseline = human_resolved_keep, else
+- Decisions: run-level `runs/<diag>/review/decisions.json` append-only
+  revisions bound to audio_package_hash (see Final Integrity Patch
+  below); OPTION_i→baseline = human_resolved_keep, else
   human_selected_candidate; `equivalent`→human_no_preference;
-  `none_correct`→human_rejected_all (gen1) → regeneration_queue, gen2 →
-  manual_followup_required. `review-batch --regenerate` rebuilds gen-2
-  packages (wider ctx, shown tones excluded).
+  `none_correct`→human_rejected_all (gen1) → pending_regeneration,
+  gen2 → manual_followup_required. `review-batch --regenerate` rebuilds
+  gen-2 packages (wider ctx, shown tones excluded).
 - Smoke (rb-smoke1/2): 5 items across pitch/structure/split/189s/202s —
   79/79 checks; decision save/resume/stale verified. 162 tests (+29),
   remote CI run 35223120342 success @0bbb098. Completing all 46 reviews
   is NOT a freeze blocker.
 
-**M2.3.2D workflow = FROZEN (human review open).** Next: M2.4 SAFE
-repair — only items with a valid human_selected_candidate may be
-modified; machine-safe candidates may proceed without waiting for all
-reviews.
+**M2.3.2D = FROZEN @ 5c54284 (Final Integrity Patch; human review open).**
+
+Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
+
+- `plan_hash` (pre-render plan identity) vs `audio_package_hash`
+  (post-render: every WAV byte + OpenUtau/bridge exe + voicebank material
+  hashes + render provenance). Decisions bind `audio_package_hash` only —
+  `verify_package` gate refuses review-decide on render error, missing
+  wav/hash, or inconsistent sample rate/length. Bridge render is
+  deterministic (re-render of same ustx = bit-identical wav).
+- Run-level authority `runs/<diag>/review/`: `decisions.json` append-only
+  revisions, `packages.json` registered manifests, `review_state.json`
+  atomic derived view (rebuildable from the log via `rebuild_state`).
+  `latest_batch.json` is never truth. Resolvers:
+  `current_valid_decision(item)`, `all_current_valid_decisions(run)`,
+  `pending_items` (pending_review+stale only — pending_regeneration
+  awaits a package, not review).
+- Cross-generation: gen-1 `none_correct` → pending_regeneration; a gen-2
+  package resets the item to pending_review (rejection is consumed, not
+  stale); gen-2 `none_correct` → manual_followup_required. A one-item
+  gen-2 batch never erases other items' decisions.
+- Decision snapshots: selected option_id + score patch + provenance +
+  wav sha256 + audio_package_hash — self-contained for M2.4.
+- Review CLI: `[i/N]` index, live reviewed/pending counts, `p`=prev
+  revises an item as a NEW revision (append-only, never edits).
+- Smoke rb-int1 (5 items incl. 189.84s/202.52s): hash recompute from
+  bytes match, gen1-reject→gen2-select lifecycle, missing-wav refusal
+  all verified. Completing all 46 reviews is NOT a freeze blocker.
+
+Next: M2.4 SAFE repair — consume only `human_selected_candidate`
+decisions whose `audio_package_hash` still matches the current valid
+package; `human_no_preference`/`equivalent` means no repair.
 
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
