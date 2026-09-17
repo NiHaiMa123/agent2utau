@@ -4,7 +4,8 @@ import pytest
 
 from agent2utau.diagnostic.adjudicate import adjudicate
 from agent2utau.diagnostic.structure_adj import (
-    adjudicate_structure, apply_structure, _one_note_support)
+    adjudicate_structure, apply_structure, _one_note_support,
+    virtual_game_correspondence)
 from agent2utau.diagnostic.triage import safe_retune_gate
 
 from test_structure_adj import _pkt, _times_energy, PL1, PL2
@@ -150,3 +151,146 @@ def test_virtual_separation_field_carried_into_b():
                        "inherited_from_parent": True}
     adj = adjudicate(p, wav, sr, None, [])
     assert adj["separation_sensitive"] is True
+
+
+# ---- §9.3: identity-aware virtual GAME correspondence ------------------
+#
+# Parent [10.0,10.4] split at 10.2 -> child A [10.0,10.2] / B [10.2,10.4].
+# Runs keep {str(i): [[start,end,tone], ...]} REAL per-run GAME notes.
+
+def _b_game(p, hyp):
+    wav, sr = _audio(f=440)
+    adj = adjudicate(p, wav, sr, None, [])
+    return [h for h in adj["hypotheses"]
+            if abs(h["hypothesis"] - hyp) <= 0.5][0], adj
+
+
+def test_38_parent_spanning_note_cannot_vote_for_children():
+    """§9.5.38: 4 runs keep one long note across the candidate split
+    boundary + 1 run truly splits -> the long notes are anti-split
+    STRUCTURE evidence, never child pitch votes; GAME support keeps
+    the 5-run denominator instead of renormalizing to 1/1."""
+    runs = {"0": [[10.0, 10.4, 60.0]],
+            "1": [[10.0, 10.4, 60.0]],
+            "2": [[10.0, 10.4, 60.0]],
+            "3": [[10.0, 10.4, 64.0]],
+            "4": [[10.0, 10.2, 60.0], [10.2, 10.4, 64.0]]}
+    cA = virtual_game_correspondence("split", 10.0, 10.2, runs, 5,
+                                     boundary=10.2, seed=60.0)
+    cB = virtual_game_correspondence("split", 10.2, 10.4, runs, 5,
+                                     boundary=10.2, seed=64.0)
+    for c, tone in ((cA, 60.0), (cB, 64.0)):
+        cls = [v["class"] for v in c["per_run"].values()]
+        assert cls.count("child_identity_match") == 1
+        assert cls.count("parent_spanning_note") == 4
+        assert c["n_total_runs"] == 5 and c["n_present"] == 1
+        assert c["child_presence_rate"] == 0.2
+        assert c["conditional_tone_support"] == 1.0
+        assert c["effective_game_support"] == 0.2
+        assert c["present_tones"] == [tone]
+        # matched member identity is recorded for audit
+        assert c["per_run"]["4"]["member_ref"] == "run4[0]" or \
+            c["per_run"]["4"]["member_ref"] == "run4[1]"
+    # frozen B consumes the denominator-preserving support
+    p = _vpkt(seed=60.0, run_tones=cA["present_tones"])
+    p["consensus"]["virtual_correspondence"] = cA
+    h, _adj = _b_game(p, 60.0)
+    assert h["group_scores"]["game"] == pytest.approx(0.2)
+    assert h["game_support_ratio"] == pytest.approx(0.2)
+
+
+def test_39_all_runs_split_support_reflects_tone_agreement():
+    """§9.5.39: 5/5 runs truly split; child tone 4/5一致 ->
+    presence=5/5, GAME pitch support = 4/5 (not 1.0, not 4/4)."""
+    runs = {str(i): [[10.0, 10.2, 60.0], [10.2, 10.4, 64.0]]
+            for i in range(4)}
+    runs["4"] = [[10.0, 10.2, 60.0], [10.2, 10.4, 62.0]]
+    cB = virtual_game_correspondence("split", 10.2, 10.4, runs, 5,
+                                     boundary=10.2, seed=64.0)
+    assert cB["n_present"] == 5 and cB["child_presence_rate"] == 1.0
+    assert cB["conditional_tone_support"] == 0.8
+    assert cB["effective_game_support"] == 0.8
+    p = _vpkt(seed=64.0, run_tones=cB["present_tones"])
+    p["consensus"]["virtual_correspondence"] = cB
+    h, _adj = _b_game(p, 64.0)
+    assert h["group_scores"]["game"] == pytest.approx(0.8)
+    # the dissenting present run is real pitch opposition (1/5)
+    assert h["game_opposition"] == pytest.approx(0.2)
+
+
+def test_40_partial_presence_never_renormalized():
+    """§9.5.40: only 2/5 runs produce the child identity, 2/2 agree ->
+    conditional=1.0, presence=0.4, effective=0.4 — never 1.0. Absent
+    runs are pitch-neutral, not opposition."""
+    runs = {"0": [[10.0, 10.4, 61.0]],
+            "1": [[10.0, 10.4, 61.0]],
+            "2": [[10.0, 10.4, 61.0]],
+            "3": [[10.0, 10.2, 60.0], [10.2, 10.4, 64.0]],
+            "4": [[10.0, 10.2, 60.0], [10.2, 10.4, 64.0]]}
+    cB = virtual_game_correspondence("split", 10.2, 10.4, runs, 5,
+                                     boundary=10.2, seed=64.0)
+    assert cB["n_present"] == 2
+    assert cB["child_presence_rate"] == 0.4
+    assert cB["conditional_tone_support"] == 1.0
+    assert cB["effective_game_support"] == 0.4
+    p = _vpkt(seed=64.0, run_tones=cB["present_tones"])
+    p["consensus"]["virtual_correspondence"] = cB
+    h, _adj = _b_game(p, 64.0)
+    assert h["group_scores"]["game"] == pytest.approx(0.4)
+    assert h["game_opposition"] == pytest.approx(0.0)
+
+
+def test_41_merge_long_member_is_merged_identity():
+    """§9.5.41: merge candidate — a real GAME note spanning the removed
+    internal boundary IS the merged virtual identity (the opposite
+    semantics from split) and must not be excluded by split rules."""
+    # A[10.0,10.05] + B[10.05,10.4] -> virtual [10.0,10.4], removed
+    # boundary = 10.05
+    runs = {"0": [[10.0, 10.4, 60.0]],                  # merged
+            "1": [[9.98, 10.42, 60.1]],                # merged (edge tol)
+            "2": [[10.0, 10.05, 60.0], [10.05, 10.4, 60.0]],
+            "3": [[10.0, 10.4, 60.2]],
+            "4": [[10.3, 10.5, 60.0]]}                 # no correspondence
+    c = virtual_game_correspondence("merge", 10.0, 10.4, runs, 5,
+                                    boundary=10.05, seed=60.0)
+    per = c["per_run"]
+    assert per["0"]["class"] == "child_identity_match"
+    assert per["1"]["class"] == "child_identity_match"
+    assert per["3"]["class"] == "child_identity_match"
+    assert per["2"]["class"] == "parent_spanning_note"
+    assert per["2"]["detail"] == "internal_boundary_kept"
+    assert per["4"]["class"] in ("ambiguous", "absent")
+    assert c["n_present"] == 3 and c["child_presence_rate"] == 0.6
+
+
+def test_42_ordinary_candidate0_game_semantics_unchanged():
+    """§9.5.42: a non-virtual packet keeps frozen-B GAME semantics —
+    mean over run_tones, opposition = 1 - support."""
+    wav, sr = _audio(f=440)
+    p = _vpkt(seed=69.0, run_tones=[69.0, 69.0, 69.0, 64.0])
+    # no virtual_correspondence -> ordinary Candidate 0 path
+    adj = adjudicate(p, wav, sr, None, [])
+    h69 = [h for h in adj["hypotheses"]
+           if h["hypothesis"] == 69.0][0]
+    h64 = [h for h in adj["hypotheses"]
+           if h["hypothesis"] == 64.0][0]
+    assert h69["group_scores"]["game"] == pytest.approx(0.75)
+    assert h64["group_scores"]["game"] == pytest.approx(0.25)
+    assert h69["game_opposition"] is None      # legacy derivation
+
+
+def test_split_compatible_internal_boundary_counts():
+    """A run that split at its own edge compatible with the candidate
+    boundary (within tolerance) DID produce the child identity — its
+    tone is a real vote, not anti-split evidence."""
+    runs = {"0": [[10.0, 10.26, 60.0], [10.26, 10.4, 64.0]],
+            "1": [[10.0, 10.4, 60.0]]}
+    cA = virtual_game_correspondence("split", 10.0, 10.2, runs, 2,
+                                     boundary=10.2, seed=60.0)
+    assert cA["per_run"]["0"]["class"] == "child_identity_match"
+    assert cA["per_run"]["0"]["detail"] == "internal_boundary_compatible"
+    assert cA["per_run"]["1"]["class"] == "parent_spanning_note"
+    cB = virtual_game_correspondence("split", 10.2, 10.4, runs, 2,
+                                     boundary=10.2, seed=64.0)
+    assert cB["per_run"]["0"]["class"] == "child_identity_match"
+    assert cB["present_tones"] == [64.0]

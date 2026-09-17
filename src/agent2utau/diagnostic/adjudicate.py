@@ -227,6 +227,15 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
 
     cons = packet.get("consensus") or {}
     run_tones = cons.get("run_tones") or []
+    # §8.3 (C2 final patch): on virtual (C-constructed) notes the GAME
+    # denominator is ALWAYS the total stochastic run count — a child
+    # identity produced by 1/5 runs must not renormalize to GAME=1.0.
+    # game child support = identity presence x conditional pitch
+    # agreement = n_present_matching / n_total. Runs that kept the
+    # parent structure are NEUTRAL for pitch (§5.1): only a run that
+    # produced the child identity with a DIFFERENT tone opposes.
+    vcorr = cons.get("virtual_correspondence") or {}
+    game_total = int(vcorr.get("n_total_runs") or 0)
     dual = packet.get("dual_f0") or {}
     rmv, fcp = packet.get("rmvpe") or {}, packet.get("fcpe") or {}
     sep_sensitive = bool((packet.get("separation") or {})
@@ -245,9 +254,14 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
         # member notes, the game family is neutral (no vote at all).
         game_unavail = bool(packet.get("game_evidence_unavailable")) \
             and not run_tones
+        gopp = None                           # None -> legacy derivation
         if run_tones:
-            gsup = float(np.mean(
-                np.abs(np.array(run_tones) - h) <= SUPPORT_ST))
+            m_arr = np.abs(np.array(run_tones) - h) <= SUPPORT_ST
+            if game_total:
+                gsup = float(m_arr.sum()) / game_total
+                gopp = float((~m_arr).sum()) / game_total
+            else:
+                gsup = float(m_arr.mean())
         elif game_unavail:
             gsup = 0.0                        # neutral — unavailable
         else:
@@ -255,6 +269,8 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
         if not game_unavail:
             (fam_support if gsup > 0 else fam_oppose)["game"] = \
                 round(gsup, 3)
+            if gopp:
+                fam_oppose["game"] = round(gopp, 3)
 
         # --- extractor families (each counts once, reliability-weighted)
         for name, blk in (("rmvpe", rmv), ("fcpe", fcp)):
@@ -327,6 +343,8 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
             score *= 0.8      # sensitivity lowers confidence, not truth
         scored.append({"hypothesis": h, "score": round(score, 3),
                        "game_support_ratio": round(gsup, 3),
+                       "game_opposition": (round(gopp, 3)
+                                           if gopp is not None else None),
                        "periodicity": per, "subharmonic": sub,
                        "harmonic_fit": harm,
                        "group_scores": group_scores,
@@ -342,7 +360,8 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
     # bypass group-level semantics. Evidence chain is one-way:
     # features -> group fusion -> group_scores -> groups -> gates.
     groups, opposing_groups = _groups_from_scores(
-        win["group_scores"], win["opposing"], has_run_tones=bool(run_tones))
+        win["group_scores"], win["opposing"], has_run_tones=bool(run_tones),
+        game_opp=win["game_opposition"])
     # hard families = feature-level audit trail only (no gate use)
     hard_fams = [k for k in win["supporting"]
                  if k != "continuity" and win["supporting"][k] > 0.2]
@@ -399,14 +418,22 @@ GROUP_SUPPORT_THR = 0.2
 
 
 def _groups_from_scores(group_scores: dict, opposing_features: dict,
-                        has_run_tones: bool = True):
+                        has_run_tones: bool = True,
+                        game_opp: float | None = None):
     """Derive supporting/opposing independence groups from FINALIZED net
     group scores only (B3 patch §7.2). `context` is soft and never counts.
+
+    game_opp: explicit GAME-group opposition from the packet's own
+    correspondence semantics. None -> legacy `1 - support` over the
+    run-tone distribution (ordinary Candidate 0). For virtual notes the
+    caller passes present-but-disagreeing / total-runs so that runs
+    which never produced the child identity stay neutral (§5.1/§8.3).
     Returns (supporting_groups, opposing_groups)."""
     sup = [g for g in ("game", "rmvpe", "fcpe", "waveform")
            if group_scores.get(g, 0.0) > GROUP_SUPPORT_THR]
-    opp_nets = {"game": (1.0 - group_scores.get("game", 0.0))
-                if has_run_tones else 0.0,
+    opp_nets = {"game": ((1.0 - group_scores.get("game", 0.0))
+                         if has_run_tones else 0.0)
+                if game_opp is None else game_opp,
                 "rmvpe": -group_scores.get("rmvpe", 0.0),
                 "fcpe": -group_scores.get("fcpe", 0.0),
                 "waveform": 0.0}

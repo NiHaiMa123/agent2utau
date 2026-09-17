@@ -237,8 +237,15 @@ def _merge_evidence(p: dict, neighbors: list[dict]) -> tuple[float, dict | None]
 
 def _game_merge_support(p: dict, neighbors: list[dict]) -> float:
     """Fraction of runs whose REAL GAME note crosses the shared
-    boundary (explicit member spans), i.e. GAME itself merged i+j."""
-    spans = (p.get("consensus") or {}).get("member_notes") or {}
+    boundary (explicit member spans), i.e. GAME itself merged i+j.
+    Member lists are unioned across p and its neighbours — the
+    crossing note may be grouped into the neighbour's consensus
+    event rather than p's."""
+    spans: dict[str, list] = {}
+    for src in [p, *(neighbors or [])]:
+        for rid, ms in ((src.get("consensus") or {})
+                        .get("member_notes") or {}).items():
+            spans.setdefault(rid, []).extend(ms)
     if not spans:
         return 0.0
     n_runs = int((p.get("consensus") or {}).get("n_runs")
@@ -254,6 +261,160 @@ def _game_merge_support(p: dict, neighbors: list[dict]) -> float:
               if any(s < boundary - 0.04 and e > boundary + 0.04
                      for s, e, _t in ms))
     return round(hit / max(1, n_runs), 3)
+
+
+# ---------------------------------------------------------------------
+# §8.2/8.5: operation-aware virtual GAME correspondence
+# ---------------------------------------------------------------------
+#
+# A real GAME run may only cast a pitch vote for a virtual child when
+# that run itself produced a note with the child's identity. Time
+# overlap with the virtual span is NOT identity: a long note spanning
+# the candidate split boundary means "this run did not split" — it is
+# anti-split STRUCTURE evidence and must not vote for either child.
+# For merge the semantics invert: a note spanning the removed internal
+# boundary IS the merged identity. The stochastic denominator is always
+# the total GAME run count — never the matched subset.
+
+VCORR_RULE = "c2-identity-correspondence-1"
+CORR_EDGE_TOL_S = 0.08     # member edge vs virtual/combined edge
+CORR_CROSS_S = 0.04        # extending past a candidate boundary = crossing
+CORR_MATCH_COVER = 0.6     # coverage needed for child identity match
+CORR_PARTIAL_COVER = 0.25  # below -> absent, above -> ambiguous
+
+
+def _corr_classify_run(op: str, s: float, e: float,
+                       ms: list[list[float]],
+                       boundary: float | None) -> tuple:
+    """Classify one run's real member notes vs a virtual note identity.
+
+    Returns (class, member_index, detail). Only `child_identity_match`
+    may contribute a GAME pitch vote; `parent_spanning_note` is evidence
+    that the run kept the pre-change structure (anti-split for split,
+    anti-merge for merge); `ambiguous`/`absent` are neutral.
+    """
+    span = max(1e-9, e - s)
+
+    def _ov(m):
+        return max(0.0, min(e, m[1]) - max(s, m[0]))
+
+    if not ms:
+        return "absent", None, "no_member_in_region"
+    best = max(range(len(ms)), key=lambda i: _ov(ms[i]))
+    if op == "merge":
+        # merged identity = one member spanning the removed boundary
+        # and matching both combined-span edges within tolerance
+        if boundary is not None:
+            spanning = [i for i, m in enumerate(ms)
+                        if m[0] < boundary - CORR_CROSS_S
+                        and m[1] > boundary + CORR_CROSS_S]
+            for i in spanning:
+                if (abs(ms[i][0] - s) <= CORR_EDGE_TOL_S
+                        and abs(ms[i][1] - e) <= CORR_EDGE_TOL_S):
+                    return ("child_identity_match", i,
+                            "member_spans_removed_boundary")
+            if spanning:
+                return ("ambiguous", spanning[0],
+                        "spanning_member_edge_mismatch")
+            for i in range(len(ms) - 1):
+                edge = (ms[i][1] + ms[i + 1][0]) / 2.0
+                if abs(edge - boundary) <= CORR_EDGE_TOL_S:
+                    return ("parent_spanning_note", None,
+                            "internal_boundary_kept")
+        if _ov(ms[best]) >= CORR_PARTIAL_COVER * span:
+            return "ambiguous", best, "partial_span_overlap"
+        return "absent", None, "no_member_in_region"
+    # split / boundary_shift: identity = one member matching the child
+    # span without crossing the candidate boundary. Priority: a run
+    # whose OWN internal boundary is compatible with the candidate
+    # boundary produced real child identities — the member on the
+    # child's side of that internal edge is the correspondence, even
+    # when its far edge differs within tolerance (§8.2).
+    if boundary is not None:
+        edges = [(ms[i][1] + ms[i + 1][0]) / 2.0
+                 for i in range(len(ms) - 1)]
+        compat = [x for x in edges if abs(x - boundary)
+                  <= CORR_EDGE_TOL_S]
+        if compat:
+            b2 = min(compat, key=lambda x: abs(x - boundary))
+            if e <= b2 + CORR_EDGE_TOL_S:      # child before boundary
+                side = [i for i, m in enumerate(ms)
+                        if m[1] <= b2 + CORR_EDGE_TOL_S]
+                mi = max(side, key=lambda i: ms[i][1]) if side else None
+            else:                              # child after boundary
+                side = [i for i, m in enumerate(ms)
+                        if m[0] >= b2 - CORR_EDGE_TOL_S]
+                mi = min(side, key=lambda i: ms[i][0]) if side else None
+            if mi is None:
+                return "absent", None, "no_member_on_child_side"
+            if _ov(ms[mi]) >= CORR_MATCH_COVER * span:
+                return ("child_identity_match", mi,
+                        "internal_boundary_compatible")
+            return "ambiguous", mi, "run_subdivided_child"
+        crossing = [i for i, m in enumerate(ms)
+                    if m[0] < boundary - CORR_CROSS_S
+                    and m[1] > boundary + CORR_CROSS_S]
+        if crossing:
+            return ("parent_spanning_note", crossing[0],
+                    "member_crosses_candidate_boundary")
+    # fallback: a member matching the child span directly (e.g. the
+    # run's note simply ends at the boundary with nothing after it)
+    if (_ov(ms[best]) >= CORR_MATCH_COVER * span
+            and abs(ms[best][0] - s) <= CORR_EDGE_TOL_S
+            and abs(ms[best][1] - e) <= CORR_EDGE_TOL_S):
+        return "child_identity_match", best, "span_matched"
+    if _ov(ms[best]) >= CORR_PARTIAL_COVER * span:
+        return "ambiguous", best, "partial_or_edge_mismatch"
+    return "absent", None, "no_member_in_region"
+
+
+def virtual_game_correspondence(op: str, s: float, e: float,
+                                member_runs: dict[str, list],
+                                n_total: int, boundary: float | None,
+                                virtual_id: str | None = None,
+                                parent_ids: list[str] | None = None,
+                                seed: float | None = None) -> dict:
+    """Per-run GAME correspondence for a C-constructed virtual note.
+
+    member_runs: {run_id: [[start,end,tone], ...]} REAL per-run GAME
+    notes overlapping the operation's parent region — never synthesized
+    consensus medians. n_total is ALWAYS the total stochastic run
+    count; the child pitch support consumed by frozen B is
+    present-tone matches / n_total (identity presence × conditional
+    pitch agreement), never renormalized over matched runs.
+    """
+    per_run, tones = {}, []
+    for ri in range(max(1, int(n_total))):
+        ms = sorted(member_runs.get(str(ri)) or [], key=lambda m: m[0])
+        cls, mi, det = _corr_classify_run(op, s, e, ms, boundary)
+        mem = ms[mi] if mi is not None else None
+        per_run[str(ri)] = {
+            "class": cls,
+            "member_ref": (f"run{ri}[{mi}]" if mi is not None else None),
+            "member": ([round(float(v), 3) for v in mem]
+                       if mem is not None else None),
+            "detail": det}
+        if cls == "child_identity_match":
+            tones.append(round(float(mem[2]), 2))
+    n_present = len(tones)
+    presence = round(n_present / max(1, int(n_total)), 3)
+    cond = (round(float(np.mean(np.abs(np.array(tones) - seed)
+                                <= 0.5)), 3)
+            if tones and seed is not None else None)
+    return {"rule": VCORR_RULE, "operation": op,
+            "virtual_id": virtual_id,
+            "parent_ids": parent_ids or [],
+            "span": [round(s, 3), round(e, 3)],
+            "candidate_written_pitch": seed,
+            "candidate_boundary": boundary,
+            "n_total_runs": int(n_total),
+            "n_present": n_present,
+            "per_run": per_run,
+            "present_tones": tones,
+            "child_presence_rate": presence,
+            "conditional_tone_support": cond,
+            "effective_game_support":
+                round(presence * (cond if cond is not None else 0.0), 3)}
 
 
 # ---------------------------------------------------------------------

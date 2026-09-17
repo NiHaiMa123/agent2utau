@@ -497,6 +497,7 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                                 ("presence_rate", "tone_agreement",
                                  "tone_median", "start_iqr_ms",
                                  "run_note_counts", "run_tones",
+                                 "member_notes", "n_runs",
                                  "structure_varies", "stability")}
 
     # --- RMVPE + structural F0 (variant D evidence) --------------------------
@@ -651,18 +652,41 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
     # Inputs: (A) existing structure lanes, (B) independent discovery over
     # ALL baseline notes (GAME-stable-but-wrong must still enter C).
     from .structure_adj import (discover_structure, adjudicate_structure,
-                                apply_structure)
+                                apply_structure,
+                                virtual_game_correspondence)
 
-    def _virtual_note_packet(rec, span, tag):
+    def _member_runs_for(t0, t1):
+        """Real per-run GAME notes overlapping [t0,t1] — the raw
+        stochastic run output consensus member correspondence draws
+        on, complete for every run (no event-membership gaps)."""
+        out = {}
+        for ri, rnotes in enumerate(raw_runs):
+            ms = [[round(n["start"], 3),
+                   round(n["start"] + n["dur"], 3),
+                   round(float(n["tone"]), 2)]
+                  for n in rnotes
+                  if n.get("voiced", True)
+                  and n["dur"] > 0.005
+                  and n["start"] < t1
+                  and n["start"] + n["dur"] > t0]
+            if ms:
+                out[str(ri)] = ms
+        return out
+
+    def _virtual_note_packet(rec, span, tag, op, boundary=None,
+                             corr_region=None, parent_ids=None):
         """§8.1 (C2): fresh evidence packet for a virtual candidate
         note span — no reuse of the old note's winner/confidence/margin.
 
         C2 final patch: the acoustic pitch seed is `candidate_written_
-        pitch`, NOT GAME evidence. Real GAME evidence for the virtual
-        span comes only from the parent's consensus member_notes (real
-        per-run GAME notes overlapping the span). If no run produced a
-        corresponding note -> game_evidence_unavailable -> the game
-        family is neutral, never a fake GAME=1 vote."""
+        pitch`, NOT GAME evidence. Real GAME evidence comes from
+        operation-aware correspondence over the runs' real member notes
+        (§8.2/8.5): a run votes for a split child only when it produced
+        a real note with that child's identity (a note spanning the
+        candidate boundary is anti-split structure evidence, not a
+        pitch vote); for merge, a note spanning the removed boundary IS
+        the merged identity. The GAME denominator is always the total
+        run count — matched-only runs are never renormalized to 1.0."""
         s, e = span["start"], span["end"]
         vpl = detect_plateaus(times, struct, s, e)
         tone = (vpl[0]["center_midi"] if vpl
@@ -680,21 +704,23 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
                                                 s, e)
         vrec["virtual_of"] = rec["id"]
         vrec["candidate_seed"] = True
-        # real GAME correspondence: per-run member notes overlapping
-        # >=60% of the virtual span -> that run's real GAME answer
-        members = (rec.get("consensus") or {}).get("member_notes") or {}
-        vtones = []
-        for ms in members.values():
-            hit = [t for (ms_, me_, t) in ms
-                   if min(e, me_) - max(s, ms_) >= 0.6 * (e - s)]
-            if hit:
-                vtones.append(float(np.median(hit)))
-        if vtones:
-            vrec["consensus"] = {"run_tones": vtones,
-                                 "n_runs": len(vtones),
-                                 "structure_varies": False,
-                                 "virtual_correspondence": True}
-        else:
+        # operation-aware GAME correspondence (final patch): real
+        # per-run member notes over the parent region, classified per
+        # the change type; full audit kept in consensus.
+        r0, r1 = corr_region or (s, e)
+        corr = virtual_game_correspondence(
+            op, s, e, _member_runs_for(r0, r1), len(raw_runs),
+            boundary=boundary, virtual_id=vrec["id"],
+            parent_ids=parent_ids or [rec["id"]],
+            seed=vrec["candidate_written_pitch"])
+        vrec["consensus"] = {
+            "run_tones": corr["present_tones"],
+            "game_total_runs": corr["n_total_runs"],
+            "game_present_runs": corr["n_present"],
+            "game_presence_rate": corr["child_presence_rate"],
+            "structure_varies": False,
+            "virtual_correspondence": corr}
+        if not corr["present_tones"]:
             vrec["game_evidence_unavailable"] = True
         # §8.4: separation sensitivity recomputed on the virtual span
         # (seed vs parent written pitch); parent sensitivity is
@@ -770,11 +796,33 @@ def run_diagnostic(src: str | Path, run, cfg: dict,
             for vi, sp in enumerate(spans):
                 if not sp:
                     continue
-                vrec = _virtual_note_packet(rec, sp, f"v{vi}")
+                # §8.2: correspondence semantics are operation-aware.
+                # split: candidate boundary created inside the parent,
+                # member region = parent span. merge: the removed
+                # internal boundary is the parent's trailing edge,
+                # member region = combined span.
+                if detail.get("kind") == "merge":
+                    cop = "merge"
+                    cboundary = rec["start"] + rec["dur"]
+                    cregion = (sp["start"], sp["end"])
+                    pids = [rec["id"], sp.get("merge_with")]
+                else:
+                    cop = "split"
+                    cboundary = detail.get("boundary")
+                    cregion = (rec["start"],
+                               rec["start"] + rec["dur"])
+                    pids = [rec["id"]]
+                vrec = _virtual_note_packet(
+                    rec, sp, f"v{vi}", cop, boundary=cboundary,
+                    corr_region=cregion, parent_ids=pids)
                 vadj = adjudicate(vrec, wav, sep_sr, third, [])
                 virtual_b.append({"id": vrec["id"], "start": vrec["start"],
                                   "dur": vrec["dur"],
-                                  "tone": vrec["game_tone"], **vadj})
+                                  "tone": vrec["game_tone"],
+                                  "correspondence":
+                                      (vrec.get("consensus") or {})
+                                      .get("virtual_correspondence"),
+                                  **vadj})
 
         b = rec.get("pitch_adjudication") or {}
         # §8.2 (final patch): finalized structure semantics must be
