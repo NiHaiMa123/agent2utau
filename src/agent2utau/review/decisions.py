@@ -17,9 +17,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 REVIEW_DIRNAME = "review"
+AUDIT_DIRNAME = "review_d2_audit"    # legacy-authority snapshots (§6.3-A)
 LOG_NAME = "decisions.json"          # canonical append-only revision log
 STATE_NAME = "review_state.json"     # derived — rebuildable from the log
 PACKAGES_NAME = "packages.json"      # item_id -> current package record
+AUTH_FILES = (LOG_NAME, PACKAGES_NAME, STATE_NAME)
+
+AUTH_SCHEMA = "d3"
+IDENTITY_SCHEMA = "review-target-v1"
 
 # selection -> semantics (§6.13/§6.2). The reviewer never enters pitches.
 SEMANTICS_BASELINE = "human_resolved_keep"
@@ -62,18 +67,81 @@ def review_dir(run_dir: Path) -> Path:
     return Path(run_dir) / REVIEW_DIRNAME
 
 
+# ------------------------------------------------- authority schema gate
+
+def _meta() -> dict:
+    return {"schema": AUTH_SCHEMA, "identity_schema": IDENTITY_SCHEMA}
+
+
+def _auth_file_ok(path: Path):
+    """None = file absent (clean); True = valid d3 authority; False =
+    legacy/mixed/corrupt — must never be read as d3 authority (§6.3)."""
+    if not path.exists():
+        return None
+    try:
+        d = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return False
+    return d.get("schema") == AUTH_SCHEMA and \
+        d.get("identity_schema") == IDENTITY_SCHEMA
+
+
+def expected_item_id(target_key: str) -> str:
+    """§6.6 identity math: review_item_id must equal this exactly."""
+    return "ri-" + target_key[:16]
+
+
+def _id_math_ok(rec) -> bool:
+    tk, iid = rec.get("target_key"), rec.get("review_item_id")
+    return bool(tk) and iid == expected_item_id(tk)
+
+
+def ensure_review_authority(run_dir: Path):
+    """Fail-closed d2→d3 gate (§6.2/§6.3): runs BEFORE every authority
+    entry point. If any existing authoritative file is non-d3,
+    missing-schema, wrong identity-schema, unparseable, or the set is
+    mixed-schema, the whole ``review/`` directory is archived verbatim to
+    ``review_d2_audit/<snapshot>/`` and a clean d3 authority is created.
+
+    Never maps legacy ri-NNNN ids to d3 targets, never edits the archive,
+    never reuses a d2 decision for authorization. Atomicity: the rename
+    removes the legacy authority in one step; fresh files are written via
+    tmp+rename, so a crash can only leave an absent or a clean-partial d3
+    authority — never a mixed one. Idempotent on repeat calls.
+    """
+    rd = review_dir(run_dir)
+    if not rd.is_dir():
+        return
+    if all(_auth_file_ok(rd / f) is not False for f in AUTH_FILES):
+        return                                   # already pure d3
+    audit = Path(run_dir) / AUDIT_DIRNAME
+    audit.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("snapshot-%Y%m%d-%H%M%S")
+    dst, n = audit / stamp, 0
+    while dst.exists():                          # never overwrite audit
+        n += 1
+        dst = audit / f"{stamp}-{n}"
+    rd.rename(dst)
+    rd.mkdir(parents=True, exist_ok=True)
+    _atomic_write(rd / LOG_NAME, {**_meta(), "revisions": []})
+    _atomic_write(rd / PACKAGES_NAME, {**_meta(), "items": {}})
+    _atomic_write(rd / STATE_NAME, {**_meta(), "items": {}, "counts": {},
+                                    "reviewed": 0, "pending": 0})
+
+
 # ------------------------------------------------------------- revision log
 
 class ReviewLog:
     """Canonical append-only decision log for one diagnostic run."""
 
     def __init__(self, run_dir: Path):
+        ensure_review_authority(run_dir)         # schema gate first (§6.2)
         self.dir = review_dir(run_dir)
         self.path = self.dir / LOG_NAME
         if self.path.exists():
             self.data = json.loads(self.path.read_text(encoding="utf-8"))
         else:
-            self.data = {"schema": "d3", "revisions": []}
+            self.data = {**_meta(), "revisions": []}
 
     def save(self):
         _atomic_write(self.path, self.data)
@@ -106,6 +174,9 @@ class ReviewLog:
                 not manifest.get("target_key"):
             raise ValueError("manifest identity mismatch: decision must "
                              "bind the package's review_item_id/target_key")
+        if item_id != expected_item_id(manifest["target_key"]):
+            raise ValueError(f"forged review_item_id {item_id}: "
+                             "!= ri-<target_key[:16]> (§6.6)")
         revs = self.data["revisions"]
         supersedes = None
         for r in revs:
@@ -160,6 +231,7 @@ class ReviewLog:
 # ------------------------------------------------------------- package index
 
 def load_packages(run_dir: Path) -> dict:
+    ensure_review_authority(run_dir)
     p = review_dir(run_dir) / PACKAGES_NAME
     if p.exists():
         return json.loads(p.read_text(encoding="utf-8"))["items"]
@@ -175,12 +247,16 @@ def register_package(run_dir: Path, item_id, batch_id, manifest,
     the same stable target. A same-id package whose target_key differs
     is a hard error — never a silent overwrite.
     """
+    ensure_review_authority(run_dir)
     tk = manifest.get("target_key")
     if not tk or manifest.get("review_item_id") != item_id:
         raise ValueError(f"package for {item_id} lacks a matching "
                          "review_item_id/target_key")
+    if item_id != expected_item_id(tk):
+        raise ValueError(f"forged review_item_id {item_id}: "
+                         "!= ri-<target_key[:16]> (§6.6)")
     p = review_dir(run_dir) / PACKAGES_NAME
-    data = {"schema": "d3", "items": load_packages(run_dir)}
+    data = {**_meta(), "items": load_packages(run_dir)}
     existing = data["items"].get(item_id)
     if existing and existing.get("target_key") not in (None, tk):
         raise ValueError(
@@ -203,7 +279,7 @@ def register_package(run_dir: Path, item_id, batch_id, manifest,
 
 # --------------------------------------------------------- derived state
 
-def _derive_status(pkg, decision):
+def _derive_status(pkg, decision, item_id=None):
     """§6.2 state semantics.
 
     rejected_all is a routing state, not a final decision: a newer-
@@ -211,6 +287,9 @@ def _derive_status(pkg, decision):
     (keep/select/equivalent/followup) whose hash no longer matches the
     current package → stale.
     """
+    if pkg is not None and item_id is not None and \
+            pkg.get("review_item_id") != item_id:
+        pkg = None                            # forged record key binding
     if pkg is None:
         return "no_package" if decision is None else STALE
     if pkg.get("package_state") not in ("valid",):
@@ -218,10 +297,11 @@ def _derive_status(pkg, decision):
             else INVALID_PACKAGE
     if decision is None:
         return PENDING_REVIEW
-    dtk = decision.get("target_key")
-    if dtk is not None and pkg.get("target_key") is not None and \
-            dtk != pkg["target_key"]:
-        return STALE     # decision names a different target — never valid
+    # §6.6 identity math: forged/malformed ids or a decision naming a
+    # different target can never authorize — stale, never valid.
+    if not (_id_math_ok(decision) and _id_math_ok(pkg)) or \
+            decision["target_key"] != pkg["target_key"]:
+        return STALE
     if decision["audio_package_hash"] != pkg.get("audio_package_hash"):
         if decision["semantics"] == SEMANTICS_REJECTED and \
                 pkg.get("generation", 1) > decision["review_generation"]:
@@ -234,6 +314,7 @@ def _derive_status(pkg, decision):
 
 def rebuild_state(run_dir: Path) -> dict:
     """Recompute review_state.json from log + package index (atomic)."""
+    ensure_review_authority(run_dir)
     log = ReviewLog(run_dir)
     pkgs = load_packages(run_dir)
     item_ids = set(pkgs) | {r["review_item_id"]
@@ -243,7 +324,7 @@ def rebuild_state(run_dir: Path) -> dict:
         d = log.latest(iid)
         pkg = pkgs.get(iid)
         items[iid] = {
-            "status": _derive_status(pkg, d),
+            "status": _derive_status(pkg, d, iid),
             "package": pkg,
             "latest_revision": d,
             "n_revisions": len(log.revisions(iid)),
@@ -251,7 +332,7 @@ def rebuild_state(run_dir: Path) -> dict:
     counts: dict[str, int] = {}
     for v in items.values():
         counts[v["status"]] = counts.get(v["status"], 0) + 1
-    state = {"schema": "d3", "updated_at": _now(), "items": items,
+    state = {**_meta(), "updated_at": _now(), "items": items,
              "counts": counts,
              "reviewed": sum(1 for v in items.values()
                              if v["status"] in (SEMANTICS_BASELINE,

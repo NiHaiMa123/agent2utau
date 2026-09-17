@@ -379,13 +379,17 @@ def test_render_profile_is_neutral():
 
 # ------------------------------------------------------------------ decisions
 
-def _manifest(item_id="ri-0001", aph="aph1", n=3, gen=1, state="valid",
-              target_key=None):
-    return {"review_item_id": item_id,
+def _manifest(tag="a", aph="aph1", n=3, gen=1, state="valid",
+              target_key=None, item_id=None):
+    """Real-shaped identity: item_id == 'ri-' + target_key[:16] (§6.6)."""
+    import hashlib
+    tk = target_key or hashlib.sha256(f"tk-{tag}".encode()).hexdigest()
+    iid = item_id or "ri-" + tk[:16]
+    return {"review_item_id": iid,
             "identity_schema": "review-target-v1",
-            "target_key": target_key or f"tk-{item_id}",
+            "target_key": tk,
             "audio_package_hash": aph,
-            "plan_hash": f"ph-{item_id}", "package_state": state,
+            "plan_hash": f"ph-{tag}", "package_state": state,
             "review": {"generation": gen}, "review_batch_id": "rb-1",
             "baseline_option": "OPTION_0",
             "options": [{"option_id": f"OPTION_{i}",
@@ -400,37 +404,47 @@ def _manifest(item_id="ri-0001", aph="aph1", n=3, gen=1, state="valid",
                                  "separated_vocal": {"sha256": "s2"}}}
 
 
+def _iid(man):
+    return man["review_item_id"]
+
+
 def _run(tmp_path):
     return tmp_path / "diag-x"
 
 
-def _register(run, item_id, man, batch="rb-1"):
-    register_package(run, item_id, batch, man,
-                     manifest_path=run / "b" / item_id / "manifest.json")
+def _register(run, man, batch="rb-1"):
+    iid = man["review_item_id"]
+    register_package(run, iid, batch, man,
+                     manifest_path=run / "b" / iid / "manifest.json")
 
 
 def test_decision_semantics(tmp_path):
     run = _run(tmp_path)
     log = ReviewLog(run)
-    man = _manifest()
-    _register(run, "ri-0001", man)
-    r = log.append("ri-0001", "OPTION_0", man, "rb-1")
+    man = _manifest("a")
+    _register(run, man)
+    r = log.append(_iid(man), "OPTION_0", man, "rb-1")
     assert r["semantics"] == SEMANTICS_BASELINE
-    r = log.append("ri-0002", "OPTION_1", _manifest("ri-0002"), "rb-1")
+    man_b = _manifest("b")
+    r = log.append(_iid(man_b), "OPTION_1", man_b, "rb-1")
     assert r["semantics"] == SEMANTICS_CANDIDATE
-    r = log.append("ri-0003", "equivalent", _manifest("ri-0003"), "rb-1")
+    man_c = _manifest("c")
+    r = log.append(_iid(man_c), "equivalent", man_c, "rb-1")
     assert r["semantics"] == SEMANTICS_EQUIVALENT
-    r = log.append("ri-0004", "none_correct", _manifest("ri-0004"), "rb-1")
+    man_d = _manifest("d")
+    r = log.append(_iid(man_d), "none_correct", man_d, "rb-1")
     assert r["semantics"] == SEMANTICS_REJECTED
 
 
 def test_decision_binds_audio_package_hash_with_snapshots(tmp_path):
     run = _run(tmp_path)
     log = ReviewLog(run)
-    man = _manifest(aph="audio-hash-x")
-    r = log.append("ri-0001", "OPTION_2", man, "rb-1")
+    man = _manifest("a", aph="audio-hash-x")
+    r = log.append(_iid(man), "OPTION_2", man, "rb-1")
     assert r["audio_package_hash"] == "audio-hash-x"
-    assert r["plan_hash"] == "ph-ri-0001"
+    assert r["plan_hash"] == "ph-a"
+    assert r["target_key"] == man["target_key"]
+    assert r["review_item_id"] == man["review_item_id"]
     assert r["selected_option_id"] == "OPTION_2"
     assert r["selected_score_patch"] == {"type": "identity", "to": 62}
     assert r["selected_provenance"] == {"kind": "b_hypothesis"}
@@ -443,26 +457,28 @@ def test_unrendered_package_cannot_be_decided(tmp_path):
     man["audio_package_hash"] = None
     man["package_state"] = "unrendered"
     with pytest.raises(ValueError):
-        ReviewLog(_run(tmp_path)).append("ri-0001", "OPTION_0", man, "b")
+        ReviewLog(_run(tmp_path)).append(_iid(man), "OPTION_0", man, "b")
 
 
 def test_none_correct_gen2_becomes_manual_followup(tmp_path):
     log = ReviewLog(_run(tmp_path))
-    r = log.append("ri-0001", "none_correct", _manifest(gen=2), "rb-2")
+    man = _manifest(gen=2)
+    r = log.append(_iid(man), "none_correct", man, "rb-2")
     assert r["semantics"] == MANUAL_FOLLOWUP
 
 
 def test_revisions_supersede_never_lose_history(tmp_path):
     run = _run(tmp_path)
     log = ReviewLog(run)
-    man = _manifest()
-    log.append("ri-0001", "OPTION_1", man, "rb-1")
-    r2 = log.append("ri-0001", "OPTION_2", man, "rb-1")
-    revs = log.revisions("ri-0001")
+    man = _manifest("a")
+    iid = _iid(man)
+    log.append(iid, "OPTION_1", man, "rb-1")
+    r2 = log.append(iid, "OPTION_2", man, "rb-1")
+    revs = log.revisions(iid)
     assert len(revs) == 2
     assert revs[0]["superseded"] and not revs[1]["superseded"]
     assert r2["supersedes_revision_id"] == revs[0]["revision_id"]
-    assert log.latest("ri-0001")["selected"] == "OPTION_2"
+    assert log.latest(iid)["selected"] == "OPTION_2"
 
 
 def test_cross_generation_authoritative_state(tmp_path):
@@ -470,24 +486,25 @@ def test_cross_generation_authoritative_state(tmp_path):
     the gen2 decision; gen1 revision stays as audit (§6.2)."""
     run = _run(tmp_path)
     log = ReviewLog(run)
-    g1 = _manifest("ri-0003", aph="aph-gen1")
-    _register(run, "ri-0003", g1, batch="rb-1")
-    log.append("ri-0003", "none_correct", g1, "rb-1")
-    st = rebuild_state(run)["items"]["ri-0003"]
+    g1 = _manifest("c", aph="aph-gen1")
+    iid = _iid(g1)
+    _register(run, g1, batch="rb-1")
+    log.append(iid, "none_correct", g1, "rb-1")
+    st = rebuild_state(run)["items"][iid]
     assert st["status"] == PENDING_REGEN
-    assert regeneration_queue(run) == ["ri-0003"]
+    assert regeneration_queue(run) == [iid]
     # gen2 package created (new audio hash) → pending_review again;
     # the gen1 rejection is stale vs the new package but stays audit
-    g2 = _manifest("ri-0003", aph="aph-gen2", gen=2)
-    _register(run, "ri-0003", g2, batch="rb-1-g2")
-    st = rebuild_state(run)["items"]["ri-0003"]
+    g2 = _manifest("c", aph="aph-gen2", gen=2)     # same tag → same target
+    _register(run, g2, batch="rb-1-g2")
+    st = rebuild_state(run)["items"][iid]
     assert st["status"] == PENDING_REVIEW
     assert st["latest_revision"]["semantics"] == SEMANTICS_REJECTED
-    log.append("ri-0003", "OPTION_1", g2, "rb-1-g2")
-    st = rebuild_state(run)["items"]["ri-0003"]
+    log.append(iid, "OPTION_1", g2, "rb-1-g2")
+    st = rebuild_state(run)["items"][iid]
     assert st["status"] == SEMANTICS_CANDIDATE
     assert st["latest_revision"]["audio_package_hash"] == "aph-gen2"
-    revs = log.revisions("ri-0003")
+    revs = log.revisions(iid)
     assert len(revs) == 2 and revs[0]["superseded"]   # audit preserved
 
 
@@ -496,59 +513,66 @@ def test_other_items_survive_single_item_gen2_batch(tmp_path):
     created (§7.4 item 43) — the run-level store is authoritative."""
     run = _run(tmp_path)
     log = ReviewLog(run)
+    ids = []
     for i in range(2):                                # gen1 batch decides two
-        man = _manifest(f"ri-{i:04d}", aph=f"a{i}")
-        _register(run, f"ri-{i:04d}", man)
-        log.append(f"ri-{i:04d}", "OPTION_0", man, "rb-1")
-    g1 = _manifest("ri-0002", aph="a2")               # third item rejected
-    _register(run, "ri-0002", g1)
-    log.append("ri-0002", "none_correct", g1, "rb-1")
-    _register(run, "ri-0002", _manifest("ri-0002", aph="a2g2", gen=2),
+        man = _manifest(f"i{i}", aph=f"a{i}")
+        _register(run, man)
+        log.append(_iid(man), "OPTION_0", man, "rb-1")
+        ids.append(_iid(man))
+    g1 = _manifest("rej", aph="a2")                   # third item rejected
+    _register(run, g1)
+    log.append(_iid(g1), "none_correct", g1, "rb-1")
+    _register(run, _manifest("rej", aph="a2g2", gen=2),
               batch="rb-1-g2")                        # 1-item gen2 batch
     valids = all_current_valid_decisions(run)
-    assert set(valids) == {"ri-0000", "ri-0001"}      # decided, non-stale
-    assert current_valid_decision(run, "ri-0002") is None  # gen2 pending
-    assert pending_items(run) == ["ri-0002"]
+    assert set(valids) == set(ids)                    # decided, non-stale
+    assert current_valid_decision(run, _iid(g1)) is None  # gen2 pending
+    assert pending_items(run) == [_iid(g1)]
 
 
 def test_stale_decision_not_in_valid_set(tmp_path):
     run = _run(tmp_path)
     log = ReviewLog(run)
-    man = _manifest(aph="old")
-    _register(run, "ri-0001", man)
-    log.append("ri-0001", "OPTION_1", man, "rb-1")
+    man = _manifest("a", aph="old")
+    _register(run, man)
+    log.append(_iid(man), "OPTION_1", man, "rb-1")
     # package regenerated — audio changed → old decision stale
-    _register(run, "ri-0001", _manifest(aph="new"))
-    st = rebuild_state(run)["items"]["ri-0001"]
+    _register(run, _manifest("a", aph="new"))
+    st = rebuild_state(run)["items"][_iid(man)]
     assert st["status"] == STALE
-    assert current_valid_decision(run, "ri-0001") is None
+    assert current_valid_decision(run, _iid(man)) is None
     assert all_current_valid_decisions(run) == {}
 
 
 def test_decision_log_survives_reload(tmp_path):
     run = _run(tmp_path)
     log = ReviewLog(run)
-    _register(run, "ri-0001", _manifest())
-    log.append("ri-0001", "OPTION_1", _manifest(), "rb-1")
+    man = _manifest("a")
+    _register(run, man)
+    log.append(_iid(man), "OPTION_1", man, "rb-1")
     st = rebuild_state(run)
     # simulate crash/reload: fresh objects, same files
     log2 = ReviewLog(run)
-    assert log2.latest("ri-0001")["selected"] == "OPTION_1"
+    assert log2.latest(_iid(man))["selected"] == "OPTION_1"
     st2 = rebuild_state(run)
-    assert st2["items"]["ri-0001"]["status"] == st[
-        "items"]["ri-0001"]["status"]
+    assert st2["items"][_iid(man)]["status"] == st[
+        "items"][_iid(man)]["status"]
 
 
 def test_pending_and_regen_queues(tmp_path):
     run = _run(tmp_path)
     log = ReviewLog(run)
-    for i, ch in enumerate(("OPTION_0", "none_correct", "equivalent")):
-        man = _manifest(f"ri-{i:04d}", aph=f"a{i}")
-        _register(run, f"ri-{i:04d}", man)
-        log.append(f"ri-{i:04d}", ch, man, "rb-1")
-    _register(run, "ri-0003", _manifest("ri-0003", aph="a3"))
-    assert pending_items(run) == ["ri-0003"]
-    assert regeneration_queue(run) == ["ri-0001"]
+    ids = {}
+    for tag, ch in (("a", "OPTION_0"), ("b", "none_correct"),
+                    ("c", "equivalent")):
+        man = _manifest(tag, aph=f"a-{tag}")
+        _register(run, man)
+        log.append(_iid(man), ch, man, "rb-1")
+        ids[tag] = _iid(man)
+    pend = _manifest("d", aph="a-d")
+    _register(run, pend)
+    assert pending_items(run) == [_iid(pend)]
+    assert regeneration_queue(run) == [ids["b"]]
     st = rebuild_state(run)
     assert st["counts"][SEMANTICS_BASELINE] == 1
     assert st["counts"][SEMANTICS_EQUIVALENT] == 1
@@ -556,9 +580,10 @@ def test_pending_and_regen_queues(tmp_path):
 
 
 def test_bad_choice_rejected(tmp_path):
+    man = _manifest()
     with pytest.raises(ValueError):
-        ReviewLog(_run(tmp_path)).append("ri-0001", "OPTION_9",
-                                         _manifest(), "rb-1")
+        ReviewLog(_run(tmp_path)).append(_iid(man), "OPTION_9",
+                                         man, "rb-1")
 
 
 # ------------------------------------------------------ reviewability gate
@@ -728,44 +753,65 @@ def test_target_key_canonical_and_operation_aware():
 # ---------------------------------------------------- collision / authority
 
 def test_collision_guard_same_id_different_target(tmp_path):
-    """§7.2-17: registering a different target under an existing
-    review_item_id is a hard error — never silent overwrite."""
+    """§7.2-17/§7.3-22: a different target_key sharing the 16-char id
+    prefix under an existing review_item_id is a hard error — never a
+    silent overwrite (full key is truth; the id is only the readable
+    handle)."""
     run = _run(tmp_path)
-    _register(run, "ri-x", _manifest("ri-x", target_key="tk-A"))
+    tk_a = "ab" * 32
+    man_a = _manifest("a", target_key=tk_a)
+    _register(run, man_a)
+    # same 16-char prefix → same item_id, but a different full key
+    tk_b = tk_a[:16] + "cd" * 24
+    man_b = _manifest("b", target_key=tk_b)
+    assert man_b["review_item_id"] == man_a["review_item_id"]
     with pytest.raises(ValueError):
-        _register(run, "ri-x", _manifest("ri-x", target_key="tk-B"))
+        _register(run, man_b)
     # same id + same target + new audio → allowed (current-package update)
-    _register(run, "ri-x", _manifest("ri-x", target_key="tk-A",
-                                     aph="aph-new"))
+    _register(run, _manifest("a", target_key=tk_a, aph="aph-new"))
 
 
 def test_manifest_identity_checked_on_append(tmp_path):
-    with pytest.raises(ValueError):
+    man = _manifest("a")
+    with pytest.raises(ValueError):           # item_id arg ≠ manifest
         ReviewLog(_run(tmp_path)).append(
-            "ri-WRONG", "OPTION_0", _manifest("ri-0001"), "rb-1")
-    man = _manifest()
+            "ri-WRONG0000000000", "OPTION_0", man, "rb-1")
+    forged = _manifest("b", item_id="ri-" + "0" * 16)
+    with pytest.raises(ValueError):           # forged id ≠ ri-tk[:16]
+        ReviewLog(_run(tmp_path)).append(
+            forged["review_item_id"], "OPTION_0", forged, "b")
     man["target_key"] = None
+    with pytest.raises(ValueError):           # missing target_key
+        ReviewLog(_run(tmp_path)).append(
+            man["review_item_id"], "OPTION_0", man, "b")
+
+
+def test_forged_package_id_rejected(tmp_path):
+    """§7.3-19/20: a manifest whose review_item_id is not derived from
+    its own target_key is refused at registration."""
+    run = _run(tmp_path)
+    forged = _manifest("x", item_id="ri-" + "f" * 16)
     with pytest.raises(ValueError):
-        ReviewLog(_run(tmp_path)).append("ri-0001", "OPTION_0", man, "b")
+        _register(run, forged)
 
 
 def test_decision_target_key_mismatch_is_stale(tmp_path):
-    """§7.2-19: a decision naming a different target_key than the current
-    package can never authorize repair."""
+    """§7.2-19/§7.3-21: a decision naming a different target_key than the
+    current package can never authorize repair."""
     run = _run(tmp_path)
     log = ReviewLog(run)
-    man = _manifest("ri-x", target_key="tk-A")
-    _register(run, "ri-x", man)
-    rev = log.append("ri-x", "OPTION_1", man, "rb-1")
-    assert rev["target_key"] == "tk-A"
+    man = _manifest("x")
+    _register(run, man)
+    rev = log.append(_iid(man), "OPTION_1", man, "rb-1")
+    assert rev["target_key"] == man["target_key"]
     # forge a same-id different-target record directly (bypassing guard)
     pkgs = run / "review" / "packages.json"
     data = json.loads(pkgs.read_text(encoding="utf-8"))
-    data["items"]["ri-x"]["target_key"] = "tk-OTHER"
+    data["items"][_iid(man)]["target_key"] = "f" * 64
     pkgs.write_text(json.dumps(data), encoding="utf-8")
-    st = rebuild_state(run)["items"]["ri-x"]
+    st = rebuild_state(run)["items"][_iid(man)]
     assert st["status"] == STALE
-    assert current_valid_decision(run, "ri-x") is None
+    assert current_valid_decision(run, _iid(man)) is None
 
 
 # ------------------------------------------- production-path (§7.7 49-53)
@@ -805,13 +851,13 @@ def test_full_subset_no_overwrite_via_real_path(tmp_path):
             _rendered_manifest(frun, it) for it in full}
     log = ReviewLog(run)
     for it in full:
-        _register(run, it["item_id"], mans[it["packets"][0]], "rb-full")
+        _register(run, mans[it["packets"][0]], "rb-full")
     log.append(_ids(full)["note_0393"], "OPTION_0",
                mans["note_0393"], "rb-full")          # decide A
     # subset batch containing only C — under d2 this stole ri-0001
     sub = _plan(packets, only_items=["note_0001"])
     man_c = _rendered_manifest(frun, sub[0])
-    _register(run, sub[0]["item_id"], man_c, "rb-sub")
+    _register(run, man_c, "rb-sub")
     st = rebuild_state(run)
     assert st["items"][_ids(full)["note_0393"]]["status"] == \
         SEMANTICS_BASELINE                              # A decision intact
@@ -830,7 +876,7 @@ def test_gen2_same_stable_id_via_real_path(tmp_path):
             _rendered_manifest(frun, it) for it in full}
     log = ReviewLog(run)
     for it in full:
-        _register(run, it["item_id"], mans[it["packets"][0]], "rb-full")
+        _register(run, mans[it["packets"][0]], "rb-full")
     for pid in ("note_0393", "note_0002"):              # A,B decided
         log.append(_ids(full)[pid], "OPTION_0", mans[pid], "rb-full")
     cid = _ids(full)["note_0001"]
@@ -840,7 +886,7 @@ def test_gen2_same_stable_id_via_real_path(tmp_path):
                gen2={"note_0001": {"generation": 2, "shown_tones": set()}})
     assert g2[0]["item_id"] == cid                      # same stable id
     man2 = _rendered_manifest(frun, g2[0], aph_suffix="-g2")
-    _register(run, cid, man2, "rb-g2")
+    _register(run, man2, "rb-g2")
     st = rebuild_state(run)
     assert st["items"][cid]["status"] == PENDING_REVIEW
     assert len(st["items"]) == 3                        # others untouched
@@ -891,3 +937,171 @@ def test_verify_package_recomputes_audio_hash(tmp_path):
     man["audio_package_hash"] = "0" * 64               # forged hash
     ok, why = verify_package(man, idir)
     assert not ok and "recompute" in why               # §7.4-35
+
+
+# ============================================ migration integrity (§6/§7)
+
+def _write_d2_authority(run, with_decision=True):
+    """Forge a legacy d2 review/ dir: batch-local ids, no target_key —
+    the shape the old code produced."""
+    rd = run / "review"
+    rd.mkdir(parents=True, exist_ok=True)
+    rev = {"revision_id": "rev-0001", "review_item_id": "ri-0001",
+           "batch_id": "rb-old", "review_generation": 1,
+           "audio_package_hash": "aph-old",
+           "selected": "OPTION_1", "selected_option_id": "OPTION_1",
+           "candidate_id": "c1", "semantics": "human_selected_candidate",
+           "selected_score_patch": {"type": "retune", "to": 62.0},
+           "selected_provenance": {"kind": "b_hypothesis"},
+           "selected_wav_sha256": "w1", "created_at": "x",
+           "supersedes_revision_id": None, "superseded": False}
+    (rd / "decisions.json").write_text(json.dumps(
+        {"schema": "d2", "revisions": [rev] if with_decision else []}),
+        encoding="utf-8")
+    (rd / "packages.json").write_text(json.dumps(
+        {"schema": "d2", "items": {"ri-0001": {
+            "batch_id": "rb-old", "generation": 1,
+            "plan_hash": "ph", "audio_package_hash": "aph-old",
+            "package_state": "valid", "manifest": "x"}}}),
+        encoding="utf-8")
+    (rd / "review_state.json").write_text(json.dumps(
+        {"schema": "d2", "items": {"ri-0001": {
+            "status": "human_selected_candidate"}},
+         "counts": {}, "reviewed": 1, "pending": 0}), encoding="utf-8")
+    return rd
+
+
+def test_d2_authority_is_fail_closed_and_archived(tmp_path):
+    """§7.1-1..4/§7.2-9..12: a legacy d2 store — even with a matching-hash
+    human_selected_candidate — is archived whole and never authorizes."""
+    from agent2utau.review.decisions import (ensure_review_authority,
+                                             review_dir)
+    run = _run(tmp_path)
+    _write_d2_authority(run)
+    ensure_review_authority(run)
+    rd = review_dir(run)
+    assert rd.is_dir()                              # recreated clean d3
+    for f in ("decisions.json", "packages.json", "review_state.json"):
+        d = json.loads((rd / f).read_text(encoding="utf-8"))
+        assert d["schema"] == "d3"
+        assert d["identity_schema"] == "review-target-v1"
+    # archive preserved byte-identical
+    snaps = list((run / "review_d2_audit").iterdir())
+    assert len(snaps) == 1
+    arch = json.loads((snaps[0] / "decisions.json").read_text())
+    assert arch["schema"] == "d2" and arch["revisions"]  # audit only
+    # the d2 human_selected_candidate is gone from live authority
+    assert all_current_valid_decisions(run) == {}
+    assert current_valid_decision(run, "ri-0001") is None
+
+
+def test_migration_idempotent_and_no_audit_overwrite(tmp_path):
+    """§7.2-10/14: a second ensure on clean d3 is a no-op; a second legacy
+    migration creates a NEW snapshot without touching the first."""
+    from agent2utau.review.decisions import (ensure_review_authority,
+                                             review_dir)
+    run = _run(tmp_path)
+    _write_d2_authority(run)
+    ensure_review_authority(run)
+    first = list((run / "review_d2_audit").iterdir())
+    ensure_review_authority(run)                     # idempotent
+    assert list((run / "review_d2_audit").iterdir()) == first
+    assert review_dir(run).is_dir()
+    _write_d2_authority(run)                         # legacy reappears
+    ensure_review_authority(run)
+    assert len(list((run / "review_d2_audit").iterdir())) == 2
+
+
+@pytest.mark.parametrize("mut", ["missing_schema", "future_schema",
+                                 "mixed", "corrupt"])
+def test_non_d3_variants_fail_closed(tmp_path, mut):
+    """§7.1-5/6/7: missing schema, unknown future schema, mixed d2/d3 and
+    unparseable files all trigger archive — never best-effort reads."""
+    from agent2utau.review.decisions import (ensure_review_authority,
+                                             review_dir)
+    run = _run(tmp_path)
+    rd = _write_d2_authority(run, with_decision=False)
+    if mut == "missing_schema":
+        d = json.loads((rd / "decisions.json").read_text())
+        d.pop("schema")
+        (rd / "decisions.json").write_text(json.dumps(d))
+    elif mut == "future_schema":
+        d = json.loads((rd / "decisions.json").read_text())
+        d["schema"] = "d9"
+        (rd / "decisions.json").write_text(json.dumps(d))
+    elif mut == "mixed":
+        d = json.loads((rd / "packages.json").read_text())
+        d.update(schema="d3", identity_schema="review-target-v1")
+        (rd / "packages.json").write_text(json.dumps(d))
+    else:
+        (rd / "decisions.json").write_text("{not json")
+    ensure_review_authority(run)
+    assert all(json.loads((review_dir(run) / f).read_text())[
+                   "schema"] == "d3" for f in
+               ("decisions.json", "packages.json", "review_state.json"))
+    assert list((run / "review_d2_audit").iterdir())
+
+
+def test_production_path_after_d2_migration(tmp_path):
+    """§7.5-33: d2 fixture → gate → archive → clean d3 → real
+    collect→plan→manifest→register→decide→resolver path works."""
+    run = _run(tmp_path)
+    _write_d2_authority(run)
+    packets = _three_packets()
+    frun = _fake_run(packets)
+    planned = _plan(packets, only_items=["note_0001"])
+    man = _rendered_manifest(frun, planned[0])
+    _register(run, man, "rb-new")                    # gate ran inside
+    log = ReviewLog(run)
+    rev = log.append(_iid(man), "OPTION_1", man, "rb-new")
+    assert rev["semantics"] == SEMANTICS_CANDIDATE
+    valids = all_current_valid_decisions(run)
+    assert list(valids) == [_iid(man)]
+    assert valids[_iid(man)]["target_key"] == planned[0]["target_key"]
+    # the legacy ri-0001 revision is audit-only, never in state
+    assert "ri-0001" not in rebuild_state(run)["items"]
+
+
+def test_repair_authorized_decision_full_gate(tmp_path):
+    """§6.7/§7.4-31/32 + §7.5-37: only a current valid
+    human_selected_candidate with byte-verified package, identity math
+    and complete snapshots authorizes M2.4."""
+    from agent2utau.review.render import repair_authorized_decision
+    run = _run(tmp_path)
+    # real rendered package on disk so verify_package can pass
+    idir = run / "b" / "item" ; idir.mkdir(parents=True)
+    import hashlib as hl
+    wav_bytes = {}
+    for i in range(3):
+        b = b"w" + bytes([i]) * 8
+        (idir / f"OPTION_{i}.wav").write_bytes(b)
+        wav_bytes[f"OPTION_{i}"] = hl.sha256(b).hexdigest()
+    for name, data in (("s.wav", b"mix"), ("v.wav", b"voc")):
+        (idir / name).write_bytes(data)
+    srcs = {"original_mix": {"path": "s.wav",
+                             "sha256": hl.sha256(b"mix").hexdigest()},
+            "separated_vocal": {"path": "v.wav",
+                                "sha256": hl.sha256(b"voc").hexdigest()}}
+    man = _manifest("a")
+    for o in man["options"]:
+        o["wav_sha256"] = wav_bytes[o["option_id"]]
+    man["source_reference"] = srcs
+    man["render_provenance"] = {"impl": "t"}
+    wavs = {o["option_id"]: {"wav_sha256": o["wav_sha256"]}
+            for o in man["options"]}
+    man["audio_package_hash"] = rb.audio_package_hash(
+        man["plan_hash"], srcs, wavs, man["render_provenance"])
+    register_package(run, _iid(man), "rb-1", man,
+                     manifest_path=idir / "manifest.json")
+    (idir / "manifest.json").write_text(json.dumps(man))
+    log = ReviewLog(run)
+    log.append(_iid(man), "OPTION_1", man, "rb-1")   # candidate select
+    rev = repair_authorized_decision(run, _iid(man))
+    assert rev and rev["semantics"] == SEMANTICS_CANDIDATE
+    assert rev["selected_score_patch"] and rev["selected_wav_sha256"]
+    # baseline decision must NOT authorize
+    man_b = _manifest("b")
+    register_package(run, _iid(man_b), "rb-1", man_b,
+                     manifest_path=idir / "manifest.json")
+    log.append(_iid(man_b), "OPTION_0", man_b, "rb-1")
+    assert repair_authorized_decision(run, _iid(man_b)) is None

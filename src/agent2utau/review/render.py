@@ -14,7 +14,9 @@ from .build import (IDENTITY_SCHEMA, REVIEW_SCHEMA, apply_patch,
                     audio_package_hash, collect_review_items,
                     find_silences, plan_batch, render_profile,
                     render_profile_hash)
-from .decisions import (ReviewLog, rebuild_state, register_package,
+from .decisions import (SEMANTICS_CANDIDATE, ReviewLog,
+                        current_valid_decision, expected_item_id,
+                        load_packages, rebuild_state, register_package,
                         regeneration_queue)
 
 
@@ -549,3 +551,47 @@ def load_batch(bdir: Path):
         mans[it["item_id"]] = json.loads(
             mpath.read_text(encoding="utf-8"))
     return batch, mans
+
+
+# ---------------------------------------------------------- M2.4 authority
+
+def repair_authorized_decision(run_dir: Path, item_id: str):
+    """§6.7 — the ONLY gate M2.4 may consume for human-selected repair.
+
+    Returns the authoritative revision, or None unless EVERY check holds:
+    d3 authority + review-target-v1 identity, semantics ==
+    human_selected_candidate, current package valid, actual audio bytes
+    verify, review_item_id == ri-<target_key[:16]> across decision /
+    package record / manifest, identical target_key and
+    audio_package_hash across all three, and complete selection
+    snapshots. Anything legacy, malformed, stale or mismatched → None.
+    """
+    rev = current_valid_decision(run_dir, item_id)
+    if not rev or rev["semantics"] != SEMANTICS_CANDIDATE:
+        return None
+    rec = load_packages(run_dir).get(item_id)
+    if not rec or not rec.get("manifest"):
+        return None
+    mpath = Path(rec["manifest"])
+    if not mpath.exists():
+        return None
+    man = json.loads(mpath.read_text(encoding="utf-8"))
+    tk = rev.get("target_key")
+    if not tk or rec.get("target_key") != tk or \
+            man.get("target_key") != tk:
+        return None
+    if item_id != expected_item_id(tk) or \
+            rec.get("review_item_id") != item_id or \
+            man.get("review_item_id") != item_id:
+        return None
+    if rev["audio_package_hash"] != rec.get("audio_package_hash") or \
+            rec["audio_package_hash"] != man.get("audio_package_hash"):
+        return None
+    ok, _ = verify_package(man, mpath.parent)
+    if not ok:
+        return None
+    if not all(rev.get(k) for k in
+               ("selected_option_id", "selected_score_patch",
+                "selected_provenance", "selected_wav_sha256")):
+        return None
+    return rev
