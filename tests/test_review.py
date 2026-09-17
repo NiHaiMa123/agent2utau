@@ -379,8 +379,12 @@ def test_render_profile_is_neutral():
 
 # ------------------------------------------------------------------ decisions
 
-def _manifest(item_id="ri-0001", aph="aph1", n=3, gen=1, state="valid"):
-    return {"review_item_id": item_id, "audio_package_hash": aph,
+def _manifest(item_id="ri-0001", aph="aph1", n=3, gen=1, state="valid",
+              target_key=None):
+    return {"review_item_id": item_id,
+            "identity_schema": "review-target-v1",
+            "target_key": target_key or f"tk-{item_id}",
+            "audio_package_hash": aph,
             "plan_hash": f"ph-{item_id}", "package_state": state,
             "review": {"generation": gen}, "review_batch_id": "rb-1",
             "baseline_option": "OPTION_0",
@@ -466,7 +470,7 @@ def test_cross_generation_authoritative_state(tmp_path):
     the gen2 decision; gen1 revision stays as audit (§6.2)."""
     run = _run(tmp_path)
     log = ReviewLog(run)
-    g1 = _manifest(aph="aph-gen1")
+    g1 = _manifest("ri-0003", aph="aph-gen1")
     _register(run, "ri-0003", g1, batch="rb-1")
     log.append("ri-0003", "none_correct", g1, "rb-1")
     st = rebuild_state(run)["items"]["ri-0003"]
@@ -474,7 +478,7 @@ def test_cross_generation_authoritative_state(tmp_path):
     assert regeneration_queue(run) == ["ri-0003"]
     # gen2 package created (new audio hash) → pending_review again;
     # the gen1 rejection is stale vs the new package but stays audit
-    g2 = _manifest(aph="aph-gen2", gen=2)
+    g2 = _manifest("ri-0003", aph="aph-gen2", gen=2)
     _register(run, "ri-0003", g2, batch="rb-1-g2")
     st = rebuild_state(run)["items"]["ri-0003"]
     assert st["status"] == PENDING_REVIEW
@@ -607,3 +611,283 @@ def test_plan_batch_orders_and_hashes():
         s, e = it["phrase"]["start"], it["phrase"]["end"]
         assert all(s - 0.05 <= n["start"] and n["end"] <= e + 0.05
                    for n in it["context"])
+
+
+# ============================================================ stable identity
+# §7.1/§7.2/§7.7 — review_item_id names the TARGET, not a batch slot.
+
+_NOTES_400 = [{"start": i * 0.5, "dur": 0.45, "tone": 60.0 + i % 12,
+               "voiced": True} for i in range(400)]
+
+
+def _three_packets():
+    """A=large-pitch pitch item, B=structure item, C=plain pitch item."""
+    return [
+        pkt("note_0393", 189.84, 0.38, tone=58.15,
+            b=b_unres(58.15, (70.0,))),                    # A (priority 0)
+        pkt("note_0002", 60.0, c=c_unres(boundary=60.4,
+                                        scores={"H1": -0.2})),  # B (pri 1)
+        pkt("note_0001", 50.0, b=b_unres(60.0, (62.0,))),  # C (pri 3)
+    ]
+
+
+def _plan(packets, **kw):
+    byid = {p["id"]: p for p in packets}
+    items = rb.collect_review_items(packets)
+    return rb.plan_batch(items, 274.0, _NOTES_400,
+                         kw.pop("lrc_lines", []),
+                         kw.pop("silences", []),
+                         byid, "run-x", "song", "c0", "rp", **kw)
+
+
+def _ids(planned):
+    return {it["packets"][0]: it["item_id"] for it in planned}
+
+
+def test_stable_id_full_vs_subset():
+    """§7.1-1/2/9/10: a target's id is identical in a full batch and in a
+    solo subset; different targets get different ids."""
+    full = _plan(_three_packets())
+    ids = _ids(full)
+    assert len(set(ids.values())) == 3
+    assert all(i.startswith("ri-") and len(i) == 19 for i in ids.values())
+    solo = _plan(_three_packets(), only_items=["note_0001"])
+    assert len(solo) == 1
+    assert solo[0]["item_id"] == ids["note_0001"]   # C alone keeps its id
+    solo_b = _plan(_three_packets(), only_items=["note_0002"])
+    assert solo_b[0]["item_id"] == ids["note_0002"]
+    assert solo_b[0]["item_id"] != solo[0]["item_id"]
+
+
+def test_stable_id_max_items_and_reorder():
+    """§7.1-3/4/5: max_items, priority order and batch_id never reshape
+    identity."""
+    base = _ids(_plan(_three_packets()))
+    top1 = _plan(_three_packets(), max_items=1)
+    assert top1[0]["item_id"] == base["note_0393"]
+    top2 = _plan(_three_packets(), max_items=2)
+    assert {it["item_id"] for it in top2} <= set(base.values())
+    # input order shuffled → same identities (sort is by priority+region)
+    shuffled = _plan(list(reversed(_three_packets())))
+    assert _ids(shuffled) == base
+
+
+def test_stable_id_ignores_phrase_and_options():
+    """§7.1-6/7: phrase window / candidate mapping changes do not create
+    a new target — they only change plan/audio hashes."""
+    a = _plan(_three_packets(), only_items=["note_0001"])[0]
+    b = _plan(_three_packets(), only_items=["note_0001"],
+              silences=[(48.0, 48.4), (52.0, 52.4)])[0]
+    assert a["item_id"] == b["item_id"] and a["target_key"] == b["target_key"]
+    if (a["phrase"]["start"], a["phrase"]["end"]) != \
+            (b["phrase"]["start"], b["phrase"]["end"]):
+        assert a["plan_hash"] != b["plan_hash"]     # material → plan_hash
+    # different hypothesis content → same identity, different plan_hash
+    p2 = pkt("note_0001", 50.0, b=b_unres(60.0, (63.0,)))
+    c = _plan([p2], only_items=["note_0001"])[0]
+    assert c["item_id"] == a["item_id"]
+    assert c["plan_hash"] != a["plan_hash"]
+
+
+def test_stable_id_survives_generation():
+    """§7.1-8 + §6.3: gen-2 regeneration derives the SAME review_item_id
+    — no id override is needed or allowed."""
+    pk = [pkt("note_0001", 50.0, b=b_unres(60.0, (62.0, 64.0)))]
+    g1 = _plan(pk)[0]
+    g2 = _plan(pk, gen2={"note_0001": {"generation": 2,
+                                       "shown_tones": {62.0}}})[0]
+    assert g2["item_id"] == g1["item_id"]
+    assert g2["target_key"] == g1["target_key"]
+    assert g2["generation"] == 2 and g2["plan_hash"] != g1["plan_hash"]
+
+
+def test_target_key_canonical_and_operation_aware():
+    """§7.1-11/12: merge partner identity is encoded; a pitch item and a
+    split item over the same packet are DIFFERENT targets."""
+    pitch_item = rb.collect_review_items(
+        [pkt("note_0001", 10.0, b=b_unres())])[0]
+    split_item = rb.collect_review_items([pkt("note_0001", 10.0, 0.8, scc={
+        "kind": "split", "boundary": 10.4,
+        "notes": [{"start": 10.0, "end": 10.4},
+                  {"start": 10.4, "end": 10.8}]},
+        vb=[{"id": "v0", "status": "unresolved"}])])[0]
+    assert rb.target_key(pitch_item) != rb.target_key(split_item)
+    merge = rb.collect_review_items([pkt("note_0010", 60.0, 0.4, scc={
+        "kind": "merge",
+        "span": {"start": 60.0, "end": 61.0, "merge_with": "note_0011"}},
+        vb=[{"id": "v0", "status": "resolved_change"}]),
+        pkt("note_0011", 60.5, 0.5, b=b_unres())])[0]
+    k1 = rb.target_key(merge)
+    k2 = rb.target_key({**merge, "packets": list(reversed(merge["packets"]))})
+    assert k1 == k2                            # order-independent
+    # partner identity is part of the key
+    other = dict(merge, parent_ids=["note_0010", "note_9999"])
+    assert rb.target_key(other) != k1
+
+
+# ---------------------------------------------------- collision / authority
+
+def test_collision_guard_same_id_different_target(tmp_path):
+    """§7.2-17: registering a different target under an existing
+    review_item_id is a hard error — never silent overwrite."""
+    run = _run(tmp_path)
+    _register(run, "ri-x", _manifest("ri-x", target_key="tk-A"))
+    with pytest.raises(ValueError):
+        _register(run, "ri-x", _manifest("ri-x", target_key="tk-B"))
+    # same id + same target + new audio → allowed (current-package update)
+    _register(run, "ri-x", _manifest("ri-x", target_key="tk-A",
+                                     aph="aph-new"))
+
+
+def test_manifest_identity_checked_on_append(tmp_path):
+    with pytest.raises(ValueError):
+        ReviewLog(_run(tmp_path)).append(
+            "ri-WRONG", "OPTION_0", _manifest("ri-0001"), "rb-1")
+    man = _manifest()
+    man["target_key"] = None
+    with pytest.raises(ValueError):
+        ReviewLog(_run(tmp_path)).append("ri-0001", "OPTION_0", man, "b")
+
+
+def test_decision_target_key_mismatch_is_stale(tmp_path):
+    """§7.2-19: a decision naming a different target_key than the current
+    package can never authorize repair."""
+    run = _run(tmp_path)
+    log = ReviewLog(run)
+    man = _manifest("ri-x", target_key="tk-A")
+    _register(run, "ri-x", man)
+    rev = log.append("ri-x", "OPTION_1", man, "rb-1")
+    assert rev["target_key"] == "tk-A"
+    # forge a same-id different-target record directly (bypassing guard)
+    pkgs = run / "review" / "packages.json"
+    data = json.loads(pkgs.read_text(encoding="utf-8"))
+    data["items"]["ri-x"]["target_key"] = "tk-OTHER"
+    pkgs.write_text(json.dumps(data), encoding="utf-8")
+    st = rebuild_state(run)["items"]["ri-x"]
+    assert st["status"] == STALE
+    assert current_valid_decision(run, "ri-x") is None
+
+
+# ------------------------------------------- production-path (§7.7 49-53)
+
+def _fake_run(packets):
+    return {"packets_by_id": {p["id"]: p for p in packets},
+            "song_sha256": "song", "run_id": "run-x",
+            "candidate0_sha256": "c0"}
+
+
+def _rendered_manifest(run, item, aph_suffix=""):
+    """Real item_manifest path with synthetic (successful) render results."""
+    from agent2utau.review.render import item_manifest
+    rres = {"shared_gain_db": -3.0,
+            "options": {o["option_id"]: {"wav": f"{o['option_id']}.wav",
+                                         "wav_sha256":
+                                         f"w-{item['item_id']}-"
+                                         f"{o['option_id']}{aph_suffix}",
+                                         "sample_rate": 44100,
+                                         "frames": 100}
+                        for o in item["options"]}}
+    rph = {"profile": rb.render_profile(), "hash": "rph"}
+    refs = {"original_mix": {"path": "s.wav", "sha256": "s1"},
+            "separated_vocal": {"path": "v.wav", "sha256": "s2"}}
+    return item_manifest(run, item, "rb-x", rph, refs, rres,
+                         provenance={"impl": "test"})
+
+
+def test_full_subset_no_overwrite_via_real_path(tmp_path):
+    """§7.7-49: full batch → decide A → later subset batch for C → A's
+    package and decision untouched (real collect→plan→register path)."""
+    run = _run(tmp_path)
+    packets = _three_packets()
+    frun = _fake_run(packets)
+    full = _plan(packets)
+    mans = {it["packets"][0]:
+            _rendered_manifest(frun, it) for it in full}
+    log = ReviewLog(run)
+    for it in full:
+        _register(run, it["item_id"], mans[it["packets"][0]], "rb-full")
+    log.append(_ids(full)["note_0393"], "OPTION_0",
+               mans["note_0393"], "rb-full")          # decide A
+    # subset batch containing only C — under d2 this stole ri-0001
+    sub = _plan(packets, only_items=["note_0001"])
+    man_c = _rendered_manifest(frun, sub[0])
+    _register(run, sub[0]["item_id"], man_c, "rb-sub")
+    st = rebuild_state(run)
+    assert st["items"][_ids(full)["note_0393"]]["status"] == \
+        SEMANTICS_BASELINE                              # A decision intact
+    assert current_valid_decision(run, _ids(full)["note_0393"])
+    assert st["items"][sub[0]["item_id"]]["status"] == PENDING_REVIEW
+    assert len(st["items"]) == 3                        # A/B/C coexist
+
+
+def test_gen2_same_stable_id_via_real_path(tmp_path):
+    """§7.7-52: reject C → regen → gen-2 package keeps C's id; A/B survive."""
+    run = _run(tmp_path)
+    packets = _three_packets()
+    frun = _fake_run(packets)
+    full = _plan(packets)
+    mans = {it["packets"][0]:
+            _rendered_manifest(frun, it) for it in full}
+    log = ReviewLog(run)
+    for it in full:
+        _register(run, it["item_id"], mans[it["packets"][0]], "rb-full")
+    for pid in ("note_0393", "note_0002"):              # A,B decided
+        log.append(_ids(full)[pid], "OPTION_0", mans[pid], "rb-full")
+    cid = _ids(full)["note_0001"]
+    log.append(cid, "none_correct", mans["note_0001"], "rb-full")
+    assert regeneration_queue(run) == [cid]
+    g2 = _plan(packets, only_items=["note_0001"],
+               gen2={"note_0001": {"generation": 2, "shown_tones": set()}})
+    assert g2[0]["item_id"] == cid                      # same stable id
+    man2 = _rendered_manifest(frun, g2[0], aph_suffix="-g2")
+    _register(run, cid, man2, "rb-g2")
+    st = rebuild_state(run)
+    assert st["items"][cid]["status"] == PENDING_REVIEW
+    assert len(st["items"]) == 3                        # others untouched
+    assert set(all_current_valid_decisions(run)) == \
+        {_ids(full)["note_0393"], _ids(full)["note_0002"]}
+
+
+# ------------------------------------------------ verify_package recompute
+
+def test_verify_package_recomputes_audio_hash(tmp_path):
+    """§7.4-35/36 + §6.7: verify_package must recompute
+    audio_package_hash from revalidated bytes — a manifest that lies
+    about its own hash fails even when per-file shas match."""
+    from agent2utau.review.render import verify_package
+    idir = tmp_path / "item"
+    idir.mkdir()
+    import wave
+    for name, tag in (("OPTION_0.wav", 0), ("OPTION_1.wav", 1),
+                      ("OPTION_2.wav", 2)):
+        (idir / name).write_bytes(b"wav-bytes-" + bytes([tag]))
+    (idir / "s.wav").write_bytes(b"src-mix")
+    (idir / "v.wav").write_bytes(b"src-voc")
+    wavs = {}
+    opts = []
+    for i in range(3):
+        h = __import__("hashlib").sha256(
+            (idir / f"OPTION_{i}.wav").read_bytes()).hexdigest()
+        wavs[f"OPTION_{i}"] = {"wav_sha256": h}
+        opts.append({"option_id": f"OPTION_{i}", "candidate_id": f"c{i}",
+                     "score_patch": {}, "provenance": {},
+                     "wav": f"OPTION_{i}.wav", "wav_sha256": h,
+                     "sample_rate": 44100, "frames": 4})
+    srcs = {"original_mix": {"path": "s.wav",
+                             "sha256": __import__("hashlib").sha256(
+                                 b"src-mix").hexdigest()},
+            "separated_vocal": {"path": "v.wav",
+                                "sha256": __import__("hashlib").sha256(
+                                    b"src-voc").hexdigest()}}
+    prov = {"impl": "test"}
+    aph = rb.audio_package_hash("ph1", srcs, wavs, prov)
+    man = _manifest(aph=aph)
+    man["plan_hash"] = "ph1"
+    man["options"] = opts
+    man["source_reference"] = srcs
+    man["render_provenance"] = prov
+    ok, why = verify_package(man, idir)
+    assert ok, why                                     # honest package
+    man["audio_package_hash"] = "0" * 64               # forged hash
+    ok, why = verify_package(man, idir)
+    assert not ok and "recompute" in why               # §7.4-35

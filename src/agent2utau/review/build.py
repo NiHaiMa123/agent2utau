@@ -9,7 +9,8 @@ from __future__ import annotations
 import hashlib
 import json
 
-REVIEW_SCHEMA = "d2"          # d2 = final integrity patch (audio binding)
+REVIEW_SCHEMA = "d3"          # d3 = stable review identity (§6.2)
+IDENTITY_SCHEMA = "review-target-v1"
 
 # phrase window (§6.4)
 PHRASE_MIN_S = 3.0
@@ -479,6 +480,34 @@ def apply_patch(context, patch):
     return notes
 
 
+# ---------------------------------------------------------- stable identity
+
+def target_key(item) -> str:
+    """Stable logical identity of an unresolved target (§6.2).
+
+    Depends ONLY on what the target *is* — packet ids, real parent/partner
+    note ids, operation class — never on batch id, order, priority rank,
+    phrase window, options, hashes or generation. Same unresolved target
+    in any batch/subset/reorder/generation → same key; different targets
+    → different keys.
+    """
+    return sha({
+        "identity_schema": IDENTITY_SCHEMA,
+        "packets": sorted(item["packets"]),
+        "parent_ids": sorted(item["parent_ids"]),
+        "operation_class": item["type"],
+    })
+
+
+def assign_identity(item) -> str:
+    """Stamp target_key + stable review_item_id on an item (pre-filter,
+    so subset/max_items/reorder can never change it)."""
+    tk = target_key(item)
+    item["target_key"] = tk
+    item["item_id"] = "ri-" + tk[:16]
+    return item["item_id"]
+
+
 # ------------------------------------------------------------------ manifest
 
 def render_profile(voicebank="YousaV1.65b", sr=44100, bpm=120,
@@ -496,7 +525,8 @@ def render_profile_hash(profile) -> str:
 
 
 def plan_hash(item_id, song_sha256, run_id, candidate0_sha256,
-              phrase, context_ids, options, rph, generation=1):
+              phrase, context_ids, options, rph, generation=1,
+              target_key_=None):
     """Pre-render score/context/config identity (§6.1).
 
     Decisions never bind this — it only feeds audio_package_hash after
@@ -504,6 +534,7 @@ def plan_hash(item_id, song_sha256, run_id, candidate0_sha256,
     """
     return sha({
         "schema": REVIEW_SCHEMA, "review_item_id": item_id,
+        "target_key": target_key_,
         "generation": generation,
         "song_sha256": song_sha256, "diagnostic_run_id": run_id,
         "candidate0_sha256": candidate0_sha256, "phrase": phrase,
@@ -554,22 +585,25 @@ def plan_batch(items, duration, notes, lrc_lines, silences,
                rph, max_items=None, only_items=None, gen2=None):
     """Build the full batch plan: items + windows + blind options.
 
-    `gen2` maps a packet id → {"generation":2, "shown_tones":set,
-    "item_id":<old>} for §6.14 regeneration packages.
+    `gen2` maps a packet id → {"generation":2, "shown_tones":set}
+    for §6.14 regeneration packages. Identity is assigned to every
+    collected item BEFORE subset/max_items filtering — batch-local
+    order never determines `review_item_id` (§6.2 stable identity).
     """
     gen2 = gen2 or {}
     items = sorted(items, key=item_priority)
+    for it in items:
+        assign_identity(it)
     if only_items:
         keep = set(only_items)
         items = [it for it in items if set(it["packets"]) & keep or
-                 it.get("item_id") in keep]
+                 it["item_id"] in keep or it["target_key"] in keep]
     if max_items:
         items = items[:max_items]
     out = []
-    for k, it in enumerate(items):
-        ov = gen2.get(it["packets"][0], {})
+    for it in items:
+        ov = next((gen2[p] for p in it["packets"] if p in gen2), {})
         it["generation"] = ov.get("generation", 1)
-        it["item_id"] = ov.get("item_id") or f"ri-{k + 1:04d}"
         win = phrase_window(it["region"], duration, notes,
                             lrc_lines, silences,
                             ctx_s=3.0 if it["generation"] > 1 else None)
@@ -584,7 +618,8 @@ def plan_batch(items, duration, notes, lrc_lines, silences,
         ph = plan_hash(it["item_id"], song_sha256, run_id,
                        candidate0_sha256, win,
                        [n["id"] for n in ctx], opts, rph,
-                       generation=it["generation"])
+                       generation=it["generation"],
+                       target_key_=it["target_key"])
         it["options"] = opts
         it["context_note_ids"] = [n["id"] for n in ctx]
         it["baseline_option"] = next(

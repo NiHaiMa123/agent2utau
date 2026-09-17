@@ -341,19 +341,19 @@ def cmd_review(args) -> int:
                 _play(pdir / "SOURCE_PHRASE_separated_vocal.wav")
             elif c.isdigit() and int(c) < n_opt:
                 _play(mpath.parent / f"OPTION_{c}.wav")
-            elif c in ("e", "x"):
-                rev = log.append(
-                    iid, "equivalent" if c == "e" else "none_correct",
-                    man, man["review_batch_id"])
+            elif c in ("e", "x") or (c.startswith("o") and
+                                     c[1:].isdigit() and
+                                     int(c[1:]) < n_opt):
+                choice = {"e": "equivalent", "x": "none_correct"}.get(
+                    c, f"OPTION_{c[1:]}")
+                try:
+                    rev = log.append(iid, choice, man,
+                                     man["review_batch_id"])
+                except ValueError as ex:
+                    print(f"  not saved: {ex}")
+                    continue
                 print(f"  saved rev-{rev['revision_id']}: "
-                      f"{rev['semantics']}")
-                break
-            elif c.startswith("o") and c[1:].isdigit() and \
-                    int(c[1:]) < n_opt:
-                rev = log.append(iid, f"OPTION_{c[1:]}", man,
-                                 man["review_batch_id"])
-                print(f"  saved rev-{rev['revision_id']}: "
-                      f"{rev['semantics']} ({c})")
+                      f"{rev['semantics']} ({choice})")
                 break
             else:
                 print("  (0..n plays; o0..on selects; e=equivalent; "

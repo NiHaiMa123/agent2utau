@@ -73,7 +73,7 @@ class ReviewLog:
         if self.path.exists():
             self.data = json.loads(self.path.read_text(encoding="utf-8"))
         else:
-            self.data = {"schema": "d2", "revisions": []}
+            self.data = {"schema": "d3", "revisions": []}
 
     def save(self):
         _atomic_write(self.path, self.data)
@@ -102,6 +102,10 @@ class ReviewLog:
         if not aph:
             raise ValueError("package has no audio_package_hash "
                              "(unrendered or invalid — cannot review)")
+        if manifest.get("review_item_id") != item_id or \
+                not manifest.get("target_key"):
+            raise ValueError("manifest identity mismatch: decision must "
+                             "bind the package's review_item_id/target_key")
         revs = self.data["revisions"]
         supersedes = None
         for r in revs:
@@ -131,6 +135,7 @@ class ReviewLog:
         rev = {
             "revision_id": f"rev-{len(revs) + 1:04d}",
             "review_item_id": item_id,
+            "target_key": manifest["target_key"],
             "batch_id": batch_id,
             "review_generation": generation,
             "audio_package_hash": aph,
@@ -164,10 +169,27 @@ def load_packages(run_dir: Path) -> dict:
 def register_package(run_dir: Path, item_id, batch_id, manifest,
                      manifest_path: Path | None = None):
     """Record the item's CURRENT package (latest wins — this is an index,
-    not history; the audit trail lives in the revision log)."""
+    not history; the audit trail lives in the revision log).
+
+    Collision guard (§6.4): the same review_item_id may only ever name
+    the same stable target. A same-id package whose target_key differs
+    is a hard error — never a silent overwrite.
+    """
+    tk = manifest.get("target_key")
+    if not tk or manifest.get("review_item_id") != item_id:
+        raise ValueError(f"package for {item_id} lacks a matching "
+                         "review_item_id/target_key")
     p = review_dir(run_dir) / PACKAGES_NAME
-    data = {"schema": "d2", "items": load_packages(run_dir)}
+    data = {"schema": "d3", "items": load_packages(run_dir)}
+    existing = data["items"].get(item_id)
+    if existing and existing.get("target_key") not in (None, tk):
+        raise ValueError(
+            f"review_item_id collision: {item_id} already bound to "
+            f"target {existing['target_key'][:12]}…, refusing package "
+            f"for {tk[:12]}…")
     data["items"][item_id] = {
+        "review_item_id": item_id,
+        "target_key": tk,
         "batch_id": batch_id,
         "generation": manifest["review"]["generation"],
         "plan_hash": manifest.get("plan_hash"),
@@ -196,6 +218,10 @@ def _derive_status(pkg, decision):
             else INVALID_PACKAGE
     if decision is None:
         return PENDING_REVIEW
+    dtk = decision.get("target_key")
+    if dtk is not None and pkg.get("target_key") is not None and \
+            dtk != pkg["target_key"]:
+        return STALE     # decision names a different target — never valid
     if decision["audio_package_hash"] != pkg.get("audio_package_hash"):
         if decision["semantics"] == SEMANTICS_REJECTED and \
                 pkg.get("generation", 1) > decision["review_generation"]:
@@ -225,7 +251,7 @@ def rebuild_state(run_dir: Path) -> dict:
     counts: dict[str, int] = {}
     for v in items.values():
         counts[v["status"]] = counts.get(v["status"], 0) + 1
-    state = {"schema": "d2", "updated_at": _now(), "items": items,
+    state = {"schema": "d3", "updated_at": _now(), "items": items,
              "counts": counts,
              "reviewed": sum(1 for v in items.values()
                              if v["status"] in (SEMANTICS_BASELINE,

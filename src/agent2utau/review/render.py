@@ -10,9 +10,10 @@ import json
 import time
 from pathlib import Path
 
-from .build import (REVIEW_SCHEMA, apply_patch, audio_package_hash,
-                    collect_review_items, find_silences, plan_batch,
-                    render_profile, render_profile_hash)
+from .build import (IDENTITY_SCHEMA, REVIEW_SCHEMA, apply_patch,
+                    audio_package_hash, collect_review_items,
+                    find_silences, plan_batch, render_profile,
+                    render_profile_hash)
 from .decisions import (ReviewLog, rebuild_state, register_package,
                         regeneration_queue)
 
@@ -274,24 +275,36 @@ def assess_package(man) -> str:
 
 
 def verify_package(man, item_dir: Path) -> tuple[bool, str]:
-    """Decide-time re-verification: files must still exist and match the
-    recorded sha256 — a package whose audio changed or vanished is not
-    reviewable even if its manifest claims otherwise."""
+    """Decide-time re-verification: files must still exist, match the
+    recorded sha256, AND the recorded audio_package_hash must recompute
+    identically from the revalidated bytes + plan_hash + provenance —
+    a package whose audio or provenance changed or vanished is not
+    reviewable even if its manifest claims otherwise (§6.7)."""
     if assess_package(man) != "valid":
         return False, f"package_state={assess_package(man)}"
     item_dir = Path(item_dir)
+    wavs = {}
     for o in man["options"]:
         w = item_dir / o["wav"]
         if not w.exists():
             return False, f"missing {o['wav']}"
-        if _file_sha(w) != o["wav_sha256"]:
+        h = _file_sha(w)
+        if h != o["wav_sha256"]:
             return False, f"hash mismatch {o['wav']}"
+        wavs[o["option_id"]] = {"wav_sha256": h}
+    srcs = {}
     for k, ref in (man.get("source_reference") or {}).items():
         w = (item_dir / ref["path"]).resolve()
         if not w.exists():
             return False, f"missing source {k}"
-        if _file_sha(w) != ref["sha256"]:
+        h = _file_sha(w)
+        if h != ref["sha256"]:
             return False, f"hash mismatch source {k}"
+        srcs[k] = {"sha256": h}
+    aph = audio_package_hash(man.get("plan_hash"), srcs, wavs,
+                             man.get("render_provenance"))
+    if aph != man.get("audio_package_hash"):
+        return False, "audio_package_hash recompute mismatch"
     return True, "ok"
 
 
@@ -320,7 +333,9 @@ def item_manifest(run, item, batch_id, rph, source_refs,
         else None
     man = {
         "schema": REVIEW_SCHEMA,
+        "identity_schema": IDENTITY_SCHEMA,
         "review_item_id": item["item_id"],
+        "target_key": item["target_key"],
         "song_sha256": run["song_sha256"],
         "diagnostic_run_id": run["run_id"],
         "review_batch_id": batch_id,
@@ -454,7 +469,8 @@ def generate_batch(run_dir, cfg=None, render=True, max_items=None,
         register_package(run["run_dir"], it["item_id"], batch_id, man,
                          manifest_path=mpath)
         batch["items"].append({
-            "item_id": it["item_id"], "type": it["type"],
+            "item_id": it["item_id"], "target_key": it["target_key"],
+            "type": it["type"],
             "reason": it["reason"], "phrase": it["phrase"],
             "phrase_key": pkey, "region": it["region"],
             "packets": it["packets"],
@@ -500,7 +516,9 @@ def regenerate_batch(run_dir, cfg=None, src_batch_id=None, render=True,
             continue
         man = json.loads(Path(rec["manifest"]).read_text(encoding="utf-8"))
         pid = man["target_group"]["packets"][0]
-        gen2[pid] = {"generation": 2, "item_id": iid,
+        # stable identity: the gen-2 package derives the SAME
+        # review_item_id from the target — no id override needed (§6.3)
+        gen2[pid] = {"generation": 2,
                      "shown_tones": _shown_tones(man)}
         keep_packets.add(pid)
     if not gen2:
