@@ -528,7 +528,28 @@ M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
   remote CI run 35223120342 success @0bbb098. Completing all 46 reviews
   is NOT a freeze blocker.
 
-**M2.3.2D = FROZEN @ 2a997a2 (Stable Review Identity; human review open).**
+**M2.3.2D = FROZEN @ 905f144 (Migration Integrity; human review open).**
+
+Migration Integrity patch (`905f144`, CI run 35238843522, 195 passed):
+
+- `ensure_review_authority(run_dir)` gates EVERY authority entry
+  (ReviewLog, load_packages, register_package, rebuild_state,
+  resolvers). Non-d3 / missing-schema / wrong identity_schema /
+  unparseable / mixed-schema authority → whole `review/` renamed
+  verbatim into `review_d2_audit/<snapshot>/` (never overwritten) and a
+  clean d3 authority created. Legacy ri-NNNN ids never map to d3
+  targets; d2 decisions are audit-only, never authorize M2.4.
+  Rename-first + tmp-write → crash leaves absent or clean-partial d3,
+  never mixed; idempotent.
+- All three authoritative files self-describe `schema: d3` +
+  `identity_schema: review-target-v1`.
+- `review_item_id == "ri-"+target_key[:16]` enforced at
+  register_package (hard fail on forged id), ReviewLog.append, and
+  _derive_status (forged/malformed → stale).
+- `repair_authorized_decision(run, item_id)` — the ONLY M2.4 gate:
+  human_selected_candidate + valid package + byte-level verify_package
+  + identical target_key/audio_package_hash across decision, package
+  record and manifest + complete snapshots, else None.
 
 Stable Review Identity patch (`2a997a2`, CI run 35233024292, 186 passed):
 

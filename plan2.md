@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C 已冻结。D main workflow、exact-audio/run-authority、stable review identity 主体均已实现；但 D 暂时重新打开，只剩一个最终 blocker：d2 → d3 review authority 必须 fail-closed。当前代码 baseline = `2a997a2e65e7557655f2c3498c99b247c491238e`（remote CI run `35233024292` = success，186 passed / 0 failed），当前 doc baseline = `4d1aa910f3ceb7d7fb2cbe5222f185dd480a6a44`。**当前最高优先级 = M2.3.2D Migration Integrity Final Patch（§6）；在该 patch 完成并以最终代码 SHA remote green 前，M2.4 继续 BLOCKED。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C/D 已冻结。Migration Integrity Final Patch 由 `905f144` 完成（本机 195 passed；remote CI run `35238843522` on `905f144` = success，195 passed，无 skip）：(P0) `ensure_review_authority()` 在所有 authority 入口（ReviewLog/load_packages/register_package/rebuild_state/resolvers）之前执行 schema gate —— 任何非 d3 / 缺 schema / identity_schema 错误 / 不可解析 / 混合 schema 的 authoritative file 触发 Strategy A：整个 `review/` 原样 rename 进 `review_d2_audit/<snapshot>/`（不覆盖），随后创建全新 d3 authority；legacy ri-NNNN 从不映射到 d3 target，d2 decision 永不授权 M2.4；rename-first + tmp-write 保证 crash 后只剩 absent 或 clean-partial d3，调用幂等。(§6.4) 三文件自描述 `schema=d3 + identity_schema=review-target-v1`。(§6.6 P1) `review_item_id == "ri-"+target_key[:16]` 在 register/append/resolver 三处强制。(§6.7) `repair_authorized_decision()` 是 M2.4 唯一入口：d3 + human_selected_candidate + valid package + bytes 级 verify_package + decision/package/manifest 三方 target_key 与 audio_package_hash 一致 + 完整 snapshot，否则 None。本机验证：真实 run 的 legacy authority 自动归档 `review_d2_audit/snapshot-20260917-151133/`；rb-d3-render2 重渲染 3 items（同 stable id）；verify_package 含重算通过；split item 的 human_selected_candidate 通过 M2.4 gate；Candidate 0 sha256 不变。**当前最高优先级 = M2.4 SAFE Repair（§8）。**
 
 ---
 
@@ -399,7 +399,7 @@ result: success
 pytest: 186 passed / 0 failed
 ```
 
-**但 d2 → d3 authority migration 尚未在代码 contract 中 fail-closed，因此 D 仍 NOT FROZEN。**
+**d2 → d3 authority migration 已由 `905f144` fail-closed（remote CI `35238843522` = success，195 passed）→ M2.3.2D = FROZEN。**
 
 ---
 
@@ -1041,9 +1041,9 @@ rollback coverage
 ### M2.3.2D main workflow — ✅ IMPLEMENTED @ 0bbb098
 ### M2.3.2D exact-audio/run-authority integrity — ✅ IMPLEMENTED @ 5c54284
 ### M2.3.2D Stable Review Identity — ✅ IMPLEMENTED @ 2a997a2 (CI 35233024292)
-### M2.3.2D Migration Integrity Final Patch — ← CURRENT
-### M2.3.2D FROZEN — ⏳ PENDING FINAL PATCH + SAME-SHA REMOTE GREEN
-### M2.4 — SAFE repair — BLOCKED
+### M2.3.2D Migration Integrity Final Patch — ✅ DONE @ 905f144 (CI 35238843522)
+### M2.3.2D FROZEN — ✅ @ 905f144
+### M2.4 — SAFE repair — ← CURRENT
 ### M2.5 — PROBABLE structure repair
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
