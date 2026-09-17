@@ -488,9 +488,49 @@ M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
   success @ c0d2648a1b86344d455430c0553d70e1726ec017 (133 passed,
   no skipped). §9 matrix 1-52 ALL satisfied.
 
-**M2.3.2C = FROZEN.** Next: M2.3.2D phrase-level review workflow
-(§10), then M2.4 SAFE repair gate (§11 entry conditions now met on
-the machine lanes; phrase review workflow still required).
+**M2.3.2C = FROZEN.**
+
+## M2.3.2D phrase-level human review (implemented @0bbb098)
+
+- `src/agent2utau/review/` — build.py (pure logic), decisions.py
+  (append-only store), render.py (local IO/OpenUtau). CLI:
+  `review-batch <diag-run>` / `review` / `review-decide` / `review-status`.
+  Batches live at `runs/<diag>/review_batches/<batch_id>/`
+  (items/<id>/manifest.json + OPTION_i.wav/.ustx, phrases/<key>/SOURCE_*,
+  decisions.json).
+- Routing: only `state.decision == needs_phrase_review` packets become
+  items. Split parent + virtual children and merge partners form ONE
+  target_group (union-find over shared note ids); unrelated unresolved
+  notes are never grouped. Types: pitch/structure/compound/split/merge.
+- Phrase windows: LRC line containing target (3-12s) → silence/breath
+  gaps (RMVPE unvoiced runs ≥0.25s) → ±1.5s fallback; edges never cut a
+  note (target-overlapping notes are included, never split); identical
+  windows share phrase assets via `phrase_key`.
+- Candidates: baseline (Candidate-0, patch=identity) + ≤3 alternatives —
+  retune from frozen-B hypotheses, split/merge from C hypotheses or
+  virtual-B winners; acoustic-seed child pitches are labelled
+  `acoustic_seed` provenance (never GAME truth). Options are blindly
+  rotated (deterministic sha per item_id) so OPTION_0 ≠ always baseline.
+- Fair render: one ustx per option with identical context + neutral
+  profile (YousaV1.65b, zh phonemizer, no voice_color, no pitd), shared
+  phrase anchor at t=0, one shared gain per item, PCM_16, sha256 per wav.
+  Bridge `render` emits `<stem>_vocal.wav` — take the path from
+  `br["files"]`, not the requested name.
+- Decisions: `decisions.json` append-only revisions bound to
+  package_hash; OPTION_i→baseline = human_resolved_keep, else
+  human_selected_candidate; `equivalent`→human_no_preference;
+  `none_correct`→human_rejected_all (gen1) → regeneration_queue, gen2 →
+  manual_followup_required. `review-batch --regenerate` rebuilds gen-2
+  packages (wider ctx, shown tones excluded).
+- Smoke (rb-smoke1/2): 5 items across pitch/structure/split/189s/202s —
+  79/79 checks; decision save/resume/stale verified. 162 tests (+29),
+  remote CI run 35223120342 success @0bbb098. Completing all 46 reviews
+  is NOT a freeze blocker.
+
+**M2.3.2D workflow = FROZEN (human review open).** Next: M2.4 SAFE
+repair — only items with a valid human_selected_candidate may be
+modified; machine-safe candidates may proceed without waiting for all
+reviews.
 
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 

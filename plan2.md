@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C 全部冻结。C 冻结代码 = `c0d2648a1b86344d455430c0553d70e1726ec017`，remote CI run `35210458722` = success，133 passed。当前唯一实现优先级 = M2.3.2D Phrase-Level Human Review 工作流；D 工作流稳定后进入 M2.4 SAFE Repair。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C 全部冻结。C 冻结代码 = `c0d2648a1b86344d455430c0553d70e1726ec017`，remote CI run `35210458722` = success，133 passed。M2.3.2D 工作流已实现并通过本机 integration smoke（见 §8.8）：实现代码 = `0bbb098`，remote CI run `35223120342` = success，162 passed。本机 smoke 批次 `rb-smoke1`/`rb-smoke2`（run `diag-20260917-181538-6aec`）覆盖 pitch-only / structure-unresolved / split+virtual-B / 189s / 202s 五类，79/79 项检查通过（时长、hash、context 隔离、无削波），decision 持久化/resume/stale/regen（gen2 → manual_followup_required）端到端验证。46 条 review 的完整人工聆听不是 freeze 前置条件 —— 当前优先级 = 人工完成 review 批次 + M2.4 SAFE Repair。**
 
 ---
 
@@ -1292,7 +1292,8 @@ rollback coverage
 ### M2.3.2B1 / B2 / B3 — ✅ FROZEN
 ### E1 — GitHub Actions Remote CI — ✅ PASS
 ### M2.3.2C1 / C2 — ✅ FROZEN @ c0d2648
-### M2.3.2D — Phrase-level human review ← CURRENT
+### M2.3.2D — Phrase-level human review — WORKFLOW FROZEN @`0bbb098`（本机 smoke 通过；46 条人工 review 开放中，不阻塞）
+### M2.4 — SAFE repair ← CURRENT
 ### M2.4 — SAFE repair
 ### M2.5 — PROBABLE structure repair
 ### M2.6 — Optional second opinion
