@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C/D 已冻结。Stable Review Identity Final Patch 由 `2a997a2` 完成（本机 186 passed；remote CI run `35233024292` on `2a997a2` = success，186 passed，无 skip）：(P0) `review_item_id` = `"ri-" + target_key[:16]`，`target_key` = review-target-v1 canonical hash{packets, parent_ids, operation_class}，在 subset/max_items 过滤**之前**赋给全部 item —— batch/order/priority/phrase/options/generation 均不改变 identity；(§6.4) `register_package` 对同 id 异 target_key 硬失败，`ReviewLog.append` 校验 manifest identity，`_derive_status` 将 decision↔package target_key 不一致判 stale；(§6.7) `verify_package` 从重算后的 bytes+plan_hash+provenance 重算 `audio_package_hash` 并与 manifest 记录比对。Schema d2→d3，旧 d2 review state 归档 `review_d2_audit/`（§6.6-A）。本机 real-render smoke `rb-d3-*`：subset/max-items 复现 full-batch id；3 个渲染包（202.52s permanent、split/virtual-B、189.84s）verify_package 含重算全过；gen1-reject→pending_regeneration→gen2 同 stable id→pending_review→gen2-reject→manual_followup 全通；Candidate 0 sha256 不变。**当前最高优先级 = M2.4 SAFE Repair（§8）。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C 已冻结。D main workflow、exact-audio/run-authority、stable review identity 主体均已实现；但 D 暂时重新打开，只剩一个最终 blocker：d2 → d3 review authority 必须 fail-closed。当前代码 baseline = `2a997a2e65e7557655f2c3498c99b247c491238e`（remote CI run `35233024292` = success，186 passed / 0 failed），当前 doc baseline = `4d1aa910f3ceb7d7fb2cbe5222f185dd480a6a44`。**当前最高优先级 = M2.3.2D Migration Integrity Final Patch（§6）；在该 patch 完成并以最终代码 SHA remote green 前，M2.4 继续 BLOCKED。**
 
 ---
 
@@ -72,7 +72,7 @@ Frozen B contract：
 - final score / margin / supporting groups / gates 使用统一 group-level semantics；
 - missing evidence = neutral；
 - raw feature 只用于 audit，不能绕过 group gate；
-- third-F0 cache freshness比较当前 runtime version；
+- third-F0 cache freshness 比较当前 runtime version；
 - SAFE target 必须绑定 B winner；
 - separation-sensitive 会降低 confidence / 可阻止 resolution；
 - 189s / 202s 永久 no-false-repair regression。
@@ -144,7 +144,7 @@ Python: 3.11
 core gate: pytest -q
 ```
 
-从 C2 起，任何 stage 想标记：
+从 C2 起，任何 stage 标记：
 
 ```text
 FROZEN / PASS / accepted
@@ -162,17 +162,18 @@ local regression green
 
 依赖本机 OpenUtau / Yousa / E:\ 路径 / 大模型资产的验证必须单列 local/integration acceptance，不得假装被 lightweight CI 覆盖。
 
-D 已验证 baseline：
+D 已验证代码 baseline：
 
 ```text
-D main: 0bbb09851033563749d41bb603a43bdfa79fa471
-D Final Integrity Patch: 5c542844224ccf9caa675450606819c7ca95f8fc
-remote CI: 35227944705
-pytest: 175 passed / 0 failed
-local smoke: rb-int1
+D main:                     0bbb09851033563749d41bb603a43bdfa79fa471
+D exact-audio/run-authority: 5c542844224ccf9caa675450606819c7ca95f8fc
+D stable identity:           2a997a2e65e7557655f2c3498c99b247c491238e
+remote CI:                   35233024292
+pytest:                      186 passed / 0 failed
+local real-render smoke:     rb-d3-*
 ```
 
-**注意：`5c54284` 的 remote green 证明已有 tests 通过，但 stable review identity 尚未被 tests 建模，因此不能据此冻结 D。**
+**注意：`2a997a2` 的 green 证明 stable identity / collision / audio hash recompute regressions 通过，但没有证明旧 d2 authoritative state 会被 fail-closed 隔离。因此不能据此最终冻结 D。**
 
 ---
 
@@ -229,29 +230,50 @@ Candidate 0 永不被 adjudication / review / repair 原地覆盖
 
 任何变化必须先成为独立 candidate / corrected-score artifact，并提供 rollback。
 
-## 4.5 Review identity vs package identity
-
-这两个概念必须彻底分离：
+## 4.5 Review target identity vs audio package identity
 
 ```text
 review_item_id / target_key
-= “这是哪个 unresolved target / 问题”
-= 跨 batch / subset / reorder / generation 稳定
+= “这是哪个 unresolved target”
+= 跨 full/subset/reorder/max-items/generation 稳定
 
 audio_package_hash
 = “这次用户实际听到了什么”
-= phrase / options / score patch / render bytes / model bytes material change 时变化
+= phrase/options/score patch/source/render/model/audio bytes material change 时变化
 ```
 
-禁止把 batch 顺序号当逻辑 target identity。
+不得用 batch-local sequence number 作为逻辑 identity。
+
+## 4.6 Review authority 必须 fail-closed
+
+任何 human decision 能进入 M2.4 之前，必须能证明：
+
+```text
+review schema == d3
+identity schema == review-target-v1
+review_item_id 与 target_key 数学一致
+current package 与 decision target_key 一致
+current package 与 decision audio_package_hash 一致
+verify_package(actual bytes) == valid
+semantics == human_selected_candidate
+```
+
+只要有一项缺失 / legacy / mixed / malformed：
+
+```text
+不得猜
+不得兼容性放行
+不得当作 valid decision
+不得授权 repair
+```
 
 ---
 
-# 5. M2.3.2D — 已完成主体能力，但当前 NOT FROZEN
+# 5. M2.3.2D — 主体实现状态
 
 ## 5.1 D main workflow ✅ IMPLEMENTED @ 0bbb098
 
-现有模块：
+模块：
 
 ```text
 src/agent2utau/review/build.py
@@ -268,28 +290,26 @@ review-decide
 review-status
 ```
 
-已经通过的主体能力：
+已实现：
 
 - 只有 finalized `needs_phrase_review` 进入 D；
 - split parent + virtual children / merge partner 组成 atomic target group；
 - 无关 unresolved 不做 Cartesian product；
 - phrase window 默认 3–12s，优先 LRC / silence，避免 target note 中间硬切；
-- baseline + 最多 3 个真实机器 candidate；
+- baseline + 最多 3 个真实 machine candidates；
 - pitch candidate 来自 frozen B hypotheses；
 - structure candidate 来自 C / virtual-B；
-- acoustic seed 明确标记 provenance，不冒充 GAME truth；
+- acoustic seed 明确 provenance，不冒充 GAME truth；
 - blind OPTION labels；
 - 同一 item 使用同一 phrase context / tempo / singer / renderer；
 - shared gain，不做 per-option independent loudness normalization；
-- `equivalent` / `none_correct` 语义；
+- `equivalent` / `none_correct`；
 - generation 1 → 2 regeneration 上限；
 - D 不修改 Candidate 0，不执行 repair。
 
-## 5.2 D Final Integrity Patch ✅ MAIN BODY DONE @ 5c54284
+## 5.2 Exact-audio + run-level authority ✅ IMPLEMENTED @ 5c54284
 
-已经修正：
-
-### Exact-audio binding
+已经成立：
 
 ```text
 plan_hash = pre-render score/context/config identity
@@ -303,33 +323,20 @@ audio_package_hash
 + render provenance
 ```
 
-Human decision 绑定 `audio_package_hash`，不是 pre-render `plan_hash`。
+Human decision 绑定 `audio_package_hash`。
 
-### Reviewability gate
-
-以下任一情况必须拒绝 review / review-decide：
-
-```text
-render_error
-missing SOURCE/OPTION WAV
-missing recorded sha256
-actual WAV hash mismatch
-sample-rate/length inconsistency
-unrendered package
-```
-
-### Run-level authority
+Authoritative state：
 
 ```text
 runs/<diag>/review/
   decisions.json      # append-only revisions
   packages.json       # current package index
-  review_state.json   # atomic derived materialization
+  review_state.json   # derived state
 ```
 
-`latest_batch.json` 只能是 UI convenience pointer，绝不是 truth source。
+`latest_batch.json` 只是 UI pointer。
 
-已实现 resolver：
+Resolver：
 
 ```text
 current_valid_decision
@@ -339,21 +346,7 @@ regeneration_queue
 rebuild_state
 ```
 
-### Cross-generation lifecycle
-
-```text
-gen1 none_correct
-→ pending_regeneration
-→ gen2 package
-→ pending_review
-→ gen2 selection / none_correct
-```
-
-一个 1-item gen2 batch 不得删除其它 item 已有效的 decision。
-
-### Decision snapshot
-
-`human_selected_candidate` revision 已 snapshot：
+Decision snapshot 包含：
 
 ```text
 selected_option_id
@@ -368,482 +361,422 @@ generation
 revision lineage
 ```
 
-### CLI
+## 5.3 Stable Review Identity ✅ IMPLEMENTED @ 2a997a2
+
+当前生产代码已经：
 
 ```text
-[i/N]
-reviewed/pending
-p = previous/back
-append new revision, never edit old revision
-```
-
-Local real-render smoke `rb-int1` 已验证：
-
-```text
-5 items
-hash recompute from bytes
-bridge deterministic rerender bit-identical
-gen1-reject → gen2-select
-missing-wav refusal
-```
-
-但下节 stable identity P0 未解决，所以：
-
-```text
-M2.3.2D = FROZEN @ 2a997a2 (Stable Review Identity, remote CI 35233024292)
-M2.4 = UNBLOCKED
-```
-
-不新增 D2 / D3。继续作为 **D Final Integrity Patch 的最后 correctness completion**。
-
----
-
-# 6. M2.3.2D Stable Review Identity Final Patch ← CURRENT HIGHEST PRIORITY
-
-## 6.1 P0 — `review_item_id` 必须是 stable target identity
-
-### 已确认的生产代码问题
-
-当前 `plan_batch()` generation-1 path 仍是：
-
-```python
-items = sorted(items, key=item_priority)
-...
-if only_items:
-    items = ...
-if max_items:
-    items = items[:max_items]
-...
-for k, it in enumerate(items):
-    it["item_id"] = ov.get("item_id") or f"ri-{k + 1:04d}"
-```
-
-因此 `review_item_id` 取决于**当前 batch 中的相对顺序**。
-
-错误示例：
-
-```text
-full batch:
-A → ri-0001
-B → ri-0002
-C → ri-0003
-
-later subset batch containing only C:
-C → ri-0001
-```
-
-而当前 run-level authority 使用：
-
-```text
-packages[item_id] = current package
-ReviewLog revisions keyed by review_item_id
-```
-
-所以第二个 batch 可把 C 静默覆盖到 A 的 logical key 上；随后 `ReviewLog.append("ri-0001", ...)` 还可能 supersede A 的 human decision。
-
-这会导致：
-
-```text
-不同 target
-→ 相同 review_item_id
-→ package collision
-→ revision lineage corruption
-→ M2.4 可能读取错误人工授权
-```
-
-这是 D freeze blocker。
-
----
-
-## 6.2 Required identity model
-
-新增明确的 stable target identity：
-
-```text
-target_key
-review_item_id
-```
-
-推荐：
-
-```python
-target_key = canonical_hash({
-    "identity_schema": "review-target-v1",
-    "packets": sorted(target_group.packet_ids),
-    "parent_ids": sorted(target_group.parent_ids),
-    "operation_class": target_group.type,
-})
+target_key = canonical hash(
+  identity_schema=review-target-v1,
+  packets,
+  parent_ids,
+  operation_class
+)
 
 review_item_id = "ri-" + target_key[:16]
 ```
 
-实现可使用等价 canonical representation，但必须满足下面语义。
+并在 subset / `max_items` 过滤之前赋 identity。
 
-### 必须进入 identity 的内容
+已实现/验证：
 
-至少：
+- full batch ↔ subset 同 target ID 一致；
+- reorder / max-items 不改变 target identity；
+- gen1 → gen2 同 target ID；
+- pitch / split / merge operation-aware；
+- `register_package` same-id different-target hard fail；
+- decision snapshot `target_key`；
+- decision↔package target mismatch → stale；
+- `verify_package` 重新读取实际 SOURCE/OPTION bytes 并重算最终 `audio_package_hash`；
+- local real-render smoke 中 Candidate 0 unchanged。
 
-```text
-真实 target packet ids
-真实 parent note ids / merge partner identity
-必要的 operation class（pitch / split / merge / compound 等）
-identity schema version
-```
-
-### 不应进入 stable identity 的内容
-
-不得把这些 material package details 塞进 `review_item_id`：
-
-```text
-batch id
-batch 内顺序
-priority rank
-max_items
-phrase window
-OPTION 顺序
-candidate pitch
-score patch
-rendered WAV hash
-OpenUtau/model hash
-generation number
-```
-
-这些变化应该通过：
+Acceptance evidence：
 
 ```text
-plan_hash / audio_package_hash
+code SHA: 2a997a2e65e7557655f2c3498c99b247c491238e
+remote CI: 35233024292
+result: success
+pytest: 186 passed / 0 failed
 ```
 
-使旧 decision stale，而不是制造一个“全新的 target”。
-
-### 核心语义
-
-```text
-同一个 unresolved target
-+ different batch/subset/order/generation
-→ SAME review_item_id
-
-不同 unresolved target
-→ DIFFERENT review_item_id
-```
+**但 d2 → d3 authority migration 尚未在代码 contract 中 fail-closed，因此 D 仍 NOT FROZEN。**
 
 ---
 
-## 6.3 Generation lifecycle
+# 6. M2.3.2D Migration Integrity Final Patch ← CURRENT HIGHEST PRIORITY
 
-Generation 1 与 Generation 2 必须使用同一个 stable `review_item_id`：
+不新增 D2 / D3 / D4。不要重写 D 主体。只完成本节。
 
-```text
-ri-<stable-target>
-  rev1 / gen1 / package A
-  rev2 / gen2 / package B
+## 6.1 P0 — 旧 d2 review state 绝不能成为 d3 repair authority
+
+### 已确认的问题
+
+当前代码把新文件默认 schema 写成 `d3`，但读取已有文件时仍可能直接：
+
+```python
+json.loads(existing_decisions_or_packages)
 ```
 
-不得：
+如果磁盘上已经存在旧 d2：
 
 ```text
-gen1 → ri-0003
-gen2 → ri-0001
-```
-
-`none_correct` 的 lifecycle 仍保持：
-
-```text
-gen1 decision = human_rejected_all
-→ new gen2 package for SAME target id
-→ prior rejection preserved as audit / consumed routing state
-→ gen2 pending_review
-```
-
----
-
-## 6.4 Collision guard — 禁止 silent overwrite
-
-`register_package()` 必须保存：
-
-```text
-target_key
-review_item_id
-```
-
-如果已有：
-
-```text
-packages[review_item_id]
-```
-
-但其 stable `target_key` 与新 manifest 不同：
-
-```text
-raise hard error
-```
-
-不得：
-
-```text
-latest wins silently
-```
-
-同样，`ReviewLog.append()` / M2.4-facing resolver 应能验证：
-
-```text
-decision.target_key
-== current package.target_key
-== manifest.target_key
-```
-
-否则 decision 无效，不得授权 repair。
-
----
-
-## 6.5 Manifest / package / decision contract
-
-每个 review manifest 至少新增：
-
-```text
-target_key
-review_item_id
-```
-
-`packages.json` current record 至少保存：
-
-```text
-target_key
-review_item_id
-batch_id
-generation
-plan_hash
-audio_package_hash
-package_state
-manifest path
-```
-
-每个 decision revision snapshot 至少保存：
-
-```text
-target_key
-review_item_id
-revision_id
-supersedes_revision_id
-batch_id
-review_generation
-plan_hash
-audio_package_hash
-selected_option_id
-candidate_id
-selected_score_patch
-selected_provenance
-selected_wav_sha256
-semantics
-```
-
-M2.4 只允许消费：
-
-```text
-semantics == human_selected_candidate
-AND current package valid
-AND decision.audio_package_hash == current package.audio_package_hash
-AND decision.target_key == current package.target_key
-AND review_item_id matches stable target identity
-```
-
----
-
-## 6.6 Schema migration / old d2 review state
-
-Stable identity 会改变 generation-1 `review_item_id`，同时 `plan_hash` / `audio_package_hash` 也应随之改变。
-
-推荐 bump：
-
-```text
-REVIEW_SCHEMA: d2 → d3
-review target identity schema: review-target-v1
-```
-
-旧 d2：
-
-```text
+decisions.json schema=d2
+packages.json schema=d2
+review_state.json schema=d2
 ri-0001 / ri-0002 / ...
 ```
 
-不得被自动当成新的 stable target truth。
+旧 revision/package 没有可靠 `target_key`。
 
-允许两种安全实现：
+若 loader/resolver 继续兼容读取，旧：
 
 ```text
-A. 保留 d2 artifact 仅 audit，d3 packages/review state 重新生成；
-
-或
-
-B. 只有能证明 old target_group 与 new target_key 精确一致时做显式 migration，
-   且 package 必须重新 render/re-hash；旧 human decision 默认 stale，不能直接授权 M2.4。
+human_selected_candidate
++ matching old audio_package_hash
 ```
 
-当前项目还没有正式完成 46 条人工 review，因此优先选择简单、安全的 A。
+理论上仍可能被 `all_current_valid_decisions()` 视为有效。
 
-禁止按旧顺序号猜测对应关系。
+这是 P0：旧 `ri-0001` 是 batch-local 顺序号，**不能证明它等于任何 d3 stable target**。
 
 ---
 
-## 6.7 P1 — `verify_package()` 必须重算最终 `audio_package_hash`
+## 6.2 Required behavior — schema gate 必须位于所有 authority 入口之前
 
-当前 `verify_package()` 已逐项验证：
+新增统一 helper，例如：
 
 ```text
-actual OPTION WAV bytes ↔ option.wav_sha256
-actual SOURCE bytes ↔ source_reference.sha256
+ensure_review_authority_v3(run_dir)
 ```
 
-但 final hardening 还应加入：
+名字可不同，但 contract 必须统一。
+
+至少这些入口不得绕过 schema gate：
 
 ```text
-actual/revalidated source hashes
-+ actual/revalidated OPTION hashes
-+ manifest.plan_hash
-+ manifest.render_provenance
-→ recompute audio_package_hash
-→ MUST equal manifest.audio_package_hash
+ReviewLog.__init__ / ReviewLog load
+load_packages
+rebuild_state
+current_valid_decision
+all_current_valid_decisions
+pending_items
+regeneration_queue
+generate/register review package
+review / review-decide
+未来 M2.4 human-decision resolver
+```
+
+原则：
+
+```text
+先验证 authority schema
+再读取 decision/package
+```
+
+不得：
+
+```text
+先加载 d2
+→ 再尝试“尽量兼容”
+```
+
+---
+
+## 6.3 本项目采用 Migration Strategy A：完整归档，d3 clean start
+
+当前 46 个 phrase_review 尚未完成正式人工 adjudication，因此不要做高风险 d2→d3 decision mapping。
+
+对于 authoritative review 目录：
+
+```text
+runs/<diag>/review/
+```
+
+若发现任何 legacy authoritative file：
+
+```text
+schema != d3
+missing schema
+identity schema != review-target-v1
+```
+
+或出现 mixed state：
+
+```text
+decisions=d2 + packages=d3
+packages=d2 + state=d3
+任何 authoritative files schema 不一致
+```
+
+必须 fail-closed。
+
+推荐行为：
+
+```text
+1. 停止 authority resolution；
+2. 将整个旧 review authority 原样归档到：
+   runs/<diag>/review_d2_audit/<unique-or-deterministic-snapshot>/
+3. 不修改归档内容；
+4. 创建全新的 d3 review authority；
+5. 重新生成 d3 packages / audio_package_hash；
+6. 旧 human decision 仅 audit，不自动迁移，不授权 M2.4。
+```
+
+也允许实现为：
+
+```text
+legacy/mixed detected
+→ hard fail with explicit migration command
+```
+
+但自动归档方案优先，因为当前项目没有需要保留为有效授权的正式 46-item d2 decisions。
+
+### 绝对禁止
+
+```text
+ri-0001(d2) → 根据位置猜 d3 target
+按 batch 顺序映射
+只给旧 decision 补一个 target_key
+复用旧 d2 decision 直接授权 M2.4
+覆盖/删除旧 audit artifact
+```
+
+---
+
+## 6.4 d3 authoritative files 必须自描述 schema
+
+新的 authoritative artifacts 至少：
+
+```text
+decisions.json
+packages.json
+review_state.json
+```
+
+顶层应明确：
+
+```json
+{
+  "schema": "d3",
+  "identity_schema": "review-target-v1"
+}
+```
+
+如果未来 schema bump：
+
+```text
+unknown future schema
+```
+
+也必须 fail-closed，不能按 d3 猜。
+
+`review_state.json` 是 derived artifact，可重建；但它的 schema mismatch 也不能静默与另一版本 authority 混用。
+
+---
+
+## 6.5 Migration / archive 必须安全、原子、可重复
+
+要求：
+
+```text
+旧 review authority bytes 保留
+archive destination 不得覆盖已有 audit
+中途 crash 不得留下“半 d2 / 半 d3 authority”被 resolver 视为有效
+第二次启动必须 idempotent
+```
+
+建议：
+
+```text
+archive → fsync/atomic rename or equivalent
+→ create clean d3 authority
+```
+
+如果无法保证自动迁移原子性：
+
+```text
+宁可 hard fail
+```
+
+也不要继续读取 legacy authority。
+
+---
+
+## 6.6 P1 — stable ID 数学一致性校验
+
+当前有 full `target_key` collision guard，但 authority boundary 还应显式验证：
+
+```text
+expected_review_item_id = "ri-" + target_key[:16]
+```
+
+必须满足：
+
+```text
+manifest.review_item_id == expected_review_item_id
+package.review_item_id == expected_review_item_id
+decision.review_item_id == expected_review_item_id
 ```
 
 否则：
 
 ```text
-return invalid_package
+register/append → hard fail
+resolver → stale/invalid/None
+M2.4 → no authorization
 ```
 
-这样 M2.4 的授权边界是完整自校验的，而不是只相信 manifest 预先存好的 package hash。
-
-这项为 P1，但应和 stable identity patch 同一轮完成。
+这不是用 truncated id 代替 full `target_key`；full `target_key` 仍是 collision truth，16-char id 只是稳定可读 key。
 
 ---
 
-# 7. D Stable Identity Acceptance Matrix
+## 6.7 M2.4-facing resolver 的最终 gate
 
-在重新标记 D FROZEN 前，至少全部通过。
-
-## 7.1 Stable identity
+最终只允许返回：
 
 ```text
-1. full batch 中 target A 的 review_item_id 可复现
-2. A 单独 subset batch 的 review_item_id 与 full batch 完全相同
-3. `--max-items` 不改变已包含 target 的 identity
-4. priority reorder 不改变 target identity
-5. batch_id 改变不改变 target identity
-6. phrase window 改变不改变 target identity
-7. option/candidate mapping 改变不改变 target identity
-8. gen1 → gen2 继承同一 review_item_id
-9. 两个不同 target 单独生成时 review_item_id 必须不同
-10. pitch target 与另一个 pitch target 不得因都是 batch index 1 而碰撞
-11. split/merge target 的 parent/partner identity 被稳定编码
-12. target_key deterministic / canonical / order-independent
+schema == d3
+identity_schema == review-target-v1
+semantics == human_selected_candidate
+current package_state == valid
+verify_package(actual bytes) == valid
+review_item_id == "ri-" + target_key[:16]
+decision.target_key == package.target_key == manifest.target_key
+decision.audio_package_hash == package.audio_package_hash
+selected_score_patch snapshot exists
+selected_provenance snapshot exists
+selected_wav_sha256 snapshot exists
 ```
 
-## 7.2 Collision / authority
+任何 legacy / malformed / stale / mismatch：
 
 ```text
-13. A 已 register 后，生成 unrelated C subset 不得覆盖 A package
-14. A 已 decision 后，生成 unrelated C subset 不得 supersede A revision
-15. packages.json 可同时保留 A/C current records
-16. all_current_valid_decisions 仍返回 A 的有效 decision
-17. same review_item_id + different target_key → hard failure
-18. same target_key + same review_item_id + new audio package → allowed current-package update
-19. decision.target_key mismatch → current_valid_decision returns None / invalid
-20. latest_batch.json 仍不得成为 authority
+current_valid_decision → None
+all_current_valid_decisions → exclude
+M2.4 → refuse
 ```
 
-## 7.3 Cross-generation
+---
+
+# 7. D Migration Integrity Acceptance Matrix
+
+全部通过后才允许再次标记 D FROZEN。
+
+## 7.1 Legacy d2 fail-closed
 
 ```text
-21. gen1 none_correct → pending_regeneration
-22. gen2 package SAME stable target id → pending_review
-23. gen1 revision history保留
-24. gen2 select 成为 authoritative latest revision
-25. one-item gen2 batch 不影响其它 45 items
-26. generation 2 none_correct → manual_followup_required
-27. 不得出现 unbounded review generation loop
+1. existing d2 decisions.json + human_selected_candidate → 不得出现在 all_current_valid_decisions
+2. existing d2 packages.json → 不得作为 current d3 package authority
+3. d2 decision + matching d2 audio_package_hash 也不得授权 repair
+4. d2 review_state.json 不得被当成 authoritative current state
+5. missing-schema legacy file → fail-closed
+6. unknown future schema → fail-closed
+7. mixed d2/d3 authority → fail-closed
+8. 不允许按 ri-0001 顺序号猜 target mapping
 ```
 
-## 7.4 Exact audio integrity
+## 7.2 Archive / clean-start lifecycle
 
 ```text
-28. plan_hash material score/context change → hash changes
-29. OPTION WAV byte change → audio_package_hash changes
-30. SOURCE byte change → audio_package_hash changes
-31. OpenUtau/model material change → audio_package_hash changes
-32. missing WAV → verify_package fail
-33. WAV recorded hash mismatch → verify_package fail
-34. source recorded hash mismatch → verify_package fail
-35. recomputed audio_package_hash != manifest.audio_package_hash → fail
-36. valid unchanged package → recompute matches
+9. legacy review authority 被完整保留为 audit
+10. archive 不覆盖已有 audit snapshot
+11. migration 后新 review/ authority 是纯 d3
+12. d3 packages 必须重新生成，不复用旧 d2 authorization
+13. old decisions remain audit-only
+14. second startup idempotent
+15. crash/interrupted migration 不得产生可被 resolver 接受的 mixed authority
 ```
 
-## 7.5 Decision snapshot / repair authorization
+如果采用显式 hard-fail migration command，则对应验收为：
 
 ```text
-37. human_selected_candidate snapshots score_patch/provenance/wav hash
-38. baseline/equivalent never authorize repair
-39. human_rejected_all never authorize repair
-40. manual_followup_required never authorize repair
-41. stale decision never authorize repair
-42. invalid/unreviewable package never authorize repair
-43. current_valid_decision requires target_key + audio_package_hash both match
+legacy detection 必须阻止所有 resolver / review-decide / M2.4-facing access
+直到 migration 明确成功
+```
+
+## 7.3 d3 identity integrity
+
+```text
+16. decisions/packages/review_state 顶层 schema == d3
+17. identity_schema == review-target-v1
+18. review_item_id == "ri-" + target_key[:16]
+19. manifest forged id + real target_key → reject
+20. package forged id + real target_key → reject/stale
+21. decision forged id + real target_key → reject/stale
+22. same short id + different full target_key → collision hard fail
+23. full/subset/reorder/max-items identity regressions仍 green
+24. gen1→gen2 identity regressions仍 green
+```
+
+## 7.4 Exact-audio / authority regressions
+
+```text
+25. verify_package actual SOURCE hash mismatch → fail
+26. verify_package actual OPTION hash mismatch → fail
+27. recomputed audio_package_hash mismatch → fail
+28. valid unchanged package → recompute success
+29. stale package hash decision → exclude
+30. target_key mismatch decision → exclude
+31. baseline/equivalent/rejected/manual_followup → never authorize repair
+32. only valid human_selected_candidate can pass human authorization gate
+```
+
+## 7.5 Production-path regressions
+
+测试必须走真实：
+
+```text
+collect_review_items
+→ plan_batch
+→ generate/register_package
+→ ReviewLog
+→ rebuild_state
+→ all_current_valid_decisions
+```
+
+至少：
+
+```text
+33. d2 fixture → startup/migration → no valid decisions → new d3 package → review works
+34. full A/B/C → decide A → subset C → A untouched
+35. gen1 reject C → gen2 C → same stable id + A/B survive
+36. forged same-id/different-target package → hard fail
+37. d3 valid human selection → resolver returns exact snapshot
 ```
 
 ## 7.6 Permanent safety
 
 ```text
-44. Candidate 0 hash before/after D unchanged
-45. D itself仍执行 0 repair
-46. frozen A/B/C regressions green
-47. 189s / 202s 仍不得 auto repair
-48. no disabled/skipped core regression used to fake green
+38. Candidate 0 hash unchanged
+39. D itself仍执行 0 repair
+40. frozen A/B/C regressions green
+41. 189s / 202s 仍不得 auto repair
+42. no skipped/disabled core regression used to fake green
 ```
 
-## 7.7 Real production-path regressions
+## 7.7 Local integration acceptance
 
-必须直接调用真实：
-
-```text
-collect_review_items
-→ plan_batch
-→ generate_batch/register_package
-→ ReviewLog/rebuild_state
-```
-
-而不是在测试里手工写死 stable IDs。
-
-至少包含：
+本机至少验证：
 
 ```text
-49. full-batch A/B/C → decide A → subset C → A untouched
-50. full-batch A/B/C → reorder priorities → identities unchanged
-51. full-batch → max_items → same included target IDs
-52. gen1 reject C → only C gen2 → C same ID + A/B state survive
-53. collision guard actually raises on forged same-ID different-target package
-```
-
-## 7.8 Local integration acceptance
-
-在用户本机真实 OpenUtau/Yousa 环境重跑至少：
-
-```text
-A. pitch-only review item
-B. structure split/virtual-B review item
-C. 189s 或 202s permanent ambiguous item
+A. 一个复制出来的 d2 legacy review fixture：确认 fail-closed / archive / clean d3
+B. pitch-only review item
+C. split/virtual-B review item
+D. 189s 或 202s permanent ambiguous item
 ```
 
 验证：
 
 ```text
-stable target id 可跨 full/subset batch 复现
-manifest target_key 正确
-all WAV 可播放
-verify_package 包括 final audio_package_hash recompute
-review decision save/resume/back 正常
+old d2 decision 永不成为 valid authority
+new d3 package 可正常 render/review
+stable id 正确
+verify_package 包含 final audio_package_hash recompute
+review save/resume/back 正常
 Candidate 0 unchanged
 ```
 
-## 7.9 Remote CI gate
+## 7.8 Remote CI gate
 
 Final D acceptance 必须：
 
@@ -851,11 +784,12 @@ Final D acceptance 必须：
 FINAL implementation SHA
 → GitHub Actions workflow exists
 → pytest job success
-→ all D stable-identity regressions included
+→ migration + legacy fail-closed regressions included
+→ stable-identity/audio-integrity regressions仍 green
 → no skipped/disabled core regression
 ```
 
-只有全部通过后才允许：
+只有全部通过后：
 
 ```text
 M2.3.2D = FROZEN
@@ -864,15 +798,15 @@ M2.4 = UNBLOCKED
 
 ---
 
-# 8. M2.4 — SAFE Repair Engine（BLOCKED UNTIL D RE-FREEZE）
+# 8. M2.4 — SAFE Repair Engine（BLOCKED UNTIL D FINAL FREEZE）
 
-D 重新冻结后再实现。
+当前不要实现 human-selected repair consumption。
 
-M2.4 可处理两类输入：
+D 最终冻结后，M2.4 可处理：
 
 ```text
 A. machine-safe finalized repair_candidate
-B. D human_selected_candidate + current valid stable-target/audio package decision
+B. D human_selected_candidate + current valid d3 stable-target/exact-audio decision
 ```
 
 不得处理：
@@ -881,12 +815,15 @@ B. D human_selected_candidate + current valid stable-target/audio package decisi
 pending
 provisional
 unresolved without human selection
+legacy d2 review
+mixed/unknown review schema
 stale review decision
 human_no_preference
 human_rejected_all
 manual_followup_required
 invalid/unreviewable package
 target-key mismatch
+review_item_id/target_key mismatch
 audio-package mismatch
 ```
 
@@ -896,7 +833,7 @@ audio-package mismatch
 single-note written-pitch retune
 ```
 
-每个 repair 必须写入独立 corrected-score artifact，不得覆盖 Candidate 0，并记录：
+每个 repair 必须生成独立 corrected-score artifact，不得覆盖 Candidate 0，并记录：
 
 ```text
 repair_id
@@ -909,6 +846,7 @@ winner_game_support / opposition
 group_scores
 supporting/opposing groups
 confidence / margin
+review schema / identity schema
 review_item_id / target_key
 decision revision_id
 audio_package_hash
@@ -925,7 +863,7 @@ Structure repair 仍需额外 precision gate；不得因为 D 用户选中过一
 
 # 9. D Phrase Review UX Contract
 
-Human review 的目标始终是：
+Human review 的目标：
 
 ```text
 听完整 phrase
@@ -933,13 +871,13 @@ Human review 的目标始终是：
 → 点哪个听起来对
 ```
 
-用户永远不需要：
+用户不需要：
 
 ```text
 填写 MIDI
 填写 Hz
 判断 cents
-判断“到底高一个八度还是低一个八度”
+判断“高一个八度还是低一个八度”
 ```
 
 默认 phrase context：
@@ -975,7 +913,7 @@ Baseline
 
 A/B/C
 → human_selected_candidate
-→ 只有通过 stable-target + exact-audio validity 才可进入 M2.4
+→ 只有通过 d3 stable-target + exact-audio validity 才可进入 M2.4
 
 都差不多 / equivalent
 → human_no_preference
@@ -991,7 +929,7 @@ none_correct gen2
 → no repair
 ```
 
-46 个 phrase_review 不需要在 D workflow freeze 前全部人工听完；冻结的是 workflow correctness / identity / integrity。
+46 个 phrase_review 不需要在 D workflow freeze 前全部人工听完；冻结的是 workflow correctness / identity / integrity / migration safety。
 
 ---
 
@@ -1044,33 +982,29 @@ selected medoid + sensitivity
 GAME run-tone distribution
 match/gap/split/merge correspondence
 orthogonal states
-routing needs / decision
-pitch adjudication lifecycle
-structure adjudication lifecycle
+pitch/structure adjudication lifecycle
 RMVPE / FCPE / third-F0 evidence
-plateau pre/post center + relative delta
-boundary-time agreement
-energy/onset/spectral/articulation boundary evidence
+boundary/energy/onset/spectral/articulation evidence
 separation sensitivity
-raw feature evidence
 group_scores
 supporting_independence_groups
 winner / runner-up / margin
-independent structure discovery stats
 virtual candidate notes
 virtual-note B results
 virtual GAME correspondence provenance
 seed conditional/effective GAME support
 winner GAME support/opposition
 phrase-review target groups
+review schema / identity schema
 stable target_key / review_item_id
 phrase windows / boundary source
 review candidates + score patches
 render profile hash
-review WAV hashes
+SOURCE/OPTION WAV hashes
 plan_hash / audio_package_hash
 human decision + generation + revision
-stale decision status
+legacy migration/archive provenance
+stale/invalid decision status
 local integration result
 remote CI run id / SHA / conclusion
 cache/provenance manifest
@@ -1106,9 +1040,10 @@ rollback coverage
 ### M2.3.2C1 / C2 — ✅ FROZEN @ c0d2648
 ### M2.3.2D main workflow — ✅ IMPLEMENTED @ 0bbb098
 ### M2.3.2D exact-audio/run-authority integrity — ✅ IMPLEMENTED @ 5c54284
-### M2.3.2D Stable Review Identity Final Patch — ✅ DONE @ 2a997a2 (CI 35233024292)
-### M2.3.2D FROZEN — ✅ @ 2a997a2
-### M2.4 — SAFE repair — ← CURRENT
+### M2.3.2D Stable Review Identity — ✅ IMPLEMENTED @ 2a997a2 (CI 35233024292)
+### M2.3.2D Migration Integrity Final Patch — ← CURRENT
+### M2.3.2D FROZEN — ⏳ PENDING FINAL PATCH + SAME-SHA REMOTE GREEN
+### M2.4 — SAFE repair — BLOCKED
 ### M2.5 — PROBABLE structure repair
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
@@ -1145,21 +1080,24 @@ rollback coverage
 21. SAFE gate 必须在 finalized structure state 生效后计算。
 22. separation-sensitive 不得因 virtual packet 丢字段而消失。
 23. Candidate 0 永不被 adjudication / review / repair 原地覆盖。
-24. D 只提供完整 phrase 候选与 human adjudication，不要求用户猜 MIDI。
+24. D 只提供完整 phrase candidates + human adjudication，不要求用户猜 MIDI。
 25. D 的不同候选除 target_group 外必须使用同一 context/render profile。
-26. D 不允许 candidate Cartesian explosion；默认一个 target_group 一个 review item。
-27. `review_item_id` 必须是 stable target identity，禁止使用 batch-local sequence number 作为逻辑主键。
-28. 同一 target 跨 full/subset/reorder/gen1→gen2 必须保持同一 review_item_id。
-29. 不同 target 的 stable target_key 不得碰撞；碰撞必须 hard fail，禁止 silent overwrite。
-30. human decision 必须同时绑定 stable target_key + exact audio_package_hash；任一 mismatch 都不得授权 repair。
-31. `verify_package` 必须验证实际 SOURCE/OPTION bytes，并最终重算 audio_package_hash。
-32. stale review 不得授权 repair。
-33. “都差不多”不得偷偷选择 machine winner。
-34. “都不对”不得要求用户手工报正确音高；最多自动 regeneration 一次。
-35. needs_phrase_review 只能在 machine-computable lanes 结束后产生。
-36. 189s 永久 extractor-conflict regression。
-37. 202s 永久 stochastic pitch/identity regression。
-38. 0 repair 是合法结果。
-39. 从 C2 起，没有 FINAL acceptance SHA 的 remote CI green，不允许 FROZEN/PASS。
-40. 先把 written score 唱对，再生成 PITD。
-41. 先“唱对”，再做泠鸢风格。
+26. D 禁止 candidate Cartesian explosion；默认一个 target_group 一个 review item。
+27. `review_item_id` 必须是 stable target identity，禁止 batch-local sequence number。
+28. 同一 target 跨 full/subset/reorder/max-items/gen1→gen2 必须保持同一 review_item_id。
+29. 不同 target 的 full target_key 不得碰撞；碰撞必须 hard fail。
+30. `review_item_id` 必须数学上等于 `"ri-" + target_key[:16]`。
+31. human decision 必须同时绑定 d3 stable target_key + exact audio_package_hash。
+32. legacy d2 / mixed / unknown review schema 必须 fail-closed，永不得授权 M2.4。
+33. d2 顺序号不得被自动猜测映射到 d3 target。
+34. `verify_package` 必须验证实际 SOURCE/OPTION bytes，并重算最终 audio_package_hash。
+35. stale / invalid / malformed review 不得授权 repair。
+36. “都差不多”不得偷偷选择 machine winner。
+37. “都不对”不得要求用户手工报正确音高；最多自动 regeneration 一次。
+38. needs_phrase_review 只能在 machine-computable lanes 结束后产生。
+39. 189s 永久 extractor-conflict regression。
+40. 202s 永久 stochastic pitch/identity regression。
+41. 0 repair 是合法结果。
+42. 从 C2 起，没有 FINAL acceptance SHA 的 remote CI green，不允许 FROZEN/PASS。
+43. 先把 written score 唱对，再生成 PITD。
+44. 先“唱对”，再做泠鸢风格。
