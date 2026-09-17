@@ -12,8 +12,11 @@ import pytest
 
 from agent2utau.review import build as rb
 from agent2utau.review.decisions import (
-    MANUAL_FOLLOWUP, SEMANTICS_BASELINE, SEMANTICS_CANDIDATE,
-    SEMANTICS_EQUIVALENT, SEMANTICS_REJECTED, DecisionStore)
+    MANUAL_FOLLOWUP, PENDING_REGEN, PENDING_REVIEW, SEMANTICS_BASELINE,
+    SEMANTICS_CANDIDATE, SEMANTICS_EQUIVALENT, SEMANTICS_REJECTED, STALE,
+    ReviewLog, all_current_valid_decisions, current_valid_decision,
+    pending_items, rebuild_state, register_package,
+    regeneration_queue)
 
 
 def pkt(pid, start=10.0, dur=0.4, tone=60.0,
@@ -308,21 +311,63 @@ def test_option_dedupe_identical_result():
 
 # ----------------------------------------------------------- hash & manifest
 
-def test_package_hash_binds_options_and_phrase():
+def test_plan_hash_binds_options_and_phrase():
     kw = dict(item_id="ri-0001", song_sha256="s", run_id="r",
               candidate0_sha256="c0",
               phrase={"start": 1.0, "end": 5.0},
               context_ids=["note_0001"], rph="rp")
     o1 = [{"option_id": "OPTION_0", "candidate_id": "baseline",
            "score_patch": {"type": "identity"}, "provenance": {}}]
-    h1 = rb.package_hash(options=o1, **kw)
+    h1 = rb.plan_hash(options=o1, **kw)
     o2 = o1 + [{"option_id": "OPTION_1", "candidate_id": "retune_1",
                 "score_patch": {"type": "retune", "to": 62.0},
                 "provenance": {}}]
-    h2 = rb.package_hash(options=o2, **kw)
+    h2 = rb.plan_hash(options=o2, **kw)
     assert h1 != h2                              # option change → new hash
     kw2 = dict(kw, phrase={"start": 1.0, "end": 5.5})
-    assert rb.package_hash(options=o1, **kw2) != h1   # phrase → new hash
+    assert rb.plan_hash(options=o1, **kw2) != h1      # phrase → new hash
+
+
+# ------------------------------------------------------ audio_package_hash
+
+_PROV = {"binaries": {"OpenUtau.exe": {"sha256": "a"}},
+         "voicebank": {"singer": "YousaV1.65b", "materials": {"m.onnx": "h"}},
+         "phonemizer": "zh", "impl": "d2"}
+_SRC = {"original_mix": {"sha256": "s1"},
+        "separated_vocal": {"sha256": "s2"}}
+_WAVS = {"OPTION_0": {"wav_sha256": "w0"},
+         "OPTION_1": {"wav_sha256": "w1"}}
+
+
+def test_audio_package_hash_stable_same_bytes():
+    a = rb.audio_package_hash("ph", _SRC, _WAVS, _PROV)
+    b = rb.audio_package_hash("ph", dict(_SRC), dict(_WAVS), dict(_PROV))
+    assert a == b
+
+
+@pytest.mark.parametrize("field,val", [
+    ("src", {"original_mix": {"sha256": "CHANGED"},
+             "separated_vocal": {"sha256": "s2"}}),
+    ("src", {"original_mix": {"sha256": "s1"},
+             "separated_vocal": {"sha256": "CHANGED"}}),
+    ("wavs", {"OPTION_0": {"wav_sha256": "CHANGED"},
+              "OPTION_1": {"wav_sha256": "w1"}}),
+    ("prov", {**_PROV, "voicebank": {"singer": "YousaV1.65b",
+                                     "materials": {"m.onnx": "NEW"}}}),
+    ("prov", {**_PROV, "binaries": {"OpenUtau.exe": {"sha256": "NEW"}}}),
+    ("prov", {**_PROV, "impl": "d3"}),
+])
+def test_audio_package_hash_changes_on_material_change(field, val):
+    base = rb.audio_package_hash("ph", _SRC, _WAVS, _PROV)
+    kw = {"src": _SRC, "wavs": _WAVS, "prov": _PROV, field: val}
+    assert rb.audio_package_hash("ph", kw["src"], kw["wavs"],
+                                 kw["prov"]) != base
+
+
+def test_audio_package_hash_plan_binding():
+    a = rb.audio_package_hash("ph-a", _SRC, _WAVS, _PROV)
+    b = rb.audio_package_hash("ph-b", _SRC, _WAVS, _PROV)
+    assert a != b  # same audio bytes but different plan → different hash
 
 
 def test_render_profile_is_neutral():
@@ -334,83 +379,205 @@ def test_render_profile_is_neutral():
 
 # ------------------------------------------------------------------ decisions
 
-def _manifest(item_id="ri-0001", ph="hash1", n=3):
-    return {"review_item_id": item_id, "package_hash": ph,
-            "review": {"generation": 1},
+def _manifest(item_id="ri-0001", aph="aph1", n=3, gen=1, state="valid"):
+    return {"review_item_id": item_id, "audio_package_hash": aph,
+            "plan_hash": f"ph-{item_id}", "package_state": state,
+            "review": {"generation": gen}, "review_batch_id": "rb-1",
             "baseline_option": "OPTION_0",
             "options": [{"option_id": f"OPTION_{i}",
-                         "candidate_id": "baseline" if i == 0 else f"c{i}"}
-                        for i in range(n)]}
+                         "candidate_id": "baseline" if i == 0 else f"c{i}",
+                         "score_patch": {"type": "identity", "to": 60 + i},
+                         "provenance": {"kind": "b_hypothesis"},
+                         "wav": f"OPTION_{i}.wav",
+                         "wav_sha256": f"w{i}",
+                         "sample_rate": 44100, "frames": 100}
+                        for i in range(n)],
+            "source_reference": {"original_mix": {"sha256": "s1"},
+                                 "separated_vocal": {"sha256": "s2"}}}
+
+
+def _run(tmp_path):
+    return tmp_path / "diag-x"
+
+
+def _register(run, item_id, man, batch="rb-1"):
+    register_package(run, item_id, batch, man,
+                     manifest_path=run / "b" / item_id / "manifest.json")
 
 
 def test_decision_semantics(tmp_path):
-    st = DecisionStore(tmp_path / "decisions.json")
+    run = _run(tmp_path)
+    log = ReviewLog(run)
     man = _manifest()
-    r = st.record("ri-0001", "OPTION_0", "hash1", man)
+    _register(run, "ri-0001", man)
+    r = log.append("ri-0001", "OPTION_0", man, "rb-1")
     assert r["semantics"] == SEMANTICS_BASELINE
-    r = st.record("ri-0002", "OPTION_1", "hash1",
-                  _manifest("ri-0002"))
+    r = log.append("ri-0002", "OPTION_1", _manifest("ri-0002"), "rb-1")
     assert r["semantics"] == SEMANTICS_CANDIDATE
-    r = st.record("ri-0003", "equivalent", "hash1", _manifest("ri-0003"))
+    r = log.append("ri-0003", "equivalent", _manifest("ri-0003"), "rb-1")
     assert r["semantics"] == SEMANTICS_EQUIVALENT
-    r = st.record("ri-0004", "none_correct", "hash1", _manifest("ri-0004"))
+    r = log.append("ri-0004", "none_correct", _manifest("ri-0004"), "rb-1")
     assert r["semantics"] == SEMANTICS_REJECTED
 
 
-def test_none_correct_gen2_becomes_manual_followup(tmp_path):
-    st = DecisionStore(tmp_path / "d.json")
+def test_decision_binds_audio_package_hash_with_snapshots(tmp_path):
+    run = _run(tmp_path)
+    log = ReviewLog(run)
+    man = _manifest(aph="audio-hash-x")
+    r = log.append("ri-0001", "OPTION_2", man, "rb-1")
+    assert r["audio_package_hash"] == "audio-hash-x"
+    assert r["plan_hash"] == "ph-ri-0001"
+    assert r["selected_option_id"] == "OPTION_2"
+    assert r["selected_score_patch"] == {"type": "identity", "to": 62}
+    assert r["selected_provenance"] == {"kind": "b_hypothesis"}
+    assert r["selected_wav_sha256"] == "w2"
+    assert r["revision_id"] and r["batch_id"] == "rb-1"
+
+
+def test_unrendered_package_cannot_be_decided(tmp_path):
     man = _manifest()
-    man["review"]["generation"] = 2
-    r = st.record("ri-0001", "none_correct", "hash1", man, generation=2)
+    man["audio_package_hash"] = None
+    man["package_state"] = "unrendered"
+    with pytest.raises(ValueError):
+        ReviewLog(_run(tmp_path)).append("ri-0001", "OPTION_0", man, "b")
+
+
+def test_none_correct_gen2_becomes_manual_followup(tmp_path):
+    log = ReviewLog(_run(tmp_path))
+    r = log.append("ri-0001", "none_correct", _manifest(gen=2), "rb-2")
     assert r["semantics"] == MANUAL_FOLLOWUP
 
 
 def test_revisions_supersede_never_lose_history(tmp_path):
-    st = DecisionStore(tmp_path / "d.json")
+    run = _run(tmp_path)
+    log = ReviewLog(run)
     man = _manifest()
-    st.record("ri-0001", "OPTION_1", "hash1", man)
-    st.record("ri-0001", "OPTION_2", "hash1", man)
-    revs = st.revisions("ri-0001")
+    log.append("ri-0001", "OPTION_1", man, "rb-1")
+    r2 = log.append("ri-0001", "OPTION_2", man, "rb-1")
+    revs = log.revisions("ri-0001")
     assert len(revs) == 2
     assert revs[0]["superseded"] and not revs[1]["superseded"]
-    assert st.latest("ri-0001")["selected"] == "OPTION_2"
+    assert r2["supersedes_revision_id"] == revs[0]["revision_id"]
+    assert log.latest("ri-0001")["selected"] == "OPTION_2"
 
 
-def test_stale_invalidation_on_package_change(tmp_path):
-    st = DecisionStore(tmp_path / "d.json")
-    st.record("ri-0001", "OPTION_1", "hash1", _manifest())
-    assert st.is_stale("ri-0001", "hash2") is True
-    assert st.is_stale("ri-0001", "hash1") is False
-    state, stale, _ = st.item_status("ri-0001", "hash2")
-    assert stale and state == SEMANTICS_CANDIDATE
+def test_cross_generation_authoritative_state(tmp_path):
+    """gen1 reject → gen2 package → gen2 select: the canonical latest is
+    the gen2 decision; gen1 revision stays as audit (§6.2)."""
+    run = _run(tmp_path)
+    log = ReviewLog(run)
+    g1 = _manifest(aph="aph-gen1")
+    _register(run, "ri-0003", g1, batch="rb-1")
+    log.append("ri-0003", "none_correct", g1, "rb-1")
+    st = rebuild_state(run)["items"]["ri-0003"]
+    assert st["status"] == PENDING_REGEN
+    assert regeneration_queue(run) == ["ri-0003"]
+    # gen2 package created (new audio hash) → pending_review again;
+    # the gen1 rejection is stale vs the new package but stays audit
+    g2 = _manifest(aph="aph-gen2", gen=2)
+    _register(run, "ri-0003", g2, batch="rb-1-g2")
+    st = rebuild_state(run)["items"]["ri-0003"]
+    assert st["status"] == PENDING_REVIEW
+    assert st["latest_revision"]["semantics"] == SEMANTICS_REJECTED
+    log.append("ri-0003", "OPTION_1", g2, "rb-1-g2")
+    st = rebuild_state(run)["items"]["ri-0003"]
+    assert st["status"] == SEMANTICS_CANDIDATE
+    assert st["latest_revision"]["audio_package_hash"] == "aph-gen2"
+    revs = log.revisions("ri-0003")
+    assert len(revs) == 2 and revs[0]["superseded"]   # audit preserved
 
 
-def test_pending_and_batch_status(tmp_path):
-    st = DecisionStore(tmp_path / "d.json")
-    items = [{"item_id": "ri-0001", "package_hash": "h1"},
-             {"item_id": "ri-0002", "package_hash": "h2"},
-             {"item_id": "ri-0003", "package_hash": "h3"}]
-    st.record("ri-0001", "OPTION_0", "h1", _manifest())
-    st.record("ri-0002", "none_correct", "h2", _manifest("ri-0002"))
-    pend = st.pending_items(items)
-    assert pend == ["ri-0003"]
-    status = st.batch_status(items)
-    assert status["pending"] == 1 and status[SEMANTICS_BASELINE] == 1
-    assert status["regeneration_queue"] == ["ri-0002"]
-    assert status["reviewed"] == 2
+def test_other_items_survive_single_item_gen2_batch(tmp_path):
+    """45 decided items must not lose state when a 1-item gen2 batch is
+    created (§7.4 item 43) — the run-level store is authoritative."""
+    run = _run(tmp_path)
+    log = ReviewLog(run)
+    for i in range(2):                                # gen1 batch decides two
+        man = _manifest(f"ri-{i:04d}", aph=f"a{i}")
+        _register(run, f"ri-{i:04d}", man)
+        log.append(f"ri-{i:04d}", "OPTION_0", man, "rb-1")
+    g1 = _manifest("ri-0002", aph="a2")               # third item rejected
+    _register(run, "ri-0002", g1)
+    log.append("ri-0002", "none_correct", g1, "rb-1")
+    _register(run, "ri-0002", _manifest("ri-0002", aph="a2g2", gen=2),
+              batch="rb-1-g2")                        # 1-item gen2 batch
+    valids = all_current_valid_decisions(run)
+    assert set(valids) == {"ri-0000", "ri-0001"}      # decided, non-stale
+    assert current_valid_decision(run, "ri-0002") is None  # gen2 pending
+    assert pending_items(run) == ["ri-0002"]
 
 
-def test_decisions_persist_across_reload(tmp_path):
-    p = tmp_path / "d.json"
-    DecisionStore(p).record("ri-0001", "OPTION_1", "h", _manifest())
-    st2 = DecisionStore(p)                       # resume
-    assert st2.latest("ri-0001")["selected"] == "OPTION_1"
+def test_stale_decision_not_in_valid_set(tmp_path):
+    run = _run(tmp_path)
+    log = ReviewLog(run)
+    man = _manifest(aph="old")
+    _register(run, "ri-0001", man)
+    log.append("ri-0001", "OPTION_1", man, "rb-1")
+    # package regenerated — audio changed → old decision stale
+    _register(run, "ri-0001", _manifest(aph="new"))
+    st = rebuild_state(run)["items"]["ri-0001"]
+    assert st["status"] == STALE
+    assert current_valid_decision(run, "ri-0001") is None
+    assert all_current_valid_decisions(run) == {}
+
+
+def test_decision_log_survives_reload(tmp_path):
+    run = _run(tmp_path)
+    log = ReviewLog(run)
+    _register(run, "ri-0001", _manifest())
+    log.append("ri-0001", "OPTION_1", _manifest(), "rb-1")
+    st = rebuild_state(run)
+    # simulate crash/reload: fresh objects, same files
+    log2 = ReviewLog(run)
+    assert log2.latest("ri-0001")["selected"] == "OPTION_1"
+    st2 = rebuild_state(run)
+    assert st2["items"]["ri-0001"]["status"] == st[
+        "items"]["ri-0001"]["status"]
+
+
+def test_pending_and_regen_queues(tmp_path):
+    run = _run(tmp_path)
+    log = ReviewLog(run)
+    for i, ch in enumerate(("OPTION_0", "none_correct", "equivalent")):
+        man = _manifest(f"ri-{i:04d}", aph=f"a{i}")
+        _register(run, f"ri-{i:04d}", man)
+        log.append(f"ri-{i:04d}", ch, man, "rb-1")
+    _register(run, "ri-0003", _manifest("ri-0003", aph="a3"))
+    assert pending_items(run) == ["ri-0003"]
+    assert regeneration_queue(run) == ["ri-0001"]
+    st = rebuild_state(run)
+    assert st["counts"][SEMANTICS_BASELINE] == 1
+    assert st["counts"][SEMANTICS_EQUIVALENT] == 1
+    assert st["reviewed"] == 2 and st["pending"] == 2
 
 
 def test_bad_choice_rejected(tmp_path):
-    st = DecisionStore(tmp_path / "d.json")
     with pytest.raises(ValueError):
-        st.record("ri-0001", "OPTION_9", "h", _manifest())
+        ReviewLog(_run(tmp_path)).append("ri-0001", "OPTION_9",
+                                         _manifest(), "rb-1")
+
+
+# ------------------------------------------------------ reviewability gate
+
+def test_assess_package_states():
+    from agent2utau.review.render import assess_package
+    man = _manifest()
+    assert assess_package(man) == "valid"
+    bad = _manifest()
+    bad["options"][1]["render_error"] = "boom"
+    assert assess_package(bad) == "invalid"
+    bad = _manifest()
+    bad["options"][0]["wav_sha256"] = None
+    assert assess_package(bad) == "invalid"
+    bad = _manifest()
+    bad["source_reference"]["original_mix"]["sha256"] = None
+    assert assess_package(bad) == "invalid"
+    bad = _manifest()
+    bad["options"][1]["sample_rate"] = 22050
+    assert assess_package(bad) == "invalid"
+    un = _manifest()
+    un["audio_package_hash"] = None
+    assert assess_package(un) == "unrendered"
 
 
 # ------------------------------------------------------------- batch plan
@@ -432,7 +599,7 @@ def test_plan_batch_orders_and_hashes():
                             [], [], byid, "run-x", "song", "c0", "rp")
     assert len(planned) == 3
     assert planned[0]["region"][0] == 189.84     # permanent/large first
-    assert all(it["package_hash"] for it in planned)
+    assert all(it["plan_hash"] for it in planned)
     assert all(it["baseline_option"].startswith("OPTION_")
                for it in planned)
     # context = Candidate-0 notes inside the phrase only

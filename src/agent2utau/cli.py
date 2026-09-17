@@ -212,50 +212,60 @@ def cmd_review_batch(args) -> int:
     return _out(args, out)
 
 
-def _review_batch_dir(args) -> Path:
-    from .review.render import find_batch
-    cfg = load_config()
-    run_dir = Path(cfg["runs_dir"]) / args.run_id
-    return find_batch(run_dir, getattr(args, "batch", None))
+def _load_current_manifest(run_dir: Path, item_id: str):
+    """The item's CURRENT package manifest via the run-level index —
+    never guessed from latest_batch.json (§6.2)."""
+    from .review.decisions import load_packages
+    rec = load_packages(run_dir).get(item_id)
+    if not rec or not rec.get("manifest"):
+        return None, None
+    import json
+    mpath = Path(rec["manifest"])
+    if not mpath.exists():
+        return None, None
+    return json.loads(mpath.read_text(encoding="utf-8")), mpath
 
 
 def cmd_review_status(args) -> int:
-    from .review.decisions import DecisionStore, DECISIONS_NAME
-    from .review.render import load_batch
-    try:
-        bdir = _review_batch_dir(args)
-        batch, mans = load_batch(bdir)
-    except FileNotFoundError as e:
-        return fail("no_batch", str(e))
-    store = DecisionStore(bdir / DECISIONS_NAME)
-    items = [{"item_id": m["review_item_id"],
-              "package_hash": m["package_hash"]} for m in mans.values()]
-    status = store.batch_status(items)
+    from .review.decisions import rebuild_state, regeneration_queue
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    if not run_dir.is_dir():
+        return fail("no_run", f"no run {args.run_id}")
+    state = rebuild_state(run_dir)
     return _out(args, {"schema_version": "1", "status": "ok",
-                       "batch_id": batch["batch_id"],
-                       "run_id": batch["run_id"], "progress": status})
+                       "run_id": args.run_id,
+                       "progress": {"total": len(state["items"]),
+                                    "reviewed": state["reviewed"],
+                                    "pending": state["pending"],
+                                    "counts": state["counts"],
+                                    "regeneration_queue":
+                                    regeneration_queue(run_dir)}})
 
 
 def cmd_review_decide(args) -> int:
-    """Record one human decision non-interactively (persisted at once)."""
-    from .review.decisions import (DecisionStore, DECISIONS_NAME,
-                                   SPECIAL_CHOICES)
-    from .review.render import load_batch
-    try:
-        bdir = _review_batch_dir(args)
-        batch, mans = load_batch(bdir)
-    except FileNotFoundError as e:
-        return fail("no_batch", str(e))
-    man = mans.get(args.item_id)
+    """Record one human decision (run-level canonical log, §6.2/§6.3).
+
+    The item's package must still verify — missing/altered audio or an
+    invalid package state cannot produce a decision.
+    """
+    from .review.decisions import ReviewLog, SPECIAL_CHOICES, rebuild_state
+    from .review.render import verify_package
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    man, mpath = _load_current_manifest(run_dir, args.item_id)
     if man is None:
-        return fail("no_item", f"no review item {args.item_id}")
+        return fail("no_item", f"no current package for {args.item_id}")
+    ok, why = verify_package(man, mpath.parent)
+    if not ok:
+        return fail("invalid_package",
+                    f"{args.item_id} is not reviewable: {why}")
     choice = args.choice
     valid = [o["option_id"] for o in man["options"]] + list(SPECIAL_CHOICES)
     if choice not in valid:
         return fail("bad_choice", f"choice must be one of {valid}")
-    store = DecisionStore(bdir / DECISIONS_NAME)
-    rev = store.record(args.item_id, choice, man["package_hash"], man,
-                       generation=man["review"]["generation"])
+    log = ReviewLog(run_dir)
+    rev = log.append(args.item_id, choice, man,
+                     man["review_batch_id"])
+    rebuild_state(run_dir)
     return _out(args, {"schema_version": "1", "status": "ok",
                        "decision": rev})
 
@@ -274,38 +284,43 @@ def _play(path: Path):
 
 
 def cmd_review(args) -> int:
-    """Interactive blind review loop with resume (§6.11-§6.13)."""
-    from .review.decisions import (DecisionStore, DECISIONS_NAME,
-                                   SPECIAL_CHOICES)
-    from .review.render import load_batch
-    try:
-        bdir = _review_batch_dir(args)
-        batch, mans = load_batch(bdir)
-    except FileNotFoundError as e:
-        return fail("no_batch", str(e))
-    store = DecisionStore(bdir / DECISIONS_NAME)
-    items = [{"item_id": m["review_item_id"],
-              "package_hash": m["package_hash"]} for m in mans.values()]
-    pending = store.pending_items(items)
-    order = [it["item_id"] for it in batch["items"]
-             if it["item_id"] in pending]
-    if not order:
+    """Interactive blind review loop: pending items, back/previous,
+    per-choice persistence and resume (§6.2/§6.4)."""
+    from .review.decisions import (ReviewLog, pending_items,
+                                   rebuild_state)
+    from .review.render import verify_package
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    pending = pending_items(run_dir)
+    if not pending:
         return _out(args, {"schema_version": "1", "status": "ok",
                            "message": "no pending items"})
-    print(f"{len(order)} pending items in batch {batch['batch_id']}")
-    for iid in order:
-        man = mans[iid]
+    log = ReviewLog(run_dir)
+    i = 0
+    while 0 <= i < len(pending):
+        iid = pending[i]
+        man, mpath = _load_current_manifest(run_dir, iid)
+        if man is None:
+            i += 1
+            continue
+        st = rebuild_state(run_dir)
+        ok, why = verify_package(man, mpath.parent)
         ph = man["phrase"]
-        print(f"\n=== {iid}  phrase {ph['start']:.2f}-{ph['end']:.2f}s "
-              f"({man['target_group']['type']})  "
-              f"gen{man['review']['generation']} ===")
+        print(f"\n=== [{i + 1}/{len(pending)}] {iid}  "
+              f"{ph['start']:.2f}-{ph['end']:.2f}s "
+              f"({man['target_group']['type']}, gen"
+              f"{man['review']['generation']})  "
+              f"reviewed={st['reviewed']} pending={st['pending']} ===")
+        if not ok:
+            print(f"  PACKAGE NOT REVIEWABLE: {why}  (skipping)")
+            i += 1
+            continue
+        pdir = mpath.parents[2] / "phrases" / man["context"]["phrase_key"]
+        n_opt = len(man["options"])
         print("  play: s=source mix  v=separated vocal  "
-              + "  ".join(f"{i}=OPTION_{i}"
-                         for i in range(len(man["options"])))
-              + "\n  decide: o0..o%d select | e=都差不多 equivalent | "
-                "x=都不对 none_correct | q=quit"
-              % (len(man["options"]) - 1))
-        pdir = bdir / "phrases" / man["context"]["phrase_key"]
+              + "  ".join(f"{k}=OPTION_{k}" for k in range(n_opt))
+              + f"\n  decide: o0..o{n_opt - 1} select | "
+                "e=都差不多 | x=都不对 | n=next | p=prev | q=quit")
+        advance = True
         while True:
             try:
                 c = input("choice> ").strip().lower()
@@ -314,32 +329,39 @@ def cmd_review(args) -> int:
             if c == "q":
                 return _out(args, {"schema_version": "1", "status": "ok",
                                    "message": "quit; progress saved"})
+            if c in ("n", ""):
+                break
+            if c == "p":
+                i -= 1
+                advance = False
+                break
             if c == "s":
                 _play(pdir / "SOURCE_PHRASE_original_mix.wav")
             elif c == "v":
                 _play(pdir / "SOURCE_PHRASE_separated_vocal.wav")
-            elif c.isdigit() and int(c) < len(man["options"]):
-                _play(bdir / "items" / iid / f"OPTION_{c}.wav")
-            elif c == "r":
-                continue
+            elif c.isdigit() and int(c) < n_opt:
+                _play(mpath.parent / f"OPTION_{c}.wav")
             elif c in ("e", "x"):
-                choice = "equivalent" if c == "e" else "none_correct"
-                rev = store.record(iid, choice, man["package_hash"], man,
-                                   generation=man["review"]["generation"])
-                print(f"  saved: {rev['semantics']}")
+                rev = log.append(
+                    iid, "equivalent" if c == "e" else "none_correct",
+                    man, man["review_batch_id"])
+                print(f"  saved rev-{rev['revision_id']}: "
+                      f"{rev['semantics']}")
                 break
             elif c.startswith("o") and c[1:].isdigit() and \
-                    int(c[1:]) < len(man["options"]):
-                rev = store.record(iid, f"OPTION_{c[1:]}",
-                                   man["package_hash"], man,
-                                   generation=man["review"]["generation"])
-                print(f"  saved: {rev['semantics']} ({c})")
+                    int(c[1:]) < n_opt:
+                rev = log.append(iid, f"OPTION_{c[1:]}", man,
+                                 man["review_batch_id"])
+                print(f"  saved rev-{rev['revision_id']}: "
+                      f"{rev['semantics']} ({c})")
                 break
             else:
                 print("  (0..n plays; o0..on selects; e=equivalent; "
-                      "x=none; q=quit)")
+                      "x=none; n/p navigate; q=quit)")
+        if advance:
+            i += 1
     return _out(args, {"schema_version": "1", "status": "ok",
-                       "message": "batch complete"})
+                       "message": "all pending items visited"})
 
 
 def cmd_status(args) -> int:
@@ -481,18 +503,15 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("review"); p.set_defaults(fn=cmd_review)
     p.add_argument("run_id", help="diagnostic run id")
-    p.add_argument("--batch", default=None)
 
     p = sub.add_parser("review-status"); p.set_defaults(fn=cmd_review_status)
     p.add_argument("run_id", help="diagnostic run id")
-    p.add_argument("--batch", default=None)
 
     p = sub.add_parser("review-decide"); p.set_defaults(fn=cmd_review_decide)
     p.add_argument("run_id", help="diagnostic run id")
     p.add_argument("item_id")
     p.add_argument("choice",
                    help="OPTION_i | equivalent | none_correct")
-    p.add_argument("--batch", default=None)
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")

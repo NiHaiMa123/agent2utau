@@ -9,7 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 
-REVIEW_SCHEMA = "d1"
+REVIEW_SCHEMA = "d2"          # d2 = final integrity patch (audio binding)
 
 # phrase window (§6.4)
 PHRASE_MIN_S = 3.0
@@ -495,9 +495,13 @@ def render_profile_hash(profile) -> str:
     return sha(profile)
 
 
-def package_hash(item_id, song_sha256, run_id, candidate0_sha256,
-                 phrase, context_ids, options, rph, generation=1):
-    """Schema-bound hash; any change invalidates prior decisions (§6.13)."""
+def plan_hash(item_id, song_sha256, run_id, candidate0_sha256,
+              phrase, context_ids, options, rph, generation=1):
+    """Pre-render score/context/config identity (§6.1).
+
+    Decisions never bind this — it only feeds audio_package_hash after
+    the real WAV bytes and render provenance exist.
+    """
     return sha({
         "schema": REVIEW_SCHEMA, "review_item_id": item_id,
         "generation": generation,
@@ -509,6 +513,26 @@ def package_hash(item_id, song_sha256, run_id, candidate0_sha256,
                      "score_patch": o["score_patch"],
                      "provenance": o["provenance"]} for o in options],
         "render_profile_hash": rph,
+    })
+
+
+def audio_package_hash(plan_hash_, source_refs, option_wavs,
+                       render_provenance):
+    """Post-render identity binding what the reviewer actually hears
+    (§6.1): plan hash + SOURCE clip shas + every OPTION wav sha + real
+    render provenance (exe/voicebank/model/phonemizer material hashes).
+
+    Any byte change in any of these must produce a different hash, which
+    automatically stales decisions bound to the old package.
+    """
+    return sha({
+        "schema": REVIEW_SCHEMA, "kind": "audio_package",
+        "plan_hash": plan_hash_,
+        "source": {k: (v or {}).get("sha256")
+                   for k, v in (source_refs or {}).items()},
+        "option_wavs": {oid: w.get("wav_sha256")
+                        for oid, w in (option_wavs or {}).items()},
+        "render_provenance": render_provenance,
     })
 
 
@@ -557,16 +581,16 @@ def plan_batch(items, duration, notes, lrc_lines, silences,
                                          shown_tones=ov.get(
                                              "shown_tones")),
                            it["item_id"])
-        ph = package_hash(it["item_id"], song_sha256, run_id,
-                          candidate0_sha256, win,
-                          [n["id"] for n in ctx], opts, rph,
-                          generation=it["generation"])
+        ph = plan_hash(it["item_id"], song_sha256, run_id,
+                       candidate0_sha256, win,
+                       [n["id"] for n in ctx], opts, rph,
+                       generation=it["generation"])
         it["options"] = opts
         it["context_note_ids"] = [n["id"] for n in ctx]
         it["baseline_option"] = next(
             o["option_id"] for o in opts
             if o["candidate_id"] == "baseline")
-        it["package_hash"] = ph
+        it["plan_hash"] = ph
         it["context"] = ctx
         out.append(it)
     return out

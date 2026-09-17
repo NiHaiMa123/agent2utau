@@ -10,10 +10,11 @@ import json
 import time
 from pathlib import Path
 
-from .build import (REVIEW_SCHEMA, apply_patch, collect_review_items,
-                    find_silences, plan_batch, render_profile,
-                    render_profile_hash)
-from .decisions import DecisionStore, DECISIONS_NAME
+from .build import (REVIEW_SCHEMA, apply_patch, audio_package_hash,
+                    collect_review_items, find_silences, plan_batch,
+                    render_profile, render_profile_hash)
+from .decisions import (ReviewLog, rebuild_state, register_package,
+                        regeneration_queue)
 
 
 def _file_sha(path: Path) -> str:
@@ -220,8 +221,82 @@ def render_item(cfg, item_dir, item, chars, timeout_min=10):
 
 # ------------------------------------------------------------------ package
 
+def render_provenance(cfg):
+    """Real render provenance for audio_package_hash (§6.1): the actual
+    OpenUtau/bridge executables and the voicebank's material files
+    (acoustic/duration/pitch/variance/vocoder models, dsconfig, phonemes,
+    speaker embeddings) — bytes, not logical names."""
+    ou = Path(cfg["openutau_dir"])
+    singer = ou / "Singers" / cfg.get("default_singer", "YousaV1.65b")
+    bins = {}
+    for f in (ou / "OpenUtau.exe", ou / "OpenUtau.Core.dll",
+              ou / "a2u-bridge.exe"):
+        if f.exists():
+            bins[f.name] = {"sha256": _file_sha(f),
+                            "size": f.stat().st_size}
+    materials = {}
+    if singer.is_dir():
+        for f in sorted(singer.rglob("*")):
+            rel = str(f.relative_to(singer))
+            if not f.is_file() or "image" in f.parts or \
+                    "LISENCES" in f.parts:
+                continue
+            if f.suffix.lower() in (".onnx", ".yaml", ".json", ".emb",
+                                    ".txt"):
+                materials[rel] = _file_sha(f)
+    return {"openutau_dir": str(ou), "binaries": bins,
+            "voicebank": {"singer": singer.name, "materials": materials},
+            "phonemizer": "OpenUtau.Core.DiffSinger."
+                          "DiffSingerChinesePhonemizer",
+            "impl": REVIEW_SCHEMA}
+
+
+def assess_package(man) -> str:
+    """Reviewability gate (§6.1): a package is only reviewable when every
+    source clip and every option rendered successfully with recorded
+    hashes and a uniform sample rate / phrase length."""
+    if not man.get("audio_package_hash"):
+        return "unrendered"
+    srcs = man.get("source_reference") or {}
+    if any(not (srcs.get(k) or {}).get("sha256")
+           for k in ("original_mix", "separated_vocal")):
+        return "invalid"
+    rates, frames = set(), set()
+    for o in man["options"]:
+        if o.get("render_error") or not o.get("wav") or \
+                not o.get("wav_sha256"):
+            return "invalid"
+        rates.add(o.get("sample_rate"))
+        frames.add(o.get("frames"))
+    if len(rates) > 1 or len(frames) > 1:
+        return "invalid"
+    return "valid"
+
+
+def verify_package(man, item_dir: Path) -> tuple[bool, str]:
+    """Decide-time re-verification: files must still exist and match the
+    recorded sha256 — a package whose audio changed or vanished is not
+    reviewable even if its manifest claims otherwise."""
+    if assess_package(man) != "valid":
+        return False, f"package_state={assess_package(man)}"
+    item_dir = Path(item_dir)
+    for o in man["options"]:
+        w = item_dir / o["wav"]
+        if not w.exists():
+            return False, f"missing {o['wav']}"
+        if _file_sha(w) != o["wav_sha256"]:
+            return False, f"hash mismatch {o['wav']}"
+    for k, ref in (man.get("source_reference") or {}).items():
+        w = (item_dir / ref["path"]).resolve()
+        if not w.exists():
+            return False, f"missing source {k}"
+        if _file_sha(w) != ref["sha256"]:
+            return False, f"hash mismatch source {k}"
+    return True, "ok"
+
+
 def item_manifest(run, item, batch_id, rph, source_refs,
-                  render_results=None):
+                  render_results=None, provenance=None):
     """Schema-bound per-item manifest (§6.12)."""
     p0 = run["packets_by_id"][item["packets"][0]]
     b = p0.get("pitch_adjudication") or {}
@@ -234,8 +309,16 @@ def item_manifest(run, item, batch_id, rph, source_refs,
                      "score_patch": o["score_patch"],
                      "provenance": o["provenance"],
                      "wav": r.get("wav"), "wav_sha256": r.get("wav_sha256"),
+                     "sample_rate": r.get("sample_rate"),
+                     "frames": r.get("frames"),
                      "render_error": r.get("error")})
-    return {
+    aph = audio_package_hash(item["plan_hash"], source_refs,
+                             {o["option_id"]: {
+                                 "wav_sha256": o["wav_sha256"]}
+                              for o in opts},
+                             provenance) if render_results is not None \
+        else None
+    man = {
         "schema": REVIEW_SCHEMA,
         "review_item_id": item["item_id"],
         "song_sha256": run["song_sha256"],
@@ -273,8 +356,12 @@ def item_manifest(run, item, batch_id, rph, source_refs,
                    "blinded": True,
                    "choices": ["OPTION_%d" % i for i in range(len(opts))]
                    + ["equivalent", "none_correct"]},
-        "package_hash": item["package_hash"],
+        "plan_hash": item["plan_hash"],
+        "audio_package_hash": aph,
+        "render_provenance": provenance,
     }
+    man["package_state"] = assess_package(man)
+    return man
 
 
 def _shown_tones(manifest):
@@ -320,8 +407,7 @@ def generate_batch(run_dir, cfg=None, render=True, max_items=None,
     for it in planned:
         phrase_refs.setdefault(it["phrase_key"], it["phrase"])
 
-    store = DecisionStore(bdir / DECISIONS_NAME)
-    store.save()
+    prov = render_provenance(cfg) if render else None
     batch = {"schema": REVIEW_SCHEMA, "batch_id": batch_id,
              "run_id": run["run_id"], "created_at": time.time(),
              "song_sha256": run["song_sha256"],
@@ -348,7 +434,7 @@ def generate_batch(run_dir, cfg=None, render=True, max_items=None,
                         ph["start"], ph["end"]),
                 }
                 for r in refs.values():  # self-auditing relative path
-                    r["path"] = f"../phrases/{pkey}/{r['path']}"
+                    r["path"] = f"../../phrases/{pkey}/{r['path']}"
                 src_rendered[pkey] = refs
                 progress(f"  source phrase {pkey} "
                          f"({ph['end'] - ph['start']:.2f}s, "
@@ -361,18 +447,27 @@ def generate_batch(run_dir, cfg=None, render=True, max_items=None,
             progress(f"  rendering {it['item_id']} "
                      f"({it['type']}, {len(it['options'])} options)")
             rres = render_item(cfg, item_dir, it, run["chars"])
-        man = item_manifest(run, it, batch_id, rph, refs, rres)
-        _jwrite(item_dir / "manifest.json", man)
+        man = item_manifest(run, it, batch_id, rph, refs, rres,
+                            provenance=prov)
+        mpath = item_dir / "manifest.json"
+        _jwrite(mpath, man)
+        register_package(run["run_dir"], it["item_id"], batch_id, man,
+                         manifest_path=mpath)
         batch["items"].append({
             "item_id": it["item_id"], "type": it["type"],
             "reason": it["reason"], "phrase": it["phrase"],
             "phrase_key": pkey, "region": it["region"],
             "packets": it["packets"],
             "n_options": len(it["options"]),
-            "package_hash": it["package_hash"]})
+            "plan_hash": it["plan_hash"],
+            "audio_package_hash": man["audio_package_hash"],
+            "package_state": man["package_state"]})
     _jwrite(bdir / "batch.json", batch)
+    rebuild_state(run["run_dir"])
     _jwrite(run["run_dir"] / "latest_batch.json",
-            {"batch_id": batch_id, "created_at": time.time()})
+            {"batch_id": batch_id, "created_at": time.time(),
+             "note": "convenience pointer only — runs/<diag>/review/ "
+                     "is the authoritative state"})
     progress(f"batch {batch_id}: {len(planned)} items → {bdir}")
     return batch
 
@@ -381,33 +476,39 @@ def regenerate_batch(run_dir, cfg=None, src_batch_id=None, render=True,
                      batch_id=None, progress=print):
     """§6.14: build generation-2 packages for `none_correct` items.
 
-    Only items whose latest decision is human_rejected_all at generation
-    1 are regenerated; shown tones are excluded from new pitch candidates
-    and the phrase context is widened. A second rejection yields
-    manual_followup_required (handled by DecisionStore).
+    The queue comes from the run-level authoritative state
+    (pending_regeneration), not from any single batch's file. Shown tones
+    are excluded from new pitch candidates and phrase context widens.
+    A second rejection yields manual_followup_required (ReviewLog).
     """
-    from .decisions import SEMANTICS_REJECTED
     run_dir = Path(run_dir)
-    src_dir = find_batch(run_dir, src_batch_id)
-    batch, mans = load_batch(src_dir)
-    store = DecisionStore(src_dir / DECISIONS_NAME)
+    queue = regeneration_queue(run_dir)
+    if src_batch_id:  # restrict regeneration to one batch's items
+        src = json.loads((find_batch(run_dir, src_batch_id)
+                          / "batch.json").read_text(encoding="utf-8"))
+        allowed = {i["item_id"] for i in src["items"]}
+        queue = [i for i in queue if i in allowed]
+    if not queue:
+        progress("no pending_regeneration items")
+        return None
+    from .decisions import load_packages
+    pkgs = load_packages(run_dir)
     gen2, keep_packets = {}, set()
-    for it in batch["items"]:
-        man = mans[it["item_id"]]
-        state, stale, _ = store.item_status(it["item_id"],
-                                            man["package_hash"])
-        if state == SEMANTICS_REJECTED and not stale and \
-                man["review"]["generation"] == 1:
-            pid = it["packets"][0]
-            gen2[pid] = {"generation": 2, "item_id": it["item_id"],
-                         "shown_tones": _shown_tones(man)}
-            keep_packets.add(pid)
+    for iid in queue:
+        rec = pkgs.get(iid)
+        if not rec or not rec.get("manifest"):
+            continue
+        man = json.loads(Path(rec["manifest"]).read_text(encoding="utf-8"))
+        pid = man["target_group"]["packets"][0]
+        gen2[pid] = {"generation": 2, "item_id": iid,
+                     "shown_tones": _shown_tones(man)}
+        keep_packets.add(pid)
     if not gen2:
-        progress("no generation-1 rejected items to regenerate")
+        progress("queued items have no resolvable package")
         return None
     return generate_batch(run_dir, cfg=cfg, render=render,
                           only_items=list(keep_packets),
-                          batch_id=batch_id or f"{batch['batch_id']}-g2",
+                          batch_id=batch_id,
                           progress=progress, gen2=gen2)
 
 
