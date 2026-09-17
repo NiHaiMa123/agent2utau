@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C 已冻结。D 主体工作流 `0bbb098` 与 Final Integrity Patch `5c54284` 已完成，exact-audio binding、run-level authoritative decision state、decision snapshot、render-failure gate、prev/back 均已通过；`5c54284` 对应 remote CI run `35227944705` = success，175 passed。最新 review 发现 run-level authority 仍有一个 P0：`plan_batch()` 对 generation-1 review item 仍使用 batch-local 顺序号 `ri-{k+1:04d}`，因此 full/subset/reordered batch 可让不同 target 获得相同 `review_item_id` 并覆盖 package/decision。故撤回 D FROZEN。当前唯一最高优先级 = **M2.3.2D Stable Review Identity Final Patch**；不新增 D2/D3。完成 stable target identity + collision guard，并顺手完成 `verify_package()` 的 `audio_package_hash` 重算校验，最终 acceptance SHA remote CI green + local real-render smoke 后，D 才重新 FROZEN；在此之前不要开始 M2.4。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C/D 已冻结。Stable Review Identity Final Patch 由 `2a997a2` 完成（本机 186 passed；remote CI run `35233024292` on `2a997a2` = success，186 passed，无 skip）：(P0) `review_item_id` = `"ri-" + target_key[:16]`，`target_key` = review-target-v1 canonical hash{packets, parent_ids, operation_class}，在 subset/max_items 过滤**之前**赋给全部 item —— batch/order/priority/phrase/options/generation 均不改变 identity；(§6.4) `register_package` 对同 id 异 target_key 硬失败，`ReviewLog.append` 校验 manifest identity，`_derive_status` 将 decision↔package target_key 不一致判 stale；(§6.7) `verify_package` 从重算后的 bytes+plan_hash+provenance 重算 `audio_package_hash` 并与 manifest 记录比对。Schema d2→d3，旧 d2 review state 归档 `review_d2_audit/`（§6.6-A）。本机 real-render smoke `rb-d3-*`：subset/max-items 复现 full-batch id；3 个渲染包（202.52s permanent、split/virtual-B、189.84s）verify_package 含重算全过；gen1-reject→pending_regeneration→gen2 同 stable id→pending_review→gen2-reject→manual_followup 全通；Candidate 0 sha256 不变。**当前最高优先级 = M2.4 SAFE Repair（§8）。**
 
 ---
 
@@ -390,8 +390,8 @@ missing-wav refusal
 但下节 stable identity P0 未解决，所以：
 
 ```text
-M2.3.2D = OPEN
-M2.4 = BLOCKED
+M2.3.2D = FROZEN @ 2a997a2 (Stable Review Identity, remote CI 35233024292)
+M2.4 = UNBLOCKED
 ```
 
 不新增 D2 / D3。继续作为 **D Final Integrity Patch 的最后 correctness completion**。
@@ -1106,9 +1106,9 @@ rollback coverage
 ### M2.3.2C1 / C2 — ✅ FROZEN @ c0d2648
 ### M2.3.2D main workflow — ✅ IMPLEMENTED @ 0bbb098
 ### M2.3.2D exact-audio/run-authority integrity — ✅ IMPLEMENTED @ 5c54284
-### M2.3.2D Stable Review Identity Final Patch — ← CURRENT
-### M2.3.2D FROZEN — PENDING stable-identity acceptance
-### M2.4 — SAFE repair — BLOCKED until D re-freeze
+### M2.3.2D Stable Review Identity Final Patch — ✅ DONE @ 2a997a2 (CI 35233024292)
+### M2.3.2D FROZEN — ✅ @ 2a997a2
+### M2.4 — SAFE repair — ← CURRENT
 ### M2.5 — PROBABLE structure repair
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX

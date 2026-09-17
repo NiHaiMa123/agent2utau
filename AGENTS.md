@@ -528,7 +528,26 @@ M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
   remote CI run 35223120342 success @0bbb098. Completing all 46 reviews
   is NOT a freeze blocker.
 
-**M2.3.2D = FROZEN @ 5c54284 (Final Integrity Patch; human review open).**
+**M2.3.2D = FROZEN @ 2a997a2 (Stable Review Identity; human review open).**
+
+Stable Review Identity patch (`2a997a2`, CI run 35233024292, 186 passed):
+
+- `review_item_id` = `"ri-" + target_key[:16]`; `target_key` = canonical
+  review-target-v1 hash of {packets, parent_ids, operation_class} —
+  assigned to every item BEFORE subset/max_items filtering. Batch id,
+  order, priority, phrase window, options and generation never reshape
+  identity (old `ri-{k+1:04d}` aliased different targets to one key).
+- `register_package` hard-errors on same-id + different-target_key;
+  `ReviewLog.append` requires manifest review_item_id/target_key match;
+  decision↔package target_key mismatch → stale (never authorizes).
+  gen2 inherits the same id automatically (no override).
+- `verify_package` recomputes `audio_package_hash` from revalidated
+  source/option bytes + plan_hash + provenance vs the manifest's record.
+- Schema d3; d2 review state archived to `review_d2_audit/` — old
+  sequential ids are audit-only, never treated as live targets.
+- Smoke rb-d3-*: subset/max-items reproduce full-batch ids on the real
+  run; verify_package recompute passes; gen1-reject→gen2-same-id→
+  manual_followup lifecycle confirmed; Candidate 0 sha256 unchanged.
 
 Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
 
