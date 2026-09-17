@@ -454,6 +454,44 @@ M2.3.2B = FROZEN. Next: M2.3.2C structure adjudication.
   unchanged.
 - Tests: 127 passed (+8 final-patch regressions).
 
+## M2.3.2C2 FINAL PATCH — virtual GAME correspondence (run diag-20260917-181538-6aec)
+
+- §9.3 blocker resolved: `structure_adj.virtual_game_correspondence()`
+  classifies each run's REAL member notes per operation. Split: a run
+  votes for a child only when its OWN internal boundary is compatible
+  with the candidate boundary (CORR_EDGE_TOL_S=0.08) — the member on
+  the child's side of that edge is the identity; a note spanning the
+  candidate boundary is `parent_spanning_note` (anti-split structure
+  evidence, never a pitch vote for either child). Merge inverts it: a
+  note spanning the removed boundary IS the merged identity; an
+  internal edge kept at the boundary = anti-merge. ambiguous/absent
+  are neutral. Per-run audit: class + member_ref + member span/tone.
+- Frozen B virtual denominator (§8.3): when consensus carries
+  `virtual_correspondence`, game support = n_present_matching /
+  n_total_runs (presence x conditional agreement — never renormalized
+  over matched runs). Game opposition = present-but-disagreeing /
+  n_total; absent/parent-spanning runs are pitch-neutral (§5.1).
+  `game_opposition` is stored per hypothesis; ordinary Candidate 0
+  keeps legacy mean + 1-support opposition bit-for-bit.
+- 年轮 rerun (428-note medoid run4): 50 virtual notes over 25
+  TRUE_SPLIT candidates — 246 parent_spanning vs only 4
+  child_identity_match: GAME mostly kept one long note across the
+  candidate boundaries, so virtual children honestly get GAME≈0
+  (neutral) instead of a fake vote. Decisions: 311 keep / 21
+  resolved_change_candidate / 50 auto_resolved / 46 phrase_review /
+  0 repair. 189.84s unresolved→phrase_review; 202.14s TRUE_SPLIT with
+  all-parent_spanning correspondence → virtual B unresolved →
+  phrase_review; 202.52s unresolved→phrase_review. Candidate 0
+  unchanged.
+- Acceptance: local 133 passed (+6 §9.5 regressions 38-42 +
+  internal-boundary compatibility); remote CI run 35210458722 =
+  success @ c0d2648a1b86344d455430c0553d70e1726ec017 (133 passed,
+  no skipped). §9 matrix 1-52 ALL satisfied.
+
+**M2.3.2C = FROZEN.** Next: M2.3.2D phrase-level review workflow
+(§10), then M2.4 SAFE repair gate (§11 entry conditions now met on
+the machine lanes; phrase review workflow still required).
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight

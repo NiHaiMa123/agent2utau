@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2B 已冻结；M2.3.2C2 主体 correctness 已通过，但仍不可冻结。当前唯一算法优先级 = C2 Virtual GAME Correspondence Final Patch。不要新增 C3。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C 全部冻结（C 于 c0d2648 + CI run 35210458722 满足 §9 全 52 项验收）。当前唯一算法优先级 = M2.3.2D phrase-level review 工作流；随后 M2.4 SAFE repair。**
 
 ---
 
@@ -271,9 +271,9 @@ structure adjudicator schema/config
 
 ---
 
-# 7. M2.3.2C 状态
+# 7. M2.3.2C 状态 — ✅ FROZEN @ c0d2648
 
-## C1 ✅ IMPLEMENTED / ❌ NOT FROZEN
+## C1 ✅ IMPLEMENTED（随 C2 一同冻结）
 
 commit：
 
@@ -303,7 +303,7 @@ C1《年轮》：
 
 47 只是 calibration set，不是 47 个已确认 GAME 错误。
 
-## C2 主体 ✅ IMPLEMENTED / ❌ NOT FROZEN
+## C2 主体 ✅ FROZEN @ c0d2648（remote run 35210458722，133 passed）
 
 主要 commits：
 
@@ -358,13 +358,15 @@ Remote CI：
 GitHub Actions green
 ```
 
-但 **C2 仍不可 FROZEN**。最后 blocker 见下一节。
+但 58c8847 时 **C2 仍不可 FROZEN**。最后 blocker 为下一节 —— 已由
+`c0d2648a1b86344d455430c0553d70e1726ec017` 完成并通过验收。
 
 ---
 
-# 8. C2 Virtual GAME Correspondence Final Patch ← CURRENT / FINAL BLOCKER
+# 8. C2 Virtual GAME Correspondence Final Patch ✅ DONE @ c0d2648
 
-**不要新增 C3。** 这是 C2 freeze 前最后一个 correctness patch。
+这是 C2 freeze 前最后一个 correctness patch，已实现并满足 §9 全部
+验收（local 133 green + remote run 35210458722 success @ c0d2648）。
 
 ## 8.1 P0 — 时间覆盖 != child note identity correspondence
 
@@ -675,13 +677,15 @@ C2 freeze 前必须全部满足。
 52. remote run 必须对应最终 C2 acceptance SHA
 ```
 
-只有 1–52 全部满足后：
+1–52 已于 `c0d2648a1b86344d455430c0553d70e1726ec017` 全部满足
+（local 133 green；remote run 35210458722 = success @ 同 SHA）：
 
 ```text
-M2.3.2C = FROZEN
+M2.3.2C = FROZEN ✅
 ```
 
-**不要新增 C3。若 correspondence patch 未满足，C2 contract 保持 OPEN。**
+**C 阶段冻结。下一步 = M2.3.2D phrase-level review 工作流，然后 M2.4
+SAFE repair（进入条件见 §11）。**
 
 ---
 
@@ -869,9 +873,9 @@ rollback coverage
 ### M2.3.2A / A2 / A3 / A4 — ✅ FROZEN
 ### M2.3.2B1 / B2 / B3 — ✅ FROZEN
 ### E1 — GitHub Actions Remote CI — ✅ PASS
-### M2.3.2C1 — ✅ IMPLEMENTED / NOT FROZEN
-### M2.3.2C2 — 主体 correctness 已通过；Virtual GAME Correspondence Final Patch ← CURRENT
-### M2.3.2C — Freeze only after §9 full acceptance + final-SHA remote green
+### M2.3.2C1 — ✅ IMPLEMENTED
+### M2.3.2C2 — ✅ correctness + Virtual GAME Correspondence Final Patch DONE
+### M2.3.2C — ✅ FROZEN @ c0d2648（§9 52 项全过 + remote run 35210458722 green）
 ### M2.3.2D — Phrase-level human review
 ### M2.4 — SAFE repair
 ### M2.5 — PROBABLE structure repair
