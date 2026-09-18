@@ -64,7 +64,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "75870f582ddf32d22e3d7ae75f7d52e2ee2e6a922e921b61219376ed2dd4b545",
+      "wav_sha256": "462741c4c66cc9f10e2e72825252834f33844214d4d181853c45cbf1659ee16d",
       "sample_rate": 44100,
       "frames": 230643,
       "render_error": null
@@ -112,7 +112,7 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "b643ed47101741b3eb01c4c81ddaae8d15c070e4c5eab250572ccb4b0161a8cd",
+      "wav_sha256": "41e90df819f20e9636e71e45f88b86b195df89c1d005fc9c19ed6f72394b69c8",
       "sample_rate": 44100,
       "frames": 230643,
       "render_error": null
@@ -193,7 +193,7 @@
     ]
   },
   "plan_hash": "b8ef6ee2e2de4ab8bffc505d55215ed5f2cef0d93f1ad605cb3b63306220bf3e",
-  "audio_package_hash": "b81a3809b843af581d53b4b414131b555eb35b6177a52419c5061662a891580f",
+  "audio_package_hash": "a862209b363bec7f54dee45e45af047c8c4a908e10b3a97d8260614edbe5d6b8",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -270,14 +270,19 @@
     "patch_sha256": "24229546444b0903485dd5d3c7a06315d35f4e203b52f8c9e9896f892272b994",
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
-    "lyric_contract": "neutral_vowel",
-    "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
+    "lyric_contract": "real_lyric_review",
+    "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
     "choices": [
       "split",
       "baseline",
       "equivalent",
       "none_correct"
     ],
-    "semantic_diff_sha256": "ae58c0706bb4b9574b99182769192f2ec81b70081c0e3eae315b4048362ea767"
+    "semantic_diff_sha256": "18e8d72641e0f8fe609195ee18a46eabba22fd709270fe5cbd6c40d8e9c52682",
+    "lyric_evidence": {
+      "method": "force_align_source_bound",
+      "n_chars": 11,
+      "min_probability": 0.456
+    }
   }
 }

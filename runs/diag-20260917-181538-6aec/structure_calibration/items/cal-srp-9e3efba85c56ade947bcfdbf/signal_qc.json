@@ -4,13 +4,13 @@
   "repair_id": "srp-9e3efba85c56ade947bcfdbf",
   "sample_rate": 44100,
   "duration": 5.23,
-  "baseline_rms": 0.030844,
-  "candidate_rms": 0.029111,
-  "baseline_peak": 0.162476,
-  "candidate_peak": 0.130493,
+  "baseline_rms": 0.063177,
+  "candidate_rms": 0.068369,
+  "baseline_peak": 0.26004,
+  "candidate_peak": 0.23291,
   "silence_fraction": {
-    "baseline": 0.0845,
-    "candidate": 0.0741
+    "baseline": 0.07,
+    "candidate": 0.0661
   },
   "declared_region": [
     93.33,
@@ -27,10 +27,56 @@
     ],
     "pad_s": 0.5
   },
-  "pre_target_ab_diff_rms_ratio": 0.5524,
-  "target_ab_diff_rms_ratio": 1.8831,
-  "post_target_ab_diff_rms_ratio": 0.9244,
-  "option_loudness_ratio": 0.9438,
+  "pre_target_ab_diff_rms_ratio": 1.7558,
+  "target_ab_diff_rms_ratio": 1.2128,
+  "post_target_ab_diff_rms_ratio": 1.466,
+  "option_loudness_ratio": 1.0822,
+  "renderer_global_context": {
+    "effect": "deterministic renderer; declared patch's phoneme delta propagates a constant timing shift + small acoustic smear into context notes (DiffSinger duration model attends the full phoneme sequence)",
+    "canonical_pre_ab_diff_rms_ratio": 1.7558,
+    "canonical_post_ab_diff_rms_ratio": 1.466,
+    "canonical_target_ab_diff_rms_ratio": 1.2128,
+    "timing_shift_ms_median": {
+      "pre": -1.0,
+      "post": -0.7
+    },
+    "aligned_residual_median": {
+      "pre": 0.427,
+      "post": 0.525
+    },
+    "flags": [
+      "pre_target_ab_drift:1.756",
+      "post_target_ab_drift:1.466"
+    ]
+  },
+  "listen_surface": {
+    "construction": "shared_context_splice",
+    "splice_edges_rel": [
+      2.57,
+      3.7498
+    ],
+    "fade_zone_rel": [
+      2.5329,
+      3.7888
+    ],
+    "edge_lag": {
+      "left": {
+        "samples": 130,
+        "ms": 2.95,
+        "confidence": 0.886,
+        "applied": 130
+      },
+      "right": {
+        "samples": -41,
+        "ms": -0.93,
+        "confidence": 0.88,
+        "applied": -41
+      }
+    },
+    "pre_outside_ab_diff_rms_ratio": 0.0,
+    "post_outside_ab_diff_rms_ratio": 0.0,
+    "outside_max_ratio": 0.0
+  },
   "core_window": {
     "absolute": [
       93.18,
@@ -40,22 +86,47 @@
   },
   "listen": {
     "target_dbfs": -16.0,
-    "pair_rms_db": -30.46,
-    "shared_gain_db": 14.46,
+    "pair_rms_db": -24.1,
+    "shared_gain_db": 8.1,
     "clipped": false,
     "option_rms_db": {
-      "OPTION_0": -30.72,
-      "OPTION_1": -30.22
+      "OPTION_0": -24.22,
+      "OPTION_1": -23.99
     },
-    "ab_loudness_delta_db": 0.5,
+    "ab_loudness_delta_db": 0.23,
     "listen_peak": {
-      "OPTION_0": 0.6896,
-      "OPTION_1": 0.8586
+      "OPTION_0": 0.6608,
+      "OPTION_1": 0.6608
     },
     "files": [
       "OPTION_0_LISTEN.wav",
       "OPTION_1_LISTEN.wav"
-    ]
+    ],
+    "construction": "shared_context_splice",
+    "context_donor": "baseline",
+    "splice_edges_rel": [
+      2.57,
+      3.7498
+    ],
+    "fade_zone_rel": [
+      2.5329,
+      3.7888
+    ],
+    "edge_lag": {
+      "left": {
+        "samples": 130,
+        "ms": 2.95,
+        "confidence": 0.886,
+        "applied": 130
+      },
+      "right": {
+        "samples": -41,
+        "ms": -0.93,
+        "confidence": 0.88,
+        "applied": -41
+      }
+    },
+    "outside_surface": "bit-identical outside the fade zone"
   },
   "f0_qc": {
     "children": [
@@ -90,10 +161,10 @@
           "n_frames": 13,
           "voiced_frames": 13,
           "voiced_fraction": 1.0,
-          "midi_median": 66.003,
-          "midi_iqr": 0.159,
-          "midi_min": 62.965,
-          "midi_max": 66.035,
+          "midi_median": 65.998,
+          "midi_iqr": 0.127,
+          "midi_min": 62.747,
+          "midi_max": 66.05,
           "dominant_fraction": 0.846,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -106,16 +177,16 @@
           "n_frames": 13,
           "voiced_frames": 13,
           "voiced_fraction": 1.0,
-          "midi_median": 64.023,
-          "midi_iqr": 0.179,
-          "midi_min": 61.551,
-          "midi_max": 64.913,
+          "midi_median": 64.035,
+          "midi_iqr": 0.276,
+          "midi_min": 61.582,
+          "midi_max": 64.955,
           "dominant_fraction": 0.846,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 1.935,
-        "candidate_error_semitones": -0.045
+        "baseline_error_semitones": 1.93,
+        "candidate_error_semitones": -0.033
       },
       {
         "child": 1,
@@ -146,12 +217,12 @@
             0.88
           ],
           "n_frames": 26,
-          "voiced_frames": 26,
-          "voiced_fraction": 1.0,
-          "midi_median": 66.002,
-          "midi_iqr": 0.012,
-          "midi_min": 65.986,
-          "midi_max": 66.013,
+          "voiced_frames": 19,
+          "voiced_fraction": 0.7308,
+          "midi_median": 66.019,
+          "midi_iqr": 0.019,
+          "midi_min": 65.645,
+          "midi_max": 66.41,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -162,41 +233,38 @@
             0.88
           ],
           "n_frames": 26,
-          "voiced_frames": 26,
-          "voiced_fraction": 1.0,
-          "midi_median": 65.999,
-          "midi_iqr": 0.02,
-          "midi_min": 65.306,
-          "midi_max": 66.038,
+          "voiced_frames": 20,
+          "voiced_fraction": 0.7692,
+          "midi_median": 65.995,
+          "midi_iqr": 0.161,
+          "midi_min": 65.36,
+          "midi_max": 66.207,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": -0.09,
-        "candidate_error_semitones": -0.093
+        "baseline_error_semitones": -0.073,
+        "candidate_error_semitones": -0.097
       }
     ],
     "baseline_child_error_semitones": [
-      1.935,
-      -0.09
+      1.93,
+      -0.073
     ],
     "candidate_child_error_semitones": [
-      -0.045,
-      -0.093
+      -0.033,
+      -0.097
     ],
-    "baseline_structure_error": 1.935,
-    "candidate_structure_error": 0.093,
-    "candidate_improvement_vs_baseline": 1.842,
+    "baseline_structure_error": 1.93,
+    "candidate_structure_error": 0.097,
+    "candidate_improvement_vs_baseline": 1.833,
     "unavailable_child_slots": 0,
     "ambiguous_children": [],
     "note": "review-readiness evidence only — never an automatic score truth; unavailable/ambiguous stays neutral"
   },
-  "target_focus_sha256": "ecc948c4826c6c661799ef2ed372de7168a40804270559e4e3273ee23da858fe",
-  "target_core_sha256": "1f9a88fceb9530115bc7eaa23b15b2b36b237552b0d9b3daa9d674cc90826884",
+  "target_focus_sha256": "a802330ec8c99e44551e4788095ec0c09f15fb2d696a83014ca976c3cea3a9d4",
+  "target_core_sha256": "473d3f154503c6bb28feb4f46fcee4c0245d49cd31f7a416e62ff707d36c251d",
   "target_focus_is_primary": true,
-  "auto_flags": [
-    "pre_target_ab_drift:0.5524",
-    "post_target_ab_drift:0.9244"
-  ],
-  "auto_review_ready": false
+  "auto_flags": [],
+  "auto_review_ready": true
 }

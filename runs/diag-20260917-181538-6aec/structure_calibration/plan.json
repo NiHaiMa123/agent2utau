@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "created_at": 1789720913.5237234,
+  "created_at": 1789725736.2421744,
   "diagnostic_run_id": "diag-20260917-181538-6aec",
   "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
   "lyric_contract": "neutral_vowel",
@@ -158,12 +158,13 @@
       },
       "phrase_key": "90.36-95.59",
       "plan_hash": "b8ef6ee2e2de4ab8bffc505d55215ed5f2cef0d93f1ad605cb3b63306220bf3e",
-      "audio_package_hash": "b81a3809b843af581d53b4b414131b555eb35b6177a52419c5061662a891580f",
+      "audio_package_hash": "a862209b363bec7f54dee45e45af047c8c4a908e10b3a97d8260614edbe5d6b8",
       "package_state": "valid",
-      "semantic_diff_sha256": "ae58c0706bb4b9574b99182769192f2ec81b70081c0e3eae315b4048362ea767",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-f93f9a2370cdb829565fbb7c\\manifest.json",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "lyric_contract": "real_lyric_review",
+      "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "18e8d72641e0f8fe609195ee18a46eabba22fd709270fe5cbd6c40d8e9c52682",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-f93f9a2370cdb829565fbb7c\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-80eac026c81af9f4645b48f3",
@@ -329,12 +330,13 @@
       },
       "phrase_key": "177.99-183.00",
       "plan_hash": "f0de2b9c476c902e319ca1282e7ffddbe1d9b17d32fe1969aba7cbe67850f8c1",
-      "audio_package_hash": "0edd1b03472b33a255208035f31d452dba99e75ff83d4819d68a00c121ca9f9b",
+      "audio_package_hash": "4751ab7f47170b7717ee2e5b09107ab2a2901adfc0d769069caa54e8a711547a",
       "package_state": "valid",
-      "semantic_diff_sha256": "119d71ad76b70117fed03ef178d97e2c0870d8fd4868f4024078e5d48c0522a7",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b04c10c381b66d1abfd9ec8a\\manifest.json",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "lyric_contract": "real_lyric_review",
+      "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "61778de304a38ae65d2909aa5bac53fbe2c27bf2373e5fa3bb432ea3a76ce20b",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b04c10c381b66d1abfd9ec8a\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-9ff662d834e7cbadd1aa9434",

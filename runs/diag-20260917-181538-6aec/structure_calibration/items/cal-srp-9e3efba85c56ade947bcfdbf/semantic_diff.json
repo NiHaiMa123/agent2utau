@@ -2,7 +2,7 @@
   "schema": "m25-cal-2",
   "cal_item_id": "cal-srp-9e3efba85c56ade947bcfdbf",
   "repair_id": "srp-9e3efba85c56ade947bcfdbf",
-  "lyric_contract": "neutral_vowel",
+  "lyric_contract": "real_lyric_review",
   "target": {
     "note_ids": [
       "note_0188"

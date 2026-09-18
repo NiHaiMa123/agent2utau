@@ -31,6 +31,51 @@
   "target_ab_diff_rms_ratio": 1.0145,
   "post_target_ab_diff_rms_ratio": 0.4687,
   "option_loudness_ratio": 0.9019,
+  "renderer_global_context": {
+    "effect": "deterministic renderer; declared patch's phoneme delta propagates a constant timing shift + small acoustic smear into context notes (DiffSinger duration model attends the full phoneme sequence)",
+    "canonical_pre_ab_diff_rms_ratio": 1.5819,
+    "canonical_post_ab_diff_rms_ratio": 0.4687,
+    "canonical_target_ab_diff_rms_ratio": 1.0145,
+    "timing_shift_ms_median": {
+      "pre": -1.18,
+      "post": 0.05
+    },
+    "aligned_residual_median": {
+      "pre": 0.26,
+      "post": 0.349
+    },
+    "flags": [
+      "pre_target_ab_drift:1.582"
+    ]
+  },
+  "listen_surface": {
+    "construction": "shared_context_splice",
+    "splice_edges_rel": [
+      1.22,
+      2.31
+    ],
+    "fade_zone_rel": [
+      1.1788,
+      2.35
+    ],
+    "edge_lag": {
+      "left": {
+        "samples": -52,
+        "ms": -1.18,
+        "confidence": 0.957,
+        "applied": -52
+      },
+      "right": {
+        "samples": 2,
+        "ms": 0.05,
+        "confidence": 0.944,
+        "applied": 2
+      }
+    },
+    "pre_outside_ab_diff_rms_ratio": 0.0,
+    "post_outside_ab_diff_rms_ratio": 0.0,
+    "outside_max_ratio": 0.0
+  },
   "core_window": {
     "absolute": [
       39.25,
@@ -40,22 +85,47 @@
   },
   "listen": {
     "target_dbfs": -16.0,
-    "pair_rms_db": -23.52,
-    "shared_gain_db": 7.52,
+    "pair_rms_db": -23.17,
+    "shared_gain_db": 7.17,
     "clipped": false,
     "option_rms_db": {
-      "OPTION_0": -23.99,
+      "OPTION_0": -23.26,
       "OPTION_1": -23.09
     },
-    "ab_loudness_delta_db": 0.9,
+    "ab_loudness_delta_db": 0.17,
     "listen_peak": {
-      "OPTION_0": 0.5492,
-      "OPTION_1": 0.6045
+      "OPTION_0": 0.5812,
+      "OPTION_1": 0.5812
     },
     "files": [
       "OPTION_0_LISTEN.wav",
       "OPTION_1_LISTEN.wav"
-    ]
+    ],
+    "construction": "shared_context_splice",
+    "context_donor": "baseline",
+    "splice_edges_rel": [
+      1.22,
+      2.31
+    ],
+    "fade_zone_rel": [
+      1.1788,
+      2.35
+    ],
+    "edge_lag": {
+      "left": {
+        "samples": -52,
+        "ms": -1.18,
+        "confidence": 0.957,
+        "applied": -52
+      },
+      "right": {
+        "samples": 2,
+        "ms": 0.05,
+        "confidence": 0.944,
+        "applied": 2
+      }
+    },
+    "outside_surface": "bit-identical outside the fade zone"
   },
   "f0_qc": {
     "children": [
@@ -194,8 +264,6 @@
   "target_focus_sha256": "e5010eb59aaf8afe64d4c61c598faa7e701eb5918ea5820995b67eab0e781d6f",
   "target_core_sha256": "825b927e1a5f1720d0466b0935661842e5d2d8d47d941b3e42b3bbe2bc027f69",
   "target_focus_is_primary": true,
-  "auto_flags": [
-    "pre_target_ab_drift:1.5819"
-  ],
-  "auto_review_ready": false
+  "auto_flags": [],
+  "auto_review_ready": true
 }
