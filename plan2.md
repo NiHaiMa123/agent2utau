@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5G close-out 已全部完成并推送，等待 maintainer QC PASS + 用户重审）。2026-09-18 re-audit status → impl=rlv2, auto_review_ready=True, USTX 无 `a`；`plan_invariants ok 0 violations`；`git_evidence 468/468`；全部 pilot raw URL 实测可下载且 sha256 匹配；`review_ready=false`（无当前合同 verdict，hold 正确维持）。剩余阻塞：maintainer 复核 Git artifacts → `structure-calib-qc --pass --auditor <name>` → 用户重审 4 组。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5G artifact close-out 已完成；当前唯一 blocker 为 QC authority contract binding）。最终 honest pilot = 4 组 `note_0061/0188/0192/0379`，全部 `real_lyric_review / rlv2`、USTX 无 `a`、`auto_review_ready=True`、plan invariants PASS、Git/raw/hash/CI PASS。不要再强行补第 5 个：其余候选要么缺 char evidence，要么在 rlv2 下因 gap-separated unmapped note 正当 fail-closed。当前死锁来自 QC 模型：4 个 pilot item 的 `contract_sha256 = 94077436...`（real-lyric rlv2），但 `plan.json` 顶层仍是 `contract_sha256 = c54f07d6...`（neutral-vowel nv1）；`cmd_structure_calib_qc()` / `rebuild_calibration_state()` / `review_ready()` 仍消费 plan 顶层 contract，因此即使对当前 4 个 rlv2 sample 写 PASS，也会绑定错误 contract，或永远保持 `review_ready=false`。下一步只修 QC authority binding：verdict 必须绑定 exact pilot sample set + 这些 sample 的共同 current contract，并验证 manifest contract / staleness / signal_qc / pilot payload / Git evidence；不得再从 plan 顶层默认 contract 推导人审授权。修复并通过回归后，才允许 maintainer QC PASS → 用户正式复审 4 组。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -3157,6 +3157,226 @@ DO NOT request maintainer QC PASS
 ```
 
 全部完成后，只进行一次最终确认：提供 5 组完整一句 SOURCE/A/B 给用户复审；该复审才可进入正式 calibration decision。
+
+
+#### G5H QC authority contract binding（当前唯一 blocker）
+
+G5G 已经完成真实歌词、rlv2 contract、plan authoritative rebuild、pilot Git binding 与 4-item honest pilot。当前无法继续不是 render / lyric / package 问题，而是 **QC verdict 仍绑定错误层级的 contract**。
+
+##### 现状与死锁
+
+当前 4 个正式 pilot：
+
+```text
+note_0061
+note_0188
+note_0192
+note_0379
+```
+
+它们的 item manifest 均为：
+
+```text
+lyric_contract = real_lyric_review
+lyric_mapping_impl = rlv2
+contract_sha256 = 94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c
+auto_review_ready = true
+```
+
+但 `plan.json` 顶层仍表示整个 store 的默认 neutral-vowel contract：
+
+```text
+lyric_contract = neutral_vowel
+contract_sha256 = c54f07d644d7d5672748a19b32b49e966636fabe0dac6d32869dcb273ea652d105d
+```
+
+当前代码路径：
+
+```text
+cmd_structure_calib_qc()
+→ rebuild_calibration_state()
+→ state.contract_sha256 = plan.contract_sha256
+→ write_verdict(... c54f07d6 ...)
+
+review_ready()
+→ verdict.contract_sha256 == plan.contract_sha256
+```
+
+因此 QC authority 错误地绑定 **store-level default contract**，而不是 **当前 human-review sample set 的 exact contract**。
+
+旧 `qc/verdict.json` 虽为 PASS，但仍是旧 `c54f07...` + 旧 sample set，且不具备 current-contract authority；继续失效是正确行为。
+
+##### Required fix — verdict 必须绑定 exact pilot authority
+
+QC PASS 的 authority 必须从明确的 `sample_ids` / 当前 pilot payload 推导，而不是从 plan 顶层字段推导。
+
+推荐 contract：
+
+```text
+sample_ids
+→ load each current item manifest
+→ require all samples share one contract_sha256
+→ require all samples share expected lyric_contract / impl
+→ verdict.contract_sha256 = that shared sample contract
+```
+
+当前 4-item pilot 应得到：
+
+```text
+verdict.contract_sha256 = 94077436...
+```
+
+而不是 `c54f07...`。
+
+##### PASS hard gates
+
+`write_verdict(PASS)` 至少必须逐 sample 验证：
+
+```text
+manifest exists
+manifest.schema == current CALIB_SCHEMA
+manifest.calibration.contract_sha256 == verdict.contract_sha256
+manifest.calibration.lyric_contract == real_lyric_review
+manifest.calibration.lyric_mapping_impl == current rlv2
+item_contract_stale(manifest) == false
+signal_qc.auto_review_ready == true
+verify_package(item) == PASS
+Git evidence complete
+```
+
+禁止：
+
+```text
+sample contracts mixed
+sample contract != verdict contract
+从 plan.top_level.contract_sha256 推导 verdict contract
+仅凭 plan invariants PASS 就授权 human review
+```
+
+##### Pilot payload binding
+
+QC verdict 还必须绑定当前 exact pilot payload，避免 sample roster 或 audio package 后续变化后旧 PASS 继续有效。
+
+至少记录：
+
+```text
+pilot_sample_ids
+pilot_contract_sha256
+pilot_payload_sha256   # pilot_review.json canonical hash，或等价 identity
+audio_package_hash per sample
+```
+
+`review_ready()` 必须重新验证：
+
+```text
+current pilot sample_ids == verdict sample_ids
+current pilot payload hash == verdict pilot_payload_sha256
+every current sample manifest contract == verdict contract
+every sample audio_package_hash still matches verdict snapshot
+plan_invariants == PASS
+Git evidence including qc files == complete
+```
+
+任一 sample 被替换、重渲、contract bump、package hash 变化、pilot payload 变化：
+
+```text
+old verdict automatically stale
+review_ready = false
+```
+
+##### CLI / state semantics
+
+`structure-calib-qc` 必须明确针对一个 review sample set：
+
+```text
+structure-calib-qc <run>
+  --pass
+  --auditor <name>
+  --samples <current pilot ids>
+```
+
+若 `--samples` 缺失，推荐直接 fail-closed；不得退回 plan 顶层 contract。
+
+`rebuild_calibration_state()` 不应再把 `plan.contract_sha256` 当作 human-review authority contract。可以：
+
+```text
+store_contract_sha256 = plan.contract_sha256        # 仅描述 store/default
+pilot_contract_sha256 = derived from current pilot # 人审 authority
+review_ready = review_ready(current pilot identity)
+```
+
+两个概念必须分开。
+
+##### Regression matrix
+
+必须新增：
+
+```text
+H1. plan top-level = neutral nv1，samples = real-lyric rlv2
+    → QC PASS binds rlv2 sample contract, not plan contract
+
+H2. four samples all contract=94077436...
+    → PASS may be recorded after all other gates pass
+
+H3. one sample has a different contract
+    → PASS hard refuse
+
+H4. one sample stale under current lyric impl
+    → PASS hard refuse
+
+H5. one sample auto_review_ready=false
+    → PASS hard refuse
+
+H6. pilot roster changes after PASS
+    → old verdict stale; review_ready=false
+
+H7. one audio_package_hash changes after PASS
+    → old verdict stale; review_ready=false
+
+H8. pilot_review.json identity/hash changes after PASS
+    → old verdict stale; review_ready=false
+
+H9. old c54f07 neutral-vowel PASS over old 5 samples
+    → cannot authorize current 4-item rlv2 pilot
+
+H10. exact current 4-item rlv2 pilot + current PASS + committed QC files
+    → review_ready=true
+```
+
+##### Pilot size rule
+
+最终 pilot 固定为 **4 个 honest items**。不要为了历史上的“5-item pilot”要求补一个不满足 evidence gate 的样本。
+
+```text
+4 honest real-lyric items
+>
+5 items where one requires guessed lyric / invalid '+' / audible placeholder
+```
+
+pilot size 是 calibration coverage 参数，不是安全 contract。未来若出现新的合法 real-lyric item，可再扩展，但当前 close-out 不因此阻塞。
+
+##### Final acceptance
+
+只有以下全部满足后，G5H 才算关闭：
+
+```text
+QC authority derives from exact current pilot sample set
+current 4 samples share one real-lyric rlv2 contract
+verdict binds pilot payload + per-sample audio package identity
+wrong/mixed/stale sample contract cannot PASS
+old neutral-vowel verdict cannot authorize current pilot
+current exact PASS committed to Git
+review_ready == true
+remote CI == success
+```
+
+然后流程才进入：
+
+```text
+maintainer QC PASS
+→ 用户正式试听 4 组完整一句 SOURCE/A/B
+→ structure-calib-decide 记录正式 calibration decisions
+```
 
 ---
 
