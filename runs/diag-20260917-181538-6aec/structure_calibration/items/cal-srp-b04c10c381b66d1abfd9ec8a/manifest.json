@@ -26,12 +26,13 @@
   },
   "context": {
     "phrase": {
-      "start": 177.99,
-      "end": 183.0,
-      "boundary_source": "lrc"
+      "start": 177.64,
+      "end": 184.52,
+      "boundary_source": "lrc+lyric_pad"
     },
-    "phrase_key": "177.99-183.00",
+    "phrase_key": "177.64-184.52",
     "candidate0_note_ids": [
+      "note_0371",
       "note_0372",
       "note_0373",
       "note_0374",
@@ -45,13 +46,14 @@
       "note_0382",
       "note_0383",
       "note_0384",
-      "note_0385"
+      "note_0385",
+      "note_0386"
     ]
   },
   "phrase": {
-    "start": 177.99,
-    "end": 183.0,
-    "boundary_source": "lrc"
+    "start": 177.64,
+    "end": 184.52,
+    "boundary_source": "lrc+lyric_pad"
   },
   "options": [
     {
@@ -64,9 +66,9 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "43dd9aacc0cf0ea3be90bd0bc238ab8c13c96d47d6555577cff2fd483d5ce012",
+      "wav_sha256": "763f7611cfe859880ef866093062a1837fe9001fbe798b34fff6db5d3d5331f8",
       "sample_rate": 44100,
-      "frames": 220941,
+      "frames": 303408,
       "render_error": null
     },
     {
@@ -112,23 +114,23 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "0ca0eba32e4b9f5f57903fb81aa589572b63f1fec1d2f3cea49d561b167ce5e1",
+      "wav_sha256": "8400fba91a5d82f3255661f4b5b7546983986f49ff7e87834234637f8692ccfa",
       "sample_rate": 44100,
-      "frames": 220941,
+      "frames": 303408,
       "render_error": null
     }
   ],
   "baseline_option": "OPTION_0",
   "source_reference": {
     "original_mix": {
-      "path": "../../phrases/177.99-183.00/SOURCE_PHRASE_original_mix.wav",
-      "sha256": "92061e460c4ddaa0a4befd0fa0cde08bec6d6e2a35a4138f767d4bc0d07c4f7a",
+      "path": "../../phrases/177.64-184.52/SOURCE_PHRASE_original_mix.wav",
+      "sha256": "cbbf5fd2fc4815bb55e84aa391ac1db2a5e02c61c898806334a058a3fa882cdd",
       "gain_db": -0.45,
       "sample_rate": 44100
     },
     "separated_vocal": {
-      "path": "../../phrases/177.99-183.00/SOURCE_PHRASE_separated_vocal.wav",
-      "sha256": "97ce4d3e5738c3938336f8e307ed060c41aa3ec87645cbd52b8d337c3ef26d7c",
+      "path": "../../phrases/177.64-184.52/SOURCE_PHRASE_separated_vocal.wav",
+      "sha256": "28c8ed082eed6448a369897290be2a36dbed035a390ab7cc0c963515d60b542f",
       "gain_db": 0.0,
       "sample_rate": 44100
     }
@@ -191,8 +193,8 @@
       "none_correct"
     ]
   },
-  "plan_hash": "f0de2b9c476c902e319ca1282e7ffddbe1d9b17d32fe1969aba7cbe67850f8c1",
-  "audio_package_hash": "079feb34c6aaa984e024412234ddb526b6e2abac6cc33f84c5d303c2365d10d0",
+  "plan_hash": "cceab6e0f7f2da46384fd4b453c2f863c8b8615925d9a9ee85610790e18deebb",
+  "audio_package_hash": "4511532681c74dce01f496d1dc635d4161d5bd3f00229bcfe8349fb2091c05a5",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -270,8 +272,8 @@
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv3",
-    "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
+    "lyric_mapping_impl": "rlv5",
+    "contract_sha256": "8032020c55d8cc56f13dcb0fd82e2477b0aaa21162f31b1fb9aee45c90e7be8f",
     "choices": [
       "split",
       "baseline",
@@ -352,10 +354,201 @@
         }
       ],
       "articulation": {
-        "impl": "rlv3",
-        "n_segments": 23,
-        "n_articulation_splits": 18,
-        "n_chars": 11
+        "impl": "rlv5",
+        "n_segments": 20,
+        "n_articulation_splits": 9,
+        "n_chars": 11,
+        "closed_loop": {
+          "converged": false,
+          "reason": "anchors_crossed",
+          "k": 0.7,
+          "clamp_s": 0.15,
+          "tol_ms": 80.0,
+          "instrument": "onset_strength_peak_v1",
+          "ref_onsets": [
+            0.3135,
+            0.9868,
+            1.2307,
+            1.6138,
+            2.3684,
+            2.4961,
+            3.1463,
+            3.5062,
+            3.6804,
+            4.3073,
+            4.9575
+          ],
+          "ref_kinds": [
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak"
+          ],
+          "anchors": [
+            177.9534693877551,
+            178.62684807256235,
+            178.87065759637187,
+            179.28999919265507,
+            180.00843537414966,
+            180.13614512471653,
+            180.78630385487526,
+            181.1462131519274,
+            181.32036281179137,
+            181.94730158730158,
+            182.5974603174603
+          ],
+          "bounds": {
+            "lo": [
+              177.63999921649693,
+              178.45999920934437,
+              178.8099992033839,
+              179.28999919265507,
+              179.6699991878867,
+              180.09999916523694,
+              180.44999915927647,
+              180.99,
+              181.2699991223216,
+              181.90999910801648,
+              182.51999909251927
+            ],
+            "hi": [
+              177.95999921053647,
+              178.7799992033839,
+              179.25999919265507,
+              179.6399991878867,
+              180.06999916523694,
+              180.41999915927647,
+              180.80999914497136,
+              181.2399991223216,
+              181.87999910801648,
+              182.18999911040066,
+              182.69999908596276
+            ]
+          },
+          "bound_limited": [
+            0,
+            3,
+            6,
+            7,
+            10
+          ],
+          "unmeasurable_chars": [
+            2,
+            4
+          ],
+          "iterations": [
+            {
+              "iteration": 0,
+              "anchors": [
+                177.9535,
+                178.6268,
+                178.8707,
+                179.29,
+                180.0084,
+                180.1361,
+                180.7863,
+                181.1462,
+                181.3204,
+                181.9473,
+                182.5975
+              ],
+              "onsets": {
+                "OPTION_0": [
+                  0.2902,
+                  1.0913,
+                  null,
+                  1.6834,
+                  null,
+                  2.4149,
+                  3.2276,
+                  null,
+                  3.6339,
+                  4.3073,
+                  4.8181
+                ],
+                "OPTION_1": [
+                  0.3019,
+                  1.0217,
+                  null,
+                  1.6834,
+                  null,
+                  2.4149,
+                  3.2276,
+                  3.3785,
+                  3.6107,
+                  4.3073,
+                  4.8065
+                ]
+              },
+              "errors_ms": {
+                "OPTION_0": [
+                  -23.2,
+                  104.5,
+                  null,
+                  69.7,
+                  null,
+                  -81.3,
+                  81.3,
+                  null,
+                  -46.4,
+                  0.0,
+                  -139.3
+                ],
+                "OPTION_1": [
+                  -11.6,
+                  34.8,
+                  null,
+                  69.7,
+                  null,
+                  -81.3,
+                  81.3,
+                  -127.7,
+                  -69.7,
+                  0.0,
+                  -150.9
+                ]
+              },
+              "shared_err_raw": [
+                -0.0174,
+                0.0696,
+                null,
+                0.0697,
+                null,
+                -0.0813,
+                0.0813,
+                -0.1277,
+                -0.058,
+                0.0,
+                -0.1451
+              ],
+              "shared_err_ms": [
+                -17.4,
+                69.6,
+                null,
+                69.7,
+                null,
+                -81.3,
+                81.3,
+                -127.7,
+                -58.0,
+                0.0,
+                -145.1
+              ],
+              "unmeasurable_chars": [
+                2,
+                4
+              ],
+              "max_abs_err_ms": 145.1
+            }
+          ]
+        }
       }
     }
   }

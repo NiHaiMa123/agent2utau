@@ -3,14 +3,14 @@
   "cal_item_id": "cal-srp-cb76bf56bb24b5c3d8849bc0",
   "repair_id": "srp-cb76bf56bb24b5c3d8849bc0",
   "sample_rate": 44100,
-  "duration": 6.3,
-  "baseline_rms": 0.054528,
-  "candidate_rms": 0.059695,
-  "baseline_peak": 0.196838,
-  "candidate_peak": 0.235931,
+  "duration": 6.68,
+  "baseline_rms": 0.060458,
+  "candidate_rms": 0.061725,
+  "baseline_peak": 0.231537,
+  "candidate_peak": 0.174591,
   "silence_fraction": {
-    "baseline": 0.1178,
-    "candidate": 0.122
+    "baseline": 0.1298,
+    "candidate": 0.1265
   },
   "declared_region": [
     39.4,
@@ -22,54 +22,54 @@
       40.29
     ],
     "phrase_relative": [
-      1.12,
-      2.51
+      1.5,
+      2.89
     ],
     "pad_s": 0.5
   },
-  "pre_target_ab_diff_rms_ratio": 0.4175,
-  "target_ab_diff_rms_ratio": 1.5195,
-  "post_target_ab_diff_rms_ratio": 1.6925,
-  "option_loudness_ratio": 1.0948,
+  "pre_target_ab_diff_rms_ratio": 0.3346,
+  "target_ab_diff_rms_ratio": 1.987,
+  "post_target_ab_diff_rms_ratio": 1.7414,
+  "option_loudness_ratio": 1.0209,
   "renderer_global_context": {
     "effect": "deterministic renderer; declared patch's phoneme delta propagates a constant timing shift + small acoustic smear into context notes (DiffSinger duration model attends the full phoneme sequence)",
-    "canonical_pre_ab_diff_rms_ratio": 0.4175,
-    "canonical_post_ab_diff_rms_ratio": 1.6925,
-    "canonical_target_ab_diff_rms_ratio": 1.5195,
+    "canonical_pre_ab_diff_rms_ratio": 0.3346,
+    "canonical_post_ab_diff_rms_ratio": 1.7414,
+    "canonical_target_ab_diff_rms_ratio": 1.987,
     "timing_shift_ms_median": {
-      "pre": -0.1,
-      "post": 1.1
+      "pre": 0.0,
+      "post": 1.13
     },
     "aligned_residual_median": {
-      "pre": 0.251,
-      "post": 0.546
+      "pre": 0.323,
+      "post": 0.248
     },
     "flags": [
-      "post_target_ab_drift:1.692"
+      "post_target_ab_drift:1.741"
     ]
   },
   "listen_surface": {
     "construction": "shared_context_splice",
     "splice_edges_rel": [
-      1.22,
-      2.4098
+      1.6,
+      2.69
     ],
     "fade_zone_rel": [
-      1.1801,
-      2.4506
+      1.5599,
+      2.7286
     ],
     "edge_lag": {
       "left": {
-        "samples": 5,
-        "ms": 0.11,
-        "confidence": 0.936,
-        "applied": 5
+        "samples": -4,
+        "ms": -0.09,
+        "confidence": 0.95,
+        "applied": -4
       },
       "right": {
-        "samples": 38,
-        "ms": 0.86,
-        "confidence": 0.873,
-        "applied": 38
+        "samples": -61,
+        "ms": -1.38,
+        "confidence": 0.778,
+        "applied": -61
       }
     },
     "pre_outside_ab_diff_rms_ratio": 0.0,
@@ -85,17 +85,17 @@
   },
   "listen": {
     "target_dbfs": -16.0,
-    "pair_rms_db": -25.27,
-    "shared_gain_db": 9.27,
+    "pair_rms_db": -24.41,
+    "shared_gain_db": 8.41,
     "clipped": false,
     "option_rms_db": {
-      "OPTION_0": -25.27,
-      "OPTION_1": -25.27
+      "OPTION_0": -24.46,
+      "OPTION_1": -24.37
     },
-    "ab_loudness_delta_db": 0.0,
+    "ab_loudness_delta_db": 0.09,
     "listen_peak": {
-      "OPTION_0": 0.5723,
-      "OPTION_1": 0.5723
+      "OPTION_0": 0.61,
+      "OPTION_1": 0.61
     },
     "files": [
       "OPTION_0_LISTEN.wav",
@@ -104,25 +104,25 @@
     "construction": "shared_context_splice",
     "context_donor": "baseline",
     "splice_edges_rel": [
-      1.22,
-      2.4098
+      1.6,
+      2.69
     ],
     "fade_zone_rel": [
-      1.1801,
-      2.4506
+      1.5599,
+      2.7286
     ],
     "edge_lag": {
       "left": {
-        "samples": 5,
-        "ms": 0.11,
-        "confidence": 0.936,
-        "applied": 5
+        "samples": -4,
+        "ms": -0.09,
+        "confidence": 0.95,
+        "applied": -4
       },
       "right": {
-        "samples": 38,
-        "ms": 0.86,
-        "confidence": 0.873,
-        "applied": 38
+        "samples": -61,
+        "ms": -1.38,
+        "confidence": 0.778,
+        "applied": -61
       }
     },
     "outside_surface": "bit-identical outside the fade zone"
@@ -160,10 +160,10 @@
           "n_frames": 14,
           "voiced_frames": 14,
           "voiced_fraction": 1.0,
-          "midi_median": 64.003,
-          "midi_iqr": 0.037,
-          "midi_min": 63.044,
-          "midi_max": 64.023,
+          "midi_median": 63.994,
+          "midi_iqr": 0.065,
+          "midi_min": 63.022,
+          "midi_max": 64.032,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -176,16 +176,16 @@
           "n_frames": 14,
           "voiced_frames": 14,
           "voiced_fraction": 1.0,
-          "midi_median": 62.009,
-          "midi_iqr": 0.095,
-          "midi_min": 61.99,
-          "midi_max": 63.096,
+          "midi_median": 62.038,
+          "midi_iqr": 0.189,
+          "midi_min": 62.012,
+          "midi_max": 63.258,
           "dominant_fraction": 0.929,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 2.045,
-        "candidate_error_semitones": 0.051
+        "baseline_error_semitones": 2.036,
+        "candidate_error_semitones": 0.08
       },
       {
         "child": 1,
@@ -218,10 +218,10 @@
           "n_frames": 26,
           "voiced_frames": 26,
           "voiced_fraction": 1.0,
-          "midi_median": 63.99,
-          "midi_iqr": 0.022,
-          "midi_min": 63.978,
-          "midi_max": 65.112,
+          "midi_median": 63.999,
+          "midi_iqr": 0.014,
+          "midi_min": 63.975,
+          "midi_max": 65.042,
           "dominant_fraction": 0.962,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -234,29 +234,29 @@
           "n_frames": 26,
           "voiced_frames": 26,
           "voiced_fraction": 1.0,
-          "midi_median": 63.994,
-          "midi_iqr": 0.019,
-          "midi_min": 63.475,
-          "midi_max": 65.037,
+          "midi_median": 63.995,
+          "midi_iqr": 0.061,
+          "midi_min": 63.502,
+          "midi_max": 65.089,
           "dominant_fraction": 0.962,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 0.021,
-        "candidate_error_semitones": 0.025
+        "baseline_error_semitones": 0.03,
+        "candidate_error_semitones": 0.026
       }
     ],
     "baseline_child_error_semitones": [
-      2.045,
-      0.021
+      2.036,
+      0.03
     ],
     "candidate_child_error_semitones": [
-      0.051,
-      0.025
+      0.08,
+      0.026
     ],
-    "baseline_structure_error": 2.045,
-    "candidate_structure_error": 0.051,
-    "candidate_improvement_vs_baseline": 1.994,
+    "baseline_structure_error": 2.036,
+    "candidate_structure_error": 0.08,
+    "candidate_improvement_vs_baseline": 1.956,
     "unavailable_child_slots": 0,
     "ambiguous_children": [],
     "note": "review-readiness evidence only — never an automatic score truth; unavailable/ambiguous stays neutral"
@@ -268,62 +268,62 @@
     "source_chars": [
       {
         "char": "寒",
-        "start": -0.13,
-        "end": 0.57,
+        "start": 0.25,
+        "end": 0.95,
         "probability": 0.35139164022984914
       },
       {
         "char": "夜",
-        "start": 0.57,
-        "end": 0.99,
+        "start": 0.95,
+        "end": 1.37,
         "probability": 0.9554290771484375
       },
       {
         "char": "剩",
-        "start": 0.99,
-        "end": 1.37,
+        "start": 1.37,
+        "end": 1.75,
         "probability": 0.9593111872673035
       },
       {
         "char": "我",
-        "start": 1.37,
-        "end": 1.85,
+        "start": 1.75,
+        "end": 2.23,
         "probability": 0.9909721612930298
       },
       {
         "char": "一",
-        "start": 1.85,
-        "end": 2.21,
+        "start": 2.23,
+        "end": 2.59,
         "probability": 0.9973853230476379
       },
       {
         "char": "个",
-        "start": 2.21,
-        "end": 2.57,
+        "start": 2.59,
+        "end": 2.95,
         "probability": 0.9973853230476379
       },
       {
         "char": "人",
-        "start": 2.57,
-        "end": 3.09,
+        "start": 2.95,
+        "end": 3.47,
         "probability": 0.9996806383132935
       },
       {
         "char": "等",
-        "start": 3.35,
-        "end": 3.77,
+        "start": 3.73,
+        "end": 4.15,
         "probability": 0.9103975892066956
       },
       {
         "char": "清",
-        "start": 3.77,
-        "end": 4.35,
+        "start": 4.15,
+        "end": 4.73,
         "probability": 0.3281252086162567
       },
       {
         "char": "晨",
-        "start": 4.35,
-        "end": 5.11,
+        "start": 4.73,
+        "end": 5.49,
         "probability": 0.7860614061355591
       }
     ],
@@ -333,71 +333,71 @@
           {
             "char": "寒",
             "start": 0.0,
-            "end": 0.4,
-            "probability": 0.6201772391796112,
+            "end": 0.62,
+            "probability": 0.513416389003396,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "夜",
-            "start": 0.4,
-            "end": 0.78,
-            "probability": 0.9571171402931213,
+            "start": 0.62,
+            "end": 1.04,
+            "probability": 0.8973621726036072,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "剩",
-            "start": 0.78,
-            "end": 1.18,
-            "probability": 0.8155475854873657,
+            "start": 1.04,
+            "end": 1.42,
+            "probability": 0.6404387652873993,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "我",
-            "start": 1.18,
-            "end": 1.64,
-            "probability": 0.9909136295318604,
+            "start": 1.42,
+            "end": 1.94,
+            "probability": 0.987078070640564,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "一",
-            "start": 1.64,
-            "end": 2.0,
-            "probability": 0.6219385862350464,
+            "start": 1.94,
+            "end": 2.35,
+            "probability": 0.6110295653343201,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "个",
-            "start": 2.0,
-            "end": 2.36,
-            "probability": 0.6219385862350464,
+            "start": 2.35,
+            "end": 2.76,
+            "probability": 0.6110295653343201,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "人",
-            "start": 2.36,
-            "end": 2.9,
-            "probability": 0.9982690811157227,
+            "start": 2.76,
+            "end": 3.14,
+            "probability": 0.9971417784690857,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "等",
-            "start": 2.9,
-            "end": 3.5,
-            "probability": 0.17748858034610748,
+            "start": 3.14,
+            "end": 3.96,
+            "probability": 0.44924044609069824,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "清",
-            "start": 3.5,
-            "end": 3.9,
-            "probability": 0.6753553748130798,
+            "start": 3.96,
+            "end": 4.44,
+            "probability": 0.6588929295539856,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "晨",
-            "start": 3.9,
-            "end": 4.54,
-            "probability": 0.978486031293869,
+            "start": 4.44,
+            "end": 5.06,
+            "probability": 0.9740732908248901,
             "method": "whisper-attention-dtw"
           }
         ]
@@ -407,71 +407,71 @@
           {
             "char": "寒",
             "start": 0.0,
-            "end": 0.32,
-            "probability": 0.3779028607532382,
+            "end": 0.64,
+            "probability": 0.88834547996521,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "夜",
-            "start": 0.32,
-            "end": 0.78,
-            "probability": 0.8907723426818848,
+            "start": 0.64,
+            "end": 1.04,
+            "probability": 0.9598332047462463,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "剩",
-            "start": 0.78,
-            "end": 1.18,
-            "probability": 0.9277816116809845,
+            "start": 1.04,
+            "end": 1.44,
+            "probability": 0.8524246513843536,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "我",
-            "start": 1.18,
-            "end": 1.62,
-            "probability": 0.9875099658966064,
+            "start": 1.44,
+            "end": 1.86,
+            "probability": 0.9879976511001587,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "一",
-            "start": 1.62,
-            "end": 1.99,
-            "probability": 0.5313283801078796,
+            "start": 1.86,
+            "end": 2.32,
+            "probability": 0.5393074154853821,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "个",
-            "start": 1.99,
-            "end": 2.36,
-            "probability": 0.5313283801078796,
+            "start": 2.32,
+            "end": 2.78,
+            "probability": 0.5393074154853821,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "人",
-            "start": 2.36,
-            "end": 2.88,
-            "probability": 0.9965711832046509,
+            "start": 2.78,
+            "end": 3.32,
+            "probability": 0.9961200952529907,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "等",
-            "start": 2.88,
-            "end": 3.5,
-            "probability": 0.8781511187553406,
+            "start": 3.32,
+            "end": 3.84,
+            "probability": 0.9475454092025757,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "清",
-            "start": 3.5,
-            "end": 3.92,
-            "probability": 0.27048778533935547,
+            "start": 3.84,
+            "end": 4.44,
+            "probability": 0.007607238832861185,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "晨",
-            "start": 3.92,
-            "end": 4.54,
-            "probability": 0.9204121828079224,
+            "start": 4.44,
+            "end": 5.1,
+            "probability": 0.5685479491949081,
             "method": "whisper-attention-dtw"
           }
         ]
@@ -480,220 +480,362 @@
     "per_char": [
       {
         "char": "寒",
-        "src_start": -0.13,
-        "src_end": 0.57,
+        "src_start": 0.25,
+        "src_end": 0.95,
+        "src_acoustic_onset": 0.3483,
+        "src_ref_kind": "onset_peak",
         "OPTION_0_start": 0.0,
-        "OPTION_0_end": 0.4,
-        "OPTION_0_score_onset": 0.0,
-        "OPTION_0_onset_delta_ms": 130.0,
-        "OPTION_0_offset_delta_ms": -170.0,
-        "OPTION_0_score_delta_ms": 130.0,
-        "OPTION_0_aligner_offset_ms": 0.0,
+        "OPTION_0_end": 0.62,
+        "OPTION_0_score_onset": 0.2604,
+        "OPTION_0_onset_delta_ms": -250.0,
+        "OPTION_0_offset_delta_ms": -330.0,
+        "OPTION_0_score_delta_ms": 10.4,
+        "OPTION_0_aligner_offset_ms": -260.4,
+        "OPTION_0_acoustic_onset": 0.1974,
+        "OPTION_0_acoustic_delta_ms": -150.9,
         "OPTION_1_start": 0.0,
-        "OPTION_1_end": 0.32,
-        "OPTION_1_score_onset": 0.0,
-        "OPTION_1_onset_delta_ms": 130.0,
-        "OPTION_1_offset_delta_ms": -250.0,
-        "OPTION_1_score_delta_ms": 130.0,
-        "OPTION_1_aligner_offset_ms": 0.0
+        "OPTION_1_end": 0.64,
+        "OPTION_1_score_onset": 0.2604,
+        "OPTION_1_onset_delta_ms": -250.0,
+        "OPTION_1_offset_delta_ms": -310.0,
+        "OPTION_1_score_delta_ms": 10.4,
+        "OPTION_1_aligner_offset_ms": -260.4,
+        "OPTION_1_acoustic_onset": 0.1858,
+        "OPTION_1_acoustic_delta_ms": -162.5
       },
       {
         "char": "夜",
-        "src_start": 0.57,
-        "src_end": 0.99,
-        "OPTION_0_start": 0.4,
-        "OPTION_0_end": 0.78,
-        "OPTION_0_score_onset": 0.5698,
-        "OPTION_0_onset_delta_ms": -170.0,
-        "OPTION_0_offset_delta_ms": -210.0,
-        "OPTION_0_score_delta_ms": -0.2,
-        "OPTION_0_aligner_offset_ms": -169.8,
-        "OPTION_1_start": 0.32,
-        "OPTION_1_end": 0.78,
-        "OPTION_1_score_onset": 0.5698,
-        "OPTION_1_onset_delta_ms": -250.0,
-        "OPTION_1_offset_delta_ms": -210.0,
-        "OPTION_1_score_delta_ms": -0.2,
-        "OPTION_1_aligner_offset_ms": -249.8
+        "src_start": 0.95,
+        "src_end": 1.37,
+        "src_acoustic_onset": 0.743,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 0.62,
+        "OPTION_0_end": 1.04,
+        "OPTION_0_score_onset": 0.7896,
+        "OPTION_0_onset_delta_ms": -330.0,
+        "OPTION_0_offset_delta_ms": -330.0,
+        "OPTION_0_score_delta_ms": -160.4,
+        "OPTION_0_aligner_offset_ms": -169.6,
+        "OPTION_0_acoustic_onset": 0.8011,
+        "OPTION_0_acoustic_delta_ms": 58.1,
+        "OPTION_1_start": 0.64,
+        "OPTION_1_end": 1.04,
+        "OPTION_1_score_onset": 0.7896,
+        "OPTION_1_onset_delta_ms": -310.0,
+        "OPTION_1_offset_delta_ms": -330.0,
+        "OPTION_1_score_delta_ms": -160.4,
+        "OPTION_1_aligner_offset_ms": -149.6,
+        "OPTION_1_acoustic_onset": 0.8359,
+        "OPTION_1_acoustic_delta_ms": 92.9
       },
       {
         "char": "剩",
-        "src_start": 0.99,
-        "src_end": 1.37,
-        "OPTION_0_start": 0.78,
-        "OPTION_0_end": 1.18,
-        "OPTION_0_score_onset": 0.9896,
-        "OPTION_0_onset_delta_ms": -210.0,
-        "OPTION_0_offset_delta_ms": -190.0,
-        "OPTION_0_score_delta_ms": -0.4,
-        "OPTION_0_aligner_offset_ms": -209.6,
-        "OPTION_1_start": 0.78,
-        "OPTION_1_end": 1.18,
-        "OPTION_1_score_onset": 0.9896,
-        "OPTION_1_onset_delta_ms": -210.0,
-        "OPTION_1_offset_delta_ms": -190.0,
-        "OPTION_1_score_delta_ms": -0.4,
-        "OPTION_1_aligner_offset_ms": -209.6
+        "src_start": 1.37,
+        "src_end": 1.75,
+        "src_acoustic_onset": 1.3468,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 1.04,
+        "OPTION_0_end": 1.42,
+        "OPTION_0_score_onset": 1.2802,
+        "OPTION_0_onset_delta_ms": -330.0,
+        "OPTION_0_offset_delta_ms": -330.0,
+        "OPTION_0_score_delta_ms": -89.8,
+        "OPTION_0_aligner_offset_ms": -240.2,
+        "OPTION_0_acoustic_onset": 1.4861,
+        "OPTION_0_acoustic_delta_ms": 139.3,
+        "OPTION_1_start": 1.04,
+        "OPTION_1_end": 1.44,
+        "OPTION_1_score_onset": 1.2802,
+        "OPTION_1_onset_delta_ms": -330.0,
+        "OPTION_1_offset_delta_ms": -310.0,
+        "OPTION_1_score_delta_ms": -89.8,
+        "OPTION_1_aligner_offset_ms": -240.2,
+        "OPTION_1_acoustic_onset": null,
+        "OPTION_1_acoustic_delta_ms": null
       },
       {
         "char": "我",
-        "src_start": 1.37,
-        "src_end": 1.85,
-        "OPTION_0_start": 1.18,
-        "OPTION_0_end": 1.64,
-        "OPTION_0_score_onset": 1.3698,
-        "OPTION_0_onset_delta_ms": -190.0,
-        "OPTION_0_offset_delta_ms": -210.0,
-        "OPTION_0_score_delta_ms": -0.2,
-        "OPTION_0_aligner_offset_ms": -189.8,
-        "OPTION_1_start": 1.18,
-        "OPTION_1_end": 1.62,
-        "OPTION_1_score_onset": 1.3698,
-        "OPTION_1_onset_delta_ms": -190.0,
-        "OPTION_1_offset_delta_ms": -230.0,
-        "OPTION_1_score_delta_ms": -0.2,
-        "OPTION_1_aligner_offset_ms": -189.8
+        "src_start": 1.75,
+        "src_end": 2.23,
+        "src_acoustic_onset": 1.637,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 1.42,
+        "OPTION_0_end": 1.94,
+        "OPTION_0_score_onset": 1.6104,
+        "OPTION_0_onset_delta_ms": -330.0,
+        "OPTION_0_offset_delta_ms": -290.0,
+        "OPTION_0_score_delta_ms": -139.6,
+        "OPTION_0_aligner_offset_ms": -190.4,
+        "OPTION_0_acoustic_onset": 1.6602,
+        "OPTION_0_acoustic_delta_ms": 23.2,
+        "OPTION_1_start": 1.44,
+        "OPTION_1_end": 1.86,
+        "OPTION_1_score_onset": 1.6104,
+        "OPTION_1_onset_delta_ms": -310.0,
+        "OPTION_1_offset_delta_ms": -370.0,
+        "OPTION_1_score_delta_ms": -139.6,
+        "OPTION_1_aligner_offset_ms": -170.4,
+        "OPTION_1_acoustic_onset": 1.6602,
+        "OPTION_1_acoustic_delta_ms": 23.2
       },
       {
         "char": "一",
-        "src_start": 1.85,
-        "src_end": 2.21,
-        "OPTION_0_start": 1.64,
-        "OPTION_0_end": 2.0,
-        "OPTION_0_score_onset": 1.85,
-        "OPTION_0_onset_delta_ms": -210.0,
-        "OPTION_0_offset_delta_ms": -210.0,
-        "OPTION_0_score_delta_ms": -0.0,
-        "OPTION_0_aligner_offset_ms": -210.0,
-        "OPTION_1_start": 1.62,
-        "OPTION_1_end": 1.99,
-        "OPTION_1_score_onset": 1.85,
-        "OPTION_1_onset_delta_ms": -230.0,
-        "OPTION_1_offset_delta_ms": -220.0,
-        "OPTION_1_score_delta_ms": -0.0,
-        "OPTION_1_aligner_offset_ms": -230.0
+        "src_start": 2.23,
+        "src_end": 2.59,
+        "src_acoustic_onset": 2.1711,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 1.94,
+        "OPTION_0_end": 2.35,
+        "OPTION_0_score_onset": 2.2198,
+        "OPTION_0_onset_delta_ms": -290.0,
+        "OPTION_0_offset_delta_ms": -240.0,
+        "OPTION_0_score_delta_ms": -10.2,
+        "OPTION_0_aligner_offset_ms": -279.8,
+        "OPTION_0_acoustic_onset": 2.2523,
+        "OPTION_0_acoustic_delta_ms": 81.2,
+        "OPTION_1_start": 1.86,
+        "OPTION_1_end": 2.32,
+        "OPTION_1_score_onset": 2.2198,
+        "OPTION_1_onset_delta_ms": -370.0,
+        "OPTION_1_offset_delta_ms": -270.0,
+        "OPTION_1_score_delta_ms": -10.2,
+        "OPTION_1_aligner_offset_ms": -359.8,
+        "OPTION_1_acoustic_onset": 2.4265,
+        "OPTION_1_acoustic_delta_ms": 255.4
       },
       {
         "char": "个",
-        "src_start": 2.21,
-        "src_end": 2.57,
-        "OPTION_0_start": 2.0,
-        "OPTION_0_end": 2.36,
-        "OPTION_0_score_onset": 2.2104,
-        "OPTION_0_onset_delta_ms": -210.0,
-        "OPTION_0_offset_delta_ms": -210.0,
-        "OPTION_0_score_delta_ms": 0.4,
-        "OPTION_0_aligner_offset_ms": -210.4,
-        "OPTION_1_start": 1.99,
-        "OPTION_1_end": 2.36,
-        "OPTION_1_score_onset": 2.2104,
-        "OPTION_1_onset_delta_ms": -220.0,
-        "OPTION_1_offset_delta_ms": -210.0,
-        "OPTION_1_score_delta_ms": 0.4,
-        "OPTION_1_aligner_offset_ms": -220.4
+        "src_start": 2.59,
+        "src_end": 2.95,
+        "src_acoustic_onset": 2.798,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 2.35,
+        "OPTION_0_end": 2.76,
+        "OPTION_0_score_onset": 2.7396,
+        "OPTION_0_onset_delta_ms": -240.0,
+        "OPTION_0_offset_delta_ms": -190.0,
+        "OPTION_0_score_delta_ms": 149.6,
+        "OPTION_0_aligner_offset_ms": -389.6,
+        "OPTION_0_acoustic_onset": 2.7516,
+        "OPTION_0_acoustic_delta_ms": -46.4,
+        "OPTION_1_start": 2.32,
+        "OPTION_1_end": 2.78,
+        "OPTION_1_score_onset": 2.7396,
+        "OPTION_1_onset_delta_ms": -270.0,
+        "OPTION_1_offset_delta_ms": -170.0,
+        "OPTION_1_score_delta_ms": 149.6,
+        "OPTION_1_aligner_offset_ms": -419.6,
+        "OPTION_1_acoustic_onset": 2.6587,
+        "OPTION_1_acoustic_delta_ms": -139.3
       },
       {
         "char": "人",
-        "src_start": 2.57,
-        "src_end": 3.09,
-        "OPTION_0_start": 2.36,
-        "OPTION_0_end": 2.9,
-        "OPTION_0_score_onset": 2.5698,
-        "OPTION_0_onset_delta_ms": -210.0,
-        "OPTION_0_offset_delta_ms": -190.0,
-        "OPTION_0_score_delta_ms": -0.2,
-        "OPTION_0_aligner_offset_ms": -209.8,
-        "OPTION_1_start": 2.36,
-        "OPTION_1_end": 2.88,
-        "OPTION_1_score_onset": 2.5698,
-        "OPTION_1_onset_delta_ms": -210.0,
-        "OPTION_1_offset_delta_ms": -210.0,
-        "OPTION_1_score_delta_ms": -0.2,
-        "OPTION_1_aligner_offset_ms": -209.8
+        "src_start": 2.95,
+        "src_end": 3.47,
+        "src_acoustic_onset": 2.9025,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 2.76,
+        "OPTION_0_end": 3.14,
+        "OPTION_0_score_onset": 2.8604,
+        "OPTION_0_onset_delta_ms": -190.0,
+        "OPTION_0_offset_delta_ms": -330.0,
+        "OPTION_0_score_delta_ms": -89.6,
+        "OPTION_0_aligner_offset_ms": -100.4,
+        "OPTION_0_acoustic_onset": 2.8909,
+        "OPTION_0_acoustic_delta_ms": -11.6,
+        "OPTION_1_start": 2.78,
+        "OPTION_1_end": 3.32,
+        "OPTION_1_score_onset": 2.8604,
+        "OPTION_1_onset_delta_ms": -170.0,
+        "OPTION_1_offset_delta_ms": -150.0,
+        "OPTION_1_score_delta_ms": -89.6,
+        "OPTION_1_aligner_offset_ms": -80.4,
+        "OPTION_1_acoustic_onset": 2.8909,
+        "OPTION_1_acoustic_delta_ms": -11.6
       },
       {
         "char": "等",
-        "src_start": 3.35,
-        "src_end": 3.77,
-        "OPTION_0_start": 2.9,
-        "OPTION_0_end": 3.5,
-        "OPTION_0_score_onset": 3.35,
-        "OPTION_0_onset_delta_ms": -450.0,
-        "OPTION_0_offset_delta_ms": -270.0,
-        "OPTION_0_score_delta_ms": 0.0,
-        "OPTION_0_aligner_offset_ms": -450.0,
-        "OPTION_1_start": 2.88,
-        "OPTION_1_end": 3.5,
-        "OPTION_1_score_onset": 3.35,
-        "OPTION_1_onset_delta_ms": -470.0,
-        "OPTION_1_offset_delta_ms": -270.0,
-        "OPTION_1_score_delta_ms": 0.0,
-        "OPTION_1_aligner_offset_ms": -470.0
+        "src_start": 3.73,
+        "src_end": 4.15,
+        "src_acoustic_onset": 3.5643,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 3.14,
+        "OPTION_0_end": 3.96,
+        "OPTION_0_score_onset": 3.5698,
+        "OPTION_0_onset_delta_ms": -590.0,
+        "OPTION_0_offset_delta_ms": -190.0,
+        "OPTION_0_score_delta_ms": -160.2,
+        "OPTION_0_aligner_offset_ms": -429.8,
+        "OPTION_0_acoustic_onset": 3.5875,
+        "OPTION_0_acoustic_delta_ms": 23.2,
+        "OPTION_1_start": 3.32,
+        "OPTION_1_end": 3.84,
+        "OPTION_1_score_onset": 3.5698,
+        "OPTION_1_onset_delta_ms": -410.0,
+        "OPTION_1_offset_delta_ms": -310.0,
+        "OPTION_1_score_delta_ms": -160.2,
+        "OPTION_1_aligner_offset_ms": -249.8,
+        "OPTION_1_acoustic_onset": 3.5759,
+        "OPTION_1_acoustic_delta_ms": 11.6
       },
       {
         "char": "清",
-        "src_start": 3.77,
-        "src_end": 4.35,
-        "OPTION_0_start": 3.5,
-        "OPTION_0_end": 3.9,
-        "OPTION_0_score_onset": 3.7698,
-        "OPTION_0_onset_delta_ms": -270.0,
-        "OPTION_0_offset_delta_ms": -450.0,
-        "OPTION_0_score_delta_ms": -0.2,
-        "OPTION_0_aligner_offset_ms": -269.8,
-        "OPTION_1_start": 3.5,
-        "OPTION_1_end": 3.92,
-        "OPTION_1_score_onset": 3.7698,
-        "OPTION_1_onset_delta_ms": -270.0,
-        "OPTION_1_offset_delta_ms": -430.0,
-        "OPTION_1_score_delta_ms": -0.2,
-        "OPTION_1_aligner_offset_ms": -269.8
+        "src_start": 4.15,
+        "src_end": 4.73,
+        "src_acoustic_onset": 4.2725,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 3.96,
+        "OPTION_0_end": 4.44,
+        "OPTION_0_score_onset": 4.3604,
+        "OPTION_0_onset_delta_ms": -190.0,
+        "OPTION_0_offset_delta_ms": -290.0,
+        "OPTION_0_score_delta_ms": 210.4,
+        "OPTION_0_aligner_offset_ms": -400.4,
+        "OPTION_0_acoustic_onset": null,
+        "OPTION_0_acoustic_delta_ms": null,
+        "OPTION_1_start": 3.84,
+        "OPTION_1_end": 4.44,
+        "OPTION_1_score_onset": 4.3604,
+        "OPTION_1_onset_delta_ms": -310.0,
+        "OPTION_1_offset_delta_ms": -290.0,
+        "OPTION_1_score_delta_ms": 210.4,
+        "OPTION_1_aligner_offset_ms": -520.4,
+        "OPTION_1_acoustic_onset": 4.2493,
+        "OPTION_1_acoustic_delta_ms": -23.2
       },
       {
         "char": "晨",
-        "src_start": 4.35,
-        "src_end": 5.11,
-        "OPTION_0_start": 3.9,
-        "OPTION_0_end": 4.54,
-        "OPTION_0_score_onset": 4.3104,
-        "OPTION_0_onset_delta_ms": -450.0,
-        "OPTION_0_offset_delta_ms": -570.0,
-        "OPTION_0_score_delta_ms": -39.6,
-        "OPTION_0_aligner_offset_ms": -410.4,
-        "OPTION_1_start": 3.92,
-        "OPTION_1_end": 4.54,
-        "OPTION_1_score_onset": 4.3104,
-        "OPTION_1_onset_delta_ms": -430.0,
-        "OPTION_1_offset_delta_ms": -570.0,
-        "OPTION_1_score_delta_ms": -39.6,
-        "OPTION_1_aligner_offset_ms": -390.4
+        "src_start": 4.73,
+        "src_end": 5.49,
+        "src_acoustic_onset": 4.9226,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 4.44,
+        "OPTION_0_end": 5.06,
+        "OPTION_0_score_onset": 4.7802,
+        "OPTION_0_onset_delta_ms": -290.0,
+        "OPTION_0_offset_delta_ms": -430.0,
+        "OPTION_0_score_delta_ms": 50.2,
+        "OPTION_0_aligner_offset_ms": -340.2,
+        "OPTION_0_acoustic_onset": 4.8646,
+        "OPTION_0_acoustic_delta_ms": -58.0,
+        "OPTION_1_start": 4.44,
+        "OPTION_1_end": 5.1,
+        "OPTION_1_score_onset": 4.7802,
+        "OPTION_1_onset_delta_ms": -290.0,
+        "OPTION_1_offset_delta_ms": -390.0,
+        "OPTION_1_score_delta_ms": 50.2,
+        "OPTION_1_aligner_offset_ms": -340.2,
+        "OPTION_1_acoustic_onset": 4.8414,
+        "OPTION_1_acoustic_delta_ms": -81.2
       }
     ],
     "stats": {
       "OPTION_0": {
-        "median_abs_onset_delta_ms": 210.0,
-        "p90_abs_onset_delta_ms": 450.0,
-        "max_abs_onset_delta_ms": 450.0,
-        "median_abs_offset_delta_ms": 210.0,
-        "n_chars_over_100ms": 10,
-        "n_chars_over_200ms": 7,
-        "median_aligner_offset_ms": -209.9
-      },
-      "OPTION_1": {
-        "median_abs_onset_delta_ms": 225.0,
-        "p90_abs_onset_delta_ms": 434.0,
-        "max_abs_onset_delta_ms": 470.0,
-        "median_abs_offset_delta_ms": 225.0,
+        "median_abs_onset_delta_ms": 290.0,
+        "p90_abs_onset_delta_ms": 356.0,
+        "max_abs_onset_delta_ms": 590.0,
+        "median_abs_offset_delta_ms": 310.0,
         "n_chars_over_100ms": 10,
         "n_chars_over_200ms": 8,
-        "median_aligner_offset_ms": -225.2
+        "median_aligner_offset_ms": -270.1,
+        "min_alignment_probability": 0.449,
+        "trusted_max_abs_onset_delta_ms": 590.0,
+        "median_abs_acoustic_delta_ms": 52.2,
+        "max_abs_acoustic_delta_ms": 150.9
+      },
+      "OPTION_1": {
+        "median_abs_onset_delta_ms": 310.0,
+        "p90_abs_onset_delta_ms": 374.0,
+        "max_abs_onset_delta_ms": 410.0,
+        "median_abs_offset_delta_ms": 310.0,
+        "n_chars_over_100ms": 10,
+        "n_chars_over_200ms": 9,
+        "median_aligner_offset_ms": -255.1,
+        "min_alignment_probability": 0.008,
+        "trusted_max_abs_onset_delta_ms": 410.0,
+        "median_abs_acoustic_delta_ms": 52.2,
+        "max_abs_acoustic_delta_ms": 162.5
       }
     },
-    "flags": []
+    "flags": [
+      "lyric_timing_not_converged:unmeasurable_chars",
+      "lyric_timing_low_confidence:OPTION_1:清",
+      "lyric_timing_acoustic_unmeasurable:OPTION_0:清",
+      "lyric_timing_acoustic_unmeasurable:OPTION_1:剩",
+      "lyric_timing_acoustic_unstable:一",
+      "lyric_timing_acoustic_delta:OPTION_0:151ms",
+      "lyric_timing_acoustic_delta:OPTION_1:163ms"
+    ],
+    "acoustic": {
+      "instrument": "onset_strength_peak_v1",
+      "src_ref_onsets": [
+        0.3483,
+        0.743,
+        1.3468,
+        1.637,
+        2.1711,
+        2.798,
+        2.9025,
+        3.5643,
+        4.2725,
+        4.9226
+      ],
+      "src_ref_kinds": [
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak"
+      ],
+      "render_onsets": {
+        "OPTION_0": [
+          0.1974,
+          0.8011,
+          1.4861,
+          1.6602,
+          2.2523,
+          2.7516,
+          2.8909,
+          3.5875,
+          null,
+          4.8646
+        ],
+        "OPTION_1": [
+          0.1858,
+          0.8359,
+          null,
+          1.6602,
+          2.4265,
+          2.6587,
+          2.8909,
+          3.5759,
+          4.2493,
+          4.8414
+        ]
+      },
+      "unstable_chars": [
+        4
+      ]
+    },
+    "convergence_iterations": 4,
+    "converged": false
   },
-  "target_focus_sha256": "771576a9dfd37a826206661032cde7e38d4d88362542a6dbdb87b404ccbb14fc",
-  "target_core_sha256": "11578b5349aa85cc4d7077a78acb07fd508e31fe13a394f0ea321e33b148b8d1",
+  "target_focus_sha256": "1b0a52f3273165a3693e269b5d24fc3598dc42ee99270db54aed1a6e3ae91c11",
+  "target_core_sha256": "947594c78aefd9c0d7432f055f4fc1c9534dde5bb54ca068b13067b5244432bf",
   "target_focus_is_primary": true,
-  "auto_flags": [],
-  "auto_review_ready": true
+  "auto_flags": [
+    "lyric_timing_not_converged:unmeasurable_chars",
+    "lyric_timing_low_confidence:OPTION_1:清",
+    "lyric_timing_acoustic_unmeasurable:OPTION_0:清",
+    "lyric_timing_acoustic_unmeasurable:OPTION_1:剩",
+    "lyric_timing_acoustic_unstable:一",
+    "lyric_timing_acoustic_delta:OPTION_0:151ms",
+    "lyric_timing_acoustic_delta:OPTION_1:163ms"
+  ],
+  "auto_review_ready": false
 }

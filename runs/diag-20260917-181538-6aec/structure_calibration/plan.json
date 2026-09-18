@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "created_at": 1789736474.2576303,
+  "created_at": 1789754813.214334,
   "diagnostic_run_id": "diag-20260917-181538-6aec",
   "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
   "lyric_contract": "neutral_vowel",
@@ -54,17 +54,25 @@
       "note_id": "note_0061",
       "type": "split",
       "phrase": {
-        "start": 37.78,
+        "start": 37.4,
         "end": 44.08,
-        "boundary_source": "lrc"
+        "boundary_source": "lrc+lyric_pad"
       },
-      "phrase_key": "37.78-44.08",
-      "plan_hash": "e0b2488b3fa99f6eb7802e773563c865641e732bf0e738b549fec76d2f97ef2e",
-      "audio_package_hash": "dae9eaa4fc37fa8a30312ed0110f38124dac32d0adc812231817754047dcadef",
+      "phrase_key": "37.40-44.08",
+      "plan_hash": "3292f724b78fe53684704a905bbf741ebb6c765bbc3a5300830b5d726cd0c28b",
+      "audio_package_hash": "84c5ea11a9bb5d7ebf34c2178de27d6bca9f6738263bb6c4cbd91cfa37bcfcb4",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
-      "signal_qc_flags": [],
+      "contract_sha256": "8032020c55d8cc56f13dcb0fd82e2477b0aaa21162f31b1fb9aee45c90e7be8f",
+      "signal_qc_flags": [
+        "lyric_timing_not_converged:unmeasurable_chars",
+        "lyric_timing_low_confidence:OPTION_1:清",
+        "lyric_timing_acoustic_unmeasurable:OPTION_0:清",
+        "lyric_timing_acoustic_unmeasurable:OPTION_1:剩",
+        "lyric_timing_acoustic_unstable:一",
+        "lyric_timing_acoustic_delta:OPTION_0:151ms",
+        "lyric_timing_acoustic_delta:OPTION_1:163ms"
+      ],
       "semantic_diff_sha256": "3bbe396f750fe42d63b93bba0e00f6bc535fbd232825d5425fea873eea061bb6",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-cb76bf56bb24b5c3d8849bc0\\manifest.json"
     },
@@ -136,17 +144,24 @@
       "note_id": "note_0188",
       "type": "split",
       "phrase": {
-        "start": 90.36,
-        "end": 95.59,
-        "boundary_source": "lrc"
+        "start": 90.03,
+        "end": 96.96,
+        "boundary_source": "lrc+lyric_pad"
       },
-      "phrase_key": "90.36-95.59",
-      "plan_hash": "2be9e6d65368c2d3c538a426ff8488038f55e5e8d8fe76932c4deb238b1e3b51",
-      "audio_package_hash": "18d8855714308c780fbe326f2a11ccf78148b4add5d43ee349c7500b2bf63fe0",
+      "phrase_key": "90.03-96.96",
+      "plan_hash": "5315cd9e8b326c84a216e2e32de70ce602313d24a79435abb955286d6a6dc7d1",
+      "audio_package_hash": "436fb575b60403d8046e2a4dfb98516017e13a89eafe687803ee90ffb6b215c0",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
-      "signal_qc_flags": [],
+      "contract_sha256": "8032020c55d8cc56f13dcb0fd82e2477b0aaa21162f31b1fb9aee45c90e7be8f",
+      "signal_qc_flags": [
+        "lyric_timing_not_converged:bound_limited",
+        "lyric_timing_low_confidence:OPTION_0:从本",
+        "lyric_timing_low_confidence:OPTION_1:从本",
+        "lyric_timing_acoustic_unmeasurable:OPTION_1:人",
+        "lyric_timing_acoustic_delta:OPTION_0:197ms",
+        "lyric_timing_acoustic_delta:OPTION_1:163ms"
+      ],
       "semantic_diff_sha256": "f517fa9fc9b1d6b8b545f31b2b131431bce6b0abad46bf2b7e5c240122054094",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9e3efba85c56ade947bcfdbf\\manifest.json"
     },
@@ -156,17 +171,24 @@
       "note_id": "note_0192",
       "type": "split",
       "phrase": {
-        "start": 90.36,
-        "end": 95.59,
-        "boundary_source": "lrc"
+        "start": 90.03,
+        "end": 96.96,
+        "boundary_source": "lrc+lyric_pad"
       },
-      "phrase_key": "90.36-95.59",
-      "plan_hash": "b8ef6ee2e2de4ab8bffc505d55215ed5f2cef0d93f1ad605cb3b63306220bf3e",
-      "audio_package_hash": "7ffe29d5f2a891f4a0be3f03b838a5920815b97da88bde78f2e10cf94b2ed9e1",
+      "phrase_key": "90.03-96.96",
+      "plan_hash": "92ea80f75d8a48b4378e7ee0cdf98cc5e18cfa5cc7007cb74f1bde17738e1ebc",
+      "audio_package_hash": "88d991a1996446380f2e7bbecef38f7e5266cf18a6d791a94976ff5af9276642",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
-      "signal_qc_flags": [],
+      "contract_sha256": "8032020c55d8cc56f13dcb0fd82e2477b0aaa21162f31b1fb9aee45c90e7be8f",
+      "signal_qc_flags": [
+        "lyric_timing_not_converged:unmeasurable_chars",
+        "lyric_timing_low_confidence:OPTION_0:从",
+        "lyric_timing_low_confidence:OPTION_1:从本",
+        "lyric_timing_acoustic_unmeasurable:OPTION_0:人",
+        "lyric_timing_acoustic_delta:OPTION_0:163ms",
+        "lyric_timing_acoustic_delta:OPTION_1:163ms"
+      ],
       "semantic_diff_sha256": "18e8d72641e0f8fe609195ee18a46eabba22fd709270fe5cbd6c40d8e9c52682",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-f93f9a2370cdb829565fbb7c\\manifest.json"
     },
@@ -342,17 +364,25 @@
       "note_id": "note_0379",
       "type": "split",
       "phrase": {
-        "start": 177.99,
-        "end": 183.0,
-        "boundary_source": "lrc"
+        "start": 177.64,
+        "end": 184.52,
+        "boundary_source": "lrc+lyric_pad"
       },
-      "phrase_key": "177.99-183.00",
-      "plan_hash": "f0de2b9c476c902e319ca1282e7ffddbe1d9b17d32fe1969aba7cbe67850f8c1",
-      "audio_package_hash": "079feb34c6aaa984e024412234ddb526b6e2abac6cc33f84c5d303c2365d10d0",
+      "phrase_key": "177.64-184.52",
+      "plan_hash": "cceab6e0f7f2da46384fd4b453c2f863c8b8615925d9a9ee85610790e18deebb",
+      "audio_package_hash": "4511532681c74dce01f496d1dc635d4161d5bd3f00229bcfe8349fb2091c05a5",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
-      "signal_qc_flags": [],
+      "contract_sha256": "8032020c55d8cc56f13dcb0fd82e2477b0aaa21162f31b1fb9aee45c90e7be8f",
+      "signal_qc_flags": [
+        "lyric_timing_not_converged:anchors_crossed",
+        "lyric_timing_low_confidence:OPTION_0:从人",
+        "lyric_timing_low_confidence:OPTION_1:从这",
+        "lyric_timing_acoustic_unmeasurable:OPTION_0:从人演",
+        "lyric_timing_acoustic_unmeasurable:OPTION_1:从人",
+        "lyric_timing_acoustic_delta:OPTION_0:139ms",
+        "lyric_timing_acoustic_delta:OPTION_1:151ms"
+      ],
       "semantic_diff_sha256": "61778de304a38ae65d2909aa5bac53fbe2c27bf2373e5fa3bb432ea3a76ce20b",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b04c10c381b66d1abfd9ec8a\\manifest.json"
     },

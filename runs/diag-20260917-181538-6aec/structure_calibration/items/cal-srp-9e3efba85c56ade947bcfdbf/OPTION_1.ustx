@@ -382,13 +382,13 @@ tracks:
   - Yousa_Normal
   - Yousa_Whisper
 voice_parts:
-- duration: 5021
+- duration: 6653
   name: seg0
   comment: ''
   track_no: 0
   position: 0
   notes:
-  - position: 0
+  - position: 317
     duration: 499
     tone: 62
     lyric: 可
@@ -413,33 +413,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 499
-    duration: 77
-    tone: 57
-    lyric: +
-    pitch:
-      data:
-      - x: -40
-        y: 0
-        shape: io
-      - x: 40
-        y: 0
-        shape: io
-      snap_first: true
-    vibrato:
-      length: 0
-      period: 175
-      depth: 25
-      in: 10
-      out: 10
-      shift: 0
-      drift: 0
-      vol_link: 0
-    tuning: 0
-    phoneme_expressions: []
-    phoneme_overrides: []
-  - position: 576
-    duration: 298
+  - position: 816
+    duration: 374
     tone: 57
     lyric: 惜
     pitch:
@@ -463,8 +438,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 874
-    duration: 144
+  - position: 1190
+    duration: 102
     tone: 59
     lyric: +
     pitch:
@@ -488,8 +463,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 1018
-    duration: 288
+  - position: 1292
+    duration: 330
     tone: 59
     lyric: 从
     pitch:
@@ -513,8 +488,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 1306
-    duration: 403
+  - position: 1622
+    duration: 404
     tone: 66
     lyric: 没
     pitch:
@@ -538,8 +513,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 1709
-    duration: 211
+  - position: 2026
+    duration: 249
     tone: 66
     lyric: +
     pitch:
@@ -563,8 +538,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 1920
-    duration: 154
+  - position: 2275
+    duration: 115
     tone: 66
     lyric: 人
     pitch:
@@ -588,8 +563,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 2074
-    duration: 153
+  - position: 2390
+    duration: 308
     tone: 57
     lyric: +
     pitch:
@@ -613,8 +588,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 2227
-    duration: 269
+  - position: 2698
+    duration: 115
     tone: 57
     lyric: 陪
     pitch:
@@ -638,33 +613,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 2496
-    duration: 173
-    tone: 59
-    lyric: +
-    pitch:
-      data:
-      - x: -40
-        y: 0
-        shape: io
-      - x: 40
-        y: 0
-        shape: io
-      snap_first: true
-    vibrato:
-      length: 0
-      period: 175
-      depth: 25
-      in: 10
-      out: 10
-      shift: 0
-      drift: 0
-      vol_link: 0
-    tuning: 0
-    phoneme_expressions: []
-    phoneme_overrides: []
-  - position: 2669
-    duration: 182
+  - position: 2813
+    duration: 355
     tone: 59
     lyric: 我
     pitch:
@@ -688,8 +638,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 2851
-    duration: 202
+  - position: 3168
+    duration: 120
     tone: 66
     lyric: +
     pitch:
@@ -713,8 +663,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 3053
-    duration: 163
+  - position: 3288
+    duration: 245
     tone: 66
     lyric: 演
     pitch:
@@ -738,33 +688,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 3216
-    duration: 125
-    tone: 66
-    lyric: +
-    pitch:
-      data:
-      - x: -40
-        y: 0
-        shape: io
-      - x: 40
-        y: 0
-        shape: io
-      snap_first: true
-    vibrato:
-      length: 0
-      period: 175
-      depth: 25
-      in: 10
-      out: 10
-      shift: 0
-      drift: 0
-      vol_link: 0
-    tuning: 0
-    phoneme_expressions: []
-    phoneme_overrides: []
-  - position: 3341
-    duration: 221
+  - position: 3533
+    duration: 345
     tone: 66
     lyric: 这
     pitch:
@@ -788,7 +713,7 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 3562
+  - position: 3878
     duration: 336
     tone: 56
     lyric: +
@@ -813,8 +738,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 3898
-    duration: 115
+  - position: 4214
+    duration: 233
     tone: 59
     lyric: +
     pitch:
@@ -838,8 +763,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 4013
-    duration: 240
+  - position: 4447
+    duration: 123
     tone: 59
     lyric: 剧
     pitch:
@@ -863,8 +788,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 4253
-    duration: 336
+  - position: 4570
+    duration: 355
     tone: 64
     lyric: +
     pitch:
@@ -888,8 +813,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 4589
-    duration: 134
+  - position: 4925
+    duration: 115
     tone: 64
     lyric: 本
     pitch:
@@ -913,7 +838,7 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 4723
+  - position: 5040
     duration: 106
     tone: 62
     lyric: +
@@ -938,9 +863,34 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 4829
+  - position: 5146
     duration: 192
     tone: 61
+    lyric: +
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides: []
+  - position: 5338
+    duration: 1315
+    tone: 62
     lyric: +
     pitch:
       data:
