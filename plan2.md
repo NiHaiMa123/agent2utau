@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（等待 maintainer QC PASS + 用户重审）。2026-09-18 re-audit 的 3 个 hard blocker 已全部修复并推送（`980fcb9`/`fe26daa`/`f735808`，310 passed）：① stale Git SHA——`pilot_review.json` 改为 artifact commit 后生成并绑定包含字节的 sha（`346e2f6`），raw URL 实测可下载且 sha256 匹配；② 可发声 `a`——`review_lyrics` 收紧为 touch-`+` 或 fail-closed，探针实证 OpenUtau 拒绝 gap 后 `+`（Unrecognized phoneme），gap 后 unmapped 不出包；③ 非目标区 drift——定位为确定性 renderer/global-context effect（同 ustx 重渲 raw_diff=0.0004，pre-target 恒定 -1~2ms duration 模型全局传播），LISTEN 面改为 shared-context splice（baseline 上下文 + candidate 目标段，低能点+lag 对齐+40ms crossfade），构造上 outside diff=0，canonical drift 如实记录在 `renderer_global_context`。新 pilot = `note_0012/0061/0188/0192/0379`（全曲分布，歌词证据门全过，signal_qc flags 全空，`auto_review_ready=True`）。`git_evidence 468/468`，`review_ready=false`（无当前合同 verdict，hold 正确维持）。剩余阻塞：maintainer 审 Git artifacts → `structure-calib-qc --pass --auditor <name>` → 用户重审 5 组。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（必须先修完再确认）。2026-09-18 最新 re-audit：G5F 的 stale Git SHA 已修复，shared-context splice 试听面与新 5-item pilot 已建立，但仍有两个未关闭 blocker：① Group 1 `note_0012` 的当前 USTX 仍残留可发声 neutral-vowel `a`，说明旧 artifact 没有按新的 fail-closed lyric 规则重渲；② `plan.json` 与最新 item manifest / signal_qc 不一致（例如 G3 manifest 已为 `real_lyric_review` 且 audio_package_hash 已更新，但 plan 仍保留旧 `neutral_vowel` 与旧 hash；G1/G2 plan 也残留旧 signal_qc flags）。因此当前禁止 maintainer QC PASS、禁止正式用户复审、禁止 M2.5 freeze。接下来必须一次性完成：重渲或替换 G1、使 render-contract identity 对 lyric implementation/version 变化可 stale、彻底重建并校验 `plan.json`、重新生成并绑定 `pilot_review.json`、完成 Git bytes/hash/QC/CI/invariant 自证；只有所有 acceptance 同时 PASS 后，才允许再次向用户请求最终确认。中途不要再让用户试听、选 A/B 或确认修复方向。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -3002,6 +3002,161 @@ no formal human decision
 ```
 
 旧的 Group 1–5 phrase-level A/B 试听结果全部只保留 diagnostic，不进入 calibration authority。
+
+
+#### G5G Close-out before user confirmation（先修完再确认）
+
+本节覆盖 G5F 之后的最终收尾要求。执行原则：**不要再把中间状态交给用户判断。先把实现、产物、状态快照、Git 绑定和验证全部修到一致，再请求一次最终确认。**
+
+##### Blocker A — G1 旧 artifact 仍含可发声 `a`
+
+当前 `note_0012` 的真实 USTX 仍包含：
+
+```text
+圆 圈 勾 勒 成 指 纹 + 印 在 我 的 + a 嘴 唇
+```
+
+这证明当前 G1 artifact 没有真正经过最新 `review_lyrics` fail-closed 语义。
+
+Required action：
+
+```text
+rebuild note_0012 under CURRENT lyric implementation
+→ if valid real-lyric mapping exists: render fresh A/B package
+→ if any gap-separated unmapped note remains: fail-closed
+→ then replace G1 with another representative item that passes the same lyric-evidence gate
+```
+
+禁止：
+
+```text
+保留 audible a
+用旧 wav/ustx 冒充 current-contract artifact
+仅修改 plan/pilot metadata 而不重渲真实 bytes
+```
+
+Acceptance：
+
+```text
+all pilot USTX:
+  real lyrics + legal '+' continuation only
+  no audible placeholder 'a'
+  no guessed hanzi
+  package regenerated from current code
+```
+
+##### Blocker B — render contract 必须感知 lyric implementation 变化
+
+当前问题：`review_lyrics` 行为已经改变，但旧 artifact 仍可保留相同 `contract_sha256`，因此旧包不会自动 stale。
+
+Required fix：render contract identity 至少绑定：
+
+```text
+schema
+lyric_contract
+lyric_mapping_impl_version (or equivalent semantic version/hash)
+render_profile_hash
+```
+
+只要 review-lyrics 的 carrier / gap / continuation / fail-closed 语义发生变化：
+
+```text
+old contract_sha256 != new contract_sha256
+→ old package stale
+→ mandatory rebuild
+```
+
+需补 regression：旧 implementation 生成的 artifact 不得被新 implementation 当作 current-contract valid。
+
+##### Blocker C — `plan.json` 必须从最新 authoritative artifacts 重建
+
+当前已观察到 stale 状态，例如：
+
+```text
+G3 manifest.calibration.lyric_contract = real_lyric_review
+但 plan.json 仍写 neutral_vowel
+
+G3 manifest.audio_package_hash = current hash
+但 plan.json 仍保留旧 hash
+
+G1/G2 current signal_qc.auto_flags = []
+但 plan.json 仍保留旧 drift flags
+```
+
+Required fix：不要继续依赖可能留下旧字段的局部 merge；在最终 close-out 阶段从 item manifests + current signal_qc **重建 authoritative plan snapshot**。
+
+至少建立并自动验证以下 invariants：
+
+```text
+plan[i].audio_package_hash == manifest.audio_package_hash
+plan[i].lyric_contract == manifest.calibration.lyric_contract
+plan[i].contract_sha256 == manifest.calibration.contract_sha256
+plan[i].package_state == manifest.package_state
+plan[i].signal_qc_flags == signal_qc.auto_flags
+```
+
+任一 mismatch：
+
+```text
+review_ready = false
+pilot payload generation = blocked
+QC PASS = blocked
+```
+
+##### Blocker D — 最终 pilot payload 必须在最终 artifact commit 之后生成
+
+完成所有 item rebuild / plan rebuild 后：
+
+```text
+commit final audio + ustx + manifests + qc + plan
+→ regenerate pilot_review.json against THAT artifact commit
+→ verify every SOURCE/A/B raw URL
+→ verify downloaded bytes sha256
+→ commit pilot payload
+```
+
+pilot 中 5 个 group 必须全部满足：
+
+```text
+real_lyric_review
+complete natural lyric line
+auto_review_ready == true
+no audible placeholder vowel
+LISTEN outside fade zone bit-identical
+A/B shared-context review surface
+valid canonical provenance
+raw URL exists at bound sha
+raw bytes sha256 == declared sha256
+```
+
+##### Blocker E — final self-check before asking user
+
+在重新联系用户确认前，执行者必须自行完成并记录：
+
+```text
+pytest / CI = PASS
+verify_package(all 5) = PASS
+git_evidence = complete
+plan ↔ manifest ↔ signal_qc invariants = PASS
+pilot raw URL/bytes/hash verification = PASS
+current-contract stale-artifact regression = PASS
+review_ready prerequisites = satisfied except explicit maintainer/user authority steps
+```
+
+并再次人工/程序检查 5 个 USTX 的 lyric sequence，确保没有 `a` placeholder。
+
+##### User interaction rule
+
+在上述所有项完成前：
+
+```text
+DO NOT ask user to listen
+DO NOT ask user to choose A/B
+DO NOT ask user whether to continue
+DO NOT request maintainer QC PASS
+```
+
+全部完成后，只进行一次最终确认：提供 5 组完整一句 SOURCE/A/B 给用户复审；该复审才可进入正式 calibration decision。
 
 ---
 
