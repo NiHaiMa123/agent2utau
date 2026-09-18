@@ -23,7 +23,7 @@ import math
 from datetime import datetime, timezone
 from pathlib import Path
 
-REPAIR_SCHEMA = "m24-1"
+REPAIR_SCHEMA = "m24-2"
 REPAIR_DIRNAME = "repair"
 TONE_EPS_ST = 0.05        # ~5 cents: below this a "retune" is a no-op
 MIDI_MIN, MIDI_MAX = 0.0, 127.0
@@ -229,11 +229,16 @@ def build_plan(run_dir: Path, *, run_id=None, packets=None, notes=None,
             rep = json.loads((run_dir / "report.json")
                              .read_text(encoding="utf-8"))
             song_sha256 = rep["cache"]["source_sha256"]
-    # §6.3 (pre-M2.5): the plan binds BOTH the semantic notes hash and
-    # the exact baseline_game.json artifact bytes — a metadata-only or
-    # formatting change must stale the plan just like a tone change.
+    # §6.3/§6.4-D (pre-M2.5): the plan binds BOTH the semantic notes
+    # hash and the exact baseline_game.json artifact bytes — without
+    # the exact artifact there is nothing to bind and NO plan may be
+    # produced (fail-closed, never a sha=None plan).
+    if not c0_path.exists():
+        raise FileNotFoundError(
+            f"{c0_path} missing — cannot bind the exact Candidate-0 "
+            "artifact; refusing to build a repair plan")
     c0_sha = _sha(notes)
-    c0_file_sha = _file_sha(c0_path) if c0_path.exists() else None
+    c0_file_sha = _file_sha(c0_path)
 
     cands = machine_candidates(packets) + human_candidates(run_dir)
     entries, per_note = [], {}
@@ -357,14 +362,26 @@ def verify_freshness(run_dir: Path, plan) -> list[str]:
     from .review.render import repair_authorized_decision
     run_dir = Path(run_dir)
     stale = []
+    # §6.4-D (pre-M2.5): fail-closed schema + dual-binding gate. A
+    # legacy m24-1 plan (or any plan missing either Candidate-0 hash)
+    # can never authorize apply — it must be regenerated, never
+    # silently migrated by backfilling current hashes.
+    if plan.get("schema") != REPAIR_SCHEMA:
+        stale.append(f"unsupported_plan_schema:{plan.get('schema')}")
+    if not plan.get("candidate0_notes_sha256"):
+        stale.append("missing_candidate0_notes_sha256")
+    if not plan.get("candidate0_file_sha256"):
+        stale.append("missing_candidate0_file_sha256")
     diag = run_dir / "diagnostic"
     c0_path = diag / "baseline_game.json"
+    if stale or not c0_path.exists():
+        if not c0_path.exists():
+            stale.append("candidate0_file_missing")
+        return stale
     notes = json.loads(c0_path.read_text(encoding="utf-8"))["notes"]
-    if _sha(notes) != plan.get("candidate0_notes_sha256",
-                               plan["candidate0_sha256"]):
+    if _sha(notes) != plan["candidate0_notes_sha256"]:
         stale.append("candidate0_notes_changed")
-    if plan.get("candidate0_file_sha256") is not None and \
-            _file_sha(c0_path) != plan["candidate0_file_sha256"]:
+    if _file_sha(c0_path) != plan["candidate0_file_sha256"]:
         stale.append("candidate0_file_changed")
     if plan["bindings"].get("residual_triage_sha256") and \
             _file_sha(diag / "residual_triage.json") != \
@@ -415,9 +432,8 @@ def apply_plan(run_dir: Path, plan=None, only=None, exclude=None) -> dict:
     new_notes = apply_repairs(notes, elig)
     applied = [e["repair_id"] for e in elig]
     score = corrected_score(new_notes, applied,
-                            plan.get("candidate0_notes_sha256",
-                                     plan["candidate0_sha256"]),
-                            c0_file_sha=plan.get("candidate0_file_sha256"))
+                            plan["candidate0_notes_sha256"],
+                            c0_file_sha=plan["candidate0_file_sha256"])
 
     # ---- post-apply integrity verification (§6.9): no re-adjudication
     checks = {

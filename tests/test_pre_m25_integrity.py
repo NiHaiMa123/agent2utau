@@ -265,3 +265,77 @@ def test_c5_artifacts_record_both_hashes(tmp_path):
     assert m["candidate0_file_sha256"] == plan["candidate0_file_sha256"]
     p2 = build_plan(run)
     assert p2["plan_hash"] == plan["plan_hash"]      # deterministic
+
+
+# ---------------------------------------------------- Blocker D: legacy plans
+
+def _legacy_plan(plan, **mut):
+    """An m24-1-era plan: old schema, missing dual bindings."""
+    import copy
+    p = copy.deepcopy(plan)
+    p["schema"] = "m24-1"
+    p.pop("candidate0_notes_sha256", None)
+    p.pop("candidate0_file_sha256", None)
+    p["bindings"].pop("candidate0_file_sha256", None)
+    p.update(mut)
+    return p
+
+
+def test_d1_legacy_plan_missing_file_sha_refused(tmp_path):
+    """D1: a legacy m24-1 plan without candidate0_file_sha256 must
+    hard-refuse — notes-unchanged is NOT enough to apply."""
+    run = _mk_run(tmp_path, [_machine_pkt()])
+    plan = build_plan(run)
+    with pytest.raises(RuntimeError, match="stale"):
+        apply_plan(run, _legacy_plan(plan))
+
+
+def test_d2_new_schema_but_file_sha_missing_or_none(tmp_path):
+    run = _mk_run(tmp_path, [_machine_pkt()])
+    plan = build_plan(run)
+    p = dict(plan); p.pop("candidate0_file_sha256")
+    with pytest.raises(RuntimeError, match="stale"):
+        apply_plan(run, p)
+    p2 = dict(plan); p2["candidate0_file_sha256"] = None
+    with pytest.raises(RuntimeError, match="stale"):
+        apply_plan(run, p2)
+
+
+def test_d3_missing_notes_sha_refused(tmp_path):
+    run = _mk_run(tmp_path, [_machine_pkt()])
+    plan = build_plan(run)
+    p = dict(plan); p.pop("candidate0_notes_sha256")
+    with pytest.raises(RuntimeError, match="stale"):
+        apply_plan(run, p)
+
+
+def test_d4_missing_candidate0_file_no_plan(tmp_path):
+    """D4: without the exact baseline_game.json artifact, build_plan
+    must hard-fail — no sha=None plan may exist."""
+    run = _mk_run(tmp_path, [_machine_pkt()])
+    (run / "diagnostic" / "baseline_game.json").unlink()
+    with pytest.raises(FileNotFoundError):
+        build_plan(run)
+    assert not (run / "repair" / "repair_plan.json").exists()
+
+
+def test_d5_dual_bound_plan_applies(tmp_path):
+    """D5: a fresh dual-bound plan applies normally."""
+    run = _mk_run(tmp_path, [_machine_pkt()])
+    plan = build_plan(run)
+    res = apply_plan(run, plan)
+    assert res["score"]["notes"][2]["tone"] == 70.0
+
+
+def test_d6_legacy_plan_never_backfilled(tmp_path):
+    """D6: stuffing CURRENT artifact hashes into a legacy-schema plan
+    must still refuse — regeneration is the only path."""
+    run = _mk_run(tmp_path, [_machine_pkt()])
+    plan = build_plan(run)
+    legacy = _legacy_plan(plan,
+                          candidate0_file_sha256=
+                          plan["candidate0_file_sha256"],
+                          candidate0_notes_sha256=
+                          plan["candidate0_notes_sha256"])
+    with pytest.raises(RuntimeError, match="unsupported_plan_schema"):
+        apply_plan(run, legacy)
