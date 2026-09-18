@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**A/B/C/D + M2.4 + Pre-M2.5 Freeze Integrity 全部 PASS。FINAL integrity acceptance = `8a2d660`，remote CI run `35294735189` = success，248 passed / 0 failed；M2.5 structure repair = UNBLOCKED，当前最高优先级 = M2.5（M2.4 blocked_structure 的 human authority 可直接复用，无需重审）。已修补：① provisional B 对 aggregate `run_tones` 置 neutral；② C missing evidence = neutral；③ plan 双 hash 绑定；④ legacy `m24-1` / 缺 binding plan fail-closed（schema `m24-2`）。**
+> 当前阶段：**A/B/C/D + M2.4 + Pre-M2.5 Freeze Integrity 全部 PASS。FINAL integrity acceptance = `8a2d660`；remote CI run `35294735189` 已独立核验 checkout 的正是 `8a2d660558512a82d503833ef4bd19bf82835a06`，pytest = 248 passed / 0 failed（16.73s）。M2.5 structure repair = UNBLOCKED，当前最高优先级 = M2.5（M2.4 `blocked_structure` 的 human authority 可直接复用，无需重审）。已修补：① provisional B 对 aggregate `run_tones` 置 neutral；② C missing evidence = neutral；③ plan 双 hash 绑定；④ legacy `m24-1` / 缺 binding plan fail-closed（schema `m24-2`）。另保留一个非阻塞 P2 audit hardening：`apply_plan()` 后续应重算并验证 `plan_hash`，用于 tamper-evidence；该项不影响当前 M2.5 开工。**
 
 ---
 
@@ -784,7 +784,9 @@ real-run diagnostic at 42cb1be: diag-20260917-181538-6aec
 Candidate-0 dual binding for newly generated plans: implemented
 final acceptance SHA: 8a2d660
 final remote CI run: 35294735189 = success
+CI checkout verified SHA: 8a2d660558512a82d503833ef4bd19bf82835a06
 pytest at 8a2d660: 248 passed / 0 failed / 0 skipped
+pytest duration: 16.73s
 legacy m24-1 plan on real run: refused (unsupported_plan_schema:m24-1);
   regenerated m24-2 plan applied normally (0 repairs, C0 identical)
 ```
@@ -1513,17 +1515,178 @@ none_correct gen2
 
 # 10. M2.5+ 后续阶段边界
 
-## 10.1 M2.5 — PROBABLE structure repair
+## 10.1 M2.5 — PROBABLE structure repair ← CURRENT
 
-M2.4 v1 不实现 structure repair。
+M2.4 v1 不实现 structure repair。Pre-M2.5 integrity 已通过，因此 M2.5 可以正式开始，但 **structure repair 仍需自己的 precision / identity / rollback acceptance**，不能因为 upstream 已冻结就自动视为安全。
 
-M2.5 开始前至少需要：
+M2.5 第一阶段目标：
+
+```text
+只建立 structure-repair plan/apply contract
+→ 优先支持已有 human-selected blocked_structure authority
+→ 再考虑 machine structure candidate
+→ Candidate 0 仍 immutable
+→ split / merge / boundary-shift 分开建模，不共享一个模糊 patch
+```
+
+M2.5 开始前置条件已经满足：
 
 ```text
 M2.4 pitch-only repair correctness frozen
+Pre-M2.5 integrity PASS @ 8a2d660
+legacy plan fail-closed / m24-2 active
+189s / 202s permanent no-false-repair regressions green
+```
+
+但 M2.5 自身要建立新的 acceptance：
+
+```text
 structure precision 独立 acceptance
-split/merge/boundary-shift patch identity + rollback contract
+split patch identity + rollback contract
+merge patch identity + rollback contract
+boundary-shift patch identity + rollback contract
+structure-specific stale-plan / authority checks
 structure-specific no-false-repair regressions
+real-run phrase-context verification
+remote CI on FINAL implementation SHA
+```
+
+### 10.1.1 Human-selected structure path
+
+优先消费 M2.4 已保留的：
+
+```text
+blocked_structure
++ valid repair_authorized_decision()
++ selected_score_patch snapshot
++ target_key / revision_id / audio_package_hash
+```
+
+原则：
+
+```text
+用户已经听过并选择的同一个 exact-audio package
+→ 不要求重复审核
+
+但：
+human-selected structure
+!= unconditional apply
+
+仍必须验证：
+patch shape
+Candidate-0 identity/span
+authority freshness
+operation legality
+rollback completeness
+non-target invariance
+```
+
+禁止把 OPTION label、旧 hypothesis 或当前 F0 重新解释成另一个 structure patch。
+
+### 10.1.2 Machine structure path
+
+Machine auto-repair 不能直接把所有：
+
+```text
+resolved_change_candidate
+```
+
+都 materialize。
+
+至少需要 operation-specific precision gate：
+
+```text
+split:
+  identity-safe child mapping
+  boundary confidence
+  minimum child duration
+  no lyric/phoneme corruption
+
+merge:
+  exact adjacent identity
+  merged-span legality
+  lyric semantics explicitly defined
+
+boundary-shift:
+  same note identity
+  monotonic ordering
+  no overlap / negative duration
+  neighbor invariance
+```
+
+低置信度或 evidence family 不足：
+
+```text
+→ phrase_review / unresolved
+→ no repair
+```
+
+### 10.1.3 Structure repair plan/apply
+
+继续沿用 plan/apply 分离：
+
+```text
+structure-repair-plan
+→ read-only
+→ bind exact Candidate-0 artifact + authority
+→ operation-specific validation
+→ conflict detection
+
+structure-repair-apply
+→ verify freshness / authority again
+→ copy-on-write
+→ deterministic apply
+→ corrected-score + structure-repair manifest
+```
+
+不得原地修改 Candidate 0。
+
+### 10.1.4 Non-blocking P2 audit hardening — plan_hash verification
+
+当前 M2.4 `plan_hash`：
+
+```text
+build_plan() 会生成
+manifest 会记录
+但 apply_plan() 不会重新计算并验证
+```
+
+这不会绕过当前 Candidate-0 双 hash、machine authorization 或 human authority，因此 **不是 M2.5 blocker**。但它意味着 repair plan 本身的 tamper-evidence 还不完整。
+
+建议在 M2.5 触碰 plan/apply 基础设施时统一补：
+
+```text
+canonical_plan_hash(plan)
+→ 排除 created_at / plan_hash 自身等非绑定字段
+→ schema + run_id + Candidate-0 bindings + authority bindings
+  + repairs/operations + status/conflict semantics
+→ apply 前重新计算
+→ recomputed != stored plan_hash
+   => stale/tampered → reject
+```
+
+至少回归：
+
+```text
+P2-1. 修改 repair operation / after tone/span，但保留旧 plan_hash
+      → apply reject
+
+P2-2. 修改 authority binding，但保留旧 plan_hash
+      → apply reject
+
+P2-3. 修改 Candidate-0 binding，但保留旧 plan_hash
+      → existing freshness gate 或 plan_hash gate reject
+
+P2-4. exact untouched plan
+      → hash recompute identical，正常 apply
+```
+
+该项优先级：
+
+```text
+P2 audit hardening
+不阻塞 M2.5 start
+建议在 structure repair plan/apply schema 稳定前完成
 ```
 
 Human-selected structure candidate 可以作为 M2.5 输入，但仍需 structure repair gate；“用户听起来选了它”不等于可以无条件开放所有 structure auto-repair。
@@ -1662,7 +1825,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← CURRENT (UNBLOCKED)
+### M2.5 — PROBABLE structure repair — ← CURRENT / UNBLOCKED
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -1726,5 +1889,7 @@ rollback coverage
 51. M2.4 repair plan 必须同时绑定 Candidate-0 semantic notes hash 与 full-file sha256。
 52. legacy / unsupported / 缺任一 Candidate-0 binding 的 repair plan 必须 fail-closed；不得 silent migration 或补算当前 hash 后继续 apply。
 53. Pre-M2.5 integrity acceptance 未通过前，不得启动 structure repair。
-54. 先把 written score 唱对，再生成 PITD。
-55. 先“唱对”，再做泠鸢风格。
+54. structure repair 必须 operation-specific（split / merge / boundary-shift）并具备独立 identity、freshness、rollback contract。
+55. `plan_hash` 应在 apply 时可重算验证；当前属于非阻塞 P2 tamper-evidence hardening，不得替代 Candidate-0/authority freshness gate。
+56. 先把 written score 唱对，再生成 PITD。
+57. 先“唱对”，再做泠鸢风格。
