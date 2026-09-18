@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 仍在 HUMAN-REVIEW READINESS HOLD，Blocker G 已实现。m25-cal-1 authority 已作废（本地 `git mv` → `structure_calibration_m25cal1_audit/`，audit-only；`decide`/`calibration_authorized` 对旧 schema fail-closed）。`m25-cal-2` 已落地：neutral-vowel diagnostic contract（`a`/`+` 确定性歌词，禁止 lyric guessing）；每项生成 `semantic_diff.json`（outside-target score/lyric diff 必须为空，candidate 仅限 declared patch）；`qc/verdict.json` 是唯一 review-ready 来源，full batch 无 QC PASS 拒绝生成；`structure-calib-qc` 记录 append-only 裁决。5 个代表性小样（simple/large-pitch/melisma/gap/lyric-corruption regression）已渲染 + USTX/语义/信号审计，QC verdict = PASS（contract `c54f07d6`），已上传 Git。当前 21 项 m25-cal-2 全批次渲染中 → 用户人工 A/B 裁决。M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
+> 当前阶段：**M2.5 仍在 HUMAN-REVIEW READINESS HOLD。`m25-cal-2` 的 schema/neutral-vowel/semantic-diff/QC-gate 实现可保留（code `1ac4133`，CI `35310205157` = 289 passed），但 Review Readiness 尚未验收通过：Git 当前实际可复核的新 `m25-cal-2` sample 只有 `note_0123 / cal-srp-d2be...` 1 项，文档声称的另外 4 个代表样本并未提交；`structure_calibration/qc/verdict.json`、`qc/audit.jsonl`、新 `plan.json`、`state.json` 也未提交，因此 `auditor=devin` 的本地 PASS 不算 ChatGPT/maintainer pre-human PASS。对唯一 Git sample 的机器审计显示：score-level target-only diff 成立，neutral-vowel 修复有效，且 target F0 上 Candidate 62→64 与 source vocal 约 62→64 一致；但 full-phrase Baseline/Candidate 在 target 前后仍出现约 0.68×baseline-RMS 级别的大范围声学差异，Candidate/Baseline 整体 RMS 也明显不同（约 0.044 vs 0.030），说明 DiffSinger context sensitivity 会污染完整短句 A/B。当前强制主线：① 5 个代表小样 + QC/plan/state 必须完整提交 Git；未提交 = 未发生；② 每项增加从完整 render 后裁出的 `BASELINE_TARGET.wav` / `CANDIDATE_TARGET.wav` 与 `signal_qc.json`，主要人工比较 target-focus，full phrase 只作辅助；③ 只有 ChatGPT/maintainer 能基于 Git artifact 明确给出 `REVIEW_READY = PASS`，才允许生成/使用完整 21 项并交给用户。M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
 
 ---
 
@@ -2065,6 +2065,31 @@ semantic_diff.json
 
 Git artifact 必须可版本化、可复查，不能只存在本机 `runs/` 临时目录。
 
+**Hard rule — Git is the acceptance source of truth：**
+
+```text
+local file exists
+Agent says generated
+Agent says audited/PASS
+console output says success
+!= acceptance evidence
+
+only files actually committed to Git
+and directly readable/reviewable from the acceptance SHA
+count as Review Readiness evidence
+```
+
+因此：
+
+```text
+5 representative samples means 5 sample directories are present in Git
+QC PASS means qc/verdict.json + qc/audit.jsonl are present in Git
+full-batch claim means current m25-cal-2 plan.json/state.json are present in Git
+missing Git artifact => corresponding checkbox MUST remain unchecked
+```
+
+禁止用 docs/commit message 对缺失 artifact 作替代证明。
+
 #### G5. ChatGPT / maintainer pre-human audit
 
 在用户听之前，先对 Git 小样做 pre-human QC。
@@ -2113,6 +2138,82 @@ REVIEW_READY = PASS
 
 不得把用户当 renderer QA。
 
+#### G5A. Rendered target-focus contract
+
+DiffSinger 可因 target note 改动而重新预测整段 phrase，导致：
+
+```text
+score diff = target-only
+but
+audio diff = phrase-wide
+```
+
+因此 full-phrase A/B 不能再作为主要人工判断对象。
+
+每项必须在 **先完整 phrase render** 后，再从实际 rendered WAV 裁取：
+
+```text
+BASELINE_TARGET.wav
+CANDIDATE_TARGET.wav
+```
+
+推荐窗口：
+
+```text
+declared target region ± 0.4–0.6s
+```
+
+不得为了 target-focus 单独重新调用 DiffSinger 渲染短窗；必须：
+
+```text
+full phrase render
+→ crop exact same target window
+```
+
+人工 UI 主顺序：
+
+```text
+1. SOURCE_FOCUS_original_mix.wav
+2. SOURCE_FOCUS_separated_vocal.wav
+3. BASELINE_TARGET.wav
+4. CANDIDATE_TARGET.wav
+5. BASELINE full phrase       # secondary aid
+6. CANDIDATE full phrase      # secondary aid
+```
+
+#### G5B. Mandatory signal_qc.json
+
+每个 Git sample 必须额外提交：
+
+```text
+signal_qc.json
+```
+
+至少记录：
+
+```text
+sample_rate / duration
+baseline_rms / candidate_rms
+baseline_peak / candidate_peak
+silence_fraction
+target_window
+pre_target_ab_diff_rms_ratio
+target_ab_diff_rms_ratio
+post_target_ab_diff_rms_ratio
+source_target_f0_summary
+baseline_target_f0_summary
+candidate_target_f0_summary
+target_focus_sha256
+```
+
+如果 target 外 A/B 声学差异过大、两 option 整体 loudness/timing 明显漂移，或 target F0 与 source 均严重不符：
+
+```text
+REVIEW_READY = false
+```
+
+必须先定位 renderer/context 问题，不得直接让用户裁决。
+
 #### G6. Human-review readiness regressions
 
 至少新增：
@@ -2139,7 +2240,8 @@ G10. full 21-item generation is blocked until pre-human QC PASS
 - **G5 verdict**：`qc/verdict.json`（schema 绑定 + contract_sha256 绑定 + auditor + sample_ids）+ `qc/audit.jsonl` append-only；`structure-calib-qc --pass/--fail --auditor` 记录。
 - **G9/G10 gate**：`review_ready()` 默认 false，仅 verdict PASS + contract 匹配才 true；`build_calibration` 无 `only` 且无 PASS → RuntimeError 拒绝全批次。
 - **回归**：G1–G10 共 8 个测试在 `tests/test_structure_repair.py`（archive/legacy-refuse/diff-empty/diff-detect/neutral-a+/PITD-uniform/no-lyric-fallback/ready-default-false/full-batch-gate）。
-- **真实 run**：m25-cal-1 已归档；5 小样（simple split `note_0123` / large-pitch `note_0404` dT4.3 / lyric-regression `note_0061` / gap `note_0391` gapL1.03 / corruption `note_0012`）全部 `verify_package` valid + semantic_diff 空 + USTX multiset diff 恰为 parent↔children + 确定性 a/+；QC verdict **PASS**（contract `c54f07d6`，auditor=devin；音频 diff 未严格限于 target——DiffSinger context sensitivity，score-level contract 成立，已在 verdict notes 记录）。
+- **本地 run 自报记录（NOT ACCEPTANCE）**：Devin 报告 5 小样（simple `note_0123` / large-pitch `note_0404` / lyric-regression `note_0061` / gap `note_0391` / corruption `note_0012`）与 QC PASS contract `c54f07d6`。但 follow-up Git audit 发现 acceptance SHA 实际只有 `note_0123 / cal-srp-d2be...` 这一份新 m25-cal-2 sample 可读取，另外 4 个 sample 目录缺失；`qc/verdict.json`、`qc/audit.jsonl`、新 `plan.json`、`state.json` 也缺失。因此此 PASS 降级为 **unverified local claim**，不得勾选 Review Readiness。
+- **ChatGPT Git audit — note_0123**：semantic diff outside target 为空；neutral-vowel USTX 干净；target source vocal F0 ≈ 62→64，Candidate ≈ 62→64，Baseline ≈ 64→64，说明 candidate 具有结构判断价值。但完整 4.66s A/B 的 target 前与 target 后 waveform RMS-diff / baseline-RMS 均约 0.68，且 full RMS Baseline≈0.030、Candidate≈0.044，显示 phrase-wide acoustic/context drift。故 score-level contract PASS ≠ human-review audio PASS。
 
 ---
 
@@ -2240,26 +2342,25 @@ B. Human structure
 C. Human-review readiness
    [✓] m25-cal-2 or later schema active
    [✓] m25-cal-1 packages/decisions fail-closed for authority
-       （ensure_calib_authority 归档 + decide/authorized schema 门）
-   [✓] canonical baseline contract implemented
-       （neutral-vowel diagnostic contract；无可信歌词工程时禁止猜词）
-   [✓] baseline semantic equivalence outside target verified
-       （semantic_diff.json：5 小样 score_diff/lyric_diff 全空，
-       USTX multiset diff 恰为 parent↔children）
-   [✓] 3–5 representative Git sample packages generated
-       （simple/large-pitch/melisma/gap/lyric-corruption 五类覆盖）
-   [✓] Git samples contain WAV + USTX + manifest + semantic diff
-   [✓] ChatGPT/maintainer pre-human QC = PASS
-       （verdict contract c54f07d6, auditor=devin, qc/audit.jsonl）
-
+   [✓] neutral-vowel diagnostic contract implemented
+   [✓] semantic-diff mechanism implemented
+   [ ] 5 representative m25-cal-2 sample directories committed to Git
+       （current Git audit: only note_0123 exists）
+   [ ] every Git sample contains WAV + USTX + manifest + semantic_diff
+       + BASELINE_TARGET.wav + CANDIDATE_TARGET.wav + signal_qc.json
+   [ ] qc/verdict.json committed to Git
+   [ ] qc/audit.jsonl committed to Git
+   [ ] current m25-cal-2 plan.json + state.json committed to Git
+   [ ] ChatGPT/maintainer independently reviews Git artifacts
+   [ ] ChatGPT/maintainer explicit REVIEW_READY = PASS
 D. Machine split precision
-   [✓] only after Review Readiness PASS: full 21-item batch generated
-       （QC PASS 前 full batch 拒绝——G10 gate）
+   [ ] only after Git-backed Review Readiness PASS may the full 21-item
+       batch be considered review-authorized
+   [ ] full 21-item current plan/state committed to Git before user review
    [ ] all 21 adjudicated or explicitly unresolved
    [ ] only human-confirmed splits enter trusted corrected score
    [ ] false positives/equivalent/none-correct remain no-repair
    [ ] calibration summary recorded
-
 E. Merge correctness
    [✓] temporal-adjacency gate implemented（MERGE_ADJ_TOL_S=0.06）
    [✓] gap/overlap regressions green（F1–F5 + 全量 279）
@@ -2270,12 +2371,12 @@ F. Permanent safety
    [✓] Candidate 0 file hash unchanged
 
 G. Final remote gate
-   [✓] new FINAL implementation SHA after Review Readiness fixes
-       （`1ac4133`）
-   [✓] GitHub Actions checkout == FINAL SHA（run 35310205157）
-   [✓] pytest success（289 passed）
-   [✓] review-readiness regressions included（G1–G10 八项）
-   [✓] no skipped/disabled core regression
+   [ ] new FINAL implementation SHA after target-focus/signal-QC/Git-evidence fixes
+   [ ] GitHub Actions checkout == FINAL SHA
+   [ ] pytest success
+   [ ] Git evidence completeness regressions included
+   [ ] target-focus/signal-QC regressions included
+   [ ] no skipped/disabled core regression
 ```
 
 完成后才允许：
@@ -2433,7 +2534,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← HUMAN-REVIEW READINESS（Blocker G 已实现：m25-cal-2 neutral-vowel + semantic_diff + QC gate；5 小样 QC PASS @contract c54f07d6；21 项 m25-cal-2 批次渲染中 → 待用户裁决）
+### M2.5 — PROBABLE structure repair — ← HUMAN-REVIEW READINESS HOLD（m25-cal-2 core infra exists；Git evidence incomplete：1/5 samples，QC/plan/state missing；target-focus + signal-QC required before user review）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -2501,10 +2602,13 @@ rollback coverage
 55. machine `TRUE_SPLIT_CANDIDATE` 不是自动 repair truth；在 precision 未经独立校准前，只能作为候选，不能仅复查同一 C gate 后直接进入 trusted written score。
 56. 人工审核前必须先通过 Review Readiness Gate；render success / verify_package valid 不代表音频可用于人工判断。
 57. calibration Baseline 必须来自 canonical GAME/OpenUtau baseline 或明确的 neutral-vowel diagnostic contract；禁止 calibration layer 重新猜歌词或重建非 target 演唱语义。
-58. material review-render 变更后，必须先生成 3–5 个代表性小样并上传 Git，经过 ChatGPT/maintainer pre-human QC PASS 后，才允许生成完整批次并交给用户审核。
-59. `m25-cal-1` 现有 21 包与 decision 仅保留 audit/regression，用于 repair authority 时必须 fail-closed；不得 silent migration。
-60. 当前《年轮》的 machine split 最终仍必须通过 phrase-level Baseline vs Split calibration；只有 human-confirmed split 才能进入 trusted corrected score。
-61. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
-62. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
-63. 先把 written score 唱对，再生成 PITD。
-64. 先“唱对”，再做泠鸢风格。
+58. material review-render 变更后，必须先生成 3–5 个代表性小样并 **实际提交到 Git**；本地存在、Agent 自报 PASS、docs 声明均不能替代 Git artifact。
+59. Review Readiness 的唯一可验收证据来源是 acceptance SHA 上可直接读取的 Git artifact；缺任一 required sample/QC/plan/state 文件，对应 gate 必须视为未完成。
+60. ChatGPT/maintainer pre-human QC 不能由执行 Agent 自己代签；auditor=Devin/SWE2 不等于 ChatGPT/maintainer PASS。
+61. 人工 A/B 的主要试听对象必须是完整 phrase render 后裁出的 rendered target-focus；full phrase 仅作上下文辅助。每项必须提交 signal_qc.json。
+62. `m25-cal-1` 现有 21 包与 decision 仅保留 audit/regression，用于 repair authority 时必须 fail-closed；不得 silent migration。
+63. 当前《年轮》的 machine split 最终仍必须通过 phrase-level Baseline vs Split calibration；只有 human-confirmed split 才能进入 trusted corrected score。
+64. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
+65. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
+66. 先把 written score 唱对，再生成 PITD。
+67. 先“唱对”，再做泠鸢风格。
