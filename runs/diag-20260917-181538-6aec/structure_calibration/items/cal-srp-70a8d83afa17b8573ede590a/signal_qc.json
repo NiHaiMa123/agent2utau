@@ -31,37 +31,149 @@
   "target_ab_diff_rms_ratio": 1.3215,
   "post_target_ab_diff_rms_ratio": 0.9824,
   "option_loudness_ratio": 0.6996,
-  "source_target_f0_summary": {
-    "voiced_frames": 129,
-    "n_frames": 147,
-    "voiced_fraction": 0.8776,
-    "midi_median": 58.745,
-    "midi_min": 55.447,
-    "midi_max": 62.618,
-    "first_half_midi_median": 56.885,
-    "second_half_midi_median": 61.885
+  "core_window": {
+    "absolute": [
+      125.95,
+      126.72
+    ],
+    "pad_s": 0.15
   },
-  "baseline_target_f0_summary": {
-    "voiced_frames": 147,
-    "n_frames": 147,
-    "voiced_fraction": 1.0,
-    "midi_median": 59.044,
-    "midi_min": 56.864,
-    "midi_max": 64.015,
-    "first_half_midi_median": 58.759,
-    "second_half_midi_median": 62.001
-  },
-  "candidate_target_f0_summary": {
-    "voiced_frames": 147,
-    "n_frames": 147,
-    "voiced_fraction": 1.0,
-    "midi_median": 59.016,
-    "midi_min": 56.881,
-    "midi_max": 64.042,
-    "first_half_midi_median": 57.001,
-    "second_half_midi_median": 61.993
+  "f0_qc": {
+    "children": [
+      {
+        "child": 0,
+        "span_abs": [
+          126.1,
+          126.255
+        ],
+        "duration": 0.155,
+        "source": {
+          "span_rel": [
+            0.6,
+            0.755
+          ],
+          "n_frames": 16,
+          "voiced_frames": 16,
+          "voiced_fraction": 1.0,
+          "midi_median": 56.885,
+          "midi_iqr": 0.258,
+          "midi_min": 56.535,
+          "midi_max": 58.661,
+          "dominant_fraction": 0.875,
+          "evidence": "ok",
+          "provenance": "torchfcpe:InferCFNaiveMelPE"
+        },
+        "baseline": {
+          "span_rel": [
+            0.5,
+            0.655
+          ],
+          "n_frames": 16,
+          "voiced_frames": 16,
+          "voiced_fraction": 1.0,
+          "midi_median": 59.019,
+          "midi_iqr": 0.041,
+          "midi_min": 58.032,
+          "midi_max": 59.062,
+          "dominant_fraction": 1.0,
+          "evidence": "ok",
+          "provenance": "torchfcpe:InferCFNaiveMelPE"
+        },
+        "candidate": {
+          "span_rel": [
+            0.5,
+            0.655
+          ],
+          "n_frames": 16,
+          "voiced_frames": 16,
+          "voiced_fraction": 1.0,
+          "midi_median": 56.993,
+          "midi_iqr": 0.028,
+          "midi_min": 56.971,
+          "midi_max": 57.8,
+          "dominant_fraction": 1.0,
+          "evidence": "ok",
+          "provenance": "torchfcpe:InferCFNaiveMelPE"
+        },
+        "baseline_error_semitones": 2.134,
+        "candidate_error_semitones": 0.108
+      },
+      {
+        "child": 1,
+        "span_abs": [
+          126.255,
+          126.57
+        ],
+        "duration": 0.315,
+        "source": {
+          "span_rel": [
+            0.755,
+            1.07
+          ],
+          "n_frames": 31,
+          "voiced_frames": 19,
+          "voiced_fraction": 0.6129,
+          "midi_median": 58.741,
+          "midi_iqr": 1.016,
+          "midi_min": 58.174,
+          "midi_max": 62.486,
+          "dominant_fraction": 0.947,
+          "evidence": "ok",
+          "provenance": "torchfcpe:InferCFNaiveMelPE"
+        },
+        "baseline": {
+          "span_rel": [
+            0.655,
+            0.97
+          ],
+          "n_frames": 31,
+          "voiced_frames": 31,
+          "voiced_fraction": 1.0,
+          "midi_median": 59.023,
+          "midi_iqr": 0.024,
+          "midi_min": 58.982,
+          "midi_max": 59.978,
+          "dominant_fraction": 1.0,
+          "evidence": "ok",
+          "provenance": "torchfcpe:InferCFNaiveMelPE"
+        },
+        "candidate": {
+          "span_rel": [
+            0.655,
+            0.97
+          ],
+          "n_frames": 31,
+          "voiced_frames": 31,
+          "voiced_fraction": 1.0,
+          "midi_median": 59.003,
+          "midi_iqr": 0.018,
+          "midi_min": 58.235,
+          "midi_max": 60.001,
+          "dominant_fraction": 1.0,
+          "evidence": "ok",
+          "provenance": "torchfcpe:InferCFNaiveMelPE"
+        },
+        "baseline_error_semitones": 0.282,
+        "candidate_error_semitones": 0.262
+      }
+    ],
+    "baseline_child_error_semitones": [
+      2.134,
+      0.282
+    ],
+    "candidate_child_error_semitones": [
+      0.108,
+      0.262
+    ],
+    "baseline_structure_error": 2.134,
+    "candidate_structure_error": 0.262,
+    "candidate_improvement_vs_baseline": 1.872,
+    "unavailable_child_slots": 0,
+    "ambiguous_children": [],
+    "note": "review-readiness evidence only — never an automatic score truth; unavailable/ambiguous stays neutral"
   },
   "target_focus_sha256": "4d1332282b8e5b2533367184c5a1fd191163cfa409dc26aae9b5f886e626f115",
+  "target_core_sha256": "863fd56f02d085cd001951aafa1a57871395152194a44c646e5f0e2492998055",
   "target_focus_is_primary": true,
   "auto_flags": [
     "post_target_ab_drift:0.9824",
