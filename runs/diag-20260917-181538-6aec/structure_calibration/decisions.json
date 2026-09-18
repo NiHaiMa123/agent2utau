@@ -1,0 +1,19 @@
+{
+  "schema": "m25-cal-1",
+  "revisions": [
+    {
+      "revision_id": "calrev-8034f015cb2e36db",
+      "cal_item_id": "cal-srp-c491a6b75c7d94cb28fd7a1e",
+      "repair_id": "srp-c491a6b75c7d94cb28fd7a1e",
+      "note_id": "note_0012",
+      "patch_sha256": "f762ba86cbe7c6ae1e5f3e72ab733546b48376c32f1aabaa325f24d153d89727",
+      "audio_package_hash": "212cb7ce36b59db3ffae4166b49379b8d0b0a86f88bfa74285ea81ce1ce6aa09",
+      "choice": "none_correct",
+      "decided_option": null,
+      "option_role": null,
+      "outcome": "unresolved",
+      "decided_at": 1789705564.6790788,
+      "superseded_by": null
+    }
+  ]
+}

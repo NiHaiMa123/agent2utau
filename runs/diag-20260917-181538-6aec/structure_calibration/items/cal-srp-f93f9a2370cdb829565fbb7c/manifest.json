@@ -1,0 +1,280 @@
+{
+  "schema": "m25-cal-1",
+  "identity_schema": "review-target-v1",
+  "review_item_id": "cal-srp-f93f9a2370cdb829565fbb7c",
+  "target_key": "ebef923cfb8a4f541a5083c6bdbff319993de45463ea43fdb3c92243a5fb5a29",
+  "song_sha256": "5f851d3a760f230a",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "review_batch_id": "structure-calibration",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "target_group": {
+    "type": "split",
+    "parent_ids": [
+      "note_0192"
+    ],
+    "note_ids": [
+      "note_0192"
+    ],
+    "region": [
+      94.79,
+      95.28
+    ],
+    "packets": [
+      "note_0192"
+    ],
+    "reason": "machine_split_calibration"
+  },
+  "context": {
+    "phrase": {
+      "start": 90.36,
+      "end": 95.59,
+      "boundary_source": "lrc"
+    },
+    "phrase_key": "90.36-95.59",
+    "candidate0_note_ids": [
+      "note_0181",
+      "note_0182",
+      "note_0183",
+      "note_0184",
+      "note_0185",
+      "note_0186",
+      "note_0187",
+      "note_0188",
+      "note_0189",
+      "note_0190",
+      "note_0191",
+      "note_0192",
+      "note_0193",
+      "note_0194"
+    ]
+  },
+  "phrase": {
+    "start": 90.36,
+    "end": 95.59,
+    "boundary_source": "lrc"
+  },
+  "options": [
+    {
+      "option_id": "OPTION_0",
+      "candidate_id": "baseline",
+      "score_patch": {
+        "type": "identity"
+      },
+      "provenance": {
+        "kind": "candidate0"
+      },
+      "wav": "OPTION_0.wav",
+      "wav_sha256": "ba5aadca48a875069f2396ca2430225006d4ec4465c99c1d83994589f0d41636",
+      "sample_rate": 44100,
+      "frames": 230643,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_1",
+      "candidate_id": "machine_split",
+      "score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0192"
+        ],
+        "boundary": 95.06,
+        "children": [
+          {
+            "start": 94.79,
+            "end": 95.06,
+            "tone": 62.35
+          },
+          {
+            "start": 95.06,
+            "end": 95.28,
+            "tone": 64.1
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "machine_structure_candidate",
+        "repair_id": "srp-f93f9a2370cdb829565fbb7c",
+        "authority": {
+          "packet_id": "note_0192",
+          "c_status": "resolved_change_candidate",
+          "classification": "TRUE_SPLIT_CANDIDATE",
+          "virtual_b_statuses": [
+            "resolved_keep",
+            "resolved_keep"
+          ],
+          "child_presence": [
+            0.0,
+            0.0
+          ],
+          "dual_delta_agreement": true,
+          "non_f0_support": 1.0,
+          "game_split_ratio": 0.6
+        }
+      },
+      "wav": "OPTION_1.wav",
+      "wav_sha256": "46ae16327629055e6bff1b6d798e7731be92425444f5d807730860479cbb32ab",
+      "sample_rate": 44100,
+      "frames": 230643,
+      "render_error": null
+    }
+  ],
+  "baseline_option": "OPTION_0",
+  "source_reference": {
+    "original_mix": {
+      "path": "../../phrases/90.36-95.59/SOURCE_PHRASE_original_mix.wav",
+      "sha256": "f2f2feac51bc2f6206e0eca5e840c8a5c3da59820ba517b34b92623701efc434",
+      "gain_db": 0.0,
+      "sample_rate": 44100
+    },
+    "separated_vocal": {
+      "path": "../../phrases/90.36-95.59/SOURCE_PHRASE_separated_vocal.wav",
+      "sha256": "0db8e4ca2ec3b967b230276f7a855b6927f2046a4c79065a59a952d654670fc0",
+      "gain_db": 0.0,
+      "sample_rate": 44100
+    }
+  },
+  "render_profile": {
+    "singer": "YousaV1.65b",
+    "phonemizer": "zh",
+    "renderer": "DIFFSINGER",
+    "bpm": 120,
+    "resolution": 480,
+    "sample_rate": 44100,
+    "voice_color": null,
+    "pitd": "none",
+    "time_align": "shared_phrase_start",
+    "loudness": "shared_gain",
+    "ustx_template_sha256": "a11d1b6a2b1a3c13b4e3056c8a942ae8baf401d6bbfe0e431235db144cb9362b"
+  },
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "shared_gain_db": 0.0,
+  "machine_evidence": {
+    "pitch": {
+      "status": "not_needed",
+      "winning_hypothesis": null,
+      "reason": null,
+      "top_hypotheses": []
+    },
+    "structure": {
+      "status": "resolved_change_candidate",
+      "winning_hypothesis": "H1",
+      "boundary": 95.06,
+      "all_scores": {
+        "H0": 0.9,
+        "H1": 3.992,
+        "H3": 1.373
+      }
+    },
+    "virtual_b": [
+      {
+        "id": "note_0192__v0",
+        "status": "resolved_keep",
+        "winning_hypothesis": 62.35
+      },
+      {
+        "id": "note_0192__v1",
+        "status": "resolved_keep",
+        "winning_hypothesis": 64.1
+      }
+    ],
+    "flags": [
+      "wrong_pitch",
+      "high_dispersion"
+    ]
+  },
+  "review": {
+    "generation": 1,
+    "blinded": true,
+    "choices": [
+      "OPTION_0",
+      "OPTION_1",
+      "equivalent",
+      "none_correct"
+    ]
+  },
+  "plan_hash": "b8ef6ee2e2de4ab8bffc505d55215ed5f2cef0d93f1ad605cb3b63306220bf3e",
+  "audio_package_hash": "157d9a2a8502f06bc6a2b9c16f2701712d70e55772d435d54a10ec83a042f560",
+  "render_provenance": {
+    "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
+    "binaries": {
+      "OpenUtau.exe": {
+        "sha256": "de4b4b692e4871263e000ea072e6e539905ecf8f1feea455ead1c58795392461",
+        "size": 283136
+      },
+      "OpenUtau.Core.dll": {
+        "sha256": "bbb7ad4e767fc168824a8dbfd97401747f06848f0559c177c610e572e99efe0f",
+        "size": 32952320
+      },
+      "a2u-bridge.exe": {
+        "sha256": "e2af9acea5d8d2e140ddbc1db8b2669f61e81f76261d1cf7608d1e9c8c08fa19",
+        "size": 162304
+      }
+    },
+    "voicebank": {
+      "singer": "YousaV1.65b",
+      "materials": {
+        "0818_no_shuffle.onnx": "a8fdc96710113a5faefef9cc8d418d786ff8b7a4b36ebfc10cf30f7c6b87fe74",
+        "character.txt": "43cd1031e5958a59e740150020e65902d2950e36ab5ad80adf4447a9b7d71fbb",
+        "character.yaml": "fc3335a4c5f6304cad20f1b03bb7db18e280e881a5e049478811433aaca4ca99",
+        "dsconfig.yaml": "72d5197ba188ad24596b7d9b6652b6e65a0a919e4841f45e598946c37ef53d06",
+        "dsdur\\0801_sdp.dur.onnx": "0e5233392c02b9ab30947f4d9b766e2ba847e3eb8e33c049db865456e0ea1a1f",
+        "dsdur\\0801_sdp.linguistic.onnx": "6b8b8f7f4a685487f08497d274d49a72410a2410d600b279dfcb0d918b2ed929",
+        "dsdur\\dsconfig.yaml": "4b67e63f5cdf900c0b53f706ccfc765c7fde2bf6514d252106562adc68e43a8f",
+        "dsdur\\dsdict-ja.yaml": "193612e18ef3503b85d5c86e93008f98cad11cb0b244e34f92acba65767d80d4",
+        "dsdur\\dsdict-ko.yaml": "7e47ab6fa66cba553d6b3c26ab352f9c7f227e489239042c15506316bda640cc",
+        "dsdur\\dsdict-zh.yaml": "04734af1885f075da4d379f9dcd11d629ae46350dd83f36f1ca5c9adcc8fcbc4",
+        "dsdur\\dsdict.yaml": "fa61e140c0953f95b1b08f733a41e11444be51323d94257491531b7ea2afb328",
+        "dsdur\\phonemes.json": "3a4cbf6cd901fe526bae27f0109155697a80f55017f4fb5145219c9168d0a563",
+        "dsdur\\Yousa_Bright.emb": "e6f5ee37df710054aa2149ea39e8963fbd2cbdfe9ad5ba7c54c1b70e1fecc40b",
+        "dsdur\\Yousa_Classic.emb": "0697dfbcb1fa65da6d095bbfe88fafa4a5f39ef21611b9bd192c4d0c03e65697",
+        "dsdur\\Yousa_Cute.emb": "248ccb44e1c8d88cbbf3cad61695fe68b27ed8c6040dea32024909ac23e5c222",
+        "dsdur\\Yousa_Normal.emb": "5b3f51ac368264732163326110afd0559faa137f71345b833c1ec2ce0a5cf466",
+        "dsdur\\Yousa_Whisper.emb": "d7316ceeff8a978ddb880ca435e632c11fe57f2b39021bdc75018e1d3fb71490",
+        "dspitch\\0801_variance.linguistic.onnx": "4892ff20d9728b51c235d0912abae0473077de7043d4bff3684caf79fb0773e9",
+        "dspitch\\0801_variance.pitch.onnx": "eaf9c8ce9270701fb7563b2dac43d475769f3fe69d5ea83000dedeab81f79656",
+        "dspitch\\dsconfig.yaml": "7626b1b0d2799b4cb89067a9458c19963a55a7100ccdf68709e0f650b526bc65",
+        "dspitch\\dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+        "dspitch\\Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+        "dspitch\\Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+        "dspitch\\Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+        "dspitch\\Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+        "dspitch\\Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+        "dsvariance\\0801_variance.variance.onnx": "d68eb67d23be30f5ab7aba245f55a674413b120d25848bffd8bf67c5edb5c457",
+        "dsvariance\\dsconfig.yaml": "5f3a02f3b3a580c6b5600880ca6ea0bde77ddd2be2b81e863b7ed98772c8551b",
+        "dsvariance\\dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+        "dsvariance\\Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+        "dsvariance\\Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+        "dsvariance\\Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+        "dsvariance\\Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+        "dsvariance\\Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+        "dsvocoder\\TIPS.txt": "71d47eb3bf8cf21e6b4e9defc3dd8a80e7c0accac0071fb625343b04ee735258",
+        "dsvocoder\\vocoder.yaml": "a9dde1db7ed047c74247df89cb3676f0210ac60cd0776afad71d4bcf7b77ab2e",
+        "dsvocoder\\yousa_vocoder_FT_1002_pc_nsf_wm.onnx": "00ce253d8f616bb9ed8d219648aa8d37ff29b46888c99db6046b733e8f1fc16c",
+        "languages.json": "770e6713543dabffb0c122ef09c927bd5d4b89ef8db4299a8935a43e01a3e8c9",
+        "phonemes.json": "b69927aa2031a1b6c88fd309f48498cfe9b0bbe6e29a414932ea8fb88a5f848a",
+        "readme.txt": "9c59f112561a64883957e4a1401d0c4730e0f8d6b1967e289bd04e6f7cc66c5d",
+        "Yousa_Bright.emb": "dc40eeebd34a18b0d44d9ee887052d7d37d472eec6cbd13dd3acde30951f7832",
+        "Yousa_Classic.emb": "dde42450f7d38653aa520c9883e74473abe5105ea069cddcbe6ebadd2abbecb4",
+        "Yousa_Cute.emb": "5ffaef1e7d0366c70511eb493695afc992ab277b26f1145ac5fb929ec8e62a04",
+        "Yousa_Normal.emb": "9fa01d6ab16c67d52a520ab1a0c5cf9f293d093ef5c1be8c08ba94d926cd61e6",
+        "Yousa_Whisper.emb": "124ecc4622f34dc909810853a05a0bc9726b45e34aa56057b5cf97294ac5100a",
+        "词典补充说明.txt": "3d63067ebad603db19e8e7425d382f90d91b8ea7d68b78961ec381ef954edbeb"
+      }
+    },
+    "phonemizer": "OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer",
+    "impl": "d3"
+  },
+  "package_state": "valid",
+  "calibration": {
+    "repair_id": "srp-f93f9a2370cdb829565fbb7c",
+    "patch_sha256": "24229546444b0903485dd5d3c7a06315d35f4e203b52f8c9e9896f892272b994",
+    "candidate_role": "OPTION_1",
+    "baseline_option": "OPTION_0",
+    "choices": [
+      "split",
+      "baseline",
+      "equivalent",
+      "none_correct"
+    ]
+  }
+}

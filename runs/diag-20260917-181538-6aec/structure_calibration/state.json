@@ -1,0 +1,41 @@
+{
+  "schema": "m25-cal-1",
+  "rebuilt_at": 1789706081.5849333,
+  "total_machine_split_candidates": 21,
+  "reviewed_count": 1,
+  "split_preferred_count": 0,
+  "baseline_preferred_count": 0,
+  "equivalent_count": 0,
+  "none_correct_count": 1,
+  "measured_song_level_precision": 0.0,
+  "pending": [
+    "cal-srp-790d2a210c7ae363e271d4ad",
+    "cal-srp-cb76bf56bb24b5c3d8849bc0",
+    "cal-srp-e76868a477d06eadb8d5ff97",
+    "cal-srp-903997a84c0ad331cd8ef4ba",
+    "cal-srp-d2be57c8bd5099d60ab05227",
+    "cal-srp-9e3efba85c56ade947bcfdbf",
+    "cal-srp-f93f9a2370cdb829565fbb7c",
+    "cal-srp-80eac026c81af9f4645b48f3",
+    "cal-srp-70a8d83afa17b8573ede590a",
+    "cal-srp-84862e2c08cf37c73d9e2791",
+    "cal-srp-b5a2d7810c99bfc36b91d9f9",
+    "cal-srp-7789a8b8605761d704d5d38e",
+    "cal-srp-07716808971809b23ef8d9b8",
+    "cal-srp-fbded6709db9336c1184e04d",
+    "cal-srp-aa047ab899970cb881f77481",
+    "cal-srp-b04c10c381b66d1abfd9ec8a",
+    "cal-srp-9ff662d834e7cbadd1aa9434",
+    "cal-srp-8f73580bd3c768145f417f0d",
+    "cal-srp-fcebb308ea0d11ef772afdc4",
+    "cal-srp-742cbf94d1991516823ba33c"
+  ],
+  "reviewed": [
+    {
+      "cal_item_id": "cal-srp-c491a6b75c7d94cb28fd7a1e",
+      "repair_id": "srp-c491a6b75c7d94cb28fd7a1e",
+      "outcome": "unresolved",
+      "revision_id": "calrev-8034f015cb2e36db"
+    }
+  ]
+}
