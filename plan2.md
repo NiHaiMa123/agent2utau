@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW AUDIO 已达到 pilot 标准，远程审核 transport 不再作为 blocker。用户确认接受直接下载 Git 音频试听，因此撤销 native ChatGPT inline-player 硬要求。人工审核主素材改为“完整一句”而不是 CORE/target 短片段：每组必须提供同一 sentence/phrase window 的 `SOURCE_PHRASE_original_mix.wav`（必要时补 separated vocal）+ 盲化 A/B 完整 phrase render；A/B 必须使用完全相同的 phrase boundaries/context，只允许 target operation 不同。`TARGET_CORE` 与 ±0.5s target-focus 继续保留，但降级为辅助定位素材，仅在完整一句难以判断具体转折时使用。完整一句应优先依据歌词语义/停顿/呼吸/phrase boundary 取自然唱句，通常约 4–10s，禁止只裁 0.5–2s 的局部片段作为主审核对象。ChatGPT 可直接列出 Git 下载链接供手机试听，不要求原生条状播放器；仍保持 A/B 盲化，用户回复 A/B/都差不多/都不对。当前先走 5-item pilot；若完整一句版本仍出现“听不懂在比较什么/明显唱坏”，立即停止并回到 renderer/QC；若 pilot 可稳定判断，再继续余下 16 项。聊天选择仍必须经官方 calibration decision gate 绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority。M2.5 FREEZE 与 M2.7 继续 BLOCKED，直到 21 项裁决与 final gate 完成。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD。5-item pilot 已实际开始，但用户目前只试听到 Group 1 (`note_0012`) 与 Group 2 (`note_0061`)；两组主观上均认为 **B 比 A 更接近原唱**，但同时明确报告 **响度存在问题、歌词存在问题**。因此按 G5E pilot-first fail-stop：立即停止剩余 Group 3–5，不继续 21 项人工审核；当前 1=B / 2=B 仅作为 non-authoritative diagnostic preference，**不得**写入正式 calibration decision / repair authority，因为用户判断建立在质量未达标的 review audio 上。现阶段 blocker 从 transport/片段长度切换为 **full-phrase lyric correctness + loudness/render consistency**：必须先保证每组完整一句的歌词语义正确、A/B 与 source 试听响度足够一致、且除 target operation 外不存在会影响人类选择的非目标渲染差异；修复后重新生成至少 Group 1–2（最好 5-item 全部）并重新进行 pilot。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -2405,7 +2405,7 @@ SOURCE CORE
 `TARGET_0/1` ±0.5s → full phrase 辅助，`SOURCE_CORE_{mix,vocal}.wav` 与
 `CORE_i` 均走 manifest-aware 盲映射端点。
 
-#### G5E. Remote human review via downloadable Git audio ← ACTIVE
+#### G5E. Remote human review via downloadable Git audio ← QUALITY HOLD
 
 用户当前接受直接下载 Git 音频试听，因此 **native ChatGPT inline audio attachment 不再是 acceptance blocker**。
 
@@ -2536,6 +2536,59 @@ B
 
 则停止剩余审核并返回 renderer/QC。
 
+### Pilot outcome — first real human check
+
+当前真实人工反馈：
+
+```text
+Group 1 / note_0012: B 相对更好，但响度有问题、歌词有问题
+Group 2 / note_0061: B 相对更好，但响度有问题、歌词有问题
+Group 3–5: NOT REVIEWED — stop due pilot quality failure
+```
+
+处理规则：
+
+```text
+B preference = diagnostic only
+NOT official decision
+NOT repair authority
+NOT machine precision evidence
+```
+
+原因：review audio 本身仍存在非 target 质量缺陷，继续强迫选择会污染 calibration。
+
+### Current repair scope for review audio
+
+下一轮只允许修以下内容：
+
+```text
+1. full-phrase lyric correctness
+2. melisma / + / re-articulation mapping
+3. A/B loudness consistency
+4. source-vs-generated listening gain comparability
+5. non-target render drift that materially changes perceived quality
+```
+
+不得借此扩展到：
+
+```text
+style imitation
+PITD beautification
+vibrato polishing
+final Yousa expression tuning
+```
+
+验收要求：
+
+```text
+- Group 1/2 regenerated full phrase no obvious lyric corruption
+- A/B perceived loudness no longer materially biases choice
+- semantic diff outside target remains clean
+- package/hash/authority remains fail-closed
+- user re-reviews Group 1/2 before Group 3–5 resume
+```
+
+---
 ### Decision persistence
 
 聊天反馈本身不是 repair authority。
@@ -2937,7 +2990,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← 5-ITEM HUMAN PILOT READY（downloadable Git audio accepted；primary review = full natural phrase/sentence；CORE/focus secondary only）
+### M2.5 — PROBABLE structure repair — ← HUMAN PILOT QUALITY HOLD（Group 1/2 both prefer B, but lyric + loudness defects invalidate authority; fix review audio before continuing）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -3020,5 +3073,6 @@ rollback coverage
 70. 人工主审核必须使用完整自然唱句（通常 4–10s，必要时 3–12s）；CORE/target-focus 只能作为 secondary diagnostic aid。
 71. A/B/source 必须共享同一 phrase 语义窗口与上下文；不得因为 candidate 不同而改变截取边界。
 72. 聊天选择必须经官方 decision gate 重新绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority；聊天文本本身不是 authority。
-73. 远程审核采用 5-item pilot-first；任一项完整一句仍不可判断则停止，不得强迫用户完成 21 项。
-74. 先“唱对”，再做泠鸢风格。
+73. 远程审核采用 5-item pilot-first；任一项出现歌词错误、明显响度偏差、非 target 渲染污染或仍不可判断，必须立即停止，不得强迫用户完成 21 项。
+74. 在质量失败的 review package 上产生的 A/B 偏好只能记为 diagnostic preference，不得成为 official decision 或 repair authority。
+75. 先“唱对”，再做泠鸢风格。
