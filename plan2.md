@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT — G5I Lyric Timing Gate 已实现并关闭（rlv3），4 组 honest pilot 已可用户审核。** G5I 修复了“歌词文本正确但逐字时间不在原唱位置”的缺陷：`review_lyrics_articulated()` 在渲染层按 char onset 做 same-pitch split（written score 不变），`signal_qc.lyric_timing` 持久化 SOURCE/A/B 同 aligner 逐字对比 + score-bound 分解（`score_delta`≈0 证明渲染精确唱在绑定证据位置；`aligner_offset`≈-210ms 是 aligner 对合成声的系统性偏差，已测量记录而非隐藏）。合同 bump rlv2→rlv3 使全部旧 artifact/verdict 自动 stale；4 项已重渲、QC PASS 绑定 `767ee841`+payload sha+4×aph、`review_ready=true`。等待用户重听 4 组 A/B。M2.5 FREEZE 与 M2.7 仍 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5I rlv3 仅完成 score-bound lyric timing，不足以证明最终声学发音时间正确；新增 G5J Acoustic Lyric Timing Closed-Loop）。** 2026-09-18 re-audit：rlv3 已把 source char onset 写入 render-only articulation boundary，`score_delta≈0` 只能证明 USTX/score construction 按证据落点生成；但 SOURCE↔rendered 的 same-aligner acoustic timing 仍普遍提前约 200–300ms，个别字最大约 480ms，不能在没有独立证据时直接解释为“aligner domain bias”。此外当前 SOURCE phrase 首字存在约 80–130ms 截头，部分 rendered char force-align confidence 低至约 0.06–0.18，且最新 `state.json` 为 `review_ready=false` / `git_evidence.complete=false`，与 plan 头部旧结论不一致。下一步必须完成：修 SOURCE clip 边界；对 rendered vocals 建立 acoustic timing closed-loop（render→re-align→按 per-char onset error 调整 render-only articulation anchor→rerender→收敛）；低置信 alignment fail-closed；`score_delta` 仅作 construction integrity check；修复 Web GET / derived `state.json` 对 Git evidence 的自污染。上述 blocker 未关闭前，禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。**
 
 ---
 
@@ -3763,6 +3763,339 @@ DO NOT freeze M2.5
 **执行序列**（严格按绑定顺序）：代码 `a42c128` → rlv3 重渲 4 项 artifacts `1161b3e` → payload `70a6f96`（绑 artifact commit，raw URL 可解析）→ QC verdict `346cc1f`（绑 `767ee841`+payload sha `f6c0b68a`+4×aph）→ `review_ready=true`。invariants `ok`，authority 无 violations。
 
 **Final acceptance 核对**：source char timing persisted ✅ / render-only articulation ✅ / written score unchanged ✅ / A/B re-rendered under new contract ✅ / same-aligner comparison generated ✅ / timing QC metrics persisted ✅ / no material systematic onset shift（系统性残差经 score-bound 分解证实为 aligner 域偏差，非渲染位移）✅ / package+pilot+hash+Git evidence PASS ✅ / new exact-pilot QC PASS ✅ / review_ready=true under rlv3 ✅。
+
+
+#### G5J Acoustic Lyric Timing Closed-Loop（当前 blocker）
+
+G5I/rlv3 解决的是：
+
+```text
+source char onset
+→ render-only articulation boundary / USTX carrier onset
+```
+
+它没有证明：
+
+```text
+最终 DiffSinger 输出里该汉字的真实声学 onset / offset
+≈
+原唱该汉字的声学 onset / offset
+```
+
+因此 G5I 不能因为 `score_delta≈0` 就关闭。`score_delta` 是 construction integrity evidence，不是 perceptual timing truth。
+
+##### Re-audit evidence — rendered acoustic timing 仍明显提前
+
+当前 4 个 rlv3 pilot 的 same-aligner timing statistics：
+
+```text
+G1: median_abs_onset_delta ≈ 210–225ms, max ≈ 470ms
+G2: median_abs_onset_delta ≈ 240ms,     max ≈ 480ms
+G3: median_abs_onset_delta ≈ 220–240ms, max ≈ 480ms
+G4: median_abs_onset_delta ≈ 210–250ms, max ≈ 330ms
+```
+
+代表例：G1 `等`：
+
+```text
+SOURCE force-align: 3.35–3.77s
+render A:           2.90–3.50s  onset -450ms
+render B:           2.88–3.50s  onset -470ms
+```
+
+这类偏差足以影响人耳对歌词、节奏和结构的判断。
+
+##### Do not assume `aligner_offset` == aligner bias
+
+rlv3 当前把：
+
+```text
+rendered force-align onset - USTX score onset
+```
+
+称为 `aligner_offset`，并把约 -210ms 的中位数解释为 synthetic-domain bias。
+
+该解释目前没有独立实验支持。另一种同样合理的来源是：
+
+```text
+DiffSinger phoneme duration / consonant anticipation / preutterance
+→ 实际声学发音早于 note position
+```
+
+而且偏差并非稳定常数，当前可见范围约 -170ms 至 -480ms。
+
+因此：
+
+```text
+score_delta≈0  != acoustic timing PASS
+aligner_offset != 已证明的 aligner-only bias
+```
+
+除非后续有独立 probe 证明固定偏置，否则不得用该解释绕过声学 timing gate。
+
+##### Blocker A — SOURCE phrase 首字被截断
+
+当前 4 组 source char table 的第一字相对 phrase start 约为：
+
+```text
+G1 -130ms
+G2  -80ms
+G3  -80ms
+G4  -90ms
+```
+
+例如 G1：
+
+```text
+SOURCE `寒` start ≈ 37.65s
+phrase clip start   ≈ 37.78s
+```
+
+即主 reference 已把首字前约 130ms 截掉。
+
+Required fix：phrase window 不能只信 LRC 边界；对 real-lyric review 至少满足：
+
+```text
+phrase_start <= first_char.start - lead_pad
+phrase_end   >= last_char.end  + tail_pad
+```
+
+lead/tail pad 应来自真实测量，第一版可保守留出 100–200ms，并保持不切 note / 不切 char。
+
+重新生成 SOURCE canonical/listen clips 后，old package hash / pilot payload / QC verdict 必须 stale。
+
+##### Blocker B — rendered ASR 低置信 timing 不得直接 PASS
+
+当前一些 rendered char force-align confidence 很低，例如：
+
+```text
+G2 OPTION_0 min probability ≈ 0.058
+G4 OPTION_1 min probability ≈ 0.107
+G1 OPTION_0 min probability ≈ 0.177
+```
+
+这类 timestamp 不能同时被用于：
+
+```text
+证明 acoustic timing 已正确
+或
+证明 200–400ms 偏差只是 aligner bias
+```
+
+Required gate：
+
+```text
+per-char timing confidence below threshold
+→ timing evidence = unavailable / low-confidence
+→ no human-review package PASS
+```
+
+阈值不得为了让当前 pilot 过关而回调；先基于真实样本统计设定。
+
+##### Required architecture — acoustic closed-loop
+
+在保持 Candidate 0 written score 不变的前提下，建立：
+
+```text
+SOURCE force-align
+→ initial render-only articulation anchors
+→ DiffSinger render
+→ force-align rendered vocal with SAME text/model/params
+→ compute per-char acoustic onset error
+→ adjust render-only articulation anchors
+→ rerender
+→ re-align
+→ iterate until convergence or fail-closed
+```
+
+定义：
+
+```text
+acoustic_error_i = rendered_start_i - source_start_i
+```
+
+下一轮 anchor 更新可采用受限 feedback：
+
+```text
+anchor_i(next) = anchor_i(current) - k * acoustic_error_i
+```
+
+`k` 必须 < 1 或带 clamp / monotonic constraints，避免震荡、crossing 和非法 segment。
+
+所有调整仅存在于：
+
+```text
+render-only lyric articulation layer
+```
+
+禁止写回：
+
+```text
+Candidate 0 written score
+machine split/merge hypothesis
+M2.5 repair authority
+```
+
+##### Closed-loop safety constraints
+
+每轮至少保证：
+
+```text
+char anchors strictly monotonic
+no anchor crosses the next char
+no zero/negative-duration render segment
+same-pitch articulation splits do not alter written-note pitch truth
+A/B outside declared target share the same source timing authority
+target structure option may change note segmentation but not lyric char identity/order
+```
+
+遇到：
+
+```text
+low-confidence alignment
+missing/reordered char
+non-convergence
+required shift beyond safe clamp
+illegal OpenUtau phoneme continuation
+```
+
+必须 fail-closed，不允许制造一个“看起来更接近”的假 timing。
+
+##### Acoustic timing acceptance
+
+最终 human-review timing gate 必须以 **SOURCE acoustic alignment vs rendered acoustic alignment** 为主判据。
+
+`score_delta` 只保留为：
+
+```text
+construction_integrity_check
+```
+
+即证明 render-only anchor 被正确写入项目；不得替代以下指标：
+
+```text
+median_abs_acoustic_onset_delta_ms
+p90_abs_acoustic_onset_delta_ms
+max_abs_acoustic_onset_delta_ms
+median_abs_acoustic_offset_delta_ms
+n_chars_over_100ms
+n_chars_over_200ms
+min_alignment_probability
+convergence_iterations
+```
+
+具体 PASS threshold 在完成真实 closed-loop pilot 后确定；不得用现有 200–480ms 偏差作为“正常基线”反推宽松阈值。
+
+##### Optional bias probe — only if claiming aligner-domain bias
+
+如果仍要主张 Whisper 对 synthetic vocal 存在固定提前偏差，必须独立验证，例如：
+
+```text
+construct synthetic probe with known acoustic syllable onset
+or compare against a second independent aligner / manual landmark subset
+```
+
+只有独立 probe 支持后，才能把稳定 bias 作为校正项；否则一律把 measured acoustic delta 当未解释误差。
+
+##### Blocker C — `state.json` / Git evidence self-pollution
+
+当前最新 committed state 显示：
+
+```text
+git_evidence.complete = false
+review_ready = false
+```
+
+但 plan 旧头部曾写 `review_ready=true`，两者不一致。
+
+当前 Web `/api/state` 会调用 `rebuild_calibration_state()`，而该函数写回 `state.json`；同时 Git evidence 又规定 tracked-but-dirty 文件不算 committed evidence。
+
+因此存在：
+
+```text
+GET /api/state
+→ rewrite derived state.json
+→ state.json becomes dirty
+→ git_evidence.complete=false
+→ review_ready=false
+```
+
+的自污染风险。
+
+Required fix 二选一：
+
+```text
+Option A:
+GET /api/state only computes state in memory
+→ no filesystem write
+
+Option B:
+volatile derived state is explicitly separated from Git authority
+→ committed acceptance snapshot uses a different immutable artifact
+```
+
+禁止为了让状态变绿而忽略 dirty evidence rule。
+
+##### Regression matrix
+
+至少新增：
+
+```text
+J1. SOURCE first char begins before LRC phrase boundary
+    → review phrase expands; first char not truncated
+
+J2. USTX score onset matches source but rendered acoustic onset is -300ms
+    → timing gate FAIL; score_delta cannot mask it
+
+J3. low-confidence rendered char alignment
+    → timing evidence unavailable; no PASS
+
+J4. closed-loop one iteration reduces acoustic error
+    → anchor moves opposite error sign
+
+J5. multi-iteration converges without changing Candidate 0 written score
+
+J6. anchor update would cross next char / create invalid segment
+    → fail-closed
+
+J7. A/B outside-target lyric anchors remain identical
+
+J8. articulation implementation / converged anchors change
+    → contract + package + verdict stale
+
+J9. GET /api/state does not dirty any Git-authoritative file
+
+J10. only acoustic timing PASS + package/QC PASS
+     → review_ready=true
+```
+
+##### Final acceptance
+
+G5J 只有全部满足才允许恢复用户试听：
+
+```text
+SOURCE phrase no longer truncates first/last lyric articulation
+source char timing persisted with provenance
+render-only articulation closed-loop implemented
+rendered vocals re-aligned after each render
+low-confidence timing fails closed
+acoustic timing errors converge to acceptable measured values
+Candidate 0 written score unchanged
+A/B outside-target lyric timing authority identical
+new contract / package / pilot payload / verdict committed
+Git evidence stable under Web/state reads
+review_ready=true under the NEW acoustic-timing-aware contract
+remote CI success
+```
+
+在此之前：
+
+```text
+DO NOT ask user to choose A/B
+DO NOT treat current rlv3 timing as perceptually validated
+DO NOT record calibration decisions
+DO NOT freeze M2.5
+```
 
 ---
 
