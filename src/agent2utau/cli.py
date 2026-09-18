@@ -270,6 +270,52 @@ def cmd_review_decide(args) -> int:
                        "decision": rev})
 
 
+def cmd_repair_plan(args) -> int:
+    """M2.4: read-only repair planning — writes repair_plan.json,
+    never touches Candidate 0 (§6.4)."""
+    from .repair import build_plan
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    if not (run_dir / "diagnostic" / "residual_triage.json").exists():
+        return fail("no_diagnostic",
+                    f"{args.run_id} has no diagnostic artifacts")
+    try:
+        plan = build_plan(run_dir)
+    except Exception as e:
+        emit(exception_payload(e))
+        return 1
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "run_id": args.run_id,
+                       "plan_hash": plan["plan_hash"],
+                       "summary": plan["summary"],
+                       "n_repairs": len(plan["repairs"])})
+
+
+def cmd_repair_apply(args) -> int:
+    """M2.4: apply a verified repair plan — copy-on-write corrected
+    score + manifest; refuses a stale plan (§6.9/§6.10)."""
+    from .repair import apply_plan
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    if not (run_dir / "repair" / "repair_plan.json").exists():
+        return fail("no_plan",
+                    "no repair_plan.json — run repair-plan first")
+    only = args.only.split(",") if args.only else None
+    excl = args.exclude.split(",") if args.exclude else None
+    try:
+        res = apply_plan(run_dir, only=only, exclude=excl)
+    except RuntimeError as e:
+        return fail("plan_stale", str(e))
+    except Exception as e:
+        emit(exception_payload(e))
+        return 1
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "run_id": args.run_id,
+                       "corrected_score_sha256":
+                       res["score"]["corrected_score_sha256"],
+                       "applied": res["manifest"]["applied_repairs"],
+                       "n_applied": len(res["manifest"]["applied_repairs"]),
+                       "integrity": res["manifest"]["integrity_checks"]})
+
+
 def _play(path: Path):
     """Play a wav through ffplay (blocking); fall back to os.startfile."""
     import shutil
@@ -512,6 +558,16 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("item_id")
     p.add_argument("choice",
                    help="OPTION_i | equivalent | none_correct")
+
+    p = sub.add_parser("repair-plan"); p.set_defaults(fn=cmd_repair_plan)
+    p.add_argument("run_id", help="diagnostic run id")
+
+    p = sub.add_parser("repair-apply"); p.set_defaults(fn=cmd_repair_apply)
+    p.add_argument("run_id", help="diagnostic run id")
+    p.add_argument("--only", default=None,
+                   help="comma list of repair_ids to apply (subset rebuild)")
+    p.add_argument("--exclude", default=None,
+                   help="comma list of repair_ids to exclude (rollback)")
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")
