@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 仍在 HUMAN-REVIEW READINESS HOLD。Blocker H/G5C 已实现并验证：`child_f0_qc` 按 declared patch boundary/child span 分段提取 source/baseline/candidate F0，含 per-child error、worst-child structure_error、candidate_improvement、unavailable/octave-ambiguous 中性态；G5D `TARGET_CORE`（region±0.15s，full render 裁剪）已加入 17 文件/item 的 Git evidence。真实 21 项重算：全部 child voiced、无 unavailable/ambiguous；ChatGPT 审过的 note_0012/0061/0123 均复现为 Source≈62→64、Baseline≈64→64、Candidate≈62→64，candidate improvement +1.53~+1.97 st，误导性 both-mismatch 标志消失。Git 证据 361/361 complete（HEAD `2056ac2`）。剩余主 blocker：ChatGPT/maintainer 基于最新 Git artifact 再审并显式 `REVIEW_READY = PASS`（`structure-calib-qc --pass --auditor <name>`）后，用户才可裁决 21 项；M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW 已可启动，但先走 5-item GPT Chat pilot。Blocker H/G5C 已实现：21/21 child-level F0 QC 均可用，candidate_structure_error 全部低于 baseline，candidate improvement 全为正（约 +1.32~+3.82 st），`note_0012/0061/0123` 永久 regression 均复现 Source≈62→64、Baseline≈64→64、Candidate≈62→64；G5D `TARGET_CORE` 已从 full render 裁出并提交 Git。ChatGPT/maintainer 对当前 batch 的 pre-human 结论为 `REVIEW_READY = PASS FOR PILOT`：先在 GPT Chat 页面展示 5 个代表组，每组按“原唱 CORE → 生成 A CORE → 生成 B CORE”排列，保持 OPTION 盲化；用户可直接在手机试听并回复 A/B/都差不多/都不对。若 5-item pilot 中任一组仍出现“无法判断/音频明显坏掉”，立即停止余下 16 项并回到 renderer/QC；若 pilot 可稳定判断，再继续完整 21 项。GPT Chat 只负责呈现 exact Git audio 与收集人类选择，最终 repair authority 仍必须通过官方 calibration decision gate 绑定 `cal_item_id / repair_id / selected OPTION / package hash`，禁止人工手改 authority。另保留两个 freeze 前 hardening：① ambiguous child 不得参与 structure_error aggregate；② rebuild/commit 最新 `state.json` 使 Git evidence 快照与 17 files/item 一致。M2.5 FREEZE 与 M2.7 仍 BLOCKED，直到 21 项裁决与最终 gate 完成。**
 
 ---
 
@@ -2405,6 +2405,127 @@ SOURCE CORE
 `TARGET_0/1` ±0.5s → full phrase 辅助，`SOURCE_CORE_{mix,vocal}.wav` 与
 `CORE_i` 均走 manifest-aware 盲映射端点。
 
+#### G5E. GPT Chat remote human-review surface ← ACTIVE
+
+人工审核不要求用户回到运行 OpenUtau 的电脑。
+
+允许由 ChatGPT 直接从 acceptance SHA 的 Git artifacts 提取并在当前聊天页面展示 exact audio。
+
+每个 review group 必须固定为：
+
+```text
+Group N — note_xxxx / cal_item_id
+
+原唱 CORE
+  SOURCE_CORE_original_mix.wav
+  （必要时可补 SOURCE_CORE_separated_vocal.wav）
+
+生成 A CORE
+  exact OPTION_A role-mapped CORE wav
+
+生成 B CORE
+  exact OPTION_B role-mapped CORE wav
+```
+
+对用户保持盲化：
+
+```text
+A / B
+``不能显示：
+
+```text
+baseline
+candidate
+split
+machine winner
+F0 preferred option
+````
+
+用户只需要回复：
+
+```text
+A
+B
+都差不多
+都不对
+```
+
+### GPT Chat artifact binding
+
+Chat 页面上的每个可播放文件必须可追溯到：
+
+```text
+acceptance Git SHA
+cal_item_id
+repair_id
+source/OPTION role
+source file path
+source file sha256
+chat-delivered file sha256
+```
+
+若为了手机兼容从 WAV 转码为 MP3/M4A：
+
+```text
+原始 Git WAV hash 必须保留
+transcode hash 必须另记
+转码只用于 listening transport
+不得改变 decision 所绑定的 canonical package identity
+```
+
+### Pilot-first rule
+
+当前先审核 5 个代表项：
+
+```text
+note_0012
+note_0061
+note_0123
+note_0391
+note_0404
+```
+
+如果用户对任一项反馈：
+
+```text
+听不懂在比较什么
+两条都明显坏掉
+与原唱完全不在同一旋律语义上
+``则：
+
+```text
+STOP 21-item review
+→ do not force a choice
+→ return to review-render/QC investigation
+```
+
+只有 pilot 可稳定判断，才继续其余 16 项。
+
+### Decision persistence
+
+聊天回复本身不是 repair authority。
+
+ChatGPT 收集选择后必须通过官方 calibration decision path 写回：
+
+```text
+user choice A/B/equivalent/none_correct
+→ resolve blinded OPTION_i from exact manifest
+→ validate current package/hash/schema
+→ append official decision revision
+→ rebuild calibration state
+```
+
+禁止：
+
+```text
+直接编辑 trusted corrected score
+直接手改 repair manifest
+根据 F0 自动替用户选 A/B
+根据聊天标签猜 baseline/candidate
+```
+
+---
+
 #### G6. Human-review readiness regressions
 
 至少新增：
@@ -2841,4 +2962,6 @@ rollback coverage
 66. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
 67. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
 68. 先把 written score 唱对，再生成 PITD。
-69. 先“唱对”，再做泠鸢风格。
+69. GPT Chat 可以作为远程人工审核 surface，但只允许展示 acceptance Git SHA 上 exact audio 的盲化 A/B；聊天选择必须经官方 decision gate 重新绑定 package/hash 后才能成为 repair authority。
+70. 远程审核采用 pilot-first：先 5 个代表项；任一项仍不可判断则停止全量审核，不得强迫用户完成 21 项。
+71. 先“唱对”，再做泠鸢风格。
