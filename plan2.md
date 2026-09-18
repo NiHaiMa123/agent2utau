@@ -2130,7 +2130,7 @@ G9. review-ready flag defaults false and cannot be set by render success alone
 G10. full 21-item generation is blocked until pre-human QC PASS
 ```
 
-#### G 实现记录（待 final SHA + CI）
+#### G 实现记录（`1ac4133`，remote CI `35310205157`，289 passed / 0 failed）
 
 - **G1 m25-cal-1 作废**：`CALIB_SCHEMA="m25-cal-2"`；`ensure_calib_authority()` 在任何入口先把非 m25-cal-2 的 `structure_calibration/` 整体改名 → `structure_calibration_m25cal1_audit[_ts]/`（idempotent，不覆盖）；`decide()`/`calibration_authorized()` 对旧 schema manifest fail-closed。真实 run 已 `git mv` 归档，Git 中保留 audit。
 - **G2 neutral-vowel contract**：item `lyric_contract="neutral_vowel"` → `option_notes` 走 `neutral_vowels()`（touch→`+` / gap|first→`a`），完全不读 char 表——lyric guessing 整类消除。
@@ -2270,11 +2270,12 @@ F. Permanent safety
    [✓] Candidate 0 file hash unchanged
 
 G. Final remote gate
-   [ ] new FINAL implementation SHA after Review Readiness fixes
-   [ ] GitHub Actions checkout == FINAL SHA
-   [ ] pytest success
-   [ ] review-readiness regressions included
-   [ ] no skipped/disabled core regression
+   [✓] new FINAL implementation SHA after Review Readiness fixes
+       （`1ac4133`）
+   [✓] GitHub Actions checkout == FINAL SHA（run 35310205157）
+   [✓] pytest success（289 passed）
+   [✓] review-readiness regressions included（G1–G10 八项）
+   [✓] no skipped/disabled core regression
 ```
 
 完成后才允许：
