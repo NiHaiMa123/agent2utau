@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 仍在 HUMAN-REVIEW READINESS HOLD，但 Git 证据缺口已补齐、等 maintainer PASS。G5A/G5B + Git-evidence 硬规则已实现（code `e020cf9`+`4de7e88`，CI `35312608174` = 295 passed）：① 完整 m25-cal-2 store 已提交 Git（`eafc3b3`）——21 项每项含 manifest + OPTION_0/1 wav+ustx + BASELINE/CANDIDATE.ustx + SOURCE_FOCUS×2 + semantic_diff.json + `BASELINE_TARGET.wav`/`CANDIDATE_TARGET.wav`（从真实整段渲染裁剪 ±0.5s，非重渲）+ `signal_qc.json`；phrases/qc/plan/state 全部在 Git，`git_evidence` 机检 277/277 = complete。② `write_verdict(PASS)` 在被审样本未提交 Git 时拒绝记录；`review_ready` 还要求 qc 文件本身已提交 + verdict 须带 `git_evidence_at_record`（旧 devin PASS 自动失效）。③ 诚实审计结论：21/21 项 `signal_qc` 均 flag 目标外 A/B 声学漂移（DiffSinger context bleed，pre 0.53–1.07 / post 0.53–2.11×baseline-RMS；与 maintainer 审计的 ~0.68 吻合），4 项 loudness drift，5 项 both-options target-F0 mismatch → `auto_review_ready=false` store-wide，**target-focus 裁剪是主要人工比较面，full-phrase A/B 仅辅助**。Web UI 已按 ①原曲聚焦→②人声聚焦→③盲选 target-focus→④整段辅助 排序。剩余唯一阻塞：ChatGPT/maintainer 基于 Git artifact 给出 `REVIEW_READY = PASS`（`structure-calib-qc --pass --auditor <name>`），之后用户裁决 21 项。M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
+> 当前阶段：**M2.5 仍在 HUMAN-REVIEW READINESS HOLD。Git 证据链已补齐：完整 21 项 m25-cal-2 store、target-focus、signal_qc、plan/state/qc 均已提交，`git_evidence=277/277`；HEAD `044f54d7` 还修复了 Web `TARGET_i` 盲映射解析 bug。ChatGPT/maintainer 已独立复核 5 个代表项，确认新的 target-focus 已具备真实结构判别价值：`note_0012`、`note_0061`、`note_0123` 严格按 declared split child 区间复算后均呈现 Source≈62→64、Baseline≈64→64、Candidate≈62→64。但当前 `signal_qc.json` 的 F0 定义仍错误地对 `declared target ±0.5s` 整个 focus window 做 summary，并把 voiced frames 机械分成 first/second half，而不是按真实 split boundary/child span 计算；因此它会把上下文混入 target F0，并已在 `note_0012` 等样本产生误导性 `both_options_target_f0_mismatch`。21/21 项当前 `auto_review_ready=false` 也不能被执行 Agent 用“DiffSinger context bleed 可接受”自行豁免。剩余主 blocker：实现 operation-aware child-level F0 QC + source-error/improvement 指标，重新生成并提交全部 signal_qc；可选但推荐增加从 full render 裁出的更窄 `TARGET_CORE`（target ±0.1–0.2s）作为主要盲听面，现有 ±0.5s target-focus 为次级、full phrase 仅辅助。只有新 Git artifact 经 ChatGPT/maintainer 再审并明确 `REVIEW_READY = PASS` 后，才允许用户裁决 21 项。M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
 
 ---
 
@@ -2214,6 +2214,165 @@ REVIEW_READY = false
 
 必须先定位 renderer/context 问题，不得直接让用户裁决。
 
+#### G5C. Blocker H — operation-aware child F0 QC ← CURRENT
+
+当前 `signal_qc()` 的 F0 summary 语义不满足 structure calibration。
+
+现实现：
+
+```text
+declared target region ± 0.5s
+→ crop target-focus
+→ 对整个 focus clip 做 F0 summary
+→ voiced frames 机械切成 first_half / second_half
+```
+
+这不是 split operation 的真实 child identity。
+
+风险：
+
+```text
+target 前后上下文会进入 median
+voiced-frame midpoint != split boundary
+child duration 不对称时 first/second half 更不代表 child0/child1
+→ 可能把真正 62→64 的 split 证据抹平成两个 option 都 mismatch
+```
+
+### Required operation-aware fields
+
+对 split candidate，必须严格使用 patch 中：
+
+```text
+parent.start
+boundary
+parent.end
+```
+
+分别计算：
+
+```text
+source_child_0_f0
+source_child_1_f0
+baseline_child_0_f0
+baseline_child_1_f0
+candidate_child_0_f0
+candidate_child_1_f0
+```
+
+每个 child summary 至少记录：
+
+```text
+span_abs
+duration
+voiced_frames / voiced_fraction
+midi_median
+robust spread / confidence
+extractor provenance
+```
+
+不得用 target-focus 的 first/second-half 代替真实 child span。
+
+### Source-distance metrics
+
+必须进一步计算：
+
+```text
+baseline_child_error_semitones
+candidate_child_error_semitones
+
+baseline_structure_error
+candidate_structure_error
+
+candidate_improvement_vs_baseline
+```
+
+推荐 structure error 为两个 child 对 source child median 的 robust aggregate；
+若 source/option 某 child evidence 不足，则该 child = unavailable/neutral，
+不得用 0 或默认 MIDI 替代。
+
+这些指标是 **review-readiness evidence**，不是自动决定最终 written score 的 truth。
+
+### Permanent Git-audit regressions
+
+ChatGPT/maintainer 已从 Git WAV 独立按真实 child span复算：
+
+```text
+note_0012:
+  Source     ≈ 62.02 → 64.10
+  Baseline   ≈ 63.97 → 63.97
+  Candidate  ≈ 62.02 → 63.97
+
+note_0061:
+  Source     ≈ 61.90 → 63.97
+  Baseline   ≈ 63.97 → 63.97
+  Candidate  ≈ 62.02 → 63.97
+
+note_0123:
+  Source     ≈ 62.14 → 64.10
+  Baseline   ≈ 63.97 → 63.97
+  Candidate  ≈ 62.02 → 63.97
+```
+
+新 `signal_qc` 必须能够表达上述方向；若重新生成后仍把这些样本标成
+`both_options_target_f0_mismatch`，则 QC 定义仍有 bug。
+
+`note_0391` / `note_0404` 等高音/极短 child 可出现 octave-folding / extractor
+不稳定，因此不能要求所有 sample 都由单一 F0 extractor 自动判优；
+此时必须保留 unavailable/ambiguous 并交人工，不得强行归一。
+
+### Required regressions
+
+```text
+H1. asymmetric child durations → child windows follow patch boundary, not 50/50
+H2. context ±0.5s pitch changes → cannot contaminate child medians
+H3. note_0012 fixture → Candidate child structure closer to source than Baseline
+H4. note_0061 fixture → same direction
+H5. note_0123 fixture → same direction
+H6. insufficient voiced frames in one child → unavailable/neutral, no fake mismatch
+H7. octave-ambiguous child → flag ambiguous, no forced candidate/baseline winner
+H8. regenerated signal_qc hashes committed to Git before maintainer review
+```
+
+---
+
+#### G5D. Optional TARGET_CORE listening surface
+
+现有 `BASELINE_TARGET.wav / CANDIDATE_TARGET.wav`（target ±0.5s）继续保留。
+
+推荐额外从同一 full-phrase render 裁：
+
+```text
+BASELINE_CORE.wav
+CANDIDATE_CORE.wav
+SOURCE_CORE_original_mix.wav
+SOURCE_CORE_separated_vocal.wav
+```
+
+窗口建议：
+
+```text
+declared target ± 0.1–0.2s
+```
+
+目的：让 100–300ms 的 child transition 不被 1–3s neutral-vowel context 淹没。
+
+仍然必须：
+
+```text
+full phrase render → crop
+```
+
+禁止 short-window re-render。
+
+建议 UI 优先级：
+
+```text
+SOURCE CORE
+→ blind A/B CORE
+→ ±0.5s target-focus
+→ full phrase secondary aid
+```
+
 #### G6. Human-review readiness regressions
 
 至少新增：
@@ -2361,7 +2520,14 @@ C. Human-review readiness
    [✓] qc/verdict.json committed to Git（eafc3b3）
    [✓] qc/audit.jsonl committed to Git（eafc3b3）
    [✓] current m25-cal-2 plan.json + state.json committed to Git
-   [ ] ChatGPT/maintainer independently reviews Git artifacts
+   [✓] ChatGPT/maintainer independently reviewed current Git artifacts
+       （5 representative items；target-focus has real diagnostic value）
+   [ ] operation-aware child-level F0 QC implemented
+   [ ] regenerated signal_qc.json committed for all 21 items
+   [ ] note_0012 / 0061 / 0123 child-level regression direction matches
+       Source 62→64 / Baseline 64→64 / Candidate 62→64
+   [ ] ambiguous/high-octave child evidence can remain neutral
+   [ ] ChatGPT/maintainer re-reviews regenerated Git artifacts
    [ ] ChatGPT/maintainer explicit REVIEW_READY = PASS
        （note: signal_qc auto_review_ready=false store-wide —
        目标外 A/B 漂移全量存在；target-focus 是主比较面；
@@ -2385,16 +2551,14 @@ F. Permanent safety
    [✓] Candidate 0 file hash unchanged
 
 G. Final remote gate
-   [✓] new FINAL implementation SHA after target-focus/signal-QC/
-       Git-evidence fixes（`e020cf9`+`4de7e88`）
-   [✓] GitHub Actions checkout == FINAL SHA（run 35312608174）
-   [✓] pytest success（295 passed）
-   [✓] Git evidence completeness regressions included（PASS 拒绝/
-       qc 未提交不 ready/legacy verdict 失效/missing 清单）
-   [✓] target-focus/signal-QC regressions included（crop 尺寸+字段/
-       漂移 flag/loudness flag）
-   [✓] no skipped/disabled core regression
-   [ ] maintainer PASS 后的最终 verify（待 21 项裁决完成）
+   [ ] new FINAL implementation SHA after child-level F0 QC
+   [ ] GitHub Actions checkout == FINAL SHA
+   [ ] pytest success
+   [ ] H1–H8 regressions included
+   [ ] Git evidence completeness remains green
+   [ ] web target blind mapping regression remains green
+   [ ] no skipped/disabled core regression
+   [ ] maintainer REVIEW_READY PASS after regenerated artifacts
 ```
 
 完成后才允许：
@@ -2552,7 +2716,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← HUMAN-REVIEW READINESS HOLD（m25-cal-2 core infra exists；Git evidence incomplete：1/5 samples，QC/plan/state missing；target-focus + signal-QC required before user review）
+### M2.5 — PROBABLE structure repair — ← HUMAN-REVIEW READINESS HOLD（Git evidence COMPLETE；5-sample maintainer audit confirms target-focus value；current blocker = operation-aware child F0 QC + regenerated Git artifacts；user review NOT YET authorized）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -2624,9 +2788,11 @@ rollback coverage
 59. Review Readiness 的唯一可验收证据来源是 acceptance SHA 上可直接读取的 Git artifact；缺任一 required sample/QC/plan/state 文件，对应 gate 必须视为未完成。
 60. ChatGPT/maintainer pre-human QC 不能由执行 Agent 自己代签；auditor=Devin/SWE2 不等于 ChatGPT/maintainer PASS。
 61. 人工 A/B 的主要试听对象必须是完整 phrase render 后裁出的 rendered target-focus；full phrase 仅作上下文辅助。每项必须提交 signal_qc.json。
-62. `m25-cal-1` 现有 21 包与 decision 仅保留 audit/regression，用于 repair authority 时必须 fail-closed；不得 silent migration。
-63. 当前《年轮》的 machine split 最终仍必须通过 phrase-level Baseline vs Split calibration；只有 human-confirmed split 才能进入 trusted corrected score。
-64. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
-65. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
-66. 先把 written score 唱对，再生成 PITD。
-67. 先“唱对”，再做泠鸢风格。
+62. split calibration 的 F0 QC 必须严格按 parent.start / split boundary / parent.end 计算 child-level evidence；禁止用 target±0.5s 总窗口的 first/second-half 冒充 child identity。
+63. child-level source/baseline/candidate F0 只能作为 review-readiness/diagnostic evidence；extractor unavailable 或 octave-ambiguous 必须 neutral，不得强制机器判 winner。
+64. `m25-cal-1` 现有 21 包与 decision 仅保留 audit/regression，用于 repair authority 时必须 fail-closed；不得 silent migration。
+65. 当前《年轮》的 machine split 最终仍必须通过 phrase-level Baseline vs Split calibration；只有 human-confirmed split 才能进入 trusted corrected score。
+66. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
+67. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
+68. 先把 written score 唱对，再生成 PITD。
+69. 先“唱对”，再做泠鸢风格。
