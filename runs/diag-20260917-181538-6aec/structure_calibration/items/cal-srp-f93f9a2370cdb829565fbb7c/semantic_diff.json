@@ -1,0 +1,54 @@
+{
+  "schema": "m25-cal-2",
+  "cal_item_id": "cal-srp-f93f9a2370cdb829565fbb7c",
+  "repair_id": "srp-f93f9a2370cdb829565fbb7c",
+  "lyric_contract": "neutral_vowel",
+  "target": {
+    "note_ids": [
+      "note_0192"
+    ],
+    "operation": "split",
+    "patch_sha256": "24229546444b0903485dd5d3c7a06315d35f4e203b52f8c9e9896f892272b994"
+  },
+  "outside_target": {
+    "score_diff": [],
+    "lyric_diff": [],
+    "pitch_semantics": "uniform: integer tone, no PITD (diagnostic contract, identical across options)"
+  },
+  "within_target": {
+    "before": [
+      {
+        "id": "note_0192",
+        "start": 94.789999,
+        "end": 95.279999,
+        "dur": 0.49,
+        "tone": 63.981178,
+        "voiced": true
+      }
+    ],
+    "after": [
+      {
+        "id": "note_0192__v0",
+        "start": 94.79,
+        "end": 95.06,
+        "dur": 0.27,
+        "tone": 62.35,
+        "voiced": true
+      },
+      {
+        "id": "note_0192__v1",
+        "start": 95.06,
+        "end": 95.28,
+        "dur": 0.22,
+        "tone": 64.1,
+        "voiced": true
+      }
+    ]
+  },
+  "baseline_vs_c0": "context slice identical",
+  "tone_integerization": {
+    "max_deviation_cents": 39.877,
+    "note": "uniform across options; canonical GAME ustx also stores integer tones"
+  },
+  "canonical_audio_reference": null
+}

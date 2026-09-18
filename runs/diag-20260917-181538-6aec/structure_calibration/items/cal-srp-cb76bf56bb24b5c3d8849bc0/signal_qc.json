@@ -1,0 +1,70 @@
+{
+  "schema": "m25-cal-2",
+  "cal_item_id": "cal-srp-cb76bf56bb24b5c3d8849bc0",
+  "repair_id": "srp-cb76bf56bb24b5c3d8849bc0",
+  "sample_rate": 44100,
+  "duration": 6.3,
+  "baseline_rms": 0.024826,
+  "candidate_rms": 0.02746,
+  "baseline_peak": 0.102112,
+  "candidate_peak": 0.091125,
+  "silence_fraction": {
+    "baseline": 0.1159,
+    "candidate": 0.1179
+  },
+  "declared_region": [
+    39.4,
+    39.79
+  ],
+  "target_window": {
+    "absolute": [
+      38.9,
+      40.29
+    ],
+    "phrase_relative": [
+      1.12,
+      2.51
+    ],
+    "pad_s": 0.5
+  },
+  "pre_target_ab_diff_rms_ratio": 0.3936,
+  "target_ab_diff_rms_ratio": 1.538,
+  "post_target_ab_diff_rms_ratio": 1.8115,
+  "option_loudness_ratio": 1.1061,
+  "source_target_f0_summary": {
+    "voiced_frames": 120,
+    "n_frames": 139,
+    "voiced_fraction": 0.8633,
+    "midi_median": 63.705,
+    "midi_min": 58.791,
+    "midi_max": 66.458,
+    "first_half_midi_median": 62.031,
+    "second_half_midi_median": 64.163
+  },
+  "baseline_target_f0_summary": {
+    "voiced_frames": 138,
+    "n_frames": 139,
+    "voiced_fraction": 0.9928,
+    "midi_median": 64.003,
+    "midi_min": 58.849,
+    "midi_max": 66.035,
+    "first_half_midi_median": 62.01,
+    "second_half_midi_median": 65.984
+  },
+  "candidate_target_f0_summary": {
+    "voiced_frames": 139,
+    "n_frames": 139,
+    "voiced_fraction": 1.0,
+    "midi_median": 63.773,
+    "midi_min": 58.807,
+    "midi_max": 66.03,
+    "first_half_midi_median": 62.009,
+    "second_half_midi_median": 65.983
+  },
+  "target_focus_sha256": "3188413a372df895102276a4b17d95bcafc8479c3126f276b45dc3e4773aa311",
+  "target_focus_is_primary": true,
+  "auto_flags": [
+    "post_target_ab_drift:1.8115"
+  ],
+  "auto_review_ready": false
+}
