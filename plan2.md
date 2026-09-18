@@ -2739,6 +2739,40 @@ user choice
 - **回归 +3**：payload 盲化与绑定字段、缺失 note 显式报错、phrase
   文件纳入 git_evidence 去重。
 
+#### G5E 质量暂停实现记录（`2371a03` + `21dcdf8`，309 passed）
+
+用户实际试听 Group 1/2 后报告"歌词仍是 a/+ 中性元音、响度有问题"
+→ 按 pilot-first fail-stop 修复 review audio 本身：
+
+- **`review_lyrics()`（review-only overlay）**：force_align 字符
+  （`nianlun_studio.lrc` ↔ source 绑定）逐字只落在其音节的首个
+  note 上——carrier=首个未消费且 span 覆盖 char.start 的 note；
+  相接延音 `+`、真实间隙后 `a`；绝不 midpoint-nearest、绝不回退
+  猜测；字符证据超出 note 列表 → `None` → 调用方 fail-closed。
+- **per-ITEM `real_lyric_review` 合同**：split 父 note 的字落在
+  child[0]、其余 child 自动 `+`——A/B 目标外歌词序列逐位一致；
+  `review_phrase_chars()` 证据门（无字符/任一 char 低于
+  `MIN_REVIEW_CHAR_PROB` → fail-closed，不出包）。
+- **共享响度 `_listen_copies()`**：A/B 同一 pair-shared gain
+  （禁止独立归一化），canonical OPTION wav 字节不动；
+  `OPTION_*_LISTEN.wav` + `SOURCE_PHRASE_*_LISTEN.wav` 为主试听面，
+  canonical 文件保持 hash-bound 权威；`signal_qc` 记录
+  `shared_gain_db`/`ab_loudness_delta_db`/`clipped`。
+- **partial rebuild merge**：`build_calibration(only=…)` 合并进既有
+  plan.json（不再丢其余 19 项）；每项记录实际 `lyric_contract` +
+  `contract_sha256`；`semantic_diff` 报告 item 真实合同。
+- **真实 run**：note_0012（`圆圈勾勒成指纹+印在我的+a嘴唇`）与
+  note_0061（`寒夜剩我一个人++等清+晨++`）按 real_lyric_review
+  重渲并 verify_package 通过；全 21 项 OPTION LISTEN + 全 16 phrase
+  SOURCE LISTEN 生成入库；pilot payload 5 组全部解析到已提交
+  LISTEN + canonical sha256。其余 3–5 组因 char 证据不足
+  （no_chars/low_confidence）正确保持中性元音——不伪造歌词。
+- **git_evidence 468/468 complete**；`review_ready` 仍为 False
+  （无当前合同 QC verdict + 质量暂停未解除）；Group 1/2 的
+  "B 更接近"仅作 diagnostic，未写入 decision authority。
+- **回归 +8**：review_lyrics carrier/melisma/gap/fail-closed、
+  A/B 目标外歌词一致性、证据门、pair-shared gain 不变量。
+
 ---
 
 #### G6. Human-review readiness regressions

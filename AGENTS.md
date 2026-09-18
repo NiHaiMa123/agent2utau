@@ -819,6 +819,37 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   (sounds broken / lyric-rhythm-melody off) STOP, back to renderer/QC;
   else continue the remaining 16.
 
+### §10.1.5A G5E quality hold — real lyrics + shared loudness
+###  (code 2371a03, artifacts 21dcdf8, 309 passed) — re-review pending
+
+- User listened to pilot groups 1/2: B preferred but still a/+ vowels
+  and uneven loudness -> fail-stop, review audio itself was repaired.
+- `real_lyric_review` per-ITEM contract: `review_lyrics()` maps
+  force_align chars (nianlun_studio.lrc bound to source) — each hanzi
+  only on its syllable's first note (carrier = first unconsumed note
+  whose span reaches char.start; gap-start char binds the FOLLOWING
+  note; never midpoint-nearest, never backwards). Touching notes get
+  '+', post-gap notes 'a'; evidence outliving the notes -> None ->
+  fail-closed. Split parent's char lands on child[0], later children
+  '+' -> A/B context lyrics stay identical outside the target.
+- `review_phrase_chars()` evidence gate: no chars / any char below
+  MIN_REVIEW_CHAR_PROB -> fail-closed, no package (groups 3-5 have
+  no_chars/low_confidence -> correctly stay on neutral vowels).
+- `_listen_copies()`: ONE pair-shared gain for A/B (never independent
+  normalization; canonical OPTION wavs byte-identical). OPTION_*_
+  LISTEN.wav + SOURCE_PHRASE_*_LISTEN.wav are the primary listening
+  surface; canonical files stay the hash-bound authority. signal_qc
+  records shared_gain_db / ab_loudness_delta_db / clipped.
+- `build_calibration(only=…)` merges into existing plan.json instead
+  of dropping other items; per-item lyric_contract + contract_sha256;
+  semantic_diff reports the item's actual contract.
+- Real run: note_0012 (圆圈勾勒成指纹+印在我的+a嘴唇) + note_0061
+  (寒夜剩我一个人++等清+晨++) re-rendered and verify_package pass;
+  all 21 OPTION LISTEN + all 16 phrase SOURCE LISTEN committed;
+  git_evidence 468/468; review_ready=false (quality hold + no
+  current-contract QC verdict); informal group 1/2 preference kept
+  as diagnostic only — decisions only via structure-calib-decide.
+
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
   `apply_structure_plan` / `validate_structure_patch` /
