@@ -28,6 +28,11 @@ CALIB_SCHEMA = "m25-cal-2"
 CALIB_DIRNAME = "structure_calibration"
 LEGACY_DIRNAMES = ("structure_calibration_m25cal1_audit",)
 LYRIC_CONTRACT = "neutral_vowel"
+# §10.1.5A-G5E quality hold: full-phrase human review needs REAL lyric
+# semantics — a review-only overlay from source-bound force_align
+# chars; still not the M2.7 trusted lyric mapping.
+LYRIC_CONTRACT_REVIEW = "real_lyric_review"
+MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 CHOICES = ("split", "baseline", "equivalent", "none_correct")
 OUTCOME = {"split": "human_confirmed_machine_split",
            "baseline": "machine_structure_false_positive",
@@ -103,7 +108,8 @@ def cal_item_id(repair_id: str) -> str:
 
 # ------------------------------------------------------------ plan (pure)
 
-def plan_calibration(run, packets=None, notes=None, rph=None):
+def plan_calibration(run, packets=None, notes=None, rph=None,
+                     lyric_contract=None):
     """Pure: machine structure candidates → review-shaped cal items.
 
     Each item carries the exact patch the repair engine would apply,
@@ -146,10 +152,10 @@ def plan_calibration(run, packets=None, notes=None, rph=None):
             "reason": f"machine_{typ}_calibration",
             "repair_id": rid, "patch": patch,
             "authority": c["authority"],
-            # m25-cal-2 (§10.1.5A-G2): no lyric guessing — the render
-            # uses deterministic a/+ vowels; the source focus clip is
-            # the real-melody reference.
-            "lyric_contract": LYRIC_CONTRACT,
+            # m25-cal-2 (§10.1.5A-G2): default is no lyric guessing —
+            # deterministic a/+ vowels; the G5E review overlay uses
+            # real_lyric_review with source-bound force_align chars.
+            "lyric_contract": lyric_contract or LYRIC_CONTRACT,
         }
         assign_identity(item)                 # target_key + item_id
         item["item_id"] = iid                 # cal-namespaced stable id
@@ -197,12 +203,34 @@ def plan_calibration(run, packets=None, notes=None, rph=None):
 
 # ------------------------------------------------------------- render IO
 
-def render_contract_sha(run, rph_hash: str) -> str:
+def render_contract_sha(run, rph_hash: str,
+                        lyric_contract: str = None) -> str:
     """Identity of the review-render contract (§10.1.5A-G2): schema +
     lyric contract + render profile. A material renderer change → a
     different contract → previous QC verdict no longer applies."""
-    return _sha({"schema": CALIB_SCHEMA, "lyric_contract": LYRIC_CONTRACT,
+    return _sha({"schema": CALIB_SCHEMA,
+                 "lyric_contract": lyric_contract or LYRIC_CONTRACT,
                  "render_profile_hash": rph_hash})
+
+
+def review_phrase_chars(run, win):
+    """§10.1.5A-G5E evidence gate for the real-lyric review overlay:
+    force_align chars bound to the source recording inside the phrase
+    window. Returns {ok, chars, reason, min_probability, n_chars} —
+    callers must fail-closed on ok=False (no guessing, no package)."""
+    chars = [c for c in (run.get("chars") or [])
+             if c["start"] < win["end"] and c["end"] > win["start"]]
+    probs = [float(c.get("probability") or 0.0) for c in chars]
+    if not chars:
+        return {"ok": False, "chars": None, "reason": "no_chars",
+                "min_probability": None, "n_chars": 0}
+    mp = min(probs)
+    if mp < MIN_REVIEW_CHAR_PROB:
+        return {"ok": False, "chars": None,
+                "reason": "low_confidence",
+                "min_probability": round(mp, 3), "n_chars": len(chars)}
+    return {"ok": True, "chars": chars, "reason": None,
+            "min_probability": round(mp, 3), "n_chars": len(chars)}
 
 
 # ------------------------------------------------------------- QC verdict
@@ -330,7 +358,7 @@ def semantic_diff(item, c0_notes_by_id=None) -> dict:
     return {
         "schema": CALIB_SCHEMA, "cal_item_id": item["item_id"],
         "repair_id": item["repair_id"],
-        "lyric_contract": LYRIC_CONTRACT,
+        "lyric_contract": item.get("lyric_contract") or LYRIC_CONTRACT,
         "target": {"note_ids": sorted(target_ids),
                    "operation": patch["type"],
                    "patch_sha256": _sha(patch)},
@@ -363,6 +391,7 @@ QC_DRIFT_RATIO_FLAG = 0.5        # out-of-target A/B diff rms / baseline rms
 QC_LOUDNESS_RANGE = (0.7, 1.4)   # candidate/baseline full-phrase rms
 GIT_REQUIRED_ITEM_FILES = (
     "manifest.json", "OPTION_0.wav", "OPTION_1.wav",
+    "OPTION_0_LISTEN.wav", "OPTION_1_LISTEN.wav",
     "OPTION_0.ustx", "OPTION_1.ustx",
     "BASELINE.ustx", "CANDIDATE.ustx",
     "SOURCE_FOCUS_original_mix.wav", "SOURCE_FOCUS_separated_vocal.wav",
@@ -553,6 +582,80 @@ def _segment_ab_ratio(b, c, i0: int, i1: int):
     return round(float(np.sqrt(np.mean((sb - sc) ** 2))) / rb, 4)
 
 
+LISTEN_TARGET_DBFS = -16.0   # phone-friendly review level (rms)
+
+
+def _listen_copies(idir: Path, owav: dict) -> dict:
+    """§10.1.5A-G5E: ONE pair-shared listening gain for A/B — measure
+    both option wavs, derive a single gain to the target level, apply
+    the SAME gain to both. No independent normalization that could
+    flatter one option; canonical OPTION wavs are never modified."""
+    import math
+    import numpy as np
+    import soundfile as sf
+    ids = sorted(owav)
+    data = {o: sf.read(str(idir / owav[o]), dtype="float32",
+                     always_2d=True) for o in ids}
+    rms = {o: float(np.sqrt((d[0] ** 2).mean())) or 1e-9
+           for o, d in data.items()}
+    pk = {o: float(np.abs(d[0]).max()) or 1e-9 for o, d in data.items()}
+    pair_rms = math.sqrt(sum(v * v for v in rms.values())
+                         / len(rms)) or 1e-9
+    want = 10 ** (LISTEN_TARGET_DBFS / 20.0) / pair_rms
+    gain = min(want, *(0.98 / pk[o] for o in ids))
+    gdb = round(20 * math.log10(max(gain, 1e-9)), 2)
+    peaks, files = {}, []
+    for o in ids:
+        d, sr = data[o]
+        dst = idir / f"{o}_LISTEN.wav"
+        sf.write(str(dst), d * gain, sr, subtype="PCM_16")
+        peaks[o] = round(pk[o] * gain, 4)
+        files.append(dst.name)
+    rdb = {o: round(20 * math.log10(rms[o]), 2) for o in ids}
+    return {"target_dbfs": LISTEN_TARGET_DBFS,
+            "pair_rms_db": round(20 * math.log10(pair_rms), 2),
+            "shared_gain_db": gdb,
+            "clipped": gain < want - 1e-9,
+            "option_rms_db": rdb,
+            "ab_loudness_delta_db":
+                round(abs(rdb[ids[0]] - rdb[ids[1]]), 2)
+                if len(ids) == 2 else None,
+            "listen_peak": peaks, "files": files}
+
+
+def _phrase_listen_copies(cdir: Path) -> dict:
+    """Gain-match SOURCE_PHRASE_* clips to the same listening target —
+    presentation copies only; canonical phrase bytes stay bound.
+    Idempotent: existing copies are skipped (source bytes unchanged)."""
+    import math
+    import numpy as np
+    import soundfile as sf
+    res = {}
+    pdir = Path(cdir) / "phrases"
+    if not pdir.exists():
+        return res
+    for ph in sorted(pdir.iterdir()):
+        if not ph.is_dir():
+            continue
+        for src in sorted(ph.glob("SOURCE_PHRASE_*.wav")):
+            if src.name.endswith("_LISTEN.wav"):
+                continue
+            dst = src.with_name(src.stem + "_LISTEN.wav")
+            if dst.exists():
+                continue
+            d, sr = sf.read(str(src), dtype="float32", always_2d=True)
+            rms = float(np.sqrt((d ** 2).mean())) or 1e-9
+            pk = float(np.abs(d).max()) or 1e-9
+            want = 10 ** (LISTEN_TARGET_DBFS / 20.0) / rms
+            gain = min(want, 0.98 / pk)
+            sf.write(str(dst), d * gain, sr, subtype="PCM_16")
+            res[f"{ph.name}/{dst.name}"] = {
+                "source_listening_gain_db":
+                    round(20 * math.log10(max(gain, 1e-9)), 2),
+                "clipped": gain < want - 1e-9}
+    return res
+
+
 def signal_qc(man: dict, idir: Path) -> dict:
     """§10.1.5A-G5B: machine-readable signal audit of one rendered item.
 
@@ -625,6 +728,10 @@ def signal_qc(man: dict, idir: Path) -> dict:
     if foc_m.exists():
         _crop_rendered(foc_m, idir / "SOURCE_CORE_original_mix.wav",
                        core_t0 - fs0, core_t1 - fs0)
+    # §10.1.5A-G5E loudness contract: ONE pair-shared gain for the A/B
+    # listening copies — never independent per-option normalization;
+    # canonical OPTION wavs stay byte-identical (decision authority).
+    listen = _listen_copies(idir, owav)
     # §10.1.5A-G5C: operation-aware per-child F0 + source-distance
     f0_qc = child_f0_qc(man, idir)
     if f0_qc["unavailable_child_slots"]:
@@ -656,6 +763,7 @@ def signal_qc(man: dict, idir: Path) -> dict:
         "option_loudness_ratio": round(loud, 4) if loud else None,
         "core_window": {"absolute": [round(core_t0, 4), round(core_t1, 4)],
                         "pad_s": TARGET_CORE_PAD_S},
+        "listen": listen,
         "f0_qc": f0_qc,
         "target_focus_sha256": _sha({
             "baseline": _file_sha(idir / "BASELINE_TARGET.wav"),
@@ -702,7 +810,12 @@ def augment_calibration(run_dir: Path, only=None, progress=print) -> dict:
         qc = augment_item(idir)
         out[iid] = qc["auto_flags"]
         progress(f"  {iid}: auto_flags={qc['auto_flags'] or 'none'}")
-    return {"augmented": sorted(out), "flags": out}
+    # §10.1.5A-G5E: phrase-source listening copies at the same target
+    # level — generated for every declared phrase, not just augmented
+    # items, so git_evidence covers the whole review surface.
+    listen = _phrase_listen_copies(calib_dir(run_dir))
+    return {"augmented": sorted(out), "flags": out,
+            "phrase_listen": listen}
 
 
 # --------------------------------------------- Git evidence rule (§10.1.5A)
@@ -755,7 +868,10 @@ def git_evidence(run_dir: Path, item_ids=None,
                        if it.get("phrase_key")}
     for pk in sorted(phrase_keys):
         expected += [f"phrases/{pk}/SOURCE_PHRASE_original_mix.wav",
-                     f"phrases/{pk}/SOURCE_PHRASE_separated_vocal.wav"]
+                     f"phrases/{pk}/SOURCE_PHRASE_separated_vocal.wav",
+                     f"phrases/{pk}/SOURCE_PHRASE_original_mix_LISTEN.wav",
+                     f"phrases/{pk}/"
+                     "SOURCE_PHRASE_separated_vocal_LISTEN.wav"]
     for iid in item_ids:
         expected += [f"items/{iid}/{f}" for f in GIT_REQUIRED_ITEM_FILES]
     tracked = _git_tracked_set(run_dir)
@@ -846,18 +962,35 @@ def build_pilot_review(run_dir: Path, note_ids=None,
             continue
         iid, pk = it["cal_item_id"], it["phrase_key"]
         dur = round(it["phrase"]["end"] - it["phrase"]["start"], 3)
+        # primary = gain-matched LISTEN copies (what the reviewer
+        # actually hears); canonical = the authority-bound bytes the
+        # decision/aph still references.
         files = {
             "SOURCE": entry(f"{prefix}/phrases/{pk}/"
-                            "SOURCE_PHRASE_original_mix.wav", "原唱",
-                            "SOURCE.wav"),
-            "SOURCE_VOCAL": entry(f"{prefix}/phrases/{pk}/"
-                                  "SOURCE_PHRASE_separated_vocal.wav",
-                                  "原唱分离人声", "SOURCE_VOCAL.wav"),
-            "A": entry(f"{prefix}/items/{iid}/OPTION_0.wav", "A",
-                       "A.wav"),
-            "B": entry(f"{prefix}/items/{iid}/OPTION_1.wav", "B",
-                       "B.wav"),
+                            "SOURCE_PHRASE_original_mix_LISTEN.wav",
+                            "原唱", "SOURCE.wav"),
+            "SOURCE_VOCAL": entry(
+                f"{prefix}/phrases/{pk}/"
+                "SOURCE_PHRASE_separated_vocal_LISTEN.wav",
+                "原唱分离人声", "SOURCE_VOCAL.wav"),
+            "A": entry(f"{prefix}/items/{iid}/OPTION_0_LISTEN.wav",
+                       "A", "A.wav"),
+            "B": entry(f"{prefix}/items/{iid}/OPTION_1_LISTEN.wav",
+                       "B", "B.wav"),
         }
+        canon = {
+            "SOURCE": f"{prefix}/phrases/{pk}/"
+                      "SOURCE_PHRASE_original_mix.wav",
+            "SOURCE_VOCAL": f"{prefix}/phrases/{pk}/"
+                            "SOURCE_PHRASE_separated_vocal.wav",
+            "A": f"{prefix}/items/{iid}/OPTION_0.wav",
+            "B": f"{prefix}/items/{iid}/OPTION_1.wav",
+        }
+        for k, rel in canon.items():
+            p = repo_root / rel
+            files[k]["canonical"] = {
+                "git_path": rel,
+                "sha256": _file_sha(p) if p.exists() else None}
         aux = {"SOURCE_CORE": entry(
                    f"{prefix}/items/{iid}/"
                    "SOURCE_CORE_original_mix.wav", "原唱·定位",
@@ -904,7 +1037,7 @@ def build_pilot_review(run_dir: Path, note_ids=None,
 
 
 def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
-                      progress=print) -> dict:
+                      progress=print, lyric_contract=None) -> dict:
     """Build (and render) phrase A/B packages for machine structure
     candidates. m25-cal-2 (§10.1.5A): a FULL batch (no `only`) requires
     a pre-human QC PASS verdict for the current render contract —
@@ -920,14 +1053,16 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
             Path(__file__).resolve().parents[2]
             / "configs" / "ustx_template.yaml"))
     rph = {"profile": profile, "hash": render_profile_hash(profile)}
-    contract_sha = render_contract_sha(run, rph["hash"])
+    eff_contract = lyric_contract or LYRIC_CONTRACT
+    contract_sha = render_contract_sha(run, rph["hash"], eff_contract)
     if not only and not review_ready(run_dir, contract_sha):
         raise RuntimeError(
             "full calibration batch blocked (§10.1.5A-G10): no "
             "pre-human QC PASS verdict for contract "
             f"{contract_sha[:16]} — build samples with --items first, "
             "audit them, then structure-calib-qc --pass")
-    items = plan_calibration(run, rph=rph["hash"])
+    items = plan_calibration(run, rph=rph["hash"],
+                             lyric_contract=eff_contract)
     if only:
         keep = set(only)
         items = [i for i in items if i["item_id"] in keep
@@ -936,7 +1071,7 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
     c0_by_id = {f"note_{i:04d}": n
                 for i, n in enumerate(run["baseline_notes"])}
     prov = render_provenance(cfg) if render else None
-    planned, src_rendered = [], {}
+    planned, src_rendered, lyr_evidence = [], {}, {}
     for it in items:
         pkey, ph = it["phrase_key"], it["phrase"]
         pdir = cdir / "phrases" / pkey
@@ -961,11 +1096,30 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
             else:
                 refs = src_rendered[pkey]
         idir = cdir / "items" / it["item_id"]
+        # §10.1.5A-G5E quality hold: the lyric contract is per-ITEM —
+        # a partial re-render may upgrade a subset to real_lyric_review
+        # while the rest of the store stays on the neutral contract.
+        item_contract = it.get("lyric_contract") or eff_contract
+        item_contract_sha = render_contract_sha(run, rph["hash"],
+                                                item_contract)
         rres = None
         if render:
+            chars = run["chars"]
+            if item_contract == LYRIC_CONTRACT_REVIEW:
+                if pkey not in lyr_evidence:
+                    lyr_evidence[pkey] = review_phrase_chars(run, ph)
+                ev = lyr_evidence[pkey]
+                if not ev["ok"]:
+                    raise RuntimeError(
+                        f"real_lyric_review {it['item_id']}: insufficient "
+                        f"aligned char evidence ({ev['reason']}, "
+                        f"min_p={ev['min_probability']}, "
+                        f"n={ev['n_chars']}) — fail-closed, no review "
+                        "package")
+                chars = ev["chars"]
             progress(f"  rendering {it['item_id']} "
                      f"({it['type']}, {len(it['options'])} options)")
-            rres = render_item(cfg, idir, it, run["chars"])
+            rres = render_item(cfg, idir, it, chars)
             # §10.1.5A-G4: focus clips of the contested region from the
             # SOURCE audio — the original melody is the ground truth.
             reg = it["region"]
@@ -988,13 +1142,20 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                 o["option_id"] for o in it["options"]
                 if o["candidate_id"] != "baseline"),
             "baseline_option": it["baseline_option"],
-            "lyric_contract": LYRIC_CONTRACT,
-            "contract_sha256": contract_sha,
+            "lyric_contract": item_contract,
+            "contract_sha256": item_contract_sha,
             "choices": list(CHOICES),
         }
         diff = semantic_diff(it, c0_by_id)
         _jwrite(idir / "semantic_diff.json", diff)
         man["calibration"]["semantic_diff_sha256"] = _sha(diff)
+        if item_contract == LYRIC_CONTRACT_REVIEW:
+            ev = lyr_evidence.get(it["phrase_key"])
+            man["calibration"]["lyric_evidence"] = {
+                "method": "force_align_source_bound",
+                "n_chars": ev["n_chars"],
+                "min_probability": ev["min_probability"],
+            } if ev else None
         # unblinded copies for pre-human QC — OPTION_* files remain the
         # decision authority; these are review aids only.
         if render and idir.exists():
@@ -1018,16 +1179,36 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                         "plan_hash": it["plan_hash"],
                         "audio_package_hash": man["audio_package_hash"],
                         "package_state": man["package_state"],
+                        "lyric_contract": item_contract,
+                        "contract_sha256": item_contract_sha,
                         "signal_qc_flags": qc_flags,
                         "semantic_diff_sha256": _sha(diff),
                         "manifest": str(mpath)})
-    _jwrite(cdir / "plan.json",
-            {"schema": CALIB_SCHEMA, "created_at": _now(),
-             "diagnostic_run_id": run["run_id"],
-             "candidate0_sha256": run["candidate0_sha256"],
-             "lyric_contract": LYRIC_CONTRACT,
-             "contract_sha256": contract_sha,
-             "items": planned})
+    if only:
+        # partial (re)build — merge into the existing plan so the other
+        # items' entries survive; per-item lyric_contract/contract_sha
+        # keep the store honest under mixed contracts.
+        prev_p = cdir / "plan.json"
+        prev = (json.loads(prev_p.read_text(encoding="utf-8"))
+                if prev_p.exists() else {})
+        merged = {i["cal_item_id"]: i for i in prev.get("items", [])}
+        merged.update({i["cal_item_id"]: i for i in planned})
+        plan_doc = dict(prev)
+        plan_doc.update({"schema": CALIB_SCHEMA, "created_at": _now(),
+                         "diagnostic_run_id": run["run_id"],
+                         "candidate0_sha256": run["candidate0_sha256"],
+                         "items": [merged[k] for k in sorted(
+                             merged, key=lambda x: merged[x]
+                             .get("phrase", {}).get("start", 0))]})
+        _jwrite(cdir / "plan.json", plan_doc)
+    else:
+        _jwrite(cdir / "plan.json",
+                {"schema": CALIB_SCHEMA, "created_at": _now(),
+                 "diagnostic_run_id": run["run_id"],
+                 "candidate0_sha256": run["candidate0_sha256"],
+                 "lyric_contract": eff_contract,
+                 "contract_sha256": contract_sha,
+                 "items": planned})
     progress(f"calibration: {len(planned)} items → {cdir}")
     return {"items": planned, "contract_sha256": contract_sha}
 

@@ -128,6 +128,34 @@ def lyric_map(notes, chars):
     return out
 
 
+def review_lyrics(notes, chars):
+    """§10.1.5A-G5E real-lyric review overlay (review-only — NOT the M2.7
+    trusted lyric mapping). chars are force_align evidence bound to the
+    source recording. Each hanzi lands only on the FIRST note of its
+    syllable: carrier = first unconsumed note whose span reaches the
+    char's start (a char starting inside a gap binds the FOLLOWING note
+    — never midpoint-nearest, never backwards). Notes between carriers
+    are melisma continuations ('+' when touching, 'a' after a real
+    gap). Returns None when char evidence outlives the notes — callers
+    must fail-closed rather than guess."""
+    out = ["a"] * len(notes)
+    nxt = 0
+    for c in chars:
+        i = nxt
+        while i < len(notes) and notes[i]["end"] <= c["start"]:
+            i += 1
+        if i >= len(notes):
+            return None
+        out[i] = c["char"]
+        nxt = i + 1
+    for j in range(len(notes)):
+        if out[j] == "a" and j > 0 and \
+                notes[j]["start"] <= notes[j - 1]["end"] + \
+                LYRIC_EXTEND_TOUCH_S:
+            out[j] = "+"
+    return out
+
+
 def neutral_vowels(notes):
     """m25-cal-2 diagnostic contract (§10.1.5A-G2/G7): when no trusted
     canonical lyric mapping exists, do NOT guess real lyrics — render
@@ -152,6 +180,21 @@ def option_notes(item, option, chars):
                  "dur": n["end"] - n["start"],
                  "tone": int(round(n["tone"]))}
                 for n, lyr in zip(patched, neutral_vowels(patched))]
+    if item.get("lyric_contract") == "real_lyric_review":
+        # §10.1.5A-G5E quality-hold contract: real hanzi on syllable
+        # carriers only; a split parent's char lands on child[0] and its
+        # later children are '+' automatically — so A/B lyric sequences
+        # stay identical outside the target operation.
+        lyr = review_lyrics(patched, chars)
+        if lyr is None:
+            raise RuntimeError(
+                "real_lyric_review: aligned char evidence outlives the "
+                "phrase notes — fail-closed, no review package")
+        s = item["phrase"]["start"]
+        return [{"lyric": l, "start": n["start"] - s,
+                 "end": n["end"] - s, "dur": n["end"] - n["start"],
+                 "tone": int(round(n["tone"]))}
+                for n, l in zip(patched, lyr)]
     # first split child inherits the parent's lyric char
     parent_char = None
     for n in item["context"]:

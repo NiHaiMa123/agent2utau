@@ -695,7 +695,10 @@ def _tracked_all(item_ids=(), phrase_keys=()):
          "qc/verdict.json", "qc/audit.jsonl"}
     for pk in phrase_keys:
         s |= {f"phrases/{pk}/SOURCE_PHRASE_original_mix.wav",
-              f"phrases/{pk}/SOURCE_PHRASE_separated_vocal.wav"}
+              f"phrases/{pk}/SOURCE_PHRASE_separated_vocal.wav",
+              f"phrases/{pk}/SOURCE_PHRASE_original_mix_LISTEN.wav",
+              f"phrases/{pk}/"
+              "SOURCE_PHRASE_separated_vocal_LISTEN.wav"}
     for iid in item_ids:
         s |= {f"items/{iid}/{f}" for f in GIT_REQUIRED_ITEM_FILES}
     return s
@@ -1099,12 +1102,15 @@ def _pilot_store(tmp_path, note_id="note_0012", phrase_key="18.40-24.44"):
     idir, man = _fake_rendered_item(cdir, name="cal-p1",
                                     region=(20.0, 20.5))
     for nm in ("BASELINE_CORE.wav", "CANDIDATE_CORE.wav",
-               "BASELINE_TARGET.wav", "CANDIDATE_TARGET.wav"):
+               "BASELINE_TARGET.wav", "CANDIDATE_TARGET.wav",
+               "OPTION_0_LISTEN.wav", "OPTION_1_LISTEN.wav"):
         sf.write(str(idir / nm), np.zeros(800), 8000)
     pdir = cdir / "phrases" / phrase_key
     pdir.mkdir(parents=True)
     for nm in ("SOURCE_PHRASE_original_mix.wav",
-               "SOURCE_PHRASE_separated_vocal.wav"):
+               "SOURCE_PHRASE_separated_vocal.wav",
+               "SOURCE_PHRASE_original_mix_LISTEN.wav",
+               "SOURCE_PHRASE_separated_vocal_LISTEN.wav"):
         sf.write(str(pdir / nm), np.zeros(8000), 8000)
     plan = {"schema": "m25-cal-2", "items": [{
         "cal_item_id": "cal-p1", "repair_id": "srp-p1",
@@ -1134,12 +1140,19 @@ def test_pilot_review_payload_blind_and_bound(tmp_path, monkeypatch):
     assert g["cal_item_id"] == "cal-p1"
     assert g["phrase_duration_s"] == pytest.approx(6.04, abs=0.01)
     f = g["files"]
-    assert f["A"]["git_path"].endswith("items/cal-p1/OPTION_0.wav")
+    # primary review audio = gain-matched LISTEN copies; canonical
+    # authority bytes stay referenced for traceability
+    assert f["A"]["git_path"].endswith("items/cal-p1/OPTION_0_LISTEN.wav")
+    assert f["A"]["canonical"]["git_path"].endswith(
+        "items/cal-p1/OPTION_0.wav")
+    assert f["A"]["canonical"]["sha256"]
     assert f["A"]["display_name"] == "A.wav"
     assert f["B"]["display_name"] == "B.wav"
     assert f["SOURCE"]["display_name"] == "SOURCE.wav"
     assert f["SOURCE"]["git_path"].endswith(
-        "phrases/18.40-24.44/SOURCE_PHRASE_original_mix.wav")
+        "phrases/18.40-24.44/SOURCE_PHRASE_original_mix_LISTEN.wav")
+    assert f["SOURCE"]["canonical"]["git_path"].endswith(
+        "SOURCE_PHRASE_original_mix.wav")
     for e in f.values():
         assert e["sha256"] and not e.get("missing")
         assert e["raw_url"].startswith(
@@ -1181,8 +1194,140 @@ def test_git_evidence_includes_phrase_source(tmp_path, monkeypatch):
     monkeypatch.setattr(sc, "_git_tracked_set", lambda d: set())
     ev = sc.git_evidence(run)
     ph = [m for m in ev["missing"] if m.startswith("phrases/")]
-    # two items share one phrase -> exactly two phrase files, not four
+    # two items share one phrase -> exactly four phrase files (canonical
+    # + LISTEN copies), deduped — not eight
     assert sorted(ph) == [
         "phrases/18.40-24.44/SOURCE_PHRASE_original_mix.wav",
-        "phrases/18.40-24.44/SOURCE_PHRASE_separated_vocal.wav"]
+        "phrases/18.40-24.44/SOURCE_PHRASE_original_mix_LISTEN.wav",
+        "phrases/18.40-24.44/SOURCE_PHRASE_separated_vocal.wav",
+        "phrases/18.40-24.44/SOURCE_PHRASE_separated_vocal_LISTEN.wav"]
     assert "pilot_review.json" in ev["missing"]
+
+
+# ----------------- §10.1.5A-G5E quality hold: real lyrics + loudness
+
+def test_review_lyrics_carriers_and_melisma():
+    """Real-lyric overlay: each hanzi only on its syllable's FIRST note;
+    touching continuations '+'; notes after a real gap take 'a'."""
+    from agent2utau.review.render import review_lyrics
+    notes = [{"start": s, "end": e}
+             for s, e in ((0.0, 0.4), (0.4, 0.8), (0.9, 1.3),
+                          (1.3, 1.7), (1.7, 2.1), (2.4, 2.8))]
+    chars = [{"char": "春", "start": 0.1, "end": 0.6},
+             {"char": "秋", "start": 0.95, "end": 1.5},
+             {"char": "冬", "start": 2.5, "end": 2.9}]
+    out = review_lyrics(notes, chars)
+    # 春 lands on note0 (contains 0.1); note1 is its melisma '+'
+    # 秋 lands on note2 (starts inside the 0.8-0.9 gap -> next note);
+    # note3/4 continue '+'; 冬 lands on note5
+    assert out == ["春", "+", "秋", "+", "+", "冬"]
+
+
+def test_review_lyrics_gap_then_char_binds_next_note():
+    """A note inside a gap before the first char is neutral 'a' — never
+    midpoint-nearest guessing; a touching continuation is '+'."""
+    from agent2utau.review.render import review_lyrics
+    notes = [{"start": s, "end": e}
+             for s, e in ((0.0, 0.3), (0.6, 0.9), (0.9, 1.2))]
+    chars = [{"char": "年", "start": 0.7, "end": 1.1}]
+    out = review_lyrics(notes, chars)
+    # note0 ends before the char starts and does not touch note1
+    # (0.3 -> 0.6 gap): 'a'; note1 carries 年; note2 extends '+'
+    assert out == ["a", "年", "+"]
+
+
+def test_review_lyrics_fail_closed_on_exhausted_notes():
+    """Char evidence that outlives the note list returns None — the
+    caller must fail-closed, never pad with guesses."""
+    from agent2utau.review.render import review_lyrics
+    notes = [{"start": 0.0, "end": 0.4}]
+    chars = [{"char": "一", "start": 0.1, "end": 0.3},
+             {"char": "二", "start": 0.9, "end": 1.1}]
+    assert review_lyrics(notes, chars) is None
+
+
+def test_real_lyric_review_option_ab_identical_outside_target():
+    """The real-lyric overlay keeps A/B lyric sequences identical
+    outside the target operation: a split parent's char lands on
+    child[0] and its later children are '+' only."""
+    from agent2utau.review.render import option_notes
+    ctx = [{"id": f"note_{i:04d}", "index": i,
+            "start": s, "end": e, "tone": 62.0}
+           for i, (s, e) in enumerate(
+               ((0.0, 0.4), (0.4, 0.8), (0.9, 1.3), (1.3, 1.7),
+                (1.7, 2.1)))]
+    patch = {"type": "split", "note_ids": ["note_0002"],
+             "boundary": 1.1,
+             "children": [{"start": 0.9, "end": 1.1, "tone": 62.0},
+                          {"start": 1.1, "end": 1.3, "tone": 64.0}]}
+    item = {"lyric_contract": "real_lyric_review",
+            "phrase": {"start": 0.0, "end": 2.1}, "context": ctx}
+    chars = [{"char": "春", "start": 0.1, "end": 0.6},
+             {"char": "秋", "start": 0.95, "end": 1.4},
+             {"char": "冬", "start": 1.8, "end": 2.05}]
+    base = option_notes(item, {"score_patch": {"type": "identity"}},
+                        chars)
+    cand = option_notes(item, {"score_patch": patch}, chars)
+    bl = [n["lyric"] for n in base]
+    cl = [n["lyric"] for n in cand]
+    assert bl == ["春", "+", "秋", "+", "冬"]
+    # candidate replaces note2 with two children: 秋 on child0, '+' on
+    # child1 and on the following context note — outside-target lyrics
+    # stay identical to the baseline sequence
+    assert cl == ["春", "+", "秋", "+", "+", "冬"]
+    # context lyrics identical; the target expands 秋 -> [秋, +]
+    assert cl[:2] == bl[:2] and cl[4:] == bl[3:]
+    assert cl[2:4] == ["秋", "+"]
+
+
+def test_review_phrase_chars_evidence_gate():
+    """review_phrase_chars fail-closed: no chars -> no_chars; any char
+    below MIN_REVIEW_CHAR_PROB -> low_confidence."""
+    import agent2utau.structure_calibration as sc
+    run = {"chars": [{"char": "a", "start": 1.0, "end": 1.4,
+                      "probability": 0.6},
+                     {"char": "b", "start": 1.5, "end": 1.9,
+                      "probability": 0.1}]}
+    ev = sc.review_phrase_chars(run, {"start": 0.5, "end": 2.5})
+    assert ev["ok"] is False and ev["reason"] == "low_confidence"
+    assert ev["min_probability"] == 0.1
+    ev = sc.review_phrase_chars({"chars": []},
+                                {"start": 0.0, "end": 1.0})
+    assert ev["ok"] is False and ev["reason"] == "no_chars"
+    run["chars"][1]["probability"] = 0.9
+    ev = sc.review_phrase_chars(run, {"start": 0.5, "end": 2.5})
+    assert ev["ok"] and len(ev["chars"]) == 2
+
+
+def test_listen_copies_pair_shared_gain(tmp_path):
+    """Loudness contract: ONE shared gain applied identically to A/B —
+    the A/B loudness delta is preserved (not normalized away), files
+    are written, metrics recorded, canonical wavs untouched."""
+    import numpy as np
+    import soundfile as sf
+    import agent2utau.structure_calibration as sc
+    idir = tmp_path / "cal-x"
+    idir.mkdir()
+    t = np.arange(8000) / 8000
+    a = 0.02 * np.sin(2 * np.pi * 200 * t)      # quiet
+    b = 0.04 * np.sin(2 * np.pi * 200 * t)      # 2x louder
+    sf.write(str(idir / "OPTION_0.wav"), a, 8000, subtype="FLOAT")
+    sf.write(str(idir / "OPTION_1.wav"), b, 8000, subtype="FLOAT")
+    canon0 = (idir / "OPTION_0.wav").read_bytes()
+    out = sc._listen_copies(
+        idir, {"OPTION_0": "OPTION_0.wav", "OPTION_1": "OPTION_1.wav"})
+    assert out["shared_gain_db"] > 0
+    assert out["ab_loudness_delta_db"] == pytest.approx(6.02, abs=0.1)
+    la, _ = sf.read(str(idir / "OPTION_0_LISTEN.wav"))
+    lb, _ = sf.read(str(idir / "OPTION_1_LISTEN.wav"))
+    g = 10 ** (out["shared_gain_db"] / 20)
+    # PCM_16 listen copies vs float originals: quantize-tolerant compare
+    assert np.allclose(la, a * g, atol=1e-3)
+    assert np.allclose(lb, b * g, atol=1e-3)
+    # ONE shared gain: the A/B loudness relationship is preserved —
+    # not independently normalized (lb stays ~2x la, not == la)
+    assert np.abs(lb).max() == pytest.approx(
+        2 * np.abs(la).max(), rel=0.05)
+    assert out["listen_peak"]["OPTION_1"] <= 0.98 + 1e-4
+    # canonical bytes untouched
+    assert (idir / "OPTION_0.wav").read_bytes() == canon0

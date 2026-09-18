@@ -105,13 +105,13 @@ function show(i){
   ${it.region?it.region[0].toFixed(2)+'–'+it.region[1].toFixed(2)+'s':''}
   · 唱句 ${it.phrase.start.toFixed(2)}–${it.phrase.end.toFixed(2)}s</h3>
  <div class="row">
-  <div><h3>① 原唱完整一句（ground truth — 先听清这句怎么唱）</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav"></audio></div>
-  <div><h3>② 原唱完整一句 · 分离人声</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav"></audio></div>
+  <div><h3>① 原唱完整一句（ground truth — 先听清这句怎么唱）</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_original_mix_LISTEN.wav"></audio></div>
+  <div><h3>② 原唱完整一句 · 分离人声</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal_LISTEN.wav"></audio></div>
  </div></div>
  <div class="card"><h3>③ 完整一句 A/B（盲选 · 主要判断面）</h3>
  <div class="row">
-  <div><h3>选项 A · 完整一句</h3><audio controls src="/audio/item/${key}/OPTION_0.wav"></audio></div>
-  <div><h3>选项 B · 完整一句</h3><audio controls src="/audio/item/${key}/OPTION_1.wav"></audio></div>
+  <div><h3>选项 A · 完整一句</h3><audio controls src="/audio/item/${key}/OPTION_0_LISTEN.wav"></audio></div>
+  <div><h3>选项 B · 完整一句</h3><audio controls src="/audio/item/${key}/OPTION_1_LISTEN.wav"></audio></div>
  </div></div>
  <div class="card"><h3>④ 辅助定位 · CORE ±0.15s / 聚焦 ±0.5s（盲选 · 仅当整句难以判断转折时用）</h3>
  <div class="row">
@@ -183,8 +183,11 @@ load();
 </script></body></html>"""
 
 _ALLOWED = ("OPTION_0.wav", "OPTION_1.wav",
+            "OPTION_0_LISTEN.wav", "OPTION_1_LISTEN.wav",
             "SOURCE_PHRASE_original_mix.wav",
-            "SOURCE_PHRASE_separated_vocal.wav")
+            "SOURCE_PHRASE_separated_vocal.wav",
+            "SOURCE_PHRASE_original_mix_LISTEN.wav",
+            "SOURCE_PHRASE_separated_vocal_LISTEN.wav")
 
 
 def _focus_wav(run_dir: Path, cal_item_id: str, which: str):
@@ -287,7 +290,7 @@ def serve(run_dir: Path, port: int = 8123,
             if u == ["api", "state"]:
                 return self._json(200, _items_payload(run_dir))
             if u[:2] == ["audio", "item"] and len(u) == 4:
-                if u[3] in ("OPTION_0.wav", "OPTION_1.wav"):
+                if u[3] in _ALLOWED[:4]:
                     return self._wav(calib_dir(run_dir) / "items"
                                      / u[2] / u[3])
                 if u[3] in ("TARGET_0.wav", "TARGET_1.wav",
@@ -306,7 +309,7 @@ def serve(run_dir: Path, port: int = 8123,
                     return self._wav(calib_dir(run_dir) / "items"
                                      / u[2] / name)
             if u[:2] == ["audio", "phrase"] and len(u) == 4:
-                if u[3] in _ALLOWED[2:]:
+                if u[3] in _ALLOWED[4:]:
                     return self._wav(calib_dir(run_dir) / "phrases"
                                      / u[2] / u[3])
             if u[:2] == ["audio", "focus"] and len(u) == 4:

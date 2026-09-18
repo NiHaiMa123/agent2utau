@@ -376,7 +376,8 @@ def cmd_structure_calib_plan(args) -> int:
     try:
         res = build_calibration(
             run_dir, cfg=load_config(), render=not args.no_render,
-            only=items, progress=lambda m: diag(f"[calib] {m}"))
+            only=items, progress=lambda m: diag(f"[calib] {m}"),
+            lyric_contract=args.lyric_contract)
     except Exception as e:
         emit(exception_payload(e))
         return 1
@@ -833,6 +834,10 @@ def build_parser() -> argparse.ArgumentParser:
                    help="comma list of cal_item_id/repair_id/note_id")
     p.add_argument("--no-render", action="store_true",
                    help="plan only — no wav rendering")
+    p.add_argument("--lyric-contract", default=None,
+                   choices=["neutral_vowel", "real_lyric_review"],
+                   help="lyric contract for the review renders "
+                        "(default: neutral_vowel)")
 
     p = sub.add_parser("structure-calib")
     p.set_defaults(fn=cmd_structure_calib)
