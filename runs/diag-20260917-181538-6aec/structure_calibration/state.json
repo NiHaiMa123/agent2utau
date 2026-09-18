@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789732529.390906,
+  "rebuilt_at": 1789736588.7216792,
   "total_machine_split_candidates": 21,
   "reviewed_count": 0,
   "split_preferred_count": 0,
@@ -33,7 +33,7 @@
   ],
   "reviewed": [],
   "store_contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
-  "pilot_contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
+  "pilot_contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
   "pilot_authority": {
     "ok": true,
     "sample_ids": [
@@ -45,7 +45,7 @@
     "violations": []
   },
   "git_evidence": {
-    "complete": true,
+    "complete": false,
     "git": "ok",
     "checked": 468,
     "missing_count": 0
@@ -54,5 +54,5 @@
     "ok": true,
     "violations": []
   },
-  "review_ready": true
+  "review_ready": false
 }

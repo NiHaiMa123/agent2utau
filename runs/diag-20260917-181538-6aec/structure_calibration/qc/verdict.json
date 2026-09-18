@@ -1,16 +1,16 @@
 {
   "schema": "m25-cal-2",
   "verdict": "PASS",
-  "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
-  "auditor": "devin",
-  "notes": "G5H: binds exact 4-item rlv2 pilot — shared contract 94077436 + payload sha + per-sample aph; all sample gates green",
+  "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
+  "auditor": "devin-g5i",
+  "notes": "",
   "sample_ids": [
     "note_0061",
     "note_0188",
     "note_0192",
     "note_0379"
   ],
-  "recorded_at": 1789732361.2671335,
+  "recorded_at": 1789736588.4569476,
   "pilot": {
     "sample_ids": [
       "cal-srp-cb76bf56bb24b5c3d8849bc0",
@@ -24,15 +24,15 @@
       "note_0192",
       "note_0379"
     ],
-    "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
+    "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv2",
-    "pilot_payload_sha256": "eae594b1c9f0c2db640a981e85ffdcab3cb584e56db096d47bcbbaa65ad00bd1",
+    "lyric_mapping_impl": "rlv3",
+    "pilot_payload_sha256": "f6c0b68a094dd66e70c6e49f08dd6a6deda6f7ca10700414cc2faf0dfea20d64",
     "audio_package_hashes": {
-      "cal-srp-cb76bf56bb24b5c3d8849bc0": "d2c74f18a2b6c626e319f6d528acaaf06a0f59a3f407e9a330b14992c045c0c4",
-      "cal-srp-9e3efba85c56ade947bcfdbf": "5a5f52549664ebe49496b8f25ea27bb212798d3ce12b0eff691b6888ce3612b3",
-      "cal-srp-f93f9a2370cdb829565fbb7c": "29ecef875da30030e6228b684f1beec2da5368c1944a56185f33b7e5b77238ce",
-      "cal-srp-b04c10c381b66d1abfd9ec8a": "933d6bee635fe8e404f538105fe4ae89622294fe77b22c5ba5bf439b1ea76fa4"
+      "cal-srp-cb76bf56bb24b5c3d8849bc0": "dae9eaa4fc37fa8a30312ed0110f38124dac32d0adc812231817754047dcadef",
+      "cal-srp-9e3efba85c56ade947bcfdbf": "18d8855714308c780fbe326f2a11ccf78148b4add5d43ee349c7500b2bf63fe0",
+      "cal-srp-f93f9a2370cdb829565fbb7c": "7ffe29d5f2a891f4a0be3f03b838a5920815b97da88bde78f2e10cf94b2ed9e1",
+      "cal-srp-b04c10c381b66d1abfd9ec8a": "079feb34c6aaa984e024412234ddb526b6e2abac6cc33f84c5d303c2365d10d0"
     }
   },
   "git_evidence_at_record": {
