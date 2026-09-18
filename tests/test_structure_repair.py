@@ -1716,3 +1716,22 @@ def test_g5h_current_exact_pilot_ready(tmp_path, monkeypatch):
     assert st["review_ready"] is True
     assert st["store_contract_sha256"] == "store-default-nv1"
     assert st["pilot_contract_sha256"] == sha
+
+
+def test_g5h_dirty_bytes_are_not_committed(tmp_path, monkeypatch):
+    """G5H follow-through: a tracked file with UNCOMMITTED changes is
+    not committed evidence — a freshly written (dirty) verdict must
+    not flip review_ready until its bytes are actually committed."""
+    import agent2utau.structure_calibration as sc
+    run, items, _ = _g5h_store(tmp_path, monkeypatch)
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    _pass_over(run, items)
+    assert sc.review_ready(run)
+    # simulate: verdict.json tracked but modified vs HEAD
+    monkeypatch.setattr(sc, "_git_dirty_set",
+                        lambda d: {"qc/verdict.json"})
+    assert not sc.review_ready(run)
+    ev = sc.git_evidence(run, item_ids=[items[0]["cal_item_id"]])
+    assert ev["uncommitted"] == ["qc/verdict.json"]
+    assert not ev["complete"]

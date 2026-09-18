@@ -1,15 +1,42 @@
 {
   "schema": "m25-cal-2",
   "verdict": "PASS",
-  "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
+  "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
   "auditor": "devin",
-  "notes": "semantic_diff outside-target empty on all 5; USTX multiset diff = exactly parent<->children; deterministic a/+ vowels; verify_package valid; audio diff not strictly confined to target (DiffSinger context sensitivity) — acceptable, score-level contract holds",
+  "notes": "G5H: binds exact 4-item rlv2 pilot — shared contract 94077436 + payload sha + per-sample aph; all sample gates green",
   "sample_ids": [
-    "cal-srp-c491a6b75c7d94cb28fd7a1e",
-    "cal-srp-cb76bf56bb24b5c3d8849bc0",
-    "cal-srp-d2be57c8bd5099d60a05227",
-    "cal-srp-9ff662d834e7cbadd1aa9434",
-    "cal-srp-8f73580bd3c768145f417f0d"
+    "note_0061",
+    "note_0188",
+    "note_0192",
+    "note_0379"
   ],
-  "recorded_at": 1789708399.385392
+  "recorded_at": 1789732361.2671335,
+  "pilot": {
+    "sample_ids": [
+      "cal-srp-cb76bf56bb24b5c3d8849bc0",
+      "cal-srp-9e3efba85c56ade947bcfdbf",
+      "cal-srp-f93f9a2370cdb829565fbb7c",
+      "cal-srp-b04c10c381b66d1abfd9ec8a"
+    ],
+    "note_ids": [
+      "note_0061",
+      "note_0188",
+      "note_0192",
+      "note_0379"
+    ],
+    "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
+    "lyric_contract": "real_lyric_review",
+    "lyric_mapping_impl": "rlv2",
+    "pilot_payload_sha256": "eae594b1c9f0c2db640a981e85ffdcab3cb584e56db096d47bcbbaa65ad00bd1",
+    "audio_package_hashes": {
+      "cal-srp-cb76bf56bb24b5c3d8849bc0": "d2c74f18a2b6c626e319f6d528acaaf06a0f59a3f407e9a330b14992c045c0c4",
+      "cal-srp-9e3efba85c56ade947bcfdbf": "5a5f52549664ebe49496b8f25ea27bb212798d3ce12b0eff691b6888ce3612b3",
+      "cal-srp-f93f9a2370cdb829565fbb7c": "29ecef875da30030e6228b684f1beec2da5368c1944a56185f33b7e5b77238ce",
+      "cal-srp-b04c10c381b66d1abfd9ec8a": "933d6bee635fe8e404f538105fe4ae89622294fe77b22c5ba5bf439b1ea76fa4"
+    }
+  },
+  "git_evidence_at_record": {
+    "complete": true,
+    "checked": 143
+  }
 }

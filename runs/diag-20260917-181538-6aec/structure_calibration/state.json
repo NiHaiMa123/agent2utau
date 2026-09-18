@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789727749.277147,
+  "rebuilt_at": 1789732361.4512417,
   "total_machine_split_candidates": 21,
   "reviewed_count": 0,
   "split_preferred_count": 0,
@@ -32,7 +32,18 @@
     "cal-srp-fcebb308ea0d11ef772afdc4"
   ],
   "reviewed": [],
-  "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
+  "store_contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
+  "pilot_contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
+  "pilot_authority": {
+    "ok": true,
+    "sample_ids": [
+      "cal-srp-cb76bf56bb24b5c3d8849bc0",
+      "cal-srp-9e3efba85c56ade947bcfdbf",
+      "cal-srp-f93f9a2370cdb829565fbb7c",
+      "cal-srp-b04c10c381b66d1abfd9ec8a"
+    ],
+    "violations": []
+  },
   "git_evidence": {
     "complete": true,
     "git": "ok",
@@ -43,5 +54,5 @@
     "ok": true,
     "violations": []
   },
-  "review_ready": false
+  "review_ready": true
 }

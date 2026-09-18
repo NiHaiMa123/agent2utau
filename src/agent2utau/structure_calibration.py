@@ -1247,11 +1247,42 @@ def _git_tracked_set(run_dir: Path):
         return None
 
 
+def _git_dirty_set(run_dir: Path):
+    """Calib-dir-relative posix paths whose worktree bytes differ from
+    HEAD (modified / staged / untracked) — a tracked-but-dirty file is
+    NOT committed evidence. None when unavailable/not a worktree."""
+    import subprocess
+    cdir = calib_dir(run_dir).resolve()
+    try:
+        top = subprocess.run(["git", "rev-parse", "--show-toplevel"],
+                             cwd=cdir, capture_output=True, text=True,
+                             timeout=15)
+        if top.returncode != 0:
+            return None
+        root = Path(top.stdout.strip()).resolve()
+        prefix = cdir.relative_to(root).as_posix() + "/"
+        out = subprocess.run(
+            ["git", "status", "--porcelain", "-z", "--", prefix],
+            cwd=root, capture_output=True, timeout=60)
+        if out.returncode != 0:
+            return None
+        dirty = set()
+        for ent in out.stdout.decode("utf-8", "replace").split("\0"):
+            if len(ent) > 3:
+                p = ent[3:]
+                if p.startswith(prefix):
+                    dirty.add(p[len(prefix):])
+        return dirty
+    except Exception:
+        return None
+
+
 def git_evidence(run_dir: Path, item_ids=None,
                  include_qc: bool = True) -> dict:
     """§10.1.5A hard rule — 'local file exists' / 'agent says generated'
     never counts; only files actually committed to Git are acceptance
-    evidence. Reports which required artifacts are missing from Git."""
+    evidence. A tracked file with uncommitted changes is NOT evidence
+    either — the committed bytes must match the worktree."""
     cdir = calib_dir(run_dir)
     if item_ids is None:
         items_dir = cdir / "items"
@@ -1282,9 +1313,13 @@ def git_evidence(run_dir: Path, item_ids=None,
         return {"complete": False, "git": "unavailable_or_not_a_worktree",
                 "missing": expected, "checked": len(expected),
                 "item_ids": list(item_ids)}
+    dirty = _git_dirty_set(run_dir) or set()
     missing = [e for e in expected if e not in tracked]
-    return {"complete": not missing, "git": "ok",
-            "missing": missing, "checked": len(expected),
+    uncommitted = [e for e in expected
+                   if e in tracked and e in dirty]
+    return {"complete": not missing and not uncommitted, "git": "ok",
+            "missing": missing, "uncommitted": uncommitted,
+            "checked": len(expected),
             "item_ids": list(item_ids)}
 
 
