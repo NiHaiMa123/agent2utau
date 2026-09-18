@@ -1,0 +1,51 @@
+{
+  "schema": "d1",
+  "batch_id": "rb-smoke2",
+  "run_id": "diag-20260917-181538-6aec",
+  "created_at": 1789649197.3356946,
+  "song_sha256": "5f851d3a760f230a",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "items": [
+    {
+      "item_id": "ri-0001",
+      "type": "pitch",
+      "reason": "pitch_unresolved",
+      "phrase": {
+        "start": 201.13,
+        "end": 203.98,
+        "boundary_source": "silence"
+      },
+      "phrase_key": "201.13-203.98",
+      "region": [
+        202.52,
+        202.74
+      ],
+      "packets": [
+        "note_0415"
+      ],
+      "n_options": 4,
+      "package_hash": "1294619755b97da170177fd1d0741a6af9771ca694e65e6ffc365bbb1ff2c82d"
+    },
+    {
+      "item_id": "ri-0002",
+      "type": "split",
+      "reason": "split_candidate_virtual_unresolved",
+      "phrase": {
+        "start": 144.56,
+        "end": 150.89,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "144.56-150.89",
+      "region": [
+        148.42,
+        148.82
+      ],
+      "packets": [
+        "note_0301"
+      ],
+      "n_options": 3,
+      "package_hash": "5876ecfa35722bcd154e23a353c47cee20903aade9bb2106cd8c1f8548a312e8"
+    }
+  ]
+}

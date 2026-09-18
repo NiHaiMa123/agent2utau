@@ -1,0 +1,47 @@
+{
+ "text": "将心事都封存",
+ "chars": [
+  {
+   "char": "将",
+   "start": 210.44,
+   "end": 211.04,
+   "probability": 0.813142716884613,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "心",
+   "start": 211.04,
+   "end": 211.42,
+   "probability": 0.9107071161270142,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "事",
+   "start": 211.42,
+   "end": 212.06,
+   "probability": 0.9481366872787476,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "都",
+   "start": 212.06,
+   "end": 212.72,
+   "probability": 0.9834238290786743,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "封",
+   "start": 212.72,
+   "end": 213.12,
+   "probability": 0.8711452484130859,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "存",
+   "start": 213.12,
+   "end": 213.46,
+   "probability": 0.9908685684204102,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

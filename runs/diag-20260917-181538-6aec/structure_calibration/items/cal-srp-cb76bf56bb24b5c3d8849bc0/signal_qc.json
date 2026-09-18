@@ -4,13 +4,13 @@
   "repair_id": "srp-cb76bf56bb24b5c3d8849bc0",
   "sample_rate": 44100,
   "duration": 6.3,
-  "baseline_rms": 0.070033,
-  "candidate_rms": 0.063159,
-  "baseline_peak": 0.254425,
-  "candidate_peak": 0.23114,
+  "baseline_rms": 0.054528,
+  "candidate_rms": 0.059695,
+  "baseline_peak": 0.196838,
+  "candidate_peak": 0.235931,
   "silence_fraction": {
-    "baseline": 0.0962,
-    "candidate": 0.1055
+    "baseline": 0.1178,
+    "candidate": 0.122
   },
   "declared_region": [
     39.4,
@@ -27,49 +27,49 @@
     ],
     "pad_s": 0.5
   },
-  "pre_target_ab_diff_rms_ratio": 1.5818,
-  "target_ab_diff_rms_ratio": 1.0145,
-  "post_target_ab_diff_rms_ratio": 0.4687,
-  "option_loudness_ratio": 0.9018,
+  "pre_target_ab_diff_rms_ratio": 0.4175,
+  "target_ab_diff_rms_ratio": 1.5195,
+  "post_target_ab_diff_rms_ratio": 1.6925,
+  "option_loudness_ratio": 1.0948,
   "renderer_global_context": {
     "effect": "deterministic renderer; declared patch's phoneme delta propagates a constant timing shift + small acoustic smear into context notes (DiffSinger duration model attends the full phoneme sequence)",
-    "canonical_pre_ab_diff_rms_ratio": 1.5818,
-    "canonical_post_ab_diff_rms_ratio": 0.4687,
-    "canonical_target_ab_diff_rms_ratio": 1.0145,
+    "canonical_pre_ab_diff_rms_ratio": 0.4175,
+    "canonical_post_ab_diff_rms_ratio": 1.6925,
+    "canonical_target_ab_diff_rms_ratio": 1.5195,
     "timing_shift_ms_median": {
-      "pre": -1.18,
-      "post": 0.05
+      "pre": -0.1,
+      "post": 1.1
     },
     "aligned_residual_median": {
-      "pre": 0.26,
-      "post": 0.349
+      "pre": 0.251,
+      "post": 0.546
     },
     "flags": [
-      "pre_target_ab_drift:1.582"
+      "post_target_ab_drift:1.692"
     ]
   },
   "listen_surface": {
     "construction": "shared_context_splice",
     "splice_edges_rel": [
       1.22,
-      2.31
+      2.4098
     ],
     "fade_zone_rel": [
-      1.1788,
-      2.35
+      1.1801,
+      2.4506
     ],
     "edge_lag": {
       "left": {
-        "samples": -52,
-        "ms": -1.18,
-        "confidence": 0.957,
-        "applied": -52
+        "samples": 5,
+        "ms": 0.11,
+        "confidence": 0.936,
+        "applied": 5
       },
       "right": {
-        "samples": 2,
-        "ms": 0.05,
-        "confidence": 0.944,
-        "applied": 2
+        "samples": 38,
+        "ms": 0.86,
+        "confidence": 0.873,
+        "applied": 38
       }
     },
     "pre_outside_ab_diff_rms_ratio": 0.0,
@@ -85,17 +85,17 @@
   },
   "listen": {
     "target_dbfs": -16.0,
-    "pair_rms_db": -23.18,
-    "shared_gain_db": 7.18,
+    "pair_rms_db": -25.27,
+    "shared_gain_db": 9.27,
     "clipped": false,
     "option_rms_db": {
-      "OPTION_0": -23.26,
-      "OPTION_1": -23.09
+      "OPTION_0": -25.27,
+      "OPTION_1": -25.27
     },
-    "ab_loudness_delta_db": 0.17,
+    "ab_loudness_delta_db": 0.0,
     "listen_peak": {
-      "OPTION_0": 0.5813,
-      "OPTION_1": 0.5813
+      "OPTION_0": 0.5723,
+      "OPTION_1": 0.5723
     },
     "files": [
       "OPTION_0_LISTEN.wav",
@@ -105,24 +105,24 @@
     "context_donor": "baseline",
     "splice_edges_rel": [
       1.22,
-      2.31
+      2.4098
     ],
     "fade_zone_rel": [
-      1.1788,
-      2.35
+      1.1801,
+      2.4506
     ],
     "edge_lag": {
       "left": {
-        "samples": -52,
-        "ms": -1.18,
-        "confidence": 0.957,
-        "applied": -52
+        "samples": 5,
+        "ms": 0.11,
+        "confidence": 0.936,
+        "applied": 5
       },
       "right": {
-        "samples": 2,
-        "ms": 0.05,
-        "confidence": 0.944,
-        "applied": 2
+        "samples": 38,
+        "ms": 0.86,
+        "confidence": 0.873,
+        "applied": 38
       }
     },
     "outside_surface": "bit-identical outside the fade zone"
@@ -160,10 +160,10 @@
           "n_frames": 14,
           "voiced_frames": 14,
           "voiced_fraction": 1.0,
-          "midi_median": 63.979,
-          "midi_iqr": 0.046,
-          "midi_min": 63.065,
-          "midi_max": 64.014,
+          "midi_median": 64.003,
+          "midi_iqr": 0.037,
+          "midi_min": 63.044,
+          "midi_max": 64.023,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -176,16 +176,16 @@
           "n_frames": 14,
           "voiced_frames": 14,
           "voiced_fraction": 1.0,
-          "midi_median": 62.033,
-          "midi_iqr": 0.142,
-          "midi_min": 61.997,
-          "midi_max": 63.062,
+          "midi_median": 62.009,
+          "midi_iqr": 0.095,
+          "midi_min": 61.99,
+          "midi_max": 63.096,
           "dominant_fraction": 0.929,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 2.021,
-        "candidate_error_semitones": 0.075
+        "baseline_error_semitones": 2.045,
+        "candidate_error_semitones": 0.051
       },
       {
         "child": 1,
@@ -216,13 +216,13 @@
             0.89
           ],
           "n_frames": 26,
-          "voiced_frames": 20,
-          "voiced_fraction": 0.7692,
-          "midi_median": 63.98,
-          "midi_iqr": 0.019,
-          "midi_min": 63.442,
-          "midi_max": 64.798,
-          "dominant_fraction": 1.0,
+          "voiced_frames": 26,
+          "voiced_fraction": 1.0,
+          "midi_median": 63.99,
+          "midi_iqr": 0.022,
+          "midi_min": 63.978,
+          "midi_max": 65.112,
+          "dominant_fraction": 0.962,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
@@ -232,37 +232,467 @@
             0.89
           ],
           "n_frames": 26,
-          "voiced_frames": 22,
-          "voiced_fraction": 0.8462,
-          "midi_median": 63.995,
-          "midi_iqr": 0.067,
-          "midi_min": 62.934,
-          "midi_max": 64.939,
-          "dominant_fraction": 0.955,
+          "voiced_frames": 26,
+          "voiced_fraction": 1.0,
+          "midi_median": 63.994,
+          "midi_iqr": 0.019,
+          "midi_min": 63.475,
+          "midi_max": 65.037,
+          "dominant_fraction": 0.962,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 0.011,
-        "candidate_error_semitones": 0.026
+        "baseline_error_semitones": 0.021,
+        "candidate_error_semitones": 0.025
       }
     ],
     "baseline_child_error_semitones": [
-      2.021,
-      0.011
+      2.045,
+      0.021
     ],
     "candidate_child_error_semitones": [
-      0.075,
-      0.026
+      0.051,
+      0.025
     ],
-    "baseline_structure_error": 2.021,
-    "candidate_structure_error": 0.075,
-    "candidate_improvement_vs_baseline": 1.946,
+    "baseline_structure_error": 2.045,
+    "candidate_structure_error": 0.051,
+    "candidate_improvement_vs_baseline": 1.994,
     "unavailable_child_slots": 0,
     "ambiguous_children": [],
     "note": "review-readiness evidence only — never an automatic score truth; unavailable/ambiguous stays neutral"
   },
-  "target_focus_sha256": "f97a05b1622d72cd4345e360a87c1ea577b85b3d1bd0b708b84d1e4a8682eecf",
-  "target_core_sha256": "579ba9bb08fd595e28c1bae0d82b652a3a19037b8c2f48721e106e264750dcd6",
+  "lyric_timing": {
+    "aligner": "whisper-attention-dtw",
+    "model": "large-v3-turbo",
+    "text": "寒夜剩我一个人等清晨",
+    "source_chars": [
+      {
+        "char": "寒",
+        "start": -0.13,
+        "end": 0.57,
+        "probability": 0.35139164022984914
+      },
+      {
+        "char": "夜",
+        "start": 0.57,
+        "end": 0.99,
+        "probability": 0.9554290771484375
+      },
+      {
+        "char": "剩",
+        "start": 0.99,
+        "end": 1.37,
+        "probability": 0.9593111872673035
+      },
+      {
+        "char": "我",
+        "start": 1.37,
+        "end": 1.85,
+        "probability": 0.9909721612930298
+      },
+      {
+        "char": "一",
+        "start": 1.85,
+        "end": 2.21,
+        "probability": 0.9973853230476379
+      },
+      {
+        "char": "个",
+        "start": 2.21,
+        "end": 2.57,
+        "probability": 0.9973853230476379
+      },
+      {
+        "char": "人",
+        "start": 2.57,
+        "end": 3.09,
+        "probability": 0.9996806383132935
+      },
+      {
+        "char": "等",
+        "start": 3.35,
+        "end": 3.77,
+        "probability": 0.9103975892066956
+      },
+      {
+        "char": "清",
+        "start": 3.77,
+        "end": 4.35,
+        "probability": 0.3281252086162567
+      },
+      {
+        "char": "晨",
+        "start": 4.35,
+        "end": 5.11,
+        "probability": 0.7860614061355591
+      }
+    ],
+    "options": {
+      "OPTION_0": {
+        "chars": [
+          {
+            "char": "寒",
+            "start": 0.0,
+            "end": 0.4,
+            "probability": 0.6201772391796112,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "夜",
+            "start": 0.4,
+            "end": 0.78,
+            "probability": 0.9571171402931213,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "剩",
+            "start": 0.78,
+            "end": 1.18,
+            "probability": 0.8155475854873657,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "我",
+            "start": 1.18,
+            "end": 1.64,
+            "probability": 0.9909136295318604,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "一",
+            "start": 1.64,
+            "end": 2.0,
+            "probability": 0.6219385862350464,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "个",
+            "start": 2.0,
+            "end": 2.36,
+            "probability": 0.6219385862350464,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "人",
+            "start": 2.36,
+            "end": 2.9,
+            "probability": 0.9982690811157227,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "等",
+            "start": 2.9,
+            "end": 3.5,
+            "probability": 0.17748858034610748,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "清",
+            "start": 3.5,
+            "end": 3.9,
+            "probability": 0.6753553748130798,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "晨",
+            "start": 3.9,
+            "end": 4.54,
+            "probability": 0.978486031293869,
+            "method": "whisper-attention-dtw"
+          }
+        ]
+      },
+      "OPTION_1": {
+        "chars": [
+          {
+            "char": "寒",
+            "start": 0.0,
+            "end": 0.32,
+            "probability": 0.3779028607532382,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "夜",
+            "start": 0.32,
+            "end": 0.78,
+            "probability": 0.8907723426818848,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "剩",
+            "start": 0.78,
+            "end": 1.18,
+            "probability": 0.9277816116809845,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "我",
+            "start": 1.18,
+            "end": 1.62,
+            "probability": 0.9875099658966064,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "一",
+            "start": 1.62,
+            "end": 1.99,
+            "probability": 0.5313283801078796,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "个",
+            "start": 1.99,
+            "end": 2.36,
+            "probability": 0.5313283801078796,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "人",
+            "start": 2.36,
+            "end": 2.88,
+            "probability": 0.9965711832046509,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "等",
+            "start": 2.88,
+            "end": 3.5,
+            "probability": 0.8781511187553406,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "清",
+            "start": 3.5,
+            "end": 3.92,
+            "probability": 0.27048778533935547,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "晨",
+            "start": 3.92,
+            "end": 4.54,
+            "probability": 0.9204121828079224,
+            "method": "whisper-attention-dtw"
+          }
+        ]
+      }
+    },
+    "per_char": [
+      {
+        "char": "寒",
+        "src_start": -0.13,
+        "src_end": 0.57,
+        "OPTION_0_start": 0.0,
+        "OPTION_0_end": 0.4,
+        "OPTION_0_score_onset": 0.0,
+        "OPTION_0_onset_delta_ms": 130.0,
+        "OPTION_0_offset_delta_ms": -170.0,
+        "OPTION_0_score_delta_ms": 130.0,
+        "OPTION_0_aligner_offset_ms": 0.0,
+        "OPTION_1_start": 0.0,
+        "OPTION_1_end": 0.32,
+        "OPTION_1_score_onset": 0.0,
+        "OPTION_1_onset_delta_ms": 130.0,
+        "OPTION_1_offset_delta_ms": -250.0,
+        "OPTION_1_score_delta_ms": 130.0,
+        "OPTION_1_aligner_offset_ms": 0.0
+      },
+      {
+        "char": "夜",
+        "src_start": 0.57,
+        "src_end": 0.99,
+        "OPTION_0_start": 0.4,
+        "OPTION_0_end": 0.78,
+        "OPTION_0_score_onset": 0.5698,
+        "OPTION_0_onset_delta_ms": -170.0,
+        "OPTION_0_offset_delta_ms": -210.0,
+        "OPTION_0_score_delta_ms": -0.2,
+        "OPTION_0_aligner_offset_ms": -169.8,
+        "OPTION_1_start": 0.32,
+        "OPTION_1_end": 0.78,
+        "OPTION_1_score_onset": 0.5698,
+        "OPTION_1_onset_delta_ms": -250.0,
+        "OPTION_1_offset_delta_ms": -210.0,
+        "OPTION_1_score_delta_ms": -0.2,
+        "OPTION_1_aligner_offset_ms": -249.8
+      },
+      {
+        "char": "剩",
+        "src_start": 0.99,
+        "src_end": 1.37,
+        "OPTION_0_start": 0.78,
+        "OPTION_0_end": 1.18,
+        "OPTION_0_score_onset": 0.9896,
+        "OPTION_0_onset_delta_ms": -210.0,
+        "OPTION_0_offset_delta_ms": -190.0,
+        "OPTION_0_score_delta_ms": -0.4,
+        "OPTION_0_aligner_offset_ms": -209.6,
+        "OPTION_1_start": 0.78,
+        "OPTION_1_end": 1.18,
+        "OPTION_1_score_onset": 0.9896,
+        "OPTION_1_onset_delta_ms": -210.0,
+        "OPTION_1_offset_delta_ms": -190.0,
+        "OPTION_1_score_delta_ms": -0.4,
+        "OPTION_1_aligner_offset_ms": -209.6
+      },
+      {
+        "char": "我",
+        "src_start": 1.37,
+        "src_end": 1.85,
+        "OPTION_0_start": 1.18,
+        "OPTION_0_end": 1.64,
+        "OPTION_0_score_onset": 1.3698,
+        "OPTION_0_onset_delta_ms": -190.0,
+        "OPTION_0_offset_delta_ms": -210.0,
+        "OPTION_0_score_delta_ms": -0.2,
+        "OPTION_0_aligner_offset_ms": -189.8,
+        "OPTION_1_start": 1.18,
+        "OPTION_1_end": 1.62,
+        "OPTION_1_score_onset": 1.3698,
+        "OPTION_1_onset_delta_ms": -190.0,
+        "OPTION_1_offset_delta_ms": -230.0,
+        "OPTION_1_score_delta_ms": -0.2,
+        "OPTION_1_aligner_offset_ms": -189.8
+      },
+      {
+        "char": "一",
+        "src_start": 1.85,
+        "src_end": 2.21,
+        "OPTION_0_start": 1.64,
+        "OPTION_0_end": 2.0,
+        "OPTION_0_score_onset": 1.85,
+        "OPTION_0_onset_delta_ms": -210.0,
+        "OPTION_0_offset_delta_ms": -210.0,
+        "OPTION_0_score_delta_ms": -0.0,
+        "OPTION_0_aligner_offset_ms": -210.0,
+        "OPTION_1_start": 1.62,
+        "OPTION_1_end": 1.99,
+        "OPTION_1_score_onset": 1.85,
+        "OPTION_1_onset_delta_ms": -230.0,
+        "OPTION_1_offset_delta_ms": -220.0,
+        "OPTION_1_score_delta_ms": -0.0,
+        "OPTION_1_aligner_offset_ms": -230.0
+      },
+      {
+        "char": "个",
+        "src_start": 2.21,
+        "src_end": 2.57,
+        "OPTION_0_start": 2.0,
+        "OPTION_0_end": 2.36,
+        "OPTION_0_score_onset": 2.2104,
+        "OPTION_0_onset_delta_ms": -210.0,
+        "OPTION_0_offset_delta_ms": -210.0,
+        "OPTION_0_score_delta_ms": 0.4,
+        "OPTION_0_aligner_offset_ms": -210.4,
+        "OPTION_1_start": 1.99,
+        "OPTION_1_end": 2.36,
+        "OPTION_1_score_onset": 2.2104,
+        "OPTION_1_onset_delta_ms": -220.0,
+        "OPTION_1_offset_delta_ms": -210.0,
+        "OPTION_1_score_delta_ms": 0.4,
+        "OPTION_1_aligner_offset_ms": -220.4
+      },
+      {
+        "char": "人",
+        "src_start": 2.57,
+        "src_end": 3.09,
+        "OPTION_0_start": 2.36,
+        "OPTION_0_end": 2.9,
+        "OPTION_0_score_onset": 2.5698,
+        "OPTION_0_onset_delta_ms": -210.0,
+        "OPTION_0_offset_delta_ms": -190.0,
+        "OPTION_0_score_delta_ms": -0.2,
+        "OPTION_0_aligner_offset_ms": -209.8,
+        "OPTION_1_start": 2.36,
+        "OPTION_1_end": 2.88,
+        "OPTION_1_score_onset": 2.5698,
+        "OPTION_1_onset_delta_ms": -210.0,
+        "OPTION_1_offset_delta_ms": -210.0,
+        "OPTION_1_score_delta_ms": -0.2,
+        "OPTION_1_aligner_offset_ms": -209.8
+      },
+      {
+        "char": "等",
+        "src_start": 3.35,
+        "src_end": 3.77,
+        "OPTION_0_start": 2.9,
+        "OPTION_0_end": 3.5,
+        "OPTION_0_score_onset": 3.35,
+        "OPTION_0_onset_delta_ms": -450.0,
+        "OPTION_0_offset_delta_ms": -270.0,
+        "OPTION_0_score_delta_ms": 0.0,
+        "OPTION_0_aligner_offset_ms": -450.0,
+        "OPTION_1_start": 2.88,
+        "OPTION_1_end": 3.5,
+        "OPTION_1_score_onset": 3.35,
+        "OPTION_1_onset_delta_ms": -470.0,
+        "OPTION_1_offset_delta_ms": -270.0,
+        "OPTION_1_score_delta_ms": 0.0,
+        "OPTION_1_aligner_offset_ms": -470.0
+      },
+      {
+        "char": "清",
+        "src_start": 3.77,
+        "src_end": 4.35,
+        "OPTION_0_start": 3.5,
+        "OPTION_0_end": 3.9,
+        "OPTION_0_score_onset": 3.7698,
+        "OPTION_0_onset_delta_ms": -270.0,
+        "OPTION_0_offset_delta_ms": -450.0,
+        "OPTION_0_score_delta_ms": -0.2,
+        "OPTION_0_aligner_offset_ms": -269.8,
+        "OPTION_1_start": 3.5,
+        "OPTION_1_end": 3.92,
+        "OPTION_1_score_onset": 3.7698,
+        "OPTION_1_onset_delta_ms": -270.0,
+        "OPTION_1_offset_delta_ms": -430.0,
+        "OPTION_1_score_delta_ms": -0.2,
+        "OPTION_1_aligner_offset_ms": -269.8
+      },
+      {
+        "char": "晨",
+        "src_start": 4.35,
+        "src_end": 5.11,
+        "OPTION_0_start": 3.9,
+        "OPTION_0_end": 4.54,
+        "OPTION_0_score_onset": 4.3104,
+        "OPTION_0_onset_delta_ms": -450.0,
+        "OPTION_0_offset_delta_ms": -570.0,
+        "OPTION_0_score_delta_ms": -39.6,
+        "OPTION_0_aligner_offset_ms": -410.4,
+        "OPTION_1_start": 3.92,
+        "OPTION_1_end": 4.54,
+        "OPTION_1_score_onset": 4.3104,
+        "OPTION_1_onset_delta_ms": -430.0,
+        "OPTION_1_offset_delta_ms": -570.0,
+        "OPTION_1_score_delta_ms": -39.6,
+        "OPTION_1_aligner_offset_ms": -390.4
+      }
+    ],
+    "stats": {
+      "OPTION_0": {
+        "median_abs_onset_delta_ms": 210.0,
+        "p90_abs_onset_delta_ms": 450.0,
+        "max_abs_onset_delta_ms": 450.0,
+        "median_abs_offset_delta_ms": 210.0,
+        "n_chars_over_100ms": 10,
+        "n_chars_over_200ms": 7,
+        "median_aligner_offset_ms": -209.9
+      },
+      "OPTION_1": {
+        "median_abs_onset_delta_ms": 225.0,
+        "p90_abs_onset_delta_ms": 434.0,
+        "max_abs_onset_delta_ms": 470.0,
+        "median_abs_offset_delta_ms": 225.0,
+        "n_chars_over_100ms": 10,
+        "n_chars_over_200ms": 8,
+        "median_aligner_offset_ms": -225.2
+      }
+    },
+    "flags": []
+  },
+  "target_focus_sha256": "771576a9dfd37a826206661032cde7e38d4d88362542a6dbdb87b404ccbb14fc",
+  "target_core_sha256": "11578b5349aa85cc4d7077a78acb07fd508e31fe13a394f0ea321e33b148b8d1",
   "target_focus_is_primary": true,
   "auto_flags": [],
   "auto_review_ready": true

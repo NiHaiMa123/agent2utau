@@ -1,0 +1,54 @@
+{
+ "text": "数着一圈圈年轮",
+ "chars": [
+  {
+   "char": "数",
+   "start": 156.35,
+   "end": 157.53,
+   "probability": 0.34496238827705383,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "着",
+   "start": 157.53,
+   "end": 157.95,
+   "probability": 0.21081046760082245,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "一",
+   "start": 157.95,
+   "end": 158.33,
+   "probability": 0.9895177483558655,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "圈",
+   "start": 158.33,
+   "end": 158.81,
+   "probability": 0.9835471510887146,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "圈",
+   "start": 158.81,
+   "end": 159.19,
+   "probability": 0.9989887177944183,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "年",
+   "start": 159.19,
+   "end": 159.49,
+   "probability": 0.5813111066818237,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "轮",
+   "start": 159.49,
+   "end": 160.09,
+   "probability": 0.9447219967842102,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

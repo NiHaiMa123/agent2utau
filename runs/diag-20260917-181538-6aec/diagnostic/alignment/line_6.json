@@ -1,0 +1,96 @@
+{
+ "text": "荒草丛生的青春 倒也过得安稳",
+ "chars": [
+  {
+   "char": "荒",
+   "start": 57.03,
+   "end": 57.81,
+   "probability": 0.9568889737129211,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "草",
+   "start": 57.81,
+   "end": 58.29,
+   "probability": 0.9882413446903229,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "丛",
+   "start": 58.29,
+   "end": 58.63,
+   "probability": 0.6274923384189606,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "生",
+   "start": 58.63,
+   "end": 58.97,
+   "probability": 0.8604537844657898,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "的",
+   "start": 58.97,
+   "end": 59.47,
+   "probability": 0.9989950060844421,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "青",
+   "start": 59.47,
+   "end": 59.75,
+   "probability": 0.9949907660484314,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "春",
+   "start": 59.75,
+   "end": 60.35,
+   "probability": 0.9996486902236938,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "倒",
+   "start": 60.87,
+   "end": 61.09,
+   "probability": 0.7236748337745667,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "也",
+   "start": 61.09,
+   "end": 61.45,
+   "probability": 0.16693946719169617,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "过",
+   "start": 61.45,
+   "end": 61.85,
+   "probability": 0.9896738529205322,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "得",
+   "start": 61.85,
+   "end": 62.65,
+   "probability": 0.42947477102279663,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "安",
+   "start": 62.65,
+   "end": 63.03,
+   "probability": 0.993240475654602,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "稳",
+   "start": 63.03,
+   "end": 63.45,
+   "probability": 0.9191717803478241,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

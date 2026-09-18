@@ -1,0 +1,96 @@
+{
+ "text": "世间最毒的仇恨 是有缘却无分",
+ "chars": [
+  {
+   "char": "世",
+   "start": 44.08,
+   "end": 44.76,
+   "probability": 0.12102097272872925,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "间",
+   "start": 44.76,
+   "end": 45.24,
+   "probability": 0.8848151564598083,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "最",
+   "start": 45.24,
+   "end": 45.62,
+   "probability": 0.9758571982383728,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "毒",
+   "start": 45.62,
+   "end": 46.02,
+   "probability": 0.21189743280410767,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "的",
+   "start": 46.02,
+   "end": 46.54,
+   "probability": 0.9995138645172119,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "仇",
+   "start": 46.54,
+   "end": 46.9,
+   "probability": 0.9903243780136108,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "恨",
+   "start": 46.9,
+   "end": 47.42,
+   "probability": 0.9977875649929047,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "是",
+   "start": 47.42,
+   "end": 48.04,
+   "probability": 0.03733927384018898,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "有",
+   "start": 48.04,
+   "end": 48.44,
+   "probability": 0.02201225608587265,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "缘",
+   "start": 48.44,
+   "end": 49.22,
+   "probability": 0.9891857206821442,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "却",
+   "start": 49.22,
+   "end": 49.78,
+   "probability": 0.9894657135009766,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "无",
+   "start": 49.78,
+   "end": 50.1,
+   "probability": 0.9996976852416992,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "分",
+   "start": 50.1,
+   "end": 50.44,
+   "probability": 0.9782658219337463,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

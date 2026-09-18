@@ -1,0 +1,75 @@
+{
+ "text": "回忆苦涩的吻痕 是树根",
+ "chars": [
+  {
+   "char": "回",
+   "start": 24.7,
+   "end": 25.34,
+   "probability": 0.9762450456619263,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "忆",
+   "start": 25.34,
+   "end": 25.72,
+   "probability": 0.9950481951236725,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "苦",
+   "start": 25.72,
+   "end": 26.1,
+   "probability": 0.868549644947052,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "涩",
+   "start": 26.1,
+   "end": 26.6,
+   "probability": 0.9849879741668701,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "的",
+   "start": 26.6,
+   "end": 26.98,
+   "probability": 0.9988090991973877,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "吻",
+   "start": 26.98,
+   "end": 27.38,
+   "probability": 0.8088988959789276,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "痕",
+   "start": 27.38,
+   "end": 27.86,
+   "probability": 0.5858817100524902,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "是",
+   "start": 27.86,
+   "end": 28.56,
+   "probability": 0.04473287612199783,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "树",
+   "start": 28.56,
+   "end": 29.28,
+   "probability": 0.7252717018127441,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "根",
+   "start": 29.28,
+   "end": 29.76,
+   "probability": 0.005250157788395882,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

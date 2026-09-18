@@ -98,7 +98,7 @@
         }
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "c9911a829c27c0e5252729acbd244e8dab664792322fc62fff09ae885b37f184",
+      "wav_sha256": "3d2b842b9d119274d29a57fc63bbb19e9e1d751fda1d7dec8380ae59a8051795",
       "sample_rate": 44100,
       "frames": 277830,
       "render_error": null
@@ -113,7 +113,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "cd9866dc7db84af33eb266596de8e74bb829c759da57fab2270bec9667153100",
+      "wav_sha256": "82002e777c065e21c82c18be6a817266c44194d280ec2360987e7edbf272075d",
       "sample_rate": 44100,
       "frames": 277830,
       "render_error": null
@@ -193,7 +193,7 @@
     ]
   },
   "plan_hash": "e0b2488b3fa99f6eb7802e773563c865641e732bf0e738b549fec76d2f97ef2e",
-  "audio_package_hash": "d2c74f18a2b6c626e319f6d528acaaf06a0f59a3f407e9a330b14992c045c0c4",
+  "audio_package_hash": "dae9eaa4fc37fa8a30312ed0110f38124dac32d0adc812231817754047dcadef",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -271,8 +271,8 @@
     "candidate_role": "OPTION_0",
     "baseline_option": "OPTION_1",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv2",
-    "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
+    "lyric_mapping_impl": "rlv3",
+    "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
     "choices": [
       "split",
       "baseline",
@@ -283,7 +283,75 @@
     "lyric_evidence": {
       "method": "force_align_source_bound",
       "n_chars": 10,
-      "min_probability": 0.328
+      "min_probability": 0.328,
+      "chars": [
+        {
+          "char": "寒",
+          "start": 37.65,
+          "end": 38.35,
+          "probability": 0.35139164022984914
+        },
+        {
+          "char": "夜",
+          "start": 38.35,
+          "end": 38.77,
+          "probability": 0.9554290771484375
+        },
+        {
+          "char": "剩",
+          "start": 38.77,
+          "end": 39.15,
+          "probability": 0.9593111872673035
+        },
+        {
+          "char": "我",
+          "start": 39.15,
+          "end": 39.63,
+          "probability": 0.9909721612930298
+        },
+        {
+          "char": "一",
+          "start": 39.63,
+          "end": 39.99,
+          "probability": 0.9973853230476379
+        },
+        {
+          "char": "个",
+          "start": 39.99,
+          "end": 40.35,
+          "probability": 0.9973853230476379
+        },
+        {
+          "char": "人",
+          "start": 40.35,
+          "end": 40.87,
+          "probability": 0.9996806383132935
+        },
+        {
+          "char": "等",
+          "start": 41.13,
+          "end": 41.55,
+          "probability": 0.9103975892066956
+        },
+        {
+          "char": "清",
+          "start": 41.55,
+          "end": 42.13,
+          "probability": 0.3281252086162567
+        },
+        {
+          "char": "晨",
+          "start": 42.13,
+          "end": 42.89,
+          "probability": 0.7860614061355591
+        }
+      ],
+      "articulation": {
+        "impl": "rlv3",
+        "n_segments": 23,
+        "n_articulation_splits": 16,
+        "n_chars": 10
+      }
     }
   }
 }

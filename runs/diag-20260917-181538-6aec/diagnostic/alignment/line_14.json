@@ -1,0 +1,96 @@
+{
+ "text": "圆圈勾勒成指纹 印在我的嘴唇",
+ "chars": [
+  {
+   "char": "圆",
+   "start": 105.25,
+   "end": 106.47,
+   "probability": 0.655579537153244,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "圈",
+   "start": 106.47,
+   "end": 106.91,
+   "probability": 0.9866660237312317,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "勾",
+   "start": 106.91,
+   "end": 107.31,
+   "probability": 0.9302933514118195,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "勒",
+   "start": 107.31,
+   "end": 107.69,
+   "probability": 0.9832369089126587,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "成",
+   "start": 107.69,
+   "end": 108.11,
+   "probability": 0.8370779156684875,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "指",
+   "start": 108.11,
+   "end": 108.41,
+   "probability": 0.42554569244384766,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "纹",
+   "start": 108.41,
+   "end": 108.99,
+   "probability": 0.9513033926486969,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "印",
+   "start": 109.47,
+   "end": 109.63,
+   "probability": 0.2405773550271988,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "在",
+   "start": 109.63,
+   "end": 110.13,
+   "probability": 0.9978261590003967,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "我",
+   "start": 110.13,
+   "end": 110.67,
+   "probability": 0.9894301891326904,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "的",
+   "start": 110.67,
+   "end": 111.21,
+   "probability": 0.9894301891326904,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "嘴",
+   "start": 111.21,
+   "end": 111.71,
+   "probability": 0.9600521624088287,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "唇",
+   "start": 111.71,
+   "end": 112.17,
+   "probability": 0.9954952597618103,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

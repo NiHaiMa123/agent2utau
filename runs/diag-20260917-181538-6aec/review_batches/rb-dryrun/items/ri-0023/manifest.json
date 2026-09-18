@@ -1,0 +1,223 @@
+{
+  "schema": "d1",
+  "review_item_id": "ri-0023",
+  "song_sha256": "5f851d3a760f230a",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "review_batch_id": "rb-dryrun",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "target_group": {
+    "type": "split",
+    "parent_ids": [
+      "note_0414"
+    ],
+    "note_ids": [
+      "note_0414__v0",
+      "note_0414__v1"
+    ],
+    "region": [
+      202.14,
+      202.51999999999998
+    ],
+    "packets": [
+      "note_0414"
+    ],
+    "reason": "split_candidate_virtual_unresolved"
+  },
+  "context": {
+    "phrase": {
+      "start": 201.01,
+      "end": 204.6,
+      "boundary_source": "silence"
+    },
+    "phrase_key": "201.01-204.60",
+    "candidate0_note_ids": [
+      "note_0412",
+      "note_0413",
+      "note_0414",
+      "note_0415",
+      "note_0416",
+      "note_0417",
+      "note_0418",
+      "note_0419",
+      "note_0420"
+    ]
+  },
+  "phrase": {
+    "start": 201.01,
+    "end": 204.6,
+    "boundary_source": "silence"
+  },
+  "options": [
+    {
+      "option_id": "OPTION_0",
+      "candidate_id": "split_pitch_3",
+      "score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0414"
+        ],
+        "boundary": 202.24,
+        "children": [
+          {
+            "start": 202.14,
+            "end": 202.24,
+            "tone": 69.28
+          },
+          {
+            "start": 202.24,
+            "end": 202.51999999999998,
+            "tone": 55.31
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "virtual_b_runnerup",
+        "child": 1
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_1",
+      "candidate_id": "baseline",
+      "score_patch": {
+        "type": "identity"
+      },
+      "provenance": {
+        "kind": "candidate0"
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_2",
+      "candidate_id": "split_1",
+      "score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0414"
+        ],
+        "boundary": 202.24,
+        "children": [
+          {
+            "start": 202.14,
+            "end": 202.24,
+            "tone": 69.28
+          },
+          {
+            "start": 202.24,
+            "end": 202.51999999999998,
+            "tone": 74.36
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "c_hypothesis",
+        "hypothesis": "H1",
+        "child_pitch_source": [
+          "virtual_b:unresolved",
+          "virtual_b:unresolved"
+        ]
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_3",
+      "candidate_id": "split_pitch_2",
+      "score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0414"
+        ],
+        "boundary": 202.24,
+        "children": [
+          {
+            "start": 202.14,
+            "end": 202.24,
+            "tone": 57.28
+          },
+          {
+            "start": 202.24,
+            "end": 202.51999999999998,
+            "tone": 74.36
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "virtual_b_runnerup",
+        "child": 0
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    }
+  ],
+  "baseline_option": "OPTION_1",
+  "source_reference": null,
+  "render_profile": {
+    "singer": "YousaV1.65b",
+    "phonemizer": "zh",
+    "renderer": "DIFFSINGER",
+    "bpm": 120,
+    "resolution": 480,
+    "sample_rate": 44100,
+    "voice_color": null,
+    "pitd": "none",
+    "time_align": "shared_phrase_start",
+    "loudness": "shared_gain",
+    "ustx_template_sha256": "a11d1b6a2b1a3c13b4e3056c8a942ae8baf401d6bbfe0e431235db144cb9362b"
+  },
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "shared_gain_db": null,
+  "machine_evidence": {
+    "pitch": {
+      "status": "not_needed",
+      "winning_hypothesis": null,
+      "reason": null,
+      "top_hypotheses": []
+    },
+    "structure": {
+      "status": "resolved_change_candidate",
+      "winning_hypothesis": "H1",
+      "boundary": 202.24,
+      "all_scores": {
+        "H0": 1.5,
+        "H1": 3.132,
+        "H3": 1.903
+      }
+    },
+    "virtual_b": [
+      {
+        "id": "note_0414__v0",
+        "status": "unresolved",
+        "winning_hypothesis": 69.28
+      },
+      {
+        "id": "note_0414__v1",
+        "status": "unresolved",
+        "winning_hypothesis": 74.36
+      }
+    ],
+    "flags": [
+      "wrong_pitch",
+      "high_dispersion"
+    ]
+  },
+  "review": {
+    "generation": 1,
+    "blinded": true,
+    "choices": [
+      "OPTION_0",
+      "OPTION_1",
+      "OPTION_2",
+      "OPTION_3",
+      "equivalent",
+      "none_correct"
+    ]
+  },
+  "package_hash": "4dbfb1038b8b4d918f2fe3e2a0520c6b0b81e1f992929c40ea49736609388144"
+}

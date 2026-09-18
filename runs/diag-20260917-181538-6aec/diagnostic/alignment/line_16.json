@@ -1,0 +1,96 @@
+{
+ "text": "春去秋来的茂盛 却遮住了黄昏",
+ "chars": [
+  {
+   "char": "春",
+   "start": 118.35,
+   "end": 119.37,
+   "probability": 0.19293665885925293,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "去",
+   "start": 119.37,
+   "end": 119.85,
+   "probability": 0.8930519819259644,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "秋",
+   "start": 119.85,
+   "end": 120.19,
+   "probability": 0.9707094430923462,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "来",
+   "start": 120.19,
+   "end": 120.69,
+   "probability": 0.9925671815872192,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "的",
+   "start": 120.69,
+   "end": 121.09,
+   "probability": 0.9984797835350037,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "茂",
+   "start": 121.09,
+   "end": 121.47,
+   "probability": 0.6946349442005157,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "盛",
+   "start": 121.47,
+   "end": 121.99,
+   "probability": 0.8881883323192596,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "却",
+   "start": 122.17,
+   "end": 122.77,
+   "probability": 0.9755861163139343,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "遮",
+   "start": 122.77,
+   "end": 123.03,
+   "probability": 0.9661155045032501,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "住",
+   "start": 123.03,
+   "end": 123.57,
+   "probability": 0.9756490588188171,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "了",
+   "start": 123.57,
+   "end": 124.29,
+   "probability": 0.9999134540557861,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "黄",
+   "start": 124.29,
+   "end": 124.69,
+   "probability": 0.9982310831546783,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "昏",
+   "start": 124.69,
+   "end": 125.09,
+   "probability": 0.9912087321281433,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

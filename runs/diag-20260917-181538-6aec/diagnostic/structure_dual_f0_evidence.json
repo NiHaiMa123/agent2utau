@@ -1,0 +1,1218 @@
+{
+ "note_0004": {
+  "rmvpe_plateaus": [],
+  "fcpe_plateaus": [],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0005": {
+  "rmvpe_plateaus": [],
+  "fcpe_plateaus": [],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0006": {
+  "rmvpe_plateaus": [],
+  "fcpe_plateaus": [
+   {
+    "start": 11.79,
+    "end": 11.89,
+    "dur": 0.1,
+    "center_midi": 71.12,
+    "iqr_cents": 37.0
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0019": {
+  "rmvpe_plateaus": [
+   {
+    "start": 22.87,
+    "end": 23.28,
+    "dur": 0.41,
+    "center_midi": 63.38,
+    "iqr_cents": 144.8
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 22.87,
+    "end": 23.28,
+    "dur": 0.41,
+    "center_midi": 63.32,
+    "iqr_cents": 149.4
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0035": {
+  "rmvpe_plateaus": [
+   {
+    "start": 28.89,
+    "end": 29.07,
+    "dur": 0.18,
+    "center_midi": 67.74,
+    "iqr_cents": 24.0
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 28.89,
+    "end": 29.07,
+    "dur": 0.18,
+    "center_midi": 67.76,
+    "iqr_cents": 20.1
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0036": {
+  "rmvpe_plateaus": [
+   {
+    "start": 29.07,
+    "end": 29.27,
+    "dur": 0.2,
+    "center_midi": 69.21,
+    "iqr_cents": 17.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 29.07,
+    "end": 29.27,
+    "dur": 0.2,
+    "center_midi": 69.2,
+    "iqr_cents": 13.9
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0058": {
+  "rmvpe_plateaus": [
+   {
+    "start": 38.19,
+    "end": 38.68,
+    "dur": 0.49,
+    "center_midi": 56.96,
+    "iqr_cents": 9.3
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 38.19,
+    "end": 38.68,
+    "dur": 0.49,
+    "center_midi": 56.99,
+    "iqr_cents": 10.8
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0059": {
+  "rmvpe_plateaus": [
+   {
+    "start": 38.68,
+    "end": 38.85,
+    "dur": 0.17,
+    "center_midi": 59.08,
+    "iqr_cents": 37.9
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 38.68,
+    "end": 38.85,
+    "dur": 0.17,
+    "center_midi": 59.03,
+    "iqr_cents": 35.7
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0064": {
+  "rmvpe_plateaus": [
+   {
+    "start": 40.63,
+    "end": 40.76,
+    "dur": 0.13,
+    "center_midi": 62.07,
+    "iqr_cents": 0.3
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 40.64,
+    "end": 40.76,
+    "dur": 0.12,
+    "center_midi": 62.07,
+    "iqr_cents": 1.0
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0065": {
+  "rmvpe_plateaus": [
+   {
+    "start": 40.76,
+    "end": 40.97,
+    "dur": 0.21,
+    "center_midi": 64.04,
+    "iqr_cents": 10.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 40.76,
+    "end": 40.97,
+    "dur": 0.21,
+    "center_midi": 64.03,
+    "iqr_cents": 5.2
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0098": {
+  "rmvpe_plateaus": [
+   {
+    "start": 54.85,
+    "end": 55.18,
+    "dur": 0.33,
+    "center_midi": 68.53,
+    "iqr_cents": 232.7
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 54.85,
+    "end": 55.0,
+    "dur": 0.15,
+    "center_midi": 66.55,
+    "iqr_cents": 14.9
+   },
+   {
+    "start": 55.0,
+    "end": 55.19,
+    "dur": 0.19,
+    "center_midi": 68.88,
+    "iqr_cents": 18.2
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0111": {
+  "rmvpe_plateaus": [
+   {
+    "start": 60.08,
+    "end": 60.44,
+    "dur": 0.36,
+    "center_midi": 63.79,
+    "iqr_cents": 133.0
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 60.08,
+    "end": 60.43,
+    "dur": 0.35,
+    "center_midi": 63.76,
+    "iqr_cents": 146.3
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0129": {
+  "rmvpe_plateaus": [
+   {
+    "start": 67.8,
+    "end": 68.12,
+    "dur": 0.32,
+    "center_midi": 63.47,
+    "iqr_cents": 132.8
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 67.8,
+    "end": 68.12,
+    "dur": 0.32,
+    "center_midi": 63.51,
+    "iqr_cents": 138.3
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0160": {
+  "rmvpe_plateaus": [
+   {
+    "start": 80.96,
+    "end": 81.28,
+    "dur": 0.32,
+    "center_midi": 68.47,
+    "iqr_cents": 165.6
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 80.96,
+    "end": 81.28,
+    "dur": 0.32,
+    "center_midi": 68.47,
+    "iqr_cents": 163.4
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0161": {
+  "rmvpe_plateaus": [
+   {
+    "start": 81.3,
+    "end": 81.41,
+    "dur": 0.11,
+    "center_midi": 66.45,
+    "iqr_cents": 3.7
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 81.3,
+    "end": 81.6,
+    "dur": 0.3,
+    "center_midi": 66.6,
+    "iqr_cents": 14.3
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0162": {
+  "rmvpe_plateaus": [
+   {
+    "start": 81.6,
+    "end": 82.25,
+    "dur": 0.65,
+    "center_midi": 66.07,
+    "iqr_cents": 94.8
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 81.6,
+    "end": 82.27,
+    "dur": 0.67,
+    "center_midi": 66.1,
+    "iqr_cents": 90.4
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0170": {
+  "rmvpe_plateaus": [
+   {
+    "start": 85.44,
+    "end": 85.79,
+    "dur": 0.35,
+    "center_midi": 69.85,
+    "iqr_cents": 135.3
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 85.44,
+    "end": 85.61,
+    "dur": 0.17,
+    "center_midi": 69.4,
+    "iqr_cents": 24.8
+   },
+   {
+    "start": 85.61,
+    "end": 85.76,
+    "dur": 0.15,
+    "center_midi": 70.88,
+    "iqr_cents": 13.3
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0173": {
+  "rmvpe_plateaus": [
+   {
+    "start": 86.97,
+    "end": 87.35,
+    "dur": 0.38,
+    "center_midi": 69.41,
+    "iqr_cents": 193.0
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 86.97,
+    "end": 87.35,
+    "dur": 0.38,
+    "center_midi": 69.37,
+    "iqr_cents": 194.9
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0192": {
+  "rmvpe_plateaus": [
+   {
+    "start": 94.79,
+    "end": 95.06,
+    "dur": 0.27,
+    "center_midi": 62.35,
+    "iqr_cents": 27.5
+   },
+   {
+    "start": 95.06,
+    "end": 95.27,
+    "dur": 0.21,
+    "center_midi": 64.1,
+    "iqr_cents": 7.2
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 94.79,
+    "end": 95.06,
+    "dur": 0.27,
+    "center_midi": 62.35,
+    "iqr_cents": 26.4
+   },
+   {
+    "start": 95.06,
+    "end": 95.27,
+    "dur": 0.21,
+    "center_midi": 64.09,
+    "iqr_cents": 9.2
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": 0.0
+ },
+ "note_0198": {
+  "rmvpe_plateaus": [
+   {
+    "start": 106.72,
+    "end": 106.85,
+    "dur": 0.13,
+    "center_midi": 56.47,
+    "iqr_cents": 19.7
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 106.72,
+    "end": 106.85,
+    "dur": 0.13,
+    "center_midi": 56.45,
+    "iqr_cents": 20.7
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0199": {
+  "rmvpe_plateaus": [
+   {
+    "start": 106.87,
+    "end": 107.04,
+    "dur": 0.17,
+    "center_midi": 58.97,
+    "iqr_cents": 13.8
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 106.87,
+    "end": 107.04,
+    "dur": 0.17,
+    "center_midi": 58.97,
+    "iqr_cents": 12.8
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0219": {
+  "rmvpe_plateaus": [
+   {
+    "start": 115.16,
+    "end": 115.52,
+    "dur": 0.36,
+    "center_midi": 63.09,
+    "iqr_cents": 155.7
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 115.16,
+    "end": 115.52,
+    "dur": 0.36,
+    "center_midi": 62.96,
+    "iqr_cents": 154.0
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0229": {
+  "rmvpe_plateaus": [
+   {
+    "start": 119.68,
+    "end": 119.98,
+    "dur": 0.3,
+    "center_midi": 58.05,
+    "iqr_cents": 206.1
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 119.68,
+    "end": 119.79,
+    "dur": 0.11,
+    "center_midi": 56.65,
+    "iqr_cents": 2.4
+   },
+   {
+    "start": 119.8,
+    "end": 120.02,
+    "dur": 0.22,
+    "center_midi": 58.7,
+    "iqr_cents": 31.5
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0234": {
+  "rmvpe_plateaus": [
+   {
+    "start": 121.71,
+    "end": 121.9,
+    "dur": 0.19,
+    "center_midi": 62.38,
+    "iqr_cents": 24.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 121.71,
+    "end": 121.9,
+    "dur": 0.19,
+    "center_midi": 62.39,
+    "iqr_cents": 15.9
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0260": {
+  "rmvpe_plateaus": [
+   {
+    "start": 132.65,
+    "end": 132.8,
+    "dur": 0.15,
+    "center_midi": 56.62,
+    "iqr_cents": 31.8
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 132.65,
+    "end": 132.8,
+    "dur": 0.15,
+    "center_midi": 56.62,
+    "iqr_cents": 34.7
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0261": {
+  "rmvpe_plateaus": [
+   {
+    "start": 132.82,
+    "end": 132.98,
+    "dur": 0.16,
+    "center_midi": 59.19,
+    "iqr_cents": 27.8
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 132.83,
+    "end": 132.98,
+    "dur": 0.15,
+    "center_midi": 59.2,
+    "iqr_cents": 30.3
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0280": {
+  "rmvpe_plateaus": [
+   {
+    "start": 140.29,
+    "end": 140.62,
+    "dur": 0.33,
+    "center_midi": 64.85,
+    "iqr_cents": 218.3
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 140.29,
+    "end": 140.46,
+    "dur": 0.17,
+    "center_midi": 63.96,
+    "iqr_cents": 14.1
+   },
+   {
+    "start": 140.46,
+    "end": 140.61,
+    "dur": 0.15,
+    "center_midi": 66.2,
+    "iqr_cents": 16.2
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0296": {
+  "rmvpe_plateaus": [
+   {
+    "start": 146.8,
+    "end": 146.91,
+    "dur": 0.11,
+    "center_midi": 64.27,
+    "iqr_cents": 40.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 146.8,
+    "end": 146.91,
+    "dur": 0.11,
+    "center_midi": 64.26,
+    "iqr_cents": 31.1
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0297": {
+  "rmvpe_plateaus": [
+   {
+    "start": 146.91,
+    "end": 147.11,
+    "dur": 0.2,
+    "center_midi": 66.09,
+    "iqr_cents": 87.6
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 146.94,
+    "end": 147.23,
+    "dur": 0.29,
+    "center_midi": 66.2,
+    "iqr_cents": 7.2
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0302": {
+  "rmvpe_plateaus": [
+   {
+    "start": 148.82,
+    "end": 148.93,
+    "dur": 0.11,
+    "center_midi": 56.46,
+    "iqr_cents": 10.2
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 148.82,
+    "end": 148.93,
+    "dur": 0.11,
+    "center_midi": 56.45,
+    "iqr_cents": 9.6
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0319": {
+  "rmvpe_plateaus": [
+   {
+    "start": 155.36,
+    "end": 155.51,
+    "dur": 0.15,
+    "center_midi": 61.64,
+    "iqr_cents": 27.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 155.36,
+    "end": 155.51,
+    "dur": 0.15,
+    "center_midi": 61.65,
+    "iqr_cents": 26.9
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0320": {
+  "rmvpe_plateaus": [
+   {
+    "start": 155.51,
+    "end": 155.71,
+    "dur": 0.2,
+    "center_midi": 63.9,
+    "iqr_cents": 28.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 155.52,
+    "end": 155.71,
+    "dur": 0.19,
+    "center_midi": 63.92,
+    "iqr_cents": 22.5
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0330": {
+  "rmvpe_plateaus": [
+   {
+    "start": 159.9,
+    "end": 160.29,
+    "dur": 0.39,
+    "center_midi": 69.2,
+    "iqr_cents": 151.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 159.9,
+    "end": 160.29,
+    "dur": 0.39,
+    "center_midi": 69.19,
+    "iqr_cents": 157.2
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0338": {
+  "rmvpe_plateaus": [
+   {
+    "start": 163.29,
+    "end": 163.71,
+    "dur": 0.42,
+    "center_midi": 70.09,
+    "iqr_cents": 210.6
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 163.29,
+    "end": 163.5,
+    "dur": 0.21,
+    "center_midi": 68.94,
+    "iqr_cents": 24.0
+   },
+   {
+    "start": 163.51,
+    "end": 163.77,
+    "dur": 0.26,
+    "center_midi": 71.0,
+    "iqr_cents": 27.7
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0339": {
+  "rmvpe_plateaus": [
+   {
+    "start": 163.81,
+    "end": 164.14,
+    "dur": 0.33,
+    "center_midi": 65.25,
+    "iqr_cents": 175.9
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 163.81,
+    "end": 164.26,
+    "dur": 0.45,
+    "center_midi": 65.49,
+    "iqr_cents": 178.2
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0350": {
+  "rmvpe_plateaus": [
+   {
+    "start": 168.61,
+    "end": 168.9,
+    "dur": 0.29,
+    "center_midi": 68.83,
+    "iqr_cents": 168.5
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 168.61,
+    "end": 168.9,
+    "dur": 0.29,
+    "center_midi": 68.79,
+    "iqr_cents": 168.7
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0368": {
+  "rmvpe_plateaus": [
+   {
+    "start": 176.18,
+    "end": 176.63,
+    "dur": 0.45,
+    "center_midi": 70.03,
+    "iqr_cents": 165.8
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 176.18,
+    "end": 176.4,
+    "dur": 0.22,
+    "center_midi": 69.29,
+    "iqr_cents": 7.8
+   },
+   {
+    "start": 176.4,
+    "end": 176.55,
+    "dur": 0.15,
+    "center_midi": 62.15,
+    "iqr_cents": 7.6
+   },
+   {
+    "start": 176.59,
+    "end": 176.71,
+    "dur": 0.12,
+    "center_midi": 62.11,
+    "iqr_cents": 0.8
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0384": {
+  "rmvpe_plateaus": [
+   {
+    "start": 182.73,
+    "end": 182.86,
+    "dur": 0.13,
+    "center_midi": 62.08,
+    "iqr_cents": 27.2
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 182.74,
+    "end": 182.86,
+    "dur": 0.12,
+    "center_midi": 62.06,
+    "iqr_cents": 29.5
+   },
+   {
+    "start": 182.86,
+    "end": 182.94,
+    "dur": 0.08,
+    "center_midi": 61.36,
+    "iqr_cents": 8.8
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0385": {
+  "rmvpe_plateaus": [],
+  "fcpe_plateaus": [],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0389": {
+  "rmvpe_plateaus": [],
+  "fcpe_plateaus": [
+   {
+    "start": 184.91,
+    "end": 185.38,
+    "dur": 0.47,
+    "center_midi": 65.19,
+    "iqr_cents": 7.5
+   }
+  ],
+  "plateau_count_agreement": false,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0392": {
+  "rmvpe_plateaus": [
+   {
+    "start": 188.51,
+    "end": 188.94,
+    "dur": 0.43,
+    "center_midi": 69.23,
+    "iqr_cents": 27.1
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 188.51,
+    "end": 188.94,
+    "dur": 0.43,
+    "center_midi": 69.24,
+    "iqr_cents": 23.4
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0393": {
+  "rmvpe_plateaus": [
+   {
+    "start": 188.95,
+    "end": 189.38,
+    "dur": 0.43,
+    "center_midi": 70.35,
+    "iqr_cents": 37.3
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 188.96,
+    "end": 189.48,
+    "dur": 0.52,
+    "center_midi": 70.31,
+    "iqr_cents": 27.1
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0395": {
+  "rmvpe_plateaus": [
+   {
+    "start": 189.84,
+    "end": 190.22,
+    "dur": 0.38,
+    "center_midi": 69.98,
+    "iqr_cents": 9.2
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 189.84,
+    "end": 190.22,
+    "dur": 0.38,
+    "center_midi": 58.09,
+    "iqr_cents": 8.0
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": false,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0398": {
+  "rmvpe_plateaus": [
+   {
+    "start": 191.33,
+    "end": 192.151,
+    "dur": 0.821,
+    "center_midi": 58.02,
+    "iqr_cents": 11.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 191.26,
+    "end": 192.151,
+    "dur": 0.891,
+    "center_midi": 58.01,
+    "iqr_cents": 3.2
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0404": {
+  "rmvpe_plateaus": [
+   {
+    "start": 196.52,
+    "end": 196.63,
+    "dur": 0.11,
+    "center_midi": 60.81,
+    "iqr_cents": 12.7
+   },
+   {
+    "start": 196.65,
+    "end": 197.49,
+    "dur": 0.84,
+    "center_midi": 65.09,
+    "iqr_cents": 67.9
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 196.52,
+    "end": 196.63,
+    "dur": 0.11,
+    "center_midi": 60.75,
+    "iqr_cents": 26.0
+   },
+   {
+    "start": 196.7,
+    "end": 197.49,
+    "dur": 0.79,
+    "center_midi": 65.12,
+    "iqr_cents": 85.3
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": 50.0
+ },
+ "note_0422": {
+  "rmvpe_plateaus": [
+   {
+    "start": 206.82,
+    "end": 207.01,
+    "dur": 0.19,
+    "center_midi": 66.32,
+    "iqr_cents": 45.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 206.82,
+    "end": 207.05,
+    "dur": 0.23,
+    "center_midi": 66.4,
+    "iqr_cents": 29.0
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0448": {
+  "rmvpe_plateaus": [
+   {
+    "start": 217.97,
+    "end": 218.16,
+    "dur": 0.19,
+    "center_midi": 64.39,
+    "iqr_cents": 7.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 217.99,
+    "end": 218.16,
+    "dur": 0.17,
+    "center_midi": 64.38,
+    "iqr_cents": 7.4
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0449": {
+  "rmvpe_plateaus": [
+   {
+    "start": 218.16,
+    "end": 218.43,
+    "dur": 0.27,
+    "center_midi": 66.11,
+    "iqr_cents": 48.4
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 218.16,
+    "end": 218.44,
+    "dur": 0.28,
+    "center_midi": 66.14,
+    "iqr_cents": 34.5
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0455": {
+  "rmvpe_plateaus": [
+   {
+    "start": 220.6,
+    "end": 221.11,
+    "dur": 0.51,
+    "center_midi": 66.25,
+    "iqr_cents": 69.7
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 220.6,
+    "end": 221.11,
+    "dur": 0.51,
+    "center_midi": 66.23,
+    "iqr_cents": 79.9
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0456": {
+  "rmvpe_plateaus": [
+   {
+    "start": 221.12,
+    "end": 221.42,
+    "dur": 0.3,
+    "center_midi": 69.01,
+    "iqr_cents": 9.1
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 221.12,
+    "end": 221.59,
+    "dur": 0.47,
+    "center_midi": 69.02,
+    "iqr_cents": 8.9
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0478": {
+  "rmvpe_plateaus": [
+   {
+    "start": 230.82,
+    "end": 231.12,
+    "dur": 0.3,
+    "center_midi": 61.64,
+    "iqr_cents": 51.0
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 230.82,
+    "end": 231.12,
+    "dur": 0.3,
+    "center_midi": 61.64,
+    "iqr_cents": 49.9
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "note_0487": {
+  "rmvpe_plateaus": [
+   {
+    "start": 234.78,
+    "end": 235.12,
+    "dur": 0.34,
+    "center_midi": 65.73,
+    "iqr_cents": 119.5
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 234.78,
+    "end": 235.13,
+    "dur": 0.35,
+    "center_midi": 65.73,
+    "iqr_cents": 122.5
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ }
+}

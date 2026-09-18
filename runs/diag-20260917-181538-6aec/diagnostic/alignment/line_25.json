@@ -1,0 +1,54 @@
+{
+ "text": "修改一次次离分",
+ "chars": [
+  {
+   "char": "修",
+   "start": 169.72,
+   "end": 170.56,
+   "probability": 0.9359331727027893,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "改",
+   "start": 170.56,
+   "end": 171.08,
+   "probability": 0.9874070286750793,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "一",
+   "start": 171.08,
+   "end": 171.44,
+   "probability": 0.5506259799003601,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "次",
+   "start": 171.44,
+   "end": 171.8,
+   "probability": 0.5506259799003601,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "次",
+   "start": 171.8,
+   "end": 172.06,
+   "probability": 0.0682586282491684,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "离",
+   "start": 172.06,
+   "end": 172.94,
+   "probability": 0.6529527902603149,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "分",
+   "start": 172.94,
+   "end": 173.06,
+   "probability": 0.005030791740864515,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

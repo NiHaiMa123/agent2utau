@@ -1,0 +1,155 @@
+{
+  "schema": "d3",
+  "identity_schema": "review-target-v1",
+  "review_item_id": "ri-4641d4fbe13b9172",
+  "target_key": "4641d4fbe13b917205fdebbe1ef6959de61428762be2786870bc0b2d2101a854",
+  "song_sha256": "5f851d3a760f230a",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "review_batch_id": "rb-d3-full",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "target_group": {
+    "type": "structure",
+    "parent_ids": [
+      "note_0453"
+    ],
+    "note_ids": [
+      "note_0453"
+    ],
+    "region": [
+      219.77,
+      220.15
+    ],
+    "packets": [
+      "note_0453"
+    ],
+    "reason": "structure_unresolved"
+  },
+  "context": {
+    "phrase": {
+      "start": 218.46,
+      "end": 221.59,
+      "boundary_source": "lrc"
+    },
+    "phrase_key": "218.46-221.59",
+    "candidate0_note_ids": [
+      "note_0450",
+      "note_0451",
+      "note_0452",
+      "note_0453",
+      "note_0454",
+      "note_0455",
+      "note_0456"
+    ]
+  },
+  "phrase": {
+    "start": 218.46,
+    "end": 221.59,
+    "boundary_source": "lrc"
+  },
+  "options": [
+    {
+      "option_id": "OPTION_0",
+      "candidate_id": "split_1",
+      "score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0453"
+        ],
+        "boundary": 219.99,
+        "children": [
+          {
+            "start": 219.77,
+            "end": 219.99,
+            "tone": 66.03
+          },
+          {
+            "start": 219.99,
+            "end": 220.15,
+            "tone": 65.94
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "c_hypothesis",
+        "hypothesis": "H1",
+        "child_pitch_source": [
+          "acoustic_seed",
+          "acoustic_seed"
+        ]
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "sample_rate": null,
+      "frames": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_1",
+      "candidate_id": "baseline",
+      "score_patch": {
+        "type": "identity"
+      },
+      "provenance": {
+        "kind": "candidate0"
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "sample_rate": null,
+      "frames": null,
+      "render_error": null
+    }
+  ],
+  "baseline_option": "OPTION_1",
+  "source_reference": null,
+  "render_profile": {
+    "singer": "YousaV1.65b",
+    "phonemizer": "zh",
+    "renderer": "DIFFSINGER",
+    "bpm": 120,
+    "resolution": 480,
+    "sample_rate": 44100,
+    "voice_color": null,
+    "pitd": "none",
+    "time_align": "shared_phrase_start",
+    "loudness": "shared_gain",
+    "ustx_template_sha256": "a11d1b6a2b1a3c13b4e3056c8a942ae8baf401d6bbfe0e431235db144cb9362b"
+  },
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "shared_gain_db": null,
+  "machine_evidence": {
+    "pitch": {
+      "status": "not_needed",
+      "winning_hypothesis": null,
+      "reason": null,
+      "top_hypotheses": []
+    },
+    "structure": {
+      "status": "unresolved",
+      "winning_hypothesis": "H0",
+      "boundary": 219.99,
+      "all_scores": {
+        "H0": 2.558,
+        "H1": 2.435,
+        "H3": 1.75
+      }
+    },
+    "virtual_b": [],
+    "flags": [
+      "high_dispersion"
+    ]
+  },
+  "review": {
+    "generation": 1,
+    "blinded": true,
+    "choices": [
+      "OPTION_0",
+      "OPTION_1",
+      "equivalent",
+      "none_correct"
+    ]
+  },
+  "plan_hash": "bca8ceab5e46c9eff3a2023fc52469ad05eeaa64c791d97ca4e0141020e906ef",
+  "audio_package_hash": null,
+  "render_provenance": null,
+  "package_state": "unrendered"
+}

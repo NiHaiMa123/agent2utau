@@ -1,0 +1,451 @@
+{
+ "note_0004": [
+  "very_short_note"
+ ],
+ "note_0005": [
+  "very_short_note"
+ ],
+ "note_0010": [
+  "single_extractor_transition"
+ ],
+ "note_0012": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0023": [
+  "boundary_energy_dip"
+ ],
+ "note_0032": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ],
+ "note_0037": [
+  "boundary_energy_dip"
+ ],
+ "note_0042": [
+  "dual_f0_multi_plateau",
+  "boundary_energy_dip"
+ ],
+ "note_0044": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0045": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0049": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ],
+ "note_0054": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0061": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0062": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0075": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0076": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0077": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0083": [
+  "boundary_energy_dip"
+ ],
+ "note_0085": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0095": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0097": [
+  "boundary_energy_dip"
+ ],
+ "note_0098": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0103": [
+  "boundary_energy_dip"
+ ],
+ "note_0109": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0110": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0114": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0116": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0123": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0125": [
+  "boundary_energy_dip"
+ ],
+ "note_0126": [
+  "single_extractor_transition"
+ ],
+ "note_0128": [
+  "boundary_energy_dip"
+ ],
+ "note_0135": [
+  "dual_f0_multi_plateau",
+  "boundary_energy_dip"
+ ],
+ "note_0149": [
+  "single_extractor_transition"
+ ],
+ "note_0159": [
+  "boundary_energy_dip"
+ ],
+ "note_0165": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0170": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0171": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0172": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0177": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0178": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0179": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0183": [
+  "boundary_energy_dip"
+ ],
+ "note_0188": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0192": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0201": [
+  "boundary_energy_dip"
+ ],
+ "note_0202": [
+  "single_extractor_transition"
+ ],
+ "note_0208": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ],
+ "note_0209": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0214": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0229": [
+  "single_extractor_transition"
+ ],
+ "note_0231": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0233": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0237": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ],
+ "note_0241": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0246": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0248": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0254": [
+  "dual_f0_multi_plateau",
+  "boundary_energy_dip"
+ ],
+ "note_0259": [
+  "boundary_energy_dip"
+ ],
+ "note_0264": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0265": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0266": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0268": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0270": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0272": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0277": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0280": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0292": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ],
+ "note_0301": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0305": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0307": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0311": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0312": [
+  "boundary_energy_dip"
+ ],
+ "note_0315": [
+  "boundary_energy_dip"
+ ],
+ "note_0318": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0325": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0338": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0354": [
+  "boundary_energy_dip"
+ ],
+ "note_0355": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0356": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0357": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0359": [
+  "single_extractor_transition"
+ ],
+ "note_0360": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0368": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0373": [
+  "single_extractor_transition"
+ ],
+ "note_0374": [
+  "boundary_energy_dip"
+ ],
+ "note_0377": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ],
+ "note_0379": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0384": [
+  "boundary_energy_dip"
+ ],
+ "note_0385": [
+  "very_short_note"
+ ],
+ "note_0391": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip",
+  "long_note_multi_plateau"
+ ],
+ "note_0401": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0404": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0408": [
+  "single_extractor_transition",
+  "boundary_energy_dip",
+  "long_note_multi_plateau"
+ ],
+ "note_0414": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0433": [
+  "boundary_energy_dip"
+ ],
+ "note_0436": [
+  "boundary_energy_dip"
+ ],
+ "note_0437": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ],
+ "note_0440": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0441": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0442": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0445": [
+  "boundary_energy_dip"
+ ],
+ "note_0447": [
+  "boundary_energy_dip"
+ ],
+ "note_0453": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0454": [
+  "single_extractor_transition"
+ ],
+ "note_0457": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ],
+ "note_0464": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0465": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint",
+  "boundary_energy_dip"
+ ],
+ "note_0466": [
+  "boundary_energy_dip"
+ ],
+ "note_0476": [
+  "single_extractor_transition",
+  "boundary_energy_dip"
+ ],
+ "note_0477": [
+  "boundary_energy_dip"
+ ],
+ "note_0481": [
+  "boundary_energy_dip"
+ ],
+ "note_0483": [
+  "single_extractor_transition"
+ ],
+ "note_0488": [
+  "dual_f0_multi_plateau",
+  "cross_extractor_changepoint"
+ ]
+}

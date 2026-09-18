@@ -1,0 +1,347 @@
+{
+ "id": "note_0455",
+ "start": 220.6,
+ "dur": 0.52,
+ "game_tone": 66.15,
+ "voiced_coverage": 1.0,
+ "f0_iqr_cents": 69.2,
+ "err_cents": 10.4,
+ "flags": [
+  "high_dispersion"
+ ],
+ "rmvpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 66.257,
+  "iqr_cents": 69.2
+ },
+ "fcpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 66.267,
+  "iqr_cents": 76.0
+ },
+ "dual_f0": {
+  "rmvpe_vs_fcpe_cents": 1.0,
+  "game_vs_rmvpe_cents": 10.4,
+  "game_vs_fcpe_cents": 11.4,
+  "extractors_agree": true,
+  "both_oppose_game": false
+ },
+ "consensus": {
+  "presence_rate": 1.0,
+  "tone_agreement": 0.2,
+  "tone_median": 66.88,
+  "start_iqr_ms": 520.0,
+  "run_note_counts": [
+   3,
+   2,
+   2,
+   2,
+   2
+  ],
+  "run_tones": [
+   66.88,
+   67.57,
+   67.57,
+   67.55,
+   67.58
+  ],
+  "member_notes": {
+   "0": [
+    [
+     220.6,
+     220.98,
+     66.12
+    ],
+    [
+     220.98,
+     221.12,
+     66.88
+    ],
+    [
+     221.12,
+     221.59,
+     69.0
+    ]
+   ],
+   "1": [
+    [
+     220.6,
+     221.12,
+     66.15
+    ],
+    [
+     221.12,
+     221.59,
+     68.99
+    ]
+   ],
+   "2": [
+    [
+     220.6,
+     221.12,
+     66.15
+    ],
+    [
+     221.12,
+     221.59,
+     68.99
+    ]
+   ],
+   "3": [
+    [
+     220.6,
+     220.99,
+     66.11
+    ],
+    [
+     220.99,
+     221.59,
+     69.0
+    ]
+   ],
+   "4": [
+    [
+     220.6,
+     221.12,
+     66.15
+    ],
+    [
+     221.12,
+     221.59,
+     69.0
+    ]
+   ]
+  },
+  "n_runs": 5,
+  "structure_varies": true,
+  "stability": "GAME_UNSTABLE"
+ },
+ "plateaus": [
+  {
+   "start": 220.6,
+   "end": 221.11,
+   "dur": 0.51,
+   "center_midi": 66.25,
+   "iqr_cents": 69.7
+  }
+ ],
+ "interior_center_midi": 66.11,
+ "triage": "STRUCTURE_CANDIDATE",
+ "fcpe_plateaus": [
+  {
+   "start": 220.6,
+   "end": 221.11,
+   "dur": 0.51,
+   "center_midi": 66.23,
+   "iqr_cents": 79.9
+  }
+ ],
+ "structure_evidence": {
+  "rmvpe_plateaus": [
+   {
+    "start": 220.6,
+    "end": 221.11,
+    "dur": 0.51,
+    "center_midi": 66.25,
+    "iqr_cents": 69.7
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 220.6,
+    "end": 221.11,
+    "dur": 0.51,
+    "center_midi": 66.23,
+    "iqr_cents": 79.9
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "state": {
+  "pitch_state": "stable",
+  "structure_state": "candidate",
+  "identity_state": "variable",
+  "separation_state": "unknown",
+  "routing_needs": {
+   "pitch_adjudication": false,
+   "structure_adjudication": false,
+   "phrase_review": false
+  },
+  "decision": "auto_resolved"
+ },
+ "pitch_adjudication": {
+  "status": "resolved_keep",
+  "winning_hypothesis": 66.15,
+  "confidence": 2.626,
+  "margin": 3.101,
+  "evidence_families": [
+   "rmvpe",
+   "fcpe",
+   "third_f0",
+   "periodicity"
+  ],
+  "supporting_features": {
+   "continuity": 0.808,
+   "fcpe": 0.62,
+   "harmonic_series": 0.168,
+   "periodicity": 0.948,
+   "rmvpe": 0.654,
+   "third_f0": 0.6
+  },
+  "supporting_independence_groups": [
+   "rmvpe",
+   "fcpe",
+   "waveform"
+  ],
+  "opposing_independence_groups": [
+   "game"
+  ],
+  "group_scores": {
+   "game": 0.0,
+   "rmvpe": 0.654,
+   "fcpe": 0.62,
+   "waveform": 0.948,
+   "context": 0.808
+  },
+  "opposing_families": [
+   "game"
+  ],
+  "reason": "converged",
+  "extractor_conflict": false,
+  "separation_sensitive": false,
+  "hypotheses": [
+   {
+    "hypothesis": 66.15,
+    "score": 2.626,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.948,
+    "subharmonic": 0.019,
+    "harmonic_fit": 0.168,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": 0.654,
+     "fcpe": 0.62,
+     "waveform": 0.948,
+     "context": 0.808
+    },
+    "supporting": {
+     "rmvpe": 0.654,
+     "fcpe": 0.62,
+     "third_f0": 0.6,
+     "periodicity": 0.948,
+     "harmonic_series": 0.168,
+     "continuity": 0.808
+    },
+    "opposing": {
+     "game": 0.0
+    }
+   },
+   {
+    "hypothesis": 54.15,
+    "score": -0.475,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.876,
+    "subharmonic": 0.008,
+    "harmonic_fit": 0.045,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.654,
+     "fcpe": -0.62,
+     "waveform": 0.576,
+     "context": 0.447
+    },
+    "supporting": {
+     "periodicity": 0.876,
+     "continuity": 0.447
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.654,
+     "fcpe": 0.62,
+     "third_f0": 0.6
+    }
+   },
+   {
+    "hypothesis": 78.15,
+    "score": -0.99,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.0,
+    "subharmonic": 0.793,
+    "harmonic_fit": 0.055,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.654,
+     "fcpe": -0.62,
+     "waveform": 0.0,
+     "context": 0.568
+    },
+    "supporting": {
+     "harmonic_series": 0.055,
+     "continuity": 0.568
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.654,
+     "fcpe": 0.62,
+     "third_f0": 0.6,
+     "subharmonic": 0.293
+    }
+   }
+  ],
+  "provisional": false,
+  "finalized_by": "structure_resolved_keep"
+ },
+ "structure_adjudication": {
+  "status": "resolved_keep",
+  "classification": "RESOLVED_KEEP",
+  "winning_hypothesis": "H0",
+  "hypothesis_detail": {
+   "kind": "keep",
+   "notes": [
+    {
+     "start": 220.6,
+     "end": 221.12,
+     "tone": 66.15
+    }
+   ]
+  },
+  "score": 3.201,
+  "margin": 3.201,
+  "supporting_groups": [
+   "rmvpe",
+   "fcpe",
+   "acoustic_boundary"
+  ],
+  "reason": "converged",
+  "discovery_reasons": [],
+  "extractor_evidence": {
+   "rmvpe": null,
+   "fcpe": null,
+   "dual_delta": {},
+   "dual_delta_agreement": false
+  },
+  "boundary_evidence": {
+   "energy": {
+    "dip_prominence": 0.0,
+    "recovery": 0.0,
+    "support": 0.0
+   },
+   "voiced_drop": 0.0,
+   "non_f0_support": 0.0
+  },
+  "game_structure": {
+   "one_note_ratio": 0.0,
+   "split_ratio": 1.0
+  },
+  "all_scores": {
+   "H0": 3.201
+  },
+  "boundary": null
+ },
+ "final_structure_clear": true
+}

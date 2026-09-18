@@ -1,0 +1,194 @@
+{
+ "id": "note_0388",
+ "start": 184.68,
+ "dur": 0.2,
+ "game_tone": 73.95,
+ "voiced_coverage": 1.0,
+ "f0_iqr_cents": 65.2,
+ "err_cents": -7.1,
+ "flags": [
+  "high_dispersion"
+ ],
+ "rmvpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 73.878,
+  "iqr_cents": 65.2
+ },
+ "fcpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 62.016,
+  "iqr_cents": 1054.5
+ },
+ "dual_f0": {
+  "rmvpe_vs_fcpe_cents": -1186.2,
+  "game_vs_rmvpe_cents": -7.1,
+  "game_vs_fcpe_cents": -1193.3,
+  "extractors_agree": false,
+  "both_oppose_game": false
+ },
+ "plateaus": [
+  {
+   "start": 184.68,
+   "end": 184.88,
+   "dur": 0.2,
+   "center_midi": 73.88,
+   "iqr_cents": 65.2
+  }
+ ],
+ "interior_center_midi": 73.88,
+ "triage": "F0_EXTRACTOR_CONFLICT",
+ "fcpe_plateaus": [
+  {
+   "start": 184.68,
+   "end": 184.81,
+   "dur": 0.13,
+   "center_midi": 61.98,
+   "iqr_cents": 6.7
+  }
+ ],
+ "separation": {
+  "mix": "a",
+  "mix_ratio": 1.08,
+  "sep": "a",
+  "sep_ratio": 1.0,
+  "separation_sensitive": false
+ },
+ "state": {
+  "pitch_state": "extractor_conflict",
+  "structure_state": "stable",
+  "identity_state": "stable",
+  "separation_state": "normal",
+  "routing_needs": {
+   "pitch_adjudication": false,
+   "structure_adjudication": false,
+   "phrase_review": false
+  },
+  "decision": "auto_resolved"
+ },
+ "pitch_adjudication": {
+  "status": "resolved_keep",
+  "winning_hypothesis": 73.95,
+  "confidence": 2.61,
+  "margin": 2.085,
+  "evidence_families": [
+   "game",
+   "rmvpe",
+   "periodicity",
+   "harmonic_series"
+  ],
+  "supporting_features": {
+   "continuity": 0.631,
+   "game": 1.0,
+   "harmonic_series": 0.223,
+   "periodicity": 0.958,
+   "rmvpe": 0.674
+  },
+  "supporting_independence_groups": [
+   "game",
+   "rmvpe",
+   "waveform"
+  ],
+  "opposing_independence_groups": [
+   "waveform"
+  ],
+  "group_scores": {
+   "game": 1.0,
+   "rmvpe": 0.674,
+   "fcpe": 0.0,
+   "waveform": 0.62,
+   "context": 0.631
+  },
+  "opposing_families": [
+   "fcpe",
+   "third_f0"
+  ],
+  "reason": "converged",
+  "extractor_conflict": true,
+  "separation_sensitive": false,
+  "hypotheses": [
+   {
+    "hypothesis": 73.95,
+    "score": 2.61,
+    "game_support_ratio": 1.0,
+    "game_opposition": null,
+    "periodicity": 0.958,
+    "subharmonic": 0.077,
+    "harmonic_fit": 0.223,
+    "group_scores": {
+     "game": 1.0,
+     "rmvpe": 0.674,
+     "fcpe": 0.0,
+     "waveform": 0.62,
+     "context": 0.631
+    },
+    "supporting": {
+     "game": 1.0,
+     "rmvpe": 0.674,
+     "periodicity": 0.958,
+     "harmonic_series": 0.223,
+     "continuity": 0.631
+    },
+    "opposing": {
+     "fcpe": 0.0,
+     "third_f0": 0.675
+    }
+   },
+   {
+    "hypothesis": 61.95,
+    "score": 0.525,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.846,
+    "subharmonic": 0.019,
+    "harmonic_fit": 0.079,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.674,
+     "fcpe": 0.0,
+     "waveform": 0.846,
+     "context": 0.706
+    },
+    "supporting": {
+     "fcpe": 0.0,
+     "third_f0": 0.675,
+     "periodicity": 0.846,
+     "harmonic_series": 0.079,
+     "continuity": 0.706
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.674
+    }
+   },
+   {
+    "hypothesis": 85.95,
+    "score": -0.481,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.0,
+    "subharmonic": 0.473,
+    "harmonic_fit": 0.107,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.674,
+     "fcpe": 0.0,
+     "waveform": 0.0,
+     "context": 0.387
+    },
+    "supporting": {
+     "harmonic_series": 0.107,
+     "continuity": 0.387
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.674,
+     "fcpe": 0.0,
+     "third_f0": 0.675
+    }
+   }
+  ]
+ },
+ "structure_adjudication": {
+  "status": "not_needed"
+ }
+}

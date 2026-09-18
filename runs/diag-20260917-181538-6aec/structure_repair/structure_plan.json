@@ -1,0 +1,1078 @@
+{
+  "schema": "m25-1",
+  "created_at": "2026-09-18T02:24:44+00:00",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "candidate0_notes_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "candidate0_file_sha256": "09c1c1d00e97dda09991f0fb71fb1a266c3745f7aef223d0302989a0b654dc66",
+  "song_sha256": "5f851d3a760f230a",
+  "bindings": {
+    "residual_triage_sha256": "7ae749d1b3060a60b1791e3ba3cea16a1c78080fdbed5290e93c9a90a4b0d04b",
+    "candidate0_notes_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+    "candidate0_file_sha256": "09c1c1d00e97dda09991f0fb71fb1a266c3745f7aef223d0302989a0b654dc66",
+    "review_authority": {
+      "schema": "d3",
+      "identity_schema": "review-target-v1"
+    },
+    "human_revisions": {
+      "ri-fae0fde3d050fd8a": {
+        "revision_id": "rev-0001",
+        "audio_package_hash": "2e7b37412489e3cf38f50ed71a146529a0cf92c51a65902f723be588a0fe7301"
+      }
+    }
+  },
+  "repairs": [
+    {
+      "repair_id": "srp-c491a6b75c7d94cb28fd7a1e",
+      "note_id": "note_0012",
+      "source_type": "machine_structure",
+      "affected": [
+        12
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0012"
+        ],
+        "boundary": 20.11,
+        "children": [
+          {
+            "start": 19.95,
+            "end": 20.11,
+            "tone": 62.01
+          },
+          {
+            "start": 20.11,
+            "end": 20.439999999999998,
+            "tone": 64.04
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0012",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.594,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-790d2a210c7ae363e271d4ad",
+      "note_id": "note_0044",
+      "source_type": "machine_structure",
+      "affected": [
+        44
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0044"
+        ],
+        "boundary": 33.04,
+        "children": [
+          {
+            "start": 32.9,
+            "end": 33.04,
+            "tone": 61.84
+          },
+          {
+            "start": 33.04,
+            "end": 33.3,
+            "tone": 64.05
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0044",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 1.0,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-cb76bf56bb24b5c3d8849bc0",
+      "note_id": "note_0061",
+      "source_type": "machine_structure",
+      "affected": [
+        61
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0061"
+        ],
+        "boundary": 39.53,
+        "children": [
+          {
+            "start": 39.4,
+            "end": 39.53,
+            "tone": 61.95
+          },
+          {
+            "start": 39.53,
+            "end": 39.79,
+            "tone": 63.97
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0061",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 1.0,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-e76868a477d06eadb8d5ff97",
+      "note_id": "note_0076",
+      "source_type": "machine_structure",
+      "affected": [
+        76
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0076"
+        ],
+        "boundary": 46.01,
+        "children": [
+          {
+            "start": 45.88,
+            "end": 46.01,
+            "tone": 62.18
+          },
+          {
+            "start": 46.01,
+            "end": 46.27,
+            "tone": 64.12
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0076",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.673,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-903997a84c0ad331cd8ef4ba",
+      "note_id": "note_0077",
+      "source_type": "machine_structure",
+      "affected": [
+        77
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0077"
+        ],
+        "boundary": 46.41,
+        "children": [
+          {
+            "start": 46.27,
+            "end": 46.41,
+            "tone": 64.33
+          },
+          {
+            "start": 46.41,
+            "end": 46.75,
+            "tone": 66.3
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0077",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.561,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-d2be57c8bd5099d60ab05227",
+      "note_id": "note_0123",
+      "source_type": "machine_structure",
+      "affected": [
+        123
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0123"
+        ],
+        "boundary": 65.45,
+        "children": [
+          {
+            "start": 65.31,
+            "end": 65.45,
+            "tone": 62.24
+          },
+          {
+            "start": 65.45,
+            "end": 65.75,
+            "tone": 64.03
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0123",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.431,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-9e3efba85c56ade947bcfdbf",
+      "note_id": "note_0188",
+      "source_type": "machine_structure",
+      "affected": [
+        188
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0188"
+        ],
+        "boundary": 93.455,
+        "children": [
+          {
+            "start": 93.33,
+            "end": 93.455,
+            "tone": 64.03
+          },
+          {
+            "start": 93.455,
+            "end": 93.71,
+            "tone": 66.1
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0188",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.75,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-f93f9a2370cdb829565fbb7c",
+      "note_id": "note_0192",
+      "source_type": "machine_structure",
+      "affected": [
+        192
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0192"
+        ],
+        "boundary": 95.06,
+        "children": [
+          {
+            "start": 94.79,
+            "end": 95.06,
+            "tone": 62.35
+          },
+          {
+            "start": 95.06,
+            "end": 95.28,
+            "tone": 64.1
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0192",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 1.0,
+        "game_split_ratio": 0.6
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-80eac026c81af9f4645b48f3",
+      "note_id": "note_0231",
+      "source_type": "machine_structure",
+      "affected": [
+        231
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0231"
+        ],
+        "boundary": 120.6,
+        "children": [
+          {
+            "start": 120.43,
+            "end": 120.6,
+            "tone": 62.24
+          },
+          {
+            "start": 120.6,
+            "end": 120.86000000000001,
+            "tone": 64.04
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0231",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.917,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-70a8d83afa17b8573ede590a",
+      "note_id": "note_0246",
+      "source_type": "machine_structure",
+      "affected": [
+        246
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0246"
+        ],
+        "boundary": 126.255,
+        "children": [
+          {
+            "start": 126.1,
+            "end": 126.255,
+            "tone": 56.84
+          },
+          {
+            "start": 126.255,
+            "end": 126.57,
+            "tone": 58.71
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0246",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.622,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-84862e2c08cf37c73d9e2791",
+      "note_id": "note_0248",
+      "source_type": "machine_structure",
+      "affected": [
+        248
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0248"
+        ],
+        "boundary": 127.1,
+        "children": [
+          {
+            "start": 126.95,
+            "end": 127.1,
+            "tone": 62.24
+          },
+          {
+            "start": 127.1,
+            "end": 127.34,
+            "tone": 63.97
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0248",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 1.0,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-b5a2d7810c99bfc36b91d9f9",
+      "note_id": "note_0264",
+      "source_type": "machine_structure",
+      "affected": [
+        264
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0264"
+        ],
+        "boundary": 133.97,
+        "children": [
+          {
+            "start": 133.84,
+            "end": 133.97,
+            "tone": 64.2
+          },
+          {
+            "start": 133.97,
+            "end": 134.32,
+            "tone": 66.07
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0264",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.718,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-7789a8b8605761d704d5d38e",
+      "note_id": "note_0266",
+      "source_type": "machine_structure",
+      "affected": [
+        266
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0266"
+        ],
+        "boundary": 134.89,
+        "children": [
+          {
+            "start": 134.66,
+            "end": 134.89,
+            "tone": 62.35
+          },
+          {
+            "start": 134.89,
+            "end": 135.07,
+            "tone": 64.12
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0266",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.463,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-07716808971809b23ef8d9b8",
+      "note_id": "note_0305",
+      "source_type": "machine_structure",
+      "affected": [
+        305
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0305"
+        ],
+        "boundary": 149.465,
+        "children": [
+          {
+            "start": 149.24,
+            "end": 149.465,
+            "tone": 62.26
+          },
+          {
+            "start": 149.465,
+            "end": 150.05,
+            "tone": 64.26
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0305",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.407,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-fbded6709db9336c1184e04d",
+      "note_id": "note_0311",
+      "source_type": "machine_structure",
+      "affected": [
+        311
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0311"
+        ],
+        "boundary": 152.23,
+        "children": [
+          {
+            "start": 152.08,
+            "end": 152.23,
+            "tone": 56.97
+          },
+          {
+            "start": 152.23,
+            "end": 152.46,
+            "tone": 59.2
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0311",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.46,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-aa047ab899970cb881f77481",
+      "note_id": "note_0325",
+      "source_type": "machine_structure",
+      "affected": [
+        325
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0325"
+        ],
+        "boundary": 157.915,
+        "children": [
+          {
+            "start": 157.77,
+            "end": 157.915,
+            "tone": 62.19
+          },
+          {
+            "start": 157.915,
+            "end": 158.17000000000002,
+            "tone": 64.17
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0325",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.822,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-b04c10c381b66d1abfd9ec8a",
+      "note_id": "note_0379",
+      "source_type": "machine_structure",
+      "affected": [
+        379
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0379"
+        ],
+        "boundary": 180.99,
+        "children": [
+          {
+            "start": 180.84,
+            "end": 180.99,
+            "tone": 64.17
+          },
+          {
+            "start": 180.99,
+            "end": 181.27,
+            "tone": 66.13
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0379",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.612,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-9ff662d834e7cbadd1aa9434",
+      "note_id": "note_0391",
+      "source_type": "machine_structure",
+      "affected": [
+        391
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0391"
+        ],
+        "boundary": 186.94,
+        "children": [
+          {
+            "start": 186.68,
+            "end": 186.94,
+            "tone": 72.68
+          },
+          {
+            "start": 186.94,
+            "end": 188.51000000000002,
+            "tone": 69.07
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0391",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 1.0,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-8f73580bd3c768145f417f0d",
+      "note_id": "note_0404",
+      "source_type": "machine_structure",
+      "affected": [
+        404
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0404"
+        ],
+        "boundary": 196.675,
+        "children": [
+          {
+            "start": 196.52,
+            "end": 196.675,
+            "tone": 60.81
+          },
+          {
+            "start": 196.675,
+            "end": 197.49,
+            "tone": 65.11
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0404",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.511,
+        "game_split_ratio": 0.4
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-fcebb308ea0d11ef772afdc4",
+      "note_id": "note_0440",
+      "source_type": "machine_structure",
+      "affected": [
+        440
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0440"
+        ],
+        "boundary": 214.64,
+        "children": [
+          {
+            "start": 214.5,
+            "end": 214.64,
+            "tone": 57.23
+          },
+          {
+            "start": 214.64,
+            "end": 214.89,
+            "tone": 59.2
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0440",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.748,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-742cbf94d1991516823ba33c",
+      "note_id": "note_0441",
+      "source_type": "machine_structure",
+      "affected": [
+        441
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0441"
+        ],
+        "boundary": 215.03,
+        "children": [
+          {
+            "start": 214.89,
+            "end": 215.03,
+            "tone": 64.45
+          },
+          {
+            "start": 215.03,
+            "end": 215.29,
+            "tone": 65.98
+          }
+        ]
+      },
+      "authority": {
+        "packet_id": "note_0441",
+        "c_status": "resolved_change_candidate",
+        "classification": "TRUE_SPLIT_CANDIDATE",
+        "virtual_b_statuses": [
+          "resolved_keep",
+          "resolved_keep"
+        ],
+        "child_presence": [
+          0.0,
+          0.0
+        ],
+        "dual_delta_agreement": true,
+        "non_f0_support": 0.995,
+        "game_split_ratio": 0.0
+      },
+      "before": null,
+      "after": null,
+      "status": "calibration_pending",
+      "blocked_reason": "awaiting_phrase_calibration"
+    },
+    {
+      "repair_id": "srp-77143f1760470d9e0a2529c3",
+      "note_id": "note_0301",
+      "source_type": "human_selected",
+      "affected": [
+        301
+      ],
+      "patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0301"
+        ],
+        "boundary": 148.565,
+        "children": [
+          {
+            "start": 148.42,
+            "end": 148.565,
+            "tone": 63.98
+          },
+          {
+            "start": 148.565,
+            "end": 148.82,
+            "tone": 54.02
+          }
+        ]
+      },
+      "authority": {
+        "review_item_id": "ri-fae0fde3d050fd8a",
+        "target_key": "fae0fde3d050fd8a7241448bfc0558f44332c1f36f5a6e3bb05ff7b51b0c6cd4",
+        "revision_id": "rev-0001",
+        "audio_package_hash": "2e7b37412489e3cf38f50ed71a146529a0cf92c51a65902f723be588a0fe7301",
+        "selected_option_id": "OPTION_0",
+        "selected_provenance": {
+          "kind": "virtual_b_runnerup",
+          "child": 1
+        },
+        "selected_wav_sha256": "20d4ab2ae7058dd3bb6cf818164ed521089d7e8cea45048f33bc549875e050d0"
+      },
+      "before": [
+        {
+          "start": 148.4199999189377,
+          "end": 148.81999989509583,
+          "tone": 66.0557861328125
+        }
+      ],
+      "after": [
+        {
+          "start": 148.42,
+          "end": 148.565,
+          "tone": 63.98
+        },
+        {
+          "start": 148.565,
+          "end": 148.82,
+          "tone": 54.02
+        }
+      ],
+      "status": "eligible",
+      "blocked_reason": null
+    }
+  ],
+  "summary": {
+    "calibration_pending": 21,
+    "eligible": 1
+  },
+  "plan_hash": "65be7e58d3b32619bfe423fe5820d594f67947b69188c2c3d798e53ebd44a511"
+}

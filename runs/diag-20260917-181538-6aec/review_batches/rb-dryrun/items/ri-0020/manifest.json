@@ -1,0 +1,273 @@
+{
+  "schema": "d1",
+  "review_item_id": "ri-0020",
+  "song_sha256": "5f851d3a760f230a",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "review_batch_id": "rb-dryrun",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "target_group": {
+    "type": "split",
+    "parent_ids": [
+      "note_0368"
+    ],
+    "note_ids": [
+      "note_0368__v0",
+      "note_0368__v1"
+    ],
+    "region": [
+      176.18,
+      176.74
+    ],
+    "packets": [
+      "note_0368"
+    ],
+    "reason": "split_candidate_virtual_unresolved"
+  },
+  "context": {
+    "phrase": {
+      "start": 173.18,
+      "end": 177.9,
+      "boundary_source": "lrc"
+    },
+    "phrase_key": "173.18-177.90",
+    "candidate0_note_ids": [
+      "note_0360",
+      "note_0361",
+      "note_0362",
+      "note_0363",
+      "note_0364",
+      "note_0365",
+      "note_0366",
+      "note_0367",
+      "note_0368",
+      "note_0369",
+      "note_0370",
+      "note_0371"
+    ]
+  },
+  "phrase": {
+    "start": 173.18,
+    "end": 177.9,
+    "boundary_source": "lrc"
+  },
+  "options": [
+    {
+      "option_id": "OPTION_0",
+      "candidate_id": "split_1",
+      "score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0368"
+        ],
+        "boundary": 176.4,
+        "children": [
+          {
+            "start": 176.18,
+            "end": 176.4,
+            "tone": 69.4
+          },
+          {
+            "start": 176.4,
+            "end": 176.74,
+            "tone": 62.13
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "c_hypothesis",
+        "hypothesis": "H1",
+        "child_pitch_source": [
+          "virtual_b:resolved_keep",
+          "virtual_b:unresolved"
+        ]
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_1",
+      "candidate_id": "split_pitch_2",
+      "score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0368"
+        ],
+        "boundary": 176.4,
+        "children": [
+          {
+            "start": 176.18,
+            "end": 176.4,
+            "tone": 69.4
+          },
+          {
+            "start": 176.4,
+            "end": 176.74,
+            "tone": 71.06
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "virtual_b_runnerup",
+        "child": 1
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_2",
+      "candidate_id": "baseline",
+      "score_patch": {
+        "type": "identity"
+      },
+      "provenance": {
+        "kind": "candidate0"
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    }
+  ],
+  "baseline_option": "OPTION_2",
+  "source_reference": null,
+  "render_profile": {
+    "singer": "YousaV1.65b",
+    "phonemizer": "zh",
+    "renderer": "DIFFSINGER",
+    "bpm": 120,
+    "resolution": 480,
+    "sample_rate": 44100,
+    "voice_color": null,
+    "pitd": "none",
+    "time_align": "shared_phrase_start",
+    "loudness": "shared_gain",
+    "ustx_template_sha256": "a11d1b6a2b1a3c13b4e3056c8a942ae8baf401d6bbfe0e431235db144cb9362b"
+  },
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "shared_gain_db": null,
+  "machine_evidence": {
+    "pitch": {
+      "status": "invalidated",
+      "winning_hypothesis": null,
+      "reason": "margin_too_small+extractor_conflict_unresolved_by_waveform",
+      "top_hypotheses": [
+        {
+          "hypothesis": 70.92,
+          "score": 1.436,
+          "game_support_ratio": 0.6,
+          "game_opposition": null,
+          "periodicity": 0.606,
+          "subharmonic": 0.004,
+          "harmonic_fit": 0.088,
+          "group_scores": {
+            "game": 0.6,
+            "rmvpe": -0.159,
+            "fcpe": 0.0,
+            "waveform": 0.606,
+            "context": 0.779
+          },
+          "supporting": {
+            "game": 0.6,
+            "periodicity": 0.606,
+            "harmonic_series": 0.088,
+            "continuity": 0.779
+          },
+          "opposing": {
+            "rmvpe": 0.159,
+            "fcpe": 0.0
+          }
+        },
+        {
+          "hypothesis": 69.48,
+          "score": 1.381,
+          "game_support_ratio": 0.0,
+          "game_opposition": null,
+          "periodicity": 0.793,
+          "subharmonic": 0.007,
+          "harmonic_fit": 0.161,
+          "group_scores": {
+            "game": 0.0,
+            "rmvpe": 0.159,
+            "fcpe": 0.0,
+            "waveform": 0.793,
+            "context": 0.859
+          },
+          "supporting": {
+            "rmvpe": 0.159,
+            "third_f0": 0.274,
+            "periodicity": 0.793,
+            "harmonic_series": 0.161,
+            "continuity": 0.859
+          },
+          "opposing": {
+            "game": 0.0,
+            "fcpe": 0.0
+          }
+        },
+        {
+          "hypothesis": 63.87,
+          "score": 0.225,
+          "game_support_ratio": 0.0,
+          "game_opposition": null,
+          "periodicity": 0.0,
+          "subharmonic": 0.086,
+          "harmonic_fit": 0.014,
+          "group_scores": {
+            "game": 0.0,
+            "rmvpe": -0.159,
+            "fcpe": 0.0,
+            "waveform": 0.0,
+            "context": 0.767
+          },
+          "supporting": {
+            "fcpe": 0.0,
+            "continuity": 0.767
+          },
+          "opposing": {
+            "game": 0.0,
+            "rmvpe": 0.159
+          }
+        }
+      ]
+    },
+    "structure": {
+      "status": "resolved_change_candidate",
+      "winning_hypothesis": "H1",
+      "boundary": 176.4,
+      "all_scores": {
+        "H0": 2.139,
+        "H1": 2.513,
+        "H3": 1.471
+      }
+    },
+    "virtual_b": [
+      {
+        "id": "note_0368__v0",
+        "status": "resolved_keep",
+        "winning_hypothesis": 69.4
+      },
+      {
+        "id": "note_0368__v1",
+        "status": "unresolved",
+        "winning_hypothesis": 62.13
+      }
+    ],
+    "flags": [
+      "wrong_pitch",
+      "high_dispersion"
+    ]
+  },
+  "review": {
+    "generation": 1,
+    "blinded": true,
+    "choices": [
+      "OPTION_0",
+      "OPTION_1",
+      "OPTION_2",
+      "equivalent",
+      "none_correct"
+    ]
+  },
+  "package_hash": "931d3813f129ed788fcd56741bf4bb7f96ccea0ae358277dd4651d8dbea5445b"
+}

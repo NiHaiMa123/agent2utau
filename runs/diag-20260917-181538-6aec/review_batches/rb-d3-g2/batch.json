@@ -1,0 +1,34 @@
+{
+  "schema": "d3",
+  "batch_id": "rb-d3-g2",
+  "run_id": "diag-20260917-181538-6aec",
+  "created_at": 1789654822.4843373,
+  "song_sha256": "5f851d3a760f230a",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "items": [
+    {
+      "item_id": "ri-f58cd3b2845d1e7d",
+      "target_key": "f58cd3b2845d1e7d999e3ad5da9f6632923d068c73d27137f11625663528300c",
+      "type": "pitch",
+      "reason": "pitch_unresolved",
+      "phrase": {
+        "start": 188.51,
+        "end": 193.89,
+        "boundary_source": "silence"
+      },
+      "phrase_key": "188.51-193.89",
+      "region": [
+        189.84,
+        190.22
+      ],
+      "packets": [
+        "note_0395"
+      ],
+      "n_options": 1,
+      "plan_hash": "0492cb194da05051f16f7f19ab87bb4ac2cc4833c744d12e889be8e5467f46b6",
+      "audio_package_hash": "b7ba4b9b6954f82dacd91d9ea12f58e95b8e67d96dabaf8b4610c732c67fad4b",
+      "package_state": "valid"
+    }
+  ]
+}

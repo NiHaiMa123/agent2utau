@@ -1,0 +1,80 @@
+{
+  "schema": "d3",
+  "batch_id": "rb-d3-render2",
+  "run_id": "diag-20260917-181538-6aec",
+  "created_at": 1789657909.901153,
+  "song_sha256": "5f851d3a760f230a",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "items": [
+    {
+      "item_id": "ri-427b635221361eed",
+      "target_key": "427b635221361eed6bc87b9115fcb32426afd4d89d5c9b69e658d959a42fb914",
+      "type": "pitch",
+      "reason": "pitch_unresolved",
+      "phrase": {
+        "start": 201.13,
+        "end": 203.98,
+        "boundary_source": "silence"
+      },
+      "phrase_key": "201.13-203.98",
+      "region": [
+        202.52,
+        202.74
+      ],
+      "packets": [
+        "note_0415"
+      ],
+      "n_options": 4,
+      "plan_hash": "74db7340b047c5ade970e955091ed35069be7ea0d7aacf8c5fbd0d2ceae4e41c",
+      "audio_package_hash": "3fb3aadef5f9cbd24da400b7b12cdd8b8fc0030509287dd93283e113b29a203f",
+      "package_state": "valid"
+    },
+    {
+      "item_id": "ri-fae0fde3d050fd8a",
+      "target_key": "fae0fde3d050fd8a7241448bfc0558f44332c1f36f5a6e3bb05ff7b51b0c6cd4",
+      "type": "split",
+      "reason": "split_candidate_virtual_unresolved",
+      "phrase": {
+        "start": 144.56,
+        "end": 150.89,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "144.56-150.89",
+      "region": [
+        148.42,
+        148.82
+      ],
+      "packets": [
+        "note_0301"
+      ],
+      "n_options": 3,
+      "plan_hash": "3c6465b5f7e7337262dab076ccb9496770915fb74d53f942c2dd97a7ff9d7fe5",
+      "audio_package_hash": "2e7b37412489e3cf38f50ed71a146529a0cf92c51a65902f723be588a0fe7301",
+      "package_state": "valid"
+    },
+    {
+      "item_id": "ri-f58cd3b2845d1e7d",
+      "target_key": "f58cd3b2845d1e7d999e3ad5da9f6632923d068c73d27137f11625663528300c",
+      "type": "pitch",
+      "reason": "pitch_unresolved",
+      "phrase": {
+        "start": 188.51,
+        "end": 193.89,
+        "boundary_source": "silence"
+      },
+      "phrase_key": "188.51-193.89",
+      "region": [
+        189.84,
+        190.22
+      ],
+      "packets": [
+        "note_0395"
+      ],
+      "n_options": 3,
+      "plan_hash": "4f1a0b8da0be64f151e7c335e8ce8a1ec61f5efd19b43683ccd20830656911f3",
+      "audio_package_hash": "2aff811a0027419dbf36ac6fef1a15e13a426239e43dc4198972e31d6ea77ca7",
+      "package_state": "valid"
+    }
+  ]
+}

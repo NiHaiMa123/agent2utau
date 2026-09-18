@@ -1,0 +1,75 @@
+{
+ "text": "寒夜剩我一个人 等清晨",
+ "chars": [
+  {
+   "char": "寒",
+   "start": 37.65,
+   "end": 38.35,
+   "probability": 0.35139164022984914,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "夜",
+   "start": 38.35,
+   "end": 38.77,
+   "probability": 0.9554290771484375,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "剩",
+   "start": 38.77,
+   "end": 39.15,
+   "probability": 0.9593111872673035,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "我",
+   "start": 39.15,
+   "end": 39.63,
+   "probability": 0.9909721612930298,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "一",
+   "start": 39.63,
+   "end": 39.99,
+   "probability": 0.9973853230476379,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "个",
+   "start": 39.99,
+   "end": 40.35,
+   "probability": 0.9973853230476379,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "人",
+   "start": 40.35,
+   "end": 40.87,
+   "probability": 0.9996806383132935,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "等",
+   "start": 41.13,
+   "end": 41.55,
+   "probability": 0.9103975892066956,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "清",
+   "start": 41.55,
+   "end": 42.13,
+   "probability": 0.3281252086162567,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "晨",
+   "start": 42.13,
+   "end": 42.89,
+   "probability": 0.7860614061355591,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

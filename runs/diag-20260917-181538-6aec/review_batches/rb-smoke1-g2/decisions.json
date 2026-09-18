@@ -1,0 +1,17 @@
+{
+  "schema": "d1",
+  "decisions": {
+    "ri-0003": [
+      {
+        "selected": "none_correct",
+        "candidate_id": null,
+        "semantics": "manual_followup_required",
+        "review_item_id": "ri-0003",
+        "package_hash": "fdb89740f0ef3f5ce4626d1e5f0aed8ba333a8f7e8ba3c5b80d7bcd988a0594c",
+        "review_generation": 2,
+        "created_at": "2026-09-17T12:45:06+00:00",
+        "superseded": false
+      }
+    ]
+  }
+}

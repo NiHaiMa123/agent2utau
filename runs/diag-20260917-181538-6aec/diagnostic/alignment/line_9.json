@@ -1,0 +1,68 @@
+{
+ "text": "我认真 将心事都封存",
+ "chars": [
+  {
+   "char": "我",
+   "start": 72.64,
+   "end": 73.24,
+   "probability": 0.9873006939888,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "认",
+   "start": 73.24,
+   "end": 73.74,
+   "probability": 0.7527379989624023,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "真",
+   "start": 73.74,
+   "end": 74.26,
+   "probability": 0.856311023235321,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "将",
+   "start": 74.64,
+   "end": 74.88,
+   "probability": 0.9967814683914185,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "心",
+   "start": 74.88,
+   "end": 75.24,
+   "probability": 0.9161035418510437,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "事",
+   "start": 75.24,
+   "end": 75.9,
+   "probability": 0.9885852932929993,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "都",
+   "start": 75.9,
+   "end": 76.52,
+   "probability": 0.9932398796081543,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "封",
+   "start": 76.52,
+   "end": 76.86,
+   "probability": 0.9075769782066345,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "存",
+   "start": 76.86,
+   "end": 77.2,
+   "probability": 0.9949709177017212,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

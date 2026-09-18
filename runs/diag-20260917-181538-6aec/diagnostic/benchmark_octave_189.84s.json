@@ -1,0 +1,106 @@
+{
+ "region": [
+  189.69,
+  190.37
+ ],
+ "game": {
+  "presence_rate": 1.0,
+  "tone_agreement": 1.0,
+  "tone_median": 58.1,
+  "start_iqr_ms": 372.5,
+  "run_note_counts": [
+   1,
+   2,
+   2,
+   1,
+   2
+  ],
+  "run_tones": [
+   58.1,
+   58.06,
+   58.06,
+   58.1,
+   58.06
+  ],
+  "member_notes": {
+   "0": [
+    [
+     189.84,
+     190.45,
+     58.1
+    ]
+   ],
+   "1": [
+    [
+     189.84,
+     190.22,
+     58.12
+    ],
+    [
+     190.22,
+     190.44,
+     58.01
+    ]
+   ],
+   "2": [
+    [
+     189.84,
+     190.21,
+     58.12
+    ],
+    [
+     190.21,
+     190.44,
+     58.01
+    ]
+   ],
+   "3": [
+    [
+     189.84,
+     190.45,
+     58.1
+    ]
+   ],
+   "4": [
+    [
+     189.84,
+     190.22,
+     58.12
+    ],
+    [
+     190.22,
+     190.44,
+     58.01
+    ]
+   ]
+  },
+  "n_runs": 5,
+  "structure_varies": true,
+  "stability": "GAME_UNSTABLE"
+ },
+ "rmvpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 69.982,
+  "iqr_cents": 9.2
+ },
+ "fcpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 58.083,
+  "iqr_cents": 8.0
+ },
+ "dual_f0": {
+  "rmvpe_vs_fcpe_cents": -1189.9,
+  "game_vs_rmvpe_cents": 1186.7,
+  "game_vs_fcpe_cents": -3.3,
+  "extractors_agree": false,
+  "both_oppose_game": false
+ },
+ "aligned_structure": [
+  1,
+  2,
+  2,
+  1,
+  2
+ ],
+ "decision": "pending"
+}

@@ -64,7 +64,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "eb8ceec5f1174077cdf05772543f36d8b19bc4fa481a40a37f7d0d00cf32b205",
+      "wav_sha256": "43dd9aacc0cf0ea3be90bd0bc238ab8c13c96d47d6555577cff2fd483d5ce012",
       "sample_rate": 44100,
       "frames": 220941,
       "render_error": null
@@ -112,7 +112,7 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "af2346d303cd12911ca72ad59c19712c1ade9b5e6089f5b86f3e8e3934c1ee57",
+      "wav_sha256": "0ca0eba32e4b9f5f57903fb81aa589572b63f1fec1d2f3cea49d561b167ce5e1",
       "sample_rate": 44100,
       "frames": 220941,
       "render_error": null
@@ -192,7 +192,7 @@
     ]
   },
   "plan_hash": "f0de2b9c476c902e319ca1282e7ffddbe1d9b17d32fe1969aba7cbe67850f8c1",
-  "audio_package_hash": "933d6bee635fe8e404f538105fe4ae89622294fe77b22c5ba5bf439b1ea76fa4",
+  "audio_package_hash": "079feb34c6aaa984e024412234ddb526b6e2abac6cc33f84c5d303c2365d10d0",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -270,8 +270,8 @@
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv2",
-    "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
+    "lyric_mapping_impl": "rlv3",
+    "contract_sha256": "767ee841060d57b9d6ab2f2b9a703483f14cf6f2cc9f1dfc2267d7b8b67a233e",
     "choices": [
       "split",
       "baseline",
@@ -282,7 +282,81 @@
     "lyric_evidence": {
       "method": "force_align_source_bound",
       "n_chars": 11,
-      "min_probability": 0.92
+      "min_probability": 0.92,
+      "chars": [
+        {
+          "char": "可",
+          "start": 177.9,
+          "end": 178.56,
+          "probability": 0.9870588183403015
+        },
+        {
+          "char": "惜",
+          "start": 178.56,
+          "end": 178.98,
+          "probability": 0.9969977140426636
+        },
+        {
+          "char": "从",
+          "start": 178.98,
+          "end": 179.38,
+          "probability": 0.9675159454345703
+        },
+        {
+          "char": "没",
+          "start": 179.38,
+          "end": 179.92,
+          "probability": 0.9383203387260437
+        },
+        {
+          "char": "人",
+          "start": 179.92,
+          "end": 180.22,
+          "probability": 0.9972553849220276
+        },
+        {
+          "char": "陪",
+          "start": 180.22,
+          "end": 180.66,
+          "probability": 0.9996842741966248
+        },
+        {
+          "char": "我",
+          "start": 180.66,
+          "end": 181.1,
+          "probability": 0.9997501969337463
+        },
+        {
+          "char": "演",
+          "start": 181.1,
+          "end": 181.42,
+          "probability": 0.9642080664634705
+        },
+        {
+          "char": "这",
+          "start": 181.42,
+          "end": 182.04,
+          "probability": 0.921345055103302
+        },
+        {
+          "char": "剧",
+          "start": 182.04,
+          "end": 182.48,
+          "probability": 0.9200083315372467
+        },
+        {
+          "char": "本",
+          "start": 182.48,
+          "end": 183.28,
+          "probability": 0.956075131893158
+        }
+      ],
+      "articulation": {
+        "impl": "rlv3",
+        "n_segments": 23,
+        "n_articulation_splits": 18,
+        "n_chars": 11
+      }
     }
   }
 }

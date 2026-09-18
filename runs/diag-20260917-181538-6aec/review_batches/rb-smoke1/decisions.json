@@ -1,0 +1,41 @@
+{
+  "schema": "d1",
+  "decisions": {
+    "ri-0001": [
+      {
+        "selected": "OPTION_1",
+        "candidate_id": "retune_1",
+        "semantics": "human_selected_candidate",
+        "review_item_id": "ri-0001",
+        "package_hash": "862a7c2ec30055953c1916cd4c43a6a04bfd4a58515963fef0795bbc81d2176a",
+        "review_generation": 1,
+        "created_at": "2026-09-17T12:42:44+00:00",
+        "superseded": false
+      }
+    ],
+    "ri-0002": [
+      {
+        "selected": "equivalent",
+        "candidate_id": "baseline",
+        "semantics": "human_no_preference",
+        "review_item_id": "ri-0002",
+        "package_hash": "6127adc9c7f24b543fd6449c4a245810dd772a318edfac48338eeceae69a21f4",
+        "review_generation": 1,
+        "created_at": "2026-09-17T12:42:45+00:00",
+        "superseded": false
+      }
+    ],
+    "ri-0003": [
+      {
+        "selected": "none_correct",
+        "candidate_id": null,
+        "semantics": "human_rejected_all",
+        "review_item_id": "ri-0003",
+        "package_hash": "3c49128309384b9b51ef7dcb370df2c802bc067f6608ec0fae0404d65f2bb24a",
+        "review_generation": 1,
+        "created_at": "2026-09-17T12:42:45+00:00",
+        "superseded": false
+      }
+    ]
+  }
+}

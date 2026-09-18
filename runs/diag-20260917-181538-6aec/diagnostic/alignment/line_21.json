@@ -1,0 +1,75 @@
+{
+ "text": "代替你陪着我的 是年轮",
+ "chars": [
+  {
+   "char": "代",
+   "start": 151.05,
+   "end": 151.81,
+   "probability": 0.9807567000389099,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "替",
+   "start": 151.81,
+   "end": 152.25,
+   "probability": 0.9989709854125977,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "你",
+   "start": 152.25,
+   "end": 152.63,
+   "probability": 0.995462954044342,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "陪",
+   "start": 152.63,
+   "end": 153.13,
+   "probability": 0.9922771751880646,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "着",
+   "start": 153.13,
+   "end": 153.51,
+   "probability": 0.7022266387939453,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "我",
+   "start": 153.51,
+   "end": 153.92,
+   "probability": 0.9917859435081482,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "的",
+   "start": 153.92,
+   "end": 154.33,
+   "probability": 0.9917859435081482,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "是",
+   "start": 154.33,
+   "end": 155.03,
+   "probability": 0.00015106808859854937,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "年",
+   "start": 155.03,
+   "end": 155.45,
+   "probability": 0.6706227660179138,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "轮",
+   "start": 155.45,
+   "end": 156.17,
+   "probability": 0.8588550686836243,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

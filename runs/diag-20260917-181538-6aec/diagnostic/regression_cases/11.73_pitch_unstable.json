@@ -1,0 +1,333 @@
+{
+ "id": "note_0005",
+ "start": 11.73,
+ "dur": 0.06,
+ "game_tone": 73.44,
+ "voiced_coverage": 1.0,
+ "f0_iqr_cents": 112.2,
+ "err_cents": -68.3,
+ "flags": [
+  "high_dispersion",
+  "very_short_isolated_note"
+ ],
+ "rmvpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 72.753,
+  "iqr_cents": 112.2
+ },
+ "fcpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 72.72,
+  "iqr_cents": 121.2
+ },
+ "dual_f0": {
+  "rmvpe_vs_fcpe_cents": -3.3,
+  "game_vs_rmvpe_cents": -68.3,
+  "game_vs_fcpe_cents": -71.6,
+  "extractors_agree": true,
+  "both_oppose_game": false
+ },
+ "consensus": {
+  "presence_rate": 0.8,
+  "tone_agreement": 0.5,
+  "tone_median": 70.96,
+  "start_iqr_ms": 195.0,
+  "run_note_counts": [
+   1,
+   0,
+   2,
+   2,
+   5
+  ],
+  "run_tones": [
+   71.46,
+   70.73,
+   72.24,
+   70.95
+  ],
+  "member_notes": {
+   "0": [
+    [
+     11.65,
+     11.79,
+     71.46
+    ]
+   ],
+   "2": [
+    [
+     11.6,
+     11.87,
+     70.59
+    ],
+    [
+     11.87,
+     12.01,
+     70.87
+    ]
+   ],
+   "3": [
+    [
+     11.67,
+     11.89,
+     73.52
+    ],
+    [
+     11.89,
+     12.01,
+     70.96
+    ]
+   ],
+   "4": [
+    [
+     11.53,
+     11.67,
+     70.03
+    ],
+    [
+     11.67,
+     11.73,
+     70.95
+    ],
+    [
+     11.73,
+     11.79,
+     73.44
+    ],
+    [
+     11.79,
+     11.89,
+     74.03
+    ],
+    [
+     11.89,
+     12.01,
+     70.93
+    ]
+   ]
+  },
+  "n_runs": 5,
+  "structure_varies": true,
+  "stability": "GAME_UNSTABLE"
+ },
+ "plateaus": [],
+ "interior_center_midi": 72.97,
+ "triage": "AMBIGUOUS_ORNAMENT",
+ "fcpe_plateaus": [],
+ "structure_evidence": {
+  "rmvpe_plateaus": [],
+  "fcpe_plateaus": [],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": null,
+  "changepoint_time_delta_ms": null
+ },
+ "state": {
+  "pitch_state": "stable",
+  "structure_state": "candidate",
+  "identity_state": "variable",
+  "separation_state": "unknown",
+  "routing_needs": {
+   "pitch_adjudication": false,
+   "structure_adjudication": false,
+   "phrase_review": true
+  },
+  "decision": "needs_phrase_review"
+ },
+ "pitch_adjudication": {
+  "status": "resolved_change",
+  "winning_hypothesis": 72.75,
+  "confidence": 2.266,
+  "margin": 1.933,
+  "evidence_families": [
+   "rmvpe",
+   "fcpe",
+   "third_f0",
+   "periodicity"
+  ],
+  "supporting_features": {
+   "continuity": 0.979,
+   "fcpe": 0.394,
+   "harmonic_series": 0.187,
+   "periodicity": 0.944,
+   "rmvpe": 0.439,
+   "third_f0": 0.45
+  },
+  "supporting_independence_groups": [
+   "rmvpe",
+   "fcpe",
+   "waveform"
+  ],
+  "opposing_independence_groups": [
+   "game"
+  ],
+  "group_scores": {
+   "game": 0.0,
+   "rmvpe": 0.439,
+   "fcpe": 0.394,
+   "waveform": 0.944,
+   "context": 0.979
+  },
+  "opposing_families": [
+   "game"
+  ],
+  "reason": "converged",
+  "extractor_conflict": false,
+  "separation_sensitive": false,
+  "hypotheses": [
+   {
+    "hypothesis": 72.75,
+    "score": 2.266,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.944,
+    "subharmonic": 0.001,
+    "harmonic_fit": 0.187,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": 0.439,
+     "fcpe": 0.394,
+     "waveform": 0.944,
+     "context": 0.979
+    },
+    "supporting": {
+     "rmvpe": 0.439,
+     "fcpe": 0.394,
+     "third_f0": 0.45,
+     "periodicity": 0.944,
+     "harmonic_series": 0.187,
+     "continuity": 0.979
+    },
+    "opposing": {
+     "game": 0.0
+    }
+   },
+   {
+    "hypothesis": 73.44,
+    "score": 0.333,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.927,
+    "subharmonic": 0.002,
+    "harmonic_fit": 0.105,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.439,
+     "fcpe": -0.394,
+     "waveform": 0.702,
+     "context": 0.927
+    },
+    "supporting": {
+     "periodicity": 0.927,
+     "harmonic_series": 0.105,
+     "continuity": 0.927
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.439,
+     "fcpe": 0.394,
+     "third_f0": 0.45
+    }
+   },
+   {
+    "hypothesis": 61.44,
+    "score": -0.031,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.766,
+    "subharmonic": 0.0,
+    "harmonic_fit": 0.037,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.439,
+     "fcpe": -0.394,
+     "waveform": 0.541,
+     "context": 0.521
+    },
+    "supporting": {
+     "periodicity": 0.766,
+     "continuity": 0.521
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.439,
+     "fcpe": 0.394,
+     "third_f0": 0.45
+    }
+   },
+   {
+    "hypothesis": 85.44,
+    "score": -0.593,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.0,
+    "subharmonic": 0.587,
+    "harmonic_fit": 0.056,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.439,
+     "fcpe": -0.394,
+     "waveform": 0.0,
+     "context": 0.481
+    },
+    "supporting": {
+     "harmonic_series": 0.056,
+     "continuity": 0.481
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.439,
+     "fcpe": 0.394,
+     "third_f0": 0.45
+    }
+   }
+  ],
+  "provisional": false,
+  "blocked_by_unresolved_structure": true
+ },
+ "structure_adjudication": {
+  "status": "unresolved",
+  "classification": "UNRESOLVED_STRUCTURE",
+  "winning_hypothesis": "H0",
+  "hypothesis_detail": {
+   "kind": "keep",
+   "notes": [
+    {
+     "start": 11.73,
+     "end": 11.790000000000001,
+     "tone": 73.44
+    }
+   ]
+  },
+  "score": 1.2,
+  "margin": 1.2,
+  "supporting_groups": [
+   "acoustic_boundary"
+  ],
+  "reason": "insufficient_structure_evidence",
+  "discovery_reasons": [
+   "very_short_note"
+  ],
+  "extractor_evidence": {
+   "rmvpe": null,
+   "fcpe": null,
+   "dual_delta": {},
+   "dual_delta_agreement": false
+  },
+  "boundary_evidence": {
+   "energy": {
+    "dip_prominence": 0.0,
+    "recovery": 0.0,
+    "support": 0.0
+   },
+   "voiced_drop": 0.0,
+   "non_f0_support": 0.0
+  },
+  "game_structure": {
+   "one_note_ratio": 0.2,
+   "split_ratio": 0.6
+  },
+  "all_scores": {
+   "H0": 1.2
+  },
+  "boundary": null
+ }
+}

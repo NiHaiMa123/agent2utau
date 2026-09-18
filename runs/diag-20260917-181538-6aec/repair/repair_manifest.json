@@ -1,0 +1,41 @@
+{
+  "schema": "m24-2",
+  "created_at": "2026-09-18T01:17:28+00:00",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "plan_hash": "96624beb4b8cab66f11d40b67e2279f7df96fa49e988de100b8224fe4c5d1e25",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "candidate0_notes_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "candidate0_file_sha256": "09c1c1d00e97dda09991f0fb71fb1a266c3745f7aef223d0302989a0b654dc66",
+  "corrected_score_sha256": "0411390039f162c7c5c9dfee55327711accc5bc3e3dd6b3d920f6825b2dff653",
+  "applied_repairs": [],
+  "repairs": [],
+  "integrity_checks": {
+    "note_count_same": true,
+    "order_same": true,
+    "only_target_tone_changed": true,
+    "candidate0_file_unchanged": true
+  },
+  "blocked": [
+    {
+      "repair_id": "rp-29a12bc65ac2793189e41729",
+      "note_id": "note_0301",
+      "source_type": "human_selected",
+      "patch_type": "split",
+      "status": "blocked_structure",
+      "blocked_reason": "blocked_structure",
+      "authority": {
+        "review_item_id": "ri-fae0fde3d050fd8a",
+        "target_key": "fae0fde3d050fd8a7241448bfc0558f44332c1f36f5a6e3bb05ff7b51b0c6cd4",
+        "revision_id": "rev-0001",
+        "audio_package_hash": "2e7b37412489e3cf38f50ed71a146529a0cf92c51a65902f723be588a0fe7301",
+        "selected_option_id": "OPTION_0",
+        "selected_provenance": {
+          "kind": "virtual_b_runnerup",
+          "child": 1
+        },
+        "selected_wav_sha256": "20d4ab2ae7058dd3bb6cf818164ed521089d7e8cea45048f33bc549875e050d0"
+      }
+    }
+  ],
+  "manifest_sha256": "bb06eb984cb01e31f49c1a2b703b85f57417759db7fde384f4eda7a72b789570"
+}

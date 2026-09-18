@@ -1,0 +1,252 @@
+{
+  "schema": "d1",
+  "review_item_id": "ri-0037",
+  "song_sha256": "5f851d3a760f230a",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "review_batch_id": "rb-dryrun",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "target_group": {
+    "type": "pitch",
+    "parent_ids": [
+      "note_0160"
+    ],
+    "note_ids": [
+      "note_0160"
+    ],
+    "region": [
+      80.96,
+      81.27999999999999
+    ],
+    "packets": [
+      "note_0160"
+    ],
+    "reason": "pitch_unresolved"
+  },
+  "context": {
+    "phrase": {
+      "start": 77.3,
+      "end": 82.1,
+      "boundary_source": "lrc"
+    },
+    "phrase_key": "77.30-82.10",
+    "candidate0_note_ids": [
+      "note_0151",
+      "note_0152",
+      "note_0153",
+      "note_0154",
+      "note_0155",
+      "note_0156",
+      "note_0157",
+      "note_0158",
+      "note_0159",
+      "note_0160",
+      "note_0161",
+      "note_0162"
+    ]
+  },
+  "phrase": {
+    "start": 77.3,
+    "end": 82.1,
+    "boundary_source": "lrc"
+  },
+  "options": [
+    {
+      "option_id": "OPTION_0",
+      "candidate_id": "baseline",
+      "score_patch": {
+        "type": "identity"
+      },
+      "provenance": {
+        "kind": "candidate0"
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_1",
+      "candidate_id": "retune_1",
+      "score_patch": {
+        "type": "retune",
+        "note_ids": [
+          "note_0160"
+        ],
+        "from": 69.03,
+        "to": 68.47
+      },
+      "provenance": {
+        "kind": "b_hypothesis"
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_2",
+      "candidate_id": "retune_2",
+      "score_patch": {
+        "type": "retune",
+        "note_ids": [
+          "note_0160"
+        ],
+        "from": 69.03,
+        "to": 57.03
+      },
+      "provenance": {
+        "kind": "b_hypothesis"
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_3",
+      "candidate_id": "retune_3",
+      "score_patch": {
+        "type": "retune",
+        "note_ids": [
+          "note_0160"
+        ],
+        "from": 69.03,
+        "to": 81.03
+      },
+      "provenance": {
+        "kind": "b_hypothesis"
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    }
+  ],
+  "baseline_option": "OPTION_0",
+  "source_reference": null,
+  "render_profile": {
+    "singer": "YousaV1.65b",
+    "phonemizer": "zh",
+    "renderer": "DIFFSINGER",
+    "bpm": 120,
+    "resolution": 480,
+    "sample_rate": 44100,
+    "voice_color": null,
+    "pitd": "none",
+    "time_align": "shared_phrase_start",
+    "loudness": "shared_gain",
+    "ustx_template_sha256": "a11d1b6a2b1a3c13b4e3056c8a942ae8baf401d6bbfe0e431235db144cb9362b"
+  },
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "shared_gain_db": null,
+  "machine_evidence": {
+    "pitch": {
+      "status": "unresolved",
+      "winning_hypothesis": 68.47,
+      "reason": "insufficient_independent_families",
+      "top_hypotheses": [
+        {
+          "hypothesis": 68.47,
+          "score": 1.657,
+          "game_support_ratio": 0.0,
+          "game_opposition": null,
+          "periodicity": 0.886,
+          "subharmonic": 0.008,
+          "harmonic_fit": 0.075,
+          "group_scores": {
+            "game": 0.0,
+            "rmvpe": 0.172,
+            "fcpe": 0.18,
+            "waveform": 0.886,
+            "context": 0.839
+          },
+          "supporting": {
+            "rmvpe": 0.172,
+            "fcpe": 0.18,
+            "third_f0": 0.188,
+            "periodicity": 0.886,
+            "harmonic_series": 0.075,
+            "continuity": 0.839
+          },
+          "opposing": {
+            "game": 0.0
+          }
+        },
+        {
+          "hypothesis": 69.03,
+          "score": 1.137,
+          "game_support_ratio": 0.2,
+          "game_opposition": null,
+          "periodicity": 0.886,
+          "subharmonic": 0.005,
+          "harmonic_fit": 0.141,
+          "group_scores": {
+            "game": 0.2,
+            "rmvpe": -0.172,
+            "fcpe": -0.18,
+            "waveform": 0.886,
+            "context": 0.807
+          },
+          "supporting": {
+            "game": 0.2,
+            "third_f0": 0.188,
+            "periodicity": 0.886,
+            "harmonic_series": 0.141,
+            "continuity": 0.807
+          },
+          "opposing": {
+            "rmvpe": 0.172,
+            "fcpe": 0.18
+          }
+        },
+        {
+          "hypothesis": 57.03,
+          "score": 0.575,
+          "game_support_ratio": 0.0,
+          "game_opposition": null,
+          "periodicity": 0.643,
+          "subharmonic": 0.002,
+          "harmonic_fit": 0.054,
+          "group_scores": {
+            "game": 0.0,
+            "rmvpe": -0.172,
+            "fcpe": -0.18,
+            "waveform": 0.643,
+            "context": 0.568
+          },
+          "supporting": {
+            "periodicity": 0.643,
+            "harmonic_series": 0.054,
+            "continuity": 0.568
+          },
+          "opposing": {
+            "game": 0.0,
+            "rmvpe": 0.172,
+            "fcpe": 0.18
+          }
+        }
+      ]
+    },
+    "structure": {
+      "status": "resolved_keep",
+      "winning_hypothesis": "H0",
+      "boundary": null,
+      "all_scores": {
+        "H0": 3.042
+      }
+    },
+    "virtual_b": [],
+    "flags": [
+      "high_dispersion"
+    ]
+  },
+  "review": {
+    "generation": 1,
+    "blinded": true,
+    "choices": [
+      "OPTION_0",
+      "OPTION_1",
+      "OPTION_2",
+      "OPTION_3",
+      "equivalent",
+      "none_correct"
+    ]
+  },
+  "package_hash": "982652f99d4b22aadcf381a73d6df033e0e2bb9f19b32b4bb1f7900e4e951e07"
+}

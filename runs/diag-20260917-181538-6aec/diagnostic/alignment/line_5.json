@@ -1,0 +1,75 @@
+{
+ "text": "可惜你从未心疼 我的笨",
+ "chars": [
+  {
+   "char": "可",
+   "start": 50.55,
+   "end": 51.25,
+   "probability": 0.9769262671470642,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "惜",
+   "start": 51.25,
+   "end": 51.71,
+   "probability": 0.9991403818130493,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "你",
+   "start": 51.71,
+   "end": 52.15,
+   "probability": 0.9971137046813965,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "从",
+   "start": 52.15,
+   "end": 52.49,
+   "probability": 0.9823887944221497,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "未",
+   "start": 52.49,
+   "end": 53.03,
+   "probability": 0.9945381283760071,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "心",
+   "start": 53.03,
+   "end": 53.31,
+   "probability": 0.9853472709655762,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "疼",
+   "start": 53.31,
+   "end": 53.91,
+   "probability": 0.9990639090538025,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "我",
+   "start": 53.91,
+   "end": 54.51,
+   "probability": 0.008978374302387238,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "的",
+   "start": 54.51,
+   "end": 55.03,
+   "probability": 0.9752501249313354,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "笨",
+   "start": 55.03,
+   "end": 55.81,
+   "probability": 0.6432781219482422,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

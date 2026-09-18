@@ -1,0 +1,50 @@
+{
+  "schema": "d2",
+  "items": {
+    "ri-0001": {
+      "batch_id": "rb-int1",
+      "generation": 1,
+      "plan_hash": "aa195f3431c3e65f0f4186edccb77a5141342062567039c6ccbd0d1ea03998c4",
+      "audio_package_hash": "5288c54be57d697ba40ba32ffff5d1383bea6ee05bb83622dae9cd5c8cfe210a",
+      "package_state": "valid",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\review_batches\\rb-int1\\items\\ri-0001\\manifest.json",
+      "updated_at": "2026-09-17T13:31:58+00:00"
+    },
+    "ri-0002": {
+      "batch_id": "rb-int1",
+      "generation": 1,
+      "plan_hash": "f3bb45b310eda6a9dce58fa49fdcd0b60abb159a8dec77f2699ecd41f2cf3253",
+      "audio_package_hash": "1a05b271d452b6c825c7f900cdc482e91a1e8ee96f91de1dafa54d8056ff2cbb",
+      "package_state": "valid",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\review_batches\\rb-int1\\items\\ri-0002\\manifest.json",
+      "updated_at": "2026-09-17T13:32:04+00:00"
+    },
+    "ri-0003": {
+      "batch_id": "rb-int1-g2",
+      "generation": 2,
+      "plan_hash": "cfaa4c9de509730f6ae14d97410ce295243cd61f9d7ed5f8e342014e8bcf4550",
+      "audio_package_hash": "47024a0a98900011a5f37c9f472bf9d65282491154e05d92afaac67ef0a928ee",
+      "package_state": "valid",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\review_batches\\rb-int1-g2\\items\\ri-0003\\manifest.json",
+      "updated_at": "2026-09-17T13:33:07+00:00"
+    },
+    "ri-0004": {
+      "batch_id": "rb-int1",
+      "generation": 1,
+      "plan_hash": "7e51b6699bc5b74598a76050147d47f1a539651fa9796b956123ceb1f8e17c79",
+      "audio_package_hash": "b6e28f3bf9d565d53254468951ea7961bd4a37799824ed6dac9ab3038af643b5",
+      "package_state": "valid",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\review_batches\\rb-int1\\items\\ri-0004\\manifest.json",
+      "updated_at": "2026-09-17T13:32:20+00:00"
+    },
+    "ri-0005": {
+      "batch_id": "rb-int1",
+      "generation": 1,
+      "plan_hash": "0b69e25ee4bb99eb34b22ea34c230935acab6ef37e75b646e6672753ee5bc3c8",
+      "audio_package_hash": "2bf7bbc3a61b306c1c47445b200dcdc5d4f1fd606e0469ed4ba846e255c3e5cd",
+      "package_state": "valid",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\review_batches\\rb-int1\\items\\ri-0005\\manifest.json",
+      "updated_at": "2026-09-17T13:32:32+00:00"
+    }
+  }
+}

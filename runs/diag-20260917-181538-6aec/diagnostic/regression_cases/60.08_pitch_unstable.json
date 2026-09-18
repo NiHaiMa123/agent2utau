@@ -1,0 +1,317 @@
+{
+ "id": "note_0111",
+ "start": 60.08,
+ "dur": 0.37,
+ "game_tone": 64.0,
+ "voiced_coverage": 0.973,
+ "f0_iqr_cents": 133.0,
+ "err_cents": -20.6,
+ "flags": [
+  "high_dispersion"
+ ],
+ "rmvpe": {
+  "voiced_coverage": 0.973,
+  "center_midi": 63.794,
+  "iqr_cents": 133.0
+ },
+ "fcpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 63.606,
+  "iqr_cents": 146.4
+ },
+ "dual_f0": {
+  "rmvpe_vs_fcpe_cents": -18.8,
+  "game_vs_rmvpe_cents": -20.6,
+  "game_vs_fcpe_cents": -39.4,
+  "extractors_agree": true,
+  "both_oppose_game": false
+ },
+ "consensus": {
+  "presence_rate": 1.0,
+  "tone_agreement": 0.8,
+  "tone_median": 64.0,
+  "start_iqr_ms": 0.0,
+  "run_note_counts": [
+   1,
+   1,
+   1,
+   2,
+   1
+  ],
+  "run_tones": [
+   64.0,
+   64.0,
+   64.0,
+   63.23,
+   64.0
+  ],
+  "member_notes": {
+   "0": [
+    [
+     60.08,
+     60.45,
+     64.0
+    ]
+   ],
+   "1": [
+    [
+     60.08,
+     60.45,
+     64.0
+    ]
+   ],
+   "2": [
+    [
+     60.08,
+     60.45,
+     64.0
+    ]
+   ],
+   "3": [
+    [
+     60.08,
+     60.22,
+     62.47
+    ],
+    [
+     60.22,
+     60.45,
+     63.98
+    ]
+   ],
+   "4": [
+    [
+     60.08,
+     60.45,
+     64.0
+    ]
+   ]
+  },
+  "n_runs": 5,
+  "structure_varies": true,
+  "stability": "GAME_UNSTABLE"
+ },
+ "plateaus": [
+  {
+   "start": 60.08,
+   "end": 60.44,
+   "dur": 0.36,
+   "center_midi": 63.79,
+   "iqr_cents": 133.0
+  }
+ ],
+ "interior_center_midi": 63.82,
+ "triage": "STRUCTURE_CANDIDATE",
+ "fcpe_plateaus": [
+  {
+   "start": 60.08,
+   "end": 60.43,
+   "dur": 0.35,
+   "center_midi": 63.76,
+   "iqr_cents": 146.3
+  }
+ ],
+ "structure_evidence": {
+  "rmvpe_plateaus": [
+   {
+    "start": 60.08,
+    "end": 60.44,
+    "dur": 0.36,
+    "center_midi": 63.79,
+    "iqr_cents": 133.0
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 60.08,
+    "end": 60.43,
+    "dur": 0.35,
+    "center_midi": 63.76,
+    "iqr_cents": 146.3
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "state": {
+  "pitch_state": "stable",
+  "structure_state": "candidate",
+  "identity_state": "variable",
+  "separation_state": "unknown",
+  "routing_needs": {
+   "pitch_adjudication": false,
+   "structure_adjudication": false,
+   "phrase_review": false
+  },
+  "decision": "auto_resolved"
+ },
+ "pitch_adjudication": {
+  "status": "resolved_keep",
+  "winning_hypothesis": 64.0,
+  "confidence": 2.748,
+  "margin": 2.387,
+  "evidence_families": [
+   "game",
+   "rmvpe",
+   "fcpe",
+   "periodicity"
+  ],
+  "supporting_features": {
+   "continuity": 0.891,
+   "fcpe": 0.268,
+   "game": 0.8,
+   "harmonic_series": 0.128,
+   "periodicity": 0.909,
+   "rmvpe": 0.326,
+   "third_f0": 0.114
+  },
+  "supporting_independence_groups": [
+   "game",
+   "rmvpe",
+   "fcpe",
+   "waveform"
+  ],
+  "opposing_independence_groups": [],
+  "group_scores": {
+   "game": 0.8,
+   "rmvpe": 0.326,
+   "fcpe": 0.268,
+   "waveform": 0.909,
+   "context": 0.891
+  },
+  "opposing_families": [],
+  "reason": "converged",
+  "extractor_conflict": false,
+  "separation_sensitive": false,
+  "hypotheses": [
+   {
+    "hypothesis": 64.0,
+    "score": 2.748,
+    "game_support_ratio": 0.8,
+    "game_opposition": null,
+    "periodicity": 0.909,
+    "subharmonic": 0.001,
+    "harmonic_fit": 0.128,
+    "group_scores": {
+     "game": 0.8,
+     "rmvpe": 0.326,
+     "fcpe": 0.268,
+     "waveform": 0.909,
+     "context": 0.891
+    },
+    "supporting": {
+     "game": 0.8,
+     "rmvpe": 0.326,
+     "fcpe": 0.268,
+     "third_f0": 0.114,
+     "periodicity": 0.909,
+     "harmonic_series": 0.128,
+     "continuity": 0.891
+    },
+    "opposing": {}
+   },
+   {
+    "hypothesis": 52.0,
+    "score": 0.361,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.689,
+    "subharmonic": 0.119,
+    "harmonic_fit": 0.047,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.326,
+     "fcpe": -0.268,
+     "waveform": 0.689,
+     "context": 0.533
+    },
+    "supporting": {
+     "periodicity": 0.689,
+     "continuity": 0.533
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.326,
+     "fcpe": 0.268
+    }
+   },
+   {
+    "hypothesis": 76.0,
+    "score": -0.359,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.0,
+    "subharmonic": 0.694,
+    "harmonic_fit": 0.047,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.326,
+     "fcpe": -0.268,
+     "waveform": 0.0,
+     "context": 0.471
+    },
+    "supporting": {
+     "continuity": 0.471
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.326,
+     "fcpe": 0.268,
+     "subharmonic": 0.194
+    }
+   }
+  ],
+  "provisional": false,
+  "finalized_by": "structure_resolved_keep"
+ },
+ "structure_adjudication": {
+  "status": "resolved_keep",
+  "classification": "RESOLVED_KEEP",
+  "winning_hypothesis": "H0",
+  "hypothesis_detail": {
+   "kind": "keep",
+   "notes": [
+    {
+     "start": 60.08,
+     "end": 60.449999999999996,
+     "tone": 64.0
+    }
+   ]
+  },
+  "score": 3.741,
+  "margin": 3.741,
+  "supporting_groups": [
+   "game",
+   "rmvpe",
+   "fcpe",
+   "acoustic_boundary"
+  ],
+  "reason": "converged",
+  "discovery_reasons": [],
+  "extractor_evidence": {
+   "rmvpe": null,
+   "fcpe": null,
+   "dual_delta": {},
+   "dual_delta_agreement": false
+  },
+  "boundary_evidence": {
+   "energy": {
+    "dip_prominence": 0.0,
+    "recovery": 0.0,
+    "support": 0.0
+   },
+   "voiced_drop": 0.0,
+   "non_f0_support": 0.0
+  },
+  "game_structure": {
+   "one_note_ratio": 0.8,
+   "split_ratio": 0.2
+  },
+  "all_scores": {
+   "H0": 3.741
+  },
+  "boundary": null
+ },
+ "final_structure_clear": true
+}

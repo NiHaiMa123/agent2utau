@@ -1,0 +1,111 @@
+{
+  "schema": "d1",
+  "batch_id": "rb-smoke1",
+  "run_id": "diag-20260917-181538-6aec",
+  "created_at": 1789648857.2598605,
+  "song_sha256": "5f851d3a760f230a",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "items": [
+    {
+      "item_id": "ri-0001",
+      "type": "pitch",
+      "reason": "pitch_unresolved",
+      "phrase": {
+        "start": 201.13,
+        "end": 203.98,
+        "boundary_source": "silence"
+      },
+      "phrase_key": "201.13-203.98",
+      "region": [
+        202.52,
+        202.74
+      ],
+      "packets": [
+        "note_0415"
+      ],
+      "n_options": 4,
+      "package_hash": "862a7c2ec30055953c1916cd4c43a6a04bfd4a58515963fef0795bbc81d2176a"
+    },
+    {
+      "item_id": "ri-0002",
+      "type": "structure",
+      "reason": "structure_unresolved",
+      "phrase": {
+        "start": 31.15,
+        "end": 37.4,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "31.15-37.40",
+      "region": [
+        33.3,
+        33.709999999999994
+      ],
+      "packets": [
+        "note_0045"
+      ],
+      "n_options": 2,
+      "package_hash": "6127adc9c7f24b543fd6449c4a245810dd772a318edfac48338eeceae69a21f4"
+    },
+    {
+      "item_id": "ri-0003",
+      "type": "split",
+      "reason": "split_candidate_virtual_unresolved",
+      "phrase": {
+        "start": 144.56,
+        "end": 150.89,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "144.56-150.89",
+      "region": [
+        148.42,
+        148.82
+      ],
+      "packets": [
+        "note_0301"
+      ],
+      "n_options": 3,
+      "package_hash": "3c49128309384b9b51ef7dcb370df2c802bc067f6608ec0fae0404d65f2bb24a"
+    },
+    {
+      "item_id": "ri-0004",
+      "type": "pitch",
+      "reason": "pitch_unresolved",
+      "phrase": {
+        "start": 188.51,
+        "end": 193.89,
+        "boundary_source": "silence"
+      },
+      "phrase_key": "188.51-193.89",
+      "region": [
+        189.84,
+        190.22
+      ],
+      "packets": [
+        "note_0395"
+      ],
+      "n_options": 3,
+      "package_hash": "a96d264de640cbfc0ac9907e707da7d74bf82edb4e0150fe9b7bbfe18744e1c1"
+    },
+    {
+      "item_id": "ri-0005",
+      "type": "pitch",
+      "reason": "pitch_unresolved",
+      "phrase": {
+        "start": 44.08,
+        "end": 50.75,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "44.08-50.75",
+      "region": [
+        50.0,
+        50.39
+      ],
+      "packets": [
+        "note_0085"
+      ],
+      "n_options": 4,
+      "package_hash": "14526fc1bf06e0b6759c1a0637cb50fcf6b6df77c6bcae89dcb9c7c5d234f2f3"
+    }
+  ]
+}

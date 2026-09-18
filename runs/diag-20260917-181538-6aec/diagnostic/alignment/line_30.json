@@ -1,0 +1,68 @@
+{
+ "text": "密密麻麻是我的自尊",
+ "chars": [
+  {
+   "char": "密",
+   "start": 213.56,
+   "end": 214.28,
+   "probability": 0.0019485332304611802,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "密",
+   "start": 214.28,
+   "end": 214.86,
+   "probability": 0.8094284534454346,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "麻",
+   "start": 214.86,
+   "end": 215.12,
+   "probability": 0.20750606060028076,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "麻",
+   "start": 215.12,
+   "end": 215.52,
+   "probability": 0.3361889123916626,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "是",
+   "start": 215.52,
+   "end": 215.9,
+   "probability": 0.5885825753211975,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "我",
+   "start": 215.9,
+   "end": 216.41,
+   "probability": 0.9984368681907654,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "的",
+   "start": 216.41,
+   "end": 216.92,
+   "probability": 0.9984368681907654,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "自",
+   "start": 216.92,
+   "end": 217.32,
+   "probability": 0.06285624206066132,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "尊",
+   "start": 217.32,
+   "end": 217.8,
+   "probability": 0.4322930723428726,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

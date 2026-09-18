@@ -1,0 +1,119 @@
+{
+  "schema": "d1",
+  "review_item_id": "ri-0021",
+  "song_sha256": "5f851d3a760f230a",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "review_batch_id": "rb-dryrun",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "target_group": {
+    "type": "structure",
+    "parent_ids": [
+      "note_0385"
+    ],
+    "note_ids": [
+      "note_0385"
+    ],
+    "region": [
+      182.94,
+      183.0
+    ],
+    "packets": [
+      "note_0385"
+    ],
+    "reason": "structure_unresolved"
+  },
+  "context": {
+    "phrase": {
+      "start": 177.9,
+      "end": 184.0,
+      "boundary_source": "lrc"
+    },
+    "phrase_key": "177.90-184.00",
+    "candidate0_note_ids": [
+      "note_0371",
+      "note_0372",
+      "note_0373",
+      "note_0374",
+      "note_0375",
+      "note_0376",
+      "note_0377",
+      "note_0378",
+      "note_0379",
+      "note_0380",
+      "note_0381",
+      "note_0382",
+      "note_0383",
+      "note_0384",
+      "note_0385",
+      "note_0386"
+    ]
+  },
+  "phrase": {
+    "start": 177.9,
+    "end": 184.0,
+    "boundary_source": "lrc"
+  },
+  "options": [
+    {
+      "option_id": "OPTION_0",
+      "candidate_id": "baseline",
+      "score_patch": {
+        "type": "identity"
+      },
+      "provenance": {
+        "kind": "candidate0"
+      },
+      "wav": null,
+      "wav_sha256": null,
+      "render_error": null
+    }
+  ],
+  "baseline_option": "OPTION_0",
+  "source_reference": null,
+  "render_profile": {
+    "singer": "YousaV1.65b",
+    "phonemizer": "zh",
+    "renderer": "DIFFSINGER",
+    "bpm": 120,
+    "resolution": 480,
+    "sample_rate": 44100,
+    "voice_color": null,
+    "pitd": "none",
+    "time_align": "shared_phrase_start",
+    "loudness": "shared_gain",
+    "ustx_template_sha256": "a11d1b6a2b1a3c13b4e3056c8a942ae8baf401d6bbfe0e431235db144cb9362b"
+  },
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "shared_gain_db": null,
+  "machine_evidence": {
+    "pitch": {
+      "status": "not_needed",
+      "winning_hypothesis": null,
+      "reason": null,
+      "top_hypotheses": []
+    },
+    "structure": {
+      "status": "unresolved",
+      "winning_hypothesis": "H0",
+      "boundary": null,
+      "all_scores": {
+        "H0": 1.8
+      }
+    },
+    "virtual_b": [],
+    "flags": [
+      "high_dispersion",
+      "very_short_isolated_note"
+    ]
+  },
+  "review": {
+    "generation": 1,
+    "blinded": true,
+    "choices": [
+      "OPTION_0",
+      "equivalent",
+      "none_correct"
+    ]
+  },
+  "package_hash": "660bb85a4d5c6241acb5398df3862ebb957b514a319607b96d9a4987d9279750"
+}

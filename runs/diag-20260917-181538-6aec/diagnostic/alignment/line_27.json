@@ -1,0 +1,82 @@
+{
+ "text": "可惜从没人陪我演这剧本",
+ "chars": [
+  {
+   "char": "可",
+   "start": 177.9,
+   "end": 178.56,
+   "probability": 0.9870588183403015,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "惜",
+   "start": 178.56,
+   "end": 178.98,
+   "probability": 0.9969977140426636,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "从",
+   "start": 178.98,
+   "end": 179.38,
+   "probability": 0.9675159454345703,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "没",
+   "start": 179.38,
+   "end": 179.92,
+   "probability": 0.9383203387260437,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "人",
+   "start": 179.92,
+   "end": 180.22,
+   "probability": 0.9972553849220276,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "陪",
+   "start": 180.22,
+   "end": 180.66,
+   "probability": 0.9996842741966248,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "我",
+   "start": 180.66,
+   "end": 181.1,
+   "probability": 0.9997501969337463,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "演",
+   "start": 181.1,
+   "end": 181.42,
+   "probability": 0.9642080664634705,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "这",
+   "start": 181.42,
+   "end": 182.04,
+   "probability": 0.921345055103302,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "剧",
+   "start": 182.04,
+   "end": 182.48,
+   "probability": 0.9200083315372467,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "本",
+   "start": 182.48,
+   "end": 183.28,
+   "probability": 0.956075131893158,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

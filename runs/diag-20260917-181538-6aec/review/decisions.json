@@ -1,0 +1,46 @@
+{
+  "schema": "d3",
+  "identity_schema": "review-target-v1",
+  "revisions": [
+    {
+      "revision_id": "rev-0001",
+      "review_item_id": "ri-fae0fde3d050fd8a",
+      "target_key": "fae0fde3d050fd8a7241448bfc0558f44332c1f36f5a6e3bb05ff7b51b0c6cd4",
+      "batch_id": "rb-d3-render2",
+      "review_generation": 1,
+      "audio_package_hash": "2e7b37412489e3cf38f50ed71a146529a0cf92c51a65902f723be588a0fe7301",
+      "plan_hash": "3c6465b5f7e7337262dab076ccb9496770915fb74d53f942c2dd97a7ff9d7fe5",
+      "selected": "OPTION_0",
+      "selected_option_id": "OPTION_0",
+      "candidate_id": "split_pitch_2",
+      "semantics": "human_selected_candidate",
+      "selected_score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0301"
+        ],
+        "boundary": 148.565,
+        "children": [
+          {
+            "start": 148.42,
+            "end": 148.565,
+            "tone": 63.98
+          },
+          {
+            "start": 148.565,
+            "end": 148.82,
+            "tone": 54.02
+          }
+        ]
+      },
+      "selected_provenance": {
+        "kind": "virtual_b_runnerup",
+        "child": 1
+      },
+      "selected_wav_sha256": "20d4ab2ae7058dd3bb6cf818164ed521089d7e8cea45048f33bc549875e050d0",
+      "created_at": "2026-09-17T15:12:57+00:00",
+      "supersedes_revision_id": null,
+      "superseded": false
+    }
+  ]
+}

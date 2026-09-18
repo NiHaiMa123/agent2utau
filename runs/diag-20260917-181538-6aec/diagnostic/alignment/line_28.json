@@ -1,0 +1,61 @@
+{
+ "text": "一圈圈年轮 我认真",
+ "chars": [
+  {
+   "char": "一",
+   "start": 205.75,
+   "end": 207.01,
+   "probability": 0.7007728815078735,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "圈",
+   "start": 207.01,
+   "end": 207.45,
+   "probability": 0.9860306084156036,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "圈",
+   "start": 207.45,
+   "end": 207.85,
+   "probability": 0.9983268678188324,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "年",
+   "start": 207.85,
+   "end": 208.17,
+   "probability": 0.11218415945768356,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "轮",
+   "start": 208.17,
+   "end": 208.89,
+   "probability": 0.4942512335255742,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "我",
+   "start": 208.89,
+   "end": 209.41,
+   "probability": 0.26288101077079773,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "认",
+   "start": 209.41,
+   "end": 209.95,
+   "probability": 0.9929311275482178,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "真",
+   "start": 209.95,
+   "end": 210.33,
+   "probability": 0.8030765652656555,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

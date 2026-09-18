@@ -1,0 +1,90 @@
+{
+  "schema": "d2",
+  "revisions": [
+    {
+      "revision_id": "rev-0001",
+      "review_item_id": "ri-0001",
+      "batch_id": "rb-int1",
+      "review_generation": 1,
+      "audio_package_hash": "5288c54be57d697ba40ba32ffff5d1383bea6ee05bb83622dae9cd5c8cfe210a",
+      "plan_hash": "aa195f3431c3e65f0f4186edccb77a5141342062567039c6ccbd0d1ea03998c4",
+      "selected": "OPTION_2",
+      "selected_option_id": "OPTION_2",
+      "candidate_id": "retune_2",
+      "semantics": "human_selected_candidate",
+      "selected_score_patch": {
+        "type": "retune",
+        "note_ids": [
+          "note_0415"
+        ],
+        "from": 65.3,
+        "to": 53.3
+      },
+      "selected_provenance": {
+        "kind": "b_hypothesis"
+      },
+      "selected_wav_sha256": "7f70225307cf1c455035077ea2310d6e50d14a5ed8f67c9b655a8b9dfc4f5845",
+      "created_at": "2026-09-17T13:32:52+00:00",
+      "supersedes_revision_id": null,
+      "superseded": false
+    },
+    {
+      "revision_id": "rev-0002",
+      "review_item_id": "ri-0003",
+      "batch_id": "rb-int1",
+      "review_generation": 1,
+      "audio_package_hash": "ed4a4cd198c98a67339247d28c32bf358665e72d79bd2aa0ad412fd509805da8",
+      "plan_hash": "2255a78882fb90af63c41a73f09c9f9bd99705809f8d408ae33cb1eb628dfb3b",
+      "selected": "none_correct",
+      "selected_option_id": null,
+      "candidate_id": null,
+      "semantics": "human_rejected_all",
+      "selected_score_patch": null,
+      "selected_provenance": null,
+      "selected_wav_sha256": null,
+      "created_at": "2026-09-17T13:32:52+00:00",
+      "supersedes_revision_id": null,
+      "superseded": true,
+      "superseded_at": "2026-09-17T13:33:14+00:00"
+    },
+    {
+      "revision_id": "rev-0003",
+      "review_item_id": "ri-0003",
+      "batch_id": "rb-int1-g2",
+      "review_generation": 2,
+      "audio_package_hash": "47024a0a98900011a5f37c9f472bf9d65282491154e05d92afaac67ef0a928ee",
+      "plan_hash": "cfaa4c9de509730f6ae14d97410ce295243cd61f9d7ed5f8e342014e8bcf4550",
+      "selected": "OPTION_0",
+      "selected_option_id": "OPTION_0",
+      "candidate_id": "split_pitch_2",
+      "semantics": "human_selected_candidate",
+      "selected_score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0301"
+        ],
+        "boundary": 148.565,
+        "children": [
+          {
+            "start": 148.42,
+            "end": 148.565,
+            "tone": 63.98
+          },
+          {
+            "start": 148.565,
+            "end": 148.82,
+            "tone": 54.02
+          }
+        ]
+      },
+      "selected_provenance": {
+        "kind": "virtual_b_runnerup",
+        "child": 1
+      },
+      "selected_wav_sha256": "20d4ab2ae7058dd3bb6cf818164ed521089d7e8cea45048f33bc549875e050d0",
+      "created_at": "2026-09-17T13:33:14+00:00",
+      "supersedes_revision_id": "rev-0002",
+      "superseded": false
+    }
+  ]
+}

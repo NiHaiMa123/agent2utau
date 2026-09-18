@@ -1,0 +1,28 @@
+{
+ "region": [
+  190.07,
+  190.59
+ ],
+ "game": {
+  "tone": 58.01
+ },
+ "rmvpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 69.935,
+  "iqr_cents": 3.5
+ },
+ "fcpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 57.98,
+  "iqr_cents": 5.4
+ },
+ "dual_f0": {
+  "rmvpe_vs_fcpe_cents": -1195.5,
+  "game_vs_rmvpe_cents": 1192.4,
+  "game_vs_fcpe_cents": -3.1,
+  "extractors_agree": false,
+  "both_oppose_game": false
+ },
+ "aligned_structure": null,
+ "decision": "pending"
+}

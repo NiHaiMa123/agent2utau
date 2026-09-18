@@ -4,13 +4,13 @@
   "repair_id": "srp-f93f9a2370cdb829565fbb7c",
   "sample_rate": 44100,
   "duration": 5.23,
-  "baseline_rms": 0.063155,
-  "candidate_rms": 0.068095,
-  "baseline_peak": 0.26001,
-  "candidate_peak": 0.239044,
+  "baseline_rms": 0.062989,
+  "candidate_rms": 0.064697,
+  "baseline_peak": 0.271271,
+  "candidate_peak": 0.276062,
   "silence_fraction": {
-    "baseline": 0.0706,
-    "candidate": 0.0769
+    "baseline": 0.0809,
+    "candidate": 0.0728
   },
   "declared_region": [
     94.79,
@@ -27,50 +27,50 @@
     ],
     "pad_s": 0.5
   },
-  "pre_target_ab_diff_rms_ratio": 1.6146,
-  "target_ab_diff_rms_ratio": 1.3089,
-  "post_target_ab_diff_rms_ratio": 2.1108,
-  "option_loudness_ratio": 1.0782,
+  "pre_target_ab_diff_rms_ratio": 1.1752,
+  "target_ab_diff_rms_ratio": 1.2651,
+  "post_target_ab_diff_rms_ratio": 1.8462,
+  "option_loudness_ratio": 1.0271,
   "renderer_global_context": {
     "effect": "deterministic renderer; declared patch's phoneme delta propagates a constant timing shift + small acoustic smear into context notes (DiffSinger duration model attends the full phoneme sequence)",
-    "canonical_pre_ab_diff_rms_ratio": 1.6146,
-    "canonical_post_ab_diff_rms_ratio": 2.1108,
-    "canonical_target_ab_diff_rms_ratio": 1.3089,
+    "canonical_pre_ab_diff_rms_ratio": 1.1752,
+    "canonical_post_ab_diff_rms_ratio": 1.8462,
+    "canonical_target_ab_diff_rms_ratio": 1.2651,
     "timing_shift_ms_median": {
-      "pre": 0.76,
-      "post": 0.07
+      "pre": 0.48,
+      "post": 1.53
     },
     "aligned_residual_median": {
-      "pre": 0.404,
-      "post": 0.317
+      "pre": 0.389,
+      "post": 0.32
     },
     "flags": [
-      "pre_target_ab_drift:1.615",
-      "post_target_ab_drift:2.111"
+      "pre_target_ab_drift:1.175",
+      "post_target_ab_drift:1.846"
     ]
   },
   "listen_surface": {
     "construction": "shared_context_splice",
     "splice_edges_rel": [
-      4.05,
+      4.035,
       5.2199
     ],
     "fade_zone_rel": [
-      4.0112,
+      3.9955,
       5.23
     ],
     "edge_lag": {
       "left": {
-        "samples": 55,
-        "ms": 1.25,
-        "confidence": 0.794,
-        "applied": 55
+        "samples": 23,
+        "ms": 0.52,
+        "confidence": 0.621,
+        "applied": 23
       },
       "right": {
-        "samples": -78,
-        "ms": -1.77,
-        "confidence": 0.889,
-        "applied": -78
+        "samples": 76,
+        "ms": 1.72,
+        "confidence": 0.956,
+        "applied": 76
       }
     },
     "pre_outside_ab_diff_rms_ratio": 0.0,
@@ -86,17 +86,17 @@
   },
   "listen": {
     "target_dbfs": -16.0,
-    "pair_rms_db": -24.36,
-    "shared_gain_db": 8.36,
+    "pair_rms_db": -24.3,
+    "shared_gain_db": 8.3,
     "clipped": false,
     "option_rms_db": {
-      "OPTION_0": -23.99,
-      "OPTION_1": -24.76
+      "OPTION_0": -24.01,
+      "OPTION_1": -24.61
     },
-    "ab_loudness_delta_db": 0.77,
+    "ab_loudness_delta_db": 0.6,
     "listen_peak": {
-      "OPTION_0": 0.6805,
-      "OPTION_1": 0.6106
+      "OPTION_0": 0.7055,
+      "OPTION_1": 0.5639
     },
     "files": [
       "OPTION_0_LISTEN.wav",
@@ -105,25 +105,25 @@
     "construction": "shared_context_splice",
     "context_donor": "baseline",
     "splice_edges_rel": [
-      4.05,
+      4.035,
       5.2199
     ],
     "fade_zone_rel": [
-      4.0112,
+      3.9955,
       5.23
     ],
     "edge_lag": {
       "left": {
-        "samples": 55,
-        "ms": 1.25,
-        "confidence": 0.794,
-        "applied": 55
+        "samples": 23,
+        "ms": 0.52,
+        "confidence": 0.621,
+        "applied": 23
       },
       "right": {
-        "samples": -78,
-        "ms": -1.77,
-        "confidence": 0.889,
-        "applied": -78
+        "samples": 76,
+        "ms": 1.72,
+        "confidence": 0.956,
+        "applied": 76
       }
     },
     "outside_surface": "bit-identical outside the fade zone"
@@ -161,10 +161,10 @@
           "n_frames": 28,
           "voiced_frames": 28,
           "voiced_fraction": 1.0,
-          "midi_median": 63.991,
-          "midi_iqr": 0.013,
-          "midi_min": 61.681,
-          "midi_max": 64.012,
+          "midi_median": 63.979,
+          "midi_iqr": 0.065,
+          "midi_min": 61.584,
+          "midi_max": 64.037,
           "dominant_fraction": 0.929,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -175,18 +175,18 @@
             0.77
           ],
           "n_frames": 28,
-          "voiced_frames": 20,
-          "voiced_fraction": 0.7143,
-          "midi_median": 62.01,
-          "midi_iqr": 0.147,
-          "midi_min": 60.435,
-          "midi_max": 63.033,
-          "dominant_fraction": 0.85,
+          "voiced_frames": 23,
+          "voiced_fraction": 0.8214,
+          "midi_median": 62.004,
+          "midi_iqr": 0.113,
+          "midi_min": 60.508,
+          "midi_max": 63.054,
+          "dominant_fraction": 0.87,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 1.641,
-        "candidate_error_semitones": -0.34
+        "baseline_error_semitones": 1.629,
+        "candidate_error_semitones": -0.346
       },
       {
         "child": 1,
@@ -217,12 +217,12 @@
             0.99
           ],
           "n_frames": 21,
-          "voiced_frames": 21,
-          "voiced_fraction": 1.0,
-          "midi_median": 63.985,
-          "midi_iqr": 0.014,
-          "midi_min": 63.315,
-          "midi_max": 64.017,
+          "voiced_frames": 15,
+          "voiced_fraction": 0.7143,
+          "midi_median": 63.984,
+          "midi_iqr": 0.018,
+          "midi_min": 63.339,
+          "midi_max": 64.194,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -235,35 +235,504 @@
           "n_frames": 21,
           "voiced_frames": 21,
           "voiced_fraction": 1.0,
-          "midi_median": 63.988,
-          "midi_iqr": 0.035,
-          "midi_min": 63.326,
-          "midi_max": 64.007,
+          "midi_median": 63.992,
+          "midi_iqr": 0.049,
+          "midi_min": 63.311,
+          "midi_max": 64.009,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": -0.09,
-        "candidate_error_semitones": -0.087
+        "baseline_error_semitones": -0.091,
+        "candidate_error_semitones": -0.083
       }
     ],
     "baseline_child_error_semitones": [
-      1.641,
-      -0.09
+      1.629,
+      -0.091
     ],
     "candidate_child_error_semitones": [
-      -0.34,
-      -0.087
+      -0.346,
+      -0.083
     ],
-    "baseline_structure_error": 1.641,
-    "candidate_structure_error": 0.34,
-    "candidate_improvement_vs_baseline": 1.301,
+    "baseline_structure_error": 1.629,
+    "candidate_structure_error": 0.346,
+    "candidate_improvement_vs_baseline": 1.283,
     "unavailable_child_slots": 0,
     "ambiguous_children": [],
     "note": "review-readiness evidence only — never an automatic score truth; unavailable/ambiguous stays neutral"
   },
-  "target_focus_sha256": "0c6b15c87b28eda77de12ccf7e1a7b4f0ed26512b50638ab3e61a2b46f9659f0",
-  "target_core_sha256": "087ebda2135b04b0fdda6167570fa0df3f00603f54fcf34349efe5f709987ac1",
+  "lyric_timing": {
+    "aligner": "whisper-attention-dtw",
+    "model": "large-v3-turbo",
+    "text": "可惜从没人陪我演这剧本",
+    "source_chars": [
+      {
+        "char": "可",
+        "start": -0.08,
+        "end": 0.6,
+        "probability": 0.9875868558883667
+      },
+      {
+        "char": "惜",
+        "start": 0.6,
+        "end": 1.06,
+        "probability": 0.9972230195999146
+      },
+      {
+        "char": "从",
+        "start": 1.06,
+        "end": 1.42,
+        "probability": 0.97702956199646
+      },
+      {
+        "char": "没",
+        "start": 1.42,
+        "end": 2.0,
+        "probability": 0.9909520149230957
+      },
+      {
+        "char": "人",
+        "start": 2.0,
+        "end": 2.32,
+        "probability": 0.9990195035934448
+      },
+      {
+        "char": "陪",
+        "start": 2.32,
+        "end": 2.78,
+        "probability": 0.9997592568397522
+      },
+      {
+        "char": "我",
+        "start": 2.78,
+        "end": 3.18,
+        "probability": 0.9997190833091736
+      },
+      {
+        "char": "演",
+        "start": 3.18,
+        "end": 3.48,
+        "probability": 0.9959322810173035
+      },
+      {
+        "char": "这",
+        "start": 3.48,
+        "end": 4.18,
+        "probability": 0.9866304993629456
+      },
+      {
+        "char": "剧",
+        "start": 4.18,
+        "end": 4.78,
+        "probability": 0.6912985742092133
+      },
+      {
+        "char": "本",
+        "start": 4.78,
+        "end": 5.32,
+        "probability": 0.4560130536556244
+      }
+    ],
+    "options": {
+      "OPTION_0": {
+        "chars": [
+          {
+            "char": "可",
+            "start": 0.0,
+            "end": 0.34,
+            "probability": 0.9927821159362793,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "惜",
+            "start": 0.34,
+            "end": 0.82,
+            "probability": 0.992956280708313,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "从",
+            "start": 0.82,
+            "end": 1.14,
+            "probability": 0.14082394540309906,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "没",
+            "start": 1.14,
+            "end": 1.68,
+            "probability": 0.9906852841377258,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "人",
+            "start": 1.68,
+            "end": 2.1,
+            "probability": 0.9882700443267822,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "陪",
+            "start": 2.1,
+            "end": 2.56,
+            "probability": 0.9975138902664185,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "我",
+            "start": 2.56,
+            "end": 2.96,
+            "probability": 0.9985347986221313,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "演",
+            "start": 2.96,
+            "end": 3.28,
+            "probability": 0.9302912950515747,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "这",
+            "start": 3.28,
+            "end": 3.72,
+            "probability": 0.7809841632843018,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "剧",
+            "start": 3.72,
+            "end": 4.4,
+            "probability": 0.5443876311182976,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "本",
+            "start": 4.4,
+            "end": 4.92,
+            "probability": 0.21957117319107056,
+            "method": "whisper-attention-dtw"
+          }
+        ]
+      },
+      "OPTION_1": {
+        "chars": [
+          {
+            "char": "可",
+            "start": 0.0,
+            "end": 0.42,
+            "probability": 0.9742032289505005,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "惜",
+            "start": 0.42,
+            "end": 0.76,
+            "probability": 0.9936004877090454,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "从",
+            "start": 0.76,
+            "end": 1.14,
+            "probability": 0.30063512921333313,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "没",
+            "start": 1.14,
+            "end": 1.64,
+            "probability": 0.9876093864440918,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "人",
+            "start": 1.64,
+            "end": 2.1,
+            "probability": 0.987636923789978,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "陪",
+            "start": 2.1,
+            "end": 2.56,
+            "probability": 0.9971274733543396,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "我",
+            "start": 2.56,
+            "end": 2.96,
+            "probability": 0.9986023306846619,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "演",
+            "start": 2.96,
+            "end": 3.26,
+            "probability": 0.9710308313369751,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "这",
+            "start": 3.26,
+            "end": 3.7,
+            "probability": 0.7609531879425049,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "剧",
+            "start": 3.7,
+            "end": 4.48,
+            "probability": 0.8299283087253571,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "本",
+            "start": 4.48,
+            "end": 4.88,
+            "probability": 0.9761961698532104,
+            "method": "whisper-attention-dtw"
+          }
+        ]
+      }
+    },
+    "per_char": [
+      {
+        "char": "可",
+        "src_start": -0.08,
+        "src_end": 0.6,
+        "OPTION_0_start": 0.0,
+        "OPTION_0_end": 0.34,
+        "OPTION_0_score_onset": 0.0,
+        "OPTION_0_onset_delta_ms": 80.0,
+        "OPTION_0_offset_delta_ms": -260.0,
+        "OPTION_0_score_delta_ms": 80.0,
+        "OPTION_0_aligner_offset_ms": 0.0,
+        "OPTION_1_start": 0.0,
+        "OPTION_1_end": 0.42,
+        "OPTION_1_score_onset": 0.0,
+        "OPTION_1_onset_delta_ms": 80.0,
+        "OPTION_1_offset_delta_ms": -180.0,
+        "OPTION_1_score_delta_ms": 80.0,
+        "OPTION_1_aligner_offset_ms": 0.0
+      },
+      {
+        "char": "惜",
+        "src_start": 0.6,
+        "src_end": 1.06,
+        "OPTION_0_start": 0.34,
+        "OPTION_0_end": 0.82,
+        "OPTION_0_score_onset": 0.6,
+        "OPTION_0_onset_delta_ms": -260.0,
+        "OPTION_0_offset_delta_ms": -240.0,
+        "OPTION_0_score_delta_ms": 0.0,
+        "OPTION_0_aligner_offset_ms": -260.0,
+        "OPTION_1_start": 0.42,
+        "OPTION_1_end": 0.76,
+        "OPTION_1_score_onset": 0.6,
+        "OPTION_1_onset_delta_ms": -180.0,
+        "OPTION_1_offset_delta_ms": -300.0,
+        "OPTION_1_score_delta_ms": 0.0,
+        "OPTION_1_aligner_offset_ms": -180.0
+      },
+      {
+        "char": "从",
+        "src_start": 1.06,
+        "src_end": 1.42,
+        "OPTION_0_start": 0.82,
+        "OPTION_0_end": 1.14,
+        "OPTION_0_score_onset": 1.0604,
+        "OPTION_0_onset_delta_ms": -240.0,
+        "OPTION_0_offset_delta_ms": -280.0,
+        "OPTION_0_score_delta_ms": 0.4,
+        "OPTION_0_aligner_offset_ms": -240.4,
+        "OPTION_1_start": 0.76,
+        "OPTION_1_end": 1.14,
+        "OPTION_1_score_onset": 1.0604,
+        "OPTION_1_onset_delta_ms": -300.0,
+        "OPTION_1_offset_delta_ms": -280.0,
+        "OPTION_1_score_delta_ms": 0.4,
+        "OPTION_1_aligner_offset_ms": -300.4
+      },
+      {
+        "char": "没",
+        "src_start": 1.42,
+        "src_end": 2.0,
+        "OPTION_0_start": 1.14,
+        "OPTION_0_end": 1.68,
+        "OPTION_0_score_onset": 1.3604,
+        "OPTION_0_onset_delta_ms": -280.0,
+        "OPTION_0_offset_delta_ms": -320.0,
+        "OPTION_0_score_delta_ms": -59.6,
+        "OPTION_0_aligner_offset_ms": -220.4,
+        "OPTION_1_start": 1.14,
+        "OPTION_1_end": 1.64,
+        "OPTION_1_score_onset": 1.3604,
+        "OPTION_1_onset_delta_ms": -280.0,
+        "OPTION_1_offset_delta_ms": -360.0,
+        "OPTION_1_score_delta_ms": -59.6,
+        "OPTION_1_aligner_offset_ms": -220.4
+      },
+      {
+        "char": "人",
+        "src_start": 2.0,
+        "src_end": 2.32,
+        "OPTION_0_start": 1.68,
+        "OPTION_0_end": 2.1,
+        "OPTION_0_score_onset": 2.0,
+        "OPTION_0_onset_delta_ms": -320.0,
+        "OPTION_0_offset_delta_ms": -220.0,
+        "OPTION_0_score_delta_ms": 0.0,
+        "OPTION_0_aligner_offset_ms": -320.0,
+        "OPTION_1_start": 1.64,
+        "OPTION_1_end": 2.1,
+        "OPTION_1_score_onset": 2.0,
+        "OPTION_1_onset_delta_ms": -360.0,
+        "OPTION_1_offset_delta_ms": -220.0,
+        "OPTION_1_score_delta_ms": 0.0,
+        "OPTION_1_aligner_offset_ms": -360.0
+      },
+      {
+        "char": "陪",
+        "src_start": 2.32,
+        "src_end": 2.78,
+        "OPTION_0_start": 2.1,
+        "OPTION_0_end": 2.56,
+        "OPTION_0_score_onset": 2.3198,
+        "OPTION_0_onset_delta_ms": -220.0,
+        "OPTION_0_offset_delta_ms": -220.0,
+        "OPTION_0_score_delta_ms": -0.2,
+        "OPTION_0_aligner_offset_ms": -219.8,
+        "OPTION_1_start": 2.1,
+        "OPTION_1_end": 2.56,
+        "OPTION_1_score_onset": 2.3198,
+        "OPTION_1_onset_delta_ms": -220.0,
+        "OPTION_1_offset_delta_ms": -220.0,
+        "OPTION_1_score_delta_ms": -0.2,
+        "OPTION_1_aligner_offset_ms": -219.8
+      },
+      {
+        "char": "我",
+        "src_start": 2.78,
+        "src_end": 3.18,
+        "OPTION_0_start": 2.56,
+        "OPTION_0_end": 2.96,
+        "OPTION_0_score_onset": 2.7802,
+        "OPTION_0_onset_delta_ms": -220.0,
+        "OPTION_0_offset_delta_ms": -220.0,
+        "OPTION_0_score_delta_ms": 0.2,
+        "OPTION_0_aligner_offset_ms": -220.2,
+        "OPTION_1_start": 2.56,
+        "OPTION_1_end": 2.96,
+        "OPTION_1_score_onset": 2.7802,
+        "OPTION_1_onset_delta_ms": -220.0,
+        "OPTION_1_offset_delta_ms": -220.0,
+        "OPTION_1_score_delta_ms": 0.2,
+        "OPTION_1_aligner_offset_ms": -220.2
+      },
+      {
+        "char": "演",
+        "src_start": 3.18,
+        "src_end": 3.48,
+        "OPTION_0_start": 2.96,
+        "OPTION_0_end": 3.28,
+        "OPTION_0_score_onset": 3.1802,
+        "OPTION_0_onset_delta_ms": -220.0,
+        "OPTION_0_offset_delta_ms": -200.0,
+        "OPTION_0_score_delta_ms": 0.2,
+        "OPTION_0_aligner_offset_ms": -220.2,
+        "OPTION_1_start": 2.96,
+        "OPTION_1_end": 3.26,
+        "OPTION_1_score_onset": 3.1802,
+        "OPTION_1_onset_delta_ms": -220.0,
+        "OPTION_1_offset_delta_ms": -220.0,
+        "OPTION_1_score_delta_ms": 0.2,
+        "OPTION_1_aligner_offset_ms": -220.2
+      },
+      {
+        "char": "这",
+        "src_start": 3.48,
+        "src_end": 4.18,
+        "OPTION_0_start": 3.28,
+        "OPTION_0_end": 3.72,
+        "OPTION_0_score_onset": 3.4802,
+        "OPTION_0_onset_delta_ms": -200.0,
+        "OPTION_0_offset_delta_ms": -460.0,
+        "OPTION_0_score_delta_ms": 0.2,
+        "OPTION_0_aligner_offset_ms": -200.2,
+        "OPTION_1_start": 3.26,
+        "OPTION_1_end": 3.7,
+        "OPTION_1_score_onset": 3.4802,
+        "OPTION_1_onset_delta_ms": -220.0,
+        "OPTION_1_offset_delta_ms": -480.0,
+        "OPTION_1_score_delta_ms": 0.2,
+        "OPTION_1_aligner_offset_ms": -220.2
+      },
+      {
+        "char": "剧",
+        "src_start": 4.18,
+        "src_end": 4.78,
+        "OPTION_0_start": 3.72,
+        "OPTION_0_end": 4.4,
+        "OPTION_0_score_onset": 4.1802,
+        "OPTION_0_onset_delta_ms": -460.0,
+        "OPTION_0_offset_delta_ms": -380.0,
+        "OPTION_0_score_delta_ms": 0.2,
+        "OPTION_0_aligner_offset_ms": -460.2,
+        "OPTION_1_start": 3.7,
+        "OPTION_1_end": 4.48,
+        "OPTION_1_score_onset": 4.1802,
+        "OPTION_1_onset_delta_ms": -480.0,
+        "OPTION_1_offset_delta_ms": -300.0,
+        "OPTION_1_score_delta_ms": 0.2,
+        "OPTION_1_aligner_offset_ms": -480.2
+      },
+      {
+        "char": "本",
+        "src_start": 4.78,
+        "src_end": 5.32,
+        "OPTION_0_start": 4.4,
+        "OPTION_0_end": 4.92,
+        "OPTION_0_score_onset": 4.7802,
+        "OPTION_0_onset_delta_ms": -380.0,
+        "OPTION_0_offset_delta_ms": -400.0,
+        "OPTION_0_score_delta_ms": 0.2,
+        "OPTION_0_aligner_offset_ms": -380.2,
+        "OPTION_1_start": 4.48,
+        "OPTION_1_end": 4.88,
+        "OPTION_1_score_onset": 4.7,
+        "OPTION_1_onset_delta_ms": -300.0,
+        "OPTION_1_offset_delta_ms": -440.0,
+        "OPTION_1_score_delta_ms": -80.0,
+        "OPTION_1_aligner_offset_ms": -220.0
+      }
+    ],
+    "stats": {
+      "OPTION_0": {
+        "median_abs_onset_delta_ms": 240.0,
+        "p90_abs_onset_delta_ms": 380.0,
+        "max_abs_onset_delta_ms": 460.0,
+        "median_abs_offset_delta_ms": 260.0,
+        "n_chars_over_100ms": 10,
+        "n_chars_over_200ms": 10,
+        "median_aligner_offset_ms": -220.4
+      },
+      "OPTION_1": {
+        "median_abs_onset_delta_ms": 220.0,
+        "p90_abs_onset_delta_ms": 360.0,
+        "max_abs_onset_delta_ms": 480.0,
+        "median_abs_offset_delta_ms": 280.0,
+        "n_chars_over_100ms": 10,
+        "n_chars_over_200ms": 9,
+        "median_aligner_offset_ms": -220.2
+      }
+    },
+    "flags": []
+  },
+  "target_focus_sha256": "67974821dda3261694bb4c7486e71ec2ce93cceaea23f9c44d7f25d70d77f924",
+  "target_core_sha256": "ccda20996d335177afe2d6e3af9e9b3e61c3d1367e890aa5dcd3e2a3e29fef9f",
   "target_focus_is_primary": true,
   "auto_flags": [],
   "auto_review_ready": true

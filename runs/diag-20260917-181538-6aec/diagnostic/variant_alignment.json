@@ -1,0 +1,26 @@
+{
+ "A_vs_B": {
+  "matched": 388,
+  "a_only": 5,
+  "b_only": 1,
+  "splits_merges": 22,
+  "pitch_disagree_gt1st": 0,
+  "median_onset_drift_ms": 0.0
+ },
+ "A_vs_C_forced": {
+  "matched": 110,
+  "a_only": 8,
+  "b_only": 53,
+  "splits_merges": 303,
+  "pitch_disagree_gt1st": 0,
+  "median_onset_drift_ms": -0.0
+ },
+ "consensusA_vs_consensusB": {
+  "matched": 381,
+  "a_only": 7,
+  "b_only": 6,
+  "splits_merges": 8,
+  "pitch_disagree_gt1st": 5,
+  "median_onset_drift_ms": 0.0
+ }
+}

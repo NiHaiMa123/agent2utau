@@ -1,0 +1,10 @@
+{
+ "status": "completed_with_warnings",
+ "stage": "done",
+ "artifacts": [
+  "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\diagnostic"
+ ],
+ "run_id": "diag-20260917-181538-6aec",
+ "schema_version": "1",
+ "updated_at": 1789640643.6666641
+}

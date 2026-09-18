@@ -1,0 +1,68 @@
+{
+ "text": "我承认 曾幻想过永恒",
+ "chars": [
+  {
+   "char": "我",
+   "start": 85.6,
+   "end": 86.18,
+   "probability": 0.9845601320266724,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "承",
+   "start": 86.18,
+   "end": 86.7,
+   "probability": 0.995746523141861,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "认",
+   "start": 86.7,
+   "end": 87.28,
+   "probability": 0.9285024106502533,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "曾",
+   "start": 87.6,
+   "end": 87.78,
+   "probability": 0.996027946472168,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "幻",
+   "start": 87.78,
+   "end": 88.36,
+   "probability": 0.994239091873169,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "想",
+   "start": 88.36,
+   "end": 88.84,
+   "probability": 0.9989238381385803,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "过",
+   "start": 88.84,
+   "end": 89.46,
+   "probability": 0.9988378882408142,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "永",
+   "start": 89.46,
+   "end": 89.76,
+   "probability": 0.9994788765907288,
+   "method": "whisper-attention-dtw"
+  },
+  {
+   "char": "恒",
+   "start": 89.76,
+   "end": 90.2,
+   "probability": 0.9752023816108704,
+   "method": "whisper-attention-dtw"
+  }
+ ]
+}

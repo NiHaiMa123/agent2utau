@@ -1,0 +1,80 @@
+{
+  "schema": "d3",
+  "batch_id": "rb-d3-top3",
+  "run_id": "diag-20260917-181538-6aec",
+  "created_at": 1789654745.7791882,
+  "song_sha256": "5f851d3a760f230a",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "items": [
+    {
+      "item_id": "ri-427b635221361eed",
+      "target_key": "427b635221361eed6bc87b9115fcb32426afd4d89d5c9b69e658d959a42fb914",
+      "type": "pitch",
+      "reason": "pitch_unresolved",
+      "phrase": {
+        "start": 201.13,
+        "end": 203.98,
+        "boundary_source": "silence"
+      },
+      "phrase_key": "201.13-203.98",
+      "region": [
+        202.52,
+        202.74
+      ],
+      "packets": [
+        "note_0415"
+      ],
+      "n_options": 4,
+      "plan_hash": "74db7340b047c5ade970e955091ed35069be7ea0d7aacf8c5fbd0d2ceae4e41c",
+      "audio_package_hash": null,
+      "package_state": "unrendered"
+    },
+    {
+      "item_id": "ri-9a398ece577d3d4e",
+      "target_key": "9a398ece577d3d4eb045cdd74b39e8c172c57c7f0851cad2acb59a3e6ab6401f",
+      "type": "structure",
+      "reason": "structure_unresolved",
+      "phrase": {
+        "start": 10.2,
+        "end": 13.2,
+        "boundary_source": "silence"
+      },
+      "phrase_key": "10.20-13.20",
+      "region": [
+        11.67,
+        11.73
+      ],
+      "packets": [
+        "note_0004"
+      ],
+      "n_options": 1,
+      "plan_hash": "38e631f613a0b9b19b799a0ae25572930ccd19d47faf3860ae0b5f96d8b9cf14",
+      "audio_package_hash": null,
+      "package_state": "unrendered"
+    },
+    {
+      "item_id": "ri-f27604e3bf9deb79",
+      "target_key": "f27604e3bf9deb79a5c50a3176c3c25049eb4a90e3e49e43b143787f73ce09d3",
+      "type": "structure",
+      "reason": "structure_unresolved",
+      "phrase": {
+        "start": 31.15,
+        "end": 37.4,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "31.15-37.40",
+      "region": [
+        33.3,
+        33.709999999999994
+      ],
+      "packets": [
+        "note_0045"
+      ],
+      "n_options": 2,
+      "plan_hash": "3b29b17b455facf052aed1fade944b2b16fa696197f005b93ad9d403977d7e30",
+      "audio_package_hash": null,
+      "package_state": "unrendered"
+    }
+  ]
+}

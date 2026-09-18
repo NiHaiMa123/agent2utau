@@ -1,0 +1,337 @@
+{
+ "id": "note_0199",
+ "start": 106.85,
+ "dur": 0.23,
+ "game_tone": 59.01,
+ "voiced_coverage": 1.0,
+ "f0_iqr_cents": 90.8,
+ "err_cents": -9.5,
+ "flags": [
+  "high_dispersion"
+ ],
+ "rmvpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 58.92,
+  "iqr_cents": 90.8
+ },
+ "fcpe": {
+  "voiced_coverage": 1.0,
+  "center_midi": 58.836,
+  "iqr_cents": 91.9
+ },
+ "dual_f0": {
+  "rmvpe_vs_fcpe_cents": -8.4,
+  "game_vs_rmvpe_cents": -9.5,
+  "game_vs_fcpe_cents": -17.9,
+  "extractors_agree": true,
+  "both_oppose_game": false
+ },
+ "consensus": {
+  "presence_rate": 1.0,
+  "tone_agreement": 0.2,
+  "tone_median": 59.0,
+  "start_iqr_ms": 120.0,
+  "run_note_counts": [
+   2,
+   2,
+   1,
+   2,
+   2
+  ],
+  "run_tones": [
+   57.81,
+   57.81,
+   59.0,
+   57.81,
+   57.81
+  ],
+  "member_notes": {
+   "0": [
+    [
+     106.72,
+     106.85,
+     56.6
+    ],
+    [
+     106.85,
+     107.08,
+     59.01
+    ]
+   ],
+   "1": [
+    [
+     106.72,
+     106.84,
+     56.6
+    ],
+    [
+     106.84,
+     107.08,
+     59.01
+    ]
+   ],
+   "2": [
+    [
+     106.72,
+     107.08,
+     59.0
+    ]
+   ],
+   "3": [
+    [
+     106.72,
+     106.84,
+     56.6
+    ],
+    [
+     106.84,
+     107.08,
+     59.01
+    ]
+   ],
+   "4": [
+    [
+     106.72,
+     106.85,
+     56.6
+    ],
+    [
+     106.85,
+     107.08,
+     59.01
+    ]
+   ]
+  },
+  "n_runs": 5,
+  "structure_varies": true,
+  "stability": "GAME_UNSTABLE"
+ },
+ "plateaus": [
+  {
+   "start": 106.87,
+   "end": 107.04,
+   "dur": 0.17,
+   "center_midi": 58.97,
+   "iqr_cents": 13.8
+  }
+ ],
+ "interior_center_midi": 59.01,
+ "triage": "STRUCTURE_CANDIDATE",
+ "fcpe_plateaus": [
+  {
+   "start": 106.87,
+   "end": 107.04,
+   "dur": 0.17,
+   "center_midi": 58.97,
+   "iqr_cents": 12.8
+  }
+ ],
+ "structure_evidence": {
+  "rmvpe_plateaus": [
+   {
+    "start": 106.87,
+    "end": 107.04,
+    "dur": 0.17,
+    "center_midi": 58.97,
+    "iqr_cents": 13.8
+   }
+  ],
+  "fcpe_plateaus": [
+   {
+    "start": 106.87,
+    "end": 107.04,
+    "dur": 0.17,
+    "center_midi": 58.97,
+    "iqr_cents": 12.8
+   }
+  ],
+  "plateau_count_agreement": true,
+  "plateau_pitch_agreement": true,
+  "changepoint_time_delta_ms": null
+ },
+ "state": {
+  "pitch_state": "stable",
+  "structure_state": "candidate",
+  "identity_state": "variable",
+  "separation_state": "unknown",
+  "routing_needs": {
+   "pitch_adjudication": false,
+   "structure_adjudication": false,
+   "phrase_review": false
+  },
+  "decision": "auto_resolved"
+ },
+ "pitch_adjudication": {
+  "status": "resolved_keep",
+  "winning_hypothesis": 59.01,
+  "confidence": 2.765,
+  "margin": 2.988,
+  "evidence_families": [
+   "rmvpe",
+   "fcpe",
+   "third_f0",
+   "periodicity",
+   "harmonic_series"
+  ],
+  "supporting_features": {
+   "continuity": 0.973,
+   "fcpe": 0.54,
+   "game": 0.2,
+   "harmonic_series": 0.369,
+   "periodicity": 0.993,
+   "rmvpe": 0.546,
+   "third_f0": 0.702
+  },
+  "supporting_independence_groups": [
+   "rmvpe",
+   "fcpe",
+   "waveform"
+  ],
+  "opposing_independence_groups": [
+   "game"
+  ],
+  "group_scores": {
+   "game": 0.2,
+   "rmvpe": 0.546,
+   "fcpe": 0.54,
+   "waveform": 0.993,
+   "context": 0.973
+  },
+  "opposing_families": [],
+  "reason": "converged",
+  "extractor_conflict": false,
+  "separation_sensitive": false,
+  "hypotheses": [
+   {
+    "hypothesis": 59.01,
+    "score": 2.765,
+    "game_support_ratio": 0.2,
+    "game_opposition": null,
+    "periodicity": 0.993,
+    "subharmonic": 0.0,
+    "harmonic_fit": 0.369,
+    "group_scores": {
+     "game": 0.2,
+     "rmvpe": 0.546,
+     "fcpe": 0.54,
+     "waveform": 0.993,
+     "context": 0.973
+    },
+    "supporting": {
+     "game": 0.2,
+     "rmvpe": 0.546,
+     "fcpe": 0.54,
+     "third_f0": 0.702,
+     "periodicity": 0.993,
+     "harmonic_series": 0.369,
+     "continuity": 0.973
+    },
+    "opposing": {}
+   },
+   {
+    "hypothesis": 47.01,
+    "score": -0.223,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.968,
+    "subharmonic": 0.547,
+    "harmonic_fit": 0.108,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.546,
+     "fcpe": -0.54,
+     "waveform": 0.617,
+     "context": 0.493
+    },
+    "supporting": {
+     "periodicity": 0.968,
+     "harmonic_series": 0.108,
+     "continuity": 0.493
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.546,
+     "fcpe": 0.54,
+     "third_f0": 0.702
+    }
+   },
+   {
+    "hypothesis": 71.01,
+    "score": -0.833,
+    "game_support_ratio": 0.0,
+    "game_opposition": null,
+    "periodicity": 0.0,
+    "subharmonic": 0.862,
+    "harmonic_fit": 0.06,
+    "group_scores": {
+     "game": 0.0,
+     "rmvpe": -0.546,
+     "fcpe": -0.54,
+     "waveform": 0.0,
+     "context": 0.507
+    },
+    "supporting": {
+     "harmonic_series": 0.06,
+     "continuity": 0.507
+    },
+    "opposing": {
+     "game": 0.0,
+     "rmvpe": 0.546,
+     "fcpe": 0.54,
+     "third_f0": 0.702,
+     "subharmonic": 0.362
+    }
+   }
+  ],
+  "provisional": false,
+  "finalized_by": "structure_resolved_keep"
+ },
+ "structure_adjudication": {
+  "status": "resolved_keep",
+  "classification": "RESOLVED_KEEP",
+  "winning_hypothesis": "H0",
+  "hypothesis_detail": {
+   "kind": "keep",
+   "notes": [
+    {
+     "start": 106.85,
+     "end": 107.08,
+     "tone": 59.01
+    }
+   ]
+  },
+  "score": 3.646,
+  "margin": 3.646,
+  "supporting_groups": [
+   "rmvpe",
+   "fcpe",
+   "acoustic_boundary"
+  ],
+  "reason": "converged",
+  "discovery_reasons": [],
+  "extractor_evidence": {
+   "rmvpe": null,
+   "fcpe": null,
+   "dual_delta": {},
+   "dual_delta_agreement": false
+  },
+  "boundary_evidence": {
+   "energy": {
+    "dip_prominence": 0.0,
+    "recovery": 0.0,
+    "support": 0.0
+   },
+   "voiced_drop": 0.0,
+   "non_f0_support": 0.0
+  },
+  "game_structure": {
+   "one_note_ratio": 0.2,
+   "split_ratio": 0.8
+  },
+  "all_scores": {
+   "H0": 3.646
+  },
+  "boundary": null
+ },
+ "final_structure_clear": true
+}
