@@ -63,7 +63,7 @@ button.sel{background:var(--acc);border-color:var(--acc);color:#fff}
 <button onclick="nav(1)">下一项 →</button>
 <button onclick="navPending()">下一个未裁决 ↷</button>
 <span class="kbd" style="align-self:center;margin-left:8px">
-快捷键: S=原曲 V=人声 1=选项A 2=选项B | A/B=选择 E=差不多 X=都不对 ←→=切换</span>
+快捷键: 3=目标原曲 4=目标人声 S=原曲整段 V=人声整段 1=选项A 2=选项B | A/B=选择 E=差不多 X=都不对 ←→=切换</span>
 </div>
 <div id="detail"></div>
 </div>
@@ -101,11 +101,15 @@ function show(i){
  const key=it.cal_item_id,pk=it.phrase_key;
  const done=decided[key];
  document.getElementById('detail').innerHTML=`
- <div class="card"><h3>TARGET — ${it.note_id} (${it.type}) · 区间
+ <div class="card"><h3>TARGET — ${it.note_id} (${it.type}) · 争议区间
   ${it.region?it.region[0].toFixed(2)+'–'+it.region[1].toFixed(2)+'s':''}</h3>
  <div class="row">
-  <div><h3>原曲片段</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav"></audio></div>
-  <div><h3>分离人声片段</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav"></audio></div>
+  <div><h3>目标区域 · 原曲 ±0.6s（先听原唱几个音）</h3><audio controls src="/audio/focus/${key}/mix.wav"></audio></div>
+  <div><h3>目标区域 · 分离人声 ±0.6s</h3><audio controls src="/audio/focus/${key}/vocal.wav"></audio></div>
+ </div>
+ <div class="row">
+  <div><h3>原曲整段</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav"></audio></div>
+  <div><h3>分离人声整段</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav"></audio></div>
  </div></div>
  <div class="card"><h3>候选渲染（盲选 A/B — 同一歌手/速度/渲染器，仅目标 note 结构不同）</h3>
  <div class="row">
@@ -147,6 +151,7 @@ document.addEventListener('keydown',e=>{
   document.querySelectorAll('audio').forEach(b=>b.pause());};
  const m={'s':`/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav`,
   'v':`/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav`,
+  '3':`/audio/focus/${k}/mix.wav`,'4':`/audio/focus/${k}/vocal.wav`,
   '1':`/audio/item/${k}/OPTION_0.wav`,'2':`/audio/item/${k}/OPTION_1.wav`};
  if(m[e.key])play(m[e.key]);
  else if(e.key==='a'||e.key==='A')vote('OPTION_0');
@@ -162,6 +167,32 @@ load();
 _ALLOWED = ("OPTION_0.wav", "OPTION_1.wav",
             "SOURCE_PHRASE_original_mix.wav",
             "SOURCE_PHRASE_separated_vocal.wav")
+
+
+def _focus_wav(run_dir: Path, cal_item_id: str, which: str):
+    """Clip the contested target region (±0.6s) from the source audio —
+    the original melody is the ground truth for 'one note or two'; the
+    synthesized options are only supporting evidence."""
+    import soundfile as sf
+    mpath = calib_dir(run_dir) / "items" / cal_item_id / "manifest.json"
+    if not mpath.exists():
+        return None
+    man = json.loads(mpath.read_text(encoding="utf-8"))
+    region = man.get("target_group", {}).get("region")
+    if not region:
+        return None
+    from .review.render import load_run
+    run = load_run(run_dir)
+    src = run["original_wav"] if which == "mix" else run["vocals_wav"]
+    info = sf.info(str(src))
+    a = max(0, int((region[0] - 0.6) * info.samplerate))
+    b = min(info.frames, int((region[1] + 0.6) * info.samplerate))
+    data, sr = sf.read(str(src), start=a, stop=b,
+                       dtype="float32", always_2d=True)
+    import io
+    buf = io.BytesIO()
+    sf.write(buf, data, sr, format="WAV", subtype="PCM_16")
+    return buf.getvalue()
 
 
 def _items_payload(run_dir: Path) -> dict:
@@ -225,6 +256,12 @@ def serve(run_dir: Path, port: int = 8123,
                 if u[3] in _ALLOWED[2:]:
                     return self._wav(calib_dir(run_dir) / "phrases"
                                      / u[2] / u[3])
+            if u[:2] == ["audio", "focus"] and len(u) == 4:
+                if u[3] in ("mix.wav", "vocal.wav"):
+                    w = _focus_wav(run_dir, u[2], u[3][:-4])
+                    if w is not None:
+                        return self._send(200, w, "audio/wav")
+                return self._json(404, {"error": "missing_focus"})
             return self._json(404, {"error": "not_found"})
 
         def do_POST(self):
