@@ -410,6 +410,19 @@ def cmd_structure_calib_status(args) -> int:
                        "run_id": args.run_id, "calibration": st})
 
 
+def cmd_structure_calib_web(args) -> int:
+    """Browser-based blind A/B calibration UI — same decide() gate as
+    the interactive command (verify_package + append-only revisions)."""
+    from .calib_web import serve
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    if not (run_dir / "structure_calibration" / "plan.json").exists():
+        return fail("no_calibration",
+                    f"{args.run_id} has no calibration packages — "
+                    "run structure-calib-plan first")
+    serve(run_dir, port=args.port, open_browser=not args.no_open)
+    return 0
+
+
 def cmd_structure_calib(args) -> int:
     """Interactive blind A/B calibration: SOURCE context + OPTION_0/1
     (baseline vs machine candidate, rotated). Decide per item."""
@@ -779,6 +792,13 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("structure-calib-status")
     p.set_defaults(fn=cmd_structure_calib_status)
     p.add_argument("run_id", help="diagnostic run id")
+
+    p = sub.add_parser("structure-calib-web")
+    p.set_defaults(fn=cmd_structure_calib_web)
+    p.add_argument("run_id", help="diagnostic run id")
+    p.add_argument("--port", type=int, default=8123)
+    p.add_argument("--no-open", action="store_true",
+                   help="don't auto-open the browser")
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")
