@@ -358,9 +358,9 @@ def semantic_diff(item, c0_notes_by_id=None) -> dict:
 
 SOURCE_FOCUS_PAD_S = 0.6
 TARGET_FOCUS_PAD_S = 0.5
+TARGET_CORE_PAD_S = 0.15         # G5D: narrowest blind listening surface
 QC_DRIFT_RATIO_FLAG = 0.5        # out-of-target A/B diff rms / baseline rms
 QC_LOUDNESS_RANGE = (0.7, 1.4)   # candidate/baseline full-phrase rms
-QC_TARGET_F0_SEMITONES = 1.0     # both-options-vs-source median deviation
 GIT_REQUIRED_ITEM_FILES = (
     "manifest.json", "OPTION_0.wav", "OPTION_1.wav",
     "OPTION_0.ustx", "OPTION_1.ustx",
@@ -368,6 +368,8 @@ GIT_REQUIRED_ITEM_FILES = (
     "SOURCE_FOCUS_original_mix.wav", "SOURCE_FOCUS_separated_vocal.wav",
     "semantic_diff.json",
     "BASELINE_TARGET.wav", "CANDIDATE_TARGET.wav",
+    "BASELINE_CORE.wav", "CANDIDATE_CORE.wav",
+    "SOURCE_CORE_original_mix.wav", "SOURCE_CORE_separated_vocal.wav",
     "signal_qc.json",
 )
 
@@ -386,37 +388,156 @@ def _crop_rendered(src_wav: Path, dst: Path, t0: float, t1: float) -> dict:
     return {"frames": i1 - i0, "sample_rate": info.samplerate}
 
 
-def _f0_summary(wav_path: Path, t0: float = 0.0,
-                t1: float | None = None) -> dict:
-    """FCPE summary of one focus clip: medians + first/second-half medians
-    (enough to see e.g. 62→64 vs 64→64). Extractor failure is recorded,
-    never silently omitted."""
+def _extract_f0(wav_path: Path) -> dict:
+    """Lazy torchfcpe extraction — the monkeypatch seam for tests."""
+    from .analysis.f0 import extract_f0
+    return extract_f0(wav_path)
+
+
+def _f0_segment_summary(f0: dict, t0: float, t1: float) -> dict:
+    """§10.1.5A-G5C: median/IQR MIDI of voiced frames strictly inside
+    [t0,t1) — one REAL child span, never a focus-window half. Context
+    outside the span cannot contaminate the median; too few voiced
+    frames → nulls (unavailable), never a fabricated MIDI."""
     import numpy as np
-    try:
-        from .analysis.f0 import extract_f0, segment_f0, hz_to_midi
-        f0 = extract_f0(wav_path)
-    except Exception as e:
-        return {"error": f"f0_extractor_unavailable: {e}"}
-    end = float(f0["times"][-1]) if len(f0["times"]) else 0.0
-    seg = segment_f0(f0, t0, t1 if t1 is not None else end)
-    hz = seg["f0_hz"][seg["voiced"]]
-    n, tot = int(len(hz)), max(1, int(seg["n_frames"]))
-    out = {"voiced_frames": n, "n_frames": int(seg["n_frames"]),
-           "voiced_fraction": round(n / tot, 4),
-           "midi_median": None, "midi_min": None, "midi_max": None,
-           "first_half_midi_median": None,
-           "second_half_midi_median": None}
-    if n >= 3:
-        midi = hz_to_midi(hz)
-        h = max(1, n // 2)
-        out.update({"midi_median": round(float(np.median(midi)), 3),
+    from .analysis.f0 import hz_to_midi
+    times = np.asarray(f0["times"], dtype=float)
+    hz = np.asarray(f0["f0_hz"], dtype=float)
+    voiced = np.asarray(f0["voiced"], dtype=bool)
+    m = (times >= t0) & (times < t1)
+    n_tot = int(m.sum())
+    v = m & voiced
+    n_v = int(v.sum())
+    out = {"span_rel": [round(t0, 4), round(t1, 4)],
+           "n_frames": n_tot, "voiced_frames": n_v,
+           "voiced_fraction": round(n_v / max(1, n_tot), 4),
+           "midi_median": None, "midi_iqr": None,
+           "midi_min": None, "midi_max": None,
+           "dominant_fraction": None,
+           "evidence": "unavailable",
+           "provenance": f0.get("backend")}
+    if n_v >= 3:
+        midi = hz_to_midi(hz[v])
+        med = float(np.median(midi))
+        q25, q75 = np.percentile(midi, [25, 75])
+        dom = float((np.abs(midi - med) <= 1.0).mean())
+        out.update({"midi_median": round(med, 3),
+                    "midi_iqr": round(float(q75 - q25), 3),
                     "midi_min": round(float(midi.min()), 3),
                     "midi_max": round(float(midi.max()), 3),
-                    "first_half_midi_median":
-                        round(float(np.median(midi[:h])), 3),
-                    "second_half_midi_median":
-                        round(float(np.median(midi[h:])), 3)})
+                    "dominant_fraction": round(dom, 3),
+                    "evidence": ("ambiguous" if (q75 - q25) > 3.0
+                                 or dom < 0.6 else "ok")})
     return out
+
+
+def _child_spans(patch: dict) -> list:
+    """Operation-aware child spans (absolute seconds) straight from the
+    declared patch — split children, merged span, or shifted span."""
+    if patch["type"] == "split":
+        return [(float(c["start"]), float(c["end"]))
+                for c in patch["children"]]
+    if patch["type"] == "merge":
+        m = patch["merged"]
+        return [(float(m["start"]), float(m["end"]))]
+    a = patch.get("after") or {}
+    return [(float(a.get("start", patch.get("start"))),
+             float(a.get("end", patch.get("end"))))]
+
+
+def child_f0_qc(man: dict, idir: Path) -> dict:
+    """Per-child F0 summaries + source-distance metrics (G5C).
+
+    Each declared child span is measured independently on the SOURCE
+    vocal (ground truth) and on both option renders; the option's
+    per-child error vs the source median and a robust structure error
+    quantify whether the candidate actually tracks the source better
+    than the baseline — evidence for review-readiness, never truth."""
+    cal = man["calibration"]
+    opts = {o["option_id"]: o for o in man["options"]}
+    patch = opts[cal["candidate_role"]]["score_patch"]
+    spans = _child_spans(patch)
+    region = [float(x) for x in man["target_group"]["region"]]
+    t0 = max(0.0, region[0] - TARGET_FOCUS_PAD_S)
+    fs = max(0.0, region[0] - SOURCE_FOCUS_PAD_S)
+    f0_b = f0_c = f0_s = None
+    errs = {}
+    for key, wav in (("baseline", idir / "BASELINE_TARGET.wav"),
+                     ("candidate", idir / "CANDIDATE_TARGET.wav")):
+        try:
+            f = _extract_f0(wav)
+        except Exception as e:
+            errs[key] = str(e)
+        else:
+            if key == "baseline":
+                f0_b = f
+            else:
+                f0_c = f
+    foc = idir / "SOURCE_FOCUS_separated_vocal.wav"
+    if foc.exists():
+        try:
+            f0_s = _extract_f0(foc)
+        except Exception as e:
+            errs["source"] = str(e)
+    else:
+        errs["source"] = "missing SOURCE_FOCUS_separated_vocal.wav"
+    children = []
+    for k, (s, e) in enumerate(spans):
+        ch = {"child": k, "span_abs": [round(s, 4), round(e, 4)],
+              "duration": round(e - s, 4)}
+        ch["source"] = (_f0_segment_summary(f0_s, s - fs, e - fs)
+                        if f0_s is not None
+                        else {"evidence": "unavailable",
+                              "error": errs.get("source",
+                                                "no source f0")})
+        ch["baseline"] = (_f0_segment_summary(f0_b, s - t0, e - t0)
+                          if f0_b is not None
+                          else {"evidence": "unavailable",
+                                "error": errs.get("baseline",
+                                                  "no baseline f0")})
+        ch["candidate"] = (_f0_segment_summary(f0_c, s - t0, e - t0)
+                           if f0_c is not None
+                           else {"evidence": "unavailable",
+                                 "error": errs.get("candidate",
+                                                   "no candidate f0")})
+        sm = ch["source"].get("midi_median")
+        for nm in ("baseline", "candidate"):
+            m = ch[nm].get("midi_median")
+            ch[f"{nm}_error_semitones"] = (
+                round(m - sm, 3)
+                if sm is not None and m is not None else None)
+        children.append(ch)
+    b_err = [abs(ch["baseline_error_semitones"]) for ch in children
+             if ch["baseline_error_semitones"] is not None]
+    c_err = [abs(ch["candidate_error_semitones"]) for ch in children
+             if ch["candidate_error_semitones"] is not None]
+    # worst-child error — with two children a median degenerates to the
+    # mean and would halve a single badly-off child
+    bse = round(max(b_err), 3) if b_err else None
+    cse = round(max(c_err), 3) if c_err else None
+    unavail = sum(1 for ch in children for nm in
+                  ("source", "baseline", "candidate")
+                  if ch[nm].get("midi_median") is None)
+    ambiguous = [f"{nm}_child_{ch['child']}"
+                 for ch in children for nm in
+                 ("source", "baseline", "candidate")
+                 if ch[nm].get("evidence") == "ambiguous"]
+    return {
+        "children": children,
+        "baseline_child_error_semitones":
+            [ch["baseline_error_semitones"] for ch in children],
+        "candidate_child_error_semitones":
+            [ch["candidate_error_semitones"] for ch in children],
+        "baseline_structure_error": bse,
+        "candidate_structure_error": cse,
+        "candidate_improvement_vs_baseline":
+            (round(bse - cse, 3)
+             if bse is not None and cse is not None else None),
+        "unavailable_child_slots": unavail,
+        "ambiguous_children": ambiguous,
+        "note": ("review-readiness evidence only — never an automatic "
+                 "score truth; unavailable/ambiguous stays neutral"),
+    }
 
 
 def _segment_ab_ratio(b, c, i0: int, i1: int):
@@ -435,11 +556,12 @@ def _segment_ab_ratio(b, c, i0: int, i1: int):
 def signal_qc(man: dict, idir: Path) -> dict:
     """§10.1.5A-G5B: machine-readable signal audit of one rendered item.
 
-    Crops BASELINE/CANDIDATE_TARGET.wav from the real renders (G5A),
-    measures full-phrase level/timing drift + pre/target/post A/B diff
-    ratios, summarizes target-window F0 for source/baseline/candidate,
-    and auto-flags conditions that disqualify human review (phrase-wide
-    bleed, loudness drift, both options off-source)."""
+    Crops BASELINE/CANDIDATE_TARGET.wav (G5A) and _CORE.wav (G5D) from
+    the real renders, measures full-phrase level/timing drift +
+    pre/target/post A/B diff ratios, computes operation-aware per-child
+    F0 QC vs the source vocal (G5C), and auto-flags conditions that
+    disqualify human review (phrase-wide bleed, loudness drift,
+    unavailable/ambiguous child evidence)."""
     import numpy as np
     import soundfile as sf
     from .review.render import _file_sha
@@ -486,20 +608,33 @@ def signal_qc(man: dict, idir: Path) -> dict:
     if loud is not None and not QC_LOUDNESS_RANGE[0] <= loud \
             <= QC_LOUDNESS_RANGE[1]:
         flags.append(f"option_loudness_drift:{round(loud, 3)}")
-    f0_b = _f0_summary(idir / "BASELINE_TARGET.wav")
-    f0_c = _f0_summary(idir / "CANDIDATE_TARGET.wav")
+    # §10.1.5A-G5D: narrower CORE crops (region ±0.15s) from the same
+    # renders — 100–300ms child transitions are not drowned by context.
+    core_t0 = max(0.0, region[0] - TARGET_CORE_PAD_S)
+    core_t1 = region[1] + TARGET_CORE_PAD_S
+    for oid, name in ((base_id, "BASELINE_CORE.wav"),
+                      (cand_id, "CANDIDATE_CORE.wav")):
+        _crop_rendered(idir / owav[oid], idir / name,
+                       core_t0 - ph_start, core_t1 - ph_start)
     foc = idir / "SOURCE_FOCUS_separated_vocal.wav"
     if foc.exists():
-        fs = max(0.0, region[0] - SOURCE_FOCUS_PAD_S)
-        f0_s = _f0_summary(foc, t0 - fs, t1 - fs)
-    else:
-        f0_s = {"error": "missing SOURCE_FOCUS_separated_vocal.wav"}
-    sm = f0_s.get("midi_median")
-    mism = [nm for nm, f in (("baseline", f0_b), ("candidate", f0_c))
-            if sm is not None and f.get("midi_median") is not None
-            and abs(f["midi_median"] - sm) > QC_TARGET_F0_SEMITONES]
-    if len(mism) == 2:
-        flags.append("both_options_target_f0_mismatch")
+        fs0 = max(0.0, region[0] - SOURCE_FOCUS_PAD_S)
+        _crop_rendered(foc, idir / "SOURCE_CORE_separated_vocal.wav",
+                       core_t0 - fs0, core_t1 - fs0)
+    foc_m = idir / "SOURCE_FOCUS_original_mix.wav"
+    if foc_m.exists():
+        _crop_rendered(foc_m, idir / "SOURCE_CORE_original_mix.wav",
+                       core_t0 - fs0, core_t1 - fs0)
+    # §10.1.5A-G5C: operation-aware per-child F0 + source-distance
+    f0_qc = child_f0_qc(man, idir)
+    if f0_qc["unavailable_child_slots"]:
+        flags.append(
+            f"f0_unavailable_slots:{f0_qc['unavailable_child_slots']}")
+    flags += [f"octave_ambiguous:{a}" for a in
+              f0_qc["ambiguous_children"]]
+    if f0_qc["baseline_structure_error"] is None \
+            or f0_qc["candidate_structure_error"] is None:
+        flags.append("f0_structure_evidence_insufficient")
     return {
         "schema": CALIB_SCHEMA,
         "cal_item_id": man["review_item_id"],
@@ -519,12 +654,15 @@ def signal_qc(man: dict, idir: Path) -> dict:
         "target_ab_diff_rms_ratio": tgt,
         "post_target_ab_diff_rms_ratio": post,
         "option_loudness_ratio": round(loud, 4) if loud else None,
-        "source_target_f0_summary": f0_s,
-        "baseline_target_f0_summary": f0_b,
-        "candidate_target_f0_summary": f0_c,
+        "core_window": {"absolute": [round(core_t0, 4), round(core_t1, 4)],
+                        "pad_s": TARGET_CORE_PAD_S},
+        "f0_qc": f0_qc,
         "target_focus_sha256": _sha({
             "baseline": _file_sha(idir / "BASELINE_TARGET.wav"),
             "candidate": _file_sha(idir / "CANDIDATE_TARGET.wav")}),
+        "target_core_sha256": _sha({
+            "baseline": _file_sha(idir / "BASELINE_CORE.wav"),
+            "candidate": _file_sha(idir / "CANDIDATE_CORE.wav")}),
         "target_focus_is_primary": True,
         "auto_flags": flags,
         "auto_review_ready": not flags,

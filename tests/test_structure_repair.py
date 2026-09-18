@@ -798,8 +798,9 @@ def test_git_evidence_legacy_verdict_never_ready(tmp_path, monkeypatch):
 
 def _fake_rendered_item(tmp_path, name="cal-x", region=(2.0, 2.5),
                         phrase_start=0.0, dur=6.0, sr=8000,
-                        cand_gain=1.0):
-    """Write a minimal rendered item dir: two option wavs + manifest."""
+                        cand_gain=1.0, boundary=None):
+    """Write a minimal rendered item dir: option wavs + source focus +
+    manifest with a declared split patch (asymmetric by default)."""
     import numpy as np
     import soundfile as sf
     idir = tmp_path / "items" / name
@@ -809,12 +810,21 @@ def _fake_rendered_item(tmp_path, name="cal-x", region=(2.0, 2.5),
     cand = base * cand_gain
     sf.write(str(idir / "OPTION_0.wav"), base, sr)
     sf.write(str(idir / "OPTION_1.wav"), cand, sr)
+    for nm in ("SOURCE_FOCUS_original_mix.wav",
+               "SOURCE_FOCUS_separated_vocal.wav"):
+        sf.write(str(idir / nm), base, sr)
+    b = boundary if boundary is not None else (region[0] + 0.2)
+    patch = {"type": "split", "note_ids": ["n1"], "boundary": b,
+             "children": [{"start": region[0], "end": b, "tone": 62.0},
+                          {"start": b, "end": region[1], "tone": 64.0}]}
     man = {"review_item_id": name,
            "calibration": {"repair_id": "srp-x",
                            "baseline_option": "OPTION_0",
                            "candidate_role": "OPTION_1"},
-           "options": [{"option_id": "OPTION_0", "wav": "OPTION_0.wav"},
-                       {"option_id": "OPTION_1", "wav": "OPTION_1.wav"}],
+           "options": [{"option_id": "OPTION_0", "wav": "OPTION_0.wav",
+                        "score_patch": {"type": "identity"}},
+                       {"option_id": "OPTION_1", "wav": "OPTION_1.wav",
+                        "score_patch": patch}],
            "target_group": {"region": list(region)},
            "phrase": {"start": phrase_start,
                       "end": phrase_start + dur}}
@@ -822,13 +832,29 @@ def _fake_rendered_item(tmp_path, name="cal-x", region=(2.0, 2.5),
     return idir, man
 
 
+def _fake_f0_series(segments, dur, hop=0.01):
+    """Fake extract_f0 dict: voiced midi segments on a hop grid,
+    times are clip-relative seconds."""
+    import numpy as np
+    n = int(dur / hop)
+    times = np.arange(n) * hop
+    hz = np.zeros(n)
+    voiced = np.zeros(n, dtype=bool)
+    for s, e, m in segments:
+        msk = (times >= s) & (times < e)
+        voiced |= msk
+        hz[msk] = 440.0 * 2 ** ((m - 69.0) / 12.0)
+    return {"times": times, "f0_hz": hz, "voiced": voiced,
+            "backend": "test:fake", "n_frames": n}
+
+
 def test_target_focus_crops_and_signal_qc(tmp_path, monkeypatch):
     """G5A/G5B: BASELINE/CANDIDATE_TARGET.wav are crops of the real
     rendered wavs at region±0.5s; signal_qc.json records drift metrics."""
     import soundfile as sf
     import agent2utau.structure_calibration as sc
-    monkeypatch.setattr(sc, "_f0_summary",
-                        lambda p, t0=0.0, t1=None: {"midi_median": 64.0})
+    flat = _fake_f0_series([(0.0, 6.0, 64.0)], dur=6.0)
+    monkeypatch.setattr(sc, "_extract_f0", lambda p: flat)
     idir, man = _fake_rendered_item(tmp_path, region=(2.0, 2.5),
                                     phrase_start=1.0)
     qc = sc.augment_item(idir)
@@ -836,10 +862,13 @@ def test_target_focus_crops_and_signal_qc(tmp_path, monkeypatch):
     # window = 1.5..3.0 absolute → phrase-relative 0.5..2.0 → 1.5s
     assert info.frames == int(1.5 * 8000)
     assert (idir / "CANDIDATE_TARGET.wav").exists()
+    assert (idir / "BASELINE_CORE.wav").exists()
+    assert (idir / "SOURCE_CORE_separated_vocal.wav").exists()
     assert (idir / "signal_qc.json").exists()
     assert qc["target_window"]["absolute"] == [1.5, 3.0]
     assert qc["option_loudness_ratio"] == pytest.approx(1.0, abs=0.01)
     assert qc["auto_review_ready"] is True       # identical renders
+    assert qc["f0_qc"]["candidate_structure_error"] == 0.0
     # loudness drift is flagged when options diverge in level
     import soundfile as sf2
     import numpy as np
@@ -858,8 +887,9 @@ def test_signal_qc_flags_phrase_wide_drift(tmp_path, monkeypatch):
     import numpy as np
     import soundfile as sf
     import agent2utau.structure_calibration as sc
-    monkeypatch.setattr(sc, "_f0_summary",
-                        lambda p, t0=0.0, t1=None: {"midi_median": 64.0})
+    monkeypatch.setattr(
+        sc, "_extract_f0",
+        lambda p: _fake_f0_series([(0.0, 6.0, 64.0)], dur=6.0))
     idir, man = _fake_rendered_item(tmp_path, region=(2.0, 3.0))
     # overwrite OPTION_1: identical inside target, divergent after 4s
     sr, t = 8000, np.arange(8000 * 6) / 8000
@@ -878,9 +908,9 @@ def test_signal_qc_flags_phrase_wide_drift(tmp_path, monkeypatch):
 
 
 def test_target_wav_blind_role_mapping(tmp_path):
-    """Web TARGET_i endpoint stays blind: OPTION_i resolves through the
-    manifest to its role's TARGET file — A/B labels never leak."""
-    from agent2utau.calib_web import _target_wav
+    """Web TARGET/CORE_i endpoints stay blind: OPTION_i resolves
+    through the manifest to its role's wav — A/B labels never leak."""
+    from agent2utau.calib_web import _role_wav
     idir, man = _fake_rendered_item(tmp_path / "structure_calibration",
                                     name="cal-map")
     # candidate_role is OPTION_1 in the fixture; flip to check mapping
@@ -889,11 +919,19 @@ def test_target_wav_blind_role_mapping(tmp_path):
     (idir / "manifest.json").write_text(json.dumps(man))
     (idir / "BASELINE_TARGET.wav").write_bytes(b"b")
     (idir / "CANDIDATE_TARGET.wav").write_bytes(b"c")
+    (idir / "BASELINE_CORE.wav").write_bytes(b"cb")
+    (idir / "CANDIDATE_CORE.wav").write_bytes(b"cc")
     run = tmp_path
-    assert _target_wav(run, "cal-map", 1).name == "BASELINE_TARGET.wav"
-    assert _target_wav(run, "cal-map", 0).name == "CANDIDATE_TARGET.wav"
-    assert _target_wav(run, "cal-map", 2) is None
-    assert _target_wav(run, "cal-missing", 0) is None
+    assert _role_wav(run, "cal-map", 1, "TARGET").name \
+        == "BASELINE_TARGET.wav"
+    assert _role_wav(run, "cal-map", 0, "TARGET").name \
+        == "CANDIDATE_TARGET.wav"
+    assert _role_wav(run, "cal-map", 1, "CORE").name \
+        == "BASELINE_CORE.wav"
+    assert _role_wav(run, "cal-map", 0, "CORE").name \
+        == "CANDIDATE_CORE.wav"
+    assert _role_wav(run, "cal-map", 2, "TARGET") is None
+    assert _role_wav(run, "cal-missing", 0, "TARGET") is None
 
 
 def test_git_evidence_reports_missing(tmp_path, monkeypatch):
@@ -916,3 +954,128 @@ def test_git_evidence_reports_missing(tmp_path, monkeypatch):
     assert all(e.startswith("items/cal-b/") for e in ev["missing"]
                if e.startswith("items/cal-b/"))
     assert ev["checked"] == 2 + 2 + 2 * len(sc.GIT_REQUIRED_ITEM_FILES)
+
+
+# --------------------------------- §10.1.5A-G5C child-level F0 QC (Blocker H)
+
+def _f0_dispatch(table):
+    """filename -> fake f0 series dispatcher for _extract_f0."""
+    def disp(p):
+        name = str(p).replace("\\", "/").rsplit("/", 1)[-1]
+        for key, f0 in table.items():
+            if key in name:
+                return f0
+        raise AssertionError(f"no fake f0 for {name}")
+    return disp
+
+
+def test_h1_child_spans_follow_patch_boundary(tmp_path, monkeypatch):
+    """H1: asymmetric children — windows come from the declared patch
+    boundary, never a 50/50 focus split; ±0.5s context pitch cannot
+    contaminate child medians (H2)."""
+    import agent2utau.structure_calibration as sc
+    idir, man = _fake_rendered_item(tmp_path, region=(2.0, 3.0),
+                                    boundary=2.2)   # child0 0.2s / child1 0.8s
+    # TARGET clip covers abs [1.5,3.5] (2s): children rel [0.5,0.7]/[0.7,1.5]
+    tgt = _fake_f0_series([(0.0, 0.5, 70.0), (0.5, 0.7, 62.0),
+                           (0.7, 1.5, 64.0), (1.5, 2.0, 70.0)], dur=2.0)
+    # SOURCE focus covers abs [1.4,3.6] (2.2s): children rel [0.6,0.8]/[0.8,1.6]
+    src = _fake_f0_series([(0.0, 0.6, 70.0), (0.6, 0.8, 62.0),
+                           (0.8, 1.6, 64.0), (1.6, 2.2, 70.0)], dur=2.2)
+    monkeypatch.setattr(sc, "_extract_f0", _f0_dispatch({
+        "BASELINE_TARGET": tgt, "CANDIDATE_TARGET": tgt,
+        "SOURCE_FOCUS": src}))
+    qc = sc.child_f0_qc(man, idir)
+    c0, c1 = qc["children"]
+    assert c0["span_abs"] == [2.0, 2.2]          # boundary, not midpoint
+    assert c1["span_abs"] == [2.2, 3.0]
+    assert c0["duration"] == pytest.approx(0.2, abs=1e-3)
+    # context at 70 surrounds both children — medians must stay clean
+    assert c0["candidate"]["midi_median"] == pytest.approx(62.0, abs=0.05)
+    assert c1["candidate"]["midi_median"] == pytest.approx(64.0, abs=0.05)
+    assert c0["source"]["midi_median"] == pytest.approx(62.0, abs=0.05)
+    assert c1["source"]["midi_median"] == pytest.approx(64.0, abs=0.05)
+
+
+def _note0012_like(tmp_path, monkeypatch):
+    """note_0012/0061/0123 direction fixture (H3–H5): source 62→64,
+    baseline flat 64, candidate 62→64 — candidate must measure closer
+    to source than baseline."""
+    import agent2utau.structure_calibration as sc
+    idir, man = _fake_rendered_item(tmp_path, region=(2.0, 3.0),
+                                    boundary=2.4)
+    src = _fake_f0_series([(0.6, 1.0, 62.0), (1.0, 1.6, 64.0)], dur=2.2)
+    base = _fake_f0_series([(0.0, 2.0, 64.0)], dur=2.0)
+    cand = _fake_f0_series([(0.5, 0.9, 62.0), (0.9, 1.5, 64.0)], dur=2.0)
+    monkeypatch.setattr(sc, "_extract_f0", _f0_dispatch({
+        "BASELINE_TARGET": base, "CANDIDATE_TARGET": cand,
+        "SOURCE_FOCUS": src}))
+    return sc.child_f0_qc(man, idir)
+
+
+def test_h3_candidate_closer_to_source_than_baseline(tmp_path,
+                                                     monkeypatch):
+    """H3–H5 (note_0012/0061/0123 direction): candidate child errors vs
+    source ≈0 while baseline child0 is ~2 semitones off — improvement
+    positive; the old focus-window summary could never see this."""
+    qc = _note0012_like(tmp_path, monkeypatch)
+    assert qc["baseline_child_error_semitones"][0] == pytest.approx(
+        2.0, abs=0.05)
+    assert qc["baseline_child_error_semitones"][1] == pytest.approx(
+        0.0, abs=0.05)
+    assert qc["candidate_child_error_semitones"] == pytest.approx(
+        [0.0, 0.0], abs=0.05)
+    assert qc["baseline_structure_error"] > 1.0
+    assert qc["candidate_structure_error"] == pytest.approx(0.0,
+                                                          abs=0.05)
+    assert qc["candidate_improvement_vs_baseline"] > 1.0
+    assert qc["unavailable_child_slots"] == 0
+    assert qc["ambiguous_children"] == []
+
+
+def test_h6_insufficient_voiced_child_is_unavailable(tmp_path,
+                                                     monkeypatch):
+    """H6: a child with <3 voiced frames is unavailable/neutral — its
+    error slots stay None; never a fabricated 0 or default MIDI."""
+    import agent2utau.structure_calibration as sc
+    idir, man = _fake_rendered_item(tmp_path, region=(2.0, 3.0),
+                                    boundary=2.2)
+    # source: child0 span (rel [0.6,0.8]) entirely unvoiced; child1 = 64
+    src = _fake_f0_series([(0.8, 1.6, 64.0)], dur=2.2)
+    both = _fake_f0_series([(0.5, 0.7, 62.0), (0.7, 1.5, 64.0)],
+                           dur=2.0)
+    monkeypatch.setattr(sc, "_extract_f0", _f0_dispatch({
+        "BASELINE_TARGET": both, "CANDIDATE_TARGET": both,
+        "SOURCE_FOCUS": src}))
+    qc = sc.child_f0_qc(man, idir)
+    c0, c1 = qc["children"]
+    assert c0["source"]["evidence"] == "unavailable"
+    assert c0["source"]["midi_median"] is None
+    assert c0["baseline_error_semitones"] is None
+    assert c0["candidate_error_semitones"] is None
+    assert qc["baseline_child_error_semitones"] == [None, 0.0]
+    assert qc["unavailable_child_slots"] >= 1
+    # structure error aggregates over AVAILABLE children only
+    assert qc["candidate_structure_error"] == pytest.approx(0.0,
+                                                          abs=0.05)
+
+
+def test_h7_octave_ambiguous_child_flagged(tmp_path, monkeypatch):
+    """H7: octave-folded child evidence is flagged ambiguous — no
+    forced candidate/baseline winner."""
+    import agent2utau.structure_calibration as sc
+    idir, man = _fake_rendered_item(tmp_path, region=(2.0, 3.0),
+                                    boundary=2.4)
+    src = _fake_f0_series([(0.6, 1.0, 62.0), (1.0, 1.6, 64.0)], dur=2.2)
+    base = _fake_f0_series([(0.0, 2.0, 64.0)], dur=2.0)
+    # candidate child1 (rel [0.9,1.5]) folds between 64 and 76
+    cand = _fake_f0_series(
+        [(0.5, 0.9, 62.0), (0.9, 1.1, 64.0), (1.1, 1.3, 76.0),
+         (1.3, 1.5, 64.0)], dur=2.0)
+    monkeypatch.setattr(sc, "_extract_f0", _f0_dispatch({
+        "BASELINE_TARGET": base, "CANDIDATE_TARGET": cand,
+        "SOURCE_FOCUS": src}))
+    qc = sc.child_f0_qc(man, idir)
+    c1 = qc["children"][1]
+    assert c1["candidate"]["evidence"] == "ambiguous"
+    assert "candidate_child_1" in qc["ambiguous_children"]
