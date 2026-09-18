@@ -313,7 +313,7 @@ M2.4 只能修改 discrete written score。PITD / portamento / vibrato / style �
 > M2.5 structure repair = BLOCKED
 > ```
 
-## 8.1 Blocker A — provisional B 必须使用 identity-safe GAME pitch evidence
+## 6.1 Blocker A — provisional B 必须使用 identity-safe GAME pitch evidence
 
 当前风险路径：
 
@@ -384,7 +384,7 @@ A5. 189s / 202s permanent regressions 继续 no false repair
 
 ---
 
-## 8.2 Blocker B — C 的 missing evidence 必须真正 neutral
+## 6.2 Blocker B — C 的 missing evidence 必须真正 neutral
 
 当前风险：
 
@@ -498,7 +498,7 @@ B6. existing TRUE_SPLIT / portamento / merge / virtual correspondence
 
 ---
 
-## 8.3 Blocker C — M2.4 Candidate-0 binding 必须同时包含 semantic + full-file hash
+## 6.3 Blocker C — M2.4 Candidate-0 binding 必须同时包含 semantic + full-file hash
 
 当前 M2.4：
 
@@ -590,7 +590,7 @@ C5. same exact Candidate-0 artifact + same authority
 
 ---
 
-## 8.4 Scope guard
+## 6.4 Scope guard
 
 本 patch **禁止顺手扩大范围**：
 
@@ -616,7 +616,7 @@ M2.4 Candidate-0 freshness binding
 
 ---
 
-## 8.5 Freeze Integrity Acceptance Matrix
+## 6.5 Freeze Integrity Acceptance Matrix
 
 全部满足才允许重新标记：
 
@@ -700,7 +700,7 @@ Candidate-0 file sha:
 > M2.4 的实现与历史 acceptance 保留；但在 §6 Freeze Integrity Patch 完成前，**不得把 ce083c9 单独视为进入 M2.5 的充分条件**。
 
 
-## 8.1 第一版 scope：只做 single-note written-pitch retune
+## 7.1 第一版 scope：只做 single-note written-pitch retune
 
 M2.4 v1 **只允许**：
 
@@ -740,7 +740,7 @@ M2.4 v1 → blocked_structure
 
 ---
 
-## 8.2 两条合法输入路径
+## 7.2 两条合法输入路径
 
 ### Path A — machine-safe
 
@@ -807,7 +807,7 @@ rev.audio_package_hash
 
 ---
 
-## 8.3 Human-selected v1 仍然只接受 pitch-only snapshot
+## 7.3 Human-selected v1 仍然只接受 pitch-only snapshot
 
 `repair_authorized_decision()` 通过后，还必须对 `selected_score_patch` 做 shape validation。
 
@@ -836,7 +836,7 @@ M2.4 不丢弃它
 
 ---
 
-## 8.4 Repair plan 与 apply 必须分离
+## 7.4 Repair plan 与 apply 必须分离
 
 推荐实现两个阶段（CLI 名称可不同）：
 
@@ -867,7 +867,7 @@ Plan artifact 必须可审计、可重放。
 
 ---
 
-## 8.5 Repair identity / idempotency
+## 7.5 Repair identity / idempotency
 
 每个 repair 必须有稳定 `repair_id`。
 
@@ -916,7 +916,7 @@ corrected score byte-equivalent / semantically identical
 
 ---
 
-## 8.6 Conflict policy：禁止 silent precedence
+## 7.6 Conflict policy：禁止 silent precedence
 
 一个 Candidate-0 note 在 v1 最多只能有一个 material repair。
 
@@ -944,7 +944,7 @@ confidence 大者获胜
 
 ---
 
-## 8.7 Corrected-score artifact
+## 7.7 Corrected-score artifact
 
 M2.4 输出是 **Candidate 0 的 copy-on-write 派生物**，不是 Candidate 0 本体。
 
@@ -1003,7 +1003,7 @@ created_at
 
 ---
 
-## 8.8 Rollback contract
+## 7.8 Rollback contract
 
 Rollback 的定义不是“反向猜一个 tone”，而是：
 
@@ -1026,7 +1026,7 @@ rebuild zero repairs == Candidate 0 semantically identical
 
 ---
 
-## 8.9 Post-apply integrity verification
+## 7.9 Post-apply integrity verification
 
 M2.4 apply 后只做 integrity verification，不重新 adjudicate。
 
@@ -1066,7 +1066,7 @@ Machine-safe path 额外验证 upstream frozen artifact 仍是 plan 时绑定的
 
 ---
 
-## 8.10 Repair plan freshness
+## 7.10 Repair plan freshness
 
 `repair_plan.json` 不是永久授权。
 
@@ -1097,7 +1097,7 @@ selected patch changed
 
 ---
 
-## 8.11 189s / 202s permanent safety
+## 7.11 189s / 202s permanent safety
 
 永久 regression：
 
@@ -1127,7 +1127,7 @@ GAME stochastic identity/pitch ambiguity
 
 ---
 
-## 8.12 0 repair / partial repair 是正常结果
+## 7.12 0 repair / partial repair 是正常结果
 
 M2.4 不以“修了多少”为成功指标。
 
