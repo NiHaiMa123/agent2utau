@@ -741,9 +741,21 @@ def git_evidence(run_dir: Path, item_ids=None,
         items_dir = cdir / "items"
         item_ids = sorted(d.name for d in items_dir.iterdir()
                           if d.is_dir()) if items_dir.exists() else []
-    expected = ["plan.json", "state.json"]
+    expected = ["plan.json", "state.json", "pilot_review.json"]
     if include_qc:
         expected += ["qc/verdict.json", "qc/audit.jsonl"]
+    # §10.1.5A-G5E: the full natural-phrase SOURCE clip is the PRIMARY
+    # human-review material — it must be Git-evidence too, keyed by each
+    # item's declared phrase_key (deduped: items can share a phrase)
+    plan_p = cdir / "plan.json"
+    phrase_keys = set()
+    if plan_p.exists():
+        plan = json.loads(plan_p.read_text(encoding="utf-8"))
+        phrase_keys = {it["phrase_key"] for it in plan.get("items", [])
+                       if it.get("phrase_key")}
+    for pk in sorted(phrase_keys):
+        expected += [f"phrases/{pk}/SOURCE_PHRASE_original_mix.wav",
+                     f"phrases/{pk}/SOURCE_PHRASE_separated_vocal.wav"]
     for iid in item_ids:
         expected += [f"items/{iid}/{f}" for f in GIT_REQUIRED_ITEM_FILES]
     tracked = _git_tracked_set(run_dir)
@@ -755,6 +767,140 @@ def git_evidence(run_dir: Path, item_ids=None,
     return {"complete": not missing, "git": "ok",
             "missing": missing, "checked": len(expected),
             "item_ids": list(item_ids)}
+
+
+# §10.1.5A-G5E: representative items for the remote 5-item pilot — the
+# same spread the pre-human QC audit used (simple / large-pitch /
+# melisma-lyric / gap-rearticulation / corruption+parent_spanning).
+PILOT_NOTE_IDS = ("note_0012", "note_0061", "note_0123",
+                  "note_0391", "note_0404")
+
+# Chat reply → official decide() choice. A/B keep the blind map;
+# 无法判断 collapses to none_correct — both mean `unresolved`, never
+# repair authority.
+PILOT_REPLY_MAP = {"A": "OPTION_0", "B": "OPTION_1",
+                   "都差不多": "equivalent",
+                   "都不对": "none_correct",
+                   "无法判断": "none_correct"}
+
+
+def _git_remote_repo(run_dir: Path) -> dict:
+    """owner/repo + current HEAD sha from the local clone — the raw-url
+    base for downloadable review audio is derived, never hardcoded."""
+    import subprocess
+    def _g(*a):
+        r = subprocess.run(["git", *a], cwd=str(run_dir),
+                           capture_output=True, text=True)
+        return r.stdout.strip() if r.returncode == 0 else None
+    url = _g("remote", "get-url", "origin") or ""
+    sha = _g("rev-parse", "HEAD")
+    slug = None
+    if url.endswith(".git"):
+        url = url[:-4]
+    m = url.rstrip("/").rsplit("/", 2)
+    if len(m) == 3:
+        slug = f"{m[1]}/{m[2]}"
+    return {"slug": slug, "sha": sha, "remote": url or None}
+
+
+def build_pilot_review(run_dir: Path, note_ids=None,
+                       write: bool = True) -> dict:
+    """§10.1.5A-G5E remote-review payload: for each pilot item the blind
+    A/B full-phrase wavs + the shared SOURCE_PHRASE clips, each with its
+    Git path, canonical sha256 and downloadable raw URL at the current
+    HEAD. ChatGPT/maintainer turns this into download links; the user's
+    reply still has to go through decide() to become authority."""
+    from .review.render import _file_sha
+    run_dir = Path(run_dir)
+    cdir = calib_dir(run_dir)
+    plan = json.loads((cdir / "plan.json").read_text(encoding="utf-8"))
+    by_note = {it["note_id"]: it for it in plan.get("items", [])}
+    remote = _git_remote_repo(run_dir)
+    repo_root = Path(run_dir).parent.parent
+    note_ids = tuple(note_ids) if note_ids else PILOT_NOTE_IDS
+
+    def entry(rel: str, label: str, display: str = None):
+        p = repo_root / rel
+        e = {"label": label, "git_path": rel,
+             # canonical path may embed the role (BASELINE_CORE.wav) —
+             # the display layer must use this neutral name as link text
+             "display_name": display or Path(rel).name}
+        if p.exists():
+            e["sha256"] = _file_sha(p)
+            e["bytes"] = p.stat().st_size
+        else:
+            e["sha256"] = None
+            e["missing"] = True
+        if remote["slug"] and remote["sha"]:
+            e["raw_url"] = ("https://raw.githubusercontent.com/"
+                            f"{remote['slug']}/{remote['sha']}/{rel}")
+        return e
+
+    prefix = f"runs/{run_dir.name}/structure_calibration"
+    groups = []
+    for i, nid in enumerate(note_ids, 1):
+        it = by_note.get(nid)
+        if it is None:
+            groups.append({"group": i, "note_id": nid,
+                           "error": "no calibration item"})
+            continue
+        iid, pk = it["cal_item_id"], it["phrase_key"]
+        dur = round(it["phrase"]["end"] - it["phrase"]["start"], 3)
+        files = {
+            "SOURCE": entry(f"{prefix}/phrases/{pk}/"
+                            "SOURCE_PHRASE_original_mix.wav", "原唱",
+                            "SOURCE.wav"),
+            "SOURCE_VOCAL": entry(f"{prefix}/phrases/{pk}/"
+                                  "SOURCE_PHRASE_separated_vocal.wav",
+                                  "原唱分离人声", "SOURCE_VOCAL.wav"),
+            "A": entry(f"{prefix}/items/{iid}/OPTION_0.wav", "A",
+                       "A.wav"),
+            "B": entry(f"{prefix}/items/{iid}/OPTION_1.wav", "B",
+                       "B.wav"),
+        }
+        aux = {"SOURCE_CORE": entry(
+                   f"{prefix}/items/{iid}/"
+                   "SOURCE_CORE_original_mix.wav", "原唱·定位",
+                   "SOURCE_CORE.wav")}
+        # role-mapped file names must not leak: publish aux crops only
+        # under blind labels — resolve OPTION_i -> {BASELINE,CANDIDATE}
+        man = json.loads((cdir / "items" / iid
+                          / "manifest.json").read_text(encoding="utf-8"))
+        cal = man.get("calibration") or {}
+        opt_map = {o["option_id"]: (
+            "BASELINE" if o["option_id"] == cal.get("baseline_option")
+            else "CANDIDATE") for o in man.get("options", [])}
+        for lbl, oid in (("A", "OPTION_0"), ("B", "OPTION_1")):
+            role = opt_map.get(oid)
+            if role:
+                aux[f"{lbl}_CORE"] = entry(
+                    f"{prefix}/items/{iid}/{role}_CORE.wav",
+                    f"{lbl}·定位", f"{lbl}_CORE.wav")
+                aux[f"{lbl}_FOCUS"] = entry(
+                    f"{prefix}/items/{iid}/{role}_TARGET.wav",
+                    f"{lbl}·聚焦", f"{lbl}_FOCUS.wav")
+        groups.append({
+            "group": i, "note_id": nid, "cal_item_id": iid,
+            "repair_id": it["repair_id"], "type": it["type"],
+            "phrase": it["phrase"], "phrase_key": pk,
+            "phrase_duration_s": dur,
+            "audio_package_hash": it.get("audio_package_hash"),
+            "files": files, "auxiliary": aux,
+        })
+    payload = {
+        "schema": CALIB_SCHEMA, "kind": "pilot_review",
+        "generated_at": _now(), "run_id": run_dir.name,
+        "git": remote,
+        "primary_review_unit": "full_natural_phrase",
+        "blind_map": {"A": "OPTION_0", "B": "OPTION_1"},
+        "reply_map": dict(PILOT_REPLY_MAP),
+        "decision_command": ("agent2utau structure-calib-decide "
+                             f"{run_dir.name} <cal_item_id> <choice>"),
+        "groups": groups,
+    }
+    if write:
+        _jwrite(cdir / "pilot_review.json", payload)
+    return payload
 
 
 def build_calibration(run_dir: Path, cfg=None, render=True, only=None,

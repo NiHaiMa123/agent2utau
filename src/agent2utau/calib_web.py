@@ -63,7 +63,7 @@ button.sel{background:var(--acc);border-color:var(--acc);color:#fff}
 <button onclick="nav(1)">下一项 →</button>
 <button onclick="navPending()">下一个未裁决 ↷</button>
 <span class="kbd" style="align-self:center;margin-left:8px">
-快捷键: Q=CORE原曲 W=CORE人声 1/2=选项A/B·CORE 7/8=选项A/B·聚焦 5/6=选项A/B·整段 3=原曲±0.6 4=人声±0.6 S/V=整段参考 | A/B=选择 E=差不多 X=都不对 ←→=切换</span>
+快捷键: S=原唱整句 V=人声整句 5/6=选项A/B·整句(主) | Q/W=CORE原曲/人声 1/2=A/B·CORE 7/8=A/B·聚焦 3/4=±0.6原曲/人声 | A/B=选择 E=差不多 X=都不对 ←→=切换</span>
 </div>
 <div id="detail"></div>
 </div>
@@ -102,33 +102,33 @@ function show(i){
  const done=decided[key];
  document.getElementById('detail').innerHTML=`
  <div class="card"><h3>TARGET — ${it.note_id} (${it.type}) · 争议区间
-  ${it.region?it.region[0].toFixed(2)+'–'+it.region[1].toFixed(2)+'s':''}</h3>
+  ${it.region?it.region[0].toFixed(2)+'–'+it.region[1].toFixed(2)+'s':''}
+  · 唱句 ${it.phrase.start.toFixed(2)}–${it.phrase.end.toFixed(2)}s</h3>
  <div class="row">
-  <div><h3>① CORE · 原曲 ±0.15s（先听原唱几个音）</h3><audio controls src="/audio/item/${key}/SOURCE_CORE_mix.wav"></audio></div>
-  <div><h3>② CORE · 分离人声 ±0.15s</h3><audio controls src="/audio/item/${key}/SOURCE_CORE_vocal.wav"></audio></div>
- </div>
- <div class="row">
-  <div><h3>目标区域 · 原曲 ±0.6s（上下文）</h3><audio controls src="/audio/focus/${key}/mix.wav"></audio></div>
-  <div><h3>目标区域 · 分离人声 ±0.6s（上下文）</h3><audio controls src="/audio/focus/${key}/vocal.wav"></audio></div>
+  <div><h3>① 原唱完整一句（ground truth — 先听清这句怎么唱）</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav"></audio></div>
+  <div><h3>② 原唱完整一句 · 分离人声</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav"></audio></div>
  </div></div>
- <div class="card"><h3>③ CORE A/B ±0.15s（盲选 · 主要判断面 — 从完整渲染裁出）</h3>
+ <div class="card"><h3>③ 完整一句 A/B（盲选 · 主要判断面）</h3>
+ <div class="row">
+  <div><h3>选项 A · 完整一句</h3><audio controls src="/audio/item/${key}/OPTION_0.wav"></audio></div>
+  <div><h3>选项 B · 完整一句</h3><audio controls src="/audio/item/${key}/OPTION_1.wav"></audio></div>
+ </div></div>
+ <div class="card"><h3>④ 辅助定位 · CORE ±0.15s / 聚焦 ±0.5s（盲选 · 仅当整句难以判断转折时用）</h3>
+ <div class="row">
+  <div><h3>原曲 · CORE</h3><audio controls src="/audio/item/${key}/SOURCE_CORE_mix.wav"></audio></div>
+  <div><h3>原曲人声 · CORE</h3><audio controls src="/audio/item/${key}/SOURCE_CORE_vocal.wav"></audio></div>
+ </div>
  <div class="row">
   <div><h3>选项 A · CORE</h3><audio controls src="/audio/item/${key}/CORE_0.wav"></audio></div>
   <div><h3>选项 B · CORE</h3><audio controls src="/audio/item/${key}/CORE_1.wav"></audio></div>
- </div></div>
- <div class="card"><h3>④ 目标聚焦 A/B ±0.5s（盲选 · 次级）</h3>
+ </div>
  <div class="row">
   <div><h3>选项 A · 聚焦</h3><audio controls src="/audio/item/${key}/TARGET_0.wav"></audio></div>
   <div><h3>选项 B · 聚焦</h3><audio controls src="/audio/item/${key}/TARGET_1.wav"></audio></div>
- </div></div>
- <div class="card"><h3>⑤ 整段渲染 A/B（盲选 · 辅助参考 — 目标外可能有渲染器漂移）</h3>
- <div class="row">
-  <div><h3>选项 A · 整段</h3><audio controls src="/audio/item/${key}/OPTION_0.wav"></audio></div>
-  <div><h3>选项 B · 整段</h3><audio controls src="/audio/item/${key}/OPTION_1.wav"></audio></div>
  </div>
  <div class="row">
-  <div><h3>原曲整段（辅助）</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav"></audio></div>
-  <div><h3>分离人声整段（辅助）</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav"></audio></div>
+  <div><h3>原曲 · ±0.6s</h3><audio controls src="/audio/focus/${key}/mix.wav"></audio></div>
+  <div><h3>人声 · ±0.6s</h3><audio controls src="/audio/focus/${key}/vocal.wav"></audio></div>
  </div>
  <div id="decisions">
   <button class="a" onclick="vote('OPTION_0')">A 更对</button>

@@ -440,6 +440,24 @@ def cmd_structure_calib_augment(args) -> int:
                        "augment": res})
 
 
+def cmd_structure_calib_pilot(args) -> int:
+    """§10.1.5A-G5E: emit pilot_review.json — the blind A/B full-phrase
+    download manifest (git paths + sha256 + raw URLs at HEAD) that the
+    remote reviewer turns into links. Chat replies still must go
+    through structure-calib-decide to gain authority."""
+    from .structure_calibration import build_pilot_review
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    try:
+        payload = build_pilot_review(
+            run_dir,
+            note_ids=(args.notes.split(",") if args.notes else None)
+            or None)
+    except (RuntimeError, FileNotFoundError) as e:
+        return fail("cannot_build_pilot", str(e))
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "pilot_review": payload})
+
+
 def cmd_structure_calib_status(args) -> int:
     from .structure_calibration import rebuild_calibration_state
     run_dir = Path(load_config()["runs_dir"]) / args.run_id
@@ -855,6 +873,13 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("run_id", help="diagnostic run id")
     p.add_argument("--items", default=None,
                    help="comma list of cal_item_id/repair_id/note_id")
+
+    p = sub.add_parser("structure-calib-pilot")
+    p.set_defaults(fn=cmd_structure_calib_pilot)
+    p.add_argument("run_id", help="diagnostic run id")
+    p.add_argument("--notes", default=None,
+                   help="comma list of note_ids "
+                        "(default: the 5 representative pilot items)")
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")

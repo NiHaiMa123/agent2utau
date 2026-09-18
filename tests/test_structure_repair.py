@@ -687,12 +687,15 @@ def test_g6_no_silent_real_lyric_fallback(tmp_path):
         assert set(n["lyric"] for n in out) <= {"a", "+"}
 
 
-def _tracked_all(item_ids=()):
+def _tracked_all(item_ids=(), phrase_keys=()):
     """Everything the Git-evidence rule could require — simulates a
     fully-committed store for _git_tracked_set monkeypatches."""
     from agent2utau.structure_calibration import GIT_REQUIRED_ITEM_FILES
-    s = {"plan.json", "state.json",
+    s = {"plan.json", "state.json", "pilot_review.json",
          "qc/verdict.json", "qc/audit.jsonl"}
+    for pk in phrase_keys:
+        s |= {f"phrases/{pk}/SOURCE_PHRASE_original_mix.wav",
+              f"phrases/{pk}/SOURCE_PHRASE_separated_vocal.wav"}
     for iid in item_ids:
         s |= {f"items/{iid}/{f}" for f in GIT_REQUIRED_ITEM_FILES}
     return s
@@ -726,8 +729,9 @@ def test_g10_full_batch_blocked_until_qc_pass(tmp_path, monkeypatch):
     res = sc.build_calibration(run, render=False, only=["note_0002"])
     contract = res["contract_sha256"]
     iid = res["items"][0]["cal_item_id"]
+    pk = res["items"][0]["phrase_key"]
     monkeypatch.setattr(sc, "_git_tracked_set",
-                        lambda d: _tracked_all([iid]))
+                        lambda d: _tracked_all([iid], [pk]))
     sc.write_verdict(run, "PASS", contract, auditor="t",
                      sample_ids=[iid])
     res2 = sc.build_calibration(run, render=False)
@@ -767,7 +771,7 @@ def test_git_evidence_review_ready_needs_qc_committed(tmp_path,
     import agent2utau.structure_calibration as sc
     run = _mk_run(tmp_path, [_machine_split_pkt()])
     iid = "cal-x"
-    base = {"plan.json", "state.json"} | {
+    base = {"plan.json", "state.json", "pilot_review.json"} | {
         f"items/{iid}/{f}" for f in sc.GIT_REQUIRED_ITEM_FILES}
     monkeypatch.setattr(sc, "_git_tracked_set", lambda d: set(base))
     sc.write_verdict(run, "PASS", "c", auditor="t", sample_ids=[iid])
@@ -948,12 +952,13 @@ def test_git_evidence_reports_missing(tmp_path, monkeypatch):
     ev = sc.git_evidence(run)
     assert ev["complete"] is False
     assert "state.json" in ev["missing"]
+    assert "pilot_review.json" in ev["missing"]
     assert "qc/verdict.json" in ev["missing"]
     assert "items/cal-a/signal_qc.json" in ev["missing"]
     assert "items/cal-a/BASELINE_TARGET.wav" in ev["missing"]
     assert all(e.startswith("items/cal-b/") for e in ev["missing"]
                if e.startswith("items/cal-b/"))
-    assert ev["checked"] == 2 + 2 + 2 * len(sc.GIT_REQUIRED_ITEM_FILES)
+    assert ev["checked"] == 3 + 2 + 2 * len(sc.GIT_REQUIRED_ITEM_FILES)
 
 
 # --------------------------------- §10.1.5A-G5C child-level F0 QC (Blocker H)
@@ -1079,3 +1084,105 @@ def test_h7_octave_ambiguous_child_flagged(tmp_path, monkeypatch):
     c1 = qc["children"][1]
     assert c1["candidate"]["evidence"] == "ambiguous"
     assert "candidate_child_1" in qc["ambiguous_children"]
+
+
+# --------------------------------- §10.1.5A-G5E remote pilot review
+
+def _pilot_store(tmp_path, note_id="note_0012", phrase_key="18.40-24.44"):
+    """Minimal m25-cal-2 store with one rendered item + phrase clips —
+    enough for build_pilot_review. Run sits under runs/<id> so the
+    git_path derivation mirrors the production repo layout."""
+    import numpy as np
+    import soundfile as sf
+    run = tmp_path / "runs" / "diag-x"
+    cdir = run / "structure_calibration"
+    idir, man = _fake_rendered_item(cdir, name="cal-p1",
+                                    region=(20.0, 20.5))
+    for nm in ("BASELINE_CORE.wav", "CANDIDATE_CORE.wav",
+               "BASELINE_TARGET.wav", "CANDIDATE_TARGET.wav"):
+        sf.write(str(idir / nm), np.zeros(800), 8000)
+    pdir = cdir / "phrases" / phrase_key
+    pdir.mkdir(parents=True)
+    for nm in ("SOURCE_PHRASE_original_mix.wav",
+               "SOURCE_PHRASE_separated_vocal.wav"):
+        sf.write(str(pdir / nm), np.zeros(8000), 8000)
+    plan = {"schema": "m25-cal-2", "items": [{
+        "cal_item_id": "cal-p1", "repair_id": "srp-p1",
+        "note_id": note_id, "type": "split",
+        "phrase": {"start": 18.4, "end": 24.44},
+        "phrase_key": phrase_key,
+        "audio_package_hash": "aph-p1"}]}
+    (cdir / "plan.json").write_text(json.dumps(plan))
+    return run
+
+
+def test_pilot_review_payload_blind_and_bound(tmp_path, monkeypatch):
+    """G5E: the remote pilot payload ships blind A/B full-phrase files
+    with canonical sha256 + neutral display names — role-mapped aux
+    paths never leak baseline/candidate into labels."""
+    import agent2utau.structure_calibration as sc
+    run = _pilot_store(tmp_path)
+    monkeypatch.setattr(sc, "_git_remote_repo",
+                        lambda d: {"slug": "o/r", "sha": "abc123",
+                                   "remote": "https://github.com/o/r"})
+    payload = sc.build_pilot_review(run)
+    assert payload["schema"] == "m25-cal-2"
+    assert payload["blind_map"] == {"A": "OPTION_0", "B": "OPTION_1"}
+    assert payload["reply_map"]["都差不多"] == "equivalent"
+    g = next(x for x in payload["groups"]
+             if x.get("note_id") == "note_0012")
+    assert g["cal_item_id"] == "cal-p1"
+    assert g["phrase_duration_s"] == pytest.approx(6.04, abs=0.01)
+    f = g["files"]
+    assert f["A"]["git_path"].endswith("items/cal-p1/OPTION_0.wav")
+    assert f["A"]["display_name"] == "A.wav"
+    assert f["B"]["display_name"] == "B.wav"
+    assert f["SOURCE"]["display_name"] == "SOURCE.wav"
+    assert f["SOURCE"]["git_path"].endswith(
+        "phrases/18.40-24.44/SOURCE_PHRASE_original_mix.wav")
+    for e in f.values():
+        assert e["sha256"] and not e.get("missing")
+        assert e["raw_url"].startswith(
+            "https://raw.githubusercontent.com/o/r/abc123/")
+    # aux A/B resolved through the manifest role map, labelled blind —
+    # OPTION_0 is baseline here so A_CORE points at BASELINE_CORE.wav
+    aux = g["auxiliary"]
+    assert aux["A_CORE"]["git_path"].endswith("BASELINE_CORE.wav")
+    assert aux["A_CORE"]["display_name"] == "A_CORE.wav"
+    assert aux["B_CORE"]["git_path"].endswith("CANDIDATE_CORE.wav")
+    assert "baseline" not in aux["A_CORE"]["label"].lower()
+    # persisted for Git commit
+    assert (run / "structure_calibration"
+            / "pilot_review.json").exists()
+
+
+def test_pilot_review_missing_note_reported(tmp_path):
+    """A pilot note without a calibration item is reported, not
+    silently dropped — the reviewer sees the hole."""
+    import agent2utau.structure_calibration as sc
+    run = _pilot_store(tmp_path)
+    payload = sc.build_pilot_review(run, note_ids=["note_0012",
+                                                   "note_9999"])
+    errs = [g for g in payload["groups"] if "error" in g]
+    assert len(errs) == 1 and errs[0]["note_id"] == "note_9999"
+
+
+def test_git_evidence_includes_phrase_source(tmp_path, monkeypatch):
+    """SOURCE_PHRASE clips are primary review material — git_evidence
+    requires them per declared phrase_key (deduped across items)."""
+    import agent2utau.structure_calibration as sc
+    run = _pilot_store(tmp_path)
+    cdir = run / "structure_calibration"
+    plan = json.loads((cdir / "plan.json").read_text(encoding="utf-8"))
+    plan["items"].append(dict(plan["items"][0],
+                              cal_item_id="cal-p2",
+                              note_id="note_0061"))
+    (cdir / "plan.json").write_text(json.dumps(plan))
+    monkeypatch.setattr(sc, "_git_tracked_set", lambda d: set())
+    ev = sc.git_evidence(run)
+    ph = [m for m in ev["missing"] if m.startswith("phrases/")]
+    # two items share one phrase -> exactly two phrase files, not four
+    assert sorted(ph) == [
+        "phrases/18.40-24.44/SOURCE_PHRASE_original_mix.wav",
+        "phrases/18.40-24.44/SOURCE_PHRASE_separated_vocal.wav"]
+    assert "pilot_review.json" in ev["missing"]
