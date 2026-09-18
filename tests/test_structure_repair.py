@@ -1096,7 +1096,7 @@ def test_h7_octave_ambiguous_child_flagged(tmp_path, monkeypatch):
 
 # --------------------------------- §10.1.5A-G5E remote pilot review
 
-def _pilot_store(tmp_path, note_id="note_0012", phrase_key="18.40-24.44"):
+def _pilot_store(tmp_path, note_id="note_0061", phrase_key="37.78-44.08"):
     """Minimal m25-cal-2 store with one rendered item + phrase clips —
     enough for build_pilot_review. Run sits under runs/<id> so the
     git_path derivation mirrors the production repo layout."""
@@ -1132,7 +1132,7 @@ def _pilot_store(tmp_path, note_id="note_0012", phrase_key="18.40-24.44"):
     plan = {"schema": "m25-cal-2", "items": [{
         "cal_item_id": "cal-p1", "repair_id": "srp-p1",
         "note_id": note_id, "type": "split",
-        "phrase": {"start": 18.4, "end": 24.44},
+        "phrase": {"start": 37.78, "end": 44.08},
         "phrase_key": phrase_key,
         "audio_package_hash": "aph-p1",
         "package_state": "valid",
@@ -1157,9 +1157,9 @@ def test_pilot_review_payload_blind_and_bound(tmp_path, monkeypatch):
     assert payload["blind_map"] == {"A": "OPTION_0", "B": "OPTION_1"}
     assert payload["reply_map"]["都差不多"] == "equivalent"
     g = next(x for x in payload["groups"]
-             if x.get("note_id") == "note_0012")
+             if x.get("note_id") == "note_0061")
     assert g["cal_item_id"] == "cal-p1"
-    assert g["phrase_duration_s"] == pytest.approx(6.04, abs=0.01)
+    assert g["phrase_duration_s"] == pytest.approx(6.30, abs=0.01)
     f = g["files"]
     # primary review audio = gain-matched LISTEN copies; canonical
     # authority bytes stay referenced for traceability
@@ -1171,7 +1171,7 @@ def test_pilot_review_payload_blind_and_bound(tmp_path, monkeypatch):
     assert f["B"]["display_name"] == "B.wav"
     assert f["SOURCE"]["display_name"] == "SOURCE.wav"
     assert f["SOURCE"]["git_path"].endswith(
-        "phrases/18.40-24.44/SOURCE_PHRASE_original_mix_LISTEN.wav")
+        "phrases/37.78-44.08/SOURCE_PHRASE_original_mix_LISTEN.wav")
     assert f["SOURCE"]["canonical"]["git_path"].endswith(
         "SOURCE_PHRASE_original_mix.wav")
     for e in f.values():
@@ -1195,7 +1195,7 @@ def test_pilot_review_missing_note_reported(tmp_path):
     silently dropped — the reviewer sees the hole."""
     import agent2utau.structure_calibration as sc
     run = _pilot_store(tmp_path)
-    payload = sc.build_pilot_review(run, note_ids=["note_0012",
+    payload = sc.build_pilot_review(run, note_ids=["note_0061",
                                                    "note_9999"])
     errs = [g for g in payload["groups"] if "error" in g]
     assert len(errs) == 1 and errs[0]["note_id"] == "note_9999"
@@ -1210,7 +1210,7 @@ def test_git_evidence_includes_phrase_source(tmp_path, monkeypatch):
     plan = json.loads((cdir / "plan.json").read_text(encoding="utf-8"))
     plan["items"].append(dict(plan["items"][0],
                               cal_item_id="cal-p2",
-                              note_id="note_0061"))
+                              note_id="note_0192"))
     (cdir / "plan.json").write_text(json.dumps(plan))
     monkeypatch.setattr(sc, "_git_tracked_set", lambda d: set())
     ev = sc.git_evidence(run)
@@ -1218,10 +1218,10 @@ def test_git_evidence_includes_phrase_source(tmp_path, monkeypatch):
     # two items share one phrase -> exactly four phrase files (canonical
     # + LISTEN copies), deduped — not eight
     assert sorted(ph) == [
-        "phrases/18.40-24.44/SOURCE_PHRASE_original_mix.wav",
-        "phrases/18.40-24.44/SOURCE_PHRASE_original_mix_LISTEN.wav",
-        "phrases/18.40-24.44/SOURCE_PHRASE_separated_vocal.wav",
-        "phrases/18.40-24.44/SOURCE_PHRASE_separated_vocal_LISTEN.wav"]
+        "phrases/37.78-44.08/SOURCE_PHRASE_original_mix.wav",
+        "phrases/37.78-44.08/SOURCE_PHRASE_original_mix_LISTEN.wav",
+        "phrases/37.78-44.08/SOURCE_PHRASE_separated_vocal.wav",
+        "phrases/37.78-44.08/SOURCE_PHRASE_separated_vocal_LISTEN.wav"]
     assert "pilot_review.json" in ev["missing"]
 
 
