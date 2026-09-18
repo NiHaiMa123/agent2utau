@@ -2913,6 +2913,23 @@ B. 用其他具备可靠 real-lyric evidence 的 representative items 替换。
 
 禁止在用户已明确指出歌词会干扰判断后，再把 neutral-vowel Group 3–5 作为正式结构审核样本。
 
+**Human review unit clarification（2026-09-18）**
+
+用户明确：不需要整首版本；**每个 review group 一整句完整歌词即可**。因此 human-review primary unit 继续保持“完整自然句 / full lyric line”，但必须满足：
+
+```text
+SOURCE = 原唱这一整句
+A = 同一整句的 option A
+B = 同一整句的 option B
+```
+
+要求：
+- 必须从句首到句尾完整覆盖，不允许只给 target/core/focus 短片段；
+- A/B 必须使用真实歌词，不能用 neutral-vowel `a` 作为正式试听；
+- A/B 的句级上下文、歌词、时长基准一致，除 declared target operation 外不得有可感知非目标差异；
+- target/core/focus 仅保留为定位辅助，不作为主判断面；
+- 不要求生成整首 A/B 版本。
+
 
 #### G5G Full-song human review（用户试听反馈：phrase 级仍无法可靠判断）
 
