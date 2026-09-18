@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW 已可启动，但先走 5-item GPT Chat pilot。Blocker H/G5C 已实现：21/21 child-level F0 QC 均可用，candidate_structure_error 全部低于 baseline，candidate improvement 全为正（约 +1.32~+3.82 st），`note_0012/0061/0123` 永久 regression 均复现 Source≈62→64、Baseline≈64→64、Candidate≈62→64；G5D `TARGET_CORE` 已从 full render 裁出并提交 Git。ChatGPT/maintainer 对当前 batch 的 pre-human 结论为 `REVIEW_READY = PASS FOR PILOT`：先在 GPT Chat 页面展示 5 个代表组，每组按“原唱 CORE → 生成 A CORE → 生成 B CORE”排列，保持 OPTION 盲化；用户可直接在手机试听并回复 A/B/都差不多/都不对。若 5-item pilot 中任一组仍出现“无法判断/音频明显坏掉”，立即停止余下 16 项并回到 renderer/QC；若 pilot 可稳定判断，再继续完整 21 项。GPT Chat 只负责呈现 exact Git audio 与收集人类选择，最终 repair authority 仍必须通过官方 calibration decision gate 绑定 `cal_item_id / repair_id / selected OPTION / package hash`，禁止人工手改 authority。另保留两个 freeze 前 hardening：① ambiguous child 不得参与 structure_error aggregate；② rebuild/commit 最新 `state.json` 使 Git evidence 快照与 17 files/item 一致。M2.5 FREEZE 与 M2.7 仍 BLOCKED，直到 21 项裁决与最终 gate 完成。**
+> 当前阶段：**M2.5 HUMAN REVIEW AUDIO 已达到 pilot 标准，但远程 GPT Chat 审核进入 `REMOTE REVIEW TRANSPORT HOLD`。Blocker H/G5C 已实现：21/21 child-level F0 QC 均可用，candidate_structure_error 全部低于 baseline，candidate improvement 全为正（约 +1.32~+3.82 st），`note_0012/0061/0123` 均复现 Source≈62→64、Baseline≈64→64、Candidate≈62→64；G5D `TARGET_CORE` 已从 full render 裁出并提交 Git。ChatGPT/maintainer 对当前 batch 的 pre-human 结论维持 `REVIEW_READY = PASS FOR PILOT`，但 **GPT Chat 远程 surface 只有在 exact Git WAV 被真正挂成当前 conversation 的原生音频附件、并在客户端显示为可直接播放的条状播放器时才算可用**。GitHub raw URL、浏览器跳转、下载链接、要求用户离开 ChatGPT 页面均不满足该 contract。当前 ChatGPT 环境可读取/分析 Git WAV，但尚缺少 GitHub binary → conversation native-audio attachment 的可用 handoff，因此 5-item 手机 pilot 暂停；不得用 raw URL 代替。后续一旦 attachment handoff 可用，再按“原唱 CORE → 盲化 A CORE → 盲化 B CORE”直接在聊天内完成 5-item pilot。聊天选择仍必须经官方 calibration decision gate 绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority。M2.5 FREEZE 与 M2.7 继续 BLOCKED，直到 transport gate + 21 项裁决 + final gate 完成。**
 
 ---
 
@@ -2405,9 +2405,39 @@ SOURCE CORE
 `TARGET_0/1` ±0.5s → full phrase 辅助，`SOURCE_CORE_{mix,vocal}.wav` 与
 `CORE_i` 均走 manifest-aware 盲映射端点。
 
-#### G5E. GPT Chat remote human-review surface ← ACTIVE
+#### G5E. GPT Chat remote human-review surface ← TRANSPORT HOLD
 
 人工审核不要求用户回到运行 OpenUtau 的电脑。
+
+但 GPT Chat surface 的 acceptance 不是“能给一个 URL”，而是：
+
+```text
+exact Git audio
+→ materialize / attach into current ChatGPT conversation
+→ native audio attachment
+→ client renders inline audio bar/player
+→ user taps Play without leaving ChatGPT
+```
+
+以下全部 **不算** GPT Chat remote-review PASS：
+
+```text
+raw.githubusercontent.com URL
+github.com/blob URL
+浏览器跳转
+下载链接
+要求用户先保存到本地再播放
+只显示文件路径但没有 inline audio player
+```
+
+如果当前运行环境没有 GitHub binary → conversation attachment handoff：
+
+```text
+REMOTE_REVIEW_TRANSPORT_READY = false
+→ do not start human pilot
+→ do not substitute raw URL
+→ wait for / use an environment with native attachment handoff
+```
 
 允许由 ChatGPT 直接从 acceptance SHA 的 Git artifacts 提取并在当前聊天页面展示 exact audio。
 
@@ -2450,6 +2480,66 @@ B
 都不对
 ```
 
+### Native attachment transport contract
+
+每个聊天播放器必须对应一个真正的 conversation attachment，而不是网页超链接。
+
+transport layer 必须保存并可审计：
+
+```text
+acceptance_git_sha
+git_path
+git_blob_sha / canonical wav sha256
+conversation_attachment_id
+display_label: SOURCE / A / B
+mime_type: audio/*
+transport/transcode sha256  # 若发生转码
+```
+
+若客户端播放器只支持 MP3/M4A 而需要转码：
+
+```text
+Git WAV 仍是 canonical evidence
+转码仅作为 listening transport
+不得改变 blind role / package identity / decision authority
+```
+
+播放器展示前必须保证文件名/label 不泄露：
+
+```text
+BASELINE
+CANDIDATE
+SPLIT
+machine winner
+```
+
+只允许：
+
+```text
+原唱
+A
+B
+```
+
+### Transport acceptance test
+
+5-item pilot 开始前至少先用 1 组验证：
+
+```text
+[ ] 当前 ChatGPT 页面直接出现 3 个 inline audio bars
+[ ] Android/iOS 客户端可直接播放
+[ ] 点击播放不打开浏览器
+[ ] A/B label 不泄露角色
+[ ] attachment bytes 可追溯到 Git canonical audio
+```
+
+任一项失败：
+
+```text
+REMOTE_REVIEW_TRANSPORT_READY = false
+```
+
+不得继续生成/展示其余 pilot。
 ### GPT Chat artifact binding
 
 Chat 页面上的每个可播放文件必须可追溯到：
@@ -2883,7 +2973,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← HUMAN-REVIEW READINESS HOLD（Git evidence COMPLETE；5-sample maintainer audit confirms target-focus value；current blocker = operation-aware child F0 QC + regenerated Git artifacts；user review NOT YET authorized）
+### M2.5 — PROBABLE structure repair — ← REMOTE REVIEW TRANSPORT HOLD（audio/QC 已达 5-item pilot 标准；当前 blocker = Git WAV → ChatGPT native audio attachment / inline player handoff；raw URL 不可替代）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -2962,6 +3052,8 @@ rollback coverage
 66. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
 67. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
 68. 先把 written score 唱对，再生成 PITD。
-69. GPT Chat 可以作为远程人工审核 surface，但只允许展示 acceptance Git SHA 上 exact audio 的盲化 A/B；聊天选择必须经官方 decision gate 重新绑定 package/hash 后才能成为 repair authority。
-70. 远程审核采用 pilot-first：先 5 个代表项；任一项仍不可判断则停止全量审核，不得强迫用户完成 21 项。
-71. 先“唱对”，再做泠鸢风格。
+69. GPT Chat 可以作为远程人工审核 surface，但 **只有 native conversation audio attachment / inline audio bar** 才算合格展示；GitHub raw URL、浏览器跳转、下载链接均不得替代。
+70. GPT Chat attachment 必须可追溯到 acceptance Git SHA 的 canonical audio；若发生转码，canonical WAV hash 与 transport hash 必须同时记录，转码不得改变 decision identity。
+71. 聊天选择必须经官方 decision gate 重新绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority；聊天文本本身不是 authority。
+72. 远程审核采用 pilot-first：先验证 1 组 inline player transport，再做 5 个代表项；任一项仍不可判断或播放器不可用则停止，不得强迫用户完成 21 项。
+73. 先“唱对”，再做泠鸢风格。
