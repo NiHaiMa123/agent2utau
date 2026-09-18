@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 CALIBRATION INFRASTRUCTURE 已实现 @ `5a4a486`（remote CI `35299909323`，279 passed / 0 failed），M2.5 FREEZE 仍 HOLD，M2.7 继续 BLOCKED。Blocker E 已落地：`structure_calibration.py`（schema `m25-cal-1`）把 21 个 machine split 全部打包为 phrase-level blind A/B 包（SOURCE + Baseline + Split，同 window/singer/renderer/gain），`structure-calib-plan/-decide/-status` + 交互式 `structure-calib` 已可用；`calibration_authorized()` 是 machine repair 唯一授权门——仅 `human_confirmed_machine_split` 绑 repair_id+patch_sha+aph 才可 apply，其余 outcome / superseded / 缺失一律 `calibration_pending` 不进 trusted score。Blocker F 已修复：merge 增加 `MERGE_ADJ_TOL_S` temporal adjacency（index-adjacent ≠ time-contiguous，禁吞真实 gap/overlap）。真实 run：21 包全部渲染且 `verify_package` valid、待人工裁决；plan = 21 pending + 1 human eligible；trusted corrected score = 504→505（仅 human split），189.84s/202.52s 不变，C0 hash 不变。**剩余唯一 freeze 条件 = 用户逐项 A/B 裁决 21 个 cal 包 + calibration summary 记录 + 新 FINAL SHA/remote CI。**
+> 当前阶段：**M2.5 进入 HUMAN-REVIEW READINESS HOLD。`5a4a486` 的 calibration infrastructure、`81c7845` 的 web UI、`ecdf83d` 的 source-focus clip 都可保留，但当前 `m25-cal-1` 审核音频被判定为“不具备人工审核资格”，现有 21 个 A/B 包及其 calibration decisions 不得继续授权 repair。原因不是单一候选错误，而是 review renderer 会重新构造短句：歌词依赖 note-midpoint ±0.30s 重新映射，已在归档 Baseline USTX 中出现重复/错位/漏字/`a` fallback；同时 Baseline 不是 canonical GAME render，而是重新生成短句 USTX，tone 被整数化、PITD/转折被清零，导致 Baseline 自身可能比正常 GAME 明显更差。当前主线改为：Canonical Baseline → Git 小样预审 → 用户人工审核。下一 calibration schema 至少升为 `m25-cal-2`；先只生成 3–5 个代表性 phrase 包并连同 WAV/USTX/manifest/canonical reference 上传 Git，由 ChatGPT/maintainer 做 pre-human QC；只有预审确认 Baseline 达到“正常 GAME 可听质量”、A/B 只差 target operation 后，才允许批量生成 21 项并交给用户裁决。M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
 
 ---
 
@@ -1729,7 +1729,7 @@ schema: structure plan/manifest = m25-1（独立 schema，不复用 m24-2）
 [✓] remote CI on FINAL SHA — run 35297439976
 ```
 
-### 10.1.5 Blocker E — machine structure precision 必须独立校准 ✅ IMPLEMENTED @ 5a4a486（待用户逐项裁决）
+### 10.1.5 Blocker E — machine structure precision 必须独立校准 ⚠️ INFRA IMPLEMENTED / HUMAN REVIEW NOT READY
 
 实现记录（`5a4a486`，CI `35299909323`，279 passed）：
 
@@ -1886,6 +1886,275 @@ per-item evidence / patch / phrase package hash / decision
 
 ---
 
+
+### 10.1.5A Blocker G — Human Review Readiness Gate ← CURRENT
+
+当前发现证明：
+
+```text
+render successfully
++ verify_package == valid
++ blind A/B UI works
+!=
+audio is good enough for human adjudication
+```
+
+`m25-cal-1` 的 21 个归档包不得继续用于人工裁决或 repair authority。
+
+已确认的 review-render 风险：
+
+```text
+1. Baseline 不是 canonical GAME render；
+   Candidate-0 notes 被重新截取并重建成短句 USTX。
+
+2. lyric_map() 通过 note midpoint ±0.30s 重新猜歌词，
+   已在真实归档 Baseline 中出现：
+   - 重复字
+   - 漏字 / 错位
+   - '+' 位置异常
+   - neutral 'a' fallback
+
+3. review USTX 会重新量化/重建：
+   - tone → integer MIDI
+   - PITD = none
+   - 默认 pitch points / no original transition detail
+   因而可能丢失正常 GAME/OpenUtau baseline 的转折、滑音、intonation。
+
+4. 当任务本身是在判断 one-note vs split / portamento 时，
+   一个被 review renderer 自己唱坏的 Baseline 会系统性污染人工判断。
+```
+
+因此从现在起，人工审核必须有独立的 **Review Readiness** acceptance。
+
+#### G1. `m25-cal-1` authority 作废
+
+```text
+m25-cal-1 packages
++ m25-cal-1 decisions
+→ historical / audit-only
+→ NOT repair-authorizing
+→ NOT silently migrated
+→ NOT reused by m25-cal-2
+```
+
+如果已有 decision：
+
+```text
+do not reinterpret
+do not backfill new hashes
+do not preserve authorization
+```
+
+新系统至少：
+
+```text
+CALIB_SCHEMA = m25-cal-2
+```
+
+且 `calibration_authorized()` 必须 fail-closed 拒绝旧 schema。
+
+#### G2. Canonical Baseline Contract
+
+Baseline 不得由 calibration layer 重新“理解歌曲”。
+
+首选 contract：
+
+```text
+canonical GAME/OpenUtau baseline project
+→ exact clone
+→ Baseline = target 0 修改
+→ Candidate = clone 后只修改 target operation
+```
+
+除 target operation 外，以下必须 semantic-identical：
+
+```text
+note start/end
+note tone
+lyrics / melisma '+'
+phoneme / phoneme overrides
+PITD / pitch curves / transition settings
+vibrato
+expressions / voice color
+tempo / timing mapping
+singer / renderer / render settings
+```
+
+Calibration renderer 禁止：
+
+```text
+重新用 midpoint 猜歌词
+重新生成与 canonical baseline 不同的歌词序列
+把已有 pitch detail 清零
+为方便短句 render 而改变非 target note semantics
+```
+
+如果当前阶段还没有可信的 canonical lyric+performance project，
+则不得伪造“真实歌词 Baseline”。可退化为 **neutral-vowel diagnostic render**：
+
+```text
+first articulated note: a
+touching continuation: +
+real gap / re-articulation: a
+```
+
+用于只判断 pitch/timing/one-note-vs-split；同时保留 source focus clip 作为真实旋律参考。
+
+#### G3. Baseline Equivalence Acceptance
+
+在任何人听 A/B 前，必须先证明 calibration Baseline 本身足够接近正常 GAME baseline。
+
+至少检查：
+
+```text
+score semantic diff outside target == empty
+lyrics semantic diff outside target == empty
+pitch/PITD semantic diff outside target == empty
+renderer/profile diff == empty
+non-target note count/order/timing/tone unchanged
+```
+
+若存在 canonical rendered baseline WAV，再做 audio-level reference check：
+
+```text
+same aligned phrase
+→ loudness-normalized / time-aligned comparison
+→ no gross pitch / timing / pronunciation divergence
+```
+
+如果 Baseline 单独听起来已经明显差于正常 GAME 输出：
+
+```text
+REVIEW_READY = false
+→ no human adjudication
+```
+
+#### G4. Git Small-Sample Pre-Human QC
+
+禁止一上来重新生成 21 组让用户试错。
+
+每次 review-render contract 有 material change：
+
+```text
+先只生成 3–5 个代表性 sample
+```
+
+样本至少覆盖：
+
+```text
+simple split
+large pitch-change split
+lyric/melisma-sensitive case
+gap / re-articulation-sensitive case
+一个此前人工听感明显失败的 regression case
+```
+
+这些小样必须上传 Git，且每个 sample 至少包含：
+
+```text
+SOURCE_FOCUS_original_mix.wav
+SOURCE_FOCUS_separated_vocal.wav
+CANONICAL_BASELINE.wav              # 若存在
+BASELINE.wav
+CANDIDATE.wav
+BASELINE.ustx
+CANDIDATE.ustx
+manifest.json
+semantic_diff.json
+```
+
+Git artifact 必须可版本化、可复查，不能只存在本机 `runs/` 临时目录。
+
+#### G5. ChatGPT / maintainer pre-human audit
+
+在用户听之前，先对 Git 小样做 pre-human QC。
+
+审核内容至少包括：
+
+```text
+A. USTX / manifest
+   - lyric sequence 是否合理
+   - '+' / gap / re-articulation semantics
+   - target 之外是否真的 identical
+   - tone / timing / PITD 是否被意外重建
+
+B. audio / signal
+   - duration / silence / truncation
+   - obvious pitch discontinuity
+   - gross F0/timing mismatch vs source/canonical baseline
+   - Baseline/Candidate 是否只在 target 附近产生差异
+
+C. authority
+   - package schema/hash/provenance
+   - old m25-cal-1 decision 不能授权
+```
+
+只有 pre-human reviewer 明确给出：
+
+```text
+REVIEW_READY = PASS
+```
+
+才允许：
+
+```text
+生成完整 21-item batch
+→ 用户人工 A/B
+```
+
+如果预审失败：
+
+```text
+先修 renderer / alignment / baseline contract
+→ 重新生成小样
+→ 重新上传 Git
+→ 重新预审
+```
+
+不得把用户当 renderer QA。
+
+#### G6. Human-review readiness regressions
+
+至少新增：
+
+```text
+G1. old m25-cal-1 package/decision cannot authorize m25-cal-2 repair
+G2. Baseline semantic diff outside target must be empty
+G3. Candidate semantic diff is confined to declared target operation
+G4. repeated lyric char / melisma / re-articulation cases preserve canonical semantics
+G5. canonical PITD / transition data is preserved outside target
+G6. missing canonical lyric mapping cannot silently fall back to guessed real lyrics
+G7. neutral-vowel fallback uses deterministic a/+ semantics
+G8. sample package contains all required Git-review artifacts
+G9. review-ready flag defaults false and cannot be set by render success alone
+G10. full 21-item generation is blocked until pre-human QC PASS
+```
+
+---
+
+### 10.1.5B Current calibration artifact status
+
+当前 Git 中 `m25-cal-1` 的 21 个 A/B 包：
+
+```text
+archive: keep for regression/audit
+human review: STOP
+repair authority: INVALID
+quality acceptance: FAIL
+```
+
+已发现的真实 Baseline lyric examples 可作为永久 regression evidence：
+
+```text
+"圈+勾成指纹+印在我+的的嘴唇"
+"去秋来+的盛+却+住+了了+昏"
+"夜剩我+个人++等清+晨+a"
+```
+
+这些不是“用户主观不喜欢”，而是 review input 已发生可观察 semantic corruption。
+
+---
+
 ### 10.1.6 Blocker F — merge 必须验证 temporal adjacency ✅ IMPLEMENTED @ 5a4a486
 
 已实现：`MERGE_ADJ_TOL_S = 0.06`（一个 F0 frame + onset snap 容差，代码注释说明语义）；`validate_structure_patch` merge 分支在 index-contiguous 之外逐对验证 `gap = next.start - prev.end`，`gap > tol → merge_temporal_gap`、`gap < -tol → merge_temporal_overlap`；merged span 仍须等于连续 union。F1–F5 回归在 `test_structure_repair.py::test_merge_temporal_adjacency`（精确共享边界 / tol 内小 gap 允许；0.07s/0.5s/1.0s gap 与 material overlap 拒绝；3-note merge 桥接 >tol gap 拒绝）；F6 由全套结构测试 + 真实 run 覆盖。
@@ -1957,32 +2226,37 @@ B. Human structure
    [✓] valid blocked_structure authority reuse
    [✓] no re-review for same exact package
 
-C. Machine split precision
-   [✓] all 21 current machine splits packaged for phrase A/B
-       （`structure_calibration/` 21 items rendered, verify_package
-       全部 valid @5a4a486）
-   [ ] all 21 adjudicated or explicitly unresolved  ← 待用户裁决
-   [✓] only human-confirmed splits enter trusted corrected score
-       （calibration_authorized 门已生效：plan=21 pending+1 human，
-       trusted score=504→505）
-   [✓] false positives/equivalent/none-correct remain no-repair
-       （3 个 parametrized outcome 回归全过）
-   [ ] calibration summary recorded  ← 随用户裁决自动产生
+C. Human-review readiness
+   [ ] m25-cal-2 or later schema active
+   [ ] m25-cal-1 packages/decisions fail-closed for authority
+   [ ] canonical baseline contract implemented
+   [ ] baseline semantic equivalence outside target verified
+   [ ] 3–5 representative Git sample packages generated
+   [ ] Git samples contain WAV + USTX + manifest + semantic diff
+   [ ] ChatGPT/maintainer pre-human QC = PASS
 
-D. Merge correctness
+D. Machine split precision
+   [ ] only after Review Readiness PASS: full 21-item batch generated
+   [ ] all 21 adjudicated or explicitly unresolved
+   [ ] only human-confirmed splits enter trusted corrected score
+   [ ] false positives/equivalent/none-correct remain no-repair
+   [ ] calibration summary recorded
+
+E. Merge correctness
    [✓] temporal-adjacency gate implemented（MERGE_ADJ_TOL_S=0.06）
    [✓] gap/overlap regressions green（F1–F5 + 全量 279）
 
-E. Permanent safety
+F. Permanent safety
    [✓] 189.84s no false repair（trusted score 中 58.12 不变）
    [✓] 202.52s no false repair（65.3 不变）
    [✓] Candidate 0 file hash unchanged
 
-F. Final remote gate
-   [✓] new FINAL implementation SHA `5a4a486`
-   [✓] GitHub Actions checkout == FINAL SHA（run 35299909323）
-   [✓] pytest success（279 passed）
-   [✓] no skipped/disabled core regression
+G. Final remote gate
+   [ ] new FINAL implementation SHA after Review Readiness fixes
+   [ ] GitHub Actions checkout == FINAL SHA
+   [ ] pytest success
+   [ ] review-readiness regressions included
+   [ ] no skipped/disabled core regression
 ```
 
 完成后才允许：
@@ -2140,7 +2414,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← CALIBRATION HOLD（engine+calibration infra PASS @ 5a4a486 / CI 35299909323；freeze 待 21 项人工 A/B 裁决）
+### M2.5 — PROBABLE structure repair — ← HUMAN-REVIEW READINESS HOLD（m25-cal-1 audio FAIL；先 canonical baseline + Git 小样预审，禁止直接进入 21 项人工审核）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -2206,8 +2480,12 @@ rollback coverage
 53. Pre-M2.5 integrity acceptance 未通过前，不得启动 structure repair。
 54. structure repair 必须 operation-specific（split / merge / boundary-shift）并具备独立 identity、freshness、rollback contract。
 55. machine `TRUE_SPLIT_CANDIDATE` 不是自动 repair truth；在 precision 未经独立校准前，只能作为候选，不能仅复查同一 C gate 后直接进入 trusted written score。
-56. 当前《年轮》的 machine split 必须通过 phrase-level Baseline vs Split calibration；只有 human-confirmed split 才能进入 trusted corrected score。
-57. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
-58. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
-59. 先把 written score 唱对，再生成 PITD。
-60. 先“唱对”，再做泠鸢风格。
+56. 人工审核前必须先通过 Review Readiness Gate；render success / verify_package valid 不代表音频可用于人工判断。
+57. calibration Baseline 必须来自 canonical GAME/OpenUtau baseline 或明确的 neutral-vowel diagnostic contract；禁止 calibration layer 重新猜歌词或重建非 target 演唱语义。
+58. material review-render 变更后，必须先生成 3–5 个代表性小样并上传 Git，经过 ChatGPT/maintainer pre-human QC PASS 后，才允许生成完整批次并交给用户审核。
+59. `m25-cal-1` 现有 21 包与 decision 仅保留 audit/regression，用于 repair authority 时必须 fail-closed；不得 silent migration。
+60. 当前《年轮》的 machine split 最终仍必须通过 phrase-level Baseline vs Split calibration；只有 human-confirmed split 才能进入 trusted corrected score。
+61. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
+62. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
+63. 先把 written score 唱对，再生成 PITD。
+64. 先“唱对”，再做泠鸢风格。
