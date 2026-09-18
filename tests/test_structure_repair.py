@@ -877,6 +877,25 @@ def test_signal_qc_flags_phrase_wide_drift(tmp_path, monkeypatch):
     assert qc["target_focus_is_primary"] is True
 
 
+def test_target_wav_blind_role_mapping(tmp_path):
+    """Web TARGET_i endpoint stays blind: OPTION_i resolves through the
+    manifest to its role's TARGET file — A/B labels never leak."""
+    from agent2utau.calib_web import _target_wav
+    idir, man = _fake_rendered_item(tmp_path / "structure_calibration",
+                                    name="cal-map")
+    # candidate_role is OPTION_1 in the fixture; flip to check mapping
+    man["calibration"]["baseline_option"] = "OPTION_1"
+    man["calibration"]["candidate_role"] = "OPTION_0"
+    (idir / "manifest.json").write_text(json.dumps(man))
+    (idir / "BASELINE_TARGET.wav").write_bytes(b"b")
+    (idir / "CANDIDATE_TARGET.wav").write_bytes(b"c")
+    run = tmp_path
+    assert _target_wav(run, "cal-map", 1).name == "BASELINE_TARGET.wav"
+    assert _target_wav(run, "cal-map", 0).name == "CANDIDATE_TARGET.wav"
+    assert _target_wav(run, "cal-map", 2) is None
+    assert _target_wav(run, "cal-missing", 0) is None
+
+
 def test_git_evidence_reports_missing(tmp_path, monkeypatch):
     """git_evidence lists every required-but-uncommitted artifact —
     the maintainer can see exactly what Git is missing."""

@@ -279,7 +279,7 @@ def serve(run_dir: Path, port: int = 8123,
                                      / u[2] / u[3])
                 if u[3] in ("TARGET_0.wav", "TARGET_1.wav"):
                     p = _target_wav(run_dir, u[2],
-                                    int(u[3][6]))
+                                    int(u[3][7]))
                     if p is not None:
                         return self._wav(p)
                     return self._json(404,
