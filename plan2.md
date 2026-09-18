@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 structure repair ENGINE 已实现并通过基础设施验收 @ `73819a9`（remote CI `35297439976`，272 passed / 0 failed，18.76s），但 M2.5 FINAL FREEZE 暂缓，M2.7 lyrics mapping 继续 BLOCKED。Human-selected structure path、`m25-1` plan/apply、Candidate-0 双 hash、authority freshness、conflict/dedupe/rollback、`canonical_plan_hash` tamper-evidence 均可保留为 PASS。当前唯一 correctness 主线是 machine structure precision calibration：真实 run `diag-20260917-181538-6aec` 产生的 21 个 machine split 目前只能视为候选，不能因为 C 已给 `TRUE_SPLIT_CANDIDATE` 再复查同一 frozen split gate 就自动成为 trusted written-score repair；需用完整 phrase A/B（Baseline vs Split）逐项验证。另有一个实现 blocker：merge 当前只验证 Candidate-0 索引连续，必须增加时间连续性检查，禁止把真实 gap 吞进 merged note。1 个已有 human-selected split 可继续按现有 authority 合法应用。完成 machine split calibration + merge temporal-adjacency patch + 新 FINAL SHA/remote CI 后，才允许 M2.5 FROZEN 并进入 M2.7。**
+> 当前阶段：**M2.5 CALIBRATION INFRASTRUCTURE 已实现 @ `5a4a486`（remote CI `35299909323`，279 passed / 0 failed），M2.5 FREEZE 仍 HOLD，M2.7 继续 BLOCKED。Blocker E 已落地：`structure_calibration.py`（schema `m25-cal-1`）把 21 个 machine split 全部打包为 phrase-level blind A/B 包（SOURCE + Baseline + Split，同 window/singer/renderer/gain），`structure-calib-plan/-decide/-status` + 交互式 `structure-calib` 已可用；`calibration_authorized()` 是 machine repair 唯一授权门——仅 `human_confirmed_machine_split` 绑 repair_id+patch_sha+aph 才可 apply，其余 outcome / superseded / 缺失一律 `calibration_pending` 不进 trusted score。Blocker F 已修复：merge 增加 `MERGE_ADJ_TOL_S` temporal adjacency（index-adjacent ≠ time-contiguous，禁吞真实 gap/overlap）。真实 run：21 包全部渲染且 `verify_package` valid、待人工裁决；plan = 21 pending + 1 human eligible；trusted corrected score = 504→505（仅 human split），189.84s/202.52s 不变，C0 hash 不变。**剩余唯一 freeze 条件 = 用户逐项 A/B 裁决 21 个 cal 包 + calibration summary 记录 + 新 FINAL SHA/remote CI。**
 
 ---
 
@@ -1729,9 +1729,45 @@ schema: structure plan/manifest = m25-1（独立 schema，不复用 m24-2）
 [✓] remote CI on FINAL SHA — run 35297439976
 ```
 
-### 10.1.5 Blocker E — machine structure precision 必须独立校准
+### 10.1.5 Blocker E — machine structure precision 必须独立校准 ✅ IMPLEMENTED @ 5a4a486（待用户逐项裁决）
 
-`73819a9` 的 machine split gate 目前仍以 frozen C split gate 为核心：
+实现记录（`5a4a486`，CI `35299909323`，279 passed）：
+
+```text
+src/agent2utau/structure_calibration.py (schema m25-cal-1)
+→ plan_calibration: 每个 machine candidate → review-shaped item
+  （精确 repair patch + blind_order 的 [baseline, candidate] 对
+  + phrase_window + context + plan_hash），确定性重建，repair_id/
+  patch 与 repair plan 完全一致
+→ build_calibration: 共享 SOURCE phrase clip + 双 option 渲染
+  （同一 bridge/singer/tempo/gain/provenance），manifest 记录
+  repair_id + patch_sha256 + candidate/baseline role
+→ decide(): verify_package 逐字门槛 → OPTION_i 映射 role →
+  human_confirmed_machine_split / machine_structure_false_positive /
+  no_demonstrated_benefit / unresolved；append-only decisions.json
+  + supersede；rebuild_calibration_state 输出 spec 要求的全部
+  计数字段 + measured_song_level_precision
+→ calibration_authorized(): machine repair 唯一授权门 — 最新非
+  superseded decision 必须 confirmed + patch_sha 一致 + aph 仍
+  逐字可重算；其余一律无授权
+→ build_structure_plan: 未确认 machine candidate →
+  calibration_pending（可审计、不应用）；verify_freshness:
+  confirmed 后被 supersede → calibration_revoked stale
+→ CLI: structure-calib-plan / structure-calib（交互 blind A/B）
+  / structure-calib-decide / structure-calib-status
+
+附带修复的共享 latent bug：split parent 无 aligned lyric char 时
+第一个 child 变成悬空 '+' extender（gap → render 拒绝）；first
+child 现在回退与未匹配 note 相同的中性 'a'。
+
+真实 run diag-20260917-181538-6aec：
+21/21 包渲染完成且 verify_package 全部 valid；
+plan = 21 calibration_pending + 1 human eligible；
+trusted corrected score = 504→505（仅 human split note_0301）；
+189.84s=58.12 / 202.52s=65.3 不变；C0 file hash 不变。
+```
+
+原始规格（保留）：
 
 ```text
 C → TRUE_SPLIT_CANDIDATE
@@ -1850,9 +1886,11 @@ per-item evidence / patch / phrase package hash / decision
 
 ---
 
-### 10.1.6 Blocker F — merge 必须验证 temporal adjacency
+### 10.1.6 Blocker F — merge 必须验证 temporal adjacency ✅ IMPLEMENTED @ 5a4a486
 
-当前 `validate_structure_patch()` 的 merge adjacency 主要验证 Candidate-0 index 连续：
+已实现：`MERGE_ADJ_TOL_S = 0.06`（一个 F0 frame + onset snap 容差，代码注释说明语义）；`validate_structure_patch` merge 分支在 index-contiguous 之外逐对验证 `gap = next.start - prev.end`，`gap > tol → merge_temporal_gap`、`gap < -tol → merge_temporal_overlap`；merged span 仍须等于连续 union。F1–F5 回归在 `test_structure_repair.py::test_merge_temporal_adjacency`（精确共享边界 / tol 内小 gap 允许；0.07s/0.5s/1.0s gap 与 material overlap 拒绝；3-note merge 桥接 >tol gap 拒绝）；F6 由全套结构测试 + 真实 run 覆盖。
+
+原始规格（保留）：
 
 ```text
 note_i, note_i+1
@@ -1920,26 +1958,31 @@ B. Human structure
    [✓] no re-review for same exact package
 
 C. Machine split precision
-   [ ] all 21 current machine splits packaged for phrase A/B
-   [ ] all 21 adjudicated or explicitly unresolved
-   [ ] only human-confirmed splits enter trusted corrected score
-   [ ] false positives/equivalent/none-correct remain no-repair
-   [ ] calibration summary recorded
+   [✓] all 21 current machine splits packaged for phrase A/B
+       （`structure_calibration/` 21 items rendered, verify_package
+       全部 valid @5a4a486）
+   [ ] all 21 adjudicated or explicitly unresolved  ← 待用户裁决
+   [✓] only human-confirmed splits enter trusted corrected score
+       （calibration_authorized 门已生效：plan=21 pending+1 human，
+       trusted score=504→505）
+   [✓] false positives/equivalent/none-correct remain no-repair
+       （3 个 parametrized outcome 回归全过）
+   [ ] calibration summary recorded  ← 随用户裁决自动产生
 
 D. Merge correctness
-   [ ] temporal-adjacency gate implemented
-   [ ] gap/overlap regressions green
+   [✓] temporal-adjacency gate implemented（MERGE_ADJ_TOL_S=0.06）
+   [✓] gap/overlap regressions green（F1–F5 + 全量 279）
 
 E. Permanent safety
-   [ ] 189.84s no false repair
-   [ ] 202.52s no false repair
-   [ ] Candidate 0 file hash unchanged
+   [✓] 189.84s no false repair（trusted score 中 58.12 不变）
+   [✓] 202.52s no false repair（65.3 不变）
+   [✓] Candidate 0 file hash unchanged
 
 F. Final remote gate
-   [ ] new FINAL implementation SHA
-   [ ] GitHub Actions checkout == FINAL SHA
-   [ ] pytest success
-   [ ] no skipped/disabled core regression
+   [✓] new FINAL implementation SHA `5a4a486`
+   [✓] GitHub Actions checkout == FINAL SHA（run 35299909323）
+   [✓] pytest success（279 passed）
+   [✓] no skipped/disabled core regression
 ```
 
 完成后才允许：
@@ -2097,7 +2140,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← CURRENT / CALIBRATION HOLD（engine PASS @ 73819a9）
+### M2.5 — PROBABLE structure repair — ← CALIBRATION HOLD（engine+calibration infra PASS @ 5a4a486 / CI 35299909323；freeze 待 21 项人工 A/B 裁决）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop

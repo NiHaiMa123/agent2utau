@@ -662,7 +662,40 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
 - +22 regressions in tests/test_pre_m25_integrity.py (A1-A5, B1-B6,
   C1-C5, D1-D6). M2.5 structure repair is now UNBLOCKED.
 
-## M2.5 PROBABLE structure repair — PASS @ 73819a9 (CI 35297439976, 272)
+## M2.5 PROBABLE structure repair — ENGINE PASS @ 73819a9 (CI 35297439976);
+##  CALIBRATION INFRA PASS @ 5a4a486 (CI 35299909323, 279) — FREEZE HELD
+
+- §10.1.5 Blocker E: `structure_calibration.py` (schema m25-cal-1) —
+  machine `TRUE_SPLIT/MERGE_CANDIDATE` is evidence, never repair truth.
+  `plan_calibration` rebuilds review-shaped items (exact repair patch,
+  blind_order [baseline,candidate] pair, shared phrase window/context/
+  profile) deterministically — repair_id/patch match the repair plan.
+  `build_calibration` clips shared SOURCE phrases + renders both
+  options through the same bridge/provenance. `decide()` byte-verifies
+  the package, maps the blinded OPTION to its role →
+  human_confirmed_machine_split / machine_structure_false_positive /
+  no_demonstrated_benefit / unresolved; append-only decisions.json +
+  supersede; rebuild_calibration_state emits the spec's count fields +
+  measured_song_level_precision.
+- `calibration_authorized(run, repair_id, patch)` is the ONLY machine
+  authority: latest non-superseded confirmed decision + patch_sha match
+  + aph still re-verifying byte-for-byte. Plan marks unconfirmed
+  candidates `calibration_pending` (auditable, never applied);
+  verify_freshness stales a revoked confirmation.
+- §10.1.6 Blocker F: merge needs index-contiguous AND temporal-adjacent
+  — every pair's gap within MERGE_ADJ_TOL_S=0.06 (one F0 frame + snap);
+  merge_temporal_gap / merge_temporal_overlap reject.
+- Shared latent bug fixed (review/render.py): a split whose parent had
+  no aligned lyric char made the FIRST child a dangling '+' extender
+  (gap → 'extender must touch'); first child now falls back to 'a'.
+- CLI: structure-calib-plan / structure-calib (interactive blind A/B,
+  same key conventions as review) / structure-calib-decide /
+  structure-calib-status.
+- Real run: 21 packages rendered + verify valid; plan = 21 pending +
+  1 human eligible; trusted corrected score = 504→505 (human split
+  note_0301 only); permanent regressions + C0 hash unchanged.
+- FREEZE still held pending the user's 21-item A/B adjudication +
+  calibration summary + final SHA/CI.
 
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
