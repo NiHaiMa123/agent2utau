@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**A/B/C/D + M2.4 + Pre-M2.5 Freeze Integrity 全部 PASS。Integrity acceptance = `42cb1be`，remote CI run `35293468251` = success，242 passed / 0 failed；M2.5 structure repair = UNBLOCKED，当前最高优先级 = M2.5（human-blocked_structure authority 可直接复用，无需重审）。已修补：① structure 未定时 provisional B 的 GAME pitch group 对 aggregate `consensus.run_tones` 置 neutral；② C 中 missing / insufficient boundary or GAME-structure evidence = neutral（`1 - nonf0` 与 `n_runs==0 -> game_one=1.0` 已移除）；③ M2.4 repair plan 同时绑定 Candidate-0 semantic notes hash 与 `baseline_game.json` full-file sha256。**
+> 当前阶段：**Pre-M2.5 Freeze Integrity 仍为 CURRENT / HOLD，M2.5 structure repair = BLOCKED。`42cb1be` + CI `35293468251`（242 passed）已确认修复 Blocker A/B，并让“新生成的” M2.4 repair plan 同时绑定 Candidate-0 semantic notes hash 与 `baseline_game.json` full-file sha256；但 follow-up review 发现 legacy repair plan 仍可 fail-open：旧 `m24-1` plan 若缺 `candidate0_file_sha256`，当前 `verify_freshness()` 会跳过 file-hash 验证并继续 apply。当前唯一 blocker = legacy repair-plan fail-closed：缺 dual binding / 旧 schema 的 plan 必须 stale/reject，要求重新 `repair-plan`。修复该点并取得新的 FINAL SHA + remote CI green 前，不得启动 M2.5。**
 
 ---
 
@@ -303,7 +303,7 @@ M2.4 只能修改 discrete written score。PITD / portamento / vibrato / style �
 
 ---
 
-# 6. Pre-M2.5 Freeze Integrity Patch ✅ PASS @ 42cb1be (CI 35293468251, 242 passed)
+# 6. Pre-M2.5 Freeze Integrity Patch ← CURRENT / HOLD
 
 > 目标：**修复已经冻结阶段之间的跨阶段完整性缺口，不重新设计 B/C/M2.4。**
 >
@@ -590,7 +590,85 @@ C5. same exact Candidate-0 artifact + same authority
 
 ---
 
-## 6.4 Scope guard
+## 6.4 Blocker D — legacy repair plan 必须 fail-closed
+
+```text
+42cb1be 已保证：
+新 build_plan()
+→ candidate0_notes_sha256
+→ candidate0_file_sha256
+→ apply 可验证 exact Candidate-0 artifact
+
+但 legacy m24-1 repair_plan.json 可能没有 candidate0_file_sha256。
+当前 verify_freshness() 逻辑：
+plan.get("candidate0_file_sha256") is not None
+→ 才验证 full-file hash
+
+因此：
+旧 plan 缺 file hash
+→ 跳过验证
+→ notes 未变化时仍可能继续 apply
+```
+
+这违反本阶段的严格 freshness / fail-closed contract。旧 plan 不能因为“字段不存在”获得兼容性豁免。
+
+### Required fix
+
+```text
+1. repair-plan schema 必须能够区分 dual-binding plan。
+   推荐：
+   REPAIR_SCHEMA: m24-1 → m24-2
+   或等价的显式 binding/schema version。
+
+2. repair-apply / verify_freshness 必须 fail-closed：
+   missing candidate0_notes_sha256 → stale/reject
+   missing candidate0_file_sha256 → stale/reject
+   candidate0_file_sha256 == null/None → stale/reject
+   unsupported/legacy repair schema → stale/reject
+
+3. build_plan 必须要求 baseline_game.json exact artifact 存在。
+   无法取得 full-file sha256 时不得生成可 apply 的 plan。
+
+4. legacy m24-1 plan 不做 silent migration，不从当前文件补算缺失 hash，
+   不猜它当时绑定了哪个 Candidate-0 artifact：
+   → reject/stale
+   → 要求重新 repair-plan。
+
+5. 新 plan 的 plan_hash 必须覆盖 schema + 两个 Candidate-0 bindings。
+```
+
+### Required regressions
+
+```text
+D1. legacy m24-1 plan，缺 candidate0_file_sha256
+    → repair-apply hard refuse / stale
+
+D2. current/new schema，但 candidate0_file_sha256 missing 或 None
+    → hard refuse / stale
+
+D3. current/new schema，但 candidate0_notes_sha256 missing
+    → hard refuse / stale
+
+D4. baseline_game.json 不存在
+    → build_plan hard fail；不得产生可 apply plan
+
+D5. exact new dual-bound plan
+    → 正常 apply
+
+D6. legacy plan 不能通过“读取当前 baseline_game.json 后补 hash”自动迁移
+    → 必须重新 build_plan
+```
+
+完成本 blocker 前：
+
+```text
+PRE-M2.5 INTEGRITY != PASS
+M2.5 = BLOCKED
+```
+
+---
+
+## 6.5 Scope guard
 
 本 patch **禁止顺手扩大范围**：
 
@@ -611,12 +689,13 @@ C5. same exact Candidate-0 artifact + same authority
 B provisional/finalization evidence routing
 C evidence availability / neutral semantics
 M2.4 Candidate-0 freshness binding
+legacy repair-plan schema / dual-binding fail-closed
 对应 regression / docs / audit fields
 ```
 
 ---
 
-## 6.5 Freeze Integrity Acceptance Matrix
+## 6.6 Freeze Integrity Acceptance Matrix
 
 全部满足才允许重新标记：
 
@@ -657,45 +736,59 @@ M2.5 = UNBLOCKED
 17. corrected-score/manifest record both base hashes
 ```
 
+### D — Legacy repair-plan fail-closed
+
+```text
+18. legacy/unsupported repair schema cannot authorize apply
+19. missing candidate0_notes_sha256 = stale/reject
+20. missing candidate0_file_sha256 = stale/reject
+21. candidate0_file_sha256 null/None = stale/reject
+22. build_plan without baseline_game.json exact bytes = hard fail
+23. legacy plan is never silently migrated by backfilling current hashes
+24. only a freshly regenerated dual-bound plan may proceed to apply
+```
+
 ### Permanent safety / regression
 
 ```text
-18. 189s no false machine repair
-19. 202s no false machine repair
-20. virtual GAME correspondence tests green
-21. D stable-target/exact-audio authority tests green
-22. M2.4 human-selected authorization tests green
-23. M2.4 conflict/dedupe/rollback tests green
-24. 0 repair remains legal
-25. no structure auto-repair introduced
+25. 189s no false machine repair
+26. 202s no false machine repair
+27. virtual GAME correspondence tests green
+28. D stable-target/exact-audio authority tests green
+29. M2.4 human-selected authorization tests green
+30. M2.4 conflict/dedupe/rollback tests green
+31. 0 repair remains legal
+32. no structure auto-repair introduced
 ```
 
 ### Remote gate
 
 ```text
-26. new FINAL implementation SHA
-27. GitHub Actions workflow exists for that SHA
-28. core pytest == success
-29. new A/B/C regressions included
-30. no skipped/disabled core regression
+33. new FINAL implementation SHA after Blocker D fix
+34. GitHub Actions workflow exists for that exact SHA
+35. core pytest == success
+36. A/B/C/D integrity regressions included
+37. legacy-plan fail-closed regressions included
+38. no skipped/disabled core regression
 ```
 
 完成后在本节记录：
 
 ```text
-acceptance SHA: 42cb1be
-remote CI run: 35293468251 = success
-pytest: 242 passed / 0 failed / 0 skipped
-real-run diagnostic: diag-20260917-181538-6aec — repair-plan 0 machine
-  candidates, human split selection blocked_structure, apply →
-  corrected score == Candidate 0
-189s: no machine repair (auto_resolved → no repair_candidate)
-202s: no machine repair (needs_phrase_review)
-Candidate-0 notes sha: d5dc30afcf565a06...
-Candidate-0 file sha: 09c1c1d00e97dda0...
+partial implementation SHA: 42cb1be
+partial remote CI run: 35293468251 = success
+pytest at 42cb1be: 242 passed / 0 failed / 0 skipped
+status: PARTIAL PASS ONLY — Blocker D remains open
+real-run diagnostic at 42cb1be: diag-20260917-181538-6aec
+189s: no machine repair
+202s: no machine repair
+Candidate-0 dual binding for newly generated plans: implemented
+legacy m24-1 / missing-file-hash plan fail-closed: NOT YET ACCEPTED
+final acceptance SHA: pending
+final remote CI run: pending
 ```
 
-**PRE-M2.5 INTEGRITY = PASS @ 42cb1be → M2.5 UNBLOCKED（实现待启动）**
+**42cb1be = PARTIAL PASS（Blocker A/B/C-new-plan path fixed）；Blocker D legacy-plan fail-open 尚未关闭。PRE-M2.5 INTEGRITY 仍未 PASS，M2.5 保持 BLOCKED。**
 
 ---
 
@@ -1567,8 +1660,8 @@ rollback coverage
 ### M2.3.2D Migration Integrity — ✅ IMPLEMENTED @ 905f144
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
-### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 42cb1be / CI 35293468251
-### M2.5 — PROBABLE structure repair — ← CURRENT (UNBLOCKED)
+### Pre-M2.5 Freeze Integrity Patch — ← CURRENT / HOLD（42cb1be partial pass；legacy-plan fail-closed pending）
+### M2.5 — PROBABLE structure repair — ⛔ BLOCKED until final integrity acceptance
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -1630,6 +1723,7 @@ rollback coverage
 49. structure 未 finalized 时，identity-unsafe aggregate GAME run_tones 不得成为 finalized pitch support。
 50. missing/insufficient structure evidence 必须 neutral，不得通过 complement 或默认值变成 H0 support。
 51. M2.4 repair plan 必须同时绑定 Candidate-0 semantic notes hash 与 full-file sha256。
-52. Pre-M2.5 integrity acceptance 未通过前，不得启动 structure repair。
-53. 先把 written score 唱对，再生成 PITD。
-54. 先“唱对”，再做泠鸢风格。
+52. legacy / unsupported / 缺任一 Candidate-0 binding 的 repair plan 必须 fail-closed；不得 silent migration 或补算当前 hash 后继续 apply。
+53. Pre-M2.5 integrity acceptance 未通过前，不得启动 structure repair。
+54. 先把 written score 唱对，再生成 PITD。
+55. 先“唱对”，再做泠鸢风格。
