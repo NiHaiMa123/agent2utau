@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**A/B/C/D + M2.4 + Pre-M2.5 Freeze Integrity + M2.5 structure repair 全部 PASS。M2.5 FINAL acceptance = `73819a9`；remote CI run `35297439976` 已核验 checkout 的正是 `73819a996d64ac33c6eb69e1c71036eb53557c0a`，pytest = 272 passed / 0 failed（18.76s）。已实现：① structure plan/apply 契约（schema `m25-1`），split / merge / boundary-shift 分开建模；② human path 直接复用 M2.4 `blocked_structure` 的 `repair_authorized_decision` snapshot（revision + target_key + audio_package_hash，无需重审）；③ machine path 仅物化 frozen `resolved_change_candidate` + operation-specific precision gate（identity-safe child mapping / boundary confidence / min child duration / merge adjacency+span legality / shift monotonic+no-overlap）；④ `canonical_plan_hash` apply 时重算（P2 hardening 完成，同时覆盖 M2.4 plan）；⑤ Candidate 0 双 hash + plan_hash + authority 三重 freshness，conflict/dedupe/rollback 与 C0 immutability 与 M2.4 同契约。真实 run `diag-20260917-181538-6aec`：22 repairs（21 machine split + 1 human split），189.84s/202.52s 永久回归逐字段不变，C0 文件 hash 不变。当前最高优先级推进到 lyrics ↔ melody mapping（M2.7）。**
+> 当前阶段：**M2.5 structure repair ENGINE 已实现并通过基础设施验收 @ `73819a9`（remote CI `35297439976`，272 passed / 0 failed，18.76s），但 M2.5 FINAL FREEZE 暂缓，M2.7 lyrics mapping 继续 BLOCKED。Human-selected structure path、`m25-1` plan/apply、Candidate-0 双 hash、authority freshness、conflict/dedupe/rollback、`canonical_plan_hash` tamper-evidence 均可保留为 PASS。当前唯一 correctness 主线是 machine structure precision calibration：真实 run `diag-20260917-181538-6aec` 产生的 21 个 machine split 目前只能视为候选，不能因为 C 已给 `TRUE_SPLIT_CANDIDATE` 再复查同一 frozen split gate 就自动成为 trusted written-score repair；需用完整 phrase A/B（Baseline vs Split）逐项验证。另有一个实现 blocker：merge 当前只验证 Candidate-0 索引连续，必须增加时间连续性检查，禁止把真实 gap 吞进 merged note。1 个已有 human-selected split 可继续按现有 authority 合法应用。完成 machine split calibration + merge temporal-adjacency patch + 新 FINAL SHA/remote CI 后，才允许 M2.5 FROZEN 并进入 M2.7。**
 
 ---
 
@@ -1516,7 +1516,7 @@ none_correct gen2
 
 # 10. M2.5+ 后续阶段边界
 
-## 10.1 M2.5 — PROBABLE structure repair ✅ PASS @ 73819a9 (CI 35297439976, 272 passed)
+## 10.1 M2.5 — PROBABLE structure repair ← CURRENT / CALIBRATION HOLD
 
 M2.4 v1 不实现 structure repair。Pre-M2.5 integrity 已通过，因此 M2.5 可以正式开始，但 **structure repair 仍需自己的 precision / identity / rollback acceptance**，不能因为 upstream 已冻结就自动视为安全。
 
@@ -1692,18 +1692,19 @@ P2 audit hardening
 
 Human-selected structure candidate 可以作为 M2.5 输入，但仍需 structure repair gate；“用户听起来选了它”不等于可以无条件开放所有 structure auto-repair。
 
-### M2.5 acceptance record — ✅ PASS @ 73819a9 / CI 35297439976
+### M2.5 implementation record — ✅ ENGINE PASS @ 73819a9 / CI 35297439976; FINAL FREEZE HOLD
 
 ```text
 FINAL implementation SHA: 73819a996d64ac33c6eb69e1c71036eb53557c0a
 remote CI: run 35297439976 → success, pytest 272 passed / 0 failed (18.76s)
 schema: structure plan/manifest = m25-1（独立 schema，不复用 m24-2）
 
-验收核对：
-[✓] structure precision 独立 acceptance — 24 个 operation-specific
-    测试（split/merge/boundary-shift legality、machine gate
-    fail-closed 9 参数化、conflict/dedupe、rollback、plan_hash
-    tamper、legacy schema refuse、0-repair 合法）
+实现核对：
+[⚠] structure precision FINAL acceptance 尚未成立。
+    当前 24 个 operation-specific tests 证明的是 patch legality、
+    lifecycle、fail-closed、rollback、tamper detection；它们不证明
+    C 的 TRUE_SPLIT_CANDIDATE 在真实歌曲上的 false-positive rate
+    已低到足以自动修改 written score。
 [✓] split patch identity + rollback — children 精确 tile parent
     span @boundary、child tone 只能来自 resolved virtual-B winner
     （identity-safe child mapping）、MIN_SPLIT_DUR_S、subset/zero
@@ -1719,11 +1720,247 @@ schema: structure plan/manifest = m25-1（独立 schema，不复用 m24-2）
 [✓] structure no-false-repair — needs_phrase_review / unresolved /
     缺 boundary confidence / separation-sensitive / vb unresolved
     均不得 materialize
-[✓] real-run phrase-context verification — diag-20260917-181538-6aec
-    504→526 notes（21 machine split + 1 human split note_0301）
-    monotonic/no-overlap/non-target verbatim；189.84s（58.12）与
-    202.52s（65.3）永久回归逐字段不变；C0 文件 sha256 不变
+[⚠] real-run engine output — diag-20260917-181538-6aec
+    engine 可生成 21 machine split + 1 human split；但其中 21 个
+    machine split 尚未经过独立 phrase-level precision calibration，
+    因此 504→526 只能视为 candidate corrected score，不能作为
+    trusted final written score。1 个 human split authority 不受此 hold
+    影响。189.84s / 202.52s 永久回归与 C0 immutability 仍 PASS。
 [✓] remote CI on FINAL SHA — run 35297439976
+```
+
+### 10.1.5 Blocker E — machine structure precision 必须独立校准
+
+`73819a9` 的 machine split gate 目前仍以 frozen C split gate 为核心：
+
+```text
+C → TRUE_SPLIT_CANDIDATE
+→ M2.5 再验证同一 dual-F0 / non-F0 / GAME split 条件
+→ virtual-B child pitch 已 resolved
+→ patch legality OK
+→ auto materialize
+```
+
+其中 virtual-B、finite tone、minimum child duration、separation sensitivity 等检查可以证明：
+
+```text
+如果应该 split，patch 应该怎样合法执行 / child 应该唱什么 pitch
+```
+
+但不能独立证明：
+
+```text
+这里真的应该从 one written note 改成 two written notes
+```
+
+因此 synthetic unit tests != structure precision acceptance。
+
+#### 当前 real-run calibration set
+
+以 `diag-20260917-181538-6aec` 的 **21 个 machine split** 作为本轮完整校准集。Calibration 完成前：
+
+```text
+machine_structure candidate 可以生成 / 审计 / 渲染
+但 status 不得作为 trusted auto-apply authority
+不得直接进入最终 written score
+不得以 504→526 作为 M2.5 最终正确结果
+```
+
+已有 human-selected split 不受此限制，因为它已有 exact-audio human authority。
+
+#### Phrase-level A/B calibration UX
+
+每个 machine split 生成完整短句对比：
+
+```text
+SOURCE: 原曲或 separated vocal，供语境参考
+Baseline: Candidate 0 / 未 split
+Split: M2.5 machine candidate
+
+同一 phrase window
+同一 singer / tempo / renderer / gain
+除 target split 外其余 score 完全相同
+默认 5–8s，必要时 3–12s
+```
+
+用户只需要选择：
+
+```text
+Baseline 更对
+Split 更对
+都差不多
+都不对
+```
+
+禁止要求用户判断 MIDI / Hz / cents / octave。
+
+Decision semantics：
+
+```text
+Split 更对
+→ human_confirmed_machine_split
+→ 当前歌曲可进入 structure corrected score
+
+Baseline 更对
+→ machine_structure_false_positive
+→ keep Candidate 0
+→ 记录 false-positive evidence
+
+都差不多
+→ no demonstrated benefit
+→ keep Candidate 0（最小修改原则）
+
+都不对
+→ unresolved / manual_followup_required
+→ no repair
+```
+
+#### Calibration output / acceptance
+
+必须记录：
+
+```text
+total_machine_split_candidates = 21
+reviewed_count
+split_preferred_count
+baseline_preferred_count
+equivalent_count
+none_correct_count
+measured_song_level_precision
+per-item evidence / patch / phrase package hash / decision
+```
+
+对《年轮》当前 written score：
+
+```text
+只有 human-confirmed machine splits + 已合法 human-selected structure
+可以进入 trusted corrected score。
+```
+
+若出现任一 Baseline preferred / none_correct：
+
+```text
+不得宣称 frozen C gate 已具备 universal auto-repair precision；
+先分析 false-positive pattern，再决定是否新增独立结构证据
+（例如 onset / spectral flux / articulation boundary）或收紧 gate。
+```
+
+更广泛的跨歌曲 fully automatic structure repair，需要额外独立校准集；
+本轮 21 个样本只能完成《年轮》的 song-level acceptance，不能证明 universal precision。
+
+---
+
+### 10.1.6 Blocker F — merge 必须验证 temporal adjacency
+
+当前 `validate_structure_patch()` 的 merge adjacency 主要验证 Candidate-0 index 连续：
+
+```text
+note_i, note_i+1
+```
+
+但 index-adjacent 不等于 time-contiguous。以下情况必须拒绝：
+
+```text
+note A: [10.0, 10.5]
+gap:    1.0s
+note B: [11.5, 12.0]
+
+不能 merge → [10.0, 12.0]
+```
+
+否则会把真实 silence / articulation gap 吞进一个持续音。
+
+#### Required fix
+
+merge validation 必须同时满足：
+
+```text
+1. Candidate-0 indices contiguous
+2. every adjacent pair is temporally contiguous within an explicit tolerance
+3. merged span equals the continuous union
+4. no hidden positive gap larger than tolerance
+5. no overlap beyond allowed timing tolerance
+```
+
+新增显式常量，例如：
+
+```text
+MERGE_ADJ_TOL_S
+```
+
+其值必须有代码注释说明时间量化/容差语义，禁止无限制吸收 gap。
+
+#### Required regressions
+
+```text
+F1. contiguous indices + exact shared boundary → allow
+F2. contiguous indices + small gap within MERGE_ADJ_TOL_S → allow
+F3. contiguous indices + gap > tolerance → reject merge_temporal_gap
+F4. contiguous indices + material overlap > tolerance → reject
+F5. merged span cannot bridge rejected gap
+F6. existing real-run split behavior / human authority / rollback 不回归
+```
+
+---
+
+### 10.1.7 M2.5 FINAL acceptance gate
+
+M2.5 只有同时满足以下条件才允许从 CURRENT / CALIBRATION HOLD 改为 FROZEN：
+
+```text
+A. Engine / lifecycle
+   [✓] m25-1 plan/apply
+   [✓] Candidate-0 immutable
+   [✓] dual hash + authority freshness
+   [✓] plan_hash tamper-evidence
+   [✓] conflict/dedupe/rollback
+
+B. Human structure
+   [✓] valid blocked_structure authority reuse
+   [✓] no re-review for same exact package
+
+C. Machine split precision
+   [ ] all 21 current machine splits packaged for phrase A/B
+   [ ] all 21 adjudicated or explicitly unresolved
+   [ ] only human-confirmed splits enter trusted corrected score
+   [ ] false positives/equivalent/none-correct remain no-repair
+   [ ] calibration summary recorded
+
+D. Merge correctness
+   [ ] temporal-adjacency gate implemented
+   [ ] gap/overlap regressions green
+
+E. Permanent safety
+   [ ] 189.84s no false repair
+   [ ] 202.52s no false repair
+   [ ] Candidate 0 file hash unchanged
+
+F. Final remote gate
+   [ ] new FINAL implementation SHA
+   [ ] GitHub Actions checkout == FINAL SHA
+   [ ] pytest success
+   [ ] no skipped/disabled core regression
+```
+
+完成后才允许：
+
+```text
+M2.5 = FROZEN
+trusted structure-corrected score = human-selected + human-confirmed machine candidates
+M2.7 lyrics mapping = UNBLOCKED
+```
+
+#### Compatibility note — pre-738 m24-2 plans
+
+`73819a9` 引入新的 `canonical_plan_hash()` 并让 M2.4 apply 也重算 hash；因此在该 commit 之前生成的旧 `m24-2` plan 即使 schema 相同，也可能因 canonical hash 算法变化被判 stale。
+
+这是 fail-closed 行为，不是 correctness blocker：
+
+```text
+pre-738 m24-2 plan
+→ regenerate repair-plan
+→ use current canonical hash
+→ do not silently migrate / backfill
 ```
 
 ## 10.2 M2.6 — Optional second opinion
@@ -1860,7 +2097,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ✅ PASS @ 73819a9 / CI 35297439976
+### M2.5 — PROBABLE structure repair — ← CURRENT / CALIBRATION HOLD（engine PASS @ 73819a9）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -1925,6 +2162,9 @@ rollback coverage
 52. legacy / unsupported / 缺任一 Candidate-0 binding 的 repair plan 必须 fail-closed；不得 silent migration 或补算当前 hash 后继续 apply。
 53. Pre-M2.5 integrity acceptance 未通过前，不得启动 structure repair。
 54. structure repair 必须 operation-specific（split / merge / boundary-shift）并具备独立 identity、freshness、rollback contract。
-55. `plan_hash` 应在 apply 时可重算验证；当前属于非阻塞 P2 tamper-evidence hardening，不得替代 Candidate-0/authority freshness gate。
-56. 先把 written score 唱对，再生成 PITD。
-57. 先“唱对”，再做泠鸢风格。
+55. machine `TRUE_SPLIT_CANDIDATE` 不是自动 repair truth；在 precision 未经独立校准前，只能作为候选，不能仅复查同一 C gate 后直接进入 trusted written score。
+56. 当前《年轮》的 machine split 必须通过 phrase-level Baseline vs Split calibration；只有 human-confirmed split 才能进入 trusted corrected score。
+57. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
+58. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
+59. 先把 written score 唱对，再生成 PITD。
+60. 先“唱对”，再做泠鸢风格。
