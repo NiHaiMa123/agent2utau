@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = READY FOR USER REVIEW（G5H QC authority binding 已关闭）。最终 honest pilot = 4 组 `note_0061/0188/0192/0379`，全部 `real_lyric_review / rlv2`、USTX 无 `a`、`auto_review_ready=True`。QC PASS verdict（`b646a72` 已提交）现绑定 **exact sample set**：4 个 cal_item_id 共享 `contract_sha256=94077436`（rlv2，非 plan 顶层 nv1 `c54f07d6`）+ `pilot_review.json` payload sha `eae594b1` + 每项 `audio_package_hash`；任一 roster/payload/package/contract 变化自动 stale → `review_ready=false`。`git_evidence` 升级为**字节级**：tracked-but-dirty（已改未提交）不算 committed evidence。当前 `review_ready=true`（git_evidence 468/468 complete、plan_invariants ok、CI 绿、321 tests）。下一步：用户正式试听 4 组完整一句 SOURCE/A/B → `structure-calib-decide` 记录正式 calibration decisions。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（新增 Lyric Timing Gate，暂停用户 A/B 审核）。G5H 的 exact-pilot QC authority 已完成且 `review_ready=true` 仅能证明 package / contract / Git binding / signal QC 一致，不能证明生成歌词的逐字发音时间与原唱一致。2026-09-18 用户试听发现：歌词文本虽然正确，但单字落点明显不在原唱对应时间，导致当前 A/B 无法可靠判断结构。代码审查确认 `review_lyrics()` 当前只用 source `char.start` 决定“字符挂到哪颗 note”，最终 DiffSinger 发音却从该 note 的 `note.start` 开始；系统没有约束 `char.start ≈ note.start`，也未消费 `char.end`，因此会系统性把落在长 note 中间开始的汉字提前到 note 起点。下一步必须先建立 **Lyric Timing Gate**：保存 source force-align 逐字时间 → 构建 render-only lyric articulation overlay（必要时在同音高 note 内按 char onset 做 same-pitch split，不修改 Candidate 0 written score）→ 渲染 A/B → 对 A/B 使用同一 ASR/force-align 再取逐字时间 → 量化 source↔A/B 的 onset/offset/duration delta；只有 timing QC PASS 后，才允许重新生成 human-review package、重新 QC PASS 并恢复用户审核。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -3441,6 +3441,312 @@ structure-calib-qc ... --pass --auditor devin \
 
 旧 `c54f07` verdict（无 pilot 绑定）自动失效 —— review_ready
 不再消费 plan 顶层合同，死锁解除。Final acceptance 全满足。
+
+
+#### G5I Lyric Timing Gate（当前 blocker：真实歌词时间必须先对齐）
+
+G5H 解决了 QC authority / pilot contract 的错误绑定，但用户正式试听暴露出一个更基础的问题：**歌词文本正确 ≠ 歌词时间正确**。当前 human review package 的歌词落点与原唱存在明显偏移，导致 reviewer 无法可靠判断 split / baseline。
+
+本节优先级高于继续 A/B calibration：在 timing gate 通过前，`review_ready=true` 只能解释为“artifact authority ready”，**不得解释为“human-audio perceptual review ready”**。
+
+##### Root cause — 当前 `review_lyrics()` 没有保留 source char timing
+
+当前逻辑：
+
+```text
+source force_align char.start
+→ 找第一个 note.end > char.start 的未使用 note
+→ 把 char 挂到这颗 note
+→ OpenUtau / DiffSinger 从 note.start 开始唱这个 char
+```
+
+当前只使用 `char.start` 选择 carrier；没有要求：
+
+```text
+abs(note.start - char.start) <= tolerance
+```
+
+也没有用 `char.end` 约束字尾。因此如果原唱的某个字在一颗长 note 中间才开始，生成版会把该字提前到整颗 note 的起点。
+
+这不是普通 lyric text mapping bug，而是缺少一层：
+
+```text
+source lyric articulation timing
+```
+
+##### Required architecture — written score 与 lyric articulation 分离
+
+禁止为了匹配歌词时间直接修改 Candidate 0 的 written-score authority。
+
+应引入 **render-only lyric articulation overlay**：
+
+```text
+Candidate 0 / A / B written score
++
+source-bound lyric char timing
+→ render-only note segmentation
+→ OpenUtau render
+```
+
+规则：
+
+```text
+1. char onset 已接近某个 note boundary
+   → 直接让该 char 从该 note 开始
+
+2. char onset 落在一颗 note 内部
+   → 在该 char onset 处做 render-only split
+   → split 前后保持相同 written pitch
+   → 前段继续上一 syllable / '+'
+   → 后段开始新 char
+
+3. 这些 articulation splits:
+   → 不写回 Candidate 0
+   → 不改变 machine structure hypothesis
+   → 不算 M2.5 structure repair
+   → 只服务于歌词发音时间与 human-review rendering
+```
+
+示意：
+
+```text
+written note:
+60 |----------------------------|
+
+source chars:
+我 @ 0.00
+演 @ 0.31
+
+render-only articulation:
+60 |------------|---------------|
+   我 / +      演
+   0.00         0.31
+```
+
+##### Source char timing evidence 必须持久化
+
+当前 repo 的 manifests 只保存：
+
+```text
+n_chars
+min_probability
+```
+
+不足以审计逐字时间。以后 source force-align 必须保存完整逐字表，例如：
+
+```json
+{
+  "char": "演",
+  "start": 93.42,
+  "end": 93.71,
+  "probability": 0.81,
+  "method": "whisper-attention-dtw"
+}
+```
+
+推荐存放：
+
+```text
+diagnostic/alignment/line_*.json
+或
+structure_calibration/lyric_timing/source_chars.json
+```
+
+并将 source audio sha256 / aligner model / aligner version / params 绑定到 provenance。
+
+##### ASR / force-align comparison gate
+
+对每个 review phrase，使用**同一套 aligner**分别处理：
+
+```text
+SOURCE separated vocal
+A rendered vocal
+B rendered vocal
+```
+
+在已知歌词约束下得到逐字 timing：
+
+```text
+char
+source_start
+source_end
+A_start
+A_end
+B_start
+B_end
+confidence
+```
+
+并派生：
+
+```text
+A_onset_delta_ms = A_start - source_start
+B_onset_delta_ms = B_start - source_start
+A_offset_delta_ms = A_end - source_end
+B_offset_delta_ms = B_end - source_end
+A_duration_delta_ms
+B_duration_delta_ms
+```
+
+输出必须可审计，例如：
+
+```text
+char  source   A       ΔA      B       ΔB
+演    93.42    93.11   -310ms  93.10   -320ms
+这    93.81    93.52   -290ms  93.52   -290ms
+剧    94.35    94.42    +70ms  94.42    +70ms
+```
+
+##### Important measurement note
+
+`force_align()` 当前基于 faster-whisper attention/DTW；多汉字 token 内部仍可能被均分，因此 timing 不是毫秒级 ground truth。
+
+所以 gate 的原则是：
+
+```text
+SOURCE / A / B 必须用同一 aligner + 同一歌词 + 同一参数
+→ 主要看相对 timing delta
+→ 不把单个 ASR timestamp 当绝对真值
+```
+
+必要时后续可再加入第二独立 aligner，但第一版不需要扩大范围。
+
+##### Timing acceptance
+
+第一版先建立保守 gate，不允许为了过 gate 随意放宽。
+
+至少要求：
+
+```text
+all review chars have valid aligned timing
+no missing / reordered / duplicated lyric chars
+no char is silently mapped to a note hundreds of ms early because of carrier fallback
+A/B use the same source-bound lyric timing overlay outside declared target semantics
+per-char onset delta is measured and persisted
+phrase-level timing summary is persisted
+```
+
+建议输出统计：
+
+```text
+median_abs_onset_delta_ms
+p90_abs_onset_delta_ms
+max_abs_onset_delta_ms
+median_abs_offset_delta_ms
+n_chars_over_100ms
+n_chars_over_200ms
+```
+
+具体 PASS threshold 先由真实 pilot measurement 决定，禁止在没有数据前拍脑袋写死。
+
+##### A/B fairness under lyric articulation
+
+Lyric Timing Gate 不是为了让 A/B 变成不同歌词时间。
+
+要求：
+
+```text
+SOURCE char timing evidence = one canonical source
+A articulation overlay = derived from same canonical source
+B articulation overlay = derived from same canonical source
+```
+
+除非 declared structure operation 本身改变 target 内 note segmentation，否则：
+
+```text
+A/B lyric onset targets outside target region must be identical
+```
+
+即便 target 内 A/B note count 不同，汉字 onset anchor 仍应尽可能绑定同一个 source char onset。
+
+##### Existing G5H verdict must stale for perceptual review
+
+当前 `b646a72` G5H PASS 仍可保留为 artifact/QC 历史证据，但**不能继续授权用户结构判断**。
+
+Lyric articulation / timing semantics 一旦加入：
+
+```text
+render contract must bump
+old audio_package_hashes stale
+old pilot payload stale
+old QC PASS stale
+review_ready = false
+```
+
+然后重新：
+
+```text
+source timing evidence
+→ articulation overlay
+→ A/B re-render
+→ ASR timing QC
+→ package/hash/pilot rebuild
+→ new exact-pilot QC PASS
+→ review_ready=true
+→ 用户重新审核
+```
+
+##### Regression matrix
+
+至少新增：
+
+```text
+I1. char.start 落在 note 中间
+    → render-only articulation split at/near char.start
+    → char must not start at original note.start
+
+I2. two chars share one constant-pitch written note
+    → render may split same pitch for articulation
+    → Candidate 0 written score remains byte/semantic unchanged
+
+I3. char onset already near note boundary
+    → no unnecessary split
+
+I4. A/B outside target use identical lyric timing anchors
+
+I5. target split option changes note structure
+    → lyric timing remains bound to the same source char onsets
+
+I6. source/A/B aligned char sequence mismatch
+    → timing QC fail-closed
+
+I7. missing/low-confidence source char timing
+    → no human-review package
+
+I8. lyric articulation implementation/version changes
+    → old render contract / package / verdict stale
+
+I9. timing comparison artifacts missing
+    → review_ready=false
+
+I10. timing gate PASS + package/QC authority PASS
+     → only then human review may resume
+```
+
+##### Final acceptance
+
+G5I 只有全部满足才关闭：
+
+```text
+source char timing persisted with provenance
+render-only lyric articulation implemented
+Candidate 0 written score unchanged
+A/B re-rendered under new contract
+SOURCE/A/B same-aligner char timing comparison generated
+timing QC metrics persisted
+no material systematic lyric onset shift remains
+new package/pilot/hash/Git evidence PASS
+new exact-pilot QC PASS
+review_ready=true under the NEW timing-aware contract
+```
+
+在此之前：
+
+```text
+DO NOT ask user to choose A/B
+DO NOT record current listening result as calibration decision
+DO NOT freeze M2.5
+```
 
 ---
 
