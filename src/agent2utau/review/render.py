@@ -129,16 +129,23 @@ def lyric_map(notes, chars):
 
 
 def review_lyrics(notes, chars):
-    """§10.1.5A-G5E real-lyric review overlay (review-only — NOT the M2.7
-    trusted lyric mapping). chars are force_align evidence bound to the
-    source recording. Each hanzi lands only on the FIRST note of its
-    syllable: carrier = first unconsumed note whose span reaches the
-    char's start (a char starting inside a gap binds the FOLLOWING note
-    — never midpoint-nearest, never backwards). Notes between carriers
-    are melisma continuations ('+' when touching, 'a' after a real
-    gap). Returns None when char evidence outlives the notes — callers
-    must fail-closed rather than guess."""
-    out = ["a"] * len(notes)
+    """§10.1.5A-G5E/G5F real-lyric review overlay (review-only — NOT the
+    M2.7 trusted lyric mapping). chars are force_align evidence bound
+    to the source recording. Each hanzi lands only on the FIRST note of
+    its syllable: carrier = first unconsumed note whose span reaches
+    the char's start (a char starting inside a gap binds the FOLLOWING
+    note — never midpoint-nearest, never backwards). Every remaining
+    note is an explicit '+' continuation of the previous syllable —
+    G5F Blocker 2: a human-review asset may NEVER degrade a mapping
+    gap into an audible neutral-vowel 'a'. A '+' is legal ONLY where it
+    touches the previous note (probe-verified: OpenUtau rejects a gap-
+    separated '+' as an unrecognized phoneme) — an unmapped note after
+    a real gap therefore fails closed too: writing a guessed hanzi
+    would fabricate lyric evidence. Returns None (fail-closed) when
+    char evidence outlives the notes, has no carrier at all, leaves
+    notes before the first carrier, or leaves an unmapped note after a
+    real gap."""
+    out = [None] * len(notes)
     nxt = 0
     for c in chars:
         i = nxt
@@ -148,11 +155,16 @@ def review_lyrics(notes, chars):
             return None
         out[i] = c["char"]
         nxt = i + 1
-    for j in range(len(notes)):
-        if out[j] == "a" and j > 0 and \
-                notes[j]["start"] <= notes[j - 1]["end"] + \
-                LYRIC_EXTEND_TOUCH_S:
-            out[j] = "+"
+    first = next((j for j, o in enumerate(out) if o is not None), None)
+    if first is None or first > 0:
+        return None
+    for j in range(len(out)):
+        if out[j] is None:
+            if j > 0 and notes[j]["start"] <= \
+                    notes[j - 1]["end"] + LYRIC_EXTEND_TOUCH_S:
+                out[j] = "+"
+            else:
+                return None
     return out
 
 
@@ -188,8 +200,10 @@ def option_notes(item, option, chars):
         lyr = review_lyrics(patched, chars)
         if lyr is None:
             raise RuntimeError(
-                "real_lyric_review: aligned char evidence outlives the "
-                "phrase notes — fail-closed, no review package")
+                "real_lyric_review: char evidence can't be honestly "
+                "mapped (outlives notes, no carrier, leading notes, or "
+                "an unmapped note after a real gap where '+' is "
+                "unrenderable) — fail-closed, no review package")
         s = item["phrase"]["start"]
         return [{"lyric": l, "start": n["start"] - s,
                  "end": n["end"] - s, "dur": n["end"] - n["start"],

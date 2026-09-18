@@ -389,6 +389,10 @@ TARGET_FOCUS_PAD_S = 0.5
 TARGET_CORE_PAD_S = 0.15         # G5D: narrowest blind listening surface
 QC_DRIFT_RATIO_FLAG = 0.5        # out-of-target A/B diff rms / baseline rms
 QC_LOUDNESS_RANGE = (0.7, 1.4)   # candidate/baseline full-phrase rms
+QC_LISTEN_OUTSIDE_FLAG = 0.08    # listen surface outside-splice diff must
+                                 # stay ~0 (bit-identical by construction;
+                                 # only fade zones may differ slightly)
+QC_LISTEN_DELTA_DB_FLAG = 3.5    # constructed pair loudness delta bound
 GIT_REQUIRED_ITEM_FILES = (
     "manifest.json", "OPTION_0.wav", "OPTION_1.wav",
     "OPTION_0_LISTEN.wav", "OPTION_1_LISTEN.wav",
@@ -583,22 +587,143 @@ def _segment_ab_ratio(b, c, i0: int, i1: int):
 
 
 LISTEN_TARGET_DBFS = -16.0   # phone-friendly review level (rms)
+SPLICE_PAD_S = 0.35          # candidate segment keeps ~0.35s of its own
+                           # context on each side (covers coarticulation)
+SPLICE_SEARCH_S = 0.06       # ±60ms search for the lowest-energy cut
+SPLICE_XFADE_S = 0.04        # 40ms crossfade at each splice edge
 
 
-def _listen_copies(idir: Path, owav: dict) -> dict:
-    """§10.1.5A-G5E: ONE pair-shared listening gain for A/B — measure
-    both option wavs, derive a single gain to the target level, apply
-    the SAME gain to both. No independent normalization that could
-    flatter one option; canonical OPTION wavs are never modified."""
+def _best_lag(xa, xb, max_lag):
+    """Normalized best-lag cross-correlation of same-length windows:
+    returns (lag_samples, correlation_at_lag)."""
+    import numpy as np
+    c = np.correlate(xa - xa.mean(), xb - xb.mean(), mode="full")
+    lo = len(xa) - 1 - max_lag
+    hi = len(xa) - 1 + max_lag
+    seg = c[lo:hi + 1]
+    lag = int(np.argmax(seg)) + lo - (len(xa) - 1)
+    den = float(np.linalg.norm(xa) * np.linalg.norm(xb)) or 1e-9
+    return lag, float(c[len(xa) - 1 + lag] / den)
+
+
+def _low_energy_cut(ref, sr, t_abs, search=SPLICE_SEARCH_S,
+                    win=0.02) -> int:
+    """Lowest-energy win-second center within t_abs ± search seconds —
+    splice edges land in pauses/unvoiced spans, not on onsets."""
+    import numpy as np
+    i0 = max(0, int((t_abs - search) * sr))
+    i1 = min(len(ref), int((t_abs + search) * sr))
+    w = max(1, int(win * sr))
+    if i1 - i0 <= w:
+        return max(0, min(len(ref), int(t_abs * sr)))
+    best, bi = None, i0 + w // 2
+    step = max(1, int(0.005 * sr))
+    for s in range(i0, i1 - w, step):
+        e = float((ref[s:s + w] ** 2).mean())
+        if best is None or e < best:
+            best, bi = e, s + w // 2
+    return bi
+
+
+def _spliced_listen(base, cand, sr, region_rel) -> dict:
+    """§10.1.5A-G5F Blocker 3 — shared-context listening surface.
+
+    The renderer is DETERMINISTIC (same-ustx re-render diff < 0.001),
+    so every canonical A/B difference is causal: DiffSinger's duration
+    model attends the whole phoneme sequence, and the declared patch's
+    extra/removed phoneme propagates a ~1-2ms timing shift plus small
+    acoustic smear into context notes. A human cannot A/B sample-wise
+    — but the drift pollutes the sample-level diff metric and, worse,
+    could let a listener attribute a non-target difference.
+
+    The review surface therefore shares ONE context render: the
+    baseline option plays straight through; the candidate LISTEN copy
+    is baseline context outside [e0, e1] and the CANDIDATE's own
+    rendered audio inside — spliced at low-energy points with edge-lag
+    alignment + 40ms crossfades. Outside the splice edges A and B are
+    bit-identical, so non-target drift is zero BY CONSTRUCTION; inside
+    them the candidate's real timing/structure is the evidence.
+    Canonical OPTION wavs are never touched — they remain the
+    hash-bound decision authority and their honest full-render drift
+    is recorded in signal_qc as renderer/global-context effect."""
+    import numpy as np
+    e0_rel = max(0.0, region_rel[0] - SPLICE_PAD_S)
+    e1_rel = min(len(base) / sr, region_rel[1] + SPLICE_PAD_S)
+    c0 = _low_energy_cut(base[:, 0], sr, e0_rel)
+    c1 = _low_energy_cut(base[:, 0], sr, e1_rel)
+    # align the candidate segment to the baseline at each edge —
+    # measure the local constant shift so fade zones line up exactly.
+    max_lag = int(0.01 * sr)
+    lags = {}
+    for name, cut in (("left", c0), ("right", c1)):
+        w = int(0.06 * sr)
+        xa = base[max(0, cut - w):cut + w, 0]
+        xb = cand[max(0, cut - w):cut + w, 0]
+        lag, conf = _best_lag(xa, xb, max_lag)
+        lags[name] = {"samples": lag, "ms": round(lag / sr * 1000, 2),
+                      "confidence": round(conf, 3),
+                      "applied": lag if conf >= 0.5 else 0}
+    l0 = lags["left"]["applied"]
+    l1 = lags["right"]["applied"]
+    n = min(len(base), len(cand))
+    xf = int(SPLICE_XFADE_S * sr)
+    s0 = max(xf, min(n - xf, c0 + l0))
+    s1 = max(s0 + 2 * xf, min(n - xf, c1 + l1))
+    if s1 + xf > n or s0 - xf < 0:            # degenerate tiny clip —
+        s0, s1 = xf, max(xf, n - xf)        # splice at the edges only
+    # each fade spans the ±xf window around an edge → 2*xf samples
+    t = np.linspace(0.0, 1.0, 2 * xf, dtype=np.float32)
+
+    def xfade(x, y):
+        return x * (1.0 - t)[:, None] + y * t[:, None]
+
+    out = np.vstack([
+        base[:s0 - xf],
+        xfade(base[s0 - xf:s0 + xf], cand[s0 - xf:s0 + xf]),
+        cand[s0 + xf:s1 - xf],
+        xfade(cand[s1 - xf:s1 + xf], base[s1 - xf:s1 + xf]),
+        base[s1 + xf:]])
+    return {"data": out,
+            "construction": "shared_context_splice",
+            "context_donor": "baseline",
+            "splice_edges_rel": [round(c0 / sr, 4), round(c1 / sr, 4)],
+            "fade_zone_rel": [round((s0 - xf) / sr, 4),
+                              round((s1 + xf) / sr, 4)],
+            "edge_lag": lags}
+
+
+def _listen_copies(idir: Path, owav: dict, man: dict,
+                   region_rel) -> dict:
+    """§10.1.5A-G5E/G5F: build the human listening surface.
+
+    The baseline-side LISTEN copy is its canonical wav; the
+    candidate-side copy is the shared-context splice (baseline context
+    outside the splice edges, candidate's own render inside) — so the
+    pair differs ONLY inside the declared target span. ONE pair-shared
+    gain is then measured on the constructed pair and applied to both:
+    no independent normalization, canonical OPTION wavs untouched."""
     import math
     import numpy as np
     import soundfile as sf
+    cal = man["calibration"]
+    base_id, cand_id = cal["baseline_option"], cal["candidate_role"]
     ids = sorted(owav)
     data = {o: sf.read(str(idir / owav[o]), dtype="float32",
                      always_2d=True) for o in ids}
-    rms = {o: float(np.sqrt((d[0] ** 2).mean())) or 1e-9
-           for o, d in data.items()}
-    pk = {o: float(np.abs(d[0]).max()) or 1e-9 for o, d in data.items()}
+    sr = int(data[ids[0]][1])
+    n = min(len(data[o][0]) for o in ids)
+    sp = _spliced_listen(data[base_id][0][:n], data[cand_id][0][:n],
+                         sr, region_rel)
+    constructed = {}
+    for o in ids:
+        if o == cand_id:
+            constructed[o] = sp["data"]
+        else:
+            constructed[o] = data[o][0][:n]
+    rms = {o: float(np.sqrt((d ** 2).mean())) or 1e-9
+           for o, d in constructed.items()}
+    pk = {o: float(np.abs(d).max()) or 1e-9
+          for o, d in constructed.items()}
     pair_rms = math.sqrt(sum(v * v for v in rms.values())
                          / len(rms)) or 1e-9
     want = 10 ** (LISTEN_TARGET_DBFS / 20.0) / pair_rms
@@ -606,7 +731,7 @@ def _listen_copies(idir: Path, owav: dict) -> dict:
     gdb = round(20 * math.log10(max(gain, 1e-9)), 2)
     peaks, files = {}, []
     for o in ids:
-        d, sr = data[o]
+        d = constructed[o]
         dst = idir / f"{o}_LISTEN.wav"
         sf.write(str(dst), d * gain, sr, subtype="PCM_16")
         peaks[o] = round(pk[o] * gain, 4)
@@ -620,7 +745,13 @@ def _listen_copies(idir: Path, owav: dict) -> dict:
             "ab_loudness_delta_db":
                 round(abs(rdb[ids[0]] - rdb[ids[1]]), 2)
                 if len(ids) == 2 else None,
-            "listen_peak": peaks, "files": files}
+            "listen_peak": peaks, "files": files,
+            "construction": sp["construction"],
+            "context_donor": sp["context_donor"],
+            "splice_edges_rel": sp["splice_edges_rel"],
+            "fade_zone_rel": sp["fade_zone_rel"],
+            "edge_lag": sp["edge_lag"],
+            "outside_surface": "bit-identical outside the fade zone"}
 
 
 def _phrase_listen_copies(cdir: Path) -> dict:
@@ -704,10 +835,55 @@ def signal_qc(man: dict, idir: Path) -> dict:
     pre = _segment_ab_ratio(b, c, 0, reg0)
     tgt = _segment_ab_ratio(b, c, reg0, reg1)
     post = _segment_ab_ratio(b, c, reg1, n)
+    # §10.1.5A-G5F Blocker 3: quantify the renderer global-context
+    # effect honestly — per-window best-lag shows the duration model's
+    # constant timing shift on context notes; aligned residual shows
+    # the real acoustic smear. Recorded as data, never hidden.
+    shift_win = int(0.2 * sr)
+    max_lag = int(0.02 * sr)
+    shift_prof = {"pre": [], "post": []}
+    aligned_res = {"pre": [], "post": []}
+    for s in range(0, n - shift_win + 1, shift_win // 2):
+        t_mid = ph_start + (s + shift_win // 2) / sr
+        zone = ("pre" if t_mid < region[0] else
+                "post" if t_mid > region[1] else None)
+        if zone is None:
+            continue
+        xa = b[s:s + shift_win, 0]
+        xb = c[s:s + shift_win, 0]
+        if rms(xa) < 0.008:
+            continue
+        lag, conf = _best_lag(xa, xb, max_lag)
+        shift_prof[zone].append(round(lag / sr * 1000, 2))
+        aligned_res[zone].append(
+            round(float(np.sqrt(max(0.0, 2.0 * (1.0 - conf)))), 3))
+
+    def _med(xs):
+        return round(float(np.median(xs)), 3) if xs else None
+
+    renderer_ctx = {
+        "effect": ("deterministic renderer; declared patch's phoneme "
+                   "delta propagates a constant timing shift + small "
+                   "acoustic smear into context notes (DiffSinger "
+                   "duration model attends the full phoneme sequence)"),
+        "canonical_pre_ab_diff_rms_ratio": pre,
+        "canonical_post_ab_diff_rms_ratio": post,
+        "canonical_target_ab_diff_rms_ratio": tgt,
+        "timing_shift_ms_median": {z: _med(v)
+                                   for z, v in shift_prof.items()},
+        "aligned_residual_median": {z: _med(v)
+                                    for z, v in aligned_res.items()},
+        # audit-visible, non-blocking: the canonical bleed stays on the
+        # record; the review gate measures the listen surface instead
+        "flags": ([f"pre_target_ab_drift:{round(pre, 3)}"]
+                  if pre is not None and pre > QC_DRIFT_RATIO_FLAG else []) +
+                 ([f"post_target_ab_drift:{round(post, 3)}"]
+                  if post is not None and post > QC_DRIFT_RATIO_FLAG else []),
+    }
     flags = []
-    for nm, v in (("pre_target", pre), ("post_target", post)):
-        if v is not None and v > QC_DRIFT_RATIO_FLAG:
-            flags.append(f"{nm}_ab_drift:{v}")
+    # canonical loudness imbalance is a real render defect (the listen
+    # surface compensates it via shared gain, but the defect is still
+    # recorded and still flags the package for audit)
     if loud is not None and not QC_LOUDNESS_RANGE[0] <= loud \
             <= QC_LOUDNESS_RANGE[1]:
         flags.append(f"option_loudness_drift:{round(loud, 3)}")
@@ -728,10 +904,27 @@ def signal_qc(man: dict, idir: Path) -> dict:
     if foc_m.exists():
         _crop_rendered(foc_m, idir / "SOURCE_CORE_original_mix.wav",
                        core_t0 - fs0, core_t1 - fs0)
-    # §10.1.5A-G5E loudness contract: ONE pair-shared gain for the A/B
-    # listening copies — never independent per-option normalization;
-    # canonical OPTION wavs stay byte-identical (decision authority).
-    listen = _listen_copies(idir, owav)
+    # §10.1.5A-G5E/G5F listening surface: baseline-side LISTEN copy is
+    # canonical; candidate-side is the shared-context splice — A/B are
+    # bit-identical outside the splice edges. The review-safety gate
+    # measures THIS surface (what the user actually hears).
+    listen = _listen_copies(
+        idir, owav, man, [region[0] - ph_start, region[1] - ph_start])
+    la, _ = sf.read(str(idir / f"{base_id}_LISTEN.wav"),
+                    dtype="float32", always_2d=True)
+    lb, _ = sf.read(str(idir / f"{cand_id}_LISTEN.wav"),
+                    dtype="float32", always_2d=True)
+    nl = min(len(la), len(lb))
+    e0 = max(0, min(nl, int(listen["fade_zone_rel"][0] * sr)))
+    e1 = max(e0, min(nl, int(listen["fade_zone_rel"][1] * sr)))
+    listen_pre = _segment_ab_ratio(la[:nl], lb[:nl], 0, e0)
+    listen_post = _segment_ab_ratio(la[:nl], lb[:nl], e1, nl)
+    listen_outside = max(listen_pre or 0.0, listen_post or 0.0)
+    if listen_outside > QC_LISTEN_OUTSIDE_FLAG:
+        flags.append(f"listen_outside_drift:{round(listen_outside, 4)}")
+    ldelta = listen.get("ab_loudness_delta_db")
+    if ldelta is not None and abs(ldelta) > QC_LISTEN_DELTA_DB_FLAG:
+        flags.append(f"listen_loudness_delta:{ldelta}")
     # §10.1.5A-G5C: operation-aware per-child F0 + source-distance
     f0_qc = child_f0_qc(man, idir)
     if f0_qc["unavailable_child_slots"]:
@@ -761,6 +954,15 @@ def signal_qc(man: dict, idir: Path) -> dict:
         "target_ab_diff_rms_ratio": tgt,
         "post_target_ab_diff_rms_ratio": post,
         "option_loudness_ratio": round(loud, 4) if loud else None,
+        "renderer_global_context": renderer_ctx,
+        "listen_surface": {
+            "construction": listen["construction"],
+            "splice_edges_rel": listen["splice_edges_rel"],
+            "fade_zone_rel": listen["fade_zone_rel"],
+            "edge_lag": listen["edge_lag"],
+            "pre_outside_ab_diff_rms_ratio": listen_pre,
+            "post_outside_ab_diff_rms_ratio": listen_post,
+            "outside_max_ratio": round(listen_outside, 4)},
         "core_window": {"absolute": [round(core_t0, 4), round(core_t1, 4)],
                         "pad_s": TARGET_CORE_PAD_S},
         "listen": listen,
@@ -885,11 +1087,18 @@ def git_evidence(run_dir: Path, item_ids=None,
             "item_ids": list(item_ids)}
 
 
-# §10.1.5A-G5E: representative items for the remote 5-item pilot — the
-# same spread the pre-human QC audit used (simple / large-pitch /
-# melisma-lyric / gap-rearticulation / corruption+parent_spanning).
-PILOT_NOTE_IDS = ("note_0012", "note_0061", "note_0123",
-                  "note_0391", "note_0404")
+# §10.1.5A-G5E/G5F: representative items for the remote 5-item pilot.
+# The original spread (0012/0061/0123/0391/0404) was re-picked after the
+# quality hold: 0123/0391/0404 lack sufficient aligned char evidence for
+# the real-lyric contract (fail-closed). Replacements keep the
+# across-the-song spread AND pass the evidence gate with no loudness
+# flag: 0188 (90.4s, min_p 0.456), 0192 (90.4s, 0.456 — same phrase,
+# different target note), 0379 (178.0s, 0.920). 0012/0061 stay —
+# already re-rendered + heard by the reviewer. note_0248 was tried and
+# correctly failed closed: an unmapped note sits after a real gap where
+# '+' is unrenderable (probe-verified against OpenUtau).
+PILOT_NOTE_IDS = ("note_0012", "note_0061", "note_0188",
+                  "note_0192", "note_0379")
 
 # Chat reply → official decide() choice. A/B keep the blind map;
 # 无法判断 collapses to none_correct — both mean `unresolved`, never

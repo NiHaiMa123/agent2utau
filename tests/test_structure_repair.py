@@ -888,9 +888,10 @@ def test_target_focus_crops_and_signal_qc(tmp_path, monkeypatch):
 
 
 def test_signal_qc_flags_phrase_wide_drift(tmp_path, monkeypatch):
-    """G5B: out-of-target A/B acoustic divergence (DiffSinger context
-    bleed) is quantified and flagged — full-phrase A/B alone can never
-    be the primary review surface."""
+    """G5F: canonical out-of-target divergence stays ON THE RECORD in
+    renderer_global_context (audit), while the shared-context splice
+    keeps the LISTEN surface clean — the review gate measures the
+    surface, not the canonical bleed."""
     import numpy as np
     import soundfile as sf
     import agent2utau.structure_calibration as sc
@@ -904,13 +905,17 @@ def test_signal_qc_flags_phrase_wide_drift(tmp_path, monkeypatch):
     c[int(4 * sr):] = 0.18 * np.sin(2 * np.pi * 260 * t[int(4 * sr):])
     sf.write(str(idir / "OPTION_1.wav"), c, sr)
     qc = sc.signal_qc(man, idir)
-    assert qc["pre_target_ab_diff_rms_ratio"] == pytest.approx(
-        0.0, abs=1e-3)
-    assert qc["target_ab_diff_rms_ratio"] == pytest.approx(
-        0.0, abs=1e-3)
+    # canonical divergence still recorded verbatim (never hidden)
     assert qc["post_target_ab_diff_rms_ratio"] > 0.5
-    assert any("post_target_ab_drift" in f for f in qc["auto_flags"])
-    assert qc["auto_review_ready"] is False
+    ctx = qc["renderer_global_context"]
+    assert ctx["canonical_post_ab_diff_rms_ratio"] > 0.5
+    assert any("post_target_ab_drift" in f for f in ctx["flags"])
+    # …but the splice replaces the candidate's divergent tail with the
+    # shared baseline context → the surface the reviewer hears is clean
+    assert qc["listen_surface"]["construction"] == \
+        "shared_context_splice"
+    assert qc["listen_surface"]["post_outside_ab_diff_rms_ratio"] < 0.05
+    assert qc["auto_review_ready"] is True
     assert qc["target_focus_is_primary"] is True
 
 
@@ -1223,17 +1228,32 @@ def test_review_lyrics_carriers_and_melisma():
     assert out == ["春", "+", "秋", "+", "+", "冬"]
 
 
-def test_review_lyrics_gap_then_char_binds_next_note():
-    """A note inside a gap before the first char is neutral 'a' — never
-    midpoint-nearest guessing; a touching continuation is '+'."""
+def test_review_lyrics_leading_note_fail_closed():
+    """G5F: a note before the first carrier has no syllable to
+    continue — fail-closed, never an audible placeholder 'a'."""
     from agent2utau.review.render import review_lyrics
     notes = [{"start": s, "end": e}
              for s, e in ((0.0, 0.3), (0.6, 0.9), (0.9, 1.2))]
     chars = [{"char": "年", "start": 0.7, "end": 1.1}]
-    out = review_lyrics(notes, chars)
-    # note0 ends before the char starts and does not touch note1
-    # (0.3 -> 0.6 gap): 'a'; note1 carries 年; note2 extends '+'
-    assert out == ["a", "年", "+"]
+    # note0 (0-0.3) precedes 年's carrier (note1) -> no syllable to
+    # extend -> None
+    assert review_lyrics(notes, chars) is None
+
+
+def test_review_lyrics_never_audible_a():
+    """G5F: 'a' can never appear in real-lyric review output — an
+    unmapped note after a real gap can't honestly be '+' either
+    (probe-verified: OpenUtau rejects a gap-separated '+' phoneme), so
+    the whole mapping fails closed instead of guessing."""
+    from agent2utau.review.render import review_lyrics
+    notes = [{"start": s, "end": e}
+             for s, e in ((0.0, 0.4), (0.9, 1.3), (1.7, 2.1))]
+    chars = [{"char": "春", "start": 0.1, "end": 0.3},
+             {"char": "秋", "start": 1.8, "end": 2.0}]
+    # note1 (0.9-1.3) sits between carriers across real gaps -> the
+    # only honest outcomes are '+' (illegal here) or a guessed hanzi
+    # (forbidden) -> None
+    assert review_lyrics(notes, chars) is None
 
 
 def test_review_lyrics_fail_closed_on_exhausted_notes():
@@ -1300,34 +1320,52 @@ def test_review_phrase_chars_evidence_gate():
 
 
 def test_listen_copies_pair_shared_gain(tmp_path):
-    """Loudness contract: ONE shared gain applied identically to A/B —
-    the A/B loudness delta is preserved (not normalized away), files
-    are written, metrics recorded, canonical wavs untouched."""
+    """G5F listening surface: baseline-side LISTEN is canonical; the
+    candidate side is the shared-context splice — bit-identical to A
+    outside the fade zone, the candidate's own render inside; ONE
+    pair-shared gain on top; canonical wavs untouched."""
     import numpy as np
     import soundfile as sf
     import agent2utau.structure_calibration as sc
     idir = tmp_path / "cal-x"
     idir.mkdir()
-    t = np.arange(8000) / 8000
-    a = 0.02 * np.sin(2 * np.pi * 200 * t)      # quiet
-    b = 0.04 * np.sin(2 * np.pi * 200 * t)      # 2x louder
-    sf.write(str(idir / "OPTION_0.wav"), a, 8000, subtype="FLOAT")
-    sf.write(str(idir / "OPTION_1.wav"), b, 8000, subtype="FLOAT")
+    sr = 8000
+    t = np.arange(4 * sr) / sr
+    a = 0.02 * np.sin(2 * np.pi * 200 * t)      # quiet baseline
+    b = 0.04 * np.sin(2 * np.pi * 200 * t)      # 2x louder candidate
+    sf.write(str(idir / "OPTION_0.wav"), a, sr, subtype="FLOAT")
+    sf.write(str(idir / "OPTION_1.wav"), b, sr, subtype="FLOAT")
     canon0 = (idir / "OPTION_0.wav").read_bytes()
+    man = {"calibration": {"baseline_option": "OPTION_0",
+                           "candidate_role": "OPTION_1"}}
     out = sc._listen_copies(
-        idir, {"OPTION_0": "OPTION_0.wav", "OPTION_1": "OPTION_1.wav"})
+        idir, {"OPTION_0": "OPTION_0.wav", "OPTION_1": "OPTION_1.wav"},
+        man, [1.5, 2.5])
+    assert out["construction"] == "shared_context_splice"
     assert out["shared_gain_db"] > 0
-    assert out["ab_loudness_delta_db"] == pytest.approx(6.02, abs=0.1)
     la, _ = sf.read(str(idir / "OPTION_0_LISTEN.wav"))
     lb, _ = sf.read(str(idir / "OPTION_1_LISTEN.wav"))
     g = 10 ** (out["shared_gain_db"] / 20)
-    # PCM_16 listen copies vs float originals: quantize-tolerant compare
+    # A side = canonical baseline * shared gain (quantize-tolerant)
     assert np.allclose(la, a * g, atol=1e-3)
-    assert np.allclose(lb, b * g, atol=1e-3)
-    # ONE shared gain: the A/B loudness relationship is preserved —
-    # not independently normalized (lb stays ~2x la, not == la)
-    assert np.abs(lb).max() == pytest.approx(
-        2 * np.abs(la).max(), rel=0.05)
+    fz = out["fade_zone_rel"]
+    f0, f1 = int(fz[0] * sr), int(fz[1] * sr)
+    # outside the fade zone B is bit-identical to A (shared context)
+    assert np.allclose(lb[:f0], la[:f0], atol=2e-3)
+    assert np.allclose(lb[f1:], la[f1:], atol=2e-3)
+    # inside the candidate segment is the candidate's own render —
+    # compare energy (edge-lag alignment shifts phase by ~ms, which is
+    # fine for listening but breaks sample-exact equality)
+    s0 = int(out["splice_edges_rel"][0] * sr)
+    s1 = int(out["splice_edges_rel"][1] * sr)
+    m = int(0.1 * sr)
+    mid = lb[s0 + m:s1 - m]
+    ref = b[s0 + m:s1 - m] * g
+    mid_rms = float(np.sqrt((mid ** 2).mean()))
+    ref_rms = float(np.sqrt((ref ** 2).mean()))
+    assert mid_rms == pytest.approx(ref_rms, rel=0.1)
+    assert np.abs(mid).max() == pytest.approx(
+        np.abs(ref).max(), rel=0.1)
     assert out["listen_peak"]["OPTION_1"] <= 0.98 + 1e-4
     # canonical bytes untouched
     assert (idir / "OPTION_0.wav").read_bytes() == canon0
