@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD。G5E 已实现 real-lyric review + pair-shared listen loudness，但 2026-09-18 re-audit 发现 3 个新的 hard blocker，人工审核不得恢复：① `pilot_review.json` 的 Git binding 仍固定在旧 SHA `283f5a3`，而新的 `*_LISTEN.wav` 直到 `21dcdf8` 才提交，按 manifest 的 raw URL 实测会 404；② Group 1 的 `real_lyric_review` 仍生成 `圆圈勾勒成指纹+印在我的+a嘴唇`，即 review asset 仍存在可发声 neutral-vowel `a`，不能视为“真实歌词已修复”；③ Group 1 / 2 的 `signal_qc.auto_review_ready` 均为 false，且存在明显非目标区 A/B drift（G1 pre=2.1554、post=1.1019；G2 pre=1.5819），说明 A/B 除 target operation 外仍有会污染人类结构判断的渲染差异。响度方面 G1 A/B delta 已收敛到 0.03 dB，G2 为 0.90 dB，但这不足以解除 hold。下一步必须先修 stale Git SHA / regenerate pilot manifest、消除 real-lyric path 中的可发声 `a` fallback，并定位/消除 pre/post-target drift；修复后重新生成 Group 1–2，重新跑 package/hash/QC，再由用户从头复审。Group 3–5 当前仍因 no_chars/low_confidence 留在 neutral_vowel，若无法获得可靠 real-lyric evidence，则不得作为恢复后的 5-item pilot，必须改选具备可信歌词映射的代表项。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD。G5E 已实现 real-lyric review + pair-shared listen loudness，但 2026-09-18 re-audit 发现 3 个新的 hard blocker，人工审核不得恢复：① `pilot_review.json` 的 Git binding 仍固定在旧 SHA `283f5a3`，而新的 `*_LISTEN.wav` 直到 `21dcdf8` 才提交，按 manifest 的 raw URL 实测会 404；② Group 1 的 `real_lyric_review` 仍生成 `圆圈勾勒成指纹+印在我的+a嘴唇`，即 review asset 仍存在可发声 neutral-vowel `a`，不能视为“真实歌词已修复”；③ Group 1 / 2 的 `signal_qc.auto_review_ready` 均为 false，且存在明显非目标区 A/B drift（G1 pre=2.1554、post=1.1019；G2 pre=1.5819），说明 A/B 除 target operation 外仍有会污染人类结构判断的渲染差异。响度方面 G1 A/B delta 已收敛到 0.03 dB，G2 为 0.90 dB，但这不足以解除 hold。下一步必须先修 stale Git SHA / regenerate pilot manifest、消除 real-lyric path 中的可发声 `a` fallback，并定位/消除 pre/post-target drift；修复后不再以 phrase A/B 作为正式主审核面，而是先为可信 pilot item 生成整首 A/B（FULL_OPTION_0/FULL_OPTION_1），重新跑 package/hash/QC，再由用户从头复审。Group 3–5 当前仍因 no_chars/low_confidence 留在 neutral_vowel，若无法获得可靠 real-lyric evidence，则不得作为恢复后的 5-item pilot，必须改选具备可信歌词映射的代表项。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -2912,6 +2912,79 @@ B. 用其他具备可靠 real-lyric evidence 的 representative items 替换。
 ```
 
 禁止在用户已明确指出歌词会干扰判断后，再把 neutral-vowel Group 3–5 作为正式结构审核样本。
+
+
+#### G5G Full-song human review（用户试听反馈：phrase 级仍无法可靠判断）
+
+2026-09-18 用户继续试听 Group 3–5 的完整 phrase A/B 后明确反馈：**仍然听不出结构差异，需要完整版本。** 因此正式 human review 的 primary listening unit 从 `full_natural_phrase` 升级为 **full-song A/B render**。
+
+新的人工审核原则：
+
+```text
+原唱整首 / 参考整首
+→ A：整首渲染
+→ B：整首渲染
+→ 用户在完整上下文中判断哪一个整体旋律/衔接更接近原唱
+```
+
+phrase / focus / core 仍保留，但全部降级为 **localisation aids**，只用于在整首中定位目标位置，不再作为正式裁决的 primary surface。
+
+**Required full-song render contract**
+
+每一个待人工判断的 calibration item 必须生成：
+
+```text
+FULL_OPTION_0.wav
+FULL_OPTION_1.wav
+```
+
+并满足：
+
+- 两个完整版本必须来自同一个 full-song Candidate 0 / corrected-score 基底；
+- A/B 唯一允许的 written-score 差异是该 item 的 declared target operation；
+- target 外 note / lyric / timing / PITD / expression / renderer profile 必须完全一致；
+- 同 singer、同 renderer、同 tempo、同 render profile；
+- A/B 只能使用 pair-shared presentation gain，禁止独立 loudness normalization；
+- canonical full-song wav 必须 hash-bound；试听 copy 与 canonical 必须有明确 provenance；
+- full-song render 的 target 外 semantic diff 必须为空；
+- 如果 renderer 的局部修改导致全局非目标音频变化，应记录为 renderer/global-context effect，不得伪装成 target-only evidence。
+
+**Human review UI / Git package**
+
+正式 pilot 每组至少提供：
+
+```text
+SOURCE_FULL.*       # 原唱/参考整首
+A_FULL.*            # blind A full song
+B_FULL.*            # blind B full song
+SOURCE_PHRASE.*     # 定位辅助
+A_PHRASE.*          # 定位辅助
+B_PHRASE.*          # 定位辅助
+```
+
+用户默认只需要先听 `SOURCE_FULL → A_FULL → B_FULL`。只有需要定位差异时才查看 phrase/core/focus。
+
+**Pilot-first cost control**
+
+不得一次性为全部 21 项生成整首版本。先只为 representative pilot 生成 full-song A/B：
+
+```text
+先修复 G5F blockers
+→ 选择 2 个可信 real-lyric pilot items
+→ 生成 2×(A_FULL/B_FULL)
+→ 用户确认“整首版本可以可靠判断”
+→ 再扩到 5-item pilot
+→ pilot 通过后才允许扩到剩余项目
+```
+
+如果两个完整版本在目标位置之外出现可感知差异，或 full-song render 仍存在歌词/响度/上下文污染：
+
+```text
+QUALITY HOLD
+no formal human decision
+```
+
+旧的 Group 1–5 phrase-level A/B 试听结果全部只保留 diagnostic，不进入 calibration authority。
 
 ---
 
