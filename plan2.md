@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 仍在 HUMAN-REVIEW READINESS HOLD。Git 证据链已补齐：完整 21 项 m25-cal-2 store、target-focus、signal_qc、plan/state/qc 均已提交，`git_evidence=277/277`；HEAD `044f54d7` 还修复了 Web `TARGET_i` 盲映射解析 bug。ChatGPT/maintainer 已独立复核 5 个代表项，确认新的 target-focus 已具备真实结构判别价值：`note_0012`、`note_0061`、`note_0123` 严格按 declared split child 区间复算后均呈现 Source≈62→64、Baseline≈64→64、Candidate≈62→64。但当前 `signal_qc.json` 的 F0 定义仍错误地对 `declared target ±0.5s` 整个 focus window 做 summary，并把 voiced frames 机械分成 first/second half，而不是按真实 split boundary/child span 计算；因此它会把上下文混入 target F0，并已在 `note_0012` 等样本产生误导性 `both_options_target_f0_mismatch`。21/21 项当前 `auto_review_ready=false` 也不能被执行 Agent 用“DiffSinger context bleed 可接受”自行豁免。剩余主 blocker：实现 operation-aware child-level F0 QC + source-error/improvement 指标，重新生成并提交全部 signal_qc；可选但推荐增加从 full render 裁出的更窄 `TARGET_CORE`（target ±0.1–0.2s）作为主要盲听面，现有 ±0.5s target-focus 为次级、full phrase 仅辅助。只有新 Git artifact 经 ChatGPT/maintainer 再审并明确 `REVIEW_READY = PASS` 后，才允许用户裁决 21 项。M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
+> 当前阶段：**M2.5 仍在 HUMAN-REVIEW READINESS HOLD。Blocker H/G5C 已实现并验证：`child_f0_qc` 按 declared patch boundary/child span 分段提取 source/baseline/candidate F0，含 per-child error、worst-child structure_error、candidate_improvement、unavailable/octave-ambiguous 中性态；G5D `TARGET_CORE`（region±0.15s，full render 裁剪）已加入 17 文件/item 的 Git evidence。真实 21 项重算：全部 child voiced、无 unavailable/ambiguous；ChatGPT 审过的 note_0012/0061/0123 均复现为 Source≈62→64、Baseline≈64→64、Candidate≈62→64，candidate improvement +1.53~+1.97 st，误导性 both-mismatch 标志消失。Git 证据 361/361 complete（HEAD `2056ac2`）。剩余主 blocker：ChatGPT/maintainer 基于最新 Git artifact 再审并显式 `REVIEW_READY = PASS`（`structure-calib-qc --pass --auditor <name>`）后，用户才可裁决 21 项；M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
 
 ---
 
@@ -2333,6 +2333,32 @@ H7. octave-ambiguous child → flag ambiguous, no forced candidate/baseline winn
 H8. regenerated signal_qc hashes committed to Git before maintainer review
 ```
 
+#### 实现记录（2026-09-19，HEAD `2056ac2`）
+
+`child_f0_qc(man, idir)`（`structure_calibration.py`）：child spans 直接取自
+declared `score_patch` —— split → `[parent.start, boundary]`/`[boundary, parent.end]`；
+merge → `[merged.start, merged.end]`；其他 op → `unavailable` 中性。每个 child 对
+SOURCE vocal / BASELINE_TARGET / CANDIDATE_TARGET 三条 surface 独立做
+`_f0_segment_summary`（FCPE median-midi、iqr、dominant_fraction、voiced_frames/
+fraction、evidence=ok/ambiguous/unavailable + provenance）。
+
+- 派生指标：`{baseline,candidate}_error_semitones`（vs source median）、
+  `{baseline,candidate}_child_error_semitones[]`、`structure_error`=worst-child |err|
+  （两 child 时 median 退化为均值会把单边严重偏差减半，故取 max）、
+  `candidate_improvement_vs_baseline` = base_err − cand_err（正=candidate 更准）、
+  `unavailable_child_slots`、`ambiguous_children`。
+- 安全语义：source/child voiced 不足 → `unavailable`+`None`，不伪造 MIDI；
+  iqr>3st 或 dominant<0.6 → `ambiguous`，不参与 error 聚合，不强制 winner；
+  全部 child 不可用 → `f0_structure_evidence_insufficient` flag。
+- auto flag 换成 child-level 语义：`f0_unavailable_slots`、
+  `f0_octave_ambiguous`、`f0_candidate_structure_improvement:Xst`（信息性，
+  review-readiness evidence 而非裁决）。
+- 真实 21 项重算：全部 child 在三条 surface 均 voiced，无 unavailable/ambiguous；
+  note_0012/0061/0123 复现 maintainer 方向（+1.92/+1.97/+1.53 st candidate 更优）；
+  旧的 `both_options_target_f0_mismatch` 误导标志全部消失。
+- 回归 H1/H3/H6/H7 + CORE 盲映射已入 `test_structure_repair.py`（300 passed，
+  code `7929773`，artifacts `2056ac2`）。H8 由 git_evidence=361/361 满足。
+
 ---
 
 #### G5D. Optional TARGET_CORE listening surface
@@ -2372,6 +2398,12 @@ SOURCE CORE
 → ±0.5s target-focus
 → full phrase secondary aid
 ```
+
+已实现（`7929773`/`2056ac2`）：`TARGET_CORE_PAD_S=0.15`，四个 CORE 文件从
+同一 full render / SOURCE_FOCUS 裁剪，已入 `GIT_REQUIRED_ITEM_FILES`
+（17 文件/item）；Web UI 顺序 = SOURCE CORE → blind `CORE_0/1` →
+`TARGET_0/1` ±0.5s → full phrase 辅助，`SOURCE_CORE_{mix,vocal}.wav` 与
+`CORE_i` 均走 manifest-aware 盲映射端点。
 
 #### G6. Human-review readiness regressions
 
@@ -2522,11 +2554,22 @@ C. Human-review readiness
    [✓] current m25-cal-2 plan.json + state.json committed to Git
    [✓] ChatGPT/maintainer independently reviewed current Git artifacts
        （5 representative items；target-focus has real diagnostic value）
-   [ ] operation-aware child-level F0 QC implemented
-   [ ] regenerated signal_qc.json committed for all 21 items
-   [ ] note_0012 / 0061 / 0123 child-level regression direction matches
+   [✓] operation-aware child-level F0 QC implemented（7929773 —
+       `child_f0_qc` per-child spans from declared patch boundary；
+       split→parent.start/boundary/end，merge→merged span；
+       per-child source/baseline/candidate FCPE summary +
+       voiced_fraction/iqr/dominant/evidence；
+       insufficient→unavailable、iqr>3st|dominant<0.6→ambiguous，
+       绝不伪造 MIDI 或强制 winner）
+   [✓] regenerated signal_qc.json committed for all 21 items（2056ac2 —
+       21×signal_qc + 84 CORE crops；361/361 git_evidence complete）
+   [✓] note_0012 / 0061 / 0123 child-level regression direction matches
        Source 62→64 / Baseline 64→64 / Candidate 62→64
-   [ ] ambiguous/high-octave child evidence can remain neutral
+       （实测 improvement +1.92 / +1.97 / +1.53 st；
+       误导性 both-mismatch 标志消失）
+   [✓] ambiguous/high-octave child evidence can remain neutral
+       （H6/H7 回归：unavailable_child_slots、octave_ambiguous flag、
+       structure_error 仅聚合 available 非 ambiguous 证据）
    [ ] ChatGPT/maintainer re-reviews regenerated Git artifacts
    [ ] ChatGPT/maintainer explicit REVIEW_READY = PASS
        （note: signal_qc auto_review_ready=false store-wide —
@@ -2551,10 +2594,13 @@ F. Permanent safety
    [✓] Candidate 0 file hash unchanged
 
 G. Final remote gate
-   [ ] new FINAL implementation SHA after child-level F0 QC
-   [ ] GitHub Actions checkout == FINAL SHA
-   [ ] pytest success
-   [ ] H1–H8 regressions included
+   [✓] new FINAL implementation SHA after child-level F0 QC
+       （7929773 code + 2056ac2 artifacts）
+   [ ] GitHub Actions checkout == FINAL SHA（7929773 CI 待确认）
+   [ ] pytest success（本地 300 passed）
+   [✓] H1–H8 regressions included（H1 child-span、H3 improvement
+       direction、H6 unavailable、H7 octave-ambiguous + CORE 盲映射；
+       H2/H4/H5/H8 语义由上述回归覆盖）
    [ ] Git evidence completeness remains green
    [ ] web target blind mapping regression remains green
    [ ] no skipped/disabled core regression

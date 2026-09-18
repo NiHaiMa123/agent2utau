@@ -760,6 +760,40 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   auto_review_ready=false store-wide; review_ready=false until a
   maintainer records PASS on the Git artifacts.
 
+### §10.1.5A G5C/G5D — Blocker H child-level F0 QC + TARGET_CORE
+###  (code 7929773, artifacts 2056ac2, 300 passed) — maintainer re-PASS pending
+
+- The G5B whole-window F0 summary was semantically wrong: it medianed
+  region±0.5s and split voiced frames 50/50 — context contaminates
+  medians, asymmetric children are misassigned, and it produced
+  misleading `both_options_target_f0_mismatch` (note_0012 etc).
+- `child_f0_qc(man, idir)`: child spans come from the DECLARED patch —
+  split → [parent.start, boundary]/[boundary, parent.end]; merge →
+  merged span; other ops → neutral/unavailable. Each child gets an
+  independent FCPE `_f0_segment_summary` on SOURCE vocal +
+  BASELINE/CANDIDATE_TARGET: span_abs, duration, voiced frames/
+  fraction, midi_median, iqr, dominant_fraction, evidence
+  (ok/ambiguous/unavailable), provenance.
+- Metrics: per-child baseline/candidate error vs source median;
+  structure_error = WORST-child |err| (median of 2 = mean would halve
+  a badly-off child); candidate_improvement_vs_baseline =
+  base_err − cand_err (positive = candidate closer to source);
+  unavailable_child_slots / ambiguous_children recorded, never
+  fabricated MIDI, never forced winner on octave ambiguity
+  (iqr>3st or dominant<0.6).
+- G5D TARGET_CORE: BASELINE/CANDIDATE_CORE.wav + SOURCE_CORE mix/vocal
+  at region±0.15s, cropped from the same renders (never re-render);
+  GIT_REQUIRED = 17 files/item; web order = source CORE -> blind CORE
+  A/B -> ±0.5s target-focus -> full-phrase aid.
+- Real 21-item re-augment: every child voiced on all three surfaces;
+  the three maintainer-audited items reproduce the audit direction —
+  note_0012 +1.92st / note_0061 +1.97st / note_0123 +1.53st candidate
+  closer to source (Source≈62→64, Baseline≈64→64, Candidate≈62→64).
+  git_evidence 361/361; review_ready=false until maintainer re-PASS
+  on the regenerated artifacts.
+- H1/H3/H6/H7 + CORE blind-mapping regressions in
+  tests/test_structure_repair.py; 300 passed.
+
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
   `apply_structure_plan` / `validate_structure_patch` /
