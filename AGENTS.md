@@ -794,6 +794,31 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
 - H1/H3/H6/H7 + CORE blind-mapping regressions in
   tests/test_structure_repair.py; 300 passed.
 
+### §10.1.5A G5E — remote pilot review via downloadable Git audio
+###  (81b5511, 303 passed) — user adjudication now unblocked
+
+- Transport requirement relaxed: user accepts GitHub raw/download
+  links on phone; native ChatGPT inline player no longer required.
+- PRIMARY review unit = the full natural phrase (LRC/silence bounds,
+  actual 3.2-6.6s) — SOURCE_PHRASE_* + blind OPTION_0/1 full-phrase
+  wavs already share that window, so no re-render was needed; CORE/
+  target-focus demoted to localisation aids.
+- `build_pilot_review()` -> pilot_review.json (committed): 5 pilot
+  groups (note_0012/0061/0123/0391/0404) with cal_item_id+repair_id+
+  aph binding; each file has git_path+sha256+bytes+raw_url derived
+  from origin/HEAD. display_name is neutral (A.wav/B.wav) since
+  canonical paths like BASELINE_CORE.wav would leak the role.
+- reply_map A→OPTION_0 / B→OPTION_1 / 都差不多→equivalent /
+  都不对·无法判断→none_correct; chat replies gain authority ONLY via
+  structure-calib-decide (verify_package + append-only revision).
+- git_evidence now also requires phrases/<key>/SOURCE_PHRASE_*.wav
+  (deduped by phrase_key) + pilot_review.json: 394/394 complete.
+- Web UI order: full-phrase source -> blind full-phrase A/B (primary)
+  -> CORE/focus aids. CLI: structure-calib-pilot.
+- Pilot-first: if any of the 5 full-phrase items is still unjudgeable
+  (sounds broken / lyric-rhythm-melody off) STOP, back to renderer/QC;
+  else continue the remaining 16.
+
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
   `apply_structure_plan` / `validate_structure_patch` /

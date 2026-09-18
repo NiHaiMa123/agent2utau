@@ -2552,6 +2552,32 @@ user choice
 
 禁止根据 F0/QC 自动替用户选择。
 
+#### G5E 实现记录（`81b5511`，303 passed）
+
+- **主素材已就位，无需重渲**：全部 21 项 phrase 窗口本来就是 LRC/silence
+  自然唱句边界（实测 3.20–6.63s，全部 ∈[3,12]s），`SOURCE_PHRASE_*` +
+  `OPTION_0/1.wav` 共享同一窗口——spec 的"完整一句"即现有 phrase 层。
+- **`build_pilot_review()` → `pilot_review.json`**（已提交 Git）：5 个
+  pilot 组（note_0012/0061/0123/0391/0404）每组绑定 cal_item_id +
+  repair_id + audio_package_hash + phrase 时长；每个文件含
+  `git_path` + canonical `sha256` + bytes + `raw_url`（由
+  `git remote get-url origin` + `rev-parse HEAD` 推导，非硬编码）。
+- **盲化保护**：`display_name` 全中性（`A.wav`/`B.wav`/`SOURCE.wav`）——
+  canonical path 里的 `BASELINE_CORE.wav` 类文件名会泄露角色，展示层
+  必须用 display_name 做链接文本；`blind_map` 固定 A→OPTION_0 /
+  B→OPTION_1；`reply_map`：A/B→OPTION_i、都差不多→equivalent、
+  都不对/无法判断→none_correct（均→unresolved，永不授权 repair）。
+- **git_evidence 扩展**：`phrases/<key>/SOURCE_PHRASE_*.wav` 按 declared
+  phrase_key 去重纳入 + `pilot_review.json` —— 主审核面与索引同属
+  Git 证据（实测 394/394 complete）。
+- **Web UI 重排**：原唱完整一句 → 盲选整句 A/B（主判断面）→
+  CORE/focus/±0.6s 全部降为"辅助定位"。
+- **CLI**：`structure-calib-pilot <run> [--notes]` 输出 JSON payload
+  并写入 `pilot_review.json`；decision 仍走 `structure-calib-decide`
+  （verify_package + append-only revision）。
+- **回归 +3**：payload 盲化与绑定字段、缺失 note 显式报错、phrase
+  文件纳入 git_evidence 去重。
+
 ---
 
 #### G6. Human-review readiness regressions
