@@ -1105,3 +1105,26 @@ def test_repair_authorized_decision_full_gate(tmp_path):
                      manifest_path=idir / "manifest.json")
     log.append(_iid(man_b), "OPTION_0", man_b, "rb-1")
     assert repair_authorized_decision(run, _iid(man_b)) is None
+
+
+# ------------------------------------------------------------ lyric melisma
+
+def test_lyric_map_repeated_char_becomes_melisma_extender():
+    """A note mapped to the SAME char as the touching previous note is a
+    continuation ('+') — repeating the char re-sings the syllable and
+    doubles every word in the phrase render."""
+    from agent2utau.review.render import lyric_map
+    chars = [{"char": "荒", "start": 0.0, "end": 1.0},
+             {"char": "草", "start": 1.0, "end": 2.0}]
+    notes = [{"id": "n0", "start": 0.0, "end": 0.5},
+             {"id": "n1", "start": 0.5, "end": 1.0},   # same char, touching
+             {"id": "n2", "start": 1.0, "end": 1.5},
+             {"id": "n3", "start": 1.7, "end": 2.0}]   # same char, gap
+    assert lyric_map(notes, chars) == ["荒", "+", "草", "草"]
+
+
+def test_lyric_map_neutral_a_also_extends_when_touching():
+    from agent2utau.review.render import lyric_map
+    notes = [{"id": "n0", "start": 0.0, "end": 0.5},
+             {"id": "n1", "start": 0.5, "end": 1.0}]
+    assert lyric_map(notes, []) == ["a", "+"]

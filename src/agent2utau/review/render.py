@@ -91,10 +91,16 @@ def _sha_notes(notes) -> str:
 
 # ------------------------------------------------------------------- lyrics
 
+LYRIC_EXTEND_TOUCH_S = 0.01
+
+
 def lyric_map(notes, chars):
     """Note → lyric char (§6.9). Context notes get their aligned char;
     split continuations '+'; merged notes take the first parent's char;
-    unmatched notes fall back to the same neutral 'a' on every option."""
+    unmatched notes fall back to the same neutral 'a' on every option.
+    A note mapped to the SAME char as the touching previous note is a
+    melisma continuation ('+') — repeating the char would re-sing the
+    syllable and double every word."""
     def char_at(t):
         best, bd = None, 0.30
         for c in chars:
@@ -104,14 +110,21 @@ def lyric_map(notes, chars):
                 best, bd = c["char"], d
         return best or "a"
 
-    out = []
+    out, last_char, last_end = [], None, None
     for n in notes:
         if n.get("split_child") is not None:
-            out.append(n["lyric_char"] if n.get("lyric_char") else "+")
+            base = n["lyric_char"] if n.get("lyric_char") else "+"
         elif n["id"].endswith("__merged__"):
-            out.append(n.get("lyric_char") or char_at(n["start"]))
+            base = n.get("lyric_char") or char_at(n["start"])
         else:
-            out.append(char_at((n["start"] + n["end"]) / 2.0))
+            base = char_at((n["start"] + n["end"]) / 2.0)
+        if base != "+" and base == last_char and last_end is not None \
+                and n["start"] <= last_end + LYRIC_EXTEND_TOUCH_S:
+            base = "+"
+        out.append(base)
+        if base != "+":
+            last_char = base
+        last_end = n["end"]
     return out
 
 
