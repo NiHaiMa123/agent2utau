@@ -1117,12 +1117,28 @@ def _pilot_store(tmp_path, note_id="note_0012", phrase_key="18.40-24.44"):
                "SOURCE_PHRASE_original_mix_LISTEN.wav",
                "SOURCE_PHRASE_separated_vocal_LISTEN.wav"):
         sf.write(str(pdir / nm), np.zeros(8000), 8000)
+    # G5G-C: plan must mirror the authoritative manifest + signal_qc —
+    # enrich the fixture manifest with the fields invariants compare
+    man["schema"] = "m25-cal-2"
+    man["audio_package_hash"] = "aph-p1"
+    man["package_state"] = "valid"
+    man["calibration"]["lyric_contract"] = "real_lyric_review"
+    man["calibration"]["lyric_mapping_impl"] = "rlv2"
+    man["calibration"]["contract_sha256"] = "cs-p1"
+    (idir / "manifest.json").write_text(json.dumps(man))
+    (idir / "signal_qc.json").write_text(json.dumps(
+        {"schema": "m25-cal-2", "auto_flags": [],
+         "auto_review_ready": True}))
     plan = {"schema": "m25-cal-2", "items": [{
         "cal_item_id": "cal-p1", "repair_id": "srp-p1",
         "note_id": note_id, "type": "split",
         "phrase": {"start": 18.4, "end": 24.44},
         "phrase_key": phrase_key,
-        "audio_package_hash": "aph-p1"}]}
+        "audio_package_hash": "aph-p1",
+        "package_state": "valid",
+        "lyric_contract": "real_lyric_review",
+        "contract_sha256": "cs-p1",
+        "signal_qc_flags": []}]}
     (cdir / "plan.json").write_text(json.dumps(plan))
     return run
 
@@ -1369,3 +1385,92 @@ def test_listen_copies_pair_shared_gain(tmp_path):
     assert out["listen_peak"]["OPTION_1"] <= 0.98 + 1e-4
     # canonical bytes untouched
     assert (idir / "OPTION_0.wav").read_bytes() == canon0
+
+
+# --------------------------------- §10.1.5A-G5G close-out regressions
+
+def test_contract_sha_binds_lyric_impl_version(tmp_path):
+    """G5G-B: the render-contract identity includes the lyric-mapping
+    impl version — a semantic bump produces a different contract sha,
+    so artifacts rendered under the old impl can never pass as current."""
+    import agent2utau.structure_calibration as sc
+    run = {"chars": []}
+    rph = "rph-test"
+    review_sha = sc.render_contract_sha(run, rph, "real_lyric_review")
+    neutral_sha = sc.render_contract_sha(run, rph, "neutral_vowel")
+    assert review_sha != neutral_sha
+    # simulate the rlv1 semantics era by patching the version table
+    import agent2utau.structure_calibration as scmod
+    old = scmod.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"]
+    try:
+        scmod.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] = "rlv1"
+        v1_sha = sc.render_contract_sha(run, rph, "real_lyric_review")
+    finally:
+        scmod.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] = old
+    assert v1_sha != review_sha      # impl bump changes identity
+
+
+def test_item_contract_stale_detects_old_impl(tmp_path, monkeypatch):
+    """G5G-B regression: an artifact whose manifest records a contract
+    sha computed under an older lyric impl is stale — it must not pass
+    as current-contract valid."""
+    import agent2utau.structure_calibration as sc
+    run = {"chars": []}
+    man = {"calibration": {"lyric_contract": "real_lyric_review",
+                           "contract_sha256": "old-impl-sha"}}
+    assert sc.item_contract_stale(man, run, "rph") is True
+    man["calibration"]["contract_sha256"] = sc.render_contract_sha(
+        run, "rph", "real_lyric_review")
+    assert sc.item_contract_stale(man, run, "rph") is False
+
+
+def test_plan_invariants_catches_lying_plan(tmp_path):
+    """G5G-C: a plan entry disagreeing with the authoritative manifest
+    or signal_qc is reported — review_ready/pilot/QC must all block."""
+    import agent2utau.structure_calibration as sc
+    run = _pilot_store(tmp_path)
+    cdir = run / "structure_calibration"
+    inv = sc.plan_invariants(run)
+    assert inv["ok"] is True and inv["violations"] == []
+    # corrupt one field in the plan → violation names the field+item
+    plan = json.loads((cdir / "plan.json").read_text(encoding="utf-8"))
+    plan["items"][0]["signal_qc_flags"] = ["stale_flag:1"]
+    plan["items"][0]["lyric_contract"] = "neutral_vowel"
+    (cdir / "plan.json").write_text(json.dumps(plan))
+    inv = sc.plan_invariants(run)
+    assert inv["ok"] is False
+    assert any("signal_qc_flags" in v for v in inv["violations"])
+    assert any("lyric_contract" in v for v in inv["violations"])
+    # a lying plan also blocks pilot payload generation
+    with pytest.raises(RuntimeError, match="plan-invariant"):
+        sc.build_pilot_review(run)
+
+
+def test_rebuild_plan_mirrors_manifests(tmp_path):
+    """G5G-C: rebuild_plan re-reads every field from the authoritative
+    manifest + signal_qc — no stale value survives the rebuild."""
+    import agent2utau.structure_calibration as sc
+    run = _pilot_store(tmp_path)
+    cdir = run / "structure_calibration"
+    plan = json.loads((cdir / "plan.json").read_text(encoding="utf-8"))
+    plan["items"][0]["signal_qc_flags"] = ["stale_flag:1"]
+    plan["items"][0]["audio_package_hash"] = "old-hash"
+    (cdir / "plan.json").write_text(json.dumps(plan))
+    assert not sc.plan_invariants(run)["ok"]
+    doc = sc.rebuild_plan(run)
+    it = doc["items"][0]
+    assert it["audio_package_hash"] == "aph-p1"
+    assert it["signal_qc_flags"] == []
+    assert it["lyric_contract"] == "real_lyric_review"
+    assert sc.plan_invariants(run)["ok"] is True
+
+
+def test_pilot_blocked_when_plan_missing_over_store(tmp_path):
+    """A non-empty item store with no plan.json is a violation — the
+    empty-store case stays vacuous."""
+    import agent2utau.structure_calibration as sc
+    run = _pilot_store(tmp_path)
+    (run / "structure_calibration" / "plan.json").unlink()
+    inv = sc.plan_invariants(run)
+    assert inv["ok"] is False
+    assert any("plan.json missing" in v for v in inv["violations"])

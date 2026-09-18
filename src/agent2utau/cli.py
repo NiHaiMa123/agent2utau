@@ -441,6 +441,23 @@ def cmd_structure_calib_augment(args) -> int:
                        "augment": res})
 
 
+def cmd_structure_calib_rebuild_plan(args) -> int:
+    """§10.1.5A-G5G Blocker C: rebuild plan.json FROM the authoritative
+    item manifests + signal_qc files (no merge), then report the
+    plan↔manifest↔signal_qc invariant check."""
+    from .structure_calibration import plan_invariants, rebuild_plan
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    try:
+        plan = rebuild_plan(run_dir)
+        inv = plan_invariants(run_dir)
+    except Exception as e:
+        emit(exception_payload(e))
+        return 1
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "n_items": len(plan.get("items", [])),
+                       "plan_invariants": inv})
+
+
 def cmd_structure_calib_pilot(args) -> int:
     """§10.1.5A-G5E: emit pilot_review.json — the blind A/B full-phrase
     download manifest (git paths + sha256 + raw URLs at HEAD) that the
@@ -878,6 +895,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("run_id", help="diagnostic run id")
     p.add_argument("--items", default=None,
                    help="comma list of cal_item_id/repair_id/note_id")
+
+    p = sub.add_parser("structure-calib-rebuild-plan")
+    p.set_defaults(fn=cmd_structure_calib_rebuild_plan)
+    p.add_argument("run_id", help="diagnostic run id")
 
     p = sub.add_parser("structure-calib-pilot")
     p.set_defaults(fn=cmd_structure_calib_pilot)

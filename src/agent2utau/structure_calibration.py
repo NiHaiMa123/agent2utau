@@ -32,6 +32,18 @@ LYRIC_CONTRACT = "neutral_vowel"
 # semantics — a review-only overlay from source-bound force_align
 # chars; still not the M2.7 trusted lyric mapping.
 LYRIC_CONTRACT_REVIEW = "real_lyric_review"
+# §10.1.5A-G5G Blocker B: the lyric-mapping implementation is part of
+# the render-contract IDENTITY — a semantic change to carrier/gap/
+# continuation/fail-closed rules MUST stale every artifact rendered
+# under the old semantics (old contract_sha256 != new → mandatory
+# rebuild). Bump the relevant version whenever the mapping semantics
+# change; never reuse an older version's meaning.
+LYRIC_MAPPING_IMPL_VERSION = {
+    "neutral_vowel": "nv1",
+    # v2: unmapped note after a real gap fails closed (probe-verified
+    # OpenUtau rejects a gap-separated '+'); v1 wrote audible 'a'
+    "real_lyric_review": "rlv2",
+}
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 CHOICES = ("split", "baseline", "equivalent", "none_correct")
 OUTCOME = {"split": "human_confirmed_machine_split",
@@ -205,12 +217,28 @@ def plan_calibration(run, packets=None, notes=None, rph=None,
 
 def render_contract_sha(run, rph_hash: str,
                         lyric_contract: str = None) -> str:
-    """Identity of the review-render contract (§10.1.5A-G2): schema +
-    lyric contract + render profile. A material renderer change → a
-    different contract → previous QC verdict no longer applies."""
+    """Identity of the review-render contract (§10.1.5A-G2/G5G-B):
+    schema + lyric contract + lyric-mapping impl version + render
+    profile. A material renderer OR lyric-mapping change → a different
+    contract → previous artifacts/QC verdicts no longer apply."""
+    contract = lyric_contract or LYRIC_CONTRACT
     return _sha({"schema": CALIB_SCHEMA,
-                 "lyric_contract": lyric_contract or LYRIC_CONTRACT,
+                 "lyric_contract": contract,
+                 "lyric_mapping_impl":
+                     LYRIC_MAPPING_IMPL_VERSION[contract],
                  "render_profile_hash": rph_hash})
+
+
+def item_contract_stale(man: dict, run, rph_hash: str) -> bool:
+    """True when the item's recorded contract_sha256 no longer matches
+    the contract the CURRENT code computes for its lyric_contract —
+    e.g. a real_lyric_review package rendered under rlv1 ('a' allowed)
+    is stale under rlv2 (gap fail-closed) even if its bytes exist."""
+    contract = man.get("calibration", {}).get("lyric_contract")
+    recorded = man.get("calibration", {}).get("contract_sha256")
+    if not contract or not recorded:
+        return True
+    return recorded != render_contract_sha(run, rph_hash, contract)
 
 
 def review_phrase_chars(run, win):
@@ -262,6 +290,10 @@ def review_ready(run_dir: Path, contract_sha: str) -> bool:
             # written before this rule existed never counts
             and (v.get("git_evidence_at_record") or {}).get("complete")):
         return False
+    # §10.1.5A-G5G Blocker C: a lying plan (stale fields vs manifests)
+    # can never be review-ready regardless of the verdict
+    if not plan_invariants(run_dir)["ok"]:
+        return False
     ev = git_evidence(run_dir, item_ids=v.get("sample_ids") or [],
                       include_qc=True)
     return bool(ev["complete"])
@@ -283,6 +315,12 @@ def write_verdict(run_dir: Path, verdict: str, contract_sha: str,
            "sample_ids": list(sample_ids or []),
            "recorded_at": _now()}
     if rec["verdict"] == "PASS" and require_git_evidence:
+        inv = plan_invariants(run_dir)
+        if not inv["ok"]:
+            raise RuntimeError(
+                "QC PASS refused (§10.1.5A-G5G plan-invariant rule): "
+                f"plan.json disagrees with authoritative artifacts — "
+                f"{inv['violations'][:3]}")
         ev = git_evidence(run_dir, item_ids=rec["sample_ids"],
                           include_qc=False)
         if not ev["complete"]:
@@ -1087,18 +1125,165 @@ def git_evidence(run_dir: Path, item_ids=None,
             "item_ids": list(item_ids)}
 
 
-# §10.1.5A-G5E/G5F: representative items for the remote 5-item pilot.
-# The original spread (0012/0061/0123/0391/0404) was re-picked after the
-# quality hold: 0123/0391/0404 lack sufficient aligned char evidence for
-# the real-lyric contract (fail-closed). Replacements keep the
-# across-the-song spread AND pass the evidence gate with no loudness
-# flag: 0188 (90.4s, min_p 0.456), 0192 (90.4s, 0.456 — same phrase,
-# different target note), 0379 (178.0s, 0.920). 0012/0061 stay —
-# already re-rendered + heard by the reviewer. note_0248 was tried and
-# correctly failed closed: an unmapped note sits after a real gap where
-# '+' is unrenderable (probe-verified against OpenUtau).
-PILOT_NOTE_IDS = ("note_0012", "note_0061", "note_0188",
-                  "note_0192", "note_0379")
+# ------------------------------------------------- plan authority (G5G-C)
+
+def _rph_hash():
+    from .review.build import render_profile, render_profile_hash
+    return render_profile_hash(render_profile(
+        template_sha=_file_sha_local(
+            Path(__file__).resolve().parents[2]
+            / "configs" / "ustx_template.yaml")))
+
+
+def _file_sha_local(p):
+    from .review.render import _file_sha
+    return _file_sha(p)
+
+
+def plan_invariants(run_dir: Path) -> dict:
+    """§10.1.5A-G5G Blocker C: plan.json is a DERIVED snapshot — every
+    entry must equal the item's authoritative manifest + signal_qc, and
+    the item's recorded contract must equal what CURRENT code computes
+    (a lyric-impl bump makes old packages stale). Any mismatch means
+    the plan lies about the store → review_ready / pilot / QC PASS all
+    blocked. Returns {ok, violations}."""
+    cdir = calib_dir(run_dir)
+    plan_p = cdir / "plan.json"
+    violations = []
+    items_dir = cdir / "items"
+    has_items = items_dir.exists() and any(
+        d.is_dir() for d in items_dir.iterdir())
+    if not plan_p.exists():
+        # vacuous only when there is nothing to lie about — a store
+        # with item dirs but no plan is exactly the lie this gate exists
+        # to catch
+        return {"ok": not has_items,
+                "violations": [] if not has_items
+                else ["plan.json missing over a non-empty item store"]}
+    plan = json.loads(plan_p.read_text(encoding="utf-8"))
+    try:
+        from .review.render import load_run
+        run = load_run(run_dir)
+        rph = _rph_hash()
+    except Exception:
+        run, rph = None, None
+    seen = set()
+    for it in plan.get("items", []):
+        iid = it["cal_item_id"]
+        seen.add(iid)
+        mp = cdir / "items" / iid / "manifest.json"
+        if not mp.exists():
+            violations.append(f"{iid}: manifest missing")
+            continue
+        man = json.loads(mp.read_text(encoding="utf-8"))
+        cal = man.get("calibration", {})
+        checks = (
+            ("audio_package_hash", it.get("audio_package_hash"),
+             man.get("audio_package_hash")),
+            ("lyric_contract", it.get("lyric_contract"),
+             cal.get("lyric_contract")),
+            ("contract_sha256", it.get("contract_sha256"),
+             cal.get("contract_sha256")),
+            ("package_state", it.get("package_state"),
+             man.get("package_state")),
+        )
+        for field, plan_v, man_v in checks:
+            if plan_v != man_v:
+                violations.append(
+                    f"{iid}: plan.{field}={plan_v!r} != "
+                    f"manifest.{field}={man_v!r}")
+        qc_p = cdir / "items" / iid / "signal_qc.json"
+        qc = json.loads(qc_p.read_text(encoding="utf-8")) \
+            if qc_p.exists() else {}
+        if it.get("signal_qc_flags") != qc.get("auto_flags"):
+            violations.append(
+                f"{iid}: plan.signal_qc_flags="
+                f"{it.get('signal_qc_flags')!r} != "
+                f"signal_qc.auto_flags={qc.get('auto_flags')!r}")
+        if run is not None and rph and item_contract_stale(man, run, rph):
+            violations.append(
+                f"{iid}: stale contract (impl "
+                f"{cal.get('lyric_mapping_impl')!r} != current "
+                f"{LYRIC_MAPPING_IMPL_VERSION.get(cal.get('lyric_contract'))!r})")
+    if items_dir.exists():
+        for d in sorted(items_dir.iterdir()):
+            if d.is_dir() and d.name not in seen:
+                violations.append(
+                    f"{d.name}: item dir not covered by plan.json")
+    return {"ok": not violations, "violations": violations}
+
+
+def rebuild_plan(run_dir: Path) -> dict:
+    """§10.1.5A-G5G Blocker C: rebuild plan.json FROM the authoritative
+    item manifests + signal_qc files — no partial merge, no carried
+    stale fields. Preserves plan-level metadata; every item field is
+    re-read from its manifest."""
+    from .review.render import load_run
+    cdir = calib_dir(run_dir)
+    prev_p = cdir / "plan.json"
+    prev = json.loads(prev_p.read_text(encoding="utf-8")) \
+        if prev_p.exists() else {}
+    try:
+        run = load_run(run_dir)
+    except Exception:
+        run = None
+    items = []
+    for d in sorted((cdir / "items").iterdir()):
+        if not d.is_dir():
+            continue
+        mp = d / "manifest.json"
+        if not mp.exists():
+            continue
+        man = json.loads(mp.read_text(encoding="utf-8"))
+        if man.get("schema") != CALIB_SCHEMA:
+            continue
+        cal = man.get("calibration", {})
+        qc_p = d / "signal_qc.json"
+        qc = json.loads(qc_p.read_text(encoding="utf-8")) \
+            if qc_p.exists() else {}
+        old = {i["cal_item_id"]: i for i in prev.get("items", [])}
+        prior = old.get(d.name, {})
+        items.append({
+            "cal_item_id": d.name,
+            "repair_id": cal.get("repair_id") or prior.get("repair_id"),
+            "note_id": prior.get("note_id") or man.get("note_id"),
+            "type": prior.get("type") or man.get("type"),
+            "phrase": man.get("phrase") or prior.get("phrase"),
+            "phrase_key": prior.get("phrase_key") or
+                man.get("phrase_key"),
+            "plan_hash": prior.get("plan_hash"),
+            "audio_package_hash": man.get("audio_package_hash"),
+            "package_state": man.get("package_state"),
+            "lyric_contract": cal.get("lyric_contract"),
+            "contract_sha256": cal.get("contract_sha256"),
+            "signal_qc_flags": qc.get("auto_flags"),
+            "semantic_diff_sha256": cal.get("semantic_diff_sha256"),
+            "manifest": str(mp),
+        })
+    items.sort(key=lambda x: (x.get("phrase") or {}).get("start", 0))
+    plan_doc = dict(prev)
+    plan_doc.update({"schema": CALIB_SCHEMA, "created_at": _now(),
+                     "diagnostic_run_id":
+                         (run or {}).get("run_id")
+                         or prev.get("diagnostic_run_id"),
+                     "candidate0_sha256":
+                         (run or {}).get("candidate0_sha256")
+                         or prev.get("candidate0_sha256"),
+                     "items": items})
+    _jwrite(prev_p, plan_doc)
+    return plan_doc
+
+
+# §10.1.5A-G5E/G5F/G5G: representative items for the remote pilot.
+# After the rlv2 fail-closed gap rule the honest pilot is FOUR items —
+# every other evidence-passing item (0012/0044/0246/0248) carries an
+# unmapped note after a real gap, where '+' is unrenderable (probe-
+# verified) and any hanzi would be a guess, so they all fail closed.
+# The 13 remaining items have no aligned char evidence at all.
+# These four pass the evidence gate AND map cleanly AND carry no
+# signal_qc flags: 0061 (37.8s), 0188 (90.4s), 0192 (90.4s — same
+# phrase, different target note), 0379 (178.0s).
+PILOT_NOTE_IDS = ("note_0061", "note_0188", "note_0192", "note_0379")
 
 # Chat reply → official decide() choice. A/B keep the blind map;
 # 无法判断 collapses to none_correct — both mean `unresolved`, never
@@ -1138,6 +1323,13 @@ def build_pilot_review(run_dir: Path, note_ids=None,
     from .review.render import _file_sha
     run_dir = Path(run_dir)
     cdir = calib_dir(run_dir)
+    # §10.1.5A-G5G Blocker C/D: never emit a pilot payload over a lying
+    # plan — the reviewer would download bytes the plan misdescribes
+    inv = plan_invariants(run_dir)
+    if not inv["ok"]:
+        raise RuntimeError(
+            "pilot payload blocked (§10.1.5A-G5G plan-invariant rule): "
+            f"{inv['violations'][:3]}")
     plan = json.loads((cdir / "plan.json").read_text(encoding="utf-8"))
     by_note = {it["note_id"]: it for it in plan.get("items", [])}
     remote = _git_remote_repo(run_dir)
@@ -1352,6 +1544,8 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                 if o["candidate_id"] != "baseline"),
             "baseline_option": it["baseline_option"],
             "lyric_contract": item_contract,
+            "lyric_mapping_impl":
+                LYRIC_MAPPING_IMPL_VERSION[item_contract],
             "contract_sha256": item_contract_sha,
             "choices": list(CHOICES),
         }
@@ -1560,6 +1754,7 @@ def rebuild_calibration_state(run_dir: Path) -> dict:
             counts[rev["outcome"]] += 1
     confirmed = counts["human_confirmed_machine_split"]
     ev = git_evidence(run_dir)
+    inv = plan_invariants(run_dir)
     state = {
         "schema": CALIB_SCHEMA, "rebuilt_at": _now(),
         "total_machine_split_candidates": len(plan["items"]),
@@ -1576,6 +1771,8 @@ def rebuild_calibration_state(run_dir: Path) -> dict:
         "git_evidence": {k: ev[k] for k in
                          ("complete", "git", "checked")} | \
                         {"missing_count": len(ev["missing"])},
+        "plan_invariants": {"ok": inv["ok"],
+                            "violations": inv["violations"][:20]},
         "review_ready": review_ready(
             run_dir, plan.get("contract_sha256") or ""),
     }
