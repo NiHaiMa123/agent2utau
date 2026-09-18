@@ -40,14 +40,59 @@ LYRIC_CONTRACT_REVIEW = "real_lyric_review"
 # change; never reuse an older version's meaning.
 LYRIC_MAPPING_IMPL_VERSION = {
     "neutral_vowel": "nv1",
-    # v3 (G5I): source-bound lyric articulation — a char onset inside
-    # a note produces a render-only same-pitch split so the char
-    # voices at its aligned onset, not note.start (v2 still sang it
-    # up to hundreds of ms early); v2: unmapped note after a real gap
-    # fails closed; v1 wrote audible 'a'
-    "real_lyric_review": "rlv3",
+    # v4 (G5J): acoustic closed-loop — render-only articulation
+    # anchors are re-estimated from rendered-vocal re-alignment
+    # (measured onset error feeds back, k<1 + clamps + monotonic),
+    # low-confidence rendered alignments fail closed, SOURCE phrase
+    # windows expand to cover first/last char articulation; v3:
+    # source-bound articulation splits (chars could still land early
+    # vs measured acoustic onset); v2: gap fail-closed; v1: 'a'
+    # v5: the loop/QC instrument switched from whisper force_align to
+    # onset-strength envelope peaks — whisper-on-synthetic was found
+    # to mis-assign char boundaries ~200-500ms EARLY into the previous
+    # syllable's tail (whisper-on-source ≈ accurate), so a whisper-vs-
+    # whisper loop drove anchors ~200ms genuinely LATE. One acoustic
+    # instrument on both sides cancels detector bias by construction.
+    "real_lyric_review": "rlv5",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
+MIN_TIMING_CHAR_PROB = 0.30   # §G5J-B: rendered char alignment below
+                              # this is untrusted timing evidence —
+                              # can't prove acoustic PASS or bias
+LYRIC_PHRASE_LEAD_PAD_S = 0.15   # §G5J-A: phrase window must cover
+LYRIC_PHRASE_TAIL_PAD_S = 0.15   # first/last char articulation
+LOOP_K = 0.7                  # §G5J: anchor feedback gain (<1)
+LOOP_CLAMP_S = 0.15           # max anchor shift per iteration
+LOOP_MAX_ITERS = 4            # renders after the initial pass
+LOOP_TOL_MS = 80.0            # convergence: max |shared onset error|
+TIMING_GATE_MS = 120.0        # §G5J: QC gate — max |acoustic onset
+                            # delta| above this fails; score_delta≈0
+                            # can never mask a measured acoustic miss
+ONSET_PEAK_DELTA = 0.4        # §G5J-rlv5: onset_strength peak_pick
+ONSET_PEAK_WAIT = 8           # prominence / min-distance (frames)
+ONSET_REF_WIN_S = 0.35        # source ref: peak must sit within this
+                            # of the whisper-measured char position
+ONSET_MEAS_BACK_S = 0.15      # render onset search back-window —
+                            # phoneme anticipation can voice a
+                            # consonant before its note start
+ONSET_MEAS_FWD_S = 0.22       # forward window — vowel attack lands
+                            # at/after the commanded segment start;
+                            # a peak farther than this is a different
+                            # event, not this char's onset
+ONSET_XOPT_DISAGREE_S = 0.15  # same anchor, same instrument: two
+                            # options disagreeing more than this on
+                            # one char's onset means at least one
+                            # peak is a mis-assignment — unmeasurable
+ONSET_FLIP_S = 0.15           # measured onset jumping more than this
+ONSET_FLIP_ANCH_S = 0.05      # while its anchor moved less than this
+                            # is an artifact, not a real onset move
+ONSET_MIN_GAP_S = 0.06        # two chars can't share one peak
+MIN_USABLE_SEG_S = 0.12       # §G5J: an anchor update that would
+                            # squeeze a char below this sung duration
+                            # is bound-limited — held at the usable
+                            # edge and reported, never a 30ms blip
+                            # whose 'measurement' is another landmark
+ARTICULATE_MIN_SEG_S = 0.03   # shortest legal render segment
 CHOICES = ("split", "baseline", "equivalent", "none_correct")
 OUTCOME = {"split": "human_confirmed_machine_split",
            "baseline": "machine_structure_false_positive",
@@ -188,6 +233,61 @@ def plan_calibration(run, packets=None, notes=None, rph=None,
             if not early:
                 break
             win = dict(win, start=round(min(early), 3))
+        if item["lyric_contract"] == LYRIC_CONTRACT_REVIEW:
+            # §10.1.5A-G5J-A: the LRC boundary alone truncated lyric
+            # articulation — the first source char started ~80–130ms
+            # before phrase.start on every pilot item. The review
+            # window must cover first_char.start - lead_pad and
+            # last_char.end + tail_pad. Char evidence is selected on
+            # the ORIGINAL lrc window (evidence_window) so expansion
+            # can't pull a neighbouring line's char in; expansion is
+            # clamped to the neighbouring note gap (never cut a note).
+            item["evidence_window"] = dict(win)
+            ev = review_phrase_chars(run, win)
+            if ev["ok"]:
+                first_s = min(c["start"] for c in ev["chars"])
+                last_e = max(c["end"] for c in ev["chars"])
+                lead = first_s - LYRIC_PHRASE_LEAD_PAD_S
+                tail = last_e + LYRIC_PHRASE_TAIL_PAD_S
+                ns = max(0.0, min(win["start"], lead))
+                ne = min(run["duration"], max(win["end"], tail))
+                # padding may only cross a neighbouring note when the
+                # CHAR itself reaches into that note — a pad that
+                # merely dips inside one would drag a carrier the
+                # first/last char never uses into context (and break
+                # the first-carrier binding). Clamp at the note edge:
+                # it is a natural phrase boundary anyway.
+                for n in notes:
+                    n_s = n["start"]
+                    n_e = n.get("end") or n_s + n["dur"]
+                    if n_e <= min(first_s, win["start"] + 1e-9):
+                        ns = max(ns, n_e)
+                    if n_s >= max(last_e, win["end"] - 1e-9):
+                        ne = min(ne, n_s)
+                ns, ne = round(ns, 3), round(ne, 3)
+                if ns < win["start"] - 1e-9 or \
+                        ne > win["end"] + 1e-9:
+                    win = dict(win, start=ns, end=ne,
+                               boundary_source="lrc+lyric_pad")
+                    # the pad may land INSIDE a neighbouring note —
+                    # extend to its full span on either side so no
+                    # note (and no lyric articulation it carries) is
+                    # ever cut by the review window
+                    for _ in range(6):
+                        ctx = context_notes(notes, win)
+                        early = [n["start"] for n in ctx
+                                 if n["start"] < win["start"] - 1e-9]
+                        late = [n["end"] for n in ctx
+                                if n["end"] > win["end"] + 1e-9]
+                        if not early and not late:
+                            break
+                        win = dict(
+                            win,
+                            start=round(min(early), 3) if early
+                            else win["start"],
+                            end=round(min(max(late),
+                                          run["duration"]), 3)
+                            if late else win["end"])
         item["phrase"] = win
         item["phrase_key"] = f"{win['start']:.2f}-{win['end']:.2f}"
         ctx = context_notes(notes, win)
@@ -991,6 +1091,340 @@ def _phrase_listen_copies(cdir: Path) -> dict:
     return res
 
 
+def _anchor_bounds(it: dict, chars: list) -> tuple | None:
+    """§10.1.5A-G5J: legal anchor range per char — the intersection
+    over ALL options of its carrier-note span
+    [carrier.start, carrier.end - ARTICULATE_MIN_SEG_S]. A char may
+    only onset inside its own carrier's span (earlier would voice it
+    at the previous note's pitch); the shared range keeps A/B
+    outside-target anchors identical (J7). None when any option can't
+    bind the evidence."""
+    from .review.build import apply_patch
+    from .review.render import _char_anchor_binding
+    lo = [None] * len(chars)
+    hi = [None] * len(chars)
+    for o in it["options"]:
+        notes = apply_patch(it["context"], o["score_patch"])
+        bind = _char_anchor_binding(notes, chars)
+        if bind is None:
+            return None
+        for k, (pos, ch, i) in enumerate(bind):
+            n = notes[i]
+            l, h = n["start"], n["end"] - ARTICULATE_MIN_SEG_S
+            lo[k] = l if lo[k] is None else max(lo[k], l)
+            hi[k] = h if hi[k] is None else min(hi[k], h)
+    return lo, hi
+
+
+def _onset_peaks(path) -> np.ndarray:
+    """§G5J-rlv5: onset-strength envelope peak times (seconds) — ONE
+    acoustic instrument used on BOTH the source vocal and every
+    rendered option, so detector bias cancels in the delta instead of
+    being chased by the loop. (Whisper force_align stays in the QC
+    table as diagnostic evidence — it proved to report rendered char
+    boundaries ~200-500ms early, inside the previous syllable.)"""
+    import librosa
+    y, sr = librosa.load(str(path), sr=22050, mono=True)
+    env = librosa.onset.onset_strength(y=y, sr=sr, hop_length=256)
+    pk = librosa.util.peak_pick(env, pre_max=5, post_max=5, pre_avg=5,
+                                post_avg=5, delta=ONSET_PEAK_DELTA,
+                                wait=ONSET_PEAK_WAIT)
+    return pk * 256.0 / sr
+
+
+def _source_ref_onsets(chars: list, src_wav, ph0: float):
+    """Per-char acoustic onset reference on the SOURCE separated
+    vocal: the onset-strength peak nearest the whisper-measured char
+    position (whisper positions select the landmark; the acoustic
+    peak refines it), monotonic and never shared between chars.
+    Returns (refs, kinds): refs are phrase-relative seconds or None
+    (None = no acoustic evidence at all — the wav couldn't be read),
+    kinds 'onset_peak' | 'whisper_fallback' | 'none'."""
+    import numpy as np
+    refs, kinds = [], []
+    try:
+        peaks = _onset_peaks(src_wav)
+    except Exception:
+        peaks = None
+    if peaks is None:
+        return None, ["none"] * len(chars)
+    prev = -1e9
+    for c in chars:
+        rel = float(c["start"]) - ph0
+        pk = None
+        cand = peaks[(peaks > prev + ONSET_MIN_GAP_S)
+                     & (np.abs(peaks - rel) <= ONSET_REF_WIN_S)]
+        if cand.size:
+            pk = float(cand[np.argmin(np.abs(cand - rel))])
+        if pk is not None:
+            refs.append(pk)
+            kinds.append("onset_peak")
+            prev = pk
+        else:
+            refs.append(rel)
+            kinds.append("whisper_fallback")
+    return refs, kinds
+
+
+def _option_char_starts(ustx_path):
+    """Wav-relative commanded onset positions (seconds) of every
+    lyric-carrying note in a rendered OPTION_*.ustx — the exact
+    segment starts the synth was told to voice (post-snap), one per
+    char. None when the file can't be read or has no carriers."""
+    import yaml
+    try:
+        doc = yaml.safe_load(Path(ustx_path).read_text(
+            encoding="utf-8"))
+        tick_s = 60000.0 / (120.0 * 480.0) / 1000.0
+        carriers = [n for n in doc["voice_parts"][0]["notes"]
+                    if n["lyric"] != "+"]
+        return [n["position"] * tick_s for n in carriers] or None
+    except Exception:
+        return None
+
+
+def _render_onsets(wav, centers: list):
+    """Per-char rendered acoustic onset: the onset-strength peak
+    nearest the char's COMMANDED segment start (wav-relative,
+    ustx-derived), monotonic. Searching near the commanded start —
+    not the source ref — keeps a truly displaced onset measurable;
+    the window is asymmetric because DiffSinger phoneme anticipation
+    can voice a consonant ~0.2s before its note while the vowel
+    attack lands at/after it."""
+    import numpy as np
+    try:
+        peaks = _onset_peaks(wav)
+    except Exception:
+        return [None] * len(centers)
+    out, prev = [], -1e9
+    for k, a in enumerate(centers):
+        rel = float(a)
+        fwd = ONSET_MEAS_FWD_S
+        if k + 1 < len(centers):
+            fwd = min(fwd, float(centers[k + 1]) - rel
+                      - ONSET_MIN_GAP_S)
+        cand = peaks[(peaks > prev + ONSET_MIN_GAP_S)
+                     & (peaks >= rel - ONSET_MEAS_BACK_S)
+                     & (peaks <= rel + fwd)]
+        if cand.size:
+            pk = float(cand[np.argmin(np.abs(cand - rel))])
+            out.append(pk)
+            prev = pk
+        else:
+            out.append(None)
+    return out
+
+
+def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
+                         src_wav=None, progress=None) -> dict:
+    """§10.1.5A-G5J acoustic lyric-timing closed loop (rlv5).
+
+    render → measure each option's per-char acoustic onsets with the
+    SAME onset-strength instrument as the source reference → per-char
+    onset error = rendered peak − source ref peak → shift every
+    char's render-only anchor opposite the error (k<1, per-iteration
+    clamp, strictly monotonic, carrier-span bounds shared across
+    A/B) → rerender → repeat until the max absolute shared error
+    converges or the iteration budget ends.
+
+    Anchors never leave the render layer — the written score is
+    untouched. Anything unmeasurable (missing wav, no source ref, no
+    renderable peak) or blocked (clamp/monotonic can't move an
+    anchor further) records the residual and reports converged=False
+    — never a fake 'closer' timing."""
+    from .review.render import render_item
+    ph0 = float(it["phrase"]["start"])
+    bounds = _anchor_bounds(it, chars)
+    meta = {"k": LOOP_K, "clamp_s": LOOP_CLAMP_S, "tol_ms": LOOP_TOL_MS,
+            "instrument": "onset_strength_peak_v1"}
+    if bounds is None:
+        return {"converged": False, "reason": "unbindable_chars",
+                "iterations": [], "anchors": None, "rres": None,
+                "bound_limited": [], "unmeasurable_chars": [],
+                "bounds": None, **meta}
+    lo, hi = bounds
+    if any(lo[k] > hi[k] for k in range(len(chars))):
+        return {"converged": False, "reason": "unbindable_chars",
+                "iterations": [], "anchors": None, "rres": None,
+                "bound_limited": [], "unmeasurable_chars": [],
+                "bounds": {"lo": lo, "hi": hi}, **meta}
+    refs, ref_kinds = _source_ref_onsets(chars, src_wav, ph0)
+    if refs is None:
+        return {"converged": False, "reason": "unmeasurable",
+                "iterations": [], "anchors": None, "rres": None,
+                "bound_limited": [], "unmeasurable_chars":
+                list(range(len(chars))),
+                "ref_kinds": ref_kinds,
+                "bounds": {"lo": lo, "hi": hi}, **meta}
+    anchors = [min(max(refs[k] + ph0, lo[k]), hi[k])
+               for k in range(len(chars))]
+    if any(anchors[k + 1] - anchors[k] < ARTICULATE_MIN_SEG_S
+           for k in range(len(anchors) - 1)):
+        return {"converged": False, "reason": "unbindable_chars",
+                "iterations": [], "anchors": None, "rres": None,
+                "bound_limited": [], "unmeasurable_chars": [],
+                "bounds": {"lo": lo, "hi": hi}, **meta}
+    history, rres, converged, stop = [], None, False, "max_iters"
+    limited, unmeasurable = [], []
+    for it_i in range(LOOP_MAX_ITERS + 1):
+        rres = render_item(cfg, idir, it, chars, anchors=anchors)
+        errs, onsets, measurable, conf = {}, {}, True, {}
+        for o in it["options"]:
+            oid = o["option_id"]
+            wav = idir / f"{oid}.wav"
+            if not wav.exists():
+                errs[oid] = None
+                onsets[oid] = None
+                conf[oid] = None
+                measurable = False
+                continue
+            starts = _option_char_starts(idir / f"{oid}.ustx")
+            if starts is None or len(starts) != len(chars):
+                errs[oid] = None
+                onsets[oid] = None
+                conf[oid] = None
+                measurable = False
+                continue
+            pks = _render_onsets(wav, starts)
+            onsets[oid] = pks
+            conf[oid] = [1.0 if p is not None else 0.0 for p in pks]
+            errs[oid] = [
+                round(pks[k] - refs[k], 4)
+                if pks[k] is not None and refs[k] is not None else None
+                for k in range(len(chars))]
+        # §G5J-B: a char with no trusted measurement in ANY option
+        # (no detected onset peak / no source ref) is unmeasurable —
+        # it can't drive an anchor update (noise is not evidence);
+        # its anchor holds at the last position and is reported.
+        # Trusted measurements only feed the shared error — noise
+        # never contaminates evidence.
+        shared = None
+        if measurable:
+            shared = []
+            for k in range(len(chars)):
+                tr = [errs[oid][k] for oid in errs
+                      if errs[oid] is not None
+                      and errs[oid][k] is not None
+                      and conf[oid][k] >= MIN_TIMING_CHAR_PROB]
+                # §G5J-rlv5 stability gate 1: both options render the
+                # SAME anchor, so their measured onsets for one char
+                # must agree — a disagreement means at least one peak
+                # is a mis-assignment; the char is unmeasurable, not
+                # "averaged" (averaging two wrong landmarks is still
+                # wrong evidence).
+                if len(tr) >= 2 and max(tr) - min(tr) \
+                        > ONSET_XOPT_DISAGREE_S:
+                    tr = []
+                shared.append(
+                    round(sum(tr) / len(tr), 4) if tr else None)
+        # §G5J-rlv5 stability gate 2: an onset legitimately tracks its
+        # commanded anchor — if the measured error jumps >FLIP_S while
+        # the anchor moved <FLIP_ANCH_S, the detector re-locked onto a
+        # different landmark; the char is unmeasurable this round, not
+        # a real swing to chase.
+        shared_raw = list(shared) if shared else None
+        if shared and history:
+            prev_err = history[-1].get("shared_err_raw")
+            prev_anch = history[-1]["anchors"]
+            for k in range(len(chars)):
+                if shared[k] is None or prev_err is None \
+                        or prev_err[k] is None:
+                    continue
+                if abs(shared[k] - prev_err[k]) > ONSET_FLIP_S \
+                        and abs(anchors[k] - prev_anch[k]) \
+                        < ONSET_FLIP_ANCH_S:
+                    shared[k] = None
+        unmeasurable = []
+        if measurable:
+            unmeasurable = [k for k in range(len(chars))
+                            if shared[k] is None]
+        trusted = [e for e in (shared or []) if e is not None]
+        max_abs = max((abs(e) for e in trusted), default=None)
+        history.append({
+            "iteration": it_i,
+            "anchors": [round(a, 4) for a in anchors],
+            "onsets": {oid: ([round(p, 4) if p is not None else None
+                              for p in pv] if pv else None)
+                       for oid, pv in onsets.items()},
+            "errors_ms": {oid: ([round(e * 1000.0, 1)
+                                 if e is not None else None
+                                 for e in ev] if ev else None)
+                          for oid, ev in errs.items()},
+            "shared_err_raw": shared_raw,
+            "shared_err_ms": ([round(e * 1000.0, 1)
+                               if e is not None else None
+                               for e in shared]
+                              if shared else None),
+            "unmeasurable_chars": unmeasurable,
+            "max_abs_err_ms": round(max_abs * 1000.0, 1)
+            if max_abs is not None else None})
+        if not measurable:
+            stop = "unmeasurable"
+            break
+        if trusted and max_abs * 1000.0 <= LOOP_TOL_MS \
+                and not unmeasurable:
+            converged, stop = True, "converged"
+            break
+        if it_i == LOOP_MAX_ITERS:
+            break
+        # §G5J: hi_move keeps ≥MIN_USABLE_SEG_S of sung duration inside
+        # the carrier — an update past it is bound-limited, not applied
+        hi_move = [hi[k] + ARTICULATE_MIN_SEG_S - MIN_USABLE_SEG_S
+                   for k in range(len(chars))]
+        new, limited = [], []
+        for k, a in enumerate(anchors):
+            if k in unmeasurable or shared[k] is None:
+                new.append(a)               # hold — no evidence
+                continue
+            want = a - LOOP_K * shared[k]
+            na = min(max(want, a - LOOP_CLAMP_S), a + LOOP_CLAMP_S)
+            # bound-limited: the carrier span itself blocks the
+            # correction — recorded, not silently squeezed
+            if na < lo[k] - 1e-9 or na > hi_move[k] + 1e-9:
+                limited.append(k)
+            na = min(max(na, lo[k]), hi_move[k])
+            new.append(na)
+        # monotonic: every anchor needs MIN_SEG room before the next —
+        # forward pass enforces new[k] >= new[k-1]+MIN_SEG, backward
+        # pass enforces new[k] <= new[k+1]-MIN_SEG; if either side has
+        # no room left inside [lo,hi] the update crosses a neighbour —
+        # fail closed rather than ship a reordered articulation (J6).
+        for k in range(1, len(new)):
+            new[k] = max(new[k], new[k - 1] + ARTICULATE_MIN_SEG_S)
+        for k in range(len(new) - 2, -1, -1):
+            new[k] = min(new[k], new[k + 1] - ARTICULATE_MIN_SEG_S)
+        if any(new[k] < lo[k] - 1e-9 or new[k] > hi_move[k] + 1e-9
+               for k in range(len(new))) or \
+           any(new[k + 1] - new[k] < ARTICULATE_MIN_SEG_S - 1e-9
+               for k in range(len(new) - 1)):
+            stop = "anchors_crossed"
+            break
+        if not any(abs(new[k] - anchors[k]) > 1e-6
+                   for k in range(len(new))):
+            stop = "bound_limited" if limited else "anchors_clamped"
+            break
+        anchors = new
+        if progress:
+            progress(f"    closed-loop iter {it_i}: "
+                     f"max|err|={max_abs * 1000.0:.0f}ms → re-render")
+    if not converged and stop in ("max_iters", "anchors_clamped"):
+        if unmeasurable:
+            stop = "unmeasurable_chars"
+        elif limited:
+            stop = "bound_limited"
+    return {"converged": converged, "reason": stop,
+            "iterations": history, "anchors": anchors, "rres": rres,
+            "k": LOOP_K, "clamp_s": LOOP_CLAMP_S,
+            "tol_ms": LOOP_TOL_MS,
+            "instrument": "onset_strength_peak_v1",
+            "ref_onsets": [round(r, 4) if r is not None else None
+                           for r in refs],
+            "ref_kinds": ref_kinds,
+            "bound_limited": sorted(set(limited)),
+            "unmeasurable_chars": unmeasurable,
+            "bounds": {"lo": lo, "hi": hi}}
+
+
 def _lyric_timing_qc(man: dict, idir: Path) -> dict:
     """§10.1.5A-G5I: same-aligner per-char lyric-timing comparison —
     the SOURCE-bound char table (persisted in the manifest) is the
@@ -1006,6 +1440,15 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
     src = ev.get("chars")
     if cal.get("lyric_contract") != "real_lyric_review" or not src:
         return None
+    # §G5J: an rlv5 package must carry a CONVERGED closed loop —
+    # non-convergence means the acoustic timing gate can't claim PASS
+    art = ev.get("articulation") or {}
+    loop = art.get("closed_loop")
+    flags0 = []
+    if art.get("impl") == "rlv5" and loop is not None \
+            and not loop.get("converged"):
+        flags0.append(f"lyric_timing_not_converged:"
+                      f"{loop.get('reason')}")
     from .analysis.lyrics import force_align, DEFAULT_MODEL
     import numpy as np
     ph_start = float(man["phrase"]["start"])
@@ -1018,7 +1461,8 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                              "end": round(c["end"] - ph_start, 4),
                              "probability": c.get("probability")}
                             for c in src],
-           "options": {}, "per_char": [], "stats": {}, "flags": []}
+           "options": {}, "per_char": [], "stats": {},
+           "flags": list(flags0)}
     base_seq = [c["char"] for c in src]
     aligned = {}
     for o in man["options"]:
@@ -1032,12 +1476,102 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
             aligned[oid] = None
             out["options"][oid] = {"error": str(e)[:160]}
             out["flags"].append(f"lyric_timing_unmeasurable:{oid}")
+    # §G5J: two flag classes — GATE flags (unmeasurable / char
+    # mismatch / score mismatch) make the delta table meaningless and
+    # suppress it; REPORTING flags (not_converged, low_confidence) are
+    # recorded alongside the table — evidence is never hidden, the
+    # item just can't PASS while any flag stands.
+    gate = [f for f in out["flags"]
+            if f.startswith(("lyric_timing_unmeasurable",
+                             "lyric_timing_mismatch"))]
     for oid, cs in aligned.items():
         if cs is None:
             continue
         if [c["char"] for c in cs] != base_seq:
             out["flags"].append(f"lyric_timing_mismatch:{oid}")
-    if not out["flags"]:
+            gate.append(f"lyric_timing_mismatch:{oid}")
+            continue
+        # §G5J-B: a rendered char whose alignment confidence is below
+        # threshold can't be used to prove acoustic timing — its delta
+        # is untrusted evidence, so the item can't PASS on it.
+        low = [c["char"] for c in cs
+               if float(c.get("probability") or 0.0)
+               < MIN_TIMING_CHAR_PROB]
+        if low:
+            out["flags"].append(
+                f"lyric_timing_low_confidence:{oid}:"
+                f"{''.join(low)}")
+    # §G5J-rlv5 acoustic onset evidence — onset-strength peaks, ONE
+    # instrument on both source and rendered audio so detector bias
+    # cancels (whisper above stays diagnostic: it reported rendered
+    # boundaries ~200-500ms early into the previous syllable's tail,
+    # which made a whisper-vs-whisper loop push anchors genuinely
+    # late — the acoustic gate below is the PASS criterion).
+    refs, ref_kinds, ac_unstable = None, [], set()
+    if loop and loop.get("ref_onsets"):
+        refs = loop["ref_onsets"]
+        ref_kinds = loop.get("ref_kinds") or []
+    else:
+        _sw = ((man.get("source_reference") or {})
+               .get("separated_vocal") or {}).get("path")
+        if _sw:
+            try:
+                refs, ref_kinds = _source_ref_onsets(
+                    src, (idir / _sw).resolve(), ph_start)
+            except Exception:
+                refs = None
+    ac_on = {}
+    if refs is not None:
+        for o in man["options"]:
+            oid = o["option_id"]
+            starts = _option_char_starts(idir / f"{oid}.ustx")
+            if starts is None or len(starts) != len(src):
+                ac_on[oid] = None
+                continue
+            ac_on[oid] = _render_onsets(idir / o["wav"], starts)
+        out["acoustic"] = {
+            "instrument": "onset_strength_peak_v1",
+            "src_ref_onsets": [round(r, 4) if r is not None else None
+                               for r in refs],
+            "src_ref_kinds": ref_kinds,
+            "render_onsets": {
+                oid: ([round(p, 4) if p is not None else None
+                       for p in pv] if pv is not None else None)
+                for oid, pv in ac_on.items()},
+        }
+        for oid in ac_on:
+            if ac_on[oid] is None:
+                out["flags"].append(
+                    f"lyric_timing_acoustic_unmeasurable:{oid}")
+                continue
+            missing = [src[k]["char"] for k in range(len(src))
+                       if refs[k] is not None
+                       and ac_on[oid][k] is None]
+            if missing:
+                out["flags"].append(
+                    f"lyric_timing_acoustic_unmeasurable:{oid}:"
+                    f"{''.join(missing)}")
+        # §G5J-rlv5 reliability: both options share every anchor, so a
+        # char whose two measured onsets disagree by more than
+        # ONSET_XOPT_DISAGREE_S has at least one mis-assigned peak —
+        # the delta gate must not fire on such evidence (a REAL
+        # displacement shows in both options alike; a cross-assigned
+        # landmark usually hits only one).
+        ac_unstable = set()
+        opts_ok = [oid for oid in ac_on if ac_on[oid] is not None]
+        if len(opts_ok) >= 2:
+            for k in range(len(src)):
+                pv = [ac_on[oid][k] for oid in opts_ok
+                      if ac_on[oid][k] is not None]
+                if len(pv) >= 2 and max(pv) - min(pv) \
+                        > ONSET_XOPT_DISAGREE_S:
+                    ac_unstable.add(k)
+            if ac_unstable:
+                out["flags"].append(
+                    "lyric_timing_acoustic_unstable:"
+                    f"{''.join(src[k]['char'] for k in sorted(ac_unstable))}")
+        out["acoustic"]["unstable_chars"] = sorted(ac_unstable)
+    if not gate:
         # score-bound ground truth: the render voices each char exactly
         # at its carrier note position in OPTION_x.ustx (fixed
         # 120bpm/480tpq, part_start=0, no preutterance), so
@@ -1059,6 +1593,8 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                         [n["lyric"] for n in carriers]:
                     out["flags"].append(
                         f"lyric_timing_score_mismatch:{oid}")
+                    gate.append(
+                        f"lyric_timing_score_mismatch:{oid}")
                     continue
                 score_onsets[oid] = [n["position"] * tick_s
                                      for n in carriers]
@@ -1066,13 +1602,20 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                 out["flags"].append(
                     f"lyric_timing_score_unavailable:"
                     f"{oid}:{str(e)[:80]}")
-    if not out["flags"]:
+                gate.append(
+                    f"lyric_timing_score_unavailable:{oid}")
+    if not gate:
         on = {oid: [] for oid in aligned}
         off = {oid: [] for oid in aligned}
         aln_off = {oid: [] for oid in aligned}
         for k, sc_ in enumerate(out["source_chars"]):
             row = {"char": sc_["char"], "src_start": sc_["start"],
                    "src_end": sc_["end"]}
+            if refs is not None:
+                row["src_acoustic_onset"] = (
+                    round(refs[k], 4) if refs[k] is not None else None)
+                row["src_ref_kind"] = (
+                    ref_kinds[k] if k < len(ref_kinds) else None)
             for oid, cs in aligned.items():
                 cc = cs[k]
                 so = score_onsets[oid][k]
@@ -1087,10 +1630,20 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                     (so - sc_["start"]) * 1000.0, 1)
                 ao = (cc["start"] - so) * 1000.0
                 row[f"{oid}_aligner_offset_ms"] = round(ao, 1)
+                if refs is not None and ac_on.get(oid):
+                    pk = ac_on[oid][k]
+                    row[f"{oid}_acoustic_onset"] = (
+                        round(pk, 4) if pk is not None else None)
+                    row[f"{oid}_acoustic_delta_ms"] = (
+                        round((pk - refs[k]) * 1000.0, 1)
+                        if pk is not None and refs[k] is not None
+                        else None)
                 on[oid].append(abs(do))
                 off[oid].append(abs(df))
                 aln_off[oid].append(ao)
             out["per_char"].append(row)
+        probs = {oid: [float(c.get("probability") or 0.0)
+                       for c in aligned[oid]] for oid in aligned}
         for oid in aligned:
             a, b = np.asarray(on[oid]), np.asarray(off[oid])
             out["stats"][oid] = {
@@ -1104,7 +1657,42 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                 "n_chars_over_100ms": int((a > 100).sum()),
                 "n_chars_over_200ms": int((a > 200).sum()),
                 "median_aligner_offset_ms":
-                    round(float(np.median(aln_off[oid])), 1)}
+                    round(float(np.median(aln_off[oid])), 1),
+                "min_alignment_probability":
+                    round(min(probs[oid]), 3)}
+            ta = a[np.asarray(probs[oid]) >= MIN_TIMING_CHAR_PROB]
+            out["stats"][oid]["trusted_max_abs_onset_delta_ms"] = \
+                round(float(ta.max()), 1) if ta.size else None
+            # §10.1.5A-G5J-rlv5: the REAL acoustic gate — onset-strength
+            # peaks measured with ONE instrument on both sides, so
+            # detector bias cancels (whisper-vs-whisper deltas above
+            # stay diagnostic only — on synthetic audio that aligner
+            # reported boundaries ~200-500ms early and would false-
+            # gate every item). Gate reads only chars with a real
+            # onset-peak source ref AND a detected render peak; a
+            # missing peak is already flagged unmeasurable above.
+            if refs is not None and ac_on.get(oid):
+                ad = [abs((ac_on[oid][k] - refs[k]) * 1000.0)
+                      for k in range(len(src))
+                      if refs[k] is not None
+                      and k < len(ref_kinds)
+                      and ref_kinds[k] == "onset_peak"
+                      and k not in ac_unstable
+                      and ac_on[oid][k] is not None]
+                out["stats"][oid]["median_abs_acoustic_delta_ms"] = (
+                    round(float(np.median(ad)), 1) if ad else None)
+                out["stats"][oid]["max_abs_acoustic_delta_ms"] = (
+                    round(float(max(ad)), 1) if ad else None)
+                if ad and max(ad) > TIMING_GATE_MS:
+                    out["flags"].append(
+                        f"lyric_timing_acoustic_delta:{oid}:"
+                        f"{max(ad):.0f}ms")
+        loop = ((man.get("calibration") or {}).get("lyric_evidence")
+                or {}).get("articulation", {}).get("closed_loop")
+        if loop:
+            out["convergence_iterations"] = len(
+                loop.get("iterations") or []) - 1
+            out["converged"] = bool(loop.get("converged"))
     return out
 
 
@@ -1840,7 +2428,12 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
             chars = run["chars"]
             if item_contract == LYRIC_CONTRACT_REVIEW:
                 if pkey not in lyr_evidence:
-                    lyr_evidence[pkey] = review_phrase_chars(run, ph)
+                    # §G5J-A: evidence is selected on the ORIGINAL lrc
+                    # window — the phrase window itself may have been
+                    # expanded to cover char articulation, and the
+                    # expanded span must not pull neighbouring chars in.
+                    lyr_evidence[pkey] = review_phrase_chars(
+                        run, it.get("evidence_window") or ph)
                 ev = lyr_evidence[pkey]
                 if not ev["ok"]:
                     raise RuntimeError(
@@ -1852,7 +2445,24 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                 chars = ev["chars"]
             progress(f"  rendering {it['item_id']} "
                      f"({it['type']}, {len(it['options'])} options)")
-            rres = render_item(cfg, idir, it, chars)
+            if item_contract == LYRIC_CONTRACT_REVIEW:
+                # §10.1.5A-G5J: acoustic closed-loop — render, measure
+                # each option's onsets with the SAME onset-strength
+                # instrument as the source reference, shift render-
+                # only anchors opposite the error, rerender to converge.
+                _sw = refs.get("separated_vocal", {}).get("path")
+                loop = _closed_loop_anchors(
+                    cfg, idir, it, chars,
+                    src_wav=((idir / _sw).resolve() if _sw else None),
+                    progress=progress)
+                it["_loop"] = loop
+                rres = loop["rres"]
+                if not loop["converged"]:
+                    progress(f"    closed-loop NOT converged "
+                             f"({loop['reason']}) — recorded, "
+                             "flagged in QC")
+            else:
+                rres = render_item(cfg, idir, it, chars)
             # §10.1.5A-G4: focus clips of the contested region from the
             # SOURCE audio — the original melody is the ground truth.
             reg = it["region"]
@@ -1897,14 +2507,34 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                 from .review.render import review_lyrics_articulated
                 segs = review_lyrics_articulated(
                     apply_patch(it["context"],
-                                {"type": "identity"}), ev["chars"])
+                                {"type": "identity"}), ev["chars"],
+                    anchors=(it.get("_loop") or {}).get("anchors"))
+                loop = it.get("_loop")
                 if segs is not None:
-                    art = {"impl": "rlv3",
+                    art = {"impl": "rlv5",
                            "n_segments": len(segs),
                            "n_articulation_splits": sum(
                                1 for sg in segs
                                if sg["articulation_split"]),
                            "n_chars": len(ev["chars"])}
+                if loop is not None:
+                    art = dict(art or {})
+                    art.update({
+                        "closed_loop": {
+                            "converged": loop["converged"],
+                            "reason": loop["reason"],
+                            "k": loop["k"], "clamp_s": loop["clamp_s"],
+                            "tol_ms": loop["tol_ms"],
+                            "instrument": loop.get("instrument"),
+                            "ref_onsets": loop.get("ref_onsets"),
+                            "ref_kinds": loop.get("ref_kinds"),
+                            "anchors": loop["anchors"],
+                            "bounds": loop["bounds"],
+                            "bound_limited":
+                                loop.get("bound_limited") or [],
+                            "unmeasurable_chars":
+                                loop.get("unmeasurable_chars") or [],
+                            "iterations": loop["iterations"]}})
             man["calibration"]["lyric_evidence"] = {
                 "method": "force_align_source_bound",
                 "n_chars": ev["n_chars"],
@@ -2089,8 +2719,13 @@ def calibration_authorized(run_dir: Path, repair_id: str, patch):
     return rev if ok else None
 
 
-def rebuild_calibration_state(run_dir: Path) -> dict:
-    """Derived summary — always recomputable from decisions + plan."""
+def rebuild_calibration_state(run_dir: Path, write: bool = True) -> dict:
+    """Derived summary — always recomputable from decisions + plan.
+
+    §10.1.5A-G5J-C: `write=False` computes the same state in memory
+    without touching state.json — read paths (e.g. calib-web GETs)
+    must not dirty a tracked file, or the byte-level git_evidence
+    rule self-pollutes review_ready on every page load."""
     ensure_calib_authority(Path(run_dir))
     d = load_decisions(run_dir)
     plan_p = calib_dir(run_dir) / "plan.json"
@@ -2140,5 +2775,6 @@ def rebuild_calibration_state(run_dir: Path) -> dict:
                             "violations": inv["violations"][:20]},
         "review_ready": review_ready(run_dir),
     }
-    _jwrite(calib_dir(run_dir) / "state.json", state)
+    if write:
+        _jwrite(calib_dir(run_dir) / "state.json", state)
     return state

@@ -1005,6 +1005,48 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   (binds artifact commit) -> verdict 346cc1f (binds 767ee841 + payload
   sha f6c0b68a + 4x aph) -> review_ready=true.
 
+### M2.5 G5J — acoustic lyric-timing closed loop (rlv5; pilot 4/4 flagged, held)
+
+- **Whisper is NOT a render-timing instrument**: RMS probes show the
+  render voices within ~50ms of its commanded anchor while whisper
+  force_align reports synthetic-vocal boundaries ~200-500ms EARLY
+  (into the previous syllable's tail). A whisper-vs-whisper loop is a
+  biased ruler — it pushed anchors genuinely late ~200ms. Whisper
+  stays a diagnostic column only; never drives updates or gates.
+- **`onset_strength_peak_v1`**: ONE librosa onset-strength peak
+  instrument on source AND render — detector bias cancels in the
+  delta. `_source_ref_onsets` picks the peak nearest each whisper
+  char position (ref kinds onset_peak|whisper_fallback|none).
+- **Closed loop** (`_closed_loop_anchors`): anchors init at refs
+  (clamped to shared carrier bounds) -> render -> measure per-char
+  render peaks near the USTX carrier positions (the real commanded
+  onsets, post-snap — NOT the raw anchors) -> shared err -> anchor
+  -= 0.7*err with +/-150ms/iter clamp, hi_move keeps >=120ms sung
+  span, strict monotonic -> <=4 iters. Stops recorded honestly:
+  converged / bound_limited / unmeasurable_chars / anchors_crossed /
+  anchors_clamped / max_iters / unbindable_chars.
+- **Anchor legality (the OverlapError root cause)**: an anchor inside
+  ARTICULATE_SNAP_S of its carrier start would emit an ~8ms '+'
+  fragment no phoneme can occupy -> OpenUtau OverlapError -> invalid
+  package. The anchors path must snap to the carrier start exactly
+  like the evidence path does. `option_notes` is inside render_item's
+  try so one bad option fails closed instead of killing the batch.
+- **Measurement stability** (multi-onset envelopes make argmin peak
+  assignment jump ~+/-300ms between iterations): two gates — (1)
+  cross-option agreement: same anchor + same instrument must measure
+  within 150ms on both options or the char is unmeasurable; (2) flip
+  stability: an error jumping >150ms while its anchor moved <50ms is
+  a detector re-lock, not a real onset move — held, never chased.
+  QC gate reads only cross-option-agreeing chars; disagreement is
+  flagged `lyric_timing_acoustic_unstable:<chars>`.
+- **Pilot result (4 items)**: all `package_state=valid`; loops failed
+  EXPLICITLY (unmeasurable_chars x2 / bound_limited x1 /
+  anchors_crossed x1); acoustic delta flags 139-255ms on consistent
+  cross-option early onsets (consonant-anticipation-looking) and
+  bound-pinned structural chars -> auto_review_ready=false ->
+  pilot_authority.ok=false -> review_ready=false. Honest hold for
+  human adjudication, not a fake converged build.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight

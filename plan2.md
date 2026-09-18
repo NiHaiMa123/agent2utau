@@ -4097,6 +4097,20 @@ DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
 
+#### G5J 实现记录（2026-09-19，机制完成；4 项 pilot 明确未收敛、已 fail-closed 挂起）
+
+**仪器**：`onset_strength_peak_v1`——源分离人声与每个 OPTION wav 用**同一** onset-strength 包络峰值仪器测量，检测器偏差在差值中自然抵消。Whisper/force_align 保留为诊断列但**不再驱动更新、不作主门禁**：RMS 探针证实渲染在 anchor 前 ~50ms 内起音（whisper 把合成声边界系统性报早 ~200–500ms 到前一字尾音），whisper-vs-whisper 闭环会把 anchors 真实推晚 ~200ms——过校正已由声学测量证伪。
+
+**闭环**（`_closed_loop_anchors`）：anchors 初始化为 source onset refs（clamp 到共享 carrier bounds）→ `render_item(anchors=...)` → 从 `OPTION_x.ustx` 读 carrier position 作搜索中心（含 snap 后真实命令位置，非裸 anchor）→ 非对称窗 `[cmd-0.15, cmd+0.22]` 找 onset 峰 → shared err = 可信 option 均值 → `anchor -= 0.7·err`（±150ms/iter clamp、hi_move 保留 ≥120ms 可唱段、严格单调）→ 最多 4 迭代。停止原因如实记录：`converged`/`bound_limited`/`unmeasurable_chars`/`anchors_crossed`/`anchors_clamped`/`max_iters`/`unbindable_chars`。
+
+**渲染合法性修复**（本轮关键 bug）：anchor 落在 carrier 起点内 <80ms 会生成 8ms `+` 残段 → 音素 preutterance 放不下 → OpenUtau `OverlapError` → 2/4 包 invalid。修复：anchor 在 `ARTICULATE_SNAP_S` 内 snap 到 carrier 起点（与 evidence 路径同一规则）；`option_notes` 移入 `render_item` try 内 → 单 option fail-closed 不再杀死整个 build。
+
+**测量稳定化**（多峰环境下 argmin 指派本质不稳，实测误差跨迭代 ±300ms 震荡）：①跨 option 一致性——同 anchor 同仪器两 option 测得 onset 差 >150ms → 至少一个误指派 → 该字 unmeasurable；②跨迭代抗跳变——测得 err 跳 >150ms 而 anchor 移动 <50ms → 探测器重锁到别的 landmark → unmeasurable，不驱动更新。QC 门禁同标准：delta gate 只读跨 option 一致的字，不一致标 `lyric_timing_acoustic_unstable:<chars>`。
+
+**Pilot 结果（4 项）**：全部 `package_state=valid`（overlap bug 消除）；闭环均未收敛——`unmeasurable_chars`×2、`bound_limited`×1、`anchors_crossed`×1；声学 delta flag 139–255ms 集中在跨 option 一致的提前 onset（≈辅音先行，人声判断项）与 bound-pinned 结构限位字。`auto_review_ready=false` → `pilot_authority.ok=false` → `review_ready=false`——**如实未通过，项挂起等人工裁决**，不是假收敛。
+
+**回归**：J1–J10 + 既有全套 340 passed；`plan_invariants.ok`；`git_evidence` 仅差未提交字节（提交后补验）。
+
 ---
 
 #### G6. Human-review readiness regressions

@@ -237,7 +237,7 @@ def _role_wav(run_dir: Path, cal_item_id: str, opt_idx: int,
 
 
 def _items_payload(run_dir: Path) -> dict:
-    st = rebuild_calibration_state(run_dir)
+    st = rebuild_calibration_state(run_dir, write=False)
     plan_p = calib_dir(run_dir) / "plan.json"
     plan = json.loads(plan_p.read_text(encoding="utf-8")) \
         if plan_p.exists() else {"items": []}

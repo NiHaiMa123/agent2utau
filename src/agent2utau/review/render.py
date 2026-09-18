@@ -171,23 +171,13 @@ def review_lyrics(notes, chars):
 ARTICULATE_SNAP_S = 0.08
 
 
-def review_lyrics_articulated(notes, chars):
-    """§10.1.5A-G5I lyric-timing overlay (rlv3, review-only — the
-    Candidate-0 written score is NEVER modified). review_lyrics() maps
-    each hanzi to a carrier note but the renderer voices it at
-    note.start; a char whose true onset lands mid-note was sung up to
-    hundreds of ms early. This overlay preserves the source onset:
-    a char starting inside a note produces a RENDER-ONLY same-pitch
-    split at the char's onset — the front segment continues the
-    previous syllable ('+'), the back segment carries the new char.
-    Onsets within ARTICULATE_SNAP_S of a note boundary snap to it
-    (no unnecessary split); gap onsets still bind the following note
-    (the only legal option — the residual is measured, not hidden).
-    Same fail-closed rules as review_lyrics: char evidence outliving
-    the notes, no carrier, material before the first carrier, or a
-    '+' after a real gap (unrenderable) → None. Returns a list of
-    {start,end,tone,lyric,articulation_split} — may contain MORE
-    entries than `notes` — or None."""
+def _char_anchor_binding(notes, chars):
+    """Char→carrier binding by EVIDENCE position (char.start): the
+    carrier is the first unconsumed note whose span reaches the onset
+    (tail-snapped onsets bind the following note — a gap onset has no
+    other legal carrier). Returns [(pos, char, note_idx)] strictly
+    increasing in pos, or None on outliving evidence / no carrier /
+    material before the first carrier."""
     anchors = []            # (pos, char, note_idx), pos strictly ↑
     nxt = 0
     for c in chars:
@@ -209,11 +199,61 @@ def review_lyrics_articulated(notes, chars):
             return None
         anchors.append((pos, c["char"], i))
         nxt = i
-    if not anchors or anchors[0][2] != 0 \
-            or anchors[0][0] != notes[0]["start"]:
+    if not anchors:
+        return None
+    return anchors
+
+
+def review_lyrics_articulated(notes, chars, anchors=None):
+    """§10.1.5A-G5I/G5J lyric-timing overlay (rlv4, review-only — the
+    Candidate-0 written score is NEVER modified). review_lyrics() maps
+    each hanzi to a carrier note but the renderer voices it at
+    note.start; a char whose true onset lands mid-note was sung up to
+    hundreds of ms early. This overlay preserves the source onset:
+    a char starting inside a note produces a RENDER-ONLY same-pitch
+    split at the char's onset — the front segment continues the
+    previous syllable ('+'), the back segment carries the new char.
+    Onsets within ARTICULATE_SNAP_S of a note boundary snap to it
+    (no unnecessary split); gap onsets still bind the following note
+    (the only legal option — the residual is measured, not hidden).
+
+    §G5J closed-loop: `anchors` optionally overrides each char's
+    articulation position (absolute seconds, same index order as
+    chars). Callers clamp overrides inside the carrier span; a
+    front-piece '+' that does not touch the previous segment is
+    emitted as SILENCE instead (the carrier effectively starts at the
+    anchor) — that's how an anchor may move a boundary char's onset
+    later. A whole unmapped '+' note after a real gap still fails
+    closed (its syllable has no char evidence at all). Returns a list
+    of {start,end,tone,lyric,articulation_split} — may contain MORE
+    entries than `notes` — or None."""
+    bind = _char_anchor_binding(notes, chars)
+    if bind is None:
+        return None
+    if anchors is not None:
+        if len(anchors) != len(chars):
+            return None
+        snapped = []
+        for (pos, ch, i), a in zip(bind, anchors):
+            n = notes[i]
+            # §G5J-rlv5: an anchor within SNAP of its carrier start
+            # (or just before it — bounds clamp lo=carrier.start so
+            # the difference is only ever the snap zone) voices at
+            # the note boundary, NOT an ε-length '+' fragment that
+            # no phoneme can occupy (OpenUtau OverlapError).
+            if a <= n["start"] + ARTICULATE_SNAP_S:
+                a = n["start"]
+            snapped.append((float(a), ch, i))
+        bind = snapped
+        if bind[0][0] < notes[0]["start"] - 1e-9:
+            return None            # can't voice before the first note
+        for k in range(1, len(bind)):
+            if bind[k][0] <= bind[k - 1][0]:
+                return None        # anchors must stay strictly ↑
+    elif bind[0][0] != notes[0]["start"]:
         return None                # material before the first carrier
     splits = {}
-    for pos, ch, i in anchors:
+    for pos, ch, i in bind:
         splits.setdefault(i, []).append((pos, ch))
     segs = []
     for i, n in enumerate(notes):
@@ -226,14 +266,32 @@ def review_lyrics_articulated(notes, chars):
         for s, e in sub:
             segs.append({"start": s, "end": e, "tone": n["tone"],
                          "lyric": at.get(s, "+"),
-                         "articulation_split": len(sub) > 1})
-    if segs[0]["lyric"] == "+":
-        return None                 # leading '+' has nothing to extend
+                         "articulation_split": len(sub) > 1,
+                         "_note": i})
+    out = []
+    seen_char = False
     for k, sg in enumerate(segs):
-        if sg["lyric"] == "+" and k > 0 and sg["start"] > \
-                segs[k - 1]["end"] + LYRIC_EXTEND_TOUCH_S:
-            return None             # '+' after a real gap → unrenderable
-    return segs
+        if sg["lyric"] == "+":
+            if anchors is not None and not seen_char:
+                continue           # §G5J: pickup note(s) before the
+                                   # first char → leading silence,
+                                   # never a bare '+' at part start
+            prev = segs[k - 1] if k else None
+            touches = prev is not None and \
+                sg["start"] <= prev["end"] + LYRIC_EXTEND_TOUCH_S
+            if not touches:
+                if sg["articulation_split"]:
+                    continue       # delayed carrier → leading silence
+                return None        # whole unmapped '+' after a gap
+        else:
+            seen_char = True
+        sg.pop("_note", None)
+        out.append(sg)
+    for sg in segs:
+        sg.pop("_note", None)
+    if not out or out[0]["lyric"] == "+":
+        return None                 # nothing voiced / leading '+'
+    return out
 
 
 def neutral_vowels(notes):
@@ -251,8 +309,12 @@ def neutral_vowels(notes):
     return out
 
 
-def option_notes(item, option, chars):
-    """Final render note list for one option (context + score_patch)."""
+def option_notes(item, option, chars, anchors=None):
+    """Final render note list for one option (context + score_patch).
+
+    `anchors` (rlv4/G5J) optionally overrides the per-char render-only
+    articulation onsets — closed-loop adjusted positions, still
+    evidence-bound, never written back to the score."""
     patched = apply_patch(item["context"], option["score_patch"])
     if item.get("lyric_contract") == "neutral_vowel":
         return [{"lyric": lyr, "start": n["start"] - item["phrase"]["start"],
@@ -268,7 +330,8 @@ def option_notes(item, option, chars):
         # the char). A split parent's char lands on child[0] and its
         # later children are '+' automatically — so A/B lyric
         # sequences stay identical outside the target operation.
-        segs = review_lyrics_articulated(patched, chars)
+        segs = review_lyrics_articulated(patched, chars,
+                                         anchors=anchors)
         if segs is None:
             raise RuntimeError(
                 "real_lyric_review: char evidence can't be honestly "
@@ -325,9 +388,13 @@ def _clip(src: Path, dst: Path, t0, t1):
             "sample_rate": sr}
 
 
-def render_item(cfg, item_dir, item, chars, timeout_min=10):
+def render_item(cfg, item_dir, item, chars, timeout_min=10,
+                anchors=None):
     """Render all options of one item fairly (§6.10). Returns manifest
-    render results {option_id: {wav_sha256,...}}."""
+    render results {option_id: {wav_sha256,...}}. `anchors` (rlv4/G5J)
+    optionally overrides per-char render-only articulation onsets —
+    identical list for all options so A/B lyric timing authority stays
+    shared outside the target."""
     import numpy as np
     import soundfile as sf
     from ..openutau.build import build_project
@@ -338,13 +405,13 @@ def render_item(cfg, item_dir, item, chars, timeout_min=10):
     raw = {}
     for opt in item["options"]:
         oid = opt["option_id"]
-        notes = option_notes(item, opt, chars)
         ustx = item_dir / f"{oid}.ustx"
-        build_project(f"review_{item['item_id']}_{oid}",
-                      [{"notes": notes, "start_sec": 0.0,
-                        "part_start_sec": 0.0}], ustx)
         wav_tmp = item_dir / f"{oid}.raw.wav"
         try:
+            notes = option_notes(item, opt, chars, anchors=anchors)
+            build_project(f"review_{item['item_id']}_{oid}",
+                          [{"notes": notes, "start_sec": 0.0,
+                            "part_start_sec": 0.0}], ustx)
             br = run_bridge(cfg, ["render", "--project", str(ustx),
                                   "--out", str(wav_tmp),
                                   "--timeout", str(timeout_min)],

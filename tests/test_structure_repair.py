@@ -1851,6 +1851,8 @@ def _timing_man(chars=None, n_options=2):
                       {"char": "演", "start": 0.6, "end": 1.0}]
     return {"schema": sc.CALIB_SCHEMA, "review_item_id": "cal-x",
             "phrase": {"start": 0.0, "end": 2.0},
+            "source_reference": {
+                "separated_vocal": {"path": "src.wav"}},
             "calibration": {"repair_id": "srp-x",
                             "lyric_contract": "real_lyric_review",
                             "lyric_evidence": {"chars": chars}},
@@ -1911,24 +1913,25 @@ def test_g5i_timing_delta_table_and_stats(tmp_path, monkeypatch):
         lambda w, t, t0, t1, model=None: [
             {"char": "我", "start": 0.15, "end": 0.5,
              "probability": 0.9},
-            {"char": "演", "start": 0.85, "end": 1.0,
+            {"char": "演", "start": 0.68, "end": 1.0,
              "probability": 0.8}])
     lt = sc._lyric_timing_qc(man, idir)
     assert lt["flags"] == []
     assert len(lt["per_char"]) == 2
     row = lt["per_char"][1]
-    assert row["OPTION_0_onset_delta_ms"] == 250.0
+    assert row["OPTION_0_onset_delta_ms"] == 80.0
     assert row["OPTION_0_offset_delta_ms"] == 0.0
     # score-bound columns: score_onset=0.6, src=0.6 → construction 0;
-    # measured 0.85 vs score 0.6 → +250ms is the aligner's own bias
+    # measured 0.68 vs score 0.6 → +80ms is the aligner's own bias
     assert row["OPTION_0_score_onset"] == 0.6
     assert row["OPTION_0_score_delta_ms"] == 0.0
-    assert row["OPTION_0_aligner_offset_ms"] == 250.0
+    assert row["OPTION_0_aligner_offset_ms"] == 80.0
     st = lt["stats"]["OPTION_0"]
-    assert st["median_abs_onset_delta_ms"] == 150.0
-    assert st["max_abs_onset_delta_ms"] == 250.0
-    assert st["n_chars_over_200ms"] == 1
-    assert st["median_aligner_offset_ms"] == 150.0
+    assert st["median_abs_onset_delta_ms"] == 65.0
+    assert st["max_abs_onset_delta_ms"] == 80.0
+    assert st["n_chars_over_200ms"] == 0
+    assert st["median_aligner_offset_ms"] == 65.0
+    assert st["min_alignment_probability"] == 0.8
     assert lt["aligner"] == "whisper-attention-dtw"
 
 
@@ -1982,3 +1985,357 @@ def test_g5i_impl_bump_stales_old_packages():
     assert sc.item_contract_stale(man, {}, "rph") is True
     cur = sc.render_contract_sha({}, "rph", "real_lyric_review")
     assert rlv2_sha != cur
+
+
+# --------------------- §10.1.5A-G5J acoustic closed-loop (J) ----------------
+
+def _loop_item(notes=None):
+    """Minimal item for _closed_loop_anchors/_anchor_bounds — two
+    identical options, contiguous carrier notes."""
+    notes = notes or [{"id": "note_0001", "index": 1, "start": 0.0,
+                       "end": 0.5, "dur": 0.5, "tone": 60.0},
+                      {"id": "note_0002", "index": 2, "start": 0.5,
+                       "end": 1.0, "dur": 0.5, "tone": 62.0}]
+    return {"phrase": {"start": 0.0, "end": 2.0},
+            "context": notes,
+            "options": [{"option_id": f"OPTION_{i}",
+                         "score_patch": {"type": "identity"}}
+                        for i in range(2)]}
+
+
+def _fake_render_factory():
+    """render_item stub — writes option wavs + ustx carriers the
+    loop re-aligns (carrier positions = commanded anchors, like a
+    real render's lyric notes)."""
+    def fake(cfg, idir, it, chars, timeout_min=10, anchors=None):
+        from pathlib import Path
+        Path(idir).mkdir(parents=True, exist_ok=True)
+        ph0 = it["phrase"]["start"]
+        pos = anchors or [c["start"] for c in chars]
+        for o in it["options"]:
+            oid = o["option_id"]
+            (Path(idir) / f"{oid}.wav").write_bytes(b"x")
+            notes = "\n".join(
+                f"    - lyric: {c['char']}\n"
+                f"      position: {int(round((p - ph0) * 960))}"
+                for c, p in zip(chars, pos))
+            (Path(idir) / f"{oid}.ustx").write_text(
+                "voice_parts:\n  - notes:\n" + notes + "\n",
+                encoding="utf-8")
+        return {"ok": True, "anchors": anchors}
+    return fake
+
+
+def _fa_seq(chars, shifts):
+    """force_align stub — per-call onset shift schedule (2 calls per
+    iteration: OPTION_0 then OPTION_1)."""
+    calls = {"n": 0}
+
+    def fa(wav, text, t0, t1, model=None):
+        calls["n"] += 1
+        s = shifts[min(calls["n"] - 1, len(shifts) - 1)]
+        return [{"char": c["char"], "start": c["start"] + s,
+                 "end": c["end"] + s, "probability": 0.9}
+                for c in chars]
+    fa.calls = calls
+    return fa
+
+
+def _sro(chars, ph0=0.0):
+    """_source_ref_onsets stub — whisper positions as 'onset_peak'
+    refs (phrase-relative)."""
+    def sro(cs, wav, p0):
+        return ([c["start"] - p0 for c in cs],
+                ["onset_peak"] * len(cs))
+    return sro
+
+
+def _ro_seq(chars, shifts, ph0=0.0):
+    """_render_onsets stub — per-call onset schedule, peaks at
+    ref+shift (2 calls per iteration: OPTION_0 then OPTION_1)."""
+    calls = {"n": 0}
+
+    def ro(wav, centers):
+        calls["n"] += 1
+        s = shifts[min(calls["n"] - 1, len(shifts) - 1)]
+        return [c + s for c in centers]
+    ro.calls = calls
+    return ro
+
+
+def _ro_fixed(peaks):
+    """_render_onsets stub — fixed per-char peak list every call."""
+    def ro(wav, centers):
+        return list(peaks)
+    return ro
+
+
+def test_j1_phrase_window_covers_first_last_char():
+    """J1: a source char starting before the LRC phrase boundary must
+    not be truncated — the review window expands (clamped by the
+    neighbouring note gap) while char evidence stays bound to the
+    ORIGINAL lrc window."""
+    import agent2utau.structure_calibration as sc
+    run = _fake_run_dict()
+    run["lrc_lines"] = [{"start": 9.5, "end": 14.5}]
+    run["chars"] = [{"char": "前", "start": 9.42, "end": 9.7,
+                     "probability": 0.9},
+                    {"char": "字", "start": 10.0, "end": 10.4,
+                     "probability": 0.9},
+                    {"char": "尾", "start": 14.3, "end": 14.44,
+                     "probability": 0.9}]
+    items = sc.plan_calibration(run, lyric_contract="real_lyric_review")
+    it = items[0]
+    assert it["phrase"]["boundary_source"] == "lrc+lyric_pad"
+    # first char 9.42 - lead pad 0.15 → 9.27 (< lrc 9.5)
+    assert it["phrase"]["start"] == 9.27
+    # tail 14.44 + 0.15 = 14.59, clamped by next note start — none →
+    # min(duration 20, 14.59) but lrc end 14.5 < tail → expanded too
+    assert it["phrase"]["end"] == 14.59
+    # evidence selection stays on the ORIGINAL lrc window
+    assert it["evidence_window"]["start"] == 9.5
+    assert it["evidence_window"]["end"] == 14.5
+
+
+def test_j2_acoustic_miss_fails_despite_clean_score(tmp_path,
+                                                    monkeypatch):
+    """J2: USTX score onset matches the source (score_delta≈0) but the
+    measured acoustic onset is -300ms — the acoustic gate fires;
+    construction integrity can never mask a measured timing miss."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    man = _timing_man()
+    idir = tmp_path / "cal-x"
+    idir.mkdir()
+    (idir / "o0.wav").write_bytes(b"x")
+    (idir / "o1.wav").write_bytes(b"x")
+    ustx = ("voice_parts:\n  - notes:\n"
+            "    - position: 96\n      duration: 100\n      lyric: '我'\n"
+            "    - position: 576\n      duration: 200\n"
+            "      lyric: '演'\n")
+    (idir / "OPTION_0.ustx").write_text(ustx, encoding="utf-8")
+    (idir / "OPTION_1.ustx").write_text(ustx, encoding="utf-8")
+    monkeypatch.setattr(
+        al, "force_align",
+        lambda w, t, t0, t1, model=None: [
+            {"char": "我", "start": 0.0, "end": 0.3,
+             "probability": 0.9},     # src 0.1 → measured -100ms
+            {"char": "演", "start": 0.3, "end": 0.6,
+             "probability": 0.9}])    # src 0.6 → measured -300ms
+    chars = man["calibration"]["lyric_evidence"]["chars"]
+    monkeypatch.setattr(sc, "_source_ref_onsets", _sro(chars))
+    # rlv5 acoustic instrument: render peaks -100/-300ms vs refs —
+    # the REAL acoustic gate (whisper deltas above stay diagnostic)
+    monkeypatch.setattr(sc, "_render_onsets", _ro_fixed([0.0, 0.3]))
+    lt = sc._lyric_timing_qc(man, idir)
+    row = lt["per_char"][1]
+    assert row["OPTION_0_score_delta_ms"] == 0.0   # score is clean…
+    assert row["OPTION_0_onset_delta_ms"] == -300.0
+    assert row["OPTION_0_acoustic_delta_ms"] == -300.0
+    assert any(f.startswith("lyric_timing_acoustic_delta:OPTION_0")
+               for f in lt["flags"])               # …and still fails
+
+
+def test_j3_low_confidence_char_blocks_pass(tmp_path, monkeypatch):
+    """J3: a rendered char aligned below MIN_TIMING_CHAR_PROB is
+    untrusted timing evidence — flag stands, no PASS."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    man = _timing_man()
+    idir = tmp_path / "cal-x"
+    idir.mkdir()
+    (idir / "o0.wav").write_bytes(b"x")
+    (idir / "o1.wav").write_bytes(b"x")
+    ustx = ("voice_parts:\n  - notes:\n"
+            "    - position: 96\n      duration: 100\n      lyric: '我'\n"
+            "    - position: 576\n      duration: 200\n"
+            "      lyric: '演'\n")
+    (idir / "OPTION_0.ustx").write_text(ustx, encoding="utf-8")
+    (idir / "OPTION_1.ustx").write_text(ustx, encoding="utf-8")
+    monkeypatch.setattr(
+        al, "force_align",
+        lambda w, t, t0, t1, model=None: [
+            {"char": "我", "start": 0.1, "end": 0.5,
+             "probability": 0.9},
+            {"char": "演", "start": 0.6, "end": 1.0,
+             "probability": 0.05}])   # untrusted timing
+    lt = sc._lyric_timing_qc(man, idir)
+    assert any("lyric_timing_low_confidence:OPTION_0:演" in f
+               for f in lt["flags"])
+    assert lt["stats"]["OPTION_0"]["min_alignment_probability"] == 0.05
+
+
+def test_j4_anchor_moves_opposite_error_sign(tmp_path, monkeypatch):
+    """J4: measured late (+200ms) → anchors move EARLIER by k·err,
+    one damped step per iteration."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    import agent2utau.review.render as rr
+    chars = [{"char": "甲", "start": 0.2, "end": 0.45},
+             {"char": "乙", "start": 0.6, "end": 0.95}]
+    it = _loop_item()
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    monkeypatch.setattr(sc, "_source_ref_onsets", _sro(chars))
+    # rlv5: the measured onset tracks the COMMANDED anchor plus the
+    # scheduled instrument offset (how a real render behaves — the
+    # onset follows where the note was told to start)
+    monkeypatch.setattr(sc, "_render_onsets",
+                        _ro_seq(chars, [0.3, 0.3, 0.1, 0.1, 0.0, 0.0]))
+    loop = sc._closed_loop_anchors({}, tmp_path / "i", it, chars,
+                                   src_wav="x")
+    assert loop["converged"] is True
+    a0 = loop["iterations"][0]["anchors"]
+    a1 = loop["iterations"][1]["anchors"]
+    # err +0.3 (rendered late) → anchors move EARLIER — opposite the
+    # error sign; the 0.15/iter clamp caps 甲 at a0-0.15=0.05 and
+    # 乙 floors at its carrier start 0.5 — neither can onset before
+    # the note it must voice inside
+    assert a1[0] == pytest.approx(0.05, abs=1e-3)
+    assert a1[0] < a0[0] and a1[1] < a0[1]
+    assert a1[1] == pytest.approx(0.5, abs=1e-3)
+    assert loop["iterations"][0]["max_abs_err_ms"] == 300.0
+
+
+def test_j5_iterations_converge_score_untouched(tmp_path, monkeypatch):
+    """J5: multi-iteration convergence never touches Candidate 0 —
+    the written score (context notes) is byte-identical after the
+    loop; only render-only anchors moved."""
+    import copy
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    import agent2utau.review.render as rr
+    chars = [{"char": "甲", "start": 0.2, "end": 0.45},
+             {"char": "乙", "start": 0.6, "end": 0.95}]
+    it = _loop_item()
+    ctx0 = copy.deepcopy(it["context"])
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    monkeypatch.setattr(sc, "_source_ref_onsets", _sro(chars))
+    monkeypatch.setattr(
+        sc, "_render_onsets",
+        _ro_seq(chars, [0.25, 0.25, 0.1, 0.1, 0.0, 0.0]))
+    loop = sc._closed_loop_anchors({}, tmp_path / "i", it, chars,
+                                   src_wav="x")
+    assert loop["converged"] is True
+    assert len(loop["iterations"]) >= 2   # re-render really happened
+    assert it["context"] == ctx0          # written score untouched
+    assert all(sg.get("index") == n.get("index")
+             for sg, n in zip(it["context"], ctx0))
+
+
+def test_j6_anchor_crossing_fails_closed(tmp_path, monkeypatch):
+    """J6: an update that would push an anchor past the next char (or
+    out of its carrier span) stops the loop — never a reordered
+    articulation."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    import agent2utau.review.render as rr
+    notes = [{"id": "note_0001", "index": 1, "start": 0.0,
+              "end": 1.0, "dur": 1.0, "tone": 60.0}]
+    chars = [{"char": "甲", "start": 0.90, "end": 0.93},
+             {"char": "乙", "start": 0.95, "end": 0.99}]
+    it = _loop_item(notes)
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    monkeypatch.setattr(sc, "_source_ref_onsets", _sro(chars))
+    # 甲 measured 500ms EARLY forever → anchor wants to move later
+    # than 乙's — impossible inside [0, 0.97] with MIN_SEG room.
+    monkeypatch.setattr(sc, "_render_onsets",
+                        _ro_fixed([0.40, 0.95]))
+    loop = sc._closed_loop_anchors({}, tmp_path / "i", it, chars,
+                                   src_wav="x")
+    assert loop["converged"] is False
+    assert loop["reason"] in ("anchors_crossed", "anchors_clamped",
+                              "bound_limited")
+
+
+def test_j7_outside_target_anchors_identical():
+    """J7: chars binding outside the target region get identical
+    anchors/bounds in baseline and candidate — the shared-range
+    intersection is a no-op outside the patched span."""
+    import agent2utau.structure_calibration as sc
+    from agent2utau.review.build import apply_patch
+    from agent2utau.review.render import _char_anchor_binding
+    notes = [{"id": "note_0001", "index": 1, "start": 0.0,
+              "end": 0.5, "dur": 0.5, "tone": 60.0},
+             {"id": "note_0002", "index": 2, "start": 0.5,
+              "end": 1.0, "dur": 0.5, "tone": 62.0},
+             {"id": "note_0003", "index": 3, "start": 1.0,
+              "end": 1.4, "dur": 0.4, "tone": 64.0}]
+    chars = [{"char": "外", "start": 0.2, "end": 0.4},   # before target
+             {"char": "侧", "start": 1.1, "end": 1.3}]   # after target
+    it = _loop_item(notes)
+    it["options"][1]["score_patch"] = {
+        "type": "split", "note_ids": ["note_0002"], "boundary": 0.7,
+        "children": [{"start": 0.5, "end": 0.7, "tone": 62.0},
+                     {"start": 0.7, "end": 1.0, "tone": 65.0}]}
+    b0 = _char_anchor_binding(
+        apply_patch(notes, {"type": "identity"}), chars)
+    b1 = _char_anchor_binding(
+        apply_patch(notes, it["options"][1]["score_patch"]), chars)
+    assert [x[0] for x in b0] == [x[0] for x in b1]   # same positions
+    lo, hi = sc._anchor_bounds(it, chars)
+    assert lo == [0.0, 1.0]
+    assert hi == [pytest.approx(0.5 - 0.03), pytest.approx(1.4 - 0.03)]
+
+
+def test_j8_rlv3_artifacts_stale_under_rlv5():
+    """J8: the rlv3→rlv5 impl bump stales every previous package/
+    payload/verdict — old-contract evidence can't pass the new
+    acoustic-timing authority."""
+    import agent2utau.structure_calibration as sc
+    rlv3_sha = sc._sha({"schema": sc.CALIB_SCHEMA,
+                        "lyric_contract": "real_lyric_review",
+                        "lyric_mapping_impl": "rlv3",
+                        "render_profile_hash": "rph"})
+    man = {"schema": sc.CALIB_SCHEMA,
+           "calibration": {"lyric_contract": "real_lyric_review",
+                           "lyric_mapping_impl": "rlv3",
+                           "contract_sha256": rlv3_sha}}
+    assert sc.item_contract_stale(man, {}, "rph") is True
+    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv5"
+
+
+def test_j9_state_read_does_not_dirty(tmp_path, monkeypatch):
+    """J9: a read-path rebuild (calib-web GET) must not write
+    state.json — a page load can never dirty Git-authoritative
+    bytes."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.calib_web as cw
+    run = _mk_run(tmp_path, [])
+    cdir = run / "structure_calibration"
+    cdir.mkdir(exist_ok=True)
+    (cdir / "plan.json").write_text(
+        json.dumps({"schema": sc.CALIB_SCHEMA, "items": []}))
+    state_p = cdir / "state.json"
+    sentinel = json.dumps({"schema": sc.CALIB_SCHEMA,
+                           "sentinel": True})
+    state_p.write_text(sentinel, encoding="utf-8")
+    sc.rebuild_calibration_state(run, write=False)
+    assert state_p.read_text() == sentinel            # untouched
+    # the web read path really passes write=False
+    calls = []
+    monkeypatch.setattr(cw, "rebuild_calibration_state",
+                        lambda d, write=True: calls.append(write) or {})
+    cw._items_payload(run)
+    assert calls == [False]
+    sc.rebuild_calibration_state(run, write=True)
+    assert json.loads(state_p.read_text())["schema"] == sc.CALIB_SCHEMA
+
+
+def test_j10_no_acoustic_pass_no_review_ready(tmp_path, monkeypatch):
+    """J10: a package whose signal_qc carries a lyric-timing flag is
+    not auto_review_ready → pilot authority fails → a PASS verdict is
+    refused; acoustic PASS + package/QC PASS are jointly required."""
+    import agent2utau.structure_calibration as sc
+    run, items, sha = _g5h_store(tmp_path, monkeypatch)
+    iid = items[0]["cal_item_id"]
+    qcp = run / "structure_calibration" / "items" / iid \
+        / "signal_qc.json"
+    qcp.write_text(json.dumps({
+        "auto_flags": ["lyric_timing_acoustic_delta:OPTION_0:-210ms"],
+        "auto_review_ready": False}))
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    with pytest.raises(RuntimeError):
+        sc.write_verdict(run, "PASS", auditor="t",
+                         sample_ids=[i["cal_item_id"] for i in items])
+    assert not sc.review_ready(run)
