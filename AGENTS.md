@@ -902,6 +902,33 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   resolve; verified 4 groups × all files: downloadable + sha256 ok.
 - `structure-calib-rebuild-plan <run>` — rebuild + invariant report.
 
+### §10.1.5A G5H — QC authority contract binding (0b54781/b646a72/21cff60, 321 passed)
+
+- **Deadlock fixed**: plan top-level contract is the store DEFAULT
+  (nv1 `c54f07d6`); the 4 pilot items share rlv2 `94077436`. Verdicts
+  that consumed the plan contract could never be correct.
+- `pilot_authority(run, sample_ids=None)` — derives the human-review
+  authority contract from the EXACT sample set (default: current
+  PILOT_NOTE_IDS roster): every sample must exist, share ONE
+  contract/lyric_contract/impl, be real_lyric_review + current rlv2,
+  non-stale, auto_review_ready, verify_package PASS. Non-raising
+  {ok, violations} report.
+- `write_verdict(PASS)` requires `--samples` (cal_item_id or
+  note_id — fail-closed otherwise) and binds: shared sample contract,
+  pilot_review.json file sha, per-sample audio_package_hash.
+  `review_ready()` re-verifies the whole binding; any roster /
+  payload / package / contract change stales the verdict.
+- **git_evidence is byte-level now** (`_git_dirty_set`): a tracked
+  file with uncommitted changes counts as `uncommitted`, not
+  evidence — a freshly written verdict cannot self-authorize before
+  its bytes are committed.
+- `rebuild_calibration_state` reports `store_contract_sha256` vs
+  `pilot_contract_sha256` separately; full batch requires
+  review_ready AND batch contract == verdict-bound contract.
+- Live: verdict `b646a72` binds the exact 4-item rlv2 pilot →
+  git_evidence 468/468 complete → **review_ready=true**. The old
+  c54f07 verdict has no pilot binding → no authority.
+
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
   `apply_structure_plan` / `validate_structure_patch` /

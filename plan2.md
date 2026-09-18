@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5G artifact close-out 已完成；当前唯一 blocker 为 QC authority contract binding）。最终 honest pilot = 4 组 `note_0061/0188/0192/0379`，全部 `real_lyric_review / rlv2`、USTX 无 `a`、`auto_review_ready=True`、plan invariants PASS、Git/raw/hash/CI PASS。不要再强行补第 5 个：其余候选要么缺 char evidence，要么在 rlv2 下因 gap-separated unmapped note 正当 fail-closed。当前死锁来自 QC 模型：4 个 pilot item 的 `contract_sha256 = 94077436...`（real-lyric rlv2），但 `plan.json` 顶层仍是 `contract_sha256 = c54f07d6...`（neutral-vowel nv1）；`cmd_structure_calib_qc()` / `rebuild_calibration_state()` / `review_ready()` 仍消费 plan 顶层 contract，因此即使对当前 4 个 rlv2 sample 写 PASS，也会绑定错误 contract，或永远保持 `review_ready=false`。下一步只修 QC authority binding：verdict 必须绑定 exact pilot sample set + 这些 sample 的共同 current contract，并验证 manifest contract / staleness / signal_qc / pilot payload / Git evidence；不得再从 plan 顶层默认 contract 推导人审授权。修复并通过回归后，才允许 maintainer QC PASS → 用户正式复审 4 组。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = READY FOR USER REVIEW（G5H QC authority binding 已关闭）。最终 honest pilot = 4 组 `note_0061/0188/0192/0379`，全部 `real_lyric_review / rlv2`、USTX 无 `a`、`auto_review_ready=True`。QC PASS verdict（`b646a72` 已提交）现绑定 **exact sample set**：4 个 cal_item_id 共享 `contract_sha256=94077436`（rlv2，非 plan 顶层 nv1 `c54f07d6`）+ `pilot_review.json` payload sha `eae594b1` + 每项 `audio_package_hash`；任一 roster/payload/package/contract 变化自动 stale → `review_ready=false`。`git_evidence` 升级为**字节级**：tracked-but-dirty（已改未提交）不算 committed evidence。当前 `review_ready=true`（git_evidence 468/468 complete、plan_invariants ok、CI 绿、321 tests）。下一步：用户正式试听 4 组完整一句 SOURCE/A/B → `structure-calib-decide` 记录正式 calibration decisions。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -3377,6 +3377,70 @@ maintainer QC PASS
 → 用户正式试听 4 组完整一句 SOURCE/A/B
 → structure-calib-decide 记录正式 calibration decisions
 ```
+
+##### G5H 实现记录（2026-09-18，已关闭）
+
+```text
+pilot_authority(run_dir, sample_ids=None)
+→ 默认解析 PILOT_NOTE_IDS → cal_item_id；逐样本硬门：
+  manifest exists / schema==m25-cal-2 / 共享 contract_sha256+lyric_
+  contract+impl==1 / lyric_contract==real_lyric_review /
+  impl==当前 rlv2 / item_contract_stale==False /
+  signal_qc.auto_review_ready==True / verify_package==PASS
+  （_load_run/_verify_package 模块级间接，可测试）
+
+write_verdict(PASS):
+  --samples 缺失 → fail-closed（不退回 plan 顶层）
+  contract_sha256 = 样本共享合同（显式传入且不符 → refuse）
+  rec["pilot"] = {sample_ids, note_ids, contract_sha256,
+                  lyric_contract, lyric_mapping_impl,
+                  pilot_payload_sha256(pilot_review.json 文件 sha),
+                  audio_package_hashes{cal_item_id: aph}}
+
+review_ready(run_dir):
+  verdict.PASS + git_evidence_at_record.complete + pilot 绑定齐全
+  → 重验 payload sha == 绑定快照
+  → pilot_authority(verdict 样本) 全过 + 合同/aph 快照一致
+  → plan_invariants ok + git_evidence(include_qc) complete
+
+git_evidence 字节级升级（_git_dirty_set）:
+  tracked-but-dirty（M/staged/untracked）→ uncommitted → 不算
+  committed evidence；修补了"旧 qc/verdict.json 路径已入库但字节
+  未提交即计 complete"的漏洞
+
+rebuild_calibration_state:
+  store_contract_sha256 = plan 顶层（仅描述 store 默认）
+  pilot_contract_sha256 = 当前 pilot 样本共享合同（人审 authority）
+  两概念分离；review_ready = review_ready(current pilot identity)
+
+build_calibration 全批门:
+  review_ready AND 批次 contract == verdict 绑定合同
+  （rlv2 verdict 不能授权 nv1 全批 —— 概念分离）
+
+CLI: structure-calib-qc --pass 必须 --samples（cal_item_id 或
+note_id）；缺失 → samples_required fail-closed
+```
+
+回归矩阵 H1–H10 全部落地 + dirty-bytes 测试：`test_g5h_*` ×5
+（绑定样本合同/混合·stale·unready 拒 PASS/roster·aph·payload
+变化自动 stale/旧 nv1 verdict 无 authority/精确当前 pilot
+ready）。321 tests passed。
+
+实机执行（run diag-20260917-181538-6aec）：
+
+```text
+structure-calib-qc ... --pass --auditor devin \
+  --samples note_0061,note_0188,note_0192,note_0379
+→ verdict.PASS  contract_sha256=94077436（rlv2，样本推导）
+→ pilot.sample_ids = 4×cal-srp-*，payload_sha=eae594b1
+→ git_evidence_at_record complete 143/143
+→ 提交 b646a72（qc + 代码）+ 21cff60（state）
+→ git_evidence 468/468 complete，uncommitted=[]
+→ review_ready = True   （真实：字节已提交）
+```
+
+旧 `c54f07` verdict（无 pilot 绑定）自动失效 —— review_ready
+不再消费 plan 顶层合同，死锁解除。Final acceptance 全满足。
 
 ---
 
