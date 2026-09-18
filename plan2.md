@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW AUDIO 已达到 pilot 标准，但远程 GPT Chat 审核进入 `REMOTE REVIEW TRANSPORT HOLD`。Blocker H/G5C 已实现：21/21 child-level F0 QC 均可用，candidate_structure_error 全部低于 baseline，candidate improvement 全为正（约 +1.32~+3.82 st），`note_0012/0061/0123` 均复现 Source≈62→64、Baseline≈64→64、Candidate≈62→64；G5D `TARGET_CORE` 已从 full render 裁出并提交 Git。ChatGPT/maintainer 对当前 batch 的 pre-human 结论维持 `REVIEW_READY = PASS FOR PILOT`，但 **GPT Chat 远程 surface 只有在 exact Git WAV 被真正挂成当前 conversation 的原生音频附件、并在客户端显示为可直接播放的条状播放器时才算可用**。GitHub raw URL、浏览器跳转、下载链接、要求用户离开 ChatGPT 页面均不满足该 contract。当前 ChatGPT 环境可读取/分析 Git WAV，但尚缺少 GitHub binary → conversation native-audio attachment 的可用 handoff，因此 5-item 手机 pilot 暂停；不得用 raw URL 代替。后续一旦 attachment handoff 可用，再按“原唱 CORE → 盲化 A CORE → 盲化 B CORE”直接在聊天内完成 5-item pilot。聊天选择仍必须经官方 calibration decision gate 绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority。M2.5 FREEZE 与 M2.7 继续 BLOCKED，直到 transport gate + 21 项裁决 + final gate 完成。**
+> 当前阶段：**M2.5 HUMAN REVIEW AUDIO 已达到 pilot 标准，远程审核 transport 不再作为 blocker。用户确认接受直接下载 Git 音频试听，因此撤销 native ChatGPT inline-player 硬要求。人工审核主素材改为“完整一句”而不是 CORE/target 短片段：每组必须提供同一 sentence/phrase window 的 `SOURCE_PHRASE_original_mix.wav`（必要时补 separated vocal）+ 盲化 A/B 完整 phrase render；A/B 必须使用完全相同的 phrase boundaries/context，只允许 target operation 不同。`TARGET_CORE` 与 ±0.5s target-focus 继续保留，但降级为辅助定位素材，仅在完整一句难以判断具体转折时使用。完整一句应优先依据歌词语义/停顿/呼吸/phrase boundary 取自然唱句，通常约 4–10s，禁止只裁 0.5–2s 的局部片段作为主审核对象。ChatGPT 可直接列出 Git 下载链接供手机试听，不要求原生条状播放器；仍保持 A/B 盲化，用户回复 A/B/都差不多/都不对。当前先走 5-item pilot；若完整一句版本仍出现“听不懂在比较什么/明显唱坏”，立即停止并回到 renderer/QC；若 pilot 可稳定判断，再继续余下 16 项。聊天选择仍必须经官方 calibration decision gate 绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority。M2.5 FREEZE 与 M2.7 继续 BLOCKED，直到 21 项裁决与 final gate 完成。**
 
 ---
 
@@ -2405,115 +2405,86 @@ SOURCE CORE
 `TARGET_0/1` ±0.5s → full phrase 辅助，`SOURCE_CORE_{mix,vocal}.wav` 与
 `CORE_i` 均走 manifest-aware 盲映射端点。
 
-#### G5E. GPT Chat remote human-review surface ← TRANSPORT HOLD
+#### G5E. Remote human review via downloadable Git audio ← ACTIVE
 
-人工审核不要求用户回到运行 OpenUtau 的电脑。
+用户当前接受直接下载 Git 音频试听，因此 **native ChatGPT inline audio attachment 不再是 acceptance blocker**。
 
-但 GPT Chat surface 的 acceptance 不是“能给一个 URL”，而是：
-
-```text
-exact Git audio
-→ materialize / attach into current ChatGPT conversation
-→ native audio attachment
-→ client renders inline audio bar/player
-→ user taps Play without leaving ChatGPT
-```
-
-以下全部 **不算** GPT Chat remote-review PASS：
+允许的远程审核 transport：
 
 ```text
-raw.githubusercontent.com URL
-github.com/blob URL
-浏览器跳转
-下载链接
-要求用户先保存到本地再播放
-只显示文件路径但没有 inline audio player
+ChatGPT message
+→ GitHub raw/blob/download link
+→ user opens/downloads on phone
+→ listens
+→ replies A / B / 都差不多 / 都不对
 ```
 
-如果当前运行环境没有 GitHub binary → conversation attachment handoff：
+transport 只负责试听，不改变 canonical review authority。
 
-```text
-REMOTE_REVIEW_TRANSPORT_READY = false
-→ do not start human pilot
-→ do not substitute raw URL
-→ wait for / use an environment with native attachment handoff
-```
+### Primary review unit = 完整一句
 
-允许由 ChatGPT 直接从 acceptance SHA 的 Git artifacts 提取并在当前聊天页面展示 exact audio。
+人工主判断对象必须是一条自然完整唱句，而不是 CORE 或 target-only 短片段。
 
-每个 review group 必须固定为：
+每组固定为：
 
 ```text
 Group N — note_xxxx / cal_item_id
 
-原唱 CORE
-  SOURCE_CORE_original_mix.wav
-  （必要时可补 SOURCE_CORE_separated_vocal.wav）
+原唱完整一句
+  SOURCE_PHRASE_original_mix.wav
+  （必要时：SOURCE_PHRASE_separated_vocal.wav）
 
-生成 A CORE
-  exact OPTION_A role-mapped CORE wav
+生成 A 完整一句
+  exact blinded OPTION_A full-phrase wav
 
-生成 B CORE
-  exact OPTION_B role-mapped CORE wav
+生成 B 完整一句
+  exact blinded OPTION_B full-phrase wav
 ```
 
-对用户保持盲化：
+phrase window 必须满足：
 
 ```text
-A / B
-``不能显示：
-
-```text
-baseline
-candidate
-split
-machine winner
-F0 preferred option
-````
-
-用户只需要回复：
-
-```text
-A
-B
-都差不多
-都不对
+1. 覆盖 declared target
+2. 左右保留足够上下文以听清旋律走向
+3. 尽量从自然 phrase / 歌词语义边界开始与结束
+4. 优先在停顿、换气、句尾或明显 articulation boundary 截断
+5. A/B/source 使用同一时间语义窗口
 ```
 
-### Native attachment transport contract
-
-每个聊天播放器必须对应一个真正的 conversation attachment，而不是网页超链接。
-
-transport layer 必须保存并可审计：
+目标长度：
 
 ```text
-acceptance_git_sha
-git_path
-git_blob_sha / canonical wav sha256
-conversation_attachment_id
-display_label: SOURCE / A / B
-mime_type: audio/*
-transport/transcode sha256  # 若发生转码
+通常 4–10s
+必要时允许 3–12s
 ```
 
-若客户端播放器只支持 MP3/M4A 而需要转码：
+禁止把以下作为主审核素材：
 
 ```text
-Git WAV 仍是 canonical evidence
-转码仅作为 listening transport
-不得改变 blind role / package identity / decision authority
+target ±0.15s CORE
+target ±0.5s focus
+只有单个字/单个音的 0.5–2s 片段
 ```
 
-播放器展示前必须保证文件名/label 不泄露：
+这些短片段只允许作为 secondary diagnostic aid。
+
+### Why full phrase is primary
+
+结构判断需要上下文才能区分：
 
 ```text
-BASELINE
-CANDIDATE
-SPLIT
-machine winner
+written-note split
+portamento
+ornament
+syllable continuation
+phrase-direction / melodic contour
 ```
 
-只允许：
+过短片段即使 F0 正确，也可能让人听不出“这一句本来应该怎么唱”。
+
+### A/B blindness
+
+对用户只显示：
 
 ```text
 原唱
@@ -2521,51 +2492,21 @@ A
 B
 ```
 
-### Transport acceptance test
-
-5-item pilot 开始前至少先用 1 组验证：
+禁止显示：
 
 ```text
-[ ] 当前 ChatGPT 页面直接出现 3 个 inline audio bars
-[ ] Android/iOS 客户端可直接播放
-[ ] 点击播放不打开浏览器
-[ ] A/B label 不泄露角色
-[ ] attachment bytes 可追溯到 Git canonical audio
+baseline
+candidate
+split
+machine winner
+F0-preferred option
 ```
 
-任一项失败：
+下载文件名若泄露角色，ChatGPT 展示层必须使用中性 A/B 标签，不得在正文暴露真实身份。
 
-```text
-REMOTE_REVIEW_TRANSPORT_READY = false
-```
+### Pilot-first
 
-不得继续生成/展示其余 pilot。
-### GPT Chat artifact binding
-
-Chat 页面上的每个可播放文件必须可追溯到：
-
-```text
-acceptance Git SHA
-cal_item_id
-repair_id
-source/OPTION role
-source file path
-source file sha256
-chat-delivered file sha256
-```
-
-若为了手机兼容从 WAV 转码为 MP3/M4A：
-
-```text
-原始 Git WAV hash 必须保留
-transcode hash 必须另记
-转码只用于 listening transport
-不得改变 decision 所绑定的 canonical package identity
-```
-
-### Pilot-first rule
-
-当前先审核 5 个代表项：
+先审核 5 个代表项：
 
 ```text
 note_0012
@@ -2575,44 +2516,41 @@ note_0391
 note_0404
 ```
 
-如果用户对任一项反馈：
+用户每组只需反馈：
 
 ```text
-听不懂在比较什么
-两条都明显坏掉
-与原唱完全不在同一旋律语义上
-``则：
-
-```text
-STOP 21-item review
-→ do not force a choice
-→ return to review-render/QC investigation
+A
+B
+都差不多
+都不对
+无法判断：<原因>
 ```
 
-只有 pilot 可稳定判断，才继续其余 16 项。
+若任一 pilot 的完整一句仍然：
+
+```text
+明显唱坏
+歌词/节奏/旋律语义异常
+或仍然短到无法判断
+```
+
+则停止剩余审核并返回 renderer/QC。
 
 ### Decision persistence
 
-聊天回复本身不是 repair authority。
+聊天反馈本身不是 repair authority。
 
-ChatGPT 收集选择后必须通过官方 calibration decision path 写回：
+必须：
 
 ```text
-user choice A/B/equivalent/none_correct
-→ resolve blinded OPTION_i from exact manifest
-→ validate current package/hash/schema
-→ append official decision revision
+user choice
+→ resolve exact blinded OPTION_i from manifest
+→ verify current package/hash/schema
+→ append official calibration decision revision
 → rebuild calibration state
 ```
 
-禁止：
-
-```text
-直接编辑 trusted corrected score
-直接手改 repair manifest
-根据 F0 自动替用户选 A/B
-根据聊天标签猜 baseline/candidate
-```
+禁止根据 F0/QC 自动替用户选择。
 
 ---
 
@@ -2973,7 +2911,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← REMOTE REVIEW TRANSPORT HOLD（audio/QC 已达 5-item pilot 标准；当前 blocker = Git WAV → ChatGPT native audio attachment / inline player handoff；raw URL 不可替代）
+### M2.5 — PROBABLE structure repair — ← 5-ITEM HUMAN PILOT READY（downloadable Git audio accepted；primary review = full natural phrase/sentence；CORE/focus secondary only）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -3044,7 +2982,7 @@ rollback coverage
 58. material review-render 变更后，必须先生成 3–5 个代表性小样并 **实际提交到 Git**；本地存在、Agent 自报 PASS、docs 声明均不能替代 Git artifact。
 59. Review Readiness 的唯一可验收证据来源是 acceptance SHA 上可直接读取的 Git artifact；缺任一 required sample/QC/plan/state 文件，对应 gate 必须视为未完成。
 60. ChatGPT/maintainer pre-human QC 不能由执行 Agent 自己代签；auditor=Devin/SWE2 不等于 ChatGPT/maintainer PASS。
-61. 人工 A/B 的主要试听对象必须是完整 phrase render 后裁出的 rendered target-focus；full phrase 仅作上下文辅助。每项必须提交 signal_qc.json。
+61. 人工 A/B 的主要试听对象必须是完整自然唱句的 full-phrase render；target-focus/CORE 仅作辅助定位。每项仍必须提交 signal_qc.json。
 62. split calibration 的 F0 QC 必须严格按 parent.start / split boundary / parent.end 计算 child-level evidence；禁止用 target±0.5s 总窗口的 first/second-half 冒充 child identity。
 63. child-level source/baseline/candidate F0 只能作为 review-readiness/diagnostic evidence；extractor unavailable 或 octave-ambiguous 必须 neutral，不得强制机器判 winner。
 64. `m25-cal-1` 现有 21 包与 decision 仅保留 audit/regression，用于 repair authority 时必须 fail-closed；不得 silent migration。
@@ -3052,8 +2990,9 @@ rollback coverage
 66. merge 的 adjacency 必须同时是 index-adjacent + temporal-adjacent；禁止把超过明确 tolerance 的 gap/overlap 吞进 merged note。
 67. `plan_hash` 必须在 apply 时可重算验证；不得替代 Candidate-0/authority freshness gate。
 68. 先把 written score 唱对，再生成 PITD。
-69. GPT Chat 可以作为远程人工审核 surface，但 **只有 native conversation audio attachment / inline audio bar** 才算合格展示；GitHub raw URL、浏览器跳转、下载链接均不得替代。
-70. GPT Chat attachment 必须可追溯到 acceptance Git SHA 的 canonical audio；若发生转码，canonical WAV hash 与 transport hash 必须同时记录，转码不得改变 decision identity。
-71. 聊天选择必须经官方 decision gate 重新绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority；聊天文本本身不是 authority。
-72. 远程审核采用 pilot-first：先验证 1 组 inline player transport，再做 5 个代表项；任一项仍不可判断或播放器不可用则停止，不得强迫用户完成 21 项。
-73. 先“唱对”，再做泠鸢风格。
+69. 远程人工审核允许直接使用 GitHub 下载/raw/blob 链接；native ChatGPT inline player 不再是硬要求。
+70. 人工主审核必须使用完整自然唱句（通常 4–10s，必要时 3–12s）；CORE/target-focus 只能作为 secondary diagnostic aid。
+71. A/B/source 必须共享同一 phrase 语义窗口与上下文；不得因为 candidate 不同而改变截取边界。
+72. 聊天选择必须经官方 decision gate 重新绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority；聊天文本本身不是 authority。
+73. 远程审核采用 5-item pilot-first；任一项完整一句仍不可判断则停止，不得强迫用户完成 21 项。
+74. 先“唱对”，再做泠鸢风格。
