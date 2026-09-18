@@ -1,10 +1,10 @@
 # agent2utau — Plan 2：GAME 主转谱 + 自动证据裁决 + Phrase-Level 审核
 
-> 修订日期：2026-09-17
+> 修订日期：2026-09-18
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C/D + M2.4 已冻结。M2.4 acceptance = `ce083c9`，remote CI run `35289803217` = success，226 passed / 0 failed；当前最高优先级 = M2.5 structure repair 的前置评估（M2.4 v1 内 human split 选择以 blocked_structure 形式保权）。M2.4 第一版严格只开放 single-note written-pitch retune；split / merge / boundary-shift 等 structure repair 继续封锁。Human-selected 路径只能通过 `repair_authorized_decision()`，并直接消费 decision revision 中已经审核过的 `selected_score_patch` snapshot，不得重新解释 OPTION、不得重新从 B/C hypotheses 推导一次。**
+> 当前阶段：**A/B/C/D + M2.4 的历史 acceptance 保留；但 2026-09-18 cross-stage review 发现 3 个在进入 structure repair 前必须修正的 freeze-integrity blocker，因此 M2.5 暂时 BLOCKED。当前最高优先级 = Pre-M2.5 Freeze Integrity Patch：① structure 未定时 provisional B 不得用 identity-unsafe aggregate `consensus.run_tones` 作为 GAME pitch support；② C 中 missing / insufficient boundary or GAME-structure evidence 必须 neutral，不能通过 `1 - nonf0` 或 `n_runs==0 -> game_one=1.0` 自动给 H0 满支持；③ M2.4 repair plan 必须同时绑定 Candidate-0 semantic notes hash 与 `baseline_game.json` full-file sha256。只修这 3 个缺口，不扩 scope、不启动 B4/C3、新 structure repair 仍封锁。修补完成并获得新的 FINAL SHA + remote CI green 后，M2.5 才 UNBLOCKED。**
 
 ---
 
@@ -303,9 +303,404 @@ M2.4 只能修改 discrete written score。PITD / portamento / vibrato / style �
 
 ---
 
-# 6. M2.4 — SAFE Repair Engine ✅ FROZEN @ ce083c9 (CI 35289803217, 226 passed)
+# 6. Pre-M2.5 Freeze Integrity Patch ← CURRENT
 
-## 6.1 第一版 scope：只做 single-note written-pitch retune
+> 目标：**修复已经冻结阶段之间的跨阶段完整性缺口，不重新设计 B/C/M2.4。**
+>
+> 历史 acceptance 继续有效作为实现基线；本节是进入 M2.5 前的补充 hard gate。完成前：
+>
+> ```text
+> M2.5 structure repair = BLOCKED
+> ```
+
+## 8.1 Blocker A — provisional B 必须使用 identity-safe GAME pitch evidence
+
+当前风险路径：
+
+```text
+structure_varies / structure lane pending
+→ B 先运行，结果标 provisional
+→ hypotheses() 已禁止 aggregate run_tones 生成新 hypothesis
+→ 但 adjudicate() 仍可能用同一 aggregate run_tones 计算 GAME support
+→ C resolved_keep
+→ provisional B 被直接 finalize
+→ unsafe GAME support 可能进入 final winner / margin / repair gate
+```
+
+这违反：
+
+```text
+结构未定时 pitch 只能 provisional
++
+GAME pitch vote 必须对应确定的 written-note identity
+```
+
+### Required fix
+
+必须选择一种可审计、fail-closed 的实现：
+
+```text
+Option A:
+structure identity 未 finalized 时
+→ provisional B 的 GAME pitch group 对 aggregate consensus.run_tones 置 neutral
+→ RMVPE / FCPE / waveform / context 可继续形成 provisional evidence
+→ C resolved_keep 后，只有 identity-safe GAME evidence 才允许 finalization
+
+或
+
+Option B:
+C resolved_keep 后
+→ 基于 finalized Candidate-0 identity 重建 identity-safe per-run GAME tone distribution
+→ 重新运行 frozen B
+→ 新结果替代 provisional result
+```
+
+禁止：
+
+```text
+仅因为 C == resolved_keep
+→ 把曾经消费 identity-unsafe aggregate run_tones 的 provisional B
+→ 直接 provisional=False
+→ 当作 finalized B
+```
+
+### Required regressions
+
+```text
+A1. structure_varies=true + aggregate run_tones=[60,64,60,64,...]
+    → aggregate tones 不得影响 finalized GAME pitch group
+
+A2. provisional B + C resolved_keep
+    → finalized winner/margin 必须来自 identity-safe evidence
+
+A3. provisional B + C resolved_change_candidate
+    → old B 继续 invalidate；virtual-note frozen-B path 不回归
+
+A4. ordinary structure-stable Candidate 0
+    → 原 frozen-B GAME continuous-support semantics 不变
+
+A5. 189s / 202s permanent regressions 继续 no false repair
+```
+
+---
+
+## 8.2 Blocker B — C 的 missing evidence 必须真正 neutral
+
+当前风险：
+
+```text
+_boundary_energy() 在 insufficient samples / unavailable 时
+→ support = 0
+
+但 H0 / H3 使用：
+→ acoustic_boundary = 1 - nonf0
+→ support=0 被解释成 keep-side 满支持 1.0
+```
+
+以及：
+
+```text
+n_runs == 0
+→ game_one = 1.0
+```
+
+这会把：
+
+```text
+无法观测 / 数据不足
+```
+
+错误变成：
+
+```text
+强 one-note / keep evidence
+```
+
+违反全局 contract：
+
+```text
+missing / low-confidence evidence
+!= support
+!= opposition
+```
+
+### Required fix
+
+boundary evidence 至少区分：
+
+```text
+available
+boundary_support
+continuity_or_no_boundary_support
+```
+
+语义：
+
+```text
+insufficient samples / unavailable
+→ available=false
+→ boundary group contributes 0 to H0/H1/H3
+→ neutral
+
+充分观测且确实存在 local dip/recovery
+→ boundary_support > 0
+
+充分观测且确实支持连续/无边界
+→ continuity_or_no_boundary_support > 0
+```
+
+不得再用：
+
+```text
+1 - boundary_support
+```
+
+把 missing 自动转换成 H0 support。
+
+GAME structure 同理：
+
+```text
+n_runs == 0 / run_note_counts unavailable
+→ game structure group neutral
+→ game_one = 0
+→ game_split = 0
+```
+
+不得：
+
+```text
+no GAME structure evidence
+→ game_one = 1.0
+```
+
+### Required regressions
+
+```text
+B1. boundary window insufficient samples
+    → H0 acoustic group == 0, not 1
+
+B2. boundary evidence entirely unavailable
+    → cannot by itself produce resolved_keep
+
+B3. run_note_counts missing/empty
+    → GAME structure group neutral
+
+B4. missing boundary + missing GAME structure evidence
+    → cannot unlock final_structure_clear solely through absence
+
+B5. real flat/continuous observed signal
+    → may support H0 only through explicit continuity evidence,
+      not through complement-of-missing
+
+B6. existing TRUE_SPLIT / portamento / merge / virtual correspondence
+    regressions remain green
+```
+
+---
+
+## 8.3 Blocker C — M2.4 Candidate-0 binding 必须同时包含 semantic + full-file hash
+
+当前 M2.4：
+
+```python
+candidate0_sha256 = sha(canonical notes)
+```
+
+这只能证明：
+
+```text
+Candidate-0 notes semantic content 未变化
+```
+
+不能证明：
+
+```text
+baseline_game.json exact artifact 未变化
+```
+
+例如以下变化目前可能不 stale：
+
+```text
+run_index
+provenance
+metadata
+schema-adjacent fields
+file bytes / formatting
+```
+
+但 repair plan 的 authorization/freshness 应绑定 build-plan 时实际读取的 Candidate-0 artifact。
+
+### Required fix
+
+repair plan 同时记录：
+
+```text
+candidate0_notes_sha256
+candidate0_file_sha256
+```
+
+其中：
+
+```text
+candidate0_notes_sha256
+= ordered notes 的 canonical semantic hash
+
+candidate0_file_sha256
+= diagnostic/baseline_game.json exact bytes sha256
+```
+
+apply 前必须重新验证二者。
+
+`corrected_score.json` / `repair_manifest.json` 至少记录：
+
+```text
+base_candidate0_notes_sha256
+base_candidate0_file_sha256
+```
+
+本阶段采用严格 freshness：
+
+```text
+baseline_game.json 任意 byte/material artifact change
+→ old repair_plan stale
+→ refuse apply
+→ regenerate plan
+```
+
+这不改变 Candidate 0 immutability，也不重新 adjudicate。
+
+### Required regressions
+
+```text
+C1. notes tone/span changed
+    → semantic hash + file hash both stale
+
+C2. notes unchanged，但 run_index/provenance/metadata changed
+    → file hash stale → refuse apply
+
+C3. notes unchanged，但 baseline_game.json bytes changed
+    → file hash stale → refuse apply
+
+C4. apply 自身不写 baseline_game.json
+    → pre/post file sha identical
+
+C5. same exact Candidate-0 artifact + same authority
+    → repair plan deterministic / same plan_hash
+```
+
+---
+
+## 8.4 Scope guard
+
+本 patch **禁止顺手扩大范围**：
+
+```text
+不新增 B4 algorithm
+不重调 B weights/thresholds，除非为 Blocker A 必需
+不新增 C3 model
+不开放 structure auto-repair
+不修改 D human review semantics
+不修改 review authority schema
+不改变 M2.4 v1 pitch-only patch shape
+不为了产生更多 repair 放宽 gate
+```
+
+允许的代码变化仅限：
+
+```text
+B provisional/finalization evidence routing
+C evidence availability / neutral semantics
+M2.4 Candidate-0 freshness binding
+对应 regression / docs / audit fields
+```
+
+---
+
+## 8.5 Freeze Integrity Acceptance Matrix
+
+全部满足才允许重新标记：
+
+```text
+PRE-M2.5 INTEGRITY = PASS
+M2.5 = UNBLOCKED
+```
+
+### A — B identity safety
+
+```text
+1. structure-ambiguous aggregate run_tones 不进入 finalized GAME pitch support
+2. provisional B 不能因 C resolved_keep 自动洗白 unsafe GAME evidence
+3. finalized B 使用 identity-safe GAME evidence
+4. structure-change virtual B path 保持 identity-aware correspondence
+5. ordinary Candidate-0 frozen-B semantics 不变
+```
+
+### B — C missing neutrality
+
+```text
+6. insufficient boundary samples = neutral
+7. unavailable boundary evidence = neutral
+8. observed continuity 必须显式建模，不得使用 1-support 代替
+9. missing run_note_counts / n_runs=0 = neutral
+10. missing evidence 不得单独形成 resolved_keep
+11. missing evidence 不得单独 unlock final_structure_clear / SAFE repair
+```
+
+### C — Candidate-0 binding
+
+```text
+12. plan binds candidate0_notes_sha256
+13. plan binds candidate0_file_sha256
+14. apply verifies both hashes
+15. metadata/provenance-only Candidate-0 artifact change stales plan
+16. Candidate 0 on disk remains immutable
+17. corrected-score/manifest record both base hashes
+```
+
+### Permanent safety / regression
+
+```text
+18. 189s no false machine repair
+19. 202s no false machine repair
+20. virtual GAME correspondence tests green
+21. D stable-target/exact-audio authority tests green
+22. M2.4 human-selected authorization tests green
+23. M2.4 conflict/dedupe/rollback tests green
+24. 0 repair remains legal
+25. no structure auto-repair introduced
+```
+
+### Remote gate
+
+```text
+26. new FINAL implementation SHA
+27. GitHub Actions workflow exists for that SHA
+28. core pytest == success
+29. new A/B/C regressions included
+30. no skipped/disabled core regression
+```
+
+完成后在本节记录：
+
+```text
+acceptance SHA:
+remote CI run:
+pytest:
+real-run diagnostic:
+189s:
+202s:
+Candidate-0 notes sha:
+Candidate-0 file sha:
+```
+
+---
+
+# 7. M2.4 — SAFE Repair Engine ✅ HISTORICAL FREEZE @ ce083c9 (CI 35289803217, 226 passed)
+
+> M2.4 的实现与历史 acceptance 保留；但在 §6 Freeze Integrity Patch 完成前，**不得把 ce083c9 单独视为进入 M2.5 的充分条件**。
+
+
+## 8.1 第一版 scope：只做 single-note written-pitch retune
 
 M2.4 v1 **只允许**：
 
@@ -345,7 +740,7 @@ M2.4 v1 → blocked_structure
 
 ---
 
-## 6.2 两条合法输入路径
+## 8.2 两条合法输入路径
 
 ### Path A — machine-safe
 
@@ -412,7 +807,7 @@ rev.audio_package_hash
 
 ---
 
-## 6.3 Human-selected v1 仍然只接受 pitch-only snapshot
+## 8.3 Human-selected v1 仍然只接受 pitch-only snapshot
 
 `repair_authorized_decision()` 通过后，还必须对 `selected_score_patch` 做 shape validation。
 
@@ -441,7 +836,7 @@ M2.4 不丢弃它
 
 ---
 
-## 6.4 Repair plan 与 apply 必须分离
+## 8.4 Repair plan 与 apply 必须分离
 
 推荐实现两个阶段（CLI 名称可不同）：
 
@@ -472,7 +867,7 @@ Plan artifact 必须可审计、可重放。
 
 ---
 
-## 6.5 Repair identity / idempotency
+## 8.5 Repair identity / idempotency
 
 每个 repair 必须有稳定 `repair_id`。
 
@@ -521,7 +916,7 @@ corrected score byte-equivalent / semantically identical
 
 ---
 
-## 6.6 Conflict policy：禁止 silent precedence
+## 8.6 Conflict policy：禁止 silent precedence
 
 一个 Candidate-0 note 在 v1 最多只能有一个 material repair。
 
@@ -549,7 +944,7 @@ confidence 大者获胜
 
 ---
 
-## 6.7 Corrected-score artifact
+## 8.7 Corrected-score artifact
 
 M2.4 输出是 **Candidate 0 的 copy-on-write 派生物**，不是 Candidate 0 本体。
 
@@ -608,7 +1003,7 @@ created_at
 
 ---
 
-## 6.8 Rollback contract
+## 8.8 Rollback contract
 
 Rollback 的定义不是“反向猜一个 tone”，而是：
 
@@ -631,7 +1026,7 @@ rebuild zero repairs == Candidate 0 semantically identical
 
 ---
 
-## 6.9 Post-apply integrity verification
+## 8.9 Post-apply integrity verification
 
 M2.4 apply 后只做 integrity verification，不重新 adjudicate。
 
@@ -671,7 +1066,7 @@ Machine-safe path 额外验证 upstream frozen artifact 仍是 plan 时绑定的
 
 ---
 
-## 6.10 Repair plan freshness
+## 8.10 Repair plan freshness
 
 `repair_plan.json` 不是永久授权。
 
@@ -702,7 +1097,7 @@ selected patch changed
 
 ---
 
-## 6.11 189s / 202s permanent safety
+## 8.11 189s / 202s permanent safety
 
 永久 regression：
 
@@ -732,7 +1127,7 @@ GAME stochastic identity/pitch ambiguity
 
 ---
 
-## 6.12 0 repair / partial repair 是正常结果
+## 8.12 0 repair / partial repair 是正常结果
 
 M2.4 不以“修了多少”为成功指标。
 
@@ -749,7 +1144,7 @@ M2.4 可以对当前已经具备 authorization 的区域增量生成 corrected s
 
 ---
 
-# 7. M2.4 Acceptance Matrix
+# 8. M2.4 Acceptance Matrix
 
 全部通过后才允许：
 
@@ -758,7 +1153,7 @@ M2.4 = FROZEN
 → M2.5
 ```
 
-## 7.1 Scope / patch-shape gate
+## 8.1 Scope / patch-shape gate
 
 ```text
 1. v1 只允许 single existing-note pitch retune
@@ -777,7 +1172,7 @@ M2.4 = FROZEN
 14. after tone == before tone → no-op / not a repair
 ```
 
-## 7.2 Machine-safe path
+## 8.2 Machine-safe path
 
 ```text
 15. only frozen upstream finalized SAFE result may enter
@@ -790,7 +1185,7 @@ M2.4 = FROZEN
 22. frozen upstream artifact material change → plan stale
 ```
 
-## 7.3 Human-selected path
+## 8.3 Human-selected path
 
 ```text
 23. ONLY repair_authorized_decision() may authorize
@@ -811,7 +1206,7 @@ M2.4 = FROZEN
 38. plan→apply 之间 audio_package_hash changed → refuse apply
 ```
 
-## 7.4 Candidate 0 / corrected score integrity
+## 8.4 Candidate 0 / corrected score integrity
 
 ```text
 39. planning executes 0 mutation
@@ -825,7 +1220,7 @@ M2.4 = FROZEN
 47. zero-repair rebuild == Candidate 0 semantically identical
 ```
 
-## 7.5 Idempotency / conflict / rollback
+## 8.5 Idempotency / conflict / rollback
 
 ```text
 48. same evidence → same repair_id
@@ -839,7 +1234,7 @@ M2.4 = FROZEN
 56. rollback never depends on guessing current tone
 ```
 
-## 7.6 Audit completeness
+## 8.6 Audit completeness
 
 ```text
 57. every applied repair has before/after
@@ -853,7 +1248,7 @@ M2.4 = FROZEN
 65. missing non-gating audit field represented explicitly, not fabricated
 ```
 
-## 7.7 Permanent safety regressions
+## 8.7 Permanent safety regressions
 
 ```text
 66. 189s no false machine repair
@@ -865,7 +1260,7 @@ M2.4 = FROZEN
 72. 0 repairs remains legal
 ```
 
-## 7.8 Production-path tests
+## 8.8 Production-path tests
 
 Tests不能只手工造一个 repair dict；至少覆盖真实 adapter chain：
 
@@ -901,7 +1296,7 @@ real d3 review authority fixture
 82. corrected score deterministic on rerun
 ```
 
-## 7.9 Local integration acceptance
+## 8.9 Local integration acceptance
 
 在真实《年轮》diagnostic run 上：
 
@@ -931,7 +1326,7 @@ blocked reasons 可审计
 
 仍然可以通过 M2.4 acceptance。
 
-## 7.10 Remote CI gate
+## 8.10 Remote CI gate
 
 Final M2.4 acceptance 必须：
 
@@ -954,7 +1349,7 @@ M2.5 = UNBLOCKED
 
 ---
 
-# 8. D Phrase Review UX Contract
+# 9. D Phrase Review UX Contract
 
 Human review 的目标：
 
@@ -1018,9 +1413,9 @@ none_correct gen2
 
 ---
 
-# 9. M2.5+ 后续阶段边界
+# 10. M2.5+ 后续阶段边界
 
-## 9.1 M2.5 — PROBABLE structure repair
+## 10.1 M2.5 — PROBABLE structure repair
 
 M2.4 v1 不实现 structure repair。
 
@@ -1035,11 +1430,11 @@ structure-specific no-false-repair regressions
 
 Human-selected structure candidate 可以作为 M2.5 输入，但仍需 structure repair gate；“用户听起来选了它”不等于可以无条件开放所有 structure auto-repair。
 
-## 9.2 M2.6 — Optional second opinion
+## 10.2 M2.6 — Optional second opinion
 
 只作为必要时 second opinion，不得破坏 frozen evidence-independence semantics。
 
-## 9.3 M2.7 — Lyrics mapping + base USTX
+## 10.3 M2.7 — Lyrics mapping + base USTX
 
 Written melody 稳定后再做：
 
@@ -1062,7 +1457,7 @@ OpenUtau：
 
 > 不做泠鸢 style 和复杂 PITD 时，是否已经唱对旋律和节奏？
 
-## 9.4 M2.8 — PITD + render loop
+## 10.4 M2.8 — PITD + render loop
 
 基础 written score 通过后再加入：
 
@@ -1076,17 +1471,17 @@ intonation deviation
 
 PITD 不得掩盖 written-note error。
 
-## 9.5 M2.9 — 《年轮》M2 验收
+## 10.5 M2.9 — 《年轮》M2 验收
 
 目标：确认完整 written score / lyrics / base render 已达到可接受正确度，并对未解决区域保留明确 audit 状态。
 
-## 9.6 M3 — 泠鸢 style profile
+## 10.6 M3 — 泠鸢 style profile
 
 > **原唱决定“唱什么”；泠鸢参考决定“怎么唱”。**
 
 ---
 
-# 10. Evaluation / Audit
+# 11. Evaluation / Audit
 
 至少记录：
 
@@ -1149,7 +1544,7 @@ rollback coverage
 
 ---
 
-# 11. Milestones
+# 12. Milestones
 
 ### M2.0 — Foundation survey ✅
 ### M2.1 / M2.1.1 — Initial diagnostic + correctness ✅
@@ -1167,8 +1562,9 @@ rollback coverage
 ### M2.3.2D Stable Review Identity — ✅ IMPLEMENTED @ 2a997a2
 ### M2.3.2D Migration Integrity — ✅ IMPLEMENTED @ 905f144
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
-### M2.4 — SAFE single-note pitch repair — ✅ FROZEN @ ce083c9 / CI 35289803217
-### M2.5 — PROBABLE structure repair — ← CURRENT
+### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
+### Pre-M2.5 Freeze Integrity Patch — ← CURRENT / M2.5 BLOCKER
+### M2.5 — PROBABLE structure repair — ⛔ BLOCKED until integrity acceptance
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -1177,7 +1573,7 @@ rollback coverage
 
 ---
 
-# 12. 最终不可违反的规则
+# 13. 最终不可违反的规则
 
 1. GAME 是基座，不是 truth。
 2. Candidate 0 只能来自真实 GAME run。
@@ -1227,5 +1623,9 @@ rollback coverage
 46. 202s 永久 stochastic pitch/identity regression；无 human authorization 不得 repair。
 47. 0 repair 是合法结果。
 48. 从 C2 起，没有 FINAL acceptance SHA 的 remote CI green，不允许 FROZEN/PASS。
-49. 先把 written score 唱对，再生成 PITD。
-50. 先“唱对”，再做泠鸢风格。
+49. structure 未 finalized 时，identity-unsafe aggregate GAME run_tones 不得成为 finalized pitch support。
+50. missing/insufficient structure evidence 必须 neutral，不得通过 complement 或默认值变成 H0 support。
+51. M2.4 repair plan 必须同时绑定 Candidate-0 semantic notes hash 与 full-file sha256。
+52. Pre-M2.5 integrity acceptance 未通过前，不得启动 structure repair。
+53. 先把 written score 唱对，再生成 PITD。
+54. 先“唱对”，再做泠鸢风格。
