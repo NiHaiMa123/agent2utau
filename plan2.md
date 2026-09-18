@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD。G5E 已实现 real-lyric review + pair-shared listen loudness，但 2026-09-18 re-audit 发现 3 个新的 hard blocker，人工审核不得恢复：① `pilot_review.json` 的 Git binding 仍固定在旧 SHA `283f5a3`，而新的 `*_LISTEN.wav` 直到 `21dcdf8` 才提交，按 manifest 的 raw URL 实测会 404；② Group 1 的 `real_lyric_review` 仍生成 `圆圈勾勒成指纹+印在我的+a嘴唇`，即 review asset 仍存在可发声 neutral-vowel `a`，不能视为“真实歌词已修复”；③ Group 1 / 2 的 `signal_qc.auto_review_ready` 均为 false，且存在明显非目标区 A/B drift（G1 pre=2.1554、post=1.1019；G2 pre=1.5819），说明 A/B 除 target operation 外仍有会污染人类结构判断的渲染差异。响度方面 G1 A/B delta 已收敛到 0.03 dB，G2 为 0.90 dB，但这不足以解除 hold。下一步必须先修 stale Git SHA / regenerate pilot manifest、消除 real-lyric path 中的可发声 `a` fallback，并定位/消除 pre/post-target drift；修复后不再以 phrase A/B 作为正式主审核面，而是先为可信 pilot item 生成整首 A/B（FULL_OPTION_0/FULL_OPTION_1），重新跑 package/hash/QC，再由用户从头复审。Group 3–5 当前仍因 no_chars/low_confidence 留在 neutral_vowel，若无法获得可靠 real-lyric evidence，则不得作为恢复后的 5-item pilot，必须改选具备可信歌词映射的代表项。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（等待 maintainer QC PASS + 用户重审）。2026-09-18 re-audit 的 3 个 hard blocker 已全部修复并推送（`980fcb9`/`fe26daa`/`f735808`，310 passed）：① stale Git SHA——`pilot_review.json` 改为 artifact commit 后生成并绑定包含字节的 sha（`346e2f6`），raw URL 实测可下载且 sha256 匹配；② 可发声 `a`——`review_lyrics` 收紧为 touch-`+` 或 fail-closed，探针实证 OpenUtau 拒绝 gap 后 `+`（Unrecognized phoneme），gap 后 unmapped 不出包；③ 非目标区 drift——定位为确定性 renderer/global-context effect（同 ustx 重渲 raw_diff=0.0004，pre-target 恒定 -1~2ms duration 模型全局传播），LISTEN 面改为 shared-context splice（baseline 上下文 + candidate 目标段，低能点+lag 对齐+40ms crossfade），构造上 outside diff=0，canonical drift 如实记录在 `renderer_global_context`。新 pilot = `note_0012/0061/0188/0192/0379`（全曲分布，歌词证据门全过，signal_qc flags 全空，`auto_review_ready=True`）。`git_evidence 468/468`，`review_ready=false`（无当前合同 verdict，hold 正确维持）。剩余阻塞：maintainer 审 Git artifacts → `structure-calib-qc --pass --auditor <name>` → 用户重审 5 组。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -3042,6 +3042,18 @@ G10. full 21-item generation is blocked until pre-human QC PASS
 - **真实 run 状态（`diag-20260917-181538-6aec`）**：21/21 项 augment 完成；signal_qc 全部 flag 目标外漂移（pre 0.53–1.07 / post 0.53–2.11，复现 maintainer 的 ~0.68）、4 项 loudness drift、5 项 both-options-F0-mismatch → `auto_review_ready=false` store-wide；21/21 `verify_package` 仍 valid；`git_evidence` = 277/277 committed、missing=0；`review_ready=false`（等 maintainer PASS）。
 - **新回归**：+6（PASS 无 commit 拒绝 / qc 未提交不 ready / legacy verdict 永不 ready / focus 裁剪尺寸+字段 / 漂移 flag / evidence missing 清单），累计 295。
 - **剩余阻塞**：maintainer 审 Git artifacts → `structure-calib-qc --pass --auditor <name>`（命令本身强制 Git 证据齐全才记录）→ 用户裁决 21 项 → summary + apply。
+
+#### G5F blocker 修复实现记录（`980fcb9` 代码 + `fe26daa` artifacts + `f735808` payload，310 passed）
+
+**Blocker 1 — stale Git SHA 下载面 → FIXED。** 提交流程改为两段：`pilot_review.json` 在 artifact commit **之后**生成，使 `git.sha` 指向实际包含被引用字节的 commit（`346e2f6`），再单独提交 payload。实测验证：每组 `OPTION_*_LISTEN` raw URL 可下载且 **bytes sha256 == manifest sha256**（note_0012 B: 532772B ✓ / note_0061 B: 555704B ✓）。禁止再出现"payload sha 先于 artifact commit"的顺序。
+
+**Blocker 2 — 可发声 `a` → FIXED（fail-closed gap 规则）。** `review_lyrics` 语义收紧：unmapped note 仅在与前 note **相接**时写 `+`；真实 gap 后的 unmapped note 返回 `None` → 调用方 fail-closed 不出包。关键实证：探针 ustx（note + 480tick gap + `+` note）经 bridge 实测 OpenUtau 报 `Unrecognized phoneme "+"` —— gap 后 `+` 本来就**不可渲染**，builder 检查是对的，fail-closed 是唯一诚实路径。已验证歌词：`note_0188/0192/0379` 全部 `可惜从没人陪我演这剧本` 家族，A/B 仅在 declared split 位差一个 `+`。
+
+**Blocker 3 — 非目标区 drift → FIXED（shared-context splice listen 面）。** 定位结论：同 ustx 重渲 raw_diff=0.0004 → **DiffSinger 是确定性的**，drift 不是噪声；逐窗互相关显示 pre-target 恒定 -1~2ms 前移 + 轻微声学涂抹（duration 模型对全音素序列全局 attention，split 的 `+` 音素扰动所有 context note 时值）——这是真实的 renderer/global-context effect，放宽阈值不可辩护。修法按 spec "shared context" 思路：**LISTEN 面** B = baseline 上下文 + candidate 目标段（`SPLICE_PAD_S=0.35s` 外取 baseline 低能点、每边 lag 对齐 ±10ms 置信门控、40ms crossfade）→ 构造上 outside diff=0；canonical 完整渲染不动，drift 移入 `renderer_global_context`（pre/post canonical ratio + `timing_shift_ms_median` + `aligned_residual_median` + audit flags）如实记录。`auto_flags`/`auto_review_ready` 改为度量**试听面**（reviewer 实际听到的），canonical drift 降级为审计记录不阻塞。真实验证（note_0012）：edge_lag 1.72ms/0.82ms 高置信、outside diff 0.0/0.0、canonical pre 2.16/post 1.10 全部保留、`auto_review_ready=True`。
+
+**Pilot 3–5 重选 → note_0188 / note_0192 / note_0379。** 原 0123/0391/0404 无歌词证据（fail-closed）；候选 0248 因 gap 后 unmapped note 正当 fail-closed、0044/0246 有 canonical loudness flag。最终 5 组 = `0012 / 0061 / 0188 / 0192 / 0379`（全曲分布 18.4s–183.0s，evidence gate 全过，signal_qc flags 全空）。
+
+**状态**：`git_evidence 468/468 complete`；`review_ready=false`（无当前合同 QC verdict —— 质量暂停正确维持）；21 项 `verify_package` 全 valid；5 项 canonical `option_loudness_drift` 作为渲染缺陷如实记录。**剩余唯一阻塞**：maintainer 审 Git artifacts → `structure-calib-qc --pass --auditor <name>` → 用户重审 5 组新 pilot。
 
 ---
 

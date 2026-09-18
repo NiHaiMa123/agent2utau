@@ -829,9 +829,11 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   only on its syllable's first note (carrier = first unconsumed note
   whose span reaches char.start; gap-start char binds the FOLLOWING
   note; never midpoint-nearest, never backwards). Touching notes get
-  '+', post-gap notes 'a'; evidence outliving the notes -> None ->
-  fail-closed. Split parent's char lands on child[0], later children
-  '+' -> A/B context lyrics stay identical outside the target.
+  '+'; an unmapped note after a REAL gap fails closed (probe-verified:
+  OpenUtau rejects a gap-separated '+' as an unrecognized phoneme —
+  no honest label exists). Split parent's char lands on child[0],
+  later children '+' -> A/B context lyrics stay identical outside
+  the target.
 - `review_phrase_chars()` evidence gate: no chars / any char below
   MIN_REVIEW_CHAR_PROB -> fail-closed, no package (groups 3-5 have
   no_chars/low_confidence -> correctly stay on neutral vowels).
@@ -849,6 +851,30 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   git_evidence 468/468; review_ready=false (quality hold + no
   current-contract QC verdict); informal group 1/2 preference kept
   as diagnostic only — decisions only via structure-calib-decide.
+
+### §10.1.5A G5F — re-audit blocker fixes (980fcb9/fe26daa/f735808, 310 passed)
+
+- **Stale payload sha**: `pilot_review.json` must be generated AFTER the
+  artifact commit so `git.sha` points at a commit that contains the
+  referenced bytes; raw URLs verified downloadable + sha256-matching.
+- **Audible `a` gone**: see `review_lyrics` above — gap-unmapped notes
+  fail closed; verified lyrics on note_0188/0192/0379 are real hanzi
+  with A/B differing only at the declared split child.
+- **Shared-context splice LISTEN surface**: DiffSinger is deterministic
+  (same-ustx re-render raw_diff=0.0004); canonical pre-target drift is
+  a real renderer/global-context effect (duration model attends the
+  full phoneme sequence — constant ~1–2ms shift + small smear). The
+  candidate LISTEN copy = baseline context + candidate target segment
+  (low-energy edge picks, per-edge lag alignment ±10ms confidence-
+  gated, 40ms crossfades) -> outside-splice diff is 0.0 by
+  construction. Canonical drift stays recorded in
+  `signal_qc.renderer_global_context` (ratios + timing_shift_ms_median
+  + aligned_residual + audit flags); `auto_flags`/`auto_review_ready`
+  now measure the LISTEN surface, not the canonical bleed.
+- **Pilot re-pick**: note_0012/0061/0188/0192/0379 — all pass the
+  real-lyric evidence gate with empty signal_qc flags. 0123/0391/0404
+  lack char evidence; 0248 fails closed (gap-unmapped note); 0044/0246
+  carry canonical option_loudness_drift records.
 
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
