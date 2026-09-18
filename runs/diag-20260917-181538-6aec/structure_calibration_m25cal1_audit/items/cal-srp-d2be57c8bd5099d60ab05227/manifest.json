@@ -1,5 +1,5 @@
 {
-  "schema": "m25-cal-2",
+  "schema": "m25-cal-1",
   "identity_schema": "review-target-v1",
   "review_item_id": "cal-srp-d2be57c8bd5099d60ab05227",
   "target_key": "0a8b4f7608fff577ce9c33a96f5a05206a4809da52189e33b949b994fc9ab1b0",
@@ -62,7 +62,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "f5cd3d784bcff398389d7fcdbe234b3b695442537ad5c9d9e9180597cc0680bb",
+      "wav_sha256": "faa15105f6e1c91b3ed54245c20aa6fe614330b84ef1a98e31eb18d458d2a61c",
       "sample_rate": 44100,
       "frames": 205506,
       "render_error": null
@@ -110,7 +110,7 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "5281fd55803abb7878adbc19b7a2263a277574b192fb49ba06b84acb992c91de",
+      "wav_sha256": "8c7d62c6353a29b6b527d3b166c7df54f458a96241f1e8f80b97ad8b7038ff73",
       "sample_rate": 44100,
       "frames": 205506,
       "render_error": null
@@ -190,7 +190,7 @@
     ]
   },
   "plan_hash": "67ea0c90933cae8887ae1d21ae62f2c9c0778027961edd6dadde98546f200a28",
-  "audio_package_hash": "300ae06d3b45dabb57d11316b5011a0fd6123d82b13f8613468d853b1e25de8d",
+  "audio_package_hash": "e6f468941143ac7c6b2656f3fa0d03b3c824f48d09e3226f7f4c1a5398f617c9",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -267,14 +267,11 @@
     "patch_sha256": "caec160a6bb4d987d8897b4b4c3a1d5978f8848e609b461c4380735edd1a3593",
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
-    "lyric_contract": "neutral_vowel",
-    "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
     "choices": [
       "split",
       "baseline",
       "equivalent",
       "none_correct"
-    ],
-    "semantic_diff_sha256": "007d92d41bd34bd1f5da1beb92dc0eb8861181619f97f4da3459ed502d396ebc"
+    ]
   }
 }

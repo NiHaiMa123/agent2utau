@@ -697,6 +697,41 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
 - FREEZE still held pending the user's 21-item A/B adjudication +
   calibration summary + final SHA/CI.
 
+### §10.1.5A Blocker G — Human Review Readiness (m25-cal-2)
+
+- m25-cal-1 review audio was judged unfit for human adjudication:
+  lyric_map re-guessed chars per note midpoint (real corruption:
+  "圈+勾成指纹+印在我+的的嘴唇"), baseline was a rebuilt phrase —
+  not a canonical render. m25-cal-1 is audit-only: archived to
+  `structure_calibration_m25cal1_audit/` (git mv), schema gate
+  `ensure_calib_authority` renames any non-m25-cal-2 store;
+  decide/calibration_authorized fail-closed on old schema.
+- m25-cal-2 neutral-vowel contract: `lyric_contract="neutral_vowel"`
+  -> `neutral_vowels()` = touch→'+' / gap|first→'a', never reads the
+  char table (no lyric guessing possible). Split children get '+'
+  when touching — the conservative render (no fake re-attack).
+- `semantic_diff.json` per item: outside-target score/lyric diff
+  must be empty; within_target = declared patch only;
+  tone_integerization deviation recorded (uniform, GAME ustx is int
+  too); manifest binds semantic_diff_sha256.
+- QC verdict gate: `qc/verdict.json` {schema, verdict,
+  contract_sha256, auditor, sample_ids} + append-only audit.jsonl;
+  `review_ready()` defaults false — only verdict PASS + matching
+  contract_sha (schema+lyric_contract+rph) unblocks the FULL batch;
+  `structure-calib-qc --pass/--fail` records. Samples via --items
+  are the allowed pre-QC path.
+- Sample artifacts: OPTION_0/1.wav+ustx + unblinded BASELINE.ustx /
+  CANDIDATE.ustx (QC aids; OPTION files stay decision authority) +
+  SOURCE_FOCUS_original_mix/separated_vocal.wav (±0.6s) +
+  manifest.json + semantic_diff.json.
+- 5-sample audit (simple/large-pitch/melisma/gap/corruption):
+  all verify_package valid, all semantic_diff outside-target empty,
+  USTX multiset diff = exactly parent↔children. Verdict PASS
+  (contract c54f07d6). Caveat recorded: DiffSinger context
+  sensitivity spreads wav-level diff beyond the target —
+  score-level contract is the verifiable one.
+- +8 G1-G10 regressions; 289 total passed.
+
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
   `apply_structure_plan` / `validate_structure_patch` /

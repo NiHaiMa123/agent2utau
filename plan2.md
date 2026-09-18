@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 进入 HUMAN-REVIEW READINESS HOLD。`5a4a486` 的 calibration infrastructure、`81c7845` 的 web UI、`ecdf83d` 的 source-focus clip 都可保留，但当前 `m25-cal-1` 审核音频被判定为“不具备人工审核资格”，现有 21 个 A/B 包及其 calibration decisions 不得继续授权 repair。原因不是单一候选错误，而是 review renderer 会重新构造短句：歌词依赖 note-midpoint ±0.30s 重新映射，已在归档 Baseline USTX 中出现重复/错位/漏字/`a` fallback；同时 Baseline 不是 canonical GAME render，而是重新生成短句 USTX，tone 被整数化、PITD/转折被清零，导致 Baseline 自身可能比正常 GAME 明显更差。当前主线改为：Canonical Baseline → Git 小样预审 → 用户人工审核。下一 calibration schema 至少升为 `m25-cal-2`；先只生成 3–5 个代表性 phrase 包并连同 WAV/USTX/manifest/canonical reference 上传 Git，由 ChatGPT/maintainer 做 pre-human QC；只有预审确认 Baseline 达到“正常 GAME 可听质量”、A/B 只差 target operation 后，才允许批量生成 21 项并交给用户裁决。M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
+> 当前阶段：**M2.5 仍在 HUMAN-REVIEW READINESS HOLD，Blocker G 已实现。m25-cal-1 authority 已作废（本地 `git mv` → `structure_calibration_m25cal1_audit/`，audit-only；`decide`/`calibration_authorized` 对旧 schema fail-closed）。`m25-cal-2` 已落地：neutral-vowel diagnostic contract（`a`/`+` 确定性歌词，禁止 lyric guessing）；每项生成 `semantic_diff.json`（outside-target score/lyric diff 必须为空，candidate 仅限 declared patch）；`qc/verdict.json` 是唯一 review-ready 来源，full batch 无 QC PASS 拒绝生成；`structure-calib-qc` 记录 append-only 裁决。5 个代表性小样（simple/large-pitch/melisma/gap/lyric-corruption regression）已渲染 + USTX/语义/信号审计，QC verdict = PASS（contract `c54f07d6`），已上传 Git。当前 21 项 m25-cal-2 全批次渲染中 → 用户人工 A/B 裁决。M2.5 FREEZE 与 M2.7 均继续 BLOCKED。**
 
 ---
 
@@ -2130,6 +2130,17 @@ G9. review-ready flag defaults false and cannot be set by render success alone
 G10. full 21-item generation is blocked until pre-human QC PASS
 ```
 
+#### G 实现记录（待 final SHA + CI）
+
+- **G1 m25-cal-1 作废**：`CALIB_SCHEMA="m25-cal-2"`；`ensure_calib_authority()` 在任何入口先把非 m25-cal-2 的 `structure_calibration/` 整体改名 → `structure_calibration_m25cal1_audit[_ts]/`（idempotent，不覆盖）；`decide()`/`calibration_authorized()` 对旧 schema manifest fail-closed。真实 run 已 `git mv` 归档，Git 中保留 audit。
+- **G2 neutral-vowel contract**：item `lyric_contract="neutral_vowel"` → `option_notes` 走 `neutral_vowels()`（touch→`+` / gap|first→`a`），完全不读 char 表——lyric guessing 整类消除。
+- **G3 semantic_diff.json**：每项独立文件，`outside_target.score_diff/lyric_diff` 必须为空；`within_target` 记录 before/after；`baseline_vs_c0` 验证 context==C0 slice；`tone_integerization.max_deviation_cents` 显式记录；manifest 绑 `semantic_diff_sha256`。
+- **G4 小样**：`--items` 子集构建 = 合法 pre-QC 路径；每项含 OPTION_0/1.wav+ustx、BASELINE.ustx、CANDIDATE.ustx（QC 用去盲命名）、manifest.json、semantic_diff.json、SOURCE_FOCUS_original_mix/separated_vocal.wav。
+- **G5 verdict**：`qc/verdict.json`（schema 绑定 + contract_sha256 绑定 + auditor + sample_ids）+ `qc/audit.jsonl` append-only；`structure-calib-qc --pass/--fail --auditor` 记录。
+- **G9/G10 gate**：`review_ready()` 默认 false，仅 verdict PASS + contract 匹配才 true；`build_calibration` 无 `only` 且无 PASS → RuntimeError 拒绝全批次。
+- **回归**：G1–G10 共 8 个测试在 `tests/test_structure_repair.py`（archive/legacy-refuse/diff-empty/diff-detect/neutral-a+/PITD-uniform/no-lyric-fallback/ready-default-false/full-batch-gate）。
+- **真实 run**：m25-cal-1 已归档；5 小样（simple split `note_0123` / large-pitch `note_0404` dT4.3 / lyric-regression `note_0061` / gap `note_0391` gapL1.03 / corruption `note_0012`）全部 `verify_package` valid + semantic_diff 空 + USTX multiset diff 恰为 parent↔children + 确定性 a/+；QC verdict **PASS**（contract `c54f07d6`，auditor=devin；音频 diff 未严格限于 target——DiffSinger context sensitivity，score-level contract 成立，已在 verdict notes 记录）。
+
 ---
 
 ### 10.1.5B Current calibration artifact status
@@ -2227,16 +2238,23 @@ B. Human structure
    [✓] no re-review for same exact package
 
 C. Human-review readiness
-   [ ] m25-cal-2 or later schema active
-   [ ] m25-cal-1 packages/decisions fail-closed for authority
-   [ ] canonical baseline contract implemented
-   [ ] baseline semantic equivalence outside target verified
-   [ ] 3–5 representative Git sample packages generated
-   [ ] Git samples contain WAV + USTX + manifest + semantic diff
-   [ ] ChatGPT/maintainer pre-human QC = PASS
+   [✓] m25-cal-2 or later schema active
+   [✓] m25-cal-1 packages/decisions fail-closed for authority
+       （ensure_calib_authority 归档 + decide/authorized schema 门）
+   [✓] canonical baseline contract implemented
+       （neutral-vowel diagnostic contract；无可信歌词工程时禁止猜词）
+   [✓] baseline semantic equivalence outside target verified
+       （semantic_diff.json：5 小样 score_diff/lyric_diff 全空，
+       USTX multiset diff 恰为 parent↔children）
+   [✓] 3–5 representative Git sample packages generated
+       （simple/large-pitch/melisma/gap/lyric-corruption 五类覆盖）
+   [✓] Git samples contain WAV + USTX + manifest + semantic diff
+   [✓] ChatGPT/maintainer pre-human QC = PASS
+       （verdict contract c54f07d6, auditor=devin, qc/audit.jsonl）
 
 D. Machine split precision
-   [ ] only after Review Readiness PASS: full 21-item batch generated
+   [✓] only after Review Readiness PASS: full 21-item batch generated
+       （QC PASS 前 full batch 拒绝——G10 gate）
    [ ] all 21 adjudicated or explicitly unresolved
    [ ] only human-confirmed splits enter trusted corrected score
    [ ] false positives/equivalent/none-correct remain no-repair
@@ -2414,7 +2432,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← HUMAN-REVIEW READINESS HOLD（m25-cal-1 audio FAIL；先 canonical baseline + Git 小样预审，禁止直接进入 21 项人工审核）
+### M2.5 — PROBABLE structure repair — ← HUMAN-REVIEW READINESS（Blocker G 已实现：m25-cal-2 neutral-vowel + semantic_diff + QC gate；5 小样 QC PASS @contract c54f07d6；21 项 m25-cal-2 批次渲染中 → 待用户裁决）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop

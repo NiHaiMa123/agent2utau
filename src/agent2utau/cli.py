@@ -402,6 +402,28 @@ def cmd_structure_calib_decide(args) -> int:
                        "decision": rev})
 
 
+def cmd_structure_calib_qc(args) -> int:
+    """§10.1.5A-G5: record the pre-human QC verdict for the current
+    render contract. PASS unblocks the full 21-item batch; FAIL keeps
+    it blocked. Append-only audit trail in qc/audit.jsonl."""
+    from .structure_calibration import (load_verdict, rebuild_calibration_state,
+                                        write_verdict)
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    st = rebuild_calibration_state(run_dir)
+    contract_sha = st.get("contract_sha256")
+    if not contract_sha:
+        return fail("no_calibration_plan",
+                    "build sample packages first (structure-calib-plan "
+                    "--items ...) so the contract hash exists")
+    rec = write_verdict(
+        run_dir, "PASS" if args.pass_ else "FAIL",
+        contract_sha=contract_sha, auditor=args.auditor,
+        notes=args.notes or "",
+        sample_ids=args.samples.split(",") if args.samples else None)
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "verdict": rec})
+
+
 def cmd_structure_calib_status(args) -> int:
     from .structure_calibration import rebuild_calibration_state
     run_dir = Path(load_config()["runs_dir"]) / args.run_id
@@ -792,6 +814,18 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("structure-calib-status")
     p.set_defaults(fn=cmd_structure_calib_status)
     p.add_argument("run_id", help="diagnostic run id")
+
+    p = sub.add_parser("structure-calib-qc")
+    p.set_defaults(fn=cmd_structure_calib_qc)
+    p.add_argument("run_id", help="diagnostic run id")
+    g = p.add_mutually_exclusive_group(required=True)
+    g.add_argument("--pass", dest="pass_", action="store_true")
+    g.add_argument("--fail", dest="pass_", action="store_false")
+    p.add_argument("--auditor", required=True,
+                   help="who audited the samples (e.g. devin, chatgpt)")
+    p.add_argument("--samples", default=None,
+                   help="comma list of cal_item_ids that were audited")
+    p.add_argument("--notes", default=None)
 
     p = sub.add_parser("structure-calib-web")
     p.set_defaults(fn=cmd_structure_calib_web)

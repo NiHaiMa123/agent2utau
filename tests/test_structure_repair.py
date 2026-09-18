@@ -113,7 +113,7 @@ def _cal_confirm(run, entry, choice="split"):
                              "sha256": hashlib.sha256(b"mix").hexdigest()},
             "separated_vocal": {"path": "v.wav",
                                 "sha256": hashlib.sha256(b"voc").hexdigest()}}
-    man = {"schema": "m25-cal-1", "review_item_id": cid,
+    man = {"schema": "m25-cal-2", "review_item_id": cid,
            "target_key": "tk-" + rid,
            "target_group": {"packets": [entry["note_id"]],
                             "type": entry["patch"]["type"]},
@@ -430,7 +430,7 @@ def test_calibration_summary(tmp_path):
     # state is derived from plan.json items — register them
     from agent2utau.structure_calibration import calib_dir, _jwrite
     _jwrite(calib_dir(run) / "plan.json",
-            {"schema": "m25-cal-1", "created_at": 0,
+            {"schema": "m25-cal-2", "created_at": 0,
              "diagnostic_run_id": "diag-x",
              "candidate0_sha256": "x",
              "items": [{"cal_item_id": cal_item_id(e["repair_id"]),
@@ -545,3 +545,183 @@ def test_no_machine_candidates_no_repairs(tmp_path):
     assert plan["repairs"] == []
     res = apply_structure_plan(run, plan)
     assert res["score"]["notes"] == _NOTES
+
+
+# ------------------------------------------- §10.1.5A review readiness (G)
+
+def _fake_run_dict():
+    """Minimal run dict for plan_calibration/semantic_diff — no disk."""
+    pkts = [_machine_split_pkt()]
+    return {"run_id": "diag-x", "song_sha256": "song",
+            "packets": pkts,
+            "packets_by_id": {p["id"]: p for p in pkts},
+            "baseline_notes": _NOTES,
+            "candidate0_sha256": "c0-sha",
+            "duration": 20.0, "lrc_lines": [], "silences": []}
+
+
+def test_g1_legacy_cal1_store_is_archived_and_dead(tmp_path):
+    """G1: an m25-cal-1 store is renamed to audit-only on first access;
+    its packages/decisions can never authorize or be decided again."""
+    from agent2utau.structure_calibration import (
+        calib_dir, ensure_calib_authority)
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    cdir = calib_dir(run)
+    (cdir / "items" / "x").mkdir(parents=True)
+    (cdir / "plan.json").write_text(
+        json.dumps({"schema": "m25-cal-1", "items": []}))
+    ensure_calib_authority(run)
+    assert (run / "structure_calibration_m25cal1_audit" /
+            "plan.json").exists()
+    assert cdir.exists() and not (cdir / "plan.json").exists()
+    ensure_calib_authority(run)          # idempotent — nothing happens
+    assert cdir.exists()
+
+
+def test_g1_legacy_package_refused_by_decide_and_authorize(tmp_path):
+    """G1: a package with schema m25-cal-1 is not decidable; a confirmed
+    decision whose manifest was re-tagged m25-cal-1 loses authority."""
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    e = build_structure_plan(run)["repairs"][0]
+    rev = _cal_confirm(run, e, "split")
+    assert calibration_authorized(run, e["repair_id"], e["patch"])
+    mpath = (run / "structure_calibration" / "items"
+             / rev["cal_item_id"] / "manifest.json")
+    man = json.loads(mpath.read_text(encoding="utf-8"))
+    man["schema"] = "m25-cal-1"
+    mpath.write_text(json.dumps(man), encoding="utf-8")
+    assert calibration_authorized(run, e["repair_id"], e["patch"]) \
+        is None
+    with pytest.raises(RuntimeError, match="audit-only"):
+        decide(run, rev["cal_item_id"], "OPTION_1")
+
+
+def test_g2_g3_semantic_diff_outside_target_empty(tmp_path):
+    """G2/G3: Baseline is C0 verbatim outside the target; the Candidate
+    differs only by the declared patch."""
+    from agent2utau.structure_calibration import (plan_calibration,
+                                                semantic_diff)
+    run = _fake_run_dict()
+    items = plan_calibration(run)
+    assert len(items) == 1
+    d = semantic_diff(items[0])
+    assert d["schema"] == "m25-cal-2"
+    assert d["outside_target"]["score_diff"] == []
+    assert d["outside_target"]["lyric_diff"] == []
+    assert d["target"]["operation"] == "split"
+    assert len(d["within_target"]["before"]) == 1
+    assert len(d["within_target"]["after"]) == 2   # the two children
+    # the diff must DETECT a renderer that bleeds outside the declared
+    # target — simulate a buggy apply_patch that retunes a neighbour.
+    import agent2utau.review.build as rbuild
+    real = rbuild.apply_patch
+
+    def bleeding(context, patch):
+        out = real(context, patch)
+        if patch.get("type") == "split":
+            for n in out:
+                if n["id"] == "note_0003":
+                    n["tone"] += 1.0
+        return out
+    monkeypatch = pytest.MonkeyPatch()
+    monkeypatch.setattr(rbuild, "apply_patch", bleeding)
+    try:
+        d2 = semantic_diff(items[0])
+        kinds = [x["kind"] for x in d2["outside_target"]["score_diff"]]
+        assert "note_changed_outside_target" in kinds
+    finally:
+        monkeypatch.undo()
+
+
+def test_g4_g7_neutral_vowel_deterministic(tmp_path):
+    """G4/G7: a/+ semantics are mechanical — touch→'+', gap→'a' — and
+    never consult the lyric table, so melisma/re-articulation and
+    repeated-char cases cannot be corrupted by lyric guessing."""
+    from agent2utau.review.render import neutral_vowels, option_notes
+    notes = [{"id": "n0", "start": 0.0, "end": 0.5, "dur": 0.5,
+              "tone": 60.0},
+             {"id": "n1", "start": 0.5, "end": 1.0, "dur": 0.5,
+              "tone": 62.0},
+             {"id": "n2", "start": 1.4, "end": 2.0, "dur": 0.6,
+              "tone": 64.0}]
+    assert neutral_vowels(notes) == ["a", "+", "a"]
+    item = {"lyric_contract": "neutral_vowel",
+            "phrase": {"start": 0.0},
+            "context": notes,
+            "options": []}
+    opt = {"option_id": "OPTION_0", "candidate_id": "baseline",
+           "score_patch": {"type": "identity"}}
+    out = option_notes(item, opt, chars=[{"char": "真", "start": 0.0,
+                                          "end": 2.0}])
+    assert [n["lyric"] for n in out] == ["a", "+", "a"]
+
+
+def test_g5_diagnostic_pitch_contract_uniform(tmp_path):
+    """G5: no PITD/pitch-curve fields appear on either option — the
+    diagnostic contract is uniform integer tone + no PITD."""
+    from agent2utau.structure_calibration import (plan_calibration,
+                                                semantic_diff)
+    from agent2utau.review.render import option_notes
+    items = plan_calibration(_fake_run_dict())
+    it = items[0]
+    for opt in it["options"]:
+        out = option_notes(it, opt, chars=[])
+        assert all(set(n) <= {"lyric", "start", "end", "dur", "tone"}
+                   for n in out)
+    d = semantic_diff(it)
+    assert "no PITD" in d["outside_target"]["pitch_semantics"]
+    assert "max_deviation_cents" in d["tone_integerization"]
+
+
+def test_g6_no_silent_real_lyric_fallback(tmp_path):
+    """G6: with lyric_contract=neutral_vowel the renderer must not fall
+    back to guessed real lyrics even when aligned chars exist."""
+    from agent2utau.structure_calibration import plan_calibration
+    from agent2utau.review.render import option_notes
+    items = plan_calibration(_fake_run_dict())
+    it = items[0]
+    assert it["lyric_contract"] == "neutral_vowel"
+    chars = [{"char": "字", "start": 9.0, "end": 15.0}]
+    for opt in it["options"]:
+        out = option_notes(it, opt, chars=chars)
+        assert set(n["lyric"] for n in out) <= {"a", "+"}
+
+
+def test_g9_review_ready_defaults_false(tmp_path):
+    """G9: review-ready is false until an explicit verdict — render
+    success alone never sets it; a mismatched contract hash fails too."""
+    from agent2utau.structure_calibration import (review_ready,
+                                                write_verdict)
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    assert not review_ready(run, "contract-x")
+    write_verdict(run, "FAIL", "contract-x", auditor="t")
+    assert not review_ready(run, "contract-x")
+    write_verdict(run, "PASS", "contract-x", auditor="t")
+    assert review_ready(run, "contract-x")
+    assert not review_ready(run, "other-contract")
+
+
+def test_g10_full_batch_blocked_until_qc_pass(tmp_path, monkeypatch):
+    """G10: build_calibration with no `only` filter is a full batch —
+    blocked until the contract's QC verdict is PASS."""
+    import agent2utau.review.render as rr
+    from agent2utau.structure_calibration import (build_calibration,
+                                                write_verdict)
+    monkeypatch.setattr(rr, "load_run", lambda p: _fake_run_dict())
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    with pytest.raises(RuntimeError, match="QC PASS"):
+        build_calibration(run, render=False)
+    # a sample/subset build is the allowed pre-QC path
+    res = build_calibration(run, render=False, only=["note_0002"])
+    contract = res["contract_sha256"]
+    write_verdict(run, "PASS", contract, auditor="t",
+                  sample_ids=[res["items"][0]["cal_item_id"]])
+    res2 = build_calibration(run, render=False)
+    assert len(res2["items"]) == 1
+    it_dir = run / "structure_calibration" / "items" \
+        / res2["items"][0]["cal_item_id"]
+    assert (it_dir / "semantic_diff.json").exists()      # G8 artifact
+    plan = json.loads((run / "structure_calibration"
+                       / "plan.json").read_text(encoding="utf-8"))
+    assert plan["lyric_contract"] == "neutral_vowel"
+    assert plan["schema"] == "m25-cal-2"

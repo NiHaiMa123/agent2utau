@@ -391,7 +391,7 @@ voice_parts:
   - position: 0
     duration: 451
     tone: 57
-    lyric: a
+    lyric: 代
     pitch:
       data:
       - x: -40
@@ -416,7 +416,7 @@ voice_parts:
   - position: 451
     duration: 403
     tone: 57
-    lyric: +
+    lyric: 替
     pitch:
       data:
       - x: -40
@@ -441,7 +441,7 @@ voice_parts:
   - position: 854
     duration: 317
     tone: 59
-    lyric: +
+    lyric: 你
     pitch:
       data:
       - x: -40
@@ -466,7 +466,7 @@ voice_parts:
   - position: 1171
     duration: 394
     tone: 62
-    lyric: +
+    lyric: 陪
     pitch:
       data:
       - x: -40
@@ -516,7 +516,7 @@ voice_parts:
   - position: 1987
     duration: 384
     tone: 66
-    lyric: +
+    lyric: 我
     pitch:
       data:
       - x: -40
@@ -566,7 +566,7 @@ voice_parts:
   - position: 2784
     duration: 317
     tone: 64
-    lyric: +
+    lyric: 的
     pitch:
       data:
       - x: -40
@@ -591,7 +591,7 @@ voice_parts:
   - position: 3101
     duration: 470
     tone: 55
-    lyric: +
+    lyric: 是
     pitch:
       data:
       - x: -40
@@ -616,7 +616,7 @@ voice_parts:
   - position: 3571
     duration: 346
     tone: 57
-    lyric: +
+    lyric: 年
     pitch:
       data:
       - x: -40
@@ -666,7 +666,7 @@ voice_parts:
   - position: 4262
     duration: 212
     tone: 62
-    lyric: +
+    lyric: 轮
     pitch:
       data:
       - x: -40

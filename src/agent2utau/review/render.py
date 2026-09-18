@@ -128,9 +128,30 @@ def lyric_map(notes, chars):
     return out
 
 
+def neutral_vowels(notes):
+    """m25-cal-2 diagnostic contract (§10.1.5A-G2/G7): when no trusted
+    canonical lyric mapping exists, do NOT guess real lyrics — render
+    'a' for articulated notes and '+' for a note touching the previous
+    one (melisma continuation). Judges hear pitch/timing/note-count
+    only; the source focus clip stays the real-melody reference."""
+    out, last_end = [], None
+    for n in notes:
+        cont = last_end is not None and \
+            n["start"] <= last_end + LYRIC_EXTEND_TOUCH_S
+        out.append("+" if cont else "a")
+        last_end = n["end"]
+    return out
+
+
 def option_notes(item, option, chars):
     """Final render note list for one option (context + score_patch)."""
     patched = apply_patch(item["context"], option["score_patch"])
+    if item.get("lyric_contract") == "neutral_vowel":
+        return [{"lyric": lyr, "start": n["start"] - item["phrase"]["start"],
+                 "end": n["end"] - item["phrase"]["start"],
+                 "dur": n["end"] - n["start"],
+                 "tone": int(round(n["tone"]))}
+                for n, lyr in zip(patched, neutral_vowels(patched))]
     # first split child inherits the parent's lyric char
     parent_char = None
     for n in item["context"]:
