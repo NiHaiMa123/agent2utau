@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**A/B/C/D + M2.4 + Pre-M2.5 Freeze Integrity 全部 PASS。FINAL integrity acceptance = `8a2d660`；remote CI run `35294735189` 已独立核验 checkout 的正是 `8a2d660558512a82d503833ef4bd19bf82835a06`，pytest = 248 passed / 0 failed（16.73s）。M2.5 structure repair = UNBLOCKED，当前最高优先级 = M2.5（M2.4 `blocked_structure` 的 human authority 可直接复用，无需重审）。已修补：① provisional B 对 aggregate `run_tones` 置 neutral；② C missing evidence = neutral；③ plan 双 hash 绑定；④ legacy `m24-1` / 缺 binding plan fail-closed（schema `m24-2`）。另保留一个非阻塞 P2 audit hardening：`apply_plan()` 后续应重算并验证 `plan_hash`，用于 tamper-evidence；该项不影响当前 M2.5 开工。**
+> 当前阶段：**A/B/C/D + M2.4 + Pre-M2.5 Freeze Integrity + M2.5 structure repair 全部 PASS。M2.5 FINAL acceptance = `73819a9`；remote CI run `35297439976` 已核验 checkout 的正是 `73819a996d64ac33c6eb69e1c71036eb53557c0a`，pytest = 272 passed / 0 failed（18.76s）。已实现：① structure plan/apply 契约（schema `m25-1`），split / merge / boundary-shift 分开建模；② human path 直接复用 M2.4 `blocked_structure` 的 `repair_authorized_decision` snapshot（revision + target_key + audio_package_hash，无需重审）；③ machine path 仅物化 frozen `resolved_change_candidate` + operation-specific precision gate（identity-safe child mapping / boundary confidence / min child duration / merge adjacency+span legality / shift monotonic+no-overlap）；④ `canonical_plan_hash` apply 时重算（P2 hardening 完成，同时覆盖 M2.4 plan）；⑤ Candidate 0 双 hash + plan_hash + authority 三重 freshness，conflict/dedupe/rollback 与 C0 immutability 与 M2.4 同契约。真实 run `diag-20260917-181538-6aec`：22 repairs（21 machine split + 1 human split），189.84s/202.52s 永久回归逐字段不变，C0 文件 hash 不变。当前最高优先级推进到 lyrics ↔ melody mapping（M2.7）。**
 
 ---
 
@@ -24,6 +24,7 @@
 → finalized machine unresolved 才进入 D phrase-level review
 → D 输出 stable-target + exact-audio-bound human adjudication artifact
 → M2.4 对 machine-safe / valid human-selected single-note pitch candidate 执行可回滚 repair
+→ M2.5 对 frozen resolved structure candidate / valid human-selected structure patch 执行 operation-specific 可回滚 repair
 → lyrics ↔ melody mapping
 → OpenUtau / DiffSinger 基础渲染
 → constrained PITD / 演唱细节
@@ -1515,7 +1516,7 @@ none_correct gen2
 
 # 10. M2.5+ 后续阶段边界
 
-## 10.1 M2.5 — PROBABLE structure repair ← CURRENT
+## 10.1 M2.5 — PROBABLE structure repair ✅ PASS @ 73819a9 (CI 35297439976, 272 passed)
 
 M2.4 v1 不实现 structure repair。Pre-M2.5 integrity 已通过，因此 M2.5 可以正式开始，但 **structure repair 仍需自己的 precision / identity / rollback acceptance**，不能因为 upstream 已冻结就自动视为安全。
 
@@ -1691,6 +1692,40 @@ P2 audit hardening
 
 Human-selected structure candidate 可以作为 M2.5 输入，但仍需 structure repair gate；“用户听起来选了它”不等于可以无条件开放所有 structure auto-repair。
 
+### M2.5 acceptance record — ✅ PASS @ 73819a9 / CI 35297439976
+
+```text
+FINAL implementation SHA: 73819a996d64ac33c6eb69e1c71036eb53557c0a
+remote CI: run 35297439976 → success, pytest 272 passed / 0 failed (18.76s)
+schema: structure plan/manifest = m25-1（独立 schema，不复用 m24-2）
+
+验收核对：
+[✓] structure precision 独立 acceptance — 24 个 operation-specific
+    测试（split/merge/boundary-shift legality、machine gate
+    fail-closed 9 参数化、conflict/dedupe、rollback、plan_hash
+    tamper、legacy schema refuse、0-repair 合法）
+[✓] split patch identity + rollback — children 精确 tile parent
+    span @boundary、child tone 只能来自 resolved virtual-B winner
+    （identity-safe child mapping）、MIN_SPLIT_DUR_S、subset/zero
+    rebuild 从 C0 重建
+[✓] merge patch identity + rollback — exact adjacent identity、
+    merged span == union、single virtual-B winner tone
+[✓] boundary-shift patch identity + rollback — same note identity、
+    monotonic ordering、no overlap/negative/no-op
+[✓] structure-specific stale/authority — schema m25-1 fail-closed、
+    C0 双 hash、residual_triage sha、machine adapter 重跑 patch
+    相等性、human revision/aph/selected_score_patch 复核、
+    plan_hash 重算（P2 hardening 完成，同时覆盖 m24-2 plan）
+[✓] structure no-false-repair — needs_phrase_review / unresolved /
+    缺 boundary confidence / separation-sensitive / vb unresolved
+    均不得 materialize
+[✓] real-run phrase-context verification — diag-20260917-181538-6aec
+    504→526 notes（21 machine split + 1 human split note_0301）
+    monotonic/no-overlap/non-target verbatim；189.84s（58.12）与
+    202.52s（65.3）永久回归逐字段不变；C0 文件 sha256 不变
+[✓] remote CI on FINAL SHA — run 35297439976
+```
+
 ## 10.2 M2.6 — Optional second opinion
 
 只作为必要时 second opinion，不得破坏 frozen evidence-independence semantics。
@@ -1825,7 +1860,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← CURRENT / UNBLOCKED
+### M2.5 — PROBABLE structure repair — ✅ PASS @ 73819a9 / CI 35297439976
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop

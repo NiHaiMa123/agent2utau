@@ -662,6 +662,54 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
 - +22 regressions in tests/test_pre_m25_integrity.py (A1-A5, B1-B6,
   C1-C5, D1-D6). M2.5 structure repair is now UNBLOCKED.
 
+## M2.5 PROBABLE structure repair — PASS @ 73819a9 (CI 35297439976, 272)
+
+- `repair.py` structure engine (schema m25-1, artifacts under
+  `runs/<diag>/structure_repair/`): `build_structure_plan` /
+  `apply_structure_plan` / `validate_structure_patch` /
+  `machine_structure_candidates` / `apply_structure_ops`. Same
+  plan/apply + fail-closed binding contract as M2.4 — C0 notes sha +
+  C0 file sha + triage sha + human revision/aph; Candidate 0 never
+  written.
+- `canonical_plan_hash(plan)` — P2 tamper-evidence (§10.1.4) now done:
+  recomputable over schema + run + C0 bindings + authority bindings +
+  every repair's repair_id/note_id/source_type/affected/patch/
+  authority/before/after/status/blocked_reason/provenance_refs
+  (created_at excluded). `verify_freshness` recomputes for BOTH m24-2
+  and m25-1 plans; stored-hash mismatch -> stale, never apply.
+- Machine path (§10.1.2): only frozen `resolved_change_candidate`
+  packets. Split needs TRUE_SPLIT_CANDIDATE + boundary confidence
+  (game_split>=0.4 + acoustic confirm, or dual-F0 delta + nonF0>0.3 —
+  the same frozen C gate, verified not re-derived) + every child >=
+  MIN_SPLIT_DUR_S + child count == virtual-B count + ALL virtual-B
+  children resolved with finite winners (identity-safe child mapping;
+  an acoustic-seed guess can never become a repair). Merge needs
+  TRUE_MERGE_CANDIDATE + exactly one virtual-B + merge_with.
+  separation_sensitive packets never repair; unresolved/low-evidence
+  stays phrase_review — the 5/5 parent_spanning GAME note is neutral
+  by design, children tones come only from resolved virtual-B
+  winners, never the parent tone.
+- Human path (§10.1.1): `structure_human_candidates` filters the
+  M2.4-preserved blocked_structure authority (same
+  repair_authorized_decision snapshot — target_key/revision_id/aph)
+  to structure ops; no re-review, but patch legality + freshness are
+  still gated.
+- Patch legality: split children must tile the parent span exactly at
+  boundary; merge partners exactly adjacent, merged span == union;
+  boundary-shift keeps identity, monotonic, no overlap/negative/
+  no-op. C0 notes carry {start,dur,tone,voiced} only — lyric/phoneme
+  corruption is vacuous at this layer (lyric mapping is downstream).
+- Conflict: identical patches on the same note set dedupe with
+  provenance_refs merged; different patches on same/overlapping notes
+  -> blocked_conflict; rollback rebuilds from C0 + repair ids.
+- CLI: `structure-repair-plan` (read-only), `structure-repair-apply`
+  (--only/--exclude subset rebuild).
+- Real run diag-20260917-181538-6aec: 22 repairs applied (21 machine
+  splits + 1 human split note_0301 @148.42s — the M2.4-blocked
+  authority applied unchanged); 504->526 notes; 189.84s/202.52s
+  permanent regressions untouched; C0 file hash unchanged.
+- +24 tests in tests/test_structure_repair.py.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight
