@@ -2559,34 +2559,142 @@ NOT machine precision evidence
 
 ### Current repair scope for review audio
 
-下一轮只允许修以下内容：
+#### Root cause confirmed from Git artifacts
+
+Group 1 / Group 2 的 `OPTION_0.ustx` / `OPTION_1.ustx` 实际歌词为：
 
 ```text
-1. full-phrase lyric correctness
-2. melisma / + / re-articulation mapping
-3. A/B loudness consistency
-4. source-vs-generated listening gain comparability
-5. non-target render drift that materially changes perceived quality
+a + + + + ...
 ```
 
-不得借此扩展到：
+即仍使用 G5B/G5C 阶段的 neutral-vowel diagnostic contract。
+
+这对短 target 的 pitch/structure 隔离诊断是合理的，但 **不适合作为完整一句的人类主审核素材**：用户需要真实歌词语义与自然 phrase context 才能判断 written-note split / melisma / portamento。
+
+因此：
 
 ```text
-style imitation
-PITD beautification
-vibrato polishing
-final Yousa expression tuning
+neutral-vowel full phrase
+!= human-review-ready full phrase
 ```
 
-验收要求：
+#### Review-only real-lyric overlay
+
+仓库已有 source-bound 资源：
 
 ```text
-- Group 1/2 regenerated full phrase no obvious lyric corruption
-- A/B perceived loudness no longer materially biases choice
-- semantic diff outside target remains clean
+data/lyrics/nianlun_studio.lrc
+src/agent2utau/analysis/lyrics.py::force_align()
+```
+
+下一轮不得回到旧的 midpoint lyric remap。
+
+必须采用：
+
+```text
+source-bound studio LRC
+→ extract exact phrase text
+→ force_align() on the bound recording / separated vocal
+→ char-level monotonic timing
+→ monotonic note↔char assignment
+→ render-only lyric overlay
+```
+
+映射 contract：
+
+```text
+1. 每个真实汉字只在该 syllable 的第一个 note 上出现；
+2. 同一字的后续 melisma note 使用 `+`；
+3. split candidate 若把 parent 拆成 children：
+   parent 原 lyric 只给 first child，subsequent child = `+`；
+4. A/B 除 target operation 外的 lyric sequence 必须完全一致；
+5. 不允许 midpoint-nearest-char fallback；
+6. force-align evidence 不足 / 非单调 / 低置信时 fail-closed，
+   不生成可用于人工审核的 package。
+```
+
+该 overlay 只服务 M2.5 human structure calibration：
+
+```text
+review-only
+not trusted final lyric mapping
+not M2.7 completion
+not repair authority by itself
+```
+
+#### Loudness contract
+
+用户对 Group 1/2 均报告响度问题，因此 human-review render 必须显式控制试听响度。
+
+A/B：
+
+```text
+same render profile
+same phrase window
+same post-render gain
+NO independent per-option normalization
+```
+
+允许计算一个 **pair-shared listening gain**：
+
+```text
+A/B render
+→ measure both
+→ derive ONE common gain for the pair
+→ apply same gain to A and B
+```
+
+这样不会因为响度归一化本身把某个 option 美化得更多。
+
+原唱 reference：
+
+```text
+canonical SOURCE wav bytes remain unchanged
+presentation layer may expose a gain-matched listening copy
+but canonical source hash/authority stays bound to original bytes
+```
+
+建议记录：
+
+```text
+integrated loudness or robust RMS
+peak / clipping
+A/B loudness delta
+shared_gain_db
+source_listening_gain_db
+```
+
+acceptance：
+
+```text
+- A/B perceptual loudness no longer materially biases preference
+- no clipping after shared gain
+- source and generated audio are comfortable to compare on phone
+- canonical hashes remain traceable
+```
+
+#### Required next pilot
+
+只先重生成 Group 1 / Group 2：
+
+```text
+note_0012
+note_0061
+```
+
+必须同时满足：
+
+```text
+- 完整一句真实歌词可辨认
+- Group 1/2 不再出现 a/+ neutral-vowel sentence
+- A/B outside-target lyric diff = empty
+- A/B same shared gain
 - package/hash/authority remains fail-closed
-- user re-reviews Group 1/2 before Group 3–5 resume
 ```
+
+然后用户 **重新审核 Group 1/2**。
+
+只有重新审核通过后才恢复 Group 3–5。
 
 ---
 ### Decision persistence
