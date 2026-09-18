@@ -876,6 +876,32 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   lack char evidence; 0248 fails closed (gap-unmapped note); 0044/0246
   carry canonical option_loudness_drift records.
 
+### §10.1.5A G5G — close-out before user confirmation (7a9fa7a/7d44e11/5cc5434, 315 passed)
+
+- **Honest pilot = 4 items only**: after the rlv2 fail-closed gap rule,
+  EVERY remaining evidence-passing item (0012/0044/0246/0248) carries
+  an unmapped note after a real gap — '+' is unrenderable there
+  (probe-verified) and any hanzi is a guess, so they all fail closed.
+  Final pilot: note_0061/0188/0192/0379 — impl=rlv2, verify_package
+  ok, no 'a' in ustx, auto_review_ready=True. note_0012 reverted to
+  neutral_vowel (valid non-pilot item).
+- **Contract identity binds lyric impl**: LYRIC_MAPPING_IMPL_VERSION
+  (nv1/rlv2) is part of render_contract_sha — a semantic bump stales
+  every old artifact; item_contract_stale() detects it; manifests
+  record lyric_mapping_impl. Untouched neutral manifests re-bound by
+  metadata only (audio unchanged, nv1 semantics identical).
+- **plan.json is a derived snapshot**: rebuild_plan() reconstructs it
+  FROM manifests + signal_qc (no merge); plan_invariants() checks
+  audio_package_hash / lyric_contract / contract_sha256 /
+  package_state / signal_qc_flags + staleness + item coverage — any
+  mismatch blocks review_ready, QC PASS (write_verdict refuses) and
+  pilot payload (build_pilot_review raises). Missing plan over a
+  non-empty store is a violation; empty store is vacuous.
+- **Payload ordering**: artifacts commit FIRST, then pilot_review.json
+  binds that sha, then payload commits separately — raw URLs always
+  resolve; verified 4 groups × all files: downloadable + sha256 ok.
+- `structure-calib-rebuild-plan <run>` — rebuild + invariant report.
+
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
   `apply_structure_plan` / `validate_structure_patch` /

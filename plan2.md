@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（必须先修完再确认）。2026-09-18 最新 re-audit：G5F 的 stale Git SHA 已修复，shared-context splice 试听面与新 5-item pilot 已建立，但仍有两个未关闭 blocker：① Group 1 `note_0012` 的当前 USTX 仍残留可发声 neutral-vowel `a`，说明旧 artifact 没有按新的 fail-closed lyric 规则重渲；② `plan.json` 与最新 item manifest / signal_qc 不一致（例如 G3 manifest 已为 `real_lyric_review` 且 audio_package_hash 已更新，但 plan 仍保留旧 `neutral_vowel` 与旧 hash；G1/G2 plan 也残留旧 signal_qc flags）。因此当前禁止 maintainer QC PASS、禁止正式用户复审、禁止 M2.5 freeze。接下来必须一次性完成：重渲或替换 G1、使 render-contract identity 对 lyric implementation/version 变化可 stale、彻底重建并校验 `plan.json`、重新生成并绑定 `pilot_review.json`、完成 Git bytes/hash/QC/CI/invariant 自证；只有所有 acceptance 同时 PASS 后，才允许再次向用户请求最终确认。中途不要再让用户试听、选 A/B 或确认修复方向。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5G close-out 已全部完成并推送，等待 maintainer QC PASS + 用户重审）。2026-09-18 re-audit status → impl=rlv2, auto_review_ready=True, USTX 无 `a`；`plan_invariants ok 0 violations`；`git_evidence 468/468`；全部 pilot raw URL 实测可下载且 sha256 匹配；`review_ready=false`（无当前合同 verdict，hold 正确维持）。剩余阻塞：maintainer 复核 Git artifacts → `structure-calib-qc --pass --auditor <name>` → 用户重审 4 组。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -3208,7 +3208,19 @@ G10. full 21-item generation is blocked until pre-human QC PASS
 
 **Pilot 3–5 重选 → note_0188 / note_0192 / note_0379。** 原 0123/0391/0404 无歌词证据（fail-closed）；候选 0248 因 gap 后 unmapped note 正当 fail-closed、0044/0246 有 canonical loudness flag。最终 5 组 = `0012 / 0061 / 0188 / 0192 / 0379`（全曲分布 18.4s–183.0s，evidence gate 全过，signal_qc flags 全空）。
 
-**状态**：`git_evidence 468/468 complete`；`review_ready=false`（无当前合同 QC verdict —— 质量暂停正确维持）；21 项 `verify_package` 全 valid；5 项 canonical `option_loudness_drift` 作为渲染缺陷如实记录。**剩余唯一阻塞**：maintainer 审 Git artifacts → `structure-calib-qc --pass --auditor <name>` → 用户重审 5 组新 pilot。
+**状态**：`git_evidence 468/468 complete`；`review_ready=false`（无当前合同 QC verdict —— 质量暂停正确维持）；21 项 `verify_package` 全 valid；5 项 canonical `option_loudness_drift` 作为渲染缺陷如实记录。**剩余唯一阻塞**：maintainer 审 Git artifacts → `structure-calib-qc --pass --auditor <name>` → 用户重审 pilot。
+
+#### G5G close-out 实现记录（`7a9fa7a` 代码 + `7d44e11` artifacts + `5cc5434` payload，315 passed）
+
+**Blocker A — G1 残留 `a` → FIXED。** 扫描证实 note_0012 的 USTX 确含 `a`（rlv1 产物）；rlv2 下其映射 fail-closed（gap 后 unmapped note——探针实证 `+` 不可渲染、hanzi 属猜测）。重渲路径同时发现 **全部其余 evidence 项（0044/0246/0248）也 fail-closed**——全库只有 4 项能诚实渲染 real_lyric_review。**最终 pilot = 4 组**：`note_0061/0188/0192/0379`（37.8s–183.0s），全部 impl=rlv2、verify_package=ok、USTX 无 `a`、`auto_review_ready=True`。note_0012 退回 neutral_vowel（合法非 pilot 项）。
+
+**Blocker B — impl 版本绑定 → FIXED。** `LYRIC_MAPPING_IMPL_VERSION`（nv1 / rlv2）并入 `render_contract_sha`——语义 bump → 不同 contract_sha → 旧 artifact 自动 stale；`item_contract_stale()` 检测；manifest 记录 `lyric_mapping_impl`；回归：rlv1-sha artifact 不得通过 rlv2 staleness 检查。16 个未动 neutral manifest 仅元数据重绑（音频不变，nv1 语义未变）。
+
+**Blocker C — plan 权威重建 → FIXED。** `rebuild_plan()` 从 item manifests + signal_qc **重建**（非 merge），`plan_invariants()` 校验五项字段一致 + staleness + item 覆盖——任一 mismatch：`review_ready=false`、`build_pilot_review` 抛错、`write_verdict(PASS)` 拒绝、`state.json` 记录 violations。实测重建后 `ok, 0 violations`（此前 plan 残留旧 hash/flags 的条目全部纠正）。
+
+**Blocker D — payload 后生成 → FIXED。** 顺序：artifacts commit（`7d44e11`）→ payload 生成绑定该 sha → payload 单独 commit（`5cc5434`）。实测 4 组全部 main+auxiliary 文件：raw URL 可下载、bytes sha256 == manifest sha256，0 失败。
+
+**Blocker E — 自检全绿。** pytest 315 passed；CI run `35335531857`；4 项 verify_package=ok；git_evidence 468/468；invariants ok；USTX 无 `a`（逐项验证）；stale-artifact 回归通过；`review_ready=false` 正确维持（等 maintainer verdict）。
 
 ---
 
