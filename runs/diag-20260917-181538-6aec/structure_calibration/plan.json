@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "created_at": 1789725736.2421744,
+  "created_at": 1789727685.750284,
   "diagnostic_run_id": "diag-20260917-181538-6aec",
   "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
   "lyric_contract": "neutral_vowel",
@@ -18,15 +18,12 @@
       },
       "phrase_key": "18.40-24.44",
       "plan_hash": "4735e9860a56e5fc0d1270706b7b6d4257a6aa5a8975ef76fc0b883512bd4065",
-      "audio_package_hash": "6956a44b1584ca58c18e582d5077204e37c6c54916b099270888776c658bbb19",
+      "audio_package_hash": "879e4afe677eecb06444929e30939acdd22c4521a621a63ef1f35389bb424799",
       "package_state": "valid",
-      "lyric_contract": "real_lyric_review",
-      "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
-      "signal_qc_flags": [
-        "pre_target_ab_drift:2.1554",
-        "post_target_ab_drift:1.1019"
-      ],
-      "semantic_diff_sha256": "a015e2dd53b72a022ce3c8eac17ef6255bbf4b698b4e2b2e7469b01408848f83",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "55a36371a28890c18ebced616e365a65354ea745740af941d390fef99e929961",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-c491a6b75c7d94cb28fd7a1e\\manifest.json"
     },
     {
@@ -43,10 +40,13 @@
       "plan_hash": "c5f2045c280c7ee804a0c88185a3209b4f685d91449305cdc2525715a4ac92f1",
       "audio_package_hash": "a04914e6beab2f238f07c801ae3ecf56b0bc88e0838cfb55558004d93e20c75b",
       "package_state": "valid",
-      "semantic_diff_sha256": "7772110289f6304afa166842eaf11444bbb401ddffbad9dd17ddc86d8b10bc4b",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-790d2a210c7ae363e271d4ad\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [
+        "option_loudness_drift:1.436"
+      ],
+      "semantic_diff_sha256": "7772110289f6304afa166842eaf11444bbb401ddffbad9dd17ddc86d8b10bc4b",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-790d2a210c7ae363e271d4ad\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-cb76bf56bb24b5c3d8849bc0",
@@ -60,34 +60,13 @@
       },
       "phrase_key": "37.78-44.08",
       "plan_hash": "e0b2488b3fa99f6eb7802e773563c865641e732bf0e738b549fec76d2f97ef2e",
-      "audio_package_hash": "dd76d8b12b1252b1934a0e6545f9ae72a6c66185ed502e9fb3363cd77e04dbc3",
+      "audio_package_hash": "d2c74f18a2b6c626e319f6d528acaaf06a0f59a3f407e9a330b14992c045c0c4",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
-      "signal_qc_flags": [
-        "pre_target_ab_drift:1.5819"
-      ],
+      "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
+      "signal_qc_flags": [],
       "semantic_diff_sha256": "3bbe396f750fe42d63b93bba0e00f6bc535fbd232825d5425fea873eea061bb6",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-cb76bf56bb24b5c3d8849bc0\\manifest.json"
-    },
-    {
-      "cal_item_id": "cal-srp-e76868a477d06eadb8d5ff97",
-      "repair_id": "srp-e76868a477d06eadb8d5ff97",
-      "note_id": "note_0076",
-      "type": "split",
-      "phrase": {
-        "start": 44.08,
-        "end": 50.39,
-        "boundary_source": "lrc"
-      },
-      "phrase_key": "44.08-50.39",
-      "plan_hash": "e23f772836262922da5ce5b94de5c0dfb0bbbae9a3372b24cacee7e19693ba8d",
-      "audio_package_hash": "ab9261d4439d695702dbb38d8fc4451c0652e2f54be54f240bf0a83c011ec0d0",
-      "package_state": "valid",
-      "semantic_diff_sha256": "afa889302b6013d29962b5fd8a87ad3f3db6e9558e401c20b5e1340e727c0b8b",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-e76868a477d06eadb8d5ff97\\manifest.json",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-903997a84c0ad331cd8ef4ba",
@@ -103,10 +82,31 @@
       "plan_hash": "7fa8b0858bfc25a627304919c0e6a328bb46805a7c57f8315bce1a84d163387d",
       "audio_package_hash": "f1a19aff206ad3236a7c61547595599d425ea35e288862a2354f1e31846b44e3",
       "package_state": "valid",
-      "semantic_diff_sha256": "74470fcd00de4dbcd6781a0cfac964ca88bb51ed3df61567fe23f6edd85b58b6",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-903997a84c0ad331cd8ef4ba\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "74470fcd00de4dbcd6781a0cfac964ca88bb51ed3df61567fe23f6edd85b58b6",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-903997a84c0ad331cd8ef4ba\\manifest.json"
+    },
+    {
+      "cal_item_id": "cal-srp-e76868a477d06eadb8d5ff97",
+      "repair_id": "srp-e76868a477d06eadb8d5ff97",
+      "note_id": "note_0076",
+      "type": "split",
+      "phrase": {
+        "start": 44.08,
+        "end": 50.39,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "44.08-50.39",
+      "plan_hash": "e23f772836262922da5ce5b94de5c0dfb0bbbae9a3372b24cacee7e19693ba8d",
+      "audio_package_hash": "ab9261d4439d695702dbb38d8fc4451c0652e2f54be54f240bf0a83c011ec0d0",
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "afa889302b6013d29962b5fd8a87ad3f3db6e9558e401c20b5e1340e727c0b8b",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-e76868a477d06eadb8d5ff97\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-d2be57c8bd5099d60ab05227",
@@ -122,10 +122,13 @@
       "plan_hash": "67ea0c90933cae8887ae1d21ae62f2c9c0778027961edd6dadde98546f200a28",
       "audio_package_hash": "300ae06d3b45dabb57d11316b5011a0fd6123d82b13f8613468d853b1e25de8d",
       "package_state": "valid",
-      "semantic_diff_sha256": "007d92d41bd34bd1f5da1beb92dc0eb8861181619f97f4da3459ed502d396ebc",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-d2be57c8bd5099d60ab05227\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [
+        "option_loudness_drift:1.468"
+      ],
+      "semantic_diff_sha256": "007d92d41bd34bd1f5da1beb92dc0eb8861181619f97f4da3459ed502d396ebc",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-d2be57c8bd5099d60ab05227\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-9e3efba85c56ade947bcfdbf",
@@ -139,12 +142,13 @@
       },
       "phrase_key": "90.36-95.59",
       "plan_hash": "2be9e6d65368c2d3c538a426ff8488038f55e5e8d8fe76932c4deb238b1e3b51",
-      "audio_package_hash": "c61deecbf52620d3dbaf70ad6be790338f5bf7eb96b14b0186ad0661c17ae183",
+      "audio_package_hash": "5a5f52549664ebe49496b8f25ea27bb212798d3ce12b0eff691b6888ce3612b3",
       "package_state": "valid",
-      "semantic_diff_sha256": "9fdff72008b834e0bdab2558ced59efaa32c21d7671106fd67b9bb68d1175258",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9e3efba85c56ade947bcfdbf\\manifest.json",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "lyric_contract": "real_lyric_review",
+      "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "f517fa9fc9b1d6b8b545f31b2b131431bce6b0abad46bf2b7e5c240122054094",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9e3efba85c56ade947bcfdbf\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-f93f9a2370cdb829565fbb7c",
@@ -158,10 +162,10 @@
       },
       "phrase_key": "90.36-95.59",
       "plan_hash": "b8ef6ee2e2de4ab8bffc505d55215ed5f2cef0d93f1ad605cb3b63306220bf3e",
-      "audio_package_hash": "a862209b363bec7f54dee45e45af047c8c4a908e10b3a97d8260614edbe5d6b8",
+      "audio_package_hash": "29ecef875da30030e6228b684f1beec2da5368c1944a56185f33b7e5b77238ce",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
+      "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
       "signal_qc_flags": [],
       "semantic_diff_sha256": "18e8d72641e0f8fe609195ee18a46eabba22fd709270fe5cbd6c40d8e9c52682",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-f93f9a2370cdb829565fbb7c\\manifest.json"
@@ -180,10 +184,11 @@
       "plan_hash": "b6de8659eaf373601311d430a013dd117d5baa33e2c4b474dcdb6d35a0c5fb49",
       "audio_package_hash": "612f9c92567cd0f5515f1db35c245fdd05706ee629c1285345d3c28ee4924ff4",
       "package_state": "valid",
-      "semantic_diff_sha256": "82ff088f6f92540a66c01dedbc1461030c8b371720736dd9829d5e5a98e54c77",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-80eac026c81af9f4645b48f3\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "82ff088f6f92540a66c01dedbc1461030c8b371720736dd9829d5e5a98e54c77",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-80eac026c81af9f4645b48f3\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-70a8d83afa17b8573ede590a",
@@ -199,10 +204,13 @@
       "plan_hash": "b1a0ff907841872c623feaa4e08e879dac8e97e5bf0f23ee96913c85b248ed6b",
       "audio_package_hash": "3d37df99aadb9ac0c516c8a8b4857af7b29fd91a631dc5bd73a0158f1bb3b218",
       "package_state": "valid",
-      "semantic_diff_sha256": "6cbc7d7968fdfeb8ceeaaa6bc8fb6f5f7f354b5196ef2ffb56a1bd9e7d73b085",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-70a8d83afa17b8573ede590a\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [
+        "option_loudness_drift:0.7"
+      ],
+      "semantic_diff_sha256": "6cbc7d7968fdfeb8ceeaaa6bc8fb6f5f7f354b5196ef2ffb56a1bd9e7d73b085",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-70a8d83afa17b8573ede590a\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-84862e2c08cf37c73d9e2791",
@@ -218,29 +226,11 @@
       "plan_hash": "3e131d2837fd10328ddb97571e5cb2932f614445377bb23afc1ed4567663c29a",
       "audio_package_hash": "3ca44b01f8c26a7f148c79018f7abeff3a71630a823ac78945e9aa5db35b3a73",
       "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
       "semantic_diff_sha256": "50cab05e4f7cbad753b1740b17ea8d0ac4c0e805cf516a388d63780a554190c9",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-84862e2c08cf37c73d9e2791\\manifest.json",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
-    },
-    {
-      "cal_item_id": "cal-srp-b5a2d7810c99bfc36b91d9f9",
-      "repair_id": "srp-b5a2d7810c99bfc36b91d9f9",
-      "note_id": "note_0264",
-      "type": "split",
-      "phrase": {
-        "start": 131.3,
-        "end": 137.93,
-        "boundary_source": "lrc"
-      },
-      "phrase_key": "131.30-137.93",
-      "plan_hash": "55b25fa634bb47e76e4b4ff67d821ff4ce087e636fecba9be2e9d81236a77c98",
-      "audio_package_hash": "9990ae39dce2240423ac6c2ff8af68d7a5274b12d70303e401ee4c585a9a42d5",
-      "package_state": "valid",
-      "semantic_diff_sha256": "4ef50b203b0e89b04d5ce7bf921ce35265fc2749a4b06955e2965017a73f80a9",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b5a2d7810c99bfc36b91d9f9\\manifest.json",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-84862e2c08cf37c73d9e2791\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-7789a8b8605761d704d5d38e",
@@ -256,10 +246,33 @@
       "plan_hash": "7926acc30533344e6178829daa0a9ddb4cfdd77411f29590fdc76303f82c6c6a",
       "audio_package_hash": "86dca1d06580cc3ed663e442fc46143553f4a07f40fa76e2bad0e5c936c9a1dd",
       "package_state": "valid",
-      "semantic_diff_sha256": "63d7d6db3a27abcd2211ffc90bf5ab00b47a192eff12aa14061d8176c304682c",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-7789a8b8605761d704d5d38e\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [
+        "option_loudness_drift:0.556"
+      ],
+      "semantic_diff_sha256": "63d7d6db3a27abcd2211ffc90bf5ab00b47a192eff12aa14061d8176c304682c",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-7789a8b8605761d704d5d38e\\manifest.json"
+    },
+    {
+      "cal_item_id": "cal-srp-b5a2d7810c99bfc36b91d9f9",
+      "repair_id": "srp-b5a2d7810c99bfc36b91d9f9",
+      "note_id": "note_0264",
+      "type": "split",
+      "phrase": {
+        "start": 131.3,
+        "end": 137.93,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "131.30-137.93",
+      "plan_hash": "55b25fa634bb47e76e4b4ff67d821ff4ce087e636fecba9be2e9d81236a77c98",
+      "audio_package_hash": "9990ae39dce2240423ac6c2ff8af68d7a5274b12d70303e401ee4c585a9a42d5",
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "4ef50b203b0e89b04d5ce7bf921ce35265fc2749a4b06955e2965017a73f80a9",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b5a2d7810c99bfc36b91d9f9\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-07716808971809b23ef8d9b8",
@@ -275,10 +288,11 @@
       "plan_hash": "209ef9f30adb1fe1d1c787ad1531031d997586465cff4ec6839656fa4035b055",
       "audio_package_hash": "032ff1ba4fa895cd2a09f4fc1226e37199beecb6ca932a357b55a3671d45d97a",
       "package_state": "valid",
-      "semantic_diff_sha256": "499e2a12bd7c0f3a24c93c18c6b746a05b326e11e5012ca842bf4bf1b50d5f44",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-07716808971809b23ef8d9b8\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "499e2a12bd7c0f3a24c93c18c6b746a05b326e11e5012ca842bf4bf1b50d5f44",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-07716808971809b23ef8d9b8\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-fbded6709db9336c1184e04d",
@@ -294,10 +308,11 @@
       "plan_hash": "60949178082705e7124f99c61dcc9a1aaeee558c9b2b01f6e861db3c9819bceb",
       "audio_package_hash": "88c186291edcf803c732201ed14f7a8d810fbbef66b40a8efa0bef5430f38466",
       "package_state": "valid",
-      "semantic_diff_sha256": "a4b5e2b346df39ab44dbda096a77931c31c99d8e93c3fcf63ead160701624fc6",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fbded6709db9336c1184e04d\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "a4b5e2b346df39ab44dbda096a77931c31c99d8e93c3fcf63ead160701624fc6",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fbded6709db9336c1184e04d\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-aa047ab899970cb881f77481",
@@ -313,10 +328,13 @@
       "plan_hash": "bfdac0584300ed939ef97fdcb7cc208662baea732a756c42d28bd0a98edc9ee3",
       "audio_package_hash": "64000540549eba17dd23b9e673708c16af4d1a3c684baa037e13be0db3169e21",
       "package_state": "valid",
-      "semantic_diff_sha256": "5a8174613dc3fa68a13bfe528c3bb82a81c9f846e6423e87e18854483f6a7bbf",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-aa047ab899970cb881f77481\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [
+        "option_loudness_drift:0.446"
+      ],
+      "semantic_diff_sha256": "5a8174613dc3fa68a13bfe528c3bb82a81c9f846e6423e87e18854483f6a7bbf",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-aa047ab899970cb881f77481\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-b04c10c381b66d1abfd9ec8a",
@@ -330,10 +348,10 @@
       },
       "phrase_key": "177.99-183.00",
       "plan_hash": "f0de2b9c476c902e319ca1282e7ffddbe1d9b17d32fe1969aba7cbe67850f8c1",
-      "audio_package_hash": "4751ab7f47170b7717ee2e5b09107ab2a2901adfc0d769069caa54e8a711547a",
+      "audio_package_hash": "933d6bee635fe8e404f538105fe4ae89622294fe77b22c5ba5bf439b1ea76fa4",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
+      "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
       "signal_qc_flags": [],
       "semantic_diff_sha256": "61778de304a38ae65d2909aa5bac53fbe2c27bf2373e5fa3bb432ea3a76ce20b",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b04c10c381b66d1abfd9ec8a\\manifest.json"
@@ -352,10 +370,11 @@
       "plan_hash": "c99ce37beb8ed54dbf0c49b7bbe6ab6914b6dde7307238576405191b081c9686",
       "audio_package_hash": "212d09a137ac022dfe08e0a5dd130cf8b0aac621972fb64a43f27a63a0ce0e65",
       "package_state": "valid",
-      "semantic_diff_sha256": "7a2e6f7cb1aebc7683f9fda4060b5cf0d1c93e76ee166c3dc87c1bad849fa46c",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9ff662d834e7cbadd1aa9434\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "7a2e6f7cb1aebc7683f9fda4060b5cf0d1c93e76ee166c3dc87c1bad849fa46c",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9ff662d834e7cbadd1aa9434\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-8f73580bd3c768145f417f0d",
@@ -371,29 +390,11 @@
       "plan_hash": "d7841c243916f5f13097a6d0e3b4ef89b8d957b8a1679bd52fbf327a90a8d575",
       "audio_package_hash": "4f2679c9c0bf3575cfea7e5bdda3ce0e875884da9d9ebfb16f8708615e20b679",
       "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
       "semantic_diff_sha256": "1ef76478ac6ca230e56da285490bb36c94b2367f8873b16c224688f726af9429",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-8f73580bd3c768145f417f0d\\manifest.json",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
-    },
-    {
-      "cal_item_id": "cal-srp-fcebb308ea0d11ef772afdc4",
-      "repair_id": "srp-fcebb308ea0d11ef772afdc4",
-      "note_id": "note_0440",
-      "type": "split",
-      "phrase": {
-        "start": 213.66,
-        "end": 218.16,
-        "boundary_source": "lrc"
-      },
-      "phrase_key": "213.66-218.16",
-      "plan_hash": "5ac55d98595d37549428b752d3149cca22e23d16cf4b20b7477a7dc9b01979b3",
-      "audio_package_hash": "a28543352b233bfbf20c1621818f447e735d5ebf245eb388a1b1b23142759dc1",
-      "package_state": "valid",
-      "semantic_diff_sha256": "75365239f36353569aeaf6ad21fe81945f8f8dff6ea382575a8e9f17c387608f",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fcebb308ea0d11ef772afdc4\\manifest.json",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-8f73580bd3c768145f417f0d\\manifest.json"
     },
     {
       "cal_item_id": "cal-srp-742cbf94d1991516823ba33c",
@@ -409,10 +410,31 @@
       "plan_hash": "672411cbc46195fab0f2d67c690fb9460b00e700e3a7e645ada98d8eb592cce3",
       "audio_package_hash": "214d4edc73ecd94afaac63e9d1617f98c1c921263eee9f7aa2cd96f92189008a",
       "package_state": "valid",
-      "semantic_diff_sha256": "a77c888b440ba688666ae7d99353eb0dc4b47600ea5f62e4ae009a8313e49720",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-742cbf94d1991516823ba33c\\manifest.json",
       "lyric_contract": "neutral_vowel",
-      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "a77c888b440ba688666ae7d99353eb0dc4b47600ea5f62e4ae009a8313e49720",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-742cbf94d1991516823ba33c\\manifest.json"
+    },
+    {
+      "cal_item_id": "cal-srp-fcebb308ea0d11ef772afdc4",
+      "repair_id": "srp-fcebb308ea0d11ef772afdc4",
+      "note_id": "note_0440",
+      "type": "split",
+      "phrase": {
+        "start": 213.66,
+        "end": 218.16,
+        "boundary_source": "lrc"
+      },
+      "phrase_key": "213.66-218.16",
+      "plan_hash": "5ac55d98595d37549428b752d3149cca22e23d16cf4b20b7477a7dc9b01979b3",
+      "audio_package_hash": "a28543352b233bfbf20c1621818f447e735d5ebf245eb388a1b1b23142759dc1",
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "signal_qc_flags": [],
+      "semantic_diff_sha256": "75365239f36353569aeaf6ad21fe81945f8f8dff6ea382575a8e9f17c387608f",
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fcebb308ea0d11ef772afdc4\\manifest.json"
     }
   ]
 }

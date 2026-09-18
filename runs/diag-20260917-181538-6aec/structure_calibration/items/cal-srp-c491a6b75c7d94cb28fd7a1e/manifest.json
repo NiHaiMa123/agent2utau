@@ -66,7 +66,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "ef9e65f6d584ce3313cf8e6ef38873c50bab02772e95f5cd6f91ffda25f31ce1",
+      "wav_sha256": "d808e73dc956cc07586338bbc2ddeca66bae786cc1d078e745abb48dadfbd153",
       "sample_rate": 44100,
       "frames": 266364,
       "render_error": null
@@ -114,7 +114,7 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "2567ad4159e62bf66a5b36c9b2e6abff8d0a93cf1a71aceb8e6d2856e765c0b7",
+      "wav_sha256": "d5b1f5ba7944c4450af02b8cdca0c96fb2daf2864972e35688e75a656efe266d",
       "sample_rate": 44100,
       "frames": 266364,
       "render_error": null
@@ -194,7 +194,7 @@
     ]
   },
   "plan_hash": "4735e9860a56e5fc0d1270706b7b6d4257a6aa5a8975ef76fc0b883512bd4065",
-  "audio_package_hash": "6956a44b1584ca58c18e582d5077204e37c6c54916b099270888776c658bbb19",
+  "audio_package_hash": "879e4afe677eecb06444929e30939acdd22c4521a621a63ef1f35389bb424799",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -271,19 +271,15 @@
     "patch_sha256": "f762ba86cbe7c6ae1e5f3e72ab733546b48376c32f1aabaa325f24d153d89727",
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
-    "lyric_contract": "real_lyric_review",
-    "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
+    "lyric_contract": "neutral_vowel",
+    "lyric_mapping_impl": "nv1",
+    "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
     "choices": [
       "split",
       "baseline",
       "equivalent",
       "none_correct"
     ],
-    "semantic_diff_sha256": "a015e2dd53b72a022ce3c8eac17ef6255bbf4b698b4e2b2e7469b01408848f83",
-    "lyric_evidence": {
-      "method": "force_align_source_bound",
-      "n_chars": 13,
-      "min_probability": 0.314
-    }
+    "semantic_diff_sha256": "55a36371a28890c18ebced616e365a65354ea745740af941d390fef99e929961"
   }
 }

@@ -391,7 +391,7 @@ voice_parts:
   - position: 240
     duration: 144
     tone: 56
-    lyric: 圆
+    lyric: a
     pitch:
       data:
       - x: -40
@@ -416,7 +416,7 @@ voice_parts:
   - position: 384
     duration: 403
     tone: 57
-    lyric: 圈
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -441,7 +441,7 @@ voice_parts:
   - position: 787
     duration: 355
     tone: 59
-    lyric: 勾
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -466,7 +466,7 @@ voice_parts:
   - position: 1142
     duration: 346
     tone: 62
-    lyric: 勒
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -491,7 +491,7 @@ voice_parts:
   - position: 1488
     duration: 470
     tone: 64
-    lyric: 成
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -516,7 +516,7 @@ voice_parts:
   - position: 1958
     duration: 442
     tone: 66
-    lyric: 指
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -541,7 +541,7 @@ voice_parts:
   - position: 2400
     duration: 269
     tone: 59
-    lyric: 纹
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -591,7 +591,7 @@ voice_parts:
   - position: 3302
     duration: 116
     tone: 62
-    lyric: 印
+    lyric: a
     pitch:
       data:
       - x: -40
@@ -616,7 +616,7 @@ voice_parts:
   - position: 3418
     duration: 403
     tone: 66
-    lyric: 在
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -641,7 +641,7 @@ voice_parts:
   - position: 3821
     duration: 470
     tone: 57
-    lyric: 我
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -666,7 +666,7 @@ voice_parts:
   - position: 4291
     duration: 394
     tone: 64
-    lyric: 的
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -741,7 +741,7 @@ voice_parts:
   - position: 5030
     duration: 394
     tone: 66
-    lyric: 嘴
+    lyric: +
     pitch:
       data:
       - x: -40
@@ -766,7 +766,7 @@ voice_parts:
   - position: 5424
     duration: 374
     tone: 57
-    lyric: 唇
+    lyric: +
     pitch:
       data:
       - x: -40

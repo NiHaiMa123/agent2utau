@@ -112,7 +112,7 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "41e90df819f20e9636e71e45f88b86b195df89c1d005fc9c19ed6f72394b69c8",
+      "wav_sha256": "f63094aa693e0b341f81699c7bdc7fad1d73d0dfae0dd23bcf30ac4ee685c7e9",
       "sample_rate": 44100,
       "frames": 230643,
       "render_error": null
@@ -193,7 +193,7 @@
     ]
   },
   "plan_hash": "b8ef6ee2e2de4ab8bffc505d55215ed5f2cef0d93f1ad605cb3b63306220bf3e",
-  "audio_package_hash": "a862209b363bec7f54dee45e45af047c8c4a908e10b3a97d8260614edbe5d6b8",
+  "audio_package_hash": "29ecef875da30030e6228b684f1beec2da5368c1944a56185f33b7e5b77238ce",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -271,7 +271,8 @@
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
     "lyric_contract": "real_lyric_review",
-    "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
+    "lyric_mapping_impl": "rlv2",
+    "contract_sha256": "94077436a4f1acabb16e8696ca6f0e108183e3f44294da775fcaafd7666c508c",
     "choices": [
       "split",
       "baseline",

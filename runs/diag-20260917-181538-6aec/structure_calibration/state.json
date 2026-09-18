@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789725990.019567,
+  "rebuilt_at": 1789727749.277147,
   "total_machine_split_candidates": 21,
   "reviewed_count": 0,
   "split_preferred_count": 0,
@@ -12,24 +12,24 @@
     "cal-srp-c491a6b75c7d94cb28fd7a1e",
     "cal-srp-790d2a210c7ae363e271d4ad",
     "cal-srp-cb76bf56bb24b5c3d8849bc0",
-    "cal-srp-e76868a477d06eadb8d5ff97",
     "cal-srp-903997a84c0ad331cd8ef4ba",
+    "cal-srp-e76868a477d06eadb8d5ff97",
     "cal-srp-d2be57c8bd5099d60ab05227",
     "cal-srp-9e3efba85c56ade947bcfdbf",
     "cal-srp-f93f9a2370cdb829565fbb7c",
     "cal-srp-80eac026c81af9f4645b48f3",
     "cal-srp-70a8d83afa17b8573ede590a",
     "cal-srp-84862e2c08cf37c73d9e2791",
-    "cal-srp-b5a2d7810c99bfc36b91d9f9",
     "cal-srp-7789a8b8605761d704d5d38e",
+    "cal-srp-b5a2d7810c99bfc36b91d9f9",
     "cal-srp-07716808971809b23ef8d9b8",
     "cal-srp-fbded6709db9336c1184e04d",
     "cal-srp-aa047ab899970cb881f77481",
     "cal-srp-b04c10c381b66d1abfd9ec8a",
     "cal-srp-9ff662d834e7cbadd1aa9434",
     "cal-srp-8f73580bd3c768145f417f0d",
-    "cal-srp-fcebb308ea0d11ef772afdc4",
-    "cal-srp-742cbf94d1991516823ba33c"
+    "cal-srp-742cbf94d1991516823ba33c",
+    "cal-srp-fcebb308ea0d11ef772afdc4"
   ],
   "reviewed": [],
   "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
@@ -38,6 +38,10 @@
     "git": "ok",
     "checked": 468,
     "missing_count": 0
+  },
+  "plan_invariants": {
+    "ok": true,
+    "violations": []
   },
   "review_ready": false
 }

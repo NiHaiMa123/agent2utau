@@ -4,13 +4,13 @@
   "repair_id": "srp-cb76bf56bb24b5c3d8849bc0",
   "sample_rate": 44100,
   "duration": 6.3,
-  "baseline_rms": 0.070058,
-  "candidate_rms": 0.063184,
-  "baseline_peak": 0.254456,
-  "candidate_peak": 0.231171,
+  "baseline_rms": 0.070033,
+  "candidate_rms": 0.063159,
+  "baseline_peak": 0.254425,
+  "candidate_peak": 0.23114,
   "silence_fraction": {
-    "baseline": 0.0958,
-    "candidate": 0.1051
+    "baseline": 0.0962,
+    "candidate": 0.1055
   },
   "declared_region": [
     39.4,
@@ -27,13 +27,13 @@
     ],
     "pad_s": 0.5
   },
-  "pre_target_ab_diff_rms_ratio": 1.5819,
+  "pre_target_ab_diff_rms_ratio": 1.5818,
   "target_ab_diff_rms_ratio": 1.0145,
   "post_target_ab_diff_rms_ratio": 0.4687,
-  "option_loudness_ratio": 0.9019,
+  "option_loudness_ratio": 0.9018,
   "renderer_global_context": {
     "effect": "deterministic renderer; declared patch's phoneme delta propagates a constant timing shift + small acoustic smear into context notes (DiffSinger duration model attends the full phoneme sequence)",
-    "canonical_pre_ab_diff_rms_ratio": 1.5819,
+    "canonical_pre_ab_diff_rms_ratio": 1.5818,
     "canonical_post_ab_diff_rms_ratio": 0.4687,
     "canonical_target_ab_diff_rms_ratio": 1.0145,
     "timing_shift_ms_median": {
@@ -85,8 +85,8 @@
   },
   "listen": {
     "target_dbfs": -16.0,
-    "pair_rms_db": -23.17,
-    "shared_gain_db": 7.17,
+    "pair_rms_db": -23.18,
+    "shared_gain_db": 7.18,
     "clipped": false,
     "option_rms_db": {
       "OPTION_0": -23.26,
@@ -94,8 +94,8 @@
     },
     "ab_loudness_delta_db": 0.17,
     "listen_peak": {
-      "OPTION_0": 0.5812,
-      "OPTION_1": 0.5812
+      "OPTION_0": 0.5813,
+      "OPTION_1": 0.5813
     },
     "files": [
       "OPTION_0_LISTEN.wav",
@@ -179,7 +179,7 @@
           "midi_median": 62.033,
           "midi_iqr": 0.142,
           "midi_min": 61.997,
-          "midi_max": 63.061,
+          "midi_max": 63.062,
           "dominant_fraction": 0.929,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -218,10 +218,10 @@
           "n_frames": 26,
           "voiced_frames": 20,
           "voiced_fraction": 0.7692,
-          "midi_median": 63.979,
-          "midi_iqr": 0.018,
-          "midi_min": 63.435,
-          "midi_max": 64.799,
+          "midi_median": 63.98,
+          "midi_iqr": 0.019,
+          "midi_min": 63.442,
+          "midi_max": 64.798,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -235,20 +235,20 @@
           "voiced_frames": 22,
           "voiced_fraction": 0.8462,
           "midi_median": 63.995,
-          "midi_iqr": 0.066,
+          "midi_iqr": 0.067,
           "midi_min": 62.934,
-          "midi_max": 64.933,
+          "midi_max": 64.939,
           "dominant_fraction": 0.955,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 0.01,
+        "baseline_error_semitones": 0.011,
         "candidate_error_semitones": 0.026
       }
     ],
     "baseline_child_error_semitones": [
       2.021,
-      0.01
+      0.011
     ],
     "candidate_child_error_semitones": [
       0.075,
@@ -261,8 +261,8 @@
     "ambiguous_children": [],
     "note": "review-readiness evidence only — never an automatic score truth; unavailable/ambiguous stays neutral"
   },
-  "target_focus_sha256": "e5010eb59aaf8afe64d4c61c598faa7e701eb5918ea5820995b67eab0e781d6f",
-  "target_core_sha256": "825b927e1a5f1720d0466b0935661842e5d2d8d47d941b3e42b3bbe2bc027f69",
+  "target_focus_sha256": "f97a05b1622d72cd4345e360a87c1ea577b85b3d1bd0b708b84d1e4a8682eecf",
+  "target_core_sha256": "579ba9bb08fd595e28c1bae0d82b652a3a19037b8c2f48721e106e264750dcd6",
   "target_focus_is_primary": true,
   "auto_flags": [],
   "auto_review_ready": true
