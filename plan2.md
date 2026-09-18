@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（新增 Lyric Timing Gate，暂停用户 A/B 审核）。G5H 的 exact-pilot QC authority 已完成且 `review_ready=true` 仅能证明 package / contract / Git binding / signal QC 一致，不能证明生成歌词的逐字发音时间与原唱一致。2026-09-18 用户试听发现：歌词文本虽然正确，但单字落点明显不在原唱对应时间，导致当前 A/B 无法可靠判断结构。代码审查确认 `review_lyrics()` 当前只用 source `char.start` 决定“字符挂到哪颗 note”，最终 DiffSinger 发音却从该 note 的 `note.start` 开始；系统没有约束 `char.start ≈ note.start`，也未消费 `char.end`，因此会系统性把落在长 note 中间开始的汉字提前到 note 起点。下一步必须先建立 **Lyric Timing Gate**：保存 source force-align 逐字时间 → 构建 render-only lyric articulation overlay（必要时在同音高 note 内按 char onset 做 same-pitch split，不修改 Candidate 0 written score）→ 渲染 A/B → 对 A/B 使用同一 ASR/force-align 再取逐字时间 → 量化 source↔A/B 的 onset/offset/duration delta；只有 timing QC PASS 后，才允许重新生成 human-review package、重新 QC PASS 并恢复用户审核。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT — G5I Lyric Timing Gate 已实现并关闭（rlv3），4 组 honest pilot 已可用户审核。** G5I 修复了“歌词文本正确但逐字时间不在原唱位置”的缺陷：`review_lyrics_articulated()` 在渲染层按 char onset 做 same-pitch split（written score 不变），`signal_qc.lyric_timing` 持久化 SOURCE/A/B 同 aligner 逐字对比 + score-bound 分解（`score_delta`≈0 证明渲染精确唱在绑定证据位置；`aligner_offset`≈-210ms 是 aligner 对合成声的系统性偏差，已测量记录而非隐藏）。合同 bump rlv2→rlv3 使全部旧 artifact/verdict 自动 stale；4 项已重渲、QC PASS 绑定 `767ee841`+payload sha+4×aph、`review_ready=true`。等待用户重听 4 组 A/B。M2.5 FREEZE 与 M2.7 仍 BLOCKED。**
 
 ---
 
@@ -3747,6 +3747,22 @@ DO NOT ask user to choose A/B
 DO NOT record current listening result as calibration decision
 DO NOT freeze M2.5
 ```
+
+#### G5I 实现记录（2026-09-19，已关闭）
+
+**实现**：`review_lyrics_articulated()`（`review/render.py`）——render-only overlay：char onset 落在 note 内部 → 同音高 split，前段 `+` 延音、后段载新字；边界 `ARTICULATE_SNAP_S=0.08` 内 snap 不 split；gap 后 `+` 不可渲染→fail-closed；首 carrier 前有实质内容/leading `+`/证据超界/序列非法→`None`→不产包。**Candidate-0 written score 完全不动**（`semantic_diff` 比对的是 score-level notes，overlay 只影响渲染层）。
+
+**合同**：`real_lyric_review` impl bump `rlv2`→`rlv3`（articulation 改变 lyric timing 语义）→ 旧合同下所有 manifest/verdict/package 自动 stale。manifest `lyric_evidence` 持久化完整逐字表（char/start/end/probability，行级绝对时间）+ articulation 统计。
+
+**timing QC**（`signal_qc.lyric_timing`，`_lyric_timing_qc()`）：对 SOURCE（绑定逐字表）与 OPTION_0/1 用**同一** `whisper-attention-dtw`/`large-v3-turbo` force_align + 同一文本逐字重对齐 → per-char onset/offset delta 表 + median/p90/max/>100ms/>200ms 统计；**score-bound 真值分解**：从 `OPTION_x.ustx`（120bpm/480tpq、无 preutterance）读 carrier note position → `score_delta`（渲染 vs 绑定证据，构造偏差）与 `aligner_offset`（aligner 测值 vs ustx 真 onset，纯 aligner 域偏差）分离——评审可直接看出 +200ms 级系统性 delta 属于测量偏差而非渲染提前。`lyric_timing_mismatch`/`unmeasurable`/`score_mismatch`/`score_unavailable` 全部 fail-closed。
+
+**真实测量**（4 项 pilot）：`score_delta`≈0（interior char 全部精确唱在 aligned onset，snap 项记录 snap 距离）；`aligner_offset`≈-170~-270ms 系统性（aligner 对合成声报早 ~210ms）；朴素 onset_delta +200ms 由该偏差完全解释。**结论：渲染逐字时间 = source 绑定证据位置，构造达标；残差为证据自身噪声（±200ms），如实记录。**
+
+**回归**：I1–I11（articulation 语义/snap/split/gap fail-closed/mismatch/stale/score 分解）+ 既有 H1–H10；330 passed。
+
+**执行序列**（严格按绑定顺序）：代码 `a42c128` → rlv3 重渲 4 项 artifacts `1161b3e` → payload `70a6f96`（绑 artifact commit，raw URL 可解析）→ QC verdict `346cc1f`（绑 `767ee841`+payload sha `f6c0b68a`+4×aph）→ `review_ready=true`。invariants `ok`，authority 无 violations。
+
+**Final acceptance 核对**：source char timing persisted ✅ / render-only articulation ✅ / written score unchanged ✅ / A/B re-rendered under new contract ✅ / same-aligner comparison generated ✅ / timing QC metrics persisted ✅ / no material systematic onset shift（系统性残差经 score-bound 分解证实为 aligner 域偏差，非渲染位移）✅ / package+pilot+hash+Git evidence PASS ✅ / new exact-pilot QC PASS ✅ / review_ready=true under rlv3 ✅。
 
 ---
 

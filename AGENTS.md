@@ -975,6 +975,36 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   permanent regressions untouched; C0 file hash unchanged.
 - +24 tests in tests/test_structure_repair.py.
 
+### M2.5 G5I — lyric timing gate (a42c128/1161b3e/70a6f96/346cc1f, 330 passed)
+
+- **`review_lyrics_articulated()`** (render-only, rlv3): a char onset
+  inside a note produces a same-pitch split at the onset — front
+  segment '+' continues the previous syllable, back carries the char.
+  Onsets within ARTICULATE_SNAP_S=0.08s of a boundary snap; '+' after
+  a real gap is unrenderable -> fail-closed; material before the first
+  carrier / leading '+' / outliving evidence / invalid sequence -> None.
+  The Candidate-0 written score is NEVER modified.
+- **impl bump rlv2->rlv3** stales every old real_lyric_review artifact
+  and verdict by construction (LYRIC_MAPPING_IMPL_VERSION is inside
+  the contract hash).
+- **`signal_qc.lyric_timing`** (`_lyric_timing_qc`): same
+  whisper-attention-dtw / large-v3-turbo force_align + same text on
+  SOURCE-bound char table and each OPTION wav -> per-char onset/offset
+  deltas + median/p90/max/>100/>200ms stats. **Score-bound
+  decomposition**: carrier note positions parsed from OPTION_x.ustx
+  (120bpm/480tpq, no preutterance) give the render's TRUE onset, so
+  `score_delta` (render vs bound evidence) and `aligner_offset`
+  (aligner vs ustx truth) are separate columns — the systematic
+  ~ -210ms offset is the aligner's domain bias on synthetic vocals,
+  measured and recorded, NOT a render defect. mismatch/unmeasurable/
+  score_mismatch/score_unavailable all fail closed.
+- Live pilot measurement: score_delta ~= 0 for every interior char —
+  renders voice each hanzi exactly at its source-bound aligned onset;
+  residual per-char error is the evidence's own noise (+/-200ms).
+- Sequence: code a42c128 -> rlv3 artifacts 1161b3e -> payload 70a6f96
+  (binds artifact commit) -> verdict 346cc1f (binds 767ee841 + payload
+  sha f6c0b68a + 4x aph) -> review_ready=true.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight
