@@ -424,6 +424,22 @@ def cmd_structure_calib_qc(args) -> int:
                        "verdict": rec})
 
 
+def cmd_structure_calib_augment(args) -> int:
+    """§10.1.5A-G5A/G5B: (re)generate BASELINE/CANDIDATE_TARGET.wav
+    target-focus crops + signal_qc.json for rendered items — crops the
+    real renders, never re-renders."""
+    from .structure_calibration import augment_calibration
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    try:
+        res = augment_calibration(
+            run_dir,
+            only=args.items.split(",") if args.items else None)
+    except RuntimeError as e:
+        return fail("cannot_augment", str(e))
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "augment": res})
+
+
 def cmd_structure_calib_status(args) -> int:
     from .structure_calibration import rebuild_calibration_state
     run_dir = Path(load_config()["runs_dir"]) / args.run_id
@@ -833,6 +849,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--port", type=int, default=8123)
     p.add_argument("--no-open", action="store_true",
                    help="don't auto-open the browser")
+
+    p = sub.add_parser("structure-calib-augment")
+    p.set_defaults(fn=cmd_structure_calib_augment)
+    p.add_argument("run_id", help="diagnostic run id")
+    p.add_argument("--items", default=None,
+                   help="comma list of cal_item_id/repair_id/note_id")
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")

@@ -63,7 +63,7 @@ button.sel{background:var(--acc);border-color:var(--acc);color:#fff}
 <button onclick="nav(1)">下一项 →</button>
 <button onclick="navPending()">下一个未裁决 ↷</button>
 <span class="kbd" style="align-self:center;margin-left:8px">
-快捷键: 3=目标原曲 4=目标人声 S=原曲整段 V=人声整段 1=选项A 2=选项B | A/B=选择 E=差不多 X=都不对 ←→=切换</span>
+快捷键: 3=目标原曲 4=目标人声 1/2=选项A/B·聚焦 5/6=选项A/B·整段 S=原曲整段 V=人声整段 | A/B=选择 E=差不多 X=都不对 ←→=切换</span>
 </div>
 <div id="detail"></div>
 </div>
@@ -104,17 +104,22 @@ function show(i){
  <div class="card"><h3>TARGET — ${it.note_id} (${it.type}) · 争议区间
   ${it.region?it.region[0].toFixed(2)+'–'+it.region[1].toFixed(2)+'s':''}</h3>
  <div class="row">
-  <div><h3>目标区域 · 原曲 ±0.6s（先听原唱几个音）</h3><audio controls src="/audio/focus/${key}/mix.wav"></audio></div>
-  <div><h3>目标区域 · 分离人声 ±0.6s</h3><audio controls src="/audio/focus/${key}/vocal.wav"></audio></div>
+  <div><h3>① 目标区域 · 原曲 ±0.6s（先听原唱几个音）</h3><audio controls src="/audio/focus/${key}/mix.wav"></audio></div>
+  <div><h3>② 目标区域 · 分离人声 ±0.6s</h3><audio controls src="/audio/focus/${key}/vocal.wav"></audio></div>
  </div>
  <div class="row">
-  <div><h3>原曲整段</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav"></audio></div>
-  <div><h3>分离人声整段</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav"></audio></div>
+  <div><h3>原曲整段（辅助）</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav"></audio></div>
+  <div><h3>分离人声整段（辅助）</h3><audio controls src="/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav"></audio></div>
  </div></div>
- <div class="card"><h3>候选渲染（盲选 A/B — 同一歌手/速度/渲染器，仅目标 note 结构不同）</h3>
+ <div class="card"><h3>③ 目标聚焦 A/B（盲选 · 从完整渲染裁出 ±0.5s — 主要判断对象）</h3>
  <div class="row">
-  <div><h3>选项 A</h3><audio controls src="/audio/item/${key}/OPTION_0.wav"></audio></div>
-  <div><h3>选项 B</h3><audio controls src="/audio/item/${key}/OPTION_1.wav"></audio></div>
+  <div><h3>选项 A · 目标聚焦</h3><audio controls src="/audio/item/${key}/TARGET_0.wav"></audio></div>
+  <div><h3>选项 B · 目标聚焦</h3><audio controls src="/audio/item/${key}/TARGET_1.wav"></audio></div>
+ </div></div>
+ <div class="card"><h3>④ 整段渲染 A/B（盲选 · 辅助参考 — 目标外可能有渲染器漂移）</h3>
+ <div class="row">
+  <div><h3>选项 A · 整段</h3><audio controls src="/audio/item/${key}/OPTION_0.wav"></audio></div>
+  <div><h3>选项 B · 整段</h3><audio controls src="/audio/item/${key}/OPTION_1.wav"></audio></div>
  </div>
  <div id="decisions">
   <button class="a" onclick="vote('OPTION_0')">A 更对</button>
@@ -152,7 +157,8 @@ document.addEventListener('keydown',e=>{
  const m={'s':`/audio/phrase/${pk}/SOURCE_PHRASE_original_mix.wav`,
   'v':`/audio/phrase/${pk}/SOURCE_PHRASE_separated_vocal.wav`,
   '3':`/audio/focus/${k}/mix.wav`,'4':`/audio/focus/${k}/vocal.wav`,
-  '1':`/audio/item/${k}/OPTION_0.wav`,'2':`/audio/item/${k}/OPTION_1.wav`};
+  '1':`/audio/item/${k}/TARGET_0.wav`,'2':`/audio/item/${k}/TARGET_1.wav`,
+  '5':`/audio/item/${k}/OPTION_0.wav`,'6':`/audio/item/${k}/OPTION_1.wav`};
  if(m[e.key])play(m[e.key]);
  else if(e.key==='a'||e.key==='A')vote('OPTION_0');
  else if(e.key==='b'||e.key==='B')vote('OPTION_1');
@@ -193,6 +199,25 @@ def _focus_wav(run_dir: Path, cal_item_id: str, which: str):
     buf = io.BytesIO()
     sf.write(buf, data, sr, format="WAV", subtype="PCM_16")
     return buf.getvalue()
+
+
+def _target_wav(run_dir: Path, cal_item_id: str, opt_idx: int):
+    """Blind-mapped G5A target-focus wav: OPTION_i's role (baseline/
+    candidate) resolves to BASELINE_TARGET/CANDIDATE_TARGET on disk —
+    the page keeps showing A/B; role names never leak to the UI."""
+    mpath = calib_dir(run_dir) / "items" / cal_item_id / "manifest.json"
+    if not mpath.exists():
+        return None
+    man = json.loads(mpath.read_text(encoding="utf-8"))
+    cal = man.get("calibration") or {}
+    oid = f"OPTION_{opt_idx}"
+    base_id, cand_id = cal.get("baseline_option"), cal.get("candidate_role")
+    name = ("BASELINE_TARGET.wav" if oid == base_id
+            else "CANDIDATE_TARGET.wav" if oid == cand_id else None)
+    if name is None:
+        return None
+    p = calib_dir(run_dir) / "items" / cal_item_id / name
+    return p if p.exists() else None
 
 
 def _items_payload(run_dir: Path) -> dict:
@@ -252,6 +277,13 @@ def serve(run_dir: Path, port: int = 8123,
                 if u[3] in ("OPTION_0.wav", "OPTION_1.wav"):
                     return self._wav(calib_dir(run_dir) / "items"
                                      / u[2] / u[3])
+                if u[3] in ("TARGET_0.wav", "TARGET_1.wav"):
+                    p = _target_wav(run_dir, u[2],
+                                    int(u[3][6]))
+                    if p is not None:
+                        return self._wav(p)
+                    return self._json(404,
+                                      {"error": "missing_target_focus"})
             if u[:2] == ["audio", "phrase"] and len(u) == 4:
                 if u[3] in _ALLOWED[2:]:
                     return self._wav(calib_dir(run_dir) / "phrases"

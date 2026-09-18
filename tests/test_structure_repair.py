@@ -687,36 +687,50 @@ def test_g6_no_silent_real_lyric_fallback(tmp_path):
         assert set(n["lyric"] for n in out) <= {"a", "+"}
 
 
-def test_g9_review_ready_defaults_false(tmp_path):
+def _tracked_all(item_ids=()):
+    """Everything the Git-evidence rule could require — simulates a
+    fully-committed store for _git_tracked_set monkeypatches."""
+    from agent2utau.structure_calibration import GIT_REQUIRED_ITEM_FILES
+    s = {"plan.json", "state.json",
+         "qc/verdict.json", "qc/audit.jsonl"}
+    for iid in item_ids:
+        s |= {f"items/{iid}/{f}" for f in GIT_REQUIRED_ITEM_FILES}
+    return s
+
+
+def test_g9_review_ready_defaults_false(tmp_path, monkeypatch):
     """G9: review-ready is false until an explicit verdict — render
     success alone never sets it; a mismatched contract hash fails too."""
-    from agent2utau.structure_calibration import (review_ready,
-                                                write_verdict)
+    import agent2utau.structure_calibration as sc
     run = _mk_run(tmp_path, [_machine_split_pkt()])
-    assert not review_ready(run, "contract-x")
-    write_verdict(run, "FAIL", "contract-x", auditor="t")
-    assert not review_ready(run, "contract-x")
-    write_verdict(run, "PASS", "contract-x", auditor="t")
-    assert review_ready(run, "contract-x")
-    assert not review_ready(run, "other-contract")
+    assert not sc.review_ready(run, "contract-x")
+    sc.write_verdict(run, "FAIL", "contract-x", auditor="t")
+    assert not sc.review_ready(run, "contract-x")
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _tracked_all())
+    sc.write_verdict(run, "PASS", "contract-x", auditor="t")
+    assert sc.review_ready(run, "contract-x")
+    assert not sc.review_ready(run, "other-contract")
 
 
 def test_g10_full_batch_blocked_until_qc_pass(tmp_path, monkeypatch):
     """G10: build_calibration with no `only` filter is a full batch —
-    blocked until the contract's QC verdict is PASS."""
+    blocked until the contract's QC verdict is PASS (and committed)."""
     import agent2utau.review.render as rr
-    from agent2utau.structure_calibration import (build_calibration,
-                                                write_verdict)
+    import agent2utau.structure_calibration as sc
     monkeypatch.setattr(rr, "load_run", lambda p: _fake_run_dict())
     run = _mk_run(tmp_path, [_machine_split_pkt()])
     with pytest.raises(RuntimeError, match="QC PASS"):
-        build_calibration(run, render=False)
+        sc.build_calibration(run, render=False)
     # a sample/subset build is the allowed pre-QC path
-    res = build_calibration(run, render=False, only=["note_0002"])
+    res = sc.build_calibration(run, render=False, only=["note_0002"])
     contract = res["contract_sha256"]
-    write_verdict(run, "PASS", contract, auditor="t",
-                  sample_ids=[res["items"][0]["cal_item_id"]])
-    res2 = build_calibration(run, render=False)
+    iid = res["items"][0]["cal_item_id"]
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _tracked_all([iid]))
+    sc.write_verdict(run, "PASS", contract, auditor="t",
+                     sample_ids=[iid])
+    res2 = sc.build_calibration(run, render=False)
     assert len(res2["items"]) == 1
     it_dir = run / "structure_calibration" / "items" \
         / res2["items"][0]["cal_item_id"]
@@ -725,3 +739,143 @@ def test_g10_full_batch_blocked_until_qc_pass(tmp_path, monkeypatch):
                        / "plan.json").read_text(encoding="utf-8"))
     assert plan["lyric_contract"] == "neutral_vowel"
     assert plan["schema"] == "m25-cal-2"
+
+
+# --------------------------------- §10.1.5A Git evidence + G5A/G5B artifacts
+
+def test_git_evidence_pass_refused_without_commits(tmp_path, monkeypatch):
+    """Git-evidence rule: a PASS verdict is refused while required
+    artifacts are uncommitted — local existence never counts."""
+    import agent2utau.structure_calibration as sc
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    monkeypatch.setattr(sc, "_git_tracked_set", lambda d: None)
+    with pytest.raises(RuntimeError, match="not committed to Git"):
+        sc.write_verdict(run, "PASS", "c", auditor="t",
+                         sample_ids=["i1"])
+    monkeypatch.setattr(sc, "_git_tracked_set", lambda d: {"plan.json"})
+    with pytest.raises(RuntimeError, match="not committed to Git"):
+        sc.write_verdict(run, "PASS", "c", auditor="t",
+                         sample_ids=["i1"])
+    rec = sc.write_verdict(run, "FAIL", "c", auditor="t")
+    assert rec["verdict"] == "FAIL"
+
+
+def test_git_evidence_review_ready_needs_qc_committed(tmp_path,
+                                                      monkeypatch):
+    """A recorded PASS only takes effect after the qc files themselves
+    are committed — the verdict must exist in Git, not just on disk."""
+    import agent2utau.structure_calibration as sc
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    iid = "cal-x"
+    base = {"plan.json", "state.json"} | {
+        f"items/{iid}/{f}" for f in sc.GIT_REQUIRED_ITEM_FILES}
+    monkeypatch.setattr(sc, "_git_tracked_set", lambda d: set(base))
+    sc.write_verdict(run, "PASS", "c", auditor="t", sample_ids=[iid])
+    assert not sc.review_ready(run, "c")     # qc files not committed yet
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: base | {"qc/verdict.json",
+                                          "qc/audit.jsonl"})
+    assert sc.review_ready(run, "c")
+
+
+def _fake_rendered_item(tmp_path, name="cal-x", region=(2.0, 2.5),
+                        phrase_start=0.0, dur=6.0, sr=8000,
+                        cand_gain=1.0):
+    """Write a minimal rendered item dir: two option wavs + manifest."""
+    import numpy as np
+    import soundfile as sf
+    idir = tmp_path / "items" / name
+    idir.mkdir(parents=True)
+    t = np.arange(int(sr * dur)) / sr
+    base = 0.1 * np.sin(2 * np.pi * 200 * t)
+    cand = base * cand_gain
+    sf.write(str(idir / "OPTION_0.wav"), base, sr)
+    sf.write(str(idir / "OPTION_1.wav"), cand, sr)
+    man = {"review_item_id": name,
+           "calibration": {"repair_id": "srp-x",
+                           "baseline_option": "OPTION_0",
+                           "candidate_role": "OPTION_1"},
+           "options": [{"option_id": "OPTION_0", "wav": "OPTION_0.wav"},
+                       {"option_id": "OPTION_1", "wav": "OPTION_1.wav"}],
+           "target_group": {"region": list(region)},
+           "phrase": {"start": phrase_start,
+                      "end": phrase_start + dur}}
+    (idir / "manifest.json").write_text(json.dumps(man))
+    return idir, man
+
+
+def test_target_focus_crops_and_signal_qc(tmp_path, monkeypatch):
+    """G5A/G5B: BASELINE/CANDIDATE_TARGET.wav are crops of the real
+    rendered wavs at region±0.5s; signal_qc.json records drift metrics."""
+    import soundfile as sf
+    import agent2utau.structure_calibration as sc
+    monkeypatch.setattr(sc, "_f0_summary",
+                        lambda p, t0=0.0, t1=None: {"midi_median": 64.0})
+    idir, man = _fake_rendered_item(tmp_path, region=(2.0, 2.5),
+                                    phrase_start=1.0)
+    qc = sc.augment_item(idir)
+    info = sf.info(str(idir / "BASELINE_TARGET.wav"))
+    # window = 1.5..3.0 absolute → phrase-relative 0.5..2.0 → 1.5s
+    assert info.frames == int(1.5 * 8000)
+    assert (idir / "CANDIDATE_TARGET.wav").exists()
+    assert (idir / "signal_qc.json").exists()
+    assert qc["target_window"]["absolute"] == [1.5, 3.0]
+    assert qc["option_loudness_ratio"] == pytest.approx(1.0, abs=0.01)
+    assert qc["auto_review_ready"] is True       # identical renders
+    # loudness drift is flagged when options diverge in level
+    import soundfile as sf2
+    import numpy as np
+    t = np.arange(8000 * 6) / 8000
+    sf2.write(str(idir / "OPTION_1.wav"),
+              0.19 * np.sin(2 * np.pi * 200 * t), 8000)
+    qc2 = sc.signal_qc(man, idir)
+    assert qc2["option_loudness_ratio"] == pytest.approx(1.9, abs=0.01)
+    assert any("option_loudness_drift" in f for f in qc2["auto_flags"])
+
+
+def test_signal_qc_flags_phrase_wide_drift(tmp_path, monkeypatch):
+    """G5B: out-of-target A/B acoustic divergence (DiffSinger context
+    bleed) is quantified and flagged — full-phrase A/B alone can never
+    be the primary review surface."""
+    import numpy as np
+    import soundfile as sf
+    import agent2utau.structure_calibration as sc
+    monkeypatch.setattr(sc, "_f0_summary",
+                        lambda p, t0=0.0, t1=None: {"midi_median": 64.0})
+    idir, man = _fake_rendered_item(tmp_path, region=(2.0, 3.0))
+    # overwrite OPTION_1: identical inside target, divergent after 4s
+    sr, t = 8000, np.arange(8000 * 6) / 8000
+    c = 0.1 * np.sin(2 * np.pi * 200 * t)
+    c[int(4 * sr):] = 0.18 * np.sin(2 * np.pi * 260 * t[int(4 * sr):])
+    sf.write(str(idir / "OPTION_1.wav"), c, sr)
+    qc = sc.signal_qc(man, idir)
+    assert qc["pre_target_ab_diff_rms_ratio"] == pytest.approx(
+        0.0, abs=1e-3)
+    assert qc["target_ab_diff_rms_ratio"] == pytest.approx(
+        0.0, abs=1e-3)
+    assert qc["post_target_ab_diff_rms_ratio"] > 0.5
+    assert any("post_target_ab_drift" in f for f in qc["auto_flags"])
+    assert qc["auto_review_ready"] is False
+    assert qc["target_focus_is_primary"] is True
+
+
+def test_git_evidence_reports_missing(tmp_path, monkeypatch):
+    """git_evidence lists every required-but-uncommitted artifact —
+    the maintainer can see exactly what Git is missing."""
+    import agent2utau.structure_calibration as sc
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    items = run / "structure_calibration" / "items"
+    (items / "cal-a").mkdir(parents=True)
+    (items / "cal-b").mkdir(parents=True)
+    monkeypatch.setattr(
+        sc, "_git_tracked_set",
+        lambda d: {"plan.json", "items/cal-a/manifest.json"})
+    ev = sc.git_evidence(run)
+    assert ev["complete"] is False
+    assert "state.json" in ev["missing"]
+    assert "qc/verdict.json" in ev["missing"]
+    assert "items/cal-a/signal_qc.json" in ev["missing"]
+    assert "items/cal-a/BASELINE_TARGET.wav" in ev["missing"]
+    assert all(e.startswith("items/cal-b/") for e in ev["missing"]
+               if e.startswith("items/cal-b/"))
+    assert ev["checked"] == 2 + 2 + 2 * len(sc.GIT_REQUIRED_ITEM_FILES)

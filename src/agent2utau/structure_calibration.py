@@ -223,17 +223,27 @@ def load_verdict(run_dir: Path):
 
 
 def review_ready(run_dir: Path, contract_sha: str) -> bool:
-    """§10.1.5A-G9: review-readiness defaults false and can only be set
-    by an explicit pre-human QC verdict — never by render success."""
+    """§10.1.5A-G9 + Git-evidence rule: review-readiness defaults false
+    and can only be set by an explicit pre-human QC PASS verdict whose
+    required artifacts — including the verdict itself — are actually
+    committed to Git. Render success or a local file never counts."""
     v = load_verdict(run_dir)
-    return bool(v and v.get("verdict") == "PASS"
-                and v.get("contract_sha256") == contract_sha)
+    if not (v and v.get("verdict") == "PASS"
+            and v.get("contract_sha256") == contract_sha):
+        return False
+    ev = git_evidence(run_dir, item_ids=v.get("sample_ids") or [],
+                      include_qc=True)
+    return bool(ev["complete"])
 
 
 def write_verdict(run_dir: Path, verdict: str, contract_sha: str,
                   auditor: str, notes: str = "",
-                  sample_ids=None) -> dict:
-    """Record the pre-human QC verdict (append-only audit trail)."""
+                  sample_ids=None,
+                  require_git_evidence: bool = True) -> dict:
+    """Record the pre-human QC verdict (append-only audit trail).
+    A PASS is refused unless the sample packages + plan/state it covers
+    are already committed to Git — the verdict then only takes effect
+    (review_ready) after the qc files themselves are committed too."""
     run_dir = Path(run_dir)
     rec = {"schema": CALIB_SCHEMA,
            "verdict": "PASS" if verdict.upper() == "PASS" else "FAIL",
@@ -241,6 +251,17 @@ def write_verdict(run_dir: Path, verdict: str, contract_sha: str,
            "auditor": auditor, "notes": notes,
            "sample_ids": list(sample_ids or []),
            "recorded_at": _now()}
+    if rec["verdict"] == "PASS" and require_git_evidence:
+        ev = git_evidence(run_dir, item_ids=rec["sample_ids"],
+                          include_qc=False)
+        if not ev["complete"]:
+            raise RuntimeError(
+                "QC PASS refused (§10.1.5A Git-evidence rule): "
+                f"{len(ev['missing'])}/{ev['checked']} required "
+                "artifacts are not committed to Git — e.g. "
+                f"{ev['missing'][:4]}")
+        rec["git_evidence_at_record"] = {
+            "complete": True, "checked": ev["checked"]}
     _jwrite(_verdict_path(run_dir), rec)
     log = _verdict_path(run_dir).parent / "audit.jsonl"
     with open(log, "a", encoding="utf-8") as f:
@@ -330,6 +351,271 @@ def semantic_diff(item, c0_notes_by_id=None) -> dict:
     }
 
 
+# ------------------------------------------- target focus + signal QC (G5A/B)
+
+SOURCE_FOCUS_PAD_S = 0.6
+TARGET_FOCUS_PAD_S = 0.5
+QC_DRIFT_RATIO_FLAG = 0.5        # out-of-target A/B diff rms / baseline rms
+QC_LOUDNESS_RANGE = (0.7, 1.4)   # candidate/baseline full-phrase rms
+QC_TARGET_F0_SEMITONES = 1.0     # both-options-vs-source median deviation
+GIT_REQUIRED_ITEM_FILES = (
+    "manifest.json", "OPTION_0.wav", "OPTION_1.wav",
+    "OPTION_0.ustx", "OPTION_1.ustx",
+    "BASELINE.ustx", "CANDIDATE.ustx",
+    "SOURCE_FOCUS_original_mix.wav", "SOURCE_FOCUS_separated_vocal.wav",
+    "semantic_diff.json",
+    "BASELINE_TARGET.wav", "CANDIDATE_TARGET.wav",
+    "signal_qc.json",
+)
+
+
+def _crop_rendered(src_wav: Path, dst: Path, t0: float, t1: float) -> dict:
+    """§10.1.5A-G5A: crop [t0,t1] seconds from the ALREADY-RENDERED
+    full-phrase wav — never re-render a short window for focus audio."""
+    import soundfile as sf
+    info = sf.info(str(src_wav))
+    i0 = max(0, min(info.frames, int(round(t0 * info.samplerate))))
+    i1 = max(i0, min(info.frames, int(round(t1 * info.samplerate))))
+    with sf.SoundFile(str(src_wav)) as f:
+        f.seek(i0)
+        data = f.read(i1 - i0, always_2d=True)
+    sf.write(str(dst), data, info.samplerate)
+    return {"frames": i1 - i0, "sample_rate": info.samplerate}
+
+
+def _f0_summary(wav_path: Path, t0: float = 0.0,
+                t1: float | None = None) -> dict:
+    """FCPE summary of one focus clip: medians + first/second-half medians
+    (enough to see e.g. 62→64 vs 64→64). Extractor failure is recorded,
+    never silently omitted."""
+    import numpy as np
+    try:
+        from .analysis.f0 import extract_f0, segment_f0, hz_to_midi
+        f0 = extract_f0(wav_path)
+    except Exception as e:
+        return {"error": f"f0_extractor_unavailable: {e}"}
+    end = float(f0["times"][-1]) if len(f0["times"]) else 0.0
+    seg = segment_f0(f0, t0, t1 if t1 is not None else end)
+    hz = seg["f0_hz"][seg["voiced"]]
+    n, tot = int(len(hz)), max(1, int(seg["n_frames"]))
+    out = {"voiced_frames": n, "n_frames": int(seg["n_frames"]),
+           "voiced_fraction": round(n / tot, 4),
+           "midi_median": None, "midi_min": None, "midi_max": None,
+           "first_half_midi_median": None,
+           "second_half_midi_median": None}
+    if n >= 3:
+        midi = hz_to_midi(hz)
+        h = max(1, n // 2)
+        out.update({"midi_median": round(float(np.median(midi)), 3),
+                    "midi_min": round(float(midi.min()), 3),
+                    "midi_max": round(float(midi.max()), 3),
+                    "first_half_midi_median":
+                        round(float(np.median(midi[:h])), 3),
+                    "second_half_midi_median":
+                        round(float(np.median(midi[h:])), 3)})
+    return out
+
+
+def _segment_ab_ratio(b, c, i0: int, i1: int):
+    """rms(b−c)/rms(b) over a sample range — the phrase-drift metric the
+    pre-human Git audit used (~0.68×baseline RMS on phrase-wide diffs)."""
+    import numpy as np
+    sb, sc = b[i0:i1], c[i0:i1]
+    if sb.size == 0:
+        return None
+    rb = float(np.sqrt(np.mean(sb ** 2)))
+    if rb < 1e-6:
+        return None
+    return round(float(np.sqrt(np.mean((sb - sc) ** 2))) / rb, 4)
+
+
+def signal_qc(man: dict, idir: Path) -> dict:
+    """§10.1.5A-G5B: machine-readable signal audit of one rendered item.
+
+    Crops BASELINE/CANDIDATE_TARGET.wav from the real renders (G5A),
+    measures full-phrase level/timing drift + pre/target/post A/B diff
+    ratios, summarizes target-window F0 for source/baseline/candidate,
+    and auto-flags conditions that disqualify human review (phrase-wide
+    bleed, loudness drift, both options off-source)."""
+    import numpy as np
+    import soundfile as sf
+    from .review.render import _file_sha
+    idir = Path(idir)
+    cal = man["calibration"]
+    base_id, cand_id = cal["baseline_option"], cal["candidate_role"]
+    owav = {o["option_id"]: o["wav"] for o in man["options"]}
+    region = [float(x) for x in man["target_group"]["region"]]
+    ph_start = float(man["phrase"]["start"])
+    t0 = max(0.0, region[0] - TARGET_FOCUS_PAD_S)
+    t1 = region[1] + TARGET_FOCUS_PAD_S
+    focus = {}
+    for oid, name in ((base_id, "BASELINE_TARGET.wav"),
+                      (cand_id, "CANDIDATE_TARGET.wav")):
+        focus[name] = _crop_rendered(idir / owav[oid], idir / name,
+                                     t0 - ph_start, t1 - ph_start)
+    b, sr = sf.read(str(idir / owav[base_id]), dtype="float32",
+                    always_2d=True)
+    c, _ = sf.read(str(idir / owav[cand_id]), dtype="float32",
+                   always_2d=True)
+    n = min(len(b), len(c))
+    b, c = b[:n], c[:n]
+    reg0 = max(0, min(n, int((region[0] - ph_start) * sr)))
+    reg1 = max(reg0, min(n, int((region[1] - ph_start) * sr)))
+
+    def rms(x):
+        return float(np.sqrt(np.mean(x ** 2))) if x.size else 0.0
+
+    def peak(x):
+        return float(np.abs(x).max()) if x.size else 0.0
+
+    def sil(x):
+        return round(float((np.abs(x) < 0.0032).mean()), 4)
+
+    rb, rc = rms(b), rms(c)
+    loud = rc / rb if rb > 1e-6 else None
+    pre = _segment_ab_ratio(b, c, 0, reg0)
+    tgt = _segment_ab_ratio(b, c, reg0, reg1)
+    post = _segment_ab_ratio(b, c, reg1, n)
+    flags = []
+    for nm, v in (("pre_target", pre), ("post_target", post)):
+        if v is not None and v > QC_DRIFT_RATIO_FLAG:
+            flags.append(f"{nm}_ab_drift:{v}")
+    if loud is not None and not QC_LOUDNESS_RANGE[0] <= loud \
+            <= QC_LOUDNESS_RANGE[1]:
+        flags.append(f"option_loudness_drift:{round(loud, 3)}")
+    f0_b = _f0_summary(idir / "BASELINE_TARGET.wav")
+    f0_c = _f0_summary(idir / "CANDIDATE_TARGET.wav")
+    foc = idir / "SOURCE_FOCUS_separated_vocal.wav"
+    if foc.exists():
+        fs = max(0.0, region[0] - SOURCE_FOCUS_PAD_S)
+        f0_s = _f0_summary(foc, t0 - fs, t1 - fs)
+    else:
+        f0_s = {"error": "missing SOURCE_FOCUS_separated_vocal.wav"}
+    sm = f0_s.get("midi_median")
+    mism = [nm for nm, f in (("baseline", f0_b), ("candidate", f0_c))
+            if sm is not None and f.get("midi_median") is not None
+            and abs(f["midi_median"] - sm) > QC_TARGET_F0_SEMITONES]
+    if len(mism) == 2:
+        flags.append("both_options_target_f0_mismatch")
+    return {
+        "schema": CALIB_SCHEMA,
+        "cal_item_id": man["review_item_id"],
+        "repair_id": cal["repair_id"],
+        "sample_rate": sr, "duration": round(n / sr, 4),
+        "baseline_rms": round(rb, 6), "candidate_rms": round(rc, 6),
+        "baseline_peak": round(peak(b), 6),
+        "candidate_peak": round(peak(c), 6),
+        "silence_fraction": {"baseline": sil(b), "candidate": sil(c)},
+        "declared_region": region,
+        "target_window": {"absolute": [round(t0, 4), round(t1, 4)],
+                          "phrase_relative":
+                              [round(t0 - ph_start, 4),
+                               round(t1 - ph_start, 4)],
+                          "pad_s": TARGET_FOCUS_PAD_S},
+        "pre_target_ab_diff_rms_ratio": pre,
+        "target_ab_diff_rms_ratio": tgt,
+        "post_target_ab_diff_rms_ratio": post,
+        "option_loudness_ratio": round(loud, 4) if loud else None,
+        "source_target_f0_summary": f0_s,
+        "baseline_target_f0_summary": f0_b,
+        "candidate_target_f0_summary": f0_c,
+        "target_focus_sha256": _sha({
+            "baseline": _file_sha(idir / "BASELINE_TARGET.wav"),
+            "candidate": _file_sha(idir / "CANDIDATE_TARGET.wav")}),
+        "target_focus_is_primary": True,
+        "auto_flags": flags,
+        "auto_review_ready": not flags,
+    }
+
+
+def augment_item(idir: Path) -> dict:
+    """(Re)generate the G5A target-focus crops + G5B signal_qc.json for
+    one already-rendered item. Reads OPTION wavs only — never re-renders,
+    never touches manifest/aph (the decision authority)."""
+    idir = Path(idir)
+    man = json.loads((idir / "manifest.json").read_text(encoding="utf-8"))
+    qc = signal_qc(man, idir)
+    _jwrite(idir / "signal_qc.json", qc)
+    return qc
+
+
+def augment_calibration(run_dir: Path, only=None, progress=print) -> dict:
+    """G5A/G5B pass over an existing store (or a fresh build): every
+    rendered item gets target-focus crops + signal_qc.json."""
+    run_dir = Path(run_dir)
+    ensure_calib_authority(run_dir)
+    plan_p = calib_dir(run_dir) / "plan.json"
+    if not plan_p.exists():
+        raise RuntimeError("no calibration plan — build packages first")
+    plan = json.loads(plan_p.read_text(encoding="utf-8"))
+    keep = set(only or [])
+    out = {}
+    for it in plan["items"]:
+        iid = it["cal_item_id"]
+        if keep and iid not in keep and it["repair_id"] not in keep \
+                and it["note_id"] not in keep:
+            continue
+        idir = calib_dir(run_dir) / "items" / iid
+        if not (idir / "manifest.json").exists():
+            continue
+        qc = augment_item(idir)
+        out[iid] = qc["auto_flags"]
+        progress(f"  {iid}: auto_flags={qc['auto_flags'] or 'none'}")
+    return {"augmented": sorted(out), "flags": out}
+
+
+# --------------------------------------------- Git evidence rule (§10.1.5A)
+
+def _git_tracked_set(run_dir: Path):
+    """Files committed to Git under the calibration store, calib-dir-
+    relative posix paths; None when unavailable/not a worktree."""
+    import subprocess
+    cdir = calib_dir(run_dir).resolve()
+    try:
+        top = subprocess.run(["git", "rev-parse", "--show-toplevel"],
+                             cwd=cdir, capture_output=True, text=True,
+                             timeout=15)
+        if top.returncode != 0:
+            return None
+        root = Path(top.stdout.strip()).resolve()
+        prefix = cdir.relative_to(root).as_posix() + "/"
+        out = subprocess.run(["git", "ls-files", "-z", "--", prefix],
+                             cwd=root, capture_output=True, timeout=60)
+        if out.returncode != 0:
+            return None
+        raw = out.stdout.decode("utf-8", "replace").split("\0")
+        return {p[len(prefix):] for p in raw
+                if p.startswith(prefix)}
+    except Exception:
+        return None
+
+
+def git_evidence(run_dir: Path, item_ids=None,
+                 include_qc: bool = True) -> dict:
+    """§10.1.5A hard rule — 'local file exists' / 'agent says generated'
+    never counts; only files actually committed to Git are acceptance
+    evidence. Reports which required artifacts are missing from Git."""
+    cdir = calib_dir(run_dir)
+    if item_ids is None:
+        items_dir = cdir / "items"
+        item_ids = sorted(d.name for d in items_dir.iterdir()
+                          if d.is_dir()) if items_dir.exists() else []
+    expected = ["plan.json", "state.json"]
+    if include_qc:
+        expected += ["qc/verdict.json", "qc/audit.jsonl"]
+    for iid in item_ids:
+        expected += [f"items/{iid}/{f}" for f in GIT_REQUIRED_ITEM_FILES]
+    tracked = _git_tracked_set(run_dir)
+    if tracked is None:
+        return {"complete": False, "git": "unavailable_or_not_a_worktree",
+                "missing": expected, "checked": len(expected),
+                "item_ids": list(item_ids)}
+    missing = [e for e in expected if e not in tracked]
+    return {"complete": not missing, "git": "ok",
+            "missing": missing, "checked": len(expected),
+            "item_ids": list(item_ids)}
+
+
 def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                       progress=print) -> dict:
     """Build (and render) phrase A/B packages for machine structure
@@ -398,10 +684,12 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
             reg = it["region"]
             _clip(run["original_wav"],
                   idir / "SOURCE_FOCUS_original_mix.wav",
-                  max(0.0, reg[0] - 0.6), reg[1] + 0.6)
+                  max(0.0, reg[0] - SOURCE_FOCUS_PAD_S),
+                  reg[1] + SOURCE_FOCUS_PAD_S)
             _clip(run["vocals_wav"],
                   idir / "SOURCE_FOCUS_separated_vocal.wav",
-                  max(0.0, reg[0] - 0.6), reg[1] + 0.6)
+                  max(0.0, reg[0] - SOURCE_FOCUS_PAD_S),
+                  reg[1] + SOURCE_FOCUS_PAD_S)
         man = item_manifest(run, it, "structure-calibration", rph,
                             refs, rres, provenance=prov)
         # calibration-specific manifest fields (append, never reshape)
@@ -432,6 +720,9 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                     (idir / name).write_bytes(src_ustx.read_bytes())
         mpath = idir / "manifest.json"
         _jwrite(mpath, man)
+        qc_flags = None
+        if render and man["package_state"] == "valid":
+            qc_flags = augment_item(idir)["auto_flags"]
         planned.append({"cal_item_id": it["item_id"],
                         "repair_id": it["repair_id"],
                         "note_id": it["packets"][0],
@@ -440,6 +731,7 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                         "plan_hash": it["plan_hash"],
                         "audio_package_hash": man["audio_package_hash"],
                         "package_state": man["package_state"],
+                        "signal_qc_flags": qc_flags,
                         "semantic_diff_sha256": _sha(diff),
                         "manifest": str(mpath)})
     _jwrite(cdir / "plan.json",
@@ -590,6 +882,7 @@ def rebuild_calibration_state(run_dir: Path) -> dict:
                              "revision_id": rev["revision_id"]})
             counts[rev["outcome"]] += 1
     confirmed = counts["human_confirmed_machine_split"]
+    ev = git_evidence(run_dir)
     state = {
         "schema": CALIB_SCHEMA, "rebuilt_at": _now(),
         "total_machine_split_candidates": len(plan["items"]),
@@ -603,6 +896,9 @@ def rebuild_calibration_state(run_dir: Path) -> dict:
             (confirmed / len(reviewed)) if reviewed else None,
         "pending": pending, "reviewed": reviewed,
         "contract_sha256": plan.get("contract_sha256"),
+        "git_evidence": {k: ev[k] for k in
+                         ("complete", "git", "checked")} | \
+                        {"missing_count": len(ev["missing"])},
         "review_ready": review_ready(
             run_dir, plan.get("contract_sha256") or ""),
     }
