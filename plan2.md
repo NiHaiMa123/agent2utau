@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C/D 已冻结。D 最终 acceptance = `905f144637c0fecc5e9e58b060b12cabab7446f6`，remote CI run `35238843522` = success，195 passed / 0 failed；当前最高优先级 = M2.4 SAFE Repair。M2.4 第一版严格只开放 single-note written-pitch retune；split / merge / boundary-shift 等 structure repair 继续封锁。Human-selected 路径只能通过 `repair_authorized_decision()`，并直接消费 decision revision 中已经审核过的 `selected_score_patch` snapshot，不得重新解释 OPTION、不得重新从 B/C hypotheses 推导一次。**
+> 当前阶段：**E1 Remote CI 已 PASS；M2.3.2A/B/C/D + M2.4 已冻结。M2.4 acceptance = `ce083c9`，remote CI run `35289803217` = success，226 passed / 0 failed；当前最高优先级 = M2.5 structure repair 的前置评估（M2.4 v1 内 human split 选择以 blocked_structure 形式保权）。M2.4 第一版严格只开放 single-note written-pitch retune；split / merge / boundary-shift 等 structure repair 继续封锁。Human-selected 路径只能通过 `repair_authorized_decision()`，并直接消费 decision revision 中已经审核过的 `selected_score_patch` snapshot，不得重新解释 OPTION、不得重新从 B/C hypotheses 推导一次。**
 
 ---
 
@@ -303,7 +303,7 @@ M2.4 只能修改 discrete written score。PITD / portamento / vibrato / style �
 
 ---
 
-# 6. M2.4 — SAFE Repair Engine ← CURRENT HIGHEST PRIORITY
+# 6. M2.4 — SAFE Repair Engine ✅ FROZEN @ ce083c9 (CI 35289803217, 226 passed)
 
 ## 6.1 第一版 scope：只做 single-note written-pitch retune
 
@@ -1167,8 +1167,8 @@ rollback coverage
 ### M2.3.2D Stable Review Identity — ✅ IMPLEMENTED @ 2a997a2
 ### M2.3.2D Migration Integrity — ✅ IMPLEMENTED @ 905f144
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
-### M2.4 — SAFE single-note pitch repair — ← CURRENT
-### M2.5 — PROBABLE structure repair
+### M2.4 — SAFE single-note pitch repair — ✅ FROZEN @ ce083c9 / CI 35289803217
+### M2.5 — PROBABLE structure repair — ← CURRENT
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop

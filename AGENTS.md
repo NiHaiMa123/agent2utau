@@ -597,9 +597,40 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   bytes match, gen1-reject→gen2-select lifecycle, missing-wav refusal
   all verified. Completing all 46 reviews is NOT a freeze blocker.
 
-Next: M2.4 SAFE repair — consume only `human_selected_candidate`
-decisions whose `audio_package_hash` still matches the current valid
-package; `human_no_preference`/`equivalent` means no repair.
+## M2.4 SAFE Repair v1 — FROZEN @ ce083c9 (CI 35289803217, 226 passed)
+
+- `src/agent2utau/repair.py` + CLI `repair-plan` / `repair-apply`
+  (`--only`/`--exclude` for rollback subsets). Artifacts under
+  `runs/<diag>/repair/`: repair_plan.json, corrected_score.json,
+  repair_manifest.json.
+- v1 scope: single existing-note written-pitch retune only — same note
+  identity/span/order/lyrics/PITD; finite in-range tone differing by
+  >=5 cents. Split/merge/insert/delete/boundary patches are
+  `blocked_structure` — preserved with full authority for M2.5, never
+  applied.
+- Two legal inputs, verified not re-computed:
+  machine_safe = frozen `state.decision=="repair_candidate"` packets
+  (finalized B resolved_change + eligible repair_gate + structure=keep
+  + not separation-sensitive); human_selected =
+  `repair_authorized_decision()` revisions only — the
+  `selected_score_patch` snapshot is consumed verbatim (revision_id +
+  target_key + audio_package_hash bound in the plan).
+- repair_id = sha of {schema, run_id, C0 sha, source, authority id,
+  note, before/after} — same evidence → same id; same-note same-tone
+  from multiple sources dedupes with provenance_refs; different tones →
+  blocked_conflict (no precedence).
+- Plan binds C0 sha256 + residual_triage sha256 + human
+  revision_id/aph; apply re-verifies all bindings + re-runs the
+  adapters → any change refuses as stale. Candidate 0 file is never
+  written; corrected score is verified (count/order/spans/non-targets/
+  only-target-tone + C0 file hash).
+- Real run diag-20260917-181538-6aec: 0 machine-safe candidates
+  (honest — 0 repair_candidate packets); the one human selection was a
+  SPLIT → blocked_structure; apply produced a C0-identical corrected
+  score with the blocked authority preserved in the manifest.
+
+Next: M2.5 structure repair — may consume M2.4's blocked_structure
+authority without re-reviewing the same audio package.
 
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
