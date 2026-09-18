@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD。5-item pilot 已实际开始，但用户目前只试听到 Group 1 (`note_0012`) 与 Group 2 (`note_0061`)；两组主观上均认为 **B 比 A 更接近原唱**，但同时明确报告 **响度存在问题、歌词存在问题**。因此按 G5E pilot-first fail-stop：立即停止剩余 Group 3–5，不继续 21 项人工审核；当前 1=B / 2=B 仅作为 non-authoritative diagnostic preference，**不得**写入正式 calibration decision / repair authority，因为用户判断建立在质量未达标的 review audio 上。现阶段 blocker 从 transport/片段长度切换为 **full-phrase lyric correctness + loudness/render consistency**：必须先保证每组完整一句的歌词语义正确、A/B 与 source 试听响度足够一致、且除 target operation 外不存在会影响人类选择的非目标渲染差异；修复后重新生成至少 Group 1–2（最好 5-item 全部）并重新进行 pilot。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD。G5E 已实现 real-lyric review + pair-shared listen loudness，但 2026-09-18 re-audit 发现 3 个新的 hard blocker，人工审核不得恢复：① `pilot_review.json` 的 Git binding 仍固定在旧 SHA `283f5a3`，而新的 `*_LISTEN.wav` 直到 `21dcdf8` 才提交，按 manifest 的 raw URL 实测会 404；② Group 1 的 `real_lyric_review` 仍生成 `圆圈勾勒成指纹+印在我的+a嘴唇`，即 review asset 仍存在可发声 neutral-vowel `a`，不能视为“真实歌词已修复”；③ Group 1 / 2 的 `signal_qc.auto_review_ready` 均为 false，且存在明显非目标区 A/B drift（G1 pre=2.1554、post=1.1019；G2 pre=1.5819），说明 A/B 除 target operation 外仍有会污染人类结构判断的渲染差异。响度方面 G1 A/B delta 已收敛到 0.03 dB，G2 为 0.90 dB，但这不足以解除 hold。下一步必须先修 stale Git SHA / regenerate pilot manifest、消除 real-lyric path 中的可发声 `a` fallback，并定位/消除 pre/post-target drift；修复后重新生成 Group 1–2，重新跑 package/hash/QC，再由用户从头复审。Group 3–5 当前仍因 no_chars/low_confidence 留在 neutral_vowel，若无法获得可靠 real-lyric evidence，则不得作为恢复后的 5-item pilot，必须改选具备可信歌词映射的代表项。M2.5 FREEZE 与 M2.7 继续 BLOCKED。**
 
 ---
 
@@ -2772,6 +2772,146 @@ user choice
   "B 更接近"仅作 diagnostic，未写入 decision authority。
 - **回归 +8**：review_lyrics carrier/melisma/gap/fail-closed、
   A/B 目标外歌词一致性、证据门、pair-shared gain 不变量。
+
+
+#### G5F Re-audit hard blockers（2026-09-18，必须先修再复审）
+
+G5E 代码与产物提交后进行了独立 re-audit。结论：**当前 review package 仍不具备人工裁决资格，QUALITY HOLD 不解除。**
+
+**Blocker 1 — pilot manifest 绑定 stale Git SHA，下载面实际失效**
+
+当前 `pilot_review.json`：
+
+```text
+git.sha = 283f5a36255a2768a19b32b49e966cdd3021f0cc
+```
+
+但新的：
+
+```text
+OPTION_0_LISTEN.wav
+OPTION_1_LISTEN.wav
+SOURCE_PHRASE_*_LISTEN.wav
+```
+
+是在后续 artifact commit `21dcdf8323efdfe65291c1320e06bcf5abd7d1a6` 才进入 Git。按当前 manifest 中基于 `283f5a3` 生成的 raw URL 实测读取 `OPTION_0_LISTEN.wav` 返回 **404**。
+
+Required fix：
+
+```text
+regenerate pilot_review.json
+→ git.sha 必须绑定到实际包含全部 referenced LISTEN bytes 的 commit
+→ 每个 raw_url 必须可下载
+→ raw_url bytes sha256 == manifest sha256
+→ canonical binding 继续保持可验证
+```
+
+禁止仅用 `git_evidence complete` 代替实际 URL/bytes 验证。
+
+**Blocker 2 — real_lyric_review 仍允许可发声 neutral-vowel `a` 污染人工判断**
+
+真实 Group 1 当前歌词序列：
+
+```text
+圆圈勾勒成指纹+印在我的+a嘴唇
+```
+
+原歌词为：
+
+```text
+圆圈勾勒成指纹 印在我的嘴唇
+```
+
+因此“真实歌词 review”仍可能实际唱出 `a`。对于 human-review asset，不能把 mapping gap 静默退化成可发声 neutral vowel。
+
+Required fix：
+
+```text
+real_lyric_review path:
+unmapped / ambiguous note
+→ explicit continuation/slur semantics when evidence supports continuation
+OR
+→ fail-closed and do not package
+```
+
+不得：
+
+```text
+real_lyric_review
+→ fallback to audible "a"
+→ still mark package as valid for human review
+```
+
+修复后至少重新验证 Group 1/2：
+- 实际 USTX lyric sequence；
+- 实际 rendered audio；
+- A/B target 外 lyric identity；
+- package hash 与 Git bytes。
+
+**Blocker 3 — A/B 非目标区 drift 仍然过大，结构盲选会被污染**
+
+最新 `signal_qc.json`：
+
+```text
+Group 1 / note_0012:
+  ab_loudness_delta_db = 0.03
+  pre_target_ab_diff_rms_ratio = 2.1554
+  post_target_ab_diff_rms_ratio = 1.1019
+  auto_review_ready = false
+
+Group 2 / note_0061:
+  ab_loudness_delta_db = 0.90
+  pre_target_ab_diff_rms_ratio = 1.5819
+  auto_review_ready = false
+```
+
+共享 gain 已基本解决“独立归一化污染”问题，但 **A/B 在 target operation 之外仍产生明显差异**。人工任务是判断 split/baseline；若 phrase 前后也发生显著变化，则选择结果不能只归因于 target structure operation。
+
+Required investigation：
+
+```text
+same phrase
++ same singer / renderer / render profile
++ same lyrics outside target
++ same note timing/pitch outside target
++ same PITD / expression / phoneme context outside target
+→ only declared target operation may differ
+```
+
+必须定位 drift 来源，至少检查：
+- split 是否改变后续 note/phoneme timing；
+- lyric carrier/“+”分配是否导致 target 外 phonemizer context 改变；
+- renderer 是否因 target note count 改变产生跨边界 coarticulation；
+- USTX diff 是否超出 declared target；
+- crop/alignment 是否把相同绝对时间映射成不同 rendered-relative 时间；
+- shared loudness copy 前 canonical A/B 是否已经发生 target 外差异。
+
+Acceptance：
+
+```text
+Group 1–2:
+  package URL/bytes valid
+  no audible placeholder vowel in real-lyric review
+  target-outside semantic diff == none
+  target-outside signal drift reduced to review-safe range
+  auto_review_ready == true
+  verify_package == PASS
+  Git evidence == PASS
+  fresh user re-review required
+```
+
+旧 Group 1=B / Group 2=B 继续仅保留 diagnostic preference，**不得**转成正式 calibration decision。
+
+**Pilot 3–5 routing**
+
+当前 Group 3–5 因 `no_chars / low_confidence` 仍使用 `neutral_vowel`。恢复 5-item pilot 前必须二选一：
+
+```text
+A. 修复/补强 source-bound lyric alignment，使其满足 real_lyric_review evidence gate；
+B. 用其他具备可靠 real-lyric evidence 的 representative items 替换。
+```
+
+禁止在用户已明确指出歌词会干扰判断后，再把 neutral-vowel Group 3–5 作为正式结构审核样本。
 
 ---
 
