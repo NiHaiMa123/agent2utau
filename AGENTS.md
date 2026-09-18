@@ -732,6 +732,34 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   score-level contract is the verifiable one.
 - +8 G1-G10 regressions; 289 total passed.
 
+### §10.1.5A G5A/G5B + Git-evidence (@e020cf9+4de7e88, artifacts eafc3b3,
+###  CI 35312608174, 295 passed) — maintainer PASS still pending
+
+- Maintainer Git audit found: only 1/5 claimed samples committed, no
+  qc/plan/state on Git, and ~0.68x-baseline-RMS phrase-wide A/B bleed
+  (DiffSinger context sensitivity) -> full-phrase A/B cannot be the
+  primary review surface.
+- G5A: BASELINE/CANDIDATE_TARGET.wav = crops of the ALREADY-RENDERED
+  option wavs at region±0.5s (_crop_rendered, never re-render). Web UI
+  order: source-focus mix/vocal -> blind target-focus A/B -> full A/B.
+- G5B: signal_qc.json per item — rms/peak/silence, pre/target/post
+  AB-diff rms ratios, loudness ratio, FCPE F0 summaries (median +
+  half-medians) for source/baseline/candidate, focus sha256,
+  auto_flags + auto_review_ready (drift>0.5 / loudness∉[0.7,1.4] /
+  both-options-F0-off-source>1st).
+- Git-evidence rule: `git ls-files` machine check of 13 required files
+  per item + plan/state/qc. write_verdict(PASS) REFUSES while audited
+  artifacts are uncommitted; review_ready additionally needs qc files
+  committed AND verdict.git_evidence_at_record — legacy verdicts
+  (incl. the old auditor=devin PASS) never count. state.json records
+  the evidence snapshot; CLI structure-calib-augment regenerates
+  crops+qc without re-rendering.
+- Real run honest status: git_evidence 277/277 committed (eafc3b3);
+  all 21 items flag out-of-target drift (pre 0.53-1.07 / post
+  0.53-2.11), 4 loudness drift, 5 both-options-F0-mismatch ->
+  auto_review_ready=false store-wide; review_ready=false until a
+  maintainer records PASS on the Git artifacts.
+
 - `repair.py` structure engine (schema m25-1, artifacts under
   `runs/<diag>/structure_repair/`): `build_structure_plan` /
   `apply_structure_plan` / `validate_structure_patch` /
