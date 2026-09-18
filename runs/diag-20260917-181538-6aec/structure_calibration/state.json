@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789710939.658075,
+  "rebuilt_at": 1789716365.724941,
   "total_machine_split_candidates": 21,
   "reviewed_count": 0,
   "split_preferred_count": 0,
@@ -36,7 +36,7 @@
   "git_evidence": {
     "complete": true,
     "git": "ok",
-    "checked": 277,
+    "checked": 394,
     "missing_count": 0
   },
   "review_ready": false

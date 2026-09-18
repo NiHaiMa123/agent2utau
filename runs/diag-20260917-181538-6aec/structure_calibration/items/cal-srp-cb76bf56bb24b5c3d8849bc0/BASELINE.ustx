@@ -391,7 +391,7 @@ voice_parts:
   - position: 0
     duration: 394
     tone: 62
-    lyric: a
+    lyric: 寒
     pitch:
       data:
       - x: -40
@@ -416,7 +416,7 @@ voice_parts:
   - position: 394
     duration: 470
     tone: 57
-    lyric: +
+    lyric: 夜
     pitch:
       data:
       - x: -40
@@ -441,7 +441,7 @@ voice_parts:
   - position: 864
     duration: 317
     tone: 59
-    lyric: +
+    lyric: 剩
     pitch:
       data:
       - x: -40
@@ -466,7 +466,7 @@ voice_parts:
   - position: 1181
     duration: 374
     tone: 62
-    lyric: +
+    lyric: 我
     pitch:
       data:
       - x: -40
@@ -491,7 +491,7 @@ voice_parts:
   - position: 1555
     duration: 375
     tone: 64
-    lyric: +
+    lyric: 一
     pitch:
       data:
       - x: -40
@@ -516,7 +516,7 @@ voice_parts:
   - position: 1930
     duration: 451
     tone: 66
-    lyric: +
+    lyric: 个
     pitch:
       data:
       - x: -40
@@ -541,7 +541,7 @@ voice_parts:
   - position: 2381
     duration: 336
     tone: 59
-    lyric: +
+    lyric: 人
     pitch:
       data:
       - x: -40
@@ -616,7 +616,7 @@ voice_parts:
   - position: 3062
     duration: 452
     tone: 56
-    lyric: +
+    lyric: 等
     pitch:
       data:
       - x: -40
@@ -641,7 +641,7 @@ voice_parts:
   - position: 3514
     duration: 422
     tone: 57
-    lyric: +
+    lyric: 清
     pitch:
       data:
       - x: -40
@@ -691,7 +691,7 @@ voice_parts:
   - position: 4138
     duration: 201
     tone: 64
-    lyric: +
+    lyric: 晨
     pitch:
       data:
       - x: -40

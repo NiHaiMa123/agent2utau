@@ -38,6 +38,25 @@
     ],
     "pad_s": 0.15
   },
+  "listen": {
+    "target_dbfs": -16.0,
+    "pair_rms_db": -29.69,
+    "shared_gain_db": 13.69,
+    "clipped": false,
+    "option_rms_db": {
+      "OPTION_0": -30.82,
+      "OPTION_1": -28.8
+    },
+    "ab_loudness_delta_db": 2.02,
+    "listen_peak": {
+      "OPTION_0": 0.6348,
+      "OPTION_1": 0.7384
+    },
+    "files": [
+      "OPTION_0_LISTEN.wav",
+      "OPTION_1_LISTEN.wav"
+    ]
+  },
   "f0_qc": {
     "children": [
       {

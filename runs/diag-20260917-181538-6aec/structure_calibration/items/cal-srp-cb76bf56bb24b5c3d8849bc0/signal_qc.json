@@ -4,13 +4,13 @@
   "repair_id": "srp-cb76bf56bb24b5c3d8849bc0",
   "sample_rate": 44100,
   "duration": 6.3,
-  "baseline_rms": 0.024826,
-  "candidate_rms": 0.02746,
-  "baseline_peak": 0.102112,
-  "candidate_peak": 0.091125,
+  "baseline_rms": 0.070058,
+  "candidate_rms": 0.063184,
+  "baseline_peak": 0.254456,
+  "candidate_peak": 0.231171,
   "silence_fraction": {
-    "baseline": 0.1159,
-    "candidate": 0.1179
+    "baseline": 0.0958,
+    "candidate": 0.1051
   },
   "declared_region": [
     39.4,
@@ -27,16 +27,35 @@
     ],
     "pad_s": 0.5
   },
-  "pre_target_ab_diff_rms_ratio": 0.3936,
-  "target_ab_diff_rms_ratio": 1.538,
-  "post_target_ab_diff_rms_ratio": 1.8115,
-  "option_loudness_ratio": 1.1061,
+  "pre_target_ab_diff_rms_ratio": 1.5819,
+  "target_ab_diff_rms_ratio": 1.0145,
+  "post_target_ab_diff_rms_ratio": 0.4687,
+  "option_loudness_ratio": 0.9019,
   "core_window": {
     "absolute": [
       39.25,
       39.94
     ],
     "pad_s": 0.15
+  },
+  "listen": {
+    "target_dbfs": -16.0,
+    "pair_rms_db": -23.52,
+    "shared_gain_db": 7.52,
+    "clipped": false,
+    "option_rms_db": {
+      "OPTION_0": -23.99,
+      "OPTION_1": -23.09
+    },
+    "ab_loudness_delta_db": 0.9,
+    "listen_peak": {
+      "OPTION_0": 0.5492,
+      "OPTION_1": 0.6045
+    },
+    "files": [
+      "OPTION_0_LISTEN.wav",
+      "OPTION_1_LISTEN.wav"
+    ]
   },
   "f0_qc": {
     "children": [
@@ -71,11 +90,11 @@
           "n_frames": 14,
           "voiced_frames": 14,
           "voiced_fraction": 1.0,
-          "midi_median": 64.007,
-          "midi_iqr": 0.052,
-          "midi_min": 62.992,
-          "midi_max": 64.022,
-          "dominant_fraction": 0.929,
+          "midi_median": 63.979,
+          "midi_iqr": 0.046,
+          "midi_min": 63.065,
+          "midi_max": 64.014,
+          "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
@@ -87,16 +106,16 @@
           "n_frames": 14,
           "voiced_frames": 14,
           "voiced_fraction": 1.0,
-          "midi_median": 62.034,
-          "midi_iqr": 0.116,
-          "midi_min": 61.998,
-          "midi_max": 63.09,
+          "midi_median": 62.033,
+          "midi_iqr": 0.142,
+          "midi_min": 61.997,
+          "midi_max": 63.061,
           "dominant_fraction": 0.929,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 2.049,
-        "candidate_error_semitones": 0.076
+        "baseline_error_semitones": 2.021,
+        "candidate_error_semitones": 0.075
       },
       {
         "child": 1,
@@ -127,13 +146,13 @@
             0.89
           ],
           "n_frames": 26,
-          "voiced_frames": 26,
-          "voiced_fraction": 1.0,
-          "midi_median": 64.005,
-          "midi_iqr": 0.017,
-          "midi_min": 63.982,
-          "midi_max": 65.059,
-          "dominant_fraction": 0.962,
+          "voiced_frames": 20,
+          "voiced_fraction": 0.7692,
+          "midi_median": 63.979,
+          "midi_iqr": 0.018,
+          "midi_min": 63.435,
+          "midi_max": 64.799,
+          "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
@@ -143,40 +162,40 @@
             0.89
           ],
           "n_frames": 26,
-          "voiced_frames": 26,
-          "voiced_fraction": 1.0,
-          "midi_median": 63.999,
-          "midi_iqr": 0.029,
-          "midi_min": 63.489,
-          "midi_max": 65.044,
-          "dominant_fraction": 0.962,
+          "voiced_frames": 22,
+          "voiced_fraction": 0.8462,
+          "midi_median": 63.995,
+          "midi_iqr": 0.066,
+          "midi_min": 62.934,
+          "midi_max": 64.933,
+          "dominant_fraction": 0.955,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 0.036,
-        "candidate_error_semitones": 0.03
+        "baseline_error_semitones": 0.01,
+        "candidate_error_semitones": 0.026
       }
     ],
     "baseline_child_error_semitones": [
-      2.049,
-      0.036
+      2.021,
+      0.01
     ],
     "candidate_child_error_semitones": [
-      0.076,
-      0.03
+      0.075,
+      0.026
     ],
-    "baseline_structure_error": 2.049,
-    "candidate_structure_error": 0.076,
-    "candidate_improvement_vs_baseline": 1.973,
+    "baseline_structure_error": 2.021,
+    "candidate_structure_error": 0.075,
+    "candidate_improvement_vs_baseline": 1.946,
     "unavailable_child_slots": 0,
     "ambiguous_children": [],
     "note": "review-readiness evidence only — never an automatic score truth; unavailable/ambiguous stays neutral"
   },
-  "target_focus_sha256": "3188413a372df895102276a4b17d95bcafc8479c3126f276b45dc3e4773aa311",
-  "target_core_sha256": "28ce97673035700559777f1ecfb282ca826b17c15afd09a084c54c309f247cb9",
+  "target_focus_sha256": "e5010eb59aaf8afe64d4c61c598faa7e701eb5918ea5820995b67eab0e781d6f",
+  "target_core_sha256": "825b927e1a5f1720d0466b0935661842e5d2d8d47d941b3e42b3bbe2bc027f69",
   "target_focus_is_primary": true,
   "auto_flags": [
-    "post_target_ab_drift:1.8115"
+    "pre_target_ab_drift:1.5819"
   ],
   "auto_review_ready": false
 }

@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "created_at": 1789708572.8299525,
+  "created_at": 1789720913.5237234,
   "diagnostic_run_id": "diag-20260917-181538-6aec",
   "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
   "lyric_contract": "neutral_vowel",
@@ -18,9 +18,15 @@
       },
       "phrase_key": "18.40-24.44",
       "plan_hash": "4735e9860a56e5fc0d1270706b7b6d4257a6aa5a8975ef76fc0b883512bd4065",
-      "audio_package_hash": "879e4afe677eecb06444929e30939acdd22c4521a621a63ef1f35389bb424799",
+      "audio_package_hash": "6956a44b1584ca58c18e582d5077204e37c6c54916b099270888776c658bbb19",
       "package_state": "valid",
-      "semantic_diff_sha256": "55a36371a28890c18ebced616e365a65354ea745740af941d390fef99e929961",
+      "lyric_contract": "real_lyric_review",
+      "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
+      "signal_qc_flags": [
+        "pre_target_ab_drift:2.1554",
+        "post_target_ab_drift:1.1019"
+      ],
+      "semantic_diff_sha256": "a015e2dd53b72a022ce3c8eac17ef6255bbf4b698b4e2b2e7469b01408848f83",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-c491a6b75c7d94cb28fd7a1e\\manifest.json"
     },
     {
@@ -38,7 +44,9 @@
       "audio_package_hash": "a04914e6beab2f238f07c801ae3ecf56b0bc88e0838cfb55558004d93e20c75b",
       "package_state": "valid",
       "semantic_diff_sha256": "7772110289f6304afa166842eaf11444bbb401ddffbad9dd17ddc86d8b10bc4b",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-790d2a210c7ae363e271d4ad\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-790d2a210c7ae363e271d4ad\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-cb76bf56bb24b5c3d8849bc0",
@@ -52,9 +60,14 @@
       },
       "phrase_key": "37.78-44.08",
       "plan_hash": "e0b2488b3fa99f6eb7802e773563c865641e732bf0e738b549fec76d2f97ef2e",
-      "audio_package_hash": "8b15cdc0e0b1da6af990475d1f2c028cf32c55430cc5f55f9d7f282e755f1684",
+      "audio_package_hash": "dd76d8b12b1252b1934a0e6545f9ae72a6c66185ed502e9fb3363cd77e04dbc3",
       "package_state": "valid",
-      "semantic_diff_sha256": "8f99d4574ba22b4ce851b687b84446df7033f140dfb2891d8f4d0ff91e6951c0",
+      "lyric_contract": "real_lyric_review",
+      "contract_sha256": "9d46b24b82528727061822e00bbfe31922e636ba2907a6e115383cd5bb756d40",
+      "signal_qc_flags": [
+        "pre_target_ab_drift:1.5819"
+      ],
+      "semantic_diff_sha256": "3bbe396f750fe42d63b93bba0e00f6bc535fbd232825d5425fea873eea061bb6",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-cb76bf56bb24b5c3d8849bc0\\manifest.json"
     },
     {
@@ -72,7 +85,9 @@
       "audio_package_hash": "ab9261d4439d695702dbb38d8fc4451c0652e2f54be54f240bf0a83c011ec0d0",
       "package_state": "valid",
       "semantic_diff_sha256": "afa889302b6013d29962b5fd8a87ad3f3db6e9558e401c20b5e1340e727c0b8b",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-e76868a477d06eadb8d5ff97\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-e76868a477d06eadb8d5ff97\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-903997a84c0ad331cd8ef4ba",
@@ -89,7 +104,9 @@
       "audio_package_hash": "f1a19aff206ad3236a7c61547595599d425ea35e288862a2354f1e31846b44e3",
       "package_state": "valid",
       "semantic_diff_sha256": "74470fcd00de4dbcd6781a0cfac964ca88bb51ed3df61567fe23f6edd85b58b6",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-903997a84c0ad331cd8ef4ba\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-903997a84c0ad331cd8ef4ba\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-d2be57c8bd5099d60ab05227",
@@ -106,7 +123,9 @@
       "audio_package_hash": "300ae06d3b45dabb57d11316b5011a0fd6123d82b13f8613468d853b1e25de8d",
       "package_state": "valid",
       "semantic_diff_sha256": "007d92d41bd34bd1f5da1beb92dc0eb8861181619f97f4da3459ed502d396ebc",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-d2be57c8bd5099d60ab05227\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-d2be57c8bd5099d60ab05227\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-9e3efba85c56ade947bcfdbf",
@@ -123,7 +142,9 @@
       "audio_package_hash": "c61deecbf52620d3dbaf70ad6be790338f5bf7eb96b14b0186ad0661c17ae183",
       "package_state": "valid",
       "semantic_diff_sha256": "9fdff72008b834e0bdab2558ced59efaa32c21d7671106fd67b9bb68d1175258",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9e3efba85c56ade947bcfdbf\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9e3efba85c56ade947bcfdbf\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-f93f9a2370cdb829565fbb7c",
@@ -140,7 +161,9 @@
       "audio_package_hash": "b81a3809b843af581d53b4b414131b555eb35b6177a52419c5061662a891580f",
       "package_state": "valid",
       "semantic_diff_sha256": "ae58c0706bb4b9574b99182769192f2ec81b70081c0e3eae315b4048362ea767",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-f93f9a2370cdb829565fbb7c\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-f93f9a2370cdb829565fbb7c\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-80eac026c81af9f4645b48f3",
@@ -157,7 +180,9 @@
       "audio_package_hash": "612f9c92567cd0f5515f1db35c245fdd05706ee629c1285345d3c28ee4924ff4",
       "package_state": "valid",
       "semantic_diff_sha256": "82ff088f6f92540a66c01dedbc1461030c8b371720736dd9829d5e5a98e54c77",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-80eac026c81af9f4645b48f3\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-80eac026c81af9f4645b48f3\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-70a8d83afa17b8573ede590a",
@@ -174,7 +199,9 @@
       "audio_package_hash": "3d37df99aadb9ac0c516c8a8b4857af7b29fd91a631dc5bd73a0158f1bb3b218",
       "package_state": "valid",
       "semantic_diff_sha256": "6cbc7d7968fdfeb8ceeaaa6bc8fb6f5f7f354b5196ef2ffb56a1bd9e7d73b085",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-70a8d83afa17b8573ede590a\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-70a8d83afa17b8573ede590a\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-84862e2c08cf37c73d9e2791",
@@ -191,7 +218,9 @@
       "audio_package_hash": "3ca44b01f8c26a7f148c79018f7abeff3a71630a823ac78945e9aa5db35b3a73",
       "package_state": "valid",
       "semantic_diff_sha256": "50cab05e4f7cbad753b1740b17ea8d0ac4c0e805cf516a388d63780a554190c9",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-84862e2c08cf37c73d9e2791\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-84862e2c08cf37c73d9e2791\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-b5a2d7810c99bfc36b91d9f9",
@@ -208,7 +237,9 @@
       "audio_package_hash": "9990ae39dce2240423ac6c2ff8af68d7a5274b12d70303e401ee4c585a9a42d5",
       "package_state": "valid",
       "semantic_diff_sha256": "4ef50b203b0e89b04d5ce7bf921ce35265fc2749a4b06955e2965017a73f80a9",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b5a2d7810c99bfc36b91d9f9\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b5a2d7810c99bfc36b91d9f9\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-7789a8b8605761d704d5d38e",
@@ -225,7 +256,9 @@
       "audio_package_hash": "86dca1d06580cc3ed663e442fc46143553f4a07f40fa76e2bad0e5c936c9a1dd",
       "package_state": "valid",
       "semantic_diff_sha256": "63d7d6db3a27abcd2211ffc90bf5ab00b47a192eff12aa14061d8176c304682c",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-7789a8b8605761d704d5d38e\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-7789a8b8605761d704d5d38e\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-07716808971809b23ef8d9b8",
@@ -242,7 +275,9 @@
       "audio_package_hash": "032ff1ba4fa895cd2a09f4fc1226e37199beecb6ca932a357b55a3671d45d97a",
       "package_state": "valid",
       "semantic_diff_sha256": "499e2a12bd7c0f3a24c93c18c6b746a05b326e11e5012ca842bf4bf1b50d5f44",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-07716808971809b23ef8d9b8\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-07716808971809b23ef8d9b8\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-fbded6709db9336c1184e04d",
@@ -259,7 +294,9 @@
       "audio_package_hash": "88c186291edcf803c732201ed14f7a8d810fbbef66b40a8efa0bef5430f38466",
       "package_state": "valid",
       "semantic_diff_sha256": "a4b5e2b346df39ab44dbda096a77931c31c99d8e93c3fcf63ead160701624fc6",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fbded6709db9336c1184e04d\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fbded6709db9336c1184e04d\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-aa047ab899970cb881f77481",
@@ -276,7 +313,9 @@
       "audio_package_hash": "64000540549eba17dd23b9e673708c16af4d1a3c684baa037e13be0db3169e21",
       "package_state": "valid",
       "semantic_diff_sha256": "5a8174613dc3fa68a13bfe528c3bb82a81c9f846e6423e87e18854483f6a7bbf",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-aa047ab899970cb881f77481\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-aa047ab899970cb881f77481\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-b04c10c381b66d1abfd9ec8a",
@@ -293,7 +332,9 @@
       "audio_package_hash": "0edd1b03472b33a255208035f31d452dba99e75ff83d4819d68a00c121ca9f9b",
       "package_state": "valid",
       "semantic_diff_sha256": "119d71ad76b70117fed03ef178d97e2c0870d8fd4868f4024078e5d48c0522a7",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b04c10c381b66d1abfd9ec8a\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-b04c10c381b66d1abfd9ec8a\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-9ff662d834e7cbadd1aa9434",
@@ -310,7 +351,9 @@
       "audio_package_hash": "212d09a137ac022dfe08e0a5dd130cf8b0aac621972fb64a43f27a63a0ce0e65",
       "package_state": "valid",
       "semantic_diff_sha256": "7a2e6f7cb1aebc7683f9fda4060b5cf0d1c93e76ee166c3dc87c1bad849fa46c",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9ff662d834e7cbadd1aa9434\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-9ff662d834e7cbadd1aa9434\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-8f73580bd3c768145f417f0d",
@@ -327,7 +370,9 @@
       "audio_package_hash": "4f2679c9c0bf3575cfea7e5bdda3ce0e875884da9d9ebfb16f8708615e20b679",
       "package_state": "valid",
       "semantic_diff_sha256": "1ef76478ac6ca230e56da285490bb36c94b2367f8873b16c224688f726af9429",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-8f73580bd3c768145f417f0d\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-8f73580bd3c768145f417f0d\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-fcebb308ea0d11ef772afdc4",
@@ -344,7 +389,9 @@
       "audio_package_hash": "a28543352b233bfbf20c1621818f447e735d5ebf245eb388a1b1b23142759dc1",
       "package_state": "valid",
       "semantic_diff_sha256": "75365239f36353569aeaf6ad21fe81945f8f8dff6ea382575a8e9f17c387608f",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fcebb308ea0d11ef772afdc4\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fcebb308ea0d11ef772afdc4\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     },
     {
       "cal_item_id": "cal-srp-742cbf94d1991516823ba33c",
@@ -361,7 +408,9 @@
       "audio_package_hash": "214d4edc73ecd94afaac63e9d1617f98c1c921263eee9f7aa2cd96f92189008a",
       "package_state": "valid",
       "semantic_diff_sha256": "a77c888b440ba688666ae7d99353eb0dc4b47600ea5f62e4ae009a8313e49720",
-      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-742cbf94d1991516823ba33c\\manifest.json"
+      "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-742cbf94d1991516823ba33c\\manifest.json",
+      "lyric_contract": "neutral_vowel",
+      "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d"
     }
   ]
 }
