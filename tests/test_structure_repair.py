@@ -1393,7 +1393,7 @@ def test_real_lyric_review_option_ab_identical_outside_target():
                           {"start": 1.1, "end": 1.3, "tone": 64.0}]}
     item = {"lyric_contract": "real_lyric_review",
             "phrase": {"start": 0.0, "end": 2.1}, "context": ctx}
-    chars = [{"char": "春", "start": 0.1, "end": 0.6},
+    chars = [{"char": "春", "start": 0.05, "end": 0.6},
              {"char": "秋", "start": 0.95, "end": 1.4},
              {"char": "冬", "start": 1.8, "end": 2.05}]
     base = option_notes(item, {"score_patch": {"type": "identity"}},
@@ -1401,11 +1401,14 @@ def test_real_lyric_review_option_ab_identical_outside_target():
     cand = option_notes(item, {"score_patch": patch}, chars)
     bl = [n["lyric"] for n in base]
     cl = [n["lyric"] for n in cand]
-    assert bl == ["春", "+", "秋", "+", "冬"]
+    # 冬's onset is 100ms inside the last note — rlv3 articulation
+    # splits it there: the front keeps '+' and 冬 voices at its
+    # source onset instead of the note start (G5I)
+    assert bl == ["春", "+", "秋", "+", "+", "冬"]
     # candidate replaces note2 with two children: 秋 on child0, '+' on
     # child1 and on the following context note — outside-target lyrics
     # stay identical to the baseline sequence
-    assert cl == ["春", "+", "秋", "+", "+", "冬"]
+    assert cl == ["春", "+", "秋", "+", "+", "+", "冬"]
     # context lyrics identical; the target expands 秋 -> [秋, +]
     assert cl[:2] == bl[:2] and cl[4:] == bl[3:]
     assert cl[2:4] == ["秋", "+"]
@@ -1735,3 +1738,247 @@ def test_g5h_dirty_bytes_are_not_committed(tmp_path, monkeypatch):
     ev = sc.git_evidence(run, item_ids=[items[0]["cal_item_id"]])
     assert ev["uncommitted"] == ["qc/verdict.json"]
     assert not ev["complete"]
+
+
+# --------------------------------------- §10.1.5A-G5I Lyric Timing Gate
+
+def _art(notes, chars):
+    from agent2utau.review.render import review_lyrics_articulated
+    return review_lyrics_articulated(notes, chars)
+
+
+def test_g5i_interior_onset_splits_same_pitch():
+    """I1: a char onset inside a note produces a render-only
+    same-pitch split — the char voices at its onset, never dragged
+    back to note.start."""
+    notes = [{"id": "n0", "start": 0.0, "end": 0.5, "tone": 62.0},
+             {"id": "n1", "start": 0.5, "end": 1.0, "tone": 64.0}]
+    chars = [{"char": "我", "start": 0.02, "end": 0.4},
+             {"char": "演", "start": 0.8, "end": 0.95}]
+    segs = _art(notes, chars)
+    assert [(s["lyric"], round(s["start"], 2), round(s["end"], 2))
+            for s in segs] == [
+        ("我", 0.0, 0.5), ("+", 0.5, 0.8), ("演", 0.8, 1.0)]
+    assert segs[1]["tone"] == segs[2]["tone"] == 64.0   # same pitch
+    assert segs[1]["articulation_split"] and \
+        segs[2]["articulation_split"]
+
+
+def test_g5i_two_chars_one_written_note():
+    """I2: two chars inside one constant-pitch written note → render
+    splits same pitch for articulation; the written score input is
+    untouched (the function never mutates `notes`)."""
+    notes = [{"id": "n0", "start": 0.0, "end": 1.0, "tone": 62.0}]
+    chars = [{"char": "我", "start": 0.02, "end": 0.3},
+             {"char": "演", "start": 0.31, "end": 0.7}]
+    segs = _art(notes, chars)
+    assert [s["lyric"] for s in segs] == ["我", "演"]
+    assert [(s["start"], s["end"]) for s in segs] == \
+        [(0.0, 0.31), (0.31, 1.0)]
+    assert all(s["tone"] == 62.0 for s in segs)   # same written pitch
+    assert notes[0]["end"] == 1.0        # input unchanged
+
+
+def test_g5i_boundary_onset_no_split():
+    """I3: a char onset already near a note boundary snaps to it —
+    no unnecessary split."""
+    notes = [{"id": "n0", "start": 0.0, "end": 0.5, "tone": 62.0},
+             {"id": "n1", "start": 0.5, "end": 1.0, "tone": 64.0}]
+    chars = [{"char": "我", "start": 0.03, "end": 0.4},
+             {"char": "演", "start": 0.55, "end": 0.9}]
+    segs = _art(notes, chars)
+    assert len(segs) == 2
+    assert [s["lyric"] for s in segs] == ["我", "演"]
+    assert not any(s["articulation_split"] for s in segs)
+
+
+def test_g5i_ab_identical_anchors_outside_target():
+    """I4: A/B lyric timing anchors outside the target are identical
+    — both options derive from the SAME source char evidence."""
+    from agent2utau.review.render import option_notes
+    ctx = [{"id": f"note_{i:04d}", "index": i, "start": s, "end": e,
+            "tone": 62.0}
+           for i, (s, e) in enumerate(
+               ((0.0, 0.5), (0.5, 1.0), (1.0, 1.5), (1.5, 2.0)))]
+    patch = {"type": "split", "note_ids": ["note_0002"], "boundary": 1.25,
+             "children": [{"start": 1.0, "end": 1.25, "tone": 62.0},
+                          {"start": 1.25, "end": 1.5, "tone": 64.0}]}
+    item = {"lyric_contract": "real_lyric_review",
+            "phrase": {"start": 0.0, "end": 2.0}, "context": ctx}
+    chars = [{"char": "我", "start": 0.03, "end": 0.4},
+             {"char": "演", "start": 1.05, "end": 1.4},
+             {"char": "剧", "start": 1.8, "end": 1.95}]
+    a = option_notes(item, {"score_patch": {"type": "identity"}}, chars)
+    b = option_notes(item, {"score_patch": patch}, chars)
+    # outside the 1.0–1.5 target the render segments are identical —
+    # same written notes + same source onsets → same splits
+    a_out = [(n["lyric"], round(n["start"], 3), round(n["end"], 3))
+             for n in a if n["end"] <= 1.0 or n["start"] >= 1.5]
+    b_out = [(n["lyric"], round(n["start"], 3), round(n["end"], 3))
+             for n in b if n["end"] <= 1.0 or n["start"] >= 1.5]
+    assert a_out == b_out
+    # 剧's interior onset splits identically in both options
+    assert any(abs(n["start"] - 1.8) < 1e-9 and n["lyric"] == "剧"
+               for n in a)
+
+
+def test_g5i_target_split_keeps_source_anchors():
+    """I5: when the declared split changes target note structure, the
+    lyric timing still binds the same source char onsets."""
+    from agent2utau.review.render import option_notes
+    ctx = [{"id": "note_0000", "index": 0, "start": 0.0, "end": 1.0,
+            "tone": 62.0}]
+    patch = {"type": "split", "note_ids": ["note_0000"], "boundary": 0.6,
+             "children": [{"start": 0.0, "end": 0.6, "tone": 62.0},
+                          {"start": 0.6, "end": 1.0, "tone": 64.0}]}
+    item = {"lyric_contract": "real_lyric_review",
+            "phrase": {"start": 0.0, "end": 1.0}, "context": ctx}
+    chars = [{"char": "我", "start": 0.02, "end": 0.4},
+             {"char": "演", "start": 0.7, "end": 0.9}]
+    a = option_notes(item, {"score_patch": {"type": "identity"}}, chars)
+    b = option_notes(item, {"score_patch": patch}, chars)
+    # 演 onsets at 0.7 in BOTH renders — the candidate's extra written
+    # boundary doesn't move the lyric anchor
+    assert any(n["lyric"] == "演" and abs(n["start"] - 0.7) < 1e-9
+               for n in a)
+    assert any(n["lyric"] == "演" and abs(n["start"] - 0.7) < 1e-9
+               for n in b)
+
+
+def _timing_man(chars=None, n_options=2):
+    import agent2utau.structure_calibration as sc
+    chars = chars or [{"char": "我", "start": 0.1, "end": 0.5},
+                      {"char": "演", "start": 0.6, "end": 1.0}]
+    return {"schema": sc.CALIB_SCHEMA, "review_item_id": "cal-x",
+            "phrase": {"start": 0.0, "end": 2.0},
+            "calibration": {"repair_id": "srp-x",
+                            "lyric_contract": "real_lyric_review",
+                            "lyric_evidence": {"chars": chars}},
+            "options": [{"option_id": f"OPTION_{i}",
+                         "wav": f"o{i}.wav"}
+                        for i in range(n_options)]}
+
+
+def test_g5i_timing_mismatch_fails_closed(tmp_path, monkeypatch):
+    """I6: a rendered option whose aligned char sequence can't be
+    reproduced gets a fail-closed lyric_timing flag — never a silent
+    pass."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    man = _timing_man()
+    idir = tmp_path / "cal-x"
+    idir.mkdir()
+    (idir / "o0.wav").write_bytes(b"x")
+    (idir / "o1.wav").write_bytes(b"x")
+    monkeypatch.setattr(
+        al, "force_align",
+        lambda w, t, t0, t1, model=None: [
+            {"char": "错", "start": 0.1, "end": 0.5,
+             "probability": 0.9}])
+    lt = sc._lyric_timing_qc(man, idir)
+    assert any("lyric_timing_mismatch" in f for f in lt["flags"])
+    assert lt["per_char"] == []              # no table over a lie
+    # aligner failure → unmeasurable, also fail-closed
+    monkeypatch.setattr(
+        al, "force_align",
+        lambda *a, **k: (_ for _ in ()).throw(RuntimeError("x")))
+    lt2 = sc._lyric_timing_qc(man, idir)
+    assert any("lyric_timing_unmeasurable" in f
+               for f in lt2["flags"])
+
+
+def test_g5i_timing_delta_table_and_stats(tmp_path, monkeypatch):
+    """I9/I10: matching sequences produce the per-char delta table +
+    summary stats — the artifacts the acceptance gate consumes."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    man = _timing_man()
+    idir = tmp_path / "cal-x"
+    idir.mkdir()
+    (idir / "o0.wav").write_bytes(b"x")
+    (idir / "o1.wav").write_bytes(b"x")
+    # score-bound truth: carriers voice at tick 96 (0.1s) / 576 (0.6s);
+    # the '+' row must be skipped by the carrier filter
+    ustx = ("voice_parts:\n  - notes:\n"
+            "    - position: 0\n      duration: 90\n      lyric: '+'\n"
+            "    - position: 96\n      duration: 100\n      lyric: '我'\n"
+            "    - position: 576\n      duration: 200\n"
+            "      lyric: '演'\n")
+    (idir / "OPTION_0.ustx").write_text(ustx, encoding="utf-8")
+    (idir / "OPTION_1.ustx").write_text(ustx, encoding="utf-8")
+    monkeypatch.setattr(
+        al, "force_align",
+        lambda w, t, t0, t1, model=None: [
+            {"char": "我", "start": 0.15, "end": 0.5,
+             "probability": 0.9},
+            {"char": "演", "start": 0.85, "end": 1.0,
+             "probability": 0.8}])
+    lt = sc._lyric_timing_qc(man, idir)
+    assert lt["flags"] == []
+    assert len(lt["per_char"]) == 2
+    row = lt["per_char"][1]
+    assert row["OPTION_0_onset_delta_ms"] == 250.0
+    assert row["OPTION_0_offset_delta_ms"] == 0.0
+    # score-bound columns: score_onset=0.6, src=0.6 → construction 0;
+    # measured 0.85 vs score 0.6 → +250ms is the aligner's own bias
+    assert row["OPTION_0_score_onset"] == 0.6
+    assert row["OPTION_0_score_delta_ms"] == 0.0
+    assert row["OPTION_0_aligner_offset_ms"] == 250.0
+    st = lt["stats"]["OPTION_0"]
+    assert st["median_abs_onset_delta_ms"] == 150.0
+    assert st["max_abs_onset_delta_ms"] == 250.0
+    assert st["n_chars_over_200ms"] == 1
+    assert st["median_aligner_offset_ms"] == 150.0
+    assert lt["aligner"] == "whisper-attention-dtw"
+
+
+def test_g5i_timing_score_mismatch_fails_closed(tmp_path, monkeypatch):
+    """I11: a rendered ustx whose carrier sequence doesn't match the
+    bound char evidence is fail-closed — the score-onset column can
+    never be silently derived from a different score."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    man = _timing_man()
+    idir = tmp_path / "cal-x"
+    idir.mkdir()
+    (idir / "o0.wav").write_bytes(b"x")
+    (idir / "o1.wav").write_bytes(b"x")
+    bad = ("voice_parts:\n  - notes:\n"
+           "    - position: 96\n      duration: 100\n      lyric: '我'\n"
+           "    - position: 576\n      duration: 200\n      lyric: '别'\n")
+    good = ("voice_parts:\n  - notes:\n"
+            "    - position: 96\n      duration: 100\n      lyric: '我'\n"
+            "    - position: 576\n      duration: 200\n"
+            "      lyric: '演'\n")
+    (idir / "OPTION_0.ustx").write_text(bad, encoding="utf-8")
+    (idir / "OPTION_1.ustx").write_text(good, encoding="utf-8")
+    monkeypatch.setattr(
+        al, "force_align",
+        lambda w, t, t0, t1, model=None: [
+            {"char": "我", "start": 0.15, "end": 0.5,
+             "probability": 0.9},
+            {"char": "演", "start": 0.85, "end": 1.0,
+             "probability": 0.8}])
+    lt = sc._lyric_timing_qc(man, idir)
+    assert any("lyric_timing_score_mismatch:OPTION_0" in f
+               for f in lt["flags"])
+    assert lt["per_char"] == []
+
+
+def test_g5i_impl_bump_stales_old_packages():
+    """I8: the lyric-mapping impl is part of the render contract —
+    an rlv2 manifest is stale under rlv3 (verdict/package/authority
+    all go stale with it)."""
+    import agent2utau.structure_calibration as sc
+    rlv2_sha = sc._sha({"schema": sc.CALIB_SCHEMA,
+                        "lyric_contract": "real_lyric_review",
+                        "lyric_mapping_impl": "rlv2",
+                        "render_profile_hash": "rph"})
+    man = {"schema": sc.CALIB_SCHEMA,
+           "calibration": {"lyric_contract": "real_lyric_review",
+                           "lyric_mapping_impl": "rlv2",
+                           "contract_sha256": rlv2_sha}}
+    # recorded contract was valid under rlv2 but stale under rlv3
+    assert sc.item_contract_stale(man, {}, "rph") is True
+    cur = sc.render_contract_sha({}, "rph", "real_lyric_review")
+    assert rlv2_sha != cur

@@ -40,9 +40,12 @@ LYRIC_CONTRACT_REVIEW = "real_lyric_review"
 # change; never reuse an older version's meaning.
 LYRIC_MAPPING_IMPL_VERSION = {
     "neutral_vowel": "nv1",
-    # v2: unmapped note after a real gap fails closed (probe-verified
-    # OpenUtau rejects a gap-separated '+'); v1 wrote audible 'a'
-    "real_lyric_review": "rlv2",
+    # v3 (G5I): source-bound lyric articulation — a char onset inside
+    # a note produces a render-only same-pitch split so the char
+    # voices at its aligned onset, not note.start (v2 still sang it
+    # up to hundreds of ms early); v2: unmapped note after a real gap
+    # fails closed; v1 wrote audible 'a'
+    "real_lyric_review": "rlv3",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 CHOICES = ("split", "baseline", "equivalent", "none_correct")
@@ -988,6 +991,123 @@ def _phrase_listen_copies(cdir: Path) -> dict:
     return res
 
 
+def _lyric_timing_qc(man: dict, idir: Path) -> dict:
+    """§10.1.5A-G5I: same-aligner per-char lyric-timing comparison —
+    the SOURCE-bound char table (persisted in the manifest) is the
+    reference; each rendered option is re-aligned with the SAME
+    force_align model + SAME text, so systematic aligner lag cancels
+    in the delta. Times are phrase-relative seconds. A char sequence
+    that can't be reproduced (missing/reordered/mismatched chars or
+    an aligner failure) is a fail-closed flag — deltas themselves are
+    measured and persisted (thresholds come from real pilot data, not
+    guesswork)."""
+    cal = man.get("calibration") or {}
+    ev = cal.get("lyric_evidence") or {}
+    src = ev.get("chars")
+    if cal.get("lyric_contract") != "real_lyric_review" or not src:
+        return None
+    from .analysis.lyrics import force_align, DEFAULT_MODEL
+    import numpy as np
+    ph_start = float(man["phrase"]["start"])
+    dur = float(man["phrase"]["end"]) - ph_start
+    text = "".join(c["char"] for c in src)
+    out = {"aligner": "whisper-attention-dtw", "model": DEFAULT_MODEL,
+           "text": text,
+           "source_chars": [{"char": c["char"],
+                             "start": round(c["start"] - ph_start, 4),
+                             "end": round(c["end"] - ph_start, 4),
+                             "probability": c.get("probability")}
+                            for c in src],
+           "options": {}, "per_char": [], "stats": {}, "flags": []}
+    base_seq = [c["char"] for c in src]
+    aligned = {}
+    for o in man["options"]:
+        oid = o["option_id"]
+        try:
+            cs = force_align(idir / o["wav"], text, 0.0,
+                             min(29.0, dur + 0.05), model=DEFAULT_MODEL)
+            aligned[oid] = cs
+            out["options"][oid] = {"chars": cs}
+        except Exception as e:
+            aligned[oid] = None
+            out["options"][oid] = {"error": str(e)[:160]}
+            out["flags"].append(f"lyric_timing_unmeasurable:{oid}")
+    for oid, cs in aligned.items():
+        if cs is None:
+            continue
+        if [c["char"] for c in cs] != base_seq:
+            out["flags"].append(f"lyric_timing_mismatch:{oid}")
+    if not out["flags"]:
+        # score-bound ground truth: the render voices each char exactly
+        # at its carrier note position in OPTION_x.ustx (fixed
+        # 120bpm/480tpq, part_start=0, no preutterance), so
+        # (measured - score_onset) is the aligner's own domain bias on
+        # rendered audio — kept separate from src-vs-score construction
+        # deviation so a reviewer can tell "render is early" apart from
+        # "the aligner reports synthetic vocals early".
+        import yaml
+        tick_s = 60000.0 / (120.0 * 480.0) / 1000.0
+        score_onsets = {}
+        for o in man["options"]:
+            oid = o["option_id"]
+            try:
+                doc = yaml.safe_load((idir / f"{oid}.ustx")
+                                     .read_text(encoding="utf-8"))
+                carriers = [n for n in doc["voice_parts"][0]["notes"]
+                            if n["lyric"] != "+"]
+                if [c["char"] for c in src] != \
+                        [n["lyric"] for n in carriers]:
+                    out["flags"].append(
+                        f"lyric_timing_score_mismatch:{oid}")
+                    continue
+                score_onsets[oid] = [n["position"] * tick_s
+                                     for n in carriers]
+            except Exception as e:
+                out["flags"].append(
+                    f"lyric_timing_score_unavailable:"
+                    f"{oid}:{str(e)[:80]}")
+    if not out["flags"]:
+        on = {oid: [] for oid in aligned}
+        off = {oid: [] for oid in aligned}
+        aln_off = {oid: [] for oid in aligned}
+        for k, sc_ in enumerate(out["source_chars"]):
+            row = {"char": sc_["char"], "src_start": sc_["start"],
+                   "src_end": sc_["end"]}
+            for oid, cs in aligned.items():
+                cc = cs[k]
+                so = score_onsets[oid][k]
+                row[f"{oid}_start"] = round(cc["start"], 4)
+                row[f"{oid}_end"] = round(cc["end"], 4)
+                row[f"{oid}_score_onset"] = round(so, 4)
+                do = (cc["start"] - sc_["start"]) * 1000.0
+                df = (cc["end"] - sc_["end"]) * 1000.0
+                row[f"{oid}_onset_delta_ms"] = round(do, 1)
+                row[f"{oid}_offset_delta_ms"] = round(df, 1)
+                row[f"{oid}_score_delta_ms"] = round(
+                    (so - sc_["start"]) * 1000.0, 1)
+                ao = (cc["start"] - so) * 1000.0
+                row[f"{oid}_aligner_offset_ms"] = round(ao, 1)
+                on[oid].append(abs(do))
+                off[oid].append(abs(df))
+                aln_off[oid].append(ao)
+            out["per_char"].append(row)
+        for oid in aligned:
+            a, b = np.asarray(on[oid]), np.asarray(off[oid])
+            out["stats"][oid] = {
+                "median_abs_onset_delta_ms":
+                    round(float(np.median(a)), 1),
+                "p90_abs_onset_delta_ms":
+                    round(float(np.percentile(a, 90)), 1),
+                "max_abs_onset_delta_ms": round(float(a.max()), 1),
+                "median_abs_offset_delta_ms":
+                    round(float(np.median(b)), 1),
+                "n_chars_over_100ms": int((a > 100).sum()),
+                "n_chars_over_200ms": int((a > 200).sum()),
+                "median_aligner_offset_ms":
+                    round(float(np.median(aln_off[oid])), 1)}
+    return out
+
+
 def signal_qc(man: dict, idir: Path) -> dict:
     """§10.1.5A-G5B: machine-readable signal audit of one rendered item.
 
@@ -1136,6 +1256,13 @@ def signal_qc(man: dict, idir: Path) -> dict:
     if f0_qc["baseline_structure_error"] is None \
             or f0_qc["candidate_structure_error"] is None:
         flags.append("f0_structure_evidence_insufficient")
+    # §10.1.5A-G5I: lyric timing — a rendered option that can't
+    # reproduce the source char sequence (mismatch / aligner failure)
+    # is fail-closed; numeric onset/offset deltas are persisted for
+    # the acceptance decision, not hidden behind a flag.
+    lt = _lyric_timing_qc(man, idir)
+    if lt is not None:
+        flags += lt["flags"]
     return {
         "schema": CALIB_SCHEMA,
         "cal_item_id": man["review_item_id"],
@@ -1168,6 +1295,7 @@ def signal_qc(man: dict, idir: Path) -> dict:
                         "pad_s": TARGET_CORE_PAD_S},
         "listen": listen,
         "f0_qc": f0_qc,
+        "lyric_timing": lt,
         "target_focus_sha256": _sha({
             "baseline": _file_sha(idir / "BASELINE_TARGET.wav"),
             "candidate": _file_sha(idir / "CANDIDATE_TARGET.wav")}),
@@ -1758,10 +1886,34 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
         man["calibration"]["semantic_diff_sha256"] = _sha(diff)
         if item_contract == LYRIC_CONTRACT_REVIEW:
             ev = lyr_evidence.get(it["phrase_key"])
+            # §10.1.5A-G5I: persist the FULL source char-timing table
+            # (the audit needs per-char onsets, not just counts) plus
+            # the articulation-split summary the render-only overlay
+            # produced — Candidate 0 stays untouched, these splits are
+            # review-render only.
+            art = None
+            if ev and ev.get("chars"):
+                from .review.build import apply_patch
+                from .review.render import review_lyrics_articulated
+                segs = review_lyrics_articulated(
+                    apply_patch(it["context"],
+                                {"type": "identity"}), ev["chars"])
+                if segs is not None:
+                    art = {"impl": "rlv3",
+                           "n_segments": len(segs),
+                           "n_articulation_splits": sum(
+                               1 for sg in segs
+                               if sg["articulation_split"]),
+                           "n_chars": len(ev["chars"])}
             man["calibration"]["lyric_evidence"] = {
                 "method": "force_align_source_bound",
                 "n_chars": ev["n_chars"],
                 "min_probability": ev["min_probability"],
+                "chars": [{"char": c["char"], "start": c["start"],
+                           "end": c["end"],
+                           "probability": c.get("probability")}
+                          for c in ev["chars"]],
+                "articulation": art,
             } if ev else None
         # unblinded copies for pre-human QC — OPTION_* files remain the
         # decision authority; these are review aids only.

@@ -168,6 +168,74 @@ def review_lyrics(notes, chars):
     return out
 
 
+ARTICULATE_SNAP_S = 0.08
+
+
+def review_lyrics_articulated(notes, chars):
+    """§10.1.5A-G5I lyric-timing overlay (rlv3, review-only — the
+    Candidate-0 written score is NEVER modified). review_lyrics() maps
+    each hanzi to a carrier note but the renderer voices it at
+    note.start; a char whose true onset lands mid-note was sung up to
+    hundreds of ms early. This overlay preserves the source onset:
+    a char starting inside a note produces a RENDER-ONLY same-pitch
+    split at the char's onset — the front segment continues the
+    previous syllable ('+'), the back segment carries the new char.
+    Onsets within ARTICULATE_SNAP_S of a note boundary snap to it
+    (no unnecessary split); gap onsets still bind the following note
+    (the only legal option — the residual is measured, not hidden).
+    Same fail-closed rules as review_lyrics: char evidence outliving
+    the notes, no carrier, material before the first carrier, or a
+    '+' after a real gap (unrenderable) → None. Returns a list of
+    {start,end,tone,lyric,articulation_split} — may contain MORE
+    entries than `notes` — or None."""
+    anchors = []            # (pos, char, note_idx), pos strictly ↑
+    nxt = 0
+    for c in chars:
+        cs = c["start"]
+        i = nxt
+        while i < len(notes) and notes[i]["end"] <= cs:
+            i += 1
+        if i >= len(notes):
+            return None
+        n = notes[i]
+        if cs <= n["start"] + ARTICULATE_SNAP_S:
+            pos = n["start"]                 # boundary / gap snap
+        elif cs >= n["end"] - ARTICULATE_SNAP_S \
+                and i + 1 < len(notes):
+            pos, i = notes[i + 1]["start"], i + 1   # tail-snap → next
+        else:
+            pos = cs                          # interior articulation
+        if anchors and pos <= anchors[-1][0]:
+            return None
+        anchors.append((pos, c["char"], i))
+        nxt = i
+    if not anchors or anchors[0][2] != 0 \
+            or anchors[0][0] != notes[0]["start"]:
+        return None                # material before the first carrier
+    splits = {}
+    for pos, ch, i in anchors:
+        splits.setdefault(i, []).append((pos, ch))
+    segs = []
+    for i, n in enumerate(notes):
+        pts = sorted(splits.get(i, []))
+        bounds = [n["start"]] + [p for p, _ in pts] + [n["end"]]
+        at = {p: ch for p, ch in pts}
+        sub = [(bounds[k], bounds[k + 1])
+               for k in range(len(bounds) - 1)
+               if bounds[k + 1] - bounds[k] > 1e-9]
+        for s, e in sub:
+            segs.append({"start": s, "end": e, "tone": n["tone"],
+                         "lyric": at.get(s, "+"),
+                         "articulation_split": len(sub) > 1})
+    if segs[0]["lyric"] == "+":
+        return None                 # leading '+' has nothing to extend
+    for k, sg in enumerate(segs):
+        if sg["lyric"] == "+" and k > 0 and sg["start"] > \
+                segs[k - 1]["end"] + LYRIC_EXTEND_TOUCH_S:
+            return None             # '+' after a real gap → unrenderable
+    return segs
+
+
 def neutral_vowels(notes):
     """m25-cal-2 diagnostic contract (§10.1.5A-G2/G7): when no trusted
     canonical lyric mapping exists, do NOT guess real lyrics — render
@@ -193,22 +261,25 @@ def option_notes(item, option, chars):
                  "tone": int(round(n["tone"]))}
                 for n, lyr in zip(patched, neutral_vowels(patched))]
     if item.get("lyric_contract") == "real_lyric_review":
-        # §10.1.5A-G5E quality-hold contract: real hanzi on syllable
-        # carriers only; a split parent's char lands on child[0] and its
-        # later children are '+' automatically — so A/B lyric sequences
-        # stay identical outside the target operation.
-        lyr = review_lyrics(patched, chars)
-        if lyr is None:
+        # §10.1.5A-G5E/G5I quality-hold contract: real hanzi on
+        # syllable carriers AND source-bound onset timing — interior
+        # char onsets produce render-only same-pitch articulation
+        # splits (front segment continues the syllable, back carries
+        # the char). A split parent's char lands on child[0] and its
+        # later children are '+' automatically — so A/B lyric
+        # sequences stay identical outside the target operation.
+        segs = review_lyrics_articulated(patched, chars)
+        if segs is None:
             raise RuntimeError(
                 "real_lyric_review: char evidence can't be honestly "
-                "mapped (outlives notes, no carrier, leading notes, or "
-                "an unmapped note after a real gap where '+' is "
-                "unrenderable) — fail-closed, no review package")
+                "mapped (outlives notes, no carrier, material before "
+                "the first carrier, or an unmapped segment after a "
+                "real gap where '+' is unrenderable) — fail-closed, "
+                "no review package")
         s = item["phrase"]["start"]
-        return [{"lyric": l, "start": n["start"] - s,
-                 "end": n["end"] - s, "dur": n["end"] - n["start"],
-                 "tone": int(round(n["tone"]))}
-                for n, l in zip(patched, lyr)]
+        return [{"lyric": sg["lyric"], "start": sg["start"] - s,
+                 "end": sg["end"] - s, "dur": sg["end"] - sg["start"],
+                 "tone": int(round(sg["tone"]))} for sg in segs]
     # first split child inherits the parent's lyric char
     parent_char = None
     for n in item["context"]:
