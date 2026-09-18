@@ -404,25 +404,30 @@ def cmd_structure_calib_decide(args) -> int:
 
 
 def cmd_structure_calib_qc(args) -> int:
-    """§10.1.5A-G5: record the pre-human QC verdict for the current
-    render contract. PASS unblocks the full 21-item batch; FAIL keeps
-    it blocked. Append-only audit trail in qc/audit.jsonl."""
-    from .structure_calibration import (load_verdict, rebuild_calibration_state,
+    """§10.1.5A-G5/G5H: record the pre-human QC verdict for an EXACT
+    review sample set. A PASS must name --samples (cal_item_id or
+    note_id); the bound contract is derived from those manifests —
+    never from the plan-level default. Append-only qc/audit.jsonl."""
+    from .structure_calibration import (rebuild_calibration_state,
                                         write_verdict)
     run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    samples = args.samples.split(",") if args.samples else None
+    if args.pass_ and not samples:
+        return fail("samples_required",
+                    "--samples <cal_item_id|note_id,...> is required "
+                    "for PASS — the verdict binds the exact sample "
+                    "set, never the plan default contract")
+    try:
+        rec = write_verdict(
+            run_dir, "PASS" if args.pass_ else "FAIL",
+            auditor=args.auditor, notes=args.notes or "",
+            sample_ids=samples)
+    except RuntimeError as e:
+        return fail("qc_verdict_refused", str(e))
     st = rebuild_calibration_state(run_dir)
-    contract_sha = st.get("contract_sha256")
-    if not contract_sha:
-        return fail("no_calibration_plan",
-                    "build sample packages first (structure-calib-plan "
-                    "--items ...) so the contract hash exists")
-    rec = write_verdict(
-        run_dir, "PASS" if args.pass_ else "FAIL",
-        contract_sha=contract_sha, auditor=args.auditor,
-        notes=args.notes or "",
-        sample_ids=args.samples.split(",") if args.samples else None)
     return _out(args, {"schema_version": "1", "status": "ok",
-                       "verdict": rec})
+                       "verdict": rec,
+                       "review_ready": st.get("review_ready")})
 
 
 def cmd_structure_calib_augment(args) -> int:

@@ -704,47 +704,134 @@ def _tracked_all(item_ids=(), phrase_keys=()):
     return s
 
 
-def test_g9_review_ready_defaults_false(tmp_path, monkeypatch):
-    """G9: review-ready is false until an explicit verdict — render
-    success alone never sets it; a mismatched contract hash fails too."""
+def _g5h_store(tmp_path, monkeypatch, n=2, auto_ready=True,
+               contract="real_lyric_review",
+               stale_iids=(), not_ready_iids=(), bad_verify_iids=()):
+    """§G5H fixture: a store whose plan-level default contract is
+    neutral_vowel nv1 while the SAMPLES are real_lyric_review rlv2 —
+    the exact deadlock G5H fixes. Returns (run_dir, items, contract).
+    """
     import agent2utau.structure_calibration as sc
-    run = _mk_run(tmp_path, [_machine_split_pkt()])
-    assert not sc.review_ready(run, "contract-x")
-    sc.write_verdict(run, "FAIL", "contract-x", auditor="t")
-    assert not sc.review_ready(run, "contract-x")
+    monkeypatch.setattr(sc, "_load_run", lambda d: {})
+    monkeypatch.setattr(
+        sc, "_verify_package",
+        lambda man, d: (d.name not in bad_verify_iids, "ok"))
+    cdir = tmp_path / "structure_calibration"
+    (cdir / "items").mkdir(parents=True, exist_ok=True)
+    sha = sc.render_contract_sha({}, sc._rph_hash(), contract)
+    items = []
+    for i in range(n):
+        nid = sc.PILOT_NOTE_IDS[i] if i < len(sc.PILOT_NOTE_IDS) \
+            else f"note_{i:04d}"
+        iid, pk = f"cal-s{i}", f"{i}.00-{i+5}.00"
+        (cdir / "items" / iid).mkdir(exist_ok=True)
+        rec_sha = "stale-old-sha" if iid in stale_iids else sha
+        man = {"schema": sc.CALIB_SCHEMA,
+               "package_state": "valid",
+               "audio_package_hash": f"aph-{iid}",
+               "calibration": {
+                   "repair_id": f"srp-s{i}",
+                   "lyric_contract": contract,
+                   "lyric_mapping_impl":
+                       sc.LYRIC_MAPPING_IMPL_VERSION[contract],
+                   "contract_sha256": rec_sha}}
+        (cdir / "items" / iid / "manifest.json").write_text(
+            json.dumps(man), encoding="utf-8")
+        (cdir / "items" / iid / "signal_qc.json").write_text(
+            json.dumps({"auto_flags": [],
+                        "auto_review_ready":
+                            iid not in not_ready_iids and auto_ready}),
+            encoding="utf-8")
+        items.append({"cal_item_id": iid, "repair_id": f"srp-s{i}",
+                      "note_id": nid, "type": "split",
+                      "phrase": {"start": float(i), "end": float(i + 5)},
+                      "phrase_key": pk,
+                      "audio_package_hash": f"aph-{iid}",
+                      "package_state": "valid",
+                      "lyric_contract": contract,
+                      "contract_sha256": rec_sha,
+                      "signal_qc_flags": []})
+    (cdir / "plan.json").write_text(json.dumps(
+        {"schema": sc.CALIB_SCHEMA, "lyric_contract": "neutral_vowel",
+         "contract_sha256": "store-default-nv1", "items": items}),
+        encoding="utf-8")
+    (cdir / "pilot_review.json").write_text(json.dumps(
+        {"schema": sc.CALIB_SCHEMA, "kind": "pilot_review",
+         "groups": [{"note_id": it["note_id"],
+                     "cal_item_id": it["cal_item_id"]}
+                    for it in items]}), encoding="utf-8")
+    return tmp_path, items, sha
+
+
+def _g5h_tracked(items):
+    return _tracked_all(
+        [i["cal_item_id"] for i in items],
+        [i["phrase_key"] for i in items])
+
+
+def test_g9_review_ready_defaults_false(tmp_path, monkeypatch):
+    """G9/G5H: review-ready is false until an explicit verdict; a PASS
+    must name its exact sample set — it can never fall back to the
+    plan-level default contract."""
+    import agent2utau.structure_calibration as sc
+    run, items, sha = _g5h_store(tmp_path, monkeypatch)
+    iid = items[0]["cal_item_id"]
+    assert not sc.review_ready(run)
+    sc.write_verdict(run, "FAIL", auditor="t")
+    assert not sc.review_ready(run)
+    with pytest.raises(RuntimeError, match="samples required"):
+        sc.write_verdict(run, "PASS", auditor="t")
     monkeypatch.setattr(sc, "_git_tracked_set",
-                        lambda d: _tracked_all())
-    sc.write_verdict(run, "PASS", "contract-x", auditor="t")
-    assert sc.review_ready(run, "contract-x")
-    assert not sc.review_ready(run, "other-contract")
+                        lambda d: _g5h_tracked(items))
+    rec = sc.write_verdict(run, "PASS", auditor="t",
+                           sample_ids=[iid, items[1]["cal_item_id"]])
+    assert rec["contract_sha256"] == sha        # derived from samples
+    assert rec["pilot"]["contract_sha256"] == sha
+    assert rec["pilot"]["pilot_payload_sha256"]
+    assert sc.review_ready(run)
 
 
 def test_g10_full_batch_blocked_until_qc_pass(tmp_path, monkeypatch):
-    """G10: build_calibration with no `only` filter is a full batch —
-    blocked until the contract's QC verdict is PASS (and committed)."""
+    """G10/G5H: build_calibration with no `only` filter is a full
+    batch — blocked until a committed QC PASS binds THIS batch's
+    contract. A verdict over a different contract (e.g. the rlv2
+    pilot) can never authorize a neutral-vowel batch."""
     import agent2utau.review.render as rr
     import agent2utau.structure_calibration as sc
     monkeypatch.setattr(rr, "load_run", lambda p: _fake_run_dict())
     run = _mk_run(tmp_path, [_machine_split_pkt()])
     with pytest.raises(RuntimeError, match="QC PASS"):
         sc.build_calibration(run, render=False)
-    # a sample/subset build is the allowed pre-QC path
-    res = sc.build_calibration(run, render=False, only=["note_0002"])
-    contract = res["contract_sha256"]
+    # a sample/subset build is the allowed pre-QC path — built here
+    # under the review contract so the verdict can bind it
+    res = sc.build_calibration(run, render=False, only=["note_0002"],
+                               lyric_contract="real_lyric_review")
     iid = res["items"][0]["cal_item_id"]
-    pk = res["items"][0]["phrase_key"]
+    cdir = run / "structure_calibration"
+    (cdir / "items" / iid / "signal_qc.json").write_text(
+        json.dumps({"auto_flags": [], "auto_review_ready": True}))
+    plan = json.loads((cdir / "plan.json").read_text(encoding="utf-8"))
+    plan["items"][0]["signal_qc_flags"] = []
+    plan["items"][0]["package_state"] = \
+        json.loads((cdir / "items" / iid / "manifest.json")
+                   .read_text(encoding="utf-8")).get("package_state")
+    (cdir / "plan.json").write_text(json.dumps(plan))
+    (cdir / "pilot_review.json").write_text(json.dumps(
+        {"schema": sc.CALIB_SCHEMA, "kind": "pilot_review",
+         "groups": [{"note_id": "note_0002", "cal_item_id": iid}]}))
+    monkeypatch.setattr(sc, "_load_run", lambda d: {})
+    monkeypatch.setattr(sc, "_verify_package",
+                        lambda m, d: (True, "ok"))
     monkeypatch.setattr(sc, "_git_tracked_set",
-                        lambda d: _tracked_all([iid], [pk]))
-    sc.write_verdict(run, "PASS", contract, auditor="t",
-                     sample_ids=[iid])
-    res2 = sc.build_calibration(run, render=False)
+                        lambda d: _tracked_all(
+                            [iid], [res["items"][0]["phrase_key"]]))
+    sc.write_verdict(run, "PASS", auditor="t", sample_ids=[iid])
+    res2 = sc.build_calibration(run, render=False,
+                                lyric_contract="real_lyric_review")
     assert len(res2["items"]) == 1
-    it_dir = run / "structure_calibration" / "items" \
-        / res2["items"][0]["cal_item_id"]
+    it_dir = cdir / "items" / res2["items"][0]["cal_item_id"]
     assert (it_dir / "semantic_diff.json").exists()      # G8 artifact
-    plan = json.loads((run / "structure_calibration"
-                       / "plan.json").read_text(encoding="utf-8"))
-    assert plan["lyric_contract"] == "neutral_vowel"
+    plan = json.loads((cdir / "plan.json").read_text(encoding="utf-8"))
     assert plan["schema"] == "m25-cal-2"
 
 
@@ -754,15 +841,14 @@ def test_git_evidence_pass_refused_without_commits(tmp_path, monkeypatch):
     """Git-evidence rule: a PASS verdict is refused while required
     artifacts are uncommitted — local existence never counts."""
     import agent2utau.structure_calibration as sc
-    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    run, items, _ = _g5h_store(tmp_path, monkeypatch)
+    ids = [i["cal_item_id"] for i in items]
     monkeypatch.setattr(sc, "_git_tracked_set", lambda d: None)
     with pytest.raises(RuntimeError, match="not committed to Git"):
-        sc.write_verdict(run, "PASS", "c", auditor="t",
-                         sample_ids=["i1"])
+        sc.write_verdict(run, "PASS", auditor="t", sample_ids=ids)
     monkeypatch.setattr(sc, "_git_tracked_set", lambda d: {"plan.json"})
     with pytest.raises(RuntimeError, match="not committed to Git"):
-        sc.write_verdict(run, "PASS", "c", auditor="t",
-                         sample_ids=["i1"])
+        sc.write_verdict(run, "PASS", auditor="t", sample_ids=ids)
     rec = sc.write_verdict(run, "FAIL", "c", auditor="t")
     assert rec["verdict"] == "FAIL"
 
@@ -772,35 +858,44 @@ def test_git_evidence_review_ready_needs_qc_committed(tmp_path,
     """A recorded PASS only takes effect after the qc files themselves
     are committed — the verdict must exist in Git, not just on disk."""
     import agent2utau.structure_calibration as sc
-    run = _mk_run(tmp_path, [_machine_split_pkt()])
-    iid = "cal-x"
-    base = {"plan.json", "state.json", "pilot_review.json"} | {
-        f"items/{iid}/{f}" for f in sc.GIT_REQUIRED_ITEM_FILES}
+    run, items, _ = _g5h_store(tmp_path, monkeypatch)
+    base = _g5h_tracked(items) - {"qc/verdict.json", "qc/audit.jsonl"}
     monkeypatch.setattr(sc, "_git_tracked_set", lambda d: set(base))
-    sc.write_verdict(run, "PASS", "c", auditor="t", sample_ids=[iid])
-    assert not sc.review_ready(run, "c")     # qc files not committed yet
+    sc.write_verdict(run, "PASS", auditor="t",
+                     sample_ids=[i["cal_item_id"] for i in items])
+    assert not sc.review_ready(run)      # qc files not committed yet
     monkeypatch.setattr(sc, "_git_tracked_set",
-                        lambda d: base | {"qc/verdict.json",
-                                          "qc/audit.jsonl"})
-    assert sc.review_ready(run, "c")
+                        lambda d: _g5h_tracked(items))
+    assert sc.review_ready(run)
 
 
 def test_git_evidence_legacy_verdict_never_ready(tmp_path, monkeypatch):
-    """A verdict recorded before the Git-evidence regime (no
-    git_evidence_at_record field) can never flip review_ready — even
-    when every artifact is committed."""
+    """Verdicts recorded before the Git-evidence regime (no
+    git_evidence_at_record) OR before G5H (no pilot binding) can never
+    flip review_ready — even when every artifact is committed."""
     import agent2utau.structure_calibration as sc
-    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    run, items, sha = _g5h_store(tmp_path, monkeypatch)
     cdir = run / "structure_calibration" / "qc"
     cdir.mkdir(parents=True)
-    (cdir / "verdict.json").write_text(json.dumps({
-        "schema": sc.CALIB_SCHEMA, "verdict": "PASS",
-        "contract_sha256": "c", "auditor": "devin",
-        "sample_ids": []}), encoding="utf-8")
     (cdir / "audit.jsonl").write_text("{}\n", encoding="utf-8")
     monkeypatch.setattr(sc, "_git_tracked_set",
-                        lambda d: _tracked_all())
-    assert not sc.review_ready(run, "c")
+                        lambda d: _g5h_tracked(items))
+    # pre-Git-evidence verdict
+    (cdir / "verdict.json").write_text(json.dumps({
+        "schema": sc.CALIB_SCHEMA, "verdict": "PASS",
+        "contract_sha256": sha, "auditor": "devin",
+        "sample_ids": [i["cal_item_id"] for i in items]}),
+        encoding="utf-8")
+    assert not sc.review_ready(run)
+    # pre-G5H verdict: git evidence recorded but bound the store-level
+    # default contract — no per-sample pilot authority
+    (cdir / "verdict.json").write_text(json.dumps({
+        "schema": sc.CALIB_SCHEMA, "verdict": "PASS",
+        "contract_sha256": sha, "auditor": "devin",
+        "git_evidence_at_record": {"complete": True, "checked": 99},
+        "sample_ids": [i["cal_item_id"] for i in items]}),
+        encoding="utf-8")
+    assert not sc.review_ready(run)
 
 
 def _fake_rendered_item(tmp_path, name="cal-x", region=(2.0, 2.5),
@@ -1474,3 +1569,150 @@ def test_pilot_blocked_when_plan_missing_over_store(tmp_path):
     inv = sc.plan_invariants(run)
     assert inv["ok"] is False
     assert any("plan.json missing" in v for v in inv["violations"])
+
+
+# ------------------------------------------- §10.1.5A-G5H QC authority binding
+
+def test_g5h_verdict_binds_sample_contract_not_plan(tmp_path,
+                                                    monkeypatch):
+    """H1+H2: plan top-level = neutral nv1 while the samples are
+    real-lyric rlv2 — the PASS binds the SHARED SAMPLE contract,
+    never the plan default."""
+    import agent2utau.structure_calibration as sc
+    run, items, sha = _g5h_store(tmp_path, monkeypatch)
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    rec = sc.write_verdict(
+        run, "PASS", auditor="t",
+        sample_ids=[i["cal_item_id"] for i in items])
+    assert rec["contract_sha256"] == sha
+    assert rec["contract_sha256"] != "store-default-nv1"
+    assert rec["pilot"]["sample_ids"] == [i["cal_item_id"]
+                                        for i in items]
+    assert rec["pilot"]["audio_package_hashes"] == {
+        i["cal_item_id"]: f"aph-{i['cal_item_id']}" for i in items}
+    # note_ids resolve to cal_item_ids too
+    rec2 = sc.write_verdict(
+        run, "PASS", auditor="t",
+        sample_ids=[i["note_id"] for i in items])
+    assert rec2["pilot"]["sample_ids"] == rec["pilot"]["sample_ids"]
+
+
+def test_g5h_pass_refused_on_mixed_stale_or_unready(tmp_path,
+                                                    monkeypatch):
+    """H3+H4+H5: mixed contracts, a stale sample, or an unready sample
+    each hard-refuse the PASS."""
+    import agent2utau.structure_calibration as sc
+    ids = lambda items: [i["cal_item_id"] for i in items]
+    # H3 — mixed sample contracts (one item rendered under a
+    # different contract sha)
+    run, items, _ = _g5h_store(tmp_path, monkeypatch)
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    man_p = run / "structure_calibration" / "items" \
+        / "cal-s1" / "manifest.json"
+    man = json.loads(man_p.read_text(encoding="utf-8"))
+    man["calibration"]["contract_sha256"] = "other-contract"
+    man_p.write_text(json.dumps(man), encoding="utf-8")
+    # keep the plan mirror consistent so ONLY the mix is the problem
+    plan_p = run / "structure_calibration" / "plan.json"
+    plan = json.loads(plan_p.read_text(encoding="utf-8"))
+    plan["items"][1]["contract_sha256"] = "other-contract"
+    plan_p.write_text(json.dumps(plan), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="mixed sample"):
+        sc.write_verdict(run, "PASS", auditor="t", sample_ids=ids(items))
+    # H4 — one sample stale under the current impl
+    run, items, _ = _g5h_store(tmp_path, monkeypatch,
+                               stale_iids=("cal-s1",))
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    with pytest.raises(RuntimeError, match="stale contract"):
+        sc.write_verdict(run, "PASS", auditor="t", sample_ids=ids(items))
+    # H5 — one sample auto_review_ready=false
+    run, items, _ = _g5h_store(tmp_path, monkeypatch,
+                               not_ready_iids=("cal-s0",))
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    with pytest.raises(RuntimeError, match="auto_review_ready"):
+        sc.write_verdict(run, "PASS", auditor="t", sample_ids=ids(items))
+    # verify_package failure also refuses
+    run, items, _ = _g5h_store(tmp_path, monkeypatch,
+                               bad_verify_iids=("cal-s0",))
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    with pytest.raises(RuntimeError, match="verify_package"):
+        sc.write_verdict(run, "PASS", auditor="t", sample_ids=ids(items))
+
+
+def _pass_over(run, items):
+    import agent2utau.structure_calibration as sc
+    return sc.write_verdict(
+        run, "PASS", auditor="t",
+        sample_ids=[i["cal_item_id"] for i in items])
+
+
+def test_g5h_verdict_stales_on_any_pilot_change(tmp_path, monkeypatch):
+    """H6+H7+H8: after a committed PASS, ANY change to the bound pilot
+    identity — roster/payload, one audio_package_hash, or a sample's
+    own contract — stales the verdict (review_ready=false)."""
+    import agent2utau.structure_calibration as sc
+    run, items, sha = _g5h_store(tmp_path, monkeypatch)
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    _pass_over(run, items)
+    assert sc.review_ready(run)
+    cdir = run / "structure_calibration"
+    pr = cdir / "pilot_review.json"
+    orig = pr.read_text(encoding="utf-8")
+    # H6 — pilot roster changes inside the payload
+    pay = json.loads(orig)
+    pay["groups"].append({"note_id": "note_9999",
+                          "cal_item_id": "cal-new"})
+    pr.write_text(json.dumps(pay), encoding="utf-8")
+    assert not sc.review_ready(run)
+    pr.write_text(orig, encoding="utf-8")
+    assert sc.review_ready(run)
+    # H7 — one audio_package_hash changes
+    man_p = cdir / "items" / "cal-s0" / "manifest.json"
+    man = json.loads(man_p.read_text(encoding="utf-8"))
+    man["audio_package_hash"] = "aph-tampered"
+    man_p.write_text(json.dumps(man), encoding="utf-8")
+    assert not sc.review_ready(run)
+
+
+def test_g5h_old_neutral_verdict_no_authority(tmp_path, monkeypatch):
+    """H9: the old c54f07 neutral-vowel PASS over the old 5-sample
+    roster cannot authorize the current rlv2 pilot."""
+    import agent2utau.structure_calibration as sc
+    run, items, sha = _g5h_store(tmp_path, monkeypatch)
+    cdir = run / "structure_calibration" / "qc"
+    cdir.mkdir(parents=True)
+    (cdir / "audit.jsonl").write_text("{}\n", encoding="utf-8")
+    (cdir / "verdict.json").write_text(json.dumps({
+        "schema": sc.CALIB_SCHEMA, "verdict": "PASS",
+        "contract_sha256": "c54f07d6-nv1", "auditor": "devin",
+        "git_evidence_at_record": {"complete": True, "checked": 400},
+        "sample_ids": ["cal-srp-c491a6b75c7d94cb28fd7a1e",
+                       "cal-srp-cb76bf56bb24b5c3d8849bc0",
+                       "cal-srp-d2be57c8bd5099d60a05227",
+                       "cal-srp-9ff662d834e7cbadd1aa9434",
+                       "cal-srp-8f73580bd3c768145f417f0d"]}),
+        encoding="utf-8")
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    assert not sc.review_ready(run)
+
+
+def test_g5h_current_exact_pilot_ready(tmp_path, monkeypatch):
+    """H10: exact current sample set + current-contract PASS +
+    committed qc files → review_ready=true."""
+    import agent2utau.structure_calibration as sc
+    run, items, sha = _g5h_store(tmp_path, monkeypatch, n=4)
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _g5h_tracked(items))
+    _pass_over(run, items)
+    assert sc.review_ready(run)
+    st = sc.rebuild_calibration_state(run)
+    assert st["review_ready"] is True
+    assert st["store_contract_sha256"] == "store-default-nv1"
+    assert st["pilot_contract_sha256"] == sha

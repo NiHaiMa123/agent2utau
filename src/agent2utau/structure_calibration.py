@@ -263,6 +263,115 @@ def review_phrase_chars(run, win):
 
 # ------------------------------------------------------------- QC verdict
 
+def _load_run(run_dir):
+    from .review.render import load_run
+    return load_run(run_dir)
+
+
+def _verify_package(man, item_dir):
+    from .review.render import verify_package
+    return verify_package(man, item_dir)
+
+
+def pilot_authority(run_dir: Path, sample_ids=None,
+                    expected_lyric_contract="real_lyric_review") -> dict:
+    """§10.1.5A-G5H: the human-review authority contract derives from
+    the EXACT sample set — never from plan.json's store-level default
+    contract. Every sample must exist under the current schema, share
+    ONE contract_sha256 + lyric_contract + impl, be non-stale under the
+    current implementation, have signal_qc.auto_review_ready, and pass
+    verify_package. Non-raising report — callers decide whether a
+    violation refuses a PASS (write_verdict) or just blocks readiness
+    (review_ready / state)."""
+    run_dir = Path(run_dir)
+    cdir = calib_dir(run_dir)
+    plan_p = cdir / "plan.json"
+    plan = json.loads(plan_p.read_text(encoding="utf-8")) \
+        if plan_p.exists() else {"items": []}
+    by_iid = {it["cal_item_id"]: it for it in plan.get("items", [])
+              if it.get("cal_item_id")}
+    by_note = {it["note_id"]: it for it in plan.get("items", [])
+               if it.get("note_id")}
+    violations = []
+    if sample_ids is None:
+        sample_ids = [by_note[n]["cal_item_id"] for n in PILOT_NOTE_IDS
+                      if n in by_note]
+    resolved, note_ids = [], []
+    for tok in sample_ids:
+        it = by_iid.get(tok) or by_note.get(tok)
+        if it is None:
+            violations.append(f"unknown sample {tok}")
+            continue
+        resolved.append(it["cal_item_id"])
+        note_ids.append(it["note_id"])
+    if not resolved:
+        violations.append("no resolvable samples")
+    contracts, lyr_contracts, impls = set(), set(), set()
+    aphs = {}
+    run, rph = None, None
+    for iid in resolved:
+        mp = _find_manifest(run_dir, iid)
+        if mp is None:
+            violations.append(f"{iid}: manifest missing")
+            continue
+        man = json.loads(mp.read_text(encoding="utf-8"))
+        if man.get("schema") != CALIB_SCHEMA:
+            violations.append(f"{iid}: schema {man.get('schema')}")
+            continue
+        cal = man.get("calibration") or {}
+        contracts.add(cal.get("contract_sha256"))
+        lyr_contracts.add(cal.get("lyric_contract"))
+        impls.add(cal.get("lyric_mapping_impl"))
+        if cal.get("lyric_contract") != expected_lyric_contract:
+            violations.append(
+                f"{iid}: lyric_contract={cal.get('lyric_contract')}"
+                f" != {expected_lyric_contract}")
+        if cal.get("lyric_mapping_impl") != \
+                LYRIC_MAPPING_IMPL_VERSION.get(expected_lyric_contract):
+            violations.append(
+                f"{iid}: lyric_mapping_impl="
+                f"{cal.get('lyric_mapping_impl')}")
+        if run is None:
+            try:
+                run = _load_run(run_dir)
+                rph = _rph_hash()
+            except Exception as e:
+                run, rph = False, str(e)
+        if run is False:
+            violations.append(
+                f"{iid}: staleness unevaluable ({rph})")
+        elif item_contract_stale(man, run, rph):
+            violations.append(f"{iid}: stale contract")
+        sq_p = mp.parent / "signal_qc.json"
+        sq = json.loads(sq_p.read_text(encoding="utf-8")) \
+            if sq_p.exists() else {}
+        if not sq.get("auto_review_ready"):
+            violations.append(f"{iid}: auto_review_ready not true")
+        try:
+            ok, why = _verify_package(man, mp.parent)
+        except Exception as e:
+            ok, why = False, str(e)
+        if not ok:
+            violations.append(f"{iid}: verify_package {why}")
+        aphs[iid] = man.get("audio_package_hash")
+    if len(contracts) > 1:
+        violations.append("mixed sample contract_sha256")
+    if len(lyr_contracts) > 1 or len(impls) > 1:
+        violations.append("mixed sample lyric contract/impl")
+    one = lambda s: next(iter(s)) if len(s) == 1 else None
+    return {"ok": not violations, "violations": violations,
+            "sample_ids": resolved, "note_ids": note_ids,
+            "contract_sha256": one(contracts),
+            "lyric_contract": one(lyr_contracts),
+            "lyric_mapping_impl": one(impls),
+            "audio_package_hashes": aphs}
+
+
+def _pilot_payload_sha(run_dir: Path):
+    p = calib_dir(run_dir) / "pilot_review.json"
+    return _file_sha_local(p) if p.exists() else None
+
+
 def _verdict_path(run_dir: Path) -> Path:
     return calib_dir(run_dir) / "qc" / "verdict.json"
 
@@ -278,42 +387,96 @@ def load_verdict(run_dir: Path):
     return d if d.get("schema") == CALIB_SCHEMA else None
 
 
-def review_ready(run_dir: Path, contract_sha: str) -> bool:
-    """§10.1.5A-G9 + Git-evidence rule: review-readiness defaults false
-    and can only be set by an explicit pre-human QC PASS verdict whose
-    required artifacts — including the verdict itself — are actually
-    committed to Git. Render success or a local file never counts."""
+def review_ready(run_dir: Path) -> bool:
+    """§10.1.5A-G9 + G5H: review-readiness defaults false and is set
+    only by an explicit pre-human QC PASS whose bound pilot identity —
+    exact sample set, shared contract, pilot payload hash, per-sample
+    audio_package_hash — still verifies AND whose required artifacts
+    (including the qc files themselves) are committed to Git. Any
+    roster/contract/package/payload change stales the verdict."""
     v = load_verdict(run_dir)
     if not (v and v.get("verdict") == "PASS"
-            and v.get("contract_sha256") == contract_sha
             # recorded under the Git-evidence regime — a verdict
             # written before this rule existed never counts
             and (v.get("git_evidence_at_record") or {}).get("complete")):
+        return False
+    pilot = v.get("pilot") or {}
+    if not pilot.get("sample_ids"):
+        # pre-G5H verdicts bound the store-level default contract —
+        # they carry no per-sample authority and can never count
+        return False
+    if _pilot_payload_sha(run_dir) != pilot.get("pilot_payload_sha256"):
+        return False
+    cur = pilot_authority(run_dir, pilot["sample_ids"])
+    if not cur["ok"]:
+        return False
+    if (cur["contract_sha256"] != pilot.get("contract_sha256")
+            or cur["audio_package_hashes"]
+            != pilot.get("audio_package_hashes")):
         return False
     # §10.1.5A-G5G Blocker C: a lying plan (stale fields vs manifests)
     # can never be review-ready regardless of the verdict
     if not plan_invariants(run_dir)["ok"]:
         return False
-    ev = git_evidence(run_dir, item_ids=v.get("sample_ids") or [],
+    ev = git_evidence(run_dir, item_ids=pilot["sample_ids"],
                       include_qc=True)
     return bool(ev["complete"])
 
 
-def write_verdict(run_dir: Path, verdict: str, contract_sha: str,
-                  auditor: str, notes: str = "",
+def write_verdict(run_dir: Path, verdict: str, contract_sha: str = None,
+                  auditor: str = "", notes: str = "",
                   sample_ids=None,
                   require_git_evidence: bool = True) -> dict:
     """Record the pre-human QC verdict (append-only audit trail).
-    A PASS is refused unless the sample packages + plan/state it covers
-    are already committed to Git — the verdict then only takes effect
+    §10.1.5A-G5H: a PASS must name its exact sample set — the bound
+    contract is DERIVED from the sample manifests (shared
+    contract_sha256 + lyric_contract + impl, non-stale, auto-ready,
+    verify_package PASS), never from the plan-level default. The
+    verdict also binds the current pilot_review.json hash and every
+    sample's audio_package_hash so any later change stales it. A PASS
+    is refused unless the sample packages + plan/state it covers are
+    already committed to Git — the verdict then only takes effect
     (review_ready) after the qc files themselves are committed too."""
     run_dir = Path(run_dir)
+    is_pass = verdict.upper() == "PASS"
+    pilot = None
+    if is_pass:
+        if not sample_ids:
+            raise RuntimeError(
+                "QC PASS refused (§10.1.5A-G5H): --samples required — "
+                "a verdict binds the exact review sample set, never "
+                "the plan-level default contract")
+        auth = pilot_authority(run_dir, sample_ids)
+        if not auth["ok"]:
+            raise RuntimeError(
+                "QC PASS refused (§10.1.5A-G5H sample gate): "
+                f"{auth['violations'][:5]}")
+        if contract_sha and contract_sha != auth["contract_sha256"]:
+            raise RuntimeError(
+                "QC PASS refused (§10.1.5A-G5H): explicit contract "
+                f"{contract_sha[:16]} disagrees with the sample-set "
+                f"contract {auth['contract_sha256'][:16]}")
+        contract_sha = auth["contract_sha256"]
+        payload_sha = _pilot_payload_sha(run_dir)
+        if payload_sha is None:
+            raise RuntimeError(
+                "QC PASS refused (§10.1.5A-G5H): pilot_review.json "
+                "missing — the verdict must bind an exact payload")
+        pilot = {"sample_ids": auth["sample_ids"],
+                 "note_ids": auth["note_ids"],
+                 "contract_sha256": auth["contract_sha256"],
+                 "lyric_contract": auth["lyric_contract"],
+                 "lyric_mapping_impl": auth["lyric_mapping_impl"],
+                 "pilot_payload_sha256": payload_sha,
+                 "audio_package_hashes": auth["audio_package_hashes"]}
     rec = {"schema": CALIB_SCHEMA,
-           "verdict": "PASS" if verdict.upper() == "PASS" else "FAIL",
+           "verdict": "PASS" if is_pass else "FAIL",
            "contract_sha256": contract_sha,
            "auditor": auditor, "notes": notes,
            "sample_ids": list(sample_ids or []),
            "recorded_at": _now()}
+    if pilot is not None:
+        rec["pilot"] = pilot
     if rec["verdict"] == "PASS" and require_git_evidence:
         inv = plan_invariants(run_dir)
         if not inv["ok"]:
@@ -321,7 +484,7 @@ def write_verdict(run_dir: Path, verdict: str, contract_sha: str,
                 "QC PASS refused (§10.1.5A-G5G plan-invariant rule): "
                 f"plan.json disagrees with authoritative artifacts — "
                 f"{inv['violations'][:3]}")
-        ev = git_evidence(run_dir, item_ids=rec["sample_ids"],
+        ev = git_evidence(run_dir, item_ids=pilot["sample_ids"],
                           include_qc=False)
         if not ev["complete"]:
             raise RuntimeError(
@@ -1456,12 +1619,18 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
     rph = {"profile": profile, "hash": render_profile_hash(profile)}
     eff_contract = lyric_contract or LYRIC_CONTRACT
     contract_sha = render_contract_sha(run, rph["hash"], eff_contract)
-    if not only and not review_ready(run_dir, contract_sha):
-        raise RuntimeError(
-            "full calibration batch blocked (§10.1.5A-G10): no "
-            "pre-human QC PASS verdict for contract "
-            f"{contract_sha[:16]} — build samples with --items first, "
-            "audit them, then structure-calib-qc --pass")
+    if not only:
+        v = load_verdict(run_dir)
+        bound = (v.get("pilot") or {}).get("contract_sha256") if v \
+            else None
+        if not review_ready(run_dir) or bound != contract_sha:
+            raise RuntimeError(
+                "full calibration batch blocked (§10.1.5A-G10/G5H): "
+                "no committed pre-human QC PASS binding this batch "
+                f"contract {contract_sha[:16]} (verdict binds "
+                f"{str(bound)[:16]}) — build samples with --items "
+                "first, audit them, then structure-calib-qc --pass "
+                "--samples ...")
     items = plan_calibration(run, rph=rph["hash"],
                              lyric_contract=eff_contract)
     if only:
@@ -1755,6 +1924,11 @@ def rebuild_calibration_state(run_dir: Path) -> dict:
     confirmed = counts["human_confirmed_machine_split"]
     ev = git_evidence(run_dir)
     inv = plan_invariants(run_dir)
+    # §10.1.5A-G5H: two different contracts must not be conflated —
+    # store_contract_sha256 describes the plan's DEFAULT contract while
+    # pilot_contract_sha256 is the human-review authority derived from
+    # the exact current pilot sample set.
+    pilot = pilot_authority(run_dir)
     state = {
         "schema": CALIB_SCHEMA, "rebuilt_at": _now(),
         "total_machine_split_candidates": len(plan["items"]),
@@ -1767,14 +1941,17 @@ def rebuild_calibration_state(run_dir: Path) -> dict:
         "measured_song_level_precision":
             (confirmed / len(reviewed)) if reviewed else None,
         "pending": pending, "reviewed": reviewed,
-        "contract_sha256": plan.get("contract_sha256"),
+        "store_contract_sha256": plan.get("contract_sha256"),
+        "pilot_contract_sha256": pilot["contract_sha256"],
+        "pilot_authority": {"ok": pilot["ok"],
+                            "sample_ids": pilot["sample_ids"],
+                            "violations": pilot["violations"][:10]},
         "git_evidence": {k: ev[k] for k in
                          ("complete", "git", "checked")} | \
                         {"missing_count": len(ev["missing"])},
         "plan_invariants": {"ok": inv["ok"],
                             "violations": inv["violations"][:20]},
-        "review_ready": review_ready(
-            run_dir, plan.get("contract_sha256") or ""),
+        "review_ready": review_ready(run_dir),
     }
     _jwrite(calib_dir(run_dir) / "state.json", state)
     return state
