@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**Pre-M2.5 Freeze Integrity 仍为 CURRENT / HOLD，M2.5 structure repair = BLOCKED。`42cb1be` + CI `35293468251`（242 passed）已确认修复 Blocker A/B，并让“新生成的” M2.4 repair plan 同时绑定 Candidate-0 semantic notes hash 与 `baseline_game.json` full-file sha256；但 follow-up review 发现 legacy repair plan 仍可 fail-open：旧 `m24-1` plan 若缺 `candidate0_file_sha256`，当前 `verify_freshness()` 会跳过 file-hash 验证并继续 apply。当前唯一 blocker = legacy repair-plan fail-closed：缺 dual binding / 旧 schema 的 plan 必须 stale/reject，要求重新 `repair-plan`。修复该点并取得新的 FINAL SHA + remote CI green 前，不得启动 M2.5。**
+> 当前阶段：**A/B/C/D + M2.4 + Pre-M2.5 Freeze Integrity 全部 PASS。FINAL integrity acceptance = `8a2d660`，remote CI run `35294735189` = success，248 passed / 0 failed；M2.5 structure repair = UNBLOCKED，当前最高优先级 = M2.5（M2.4 blocked_structure 的 human authority 可直接复用，无需重审）。已修补：① provisional B 对 aggregate `run_tones` 置 neutral；② C missing evidence = neutral；③ plan 双 hash 绑定；④ legacy `m24-1` / 缺 binding plan fail-closed（schema `m24-2`）。**
 
 ---
 
@@ -303,7 +303,7 @@ M2.4 只能修改 discrete written score。PITD / portamento / vibrato / style �
 
 ---
 
-# 6. Pre-M2.5 Freeze Integrity Patch ← CURRENT / HOLD
+# 6. Pre-M2.5 Freeze Integrity Patch ✅ PASS @ 8a2d660 (CI 35294735189, 248 passed)
 
 > 目标：**修复已经冻结阶段之间的跨阶段完整性缺口，不重新设计 B/C/M2.4。**
 >
@@ -778,17 +778,18 @@ M2.5 = UNBLOCKED
 partial implementation SHA: 42cb1be
 partial remote CI run: 35293468251 = success
 pytest at 42cb1be: 242 passed / 0 failed / 0 skipped
-status: PARTIAL PASS ONLY — Blocker D remains open
 real-run diagnostic at 42cb1be: diag-20260917-181538-6aec
 189s: no machine repair
 202s: no machine repair
 Candidate-0 dual binding for newly generated plans: implemented
-legacy m24-1 / missing-file-hash plan fail-closed: NOT YET ACCEPTED
-final acceptance SHA: pending
-final remote CI run: pending
+final acceptance SHA: 8a2d660
+final remote CI run: 35294735189 = success
+pytest at 8a2d660: 248 passed / 0 failed / 0 skipped
+legacy m24-1 plan on real run: refused (unsupported_plan_schema:m24-1);
+  regenerated m24-2 plan applied normally (0 repairs, C0 identical)
 ```
 
-**42cb1be = PARTIAL PASS（Blocker A/B/C-new-plan path fixed）；Blocker D legacy-plan fail-open 尚未关闭。PRE-M2.5 INTEGRITY 仍未 PASS，M2.5 保持 BLOCKED。**
+**PRE-M2.5 INTEGRITY = PASS @ 8a2d660 → M2.5 UNBLOCKED（实现待启动）**
 
 ---
 
@@ -1660,8 +1661,8 @@ rollback coverage
 ### M2.3.2D Migration Integrity — ✅ IMPLEMENTED @ 905f144
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
-### Pre-M2.5 Freeze Integrity Patch — ← CURRENT / HOLD（42cb1be partial pass；legacy-plan fail-closed pending）
-### M2.5 — PROBABLE structure repair — ⛔ BLOCKED until final integrity acceptance
+### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
+### M2.5 — PROBABLE structure repair — ← CURRENT (UNBLOCKED)
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop

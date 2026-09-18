@@ -629,7 +629,7 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   SPLIT → blocked_structure; apply produced a C0-identical corrected
   score with the blocked authority preserved in the manifest.
 
-## Pre-M2.5 Freeze Integrity — PASS @ 42cb1be (CI 35293468251, 242)
+## Pre-M2.5 Freeze Integrity — PASS @ 8a2d660 (CI 35294735189, 248)
 
 - Blocker A (`diagnostic/adjudicate.py`): on structure-ambiguous events
   (`consensus.structure_varies` with no `virtual_correspondence`) the
@@ -651,10 +651,16 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   `candidate0_notes_sha256` AND `candidate0_file_sha256` (exact bytes) —
   metadata-only or byte changes stale the plan. corrected_score +
   manifest record both base hashes.
+- Blocker D (`repair.py`): REPAIR_SCHEMA m24-2 — legacy m24-1 plans or
+  any plan missing either Candidate-0 hash fail-closed (stale/reject);
+  build_plan hard-fails without the exact baseline_game.json artifact;
+  legacy plans are never silently migrated/backfilled — regeneration
+  via repair-plan is the only path. Verified on the real run's on-disk
+  m24-1 plan (refused, then regenerated and applied).
 - Real run re-verified: 0 machine repairs, human split selection
   blocked_structure, corrected score == Candidate 0.
-- +16 regressions in tests/test_pre_m25_integrity.py (A1-A5, B1-B6,
-  C1-C5). M2.5 structure repair is now UNBLOCKED.
+- +22 regressions in tests/test_pre_m25_integrity.py (A1-A5, B1-B6,
+  C1-C5, D1-D6). M2.5 structure repair is now UNBLOCKED.
 
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
