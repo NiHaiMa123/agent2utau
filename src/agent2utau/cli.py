@@ -364,6 +364,134 @@ def cmd_structure_repair_apply(args) -> int:
                        "integrity": res["manifest"]["integrity_checks"]})
 
 
+def cmd_structure_calib_plan(args) -> int:
+    """M2.5 Blocker E: package every machine structure candidate for
+    phrase-level Baseline-vs-Candidate calibration (§10.1.5)."""
+    from .structure_calibration import build_calibration
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    if not (run_dir / "diagnostic" / "residual_triage.json").exists():
+        return fail("no_diagnostic",
+                    f"{args.run_id} has no diagnostic artifacts")
+    items = args.items.split(",") if args.items else None
+    try:
+        res = build_calibration(
+            run_dir, cfg=load_config(), render=not args.no_render,
+            only=items, progress=lambda m: diag(f"[calib] {m}"))
+    except Exception as e:
+        emit(exception_payload(e))
+        return 1
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "run_id": args.run_id,
+                       "n_items": len(res["items"]),
+                       "items": res["items"]})
+
+
+def cmd_structure_calib_decide(args) -> int:
+    """Record one calibration decision — the package must still verify
+    byte-for-byte before a decision may be written (§10.1.5)."""
+    from .structure_calibration import decide
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    try:
+        rev = decide(run_dir, args.cal_item_id, args.choice)
+    except RuntimeError as e:
+        return fail("cannot_decide", str(e))
+    except Exception as e:
+        emit(exception_payload(e))
+        return 1
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "decision": rev})
+
+
+def cmd_structure_calib_status(args) -> int:
+    from .structure_calibration import rebuild_calibration_state
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    st = rebuild_calibration_state(run_dir)
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "run_id": args.run_id, "calibration": st})
+
+
+def cmd_structure_calib(args) -> int:
+    """Interactive blind A/B calibration: SOURCE context + OPTION_0/1
+    (baseline vs machine candidate, rotated). Decide per item."""
+    from .structure_calibration import (calib_dir, decide,
+                                        rebuild_calibration_state)
+    from .review.render import verify_package
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    st = rebuild_calibration_state(run_dir)
+    pending = list(st["pending"])
+    if not pending:
+        return _out(args, {"schema_version": "1", "status": "ok",
+                           "message": "no pending calibration items"})
+    import json
+    i = 0
+    while 0 <= i < len(pending):
+        cid = pending[i]
+        mpath = calib_dir(run_dir) / "items" / cid / "manifest.json"
+        if not mpath.exists():
+            i += 1
+            continue
+        man = json.loads(mpath.read_text(encoding="utf-8"))
+        ok, why = verify_package(man, mpath.parent)
+        ph = man["phrase"]
+        st = rebuild_calibration_state(run_dir)
+        print(f"\n=== [{i + 1}/{len(pending)}] {cid}  "
+              f"{ph['start']:.2f}-{ph['end']:.2f}s "
+              f"({man['target_group']['type']})  "
+              f"reviewed={st['reviewed_count']} "
+              f"pending={len(st['pending'])} ===")
+        if not ok:
+            print(f"  PACKAGE NOT DECIDABLE: {why}  (skipping)")
+            i += 1
+            continue
+        pdir = calib_dir(run_dir) / "phrases" \
+            / man["context"]["phrase_key"]
+        n_opt = len(man["options"])
+        print("  play: s=source mix  v=separated vocal  "
+              + "  ".join(f"{k}=OPTION_{k}" for k in range(n_opt))
+              + f"\n  decide: o0..o{n_opt - 1} that option is better | "
+                "e=都差不多 | x=都不对 | n=next | p=prev | q=quit")
+        advance = True
+        while True:
+            try:
+                c = input("choice> ").strip().lower()
+            except (EOFError, KeyboardInterrupt):
+                c = "q"
+            if c == "q":
+                return _out(args, {"schema_version": "1", "status": "ok",
+                                   "message": "quit; progress saved"})
+            if c in ("n", ""):
+                break
+            if c == "p":
+                i -= 1
+                advance = False
+                break
+            if c == "s":
+                _play(pdir / "SOURCE_PHRASE_original_mix.wav")
+            elif c == "v":
+                _play(pdir / "SOURCE_PHRASE_separated_vocal.wav")
+            elif c.isdigit() and int(c) < n_opt:
+                _play(mpath.parent / f"OPTION_{c}.wav")
+            elif c in ("e", "x") or (c.startswith("o") and
+                                     c[1:].isdigit() and
+                                     int(c[1:]) < n_opt):
+                choice = {"e": "equivalent", "x": "none_correct"}.get(
+                    c, f"OPTION_{c[1:]}")
+                try:
+                    rev = decide(run_dir, cid, choice)
+                except RuntimeError as ex:
+                    print(f"  not saved: {ex}")
+                    continue
+                print(f"  saved {rev['revision_id']}: {rev['outcome']}")
+                break
+            else:
+                print("  (0..n plays; o0..on = that option better; "
+                      "e=equivalent; x=none; n/p navigate; q=quit)")
+        if advance:
+            i += 1
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "message": "all calibration items visited"})
+
+
 def _play(path: Path):
     """Play a wav through ffplay (blocking); fall back to os.startfile."""
     import shutil
@@ -628,6 +756,29 @@ def build_parser() -> argparse.ArgumentParser:
                    help="comma list of repair_ids to apply")
     p.add_argument("--exclude", default=None,
                    help="comma list of repair_ids to exclude")
+
+    p = sub.add_parser("structure-calib-plan")
+    p.set_defaults(fn=cmd_structure_calib_plan)
+    p.add_argument("run_id", help="diagnostic run id")
+    p.add_argument("--items", default=None,
+                   help="comma list of cal_item_id/repair_id/note_id")
+    p.add_argument("--no-render", action="store_true",
+                   help="plan only — no wav rendering")
+
+    p = sub.add_parser("structure-calib")
+    p.set_defaults(fn=cmd_structure_calib)
+    p.add_argument("run_id", help="diagnostic run id")
+
+    p = sub.add_parser("structure-calib-decide")
+    p.set_defaults(fn=cmd_structure_calib_decide)
+    p.add_argument("run_id", help="diagnostic run id")
+    p.add_argument("cal_item_id", help="cal-<repair_id>")
+    p.add_argument("choice",
+                   help="OPTION_i | equivalent | none_correct")
+
+    p = sub.add_parser("structure-calib-status")
+    p.set_defaults(fn=cmd_structure_calib_status)
+    p.add_argument("run_id", help="diagnostic run id")
 
     p = sub.add_parser("status"); p.set_defaults(fn=cmd_status)
     p.add_argument("run_id")

@@ -129,7 +129,9 @@ def option_notes(item, option, chars):
     first = True
     for n in patched:
         if n.get("split_child") is not None:
-            n["lyric_char"] = parent_char if first else "+"
+            # first child carries the parent's syllable; '+' would make
+            # it a dangling extender when the parent has no aligned char
+            n["lyric_char"] = (parent_char or "a") if first else "+"
             first = False
     lyrics = lyric_map(patched, chars)
     s = item["phrase"]["start"]

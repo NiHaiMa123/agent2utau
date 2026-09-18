@@ -3,19 +3,26 @@
 Human path consumes the M2.4-preserved blocked_structure authority
 (repair_authorized_decision snapshot, no re-review). Machine path only
 materializes frozen resolved_change_candidate packets that pass the
-operation-specific precision gate — verified, never re-derived.
+operation-specific precision gate AND a phrase-level A/B calibration
+decision (§10.1.5 Blocker E) — a frozen C classification alone can
+never enter the trusted written score.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 
 import pytest
 
-from agent2utau.repair import (BLOCKED_CONFLICT, PATCH_OK, REJECTED,
-                               apply_structure_ops, apply_structure_plan,
-                               build_structure_plan,
+from agent2utau.repair import (BLOCKED_CONFLICT, CALIB_PENDING, PATCH_OK,
+                               REJECTED, apply_structure_ops,
+                               apply_structure_plan, build_structure_plan,
                                machine_structure_candidates,
                                validate_structure_patch)
+from agent2utau.structure_calibration import (cal_item_id, decide,
+                                              calibration_authorized,
+                                              rebuild_calibration_state)
+from agent2utau.review import build as rb
 
 from test_repair import _human_decision, _mk_run, _pkt, _NOTES
 
@@ -78,6 +85,61 @@ def _split_patch(nid="note_0002", b=11.2, tones=(60.0, 64.0)):
                          {"start": b, "end": 11.4, "tone": tones[1]}]}
 
 
+def _cal_confirm(run, entry, choice="split"):
+    """Fabricate a real verified calibration package + decision.
+
+    Writes OPTION wavs + source clips as real bytes, a schema-bound
+    manifest whose audio_package_hash recomputes, then runs the real
+    decide() gate (verify_package included)."""
+    rid = entry["repair_id"]
+    cid = cal_item_id(rid)
+    idir = run / "structure_calibration" / "items" / cid
+    idir.mkdir(parents=True, exist_ok=True)
+    wavs, opts = {}, []
+    for i, cand in enumerate(("baseline", "machine_split")):
+        b = b"wav" + rid.encode() + bytes([i])
+        (idir / f"OPTION_{i}.wav").write_bytes(b)
+        h = hashlib.sha256(b).hexdigest()
+        wavs[f"OPTION_{i}"] = {"wav_sha256": h}
+        opts.append({"option_id": f"OPTION_{i}", "candidate_id": cand,
+                     "score_patch": {"type": "identity"}
+                     if cand == "baseline" else entry["patch"],
+                     "provenance": {"kind": "t"},
+                     "wav": f"OPTION_{i}.wav", "wav_sha256": h,
+                     "sample_rate": 44100, "frames": 8})
+    (idir / "s.wav").write_bytes(b"mix")
+    (idir / "v.wav").write_bytes(b"voc")
+    srcs = {"original_mix": {"path": "s.wav",
+                             "sha256": hashlib.sha256(b"mix").hexdigest()},
+            "separated_vocal": {"path": "v.wav",
+                                "sha256": hashlib.sha256(b"voc").hexdigest()}}
+    man = {"schema": "m25-cal-1", "review_item_id": cid,
+           "target_key": "tk-" + rid,
+           "target_group": {"packets": [entry["note_id"]],
+                            "type": entry["patch"]["type"]},
+           "plan_hash": "ph-" + rid, "options": opts,
+           "source_reference": srcs,
+           "render_provenance": {"impl": "t"},
+           "baseline_option": "OPTION_0",
+           "phrase": {"start": 0.0, "end": 1.0},
+           "context": {"phrase_key": "0.00-1.00"},
+           "calibration": {
+               "repair_id": rid,
+               "patch_sha256": rb.sha(entry["patch"]),
+               "candidate_role": "OPTION_1",
+               "baseline_option": "OPTION_0",
+               "choices": ["split", "baseline", "equivalent",
+                           "none_correct"]},
+           "review": {"generation": 1}}
+    man["audio_package_hash"] = rb.audio_package_hash(
+        man["plan_hash"], srcs, wavs, man["render_provenance"])
+    (idir / "manifest.json").write_text(json.dumps(man),
+                                        encoding="utf-8")
+    opt = "OPTION_1" if choice == "split" else \
+        ("OPTION_0" if choice == "baseline" else choice)
+    return decide(run, cid, opt)
+
+
 # ---------------------------------------------------- §10.1.2 patch legality
 
 def test_split_patch_validation():
@@ -123,6 +185,54 @@ def test_merge_patch_validation():
              "merge_needs_two_notes")]:
         ok, why = validate_structure_patch(bad, _NOTES)
         assert not ok and why == want, (bad, why)
+
+
+def _gap_notes(gap):
+    """note_0000 [10.0,10.5], note_0001 [10.5+gap, 11.0+gap]."""
+    return [{"start": 10.0, "dur": 0.5, "tone": 60.0, "voiced": True},
+            {"start": 10.5 + gap, "dur": 0.5, "tone": 62.0,
+             "voiced": True},
+            {"start": 11.5 + gap, "dur": 0.5, "tone": 65.0,
+             "voiced": True}]
+
+
+def test_merge_temporal_adjacency():
+    """§10.1.6 Blocker F — index-adjacent != time-contiguous:
+    F1 exact shared boundary -> allow
+    F2 small gap within MERGE_ADJ_TOL_S -> allow
+    F3 gap > tolerance -> merge_temporal_gap
+    F4 material overlap -> merge_temporal_overlap
+    F5 merged span may never bridge a rejected gap
+    """
+    def merge_patch(gap):
+        ns = _gap_notes(gap)
+        return {"type": "merge", "note_ids": ["note_0000", "note_0001"],
+                "merged": {"start": 10.0, "end": 11.0 + gap,
+                           "tone": 61.0}}
+
+    ok, _ = validate_structure_patch(merge_patch(0.0), _gap_notes(0.0))
+    assert ok                                             # F1
+    ok, _ = validate_structure_patch(merge_patch(0.04), _gap_notes(0.04))
+    assert ok                                             # F2 (<0.06)
+    for gap in (0.07, 0.5, 1.0):                          # F3
+        ok, why = validate_structure_patch(merge_patch(gap),
+                                         _gap_notes(gap))
+        assert not ok and why == "merge_temporal_gap", (gap, why)
+    # F4: overlap — note_0001 starts before note_0000 ends
+    ns = [{"start": 10.0, "dur": 0.6, "tone": 60.0, "voiced": True},
+          {"start": 10.5, "dur": 0.5, "tone": 62.0, "voiced": True},
+          {"start": 11.5, "dur": 0.5, "tone": 65.0, "voiced": True}]
+    bad = {"type": "merge", "note_ids": ["note_0000", "note_0001"],
+           "merged": {"start": 10.0, "end": 11.0, "tone": 61.0}}
+    ok, why = validate_structure_patch(bad, ns)
+    assert not ok and why == "merge_temporal_overlap"
+    # F5: a 3-note merge bridging a >tol gap rejects at the gap pair
+    ns = _gap_notes(0.2)
+    bad = {"type": "merge",
+           "note_ids": ["note_0000", "note_0001", "note_0002"],
+           "merged": {"start": 10.0, "end": 11.7, "tone": 61.0}}
+    ok, why = validate_structure_patch(bad, ns)
+    assert not ok and why == "merge_temporal_gap"
 
 
 def test_boundary_shift_validation():
@@ -231,12 +341,33 @@ def test_apply_boundary_shift():
 
 # --------------------------------------------------- §10.1.3 plan/apply
 
+def test_machine_candidate_is_pending_until_calibrated(tmp_path):
+    """§10.1.5: a frozen TRUE_SPLIT_CANDIDATE alone can never apply —
+    it stays an auditable calibration_pending candidate until a
+    human_confirmed_machine_split decision binds repair_id+patch."""
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    plan = build_structure_plan(run)
+    e = plan["repairs"][0]
+    assert e["status"] == CALIB_PENDING
+    assert e["blocked_reason"] == "awaiting_phrase_calibration"
+    res = apply_structure_plan(run, plan)
+    assert res["score"]["notes"] == _NOTES        # never applied
+    blk = res["manifest"]["blocked"][0]
+    assert blk["status"] == CALIB_PENDING
+
+
 def test_structure_plan_apply_machine_split(tmp_path):
     run = _mk_run(tmp_path, [_machine_split_pkt()])
     plan = build_structure_plan(run)
     e = plan["repairs"][0]
+    assert e["status"] == CALIB_PENDING
+    _cal_confirm(run, e)                          # A/B confirms split
+    plan = build_structure_plan(run)
+    e = plan["repairs"][0]
     assert e["status"] == PATCH_OK
     assert e["repair_id"].startswith("srp-")
+    assert e["authority"]["calibration"]["outcome"] == \
+        "human_confirmed_machine_split"
     res = apply_structure_plan(run, plan)
     sc = res["score"]
     assert len(sc["notes"]) == len(_NOTES) + 1
@@ -248,6 +379,73 @@ def test_structure_plan_apply_machine_split(tmp_path):
     m = res["manifest"]["repairs"][0]
     assert m["operation"] == "split"
     assert m["authority"]["packet_id"] == "note_0002"
+    assert m["authority"]["calibration"]["revision_id"]
+
+
+@pytest.mark.parametrize("choice", ["baseline", "equivalent",
+                                    "none_correct"])
+def test_unconfirmed_outcomes_never_authorize(tmp_path, choice):
+    """baseline/equivalent/none_correct -> no repair authority;
+    the candidate stays pending and never enters the score."""
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    e = build_structure_plan(run)["repairs"][0]
+    _cal_confirm(run, e, choice=choice)
+    plan = build_structure_plan(run)
+    assert plan["repairs"][0]["status"] == CALIB_PENDING
+    res = apply_structure_plan(run, plan)
+    assert res["score"]["notes"] == _NOTES
+
+
+def test_superseded_confirmation_restales(tmp_path):
+    """A newer decision superseding the confirmation removes the
+    authority — the next plan is pending and any already-built plan
+    goes stale at apply."""
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    e = build_structure_plan(run)["repairs"][0]
+    _cal_confirm(run, e, choice="split")
+    plan = build_structure_plan(run)
+    assert plan["repairs"][0]["status"] == PATCH_OK
+    _cal_confirm(run, e, choice="baseline")       # re-review: false pos
+    assert build_structure_plan(
+        run)["repairs"][0]["status"] == CALIB_PENDING
+    with pytest.raises(RuntimeError, match="calibration_revoked"):
+        apply_structure_plan(run, plan)
+
+
+def test_calibration_summary(tmp_path):
+    run = _mk_run(tmp_path, [_machine_split_pkt(),
+                             _machine_split_pkt(pid="note_0003",
+                                                boundary=12.2)])
+    pk = json.loads((run / "diagnostic" / "residual_triage.json")
+                    .read_text())
+    pk[1]["structure_change_candidate"] = \
+        {"kind": "split", "boundary": 12.2,
+         "notes": [{"start": 12.0, "end": 12.2},
+                   {"start": 12.2, "end": 12.5}]}
+    (run / "diagnostic" / "residual_triage.json").write_text(
+        json.dumps(pk), encoding="utf-8")
+    entries = build_structure_plan(run)["repairs"]
+    _cal_confirm(run, entries[0], "split")
+    _cal_confirm(run, entries[1], "equivalent")
+    # state is derived from plan.json items — register them
+    from agent2utau.structure_calibration import calib_dir, _jwrite
+    _jwrite(calib_dir(run) / "plan.json",
+            {"schema": "m25-cal-1", "created_at": 0,
+             "diagnostic_run_id": "diag-x",
+             "candidate0_sha256": "x",
+             "items": [{"cal_item_id": cal_item_id(e["repair_id"]),
+                        "repair_id": e["repair_id"],
+                        "note_id": e["note_id"],
+                        "type": "split", "phrase": {}, "phrase_key": "",
+                        "plan_hash": "", "audio_package_hash": "",
+                        "package_state": "", "manifest": ""}
+                       for e in entries]})
+    st = rebuild_calibration_state(run)
+    assert st["total_machine_split_candidates"] == 2
+    assert st["reviewed_count"] == 2
+    assert st["split_preferred_count"] == 1
+    assert st["equivalent_count"] == 1
+    assert st["measured_song_level_precision"] == 0.5
 
 
 def test_human_structure_authority_applies(tmp_path):
@@ -272,6 +470,9 @@ def test_conflict_and_dedupe(tmp_path):
     identical patches dedupe with provenance kept."""
     run = _mk_run(tmp_path, [_machine_split_pkt()])
     _human_decision(run, _split_patch(tones=(61.0, 65.0)))
+    e0 = build_structure_plan(run)["repairs"][0]
+    _cal_confirm(run, next(e for e in [e0]
+                      if e["source_type"] == "machine_structure"))
     plan = build_structure_plan(run)
     assert all(e["status"] == BLOCKED_CONFLICT
                for e in plan["repairs"])
@@ -280,6 +481,9 @@ def test_conflict_and_dedupe(tmp_path):
 
     run2 = _mk_run(tmp_path / "b", [_machine_split_pkt()])
     _human_decision(run2, _split_patch())          # identical patch
+    e1 = next(e for e in build_structure_plan(run2)["repairs"]
+              if e["source_type"] == "machine_structure")
+    _cal_confirm(run2, e1)
     plan2 = build_structure_plan(run2)
     st = [e["status"] for e in plan2["repairs"]]
     assert st.count("eligible") == 1 and "deduped" in st
@@ -292,6 +496,9 @@ def test_rollback_subset_zero(tmp_path):
     # fix child spans for note_0000 (10.0-10.4)
     pk[0]["structure_change_candidate"] = _split_scc(10.0, 10.4, 10.2)
     run = _mk_run(tmp_path, pk)
+    plan = build_structure_plan(run)
+    for e in plan["repairs"]:
+        _cal_confirm(run, e)
     plan = build_structure_plan(run)
     ids = [e["repair_id"] for e in plan["repairs"]]
     r1 = apply_structure_plan(run, plan)

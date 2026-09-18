@@ -421,6 +421,17 @@ def verify_freshness(run_dir: Path, plan, *, schema=REPAIR_SCHEMA,
             cur = now.get(e["note_id"]) or []
             if not any(c["patch"] == e["patch"] for c in cur):
                 stale.append(f"machine_auth_changed:{e['note_id']}")
+            # §10.1.5: a confirmed machine_structure entry also needs
+            # its calibration decision to still authorize this exact
+            # repair_id + patch — a superseded/revoked confirmation
+            # stales the plan, never silently repairs.
+            if e["source_type"] == "machine_structure":
+                from .structure_calibration import (
+                    calibration_authorized)
+                if calibration_authorized(
+                        run_dir, e["repair_id"], e["patch"]) is None:
+                    stale.append(
+                        f"calibration_revoked:{e['repair_id']}")
         else:
             rev = repair_authorized_decision(
                 run_dir, e["authority"]["review_item_id"])
@@ -530,6 +541,13 @@ STRUCTURE_DIRNAME = "structure_repair"
 MIN_NOTE_DUR_S = 0.05            # minimum legal child/note duration
 SPAN_TOL_S = 1e-3
 STRUCTURE_TYPES = ("split", "merge", "boundary_shift")
+CALIB_PENDING = "calibration_pending"
+# §10.1.6 Blocker F: merge notes are frame-quantized (F0 hop ~10ms +
+# onset snap). A true merge joins notes that share a boundary within
+# one frame + slack; a larger positive gap is real silence/articulation
+# and must never be swallowed into one sustained note, a larger
+# negative gap is a genuine timing conflict.
+MERGE_ADJ_TOL_S = 0.06
 
 
 def _note_end(n) -> float:
@@ -595,6 +613,15 @@ def validate_structure_patch(patch, notes) -> tuple[bool, str]:
             return False, "note_not_in_candidate0"
         if idxs != list(range(idxs[0], idxs[0] + len(idxs))):
             return False, "merge_not_adjacent"
+        # §10.1.6: index-adjacent != time-contiguous — every pair must
+        # share a boundary within MERGE_ADJ_TOL_S; a real gap or an
+        # overlap beyond tolerance can never be merged into one note.
+        for a, b in zip(idxs, idxs[1:]):
+            gap = float(notes[b]["start"]) - _note_end(notes[a])
+            if gap > MERGE_ADJ_TOL_S:
+                return False, "merge_temporal_gap"
+            if gap < -MERGE_ADJ_TOL_S:
+                return False, "merge_temporal_overlap"
         m = patch.get("merged") or {}
         t0 = float(notes[idxs[0]]["start"])
         t1 = _note_end(notes[idxs[-1]])
@@ -795,6 +822,24 @@ def build_structure_plan(run_dir: Path, *, run_id=None, packets=None,
         idxs = _affected_indices(c["patch"], notes)
         ok, why = validate_structure_patch(c["patch"], notes) \
             if idxs else (False, "note_not_in_candidate0")
+        # §10.1.5 Blocker E: a machine TRUE_SPLIT/MERGE_CANDIDATE is
+        # evidence, not repair truth — it stays an auditable candidate
+        # until a phrase-level A/B calibration decision confirms it
+        # (human_confirmed_machine_split). Re-checking the same frozen
+        # C gate can never promote it into the trusted written score.
+        if c["source_type"] == "machine_structure" and ok:
+            from .structure_calibration import calibration_authorized
+            rev = calibration_authorized(
+                run_dir,
+                _structure_repair_id(run_id, c0_sha, c, notes),
+                c["patch"])
+            if rev is None:
+                ok, why = False, "awaiting_phrase_calibration"
+            else:
+                c["authority"]["calibration"] = {
+                    "revision_id": rev["revision_id"],
+                    "audio_package_hash": rev["audio_package_hash"],
+                    "outcome": rev["outcome"]}
         before, after = (_structure_before_after(c["patch"], notes)
                          if ok else (None, None))
         e = {"repair_id": _structure_repair_id(run_id, c0_sha, c, notes),
@@ -802,7 +847,9 @@ def build_structure_plan(run_dir: Path, *, run_id=None, packets=None,
              "affected": idxs, "patch": c["patch"],
              "authority": c["authority"],
              "before": before, "after": after,
-             "status": PATCH_OK if ok else REJECTED,
+             "status": PATCH_OK if ok else
+             (CALIB_PENDING if why == "awaiting_phrase_calibration"
+              else REJECTED),
              "blocked_reason": None if ok else why}
         entries.append(e)
         per_key.setdefault(tuple(idxs), []).append(e)
