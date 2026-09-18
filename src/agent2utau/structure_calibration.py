@@ -229,7 +229,10 @@ def review_ready(run_dir: Path, contract_sha: str) -> bool:
     committed to Git. Render success or a local file never counts."""
     v = load_verdict(run_dir)
     if not (v and v.get("verdict") == "PASS"
-            and v.get("contract_sha256") == contract_sha):
+            and v.get("contract_sha256") == contract_sha
+            # recorded under the Git-evidence regime — a verdict
+            # written before this rule existed never counts
+            and (v.get("git_evidence_at_record") or {}).get("complete")):
         return False
     ev = git_evidence(run_dir, item_ids=v.get("sample_ids") or [],
                       include_qc=True)

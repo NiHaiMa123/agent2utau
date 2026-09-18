@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789710841.733439,
+  "rebuilt_at": 1789710939.658075,
   "total_machine_split_candidates": 21,
   "reviewed_count": 0,
   "split_preferred_count": 0,
@@ -34,10 +34,10 @@
   "reviewed": [],
   "contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
   "git_evidence": {
-    "complete": false,
+    "complete": true,
     "git": "ok",
     "checked": 277,
-    "missing_count": 267
+    "missing_count": 0
   },
   "review_ready": false
 }

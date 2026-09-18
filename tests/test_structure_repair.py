@@ -778,6 +778,24 @@ def test_git_evidence_review_ready_needs_qc_committed(tmp_path,
     assert sc.review_ready(run, "c")
 
 
+def test_git_evidence_legacy_verdict_never_ready(tmp_path, monkeypatch):
+    """A verdict recorded before the Git-evidence regime (no
+    git_evidence_at_record field) can never flip review_ready — even
+    when every artifact is committed."""
+    import agent2utau.structure_calibration as sc
+    run = _mk_run(tmp_path, [_machine_split_pkt()])
+    cdir = run / "structure_calibration" / "qc"
+    cdir.mkdir(parents=True)
+    (cdir / "verdict.json").write_text(json.dumps({
+        "schema": sc.CALIB_SCHEMA, "verdict": "PASS",
+        "contract_sha256": "c", "auditor": "devin",
+        "sample_ids": []}), encoding="utf-8")
+    (cdir / "audit.jsonl").write_text("{}\n", encoding="utf-8")
+    monkeypatch.setattr(sc, "_git_tracked_set",
+                        lambda d: _tracked_all())
+    assert not sc.review_ready(run, "c")
+
+
 def _fake_rendered_item(tmp_path, name="cal-x", region=(2.0, 2.5),
                         phrase_start=0.0, dur=6.0, sr=8000,
                         cand_gain=1.0):
