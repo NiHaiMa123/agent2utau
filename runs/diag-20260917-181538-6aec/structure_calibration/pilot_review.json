@@ -1,11 +1,11 @@
 {
   "schema": "m25-cal-2",
   "kind": "pilot_review",
-  "generated_at": 1789727771.5525012,
+  "generated_at": 1789736574.601583,
   "run_id": "diag-20260917-181538-6aec",
   "git": {
     "slug": "NiHaiMa123/agent2utau",
-    "sha": "7d44e11583cefac103b201b81a4ed81c128d8c76",
+    "sha": "1161b3e884cf21b7bd3efead545010d20a2768cf",
     "remote": "https://github.com/NiHaiMa123/agent2utau"
   },
   "primary_review_unit": "full_natural_phrase",
@@ -35,7 +35,7 @@
       },
       "phrase_key": "37.78-44.08",
       "phrase_duration_s": 6.3,
-      "audio_package_hash": "d2c74f18a2b6c626e319f6d528acaaf06a0f59a3f407e9a330b14992c045c0c4",
+      "audio_package_hash": "dae9eaa4fc37fa8a30312ed0110f38124dac32d0adc812231817754047dcadef",
       "files": {
         "SOURCE": {
           "label": "原唱",
@@ -43,7 +43,7 @@
           "display_name": "SOURCE.wav",
           "sha256": "f4b623122cdca5a4c34a8f63e31ee18876d29fe351faec62e48ca6ad2bdf393b",
           "bytes": 1111364,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/phrases/37.78-44.08/SOURCE_PHRASE_original_mix_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/phrases/37.78-44.08/SOURCE_PHRASE_original_mix_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/phrases/37.78-44.08/SOURCE_PHRASE_original_mix.wav",
             "sha256": "6389fdb09d5883cce1d67e94325c08e70f9680515585345db9f6292c044f23d2"
@@ -55,7 +55,7 @@
           "display_name": "SOURCE_VOCAL.wav",
           "sha256": "0e81e9c7821ac54647f6356c2c77c82321454882caa3a7cb35351b70ed676932",
           "bytes": 1111364,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/phrases/37.78-44.08/SOURCE_PHRASE_separated_vocal_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/phrases/37.78-44.08/SOURCE_PHRASE_separated_vocal_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/phrases/37.78-44.08/SOURCE_PHRASE_separated_vocal.wav",
             "sha256": "9fc8a03be7ede9e6b0d3e7b64434d5a4e05c18bb729b31c6fcd804fe170970d5"
@@ -65,24 +65,24 @@
           "label": "A",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/OPTION_0_LISTEN.wav",
           "display_name": "A.wav",
-          "sha256": "490539ca5542b04a06cac2aa116d952ad2b2e6dccde85e076eb5ab232e64e631",
+          "sha256": "24677e0c0b0f6d4d27f25afbf35a52b0319d64d6036fbc202f05729ddf3d5223",
           "bytes": 555704,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/OPTION_0_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/OPTION_0_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/OPTION_0.wav",
-            "sha256": "c9911a829c27c0e5252729acbd244e8dab664792322fc62fff09ae885b37f184"
+            "sha256": "3d2b842b9d119274d29a57fc63bbb19e9e1d751fda1d7dec8380ae59a8051795"
           }
         },
         "B": {
           "label": "B",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/OPTION_1_LISTEN.wav",
           "display_name": "B.wav",
-          "sha256": "24a5fe6e0fe787503f2d30b79a5708927af45d82983c9a36381f4d6a4ced19d2",
+          "sha256": "4c6df5bd3757359a7b63a9ad051a01b42bf08d5c76c7ad2f12bb3f672340a511",
           "bytes": 555704,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/OPTION_1_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/OPTION_1_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/OPTION_1.wav",
-            "sha256": "cd9866dc7db84af33eb266596de8e74bb829c759da57fab2270bec9667153100"
+            "sha256": "82002e777c065e21c82c18be6a817266c44194d280ec2360987e7edbf272075d"
           }
         }
       },
@@ -93,39 +93,39 @@
           "display_name": "SOURCE_CORE.wav",
           "sha256": "e1320a72c304cd66a044bb99f8bdda234a04f0b9fc948ab59c803056cf6673cc",
           "bytes": 121760,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/SOURCE_CORE_original_mix.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/SOURCE_CORE_original_mix.wav"
         },
         "A_CORE": {
           "label": "A·定位",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/CANDIDATE_CORE.wav",
           "display_name": "A_CORE.wav",
-          "sha256": "dfaff11933bf7adba56949687f27fe1146b6a80b99b2172e0f9f012e4d0591ec",
+          "sha256": "df881b61f8dfe621e5983f9cb178adf0bea9db59cc29a08e942f2626ae42c3ac",
           "bytes": 60902,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/CANDIDATE_CORE.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/CANDIDATE_CORE.wav"
         },
         "A_FOCUS": {
           "label": "A·聚焦",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/CANDIDATE_TARGET.wav",
           "display_name": "A_FOCUS.wav",
-          "sha256": "903650b4f497098185ff24f7c94786bf127929bc9d8ac14589e1370337e2bb4e",
+          "sha256": "5ea716a574afb189225601b8a2170b54df748d20fd2864b232175f81699aeb5c",
           "bytes": 122642,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/CANDIDATE_TARGET.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/CANDIDATE_TARGET.wav"
         },
         "B_CORE": {
           "label": "B·定位",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/BASELINE_CORE.wav",
           "display_name": "B_CORE.wav",
-          "sha256": "562396942866e240da89b7327027a738b534c2705419c4e03a7b7345629995d4",
+          "sha256": "c0ff6bb719bd11289a8f0e940e6d8dc056fa74f4d66eede04d4806bb00704e5e",
           "bytes": 60902,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/BASELINE_CORE.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/BASELINE_CORE.wav"
         },
         "B_FOCUS": {
           "label": "B·聚焦",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/BASELINE_TARGET.wav",
           "display_name": "B_FOCUS.wav",
-          "sha256": "8dd8b879fdd932f5f77128e1bd940799beb795e5367deac584f59073b6350c1d",
+          "sha256": "347408881894a5b87db62528a15d62e6f904e98553ace4c382cea5cab134a0f4",
           "bytes": 122642,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/BASELINE_TARGET.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-cb76bf56bb24b5c3d8849bc0/BASELINE_TARGET.wav"
         }
       }
     },
@@ -142,7 +142,7 @@
       },
       "phrase_key": "90.36-95.59",
       "phrase_duration_s": 5.23,
-      "audio_package_hash": "5a5f52549664ebe49496b8f25ea27bb212798d3ce12b0eff691b6888ce3612b3",
+      "audio_package_hash": "18d8855714308c780fbe326f2a11ccf78148b4add5d43ee349c7500b2bf63fe0",
       "files": {
         "SOURCE": {
           "label": "原唱",
@@ -150,7 +150,7 @@
           "display_name": "SOURCE.wav",
           "sha256": "f3e028aa636078f2339bd9d913184f614608e7faeabdcb3697b5001f0201e696",
           "bytes": 922616,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_original_mix_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_original_mix_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_original_mix.wav",
             "sha256": "f2f2feac51bc2f6206e0eca5e840c8a5c3da59820ba517b34b92623701efc434"
@@ -162,7 +162,7 @@
           "display_name": "SOURCE_VOCAL.wav",
           "sha256": "7325bc17ce08b2b751035e2bc0d289a3ad5c916a3fc79440e4de5642136fcd24",
           "bytes": 922616,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_separated_vocal_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_separated_vocal_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_separated_vocal.wav",
             "sha256": "0db8e4ca2ec3b967b230276f7a855b6927f2046a4c79065a59a952d654670fc0"
@@ -172,24 +172,24 @@
           "label": "A",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/OPTION_0_LISTEN.wav",
           "display_name": "A.wav",
-          "sha256": "d96dd125dcf2d037d999f23e34ce24d0c38af528bfd1975e7078e054755cd002",
+          "sha256": "ef60e4c1138d6a73b91cabc1a99739eae9dd18c788fea5fbccc9081070ed2e78",
           "bytes": 461330,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/OPTION_0_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/OPTION_0_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/OPTION_0.wav",
-            "sha256": "a119db1ec9d1c54c51734c92b14e34dad3547da0784ab5687204946abc4c41ed"
+            "sha256": "d658f025dc9c4b9aa9b58ab3939a2facebca39df93e486015700e2fc48363282"
           }
         },
         "B": {
           "label": "B",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/OPTION_1_LISTEN.wav",
           "display_name": "B.wav",
-          "sha256": "852f64c57cadac2c706cfd599c48a585e8a133c6003da1d95e1366a4eeafec67",
+          "sha256": "2080a55161699901e98f5ab15d54fa06c396747f069a155acaa3b21a3293705c",
           "bytes": 461330,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/OPTION_1_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/OPTION_1_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/OPTION_1.wav",
-            "sha256": "462741c4c66cc9f10e2e72825252834f33844214d4d181853c45cbf1659ee16d"
+            "sha256": "e976de7d6eae48c3f72013f551d0152135e8b6a03b17b6074183e0e4efe91a91"
           }
         }
       },
@@ -200,39 +200,39 @@
           "display_name": "SOURCE_CORE.wav",
           "sha256": "3692a2f0b9dda58a9e4ff067468a5eb7098328e23b56c4e48966f0d266dbd6e2",
           "bytes": 119996,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/SOURCE_CORE_original_mix.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/SOURCE_CORE_original_mix.wav"
         },
         "A_CORE": {
           "label": "A·定位",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/CANDIDATE_CORE.wav",
           "display_name": "A_CORE.wav",
-          "sha256": "809b1a57eec5f28aeb4de9fbef892a98f693c0ba7e2bb6fae7e9f2bbf419ea77",
+          "sha256": "2b4b94290ebbfa186c6b9d6fcb07c3bf7212d5c77cd5710b4c6fb2cfb991f9d4",
           "bytes": 60020,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/CANDIDATE_CORE.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/CANDIDATE_CORE.wav"
         },
         "A_FOCUS": {
           "label": "A·聚焦",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/CANDIDATE_TARGET.wav",
           "display_name": "A_FOCUS.wav",
-          "sha256": "8a8164eedc36fd16d8f199f6ea62aaf463f53f72b6b3675b22ec50909ebc0f96",
+          "sha256": "1faaa4628e73c1bc61c0542e57f2cd1a2939e9d1d09cca62ec65314cbe183f2c",
           "bytes": 121760,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/CANDIDATE_TARGET.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/CANDIDATE_TARGET.wav"
         },
         "B_CORE": {
           "label": "B·定位",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/BASELINE_CORE.wav",
           "display_name": "B_CORE.wav",
-          "sha256": "5f02dd5c995f215602b72b09e2bc446563877075d30cf64a0efb9b2bde2cc2ca",
+          "sha256": "a63a5813a5980d498d653503362f5b211d9323b3b01ee0faaba318acd9632029",
           "bytes": 60020,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/BASELINE_CORE.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/BASELINE_CORE.wav"
         },
         "B_FOCUS": {
           "label": "B·聚焦",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/BASELINE_TARGET.wav",
           "display_name": "B_FOCUS.wav",
-          "sha256": "f993e8f4b1486cf9304eccca9351fa3f5dd609a79d399a151ddaf7b42560ec71",
+          "sha256": "787d37018bee8ae022a85b1a71715ba69c48846bee8a63581b3e05e656bdb678",
           "bytes": 121760,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/BASELINE_TARGET.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-9e3efba85c56ade947bcfdbf/BASELINE_TARGET.wav"
         }
       }
     },
@@ -249,7 +249,7 @@
       },
       "phrase_key": "90.36-95.59",
       "phrase_duration_s": 5.23,
-      "audio_package_hash": "29ecef875da30030e6228b684f1beec2da5368c1944a56185f33b7e5b77238ce",
+      "audio_package_hash": "7ffe29d5f2a891f4a0be3f03b838a5920815b97da88bde78f2e10cf94b2ed9e1",
       "files": {
         "SOURCE": {
           "label": "原唱",
@@ -257,7 +257,7 @@
           "display_name": "SOURCE.wav",
           "sha256": "f3e028aa636078f2339bd9d913184f614608e7faeabdcb3697b5001f0201e696",
           "bytes": 922616,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_original_mix_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_original_mix_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_original_mix.wav",
             "sha256": "f2f2feac51bc2f6206e0eca5e840c8a5c3da59820ba517b34b92623701efc434"
@@ -269,7 +269,7 @@
           "display_name": "SOURCE_VOCAL.wav",
           "sha256": "7325bc17ce08b2b751035e2bc0d289a3ad5c916a3fc79440e4de5642136fcd24",
           "bytes": 922616,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_separated_vocal_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_separated_vocal_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/phrases/90.36-95.59/SOURCE_PHRASE_separated_vocal.wav",
             "sha256": "0db8e4ca2ec3b967b230276f7a855b6927f2046a4c79065a59a952d654670fc0"
@@ -279,24 +279,24 @@
           "label": "A",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/OPTION_0_LISTEN.wav",
           "display_name": "A.wav",
-          "sha256": "5dea8812e68f84a700e31fcbc1c121b437d8b5ca2c8ce634e871cdb7ef416421",
+          "sha256": "6b01d14286ae9273c27ec70ef49e4a45ed0b202ac64f8559884e0ecce638941f",
           "bytes": 461330,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/OPTION_0_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/OPTION_0_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/OPTION_0.wav",
-            "sha256": "462741c4c66cc9f10e2e72825252834f33844214d4d181853c45cbf1659ee16d"
+            "sha256": "fd6ea738600abb7c2ae41906631fef24dd0247d4f41b69df10f038b29128d0a4"
           }
         },
         "B": {
           "label": "B",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/OPTION_1_LISTEN.wav",
           "display_name": "B.wav",
-          "sha256": "86316483bcff4e1442045811b3b8dbe51e3646f8ff994b03087cfd75275089ab",
+          "sha256": "89bca8634e05b302f836cec6daac4eee158cb44498f8e994d3c6f9f22c935fc5",
           "bytes": 461330,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/OPTION_1_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/OPTION_1_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/OPTION_1.wav",
-            "sha256": "f63094aa693e0b341f81699c7bdc7fad1d73d0dfae0dd23bcf30ac4ee685c7e9"
+            "sha256": "efb08f72f08740c4c5e2fcef731d9207c8c6b9b177fd331fb5caf81939be8bad"
           }
         }
       },
@@ -307,39 +307,39 @@
           "display_name": "SOURCE_CORE.wav",
           "sha256": "b435f41cdc423a6b48a9fb3ddb744da313b41ba5963185a981cee3316731aad0",
           "bytes": 139400,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/SOURCE_CORE_original_mix.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/SOURCE_CORE_original_mix.wav"
         },
         "A_CORE": {
           "label": "A·定位",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/BASELINE_CORE.wav",
           "display_name": "A_CORE.wav",
-          "sha256": "d6bba3e9802ae8202dc9e32fc3baf07914ed0701fb4fb82a816a8df308794acf",
+          "sha256": "c041ba5b3d34136c50c41dc43cf1da59c11640c504b1d140c21fca6e96549d2b",
           "bytes": 69722,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/BASELINE_CORE.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/BASELINE_CORE.wav"
         },
         "A_FOCUS": {
           "label": "A·聚焦",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/BASELINE_TARGET.wav",
           "display_name": "A_FOCUS.wav",
-          "sha256": "a63fdcabb40e3c7e41f910436fe223fd31da516dc7ac60252f32ab5b0de08431",
+          "sha256": "92e28659dc7af203e343c79057fee30123cdce024975b3c9804f35c4c52939d0",
           "bytes": 114704,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/BASELINE_TARGET.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/BASELINE_TARGET.wav"
         },
         "B_CORE": {
           "label": "B·定位",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/CANDIDATE_CORE.wav",
           "display_name": "B_CORE.wav",
-          "sha256": "8cae8214ff95ebd9ce1ac89b272e3c710c0c11b9b7397c8bf43e0d6082671cad",
+          "sha256": "26905aeae13244a3d91c912408a2ce2eb710593969b2eb486b506631983a8b8d",
           "bytes": 69722,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/CANDIDATE_CORE.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/CANDIDATE_CORE.wav"
         },
         "B_FOCUS": {
           "label": "B·聚焦",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/CANDIDATE_TARGET.wav",
           "display_name": "B_FOCUS.wav",
-          "sha256": "d9391d3b9546a28c165a380d242b26990034b92891b3895f150827d1b11476d6",
+          "sha256": "1e025bbe82b8518720262543bdf3fb4df4d3cd22a856085c9daf854695403863",
           "bytes": 114704,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/CANDIDATE_TARGET.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-f93f9a2370cdb829565fbb7c/CANDIDATE_TARGET.wav"
         }
       }
     },
@@ -356,7 +356,7 @@
       },
       "phrase_key": "177.99-183.00",
       "phrase_duration_s": 5.01,
-      "audio_package_hash": "933d6bee635fe8e404f538105fe4ae89622294fe77b22c5ba5bf439b1ea76fa4",
+      "audio_package_hash": "079feb34c6aaa984e024412234ddb526b6e2abac6cc33f84c5d303c2365d10d0",
       "files": {
         "SOURCE": {
           "label": "原唱",
@@ -364,7 +364,7 @@
           "display_name": "SOURCE.wav",
           "sha256": "67dddce1ef39d9611c52a7a0c3fcca2eb1b78c6292d67d60541989281e1e8991",
           "bytes": 883808,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/phrases/177.99-183.00/SOURCE_PHRASE_original_mix_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/phrases/177.99-183.00/SOURCE_PHRASE_original_mix_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/phrases/177.99-183.00/SOURCE_PHRASE_original_mix.wav",
             "sha256": "92061e460c4ddaa0a4befd0fa0cde08bec6d6e2a35a4138f767d4bc0d07c4f7a"
@@ -376,7 +376,7 @@
           "display_name": "SOURCE_VOCAL.wav",
           "sha256": "00a6eff0cf189d56ae24f8a0894f7fdf306f16b3567d75c38bf09f9a4bf75cb6",
           "bytes": 883808,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/phrases/177.99-183.00/SOURCE_PHRASE_separated_vocal_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/phrases/177.99-183.00/SOURCE_PHRASE_separated_vocal_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/phrases/177.99-183.00/SOURCE_PHRASE_separated_vocal.wav",
             "sha256": "97ce4d3e5738c3938336f8e307ed060c41aa3ec87645cbd52b8d337c3ef26d7c"
@@ -386,24 +386,24 @@
           "label": "A",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/OPTION_0_LISTEN.wav",
           "display_name": "A.wav",
-          "sha256": "fb7e20c0c321b6e3968d95352419d4375a1a515af3c56499f2bf9cfa2b478300",
+          "sha256": "7304c5fd8f7ef8198c6d110eab765ebb962e33932744888e753cf9407e867110",
           "bytes": 441926,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/OPTION_0_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/OPTION_0_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/OPTION_0.wav",
-            "sha256": "eb8ceec5f1174077cdf05772543f36d8b19bc4fa481a40a37f7d0d00cf32b205"
+            "sha256": "43dd9aacc0cf0ea3be90bd0bc238ab8c13c96d47d6555577cff2fd483d5ce012"
           }
         },
         "B": {
           "label": "B",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/OPTION_1_LISTEN.wav",
           "display_name": "B.wav",
-          "sha256": "0b45b34b221502ec68d3f41613c4109bafbfd598aa81c6f7ef57585c9869918b",
+          "sha256": "c4b6bc4685550d1695bfc1ce9f1e76af643ba816fc6b8bbecc454f9c6c996b03",
           "bytes": 441926,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/OPTION_1_LISTEN.wav",
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/OPTION_1_LISTEN.wav",
           "canonical": {
             "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/OPTION_1.wav",
-            "sha256": "af2346d303cd12911ca72ad59c19712c1ade9b5e6089f5b86f3e8e3934c1ee57"
+            "sha256": "0ca0eba32e4b9f5f57903fb81aa589572b63f1fec1d2f3cea49d561b167ce5e1"
           }
         }
       },
@@ -414,39 +414,39 @@
           "display_name": "SOURCE_CORE.wav",
           "sha256": "619aef7bd60fc5d75d40854c154e7d0ae9d6dfc0f350de310d08a31b78e1f110",
           "bytes": 128816,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/SOURCE_CORE_original_mix.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/SOURCE_CORE_original_mix.wav"
         },
         "A_CORE": {
           "label": "A·定位",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/BASELINE_CORE.wav",
           "display_name": "A_CORE.wav",
-          "sha256": "16384a28049c6fe926cd6083a7cee9c2162fb7ffd173e675374ad8d610d6deb8",
+          "sha256": "7d4f7013b384db062abcf153d04ae2e318076fe6b025a9b4d1c650c8ae1fdec4",
           "bytes": 64430,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/BASELINE_CORE.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/BASELINE_CORE.wav"
         },
         "A_FOCUS": {
           "label": "A·聚焦",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/BASELINE_TARGET.wav",
           "display_name": "A_FOCUS.wav",
-          "sha256": "c02b50d96cd7be93de3f760e56184af40b20d1948eaab92d30c7043595914b7b",
+          "sha256": "f14b7ef58345970515f707144522800259c835001dd245f4722c3c576cc65f9d",
           "bytes": 126170,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/BASELINE_TARGET.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/BASELINE_TARGET.wav"
         },
         "B_CORE": {
           "label": "B·定位",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/CANDIDATE_CORE.wav",
           "display_name": "B_CORE.wav",
-          "sha256": "d7ad544854949e18f0bc09cc02402d41b198cb39ca82f8d7599e41ab58e22926",
+          "sha256": "408be72e95e7b345850b86c9221e528722d1d60fc3ccd9dfdd22e436ed3f00c1",
           "bytes": 64430,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/CANDIDATE_CORE.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/CANDIDATE_CORE.wav"
         },
         "B_FOCUS": {
           "label": "B·聚焦",
           "git_path": "runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/CANDIDATE_TARGET.wav",
           "display_name": "B_FOCUS.wav",
-          "sha256": "c3f1f7aa7e5953fe8e423dd5466d9dc04435dff99b7fd6658c602b44852cc02d",
+          "sha256": "6472fafe5f457aa049bacb605a8f09822c4ba1c67c9793ee2ed1c920b26b8b8b",
           "bytes": 126170,
-          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/7d44e11583cefac103b201b81a4ed81c128d8c76/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/CANDIDATE_TARGET.wav"
+          "raw_url": "https://raw.githubusercontent.com/NiHaiMa123/agent2utau/1161b3e884cf21b7bd3efead545010d20a2768cf/runs/diag-20260917-181538-6aec/structure_calibration/items/cal-srp-b04c10c381b66d1abfd9ec8a/CANDIDATE_TARGET.wav"
         }
       }
     }
