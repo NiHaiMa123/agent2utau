@@ -95,8 +95,8 @@ def test_boundary_energy_is_local():
     far = _boundary_energy(times, energy, 10.20, 10.0, 10.4)
     times, energy = _times_energy(10.0, 10.4, dip_at=10.20)  # at b
     near = _boundary_energy(times, energy, 10.20, 10.0, 10.4)
-    assert near["support"] > far["support"]
-    assert near["support"] > 0.5
+    assert near["boundary_support"] > far["boundary_support"]
+    assert near["boundary_support"] > 0.5
 
 
 def test_discovery_energy_reason_needs_candidate_boundary():

@@ -218,18 +218,22 @@ def build_plan(run_dir: Path, *, run_id=None, packets=None, notes=None,
     runs/<diag>/repair/repair_plan.json when `write`)."""
     run_dir = Path(run_dir)
     run_id = run_id or run_dir.name
+    c0_path = run_dir / "diagnostic" / "baseline_game.json"
     if packets is None or notes is None:
         diag = run_dir / "diagnostic"
         packets = json.loads((diag / "residual_triage.json")
                              .read_text(encoding="utf-8"))
-        notes = json.loads((diag / "baseline_game.json")
-                           .read_text(encoding="utf-8"))["notes"]
+        notes = json.loads(c0_path.read_text(encoding="utf-8"))["notes"]
         triage_sha = _file_sha(diag / "residual_triage.json")
         if song_sha256 is None:
             rep = json.loads((run_dir / "report.json")
                              .read_text(encoding="utf-8"))
             song_sha256 = rep["cache"]["source_sha256"]
+    # §6.3 (pre-M2.5): the plan binds BOTH the semantic notes hash and
+    # the exact baseline_game.json artifact bytes — a metadata-only or
+    # formatting change must stale the plan just like a tone change.
     c0_sha = _sha(notes)
+    c0_file_sha = _file_sha(c0_path) if c0_path.exists() else None
 
     cands = machine_candidates(packets) + human_candidates(run_dir)
     entries, per_note = [], {}
@@ -283,9 +287,13 @@ def build_plan(run_dir: Path, *, run_id=None, packets=None, notes=None,
         "created_at": _now(),
         "diagnostic_run_id": run_id,
         "candidate0_sha256": c0_sha,
+        "candidate0_notes_sha256": c0_sha,
+        "candidate0_file_sha256": c0_file_sha,
         "song_sha256": song_sha256,
         "bindings": {
             "residual_triage_sha256": triage_sha,
+            "candidate0_notes_sha256": c0_sha,
+            "candidate0_file_sha256": c0_file_sha,
             "review_authority": {"schema": "d3",
                                  "identity_schema": "review-target-v1"},
             "human_revisions": {e["authority"]["review_item_id"]: {
@@ -332,9 +340,12 @@ def apply_repairs(notes, entries) -> list:
     return out
 
 
-def corrected_score(notes, applied_ids, c0_sha) -> dict:
+def corrected_score(notes, applied_ids, c0_sha,
+                    c0_file_sha=None) -> dict:
     return {"schema": REPAIR_SCHEMA,
             "base_candidate0_sha256": c0_sha,
+            "base_candidate0_notes_sha256": c0_sha,
+            "base_candidate0_file_sha256": c0_file_sha,
             "notes": notes,
             "applied_repairs": list(applied_ids),
             "corrected_score_sha256": _sha({"notes": notes,
@@ -347,10 +358,14 @@ def verify_freshness(run_dir: Path, plan) -> list[str]:
     run_dir = Path(run_dir)
     stale = []
     diag = run_dir / "diagnostic"
-    notes = json.loads((diag / "baseline_game.json")
-                       .read_text(encoding="utf-8"))["notes"]
-    if _sha(notes) != plan["candidate0_sha256"]:
-        stale.append("candidate0_changed")
+    c0_path = diag / "baseline_game.json"
+    notes = json.loads(c0_path.read_text(encoding="utf-8"))["notes"]
+    if _sha(notes) != plan.get("candidate0_notes_sha256",
+                               plan["candidate0_sha256"]):
+        stale.append("candidate0_notes_changed")
+    if plan.get("candidate0_file_sha256") is not None and \
+            _file_sha(c0_path) != plan["candidate0_file_sha256"]:
+        stale.append("candidate0_file_changed")
     if plan["bindings"].get("residual_triage_sha256") and \
             _file_sha(diag / "residual_triage.json") != \
             plan["bindings"]["residual_triage_sha256"]:
@@ -399,7 +414,10 @@ def apply_plan(run_dir: Path, plan=None, only=None, exclude=None) -> dict:
     elig = _eligible_entries(plan, only=only, exclude=exclude)
     new_notes = apply_repairs(notes, elig)
     applied = [e["repair_id"] for e in elig]
-    score = corrected_score(new_notes, applied, plan["candidate0_sha256"])
+    score = corrected_score(new_notes, applied,
+                            plan.get("candidate0_notes_sha256",
+                                     plan["candidate0_sha256"]),
+                            c0_file_sha=plan.get("candidate0_file_sha256"))
 
     # ---- post-apply integrity verification (§6.9): no re-adjudication
     checks = {
@@ -427,6 +445,8 @@ def apply_plan(run_dir: Path, plan=None, only=None, exclude=None) -> dict:
         "diagnostic_run_id": plan["diagnostic_run_id"],
         "plan_hash": plan["plan_hash"],
         "candidate0_sha256": plan["candidate0_sha256"],
+        "candidate0_notes_sha256": plan.get("candidate0_notes_sha256"),
+        "candidate0_file_sha256": plan.get("candidate0_file_sha256"),
         "corrected_score_sha256": score["corrected_score_sha256"],
         "applied_repairs": applied,
         "repairs": [{

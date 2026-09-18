@@ -119,21 +119,30 @@ def _split_support(ev: dict | None) -> float:
 def _boundary_energy(times: np.ndarray, energy: np.ndarray, b: float,
                      t0: float, t1: float) -> dict:
     """Local minimum prominence + pre/post recovery around candidate
-    boundary b. Without a candidate boundary there is no evidence."""
+    boundary b. Three-way semantics (plan2 §6.2 Blocker B):
+    available=False -> insufficient/unavailable -> NEUTRAL (0 to every
+    hypothesis); boundary_support = observed dip+recovery strength;
+    continuity_support = observed flat local energy vs context —
+    an explicit measurement, never 1 - missing."""
+    na = {"available": False, "dip_prominence": 0.0, "recovery": 0.0,
+          "boundary_support": 0.0, "continuity_support": 0.0}
     h, c = BOUNDARY_HALF_WIN_S, BOUNDARY_CTX_S
     pre = energy[(times >= b - c - h) & (times < b - h)]
     post = energy[(times > b + h) & (times <= b + c + h)]
     loc = energy[(times >= b - h) & (times <= b + h)]
     if len(pre) < 3 or len(post) < 3 or len(loc) < 2:
-        return {"dip_prominence": 0.0, "recovery": 0.0, "support": 0.0}
+        return na
     ref = float(max(pre.mean(), post.mean()))
     if ref <= 1e-4:
-        return {"dip_prominence": 0.0, "recovery": 0.0, "support": 0.0}
+        return na
     dip = max(0.0, 1.0 - float(loc.min()) / ref)
     rec = float(min(pre.mean(), post.mean())) / ref
     sup = float(np.clip(dip * rec / 0.45, 0.0, 1.0))
-    return {"dip_prominence": round(dip, 3), "recovery": round(rec, 3),
-            "support": round(sup, 3)}
+    cont = float(np.clip(float(loc.mean()) / ref, 0.0, 1.0))
+    return {"available": True, "dip_prominence": round(dip, 3),
+            "recovery": round(rec, 3),
+            "boundary_support": round(sup, 3),
+            "continuity_support": round(cont, 3)}
 
 
 def _boundary_voiced_drop(times: np.ndarray, voiced: np.ndarray,
@@ -176,7 +185,7 @@ def discover_structure(packets: list[dict], times: np.ndarray,
         if b is not None:
             be = _boundary_energy(times, energy, b, p["start"],
                                   p["start"] + p["dur"])
-            if be["support"] > 0.25:
+            if be["boundary_support"] > 0.25:
                 reasons.append("boundary_energy_dip")
 
         if p["dur"] > LONG_NOTE_S and (ev_r or ev_f):
@@ -450,16 +459,26 @@ def adjudicate_structure(p: dict, times: np.ndarray,
     # non-F0 requirement (§8.3 final patch).
     be = (_boundary_energy(times, energy, b, t0, t1)
           if b is not None
-          else {"dip_prominence": 0.0, "recovery": 0.0, "support": 0.0})
+          else {"available": False, "dip_prominence": 0.0,
+                "recovery": 0.0, "boundary_support": 0.0,
+                "continuity_support": 0.0})
     vdrop = (_boundary_voiced_drop(times, voiced, b)
              if b is not None else 0.0)
     sup_r = round(min(1.0, sup_r + 0.25 * vdrop), 3)   # same family
-    nonf0 = be["support"]
+    # §6.2 (pre-M2.5): unavailable boundary observation is NEUTRAL —
+    # it can neither support a boundary (nonf0) nor support continuity
+    # (cont_b). Continuity is an explicit measurement of the observed
+    # signal, never the complement of missing evidence.
+    bavail = bool(be.get("available"))
+    nonf0 = be["boundary_support"] if bavail else 0.0
+    cont_b = be["continuity_support"] if bavail else 0.0
 
+    # GAME structure: no run_note_counts -> neutral, never game_one=1.
+    game_struct_avail = n_runs > 0
     game_one = (sum(1 for c in counts if c == 1) / n_runs
-                if n_runs else 1.0)
+                if game_struct_avail else 0.0)
     game_split = (sum(1 for c in counts if c >= 2) / n_runs
-                  if n_runs else 0.0)
+                  if game_struct_avail else 0.0)
 
     # --- scores -------------------------------------------------------
     # §8.5: explicit one-note support — missing extractor is neutral,
@@ -468,12 +487,11 @@ def adjudicate_structure(p: dict, times: np.ndarray,
     one_f = _one_note_support(pl_f)
     dur_plaus_h0 = 0.0 if p["dur"] < SHORT_NOTE_S else 1.0
     scored = {"H0": {"score": round(game_one + one_r + one_f
-                                  + (1 - nonf0) + 0.5 * dur_plaus_h0, 3),
+                                  + cont_b + 0.5 * dur_plaus_h0, 3),
                      "groups": {"game": round(game_one, 3),
                                 "rmvpe": one_r,
                                 "fcpe": one_f,
-                                "acoustic_boundary":
-                                    round(1 - nonf0, 3)}}}
+                                "acoustic_boundary": cont_b}}}
     hyps = hypotheses_structure(p)
     if "H1" in hyps:
         scored["H1"] = {"score": round(game_split + sup_r + sup_f
@@ -484,11 +502,10 @@ def adjudicate_structure(p: dict, times: np.ndarray,
     # H3 portamento/ornament competes whenever pitch motion is real
     # (dual delta agree or any extractor delta) but boundary may be fake
     if ev_r or ev_f:
-        scored["H3"] = {"score": round(game_one + (1 - nonf0) + 0.5
+        scored["H3"] = {"score": round(game_one + cont_b + 0.5
                                      + 0.5 * min(sup_r, sup_f), 3),
                         "groups": {"game": round(game_one, 3),
-                                   "acoustic_boundary":
-                                       round(1 - nonf0, 3)}}
+                                   "acoustic_boundary": cont_b}}
 
     merge_sup, merge_span = _merge_evidence(p, neighbors or [])
     if merge_sup > 0:
@@ -504,12 +521,11 @@ def adjudicate_structure(p: dict, times: np.ndarray,
                     g_fcp_m = 1.0
         hyps["H2"] = {"kind": "merge", "span": merge_span}
         scored["H2"] = {"score": round(g_game_m + merge_sup + g_fcp_m
-                                     + 0.5 * (1 - nonf0), 3),
+                                     + 0.5 * cont_b, 3),
                         "groups": {"game": round(g_game_m, 3),
                                    "rmvpe": merge_sup,
                                    "fcpe": round(g_fcp_m, 3),
-                                   "acoustic_boundary":
-                                       round(1 - nonf0, 3)}}
+                                   "acoustic_boundary": cont_b}}
         # merge continuity also weakens the keep hypothesis
         scored["H0"]["score"] = round(
             scored["H0"]["score"] - merge_sup - g_fcp_m, 3)
@@ -554,11 +570,14 @@ def adjudicate_structure(p: dict, times: np.ndarray,
     else:
         cls, status = "UNRESOLVED_STRUCTURE", "unresolved"
 
-    if status != "unresolved":
-        if not pl_r and not pl_f and cons.get("structure_varies"):
-            cls, status = "ALIGNMENT_ARTIFACT", "unresolved"
-        elif not pl_r and not pl_f and not cons.get("structure_varies"):
-            cls, status = "F0_ARTIFACT", "unresolved"
+    # No extractor plateau evidence at all -> the structure question is
+    # an artifact class, never a resolution. Missing evidence must not
+    # produce resolved_keep (§6.2/B4): record the artifact class even
+    # when the score gates already failed.
+    if not pl_r and not pl_f:
+        cls = ("ALIGNMENT_ARTIFACT" if cons.get("structure_varies")
+               else "F0_ARTIFACT")
+        status = "unresolved"
 
     return {"status": status, "classification": cls,
             "winning_hypothesis": win_name,
@@ -571,10 +590,13 @@ def adjudicate_structure(p: dict, times: np.ndarray,
                                    "dual_delta": dual,
                                    "dual_delta_agreement":
                                        dual_delta_agree},
-            "boundary_evidence": {"energy": be,
+            "boundary_evidence": {"available": bavail,
+                                  "energy": be,
                                   "voiced_drop": vdrop,
-                                  "non_f0_support": nonf0},
-            "game_structure": {"one_note_ratio": round(game_one, 3),
+                                  "non_f0_support": nonf0,
+                                  "continuity_support": cont_b},
+            "game_structure": {"available": game_struct_avail,
+                               "one_note_ratio": round(game_one, 3),
                                "split_ratio": round(game_split, 3)},
             "all_scores": {k: v["score"] for k, v in scored.items()},
             "boundary": hyps.get("H1", {}).get("boundary")}

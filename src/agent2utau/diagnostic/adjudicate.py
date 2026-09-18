@@ -236,6 +236,15 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
     # produced the child identity with a DIFFERENT tone opposes.
     vcorr = cons.get("virtual_correspondence") or {}
     game_total = int(vcorr.get("n_total_runs") or 0)
+    # Pre-M2.5 integrity (plan2 §6.1 Blocker A): on structure-ambiguous
+    # events, aggregate run_tones are medians over split/merge members —
+    # not real written-note tones at this identity. Without an
+    # identity-aware correspondence the GAME pitch group stays neutral,
+    # so a provisional B can never launder unsafe aggregate evidence
+    # into a finalized winner/margin/gate when C resolves keep.
+    game_identity_safe = bool(vcorr) or not cons.get("structure_varies")
+    if not game_identity_safe:
+        run_tones = []
     dual = packet.get("dual_f0") or {}
     rmv, fcp = packet.get("rmvpe") or {}, packet.get("fcpe") or {}
     sep_sensitive = bool((packet.get("separation") or {})
@@ -398,6 +407,11 @@ def adjudicate(packet: dict, wav: np.ndarray, sr: int,
                   else "resolved_change")
 
     return {"status": status,
+            "game_evidence": ("identity_aware_correspondence" if vcorr
+                              else "aggregate_neutralized_structure_ambiguous"
+                              if not game_identity_safe
+                              else "run_tones" if run_tones
+                              else "medoid_written_note"),
             "winning_hypothesis": win["hypothesis"],
             "confidence": win["score"],
             "margin": margin,

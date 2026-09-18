@@ -124,8 +124,11 @@ def test_missing_extractor_is_neutral_for_h0():
     times, energy = _times_energy(10.0, 10.4)
     adj = adjudicate_structure(p, times, energy, [])
     # artifact override -> unresolved, but H0 score must show no fake
-    # extractor support: only game + acoustic + duration terms
-    assert adj["all_scores"]["H0"] == pytest.approx(1 + 0 + 0 + 1 + 0.5)
+    # extractor support — and no fake acoustic support either: with no
+    # boundary observation the acoustic_boundary group is neutral 0
+    # (pre-M2.5: 1-nonf0 on missing evidence was a bug).
+    assert adj["all_scores"]["H0"] == pytest.approx(1 + 0 + 0 + 0 + 0.5)
+    assert adj["boundary_evidence"]["available"] is False
 
 
 def test_one_note_support_values():
