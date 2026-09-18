@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**A/B/C/D + M2.4 的历史 acceptance 保留；但 2026-09-18 cross-stage review 发现 3 个在进入 structure repair 前必须修正的 freeze-integrity blocker，因此 M2.5 暂时 BLOCKED。当前最高优先级 = Pre-M2.5 Freeze Integrity Patch：① structure 未定时 provisional B 不得用 identity-unsafe aggregate `consensus.run_tones` 作为 GAME pitch support；② C 中 missing / insufficient boundary or GAME-structure evidence 必须 neutral，不能通过 `1 - nonf0` 或 `n_runs==0 -> game_one=1.0` 自动给 H0 满支持；③ M2.4 repair plan 必须同时绑定 Candidate-0 semantic notes hash 与 `baseline_game.json` full-file sha256。只修这 3 个缺口，不扩 scope、不启动 B4/C3、新 structure repair 仍封锁。修补完成并获得新的 FINAL SHA + remote CI green 后，M2.5 才 UNBLOCKED。**
+> 当前阶段：**A/B/C/D + M2.4 + Pre-M2.5 Freeze Integrity 全部 PASS。Integrity acceptance = `42cb1be`，remote CI run `35293468251` = success，242 passed / 0 failed；M2.5 structure repair = UNBLOCKED，当前最高优先级 = M2.5（human-blocked_structure authority 可直接复用，无需重审）。已修补：① structure 未定时 provisional B 的 GAME pitch group 对 aggregate `consensus.run_tones` 置 neutral；② C 中 missing / insufficient boundary or GAME-structure evidence = neutral（`1 - nonf0` 与 `n_runs==0 -> game_one=1.0` 已移除）；③ M2.4 repair plan 同时绑定 Candidate-0 semantic notes hash 与 `baseline_game.json` full-file sha256。**
 
 ---
 
@@ -303,7 +303,7 @@ M2.4 只能修改 discrete written score。PITD / portamento / vibrato / style �
 
 ---
 
-# 6. Pre-M2.5 Freeze Integrity Patch ← CURRENT
+# 6. Pre-M2.5 Freeze Integrity Patch ✅ PASS @ 42cb1be (CI 35293468251, 242 passed)
 
 > 目标：**修复已经冻结阶段之间的跨阶段完整性缺口，不重新设计 B/C/M2.4。**
 >
@@ -683,15 +683,19 @@ M2.5 = UNBLOCKED
 完成后在本节记录：
 
 ```text
-acceptance SHA:
-remote CI run:
-pytest:
-real-run diagnostic:
-189s:
-202s:
-Candidate-0 notes sha:
-Candidate-0 file sha:
+acceptance SHA: 42cb1be
+remote CI run: 35293468251 = success
+pytest: 242 passed / 0 failed / 0 skipped
+real-run diagnostic: diag-20260917-181538-6aec — repair-plan 0 machine
+  candidates, human split selection blocked_structure, apply →
+  corrected score == Candidate 0
+189s: no machine repair (auto_resolved → no repair_candidate)
+202s: no machine repair (needs_phrase_review)
+Candidate-0 notes sha: d5dc30afcf565a06...
+Candidate-0 file sha: 09c1c1d00e97dda0...
 ```
+
+**PRE-M2.5 INTEGRITY = PASS @ 42cb1be → M2.5 UNBLOCKED（实现待启动）**
 
 ---
 
@@ -1563,8 +1567,8 @@ rollback coverage
 ### M2.3.2D Migration Integrity — ✅ IMPLEMENTED @ 905f144
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
-### Pre-M2.5 Freeze Integrity Patch — ← CURRENT / M2.5 BLOCKER
-### M2.5 — PROBABLE structure repair — ⛔ BLOCKED until integrity acceptance
+### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 42cb1be / CI 35293468251
+### M2.5 — PROBABLE structure repair — ← CURRENT (UNBLOCKED)
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop

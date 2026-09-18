@@ -629,8 +629,32 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   SPLIT → blocked_structure; apply produced a C0-identical corrected
   score with the blocked authority preserved in the manifest.
 
-Next: M2.5 structure repair — may consume M2.4's blocked_structure
-authority without re-reviewing the same audio package.
+## Pre-M2.5 Freeze Integrity — PASS @ 42cb1be (CI 35293468251, 242)
+
+- Blocker A (`diagnostic/adjudicate.py`): on structure-ambiguous events
+  (`consensus.structure_varies` with no `virtual_correspondence`) the
+  aggregate `run_tones` are member medians — the GAME pitch group is
+  neutral instead of consuming them. A provisional B finalized by C
+  resolved_keep can never launder unsafe aggregate evidence into
+  winner/margin/gate. Ordinary C0 continuous semantics + virtual
+  identity-aware path unchanged; `adj["game_evidence"]` records
+  identity_aware_correspondence / aggregate_neutralized /
+  run_tones / medoid_written_note.
+- Blocker B (`diagnostic/structure_adj.py`): `_boundary_energy` returns
+  `available` / `boundary_support` / `continuity_support` — insufficient
+  observation is neutral (0 to every hypothesis); observed continuity
+  is an explicit measurement, never `1 - nonf0`. `n_runs==0` /
+  missing `run_note_counts` -> game_one=game_split=0 (was game_one=1).
+  All-missing evidence -> unresolved + artifact classification; never
+  resolved_keep, never final_structure_clear.
+- Blocker C (`repair.py`): repair plan binds
+  `candidate0_notes_sha256` AND `candidate0_file_sha256` (exact bytes) —
+  metadata-only or byte changes stale the plan. corrected_score +
+  manifest record both base hashes.
+- Real run re-verified: 0 machine repairs, human split selection
+  blocked_structure, corrected score == Candidate 0.
+- +16 regressions in tests/test_pre_m25_integrity.py (A1-A5, B1-B6,
+  C1-C5). M2.5 structure repair is now UNBLOCKED.
 
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
