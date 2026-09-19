@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5K/rlv6 hard-case routing 已实现，但语义仍未闭合；新增 G5L directional carrier-conflict + post-loop B1 adjudication）。** 最新真实状态：rlv6 已在闭环前将每个字符路由为 `class_A / B1_unmeasurable / B2_carrier_conflict`，B2 不再越权追 anchor，timing confidence 与 lyric intelligibility confidence 已拆分，4/4 package valid，`git_evidence.complete=true`；但 4/4 pilot 仍 `auto_review_ready=false`、`review_ready=false`。独立审计发现：① B2 当前用同一个 `anticipation_candidate` 覆盖 source onset 早于 carrier 和晚于 carrier 两个相反方向；② `ANTICIPATION_MAX_S=0.12` 仅凭绝对毫秒阈值决定 anticipation vs written_timing_suspect，缺乏足够物理/音素证据，不能作为最终 adjudication authority；③ 闭环运行后持续出现 render `acoustic_unmeasurable / acoustic_unstable` 的字符仍保留初始 `class_A`，没有正式降级为 B1。下一步必须修正这三点，再重选/重建 honest pilot。上述语义未关闭前，禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5L/rlv7 hard-case semantics 已完成；CURRENT blocker = G5M honest pilot roster rebuild）。** 最新真实状态：rlv7 已显式区分 B2 `early/late`，late-side 不再误标 anticipation；120ms 只保留为 triage prior；post-loop 持续测量失败会正式降级为 `B1_render_unmeasurable / B1_cross_option_unstable / B1_detector_relock`；90.03–96.96 的 `可人陪这本` 已被识别为跨 target 重复的 `phrase_level_carrier_conflict → structure_timing_suspect`。当前 4 个历史 pilot 虽全部 `package_state=valid`，且 `git_evidence=468/468 complete`、`plan_invariants.ok=true`，但 4/4 均 `auto_review_ready=false`，`pilot_authority.ok=false`、`review_ready=false`。下一步禁止继续围绕这 4 项调参救活；必须扫描 21 个 candidate，剔除 unresolved B1/B2/systematic conflict，重选真正可测、无 phrase-level conflict、real-lyric 合法且 intelligibility 无 blocker 的 honest pilot，再重建 package/payload/QC/state 并取得 FINAL SHA remote CI success。完成前禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -4478,7 +4478,7 @@ route_detail 分布：4 字 anticipation_candidate（辅音先行合法假设，
 掩盖。review_ready=false（诚实）。
 
 
-#### G5L Directional carrier-conflict semantics + post-loop B1 adjudication（当前 blocker）
+#### G5L Directional carrier-conflict semantics + post-loop B1 adjudication（rlv7 机制完成；pilot roster 仍未通过）
 
 rlv6/G5K 已建立 hard-case routing 框架，但 re-audit 发现当前 B2 语义仍把**方向相反**的 timing conflict 混在一起，而且 B1 只在 loop 前按 SOURCE landmark 分类，未覆盖 render 端持续测不到的字符。
 
@@ -4865,6 +4865,209 @@ review_ready=false（诚实）。
 
 ---
 
+#### G5M Honest pilot roster rebuild（当前 blocker）
+
+G5L/rlv7 已把 hard-case 语义分清；当前 blocker 不再是继续调 closed-loop 参数，而是**当前历史 pilot roster 本身不具备正式人工审核资格**。
+
+##### 当前 roster 为什么必须退出
+
+当前 4 项：
+
+```text
+note_0061 / cal-srp-cb76...
+note_0188 / cal-srp-9e3e...
+note_0192 / cal-srp-f93f...
+note_0379 / cal-srp-b04c...
+```
+
+真实 rlv7 结果：
+
+```text
+note_0188 / note_0192
+→ 同一 90.03–96.96 phrase 重复出现 可人陪这本 的 B2 集合
+→ phrase_level_carrier_conflict
+→ structure_timing_suspect
+→ 不适合作为“仅比较 target split”的普通 calibration pilot
+
+note_0061
+→ 一 = B1_cross_option_unstable
+→ 仍含 unresolved timing evidence
+
+note_0379
+→ 惜 / 本 = B1_detector_relock
+→ second_family: 惜 disagreed / 本 unavailable
+→ timing evidence 继续 fail-closed
+```
+
+因此：
+
+```text
+package_state=valid
+!=
+human-reviewable
+
+历史上曾是 pilot
+!=
+必须继续保留
+```
+
+禁止继续通过增加迭代次数、放宽阈值、扩大 clamp、修改 120ms heuristic 等方式强行把这些样本做绿。
+
+##### Required action — 扫描 21 项并重选 honest roster
+
+必须对当前 21 个 machine split candidates 在 **rlv7/current contract** 下建立统一 eligibility inventory。每项至少汇总：
+
+```text
+note_id / cal_item_id / phrase_key
+package_state
+lyric_contract / lyric_mapping_impl / contract_sha256
+verify_package
+signal_qc.auto_review_ready
+lyric_intelligibility status
+closed_loop stop reason
+per-char final_class
+B1 subtype counts
+B2 direction/detail counts
+phrase_level_carrier_conflict
+second_family verdicts
+source/render measurement availability
+current audio_package_hash
+stale/current-contract status
+```
+
+筛选必须基于真实 artifact 与测量结果，不得根据“历史上选过”“听起来应该可以”或为了凑数量而猜。
+
+##### Honest pilot hard gates
+
+进入正式 pilot 的 item 必须全部满足：
+
+```text
+1. current contract / package，不得 stale
+2. package_state == valid
+3. verify_package == PASS
+4. real_lyric_review 有效；真实歌词、合法 '+' continuation、无 audible placeholder
+5. signal_qc.auto_review_ready == true
+6. lyric intelligibility 无 blocking low-confidence / corruption
+7. target 相关 timing evidence 可测且稳定
+8. 不含 unresolved B1 final_class
+9. 不含 unresolved B2 carrier conflict 会污染 target structure 判断
+10. phrase_level_carrier_conflict == false
+11. Candidate 0 written timing/identity 未被 review overlay 改写
+12. A/B outside-target authority/lyrics/context 保持一致
+```
+
+优先选择：
+
+```text
+Class A measurable
++ closed-loop converged
++ no phrase-level conflict
++ no unresolved intelligibility blocker
++ target structure 仍有代表性
+```
+
+代表性覆盖（simple split / large pitch change / melisma-sensitive / gap-sensitive 等）是**次级目标**。如果代表性与证据诚实性冲突，必须保留证据诚实性。
+
+##### Pilot size semantics
+
+不再机械要求 exact 5-item。
+
+```text
+3–5 个 honest items 为目标范围；
+当前如果只有 4 个诚实样本，4 个可以；
+如果不足 3 个，不得为了凑 pilot 降低 gate。
+```
+
+若扫描 21 项后没有足够 honest items：
+
+```text
+review_ready = false
+→ 明确报告可用样本不足
+→ 将 B1/B2/systematic-conflict case 路由到对应 written-timing /
+  structure / measurement diagnosis
+→ 不请求用户试听
+```
+
+##### Rebuild / authority 顺序
+
+选出 roster 后必须严格按以下顺序执行：
+
+```text
+1. persist roster-selection evidence / eligibility inventory
+2. under current rlv7 contract rebuild selected item packages
+3. verify_package + signal_qc + plan invariants
+4. commit final item artifacts
+5. regenerate pilot_review.json against THAT artifact commit
+6. verify every raw URL exists and bytes sha256 matches manifest
+7. record exact-sample QC PASS only after all hard gates pass
+8. rebuild state.json from current committed artifacts
+9. require:
+     pilot_authority.ok == true
+     review_ready == true
+     git_evidence.complete == true
+     plan_invariants.ok == true
+10. run remote CI on FINAL acceptance SHA and require success
+11. only then request maintainer/ChatGPT pre-human audit
+12. only after that provide SOURCE/A/B to user
+```
+
+任何 selected item 被替换、重渲、contract bump、audio_package_hash 改变或 payload identity 改变：
+
+```text
+old verdict stale
+review_ready = false
+→ rebuild/re-audit
+```
+
+##### Required regressions / self-checks
+
+至少新增或确认：
+
+```text
+M1. unresolved B1 item cannot enter pilot roster
+M2. phrase-level/systematic B2 conflict item cannot enter ordinary pilot roster
+M3. late-side conflict cannot be relabeled anticipation to regain eligibility
+M4. changing thresholds alone cannot make an unresolved hard case eligible
+M5. only current-contract package may be selected
+M6. selected roster change invalidates previous verdict/payload authority
+M7. exact selected roster + valid artifacts + exact QC binding
+    → pilot_authority.ok=true
+M8. web/state read does not dirty Git-authoritative evidence
+M9. FINAL acceptance SHA has remote CI success
+M10. no user-review surface is emitted while review_ready=false
+```
+
+##### G5M final acceptance
+
+只有以下同时满足才关闭本 blocker：
+
+```text
+21-item eligibility inventory committed/auditable
+final pilot contains only honest reviewable items
+no unresolved B1/B2/systematic carrier-conflict sample in roster
+all selected packages rebuilt under current rlv7 contract
+pilot payload binds exact committed bytes
+exact-sample QC PASS committed
+pilot_authority.ok == true
+review_ready == true
+git_evidence.complete == true
+plan_invariants.ok == true
+remote CI success on FINAL acceptance SHA
+maintainer/ChatGPT pre-human audit PASS
+```
+
+在此之前：
+
+```text
+DO NOT ask user to listen
+DO NOT continue tuning the rejected historical four just to make them green
+DO NOT relax evidence/timing thresholds to fill roster
+DO NOT record calibration decisions
+DO NOT freeze M2.5
+```
+
+---
+
 #### G6. Human-review readiness regressions
 
 至少新增：
@@ -5008,6 +5211,8 @@ F6. existing real-run split behavior / human authority / rollback 不回归
 ---
 
 ### 10.1.7 M2.5 FINAL acceptance gate
+
+> **Current authority overlay（2026-09-19）**：下方 checklist 保留历史 gate/audit 轨迹，但当前 live blocker 以 G5I→G5J→G5K→G5L→G5M 的后续语义为准。特别是旧的 `signal_qc auto_review_ready=false store-wide`、旧 5-item/Group 1–2 描述不得解释为当前状态。当前要求是：rlv7 honest roster rebuild → exact package/payload/QC authority → `pilot_authority.ok=true` + `review_ready=true` → FINAL SHA remote CI success → maintainer pre-human audit → 用户试听。
 
 M2.5 只有同时满足以下条件才允许从 CURRENT / CALIBRATION HOLD 改为 FROZEN：
 
@@ -5246,7 +5451,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← HUMAN PILOT QUALITY HOLD（Group 1/2 both prefer B, but lyric + loudness defects invalidate authority; fix review audio before continuing）
+### M2.5 — PROBABLE structure repair — ← HUMAN PILOT QUALITY HOLD / G5M ROSTER REBUILD（G5L/rlv7 semantics 已完成；当前历史 4-item pilot 均 auto_review_ready=false，必须扫描 21 项并重选 honest reviewable roster；review_ready=false）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -5329,6 +5534,7 @@ rollback coverage
 70. 人工主审核必须使用完整自然唱句（通常 4–10s，必要时 3–12s）；CORE/target-focus 只能作为 secondary diagnostic aid。
 71. A/B/source 必须共享同一 phrase 语义窗口与上下文；不得因为 candidate 不同而改变截取边界。
 72. 聊天选择必须经官方 decision gate 重新绑定 `cal_item_id / repair_id / selected OPTION / package hash` 后才能成为 repair authority；聊天文本本身不是 authority。
-73. 远程审核采用 5-item pilot-first；任一项出现歌词错误、明显响度偏差、非 target 渲染污染或仍不可判断，必须立即停止，不得强迫用户完成 21 项。
+73. 远程审核采用 honest pilot-first；目标通常 3–5 项，但数量不得凌驾于证据质量。unresolved B1/B2、phrase-level carrier conflict、歌词/响度/非 target 污染或仍不可判断的样本必须退出/替换，不得为凑数量放宽 gate，也不得强迫用户完成 21 项。
 74. 在质量失败的 review package 上产生的 A/B 偏好只能记为 diagnostic preference，不得成为 official decision 或 repair authority。
 75. 先“唱对”，再做泠鸢风格。
+76. rlv7/current-contract 的正式 human pilot 只能由 current artifact evidence 证明可测、可审；历史 pilot 身份没有保留权。最终 roster 必须使 `pilot_authority.ok=true`、`review_ready=true`，并在 FINAL acceptance SHA 上取得 remote CI success 后才允许用户试听。
