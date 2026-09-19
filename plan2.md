@@ -4822,6 +4822,47 @@ DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
 
+##### G5L 实现记录（rlv7，2026-09-19）
+
+实现：
+
+```text
+方向性 B2: direction=early|late 显式持久化 + overhang_ms;
+  early→preutterance_candidate | written_timing_suspect
+  late →post_boundary_delay_candidate | written_timing_suspect
+  (late 永不标 anticipation/preutterance — 物理方向相反)
+120ms 降级 triage prior: detail 只命名候选假设，不作最终裁决;
+  最终裁决消费 direction/phoneme context/neighbor timing/
+  跨 target 重复性（记录在 char_routes 字段中）。
+post-loop 降级: class_A + 持续 render 测量失败 → 正式 B1 亚型
+  B1_render_unmeasurable / B1_cross_option_unstable /
+  B1_detector_relock; render_measurement_status + final_class
+  逐字持久化。
+phrase_level: _phrase_level_conflicts() 跨 target 共享 phrase_key
+  的 B2 集合交集 → phrase_level_carrier_conflict=true +
+  phrase_level_conflict_id + route_detail 升级
+  structure_timing_suspect（重复=结构证据）+ QC flag
+  lyric_timing_phrase_level_conflict。
+second_family 语义: energy_edge_v1 只判 B1 可否变可测 —
+  consistent→measurable_with_secondary_evidence（可重入资格记录，
+  不与主测量计权平均）/ disagreed→fail-closed / unavailable。
+impl bump rlv6 → rlv7; L1-L10 回归矩阵; 360 tests PASS。
+```
+
+4 项 rlv7 pilot 真机核查（全部 valid）：
+
+```text
+0188/0192 (90.03-96.96): phrase_level_carrier_conflict 命中 —
+  可人陪这本 5 字共享 → 全升级 structure_timing_suspect;
+  人 direction=late oh=114.5（rlv6 误标 anticipation 已纠正）;
+  本 late oh=129.3
+cb76 (37.40-44.08): 一 → B1_cross_option_unstable(post-loop 降级);
+  夜 early 47.0 preutterance / 晨 late 142.6 written_timing_suspect
+b04c (177.64-184.52): 惜/本 → B1_detector_relock;
+  second_family: 惜 disagreed / 本 unavailable — 全部 fail-closed
+review_ready=false（诚实）。
+```
+
 ---
 
 #### G6. Human-review readiness regressions

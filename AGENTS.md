@@ -1089,6 +1089,35 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   auto_review_ready=false → review_ready=false. Honest routing,
   not parameter-chasing. K1-K10 regression matrix; 350 tests PASS.
 
+### M2.5 G5L — directional conflicts + post-loop B1 (rlv7)
+
+- **B2 direction is explicit**: `direction=early|late` + `overhang_ms`
+  persisted. early → `preutterance_candidate|written_timing_suspect`;
+  late → `post_boundary_delay_candidate|written_timing_suspect` — a
+  late conflict can NEVER be called anticipation (opposite physics).
+  Real fix: 人 (114.5ms late) was mislabeled anticipation under rlv6.
+- **120ms is a triage prior only** — route_detail names a candidate
+  hypothesis, never a verdict. Final adjudication consumes direction,
+  phoneme context, neighbour timing and cross-target repetition.
+- **Post-loop downgrade**: a class_A char that persistently fails
+  render measurement becomes a formal B1 subtype —
+  B1_render_unmeasurable / B1_cross_option_unstable /
+  B1_detector_relock (fail_reason tracked per char per iteration;
+  render_measurement_status + final_class persisted).
+- **phrase_level_carrier_conflict**: identical/overlapping B2 char
+  sets across review targets on the same phrase_key = systematic
+  written-vs-articulation incompatibility → marked in closed_loop,
+  route_detail upgraded to structure_timing_suspect, QC flag
+  lyric_timing_phrase_level_conflict. Real hit: 可人陪这本 repeats
+  identically on note_0188 AND note_0192 (same phrase 90.03-96.96).
+- **second_family (energy_edge_v1) adjudicates measurability only**:
+  consistent independent edge → measurable_with_secondary_evidence
+  (re-entry eligible, recorded — never averaged into the primary
+  instrument); disagreed/unavailable → stays fail-closed.
+- **rlv7 pilot**: all 4 valid + honestly flagged; B1 downgrades fired
+  on real data (一 cross_option_unstable; 惜/本 detector_relock).
+  L1-L10 regression matrix; 360 tests PASS.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight

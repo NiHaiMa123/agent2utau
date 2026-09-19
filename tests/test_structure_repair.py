@@ -2283,8 +2283,8 @@ def test_j7_outside_target_anchors_identical():
     assert hi == [pytest.approx(0.5 - 0.03), pytest.approx(1.4 - 0.03)]
 
 
-def test_j8_rlv3_artifacts_stale_under_rlv6():
-    """J8: the rlv3→rlv6 impl bump stales every previous package/
+def test_j8_rlv3_artifacts_stale_under_rlv7():
+    """J8: the rlv3→rlv7 impl bump stales every previous package/
     payload/verdict — old-contract evidence can't pass the new
     acoustic-timing authority."""
     import agent2utau.structure_calibration as sc
@@ -2297,7 +2297,7 @@ def test_j8_rlv3_artifacts_stale_under_rlv6():
                            "lyric_mapping_impl": "rlv3",
                            "contract_sha256": rlv3_sha}}
     assert sc.item_contract_stale(man, {}, "rph") is True
-    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv6"
+    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv7"
 
 
 def test_j9_state_read_does_not_dirty(tmp_path, monkeypatch):
@@ -2431,7 +2431,7 @@ def test_k3_source_onset_below_carrier_bound(tmp_path, monkeypatch):
     assert r["route"] == sc.ROUTE_B2
     assert r["bound_conflict"] is True
     assert r["unmeasurable_reason"] == "source_ref_below_carrier_lo"
-    assert r["route_detail"] == "anticipation_candidate"
+    assert r["route_detail"] == "preutterance_candidate"
     assert loop["anchors"][0] == pytest.approx(0.5)   # held at lo
     assert loop["converged"] is False
     assert loop["reason"] == "hard_cases_only"
@@ -2506,8 +2506,8 @@ def test_k6_overlay_never_touches_candidate0_score(tmp_path,
 
 
 
-def _qc_route_man(route0, route1=None):
-    """_timing_man + injected rlv6 closed_loop carrying char_routes."""
+def _qc_route_man(route0, route1=None, ref_onsets=None):
+    """_timing_man + injected rlv7 closed_loop carrying char_routes."""
     import agent2utau.structure_calibration as sc
     man = _timing_man()
     r1 = route1 or {"char": "演", "route": sc.ROUTE_CLASS_A,
@@ -2517,11 +2517,13 @@ def _qc_route_man(route0, route1=None):
                     "carrier_lo": 0.5, "carrier_hi": 0.97,
                     "desired_anchor": 0.6, "final_anchor": 0.6,
                     "measurement_stability": "stable"}
+    cl = {"converged": False, "reason": "hard_cases_only",
+          "char_routes": [route0, r1]}
+    if ref_onsets:
+        cl["ref_onsets"] = ref_onsets
+        cl["ref_kinds"] = ["onset_peak"] * len(ref_onsets)
     man["calibration"]["lyric_evidence"]["articulation"] = {
-        "impl": "rlv6",
-        "closed_loop": {
-            "converged": False, "reason": "hard_cases_only",
-            "char_routes": [route0, r1]}}
+        "impl": "rlv7", "closed_loop": cl}
     return man
 
 
@@ -2529,6 +2531,7 @@ def _qc_idir(idir):
     """wavs + matching-carrier ustx pair for _lyric_timing_qc."""
     (idir / "o0.wav").write_bytes(b"x")
     (idir / "o1.wav").write_bytes(b"x")
+    (idir / "src.wav").write_bytes(b"x")
     ustx = ("voice_parts:\n  - notes:\n"
             "    - position: 96\n      duration: 100\n      lyric: '我'\n"
             "    - position: 576\n      duration: 200\n"
@@ -2660,3 +2663,309 @@ def test_k10_sample_replacement_rebinds_authority(tmp_path,
     assert b["sample_ids"] != a["sample_ids"]
     assert items[2]["cal_item_id"] not in a["sample_ids"]
     assert items[1]["cal_item_id"] not in b["sample_ids"]
+
+
+# ------------- §10.1.5A-G5L directional + post-loop (L) -------------
+
+def _ro_per_opt(vals0, vals1):
+    """_render_onsets stub — vals0 on OPTION_0 calls, vals1 on
+    OPTION_1 calls (alternating call order)."""
+    calls = {"n": 0}
+
+    def ro(wav, centers):
+        calls["n"] += 1
+        return list(vals0) if calls["n"] % 2 == 1 else list(vals1)
+    return ro
+
+
+def test_l1_early_conflict_may_be_preutterance(tmp_path, monkeypatch):
+    """L1: source_ref < carrier_lo by 80ms → B2 EARLY conflict —
+    preutterance_candidate is a legal hypothesis."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.review.render as rr
+    notes = [{"id": "note_0001", "index": 1, "start": 0.5, "end": 1.0,
+              "dur": 0.5, "tone": 60.0}]
+    chars = [{"char": "甲", "start": 0.45, "end": 0.49}]
+    it = _loop_item(notes)
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    monkeypatch.setattr(sc, "_source_ref_onsets",
+                        _sro_vals([0.42], ["onset_peak"]))
+    monkeypatch.setattr(sc, "_render_onsets", _ro_fixed([0.5]))
+    loop = sc._closed_loop_anchors({}, tmp_path / "i", it, chars,
+                                   src_wav="x")
+    r = loop["char_routes"][0]
+    assert r["route"] == sc.ROUTE_B2
+    assert r["direction"] == "early"
+    assert r["overhang_ms"] == pytest.approx(80.0, abs=0.5)
+    assert r["route_detail"] == "preutterance_candidate"
+
+
+def test_l2_late_conflict_is_never_anticipation(tmp_path, monkeypatch):
+    """L2: source_ref > carrier_hi by 80ms → B2 LATE conflict — can
+    NEVER be anticipation/preutterance (opposite physics)."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.review.render as rr
+    notes = [{"id": "note_0001", "index": 1, "start": 0.0, "end": 0.5,
+              "dur": 0.5, "tone": 60.0}]
+    chars = [{"char": "甲", "start": 0.45, "end": 0.49}]
+    it = _loop_item(notes)
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    # hi_move = 0.38; ref 0.46 → 80ms late
+    monkeypatch.setattr(sc, "_source_ref_onsets",
+                        _sro_vals([0.46], ["onset_peak"]))
+    monkeypatch.setattr(sc, "_render_onsets", _ro_fixed([0.38]))
+    loop = sc._closed_loop_anchors({}, tmp_path / "i", it, chars,
+                                   src_wav="x")
+    r = loop["char_routes"][0]
+    assert r["route"] == sc.ROUTE_B2
+    assert r["direction"] == "late"
+    assert r["overhang_ms"] == pytest.approx(80.0, abs=0.5)
+    assert "preutterance" not in r["route_detail"]
+    assert "anticipation" not in r["route_detail"]
+    assert r["route_detail"] == "post_boundary_delay_candidate"
+
+
+def test_l3_threshold_is_triage_not_truth(tmp_path, monkeypatch):
+    """L3: 115ms vs 129ms overhangs sit on opposite sides of the
+    120ms line but BOTH stay B2 — the threshold names candidates,
+    it never proves semantic truth. Direction + overhang persist."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.review.render as rr
+    notes = [{"id": "note_0001", "index": 1, "start": 0.0, "end": 0.5,
+              "dur": 0.5, "tone": 60.0},
+             {"id": "note_0002", "index": 2, "start": 0.6, "end": 1.1,
+              "dur": 0.5, "tone": 62.0}]
+    chars = [{"char": "甲", "start": 0.40, "end": 0.44},
+             {"char": "乙", "start": 1.05, "end": 1.09}]
+    it = _loop_item(notes)
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    # hi_move = 0.38 / 0.98 → overhangs 115ms and 129ms late
+    monkeypatch.setattr(sc, "_source_ref_onsets",
+                        _sro_vals([0.495, 1.109],
+                                  ["onset_peak", "onset_peak"]))
+    monkeypatch.setattr(sc, "_render_onsets",
+                        _ro_fixed([0.38, 0.98]))
+    loop = sc._closed_loop_anchors({}, tmp_path / "i", it, chars,
+                                   src_wav="x")
+    r0, r1 = loop["char_routes"]
+    assert r0["route"] == r1["route"] == sc.ROUTE_B2
+    assert r0["direction"] == r1["direction"] == "late"
+    # 14ms apart — the triage labels differ but neither is 'truth'
+    assert r0["overhang_ms"] == pytest.approx(115.0, abs=0.5)
+    assert r1["overhang_ms"] == pytest.approx(129.0, abs=0.5)
+    assert r0["route_detail"].endswith("_candidate") or \
+        r0["route_detail"].endswith("_suspect")
+    assert r1["route_detail"].endswith("_candidate") or \
+        r1["route_detail"].endswith("_suspect")
+
+
+def test_l4_repeated_b2_marks_phrase_level(tmp_path):
+    """L4: an identical B2 char set repeating across two review
+    targets on the same phrase → phrase_level_carrier_conflict +
+    structure_timing_suspect (repeated = structural evidence)."""
+    import agent2utau.structure_calibration as sc
+    cdir = tmp_path / "structure_calibration"
+    items_d = cdir / "items"
+    for iid in ("cal-a", "cal-b"):
+        d = items_d / iid
+        d.mkdir(parents=True)
+        man = {"schema": sc.CALIB_SCHEMA,
+               "phrase": {"start": 90.03, "end": 96.96},
+               "calibration": {"lyric_evidence": {"articulation": {
+                   "closed_loop": {"char_routes": [
+                       {"char": c, "route": sc.ROUTE_B2,
+                        "route_detail": "preutterance_candidate"}
+                       for c in "可人陪这本"]}}}}}
+        (d / "manifest.json").write_text(json.dumps(man),
+                                         encoding="utf-8")
+    marked = sc._phrase_level_conflicts(cdir)
+    assert set(marked) == {"cal-a", "cal-b"}
+    man = json.loads((items_d / "cal-a" / "manifest.json")
+                     .read_text(encoding="utf-8"))
+    cl = man["calibration"]["lyric_evidence"]["articulation"][
+        "closed_loop"]
+    assert cl["phrase_level_carrier_conflict"] is True
+    assert cl["phrase_level_conflict_id"] == "90.03-96.96"
+    assert cl["shared_b2_chars"] == sorted("可人陪这本")
+    assert all(r["route_detail"] == "structure_timing_suspect"
+               for r in cl["char_routes"])
+    assert all(r["phrase_level_conflict_id"] == "90.03-96.96"
+               for r in cl["char_routes"])
+    # a lone target never marks phrase-level conflict
+    cdir2 = tmp_path / "c2" / "structure_calibration" / "items"
+    d = cdir2 / "cal-c"
+    d.mkdir(parents=True)
+    (d / "manifest.json").write_text(json.dumps(man),
+                                    encoding="utf-8")
+    assert sc._phrase_level_conflicts(
+        cdir2.parent) == {}
+
+
+def test_l5_class_a_render_missing_downgrades_b1(tmp_path,
+                                                monkeypatch):
+    """L5: initial class_A but render onset persistently missing →
+    post-loop B1_render_unmeasurable (evidence unavailable, never
+    'timing correct')."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.review.render as rr
+    chars = [{"char": "甲", "start": 0.2, "end": 0.4},
+             {"char": "乙", "start": 0.6, "end": 0.8}]
+    it = _loop_item()
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    monkeypatch.setattr(sc, "_source_ref_onsets", _sro(chars))
+    # char0's onset is NEVER detectable on either option
+    monkeypatch.setattr(sc, "_render_onsets",
+                        _ro_fixed([None, 0.6]))
+    loop = sc._closed_loop_anchors({}, tmp_path / "i", it, chars,
+                                   src_wav="x")
+    r = loop["char_routes"][0]
+    assert r["route"] == sc.ROUTE_B1
+    assert r["route_subtype"] == "B1_render_unmeasurable"
+    assert r["final_class"] == "B1_render_unmeasurable"
+    assert r["render_measurement_status"] == "render_unmeasurable"
+    assert loop["char_routes"][1]["route"] == sc.ROUTE_CLASS_A
+    assert loop["converged"] is False
+
+
+def test_l6_cross_option_unstable_downgrades_b1(tmp_path,
+                                                monkeypatch):
+    """L6: initial class_A but the two options persistently disagree
+    on its onset → post-loop B1_cross_option_unstable."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.review.render as rr
+    chars = [{"char": "甲", "start": 0.2, "end": 0.4},
+             {"char": "乙", "start": 0.6, "end": 0.8}]
+    it = _loop_item()
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    monkeypatch.setattr(sc, "_source_ref_onsets", _sro(chars))
+    # OPTION_0 hears char0 at 0.55, OPTION_1 at -0.15 → 700ms apart
+    monkeypatch.setattr(sc, "_render_onsets",
+                        _ro_per_opt([0.55, 0.6], [-0.15, 0.6]))
+    loop = sc._closed_loop_anchors({}, tmp_path / "i", it, chars,
+                                   src_wav="x")
+    r = loop["char_routes"][0]
+    assert r["route"] == sc.ROUTE_B1
+    assert r["route_subtype"] == "B1_cross_option_unstable"
+    assert r["render_measurement_status"] == "cross_option_unstable"
+    assert loop["converged"] is False
+
+
+def test_l7_second_family_confirms_b1(tmp_path, monkeypatch):
+    """L7: an independent energy edge consistent with the source
+    landmark earns 'measurable_with_secondary_evidence' — re-entry
+    eligibility is recorded, never averaged into the primary."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    man = _qc_route_man(
+        {"char": "我", "route": sc.ROUTE_B1,
+         "route_subtype": "source_unmeasurable",
+         "bound_conflict": False,
+         "unmeasurable_reason": "no_source_landmark",
+         "route_detail": None,
+         "carrier_lo": 0.0, "carrier_hi": 0.38,
+         "desired_anchor": 0.1, "final_anchor": 0.1,
+         "measurement_stability": "unmeasurable_source"},
+        ref_onsets=[0.1, 0.6])
+    idir = tmp_path / "cal-x"
+    idir.mkdir()
+    _qc_idir(idir)
+    monkeypatch.setattr(
+        al, "force_align",
+        lambda w, t, t0, t1, model=None: [
+            {"char": "我", "start": 0.1, "end": 0.5,
+             "probability": 0.9},
+            {"char": "演", "start": 0.6, "end": 1.0,
+             "probability": 0.9}])
+    # src edge 0.12, option edges 0.15/0.16 → consistent (<150ms)
+    edges = iter([0.12, 0.15, 0.16])
+    monkeypatch.setattr(sc, "_energy_edge_onsets",
+                        lambda w, c: [next(edges)])
+    lt = sc._lyric_timing_qc(man, idir)
+    sf = lt["acoustic"]["second_family"]["chars"]["我"]
+    assert sf["verdict"] == "measurable_with_secondary_evidence"
+    assert lt["per_char"][0]["secondary_measurement"] == \
+        "measurable_with_secondary_evidence"
+
+
+def test_l8_second_family_disagreement_stays_closed(tmp_path,
+                                                    monkeypatch):
+    """L8: second-family edges inconsistent with the source landmark
+    → 'disagreed' — B1 stays fail-closed, never promoted."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.analysis.lyrics as al
+    man = _qc_route_man(
+        {"char": "我", "route": sc.ROUTE_B1,
+         "route_subtype": "source_unmeasurable",
+         "bound_conflict": False,
+         "unmeasurable_reason": "no_source_landmark",
+         "route_detail": None,
+         "carrier_lo": 0.0, "carrier_hi": 0.38,
+         "desired_anchor": 0.1, "final_anchor": 0.1,
+         "measurement_stability": "unmeasurable_source"},
+        ref_onsets=[0.1, 0.6])
+    idir = tmp_path / "cal-x"
+    idir.mkdir()
+    _qc_idir(idir)
+    monkeypatch.setattr(
+        al, "force_align",
+        lambda w, t, t0, t1, model=None: [
+            {"char": "我", "start": 0.1, "end": 0.5,
+             "probability": 0.9},
+            {"char": "演", "start": 0.6, "end": 1.0,
+             "probability": 0.9}])
+    # src edge 0.12, option edges 0.5/0.6 → 380ms+ apart → disagreed
+    edges = iter([0.12, 0.5, 0.6])
+    monkeypatch.setattr(sc, "_energy_edge_onsets",
+                        lambda w, c: [next(edges)])
+    lt = sc._lyric_timing_qc(man, idir)
+    sf = lt["acoustic"]["second_family"]["chars"]["我"]
+    assert sf["verdict"] == "disagreed"
+    assert lt["per_char"][0]["secondary_measurement"] == "disagreed"
+
+
+def test_l9_no_route_may_alter_candidate0_timing(tmp_path,
+                                                 monkeypatch):
+    """L9: neither class_A updates nor B1/B2 holds nor post-loop
+    downgrades may alter Candidate 0 written timing — context stays
+    byte-identical."""
+    import agent2utau.structure_calibration as sc
+    import agent2utau.review.render as rr
+    import copy
+    notes = [{"id": "note_0001", "index": 1, "start": 0.0, "end": 0.5,
+              "dur": 0.5, "tone": 60.0},
+             {"id": "note_0002", "index": 2, "start": 0.5, "end": 1.0,
+              "dur": 0.5, "tone": 62.0}]
+    chars = [{"char": "甲", "start": 0.45, "end": 0.49},   # → B2 late
+             {"char": "乙", "start": 0.6, "end": 0.8}]     # → class_A
+    it = _loop_item(notes)
+    before = copy.deepcopy(it["context"])
+    monkeypatch.setattr(rr, "render_item", _fake_render_factory())
+    monkeypatch.setattr(sc, "_source_ref_onsets",
+                        _sro_vals([0.55, 0.6],
+                                  ["onset_peak", "onset_peak"]))
+    monkeypatch.setattr(sc, "_render_onsets",
+                        _ro_fixed([0.38, 0.63]))
+    sc._closed_loop_anchors({}, tmp_path / "i", it, chars, src_wav="x")
+    assert it["context"] == before
+    # written note start/end fields untouched — not even a key added
+    assert [n["start"] for n in it["context"]] == \
+        [n["start"] for n in before]
+    assert [n["end"] for n in it["context"]] == \
+        [n["end"] for n in before]
+
+
+def test_l10_unresolved_cases_excluded_from_roster(tmp_path,
+                                                  monkeypatch):
+    """L10: a flagged item is not auto_review_ready → pilot authority
+    refuses it — the honest roster keeps only reviewable samples."""
+    import agent2utau.structure_calibration as sc
+    run, items, sha = _g5h_store(tmp_path, monkeypatch, n=2,
+                                 not_ready_iids={"cal-s1"})
+    a = sc.pilot_authority(
+        run, [i["cal_item_id"] for i in items])
+    assert not a["ok"]
+    assert any("auto_review_ready" in v for v in a["violations"])
+    # the honest roster = only the ready sample
+    b = sc.pilot_authority(run, [items[0]["cal_item_id"]])
+    assert b["ok"]
+    assert b["sample_ids"] == [items[0]["cal_item_id"]]

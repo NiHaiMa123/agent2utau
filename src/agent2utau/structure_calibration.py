@@ -61,7 +61,14 @@ LYRIC_MAPPING_IMPL_VERSION = {
     # range — the review overlay may NEVER rewrite written-score
     # timing to reach it). Whisper confidence splits into
     # intelligibility (ASR diction) vs acoustic timing measurability.
-    "real_lyric_review": "rlv6",
+    # v7 (G5L): directional carrier conflicts (early→preutterance /
+    # late→post-boundary-delay|written-timing — never conflated), the
+    # 120ms overhang line demoted to a triage prior, post-loop render
+    # failures downgrade to explicit B1 subtypes (render_unmeasurable /
+    # cross_option_unstable / detector_relock), second-family evidence
+    # only adjudicates measurability (never averaged), and a B2 set
+    # repeating across targets marks phrase_level_carrier_conflict.
+    "real_lyric_review": "rlv7",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 MIN_TIMING_CHAR_PROB = 0.30   # rendered char ASR confidence below
@@ -96,10 +103,14 @@ ONSET_FLIP_S = 0.15           # measured onset jumping more than this
 ONSET_FLIP_ANCH_S = 0.05      # while its anchor moved less than this
                             # is an artifact, not a real onset move
 ONSET_MIN_GAP_S = 0.06        # two chars can't share one peak
-ANTICIPATION_MAX_S = 0.12     # §G5K: a source onset within this of a
-                            # carrier bound can still be consonant
-                            # anticipation (lyric-only); beyond it the
-                            # conflict suspects written timing instead
+ANTICIPATION_MAX_S = 0.12     # §G5L: TRIAGE PRIOR ONLY — an overhang
+                            # within this names a candidate hypothesis
+                            # (preutterance / post-boundary delay),
+                            # beyond it suspects written timing. It is
+                            # never a final adjudication authority:
+                            # direction, phoneme context, neighbour
+                            # timing and cross-target repetition are
+                            # the real evidence.
 ROUTE_CLASS_A = "class_A"
 ROUTE_B1 = "B1_unmeasurable"
 ROUTE_B2 = "B2_carrier_conflict"
@@ -1267,25 +1278,53 @@ def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
              else round(ref, 4),
              "bound_conflict": False,
              "unmeasurable_reason": None,
-             "route_detail": None}
+             "route_detail": None,
+             # §G5L: directional + post-loop adjudication fields
+             "route_subtype": None,
+             "direction": None,
+             "overhang_ms": None,
+             "primary_measurement": "onset_strength_peak_v1",
+             "secondary_measurement": None,
+             "render_measurement_status": None,
+             "final_class": None,
+             "phrase_level_conflict_id": None}
         if (ra is None or ref_kinds is None
                 or ref_kinds[k] != "onset_peak"):
             r["route"] = ROUTE_B1
+            r["route_subtype"] = "source_unmeasurable"
             r["unmeasurable_reason"] = "no_source_landmark"
         elif (ra < lo[k] - 1e-9
               or ra > hi_move[k] + 1e-9):
             r["route"] = ROUTE_B2
             r["bound_conflict"] = True
             below = ra < lo[k]
+            # §G5L Blocker 1: direction is persisted explicitly —
+            # early and late carrier conflicts are opposite physics
+            # and can never share one 'anticipation' label.
+            r["direction"] = "early" if below else "late"
+            gap = (lo[k] - ra) if below else (ra - hi_move[k])
+            r["overhang_ms"] = round(gap * 1000.0, 1)
             r["unmeasurable_reason"] = (
                 "source_ref_below_carrier_lo" if below
                 else "source_ref_above_carrier_hi")
-            gap = (lo[k] - ra) if below else (ra - hi_move[k])
-            r["route_detail"] = (
-                "anticipation_candidate" if gap <= ANTICIPATION_MAX_S
-                else "written_timing_suspect")
+            # §G5L Blocker 2: the 120ms line is a TRIAGE PRIOR only —
+            # it names a candidate hypothesis, never a final verdict.
+            # Only an EARLY conflict may be a preutterance candidate;
+            # a late conflict can never be anticipation — it is a
+            # post-boundary delay or a written-timing suspicion.
+            if below:
+                r["route_detail"] = (
+                    "preutterance_candidate"
+                    if gap <= ANTICIPATION_MAX_S
+                    else "written_timing_suspect")
+            else:
+                r["route_detail"] = (
+                    "post_boundary_delay_candidate"
+                    if gap <= ANTICIPATION_MAX_S
+                    else "written_timing_suspect")
         else:
             r["route"] = ROUTE_CLASS_A
+        r["final_class"] = r["route_subtype"] or r["route"]
         routes.append(r)
     return routes
 
@@ -1430,6 +1469,7 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
         # Trusted measurements only feed the shared error — noise
         # never contaminates evidence.
         shared = None
+        fail_reasons = {}
         if measurable:
             shared = []
             for k in range(len(chars)):
@@ -1446,6 +1486,10 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
                 if len(tr) >= 2 and max(tr) - min(tr) \
                         > ONSET_XOPT_DISAGREE_S:
                     tr = []
+                    # §G5L: the downgrade path needs to know WHY
+                    fail_reasons[k] = "cross_option_unstable"
+                elif not tr:
+                    fail_reasons[k] = "render_unmeasurable"
                 shared.append(
                     round(sum(tr) / len(tr), 4) if tr else None)
         # §G5J-rlv5 stability gate 2: an onset legitimately tracks its
@@ -1467,6 +1511,7 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
                         and abs(anchors[k] - prev_anch[k]) \
                         < ONSET_FLIP_ANCH_S:
                     shared[k] = None
+                    fail_reasons[k] = "detector_relock"
         # §G5K: convergence judges ONLY class_A chars — a held
         # hard-case anchor is neither converging evidence nor a
         # converging blocker; its route is reported separately.
@@ -1495,6 +1540,7 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
                                for e in shared]
                               if shared else None),
             "unmeasurable_chars": unmeasurable,
+            "unmeasurable_reasons": dict(fail_reasons),
             "max_abs_err_ms": round(max_abs * 1000.0, 1)
             if max_abs is not None else None})
         if not measurable:
@@ -1564,6 +1610,7 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
     last_on = last.get("onsets") or {}
     last_er = last.get("errors_ms") or {}
     last_un = set(last.get("unmeasurable_chars") or [])
+    last_why = last.get("unmeasurable_reasons") or {}
     for k, r in enumerate(routes):
         r["final_anchor"] = (round(anchors[k] - ph0, 4)
                              if anchors else None)
@@ -1571,13 +1618,37 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
                              for oid, pv in last_on.items()}
         r["acoustic_error_ms"] = {oid: (ev[k] if ev else None)
                                   for oid, ev in last_er.items()}
-        if r["route"] == ROUTE_B1:
+        # §G5L Blocker 3: a class_A char that PERSISTENTLY fails render
+        # measurement is formally downgraded to a B1 subtype — timing
+        # evidence unavailable is never 'timing correct'.
+        r["render_measurement_status"] = (
+            "measured" if k not in last_un else
+            last_why.get(k, "render_unmeasurable"))
+        if (r["route"] == ROUTE_CLASS_A and k in last_un
+                and not converged):
+            sub = {"render_unmeasurable": "B1_render_unmeasurable",
+                   "cross_option_unstable": "B1_cross_option_unstable",
+                   "detector_relock": "B1_detector_relock"}[
+                       last_why.get(k, "render_unmeasurable")]
+            r["route_subtype"] = sub
+            r["final_class"] = sub
+            r["route"] = ROUTE_B1
+            r["measurement_stability"] = "unstable_measurement"
+        elif r["route"] == ROUTE_B1:
             r["measurement_stability"] = "unmeasurable_source"
-        elif k in last_un or r["route"] == ROUTE_B2:
-            r["measurement_stability"] = (
-                "unstable_measurement" if k in last_un else "held")
+            r["final_class"] = r["route_subtype"] or \
+                "B1_source_unmeasurable"
+        elif r["route"] == ROUTE_B2:
+            r["measurement_stability"] = "held"
+            # a B2 char whose render measurement is ALSO unstable has
+            # ambiguous evidence — direction stays recorded but the
+            # detail is demoted to measurement_ambiguous
+            if k in last_un:
+                r["route_detail"] = "measurement_ambiguous"
+            r["final_class"] = ROUTE_B2
         else:
             r["measurement_stability"] = "stable"
+            r["final_class"] = ROUTE_CLASS_A
     return {"converged": converged, "reason": stop,
             "iterations": history, "anchors": anchors, "rres": rres,
             "k": LOOP_K, "clamp_s": LOOP_CLAMP_S,
@@ -1632,6 +1703,15 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
         flags0.append(
             "lyric_timing_carrier_conflict:"
             f"{''.join(r['char'] for r in b2)}")
+    # §G5L: a B2 set repeating across review targets on this phrase is
+    # a systematic written-vs-articulation incompatibility — routed to
+    # written-timing/structure adjudication, not re-looped per item.
+    plc = [r["char"] for r in char_routes
+           if r.get("phrase_level_conflict_id")]
+    if plc:
+        flags0.append(
+            "lyric_timing_phrase_level_conflict:"
+            f"{''.join(plc)}")
     from .analysis.lyrics import force_align, DEFAULT_MODEL
     import numpy as np
     ph_start = float(man["phrase"]["start"])
@@ -1693,6 +1773,7 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
     # which made a whisper-vs-whisper loop push anchors genuinely
     # late — the acoustic gate below is the PASS criterion).
     refs, ref_kinds, ac_unstable = None, [], set()
+    sec_meas = {}
     if loop and loop.get("ref_onsets"):
         refs = loop["ref_onsets"]
         ref_kinds = loop.get("ref_kinds") or []
@@ -1774,15 +1855,35 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                 if r.get("route") != ROUTE_B1:
                     continue
                 entry = {}
+                se = None
                 if src_wav and (idir / src_wav).exists():
-                    entry["src_edge"] = _energy_edge_onsets(
+                    se = _energy_edge_onsets(
                         (idir / src_wav).resolve(),
                         [float(src[k]["start"]) - ph_start])[0]
+                    entry["src_edge"] = se
+                edges = []
                 for oid in opts_ok:
                     starts = _option_char_starts(idir / f"{oid}.ustx")
                     if starts and len(starts) == len(src):
-                        entry[f"{oid}_edge"] = _energy_edge_onsets(
+                        e = _energy_edge_onsets(
                             idir / o_wavs[oid], [starts[k]])[0]
+                        entry[f"{oid}_edge"] = e
+                        if e is not None:
+                            edges.append(e)
+                # §G5L: the second family only adjudicates whether B1
+                # MAY become measurable — an independent consistent
+                # edge earns 'measurable_with_secondary_evidence'
+                # (re-entry eligible); disagreement stays fail-closed.
+                # It is NEVER averaged into the primary measurement.
+                if se is not None and edges:
+                    d = [abs(e - se) for e in edges]
+                    entry["verdict"] = (
+                        "measurable_with_secondary_evidence"
+                        if min(d) <= ONSET_XOPT_DISAGREE_S
+                        else "disagreed")
+                else:
+                    entry["verdict"] = "unavailable"
+                sec_meas[k] = entry["verdict"]
                 sf2["chars"][src[k]["char"]] = entry
             out["acoustic"]["second_family"] = sf2
     if not gate:
@@ -1830,6 +1931,9 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
             if k < len(char_routes):
                 rt = char_routes[k]
                 row["route"] = rt.get("route")
+                row["route_subtype"] = rt.get("route_subtype")
+                row["direction"] = rt.get("direction")
+                row["overhang_ms"] = rt.get("overhang_ms")
                 row["bound_conflict"] = rt.get("bound_conflict")
                 row["carrier_lo"] = rt.get("carrier_lo")
                 row["carrier_hi"] = rt.get("carrier_hi")
@@ -1838,6 +1942,12 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                 row["measurement_stability"] = rt.get(
                     "measurement_stability")
                 row["route_detail"] = rt.get("route_detail")
+                row["render_measurement_status"] = rt.get(
+                    "render_measurement_status")
+                row["final_class"] = rt.get("final_class")
+                row["phrase_level_conflict_id"] = rt.get(
+                    "phrase_level_conflict_id")
+                row["secondary_measurement"] = sec_meas.get(k)
             if refs is not None:
                 row["src_acoustic_onset"] = (
                     round(refs[k], 4) if refs[k] is not None else None)
@@ -2587,6 +2697,64 @@ def build_pilot_review(run_dir: Path, note_ids=None,
     return payload
 
 
+def _phrase_level_conflicts(cdir: Path) -> dict:
+    """§G5L: an overlapping B2 char set repeating across review targets
+    on the SAME phrase is a phrase-level carrier conflict — systematic
+    written-vs-articulation incompatibility, not a per-item render
+    accident. For every affected manifest the closed_loop records
+      phrase_level_carrier_conflict = true
+      phrase_level_conflict_id      = phrase_key
+      shared_b2_chars               = [...]
+    and each affected char's route gains phrase_level_conflict_id and
+    is upgraded to route_detail=structure_timing_suspect (repeated
+    across independent targets is structural evidence, stronger than
+    any single-target triage detail).
+    Returns {cal_item_id: [shared chars]}."""
+    items_d = cdir / "items"
+    if not items_d.exists():
+        return {}
+    by_phrase = {}
+    for d in sorted(items_d.iterdir()):
+        mp = d / "manifest.json"
+        if not mp.exists():
+            continue
+        man = json.loads(mp.read_text(encoding="utf-8"))
+        ph = man.get("phrase") or {}
+        if ph.get("start") is None or ph.get("end") is None:
+            continue
+        pkey = f"{float(ph['start']):.2f}-{float(ph['end']):.2f}"
+        cl = (((man.get("calibration") or {})
+               .get("lyric_evidence") or {})
+              .get("articulation") or {}).get("closed_loop") or {}
+        routes = cl.get("char_routes") or []
+        b2 = {r["char"] for r in routes if r.get("route") == ROUTE_B2}
+        by_phrase.setdefault(pkey, []).append(
+            (d.name, mp, man, routes, b2))
+    marked = {}
+    for pkey, entries in by_phrase.items():
+        if len(entries) < 2:
+            continue
+        shared = set.intersection(*[e[4] for e in entries])
+        if not shared:
+            continue
+        for iid, mp, man, routes, b2 in entries:
+            chars_here = shared & b2
+            if not chars_here:
+                continue
+            cl = man["calibration"]["lyric_evidence"]["articulation"][
+                "closed_loop"]
+            cl["phrase_level_carrier_conflict"] = True
+            cl["phrase_level_conflict_id"] = pkey
+            cl["shared_b2_chars"] = sorted(chars_here)
+            for r in routes:
+                if r.get("char") in chars_here:
+                    r["phrase_level_conflict_id"] = pkey
+                    r["route_detail"] = "structure_timing_suspect"
+            _jwrite(mp, man)
+            marked[iid] = sorted(chars_here)
+    return marked
+
+
 def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                       progress=print, lyric_contract=None) -> dict:
     """Build (and render) phrase A/B packages for machine structure
@@ -2747,7 +2915,7 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                     anchors=(it.get("_loop") or {}).get("anchors"))
                 loop = it.get("_loop")
                 if segs is not None:
-                    art = {"impl": "rlv6",
+                    art = {"impl": "rlv7",
                            "n_segments": len(segs),
                            "n_articulation_splits": sum(
                                1 for sg in segs
@@ -2813,6 +2981,23 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                         "signal_qc_flags": qc_flags,
                         "semantic_diff_sha256": _sha(diff),
                         "manifest": str(mpath)})
+    # §G5L: phrase-level carrier conflict — a B2 char set repeating
+    # across review targets on the same phrase is systematic written-
+    # vs-articulation incompatibility, not a per-item render accident.
+    # Mark manifests, then refresh QC so the flag is visible in
+    # auto_flags too (the audio package hash never covers these files).
+    marked = _phrase_level_conflicts(cdir)
+    if marked:
+        progress(f"  phrase-level carrier conflict: "
+                 f"{len(marked)} item(s) share B2 chars across targets")
+        for iid in marked:
+            mp = cdir / "items" / iid / "manifest.json"
+            man2 = json.loads(mp.read_text(encoding="utf-8"))
+            qc2 = signal_qc(man2, mp.parent)
+            _jwrite(mp.parent / "signal_qc.json", qc2)
+            for pit in planned:
+                if pit["cal_item_id"] == iid:
+                    pit["signal_qc_flags"] = qc2["auto_flags"]
     if only:
         # partial (re)build — merge into the existing plan so the other
         # items' entries survive; per-item lyric_contract/contract_sha
