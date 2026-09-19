@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5N/rlv8 已实现但 correctness 未闭合；CURRENT blocker = G5N.1 correctness patch）。** rlv8 已完成 21 项重扫：3 项 lyric-evidence 被暂时恢复、`0391/0404` 识别为器乐无歌词区，并为 B2 增加 `b2_semantic`；真实 inventory 仍为 `0/21 eligible`，`pilot_authority.ok=false`、`review_ready=false`。当前审计发现四个必须先修的 correctness 问题：① `onset_strength_peak_v1` 只能 corroborate timing，不能单独恢复低置信汉字的 lyric identity；② `benign_post_boundary_delay` 目前主要由同源第二 onset detector + `<=150ms` 决定，尚未真正消费足够的 phoneme/neighbor/render evidence；③ inventory 读取了 post-loop `B1_*` 但没有把它们加入 eligibility disqualifier；④ phrase-level target-independent conflict 与 sub-resolution B2 仍可能成为不合理的永久 hard blocker。最新 rlv8 implementation/data commit `ea498d0` 的 GitHub Actions run `35420761178` success、383 tests PASS，但 `state.json` 仍显示 `git_evidence.complete=false` 且 `missing_count=0`，因此还需要 correctness patch 后的 post-commit state rebuild。完成 G5N.1 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5N.1/rlv9 correctness patch 已实现并通过回归；CURRENT blocker = honest roster 为空——需上游 written-timing/structure 裁决或第三独立测量族）。** rlv9 已完成 21 项重扫：onset-peak 降级为 timing-corroboration（3 项 rlv8 假 lyric 恢复全部撤销）、`_onset_span_evidence` 独立语义族接入 `_b2_semantic`（rlv8 的 3 个假 benign 全部回退 ambiguous/unresolved）、post-loop `B1_*` 全部进 hard gate、phrase-level 改为审计事实 + sub-resolution 判 neutral。真实 rlv9 inventory 仍为 `0/21 eligible`——但该 0 来自修正后的 evidence semantics 而非 gate bug；`n_lyric_recovered=0`、`roster_candidates=[]`、`plan_invariants.ok=true`、`pilot_authority.ok=false`、`review_ready=false`。下一步在上游：对已确认 `written_timing_error` 的字（如 `圆`）走书面裁决，或对 ambiguous/unresolved 项补第三独立测量族；roster≥3 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -1315,6 +1315,24 @@ DO NOT permanently block a phrase solely because benign conflicts repeat
 DO NOT treat below-resolution displacement as a measurable error
 DO NOT freeze M2.5
 ```
+
+##### G5N.1 实现记录（rlv9，2026-09-20）
+
+四个 correctness 缺口全部按规则修复；真实 rlv9 inventory 仍为 `0/21 eligible`，但该 0 现在来自修正后的 evidence semantics：
+
+1. **Lyric identity vs timing corroboration 分离**。`_adjudicate_lyric_evidence` 中 `onset_strength_peak_v1` 降级为 `timing_corroboration_only`；恢复额外要求每个低概率字有 identity-bearing 证据（`_onset_span_evidence` 的音素类一致：obstruent→frication_like，sonorant/glide→voiced onset），不满足输出 `timing_corroborated_identity_unverified` 且 `recovered=False`。`MIN_REVIEW_CHAR_PROB=0.25` 未动。真实结果：rlv8 的 3 项"恢复"（0231/0311/0325）全部撤销——timing corroborated 但 identity unverified，`n_lyric_recovered=0`。
+2. **Benign B2 语义独立证据**。新增 `_onset_span_evidence`（独立于 onset detector）：conflict span 的 hf_ratio/mean_db/min_db/periodicity/frication_like/pre_onset_gap/voiced_continuation。`_b2_semantic` 规则：
+   - early benign_preutterance 需：obstruent + frication-like span + second family confirms + 邻居一致
+   - late benign_post_boundary_delay 需：confirms + 真 pre-onset 低能 gap + 非 voiced continuation + 非 unknown 音素 + 邻居一致
+   - voiced continuation / 无 gap / contradicts / unknown → `measurement_ambiguous` 或 `unresolved`，fail-closed
+   - `_classify_routes` 改两阶段：先全表分类再算 `prev/next_class_a` 邻居一致性
+   真实纠正：rlv8 的 3 个假 benign 全部撤销——`可`/`人`/`我`（0379）pre-onset 持续浊音→`measurement_ambiguous`；`遮`（0044）无真实 pre-onset gap + 前邻也是 B2（系统性偏移非局部延迟）→`measurement_ambiguous`；`却`（0044）second family contradicts→`measurement_ambiguous`。
+3. **Post-loop B1 hard gate**。inventory 每项消费 `post_loop_final_class`：任意 `B1_*`（含 `B1_cross_option_unstable`/`B1_detector_relock`/`B1_render_unmeasurable`）→ `unresolved_post_loop_B1:*` disqualifier + `post_loop_gate=b1_block`；无 current-contract post-loop 证据 → `needs_render`，`final_eligible=False`，仅进 `roster_pending_render` 不进 `roster_candidates`；全 class_A + current contract → `verified` 才可 final。
+4. **Phrase-level / sub-resolution 生命周期**。`phrase_level_target_independent_conflict` 保留为审计事实；共享 B2 全部 benign 时不再单独阻塞，任一非良性则仍 disqualify。`B2_SUBRESOLUTION_S` 内位移 → `measurement_below_resolution`（neutral，不阻塞）。
+
+真实 rlv9 inventory（21 项）：`n_eligible=0`、`n_lyric_recovered=0`、`n_unresolved_B2=8`、`n_phrase_level=4`、`roster_candidates=[]`、`roster_pending_render=[]`。4 项历史 pilot 已重渲 rlv9（全部 valid，post-loop 语义持久化：`一`→B1_cross_option_unstable、`惜`/`本`→B1_detector_relock）。`plan_invariants.ok=true`、`pilot_authority.ok=false`、`review_ready=false`——未请求试听。
+
+回归：N11–N21（timing-corroboration 非 identity、identity-bearing 恢复、late 同族≠benign、benign 需 phoneme+邻居、post-loop B1×2、verified→final、phrase benign→audit-only、phrase unresolved→阻塞、sub-resolution→neutral、post-loop gate 字段）+ M6/M10b 语义更新。
 ---
 
 ### 10.1.7 M2.5 CURRENT final acceptance gate
@@ -1334,28 +1352,35 @@ A. Engine / frozen safety
    [✓] 189s / 202s permanent safety green
 
 B. G5N / G5N.1 lyric evidence
-   [ ] no_chars root cause resolved or explicitly proven unavailable
-   [ ] low-confidence timing corroboration is NOT treated as lyric identity proof
-   [ ] identity recovery uses an identity-bearing second evidence family
-   [ ] no threshold relaxation solely to create pilot items
-   [ ] evidence provenance/version persisted
+   [✓] no_chars root cause resolved or explicitly proven unavailable
+       (0391/0404 → A5_instrumental_no_lyrics, LRC 间奏段无歌词行)
+   [✓] low-confidence timing corroboration is NOT treated as lyric identity proof
+       (onset-peak → timing_corroboration_only; unverified → no recovery)
+   [✓] identity recovery uses an identity-bearing second evidence family
+       (_onset_span_evidence phoneme-class consistency required)
+   [✓] no threshold relaxation solely to create pilot items
+       (MIN_REVIEW_CHAR_PROB=0.25 unchanged; n_lyric_recovered=0)
+   [✓] evidence provenance/version persisted (rlv9 impl + per-char evidence fields)
 
 C. G5N / G5N.1 B2 semantics
-   [ ] B2 is not treated as automatic written-score error
-   [ ] same-family waveform agreement confirms displacement, not semantic benignness
-   [ ] benign classifications use identity-aware phoneme evidence + geometry/neighbor consistency
-   [ ] sub-resolution displacement is neutral unless stronger evidence establishes a real conflict
-   [ ] phrase-level repetition remains audit-only after all shared conflicts resolve benign
-   [ ] genuine written/structure errors route upstream
-   [ ] measurement_ambiguous / unresolved remain fail-closed
+   [✓] B2 is not treated as automatic written-score error
+   [✓] same-family waveform agreement confirms displacement, not semantic benignness
+   [✓] benign classifications use identity-aware phoneme evidence + geometry/neighbor consistency
+   [✓] sub-resolution displacement is neutral unless stronger evidence establishes a real conflict
+       (measurement_below_resolution)
+   [✓] phrase-level repetition remains audit-only after all shared conflicts resolve benign
+   [✓] genuine written/structure errors route upstream (written_timing_error lane)
+   [✓] measurement_ambiguous / unresolved remain fail-closed
 
 D. Honest pilot roster
-   [ ] all 21 candidates rerun under revised current contract
-   [ ] eligibility_inventory committed/auditable
-   [ ] roster contains only semantically resolved reviewable items
-   [ ] no unresolved pre-loop OR post-loop B1/B2/lyric-evidence blocker in roster
-   [ ] every proposed roster item has current-contract render/post-loop evidence
-   [ ] pilot size evidence-driven; do not lower gates to fill count
+   [✓] all 21 candidates rerun under revised current contract (rlv9 inventory)
+   [✓] eligibility_inventory committed/auditable
+   [✓] roster contains only semantically resolved reviewable items (empty → vacuous)
+   [✓] no unresolved pre-loop OR post-loop B1/B2/lyric-evidence blocker in roster
+       (post_loop_gate verified/b1_block/needs_render enforced)
+   [✓] every proposed roster item has current-contract render/post-loop evidence
+       (final_eligible requires verified post-loop)
+   [✓] pilot size evidence-driven; do not lower gates to fill count (roster=[])
 
 E. Exact review authority
    [ ] state/plan are rebuilt after the final artifact commit

@@ -68,7 +68,7 @@ LYRIC_MAPPING_IMPL_VERSION = {
     # cross_option_unstable / detector_relock), second-family evidence
     # only adjudicates measurability (never averaged), and a B2 set
     # repeating across targets marks phrase_level_carrier_conflict.
-    "real_lyric_review": "rlv8",
+    "real_lyric_review": "rlv9",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 MIN_TIMING_CHAR_PROB = 0.30   # rendered char ASR confidence below
@@ -1243,7 +1243,8 @@ def _render_onsets(wav, centers: list):
 
 
 def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
-                     off: float = 0.0, ctx=None, edges=None) -> list:
+                     off: float = 0.0, ctx=None, edges=None,
+                     wav=None) -> list:
     """§10.1.5A-G5K per-char hard-case routing — decided BEFORE the
     loop iterates, from evidence that cannot change under iteration:
       class_A              reliable acoustic landmark AND the desired
@@ -1322,39 +1323,54 @@ def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
                     "post_boundary_delay_candidate"
                     if gap <= ANTICIPATION_MAX_S
                     else "written_timing_suspect")
-            if ctx is not None:
-                # §G5N semantic adjudication — consumes direction +
-                # phoneme class + the second landmark family + carrier
-                # geometry; a benign verdict needs INDEPENDENT support
-                note = next(
-                    (n for n in ctx
-                     if abs(float(n["start"]) - float(lo[k])) < 1e-3),
-                    None)
-                cend = float(note["end"]) if note else float(hi[k])
-                prev_end = max(
-                    (float(n["end"]) for n in ctx
-                     if float(n["start"]) < float(lo[k]) - 1e-4),
-                    default=None)
-                nxt = min((float(n["start"]) for n in ctx
-                           if float(n["start"]) > float(lo[k]) + 1e-4),
-                          default=None)
-                sem = _b2_semantic(
-                    r, c["char"], r["direction"], gap,
-                    edges[k] if edges else None,
-                    float(lo[k]) - off, float(hi_move[k]) - off,
-                    (round(float(lo[k]) - prev_end, 4)
-                     if prev_end is not None else None),
-                    (round(nxt - cend, 4)
-                     if nxt is not None else None))
-                sem["b2_evidence"]["carrier_start"] = round(
-                    float(lo[k]) - off, 4)
-                sem["b2_evidence"]["carrier_end"] = round(
-                    cend - off, 4)
-                r.update(sem)
         else:
             r["route"] = ROUTE_CLASS_A
         r["final_class"] = r["route_subtype"] or r["route"]
         routes.append(r)
+    # §G5N.1 second pass — semantics consume the FULL route table:
+    # neighbor timing consistency is part of a benign verdict and
+    # can't be evaluated while later chars are still unclassified.
+    if ctx is not None:
+        for k, r in enumerate(routes):
+            if r["route"] != ROUTE_B2:
+                continue
+            note = next(
+                (n for n in ctx
+                 if abs(float(n["start"]) - float(lo[k])) < 1e-3),
+                None)
+            cend = float(note["end"]) if note else float(hi[k])
+            prev_end = max(
+                (float(n["end"]) for n in ctx
+                 if float(n["start"]) < float(lo[k]) - 1e-4),
+                default=None)
+            nxt = min((float(n["start"]) for n in ctx
+                       if float(n["start"]) > float(lo[k]) + 1e-4),
+                      default=None)
+            ref = r["source_ref_onset"]
+            if r["direction"] == "early":
+                sp_a, sp_b = ref, float(lo[k]) - off
+            else:
+                sp_a, sp_b = float(hi_move[k]) - off, ref
+            span_ev = _onset_span_evidence(wav, sp_a, sp_b) \
+                if wav and ref is not None else None
+            sem = _b2_semantic(
+                r, chars[k]["char"], r["direction"],
+                float(r["overhang_ms"]) / 1000.0,
+                edges[k] if edges else None,
+                float(lo[k]) - off, float(hi_move[k]) - off,
+                (round(float(lo[k]) - prev_end, 4)
+                 if prev_end is not None else None),
+                (round(nxt - cend, 4)
+                 if nxt is not None else None),
+                span_ev=span_ev,
+                prev_class_a=(routes[k - 1]["route"] == ROUTE_CLASS_A
+                              if k > 0 else None),
+                next_class_a=(routes[k + 1]["route"] == ROUTE_CLASS_A
+                              if k + 1 < len(routes) else None))
+            sem["b2_evidence"]["carrier_start"] = round(
+                float(lo[k]) - off, 4)
+            sem["b2_evidence"]["carrier_end"] = round(cend - off, 4)
+            r.update(sem)
     return routes
 
 
@@ -1457,7 +1473,8 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
         ctx=it.get("context"),
         edges=_energy_edge_onsets(
             src_wav, [float(c["start"]) - ph0 for c in chars])
-        if src_wav else None)
+        if src_wav else None,
+        wav=src_wav)
     hard = [k for k in range(len(chars))
             if routes[k]["route"] != ROUTE_CLASS_A]
     hi_move = [hi[k] + ARTICULATE_MIN_SEG_S - MIN_USABLE_SEG_S
@@ -2829,6 +2846,7 @@ _DIAGNOSIS_LANES = {
     "unbindable_chars": "structure_diagnosis",
     "source_unmeasurable": "measurement_diagnosis",
     "unresolved_B1": "measurement_diagnosis",
+    "unresolved_post_loop_B1": "measurement_diagnosis",
     "unresolved_B2": "written_timing_diagnosis",
     "phrase_level_carrier_conflict": "structure_diagnosis",
     # §G5N semantic lanes — a resolved-benign B2 produces no lane;
@@ -2893,24 +2911,115 @@ def _pinyin_initial(char: str) -> tuple:
     return ini, _INITIAL_CLASS.get(ini, "unknown")
 
 
+def _onset_span_evidence(wav, t_a: float, t_b: float) -> dict:
+    """§G5N.1 semantic/phoneme-boundary evidence — measurements of
+    the conflict SPAN itself, an evidence family INDEPENDENT of the
+    onset detectors (which can only corroborate that a displacement
+    exists, never what it means).
+
+    early conflict — span [source onset, carrier bound]:
+      frication_like = HF-rich non-periodic content ⇒ a preuttered
+      consonant actually sounds inside the pre-carrier span.
+    late conflict — span [carrier bound, source onset]:
+      pre_onset_gap = a low-energy dip in the last ~50ms before the
+      source onset ⇒ the voice actually pauses ⇒ a real articulatory
+      delay; loud periodic continuation right up to the onset means
+      the 'late onset' is inside ongoing phonation — a boundary
+      measurement question, never a delay.
+
+    Returns a feature dict; every field is None-able so callers fail
+    closed on missing/short audio rather than invent semantics."""
+    try:
+        import numpy as np
+        import librosa
+        y, sr = librosa.load(str(wav), sr=None, mono=True)
+        seg = y[max(0, int(float(t_a) * sr)):int(float(t_b) * sr)]
+        ev = {"span_dur_s": round(float(t_b) - float(t_a), 4),
+              "insufficient": True, "hf_ratio": None,
+              "mean_db": None, "min_db": None, "periodicity": None,
+              "pre_onset_gap": None, "frication_like": None,
+              "voiced_continuation": None}
+        if len(seg) < 256:
+            return ev
+        S = np.abs(librosa.stft(seg, n_fft=512, hop_length=128,
+                                center=False))
+        fr = librosa.fft_frequencies(sr=sr, n_fft=512)
+        hf = float(S[fr > 3500].sum() / max(S.sum(), 1e-9))
+        rms = librosa.feature.rms(y=seg, hop_length=128)[0]
+        db = librosa.amplitude_to_db(np.maximum(rms, 1e-9),
+                                     ref=np.max)
+        per = None
+        if len(seg) >= sr // 100:
+            n = min(len(seg), 4096)
+            ac = np.correlate(seg[:n], seg[:n], "full")[n - 1:]
+            ac = ac / max(ac[0], 1e-9)
+            lag = ac[sr // 500:sr // 80]
+            per = float(lag.max()) if lag.size else None
+        tail = y[max(0, int(float(t_b) * sr) - int(0.05 * sr)):
+                 int(float(t_b) * sr)]
+        tail_db = None
+        if len(tail) >= 128:
+            tr = librosa.feature.rms(y=tail, hop_length=128)[0]
+            tail_db = float(librosa.amplitude_to_db(
+                np.maximum(tr, 1e-9), ref=np.max).min())
+        ev.update({
+            "insufficient": False,
+            "hf_ratio": round(hf, 3),
+            "mean_db": round(float(db.mean()), 1),
+            "min_db": round(float(db.min()), 1),
+            "periodicity": round(per, 2) if per is not None else None,
+            # consonant-like content: broadband HF energy with low
+            # periodicity — the signature of a fricative/burst, not a
+            # sustained vowel or silence
+            "frication_like": bool(hf >= 0.30
+                                   and per is not None and per <= 0.55),
+            # a real delay pauses before the onset: the 50ms tail of
+            # the span must dip well below the local level
+            "pre_onset_gap": bool(tail_db is not None
+                                  and tail_db <= -15.0),
+            # loud periodic content right up to the onset = the voice
+            # never paused — continuation, not an articulatory delay
+            "voiced_continuation": bool(float(db.mean()) > -8.0
+                                        and per is not None
+                                        and per >= 0.7)})
+        return ev
+    except Exception:
+        return {"span_dur_s": round(float(t_b) - float(t_a), 4),
+                "insufficient": True, "hf_ratio": None,
+                "mean_db": None, "min_db": None, "periodicity": None,
+                "pre_onset_gap": None, "frication_like": None,
+                "voiced_continuation": None}
+
+
 def _b2_semantic(r: dict, char: str, direction: str, overhang: float,
                  edge_rel, lo_rel: float, hi_move_rel: float,
-                 gap_before, gap_after) -> dict:
-    """§G5N per-B2 semantic adjudication — B2 proves the source
+                 gap_before, gap_after, span_ev=None,
+                 prev_class_a=None, next_class_a=None) -> dict:
+    """§G5N.1 per-B2 semantic adjudication — B2 proves the source
     landmark sits outside the legal carrier range; it does NOT prove
-    the written score is wrong. The verdict consumes direction +
-    phoneme context + the second landmark family + carrier/gap
-    geometry — never the overhang alone.
+    the written score is wrong.
 
-    second_family semantics: energy_edge_v1 onset measured on the
-    SAME source clip. 'confirms' = the edge independently lands on
-    the SAME side of the bound the primary ref crossed (the acoustic
-    displacement is real, measured twice); 'contradicts' = the edge
-    stays inside the legal range (the primary landmark was probably
-    a mis-assigned neighbouring event); 'unavailable' = no edge.
+    second_family semantics (energy_edge_v1, SAME source clip):
+    confirms/contradicts establish that the acoustic DISPLACEMENT is
+    real — they can never by themselves establish benign SEMANTICS.
+    A benign verdict additionally requires the independent
+    span-evidence family (`_onset_span_evidence`):
 
-    Returns the route dict's `b2_semantic` + `b2_evidence` fields."""
+      benign_preutterance:      early + obstruent initial + confirms
+                                + frication_like span (a real
+                                consonant sounds pre-carrier)
+                                + previous neighbour consistent
+      benign_post_boundary_delay: late + known initial + confirms
+                                + pre_onset_gap (voice pauses before
+                                the delayed onset — loud periodic
+                                continuation is NEVER a delay)
+                                + next neighbour consistent
+
+    `measurement_below_resolution` is NEUTRAL: a displacement below
+    detector resolution cannot establish a material conflict and is
+    not a hard blocker by itself."""
     ini, iclass = _pinyin_initial(char)
+    se = span_ev or {}
     second = "unavailable"
     edge_dev = None
     if edge_rel is not None:
@@ -2928,6 +3037,9 @@ def _b2_semantic(r: dict, char: str, direction: str, overhang: float,
           "energy_edge_deviation_ms": edge_dev,
           "gap_before_carrier_s": gap_before,
           "gap_after_carrier_s": gap_after,
+          "span_evidence": span_ev,
+          "neighbor_prev_consistent": prev_class_a,
+          "neighbor_next_consistent": next_class_a,
           # correcting this conflict means placing the onset outside
           # the written carrier — by definition a written-score edit,
           # recorded for the upstream diagnosis, not performed here
@@ -2937,21 +3049,35 @@ def _b2_semantic(r: dict, char: str, direction: str, overhang: float,
           # shared-bound, never counted as independent replication
           "shared_bound_conflict": True}
     if overhang <= B2_SUBRESOLUTION_S:
-        sem = "measurement_ambiguous"
-        ev["reason"] = "subresolution_overhang"
-    elif direction == "early":
+        return {"b2_semantic": "measurement_below_resolution",
+                "b2_evidence": {
+                    **ev, "reason": "below_detector_resolution"}}
+    if direction == "early":
         if overhang > B2_BENIGN_EARLY_MAX_S:
             sem = ("written_timing_error" if second == "confirms"
                    else "unresolved" if second == "unavailable"
                    else "measurement_ambiguous")
         elif iclass == "obstruent":
-            sem = ("benign_preutterance" if second == "confirms"
-                   else "measurement_ambiguous"
-                   if second == "contradicts" else "unresolved")
+            if second != "confirms":
+                sem = ("measurement_ambiguous"
+                       if second == "contradicts" else "unresolved")
+            elif (se.get("frication_like")
+                    and prev_class_a is not False):
+                sem = "benign_preutterance"
+            else:
+                # displacement real but no consonant sounds in the
+                # pre-carrier span → not a provable preutterance
+                sem = "measurement_ambiguous"
         elif iclass == "sonorant" \
                 and overhang <= B2_BENIGN_SONORANT_MAX_S:
-            sem = ("benign_preutterance" if second == "confirms"
-                   else "unresolved")
+            if (second == "confirms"
+                    and (se.get("periodicity") or 0.0) >= 0.5
+                    and prev_class_a is not False):
+                sem = "benign_preutterance"
+            elif second == "confirms":
+                sem = "measurement_ambiguous"
+            else:
+                sem = "unresolved"
         else:  # glide/zero/unknown — no consonant to preutter
             sem = ("written_timing_error"
                    if second == "confirms"
@@ -2962,10 +3088,16 @@ def _b2_semantic(r: dict, char: str, direction: str, overhang: float,
         if second == "confirms":
             if iclass == "unknown":
                 sem = "unresolved"
+            elif overhang > B2_BENIGN_LATE_MAX_S:
+                sem = "written_timing_error"
+            elif (se.get("pre_onset_gap")
+                    and not se.get("voiced_continuation")
+                    and next_class_a is not False):
+                sem = "benign_post_boundary_delay"
             else:
-                sem = ("benign_post_boundary_delay"
-                       if overhang <= B2_BENIGN_LATE_MAX_S
-                       else "written_timing_error")
+                # real displacement but the voice never paused — a
+                # boundary measurement question, not a provable delay
+                sem = "measurement_ambiguous"
         elif second == "contradicts":
             sem = "measurement_ambiguous"
         else:
@@ -3031,20 +3163,53 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
         ent["landmark_kind"] = kinds[i] if kinds else None
         ent["landmark_dev_ms"] = round(dev * 1000.0, 1) \
             if dev is not None else None
-        ent["confirmed"] = bool(
+        # §G5N.1: an onset landmark corroborates TIMING only — it
+        # can never prove the char's lexical identity by itself
+        ent["timing_corroborated"] = bool(
             kinds and kinds[i] == "onset_peak"
             and dev is not None and abs(dev) <= LYRIC_CONFIRM_S)
-        confirmed += 1 if ent["confirmed"] else 0
+        confirmed += 1 if ent["timing_corroborated"] else 0
+        # identity-bearing check at phoneme-class granularity: the
+        # 90ms before the onset must show content consistent with the
+        # char's expected initial class — frication for an obstruent,
+        # voiced continuation for a sonorant/glide. 'unclear' fails
+        # closed (no free identity claim).
+        ini, iclass = _pinyin_initial(c["char"])
+        ident = {"pinyin_initial": ini, "initial_class": iclass,
+                 "consistent": None}
+        if ent["timing_corroborated"] and iclass != "unknown" \
+                and src_wav is not None:
+            sp = _onset_span_evidence(
+                src_wav, ref - 0.09, ref)
+            ident["span_evidence"] = sp
+            if not sp.get("insufficient"):
+                if iclass == "obstruent":
+                    ident["consistent"] = bool(
+                        sp.get("frication_like"))
+                else:  # sonorant / glide — voiced onset expected
+                    ident["consistent"] = bool(
+                        (sp.get("periodicity") or 0.0) >= 0.5)
+        ent["identity_evidence"] = ident
+        ent["identity_consistent"] = ident["consistent"]
     adj["low_prob_chars"] = lows
     adj["second_evidence"] = {
         "family": "onset_strength_peak_v1",
+        "role": "timing_corroboration_only",
         "confirm_window_ms": LYRIC_CONFIRM_S * 1000.0,
-        "n_low": len(lows), "n_confirmed": confirmed}
+        "n_low": len(lows), "n_confirmed": confirmed,
+        "n_identity_consistent": sum(
+            1 for l in lows if l.get("identity_consistent"))}
     high = sum(1 for c in chars
                if float(c.get("probability") or 0.0) >= 0.5)
-    if lows and confirmed == len(lows) and high >= 1:
+    ident_ok = all(l.get("identity_consistent") for l in lows)
+    if lows and confirmed == len(lows) and high >= 1 and ident_ok:
         adj["diagnosis"] = "A4_outlier_resolved"
         adj["recovered"] = True
+    elif lows and confirmed == len(lows) and high >= 1:
+        # timing is corroborated on every outlier, but no
+        # identity-bearing family has verified the chars — NOT
+        # authoritative lyric recovery (§G5N.1 Blocker 1)
+        adj["diagnosis"] = "timing_corroborated_identity_unverified"
     elif len(lows) <= 2 and high >= 1:
         adj["diagnosis"] = "A4_outlier_unresolved"
     else:
@@ -3207,7 +3372,7 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                     if refs is not None else None
                 routes = _classify_routes(
                     chars, refs, kinds, lo, hi, off=ph0,
-                    ctx=it.get("context"), edges=edges)
+                    ctx=it.get("context"), edges=edges, wav=sw)
                 b1 = [r for r in routes
                       if r["route"] == ROUTE_B1]
                 b2 = [r for r in routes
@@ -3223,6 +3388,7 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                         for s in ("benign_preutterance",
                                   "benign_post_boundary_delay",
                                   "measurement_ambiguous",
+                                  "measurement_below_resolution",
                                   "written_timing_error",
                                   "structure_timing_error",
                                   "unresolved")
@@ -3231,15 +3397,32 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                 if b1:
                     dq.append("unresolved_B1:"
                               + "".join(r["char"] for r in b1))
-                # only semantically-resolved benign B2s leave the
-                # ordinary blocker route — everything else is a
-                # disqualifier named by its semantic diagnosis
+                # only semantically-resolved benign (or provably
+                # below-resolution) B2s leave the ordinary blocker
+                # route — everything else is a disqualifier named by
+                # its semantic diagnosis
                 for r in b2:
                     sem = r.get("b2_semantic") or "unresolved"
                     if sem in ("benign_preutterance",
-                               "benign_post_boundary_delay"):
+                               "benign_post_boundary_delay",
+                               "measurement_below_resolution"):
                         continue
                     dq.append(f"{sem}:{r['char']}")
+        # §G5N.1 Blocker 3 — a post-loop B1_* subtype recorded in the
+        # CURRENT package's closed loop is a hard blocker even when
+        # every pre-loop conflict resolves benign; and an item with
+        # no current-contract post-loop evidence cannot claim FINAL
+        # eligibility (it is a render candidate, not a roster item).
+        plc = ent.get("post_loop_final_class") or {}
+        b1p = sorted(c for c, v in plc.items()
+                     if str(v or "").startswith("B1"))
+        if b1p:
+            dq.append("unresolved_post_loop_B1:" + "".join(b1p))
+            ent["post_loop_gate"] = "b1_block"
+        elif plc and ent["contract_status"] == "current":
+            ent["post_loop_gate"] = "verified"
+        else:
+            ent["post_loop_gate"] = "needs_render"
         ent["char_routes"] = _eligibility_routes_summary(routes)
         ent["disqualifiers"] = dq
         ent["phrase_level_carrier_conflict"] = False
@@ -3248,38 +3431,45 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
         entries.append(ent)
         pending.append((ent, routes))
     # --- phrase-level: a B2 set repeating across review targets on
-    # the same phrase is systematic, never an ordinary pilot item ---
+    # the same phrase is systematic — a TARGET-INDEPENDENT finding.
+    # §G5N.1: it is an audit/routing fact, not a permanent blocker —
+    # once every shared conflict resolves benign the flag remains for
+    # audit but adds no disqualifier of its own.
+    _BLOCKING_SEM = {"written_timing_error", "structure_timing_error",
+                     "measurement_ambiguous", "unresolved"}
     by_pk = {}
     for ent, routes in pending:
         if routes:
-            b2 = {r["char"] for r in routes
-                  if r["route"] == ROUTE_B2}
-            by_pk.setdefault(ent["phrase_key"], []).append((ent, b2))
+            sem = {r["char"]: r.get("b2_semantic") or "unresolved"
+                   for r in routes if r["route"] == ROUTE_B2}
+            by_pk.setdefault(ent["phrase_key"], []).append((ent, sem))
     for pk, grp in by_pk.items():
         if len(grp) < 2:
             continue
-        shared = set.intersection(*[b2 for _, b2 in grp])
+        shared = set.intersection(*[set(s) for _, s in grp])
         if not shared:
             continue
-        for ent, b2 in grp:
-            mine = shared & b2
+        for ent, sem in grp:
+            mine = shared & set(sem)
             if not mine:
                 continue
-            # §G5N: a B2 set repeating across review targets on the
-            # same phrase proves a TARGET-INDEPENDENT conflict — the
-            # two targets share source phrase / Candidate-0 context /
-            # lyric alignment / carrier bounds, so it is ONE finding
-            # routed to semantic adjudication, never double-confirmed
-            # independent evidence of a written-score error
             ent["phrase_level_carrier_conflict"] = True
             ent["phrase_level_target_independent_conflict"] = True
             ent["shared_b2_chars"] = sorted(mine)
-            ent["disqualifiers"].append(
-                "phrase_level_carrier_conflict:"
-                + "".join(sorted(mine)))
+            bad = sorted(c for c in mine if sem[c] in _BLOCKING_SEM)
+            if bad:
+                ent["disqualifiers"].append(
+                    "phrase_level_carrier_conflict:"
+                    + "".join(bad))
     # --- verdicts + diagnosis lanes ---
     for ent in entries:
         ent["eligible"] = not ent["disqualifiers"]
+        # §G5N.1: FINAL eligibility additionally requires current-
+        # contract post-loop evidence — a render-free clean pre-loop
+        # verdict is a rebuild candidate, never a roster member.
+        ent["final_eligible"] = bool(
+            ent["eligible"]
+            and ent.get("post_loop_gate") == "verified")
         lanes = {_DIAGNOSIS_LANES[d.split(":")[0]]
                  for d in ent["disqualifiers"]
                  if d.split(":")[0] in _DIAGNOSIS_LANES}
@@ -3289,8 +3479,15 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
             lanes.add("structure_diagnosis")
         ent["diagnosis_routes"] = sorted(lanes)
         ent["rebuild_required"] = (
-            ent["eligible"] and ent["contract_status"] != "current")
-    roster = [e["note_id"] for e in entries if e["eligible"]]
+            ent["eligible"]
+            and (ent["contract_status"] != "current"
+                 or ent.get("post_loop_gate") == "needs_render"))
+    # the honest roster binds FINAL eligibility only — post-loop
+    # verified under the current contract; pre-loop-clean items that
+    # still need a render+loop are rebuild candidates, not roster
+    roster = [e["note_id"] for e in entries if e["final_eligible"]]
+    pending_render = [e["note_id"] for e in entries
+                      if e["eligible"] and not e["final_eligible"]]
     doc = {"schema": CALIB_SCHEMA,
            "kind": "eligibility_inventory",
            "generated_at": _now(), "run_id": run_dir.name,
@@ -3301,7 +3498,12 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
            "items": entries,
            "summary": {
                "n_items": len(entries),
+               # §G5N.1: n_eligible counts FINAL eligibility —
+               # pre-loop-clean items still needing a current-
+               # contract render+loop are rebuild candidates, not
+               # roster members
                "n_eligible": len(roster),
+               "n_pending_render": len(pending_render),
                "n_lyric_evidence_fail": sum(
                    1 for e in entries
                    if any(d.startswith("lyric_evidence:")
@@ -3331,6 +3533,7 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                "n_rebuild_required": sum(
                    1 for e in entries if e["rebuild_required"])},
            "roster_candidates": roster,
+           "roster_pending_render": pending_render,
            "roster_size_ok": len(roster) >= 3}
     if write:
         _jwrite(cdir / "eligibility_inventory.json", doc)
@@ -3508,7 +3711,7 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                     anchors=(it.get("_loop") or {}).get("anchors"))
                 loop = it.get("_loop")
                 if segs is not None:
-                    art = {"impl": "rlv8",
+                    art = {"impl": "rlv9",
                            "n_segments": len(segs),
                            "n_articulation_splits": sum(
                                1 for sg in segs

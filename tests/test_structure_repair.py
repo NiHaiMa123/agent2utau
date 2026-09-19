@@ -2297,7 +2297,7 @@ def test_j8_rlv3_artifacts_stale_under_rlv7():
                            "lyric_mapping_impl": "rlv3",
                            "contract_sha256": rlv3_sha}}
     assert sc.item_contract_stale(man, {}, "rph") is True
-    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv8"
+    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv9"
 
 
 def test_j9_state_read_does_not_dirty(tmp_path, monkeypatch):
@@ -2523,7 +2523,7 @@ def _qc_route_man(route0, route1=None, ref_onsets=None):
         cl["ref_onsets"] = ref_onsets
         cl["ref_kinds"] = ["onset_peak"] * len(ref_onsets)
     man["calibration"]["lyric_evidence"]["articulation"] = {
-        "impl": "rlv8", "closed_loop": cl}
+        "impl": "rlv9", "closed_loop": cl}
     return man
 
 
@@ -3180,12 +3180,16 @@ def test_m6_roster_derived_from_evidence_not_history(
                   man=None, qc=None)]
     _inv_store(tmp_path, monkeypatch, specs)
     doc = sc.eligibility_inventory(tmp_path, progress=None)
-    assert doc["roster_candidates"] == ["note_0001"]
+    # §G5N.1: render-free clean items are rebuild candidates — the
+    # roster itself requires current-contract post-loop evidence
+    assert doc["roster_candidates"] == []
+    assert doc["roster_pending_render"] == ["note_0001"]
     specs[1]["refs"] = ([0.1], ["onset_peak"])
     _inv_store(tmp_path, monkeypatch, specs)
     doc2 = sc.eligibility_inventory(tmp_path, progress=None)
-    assert set(doc2["roster_candidates"]) == {"note_0001",
-                                              "note_0002"}
+    assert doc2["roster_candidates"] == []
+    assert set(doc2["roster_pending_render"]) == {"note_0001",
+                                                "note_0002"}
 
 
 def test_m7_exact_roster_passes_pilot_authority(tmp_path, monkeypatch):
@@ -3271,7 +3275,16 @@ def test_m10b_inventory_gates_pilot_payload(tmp_path, monkeypatch):
                   "calibration": {
                       "baseline_option": "OPTION_0",
                       "lyric_contract": "real_lyric_review",
-                      "contract_sha256": "x"}},
+                      "lyric_mapping_impl":
+                          sc.LYRIC_MAPPING_IMPL_VERSION[
+                              "real_lyric_review"],
+                      "contract_sha256": sc.render_contract_sha(
+                          {"run_id": tmp_path.name}, sc._rph_hash(),
+                          "real_lyric_review"),
+                      "lyric_evidence": {"articulation": {
+                          "closed_loop": {"char_routes": [
+                              {"char": "甲",
+                               "final_class": sc.ROUTE_CLASS_A}]}}}}},
              qc=None),
         dict(note_id="note_0002", item_id="cal-bad",
              phrase_key="1.00-6.00", ev=_ev_ok(chars),
@@ -3339,26 +3352,37 @@ def _b2r(char, direction, oh_ms, ref):
 
 
 def test_n1_benign_preutterance_needs_confirmed_obstruent():
-    """early obstruent + second family on the same side of the bound
-    → benign_preutterance. The overhang alone is never enough."""
+    """§G5N.1: early obstruent + second family AND frication in the
+    pre-carrier span + consistent neighbour → benign_preutterance.
+    Waveform-onset agreement alone is never enough."""
     import agent2utau.structure_calibration as sc
     r = _b2r("等", "early", 37.0, 0.41)
-    sem = sc._b2_semantic(r, "等", "early", 0.037, 0.40, 0.45, 0.90,
-                          0.0, 0.4)
+    sem = sc._b2_semantic(
+        r, "等", "early", 0.037, 0.40, 0.45, 0.90, 0.0, 0.4,
+        span_ev={"insufficient": False, "frication_like": True},
+        prev_class_a=True, next_class_a=True)
     assert sem["b2_semantic"] == "benign_preutterance"
     ev = sem["b2_evidence"]
     assert ev["initial_class"] == "obstruent"
     assert ev["second_family"] == "confirms"
     assert ev["shared_bound_conflict"] is True
+    # same call without span evidence → confirmed displacement but
+    # unproven semantics → ambiguous, not benign
+    sem2 = sc._b2_semantic(r, "等", "early", 0.037, 0.40, 0.45, 0.90,
+                           0.0, 0.4)
+    assert sem2["b2_semantic"] == "measurement_ambiguous"
 
 
 def test_n2_benign_post_boundary_delay_confirmed():
-    """late + edge independently past the legal end →
-    benign_post_boundary_delay (small confirmed delay)."""
+    """late + edge confirms + real pre-onset gap + consistent
+    neighbour → benign_post_boundary_delay."""
     import agent2utau.structure_calibration as sc
     r = _b2r("遮", "late", 66.0, 1.016)
-    sem = sc._b2_semantic(r, "遮", "late", 0.066, 1.00, 0.60, 0.95,
-                          0.0, 0.4)
+    sem = sc._b2_semantic(
+        r, "遮", "late", 0.066, 1.00, 0.60, 0.95, 0.0, 0.4,
+        span_ev={"insufficient": False, "pre_onset_gap": True,
+                 "voiced_continuation": False},
+        prev_class_a=True, next_class_a=True)
     assert sem["b2_semantic"] == "benign_post_boundary_delay"
     assert sem["b2_evidence"]["second_family"] == "confirms"
 
@@ -3424,13 +3448,13 @@ def test_n7_glide_cannot_preutter():
 
 
 def test_n8_lyric_outlier_recovered_by_second_family(monkeypatch):
-    """A4: ONE low-probability char whose position is independently
-    confirmed by the onset-peak family → evidence recovered; the
-    threshold itself is untouched."""
+    """A4: a low-prob char needs BOTH timing corroboration AND
+    phoneme-class identity consistency to recover — the onset-peak
+    family alone is timing corroboration only (§G5N.1 Blocker 1)."""
     import agent2utau.structure_calibration as sc
     chars = [{"char": "甲", "start": 0.0, "end": 0.3,
               "probability": 0.9},
-             {"char": "乙", "start": 0.4, "end": 0.7,
+             {"char": "等", "start": 0.4, "end": 0.7,
               "probability": 0.01},
              {"char": "丙", "start": 0.8, "end": 1.1,
               "probability": 0.9}]
@@ -3441,19 +3465,39 @@ def test_n8_lyric_outlier_recovered_by_second_family(monkeypatch):
     monkeypatch.setattr(
         sc, "_source_ref_onsets",
         lambda c, sw, ph0: ([0.0, 0.41, 0.8], ["onset_peak"] * 3))
+    # 等 is an obstruent — frication in the pre-onset span verifies
+    # the phoneme class → identity-bearing recovery
+    monkeypatch.setattr(
+        sc, "_onset_span_evidence",
+        lambda sw, a, b: {"insufficient": False,
+                          "frication_like": True,
+                          "periodicity": 0.2})
     adj = sc._adjudicate_lyric_evidence(
-        run, it, ev, chars, None, 0.0)
+        run, it, ev, chars, "fake.wav", 0.0)
     assert adj["recovered"] is True
     assert adj["diagnosis"] == "A4_outlier_resolved"
-    assert adj["low_prob_chars"][0]["confirmed"] is True
+    assert adj["low_prob_chars"][0]["timing_corroborated"] is True
+    assert adj["low_prob_chars"][0]["identity_consistent"] is True
+    # timing corroborated but the span shows NO consonant content —
+    # identity stays unverified, NOT authoritative recovery
+    monkeypatch.setattr(
+        sc, "_onset_span_evidence",
+        lambda sw, a, b: {"insufficient": False,
+                          "frication_like": False,
+                          "periodicity": 0.9})
+    adj2 = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj2["recovered"] is False
+    assert adj2["diagnosis"] == \
+        "timing_corroborated_identity_unverified"
     # a landmark far from the claimed position does NOT confirm
     monkeypatch.setattr(
         sc, "_source_ref_onsets",
         lambda c, sw, ph0: ([0.0, 0.60, 0.8], ["onset_peak"] * 3))
-    adj2 = sc._adjudicate_lyric_evidence(
-        run, it, ev, chars, None, 0.0)
-    assert adj2["recovered"] is False
-    assert adj2["diagnosis"] == "A4_outlier_unresolved"
+    adj3 = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj3["recovered"] is False
+    assert adj3["diagnosis"] == "A4_outlier_unresolved"
 
 
 def test_n9_no_chars_instrumental_is_a5_not_a1():
@@ -3492,7 +3536,8 @@ def test_n10_phrase_level_is_target_independent(tmp_path, monkeypatch):
 
 def test_n10b_benign_b2_leaves_blocker_route(tmp_path, monkeypatch):
     """a benign-resolved B2 stops disqualifying — but ONLY via the
-    independent-evidence path, never by number size."""
+    independent-evidence path, and the item still can't be roster-
+    final without current-contract post-loop evidence (§G5N.1)."""
     import agent2utau.structure_calibration as sc
     chars = [{"char": "等", "start": 0.0, "end": 0.3},
              {"char": "甲", "start": 0.4, "end": 0.7}]
@@ -3507,6 +3552,12 @@ def test_n10b_benign_b2_leaves_blocker_route(tmp_path, monkeypatch):
         man=None, qc=None)])
     monkeypatch.setattr(sc, "_energy_edge_onsets",
                         lambda sw, centers: [0.38, None])
+    monkeypatch.setattr(
+        sc, "_onset_span_evidence",
+        lambda sw, a, b: {"insufficient": False,
+                          "frication_like": True, "periodicity": 0.2,
+                          "pre_onset_gap": False,
+                          "voiced_continuation": False})
     doc = sc.eligibility_inventory(tmp_path, progress=None)
     e = doc["items"][0]
     r = e["char_routes"][0]
@@ -3514,3 +3565,257 @@ def test_n10b_benign_b2_leaves_blocker_route(tmp_path, monkeypatch):
     assert r["b2_semantic"] == "benign_preutterance"
     assert e["eligible"] is True
     assert e["disqualifiers"] == []
+    # render-free clean ≠ final eligibility — it is a rebuild
+    # candidate until a current-contract closed loop verifies it
+    assert e["post_loop_gate"] == "needs_render"
+    assert e["final_eligible"] is False
+    assert doc["roster_candidates"] == []
+    assert doc["roster_pending_render"] == ["note_0001"]
+
+
+def test_n11_onset_peak_is_timing_corroboration_only(monkeypatch):
+    """N11: onset-peak confirms timing but carries NO identity —
+    without an identity-bearing family the char stays unverified."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3,
+              "probability": 0.9},
+             {"char": "等", "start": 0.4, "end": 0.7,
+              "probability": 0.01}]
+    run = {"chars": chars}
+    it = {"phrase": {"start": 0.0, "end": 2.0},
+          "evidence_window": {"start": 0.0, "end": 1.0}}
+    ev = {"ok": False, "reason": "low_confidence", "chars": None}
+    monkeypatch.setattr(
+        sc, "_source_ref_onsets",
+        lambda c, sw, ph0: ([0.0, 0.41], ["onset_peak"] * 2))
+    monkeypatch.setattr(sc, "_onset_span_evidence",
+                        lambda sw, a, b: {"insufficient": True})
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj["recovered"] is False
+    assert adj["diagnosis"] == \
+        "timing_corroborated_identity_unverified"
+    assert adj["low_prob_chars"][0]["timing_corroborated"] is True
+
+
+def test_n12_identity_bearing_evidence_may_recover(monkeypatch):
+    """N12: a phoneme-class-consistent identity check (the identity-
+    bearing family) + timing corroboration may recover the char
+    WITHOUT touching the 0.25 threshold."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3,
+              "probability": 0.9},
+             {"char": "等", "start": 0.4, "end": 0.7,
+              "probability": 0.01}]
+    run = {"chars": chars}
+    it = {"phrase": {"start": 0.0, "end": 2.0},
+          "evidence_window": {"start": 0.0, "end": 1.0}}
+    ev = {"ok": False, "reason": "low_confidence", "chars": None}
+    monkeypatch.setattr(
+        sc, "_source_ref_onsets",
+        lambda c, sw, ph0: ([0.0, 0.41], ["onset_peak"] * 2))
+    monkeypatch.setattr(
+        sc, "_onset_span_evidence",
+        lambda sw, a, b: {"insufficient": False,
+                          "frication_like": True,
+                          "periodicity": 0.2})
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj["recovered"] is True
+    assert adj["diagnosis"] == "A4_outlier_resolved"
+    assert sc.MIN_REVIEW_CHAR_PROB == 0.25
+
+
+def test_n13_late_waveform_agreement_is_not_benign():
+    """N13: late + same-family detector confirms = displacement real,
+    semantics unproven — never benign on waveform agreement alone."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("遮", "late", 66.0, 1.016)
+    sem = sc._b2_semantic(r, "遮", "late", 0.066, 1.00, 0.60, 0.95,
+                          0.0, 0.4)
+    assert sem["b2_semantic"] == "measurement_ambiguous"
+    # loud periodic continuation up to the onset → NOT a delay
+    sem2 = sc._b2_semantic(
+        r, "遮", "late", 0.066, 1.00, 0.60, 0.95, 0.0, 0.4,
+        span_ev={"insufficient": False, "pre_onset_gap": False,
+                 "voiced_continuation": True},
+        next_class_a=True)
+    assert sem2["b2_semantic"] == "measurement_ambiguous"
+
+
+def test_n14_benign_late_needs_phoneme_and_neighbor():
+    """N14: benign late needs gap evidence + neighbour consistency —
+    a displaced next neighbour means a systematic shift, not a local
+    delay."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("遮", "late", 66.0, 1.016)
+    ev = {"insufficient": False, "pre_onset_gap": True,
+          "voiced_continuation": False}
+    ok = sc._b2_semantic(r, "遮", "late", 0.066, 1.00, 0.60, 0.95,
+                         0.0, 0.4, span_ev=ev, next_class_a=True)
+    assert ok["b2_semantic"] == "benign_post_boundary_delay"
+    bad = sc._b2_semantic(r, "遮", "late", 0.066, 1.00, 0.60, 0.95,
+                          0.0, 0.4, span_ev=ev, next_class_a=False)
+    assert bad["b2_semantic"] == "measurement_ambiguous"
+
+
+def _man_with_post_loop(final_class):
+    """manifest carrying a closed_loop char_route with final_class."""
+    import agent2utau.structure_calibration as sc
+    return {"schema": sc.CALIB_SCHEMA,
+            "calibration": {
+                "lyric_contract": "real_lyric_review",
+                "lyric_mapping_impl": sc.LYRIC_MAPPING_IMPL_VERSION[
+                    "real_lyric_review"],
+                "lyric_evidence": {"articulation": {"closed_loop": {
+                    "char_routes": [{"char": "甲",
+                                     "final_class": final_class}]}}}},
+            "audio_package_hash": "x"}
+
+
+def test_n15_post_loop_b1_unstable_blocks(tmp_path, monkeypatch):
+    """N15: post-loop B1_cross_option_unstable is a hard roster
+    blocker even when every pre-loop conflict is clean."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-b1p",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars),
+        context=[{"id": "n1", "start": 0.0, "end": 0.3, "dur": 0.3}],
+        bounds=([0.0], [0.3]), refs=([0.1], ["onset_peak"]),
+        man=_man_with_post_loop("B1_cross_option_unstable"),
+        qc=None)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    assert e["post_loop_gate"] == "b1_block"
+    assert any(d.startswith("unresolved_post_loop_B1")
+               for d in e["disqualifiers"])
+    assert e["eligible"] is False
+    assert doc["roster_candidates"] == []
+
+
+def test_n16_post_loop_b1_relock_blocks(tmp_path, monkeypatch):
+    """N16: B1_detector_relock hard-blocks identically."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-b1r",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars),
+        context=[{"id": "n1", "start": 0.0, "end": 0.3, "dur": 0.3}],
+        bounds=([0.0], [0.3]), refs=([0.1], ["onset_peak"]),
+        man=_man_with_post_loop("B1_detector_relock"), qc=None)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    assert e["post_loop_gate"] == "b1_block"
+    assert e["eligible"] is False
+
+
+def test_n17_verified_post_loop_allows_final(tmp_path, monkeypatch):
+    """N17: a clean pre-loop item WITH current-contract post-loop
+    evidence (all class_A) may be roster-final."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    man = _man_with_post_loop(sc.ROUTE_CLASS_A)
+    man["calibration"]["contract_sha256"] = sc.render_contract_sha(
+        {"run_id": tmp_path.name}, sc._rph_hash(),
+        "real_lyric_review")
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-ver",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars),
+        context=[{"id": "n1", "start": 0.0, "end": 0.3, "dur": 0.3}],
+        bounds=([0.0], [0.3]), refs=([0.1], ["onset_peak"]),
+        man=man, qc=None)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    assert e["post_loop_gate"] == "verified"
+    assert e["final_eligible"] is True
+    assert doc["roster_candidates"] == ["note_0001"]
+
+
+def test_n18_phrase_level_benign_is_audit_only(tmp_path, monkeypatch):
+    """N18: shared B2s ALL resolved benign → the target-independent
+    flag remains for audit but adds NO disqualifier."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "等", "start": 0.0, "end": 0.3}]
+    ctx = [{"id": "n1", "start": 0.40, "end": 0.75, "dur": 0.35}]
+    spec = dict(phrase_key="0.00-5.00", ev=_ev_ok(chars),
+                context=ctx, bounds=([0.40], [0.75]),
+                refs=([0.37], ["onset_peak"]))
+    _inv_store(tmp_path, monkeypatch, [
+        dict(note_id="note_0001", item_id="cal-a", **spec),
+        dict(note_id="note_0002", item_id="cal-b", **spec)])
+    monkeypatch.setattr(sc, "_energy_edge_onsets",
+                        lambda sw, centers: [0.38])
+    monkeypatch.setattr(
+        sc, "_onset_span_evidence",
+        lambda sw, a, b: {"insufficient": False,
+                          "frication_like": True, "periodicity": 0.2})
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    for e in doc["items"]:
+        assert e["phrase_level_target_independent_conflict"] is True
+        assert not any(
+            d.startswith("phrase_level_carrier_conflict")
+            for d in e["disqualifiers"])
+        assert e["eligible"] is True
+
+
+def test_n19_phrase_level_unresolved_still_blocks(
+        tmp_path, monkeypatch):
+    """N19: any non-benign shared B2 keeps the phrase-level blocker."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "夜", "start": 0.0, "end": 0.3}]
+    spec = dict(phrase_key="0.00-5.00", ev=_ev_ok(chars),
+                context=[{"id": "n1", "start": 0.40, "end": 0.75,
+                          "dur": 0.35}],
+                bounds=([0.40], [0.75]),
+                refs=([0.30], ["onset_peak"]))
+    _inv_store(tmp_path, monkeypatch, [
+        dict(note_id="note_0001", item_id="cal-a", **spec),
+        dict(note_id="note_0002", item_id="cal-b", **spec)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    for e in doc["items"]:
+        assert e["phrase_level_target_independent_conflict"] is True
+        assert any(d.startswith("phrase_level_carrier_conflict")
+                   for d in e["disqualifiers"])
+        assert e["eligible"] is False
+
+
+def test_n20_subresolution_is_neutral(tmp_path, monkeypatch):
+    """N20: a below-resolution displacement cannot establish a
+    material conflict — measurement_below_resolution is neutral,
+    never a hard blocker by itself."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "等", "start": 0.0, "end": 0.3}]
+    ctx = [{"id": "n1", "start": 0.40, "end": 0.75, "dur": 0.35}]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-sub",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars), context=ctx,
+        bounds=([0.40], [0.75]),
+        refs=([0.392], ["onset_peak"]),  # 8ms early < resolution
+        man=None, qc=None)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    r = e["char_routes"][0]
+    assert r["route"] == sc.ROUTE_B2
+    assert r["b2_semantic"] == "measurement_below_resolution"
+    assert e["eligible"] is True
+    assert e["disqualifiers"] == []
+
+
+def test_n21_inventory_carries_post_loop_gates(tmp_path, monkeypatch):
+    """N21: every inventory item records its post-loop gate state —
+    verified / b1_block / needs_render — for the after-commit state
+    rebuild to audit."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-g",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars),
+        bounds=([0.0], [0.3]), refs=([0.1], ["onset_peak"]),
+        man=None, qc=None)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    assert e["post_loop_gate"] in ("verified", "b1_block",
+                                   "needs_render")
+    assert "roster_pending_render" in doc
+    assert "final_eligible" in e

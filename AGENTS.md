@@ -1174,6 +1174,42 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   on routes. roster empty → authority not-ok, review_ready=false.
 - N1–N10 + M1–M10 + L1–L10 regression; 383 tests PASS.
 
+### M2.5 G5N.1 — rlv8 correctness patch (rlv9)
+
+- **`_onset_span_evidence(wav, a, b)`**: independent semantic family —
+  conflict-span hf_ratio/mean_db/min_db/periodicity/frication_like/
+  pre_onset_gap(−50ms dip)/voiced_continuation. Short/empty span →
+  `insufficient`, all fields fail-closed.
+- **Lyric identity ≠ timing**: onset-peak is `timing_corroboration_only`.
+  Recovery ALSO needs identity consistency per low char (obstruent→
+  frication_like, sonorant/glide→voiced onset); otherwise
+  `timing_corroborated_identity_unverified`, recovered=False. rlv8's
+  3 recoveries (0231/0311/0325) revoked → `n_lyric_recovered=0`.
+- **`_b2_semantic` strict multi-evidence**: early benign needs
+  obstruent+frication_like+confirms+neighbour-consistent; late benign
+  needs confirms+real pre_onset_gap+NOT voiced_continuation+non-unknown
+  initial+neighbour. No gap/voiced-continuation/contradicts/unknown →
+  measurement_ambiguous|unresolved. `_classify_routes` runs a second
+  pass so prev/next_class_a uses the full route table (ctx+edges+wav).
+  rlv8's 3 false benigns revoked: 可/人/我 (0379) voiced-continuation→
+  ambiguous; 遮 (0044) no real gap + displaced prev-neighbour→ambiguous;
+  却 (0044) edge contradicts→ambiguous.
+- **Post-loop B1 hard gate**: inventory reads `post_loop_final_class`;
+  any B1_* (cross_option_unstable/detector_relock/render_unmeasurable)
+  → `unresolved_post_loop_B1:*` + `post_loop_gate=b1_block`. Missing
+  current-contract post-loop evidence → `needs_render` →
+  `final_eligible=False`, only `roster_pending_render`, never roster.
+  All-class_A + current contract → `verified` → may be roster-final.
+- **Lifecycle fixes**: `phrase_level_target_independent_conflict` is
+  audit-only once all shared B2s benign (any non-benign → blocker
+  stays); |displacement| < B2_SUBRESOLUTION_S →
+  `measurement_below_resolution` (neutral, never a hard blocker alone).
+- rlv9 real inventory: **0/21 eligible** — now from corrected
+  semantics, not gate bugs. 4 stale pilots re-rendered rlv9 (all
+  valid). invariants.ok=true, authority ok=false, review_ready=false.
+- N11–N21 added; M6/M10b updated to post-loop-gate semantics;
+  394 tests PASS.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight
