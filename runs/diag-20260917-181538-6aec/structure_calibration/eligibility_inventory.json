@@ -1,11 +1,11 @@
 {
   "schema": "m25-cal-2",
   "kind": "eligibility_inventory",
-  "generated_at": 1789792810.2417114,
+  "generated_at": 1789795721.5742893,
   "run_id": "diag-20260917-181538-6aec",
   "lyric_contract": "real_lyric_review",
-  "lyric_mapping_impl": "rlv9",
-  "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
+  "lyric_mapping_impl": "rlv10",
+  "contract_sha256": "44806bf808126efa14d8f18bcfbda1a57ae5f6a40535c0e76528b230d7374952",
   "items": [
     {
       "note_id": "note_0012",
@@ -741,7 +741,7 @@
       "lyric_contract": "real_lyric_review",
       "lyric_mapping_impl": "rlv9",
       "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
-      "contract_status": "current",
+      "contract_status": "stale",
       "verify_package": "PASS",
       "signal_qc_auto_review_ready": false,
       "signal_qc_flags": [
@@ -1118,12 +1118,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 104.5,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "sh",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 0.5008,
+            "famB_end": 0.661,
+            "famB_confidence": -0.6983,
+            "dev_start_s": 0.5008,
+            "tolerance_s": 0.2614
           },
           {
             "char": "毒",
@@ -1132,12 +1138,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 97.0,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "d",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 1.7628,
+            "famB_end": 1.863,
+            "famB_confidence": -0.7621,
+            "dev_start_s": 0.2228,
+            "tolerance_s": 0.2614
           },
           {
             "char": "是",
@@ -1146,12 +1158,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 61.7,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "sh",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 3.7459,
+            "famB_end": 3.8862,
+            "famB_confidence": -0.9244,
+            "dev_start_s": 0.4059,
+            "tolerance_s": 0.2614
           },
           {
             "char": "有",
@@ -1160,12 +1178,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": -93.9,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "y",
               "initial_class": "glide",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 4.1866,
+            "famB_end": 4.387,
+            "famB_confidence": -0.6986,
+            "dev_start_s": 0.2266,
+            "tolerance_s": 0.2614
           }
         ],
         "second_evidence": {
@@ -1174,7 +1198,275 @@
           "confirm_window_ms": 50.0,
           "n_low": 4,
           "n_confirmed": 0,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "7d0eac0f64d949010e2ef1e074d6b69d64244be52859ccb3d3f4dcf56c1bebae",
+          "lyric_sequence_sha256": "05e029968e89f383b80c78a63264a63ebfdfa0061e8e5a44e59710676f4eacb4",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "世",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 0.5008,
+              "end": 0.661,
+              "confidence": -0.6983,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "间",
+              "pinyin": "jian",
+              "phoneme_sequence": null,
+              "start": 0.8814,
+              "end": 1.2019,
+              "confidence": -2.5998,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "最",
+              "pinyin": "zui",
+              "phoneme_sequence": null,
+              "start": 1.3421,
+              "end": 1.5825,
+              "confidence": -0.7293,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "毒",
+              "pinyin": "du",
+              "phoneme_sequence": null,
+              "start": 1.7628,
+              "end": 1.863,
+              "confidence": -0.7621,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 2.1835,
+              "end": 2.2836,
+              "confidence": -0.6989,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "仇",
+              "pinyin": "chou",
+              "phoneme_sequence": null,
+              "start": 2.544,
+              "end": 2.7844,
+              "confidence": -1.1116,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "恨",
+              "pinyin": "hen",
+              "phoneme_sequence": null,
+              "start": 2.9046,
+              "end": 3.3052,
+              "confidence": -0.7312,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "是",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 3.7459,
+              "end": 3.8862,
+              "confidence": -0.9244,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "有",
+              "pinyin": "you",
+              "phoneme_sequence": null,
+              "start": 4.1866,
+              "end": 4.387,
+              "confidence": -0.6986,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 9,
+              "char": "缘",
+              "pinyin": "yuan",
+              "phoneme_sequence": null,
+              "start": 4.4671,
+              "end": 5.1281,
+              "confidence": -1.0662,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 10,
+              "char": "却",
+              "pinyin": "que",
+              "phoneme_sequence": null,
+              "start": 5.3485,
+              "end": 5.5488,
+              "confidence": -1.803,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 11,
+              "char": "无",
+              "pinyin": "wu",
+              "phoneme_sequence": null,
+              "start": 5.8493,
+              "end": 5.9494,
+              "confidence": -0.8646,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 12,
+              "char": "分",
+              "pinyin": "fen",
+              "phoneme_sequence": null,
+              "start": 6.1297,
+              "end": 6.29,
+              "confidence": -2.3782,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            }
+          ],
+          "tolerance_s": 0.2614,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.5008,
+              "famB_start": 0.5008,
+              "famB_end": 0.661,
+              "famB_confidence": -0.6983,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2014,
+              "famB_start": 0.8814,
+              "famB_end": 1.2019,
+              "famB_confidence": -2.5998,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1821,
+              "famB_start": 1.3421,
+              "famB_end": 1.5825,
+              "famB_confidence": -0.7293,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2228,
+              "famB_start": 1.7628,
+              "famB_end": 1.863,
+              "famB_confidence": -0.7621,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2435,
+              "famB_start": 2.1835,
+              "famB_end": 2.2836,
+              "famB_confidence": -0.6989,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.084,
+              "famB_start": 2.544,
+              "famB_end": 2.7844,
+              "famB_confidence": -1.1116,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0846,
+              "famB_start": 2.9046,
+              "famB_end": 3.3052,
+              "famB_confidence": -0.7312,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.4059,
+              "famB_start": 3.7459,
+              "famB_end": 3.8862,
+              "famB_confidence": -0.9244,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2266,
+              "famB_start": 4.1866,
+              "famB_end": 4.387,
+              "famB_confidence": -0.6986,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1071,
+              "famB_start": 4.4671,
+              "famB_end": 5.1281,
+              "famB_confidence": -1.0662,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2085,
+              "famB_start": 5.3485,
+              "famB_end": 5.5488,
+              "famB_confidence": -1.803,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1493,
+              "famB_start": 5.8493,
+              "famB_end": 5.9494,
+              "famB_confidence": -0.8646,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1097,
+              "famB_start": 6.1297,
+              "famB_end": 6.29,
+              "famB_confidence": -2.3782,
+              "tolerance_s": 0.2614
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -1233,12 +1525,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 104.5,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "sh",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 0.5008,
+            "famB_end": 0.661,
+            "famB_confidence": -0.6983,
+            "dev_start_s": 0.5008,
+            "tolerance_s": 0.2614
           },
           {
             "char": "毒",
@@ -1247,12 +1545,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 97.0,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "d",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 1.7628,
+            "famB_end": 1.863,
+            "famB_confidence": -0.7621,
+            "dev_start_s": 0.2228,
+            "tolerance_s": 0.2614
           },
           {
             "char": "是",
@@ -1261,12 +1565,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 61.7,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "sh",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 3.7459,
+            "famB_end": 3.8862,
+            "famB_confidence": -0.9244,
+            "dev_start_s": 0.4059,
+            "tolerance_s": 0.2614
           },
           {
             "char": "有",
@@ -1275,12 +1585,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": -93.9,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "y",
               "initial_class": "glide",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 4.1866,
+            "famB_end": 4.387,
+            "famB_confidence": -0.6986,
+            "dev_start_s": 0.2266,
+            "tolerance_s": 0.2614
           }
         ],
         "second_evidence": {
@@ -1289,7 +1605,275 @@
           "confirm_window_ms": 50.0,
           "n_low": 4,
           "n_confirmed": 0,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "7d0eac0f64d949010e2ef1e074d6b69d64244be52859ccb3d3f4dcf56c1bebae",
+          "lyric_sequence_sha256": "05e029968e89f383b80c78a63264a63ebfdfa0061e8e5a44e59710676f4eacb4",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "世",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 0.5008,
+              "end": 0.661,
+              "confidence": -0.6983,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "间",
+              "pinyin": "jian",
+              "phoneme_sequence": null,
+              "start": 0.8814,
+              "end": 1.2019,
+              "confidence": -2.5998,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "最",
+              "pinyin": "zui",
+              "phoneme_sequence": null,
+              "start": 1.3421,
+              "end": 1.5825,
+              "confidence": -0.7293,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "毒",
+              "pinyin": "du",
+              "phoneme_sequence": null,
+              "start": 1.7628,
+              "end": 1.863,
+              "confidence": -0.7621,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 2.1835,
+              "end": 2.2836,
+              "confidence": -0.6989,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "仇",
+              "pinyin": "chou",
+              "phoneme_sequence": null,
+              "start": 2.544,
+              "end": 2.7844,
+              "confidence": -1.1116,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "恨",
+              "pinyin": "hen",
+              "phoneme_sequence": null,
+              "start": 2.9046,
+              "end": 3.3052,
+              "confidence": -0.7312,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "是",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 3.7459,
+              "end": 3.8862,
+              "confidence": -0.9244,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "有",
+              "pinyin": "you",
+              "phoneme_sequence": null,
+              "start": 4.1866,
+              "end": 4.387,
+              "confidence": -0.6986,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 9,
+              "char": "缘",
+              "pinyin": "yuan",
+              "phoneme_sequence": null,
+              "start": 4.4671,
+              "end": 5.1281,
+              "confidence": -1.0662,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 10,
+              "char": "却",
+              "pinyin": "que",
+              "phoneme_sequence": null,
+              "start": 5.3485,
+              "end": 5.5488,
+              "confidence": -1.803,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 11,
+              "char": "无",
+              "pinyin": "wu",
+              "phoneme_sequence": null,
+              "start": 5.8493,
+              "end": 5.9494,
+              "confidence": -0.8646,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 12,
+              "char": "分",
+              "pinyin": "fen",
+              "phoneme_sequence": null,
+              "start": 6.1297,
+              "end": 6.29,
+              "confidence": -2.3782,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            }
+          ],
+          "tolerance_s": 0.2614,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.5008,
+              "famB_start": 0.5008,
+              "famB_end": 0.661,
+              "famB_confidence": -0.6983,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2014,
+              "famB_start": 0.8814,
+              "famB_end": 1.2019,
+              "famB_confidence": -2.5998,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1821,
+              "famB_start": 1.3421,
+              "famB_end": 1.5825,
+              "famB_confidence": -0.7293,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2228,
+              "famB_start": 1.7628,
+              "famB_end": 1.863,
+              "famB_confidence": -0.7621,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2435,
+              "famB_start": 2.1835,
+              "famB_end": 2.2836,
+              "famB_confidence": -0.6989,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.084,
+              "famB_start": 2.544,
+              "famB_end": 2.7844,
+              "famB_confidence": -1.1116,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0846,
+              "famB_start": 2.9046,
+              "famB_end": 3.3052,
+              "famB_confidence": -0.7312,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.4059,
+              "famB_start": 3.7459,
+              "famB_end": 3.8862,
+              "famB_confidence": -0.9244,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2266,
+              "famB_start": 4.1866,
+              "famB_end": 4.387,
+              "famB_confidence": -0.6986,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1071,
+              "famB_start": 4.4671,
+              "famB_end": 5.1281,
+              "famB_confidence": -1.0662,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2085,
+              "famB_start": 5.3485,
+              "famB_end": 5.5488,
+              "famB_confidence": -1.803,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1493,
+              "famB_start": 5.8493,
+              "famB_end": 5.9494,
+              "famB_confidence": -0.8646,
+              "tolerance_s": 0.2614
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1097,
+              "famB_start": 6.1297,
+              "famB_end": 6.29,
+              "famB_confidence": -2.3782,
+              "tolerance_s": 0.2614
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -1350,12 +1934,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": -182.7,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "sh",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 3.6356,
+            "famB_end": 3.7762,
+            "famB_confidence": -3.0107,
+            "dev_start_s": 0.5156,
+            "tolerance_s": 0.2304
           }
         ],
         "second_evidence": {
@@ -1364,7 +1954,218 @@
           "confirm_window_ms": 50.0,
           "n_low": 1,
           "n_confirmed": 0,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "8c5898d4cbc5252146cf6ac738f847cefd528ff5698a7c0962a376ead61f221f",
+          "lyric_sequence_sha256": "d6d2f8b7f59549eb3f3338215d4981151b02d233b92945f87235ce809d88d925",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "代",
+              "pinyin": "dai",
+              "phoneme_sequence": null,
+              "start": 0.3816,
+              "end": 0.6428,
+              "confidence": -1.1775,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "替",
+              "pinyin": "ti",
+              "phoneme_sequence": null,
+              "start": 0.7432,
+              "end": 0.9441,
+              "confidence": -0.7716,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "你",
+              "pinyin": "ni",
+              "phoneme_sequence": null,
+              "start": 1.1851,
+              "end": 1.2855,
+              "confidence": -0.798,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "陪",
+              "pinyin": "pei",
+              "phoneme_sequence": null,
+              "start": 1.5065,
+              "end": 1.868,
+              "confidence": -2.2315,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "着",
+              "pinyin": "zhe",
+              "phoneme_sequence": null,
+              "start": 2.0086,
+              "end": 2.1693,
+              "confidence": -5.129,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            },
+            {
+              "token_index": 5,
+              "char": "我",
+              "pinyin": "wo",
+              "phoneme_sequence": null,
+              "start": 2.4304,
+              "end": 2.5509,
+              "confidence": -2.664,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 2.7518,
+              "end": 2.9728,
+              "confidence": -4.3215,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            },
+            {
+              "token_index": 7,
+              "char": "是",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 3.6356,
+              "end": 3.7762,
+              "confidence": -3.0107,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "年",
+              "pinyin": "nian",
+              "phoneme_sequence": null,
+              "start": 4.0172,
+              "end": 4.3386,
+              "confidence": -2.858,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 9,
+              "char": "轮",
+              "pinyin": "lun",
+              "phoneme_sequence": null,
+              "start": 4.3587,
+              "end": 4.4792,
+              "confidence": -6.1838,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            }
+          ],
+          "tolerance_s": 0.2304,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.5816,
+              "famB_start": 0.3816,
+              "famB_end": 0.6428,
+              "famB_confidence": -1.1775,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1632,
+              "famB_start": 0.7432,
+              "famB_end": 0.9441,
+              "famB_confidence": -0.7716,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1451,
+              "famB_start": 1.1851,
+              "famB_end": 1.2855,
+              "famB_confidence": -0.798,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0865,
+              "famB_start": 1.5065,
+              "famB_end": 1.868,
+              "famB_confidence": -2.2315,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 2.0086,
+              "famB_end": 2.1693,
+              "famB_confidence": -5.129,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1704,
+              "famB_start": 2.4304,
+              "famB_end": 2.5509,
+              "famB_confidence": -2.664,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 2.7518,
+              "famB_end": 2.9728,
+              "famB_confidence": -4.3215,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.5156,
+              "famB_start": 3.6356,
+              "famB_end": 3.7762,
+              "famB_confidence": -3.0107,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2172,
+              "famB_start": 4.0172,
+              "famB_end": 4.3386,
+              "famB_confidence": -2.858,
+              "tolerance_s": 0.2304
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 4.3587,
+              "famB_end": 4.4792,
+              "famB_confidence": -6.1838,
+              "tolerance_s": 0.2304
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -1396,7 +2197,7 @@
       "lyric_contract": "real_lyric_review",
       "lyric_mapping_impl": "rlv9",
       "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
-      "contract_status": "current",
+      "contract_status": "stale",
       "verify_package": "PASS",
       "signal_qc_auto_review_ready": false,
       "signal_qc_flags": [
@@ -1447,7 +2248,7 @@
           "unresolved": 3
         }
       },
-      "post_loop_gate": "verified",
+      "post_loop_gate": "needs_render",
       "char_routes": [
         {
           "char": "可",
@@ -1769,7 +2570,7 @@
       "lyric_contract": "real_lyric_review",
       "lyric_mapping_impl": "rlv9",
       "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
-      "contract_status": "current",
+      "contract_status": "stale",
       "verify_package": "PASS",
       "signal_qc_auto_review_ready": false,
       "signal_qc_flags": [
@@ -1819,7 +2620,7 @@
           "unresolved": 3
         }
       },
-      "post_loop_gate": "verified",
+      "post_loop_gate": "needs_render",
       "char_routes": [
         {
           "char": "可",
@@ -2159,7 +2960,7 @@
       "lyric_adjudication": {
         "reason": "low_confidence",
         "recovered": false,
-        "diagnosis": "timing_corroborated_identity_unverified",
+        "diagnosis": "measurement_ambiguous",
         "low_prob_chars": [
           {
             "char": "春",
@@ -2168,7 +2969,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 28.0,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "ch",
               "initial_class": "obstruent",
               "consistent": false,
@@ -2184,7 +2985,13 @@
                 "voiced_continuation": false
               }
             },
-            "identity_consistent": false
+            "phoneme_class_consistent": false,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 0.8024,
+            "famB_end": 1.0833,
+            "famB_confidence": -1.7203,
+            "dev_start_s": 0.7724,
+            "tolerance_s": 0.2177
           }
         ],
         "second_evidence": {
@@ -2193,7 +3000,275 @@
           "confirm_window_ms": 50.0,
           "n_low": 1,
           "n_confirmed": 1,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "b90f4491e953a0d8f5c519356823396ba59e5a0936d935310a1e3965cb6c9c59",
+          "lyric_sequence_sha256": "e603313f99aa82f8dd44a58454a048feecd68ac37c4a3134b9a06243e6313c81",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "春",
+              "pinyin": "chun",
+              "phoneme_sequence": null,
+              "start": 0.8024,
+              "end": 1.0833,
+              "confidence": -1.7203,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "去",
+              "pinyin": "qu",
+              "phoneme_sequence": null,
+              "start": 1.2438,
+              "end": 1.4043,
+              "confidence": -1.3771,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "秋",
+              "pinyin": "qiu",
+              "phoneme_sequence": null,
+              "start": 1.6851,
+              "end": 1.8456,
+              "confidence": -3.1033,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "来",
+              "pinyin": "lai",
+              "phoneme_sequence": null,
+              "start": 2.0863,
+              "end": 2.4675,
+              "confidence": -0.7512,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 2.5277,
+              "end": 2.628,
+              "confidence": -1.2515,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "茂",
+              "pinyin": "mao",
+              "phoneme_sequence": null,
+              "start": 2.9088,
+              "end": 3.1496,
+              "confidence": -0.9177,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "盛",
+              "pinyin": "sheng",
+              "phoneme_sequence": null,
+              "start": 3.2699,
+              "end": 3.6511,
+              "confidence": -1.2949,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "却",
+              "pinyin": "que",
+              "phoneme_sequence": null,
+              "start": 4.0724,
+              "end": 4.273,
+              "confidence": -1.3824,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "遮",
+              "pinyin": "zhe",
+              "phoneme_sequence": null,
+              "start": 4.5137,
+              "end": 4.6541,
+              "confidence": -1.9294,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 9,
+              "char": "住",
+              "pinyin": "zhu",
+              "phoneme_sequence": null,
+              "start": 4.8548,
+              "end": 5.0554,
+              "confidence": -2.3179,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 10,
+              "char": "了",
+              "pinyin": "le",
+              "phoneme_sequence": null,
+              "start": 5.7174,
+              "end": 5.8578,
+              "confidence": -1.0921,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 11,
+              "char": "黄",
+              "pinyin": "huang",
+              "phoneme_sequence": null,
+              "start": 6.1186,
+              "end": 6.3995,
+              "confidence": -2.6708,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 12,
+              "char": "昏",
+              "pinyin": "hun",
+              "phoneme_sequence": null,
+              "start": 6.4195,
+              "end": 6.4998,
+              "confidence": -6.2214,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            }
+          ],
+          "tolerance_s": 0.2177,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.7724,
+              "famB_start": 0.8024,
+              "famB_end": 1.0833,
+              "famB_confidence": -1.7203,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1938,
+              "famB_start": 1.2438,
+              "famB_end": 1.4043,
+              "famB_confidence": -1.3771,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1551,
+              "famB_start": 1.6851,
+              "famB_end": 1.8456,
+              "famB_confidence": -3.1033,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2163,
+              "famB_start": 2.0863,
+              "famB_end": 2.4675,
+              "famB_confidence": -0.7512,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1577,
+              "famB_start": 2.5277,
+              "famB_end": 2.628,
+              "famB_confidence": -1.2515,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1388,
+              "famB_start": 2.9088,
+              "famB_end": 3.1496,
+              "famB_confidence": -0.9177,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1199,
+              "famB_start": 3.2699,
+              "famB_end": 3.6511,
+              "famB_confidence": -1.2949,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.2224,
+              "famB_start": 4.0724,
+              "famB_end": 4.273,
+              "famB_confidence": -1.3824,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0637,
+              "famB_start": 4.5137,
+              "famB_end": 4.6541,
+              "famB_confidence": -1.9294,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1448,
+              "famB_start": 4.8548,
+              "famB_end": 5.0554,
+              "famB_confidence": -2.3179,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.4674,
+              "famB_start": 5.7174,
+              "famB_end": 5.8578,
+              "famB_confidence": -1.0921,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1486,
+              "famB_start": 6.1186,
+              "famB_end": 6.3995,
+              "famB_confidence": -2.6708,
+              "tolerance_s": 0.2177
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 6.4195,
+              "famB_end": 6.4998,
+              "famB_confidence": -6.2214,
+              "tolerance_s": 0.2177
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -2824,7 +3899,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 18.9,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "d",
               "initial_class": "obstruent",
               "consistent": false,
@@ -2840,7 +3915,13 @@
                 "voiced_continuation": true
               }
             },
-            "identity_consistent": false
+            "phoneme_class_consistent": false,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 2.0631,
+            "famB_end": 2.2033,
+            "famB_confidence": -1.0515,
+            "dev_start_s": 0.1431,
+            "tolerance_s": 0.2468
           },
           {
             "char": "是",
@@ -2849,12 +3930,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": -89.3,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "sh",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 4.1262,
+            "famB_end": 4.2865,
+            "famB_confidence": -0.8959,
+            "dev_start_s": 0.4262,
+            "tolerance_s": 0.2468
           },
           {
             "char": "有",
@@ -2863,7 +3950,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 25.4,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "y",
               "initial_class": "glide",
               "consistent": true,
@@ -2879,7 +3966,13 @@
                 "voiced_continuation": true
               }
             },
-            "identity_consistent": true
+            "phoneme_class_consistent": true,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 4.5268,
+            "famB_end": 4.7271,
+            "famB_confidence": -0.7505,
+            "dev_start_s": 0.1868,
+            "tolerance_s": 0.2468
           }
         ],
         "second_evidence": {
@@ -2888,7 +3981,275 @@
           "confirm_window_ms": 50.0,
           "n_low": 3,
           "n_confirmed": 2,
-          "n_identity_consistent": 1
+          "n_phoneme_class_consistent": 1
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "9d9253aaa57fb2998590e9cb9e38638652f98febda6ccf212fe173377bb7af14",
+          "lyric_sequence_sha256": "05e029968e89f383b80c78a63264a63ebfdfa0061e8e5a44e59710676f4eacb4",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "世",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 0.8613,
+              "end": 1.0015,
+              "confidence": -0.7656,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "间",
+              "pinyin": "jian",
+              "phoneme_sequence": null,
+              "start": 1.2419,
+              "end": 1.5423,
+              "confidence": -1.0231,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "最",
+              "pinyin": "zui",
+              "phoneme_sequence": null,
+              "start": 1.7026,
+              "end": 1.963,
+              "confidence": -0.8842,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "毒",
+              "pinyin": "du",
+              "phoneme_sequence": null,
+              "start": 2.0631,
+              "end": 2.2033,
+              "confidence": -1.0515,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 2.5238,
+              "end": 2.624,
+              "confidence": -1.3712,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "仇",
+              "pinyin": "chou",
+              "phoneme_sequence": null,
+              "start": 2.8844,
+              "end": 3.1447,
+              "confidence": -1.2056,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "恨",
+              "pinyin": "hen",
+              "phoneme_sequence": null,
+              "start": 3.2449,
+              "end": 3.6655,
+              "confidence": -0.9022,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "是",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 4.1262,
+              "end": 4.2865,
+              "confidence": -0.8959,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "有",
+              "pinyin": "you",
+              "phoneme_sequence": null,
+              "start": 4.5268,
+              "end": 4.7271,
+              "confidence": -0.7505,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 9,
+              "char": "缘",
+              "pinyin": "yuan",
+              "phoneme_sequence": null,
+              "start": 4.8874,
+              "end": 5.5484,
+              "confidence": -2.0557,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 10,
+              "char": "却",
+              "pinyin": "que",
+              "phoneme_sequence": null,
+              "start": 5.7086,
+              "end": 5.9089,
+              "confidence": -1.3853,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 11,
+              "char": "无",
+              "pinyin": "wu",
+              "phoneme_sequence": null,
+              "start": 6.1693,
+              "end": 6.2695,
+              "confidence": -2.3079,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 12,
+              "char": "分",
+              "pinyin": "fen",
+              "phoneme_sequence": null,
+              "start": 6.4297,
+              "end": 6.63,
+              "confidence": -5.2649,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            }
+          ],
+          "tolerance_s": 0.2468,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.8613,
+              "famB_start": 0.8613,
+              "famB_end": 1.0015,
+              "famB_confidence": -0.7656,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1819,
+              "famB_start": 1.2419,
+              "famB_end": 1.5423,
+              "famB_confidence": -1.0231,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2226,
+              "famB_start": 1.7026,
+              "famB_end": 1.963,
+              "famB_confidence": -0.8842,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1431,
+              "famB_start": 2.0631,
+              "famB_end": 2.2033,
+              "famB_confidence": -1.0515,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2438,
+              "famB_start": 2.5238,
+              "famB_end": 2.624,
+              "famB_confidence": -1.3712,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1444,
+              "famB_start": 2.8844,
+              "famB_end": 3.1447,
+              "famB_confidence": -1.2056,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0849,
+              "famB_start": 3.2449,
+              "famB_end": 3.6655,
+              "famB_confidence": -0.9022,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.4262,
+              "famB_start": 4.1262,
+              "famB_end": 4.2865,
+              "famB_confidence": -0.8959,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1868,
+              "famB_start": 4.5268,
+              "famB_end": 4.7271,
+              "famB_confidence": -0.7505,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1874,
+              "famB_start": 4.8874,
+              "famB_end": 5.5484,
+              "famB_confidence": -2.0557,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1686,
+              "famB_start": 5.7086,
+              "famB_end": 5.9089,
+              "famB_confidence": -1.3853,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1293,
+              "famB_start": 6.1693,
+              "famB_end": 6.2695,
+              "famB_confidence": -2.3079,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 6.4297,
+              "famB_end": 6.63,
+              "famB_confidence": -5.2649,
+              "tolerance_s": 0.2468
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -2949,7 +4310,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 18.9,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "d",
               "initial_class": "obstruent",
               "consistent": false,
@@ -2965,7 +4326,13 @@
                 "voiced_continuation": true
               }
             },
-            "identity_consistent": false
+            "phoneme_class_consistent": false,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 2.0631,
+            "famB_end": 2.2033,
+            "famB_confidence": -1.0515,
+            "dev_start_s": 0.1431,
+            "tolerance_s": 0.2468
           },
           {
             "char": "是",
@@ -2974,12 +4341,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": -89.3,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "sh",
               "initial_class": "obstruent",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 4.1262,
+            "famB_end": 4.2865,
+            "famB_confidence": -0.8959,
+            "dev_start_s": 0.4262,
+            "tolerance_s": 0.2468
           },
           {
             "char": "有",
@@ -2988,7 +4361,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 25.4,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "y",
               "initial_class": "glide",
               "consistent": true,
@@ -3004,7 +4377,13 @@
                 "voiced_continuation": true
               }
             },
-            "identity_consistent": true
+            "phoneme_class_consistent": true,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 4.5268,
+            "famB_end": 4.7271,
+            "famB_confidence": -0.7505,
+            "dev_start_s": 0.1868,
+            "tolerance_s": 0.2468
           }
         ],
         "second_evidence": {
@@ -3013,7 +4392,275 @@
           "confirm_window_ms": 50.0,
           "n_low": 3,
           "n_confirmed": 2,
-          "n_identity_consistent": 1
+          "n_phoneme_class_consistent": 1
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "9d9253aaa57fb2998590e9cb9e38638652f98febda6ccf212fe173377bb7af14",
+          "lyric_sequence_sha256": "05e029968e89f383b80c78a63264a63ebfdfa0061e8e5a44e59710676f4eacb4",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "世",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 0.8613,
+              "end": 1.0015,
+              "confidence": -0.7656,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "间",
+              "pinyin": "jian",
+              "phoneme_sequence": null,
+              "start": 1.2419,
+              "end": 1.5423,
+              "confidence": -1.0231,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "最",
+              "pinyin": "zui",
+              "phoneme_sequence": null,
+              "start": 1.7026,
+              "end": 1.963,
+              "confidence": -0.8842,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "毒",
+              "pinyin": "du",
+              "phoneme_sequence": null,
+              "start": 2.0631,
+              "end": 2.2033,
+              "confidence": -1.0515,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 2.5238,
+              "end": 2.624,
+              "confidence": -1.3712,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "仇",
+              "pinyin": "chou",
+              "phoneme_sequence": null,
+              "start": 2.8844,
+              "end": 3.1447,
+              "confidence": -1.2056,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "恨",
+              "pinyin": "hen",
+              "phoneme_sequence": null,
+              "start": 3.2449,
+              "end": 3.6655,
+              "confidence": -0.9022,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "是",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 4.1262,
+              "end": 4.2865,
+              "confidence": -0.8959,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "有",
+              "pinyin": "you",
+              "phoneme_sequence": null,
+              "start": 4.5268,
+              "end": 4.7271,
+              "confidence": -0.7505,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 9,
+              "char": "缘",
+              "pinyin": "yuan",
+              "phoneme_sequence": null,
+              "start": 4.8874,
+              "end": 5.5484,
+              "confidence": -2.0557,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 10,
+              "char": "却",
+              "pinyin": "que",
+              "phoneme_sequence": null,
+              "start": 5.7086,
+              "end": 5.9089,
+              "confidence": -1.3853,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 11,
+              "char": "无",
+              "pinyin": "wu",
+              "phoneme_sequence": null,
+              "start": 6.1693,
+              "end": 6.2695,
+              "confidence": -2.3079,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 12,
+              "char": "分",
+              "pinyin": "fen",
+              "phoneme_sequence": null,
+              "start": 6.4297,
+              "end": 6.63,
+              "confidence": -5.2649,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            }
+          ],
+          "tolerance_s": 0.2468,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.8613,
+              "famB_start": 0.8613,
+              "famB_end": 1.0015,
+              "famB_confidence": -0.7656,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1819,
+              "famB_start": 1.2419,
+              "famB_end": 1.5423,
+              "famB_confidence": -1.0231,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2226,
+              "famB_start": 1.7026,
+              "famB_end": 1.963,
+              "famB_confidence": -0.8842,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1431,
+              "famB_start": 2.0631,
+              "famB_end": 2.2033,
+              "famB_confidence": -1.0515,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.2438,
+              "famB_start": 2.5238,
+              "famB_end": 2.624,
+              "famB_confidence": -1.3712,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1444,
+              "famB_start": 2.8844,
+              "famB_end": 3.1447,
+              "famB_confidence": -1.2056,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0849,
+              "famB_start": 3.2449,
+              "famB_end": 3.6655,
+              "famB_confidence": -0.9022,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.4262,
+              "famB_start": 4.1262,
+              "famB_end": 4.2865,
+              "famB_confidence": -0.8959,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1868,
+              "famB_start": 4.5268,
+              "famB_end": 4.7271,
+              "famB_confidence": -0.7505,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1874,
+              "famB_start": 4.8874,
+              "famB_end": 5.5484,
+              "famB_confidence": -2.0557,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1686,
+              "famB_start": 5.7086,
+              "famB_end": 5.9089,
+              "famB_confidence": -1.3853,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1293,
+              "famB_start": 6.1693,
+              "famB_end": 6.2695,
+              "famB_confidence": -2.3079,
+              "tolerance_s": 0.2468
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 6.4297,
+              "famB_end": 6.63,
+              "famB_confidence": -5.2649,
+              "tolerance_s": 0.2468
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -3072,12 +4719,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": -61.3,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "y",
               "initial_class": "glide",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "identity_unverified",
+            "famB_start": 4.2868,
+            "famB_end": 4.3469,
+            "famB_confidence": -5.0571,
+            "dev_start_s": null,
+            "tolerance_s": 0.2199
           }
         ],
         "second_evidence": {
@@ -3086,7 +4739,275 @@
           "confirm_window_ms": 50.0,
           "n_low": 1,
           "n_confirmed": 0,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "aaca6051d82e453270b7ac071a79451253de626163abefb5fe02691817881004",
+          "lyric_sequence_sha256": "29479ad315885cf7533d235b79cb39781dd5ffd47e701c877e81b630e18ba3a8",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "荒",
+              "pinyin": "huang",
+              "phoneme_sequence": null,
+              "start": 0.5208,
+              "end": 0.8013,
+              "confidence": -0.964,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "草",
+              "pinyin": "cao",
+              "phoneme_sequence": null,
+              "start": 0.9014,
+              "end": 1.242,
+              "confidence": -0.81,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "丛",
+              "pinyin": "cong",
+              "phoneme_sequence": null,
+              "start": 1.3421,
+              "end": 1.5825,
+              "confidence": -0.7391,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "生",
+              "pinyin": "sheng",
+              "phoneme_sequence": null,
+              "start": 1.7428,
+              "end": 2.0633,
+              "confidence": -0.8033,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 2.2235,
+              "end": 2.3237,
+              "confidence": -1.0049,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "青",
+              "pinyin": "qing",
+              "phoneme_sequence": null,
+              "start": 2.5641,
+              "end": 2.8245,
+              "confidence": -2.0873,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "春",
+              "pinyin": "chun",
+              "phoneme_sequence": null,
+              "start": 2.9447,
+              "end": 3.3052,
+              "confidence": -2.0038,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "倒",
+              "pinyin": "dao",
+              "phoneme_sequence": null,
+              "start": 3.806,
+              "end": 4.0865,
+              "confidence": -1.0797,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "也",
+              "pinyin": "ye",
+              "phoneme_sequence": null,
+              "start": 4.2868,
+              "end": 4.3469,
+              "confidence": -5.0571,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            },
+            {
+              "token_index": 9,
+              "char": "过",
+              "pinyin": "guo",
+              "phoneme_sequence": null,
+              "start": 4.5071,
+              "end": 4.7275,
+              "confidence": -0.8958,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 10,
+              "char": "得",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 5.4486,
+              "end": 5.5688,
+              "confidence": -0.8066,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 11,
+              "char": "安",
+              "pinyin": "an",
+              "phoneme_sequence": null,
+              "start": 5.9694,
+              "end": 6.1297,
+              "confidence": -2.5348,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 12,
+              "char": "稳",
+              "pinyin": "wen",
+              "phoneme_sequence": null,
+              "start": 6.2499,
+              "end": 6.33,
+              "confidence": -2.111,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            }
+          ],
+          "tolerance_s": 0.2199,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 1.0508,
+              "famB_start": 0.5208,
+              "famB_end": 0.8013,
+              "famB_confidence": -0.964,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1114,
+              "famB_start": 0.9014,
+              "famB_end": 1.242,
+              "famB_confidence": -0.81,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0721,
+              "famB_start": 1.3421,
+              "famB_end": 1.5825,
+              "famB_confidence": -0.7391,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1328,
+              "famB_start": 1.7428,
+              "famB_end": 2.0633,
+              "famB_confidence": -0.8033,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.2335,
+              "famB_start": 2.2235,
+              "famB_end": 2.3237,
+              "famB_confidence": -1.0049,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1141,
+              "famB_start": 2.5641,
+              "famB_end": 2.8245,
+              "famB_confidence": -2.0873,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1947,
+              "famB_start": 2.9447,
+              "famB_end": 3.3052,
+              "famB_confidence": -2.0038,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.064,
+              "famB_start": 3.806,
+              "famB_end": 4.0865,
+              "famB_confidence": -1.0797,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 4.2868,
+              "famB_end": 4.3469,
+              "famB_confidence": -5.0571,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1171,
+              "famB_start": 4.5071,
+              "famB_end": 4.7275,
+              "famB_confidence": -0.8958,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.5986,
+              "famB_start": 5.4486,
+              "famB_end": 5.5688,
+              "famB_confidence": -0.8066,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.2794,
+              "famB_start": 5.9694,
+              "famB_end": 6.1297,
+              "famB_confidence": -2.5348,
+              "tolerance_s": 0.2199
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1599,
+              "famB_start": 6.2499,
+              "famB_end": 6.33,
+              "famB_confidence": -2.111,
+              "tolerance_s": 0.2199
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -3136,7 +5057,7 @@
       "lyric_adjudication": {
         "reason": "low_confidence",
         "recovered": false,
-        "diagnosis": "timing_corroborated_identity_unverified",
+        "diagnosis": "measurement_ambiguous",
         "low_prob_chars": [
           {
             "char": "是",
@@ -3145,7 +5066,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 5.0,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "sh",
               "initial_class": "obstruent",
               "consistent": false,
@@ -3161,7 +5082,13 @@
                 "voiced_continuation": true
               }
             },
-            "identity_consistent": false
+            "phoneme_class_consistent": false,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 3.6078,
+            "famB_end": 3.7481,
+            "famB_confidence": -2.1525,
+            "dev_start_s": 0.5478,
+            "tolerance_s": 0.2015
           }
         ],
         "second_evidence": {
@@ -3170,7 +5097,218 @@
           "confirm_window_ms": 50.0,
           "n_low": 1,
           "n_confirmed": 1,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "0cf840091b61be4b3131c666095c0f9418257ef039371ec2859bbf13c2a727db",
+          "lyric_sequence_sha256": "d6d2f8b7f59549eb3f3338215d4981151b02d233b92945f87235ce809d88d925",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "代",
+              "pinyin": "dai",
+              "phoneme_sequence": null,
+              "start": 0.3608,
+              "end": 0.6213,
+              "confidence": -1.0103,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "替",
+              "pinyin": "ti",
+              "phoneme_sequence": null,
+              "start": 0.6815,
+              "end": 0.8619,
+              "confidence": -0.8227,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "你",
+              "pinyin": "ni",
+              "phoneme_sequence": null,
+              "start": 1.1625,
+              "end": 1.2627,
+              "confidence": -0.7676,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "陪",
+              "pinyin": "pei",
+              "phoneme_sequence": null,
+              "start": 1.4431,
+              "end": 1.8039,
+              "confidence": -1.5634,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "着",
+              "pinyin": "zhe",
+              "phoneme_sequence": null,
+              "start": 1.9843,
+              "end": 2.1045,
+              "confidence": -3.4682,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "我",
+              "pinyin": "wo",
+              "phoneme_sequence": null,
+              "start": 2.4052,
+              "end": 2.5254,
+              "confidence": -1.6925,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 2.7259,
+              "end": 2.9263,
+              "confidence": -2.9328,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "是",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 3.6078,
+              "end": 3.7481,
+              "confidence": -2.1525,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "年",
+              "pinyin": "nian",
+              "phoneme_sequence": null,
+              "start": 3.8683,
+              "end": 4.3494,
+              "confidence": -3.3554,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 9,
+              "char": "轮",
+              "pinyin": "lun",
+              "phoneme_sequence": null,
+              "start": 4.3694,
+              "end": 4.4295,
+              "confidence": -5.9195,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            }
+          ],
+          "tolerance_s": 0.2015,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.5808,
+              "famB_start": 0.3608,
+              "famB_end": 0.6213,
+              "famB_confidence": -1.0103,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1415,
+              "famB_start": 0.6815,
+              "famB_end": 0.8619,
+              "famB_confidence": -0.8227,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1825,
+              "famB_start": 1.1625,
+              "famB_end": 1.2627,
+              "famB_confidence": -0.7676,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0831,
+              "famB_start": 1.4431,
+              "famB_end": 1.8039,
+              "famB_confidence": -1.5634,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1243,
+              "famB_start": 1.9843,
+              "famB_end": 2.1045,
+              "famB_confidence": -3.4682,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1652,
+              "famB_start": 2.4052,
+              "famB_end": 2.5254,
+              "famB_confidence": -1.6925,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0759,
+              "famB_start": 2.7259,
+              "famB_end": 2.9263,
+              "famB_confidence": -2.9328,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.5478,
+              "famB_start": 3.6078,
+              "famB_end": 3.7481,
+              "famB_confidence": -2.1525,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1083,
+              "famB_start": 3.8683,
+              "famB_end": 4.3494,
+              "famB_confidence": -3.3554,
+              "tolerance_s": 0.2015
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 4.3694,
+              "famB_end": 4.4295,
+              "famB_confidence": -5.9195,
+              "tolerance_s": 0.2015
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -3217,12 +5355,14 @@
         "ok": false,
         "reason": "low_confidence",
         "min_probability": 0.211,
-        "n_chars": 7
+        "n_chars": 7,
+        "adjudicated": true,
+        "second_family": "onset_strength_peak_v1"
       },
       "lyric_adjudication": {
         "reason": "low_confidence",
-        "recovered": false,
-        "diagnosis": "timing_corroborated_identity_unverified",
+        "recovered": true,
+        "diagnosis": "A4_outlier_resolved",
         "low_prob_chars": [
           {
             "char": "着",
@@ -3231,7 +5371,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": -17.3,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "zh",
               "initial_class": "obstruent",
               "consistent": false,
@@ -3247,7 +5387,13 @@
                 "voiced_continuation": true
               }
             },
-            "identity_consistent": false
+            "phoneme_class_consistent": false,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 1.0063,
+            "famB_end": 1.1472,
+            "famB_confidence": -3.6932,
+            "dev_start_s": 0.1763,
+            "tolerance_s": 0.2363
           }
         ],
         "second_evidence": {
@@ -3256,13 +5402,278 @@
           "confirm_window_ms": 50.0,
           "n_low": 1,
           "n_confirmed": 1,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "91bf781a1ab02f8c00f0919a6bd829db5bdca3ccf083ac3cd545b775f14689c9",
+          "lyric_sequence_sha256": "9804a25a450c4c5e5250a93ae083eb6fd9031036dea690ccbf5d42de1e9d23f2",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "数",
+              "pinyin": "shu",
+              "phoneme_sequence": null,
+              "start": 0.5837,
+              "end": 0.7245,
+              "confidence": -1.4343,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "着",
+              "pinyin": "zhe",
+              "phoneme_sequence": null,
+              "start": 1.0063,
+              "end": 1.1472,
+              "confidence": -3.6932,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "一",
+              "pinyin": "yi",
+              "phoneme_sequence": null,
+              "start": 1.59,
+              "end": 1.6302,
+              "confidence": -3.2133,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "圈",
+              "pinyin": "quan",
+              "phoneme_sequence": null,
+              "start": 1.7711,
+              "end": 2.1334,
+              "confidence": -3.0107,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "圈",
+              "pinyin": "quan",
+              "phoneme_sequence": null,
+              "start": 2.2139,
+              "end": 2.5359,
+              "confidence": -2.7935,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "年",
+              "pinyin": "nian",
+              "phoneme_sequence": null,
+              "start": 2.6164,
+              "end": 2.8579,
+              "confidence": -3.5449,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "轮",
+              "pinyin": "lun",
+              "phoneme_sequence": null,
+              "start": 2.878,
+              "end": 3.0793,
+              "confidence": -4.5219,
+              "boundary_uncertainty_s": 0.02,
+              "status": "skipped"
+            }
+          ],
+          "tolerance_s": 0.2363,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.9337,
+              "famB_start": 0.5837,
+              "famB_end": 0.7245,
+              "famB_confidence": -1.4343,
+              "tolerance_s": 0.2363
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1763,
+              "famB_start": 1.0063,
+              "famB_end": 1.1472,
+              "famB_confidence": -3.6932,
+              "tolerance_s": 0.2363
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.34,
+              "famB_start": 1.59,
+              "famB_end": 1.6302,
+              "famB_confidence": -3.2133,
+              "tolerance_s": 0.2363
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1411,
+              "famB_start": 1.7711,
+              "famB_end": 2.1334,
+              "famB_confidence": -3.0107,
+              "tolerance_s": 0.2363
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1039,
+              "famB_start": 2.2139,
+              "famB_end": 2.5359,
+              "famB_confidence": -2.7935,
+              "tolerance_s": 0.2363
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1264,
+              "famB_start": 2.6164,
+              "famB_end": 2.8579,
+              "famB_confidence": -3.5449,
+              "tolerance_s": 0.2363
+            },
+            {
+              "verdict": "identity_unverified",
+              "dev_start_s": null,
+              "famB_start": 2.878,
+              "famB_end": 3.0793,
+              "famB_confidence": -4.5219,
+              "tolerance_s": 0.2363
+            }
+          ]
         }
       },
+      "source_measurement": {
+        "wav": "phrases\\156.70-159.90\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 7,
+        "n_onset_landmarks": 6,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 6,
+        "B1_unmeasurable": 1,
+        "B2_carrier_conflict": 0,
+        "b2_semantics": {}
+      },
       "post_loop_gate": "needs_render",
-      "char_routes": null,
+      "char_routes": [
+        {
+          "char": "数",
+          "route": "B1_unmeasurable",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": "source_unmeasurable",
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": "no_source_landmark",
+          "source_ref_onset": -0.35,
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.53
+        },
+        {
+          "char": "着",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.8127,
+          "carrier_lo": 0.65,
+          "carrier_hi": 0.95
+        },
+        {
+          "char": "一",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.2423,
+          "carrier_lo": 1.215,
+          "carrier_hi": 1.35
+        },
+        {
+          "char": "圈",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.6138,
+          "carrier_lo": 1.47,
+          "carrier_hi": 1.75
+        },
+        {
+          "char": "圈",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.113,
+          "carrier_lo": 1.87,
+          "carrier_hi": 2.18
+        },
+        {
+          "char": "年",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.4729,
+          "carrier_lo": 2.3,
+          "carrier_hi": 2.54
+        },
+        {
+          "char": "轮",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.8212,
+          "carrier_lo": 2.66,
+          "carrier_hi": 3.08
+        }
+      ],
       "disqualifiers": [
-        "lyric_evidence:low_confidence"
+        "unresolved_B1:数"
       ],
       "phrase_level_carrier_conflict": false,
       "phrase_level_target_independent_conflict": false,
@@ -3270,7 +5681,7 @@
       "eligible": false,
       "final_eligible": false,
       "diagnosis_routes": [
-        "lyric_intelligibility_diagnosis"
+        "measurement_diagnosis"
       ],
       "rebuild_required": false
     },
@@ -3288,7 +5699,7 @@
       "lyric_contract": "real_lyric_review",
       "lyric_mapping_impl": "rlv9",
       "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
-      "contract_status": "current",
+      "contract_status": "stale",
       "verify_package": "PASS",
       "signal_qc_auto_review_ready": false,
       "signal_qc_flags": [
@@ -3758,12 +6169,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 204.5,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "m",
               "initial_class": "sonorant",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 0.442,
+            "famB_end": 0.5424,
+            "famB_confidence": -0.7998,
+            "dev_start_s": 0.542,
+            "tolerance_s": 0.2235
           },
           {
             "char": "麻",
@@ -3772,12 +6189,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 53.9,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "m",
               "initial_class": "sonorant",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 1.1853,
+            "famB_end": 1.3058,
+            "famB_confidence": -0.7621,
+            "dev_start_s": 0.0147,
+            "tolerance_s": 0.2235
           },
           {
             "char": "自",
@@ -3786,7 +6209,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 37.2,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "z",
               "initial_class": "obstruent",
               "consistent": false,
@@ -3802,7 +6225,13 @@
                 "voiced_continuation": true
               }
             },
-            "identity_consistent": false
+            "phoneme_class_consistent": false,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 3.4955,
+            "famB_end": 3.6362,
+            "famB_confidence": -3.2168,
+            "dev_start_s": 0.2355,
+            "tolerance_s": 0.2235
           }
         ],
         "second_evidence": {
@@ -3811,7 +6240,199 @@
           "confirm_window_ms": 50.0,
           "n_low": 3,
           "n_confirmed": 1,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "16b2d3d592f5ab2a22d7a4bacf14267b72d640f0a0973fb36739de2d95bd9cf9",
+          "lyric_sequence_sha256": "69eb233d41d48f98bf98d4e925a56d908e15d74a39db935613d8d96d64a082df",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "密",
+              "pinyin": "mi",
+              "phoneme_sequence": null,
+              "start": 0.442,
+              "end": 0.5424,
+              "confidence": -0.7998,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "密",
+              "pinyin": "mi",
+              "phoneme_sequence": null,
+              "start": 0.7835,
+              "end": 0.9241,
+              "confidence": -0.8326,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "麻",
+              "pinyin": "ma",
+              "phoneme_sequence": null,
+              "start": 1.1853,
+              "end": 1.3058,
+              "confidence": -0.7621,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "麻",
+              "pinyin": "ma",
+              "phoneme_sequence": null,
+              "start": 1.5871,
+              "end": 1.7076,
+              "confidence": -0.7911,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "是",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 2.0089,
+              "end": 2.1696,
+              "confidence": -3.1161,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "我",
+              "pinyin": "wo",
+              "phoneme_sequence": null,
+              "start": 2.3504,
+              "end": 2.5714,
+              "confidence": -3.0763,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 3.0536,
+              "end": 3.1741,
+              "confidence": -2.2597,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "自",
+              "pinyin": "zi",
+              "phoneme_sequence": null,
+              "start": 3.4955,
+              "end": 3.6362,
+              "confidence": -3.2168,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "尊",
+              "pinyin": "zun",
+              "phoneme_sequence": null,
+              "start": 4.0379,
+              "end": 4.4196,
+              "confidence": -3.8855,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            }
+          ],
+          "tolerance_s": 0.2235,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.542,
+              "famB_start": 0.442,
+              "famB_end": 0.5424,
+              "famB_confidence": -0.7998,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1635,
+              "famB_start": 0.7835,
+              "famB_end": 0.9241,
+              "famB_confidence": -0.8326,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0147,
+              "famB_start": 1.1853,
+              "famB_end": 1.3058,
+              "famB_confidence": -0.7621,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1271,
+              "famB_start": 1.5871,
+              "famB_end": 1.7076,
+              "famB_confidence": -0.7911,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1489,
+              "famB_start": 2.0089,
+              "famB_end": 2.1696,
+              "famB_confidence": -3.1161,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1104,
+              "famB_start": 2.3504,
+              "famB_end": 2.5714,
+              "famB_confidence": -3.0763,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.3036,
+              "famB_start": 3.0536,
+              "famB_end": 3.1741,
+              "famB_confidence": -2.2597,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.2355,
+              "famB_start": 3.4955,
+              "famB_end": 3.6362,
+              "famB_confidence": -3.2168,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.3779,
+              "famB_start": 4.0379,
+              "famB_end": 4.4196,
+              "famB_confidence": -3.8855,
+              "tolerance_s": 0.2235
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -3870,12 +6491,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 204.5,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "m",
               "initial_class": "sonorant",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 0.442,
+            "famB_end": 0.5424,
+            "famB_confidence": -0.7998,
+            "dev_start_s": 0.542,
+            "tolerance_s": 0.2235
           },
           {
             "char": "麻",
@@ -3884,12 +6511,18 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 53.9,
             "timing_corroborated": false,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "m",
               "initial_class": "sonorant",
               "consistent": null
             },
-            "identity_consistent": null
+            "phoneme_class_consistent": null,
+            "family_b_verdict": "identity_verified",
+            "famB_start": 1.1853,
+            "famB_end": 1.3058,
+            "famB_confidence": -0.7621,
+            "dev_start_s": 0.0147,
+            "tolerance_s": 0.2235
           },
           {
             "char": "自",
@@ -3898,7 +6531,7 @@
             "landmark_kind": "onset_peak",
             "landmark_dev_ms": 37.2,
             "timing_corroborated": true,
-            "identity_evidence": {
+            "phoneme_class_evidence": {
               "pinyin_initial": "z",
               "initial_class": "obstruent",
               "consistent": false,
@@ -3914,7 +6547,13 @@
                 "voiced_continuation": true
               }
             },
-            "identity_consistent": false
+            "phoneme_class_consistent": false,
+            "family_b_verdict": "measurement_ambiguous",
+            "famB_start": 3.4955,
+            "famB_end": 3.6362,
+            "famB_confidence": -3.2168,
+            "dev_start_s": 0.2355,
+            "tolerance_s": 0.2235
           }
         ],
         "second_evidence": {
@@ -3923,7 +6562,199 @@
           "confirm_window_ms": 50.0,
           "n_low": 3,
           "n_confirmed": 1,
-          "n_identity_consistent": 0
+          "n_phoneme_class_consistent": 0
+        },
+        "family_b": {
+          "aligner_family": "mms_fa_ctc_uroman",
+          "aligner_version": "ifa1",
+          "available": true,
+          "reason": null,
+          "model": "ctc_alignment_mling_uroman",
+          "lexicon": "pypinyin-normal-toneless",
+          "model_provenance": {
+            "bundle": "torchaudio.pipelines.MMS_FA",
+            "sample_rate": 16000,
+            "frame_s": 0.02,
+            "n_params": 315466396
+          },
+          "source_wav_sha256": "16b2d3d592f5ab2a22d7a4bacf14267b72d640f0a0973fb36739de2d95bd9cf9",
+          "lyric_sequence_sha256": "69eb233d41d48f98bf98d4e925a56d908e15d74a39db935613d8d96d64a082df",
+          "tokens": [
+            {
+              "token_index": 0,
+              "char": "密",
+              "pinyin": "mi",
+              "phoneme_sequence": null,
+              "start": 0.442,
+              "end": 0.5424,
+              "confidence": -0.7998,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 1,
+              "char": "密",
+              "pinyin": "mi",
+              "phoneme_sequence": null,
+              "start": 0.7835,
+              "end": 0.9241,
+              "confidence": -0.8326,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 2,
+              "char": "麻",
+              "pinyin": "ma",
+              "phoneme_sequence": null,
+              "start": 1.1853,
+              "end": 1.3058,
+              "confidence": -0.7621,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 3,
+              "char": "麻",
+              "pinyin": "ma",
+              "phoneme_sequence": null,
+              "start": 1.5871,
+              "end": 1.7076,
+              "confidence": -0.7911,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 4,
+              "char": "是",
+              "pinyin": "shi",
+              "phoneme_sequence": null,
+              "start": 2.0089,
+              "end": 2.1696,
+              "confidence": -3.1161,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 5,
+              "char": "我",
+              "pinyin": "wo",
+              "phoneme_sequence": null,
+              "start": 2.3504,
+              "end": 2.5714,
+              "confidence": -3.0763,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 6,
+              "char": "的",
+              "pinyin": "de",
+              "phoneme_sequence": null,
+              "start": 3.0536,
+              "end": 3.1741,
+              "confidence": -2.2597,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 7,
+              "char": "自",
+              "pinyin": "zi",
+              "phoneme_sequence": null,
+              "start": 3.4955,
+              "end": 3.6362,
+              "confidence": -3.2168,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            },
+            {
+              "token_index": 8,
+              "char": "尊",
+              "pinyin": "zun",
+              "phoneme_sequence": null,
+              "start": 4.0379,
+              "end": 4.4196,
+              "confidence": -3.8855,
+              "boundary_uncertainty_s": 0.02,
+              "status": "aligned"
+            }
+          ],
+          "tolerance_s": 0.2235,
+          "verdicts": [
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.542,
+              "famB_start": 0.442,
+              "famB_end": 0.5424,
+              "famB_confidence": -0.7998,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1635,
+              "famB_start": 0.7835,
+              "famB_end": 0.9241,
+              "famB_confidence": -0.8326,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.0147,
+              "famB_start": 1.1853,
+              "famB_end": 1.3058,
+              "famB_confidence": -0.7621,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1271,
+              "famB_start": 1.5871,
+              "famB_end": 1.7076,
+              "famB_confidence": -0.7911,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1489,
+              "famB_start": 2.0089,
+              "famB_end": 2.1696,
+              "famB_confidence": -3.1161,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "identity_verified",
+              "dev_start_s": 0.1104,
+              "famB_start": 2.3504,
+              "famB_end": 2.5714,
+              "famB_confidence": -3.0763,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.3036,
+              "famB_start": 3.0536,
+              "famB_end": 3.1741,
+              "famB_confidence": -2.2597,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.2355,
+              "famB_start": 3.4955,
+              "famB_end": 3.6362,
+              "famB_confidence": -3.2168,
+              "tolerance_s": 0.2235
+            },
+            {
+              "verdict": "measurement_ambiguous",
+              "dev_start_s": 0.3779,
+              "famB_start": 4.0379,
+              "famB_end": 4.4196,
+              "famB_confidence": -3.8855,
+              "tolerance_s": 0.2235
+            }
+          ]
         }
       },
       "post_loop_gate": "needs_render",
@@ -3946,10 +6777,10 @@
     "n_items": 21,
     "n_eligible": 0,
     "n_pending_render": 0,
-    "n_lyric_evidence_fail": 13,
-    "n_unresolved_B1": 0,
+    "n_lyric_evidence_fail": 12,
+    "n_unresolved_B1": 1,
     "n_unresolved_B2": 8,
-    "n_lyric_recovered": 0,
+    "n_lyric_recovered": 1,
     "n_phrase_level": 4,
     "n_rebuild_required": 0
   },
