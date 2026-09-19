@@ -68,7 +68,7 @@ LYRIC_MAPPING_IMPL_VERSION = {
     # cross_option_unstable / detector_relock), second-family evidence
     # only adjudicates measurability (never averaged), and a B2 set
     # repeating across targets marks phrase_level_carrier_conflict.
-    "real_lyric_review": "rlv9",
+    "real_lyric_review": "rlv10",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 MIN_TIMING_CHAR_PROB = 0.30   # rendered char ASR confidence below
@@ -3169,11 +3169,12 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
             kinds and kinds[i] == "onset_peak"
             and dev is not None and abs(dev) <= LYRIC_CONFIRM_S)
         confirmed += 1 if ent["timing_corroborated"] else 0
-        # identity-bearing check at phoneme-class granularity: the
-        # 90ms before the onset must show content consistent with the
-        # char's expected initial class — frication for an obstruent,
-        # voiced continuation for a sonorant/glide. 'unclear' fails
-        # closed (no free identity claim).
+        # §G5N.2 audit correction: this is a PHONEME-CLASS consistency
+        # check, not identity evidence — the 90ms before the onset is
+        # compared with the char's expected initial class (frication
+        # for an obstruent, voiced continuation for a sonorant/glide).
+        # It can never identify WHICH token is sung — many chars share
+        # a class. 'unclear' fails closed.
         ini, iclass = _pinyin_initial(c["char"])
         ident = {"pinyin_initial": ini, "initial_class": iclass,
                  "consistent": None}
@@ -3189,27 +3190,76 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
                 else:  # sonorant / glide — voiced onset expected
                     ident["consistent"] = bool(
                         (sp.get("periodicity") or 0.0) >= 0.5)
-        ent["identity_evidence"] = ident
-        ent["identity_consistent"] = ident["consistent"]
+        ent["phoneme_class_evidence"] = ident
+        ent["phoneme_class_consistent"] = ident["consistent"]
+    # §G5N.2 — family-B: identity-aware forced alignment of the KNOWN
+    # lyric sequence (text only as constraint) against the source
+    # vocal. The ONLY authority that can verify a low-confidence
+    # char's identity; waveform/onset evidence never can.
+    from .identity_align import identity_align, identity_adjudicate
+    fa_doc = identity_align(src_wav, chars)
+    rel_chars = [dict(c, start=float(c["start"]) - ph0,
+                      end=(float(c["end"]) - ph0
+                           if c.get("end") is not None else None))
+                 for c in chars]
+    fa_adj = identity_adjudicate(fa_doc, rel_chars)
+    adj["family_b"] = {
+        "aligner_family": fa_doc.get("aligner_family"),
+        "aligner_version": fa_doc.get("aligner_version"),
+        "available": fa_doc.get("available"),
+        "reason": fa_doc.get("reason"),
+        "model": fa_doc.get("model"),
+        "lexicon": fa_doc.get("lexicon"),
+        "model_provenance": fa_doc.get("model_provenance"),
+        "source_wav_sha256": fa_doc.get("source_wav_sha256"),
+        "lyric_sequence_sha256":
+            fa_doc.get("lyric_sequence_sha256"),
+        "tokens": fa_doc.get("tokens"),
+        "tolerance_s": fa_adj.get("tolerance_s"),
+        "verdicts": fa_adj.get("verdicts")}
+    lows_by_key = {l["char"] + str(l["position_rel"]): l
+                   for l in lows}
+    for i, c in enumerate(chars):
+        key = c["char"] + str(round(float(c["start"]) - ph0, 4))
+        ent = lows_by_key.get(key)
+        if ent is None:
+            continue
+        v = fa_adj["verdicts"][i]
+        ent["family_b_verdict"] = v["verdict"]
+        ent["famB_start"] = v["famB_start"]
+        ent["famB_end"] = v["famB_end"]
+        ent["famB_confidence"] = v["famB_confidence"]
+        ent["dev_start_s"] = v["dev_start_s"]
+        ent["tolerance_s"] = v["tolerance_s"]
     adj["low_prob_chars"] = lows
     adj["second_evidence"] = {
         "family": "onset_strength_peak_v1",
         "role": "timing_corroboration_only",
         "confirm_window_ms": LYRIC_CONFIRM_S * 1000.0,
         "n_low": len(lows), "n_confirmed": confirmed,
-        "n_identity_consistent": sum(
-            1 for l in lows if l.get("identity_consistent"))}
+        "n_phoneme_class_consistent": sum(
+            1 for l in lows if l.get("phoneme_class_consistent"))}
     high = sum(1 for c in chars
                if float(c.get("probability") or 0.0) >= 0.5)
-    ident_ok = all(l.get("identity_consistent") for l in lows)
+    verdicts = [l.get("family_b_verdict") for l in lows]
+    ident_ok = bool(lows) and all(
+        v == "identity_verified" for v in verdicts)
     if lows and confirmed == len(lows) and high >= 1 and ident_ok:
         adj["diagnosis"] = "A4_outlier_resolved"
         adj["recovered"] = True
     elif lows and confirmed == len(lows) and high >= 1:
-        # timing is corroborated on every outlier, but no
-        # identity-bearing family has verified the chars — NOT
-        # authoritative lyric recovery (§G5N.1 Blocker 1)
-        adj["diagnosis"] = "timing_corroborated_identity_unverified"
+        # timing is corroborated on every outlier — but identity is
+        # only recovered by family-B agreement. Distinguish WHY it
+        # failed: a real identity/timing conflict vs missing evidence.
+        if any(v == "identity_conflict" for v in verdicts):
+            adj["diagnosis"] = "identity_conflict"
+        elif any(v == "measurement_ambiguous" for v in verdicts):
+            adj["diagnosis"] = "measurement_ambiguous"
+        elif any(v == "identity_verified" for v in verdicts):
+            adj["diagnosis"] = "identity_partially_unverified"
+        else:
+            adj["diagnosis"] = \
+                "timing_corroborated_identity_unverified"
     elif len(lows) <= 2 and high >= 1:
         adj["diagnosis"] = "A4_outlier_unresolved"
     else:
@@ -3711,7 +3761,7 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                     anchors=(it.get("_loop") or {}).get("anchors"))
                 loop = it.get("_loop")
                 if segs is not None:
-                    art = {"impl": "rlv9",
+                    art = {"impl": "rlv10",
                            "n_segments": len(segs),
                            "n_articulation_splits": sum(
                                1 for sg in segs

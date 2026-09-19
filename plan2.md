@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5N.1/rlv9 的 eligibility lifecycle / post-loop B1 / phrase-level / sub-resolution correctness 已闭合；CURRENT blocker = G5N.2 identity-aware lyric/phoneme alignment）。** rlv9 当前真实状态：21 项重扫仍为 `0/21 eligible`、`n_lyric_recovered=0`、`roster_candidates=[]`、`pilot_authority.ok=false`、`review_ready=false`；`git_evidence.complete=true`、`missing_count=0`、`plan_invariants.ok=true`，HEAD `6683c8d` 的 GitHub Actions run `35422117214` success。G5N.1 已正确撤销 rlv8 的 3 个假 lyric recovery、把 post-loop `B1_*` 纳入 hard gate、把 phrase-level 重复改为 audit/routing fact、把 sub-resolution displacement 改为 neutral。**但 `_onset_span_evidence` 只能证明声学/音素类别一致性，不能独立识别具体汉字/phoneme identity，因此不得被称为 authoritative identity-bearing evidence。** 下一步不再堆 waveform heuristic，而是接入真正消费 `known lyric sequence + source vocal` 的第二套 identity-aware forced-alignment / CTC / phoneme-alignment family，并用它恢复或拒绝 low-confidence lyric identity。完成 G5N.2 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5N.2/rlv10 identity-aware lyric alignment 已实现——MMS_FA CTC family-B；CURRENT blocker = honest roster 仍为空——需上游 written-timing/structure 裁决或更多独立测量族）。** rlv9 当前真实状态：21 项重扫仍为 `0/21 eligible`、`n_lyric_recovered=0`、`roster_candidates=[]`、`pilot_authority.ok=false`、`review_ready=false`；`git_evidence.complete=true`、`missing_count=0`、`plan_invariants.ok=true`，HEAD `6683c8d` 的 GitHub Actions run `35422117214` success。G5N.1 已正确撤销 rlv8 的 3 个假 lyric recovery、把 post-loop `B1_*` 纳入 hard gate、把 phrase-level 重复改为 audit/routing fact、把 sub-resolution displacement 改为 neutral。**但 `_onset_span_evidence` 只能证明声学/音素类别一致性，不能独立识别具体汉字/phoneme identity，因此不得被称为 authoritative identity-bearing evidence。** 下一步不再堆 waveform heuristic，而是接入真正消费 `known lyric sequence + source vocal` 的第二套 identity-aware forced-alignment / CTC / phoneme-alignment family，并用它恢复或拒绝 low-confidence lyric identity。完成 G5N.2 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -1594,15 +1594,20 @@ N31. family-B evidence may strengthen B2 semantics
 只有以下同时满足才可关闭：
 
 ```text
-[ ] second identity-aware alignment family implemented and provenance-bound
-[ ] low-confidence chars adjudicated by token identity, not only waveform class
-[ ] rlv9 false identity-bearing claim removed from active acceptance text
-[ ] 0231/0311/0325 explicitly re-evaluated under family B
-[ ] all 21 inventory regenerated under new evidence contract
-[ ] any recovered item has auditable A/B family agreement
-[ ] unresolved/conflicting identity remains fail-closed
-[ ] post-loop B1 / phrase / sub-resolution rules from G5N.1 do not regress
-[ ] affected packages rebuilt under current contract
+[✓] second identity-aware alignment family implemented and provenance-bound
+    (identity_align.py: MMS_FA CTC + pypinyin lexicon + sha/provenance)
+[✓] low-confidence chars adjudicated by token identity, not only waveform class
+[✓] rlv9 false identity-bearing claim removed from active acceptance text
+    (_onset_span_evidence → phoneme_class_consistency diagnostic)
+[✓] 0231/0311/0325 explicitly re-evaluated under family B
+    (0325 着→identity_verified 恢复; 0231/0311→measurement_ambiguous)
+[✓] all 21 inventory regenerated under new evidence contract (rlv10)
+[✓] any recovered item has auditable A/B family agreement
+    (0325: whisper '着' + MMS 'zhe' @dev 0.176s ≤ tol 0.236s)
+[✓] unresolved/conflicting identity remains fail-closed
+    (0231/0311 measurement_ambiguous → no recovery)
+[✓] post-loop B1 / phrase / sub-resolution rules from G5N.1 do not regress
+[✓] affected packages rebuilt under current contract (4 pilots rlv10 valid)
 [ ] state/plan rebuilt after artifact commit
 [ ] git_evidence.complete == true
 [ ] plan_invariants.ok == true
@@ -1628,6 +1633,18 @@ DO NOT lower lyric confidence threshold to fill roster
 DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
+
+##### G5N.2 实现记录（rlv10，2026-09-19）
+
+新增 `identity_align.py` —— 真正 identity-aware 的第二对齐族：
+
+- **family-B = MMS_FA CTC forced alignment**（`torchaudio.pipelines.MMS_FA`，315M，uroman 罗马化 29-label）。输入 = known lyric sequence（text 仅作约束）+ separated source vocal；汉字经 pypinyin toneless 罗马化成音节，`forced_align` + `merge_tokens` 归并为逐 token span。
+- **输出合约**持久化：`aligner_family=mms_fa_ctc_uroman`、`aligner_version=ifa1`、model/lexicon provenance、source_wav_sha256、lyric_sequence_sha256；每 token：index/char/pinyin/start/end/confidence(mean CTC span log-prob)/boundary_uncertainty/status(aligned|skipped)。
+- **`identity_adjudicate` 逐字裁决**：family-B 同 token + 单调序 + |边界偏差| ≤ 证据推导容差 → `identity_verified`；非单调/错位 → `identity_conflict`；不可用/低置信 → `identity_unverified`；同 token 但 A/B 边界分歧超容差 → `measurement_ambiguous`。容差 = `min(0.30s cap, 3×20ms frame + 该短语置信 token 偏差中位数)`——证据推导，cap 是安全上界非通过目标。
+- **身份权威分离**：`_onset_span_evidence` 降级为 `phoneme_class_consistency` 诊断（initial class + frication/voiced 一致性），永不当 identity authority；onset-peak 仍是 `timing_corroboration_only`。恢复条件收紧：全部低置信字 `identity_verified` + timing corroborated + ≥1 高置信邻字 → `A4_outlier_resolved`；阈值 0.25 未动。
+- **真实 rlv10 inventory（21 项）**：`n_lyric_recovered=1`——`0325 着`（p=0.21）dev 0.176s ≤ 容差 0.236s → `identity_verified` 真恢复；`0231 春`（dev 0.77s）与 `0311 是`（dev 0.55s）→ `measurement_ambiguous`（whisper DTW 边界错锚 vs MMS 定位真实 sung token）。0325 恢复后仍被 `unresolved_B1:数` 硬阻塞 → **`n_eligible=0`、`roster=[]`**。
+- 4 项历史 pilot 重渲 rlv10（全部 valid）；`plan_invariants.ok=true`、`pilot_authority.ok=false`、`review_ready=false`——未请求试听。
+- 回归：N22–N31（waveform-only≠identity、same-token 恢复、conflict/unverified fail-closed、known-text 非证据、A/B 分歧→ambiguous、容差不可放松、provenance 持久化、版本 bump、lane 分离）；404 tests PASS。
 ---
 
 ### 10.1.7 M2.5 CURRENT final acceptance gate

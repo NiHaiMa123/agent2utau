@@ -2297,7 +2297,7 @@ def test_j8_rlv3_artifacts_stale_under_rlv7():
                            "lyric_mapping_impl": "rlv3",
                            "contract_sha256": rlv3_sha}}
     assert sc.item_contract_stale(man, {}, "rph") is True
-    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv9"
+    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv10"
 
 
 def test_j9_state_read_does_not_dirty(tmp_path, monkeypatch):
@@ -2523,7 +2523,7 @@ def _qc_route_man(route0, route1=None, ref_onsets=None):
         cl["ref_onsets"] = ref_onsets
         cl["ref_kinds"] = ["onset_peak"] * len(ref_onsets)
     man["calibration"]["lyric_evidence"]["articulation"] = {
-        "impl": "rlv9", "closed_loop": cl}
+        "impl": "rlv10", "closed_loop": cl}
     return man
 
 
@@ -3447,11 +3447,33 @@ def test_n7_glide_cannot_preutter():
     assert sem["b2_semantic"] != "benign_preutterance"
 
 
+def _fam_b_ok(monkeypatch, chars, offset=0.0):
+    """family-B mock: aligns every known token at the family-A
+    position (+offset) — what a good identity alignment looks like."""
+    import agent2utau.identity_align as ia
+    def _fa(wav, chs):
+        return {"aligner_family": ia.ALIGNER_FAMILY,
+                "aligner_version": ia.ALIGNER_VERSION,
+                "available": True, "reason": None,
+                "tokens": [
+                    {"token_index": i, "char": c["char"],
+                     "pinyin": "x", "phoneme_sequence": None,
+                     "start": c["start"] + offset,
+                     "end": c["end"] + offset,
+                     "confidence": -0.5,
+                     "boundary_uncertainty_s": 0.02,
+                     "status": "aligned"}
+                    for i, c in enumerate(chs)]}
+    monkeypatch.setattr(ia, "identity_align", _fa)
+
+
 def test_n8_lyric_outlier_recovered_by_second_family(monkeypatch):
-    """A4: a low-prob char needs BOTH timing corroboration AND
-    phoneme-class identity consistency to recover — the onset-peak
-    family alone is timing corroboration only (§G5N.1 Blocker 1)."""
+    """A4: a low-prob char recovers ONLY via family-B
+    identity_verified — onset-peak is timing corroboration only and
+    phoneme-class consistency is a diagnostic, NEVER identity
+    authority (§G5N.2)."""
     import agent2utau.structure_calibration as sc
+    import agent2utau.identity_align as ia
     chars = [{"char": "甲", "start": 0.0, "end": 0.3,
               "probability": 0.9},
              {"char": "等", "start": 0.4, "end": 0.7,
@@ -3465,32 +3487,38 @@ def test_n8_lyric_outlier_recovered_by_second_family(monkeypatch):
     monkeypatch.setattr(
         sc, "_source_ref_onsets",
         lambda c, sw, ph0: ([0.0, 0.41, 0.8], ["onset_peak"] * 3))
-    # 等 is an obstruent — frication in the pre-onset span verifies
-    # the phoneme class → identity-bearing recovery
     monkeypatch.setattr(
         sc, "_onset_span_evidence",
         lambda sw, a, b: {"insufficient": False,
                           "frication_like": True,
                           "periodicity": 0.2})
+    # family-B aligns the same known token with valid order/timing
+    _fam_b_ok(monkeypatch, chars)
     adj = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     assert adj["recovered"] is True
     assert adj["diagnosis"] == "A4_outlier_resolved"
-    assert adj["low_prob_chars"][0]["timing_corroborated"] is True
-    assert adj["low_prob_chars"][0]["identity_consistent"] is True
-    # timing corroborated but the span shows NO consonant content —
-    # identity stays unverified, NOT authoritative recovery
+    ent = adj["low_prob_chars"][0]
+    assert ent["timing_corroborated"] is True
+    assert ent["family_b_verdict"] == "identity_verified"
+    # phoneme-class consistency is recorded as diagnostic only
+    assert ent["phoneme_class_consistent"] is True
+    # family-B unavailable → identity_unverified → fail closed even
+    # with perfect phoneme-class consistency
     monkeypatch.setattr(
-        sc, "_onset_span_evidence",
-        lambda sw, a, b: {"insufficient": False,
-                          "frication_like": False,
-                          "periodicity": 0.9})
+        ia, "identity_align",
+        lambda wav, chs: {"aligner_family": ia.ALIGNER_FAMILY,
+                          "aligner_version": ia.ALIGNER_VERSION,
+                          "available": False,
+                          "reason": "source_wav_missing",
+                          "tokens": []})
     adj2 = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     assert adj2["recovered"] is False
     assert adj2["diagnosis"] == \
         "timing_corroborated_identity_unverified"
     # a landmark far from the claimed position does NOT confirm
+    _fam_b_ok(monkeypatch, chars)
     monkeypatch.setattr(
         sc, "_source_ref_onsets",
         lambda c, sw, ph0: ([0.0, 0.60, 0.8], ["onset_peak"] * 3))
@@ -3599,9 +3627,8 @@ def test_n11_onset_peak_is_timing_corroboration_only(monkeypatch):
 
 
 def test_n12_identity_bearing_evidence_may_recover(monkeypatch):
-    """N12: a phoneme-class-consistent identity check (the identity-
-    bearing family) + timing corroboration may recover the char
-    WITHOUT touching the 0.25 threshold."""
+    """N12: family-B token-identity agreement + timing corroboration
+    may recover the char WITHOUT touching the 0.25 threshold."""
     import agent2utau.structure_calibration as sc
     chars = [{"char": "甲", "start": 0.0, "end": 0.3,
               "probability": 0.9},
@@ -3619,6 +3646,7 @@ def test_n12_identity_bearing_evidence_may_recover(monkeypatch):
         lambda sw, a, b: {"insufficient": False,
                           "frication_like": True,
                           "periodicity": 0.2})
+    _fam_b_ok(monkeypatch, chars)
     adj = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     assert adj["recovered"] is True
@@ -3819,3 +3847,207 @@ def test_n21_inventory_carries_post_loop_gates(tmp_path, monkeypatch):
                                    "needs_render")
     assert "roster_pending_render" in doc
     assert "final_eligible" in e
+
+
+def _n_fixture(monkeypatch):
+    """shared low-conf lyric fixture for the N22+ matrix."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3,
+              "probability": 0.9},
+             {"char": "等", "start": 0.4, "end": 0.7,
+              "probability": 0.01},
+             {"char": "丙", "start": 0.8, "end": 1.1,
+              "probability": 0.9}]
+    run = {"chars": chars}
+    it = {"phrase": {"start": 0.0, "end": 2.0},
+          "evidence_window": {"start": 0.0, "end": 1.2}}
+    ev = {"ok": False, "reason": "low_confidence", "chars": None}
+    monkeypatch.setattr(
+        sc, "_source_ref_onsets",
+        lambda c, sw, ph0: ([0.0, 0.41, 0.8], ["onset_peak"] * 3))
+    monkeypatch.setattr(
+        sc, "_onset_span_evidence",
+        lambda sw, a, b: {"insufficient": False,
+                          "frication_like": True,
+                          "periodicity": 0.2})
+    return sc, chars, run, it, ev
+
+
+def test_n22_waveform_only_is_never_identity(monkeypatch):
+    """N22: timing corroboration + phoneme-class consistency WITHOUT
+    family-B → identity_verified stays false."""
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    monkeypatch.setattr(
+        ia, "identity_align",
+        lambda wav, chs: {"available": False,
+                          "reason": "source_wav_missing",
+                          "tokens": []})
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    ent = adj["low_prob_chars"][0]
+    assert ent["timing_corroborated"] is True
+    assert ent["phoneme_class_consistent"] is True
+    assert ent["family_b_verdict"] == "identity_unverified"
+    assert adj["recovered"] is False
+
+
+def test_n23_family_b_same_token_recovers(monkeypatch):
+    """N23: family-B aligning the same known token with valid
+    confidence/order → identity_verified → may recover."""
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars)
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj["low_prob_chars"][0]["family_b_verdict"] == \
+        "identity_verified"
+    assert adj["recovered"] is True
+    assert adj["diagnosis"] == "A4_outlier_resolved"
+
+
+def test_n24_family_b_conflict_fails_closed(monkeypatch):
+    """N24: family-B non-monotonic placement → identity_conflict →
+    fail-closed, never a recovery."""
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    def _fa(wav, chs):
+        # swap the order: token 1 (等) placed BEFORE token 0
+        toks = [{"token_index": i, "char": c["char"],
+                 "pinyin": "x", "phoneme_sequence": None,
+                 "start": c["start"], "end": c["end"],
+                 "confidence": -0.5,
+                 "boundary_uncertainty_s": 0.02,
+                 "status": "aligned"}
+                for i, c in enumerate(chs)]
+        toks[1]["start"] = -0.5
+        toks[1]["end"] = -0.2
+        return {"aligner_family": ia.ALIGNER_FAMILY,
+                "aligner_version": ia.ALIGNER_VERSION,
+                "available": True, "reason": None, "tokens": toks}
+    monkeypatch.setattr(ia, "identity_align", _fa)
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj["low_prob_chars"][0]["family_b_verdict"] == \
+        "identity_conflict"
+    assert adj["recovered"] is False
+    assert adj["diagnosis"] == "identity_conflict"
+
+
+def test_n25_family_b_unavailable_fails_closed(monkeypatch):
+    """N25: family-B unavailable or low-confidence →
+    identity_unverified → fail-closed."""
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    # low-confidence token (status=skipped)
+    def _fa(wav, chs):
+        toks = [{"token_index": i, "char": c["char"],
+                 "pinyin": "x", "phoneme_sequence": None,
+                 "start": c["start"], "end": c["end"],
+                 "confidence": -9.0,
+                 "boundary_uncertainty_s": 0.02,
+                 "status": "skipped"}
+                for i, c in enumerate(chs)]
+        return {"aligner_family": ia.ALIGNER_FAMILY,
+                "aligner_version": ia.ALIGNER_VERSION,
+                "available": True, "reason": None, "tokens": toks}
+    monkeypatch.setattr(ia, "identity_align", _fa)
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj["low_prob_chars"][0]["family_b_verdict"] == \
+        "identity_unverified"
+    assert adj["recovered"] is False
+
+
+def test_n26_known_text_alone_is_not_evidence(monkeypatch):
+    """N26: the known lyric sequence is the alignment CONSTRAINT —
+    its mere presence can never count as second acoustic evidence."""
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    monkeypatch.setattr(
+        ia, "identity_align",
+        lambda wav, chs: {"available": False,
+                          "reason": "source_wav_missing",
+                          "tokens": []})
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    # the known text was handed to the aligner as a constraint, but
+    # without family-B acoustic output no verdict may lean on it —
+    # all lows stay unverified
+    assert adj["family_b"]["available"] is False
+    assert all(e["family_b_verdict"] == "identity_unverified"
+               for e in adj["low_prob_chars"])
+    assert adj["recovered"] is False
+
+
+def test_n27_timing_disagreement_is_ambiguous(monkeypatch):
+    """N27: family-B same token but A/B boundary disagreement beyond
+    the evidence-derived tolerance → measurement_ambiguous."""
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars, offset=0.5)  # +500ms shift
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    ent = adj["low_prob_chars"][0]
+    assert ent["family_b_verdict"] == "measurement_ambiguous"
+    assert adj["recovered"] is False
+    assert adj["diagnosis"] == "measurement_ambiguous"
+
+
+def test_n28_no_tolerance_relaxation(monkeypatch):
+    """N28: the identity verdict may not be bought by widening the
+    timing tolerance — the cap is a safety bound, not a pass target."""
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars, offset=0.5)
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    ent = adj["low_prob_chars"][0]
+    assert ent["tolerance_s"] <= ia.IDENTITY_TIMING_CAP_S + 1e-9
+    assert ent["family_b_verdict"] == "measurement_ambiguous"
+
+
+def test_n29_recovery_persists_provenance(monkeypatch):
+    """N29: a recovered token carries family/provenance/hash/boundary
+    evidence — auditable end to end."""
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars)
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj["recovered"] is True
+    fb = adj["family_b"]
+    assert fb["aligner_family"] == "mms_fa_ctc_uroman"
+    assert fb["aligner_version"] is not None
+    tok = fb["tokens"][1]
+    assert tok["char"] == "等"
+    assert tok["start"] is not None and tok["end"] is not None
+    assert tok["confidence"] is not None
+    ent = adj["low_prob_chars"][0]
+    assert ent["famB_start"] is not None
+    assert ent["dev_start_s"] is not None
+
+
+def test_n30_aligner_change_bumps_evidence_contract():
+    """N30: material aligner/model/lexicon/config change bumps
+    ALIGNER_VERSION — dependent evidence contracts must go stale."""
+    import agent2utau.identity_align as ia
+    import agent2utau.structure_calibration as sc
+    assert ia.ALIGNER_VERSION == "ifa1"
+    assert ia.ALIGNER_FAMILY == "mms_fa_ctc_uroman"
+    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] ==         "rlv10"
+
+
+def test_n31_family_b_may_strengthen_b2_never_identity():
+    """N31: family-B boundaries MAY feed B2 semantics, but
+    waveform-class consistency alone never becomes identity
+    authority — the two lanes stay separate."""
+    import agent2utau.identity_align as ia
+    import agent2utau.structure_calibration as sc
+    assert callable(sc._onset_span_evidence)
+    assert ia.ALIGNER_FAMILY not in ("onset_strength_peak_v1",
+                                     "energy_edge_v1")
+    v = ia.identity_adjudicate(
+        {"available": True,
+         "tokens": [{"token_index": 0, "char": "等",
+                     "start": 0.4, "end": 0.7,
+                     "confidence": -0.5, "status": "aligned"}]},
+        [{"char": "等", "start": 0.4, "end": 0.7}])
+    assert v["verdicts"][0]["verdict"] == "identity_verified"

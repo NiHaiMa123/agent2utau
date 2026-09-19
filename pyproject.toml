@@ -12,6 +12,8 @@ dependencies = [
     "faster-whisper>=1.1",
     "torchfcpe>=0.0.4",
     "torch>=2.2",
+    "torchaudio>=2.2",
+    "pypinyin>=0.51",
 ]
 
 [dependency-groups]

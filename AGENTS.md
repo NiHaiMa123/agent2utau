@@ -1210,6 +1210,31 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
 - N11–N21 added; M6/M10b updated to post-loop-gate semantics;
   394 tests PASS.
 
+### M2.5 G5N.2 — identity-aware lyric alignment (rlv10)
+
+- **`identity_align.py` family-B**: MMS_FA CTC forced alignment
+  (`torchaudio.pipelines.MMS_FA`, 315M, uroman 29-label). Known lyric
+  sequence (TEXT = constraint only, never acoustic evidence) →
+  pypinyin toneless syllables → forced_align → per-token spans.
+  Contract: aligner_family/version(ifa1)/model+lexicon provenance/
+  source_wav_sha256/lyric_sequence_sha256 + per-token index/char/
+  pinyin/start/end/confidence/boundary_uncertainty/status.
+- **`identity_adjudicate`**: same-token+monotonic+dev≤tolerance →
+  identity_verified; non-monotonic → identity_conflict; unavailable/
+  low-conf → identity_unverified; same-token but A/B boundary
+  disagreement > tolerance → measurement_ambiguous. Tolerance =
+  min(0.30 cap, 3×frame + phrase confident-token median dev) —
+  evidence-derived, never a pass target.
+- `_onset_span_evidence` demoted to `phoneme_class_consistency`
+  diagnostic — NEVER identity authority. Recovery requires ALL low
+  chars identity_verified (0.25 threshold untouched).
+- Real rlv10: `n_lyric_recovered=1` — 0325 着 (p=0.21) verified
+  (dev 0.176≤0.236); 0231 春/0311 是 → measurement_ambiguous (whisper
+  DTW anchored at padded clip edge vs MMS real syllable position,
+  dev 0.77/0.55s). 0325 still blocked by unresolved_B1:数 →
+  n_eligible=0, roster=[] — honest.
+- N22–N31 regression; 404 tests PASS.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight
