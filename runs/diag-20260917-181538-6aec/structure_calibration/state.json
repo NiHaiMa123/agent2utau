@@ -1,10 +1,13 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789810826.1637063,
+  "rebuilt_at": 1789820763.5086632,
   "eligibility": {
     "inventory_present": true,
-    "n_eligible": 0,
-    "roster_candidates": [],
+    "n_eligible": 2,
+    "roster_candidates": [
+      "note_0440",
+      "note_0441"
+    ],
     "roster_size_ok": false
   },
   "total_machine_split_candidates": 21,
@@ -39,12 +42,16 @@
   ],
   "reviewed": [],
   "store_contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
-  "pilot_contract_sha256": null,
+  "pilot_contract_sha256": "60eda3138464c1e43587f56150b67c1cc13ce40505db492dbb3ce2ab26c22c54",
   "pilot_authority": {
     "ok": false,
-    "sample_ids": [],
+    "sample_ids": [
+      "cal-srp-fcebb308ea0d11ef772afdc4",
+      "cal-srp-742cbf94d1991516823ba33c"
+    ],
     "violations": [
-      "no resolvable samples"
+      "cal-srp-fcebb308ea0d11ef772afdc4: auto_review_ready not true",
+      "cal-srp-742cbf94d1991516823ba33c: auto_review_ready not true"
     ]
   },
   "git_evidence": {
