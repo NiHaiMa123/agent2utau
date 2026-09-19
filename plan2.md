@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5I rlv3 仅完成 score-bound lyric timing，不足以证明最终声学发音时间正确；新增 G5J Acoustic Lyric Timing Closed-Loop）。** 2026-09-18 re-audit：rlv3 已把 source char onset 写入 render-only articulation boundary，`score_delta≈0` 只能证明 USTX/score construction 按证据落点生成；但 SOURCE↔rendered 的 same-aligner acoustic timing 仍普遍提前约 200–300ms，个别字最大约 480ms，不能在没有独立证据时直接解释为“aligner domain bias”。此外当前 SOURCE phrase 首字存在约 80–130ms 截头，部分 rendered char force-align confidence 低至约 0.06–0.18，且最新 `state.json` 为 `review_ready=false` / `git_evidence.complete=false`，与 plan 头部旧结论不一致。下一步必须完成：修 SOURCE clip 边界；对 rendered vocals 建立 acoustic timing closed-loop（render→re-align→按 per-char onset error 调整 render-only articulation anchor→rerender→收敛）；低置信 alignment fail-closed；`score_delta` 仅作 construction integrity check；修复 Web GET / derived `state.json` 对 Git evidence 的自污染。上述 blocker 未关闭前，禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5J rlv5 acoustic closed-loop 已实现并完成 4-item pilot，但 4/4 均未收敛；当前 blocker 已从“有没有闭环”转为“unmeasurable onset 与 carrier-bound timing conflict 的语义处理”）。** 最新真实 pilot：SOURCE phrase lead/tail 截断已修；Web `/api/state` 改为 read-only compute，state 自污染已修；4/4 package valid；closed-loop 真正执行并把整体 acoustic timing 从旧的约 200–480ms 普遍错位压缩到多数项目 median 约 23–75ms，但仍分别以 `unmeasurable_chars` / `bound_limited` / `anchors_crossed` fail-closed，`auto_review_ready=false`、`review_ready=false`。不要继续只调 `k` / clamp / iteration count。下一步必须把字符分成：A) 有可靠 acoustic landmark 且 carrier 内可调 → closed-loop；B) 无可靠 landmark 或 source onset 落在合法 carrier bound 外 → 不允许 lyric overlay 继续越权侵入 written-score timing，必须显式标记 timing conflict / unmeasurable，决定 fail-closed、换 pilot，或升级到独立 written-timing adjudication；同时将 generated Whisper probability 从“timing confidence”拆分为独立的 intelligibility/ASR diagnostic。上述语义未定且 hard cases 未关闭前，禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。**
 
 ---
 
@@ -4110,6 +4110,324 @@ DO NOT freeze M2.5
 **Pilot 结果（4 项）**：全部 `package_state=valid`（overlap bug 消除）；闭环均未收敛——`unmeasurable_chars`×2、`bound_limited`×1、`anchors_crossed`×1；声学 delta flag 139–255ms 集中在跨 option 一致的提前 onset（≈辅音先行，人声判断项）与 bound-pinned 结构限位字。`auto_review_ready=false` → `pilot_authority.ok=false` → `review_ready=false`——**如实未通过，项挂起等人工裁决**，不是假收敛。
 
 **回归**：J1–J10 + 既有全套 340 passed；`plan_invariants.ok`；`git_evidence` 仅差未提交字节（提交后补验）。
+
+
+#### G5K Hard-case timing semantics（当前 blocker：不是继续调参数）
+
+G5J/rlv5 已证明 acoustic closed-loop 可工作，并且对大多数可测字符显著降低了实际声学时间误差；当前问题已经不再是“闭环没实现”，而是 **部分字符没有可靠声学 landmark，或原唱 onset 本身落在当前 written-note carrier 的合法可调范围之外**。
+
+##### rlv5 pilot 实测状态
+
+4-item pilot：
+
+```text
+G1 note_0061
+  median acoustic error ≈ 52ms
+  max ≈ 151–163ms
+  stop = unmeasurable_chars
+
+G2 note_0188
+  median acoustic error ≈ 23ms
+  max ≈ 163–197ms
+  stop = bound_limited
+
+G3 note_0192
+  median acoustic error ≈ 35ms
+  max ≈ 163ms
+  stop = unmeasurable_chars
+
+G4 note_0379
+  median acoustic error ≈ 70–75ms
+  max ≈ 139–151ms
+  stop = anchors_crossed
+```
+
+共同状态：
+
+```text
+package_state = valid (4/4)
+closed_loop implemented = true
+closed_loop converged = false (4/4)
+auto_review_ready = false (4/4)
+pilot_authority.ok = false
+review_ready = false
+```
+
+这说明当前剩余 blocker 是 hard-case semantics，而不是 package / Git / render plumbing。
+
+##### Do NOT solve by parameter chasing
+
+禁止把下一步简化为：
+
+```text
+increase LOOP_MAX_ITERS
+increase LOOP_CLAMP_S
+raise k
+relax TIMING_GATE_MS
+relax low-confidence threshold
+```
+
+除非有新的测量证据证明这些参数才是根因。当前真实结果已经显示：部分字即使继续迭代也会被 carrier bounds / landmark ambiguity 卡住。
+
+##### Class A — measurable + carrier-feasible
+
+定义：
+
+```text
+source acoustic landmark reliable
+render acoustic landmark reliable
+cross-option onset measurement stable
+desired correction lies inside legal carrier timing bounds
+anchor ordering / minimum sung span remain legal
+```
+
+这类字符继续走现有 rlv5 closed-loop。
+
+acceptance：
+
+```text
+converged == true
+acoustic error <= measured gate
+no low-confidence / unstable / unmeasurable flags
+```
+
+##### Class B1 — acoustic landmark unmeasurable / unstable
+
+连续中文唱腔不保证每个汉字都有独立、稳定的 onset-strength peak。
+
+当前 `unmeasurable_chars` / `acoustic_unstable` 不能再被当成“再调一下就能找到峰”。
+
+规则：
+
+```text
+no stable landmark
+!= timing correct
+!= timing wrong
+== timing evidence unavailable
+```
+
+处理优先级：
+
+```text
+1. 尝试第二独立 acoustic landmark family（仅用于 adjudication，不和第一测量器重复计权）
+2. 若仍不可测 → fail-closed
+3. 可以替换 pilot sample，但不能伪造 PASS
+```
+
+允许探索的第二测量器示例：
+
+```text
+phoneme/consonant boundary detector
+energy-envelope derivative
+spectral-flux landmark
+manual small-subset timestamp annotation for calibration
+```
+
+但必须保持：SOURCE 与 render 使用同一 measurement family。
+
+##### Class B2 — source onset outside legal carrier bound
+
+这是当前最重要的新语义问题。
+
+例：G2 某些字符：
+
+```text
+source acoustic ref < carrier lower bound
+or
+source acoustic ref > carrier upper bound
+```
+
+这种情况下 closed-loop 不可能在不越权修改 written-note timing 的前提下精确对齐。
+
+必须明确：
+
+```text
+lyric articulation overlay is NOT allowed to rewrite written-score timing truth
+```
+
+因此默认处理应为：
+
+```text
+carrier_bound_conflict
+→ no forced convergence
+→ no review-ready PASS
+```
+
+禁止为了让试听“听起来对”而让 render-only lyric anchor 任意越过 note carrier、吞掉相邻 note、或实质改变 written-score timing。
+
+##### Carrier-bound conflict 的后续路由
+
+B2 不能简单等同于 renderer bug。它可能说明：
+
+```text
+a) 当前 GAME/written note timing 本身与原唱 lyric articulation 不兼容
+b) source acoustic landmark 对应的是辅音 anticipation，而不是 syllable carrier boundary
+c) current note identity / split timing candidate 不足以表达原唱
+```
+
+因此要新增显式 route：
+
+```text
+carrier_bound_conflict
+→ inspect whether this is
+   - lyric-only anticipation
+   - note timing error
+   - structure/split timing error
+   - measurement ambiguity
+```
+
+只有确定为 lyric-only anticipation 时，才允许定义一个受控的 renderer-side preutterance model；如果是 written timing / structure error，应回到对应 adjudication lane，而不是歌词层硬修。
+
+##### Do not let review-only overlay mask transcription errors
+
+这是 G5K 的核心安全原则：
+
+```text
+human review audio must reveal transcription quality
+not cosmetically repair transcription timing until it sounds correct
+```
+
+因此 review-only lyric overlay 允许修：
+
+```text
+phoneme/articulation placement inside an already-valid carrier
+```
+
+不允许修：
+
+```text
+note start/end truth
+wrong carrier identity
+wrong split boundary
+wrong inter-note gap
+written-note duration error
+```
+
+否则会污染用户对 A/B 结构的判断。
+
+##### Whisper confidence semantics split
+
+rlv5 已将 Whisper demote 为 diagnostic，但当前 `signal_qc` 仍会用 generated Whisper probability 产生 blocking flags。
+
+必须把两个概念拆开：
+
+```text
+acoustic_timing_confidence
+  = timing measurement family 对 onset 的可测性/稳定性
+
+lyric_intelligibility_confidence
+  = ASR/force-align 对生成歌词是否清晰可辨的信心
+```
+
+规则：
+
+```text
+low ASR confidence may block human review because diction is unclear,
+but it must NOT be described as proof that acoustic timing is wrong.
+```
+
+相反，timing instrument unmeasurable 也不能被解释成歌词一定听不清。
+
+manifest / signal_qc 中应分开记录和 gate。
+
+##### Pilot policy
+
+当前 4 个 pilot 不要求“必须全部救活”。
+
+允许：
+
+```text
+Class A item converges → keep
+Class B1 persistently unmeasurable → replace with another honest sample
+Class B2 carrier-bound conflict → route to written-timing/structure diagnosis; do not use as simple split A/B pilot
+```
+
+最终 pilot 目标仍是：
+
+```text
+enough honest, reviewable items to calibrate structure decisions
+```
+
+而不是强制保留历史上的 exact 4 notes。
+
+##### Required diagnostics
+
+对每个 char 持久化：
+
+```text
+char
+source_ref_onset
+source_ref_kind
+render_onset per option
+acoustic_error per option
+measurement_stability
+carrier_lo
+carrier_hi
+desired_anchor
+final_anchor
+bound_conflict = true/false
+unmeasurable_reason
+route = class_A | B1_unmeasurable | B2_carrier_conflict
+```
+
+这样 reviewer 可以区分“测不到”和“根本调不到”。
+
+##### Regression matrix
+
+至少新增：
+
+```text
+K1. reliable landmark + correction inside carrier
+    → Class A; closed-loop may converge
+
+K2. no stable onset landmark
+    → B1; fail-closed or second-instrument adjudication
+
+K3. source onset earlier than carrier lower bound
+    → B2 carrier_bound_conflict; no anchor overreach
+
+K4. source onset later than carrier upper bound
+    → B2 carrier_bound_conflict; no anchor overreach
+
+K5. relaxing k/clamp alone cannot convert B2 to PASS
+
+K6. review overlay never changes Candidate 0 note start/end
+
+K7. B2 routed to written-timing/structure diagnosis when appropriate
+
+K8. low Whisper confidence only flags intelligibility, not acoustic timing truth
+
+K9. acoustic measurement unmeasurable does not imply lyric unintelligible
+
+K10. final pilot may replace B1/B2 samples without violating authority binding
+```
+
+##### Final acceptance
+
+G5K 关闭条件：
+
+```text
+hard cases classified explicitly
+Class A closed-loop behavior remains valid
+B1 unmeasurable semantics fail-closed
+B2 carrier-bound conflict semantics implemented
+review overlay cannot mask written timing / structure errors
+timing confidence and intelligibility confidence separated
+pilot roster contains only honest reviewable samples
+new package / pilot / QC authority rebuilt
+review_ready=true only for that final honest pilot
+remote CI success
+```
+
+在此之前：
+
+```text
+DO NOT ask user to listen
+DO NOT loosen thresholds just to recover the existing 4-item pilot
+DO NOT let lyric timing overlay rewrite written-score truth
+DO NOT record calibration decisions
+DO NOT freeze M2.5
+```
 
 ---
 
