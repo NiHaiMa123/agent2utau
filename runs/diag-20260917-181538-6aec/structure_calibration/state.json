@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789788662.9331815,
+  "rebuilt_at": 1789788723.4046092,
   "eligibility": {
     "inventory_present": true,
     "n_eligible": 0,
@@ -48,10 +48,10 @@
     ]
   },
   "git_evidence": {
-    "complete": false,
+    "complete": true,
     "git": "ok",
     "checked": 469,
-    "missing_count": 1
+    "missing_count": 0
   },
   "plan_invariants": {
     "ok": true,
