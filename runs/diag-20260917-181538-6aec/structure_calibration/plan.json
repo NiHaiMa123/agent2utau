@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "created_at": 1789791224.6088002,
+  "created_at": 1789792792.8490944,
   "diagnostic_run_id": "diag-20260917-181538-6aec",
   "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
   "lyric_contract": "neutral_vowel",
@@ -63,7 +63,7 @@
       "audio_package_hash": "f8c997c0a5d92f6b4640bc227e965f243ee3e8de9051ba37d3ba53f5353958bf",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "b89e6afaedca6b6d5c8f3ffcedc70dac8b59db2284d966217c8edc62f4467afa",
+      "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
       "signal_qc_flags": [
         "lyric_timing_not_converged:unmeasurable_chars",
         "lyric_timing_evidence_unmeasurable:一",
@@ -152,7 +152,7 @@
       "audio_package_hash": "3b6ec49f996a053dddb2dea391d2df4d7c5aa4b79e06a1b6c3d248ec1b8950d4",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "b89e6afaedca6b6d5c8f3ffcedc70dac8b59db2284d966217c8edc62f4467afa",
+      "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
       "signal_qc_flags": [
         "lyric_timing_not_converged:bound_limited",
         "lyric_timing_carrier_conflict:可人陪这本",
@@ -180,7 +180,7 @@
       "audio_package_hash": "ccac494c19a8970f6993ce29ed326fc47a491a444e33b36da70bb1dbc3436431",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "b89e6afaedca6b6d5c8f3ffcedc70dac8b59db2284d966217c8edc62f4467afa",
+      "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
       "signal_qc_flags": [
         "lyric_timing_not_converged:bound_limited",
         "lyric_timing_carrier_conflict:可人陪这本",
@@ -373,7 +373,7 @@
       "audio_package_hash": "049dcb3bdd100d55352d1861085132534d643462bf924bafcb44692cc8c85899",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "b89e6afaedca6b6d5c8f3ffcedc70dac8b59db2284d966217c8edc62f4467afa",
+      "contract_sha256": "e0a91866ed9803beb55b9a66d2fcab708e8cb080718998414d0326eaddf3d8bc",
       "signal_qc_flags": [
         "lyric_timing_not_converged:unmeasurable_chars",
         "lyric_timing_evidence_unmeasurable:惜本",
