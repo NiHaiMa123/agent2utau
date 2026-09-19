@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD / G5N.3 rlv11 已执行（lexical-identity vs alignment-timing contract 已纠正）；CURRENT blocker = honest roster 仍为空——需上游 written-timing/structure 裁决。** rlv11 机器状态：21 项重扫 `0/21 eligible`、`roster=[]`、`n_lexical_coverage_fail=2`、`n_alignment_fail=10`、`n_timing_supported=1`（0325 着 family-B 边界一致）、`n_b1_readjudicated=1`（0325 数：rlv10 的 B1 实为 onset 漏检 → MMS 定位揭示真身 B2 late conflict）、`n_unresolved_B2=9`、`n_phrase_level=4`。Known lyric sequence 是 lexical identity 唯一权威（`lexical_text_status`），MMS/Whisper/onset 只产出 timing/boundary evidence（`alignment_status`）——低 Whisper 概率不再等于"不知道唱哪个字"，只等于"该 token 边界测量不可靠"。完成 current-contract roster（≥3 且无 unresolved timing/structure/post-loop blocker）前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD / G5N.4 confidence-aware timing adjudication（CURRENT）。** G5N.3/rlv11 已完成 lexical identity 与 timing/alignment 的职责分离，并重扫 21 项；机器状态为 `0/21 eligible`、`n_alignment_fail=10`、`n_timing_supported=1`。但 maintainer/ChatGPT pre-human audit **未通过**：rlv11 对低置信 Whisper token 仍以 Whisper start 作为 family-A timing 基准，只要 MMS/onset 与这个低可靠时间点偏差超阈值就判 `measurement_ambiguous`，等价于让 low-confidence Whisper 保留 timing veto。该 `0/21` 因此不能作为“已证明应转上游 written-timing/structure”的最终结论。下一步 G5N.4 必须把 timing authority 改成 confidence-aware：高置信 Whisper 才可作为 anchor；低置信 Whisper 只保留 audit observation，不得否决 MMS；低置信 token 由 MMS + 可靠 onset/energy + 高置信邻字/单调序列/局部时间映射共同裁决。完成 rlv12 重扫与 current-contract roster 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -1613,14 +1613,16 @@ N41. B1 no_source_landmark with usable MMS span
     (mms_second_family corroborates displacement only when edge unavailable;
      never when MMS is the primary measurement — no circular evidence)
 [✓] all 21 candidates regenerated under rlv11
-[ ] rlv11 inventory / packages / plan / state committed
-[ ] git_evidence.complete == true
-[ ] plan_invariants.ok == true
-[ ] any non-empty roster contains no unresolved timing/structure/post-loop blocker
+[✓] rlv11 inventory / packages / plan / state committed
+[✓] git_evidence.complete == true
+[✓] plan_invariants.ok == true
+[✓] empty roster honestly preserves all unresolved blockers
 [ ] pilot_authority.ok == true before user listening
 [ ] review_ready == true before user listening
 [ ] FINAL acceptance SHA remote CI success
-[ ] maintainer/ChatGPT pre-human audit PASS
+[✗] maintainer/ChatGPT pre-human audit PASS
+    → FAIL: low-confidence Whisper timing still retains veto authority
+    → G5N.3 cannot close; superseded by G5N.4
 ```
 
 If rlv11 still yields zero eligible items:
@@ -1665,6 +1667,389 @@ DO NOT freeze M2.5
 
 ---
 
+#### G5N.4 Confidence-aware / anchor-based timing adjudication（← CURRENT）
+
+##### Why rlv11 cannot be accepted
+
+G5N.3 correctly established:
+
+```text
+known lyrics
+→ lexical identity authority
+
+Whisper / MMS / onset
+→ timing evidence only
+```
+
+但 rlv11 的实际 timing adjudicator 仍然：
+
+```text
+low-confidence Whisper token start
+→ 与 MMS start 比较
+→ |MMS - Whisper| > tolerance
+→ measurement_ambiguous
+```
+
+这在语义上仍然给了 low-confidence Whisper **timing veto**。
+
+例如真实 rlv11：
+
+```text
+note_0123 是
+Whisper p = 0.0000086
+MMS-Whisper start delta ≈ 0.516s
+→ measurement_ambiguous
+
+note_0311 是
+Whisper p = 0.000151
+delta ≈ 0.548s
+→ measurement_ambiguous
+
+note_0440/0441 密
+Whisper p ≈ 0.00195
+delta ≈ 0.542s
+→ measurement_ambiguous
+```
+
+这些 Whisper 概率本身已经说明该 token 的 Whisper timing observation 极不可靠。不能再把它当作一个与 MMS 对等、具有 hard-conflict 权力的 family。
+
+因此：
+
+```text
+low-confidence Whisper != timing anchor
+low-confidence Whisper != contradiction authority
+low-confidence Whisper != veto
+```
+
+##### Timing evidence authority classes
+
+每个 timing observation 必须显式带 reliability/authority class：
+
+```text
+A. anchor_authoritative
+   - high-confidence Whisper token with stable DTW/boundary
+   - validated high-confidence neighboring token anchor
+   - other independently calibrated high-reliability boundary family
+
+B. measurement_support
+   - MMS constrained forced-alignment token with sufficient CTC confidence
+   - reliable onset / energy / phoneme boundary
+   - local interpolation constrained by high-confidence anchors
+
+C. audit_only
+   - low-confidence Whisper token timing
+   - detector output below its calibrated reliability region
+   - historical rlv10/rlv11 timing claims without current authority
+
+D. unavailable
+   - missing / low-confidence / unalignable evidence
+```
+
+只有 A/B 中达到当前 contract 要求的 evidence 才能参与 pass/conflict。C 只能记录，不能产生 hard blocker。
+
+##### Confidence-aware family-A semantics
+
+Whisper token 不再统一叫 family-A authority。
+
+必须按 token confidence 分层：
+
+```text
+Whisper probability >= calibrated anchor threshold
++ sequence/DTW sanity passes
+→ whisper_anchor
+→ may participate in agreement/conflict
+
+Whisper probability < anchor threshold
+→ whisper_audit_only
+→ MAY NOT create measurement_ambiguous
+→ MAY NOT demote MMS-supported timing
+```
+
+**禁止简单把现有 0.25 threshold 改成另一个拍脑袋 threshold。** anchor threshold / reliability rule 必须通过当前数据或 calibration evidence 定义，并与“review char probability threshold”解耦。
+
+##### Anchor-based timing for low-confidence tokens
+
+对于：
+
+```text
+high-confidence token L
+low-confidence token X
+high-confidence token R
+```
+
+允许构造局部 timing envelope：
+
+```text
+L/R reliable anchors
++ known lexical order
++ monotonicity
++ legal token span
++ MMS X span/confidence
++ optional onset/energy evidence
+→ timing envelope for X
+```
+
+X 不需要接近它自己的 low-confidence Whisper start。
+
+可支持的判定：
+
+```text
+MMS X lies monotonically between reliable neighboring anchors
++ MMS confidence sufficient
++ token duration/span physically valid
++ no reliable acoustic family contradicts
+→ timing_supported
+```
+
+真正的 ambiguity 必须来自**可靠 evidence 之间**的冲突，例如：
+
+```text
+MMS vs reliable onset conflict
+MMS vs high-confidence neighbor-derived legal envelope conflict
+two calibrated high-reliability timing families disagree
+token order / coverage impossible
+MMS confidence itself insufficient
+```
+
+不得来自：
+
+```text
+MMS != low-confidence Whisper
+onset != low-confidence Whisper
+```
+
+##### Onset / energy semantics correction
+
+rlv11 当前：
+
+```text
+onset_ref - low_confidence_whisper_start > 50ms
+→ landmark_contradicted
+→ ambiguous
+```
+
+也必须废止。
+
+新的判断：
+
+```text
+if Whisper token is anchor_authoritative:
+    onset may corroborate / contradict Whisper
+else:
+    compare onset against MMS / anchor-derived envelope / other reliable timing
+    low-confidence Whisper is audit-only
+```
+
+50ms 或其他窗口只允许作为 detector-specific calibrated resolution/uncertainty，不能作为围绕不可靠 Whisper start 的 universal truth。
+
+##### MMS authority limits
+
+G5N.4 不是把 MMS 升级为唯一 truth。
+
+MMS 仍然是：
+
+```text
+known-token constrained acoustic timing measurement
+```
+
+它必须 fail-closed when：
+
+```text
+CTC confidence insufficient
+token span invalid
+order/monotonicity broken
+coverage/text binding suspect
+neighbor anchors make the span impossible
+reliable independent acoustic timing materially contradicts it
+```
+
+MMS 不得单独证明：
+
+```text
+written score is wrong
+B2 is a true structure error
+split/merge should be applied
+```
+
+##### rlv12 required artifact model
+
+每个低置信 token 至少持久化：
+
+```text
+lexical_text_status
+
+whisper:
+  probability
+  timing
+  authority = anchor | support | audit_only | unavailable
+  authority_reason
+
+mms:
+  start/end
+  confidence
+  authority
+  authority_reason
+
+acoustic_landmarks:
+  onset/energy/phoneme-boundary
+  timing
+  reliability
+  resolution
+
+neighbor_anchors:
+  prev/next token
+  timing
+  confidence
+  authority
+
+timing_envelope:
+  lo/hi
+  source
+  uncertainty
+
+timing_verdict:
+  supported
+  ambiguous
+  unresolved
+  order_conflict
+
+supporting_families
+contradicting_families
+audit_only_observations
+```
+
+任何 final timing verdict 必须能从这些 authority-tagged evidence 重建，禁止继续用 raw `dev_start_s` 单字段隐式决定。
+
+##### Required real-case re-evaluation
+
+rlv12 必须重点覆盖当前 10 个 alignment fail：
+
+```text
+0076 / 0077
+0123
+0231
+0264 / 0266
+0305
+0311
+0440 / 0441
+```
+
+特别检查：
+
+```text
+0123 是    p≈0.0000086
+0311 是    p≈0.000151
+0440 密    p≈0.00195
+```
+
+这些 case 不允许再仅因 MMS 与 Whisper start 相差约 0.5s 就 hard-fail。
+
+同时保留：
+
+```text
+0325 着
+→ 已有 timing support
+→ regression: G5N.4 不得退化
+
+0325 数
+→ B1→B2 re-adjudication 逻辑保留
+→ 但其 B2 semantic 仍需独立 written-timing/structure evidence
+```
+
+##### Required regressions N42–N53
+
+```text
+N42. very-low-confidence Whisper + good MMS + valid neighbor envelope
+     → timing_supported
+     → Whisper mismatch is audit-only
+
+N43. very-low-confidence Whisper + MMS differs by >500ms
+     + no reliable contradiction
+     → MUST NOT become ambiguous solely from Whisper delta
+
+N44. high-confidence calibrated Whisper anchor + good MMS agreement
+     → timing_supported with two-family support
+
+N45. high-confidence calibrated Whisper anchor vs MMS material disagreement
+     → measurement_ambiguous
+
+N46. low-confidence Whisper + reliable onset agrees MMS
+     → timing_supported
+
+N47. low-confidence Whisper + reliable onset contradicts MMS
+     → measurement_ambiguous
+
+N48. low-confidence Whisper + onset differs from Whisper only
+     → Whisper cannot turn onset into contradiction
+
+N49. MMS low confidence / skipped
+     → unresolved unless another sufficient reliable timing family exists
+
+N50. MMS violates reliable prev/next monotonic envelope
+     → order_conflict / ambiguous fail-closed
+
+N51. no reliable neighboring anchors
+     → do not invent interpolation confidence
+     → use available calibrated families or unresolved
+
+N52. historical rlv11 alignment_ambiguous caused only by low-confidence Whisper delta
+     → stale under rlv12 contract
+
+N53. timing verdict audit records authority classes + supporting/contradicting families
+     → verdict reconstructable from artifact
+```
+
+##### G5N.4 acceptance
+
+```text
+[ ] low-confidence Whisper timing is audit-only and has no veto authority
+[ ] high-confidence Whisper timing anchor has explicit calibrated authority rule
+[ ] review-char confidence and timing-anchor confidence are separate semantics
+[ ] onset/energy contradiction logic no longer references low-confidence Whisper as truth
+[ ] low-confidence tokens can be timed from MMS + reliable neighbors/acoustic evidence
+[ ] anchor-derived timing envelope is monotonic and uncertainty-aware
+[ ] MMS remains constrained timing evidence, not single-source truth
+[ ] reliable-family conflict remains fail-closed
+[ ] N42–N53 regression matrix green
+[ ] all 21 candidates regenerated under rlv12
+[ ] all 10 rlv11 alignment_fail cases explicitly re-evaluated
+[ ] rlv11-only timing verdicts marked stale under rlv12
+[ ] affected packages rebuilt under rlv12 contract
+[ ] state/plan rebuilt after final artifact commit
+[ ] git_evidence.complete == true
+[ ] plan_invariants.ok == true
+[ ] pilot_authority.ok == true before user listening
+[ ] review_ready == true before user listening
+[ ] FINAL acceptance SHA remote CI success
+[ ] maintainer/ChatGPT pre-human audit PASS
+```
+
+If rlv12 still yields zero eligible items:
+
+```text
+then zero may be accepted only after confirming
+no item is blocked solely by audit_only Whisper timing
+
+remaining blockers must be attributable to:
+coverage/text mismatch
+reliable measurement conflict
+written-timing evidence
+structure evidence
+post-loop B1/B2/QC
+```
+
+Until G5N.4 closes:
+
+```text
+DO NOT ask user to listen
+DO NOT treat low-confidence Whisper timing as a conflict authority
+DO NOT widen tolerances to make MMS agree with Whisper
+DO NOT make MMS unconditional timing truth
+DO NOT start bulk written-score repair from rlv11 0/21
+DO NOT record calibration decisions
+DO NOT freeze M2.5
+```
+
 ### 10.1.7 M2.5 CURRENT final acceptance gate
 
 > Historical G/G5A→G5M checklists and implementation narratives are archived in `docs/plan2_history.md`. This section is the single active M2.5 acceptance authority.
@@ -1681,24 +2066,24 @@ A. Engine / frozen safety
    [✓] rollback / conflict / idempotency remain green
    [✓] 189s / 202s permanent safety green
 
-B. G5N.3 lexical text + alignment timing authority
-   [ ] official/known lyric sequence is the lexical identity authority
-   [ ] phrase/LRC coverage and text-version correctness are validated separately
-   [ ] Whisper probability is measurement confidence, not lexical-identity confidence
-   [ ] MMS_FA forced alignment is timing/alignment evidence only
-   [ ] current authority no longer treats forced target token as independent recognition
-   [ ] low-confidence Whisper token can remain lexically known while timing stays unresolved
-   [ ] family-A/B agreement is used only for timing/boundary confidence
-   [ ] family-A/B disagreement routes measurement_ambiguous without changing the known token
-   [ ] aligner model/lexicon/config/source/lyric provenance persisted and version-bound
-   [ ] rlv10 identity_* verdicts are historical/audit-only under the corrected contract
-   [ ] all 21 candidates rebuilt under rlv11 semantics
+B. G5N.4 confidence-aware timing authority
+   [✓] known lyric sequence remains lexical identity authority
+   [✓] forced alignment remains timing/boundary evidence only
+   [ ] low-confidence Whisper timing is audit-only, not veto authority
+   [ ] high-confidence Whisper anchor authority is explicitly calibrated
+   [ ] review-char confidence and timing-anchor confidence are separate
+   [ ] timing conflict requires disagreement between reliable families
+   [ ] low-confidence token timing may use MMS + reliable neighbor anchors + acoustic landmarks
+   [ ] timing envelope is monotonic / uncertainty-aware
+   [ ] raw MMS-vs-Whisper delta cannot by itself decide low-confidence tokens
+   [ ] all rlv11 low-confidence timing verdicts invalidated/re-evaluated under rlv12
 
-C. G5N.3 timing / B2 semantics
+C. G5N.4 timing / B2 / structure routing
    [✓] B2 is not treated as automatic written-score error
    [✓] same-family waveform agreement confirms displacement, not semantic benignness
    [✓] benign classifications use phoneme-class/acoustic semantic evidence + geometry/neighbor consistency
-   [ ] where MMS family-B token boundaries are available, B2 routing may consume them as timing evidence without treating forced alignment as lexical recognition or written-score truth
+   [✓] MMS boundaries may enter B2 as timing evidence without becoming lexical or written-score truth
+   [ ] B2 routing consumes only current rlv12 authority-tagged timing evidence; audit-only Whisper timing cannot create/confirm a carrier conflict
    [✓] sub-resolution displacement is neutral unless stronger evidence establishes a real conflict
        (measurement_below_resolution)
    [✓] phrase-level repetition remains audit-only after all shared conflicts resolve benign
@@ -1706,17 +2091,17 @@ C. G5N.3 timing / B2 semantics
    [✓] measurement_ambiguous / unresolved remain fail-closed
 
 D. Honest pilot roster
-   [ ] all 21 candidates rerun under corrected current contract (rlv11 inventory)
+   [ ] all 21 candidates rerun under corrected current contract (rlv12 inventory)
    [✓] eligibility_inventory committed/auditable
-   [ ] roster contains only semantically resolved reviewable items after rlv11 rerun (empty remains allowed)
+   [ ] roster contains only semantically resolved reviewable items after rlv12 rerun (empty remains allowed)
    [ ] no unresolved pre-loop OR post-loop B1/B2/alignment/coverage blocker in roster
        (post_loop gate remains fail-closed)
-   [ ] every proposed roster item has rlv11 current-contract render/post-loop evidence
+   [ ] every proposed roster item has rlv12 current-contract render/post-loop evidence
    [✓] pilot size evidence-driven; do not lower gates to fill count
 
 E. Exact review authority
-   [ ] state/plan are rebuilt after the final artifact commit
-   [ ] selected packages rebuilt if semantics/contract changed
+   [ ] rlv12 state/plan are rebuilt after the final artifact commit
+   [ ] selected packages rebuilt under rlv12 if semantics/contract changed
    [ ] verify_package PASS for every selected item
    [ ] signal_qc.auto_review_ready true for every selected item
    [ ] pilot payload binds exact committed bytes/hashes
@@ -1904,7 +2289,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← QUALITY HOLD / G5N.3（known lyrics 固定 lexical identity；MMS/Whisper 改为 timing/alignment evidence；需 rlv11 重扫后重新判断 roster；当前 rlv10 0/21 不再作为 corrected-contract 最终结论）
+### M2.5 — PROBABLE structure repair — ← QUALITY HOLD / G5N.4（rlv11 已纠正 lexical identity，但 low-confidence Whisper 仍错误保留 timing veto；需 confidence-aware / anchor-based rlv12 重扫。rlv11 的 0/21 不能作为上游 written-timing/structure 最终结论）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -2001,3 +2386,7 @@ rollback coverage
 84. lyric-constrained forced alignment 的 token identity 来自已知 target sequence；它可以提供独立 acoustic timing/boundary measurement，但不得被称为对该 Han character 的独立 recognition/identity verification。
 85. alignment model/lexicon/config/source/lyric provenance 发生 material change 时必须 version/contract bump，并使依赖该 timing/alignment evidence 的 inventory/package/verdict stale。
 86. 只要 phrase/LRC/text-version coverage 已确认正确，known lyric token 的 lexical identity 不得因单个 ASR char probability 低而失效；真正需要 fail-closed 的是 coverage/text conflict 或 timing-sensitive decision 所需的 alignment evidence 仍 unresolved。
+87. low-confidence Whisper token timing 只能作为 audit observation；不得因其与 MMS/onset/其他可靠 timing family 不一致而单独制造 measurement_ambiguous 或 hard blocker。
+88. timing conflict 只能由具有当前 calibrated authority 的独立 measurement families 建立；evidence reliability 必须先于 agreement/disagreement 计算。
+89. 对低置信 token，允许由高置信邻字 anchor + lexical monotonic order + MMS/acoustic timing 构造 uncertainty-aware timing envelope；不得强迫其贴合自身低置信 Whisper start。
+90. MMS forced alignment 不是 timing truth；CTC 低置信、顺序违法、coverage 错配、可靠独立 timing evidence 冲突时必须 fail-closed。
