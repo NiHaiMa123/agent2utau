@@ -463,6 +463,23 @@ def cmd_structure_calib_rebuild_plan(args) -> int:
                        "plan_invariants": inv})
 
 
+def cmd_structure_calib_inventory(args) -> int:
+    """§10.1.5A-G5M: scan every machine split candidate under the
+    current real_lyric_review contract and persist
+    eligibility_inventory.json — the auditable honest-roster
+    selection evidence (pre-loop routes are render-free: a B1/B2 or
+    lyric-evidence failure disqualifies before any rebuild)."""
+    from .structure_calibration import eligibility_inventory
+    run_dir = Path(load_config()["runs_dir"]) / args.run_id
+    try:
+        doc = eligibility_inventory(run_dir, progress=None)
+    except Exception as e:
+        emit(exception_payload(e))
+        return 1
+    return _out(args, {"schema_version": "1", "status": "ok",
+                       "inventory": doc})
+
+
 def cmd_structure_calib_pilot(args) -> int:
     """§10.1.5A-G5E: emit pilot_review.json — the blind A/B full-phrase
     download manifest (git paths + sha256 + raw URLs at HEAD) that the
@@ -903,6 +920,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("structure-calib-rebuild-plan")
     p.set_defaults(fn=cmd_structure_calib_rebuild_plan)
+    p.add_argument("run_id", help="diagnostic run id")
+
+    p = sub.add_parser("structure-calib-inventory")
+    p.set_defaults(fn=cmd_structure_calib_inventory)
     p.add_argument("run_id", help="diagnostic run id")
 
     p = sub.add_parser("structure-calib-pilot")

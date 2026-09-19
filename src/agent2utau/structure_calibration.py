@@ -2353,6 +2353,11 @@ def git_evidence(run_dir: Path, item_ids=None,
     expected = ["plan.json", "state.json", "pilot_review.json"]
     if include_qc:
         expected += ["qc/verdict.json", "qc/audit.jsonl"]
+    # §G5M: once generated, the eligibility inventory IS roster-
+    # selection evidence — it must be committed like every other
+    # authority artifact
+    if (cdir / "eligibility_inventory.json").exists():
+        expected.append("eligibility_inventory.json")
     # §10.1.5A-G5E: the full natural-phrase SOURCE clip is the PRIMARY
     # human-review material — it must be Git-evidence too, keyed by each
     # item's declared phrase_key (deduped: items can share a phrase)
@@ -2594,6 +2599,30 @@ def build_pilot_review(run_dir: Path, note_ids=None,
     by_note = {it["note_id"]: it for it in plan.get("items", [])}
     remote = _git_remote_repo(run_dir)
     repo_root = Path(run_dir).parent.parent
+    # §G5M-M10: once an eligibility inventory exists, the review
+    # surface binds ONLY its honest roster — a disqualified or
+    # historical item can never ride the payload into review, and an
+    # empty roster means there is nothing to emit.
+    inv_p = cdir / "eligibility_inventory.json"
+    if inv_p.exists():
+        inv_doc = json.loads(inv_p.read_text(encoding="utf-8"))
+        allowed = set(inv_doc.get("roster_candidates") or [])
+        if note_ids is None:
+            note_ids = tuple(sorted(allowed))
+        else:
+            bad = [n for n in note_ids if n not in allowed]
+            if bad:
+                raise RuntimeError(
+                    "pilot payload blocked (§G5M honest-roster "
+                    f"rule): {bad} are not eligible under the "
+                    "current inventory — the review surface binds "
+                    "the honest roster only")
+        if not note_ids:
+            raise RuntimeError(
+                "pilot payload blocked (§G5M honest-roster rule): "
+                "the eligibility inventory selected ZERO honest "
+                "items — no review surface is emitted while "
+                "review_ready=false")
     note_ids = tuple(note_ids) if note_ids else PILOT_NOTE_IDS
 
     def entry(rel: str, label: str, display: str = None):
@@ -2753,6 +2782,255 @@ def _phrase_level_conflicts(cdir: Path) -> dict:
             _jwrite(mp, man)
             marked[iid] = sorted(chars_here)
     return marked
+
+
+# ------------------------------------------------- §G5M eligibility inventory
+
+# Disqualifier → diagnosis lane (§G5M: hard cases are ROUTED to the
+# matching diagnosis, never silently dropped or tuned into eligibility).
+_DIAGNOSIS_LANES = {
+    "lyric_evidence": "lyric_intelligibility_diagnosis",
+    "unbindable_chars": "structure_diagnosis",
+    "source_unmeasurable": "measurement_diagnosis",
+    "unresolved_B1": "measurement_diagnosis",
+    "unresolved_B2": "written_timing_diagnosis",
+    "phrase_level_carrier_conflict": "structure_diagnosis",
+}
+
+
+def _eligibility_routes_summary(routes):
+    """Slim per-char route table for the inventory — the audit needs
+    the same fields a manifest persists, not a second schema."""
+    if routes is None:
+        return None
+    return [{"char": r["char"], "route": r["route"],
+             "direction": r.get("direction"),
+             "route_detail": r.get("route_detail"),
+             "route_subtype": r.get("route_subtype"),
+             "overhang_ms": r.get("overhang_ms"),
+             "unmeasurable_reason": r.get("unmeasurable_reason"),
+             "source_ref_onset": r.get("source_ref_onset"),
+             "carrier_lo": r.get("carrier_lo"),
+             "carrier_hi": r.get("carrier_hi")}
+            for r in routes]
+
+
+def eligibility_inventory(run_dir: Path, write: bool = True,
+                          progress=print) -> dict:
+    """§G5M honest-roster gate — scan EVERY machine split candidate
+    under the CURRENT real_lyric_review contract and record why it can
+    or cannot enter the human pilot.
+
+    The decisive evidence is render-free: the pre-loop route
+    classification depends only on source landmarks and written
+    carrier bounds, neither of which a render can change. A B1/B2 or
+    lyric-evidence failure disqualifies without a single wav being
+    re-rendered; render-side checks (post-loop downgrades, signal_qc
+    flags, verify_package) are additionally recorded when a current-
+    contract package already exists, and remain mandatory gates for
+    any item that is rebuilt.
+
+    Persisted as eligibility_inventory.json — auditable
+    roster-selection evidence. Items failing a hard gate are routed to
+    a diagnosis lane, never silently dropped."""
+    from .review.render import load_run, _clip, verify_package
+    run_dir = Path(run_dir)
+    cdir = calib_dir(run_dir)
+    run = load_run(run_dir)
+    rph = _rph_hash()
+    contract_sha = render_contract_sha(
+        run, rph, LYRIC_CONTRACT_REVIEW)
+    items = plan_calibration(
+        run, rph=rph, lyric_contract=LYRIC_CONTRACT_REVIEW)
+    entries, pending = [], []
+    for it in items:
+        pk, iid = it["phrase_key"], it["item_id"]
+        ent = {"note_id": it["packets"][0], "cal_item_id": iid,
+               "repair_id": it["repair_id"], "type": it["type"],
+               "phrase_key": pk,
+               "phrase": {"start": it["phrase"]["start"],
+                          "end": it["phrase"]["end"]}}
+        # --- existing package state (informational; staleness is
+        # fixed by rebuild, never by eligibility fiat) ---
+        idir = cdir / "items" / iid
+        mp = idir / "manifest.json"
+        man = json.loads(mp.read_text(encoding="utf-8")) \
+            if mp.exists() else None
+        cal = (man or {}).get("calibration") or {}
+        qc_p = idir / "signal_qc.json"
+        qc = json.loads(qc_p.read_text(encoding="utf-8")) \
+            if qc_p.exists() else {}
+        ent["package_state"] = (man or {}).get("package_state")
+        ent["lyric_contract"] = cal.get("lyric_contract")
+        ent["lyric_mapping_impl"] = cal.get("lyric_mapping_impl")
+        ent["contract_sha256"] = cal.get("contract_sha256")
+        ent["contract_status"] = (
+            "missing" if man is None else
+            "current" if cal.get("contract_sha256") == contract_sha
+            else "stale")
+        if man is not None:
+            try:
+                ok, why = verify_package(man, idir)
+            except Exception as e:
+                ok, why = False, str(e)
+            ent["verify_package"] = "PASS" if ok else f"FAIL:{why}"
+        else:
+            ent["verify_package"] = None
+        ent["signal_qc_auto_review_ready"] = qc.get("auto_review_ready")
+        ent["signal_qc_flags"] = qc.get("auto_flags") or []
+        ent["audio_package_hash"] = (man or {}).get("audio_package_hash")
+        # --- post-loop evidence already on disk (rlv7 packages) ---
+        cl = (((cal.get("lyric_evidence") or {})
+               .get("articulation") or {}).get("closed_loop") or {})
+        ent["closed_loop_stop_reason"] = cl.get("reason")
+        ent["closed_loop_converged"] = cl.get("converged")
+        post = cl.get("char_routes") or []
+        ent["post_loop_final_class"] = {
+            r["char"]: r.get("final_class") for r in post} or None
+        ent["second_family_verdicts"] = {
+            r["char"]: r.get("secondary_measurement")
+            for r in post if r.get("secondary_measurement")} or None
+        # --- lyric evidence under the CURRENT contract ---
+        ev = review_phrase_chars(
+            run, it.get("evidence_window") or it["phrase"])
+        ent["lyric_evidence"] = {
+            "ok": ev["ok"], "reason": ev["reason"],
+            "min_probability": ev["min_probability"],
+            "n_chars": ev["n_chars"]}
+        dq, routes = [], None
+        if not ev["ok"]:
+            dq.append(f"lyric_evidence:{ev['reason']}")
+        else:
+            chars = ev["chars"]
+            bounds = _anchor_bounds(it, chars)
+            if bounds is None:
+                dq.append("unbindable_chars")
+            else:
+                lo, hi = bounds
+                sw = (cdir / "phrases" / pk
+                      / "SOURCE_PHRASE_separated_vocal.wav")
+                if not sw.exists():
+                    # the review window is lyric-padded — its phrase
+                    # clip may not exist yet; the measurement still
+                    # needs the real source span
+                    sw.parent.mkdir(parents=True, exist_ok=True)
+                    _clip(run["vocals_wav"], sw,
+                          it["phrase"]["start"], it["phrase"]["end"])
+                ph0 = float(it["phrase"]["start"])
+                refs, kinds = _source_ref_onsets(chars, sw, ph0)
+                routes = _classify_routes(
+                    chars, refs, kinds, lo, hi, off=ph0)
+                n_onset = sum(1 for k in kinds
+                              if k == "onset_peak")
+                ent["source_measurement"] = {
+                    "wav": str(sw.relative_to(cdir)),
+                    "n_chars": len(chars),
+                    "n_onset_landmarks": n_onset,
+                    "available": refs is not None}
+                if refs is None:
+                    dq.append("source_unmeasurable")
+                b1 = [r for r in routes
+                      if r["route"] == ROUTE_B1]
+                b2 = [r for r in routes
+                      if r["route"] == ROUTE_B2]
+                ent["route_summary"] = {
+                    "class_A": sum(1 for r in routes
+                                   if r["route"] == ROUTE_CLASS_A),
+                    "B1_unmeasurable": len(b1),
+                    "B2_carrier_conflict": len(b2)}
+                if b1:
+                    dq.append("unresolved_B1:"
+                              + "".join(r["char"] for r in b1))
+                if b2:
+                    dq.append("unresolved_B2:"
+                              + "".join(r["char"] for r in b2))
+        ent["char_routes"] = _eligibility_routes_summary(routes)
+        ent["disqualifiers"] = dq
+        ent["phrase_level_carrier_conflict"] = False
+        ent["shared_b2_chars"] = []
+        entries.append(ent)
+        pending.append((ent, routes))
+    # --- phrase-level: a B2 set repeating across review targets on
+    # the same phrase is systematic, never an ordinary pilot item ---
+    by_pk = {}
+    for ent, routes in pending:
+        if routes:
+            b2 = {r["char"] for r in routes
+                  if r["route"] == ROUTE_B2}
+            by_pk.setdefault(ent["phrase_key"], []).append((ent, b2))
+    for pk, grp in by_pk.items():
+        if len(grp) < 2:
+            continue
+        shared = set.intersection(*[b2 for _, b2 in grp])
+        if not shared:
+            continue
+        for ent, b2 in grp:
+            mine = shared & b2
+            if not mine:
+                continue
+            ent["phrase_level_carrier_conflict"] = True
+            ent["shared_b2_chars"] = sorted(mine)
+            ent["disqualifiers"].append(
+                "phrase_level_carrier_conflict:"
+                + "".join(sorted(mine)))
+    # --- verdicts + diagnosis lanes ---
+    for ent in entries:
+        ent["eligible"] = not ent["disqualifiers"]
+        lanes = {_DIAGNOSIS_LANES[d.split(":")[0]]
+                 for d in ent["disqualifiers"]
+                 if d.split(":")[0] in _DIAGNOSIS_LANES}
+        # written-timing suspects and structure-level conflicts are
+        # both written-score diagnoses at the route_detail level
+        if ent["phrase_level_carrier_conflict"]:
+            lanes.add("structure_diagnosis")
+        ent["diagnosis_routes"] = sorted(lanes)
+        ent["rebuild_required"] = (
+            ent["eligible"] and ent["contract_status"] != "current")
+    roster = [e["note_id"] for e in entries if e["eligible"]]
+    doc = {"schema": CALIB_SCHEMA,
+           "kind": "eligibility_inventory",
+           "generated_at": _now(), "run_id": run_dir.name,
+           "lyric_contract": LYRIC_CONTRACT_REVIEW,
+           "lyric_mapping_impl":
+               LYRIC_MAPPING_IMPL_VERSION[LYRIC_CONTRACT_REVIEW],
+           "contract_sha256": contract_sha,
+           "items": entries,
+           "summary": {
+               "n_items": len(entries),
+               "n_eligible": len(roster),
+               "n_lyric_evidence_fail": sum(
+                   1 for e in entries
+                   if any(d.startswith("lyric_evidence:")
+                          for d in e["disqualifiers"])),
+               "n_unresolved_B1": sum(
+                   1 for e in entries
+                   if any(d.startswith("unresolved_B1:")
+                          for d in e["disqualifiers"])),
+               "n_unresolved_B2": sum(
+                   1 for e in entries
+                   if any(d.startswith("unresolved_B2:")
+                          for d in e["disqualifiers"])),
+               "n_phrase_level": sum(
+                   1 for e in entries
+                   if e["phrase_level_carrier_conflict"]),
+               "n_rebuild_required": sum(
+                   1 for e in entries if e["rebuild_required"])},
+           "roster_candidates": roster,
+           "roster_size_ok": len(roster) >= 3}
+    if write:
+        _jwrite(cdir / "eligibility_inventory.json", doc)
+    if progress:
+        s = doc["summary"]
+        progress(f"eligibility inventory: {s['n_eligible']}/"
+                 f"{s['n_items']} eligible "
+                 f"(B1:{s['n_unresolved_B1']} B2:{s['n_unresolved_B2']} "
+                 f"phrase-level:{s['n_phrase_level']} "
+                 f"lyric-evidence:{s['n_lyric_evidence_fail']})")
+        if not doc["roster_size_ok"]:
+            progress("  insufficient honest items — review_ready "
+                     "stays false; disqualified items are routed to "
+                     "diagnosis lanes, not tuned into eligibility")
+    return doc
 
 
 def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
@@ -3175,9 +3453,37 @@ def rebuild_calibration_state(run_dir: Path, write: bool = True) -> dict:
     # store_contract_sha256 describes the plan's DEFAULT contract while
     # pilot_contract_sha256 is the human-review authority derived from
     # the exact current pilot sample set.
-    pilot = pilot_authority(run_dir)
+    # §G5M: when an eligibility inventory exists the pilot roster is
+    # ITS selection — history no longer picks the samples; an empty
+    # honest roster evaluates as not-ok, never as the old four.
+    elig_p = calib_dir(run_dir) / "eligibility_inventory.json"
+    elig = {"inventory_present": elig_p.exists()}
+    roster_ids = None
+    if elig_p.exists():
+        # an inventory that can't be read still revokes the historical
+        # default roster — fail closed to an empty sample set
+        roster_ids = []
+        try:
+            edoc = json.loads(elig_p.read_text(encoding="utf-8"))
+            by_note = {it.get("note_id"): it.get("cal_item_id")
+                       for it in plan["items"]}
+            roster_ids = [by_note[n]
+                          for n in edoc.get("roster_candidates") or []
+                          if n in by_note]
+            elig.update({
+                "n_eligible": (edoc.get("summary") or {})
+                .get("n_eligible"),
+                "roster_candidates":
+                    edoc.get("roster_candidates") or [],
+                "roster_size_ok": edoc.get("roster_size_ok")})
+        except Exception:
+            roster_ids = None
+    pilot = pilot_authority(
+        run_dir, sample_ids=roster_ids
+        if elig_p.exists() else None)
     state = {
         "schema": CALIB_SCHEMA, "rebuilt_at": _now(),
+        "eligibility": elig,
         "total_machine_split_candidates": len(plan["items"]),
         "reviewed_count": len(reviewed),
         "split_preferred_count": confirmed,

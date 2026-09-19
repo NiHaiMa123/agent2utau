@@ -5066,6 +5066,51 @@ DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
 
+##### G5M 实现记录（rlv7，2026-09-19 — 0/21 eligible，roster 空）
+
+实现：
+
+```text
+eligibility_inventory(): 对全部 21 个 machine split candidate 在
+  current real_lyric_review 合约下逐项建立可审计 inventory —
+  pre-loop 路由是免渲染决定性证据（source landmark + written
+  carrier bounds 不随迭代改变，B1/B2/歌词证据失败无需渲染即判
+  不合格）。持久化 eligibility_inventory.json。
+每项记录: identity/package_state/contract_status(current|stale|
+  missing)/verify_package/auto_review_ready+flags/aph/
+  closed_loop stop reason/post-loop final_class/second_family/
+  lyric_evidence/char_routes/disqualifiers/diagnosis_routes/
+  eligible/rebuild_required。
+phrase-level: 跨 target 同 phrase 共享 B2 集合 →
+  phrase_level_carrier_conflict（0246/0248 在 124.90-131.30 也命中）。
+disqualifier→lane: lyric_evidence→intelligibility / B1→measurement
+  / B2→written_timing / phrase_level+unbindable→structure。
+build_pilot_review: inventory 存在时 payload 只能绑
+  roster_candidates；ineligible note 拒绝；空 roster 不发射任何
+  review surface。
+rebuild_calibration_state: pilot_authority 改用 inventory roster
+  （空 roster → not-ok，不再回落历史 4 项）+ eligibility 摘要。
+git_evidence: eligibility_inventory.json 生成后即为必需证据。
+M1-M10 回归矩阵; 372 tests PASS。
+```
+
+21 项真实扫描结果（全部不合格）：
+
+```text
+13 项 lyric_evidence 失败: 11× low_confidence + 2× no_chars
+   (0076/0077/0123/0231/0264/0266/0305/0311/0325/0391/0404/0440/0441)
+8 项 unresolved B2: 0012(7,含318ms written_suspect)/0044(2)/
+   0061(5)/0188+0192(5+phrase-level)/0246+0248(3+phrase-level)/
+   0379(4)
+0 项 unresolved B1（补齐 review 窗口 phrase clip 后所有有证据
+   项的 source landmark 均可测——0012/0044/0246/0248 初扫"全B1"
+   是缺 clip 假象，clip 后实为 B2）
+→ roster_candidates = [] → review_ready=false（诚实）
+→ FAIL verdict 已记录 qc/audit.jsonl
+→ 不合格项已路由: 8×written_timing/structure_diagnosis +
+   13×lyric_intelligibility_diagnosis
+```
+
 ---
 
 #### G6. Human-review readiness regressions

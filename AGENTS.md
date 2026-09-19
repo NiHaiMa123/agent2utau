@@ -1118,6 +1118,32 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   on real data (一 cross_option_unstable; 惜/本 detector_relock).
   L1-L10 regression matrix; 360 tests PASS.
 
+### M2.5 G5M — honest pilot roster rebuild → 0/21 eligible (rlv7)
+
+- **`eligibility_inventory()`** scans all 21 machine split candidates
+  under the CURRENT real_lyric_review contract. The pre-loop route
+  classification is render-free decisive evidence (source landmarks +
+  written carrier bounds can't change under iteration) — B1/B2/
+  lyric-evidence failures disqualify WITHOUT re-rendering. Persisted
+  as `eligibility_inventory.json` (committed, git_evidence-required).
+- **Real scan: 0/21 eligible.** 13 items fail lyric evidence
+  (11 low_confidence + 2 no_chars); 8 carry unresolved B2 incl. two
+  phrase-level systematic pairs (0188/0192 on 90.03-96.96 AND
+  0246/0248 on 124.90-131.30). 0 unresolved B1 — the apparent all-B1
+  items were missing review-window phrase clips, not dead landmarks.
+- Disqualified items are ROUTED, not dropped: B2→written_timing,
+  phrase-level/unbindable→structure, B1→measurement,
+  lyric_evidence→intelligibility diagnosis lanes.
+- `build_pilot_review` now binds ONLY inventory roster_candidates —
+  ineligible notes are refused; an empty roster emits NO review
+  surface (M10). `rebuild_calibration_state` evaluates authority on
+  the inventory roster (empty → not-ok, never falls back to the
+  historical four). FAIL verdict recorded in qc/audit.jsonl.
+- review_ready=false stands. Next move is upstream: written-timing/
+  structure adjudication of the B2 lanes (esp. the two phrase-level
+  systematic conflicts) or fresh source evidence for the 13
+  lyric-evidence failures. M1-M10; 372 tests PASS.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight

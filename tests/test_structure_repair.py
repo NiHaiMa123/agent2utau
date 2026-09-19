@@ -2969,3 +2969,358 @@ def test_l10_unresolved_cases_excluded_from_roster(tmp_path,
     b = sc.pilot_authority(run, [items[0]["cal_item_id"]])
     assert b["ok"]
     assert b["sample_ids"] == [items[0]["cal_item_id"]]
+
+
+# --------------------- §10.1.5A-G5M honest roster (M) ----------------
+
+def _inv_store(tmp_path, monkeypatch, specs):
+    """§G5M fixture: a calibration store + injectable scan evidence.
+    specs: [{note_id, item_id, phrase_key, ev, bounds, refs, man, qc}]
+      ev     → review_phrase_chars result dict
+      bounds → (lo, hi) or None for _anchor_bounds
+      refs   → (refs, kinds) for _source_ref_onsets
+      man/qc → existing manifest/signal_qc dicts or None
+    _classify_routes stays REAL — eligibility must derive from the
+    same routing semantics the loop uses."""
+    from pathlib import Path
+    import agent2utau.structure_calibration as sc
+    import agent2utau.review.render as rr
+    cdir = tmp_path / "structure_calibration"
+    (cdir / "items").mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(
+        rr, "load_run",
+        lambda d: {"run_id": tmp_path.name, "vocals_wav": "v.wav",
+                   "duration": 300.0})
+    monkeypatch.setattr(rr, "verify_package",
+                        lambda man, d: (True, "ok"))
+    items, ev_by_start, bounds_by_iid, refs_by_pk = [], {}, {}, {}
+    for i, s in enumerate(specs):
+        iid = s["item_id"]
+        ew = {"start": float(i), "end": float(i) + 1.0}
+        items.append({
+            "item_id": iid, "repair_id": f"srp-{iid}",
+            "packets": [s["note_id"]], "type": "split",
+            "phrase_key": s["phrase_key"],
+            "phrase": dict(s.get("phrase")
+                           or {"start": 0.0, "end": 5.0}),
+            "evidence_window": ew})
+        ev_by_start[ew["start"]] = s["ev"]
+        bounds_by_iid[iid] = s["bounds"]
+        refs_by_pk[s["phrase_key"]] = s["refs"]
+        idir = cdir / "items" / iid
+        idir.mkdir(exist_ok=True)
+        if s.get("man") is not None:
+            (idir / "manifest.json").write_text(
+                json.dumps(s["man"]), encoding="utf-8")
+        if s.get("qc") is not None:
+            (idir / "signal_qc.json").write_text(
+                json.dumps(s["qc"]), encoding="utf-8")
+        pdir = cdir / "phrases" / s["phrase_key"]
+        pdir.mkdir(parents=True, exist_ok=True)
+        (pdir / "SOURCE_PHRASE_separated_vocal.wav").write_bytes(b"x")
+    monkeypatch.setattr(
+        sc, "plan_calibration",
+        lambda run, rph=None, lyric_contract=None: items)
+    monkeypatch.setattr(
+        sc, "review_phrase_chars",
+        lambda run, win: ev_by_start.get(
+            win["start"], {"ok": False, "chars": None,
+                           "reason": "no_chars",
+                           "min_probability": None, "n_chars": 0}))
+    monkeypatch.setattr(
+        sc, "_anchor_bounds",
+        lambda it, chars: bounds_by_iid[it["item_id"]])
+    monkeypatch.setattr(
+        sc, "_source_ref_onsets",
+        lambda chars, sw, ph0: refs_by_pk[Path(sw).parent.name])
+    return tmp_path
+
+
+def _ev_ok(chars):
+    return {"ok": True, "chars": chars, "reason": None,
+            "min_probability": 0.9, "n_chars": len(chars)}
+
+
+def _ev_fail(reason="low_confidence", n=3):
+    return {"ok": False, "chars": None, "reason": reason,
+            "min_probability": 0.3, "n_chars": n}
+
+
+def test_m1_unresolved_b1_cannot_enter_roster(tmp_path, monkeypatch):
+    """M1: no source landmark → every char B1 → the item is routed to
+    measurement diagnosis, never into the pilot roster."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": c, "start": i * 0.4, "end": i * 0.4 + 0.3}
+             for i, c in enumerate("甲乙丙")]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-b1", phrase_key="0.00-5.00",
+        ev=_ev_ok(chars), bounds=([0.0, 0.4, 0.8], [0.3, 0.7, 1.1]),
+        refs=(None, ["none"] * 3), man=None, qc=None)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    assert e["eligible"] is False
+    assert any(d.startswith("source_unmeasurable")
+               or d.startswith("unresolved_B1")
+               for d in e["disqualifiers"])
+    assert "measurement_diagnosis" in e["diagnosis_routes"]
+    assert doc["roster_candidates"] == []
+
+
+def test_m2_phrase_level_b2_cannot_enter_roster(tmp_path, monkeypatch):
+    """M2: a shared B2 set repeating across targets on one phrase is a
+    systematic conflict — both items route to structure diagnosis."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": c, "start": i * 0.4, "end": i * 0.4 + 0.3}
+             for i, c in enumerate("甲乙丙")]
+    spec = dict(ev=_ev_ok(chars),
+                bounds=([0.0, 0.4, 0.8], [0.3, 0.7, 1.1]),
+                # char 丙's ref lands above its carrier hi → B2 late
+                refs=([0.1, 0.5, 1.5], ["onset_peak"] * 3))
+    _inv_store(tmp_path, monkeypatch, [
+        dict(note_id="note_0001", item_id="cal-p1",
+             phrase_key="0.00-5.00", man=None, qc=None, **spec),
+        dict(note_id="note_0002", item_id="cal-p2",
+             phrase_key="0.00-5.00", man=None, qc=None, **spec)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    assert doc["summary"]["n_phrase_level"] == 2
+    for e in doc["items"]:
+        assert e["eligible"] is False
+        assert e["phrase_level_carrier_conflict"] is True
+        assert "丙" in e["shared_b2_chars"]
+        assert "structure_diagnosis" in e["diagnosis_routes"]
+    assert doc["roster_candidates"] == []
+
+
+def test_m3_late_conflict_never_regains_via_anticipation(
+        tmp_path, monkeypatch):
+    """M3: a late-side conflict may not be relabeled anticipation to
+    regain eligibility — the disqualifier and the direction persist."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-late",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars),
+        bounds=([0.0], [0.3]),
+        refs=([0.8], ["onset_peak"]), man=None, qc=None)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    assert e["eligible"] is False
+    r = e["char_routes"][0]
+    assert r["route"] == sc.ROUTE_B2
+    assert r["direction"] == "late"
+    assert r["route_detail"] in ("post_boundary_delay_candidate",
+                                 "written_timing_suspect")
+
+
+def test_m4_threshold_relax_cannot_make_b2_eligible(
+        tmp_path, monkeypatch):
+    """M4: the overhang line is a triage prior — widening it renames a
+    detail, it never turns a carrier conflict into eligibility."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-th",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars),
+        bounds=([0.0], [0.3]),
+        refs=([0.9], ["onset_peak"]), man=None, qc=None)])
+    monkeypatch.setattr(sc, "ANTICIPATION_MAX_S", 10.0)
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    assert e["eligible"] is False
+    assert e["char_routes"][0]["route"] == sc.ROUTE_B2
+    assert doc["roster_candidates"] == []
+
+
+
+
+def test_m5_only_current_contract_may_be_selected(
+        tmp_path, monkeypatch):
+    """M5: a route-clean but stale/missing package is eligible only
+    WITH rebuild_required — current-contract status is explicit."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    spec = dict(ev=_ev_ok(chars), bounds=([0.0], [0.5]),
+                refs=([0.1], ["onset_peak"]))
+    _inv_store(tmp_path, monkeypatch, [
+        dict(note_id="note_0001", item_id="cal-stale",
+             phrase_key="0.00-5.00",
+             man={"schema": sc.CALIB_SCHEMA,
+                  "package_state": "valid",
+                  "audio_package_hash": "aph-old",
+                  "calibration": {
+                      "lyric_contract": "real_lyric_review",
+                      "lyric_mapping_impl": "rlv6",
+                      "contract_sha256": "old-stale"}},
+             qc={"auto_flags": [], "auto_review_ready": True},
+             **spec),
+        dict(note_id="note_0002", item_id="cal-none",
+             phrase_key="1.00-6.00", man=None, qc=None, **spec)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e0, e1 = doc["items"]
+    assert e0["eligible"] is True and e0["rebuild_required"] is True
+    assert e0["contract_status"] == "stale"
+    assert e1["eligible"] is True and e1["rebuild_required"] is True
+    assert e1["contract_status"] == "missing"
+
+
+def test_m6_roster_derived_from_evidence_not_history(
+        tmp_path, monkeypatch):
+    """M6: the roster is recomputed from current evidence — flip one
+    item's route evidence and it leaves roster_candidates."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    specs = [dict(note_id="note_0001", item_id="cal-a",
+                  phrase_key="0.00-5.00", ev=_ev_ok(chars),
+                  bounds=([0.0], [0.5]), refs=([0.1], ["onset_peak"]),
+                  man=None, qc=None),
+             dict(note_id="note_0002", item_id="cal-b",
+                  phrase_key="1.00-6.00", ev=_ev_ok(chars),
+                  bounds=([0.0], [0.5]), refs=([0.9], ["onset_peak"]),
+                  man=None, qc=None)]
+    _inv_store(tmp_path, monkeypatch, specs)
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    assert doc["roster_candidates"] == ["note_0001"]
+    specs[1]["refs"] = ([0.1], ["onset_peak"])
+    _inv_store(tmp_path, monkeypatch, specs)
+    doc2 = sc.eligibility_inventory(tmp_path, progress=None)
+    assert set(doc2["roster_candidates"]) == {"note_0001",
+                                              "note_0002"}
+
+
+def test_m7_exact_roster_passes_pilot_authority(tmp_path, monkeypatch):
+    """M7: a clean sample set + current contract + exact-sample QC
+    binding → pilot_authority.ok=true."""
+    import agent2utau.structure_calibration as sc
+    run, items, sha = _g5h_store(tmp_path, monkeypatch, n=2)
+    a = sc.pilot_authority(run, [i["cal_item_id"] for i in items])
+    assert a["ok"]
+    assert a["contract_sha256"] == sha
+    assert a["lyric_mapping_impl"] == \
+        sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"]
+
+
+def test_m8_state_reads_never_dirty_evidence(tmp_path, monkeypatch):
+    """M8: review_ready/git_evidence/verdict reads are pure — they may
+    never create or mutate the Git-authoritative artifacts."""
+    import agent2utau.structure_calibration as sc
+    run, items, _ = _g5h_store(tmp_path, monkeypatch, n=1)
+    cdir = tmp_path / "structure_calibration"
+    before = {p.relative_to(cdir): p.read_bytes()
+              for p in cdir.rglob("*") if p.is_file()}
+    monkeypatch.setattr(sc, "_git_tracked_set", lambda d: set())
+    monkeypatch.setattr(sc, "_git_dirty_set", lambda d: set())
+    sc.review_ready(run)
+    sc.git_evidence(run)
+    sc.load_verdict(run)
+    sc.plan_invariants(run)
+    after = {p.relative_to(cdir): p.read_bytes()
+             for p in cdir.rglob("*") if p.is_file()}
+    assert before == after
+
+
+def test_m9_inventory_binds_current_contract_identity(
+        tmp_path, monkeypatch):
+    """M9: the inventory binds the current contract identity — the
+    FINAL acceptance SHA must carry this exact contract/impl."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-a",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars),
+        bounds=([0.0], [0.5]), refs=([0.1], ["onset_peak"]),
+        man=None, qc=None)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    assert doc["lyric_contract"] == "real_lyric_review"
+    assert doc["lyric_mapping_impl"] == \
+        sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"]
+    assert doc["contract_sha256"] == sc.render_contract_sha(
+        {"run_id": tmp_path.name}, sc._rph_hash(),
+        "real_lyric_review")
+
+
+def test_m10_no_pass_verdict_without_authority(tmp_path, monkeypatch):
+    """M10: while the roster fails authority a PASS verdict is
+    refused and review_ready stays false — no user surface."""
+    import agent2utau.structure_calibration as sc
+    run, items, _ = _g5h_store(
+        tmp_path, monkeypatch, n=2, not_ready_iids={"cal-s1"})
+    with pytest.raises(RuntimeError):
+        sc.write_verdict(
+            run, "PASS",
+            sample_ids=[i["cal_item_id"] for i in items])
+    assert sc.review_ready(run) is False
+
+
+def test_m10b_inventory_gates_pilot_payload(tmp_path, monkeypatch):
+    """M10: with an inventory on disk the pilot payload binds ONLY its
+    honest roster — ineligible notes are refused, an empty roster
+    emits no surface at all."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3}]
+    _inv_store(tmp_path, monkeypatch, [
+        dict(note_id="note_0001", item_id="cal-ok",
+             phrase_key="0.00-5.00", ev=_ev_ok(chars),
+             bounds=([0.0], [0.5]), refs=([0.1], ["onset_peak"]),
+             man={"schema": sc.CALIB_SCHEMA,
+                  "review_item_id": "cal-ok",
+                  "package_state": "valid",
+                  "audio_package_hash": "aph-ok",
+                  "options": [{"option_id": "OPTION_0"},
+                              {"option_id": "OPTION_1"}],
+                  "calibration": {
+                      "baseline_option": "OPTION_0",
+                      "lyric_contract": "real_lyric_review",
+                      "contract_sha256": "x"}},
+             qc=None),
+        dict(note_id="note_0002", item_id="cal-bad",
+             phrase_key="1.00-6.00", ev=_ev_ok(chars),
+             bounds=([0.0], [0.3]), refs=([0.9], ["onset_peak"]),
+             man=None, qc=None)])
+    cdir = tmp_path / "structure_calibration"
+    (cdir / "plan.json").write_text(json.dumps({
+        "schema": sc.CALIB_SCHEMA, "items": [
+            {"note_id": "note_0001", "cal_item_id": "cal-ok",
+             "repair_id": "srp-ok", "type": "split",
+             "phrase_key": "0.00-5.00",
+             "phrase": {"start": 0.0, "end": 5.0}},
+            {"note_id": "note_0002", "cal_item_id": "cal-bad",
+             "repair_id": "srp-bad", "type": "split",
+             "phrase_key": "1.00-6.00",
+             "phrase": {"start": 0.0, "end": 5.0}}]}),
+        encoding="utf-8")
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    assert doc["roster_candidates"] == ["note_0001"]
+    monkeypatch.setattr(sc, "plan_invariants",
+                        lambda d: {"ok": True, "violations": []})
+    monkeypatch.setattr(sc, "_git_remote_repo",
+                        lambda d: {"slug": None, "sha": None,
+                                   "remote": None})
+    # an ineligible note can never ride the payload
+    with pytest.raises(RuntimeError):
+        sc.build_pilot_review(tmp_path, note_ids=["note_0002"],
+                              write=False)
+    # the honest roster alone may bind
+    payload = sc.build_pilot_review(tmp_path, write=False)
+    assert [g["note_id"] for g in payload["groups"]] == ["note_0001"]
+
+
+def test_m10c_empty_roster_emits_no_surface(tmp_path, monkeypatch):
+    """M10: zero eligible items → no pilot payload, period."""
+    import agent2utau.structure_calibration as sc
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-x",
+        phrase_key="0.00-5.00", ev=_ev_fail(),
+        bounds=None, refs=(None, []), man=None, qc=None)])
+    cdir = tmp_path / "structure_calibration"
+    (cdir / "plan.json").write_text(json.dumps({
+        "schema": sc.CALIB_SCHEMA, "items": [
+            {"note_id": "note_0001", "cal_item_id": "cal-x",
+             "repair_id": "srp-x", "type": "split",
+             "phrase_key": "0.00-5.00",
+             "phrase": {"start": 0.0, "end": 5.0}}]}),
+        encoding="utf-8")
+    sc.eligibility_inventory(tmp_path, progress=None)
+    monkeypatch.setattr(sc, "plan_invariants",
+                        lambda d: {"ok": True, "violations": []})
+    with pytest.raises(RuntimeError):
+        sc.build_pilot_review(tmp_path, write=False)
