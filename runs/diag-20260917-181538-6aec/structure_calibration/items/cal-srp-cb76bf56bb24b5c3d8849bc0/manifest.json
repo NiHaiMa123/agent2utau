@@ -272,8 +272,8 @@
     "candidate_role": "OPTION_0",
     "baseline_option": "OPTION_1",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv7",
-    "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+    "lyric_mapping_impl": "rlv8",
+    "contract_sha256": "b89e6afaedca6b6d5c8f3ffcedc70dac8b59db2284d966217c8edc62f4467afa",
     "choices": [
       "split",
       "baseline",
@@ -348,7 +348,7 @@
         }
       ],
       "articulation": {
-        "impl": "rlv7",
+        "impl": "rlv8",
         "n_segments": 21,
         "n_articulation_splits": 11,
         "n_chars": 10,
@@ -448,6 +448,20 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "unresolved",
+              "b2_evidence": {
+                "pinyin_initial": "h",
+                "initial_class": "obstruent",
+                "second_family": "unavailable",
+                "energy_edge_onset": null,
+                "energy_edge_deviation_ms": null,
+                "gap_before_carrier_s": null,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "carrier_start": -0.0,
+                "carrier_end": 0.38
+              },
               "final_anchor": 0.26,
               "render_onset": {
                 "OPTION_0": 0.209,
@@ -478,6 +492,20 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "unresolved",
+              "b2_evidence": {
+                "pinyin_initial": "y",
+                "initial_class": "glide",
+                "second_family": "unavailable",
+                "energy_edge_onset": null,
+                "energy_edge_deviation_ms": null,
+                "gap_before_carrier_s": 0.0,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "carrier_start": 0.79,
+                "carrier_end": 1.28
+              },
               "final_anchor": 0.79,
               "render_onset": {
                 "OPTION_0": 0.8127,
@@ -598,6 +626,20 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "benign_post_boundary_delay",
+              "b2_evidence": {
+                "pinyin_initial": "g",
+                "initial_class": "obstruent",
+                "second_family": "confirms",
+                "energy_edge_onset": 2.7573696145124718,
+                "energy_edge_deviation_ms": -40.6,
+                "gap_before_carrier_s": 0.0,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "carrier_start": 2.39,
+                "carrier_end": 2.86
+              },
               "final_anchor": 2.74,
               "render_onset": {
                 "OPTION_0": 2.7516,
@@ -658,6 +700,21 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "measurement_ambiguous",
+              "b2_evidence": {
+                "pinyin_initial": "d",
+                "initial_class": "obstruent",
+                "second_family": "contradicts",
+                "energy_edge_onset": 3.9706122448979593,
+                "energy_edge_deviation_ms": 406.3,
+                "gap_before_carrier_s": 0.0,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "reason": "subresolution_overhang",
+                "carrier_start": 3.57,
+                "carrier_end": 4.04
+              },
               "final_anchor": 3.57,
               "render_onset": {
                 "OPTION_0": 3.5759,
@@ -718,6 +775,20 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "unresolved",
+              "b2_evidence": {
+                "pinyin_initial": "ch",
+                "initial_class": "obstruent",
+                "second_family": "unavailable",
+                "energy_edge_onset": null,
+                "energy_edge_deviation_ms": null,
+                "gap_before_carrier_s": 0.0,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "carrier_start": 4.69,
+                "carrier_end": 4.9
+              },
               "final_anchor": 4.78,
               "render_onset": {
                 "OPTION_0": 4.8298,

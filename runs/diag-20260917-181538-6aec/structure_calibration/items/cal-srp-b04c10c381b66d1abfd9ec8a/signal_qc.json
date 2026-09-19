@@ -4,13 +4,13 @@
   "repair_id": "srp-b04c10c381b66d1abfd9ec8a",
   "sample_rate": 44100,
   "duration": 6.88,
-  "baseline_rms": 0.06028,
-  "candidate_rms": 0.065198,
-  "baseline_peak": 0.245758,
-  "candidate_peak": 0.26297,
+  "baseline_rms": 0.060256,
+  "candidate_rms": 0.065174,
+  "baseline_peak": 0.245728,
+  "candidate_peak": 0.262939,
   "silence_fraction": {
-    "baseline": 0.0862,
-    "candidate": 0.0832
+    "baseline": 0.0867,
+    "candidate": 0.0836
   },
   "declared_region": [
     180.84,
@@ -28,20 +28,20 @@
     "pad_s": 0.5
   },
   "pre_target_ab_diff_rms_ratio": 0.4338,
-  "target_ab_diff_rms_ratio": 1.2869,
+  "target_ab_diff_rms_ratio": 1.287,
   "post_target_ab_diff_rms_ratio": 0.6312,
   "option_loudness_ratio": 1.0816,
   "renderer_global_context": {
     "effect": "deterministic renderer; declared patch's phoneme delta propagates a constant timing shift + small acoustic smear into context notes (DiffSinger duration model attends the full phoneme sequence)",
     "canonical_pre_ab_diff_rms_ratio": 0.4338,
     "canonical_post_ab_diff_rms_ratio": 0.6312,
-    "canonical_target_ab_diff_rms_ratio": 1.2869,
+    "canonical_target_ab_diff_rms_ratio": 1.287,
     "timing_shift_ms_median": {
       "pre": 0.0,
       "post": 0.18
     },
     "aligned_residual_median": {
-      "pre": 0.327,
+      "pre": 0.326,
       "post": 0.192
     },
     "flags": [
@@ -85,8 +85,8 @@
   },
   "listen": {
     "target_dbfs": -16.0,
-    "pair_rms_db": -24.18,
-    "shared_gain_db": 8.18,
+    "pair_rms_db": -24.19,
+    "shared_gain_db": 8.19,
     "clipped": false,
     "option_rms_db": {
       "OPTION_0": -24.4,
@@ -94,8 +94,8 @@
     },
     "ab_loudness_delta_db": 0.42,
     "listen_peak": {
-      "OPTION_0": 0.6304,
-      "OPTION_1": 0.6745
+      "OPTION_0": 0.6305,
+      "OPTION_1": 0.6747
     },
     "files": [
       "OPTION_0_LISTEN.wav",
@@ -162,7 +162,7 @@
           "voiced_fraction": 1.0,
           "midi_median": 66.002,
           "midi_iqr": 0.051,
-          "midi_min": 62.943,
+          "midi_min": 62.942,
           "midi_max": 66.043,
           "dominant_fraction": 0.875,
           "evidence": "ok",
@@ -179,7 +179,7 @@
           "midi_median": 64.013,
           "midi_iqr": 0.086,
           "midi_min": 61.643,
-          "midi_max": 65.066,
+          "midi_max": 65.067,
           "dominant_fraction": 0.812,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -218,9 +218,9 @@
           "n_frames": 27,
           "voiced_frames": 27,
           "voiced_fraction": 1.0,
-          "midi_median": 66.003,
+          "midi_median": 66.002,
           "midi_iqr": 0.015,
-          "midi_min": 65.899,
+          "midi_min": 65.9,
           "midi_max": 66.097,
           "dominant_fraction": 1.0,
           "evidence": "ok",
@@ -235,20 +235,20 @@
           "voiced_frames": 27,
           "voiced_fraction": 1.0,
           "midi_median": 65.998,
-          "midi_iqr": 0.023,
-          "midi_min": 65.456,
-          "midi_max": 66.057,
+          "midi_iqr": 0.021,
+          "midi_min": 65.457,
+          "midi_max": 66.058,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": -0.06,
+        "baseline_error_semitones": -0.061,
         "candidate_error_semitones": -0.065
       }
     ],
     "baseline_child_error_semitones": [
       1.865,
-      -0.06
+      -0.061
     ],
     "candidate_child_error_semitones": [
       -0.124,
@@ -340,77 +340,77 @@
             "char": "可",
             "start": 0.0,
             "end": 0.38,
-            "probability": 0.3922301232814789,
+            "probability": 0.4012100100517273,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "惜",
             "start": 0.38,
             "end": 1.06,
-            "probability": 0.9905909895896912,
+            "probability": 0.9900557994842529,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "从",
             "start": 1.06,
-            "end": 1.36,
-            "probability": 0.18155935406684875,
+            "end": 1.34,
+            "probability": 0.13309957087039948,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "没",
-            "start": 1.36,
+            "start": 1.34,
             "end": 2.04,
-            "probability": 0.96427321434021,
+            "probability": 0.9664607644081116,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "人",
             "start": 2.04,
             "end": 2.36,
-            "probability": 0.9216739535331726,
+            "probability": 0.9328455328941345,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "陪",
             "start": 2.36,
             "end": 2.74,
-            "probability": 0.9912867844104767,
+            "probability": 0.9901805520057678,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "我",
             "start": 2.74,
             "end": 3.3,
-            "probability": 0.9961001873016357,
+            "probability": 0.9961820244789124,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "演",
             "start": 3.3,
-            "end": 3.54,
-            "probability": 0.9864693880081177,
+            "end": 3.52,
+            "probability": 0.9821491837501526,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "这",
-            "start": 3.54,
+            "start": 3.52,
             "end": 4.06,
-            "probability": 0.6588301658630371,
+            "probability": 0.5936041474342346,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "剧",
             "start": 4.06,
-            "end": 4.72,
-            "probability": 0.941653311252594,
+            "end": 4.58,
+            "probability": 0.9409578740596771,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "本",
-            "start": 4.72,
+            "start": 4.58,
             "end": 5.08,
-            "probability": 0.6790936589241028,
+            "probability": 0.6618898510932922,
             "method": "whisper-attention-dtw"
           }
         ]
@@ -421,77 +421,77 @@
             "char": "可",
             "start": 0.0,
             "end": 0.38,
-            "probability": 0.7471120357513428,
+            "probability": 0.512184202671051,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "惜",
             "start": 0.38,
             "end": 1.06,
-            "probability": 0.9977611303329468,
+            "probability": 0.9964994192123413,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "从",
             "start": 1.06,
             "end": 1.32,
-            "probability": 0.20392943918704987,
+            "probability": 0.17418678104877472,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "没",
             "start": 1.32,
             "end": 2.02,
-            "probability": 0.9086278676986694,
+            "probability": 0.9453116655349731,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "人",
             "start": 2.02,
             "end": 2.38,
-            "probability": 0.8779377937316895,
+            "probability": 0.800736129283905,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "陪",
             "start": 2.38,
             "end": 2.78,
-            "probability": 0.986809253692627,
+            "probability": 0.9786344468593597,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "我",
             "start": 2.78,
             "end": 3.22,
-            "probability": 0.9965096116065979,
+            "probability": 0.9958744645118713,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "演",
             "start": 3.22,
             "end": 3.52,
-            "probability": 0.7462593913078308,
+            "probability": 0.7809510231018066,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "这",
             "start": 3.52,
             "end": 4.06,
-            "probability": 0.6945221424102783,
+            "probability": 0.7144185304641724,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "剧",
             "start": 4.06,
             "end": 4.72,
-            "probability": 0.8054619431495667,
+            "probability": 0.8321648240089417,
             "method": "whisper-attention-dtw"
           },
           {
             "char": "本",
             "start": 4.72,
             "end": 5.1,
-            "probability": 0.06088275834918022,
+            "probability": 0.03878716006875038,
             "method": "whisper-attention-dtw"
           }
         ]
@@ -600,10 +600,10 @@
         "src_acoustic_onset": 1.2307,
         "src_ref_kind": "onset_peak",
         "OPTION_0_start": 1.06,
-        "OPTION_0_end": 1.36,
+        "OPTION_0_end": 1.34,
         "OPTION_0_score_onset": 1.1698,
         "OPTION_0_onset_delta_ms": -280.0,
-        "OPTION_0_offset_delta_ms": -380.0,
+        "OPTION_0_offset_delta_ms": -400.0,
         "OPTION_0_score_delta_ms": -170.2,
         "OPTION_0_aligner_offset_ms": -109.8,
         "OPTION_0_acoustic_onset": 1.161,
@@ -639,13 +639,13 @@
         "secondary_measurement": null,
         "src_acoustic_onset": 1.6138,
         "src_ref_kind": "onset_peak",
-        "OPTION_0_start": 1.36,
+        "OPTION_0_start": 1.34,
         "OPTION_0_end": 2.04,
         "OPTION_0_score_onset": 1.65,
-        "OPTION_0_onset_delta_ms": -380.0,
+        "OPTION_0_onset_delta_ms": -400.0,
         "OPTION_0_offset_delta_ms": -240.0,
         "OPTION_0_score_delta_ms": -90.0,
-        "OPTION_0_aligner_offset_ms": -290.0,
+        "OPTION_0_aligner_offset_ms": -310.0,
         "OPTION_0_acoustic_onset": 1.6834,
         "OPTION_0_acoustic_delta_ms": 69.6,
         "OPTION_1_start": 1.32,
@@ -735,8 +735,8 @@
         "OPTION_1_offset_delta_ms": -240.0,
         "OPTION_1_score_delta_ms": -119.6,
         "OPTION_1_aligner_offset_ms": -80.4,
-        "OPTION_1_acoustic_onset": 2.4497,
-        "OPTION_1_acoustic_delta_ms": -46.4
+        "OPTION_1_acoustic_onset": 2.4613,
+        "OPTION_1_acoustic_delta_ms": -34.8
       },
       {
         "char": "我",
@@ -800,10 +800,10 @@
         "src_acoustic_onset": 3.5062,
         "src_ref_kind": "onset_peak",
         "OPTION_0_start": 3.3,
-        "OPTION_0_end": 3.54,
+        "OPTION_0_end": 3.52,
         "OPTION_0_score_onset": 3.5104,
         "OPTION_0_onset_delta_ms": -160.0,
-        "OPTION_0_offset_delta_ms": -240.0,
+        "OPTION_0_offset_delta_ms": -260.0,
         "OPTION_0_score_delta_ms": 50.4,
         "OPTION_0_aligner_offset_ms": -210.4,
         "OPTION_0_acoustic_onset": 3.3785,
@@ -839,13 +839,13 @@
         "secondary_measurement": null,
         "src_acoustic_onset": 3.6804,
         "src_ref_kind": "onset_peak",
-        "OPTION_0_start": 3.54,
+        "OPTION_0_start": 3.52,
         "OPTION_0_end": 4.06,
         "OPTION_0_score_onset": 3.6302,
-        "OPTION_0_onset_delta_ms": -240.0,
+        "OPTION_0_onset_delta_ms": -260.0,
         "OPTION_0_offset_delta_ms": -340.0,
         "OPTION_0_score_delta_ms": -149.8,
-        "OPTION_0_aligner_offset_ms": -90.2,
+        "OPTION_0_aligner_offset_ms": -110.2,
         "OPTION_0_acoustic_onset": 3.6688,
         "OPTION_0_acoustic_delta_ms": -11.6,
         "OPTION_1_start": 3.52,
@@ -880,10 +880,10 @@
         "src_acoustic_onset": 4.3073,
         "src_ref_kind": "onset_peak",
         "OPTION_0_start": 4.06,
-        "OPTION_0_end": 4.72,
+        "OPTION_0_end": 4.58,
         "OPTION_0_score_onset": 4.4125,
         "OPTION_0_onset_delta_ms": -340.0,
-        "OPTION_0_offset_delta_ms": -120.0,
+        "OPTION_0_offset_delta_ms": -260.0,
         "OPTION_0_score_delta_ms": 12.5,
         "OPTION_0_aligner_offset_ms": -352.5,
         "OPTION_0_acoustic_onset": 4.3305,
@@ -919,13 +919,13 @@
         "secondary_measurement": "unavailable",
         "src_acoustic_onset": 4.9575,
         "src_ref_kind": "onset_peak",
-        "OPTION_0_start": 4.72,
+        "OPTION_0_start": 4.58,
         "OPTION_0_end": 5.08,
         "OPTION_0_score_onset": 4.8802,
-        "OPTION_0_onset_delta_ms": -120.0,
+        "OPTION_0_onset_delta_ms": -260.0,
         "OPTION_0_offset_delta_ms": -560.0,
         "OPTION_0_score_delta_ms": 40.2,
-        "OPTION_0_aligner_offset_ms": -160.2,
+        "OPTION_0_aligner_offset_ms": -300.2,
         "OPTION_0_acoustic_onset": 4.8181,
         "OPTION_0_acoustic_delta_ms": -139.4,
         "OPTION_1_start": 4.72,
@@ -942,13 +942,13 @@
     "stats": {
       "OPTION_0": {
         "median_abs_onset_delta_ms": 260.0,
-        "p90_abs_onset_delta_ms": 380.0,
+        "p90_abs_onset_delta_ms": 400.0,
         "max_abs_onset_delta_ms": 540.0,
         "median_abs_offset_delta_ms": 280.0,
         "n_chars_over_100ms": 11,
-        "n_chars_over_200ms": 9,
-        "median_aligner_offset_ms": -230.2,
-        "min_intelligibility_probability": 0.182,
+        "n_chars_over_200ms": 10,
+        "median_aligner_offset_ms": -299.6,
+        "min_intelligibility_probability": 0.133,
         "trusted_max_abs_onset_delta_ms": 540.0,
         "median_abs_acoustic_delta_ms": 58.0,
         "max_abs_acoustic_delta_ms": 127.7
@@ -961,9 +961,9 @@
         "n_chars_over_100ms": 11,
         "n_chars_over_200ms": 10,
         "median_aligner_offset_ms": -290.4,
-        "min_intelligibility_probability": 0.061,
+        "min_intelligibility_probability": 0.039,
         "trusted_max_abs_onset_delta_ms": 540.0,
-        "median_abs_acoustic_delta_ms": 46.4,
+        "median_abs_acoustic_delta_ms": 34.8,
         "max_abs_acoustic_delta_ms": 104.5
       }
     },
@@ -1024,7 +1024,7 @@
           1.1726,
           1.6834,
           null,
-          2.4497,
+          2.4613,
           3.1231,
           3.4017,
           3.6571,
@@ -1053,6 +1053,20 @@
           "final_class": "B2_carrier_conflict",
           "phrase_level_conflict_id": null,
           "route": "B2_carrier_conflict",
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "k",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 0.4295691609977324,
+            "energy_edge_deviation_ms": 116.1,
+            "gap_before_carrier_s": null,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": -0.0,
+            "carrier_end": 0.35
+          },
           "final_anchor": 0.23,
           "render_onset": {
             "OPTION_0": 0.1974,
@@ -1143,6 +1157,20 @@
           "final_class": "B2_carrier_conflict",
           "phrase_level_conflict_id": null,
           "route": "B2_carrier_conflict",
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "m",
+            "initial_class": "sonorant",
+            "second_family": "contradicts",
+            "energy_edge_onset": 1.654421768707483,
+            "energy_edge_deviation_ms": 40.6,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 1.65,
+            "carrier_end": 2.03
+          },
           "final_anchor": 1.65,
           "render_onset": {
             "OPTION_0": 1.6834,
@@ -1173,6 +1201,20 @@
           "final_class": "B2_carrier_conflict",
           "phrase_level_conflict_id": null,
           "route": "B2_carrier_conflict",
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "r",
+            "initial_class": "sonorant",
+            "second_family": "confirms",
+            "energy_edge_onset": 2.449705215419501,
+            "energy_edge_deviation_ms": 81.3,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 2.03,
+            "carrier_end": 2.46
+          },
           "final_anchor": 2.34,
           "render_onset": {
             "OPTION_0": 2.3104,
@@ -1206,11 +1248,11 @@
           "final_anchor": 2.5164,
           "render_onset": {
             "OPTION_0": 2.4381,
-            "OPTION_1": 2.4497
+            "OPTION_1": 2.4613
           },
           "acoustic_error_ms": {
             "OPTION_0": -58.0,
-            "OPTION_1": -46.4
+            "OPTION_1": -34.8
           },
           "measurement_stability": "stable"
         },
@@ -1233,6 +1275,20 @@
           "final_class": "B2_carrier_conflict",
           "phrase_level_conflict_id": null,
           "route": "B2_carrier_conflict",
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "w",
+            "initial_class": "glide",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 2.81,
+            "carrier_end": 3.2
+          },
           "final_anchor": 3.08,
           "render_onset": {
             "OPTION_0": 3.1231,
@@ -1386,8 +1442,8 @@
     "convergence_iterations": 4,
     "converged": false
   },
-  "target_focus_sha256": "d467ab965f5543376f5c3670dcd6c908ce67d7f60c85b74e8cecb23db2405638",
-  "target_core_sha256": "aab9250f1da82ae1a1c6dadd00dab2e04497c2dd8b8de9463d1f9a5273d99af1",
+  "target_focus_sha256": "ce998a71e3449cb4a340cf2576c4640b9624fcbcf030990ec979b5bdc048389f",
+  "target_core_sha256": "7130972a1443ccdc3bde6b1a2b3da965c163ccf0f4dc28fea945060197c4c544",
   "target_focus_is_primary": true,
   "auto_flags": [
     "lyric_timing_not_converged:unmeasurable_chars",

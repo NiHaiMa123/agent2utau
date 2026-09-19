@@ -1,11 +1,11 @@
 {
   "schema": "m25-cal-2",
   "kind": "eligibility_inventory",
-  "generated_at": 1789788341.8297968,
+  "generated_at": 1789790986.9544516,
   "run_id": "diag-20260917-181538-6aec",
   "lyric_contract": "real_lyric_review",
-  "lyric_mapping_impl": "rlv7",
-  "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+  "lyric_mapping_impl": "rlv8",
+  "contract_sha256": "b89e6afaedca6b6d5c8f3ffcedc70dac8b59db2284d966217c8edc62f4467afa",
   "items": [
     {
       "note_id": "note_0012",
@@ -45,7 +45,13 @@
       "route_summary": {
         "class_A": 6,
         "B1_unmeasurable": 0,
-        "B2_carrier_conflict": 7
+        "B2_carrier_conflict": 7,
+        "b2_semantics": {
+          "benign_preutterance": 1,
+          "measurement_ambiguous": 2,
+          "written_timing_error": 1,
+          "unresolved": 3
+        }
       },
       "char_routes": [
         {
@@ -55,6 +61,20 @@
           "route_detail": "written_timing_suspect",
           "route_subtype": null,
           "overhang_ms": 318.7,
+          "b2_semantic": "written_timing_error",
+          "b2_evidence": {
+            "pinyin_initial": "y",
+            "initial_class": "glide",
+            "second_family": "confirms",
+            "energy_edge_onset": 0.005804988662131519,
+            "energy_edge_deviation_ms": -75.5,
+            "gap_before_carrier_s": null,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 0.4,
+            "carrier_end": 0.55
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 0.0813,
           "carrier_lo": 0.4,
@@ -67,6 +87,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.7779,
           "carrier_lo": 0.55,
@@ -79,6 +101,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.9985,
           "carrier_lo": 0.97,
@@ -91,6 +115,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 68.6,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "l",
+            "initial_class": "sonorant",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 1.34,
+            "carrier_end": 1.7
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 1.6486,
           "carrier_lo": 1.34,
@@ -103,6 +141,21 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 8.2,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "ch",
+            "initial_class": "obstruent",
+            "second_family": "contradicts",
+            "energy_edge_onset": 2.0375510204081633,
+            "energy_edge_deviation_ms": -40.6,
+            "gap_before_carrier_s": -0.33,
+            "gap_after_carrier_s": 0.03,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "reason": "subresolution_overhang",
+            "carrier_start": 1.86,
+            "carrier_end": 2.16
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 2.0782,
           "carrier_lo": 1.86,
@@ -115,6 +168,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.3568,
           "carrier_lo": 2.19,
@@ -127,6 +182,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 119.0,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "w",
+            "initial_class": "glide",
+            "second_family": "confirms",
+            "energy_edge_onset": 2.647074829931973,
+            "energy_edge_deviation_ms": 116.1,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 2.65,
+            "carrier_end": 2.93
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 2.531,
           "carrier_lo": 2.65,
@@ -139,6 +208,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 52.9,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "y",
+            "initial_class": "glide",
+            "second_family": "confirms",
+            "energy_edge_onset": 3.6977777777777776,
+            "energy_edge_deviation_ms": 40.7,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 3.71,
+            "carrier_end": 4.13
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 3.6571,
           "carrier_lo": 3.71,
@@ -151,6 +234,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 41.9,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "z",
+            "initial_class": "obstruent",
+            "second_family": "contradicts",
+            "energy_edge_onset": 3.7035827664399092,
+            "energy_edge_deviation_ms": -348.3,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 3.71,
+            "carrier_end": 4.13
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 4.0519,
           "carrier_lo": 3.71,
@@ -163,6 +260,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.1796,
           "carrier_lo": 4.13,
@@ -175,6 +274,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.6672,
           "carrier_lo": 4.62,
@@ -187,6 +288,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 37.8,
+          "b2_semantic": "benign_preutterance",
+          "b2_evidence": {
+            "pinyin_initial": "z",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 5.38702947845805,
+            "energy_edge_deviation_ms": 34.8,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 5.39,
+            "carrier_end": 5.8
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 5.3522,
           "carrier_lo": 5.39,
@@ -199,6 +314,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 5.9791,
           "carrier_lo": 5.8,
@@ -206,12 +323,19 @@
         }
       ],
       "disqualifiers": [
-        "unresolved_B2:圆勒成纹印在嘴"
+        "written_timing_error:圆",
+        "unresolved:勒",
+        "measurement_ambiguous:成",
+        "unresolved:纹",
+        "unresolved:印",
+        "measurement_ambiguous:在"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
+        "measurement_diagnosis",
         "written_timing_diagnosis"
       ],
       "rebuild_required": false
@@ -256,7 +380,11 @@
       "route_summary": {
         "class_A": 11,
         "B1_unmeasurable": 0,
-        "B2_carrier_conflict": 2
+        "B2_carrier_conflict": 2,
+        "b2_semantics": {
+          "benign_post_boundary_delay": 1,
+          "measurement_ambiguous": 1
+        }
       },
       "char_routes": [
         {
@@ -266,6 +394,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.2554,
           "carrier_lo": 0.19,
@@ -278,6 +408,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.7546,
           "carrier_lo": 0.72,
@@ -290,6 +422,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.1726,
           "carrier_lo": 1.13,
@@ -302,6 +436,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.6022,
           "carrier_lo": 1.56,
@@ -314,6 +450,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.0782,
           "carrier_lo": 2.04,
@@ -326,6 +464,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.3452,
           "carrier_lo": 2.3,
@@ -338,6 +478,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.9722,
           "carrier_lo": 2.71,
@@ -350,6 +492,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 23.8,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "q",
+            "initial_class": "obstruent",
+            "second_family": "contradicts",
+            "energy_edge_onset": 3.7848526077097504,
+            "energy_edge_deviation_ms": 278.7,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 3.53,
+            "carrier_end": 3.95
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 3.5062,
           "carrier_lo": 3.53,
@@ -362,6 +518,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 65.7,
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "zh",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 4.35374149659864,
+            "energy_edge_deviation_ms": 58.0,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 3.95,
+            "carrier_end": 4.35
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 4.2957,
           "carrier_lo": 3.95,
@@ -374,6 +544,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.5976,
           "carrier_lo": 4.35,
@@ -386,6 +558,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 5.1664,
           "carrier_lo": 4.99,
@@ -398,6 +572,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 5.7237,
           "carrier_lo": 5.53,
@@ -410,6 +586,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 6.2346,
           "carrier_lo": 6.01,
@@ -417,13 +595,14 @@
         }
       ],
       "disqualifiers": [
-        "unresolved_B2:却遮"
+        "measurement_ambiguous:却"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
-        "written_timing_diagnosis"
+        "measurement_diagnosis"
       ],
       "rebuild_required": false
     },
@@ -441,7 +620,7 @@
       "lyric_contract": "real_lyric_review",
       "lyric_mapping_impl": "rlv7",
       "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
-      "contract_status": "current",
+      "contract_status": "stale",
       "verify_package": "PASS",
       "signal_qc_auto_review_ready": false,
       "signal_qc_flags": [
@@ -483,7 +662,12 @@
       "route_summary": {
         "class_A": 5,
         "B1_unmeasurable": 0,
-        "B2_carrier_conflict": 5
+        "B2_carrier_conflict": 5,
+        "b2_semantics": {
+          "benign_post_boundary_delay": 1,
+          "measurement_ambiguous": 1,
+          "unresolved": 3
+        }
       },
       "char_routes": [
         {
@@ -493,6 +677,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 88.3,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "h",
+            "initial_class": "obstruent",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": null,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": -0.0,
+            "carrier_end": 0.38
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 0.3483,
           "carrier_lo": -0.0,
@@ -505,6 +703,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 47.0,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "y",
+            "initial_class": "glide",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 0.79,
+            "carrier_end": 1.28
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 0.743,
           "carrier_lo": 0.79,
@@ -517,6 +729,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.3468,
           "carrier_lo": 1.28,
@@ -529,6 +743,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.637,
           "carrier_lo": 1.61,
@@ -541,6 +757,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.1711,
           "carrier_lo": 2.13,
@@ -553,6 +771,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 58.0,
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "g",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 2.7573696145124718,
+            "energy_edge_deviation_ms": -40.6,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 2.39,
+            "carrier_end": 2.86
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 2.798,
           "carrier_lo": 2.39,
@@ -565,6 +797,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.9025,
           "carrier_lo": 2.86,
@@ -577,6 +811,21 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 5.7,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "d",
+            "initial_class": "obstruent",
+            "second_family": "contradicts",
+            "energy_edge_onset": 3.9706122448979593,
+            "energy_edge_deviation_ms": 406.3,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "reason": "subresolution_overhang",
+            "carrier_start": 3.57,
+            "carrier_end": 4.04
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 3.5643,
           "carrier_lo": 3.57,
@@ -589,6 +838,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.2725,
           "carrier_lo": 4.04,
@@ -601,6 +852,20 @@
           "route_detail": "written_timing_suspect",
           "route_subtype": null,
           "overhang_ms": 142.6,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "ch",
+            "initial_class": "obstruent",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 4.69,
+            "carrier_end": 4.9
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 4.9226,
           "carrier_lo": 4.69,
@@ -608,12 +873,17 @@
         }
       ],
       "disqualifiers": [
-        "unresolved_B2:寒夜个等晨"
+        "unresolved:寒",
+        "unresolved:夜",
+        "measurement_ambiguous:等",
+        "unresolved:晨"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
+        "measurement_diagnosis",
         "written_timing_diagnosis"
       ],
       "rebuild_required": false
@@ -647,11 +917,57 @@
         "min_probability": 0.022,
         "n_chars": 13
       },
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": false,
+        "diagnosis": "A3_aligner_unreliable",
+        "low_prob_chars": [
+          {
+            "char": "世",
+            "probability": 0.12102097272872925,
+            "position_rel": 0.0,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 104.5,
+            "confirmed": false
+          },
+          {
+            "char": "毒",
+            "probability": 0.21189743280410767,
+            "position_rel": 1.54,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 97.0,
+            "confirmed": false
+          },
+          {
+            "char": "是",
+            "probability": 0.03733927384018898,
+            "position_rel": 3.34,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 61.7,
+            "confirmed": false
+          },
+          {
+            "char": "有",
+            "probability": 0.02201225608587265,
+            "position_rel": 3.96,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": -93.9,
+            "confirmed": false
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 4,
+          "n_confirmed": 0
+        }
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:low_confidence"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -688,11 +1004,57 @@
         "min_probability": 0.022,
         "n_chars": 13
       },
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": false,
+        "diagnosis": "A3_aligner_unreliable",
+        "low_prob_chars": [
+          {
+            "char": "世",
+            "probability": 0.12102097272872925,
+            "position_rel": 0.0,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 104.5,
+            "confirmed": false
+          },
+          {
+            "char": "毒",
+            "probability": 0.21189743280410767,
+            "position_rel": 1.54,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 97.0,
+            "confirmed": false
+          },
+          {
+            "char": "是",
+            "probability": 0.03733927384018898,
+            "position_rel": 3.34,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 61.7,
+            "confirmed": false
+          },
+          {
+            "char": "有",
+            "probability": 0.02201225608587265,
+            "position_rel": 3.96,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": -93.9,
+            "confirmed": false
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 4,
+          "n_confirmed": 0
+        }
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:low_confidence"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -731,11 +1093,33 @@
         "min_probability": 0.0,
         "n_chars": 10
       },
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": false,
+        "diagnosis": "A4_outlier_unresolved",
+        "low_prob_chars": [
+          {
+            "char": "是",
+            "probability": 8.637698556412943e-06,
+            "position_rel": 3.12,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": -182.7,
+            "confirmed": false
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 1,
+          "n_confirmed": 0
+        }
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:low_confidence"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -757,7 +1141,7 @@
       "lyric_contract": "real_lyric_review",
       "lyric_mapping_impl": "rlv7",
       "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
-      "contract_status": "current",
+      "contract_status": "stale",
       "verify_package": "PASS",
       "signal_qc_auto_review_ready": false,
       "signal_qc_flags": [
@@ -801,7 +1185,11 @@
       "route_summary": {
         "class_A": 6,
         "B1_unmeasurable": 0,
-        "B2_carrier_conflict": 5
+        "B2_carrier_conflict": 5,
+        "b2_semantics": {
+          "measurement_ambiguous": 2,
+          "unresolved": 3
+        }
       },
       "char_routes": [
         {
@@ -811,6 +1199,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 86.2,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "k",
+            "initial_class": "obstruent",
+            "second_family": "contradicts",
+            "energy_edge_onset": 0.4179591836734694,
+            "energy_edge_deviation_ms": 174.2,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 0.33,
+            "carrier_end": 0.85
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 0.2438,
           "carrier_lo": 0.33,
@@ -823,6 +1225,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.8824,
           "carrier_lo": 0.85,
@@ -835,6 +1239,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.2887,
           "carrier_lo": 1.24,
@@ -847,6 +1253,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.7299,
           "carrier_lo": 1.69,
@@ -859,6 +1267,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 114.5,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "r",
+            "initial_class": "sonorant",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 2.11,
+            "carrier_end": 2.49
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 2.4845,
           "carrier_lo": 2.11,
@@ -871,6 +1293,21 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 11.2,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "p",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 2.896689342403628,
+            "energy_edge_deviation_ms": 75.5,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "reason": "subresolution_overhang",
+            "carrier_start": 2.49,
+            "carrier_end": 2.93
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 2.8212,
           "carrier_lo": 2.49,
@@ -883,6 +1320,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.9605,
           "carrier_lo": 2.93,
@@ -895,6 +1334,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 3.4482,
           "carrier_lo": 3.425,
@@ -907,6 +1348,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 22.9,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "zh",
+            "initial_class": "obstruent",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 3.68,
+            "carrier_end": 4.04
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 3.6571,
           "carrier_lo": 3.68,
@@ -919,6 +1374,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.6092,
           "carrier_lo": 4.39,
@@ -931,6 +1388,20 @@
           "route_detail": "written_timing_suspect",
           "route_subtype": null,
           "overhang_ms": 129.3,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "b",
+            "initial_class": "obstruent",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 4.76,
+            "carrier_end": 5.25
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 5.2593,
           "carrier_lo": 4.76,
@@ -938,10 +1409,15 @@
         }
       ],
       "disqualifiers": [
-        "unresolved_B2:可人陪这本",
+        "measurement_ambiguous:可",
+        "unresolved:人",
+        "measurement_ambiguous:陪",
+        "unresolved:这",
+        "unresolved:本",
         "phrase_level_carrier_conflict:人可本这陪"
       ],
       "phrase_level_carrier_conflict": true,
+      "phrase_level_target_independent_conflict": true,
       "shared_b2_chars": [
         "人",
         "可",
@@ -951,6 +1427,7 @@
       ],
       "eligible": false,
       "diagnosis_routes": [
+        "measurement_diagnosis",
         "structure_diagnosis",
         "written_timing_diagnosis"
       ],
@@ -970,7 +1447,7 @@
       "lyric_contract": "real_lyric_review",
       "lyric_mapping_impl": "rlv7",
       "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
-      "contract_status": "current",
+      "contract_status": "stale",
       "verify_package": "PASS",
       "signal_qc_auto_review_ready": false,
       "signal_qc_flags": [
@@ -1013,7 +1490,11 @@
       "route_summary": {
         "class_A": 6,
         "B1_unmeasurable": 0,
-        "B2_carrier_conflict": 5
+        "B2_carrier_conflict": 5,
+        "b2_semantics": {
+          "measurement_ambiguous": 2,
+          "unresolved": 3
+        }
       },
       "char_routes": [
         {
@@ -1023,6 +1504,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 86.2,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "k",
+            "initial_class": "obstruent",
+            "second_family": "contradicts",
+            "energy_edge_onset": 0.4179591836734694,
+            "energy_edge_deviation_ms": 174.2,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 0.33,
+            "carrier_end": 0.85
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 0.2438,
           "carrier_lo": 0.33,
@@ -1035,6 +1530,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.8824,
           "carrier_lo": 0.85,
@@ -1047,6 +1544,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.2887,
           "carrier_lo": 1.24,
@@ -1059,6 +1558,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.7299,
           "carrier_lo": 1.69,
@@ -1071,6 +1572,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 114.5,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "r",
+            "initial_class": "sonorant",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 2.11,
+            "carrier_end": 2.49
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 2.4845,
           "carrier_lo": 2.11,
@@ -1083,6 +1598,21 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 11.2,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "p",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 2.896689342403628,
+            "energy_edge_deviation_ms": 75.5,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "reason": "subresolution_overhang",
+            "carrier_start": 2.49,
+            "carrier_end": 2.93
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 2.8212,
           "carrier_lo": 2.49,
@@ -1095,6 +1625,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.9605,
           "carrier_lo": 2.93,
@@ -1107,6 +1639,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 3.4482,
           "carrier_lo": 3.3,
@@ -1119,6 +1653,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 22.9,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "zh",
+            "initial_class": "obstruent",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 3.68,
+            "carrier_end": 4.04
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 3.6571,
           "carrier_lo": 3.68,
@@ -1131,6 +1679,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.6092,
           "carrier_lo": 4.39,
@@ -1143,6 +1693,20 @@
           "route_detail": "written_timing_suspect",
           "route_subtype": null,
           "overhang_ms": 129.3,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "b",
+            "initial_class": "obstruent",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": -0.22,
+            "gap_after_carrier_s": 0.03,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 5.03,
+            "carrier_end": 5.22
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 5.2593,
           "carrier_lo": 5.03,
@@ -1150,10 +1714,15 @@
         }
       ],
       "disqualifiers": [
-        "unresolved_B2:可人陪这本",
+        "measurement_ambiguous:可",
+        "unresolved:人",
+        "measurement_ambiguous:陪",
+        "unresolved:这",
+        "unresolved:本",
         "phrase_level_carrier_conflict:人可本这陪"
       ],
       "phrase_level_carrier_conflict": true,
+      "phrase_level_target_independent_conflict": true,
       "shared_b2_chars": [
         "人",
         "可",
@@ -1163,6 +1732,7 @@
       ],
       "eligible": false,
       "diagnosis_routes": [
+        "measurement_diagnosis",
         "structure_diagnosis",
         "written_timing_diagnosis"
       ],
@@ -1195,17 +1765,250 @@
         "ok": false,
         "reason": "low_confidence",
         "min_probability": 0.193,
-        "n_chars": 13
+        "n_chars": 13,
+        "adjudicated": true,
+        "second_family": "onset_strength_peak_v1"
       },
-      "char_routes": null,
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": true,
+        "diagnosis": "A4_outlier_resolved",
+        "low_prob_chars": [
+          {
+            "char": "春",
+            "probability": 0.19293665885925293,
+            "position_rel": 0.03,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 28.0,
+            "confirmed": true
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 1,
+          "n_confirmed": 1
+        }
+      },
+      "source_measurement": {
+        "wav": "phrases\\118.32-124.90\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 13,
+        "n_onset_landmarks": 13,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 12,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 1,
+        "b2_semantics": {
+          "unresolved": 1
+        }
+      },
+      "char_routes": [
+        {
+          "char": "春",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.058,
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.17
+        },
+        {
+          "char": "去",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.219,
+          "carrier_lo": 0.94,
+          "carrier_hi": 1.24
+        },
+        {
+          "char": "秋",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.6486,
+          "carrier_lo": 1.36,
+          "carrier_hi": 1.67
+        },
+        {
+          "char": "来",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.8228,
+          "carrier_lo": 1.79,
+          "carrier_hi": 1.99
+        },
+        {
+          "char": "的",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.322,
+          "carrier_lo": 2.28,
+          "carrier_hi": 2.42
+        },
+        {
+          "char": "茂",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.7283,
+          "carrier_lo": 2.54,
+          "carrier_hi": 2.82
+        },
+        {
+          "char": "盛",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 3.216,
+          "carrier_lo": 2.94,
+          "carrier_hi": 3.27
+        },
+        {
+          "char": "却",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 3.8661,
+          "carrier_lo": 3.77,
+          "carrier_hi": 4.06
+        },
+        {
+          "char": "遮",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.4698,
+          "carrier_lo": 4.18,
+          "carrier_hi": 4.48
+        },
+        {
+          "char": "住",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.644,
+          "carrier_lo": 4.6,
+          "carrier_hi": 4.86
+        },
+        {
+          "char": "了",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "written_timing_suspect",
+          "route_subtype": null,
+          "overhang_ms": 189.7,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "l",
+            "initial_class": "sonorant",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 5.24,
+            "carrier_end": 5.77
+          },
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 5.0503,
+          "carrier_lo": 5.24,
+          "carrier_hi": 5.65
+        },
+        {
+          "char": "黄",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 5.9327,
+          "carrier_lo": 5.77,
+          "carrier_hi": 6.08
+        },
+        {
+          "char": "昏",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 6.2462,
+          "carrier_lo": 6.2,
+          "carrier_hi": 6.46
+        }
+      ],
       "disqualifiers": [
-        "lyric_evidence:low_confidence"
+        "unresolved:了"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
-        "lyric_intelligibility_diagnosis"
+        "written_timing_diagnosis"
       ],
       "rebuild_required": false
     },
@@ -1249,7 +2052,12 @@
       "route_summary": {
         "class_A": 7,
         "B1_unmeasurable": 0,
-        "B2_carrier_conflict": 3
+        "B2_carrier_conflict": 3,
+        "b2_semantics": {
+          "benign_post_boundary_delay": 1,
+          "measurement_ambiguous": 1,
+          "unresolved": 1
+        }
       },
       "char_routes": [
         {
@@ -1259,6 +2067,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.2902,
           "carrier_lo": -0.0,
@@ -1271,6 +2081,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 37.3,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "y",
+            "initial_class": "glide",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 0.85,
+            "carrier_end": 1.2
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 0.8127,
           "carrier_lo": 0.85,
@@ -1283,6 +2107,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.3932,
           "carrier_lo": 1.355,
@@ -1295,6 +2121,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.8924,
           "carrier_lo": 1.67,
@@ -1307,6 +2135,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.2291,
           "carrier_lo": 2.05,
@@ -1319,6 +2149,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.7632,
           "carrier_lo": 2.44,
@@ -1331,6 +2163,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.9373,
           "carrier_lo": 2.9,
@@ -1343,6 +2177,21 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 7.7,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "d",
+            "initial_class": "obstruent",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.01,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "reason": "subresolution_overhang",
+            "carrier_start": 3.63,
+            "carrier_end": 3.99
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 3.6223,
           "carrier_lo": 3.63,
@@ -1355,6 +2204,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.2609,
           "carrier_lo": 4.1,
@@ -1367,6 +2218,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 24.3,
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "ch",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 4.551111111111111,
+            "energy_edge_deviation_ms": -23.2,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 4.55,
+            "carrier_end": 4.67
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 4.5743,
           "carrier_lo": 4.55,
@@ -1374,10 +2239,12 @@
         }
       ],
       "disqualifiers": [
-        "unresolved_B2:夜等晨",
+        "unresolved:夜",
+        "measurement_ambiguous:等",
         "phrase_level_carrier_conflict:夜晨等"
       ],
       "phrase_level_carrier_conflict": true,
+      "phrase_level_target_independent_conflict": true,
       "shared_b2_chars": [
         "夜",
         "晨",
@@ -1385,6 +2252,7 @@
       ],
       "eligible": false,
       "diagnosis_routes": [
+        "measurement_diagnosis",
         "structure_diagnosis",
         "written_timing_diagnosis"
       ],
@@ -1428,7 +2296,12 @@
       "route_summary": {
         "class_A": 7,
         "B1_unmeasurable": 0,
-        "B2_carrier_conflict": 3
+        "B2_carrier_conflict": 3,
+        "b2_semantics": {
+          "benign_post_boundary_delay": 1,
+          "measurement_ambiguous": 1,
+          "unresolved": 1
+        }
       },
       "char_routes": [
         {
@@ -1438,6 +2311,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.2902,
           "carrier_lo": -0.0,
@@ -1450,6 +2325,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 37.3,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "y",
+            "initial_class": "glide",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 0.85,
+            "carrier_end": 1.2
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 0.8127,
           "carrier_lo": 0.85,
@@ -1462,6 +2351,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.3932,
           "carrier_lo": 1.2,
@@ -1474,6 +2365,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.8924,
           "carrier_lo": 1.67,
@@ -1486,6 +2379,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.2291,
           "carrier_lo": 2.2,
@@ -1498,6 +2393,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.7632,
           "carrier_lo": 2.44,
@@ -1510,6 +2407,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.9373,
           "carrier_lo": 2.9,
@@ -1522,6 +2421,21 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 7.7,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "d",
+            "initial_class": "obstruent",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.01,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "reason": "subresolution_overhang",
+            "carrier_start": 3.63,
+            "carrier_end": 3.99
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 3.6223,
           "carrier_lo": 3.63,
@@ -1534,6 +2448,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.2609,
           "carrier_lo": 4.1,
@@ -1546,6 +2462,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 24.3,
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "ch",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 4.551111111111111,
+            "energy_edge_deviation_ms": -23.2,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 4.55,
+            "carrier_end": 4.67
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 4.5743,
           "carrier_lo": 4.55,
@@ -1553,10 +2483,12 @@
         }
       ],
       "disqualifiers": [
-        "unresolved_B2:夜等晨",
+        "unresolved:夜",
+        "measurement_ambiguous:等",
         "phrase_level_carrier_conflict:夜晨等"
       ],
       "phrase_level_carrier_conflict": true,
+      "phrase_level_target_independent_conflict": true,
       "shared_b2_chars": [
         "夜",
         "晨",
@@ -1564,6 +2496,7 @@
       ],
       "eligible": false,
       "diagnosis_routes": [
+        "measurement_diagnosis",
         "structure_diagnosis",
         "written_timing_diagnosis"
       ],
@@ -1598,11 +2531,49 @@
         "min_probability": 0.001,
         "n_chars": 13
       },
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": false,
+        "diagnosis": "A3_aligner_unreliable",
+        "low_prob_chars": [
+          {
+            "char": "毒",
+            "probability": 0.1741453856229782,
+            "position_rel": 1.92,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 18.9,
+            "confirmed": true
+          },
+          {
+            "char": "是",
+            "probability": 0.022099053487181664,
+            "position_rel": 3.7,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": -89.3,
+            "confirmed": false
+          },
+          {
+            "char": "有",
+            "probability": 0.0009617972536943853,
+            "position_rel": 4.34,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 25.4,
+            "confirmed": true
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 3,
+          "n_confirmed": 2
+        }
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:low_confidence"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -1641,11 +2612,49 @@
         "min_probability": 0.001,
         "n_chars": 13
       },
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": false,
+        "diagnosis": "A3_aligner_unreliable",
+        "low_prob_chars": [
+          {
+            "char": "毒",
+            "probability": 0.1741453856229782,
+            "position_rel": 1.92,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 18.9,
+            "confirmed": true
+          },
+          {
+            "char": "是",
+            "probability": 0.022099053487181664,
+            "position_rel": 3.7,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": -89.3,
+            "confirmed": false
+          },
+          {
+            "char": "有",
+            "probability": 0.0009617972536943853,
+            "position_rel": 4.34,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 25.4,
+            "confirmed": true
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 3,
+          "n_confirmed": 2
+        }
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:low_confidence"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -1682,11 +2691,33 @@
         "min_probability": 0.066,
         "n_chars": 13
       },
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": false,
+        "diagnosis": "A4_outlier_unresolved",
+        "low_prob_chars": [
+          {
+            "char": "也",
+            "probability": 0.06557541340589523,
+            "position_rel": 4.09,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": -61.3,
+            "confirmed": false
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 1,
+          "n_confirmed": 0
+        }
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:low_confidence"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -1721,17 +2752,249 @@
         "ok": false,
         "reason": "low_confidence",
         "min_probability": 0.0,
-        "n_chars": 10
+        "n_chars": 10,
+        "adjudicated": true,
+        "second_family": "onset_strength_peak_v1"
       },
-      "char_routes": null,
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": true,
+        "diagnosis": "A4_outlier_resolved",
+        "low_prob_chars": [
+          {
+            "char": "是",
+            "probability": 0.00015106808859854937,
+            "position_rel": 3.06,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 5.0,
+            "confirmed": true
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 1,
+          "n_confirmed": 1
+        }
+      },
+      "source_measurement": {
+        "wav": "phrases\\151.27-155.92\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 10,
+        "n_onset_landmarks": 10,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 6,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 4,
+        "b2_semantics": {
+          "benign_post_boundary_delay": 2,
+          "measurement_ambiguous": 1,
+          "unresolved": 1
+        }
+      },
+      "char_routes": [
+        {
+          "char": "代",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.058,
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.31
+        },
+        {
+          "char": "替",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 0.4,
+          "b2_semantic": "measurement_ambiguous",
+          "b2_evidence": {
+            "pinyin_initial": "t",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 0.4179591836734694,
+            "energy_edge_deviation_ms": -11.6,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "reason": "subresolution_overhang",
+            "carrier_start": 0.43,
+            "carrier_end": 0.81
+          },
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 0.4296,
+          "carrier_lo": 0.43,
+          "carrier_hi": 0.69
+        },
+        {
+          "char": "你",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.9868,
+          "carrier_lo": 0.96,
+          "carrier_hi": 1.07
+        },
+        {
+          "char": "陪",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 16.1,
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "p",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 1.5905668934240362,
+            "energy_edge_deviation_ms": 104.5,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 1.19,
+            "carrier_end": 1.59
+          },
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 1.4861,
+          "carrier_lo": 1.19,
+          "carrier_hi": 1.47
+        },
+        {
+          "char": "着",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 30.5,
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "zh",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 2.043356009070295,
+            "energy_edge_deviation_ms": 92.9,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 1.59,
+            "carrier_end": 2.04
+          },
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 1.9505,
+          "carrier_lo": 1.59,
+          "carrier_hi": 1.92
+        },
+        {
+          "char": "我",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.0782,
+          "carrier_lo": 2.04,
+          "carrier_hi": 2.33
+        },
+        {
+          "char": "的",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.7516,
+          "carrier_lo": 2.45,
+          "carrier_hi": 2.76
+        },
+        {
+          "char": "是",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 3.065,
+          "carrier_lo": 2.88,
+          "carrier_hi": 3.1
+        },
+        {
+          "char": "年",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 3.7152,
+          "carrier_lo": 3.68,
+          "carrier_hi": 3.95
+        },
+        {
+          "char": "轮",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "written_timing_suspect",
+          "route_subtype": null,
+          "overhang_ms": 141.7,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "l",
+            "initial_class": "sonorant",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 4.24,
+            "carrier_end": 4.44
+          },
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 4.0983,
+          "carrier_lo": 4.24,
+          "carrier_hi": 4.32
+        }
+      ],
       "disqualifiers": [
-        "lyric_evidence:low_confidence"
+        "measurement_ambiguous:替",
+        "unresolved:轮"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
-        "lyric_intelligibility_diagnosis"
+        "measurement_diagnosis",
+        "written_timing_diagnosis"
       ],
       "rebuild_required": false
     },
@@ -1764,17 +3027,152 @@
         "ok": false,
         "reason": "low_confidence",
         "min_probability": 0.211,
-        "n_chars": 7
+        "n_chars": 7,
+        "adjudicated": true,
+        "second_family": "onset_strength_peak_v1"
       },
-      "char_routes": null,
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": true,
+        "diagnosis": "A4_outlier_resolved",
+        "low_prob_chars": [
+          {
+            "char": "着",
+            "probability": 0.21081046760082245,
+            "position_rel": 0.83,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": -17.3,
+            "confirmed": true
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 1,
+          "n_confirmed": 1
+        }
+      },
+      "source_measurement": {
+        "wav": "phrases\\156.70-159.90\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 7,
+        "n_onset_landmarks": 6,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 6,
+        "B1_unmeasurable": 1,
+        "B2_carrier_conflict": 0,
+        "b2_semantics": {}
+      },
+      "char_routes": [
+        {
+          "char": "数",
+          "route": "B1_unmeasurable",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": "source_unmeasurable",
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": "no_source_landmark",
+          "source_ref_onset": -0.35,
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.53
+        },
+        {
+          "char": "着",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.8127,
+          "carrier_lo": 0.65,
+          "carrier_hi": 0.95
+        },
+        {
+          "char": "一",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.2423,
+          "carrier_lo": 1.215,
+          "carrier_hi": 1.35
+        },
+        {
+          "char": "圈",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.6138,
+          "carrier_lo": 1.47,
+          "carrier_hi": 1.75
+        },
+        {
+          "char": "圈",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.113,
+          "carrier_lo": 1.87,
+          "carrier_hi": 2.18
+        },
+        {
+          "char": "年",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.4729,
+          "carrier_lo": 2.3,
+          "carrier_hi": 2.54
+        },
+        {
+          "char": "轮",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.8212,
+          "carrier_lo": 2.66,
+          "carrier_hi": 3.08
+        }
+      ],
       "disqualifiers": [
-        "lyric_evidence:low_confidence"
+        "unresolved_B1:数"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
-        "lyric_intelligibility_diagnosis"
+        "measurement_diagnosis"
       ],
       "rebuild_required": false
     },
@@ -1792,7 +3190,7 @@
       "lyric_contract": "real_lyric_review",
       "lyric_mapping_impl": "rlv7",
       "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
-      "contract_status": "current",
+      "contract_status": "stale",
       "verify_package": "PASS",
       "signal_qc_auto_review_ready": false,
       "signal_qc_flags": [
@@ -1836,7 +3234,11 @@
       "route_summary": {
         "class_A": 7,
         "B1_unmeasurable": 0,
-        "B2_carrier_conflict": 4
+        "B2_carrier_conflict": 4,
+        "b2_semantics": {
+          "benign_post_boundary_delay": 2,
+          "unresolved": 2
+        }
       },
       "char_routes": [
         {
@@ -1846,6 +3248,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 83.5,
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "k",
+            "initial_class": "obstruent",
+            "second_family": "confirms",
+            "energy_edge_onset": 0.4295691609977324,
+            "energy_edge_deviation_ms": 116.1,
+            "gap_before_carrier_s": null,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": -0.0,
+            "carrier_end": 0.35
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 0.3135,
           "carrier_lo": -0.0,
@@ -1858,6 +3274,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 0.9868,
           "carrier_lo": 0.82,
@@ -1870,6 +3288,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 1.2307,
           "carrier_lo": 1.17,
@@ -1882,6 +3302,20 @@
           "route_detail": "preutterance_candidate",
           "route_subtype": null,
           "overhang_ms": 36.2,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "m",
+            "initial_class": "sonorant",
+            "second_family": "contradicts",
+            "energy_edge_onset": 1.654421768707483,
+            "energy_edge_deviation_ms": 40.6,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 1.65,
+            "carrier_end": 2.03
+          },
           "unmeasurable_reason": "source_ref_below_carrier_lo",
           "source_ref_onset": 1.6138,
           "carrier_lo": 1.65,
@@ -1894,6 +3328,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 28.4,
+          "b2_semantic": "benign_post_boundary_delay",
+          "b2_evidence": {
+            "pinyin_initial": "r",
+            "initial_class": "sonorant",
+            "second_family": "confirms",
+            "energy_edge_onset": 2.449705215419501,
+            "energy_edge_deviation_ms": 81.3,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 2.03,
+            "carrier_end": 2.46
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 2.3684,
           "carrier_lo": 2.03,
@@ -1906,6 +3354,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 2.4961,
           "carrier_lo": 2.46,
@@ -1918,6 +3368,20 @@
           "route_detail": "post_boundary_delay_candidate",
           "route_subtype": null,
           "overhang_ms": 66.3,
+          "b2_semantic": "unresolved",
+          "b2_evidence": {
+            "pinyin_initial": "w",
+            "initial_class": "glide",
+            "second_family": "unavailable",
+            "energy_edge_onset": null,
+            "energy_edge_deviation_ms": null,
+            "gap_before_carrier_s": 0.0,
+            "gap_after_carrier_s": 0.0,
+            "would_rewrite_written_timing": true,
+            "shared_bound_conflict": true,
+            "carrier_start": 2.81,
+            "carrier_end": 3.2
+          },
           "unmeasurable_reason": "source_ref_above_carrier_hi",
           "source_ref_onset": 3.1463,
           "carrier_lo": 2.81,
@@ -1930,6 +3394,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 3.5062,
           "carrier_lo": 3.35,
@@ -1942,6 +3408,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 3.6804,
           "carrier_lo": 3.63,
@@ -1954,6 +3422,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.3073,
           "carrier_lo": 4.27,
@@ -1966,6 +3436,8 @@
           "route_detail": null,
           "route_subtype": null,
           "overhang_ms": null,
+          "b2_semantic": null,
+          "b2_evidence": null,
           "unmeasurable_reason": null,
           "source_ref_onset": 4.9575,
           "carrier_lo": 4.88,
@@ -1973,9 +3445,11 @@
         }
       ],
       "disqualifiers": [
-        "unresolved_B2:可没人我"
+        "unresolved:没",
+        "unresolved:我"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -2012,11 +3486,20 @@
         "min_probability": null,
         "n_chars": 0
       },
+      "lyric_adjudication": {
+        "reason": "no_chars",
+        "recovered": false,
+        "diagnosis": "A5_instrumental_no_lyrics",
+        "low_prob_chars": [],
+        "second_evidence": null,
+        "nearest_char_distance_s": 2.0999999999999943
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:no_chars"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -2053,11 +3536,20 @@
         "min_probability": null,
         "n_chars": 0
       },
+      "lyric_adjudication": {
+        "reason": "no_chars",
+        "recovered": false,
+        "diagnosis": "A5_instrumental_no_lyrics",
+        "low_prob_chars": [],
+        "second_evidence": null,
+        "nearest_char_distance_s": 4.610000000000014
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:no_chars"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -2094,11 +3586,49 @@
         "min_probability": 0.002,
         "n_chars": 9
       },
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": false,
+        "diagnosis": "A3_aligner_unreliable",
+        "low_prob_chars": [
+          {
+            "char": "密",
+            "probability": 0.0019485332304611802,
+            "position_rel": -0.1,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 204.5,
+            "confirmed": false
+          },
+          {
+            "char": "麻",
+            "probability": 0.20750606060028076,
+            "position_rel": 1.2,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 53.9,
+            "confirmed": false
+          },
+          {
+            "char": "自",
+            "probability": 0.06285624206066132,
+            "position_rel": 3.26,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 37.2,
+            "confirmed": true
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 3,
+          "n_confirmed": 1
+        }
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:low_confidence"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -2135,11 +3665,49 @@
         "min_probability": 0.002,
         "n_chars": 9
       },
+      "lyric_adjudication": {
+        "reason": "low_confidence",
+        "recovered": false,
+        "diagnosis": "A3_aligner_unreliable",
+        "low_prob_chars": [
+          {
+            "char": "密",
+            "probability": 0.0019485332304611802,
+            "position_rel": -0.1,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 204.5,
+            "confirmed": false
+          },
+          {
+            "char": "麻",
+            "probability": 0.20750606060028076,
+            "position_rel": 1.2,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 53.9,
+            "confirmed": false
+          },
+          {
+            "char": "自",
+            "probability": 0.06285624206066132,
+            "position_rel": 3.26,
+            "landmark_kind": "onset_peak",
+            "landmark_dev_ms": 37.2,
+            "confirmed": true
+          }
+        ],
+        "second_evidence": {
+          "family": "onset_strength_peak_v1",
+          "confirm_window_ms": 50.0,
+          "n_low": 3,
+          "n_confirmed": 1
+        }
+      },
       "char_routes": null,
       "disqualifiers": [
         "lyric_evidence:low_confidence"
       ],
       "phrase_level_carrier_conflict": false,
+      "phrase_level_target_independent_conflict": false,
       "shared_b2_chars": [],
       "eligible": false,
       "diagnosis_routes": [
@@ -2151,9 +3719,10 @@
   "summary": {
     "n_items": 21,
     "n_eligible": 0,
-    "n_lyric_evidence_fail": 13,
-    "n_unresolved_B1": 0,
-    "n_unresolved_B2": 8,
+    "n_lyric_evidence_fail": 10,
+    "n_unresolved_B1": 1,
+    "n_unresolved_B2": 10,
+    "n_lyric_recovered": 3,
     "n_phrase_level": 4,
     "n_rebuild_required": 0
   },

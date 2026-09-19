@@ -66,7 +66,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "9684a5767a3e1d1de02580da7a7db2d38a2cbca60a5ef910b5fd05ea48b66b90",
+      "wav_sha256": "ee16c666ffafc1ec0c57b9d126c241e97e7e9aa2004edbd3c77ba1ddb0a8be83",
       "sample_rate": 44100,
       "frames": 303408,
       "render_error": null
@@ -114,7 +114,7 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "e11eb012e22412952db5549fc31699c624404703bf708ee2bc7d5f516e373c1a",
+      "wav_sha256": "bc4820e4ab68184a36e9ff1e32b6c9cef85fcedac2b47fcab9e0b111ce7c4b02",
       "sample_rate": 44100,
       "frames": 303408,
       "render_error": null
@@ -194,7 +194,7 @@
     ]
   },
   "plan_hash": "cceab6e0f7f2da46384fd4b453c2f863c8b8615925d9a9ee85610790e18deebb",
-  "audio_package_hash": "c7e5ffb11174e479b5f267452b6c9cc0808099191b9319e25273b4485fe92253",
+  "audio_package_hash": "049dcb3bdd100d55352d1861085132534d643462bf924bafcb44692cc8c85899",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -272,8 +272,8 @@
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv7",
-    "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+    "lyric_mapping_impl": "rlv8",
+    "contract_sha256": "b89e6afaedca6b6d5c8f3ffcedc70dac8b59db2284d966217c8edc62f4467afa",
     "choices": [
       "split",
       "baseline",
@@ -354,7 +354,7 @@
         }
       ],
       "articulation": {
-        "impl": "rlv7",
+        "impl": "rlv8",
         "n_segments": 21,
         "n_articulation_splits": 11,
         "n_chars": 11,
@@ -459,6 +459,20 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "benign_post_boundary_delay",
+              "b2_evidence": {
+                "pinyin_initial": "k",
+                "initial_class": "obstruent",
+                "second_family": "confirms",
+                "energy_edge_onset": 0.4295691609977324,
+                "energy_edge_deviation_ms": 116.1,
+                "gap_before_carrier_s": null,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "carrier_start": -0.0,
+                "carrier_end": 0.35
+              },
               "final_anchor": 0.23,
               "render_onset": {
                 "OPTION_0": 0.1974,
@@ -549,6 +563,20 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "unresolved",
+              "b2_evidence": {
+                "pinyin_initial": "m",
+                "initial_class": "sonorant",
+                "second_family": "contradicts",
+                "energy_edge_onset": 1.654421768707483,
+                "energy_edge_deviation_ms": 40.6,
+                "gap_before_carrier_s": 0.0,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "carrier_start": 1.65,
+                "carrier_end": 2.03
+              },
               "final_anchor": 1.65,
               "render_onset": {
                 "OPTION_0": 1.6834,
@@ -579,6 +607,20 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "benign_post_boundary_delay",
+              "b2_evidence": {
+                "pinyin_initial": "r",
+                "initial_class": "sonorant",
+                "second_family": "confirms",
+                "energy_edge_onset": 2.449705215419501,
+                "energy_edge_deviation_ms": 81.3,
+                "gap_before_carrier_s": 0.0,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "carrier_start": 2.03,
+                "carrier_end": 2.46
+              },
               "final_anchor": 2.34,
               "render_onset": {
                 "OPTION_0": 2.3104,
@@ -612,11 +654,11 @@
               "final_anchor": 2.5164,
               "render_onset": {
                 "OPTION_0": 2.4381,
-                "OPTION_1": 2.4497
+                "OPTION_1": 2.4613
               },
               "acoustic_error_ms": {
                 "OPTION_0": -58.0,
-                "OPTION_1": -46.4
+                "OPTION_1": -34.8
               },
               "measurement_stability": "stable"
             },
@@ -639,6 +681,20 @@
               "final_class": "B2_carrier_conflict",
               "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
+              "b2_semantic": "unresolved",
+              "b2_evidence": {
+                "pinyin_initial": "w",
+                "initial_class": "glide",
+                "second_family": "unavailable",
+                "energy_edge_onset": null,
+                "energy_edge_deviation_ms": null,
+                "gap_before_carrier_s": 0.0,
+                "gap_after_carrier_s": 0.0,
+                "would_rewrite_written_timing": true,
+                "shared_bound_conflict": true,
+                "carrier_start": 2.81,
+                "carrier_end": 3.2
+              },
               "final_anchor": 3.08,
               "render_onset": {
                 "OPTION_0": 3.1231,
@@ -1237,7 +1293,7 @@
                   1.1726,
                   1.6834,
                   null,
-                  2.4497,
+                  2.4613,
                   3.1231,
                   3.4017,
                   3.6571,
@@ -1265,7 +1321,7 @@
                   -58.0,
                   69.7,
                   null,
-                  -46.4,
+                  -34.8,
                   -23.2,
                   -104.5,
                   -23.2,
@@ -1279,7 +1335,7 @@
                 -0.0639,
                 0.0697,
                 -0.058,
-                -0.0522,
+                -0.0464,
                 -0.0232,
                 -0.1161,
                 -0.0174,
@@ -1292,7 +1348,7 @@
                 -63.9,
                 69.7,
                 -58.0,
-                -52.2,
+                -46.4,
                 -23.2,
                 -116.1,
                 -17.4,
