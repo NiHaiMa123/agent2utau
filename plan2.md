@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5M inventory 已完成：0/21 当前 eligible；CURRENT blocker = G5N B2 semantic adjudication + lyric-evidence recovery）。** 最新真实状态：G5M 已扫描全部 21 个 machine split candidates，得到 13 项 `lyric_evidence` fail（11×low_confidence + 2×no_chars）、8 项 unresolved B2、0 项 unresolved B1；`roster_candidates=[]`、`pilot_authority.ok=false`、`review_ready=false`。G5M implementation/data baseline `40225778` 的 `git_evidence=469/469 complete`、`plan_invariants.ok=true`，GitHub Actions run `35418822818` success。**0/21 的语义是“当前没有已经解决完 hard cases 的 review-ready item”，不是“21 项全部永久不可审核”。** 下一步禁止继续机械重选 roster，也禁止把任意 B2 直接等同于 written-score error：必须分别恢复 13 项 source lyric evidence，并对 8 项 B2 做 directional / phoneme-aware adjudication，区分 benign preutterance / post-boundary acoustic delay / measurement ambiguity / genuine written-timing error / genuine structure-timing error；之后重新生成 eligibility inventory。完成前禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5N/rlv8 已实现但 correctness 未闭合；CURRENT blocker = G5N.1 correctness patch）。** rlv8 已完成 21 项重扫：3 项 lyric-evidence 被暂时恢复、`0391/0404` 识别为器乐无歌词区，并为 B2 增加 `b2_semantic`；真实 inventory 仍为 `0/21 eligible`，`pilot_authority.ok=false`、`review_ready=false`。当前审计发现四个必须先修的 correctness 问题：① `onset_strength_peak_v1` 只能 corroborate timing，不能单独恢复低置信汉字的 lyric identity；② `benign_post_boundary_delay` 目前主要由同源第二 onset detector + `<=150ms` 决定，尚未真正消费足够的 phoneme/neighbor/render evidence；③ inventory 读取了 post-loop `B1_*` 但没有把它们加入 eligibility disqualifier；④ phrase-level target-independent conflict 与 sub-resolution B2 仍可能成为不合理的永久 hard blocker。最新 rlv8 implementation/data commit `ea498d0` 的 GitHub Actions run `35420761178` success、383 tests PASS，但 `state.json` 仍显示 `git_evidence.complete=false` 且 `missing_count=0`，因此还需要 correctness patch 后的 post-commit state rebuild。完成 G5N.1 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -663,7 +663,7 @@ Human-selected structure candidate 可以作为 M2.5 输入，但仍需 structur
 
 ---
 
-#### G5N B2 semantic adjudication + lyric-evidence recovery（当前 blocker）
+#### G5N B2 semantic adjudication + lyric-evidence recovery（rlv8 已实现；correctness 待 G5N.1 收口）
 
 G5M 已完成 21-item honest-roster scan，并诚实得到 `0/21 eligible`。该结果关闭了“继续机械重选 pilot”这条路，但**不能把所有失败项解释成永久不可审核，更不能把所有 B2 自动解释成 written-score error**。
 
@@ -990,7 +990,7 @@ DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
 
-##### G5N 实现记录（rlv8）
+##### G5N 实现记录（rlv8，PARTIAL — 需通过 G5N.1 correctness patch）
 
 - **Lane A `_adjudicate_lyric_evidence`**：每个 lyric-evidence fail 得到显式归因 —
   `A1_coverage_suspect` / `A3_aligner_unreliable` / `A4_outlier_resolved` /
@@ -1029,6 +1029,294 @@ DO NOT freeze M2.5
 
 ---
 
+#### G5N.1 Correctness patch（当前唯一 blocker）
+
+rlv8 的方向正确，但当前 `0/21 eligible` 不能直接作为最终证据，因为 eligibility / semantic adjudication 仍有四个 correctness 缺口。G5N.1 只修这些缺口，**禁止重新回到 parameter chasing**。
+
+##### Blocker 1 — timing corroboration 不能冒充 lyric identity recovery
+
+当前 Lane A：
+
+```text
+Whisper char probability < 0.25
++ onset_strength_peak_v1 在 ±50ms 内命中
++ phrase 内至少一个 high-confidence char
+→ A4_outlier_resolved / recovered=true
+```
+
+这个逻辑最多证明：
+
+```text
+该时间附近存在独立 waveform onset
+```
+
+不能证明：
+
+```text
+这个 onset 的 lexical / phoneme identity
+== Whisper 给出的那个汉字
+```
+
+因此 `onset_strength_peak_v1` 必须降级为 **timing corroboration only**。
+
+允许的新状态：
+
+```text
+timing_corroborated_identity_unverified
+```
+
+只有 identity-bearing 第二证据成立后，低置信 char 才能真正 `lyric_recovered=true`。允许的 identity-bearing evidence 包括：
+
+```text
+- second forced-align / CTC alignment family using known lyric sequence
+- phoneme-aware forced alignment with explicit char/phoneme identity
+- maintainer/manual small-subset char landmark annotation used as calibration truth
+```
+
+禁止：
+
+```text
+waveform onset detector alone
+→ recover lyric identity
+```
+
+rlv8 的 `0231 / 0311 / 0325` 暂时只能记为：
+
+```text
+timing corroborated
+identity recovery NOT YET authoritative
+```
+
+除非补充 identity-bearing evidence。
+
+##### Blocker 2 — benign B2 必须使用真正的 phoneme-aware semantic evidence
+
+当前 late-side rule 实际接近：
+
+```text
+energy_edge_v1 also beyond carrier bound
++ known initial class
++ overhang <= 150ms
+→ benign_post_boundary_delay
+```
+
+这仍然过弱。`onset_strength_peak_v1` 与 `energy_edge_v1` 都来自同一 source waveform 的 onset/energy family；它们可以确认“偏移真实存在”，但不足以独立证明“这是正常 phoneme boundary delay”。
+
+因此 benign verdict 至少要求：
+
+```text
+1. direction
+2. identity-aware phoneme context
+3. source acoustic displacement evidence
+4. carrier / inter-note geometry
+5. neighbor phoneme/char timing consistency
+6. at least one semantic/phoneme-boundary evidence family
+   independent from simple waveform-onset confirmation
+```
+
+可用的 semantic/phoneme evidence：
+
+```text
+- identity-aware forced phoneme alignment
+- singer/phonemizer phoneme timing or preutterance semantics
+- rendered phoneme boundary behavior under unchanged written timing
+- equivalent explicit phoneme-duration evidence
+```
+
+`gap_before_carrier_s / gap_after_carrier_s / carrier span / neighbor timing` 不得只记录在 JSON；如果声称它们参与 adjudication，就必须实际进入 verdict logic，并有 regression 证明。
+
+规则：
+
+```text
+second waveform detector confirms same-side displacement
+→ acoustic conflict confirmed
+!= benign semantics confirmed
+```
+
+##### Blocker 3 — post-loop B1 必须进入 honest-roster hard gate
+
+当前 inventory 会读取：
+
+```text
+post_loop_final_class
+```
+
+但 eligibility disqualifier 主要依据 pre-loop route。真实 rlv8 artifact 仍存在：
+
+```text
+note_0061: 一 → B1_cross_option_unstable
+note_0379: 惜 / 本 → B1_detector_relock
+```
+
+这些必须明确 hard-block pilot，即使该 item 的所有 B2 后续都被 adjudicate 为 benign。
+
+Required fix：
+
+```text
+for each current-contract package:
+  inspect post_loop_final_class / char_routes
+  any unresolved B1_* subtype
+  → add unresolved_post_loop_B1:<chars/subtypes>
+  → eligible=false
+```
+
+如果 item 尚未在 current contract 下 render，因此没有 post-loop evidence：
+
+```text
+cannot claim final eligibility
+→ eligible_candidate_needs_render / rebuild_required
+→ render + closed-loop + post-loop adjudication before roster
+```
+
+禁止仅凭 render-free pre-loop inventory 宣布最终 human-review eligibility。
+
+##### Blocker 4 — phrase-level conflict / sub-resolution lifecycle
+
+**A. phrase-level target-independent conflict**
+
+`phrase_level_target_independent_conflict=true` 是 audit/routing fact：
+
+```text
+same source phrase / Candidate-0 context shows same conflict
+→ conflict is not created by one target option
+```
+
+它本身不是永久 disqualifier。
+
+最终规则：
+
+```text
+shared B2 contains any
+  written_timing_error / structure_timing_error /
+  measurement_ambiguous / unresolved
+→ phrase-level blocker remains
+
+all shared B2 semantically resolved benign
++ no other blocker
+→ keep phrase_level_target_independent_conflict=true for audit
+→ DO NOT add an extra disqualifier solely because it repeated
+```
+
+**B. sub-resolution conflict**
+
+当前：
+
+```text
+B2_SUBRESOLUTION_S = 15ms
+overhang <= 15ms
+→ measurement_ambiguous
+→ hard blocker
+```
+
+如果实现声称该范围低于 detector resolution，就不能同时把它当作可分辨的真实 timing conflict。
+
+建议显式状态：
+
+```text
+measurement_below_resolution
+```
+
+其语义：
+
+```text
+cannot establish a material carrier conflict at current resolution
+→ neutral for semantic error claim
+→ not by itself a hard review blocker
+```
+
+前提仍需：
+
+```text
+no contradictory higher-resolution / identity-aware evidence
+no legality/ordering violation
+no post-loop B1 or other QC blocker
+```
+
+典型 regression：
+
+```text
+note_0311 替 0.4ms
+note_0246/0248 等 7.7ms
+```
+
+不能仅因为小于 detector resolution 而永久留在 `measurement_ambiguous`。
+
+##### Required regression matrix
+
+至少新增：
+
+```text
+N11. onset peak confirms timing but no identity-bearing second family
+     → lyric identity remains unverified; cannot recover eligibility
+
+N12. second identity-aware aligner confirms low-confidence char identity+timing
+     → lyric recovery may pass without lowering 0.25
+
+N13. late B2 + same-side second waveform detector only
+     → cannot by itself become benign_post_boundary_delay
+
+N14. benign late verdict requires phoneme-aware semantic evidence
+     + geometry/neighbor consistency
+
+N15. post-loop B1_cross_option_unstable blocks roster
+N16. post-loop B1_detector_relock blocks roster
+
+N17. render-free candidate with no current post-loop evidence
+     → cannot be final eligible
+
+N18. phrase-level target-independent flag + all shared B2 benign
+     → audit flag remains, no extra phrase-level hard blocker
+
+N19. phrase-level flag + any unresolved/non-benign shared B2
+     → remains blocker
+
+N20. < detector-resolution B2 with no stronger contradictory evidence
+     → measurement_below_resolution / neutral, not hard semantic error
+
+N21. state rebuilt AFTER final artifact commit
+     → git_evidence.complete=true
+     → missing_count=0
+     → no required uncommitted authority files
+```
+
+##### Re-run / acceptance order
+
+修完 G5N.1 后必须重新执行：
+
+```text
+1. bump lyric implementation / semantic contract if material behavior changed
+2. regenerate affected source evidence / current-contract packages
+3. rerun all 21 eligibility inventory
+4. require post-loop evidence for every proposed roster item
+5. commit artifacts
+6. rebuild plan/state AFTER artifact commit
+7. verify git_evidence.complete=true
+8. run FINAL SHA remote CI
+9. maintainer/ChatGPT audit
+10. only if honest roster + authority gates pass → user listening
+```
+
+允许最终仍为：
+
+```text
+0/21 eligible
+```
+
+但这个 0 必须来自修正后的 evidence semantics，而不是 gate bug / evidence-type overclaim。
+
+在 G5N.1 关闭前：
+
+```text
+DO NOT ask user to listen
+DO NOT promote timing corroboration into lyric identity
+DO NOT call same-family onset agreement semantic independence
+DO NOT ignore post-loop B1
+DO NOT permanently block a phrase solely because benign conflicts repeat
+DO NOT treat below-resolution displacement as a measurable error
+DO NOT freeze M2.5
+```
+---
+
 ### 10.1.7 M2.5 CURRENT final acceptance gate
 
 > Historical G/G5A→G5M checklists and implementation narratives are archived in `docs/plan2_history.md`. This section is the single active M2.5 acceptance authority.
@@ -1045,17 +1333,19 @@ A. Engine / frozen safety
    [✓] rollback / conflict / idempotency remain green
    [✓] 189s / 202s permanent safety green
 
-B. G5N lyric evidence
+B. G5N / G5N.1 lyric evidence
    [ ] no_chars root cause resolved or explicitly proven unavailable
-   [ ] low-confidence lyric evidence independently adjudicated
+   [ ] low-confidence timing corroboration is NOT treated as lyric identity proof
+   [ ] identity recovery uses an identity-bearing second evidence family
    [ ] no threshold relaxation solely to create pilot items
    [ ] evidence provenance/version persisted
 
-C. G5N B2 semantics
+C. G5N / G5N.1 B2 semantics
    [ ] B2 is not treated as automatic written-score error
-   [ ] early/late conflicts use phoneme/context + independent acoustic evidence
-   [ ] benign classifications require independent support
-   [ ] phrase-level repeated targets mean target-independent conflict only
+   [ ] same-family waveform agreement confirms displacement, not semantic benignness
+   [ ] benign classifications use identity-aware phoneme evidence + geometry/neighbor consistency
+   [ ] sub-resolution displacement is neutral unless stronger evidence establishes a real conflict
+   [ ] phrase-level repetition remains audit-only after all shared conflicts resolve benign
    [ ] genuine written/structure errors route upstream
    [ ] measurement_ambiguous / unresolved remain fail-closed
 
@@ -1063,10 +1353,12 @@ D. Honest pilot roster
    [ ] all 21 candidates rerun under revised current contract
    [ ] eligibility_inventory committed/auditable
    [ ] roster contains only semantically resolved reviewable items
-   [ ] no unresolved B1/B2/lyric-evidence blocker in roster
+   [ ] no unresolved pre-loop OR post-loop B1/B2/lyric-evidence blocker in roster
+   [ ] every proposed roster item has current-contract render/post-loop evidence
    [ ] pilot size evidence-driven; do not lower gates to fill count
 
 E. Exact review authority
+   [ ] state/plan are rebuilt after the final artifact commit
    [ ] selected packages rebuilt if semantics/contract changed
    [ ] verify_package PASS for every selected item
    [ ] signal_qc.auto_review_ready true for every selected item
@@ -1255,7 +1547,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← QUALITY HOLD / G5N（G5M scan 已完成：0/21 current eligible；当前转向 13 项 lyric-evidence recovery + 8 项 B2 phoneme-aware semantic adjudication；review_ready=false）
+### M2.5 — PROBABLE structure repair — ← QUALITY HOLD / G5N.1（rlv8 已实现但 correctness 未闭合：lyric identity evidence、benign-B2 semantics、post-loop B1 gate、phrase/sub-resolution lifecycle；review_ready=false）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -1344,3 +1636,7 @@ rollback coverage
 76. rlv7/current-contract 的正式 human pilot 只能由 current artifact evidence 证明可测、可审；历史 pilot 身份没有保留权。最终 roster 必须使 `pilot_authority.ok=true`、`review_ready=true`，并在 FINAL acceptance SHA 上取得 remote CI success 后才允许用户试听。
 77. B2 carrier conflict 只表示 source acoustic landmark 越出 legal carrier range；不得自动等同于 written-score error。最终语义必须消费 direction + phoneme/context + independent acoustic evidence；phrase-level 重复 target 只证明 target-independence，不得当作第二份独立 written-error 证据。
 78. lyric-evidence recovery 禁止为了凑 pilot 单纯降低 `MIN_REVIEW_CHAR_PROB`；no_chars / low-confidence 必须通过 coverage 修复或独立 evidence adjudication，仍不确定则 fail-closed。
+79. waveform onset/energy detector 只能 corroborate acoustic timing；没有 identity-bearing second evidence 时，不得把低置信 Whisper char 升级为 authoritative lyric identity。
+80. honest-roster eligibility 必须消费 current-contract post-loop final_class；任何 `B1_*` unresolved subtype 都必须 hard-block，不能只看 pre-loop route。
+81. `phrase_level_target_independent_conflict` 是 audit/routing fact，不是永久 blocker；shared conflicts 全部被独立证据裁决为 benign 后，不得因“重复出现”再次单独阻塞。
+82. 如果定义某 timing displacement 低于 detector resolution，则该 displacement 本身必须 neutral / below-resolution，不能同时作为 measurable semantic error 的 hard blocker。
