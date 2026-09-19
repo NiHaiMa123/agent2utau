@@ -2002,18 +2002,19 @@ N53. timing verdict audit records authority classes + supporting/contradicting f
 ##### G5N.4 acceptance
 
 ```text
-[ ] low-confidence Whisper timing is audit-only and has no veto authority
-[ ] high-confidence Whisper timing anchor has explicit calibrated authority rule
-[ ] review-char confidence and timing-anchor confidence are separate semantics
-[ ] onset/energy contradiction logic no longer references low-confidence Whisper as truth
-[ ] low-confidence tokens can be timed from MMS + reliable neighbors/acoustic evidence
-[ ] anchor-derived timing envelope is monotonic and uncertainty-aware
-[ ] MMS remains constrained timing evidence, not single-source truth
-[ ] reliable-family conflict remains fail-closed
-[ ] N42–N53 regression matrix green
+[✓] low-confidence Whisper timing is audit-only and has no veto authority
+[✓] high-confidence Whisper timing anchor has explicit calibrated authority rule
+    (WHISPER_ANCHOR_PROB=0.5 majority rule in the observed bimodal gap)
+[✓] review-char confidence and timing-anchor confidence are separate semantics
+[✓] onset/energy contradiction logic no longer references low-confidence Whisper as truth
+[✓] low-confidence tokens can be timed from MMS + reliable neighbors/acoustic evidence
+[✓] anchor-derived timing envelope is monotonic and uncertainty-aware
+[✓] MMS remains constrained timing evidence, not single-source truth
+[✓] reliable-family conflict remains fail-closed
+[✓] N42–N53 regression matrix green
 [ ] all 21 candidates regenerated under rlv12
 [ ] all 10 rlv11 alignment_fail cases explicitly re-evaluated
-[ ] rlv11-only timing verdicts marked stale under rlv12
+[✓] rlv11-only timing verdicts marked stale under rlv12 (impl bump rlv12)
 [ ] affected packages rebuilt under rlv12 contract
 [ ] state/plan rebuilt after final artifact commit
 [ ] git_evidence.complete == true
@@ -2050,6 +2051,40 @@ DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
 
+##### G5N.4 implementation record (rlv12)
+
+- Timing authority classes implemented in
+  `structure_calibration._adjudicate_lyric_evidence`:
+  `anchor` (Whisper prob ≥ WHISPER_ANCHOR_PROB=0.5 — majority-rule
+  threshold sitting in the observed bimodal gap, decoupled from
+  MIN_REVIEW_CHAR_PROB), `measurement_support` (aligned MMS token /
+  reliable onset landmark / anchor-derived envelope),
+  `audit_only` (low-confidence Whisper timing — recorded in
+  `audit_only_observations`, can never veto or demote), `unavailable`.
+- Low-confidence token verdict: MMS span inside the anchor-derived
+  monotonic envelope (ENVELOPE_SLACK_S boundary smear) + no reliable
+  onset contradiction (|onset − MMS.start| ≤ MMS_ONSET_AGREE_S=0.12s,
+  the sung-consonant lead-in + detector-hop bound) → `supported`;
+  envelope violation → `order_conflict`; reliable onset vs MMS
+  contradiction → `ambiguous`; MMS unavailable + onset inside
+  envelope → `supported` (onset is itself a calibrated family);
+  no reliable family → `unresolved`. Anchor-level A/B conflicts
+  (`alignment_adjudicate` verdicts on anchor chars) feed the item
+  status — reliable-family conflicts stay fail-closed.
+- Per-token artifact model persisted: `whisper{prob,start,end,
+  authority,authority_reason}` / `mms{start,end,confidence,authority,
+  reason}` / `acoustic_landmarks{kind,time,dev_vs_mms,reliability,
+  resolution}` / `neighbor_anchors` / `timing_envelope{lo,hi,sources,
+  uncertainty}` / `timing_verdict{+reason}` / `supporting_families` /
+  `contradicting_families` / `audit_only_observations` — verdicts are
+  reconstructable from the artifact alone (N53).
+- Regressions N42–N53 (12 tests): low-conf Whisper has no veto,
+  >500ms MMS-vs-Whisper deltas are audit-only, anchor-vs-MMS conflict
+  → ambiguous, onset-vs-MMS agree/contradict paths, MMS-unavailable
+  onset sufficiency, envelope order conflict, no invented
+  interpolation without anchors, rlv11 stale verdicts, artifact
+  reconstructability.
+
 ### 10.1.7 M2.5 CURRENT final acceptance gate
 
 > Historical G/G5A→G5M checklists and implementation narratives are archived in `docs/plan2_history.md`. This section is the single active M2.5 acceptance authority.
@@ -2069,13 +2104,13 @@ A. Engine / frozen safety
 B. G5N.4 confidence-aware timing authority
    [✓] known lyric sequence remains lexical identity authority
    [✓] forced alignment remains timing/boundary evidence only
-   [ ] low-confidence Whisper timing is audit-only, not veto authority
-   [ ] high-confidence Whisper anchor authority is explicitly calibrated
-   [ ] review-char confidence and timing-anchor confidence are separate
-   [ ] timing conflict requires disagreement between reliable families
-   [ ] low-confidence token timing may use MMS + reliable neighbor anchors + acoustic landmarks
-   [ ] timing envelope is monotonic / uncertainty-aware
-   [ ] raw MMS-vs-Whisper delta cannot by itself decide low-confidence tokens
+   [✓] low-confidence Whisper timing is audit-only, not veto authority
+   [✓] high-confidence Whisper anchor authority is explicitly calibrated
+   [✓] review-char confidence and timing-anchor confidence are separate
+   [✓] timing conflict requires disagreement between reliable families
+   [✓] low-confidence token timing may use MMS + reliable neighbor anchors + acoustic landmarks
+   [✓] timing envelope is monotonic / uncertainty-aware
+   [✓] raw MMS-vs-Whisper delta cannot by itself decide low-confidence tokens
    [ ] all rlv11 low-confidence timing verdicts invalidated/re-evaluated under rlv12
 
 C. G5N.4 timing / B2 / structure routing
@@ -2083,7 +2118,7 @@ C. G5N.4 timing / B2 / structure routing
    [✓] same-family waveform agreement confirms displacement, not semantic benignness
    [✓] benign classifications use phoneme-class/acoustic semantic evidence + geometry/neighbor consistency
    [✓] MMS boundaries may enter B2 as timing evidence without becoming lexical or written-score truth
-   [ ] B2 routing consumes only current rlv12 authority-tagged timing evidence; audit-only Whisper timing cannot create/confirm a carrier conflict
+   [✓] B2 routing consumes only current rlv12 authority-tagged timing evidence; audit-only Whisper timing cannot create/confirm a carrier conflict
    [✓] sub-resolution displacement is neutral unless stronger evidence establishes a real conflict
        (measurement_below_resolution)
    [✓] phrase-level repetition remains audit-only after all shared conflicts resolve benign

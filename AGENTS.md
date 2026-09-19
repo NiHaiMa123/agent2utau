@@ -1260,6 +1260,40 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   late carrier conflict — unresolved) → still fail-closed.
 - N22–N31 renamed + N32–N41; 414 tests PASS.
 
+### M2.5 G5N.4 — confidence-aware timing authority (rlv12)
+
+- rlv11 audit FAIL: low-confidence Whisper starts still carried an
+  implicit timing veto — any MMS/onset deviation >tol from an
+  unreliable boundary became measurement_ambiguous. Fixed: every
+  timing observation carries an explicit authority class —
+  anchor (Whisper prob ≥ WHISPER_ANCHOR_PROB=0.5, a majority rule in
+  the observed bimodal gap; decoupled from the 0.25 review gate) /
+  measurement_support (aligned MMS, reliable onset, anchor envelope) /
+  audit_only (low-conf Whisper — recorded, never vetoes) / unavailable.
+- Low-conf token verdict: MMS inside the anchor-derived monotonic
+  envelope (ENVELOPE_SLACK_S=0.05) + no reliable onset contradiction
+  (|onset−MMS.start| ≤ MMS_ONSET_AGREE_S=0.12) → supported; envelope
+  break → order_conflict; reliable onset vs MMS → ambiguous; MMS
+  unavailable + onset inside envelope → supported (onset is itself a
+  calibrated family); nothing reliable → unresolved.
+- Anchor sanity: an anchor-vs-MMS disagreement is demoted (not a
+  conflict) when a reliable onset corroborates the MMS boundary and
+  none corroborates Whisper — clip-edge DTW pinning is a known
+  artifact. Peaks inside ONSET_EDGE_BLIND_S (ONSET_PEAK_WAIT frames
+  ≈93ms, no left context) are detector-unreliable and can never
+  corroborate OR contradict.
+- Per-token artifact: whisper/mms {timing,authority,reason},
+  acoustic_landmarks, neighbor_anchors, timing_envelope{lo,hi,src,
+  uncertainty}, timing_verdict+reason, supporting/contradicting
+  families, audit_only_observations — verdicts reconstructable.
+- Real rlv12: 0/21 still — but honest: n_timing_supported=6
+  (0076/0077/0123/0264/0266/0311 lyric gate passed), alignment_fail
+  10→5; remaining ambiguous = genuine reliable-family conflicts
+  (anchor-vs-MMS with onset corroboration on BOTH sides: 0231 却,
+  0305 得/安, 0325 一, 0440/0441 的/自/尊). Every remaining blocker
+  traces to coverage / reliable conflict / written-timing / structure —
+  none to audit-only Whisper. N42–N53; 426 tests.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight

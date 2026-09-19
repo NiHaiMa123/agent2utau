@@ -80,7 +80,12 @@ LYRIC_MAPPING_IMPL_VERSION = {
     #   low Whisper probability is a timing-measurement problem, not
     #   identity loss; MMS boundaries re-adjudicate B1 measurability
     #   and corroborate B2 evidence (ifa2 verdict names)
-    "real_lyric_review": "rlv11",
+    # rlv12 (G5N.4): confidence-aware timing authority — low-confidence
+    #   Whisper timing is audit_only (records, never vetoes); anchors
+    #   are majority-probability chars; low-conf tokens are adjudicated
+    #   via MMS + anchor-derived monotonic envelope + reliable onset
+    #   landmarks; authority-tagged artifact model per token
+    "real_lyric_review": "rlv12",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 MIN_TIMING_CHAR_PROB = 0.30   # rendered char ASR confidence below
@@ -2946,6 +2951,26 @@ B2_SUBRESOLUTION_S = 0.015
 # lyric-evidence second family: an onset landmark independently
 # confirms a low-confidence char's placement only within this window
 LYRIC_CONFIRM_S = 0.05
+# §G5N.4 timing-authority calibration:
+# WHISPER_ANCHOR_PROB — a Whisper char is an anchor when its
+#   probability is a MAJORITY (> every alternative combined). The
+#   calibration set is bimodal (reliable chars ≥0.5, unreliable
+#   ≤0.21), so 0.5 sits in the observed gap — it is a semantic
+#   majority rule, NOT a tuned pass threshold, and is decoupled from
+#   MIN_REVIEW_CHAR_PROB (review gate) on purpose.
+WHISPER_ANCHOR_PROB = 0.5
+# MMS_ONSET_AGREE_S — agreement bound between an MMS token start and
+# a reliable onset landmark: sung-consonant lead-in (~60-100ms) plus
+# the detector hop (256/22050 ≈ 11.6ms). A reliable onset beyond this
+# contradicts the MMS span; inside it corroborates.
+MMS_ONSET_AGREE_S = 0.12
+# ENVELOPE_SLACK_S — boundary-smear slack for the monotonic
+# anchor-derived envelope check on an MMS token span.
+ENVELOPE_SLACK_S = 0.05
+# ONSET_EDGE_BLIND_S — onset peaks within ONSET_PEAK_WAIT frames of
+# the clip edge have no left context for the strength delta; they are
+# detector-unreliable and cannot corroborate a boundary claim.
+ONSET_EDGE_BLIND_S = round(ONSET_PEAK_WAIT * 256.0 / 22050.0, 4)
 # a no-chars window with lyric chars only far outside is an
 # instrumental span — not a coverage bug
 INSTRUMENTAL_GAP_S = 1.5
@@ -3237,62 +3262,28 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
     # is TIMING.
     adj["lexical_text_status"] = "authoritative_known"
     chars = chars_in_win or []
-    lows = [{"char": c["char"], "probability": float(
-                 c.get("probability") or 0.0),
-             "position_rel": round(float(c["start"]) - ph0, 4)}
-            for c in chars
-            if float(c.get("probability") or 0.0)
-            < MIN_REVIEW_CHAR_PROB]
-    refs, kinds = _source_ref_onsets(chars, src_wav, ph0)
-    confirmed = 0
-    lowset = {c["char"] + str(c["position_rel"]) for c in lows}
-    for i, c in enumerate(chars):
-        key = c["char"] + str(round(float(c["start"]) - ph0, 4))
-        if key not in lowset:
-            continue
-        ent = next(l for l in lows
-                   if l["char"] + str(l["position_rel"]) == key)
-        ref = refs[i] if refs else None
-        dev = (ref - (float(c["start"]) - ph0)) \
-            if ref is not None else None
-        ent["landmark_kind"] = kinds[i] if kinds else None
-        ent["landmark_dev_ms"] = round(dev * 1000.0, 1) \
-            if dev is not None else None
-        # an onset landmark corroborates TIMING only — supporting
-        # diagnostic evidence, never a pass authority by itself; a
-        # landmark FAR from the claimed position is a third-family
-        # CONTRADICTION of the boundary (fail-closed ambiguous)
-        ent["timing_corroborated"] = bool(
-            kinds and kinds[i] == "onset_peak"
-            and dev is not None and abs(dev) <= LYRIC_CONFIRM_S)
-        ent["landmark_contradicted"] = bool(
-            kinds and kinds[i] == "onset_peak"
-            and dev is not None and abs(dev) > LYRIC_CONFIRM_S)
-        confirmed += 1 if ent["timing_corroborated"] else 0
-        # phoneme-class consistency — diagnostic only: the 90ms
-        # before the onset is compared with the char's expected
-        # initial class; it can never identify WHICH token is sung.
-        ini, iclass = _pinyin_initial(c["char"])
-        ident = {"pinyin_initial": ini, "initial_class": iclass,
-                 "consistent": None}
-        if ent["timing_corroborated"] and iclass != "unknown" \
-                and src_wav is not None:
-            sp = _onset_span_evidence(
-                src_wav, ref - 0.09, ref)
-            ident["span_evidence"] = sp
-            if not sp.get("insufficient"):
-                if iclass == "obstruent":
-                    ident["consistent"] = bool(
-                        sp.get("frication_like"))
-                else:  # sonorant / glide — voiced onset expected
-                    ident["consistent"] = bool(
-                        (sp.get("periodicity") or 0.0) >= 0.5)
-        ent["phoneme_class_evidence"] = ident
-        ent["phoneme_class_consistent"] = ident["consistent"]
+    # §G5N.4 — timing authority classes:
+    #   anchor      whisper prob >= WHISPER_ANCHOR_PROB (the char is
+    #               more likely than every alternative combined; the
+    #               calibration set shows a natural bimodal gap —
+    #               reliable chars ≥0.5, unreliable ≤0.21). Decoupled
+    #               from MIN_REVIEW_CHAR_PROB by design.
+    #   support     MMS token aligned at sufficient CTC confidence /
+    #               reliable onset landmark / anchor-derived envelope
+    #   audit_only  low-confidence Whisper timing — recorded, may
+    #               NEVER veto or demote another family
+    #   unavailable missing / low-confidence / unalignable evidence
+    probs = [float(c.get("probability") or 0.0) for c in chars]
+    low_idx = [i for i, p in enumerate(probs)
+               if p < MIN_REVIEW_CHAR_PROB]
+    lows = [{"char": chars[i]["char"], "probability": probs[i],
+             "position_rel": round(float(chars[i]["start"]) - ph0, 4),
+             "_i": i} for i in low_idx]
     # family-B: MMS forced alignment of the KNOWN lyric sequence
     # (text only as constraint) against the source vocal — an
     # INDEPENDENT timing/boundary measurement under the same tokens.
-    from .identity_align import forced_align, alignment_adjudicate
+    from .identity_align import (forced_align, alignment_adjudicate,
+                                 ALIGNER_FRAME_S, MIN_TOKEN_LOGPROB)
     fa_doc = forced_align(src_wav, chars)
     rel_chars = [dict(c, start=float(c["start"]) - ph0,
                       end=(float(c["end"]) - ph0
@@ -3313,41 +3304,240 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
         "tokens": fa_doc.get("tokens"),
         "tolerance_s": fa_adj.get("tolerance_s"),
         "verdicts": fa_adj.get("verdicts")}
-    lows_by_key = {l["char"] + str(l["position_rel"]): l
-                   for l in lows}
-    for i, c in enumerate(chars):
-        key = c["char"] + str(round(float(c["start"]) - ph0, 4))
-        ent = lows_by_key.get(key)
-        if ent is None:
-            continue
-        v = fa_adj["verdicts"][i]
-        ent["family_b_verdict"] = v["verdict"]
-        ent["famB_start"] = v["famB_start"]
-        ent["famB_end"] = v["famB_end"]
-        ent["famB_confidence"] = v["famB_confidence"]
-        ent["dev_start_s"] = v["dev_start_s"]
-        ent["tolerance_s"] = v["tolerance_s"]
+    toks = fa_doc.get("tokens") or []
+    fa_ok = bool(fa_doc.get("available")) and len(toks) == len(chars)
+    # raw onset peaks — landmarks are compared against the MMS span /
+    # anchor-derived envelope for low-confidence tokens, NEVER against
+    # their own audit-only Whisper start
+    try:
+        peaks = _onset_peaks(src_wav)
+    except Exception:
+        peaks = None
+
+    def _env_bound(j, side):
+        """nearest reliable neighbor boundary for the envelope —
+        prefer a Whisper ANCHOR (authority A, independent family);
+        fall back to an aligned MMS neighbor span (authority B)."""
+        rng = range(j, -1, -1) if side == "prev" \
+            else range(j, len(chars))
+        for k in rng:
+            if probs[k] >= WHISPER_ANCHOR_PROB:
+                b = chars[k].get("end") if side == "prev" \
+                    else chars[k].get("start")
+                if b is not None:
+                    return float(b) - ph0, "whisper_anchor", k
+            if fa_ok and toks[k].get("status") == "aligned":
+                return (float(toks[k]["end"]) if side == "prev"
+                        else float(toks[k]["start"])), \
+                    "mms_fa_token", k
+        return None, None, None
+
+    confirmed = 0
+    for ent in lows:
+        i = ent.pop("_i")
+        c, p = chars[i], probs[i]
+        w_start = float(c["start"]) - ph0
+        w_end = (float(c["end"]) - ph0
+                 if c.get("end") is not None else None)
+        tok = toks[i] if fa_ok else None
+        mms_ok = bool(tok) and tok.get("status") == "aligned"
+        m_start = float(tok["start"]) if mms_ok else None
+        m_end = float(tok["end"]) if mms_ok else None
+        # audit-only observation: the low-confidence Whisper start may
+        # differ wildly from the MMS span — recorded, never a veto
+        audit_obs = []
+        if mms_ok:
+            audit_obs.append({
+                "family": "whisper_dtw",
+                "dev_vs_mms_s": round(abs(w_start - m_start), 4)})
+        lo, lo_src, lo_i = _env_bound(i - 1, "prev")
+        hi, hi_src, hi_i = _env_bound(i + 1, "next")
+        envelope = {"lo": lo, "hi": hi,
+                    "lo_source": lo_src, "hi_source": hi_src,
+                    "uncertainty_s": ALIGNER_FRAME_S}
+        supporting, contradicting = [], []
+        # reliable onset landmark: nearest peak to the MMS span (or,
+        # when MMS is unavailable, a peak inside the envelope). Peaks
+        # inside the detector's left-context blind zone can corroborate
+        # an envelope presence but never CONTRADICT a span.
+        lm_t, lm_dev = None, None
+        if peaks is not None:
+            import numpy as np
+            reli = peaks[peaks >= ONSET_EDGE_BLIND_S]
+            if mms_ok:
+                cand = reli[np.abs(reli - m_start)
+                            <= ONSET_REF_WIN_S]
+                if cand.size:
+                    lm_t = float(cand[np.argmin(
+                        np.abs(cand - m_start))])
+                    lm_dev = round(lm_t - m_start, 4)
+            else:
+                lo_q = lo if lo is not None else -1e9
+                hi_q = hi if hi is not None else 1e9
+                cand = peaks[(peaks >= lo_q) & (peaks <= hi_q)]
+                if cand.size:
+                    lm_t = float(cand[0])
+        landmark = {
+            "kind": "onset_peak" if lm_t is not None else None,
+            "time": lm_t,
+            "dev_vs_mms_s": lm_dev,
+            "reliability": ("measurement_support"
+                            if lm_t is not None else "unavailable"),
+            "resolution_s": round(256.0 / 22050.0, 4)}
+        # --- verdict (reliable families only; audit-only Whisper can
+        # never create a contradiction) ---
+        verdict, why = None, None
+        if mms_ok:
+            supporting.append("mms_fa_ctc_uroman")
+            # monotonic envelope check — MMS X must sit between the
+            # reliable neighbor boundaries (small boundary-smear slack)
+            violates = (
+                (lo is not None and m_start < lo - ENVELOPE_SLACK_S)
+                or (hi is not None and m_end > hi + ENVELOPE_SLACK_S))
+            if violates:
+                verdict, why = "order_conflict", \
+                    "mms_span_breaks_neighbor_envelope"
+                contradicting.append("neighbor_anchor_envelope")
+            elif lm_t is not None and abs(lm_dev) \
+                    > MMS_ONSET_AGREE_S:
+                verdict, why = "ambiguous", \
+                    "reliable_onset_contradicts_mms"
+                contradicting.append("onset_strength_peak_v1")
+            else:
+                verdict = "supported"
+                if lm_t is not None:
+                    supporting.append("onset_strength_peak_v1")
+                if lo is not None or hi is not None:
+                    supporting.append("neighbor_anchor_envelope")
+                why = "mms_supported"
+        elif lm_t is not None:
+            # N49: MMS unavailable/low-conf — a reliable onset inside
+            # the legal envelope is a sufficient timing family
+            verdict, why = "supported", "onset_landmark_in_envelope"
+            supporting.append("onset_strength_peak_v1")
+        else:
+            verdict, why = "unresolved", \
+                (fa_doc.get("reason") or "mms_unavailable_or_low_conf")
+        confirmed += 1 if verdict == "supported" else 0
+        # phoneme-class consistency — diagnostic only
+        ini, iclass = _pinyin_initial(c["char"])
+        ident = {"pinyin_initial": ini, "initial_class": iclass,
+                 "consistent": None}
+        if verdict == "supported" and lm_t is not None \
+                and iclass != "unknown" and src_wav is not None:
+            sp = _onset_span_evidence(src_wav, lm_t - 0.09, lm_t)
+            ident["span_evidence"] = sp
+            if not sp.get("insufficient"):
+                if iclass == "obstruent":
+                    ident["consistent"] = bool(sp.get("frication_like"))
+                else:
+                    ident["consistent"] = bool(
+                        (sp.get("periodicity") or 0.0) >= 0.5)
+        ent.update({
+            "whisper": {
+                "probability": p, "start": w_start, "end": w_end,
+                "authority": "audit_only",
+                "authority_reason":
+                    f"prob {p:.4g} < anchor {WHISPER_ANCHOR_PROB}"},
+            "mms": {
+                "start": m_start, "end": m_end,
+                "confidence": (tok or {}).get("confidence"),
+                "authority": ("measurement_support" if mms_ok
+                              else "unavailable"),
+                "authority_reason": (
+                    "aligned" if mms_ok else
+                    (tok or {}).get("status", "no_token")
+                    if tok else (fa_doc.get("reason")
+                                 or "unavailable"))},
+            "acoustic_landmarks": landmark,
+            "neighbor_anchors": {
+                "prev": ({"index": lo_i, "boundary": lo,
+                          "source": lo_src} if lo_i is not None
+                         else None),
+                "next": ({"index": hi_i, "boundary": hi,
+                          "source": hi_src} if hi_i is not None
+                         else None)},
+            "timing_envelope": envelope,
+            "timing_verdict": verdict,
+            "timing_verdict_reason": why,
+            "supporting_families": supporting,
+            "contradicting_families": contradicting,
+            "audit_only_observations": audit_obs,
+            # compat fields — the timing verdict supersedes them
+            "family_b_verdict": verdict,
+            "famB_start": m_start, "famB_end": m_end,
+            "famB_confidence": (tok or {}).get("confidence"),
+            "timing_corroborated": verdict == "supported"
+            and "onset_strength_peak_v1" in supporting,
+            "phoneme_class_evidence": ident,
+            "phoneme_class_consistent": ident["consistent"],
+        })
     adj["low_prob_chars"] = lows
     adj["second_evidence"] = {
         "family": "onset_strength_peak_v1",
         "role": "timing_corroboration_only",
-        "confirm_window_ms": LYRIC_CONFIRM_S * 1000.0,
+        "confirm_window_ms": MMS_ONSET_AGREE_S * 1000.0,
         "n_low": len(lows), "n_confirmed": confirmed,
         "n_phoneme_class_consistent": sum(
             1 for l in lows if l.get("phoneme_class_consistent"))}
-    # item-level alignment status = worst low-token verdict — a
-    # timing gate, never a lexical-identity gate; a contradicting
-    # onset landmark also demotes supported → ambiguous (a real
-    # timing-evidence conflict between measurement families)
-    verdicts = [l.get("family_b_verdict") for l in lows]
-    contradicted = any(l.get("landmark_contradicted") for l in lows)
-    if any(v == "alignment_order_conflict" for v in verdicts):
+    # item-level alignment status = worst low-token timing verdict —
+    # a timing gate, never a lexical-identity gate; audit-only Whisper
+    # observations can never create or veto one. ANCHOR-level A/B
+    # conflicts are reliable-family conflicts and DO count (N45) —
+    # UNLESS the anchor's DTW boundary itself fails the stability
+    # check: an anchor requires a stable boundary, so when a reliable
+    # onset corroborates the MMS span and no onset sits near the
+    # Whisper boundary, the anchor loses timing authority for that
+    # token (clip-edge DTW pinning is a known artifact) and no
+    # reliable-family conflict exists.
+    verdicts = [l["timing_verdict"] for l in lows]
+    fa_verdicts = fa_adj.get("verdicts") or []
+    anchor_demotions = []
+    anchor_order = False
+    anchor_amb = False
+    for i, v in enumerate(fa_verdicts):
+        if i >= len(probs) or probs[i] < WHISPER_ANCHOR_PROB:
+            continue
+        if v.get("verdict") == "alignment_order_conflict":
+            anchor_order = True
+            continue
+        if v.get("verdict") != "measurement_ambiguous":
+            continue
+        w_s = float(chars[i]["start"]) - ph0
+        m_s = v.get("famB_start")
+        lm_m = lm_w = None
+        if peaks is not None and m_s is not None:
+            import numpy as np
+            # peaks inside the detector's left-context blind zone
+            # (ONSET_PEAK_WAIT frames ≈ 93ms at the clip edge) can never
+            # corroborate a boundary — they lack the pre-context the
+            # onset strength delta needs, so a clip-edge whisper pin
+            # (a known DTW artifact) cannot be rescued by them.
+            reli = peaks[peaks >= ONSET_EDGE_BLIND_S]
+            cand = reli[np.abs(reli - m_s) <= ONSET_REF_WIN_S]
+            if cand.size:
+                lm_m = float(cand[np.argmin(np.abs(cand - m_s))])
+            cand_w = reli[np.abs(reli - w_s) <= MMS_ONSET_AGREE_S]
+            if cand_w.size:
+                lm_w = float(cand_w[np.argmin(np.abs(cand_w - w_s))])
+        if lm_m is not None and lm_w is None \
+                and abs(lm_m - m_s) <= MMS_ONSET_AGREE_S \
+                and abs(lm_m - w_s) > MMS_ONSET_AGREE_S:
+            anchor_demotions.append({
+                "index": i, "char": chars[i]["char"],
+                "whisper_start": w_s, "mms_start": m_s,
+                "onset": lm_m,
+                "reason": "dtw_boundary_unstable:"
+                          "onset_corroborates_mms_not_whisper"})
+            continue
+        anchor_amb = True
+    if anchor_demotions:
+        adj["anchor_demotions"] = anchor_demotions
+    if any(v == "order_conflict" for v in verdicts) or anchor_order:
         adj["alignment_status"] = "order_conflict"
-    elif any(v == "measurement_ambiguous" for v in verdicts) \
-            or contradicted:
+    elif any(v == "ambiguous" for v in verdicts) or anchor_amb:
         adj["alignment_status"] = "ambiguous"
-    elif any(v != "alignment_supported" for v in verdicts) \
-            or not lows:
+    elif any(v != "supported" for v in verdicts) or not lows:
         adj["alignment_status"] = "unresolved"
     else:
         adj["alignment_status"] = "supported"
@@ -3358,7 +3548,7 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
         adj["diagnosis"] = "alignment_order_conflict"
     elif adj["alignment_status"] == "ambiguous":
         adj["diagnosis"] = "measurement_ambiguous"
-    elif any(v == "alignment_supported" for v in verdicts):
+    elif any(v == "supported" for v in verdicts):
         adj["diagnosis"] = "alignment_partially_unresolved"
     else:
         adj["diagnosis"] = "alignment_unresolved"
