@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789783957.005583,
+  "rebuilt_at": 1789787293.463102,
   "total_machine_split_candidates": 21,
   "reviewed_count": 0,
   "split_preferred_count": 0,
@@ -33,7 +33,7 @@
   ],
   "reviewed": [],
   "store_contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
-  "pilot_contract_sha256": "eb51b78e043191d1eea7227c282db8da374fe7fbef501c10bf9fc8b8a3963258",
+  "pilot_contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
   "pilot_authority": {
     "ok": false,
     "sample_ids": [
