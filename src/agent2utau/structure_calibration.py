@@ -68,7 +68,7 @@ LYRIC_MAPPING_IMPL_VERSION = {
     # cross_option_unstable / detector_relock), second-family evidence
     # only adjudicates measurability (never averaged), and a B2 set
     # repeating across targets marks phrase_level_carrier_conflict.
-    "real_lyric_review": "rlv7",
+    "real_lyric_review": "rlv8",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 MIN_TIMING_CHAR_PROB = 0.30   # rendered char ASR confidence below
@@ -1243,7 +1243,7 @@ def _render_onsets(wav, centers: list):
 
 
 def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
-                     off: float = 0.0) -> list:
+                     off: float = 0.0, ctx=None, edges=None) -> list:
     """§10.1.5A-G5K per-char hard-case routing — decided BEFORE the
     loop iterates, from evidence that cannot change under iteration:
       class_A              reliable acoustic landmark AND the desired
@@ -1322,6 +1322,35 @@ def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
                     "post_boundary_delay_candidate"
                     if gap <= ANTICIPATION_MAX_S
                     else "written_timing_suspect")
+            if ctx is not None:
+                # §G5N semantic adjudication — consumes direction +
+                # phoneme class + the second landmark family + carrier
+                # geometry; a benign verdict needs INDEPENDENT support
+                note = next(
+                    (n for n in ctx
+                     if abs(float(n["start"]) - float(lo[k])) < 1e-3),
+                    None)
+                cend = float(note["end"]) if note else float(hi[k])
+                prev_end = max(
+                    (float(n["end"]) for n in ctx
+                     if float(n["start"]) < float(lo[k]) - 1e-4),
+                    default=None)
+                nxt = min((float(n["start"]) for n in ctx
+                           if float(n["start"]) > float(lo[k]) + 1e-4),
+                          default=None)
+                sem = _b2_semantic(
+                    r, c["char"], r["direction"], gap,
+                    edges[k] if edges else None,
+                    float(lo[k]) - off, float(hi_move[k]) - off,
+                    (round(float(lo[k]) - prev_end, 4)
+                     if prev_end is not None else None),
+                    (round(nxt - cend, 4)
+                     if nxt is not None else None))
+                sem["b2_evidence"]["carrier_start"] = round(
+                    float(lo[k]) - off, 4)
+                sem["b2_evidence"]["carrier_end"] = round(
+                    cend - off, 4)
+                r.update(sem)
         else:
             r["route"] = ROUTE_CLASS_A
         r["final_class"] = r["route_subtype"] or r["route"]
@@ -1421,7 +1450,14 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
     # held at their nearest legal position, never updated, and do not
     # count toward convergence — they are routed, not repaired.
     # refs are phrase-relative; bounds are absolute — off bridges them.
-    routes = _classify_routes(chars, refs, ref_kinds, lo, hi, off=ph0)
+    # §G5N: ctx + the energy-edge second family feed the per-char
+    # b2_semantic adjudication persisted with every route.
+    routes = _classify_routes(
+        chars, refs, ref_kinds, lo, hi, off=ph0,
+        ctx=it.get("context"),
+        edges=_energy_edge_onsets(
+            src_wav, [float(c["start"]) - ph0 for c in chars])
+        if src_wav else None)
     hard = [k for k in range(len(chars))
             if routes[k]["route"] != ROUTE_CLASS_A]
     hi_move = [hi[k] + ARTICULATE_MIN_SEG_S - MIN_USABLE_SEG_S
@@ -2795,7 +2831,225 @@ _DIAGNOSIS_LANES = {
     "unresolved_B1": "measurement_diagnosis",
     "unresolved_B2": "written_timing_diagnosis",
     "phrase_level_carrier_conflict": "structure_diagnosis",
+    # §G5N semantic lanes — a resolved-benign B2 produces no lane;
+    # ambiguous stays in measurement, real errors go upstream
+    "measurement_ambiguous": "measurement_diagnosis",
+    "written_timing_error": "written_timing_diagnosis",
+    "structure_timing_error": "structure_diagnosis",
+    "unresolved": "written_timing_diagnosis",
 }
+
+# ------------------------------------------------- §G5N semantic adjudication
+
+# Pinyin initial of every hanzi seen in B2 adjudication so far —
+# recorded per char as auditable evidence. A char absent from this
+# table gets initial_class=unknown and can NEVER be auto-benign
+# (missing phoneme evidence fails closed, it doesn't guess).
+_PINYIN_INITIAL = {
+    "个": "g", "人": "r", "勒": "l", "印": "y", "却": "q",
+    "可": "k", "嘴": "z", "圆": "y", "在": "z", "夜": "y",
+    "寒": "h", "成": "ch", "我": "w", "晨": "ch", "本": "b",
+    "没": "m", "等": "d", "纹": "w", "这": "zh", "遮": "zh",
+    "陪": "p", "了": "l", "替": "t", "着": "zh", "轮": "l",
+    "数": "sh", "世": "sh", "毒": "d", "是": "sh", "有": "y",
+    "春": "ch", "麻": "m", "密": "m", "自": "z", "也": "y",
+    "一": "y", "圈": "q", "年": "n",
+}
+# consonant classes by onset physics: an obstruent (burst/frication)
+# can genuinely preutter — the consonant sounds before the written
+# onset; a sonorant/glide onset is voiced and continuous, so an
+# "early" detection is weaker evidence; a zero-initial syllable
+# starts on a vowel and can never consonant-preutter.
+_INITIAL_CLASS = {
+    **{i: "obstruent" for i in
+       ("b", "p", "d", "t", "g", "k", "z", "c", "zh", "ch",
+        "j", "q", "s", "sh", "x", "f", "h")},
+    **{i: "sonorant" for i in ("m", "n", "l", "r")},
+    **{i: "glide" for i in ("y", "w")},
+}
+# §G5N: a benign classification needs INDEPENDENT support —
+# "the number is small" is never sufficient. Caps beyond which no
+# articulation hypothesis is credible regardless of evidence.
+B2_BENIGN_EARLY_MAX_S = ANTICIPATION_MAX_S     # obstruent preutterance
+B2_BENIGN_SONORANT_MAX_S = 0.06               # weaker lead-in class
+B2_BENIGN_LATE_MAX_S = 0.15                   # post-boundary delay
+# onset detectors run at one hop ≈ 11.6ms — an overhang at/below
+# resolution is quantization, not a measurable conflict
+B2_SUBRESOLUTION_S = 0.015
+# lyric-evidence second family: an onset landmark independently
+# confirms a low-confidence char's placement only within this window
+LYRIC_CONFIRM_S = 0.05
+# a no-chars window with lyric chars only far outside is an
+# instrumental span — not a coverage bug
+INSTRUMENTAL_GAP_S = 1.5
+
+
+def _pinyin_initial(char: str) -> tuple:
+    """(initial, class) for the B2 phoneme-context evidence —
+    unknown chars return (None, 'unknown') and fail closed."""
+    ini = _PINYIN_INITIAL.get(char)
+    if not ini:
+        return None, "unknown"
+    return ini, _INITIAL_CLASS.get(ini, "unknown")
+
+
+def _b2_semantic(r: dict, char: str, direction: str, overhang: float,
+                 edge_rel, lo_rel: float, hi_move_rel: float,
+                 gap_before, gap_after) -> dict:
+    """§G5N per-B2 semantic adjudication — B2 proves the source
+    landmark sits outside the legal carrier range; it does NOT prove
+    the written score is wrong. The verdict consumes direction +
+    phoneme context + the second landmark family + carrier/gap
+    geometry — never the overhang alone.
+
+    second_family semantics: energy_edge_v1 onset measured on the
+    SAME source clip. 'confirms' = the edge independently lands on
+    the SAME side of the bound the primary ref crossed (the acoustic
+    displacement is real, measured twice); 'contradicts' = the edge
+    stays inside the legal range (the primary landmark was probably
+    a mis-assigned neighbouring event); 'unavailable' = no edge.
+
+    Returns the route dict's `b2_semantic` + `b2_evidence` fields."""
+    ini, iclass = _pinyin_initial(char)
+    second = "unavailable"
+    edge_dev = None
+    if edge_rel is not None:
+        edge_dev = round((edge_rel - (r["source_ref_onset"] or 0.0))
+                         * 1000.0, 1) \
+            if r.get("source_ref_onset") is not None else None
+        if direction == "early":
+            second = "confirms" if edge_rel < lo_rel else "contradicts"
+        else:
+            second = "confirms" if edge_rel > hi_move_rel \
+                else "contradicts"
+    ev = {"pinyin_initial": ini, "initial_class": iclass,
+          "second_family": second,
+          "energy_edge_onset": edge_rel,
+          "energy_edge_deviation_ms": edge_dev,
+          "gap_before_carrier_s": gap_before,
+          "gap_after_carrier_s": gap_after,
+          # correcting this conflict means placing the onset outside
+          # the written carrier — by definition a written-score edit,
+          # recorded for the upstream diagnosis, not performed here
+          "would_rewrite_written_timing": True,
+          # bounds are the intersection over both options — the same
+          # conflict appears in A and B BY CONSTRUCTION; recorded as
+          # shared-bound, never counted as independent replication
+          "shared_bound_conflict": True}
+    if overhang <= B2_SUBRESOLUTION_S:
+        sem = "measurement_ambiguous"
+        ev["reason"] = "subresolution_overhang"
+    elif direction == "early":
+        if overhang > B2_BENIGN_EARLY_MAX_S:
+            sem = ("written_timing_error" if second == "confirms"
+                   else "unresolved" if second == "unavailable"
+                   else "measurement_ambiguous")
+        elif iclass == "obstruent":
+            sem = ("benign_preutterance" if second == "confirms"
+                   else "measurement_ambiguous"
+                   if second == "contradicts" else "unresolved")
+        elif iclass == "sonorant" \
+                and overhang <= B2_BENIGN_SONORANT_MAX_S:
+            sem = ("benign_preutterance" if second == "confirms"
+                   else "unresolved")
+        else:  # glide/zero/unknown — no consonant to preutter
+            sem = ("written_timing_error"
+                   if second == "confirms"
+                       and overhang > ANTICIPATION_MAX_S
+                   else "measurement_ambiguous"
+                   if second == "contradicts" else "unresolved")
+    else:  # late
+        if second == "confirms":
+            if iclass == "unknown":
+                sem = "unresolved"
+            else:
+                sem = ("benign_post_boundary_delay"
+                       if overhang <= B2_BENIGN_LATE_MAX_S
+                       else "written_timing_error")
+        elif second == "contradicts":
+            sem = "measurement_ambiguous"
+        else:
+            sem = "unresolved"
+    return {"b2_semantic": sem, "b2_evidence": ev}
+
+
+def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
+                               ph0: float) -> dict:
+    """§G5N Lane A — WHY did lyric evidence fail, and does a second
+    independent family recover it? Never relaxes MIN_REVIEW_CHAR_PROB;
+    the low-probability record stays in evidence either way.
+
+    A1 coverage bug:   chars exist just outside the evidence window
+                       (boundary artefact — flagged, still fail-closed
+                       until the window itself is regenerated)
+    A3 aligner-weak:   systemic low confidence on this vocal style
+    A4 single outlier: ≤ a few low-p chars whose POSITIONS are
+                       independently confirmed by the onset-peak
+                       family → sequence/timing recovered
+    A5 unbindable:     no chars in the window AND none nearby — an
+                       instrumental span; honestly permanent
+    """
+    adj = {"reason": ev["reason"], "recovered": False,
+           "diagnosis": None, "low_prob_chars": [],
+           "second_evidence": None}
+    if ev["reason"] == "no_chars":
+        all_c = run.get("chars") or []
+        win = it.get("evidence_window") or it["phrase"]
+        nearest = min(
+            (min(abs(c["start"] - win["end"]),
+                 abs(c["end"] - win["start"])) for c in all_c),
+            default=None)
+        if nearest is None or nearest > INSTRUMENTAL_GAP_S:
+            adj["diagnosis"] = "A5_instrumental_no_lyrics"
+            adj["nearest_char_distance_s"] = nearest
+        else:
+            adj["diagnosis"] = "A1_coverage_suspect"
+            adj["nearest_char_distance_s"] = nearest
+        return adj
+    if ev["reason"] != "low_confidence":
+        adj["diagnosis"] = "A5_unbindable"
+        return adj
+    chars = chars_in_win or []
+    lows = [{"char": c["char"], "probability": float(
+                 c.get("probability") or 0.0),
+             "position_rel": round(float(c["start"]) - ph0, 4)}
+            for c in chars
+            if float(c.get("probability") or 0.0)
+            < MIN_REVIEW_CHAR_PROB]
+    refs, kinds = _source_ref_onsets(chars, src_wav, ph0)
+    confirmed = 0
+    lowset = {c["char"] + str(c["position_rel"]) for c in lows}
+    for i, c in enumerate(chars):
+        key = c["char"] + str(round(float(c["start"]) - ph0, 4))
+        if key not in lowset:
+            continue
+        ent = next(l for l in lows
+                   if l["char"] + str(l["position_rel"]) == key)
+        ref = refs[i] if refs else None
+        dev = (ref - (float(c["start"]) - ph0)) \
+            if ref is not None else None
+        ent["landmark_kind"] = kinds[i] if kinds else None
+        ent["landmark_dev_ms"] = round(dev * 1000.0, 1) \
+            if dev is not None else None
+        ent["confirmed"] = bool(
+            kinds and kinds[i] == "onset_peak"
+            and dev is not None and abs(dev) <= LYRIC_CONFIRM_S)
+        confirmed += 1 if ent["confirmed"] else 0
+    adj["low_prob_chars"] = lows
+    adj["second_evidence"] = {
+        "family": "onset_strength_peak_v1",
+        "confirm_window_ms": LYRIC_CONFIRM_S * 1000.0,
+        "n_low": len(lows), "n_confirmed": confirmed}
+    high = sum(1 for c in chars
+               if float(c.get("probability") or 0.0) >= 0.5)
+    if lows and confirmed == len(lows) and high >= 1:
+        adj["diagnosis"] = "A4_outlier_resolved"
+        adj["recovered"] = True
+    elif len(lows) <= 2 and high >= 1:
+        adj["diagnosis"] = "A4_outlier_unresolved"
+    else:
+        adj["diagnosis"] = "A3_aligner_unreliable"
+    return adj
 
 
 def _eligibility_routes_summary(routes):
@@ -2808,6 +3062,8 @@ def _eligibility_routes_summary(routes):
              "route_detail": r.get("route_detail"),
              "route_subtype": r.get("route_subtype"),
              "overhang_ms": r.get("overhang_ms"),
+             "b2_semantic": r.get("b2_semantic"),
+             "b2_evidence": r.get("b2_evidence"),
              "unmeasurable_reason": r.get("unmeasurable_reason"),
              "source_ref_onset": r.get("source_ref_onset"),
              "carrier_lo": r.get("carrier_lo"),
@@ -2891,35 +3147,48 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
             r["char"]: r.get("secondary_measurement")
             for r in post if r.get("secondary_measurement")} or None
         # --- lyric evidence under the CURRENT contract ---
-        ev = review_phrase_chars(
-            run, it.get("evidence_window") or it["phrase"])
+        win = it.get("evidence_window") or it["phrase"]
+        ev = review_phrase_chars(run, win)
         ent["lyric_evidence"] = {
             "ok": ev["ok"], "reason": ev["reason"],
             "min_probability": ev["min_probability"],
             "n_chars": ev["n_chars"]}
         dq, routes = [], None
-        if not ev["ok"]:
-            dq.append(f"lyric_evidence:{ev['reason']}")
-        else:
-            chars = ev["chars"]
+        chars, ev_ok = ev.get("chars"), ev["ok"]
+        sw = (cdir / "phrases" / pk
+              / "SOURCE_PHRASE_separated_vocal.wav")
+        if not sw.exists():
+            # the review window is lyric-padded — its phrase
+            # clip may not exist yet; the measurement still
+            # needs the real source span
+            sw.parent.mkdir(parents=True, exist_ok=True)
+            _clip(run["vocals_wav"], sw,
+                  it["phrase"]["start"], it["phrase"]["end"])
+        ph0 = float(it["phrase"]["start"])
+        if not ev_ok:
+            # §G5N Lane A — adjudicate WHY the evidence failed;
+            # the onset-peak family is an independent second
+            # measurement that may recover a single-outlier item.
+            # The threshold itself is never relaxed.
+            chars_win = [
+                c for c in (run.get("chars") or [])
+                if c["start"] < win["end"] and c["end"] > win["start"]]
+            ent["lyric_adjudication"] = _adjudicate_lyric_evidence(
+                run, it, ev, chars_win, sw, ph0)
+            if ent["lyric_adjudication"]["recovered"]:
+                ev_ok, chars = True, chars_win
+                ent["lyric_evidence"]["adjudicated"] = True
+                ent["lyric_evidence"]["second_family"] = \
+                    "onset_strength_peak_v1"
+            else:
+                dq.append(f"lyric_evidence:{ev['reason']}")
+        if ev_ok and chars:
             bounds = _anchor_bounds(it, chars)
             if bounds is None:
                 dq.append("unbindable_chars")
             else:
                 lo, hi = bounds
-                sw = (cdir / "phrases" / pk
-                      / "SOURCE_PHRASE_separated_vocal.wav")
-                if not sw.exists():
-                    # the review window is lyric-padded — its phrase
-                    # clip may not exist yet; the measurement still
-                    # needs the real source span
-                    sw.parent.mkdir(parents=True, exist_ok=True)
-                    _clip(run["vocals_wav"], sw,
-                          it["phrase"]["start"], it["phrase"]["end"])
-                ph0 = float(it["phrase"]["start"])
                 refs, kinds = _source_ref_onsets(chars, sw, ph0)
-                routes = _classify_routes(
-                    chars, refs, kinds, lo, hi, off=ph0)
                 n_onset = sum(1 for k in kinds
                               if k == "onset_peak")
                 ent["source_measurement"] = {
@@ -2929,6 +3198,16 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                     "available": refs is not None}
                 if refs is None:
                     dq.append("source_unmeasurable")
+                # §G5N Lane B — semantic adjudication of every B2:
+                # direction + phoneme class + second landmark family
+                # + carrier/gap geometry. A benign verdict needs
+                # INDEPENDENT support; ambiguous stays fail-closed.
+                edges = _energy_edge_onsets(
+                    sw, [float(c["start"]) - ph0 for c in chars]) \
+                    if refs is not None else None
+                routes = _classify_routes(
+                    chars, refs, kinds, lo, hi, off=ph0,
+                    ctx=it.get("context"), edges=edges)
                 b1 = [r for r in routes
                       if r["route"] == ROUTE_B1]
                 b2 = [r for r in routes
@@ -2937,16 +3216,34 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                     "class_A": sum(1 for r in routes
                                    if r["route"] == ROUTE_CLASS_A),
                     "B1_unmeasurable": len(b1),
-                    "B2_carrier_conflict": len(b2)}
+                    "B2_carrier_conflict": len(b2),
+                    "b2_semantics": {
+                        s: sum(1 for r in b2
+                               if r.get("b2_semantic") == s)
+                        for s in ("benign_preutterance",
+                                  "benign_post_boundary_delay",
+                                  "measurement_ambiguous",
+                                  "written_timing_error",
+                                  "structure_timing_error",
+                                  "unresolved")
+                        if any(r.get("b2_semantic") == s
+                               for r in b2)}}
                 if b1:
                     dq.append("unresolved_B1:"
                               + "".join(r["char"] for r in b1))
-                if b2:
-                    dq.append("unresolved_B2:"
-                              + "".join(r["char"] for r in b2))
+                # only semantically-resolved benign B2s leave the
+                # ordinary blocker route — everything else is a
+                # disqualifier named by its semantic diagnosis
+                for r in b2:
+                    sem = r.get("b2_semantic") or "unresolved"
+                    if sem in ("benign_preutterance",
+                               "benign_post_boundary_delay"):
+                        continue
+                    dq.append(f"{sem}:{r['char']}")
         ent["char_routes"] = _eligibility_routes_summary(routes)
         ent["disqualifiers"] = dq
         ent["phrase_level_carrier_conflict"] = False
+        ent["phrase_level_target_independent_conflict"] = False
         ent["shared_b2_chars"] = []
         entries.append(ent)
         pending.append((ent, routes))
@@ -2968,7 +3265,14 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
             mine = shared & b2
             if not mine:
                 continue
+            # §G5N: a B2 set repeating across review targets on the
+            # same phrase proves a TARGET-INDEPENDENT conflict — the
+            # two targets share source phrase / Candidate-0 context /
+            # lyric alignment / carrier bounds, so it is ONE finding
+            # routed to semantic adjudication, never double-confirmed
+            # independent evidence of a written-score error
             ent["phrase_level_carrier_conflict"] = True
+            ent["phrase_level_target_independent_conflict"] = True
             ent["shared_b2_chars"] = sorted(mine)
             ent["disqualifiers"].append(
                 "phrase_level_carrier_conflict:"
@@ -3006,10 +3310,21 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                    1 for e in entries
                    if any(d.startswith("unresolved_B1:")
                           for d in e["disqualifiers"])),
+               # §G5N: unresolved-B2 items are counted by semantic —
+               # any non-benign semantic disqualifier keeps the item
+               # out; benign-resolved B2s do not appear here
                "n_unresolved_B2": sum(
                    1 for e in entries
-                   if any(d.startswith("unresolved_B2:")
-                          for d in e["disqualifiers"])),
+                   if any(d.split(":")[0] in (
+                       "measurement_ambiguous",
+                       "written_timing_error",
+                       "structure_timing_error",
+                       "unresolved", "unresolved_B2")
+                       for d in e["disqualifiers"])),
+               "n_lyric_recovered": sum(
+                   1 for e in entries
+                   if (e.get("lyric_adjudication") or {})
+                   .get("recovered")),
                "n_phrase_level": sum(
                    1 for e in entries
                    if e["phrase_level_carrier_conflict"]),
@@ -3193,7 +3508,7 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                     anchors=(it.get("_loop") or {}).get("anchors"))
                 loop = it.get("_loop")
                 if segs is not None:
-                    art = {"impl": "rlv7",
+                    art = {"impl": "rlv8",
                            "n_segments": len(segs),
                            "n_articulation_splits": sum(
                                1 for sg in segs

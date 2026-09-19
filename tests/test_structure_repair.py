@@ -2297,7 +2297,7 @@ def test_j8_rlv3_artifacts_stale_under_rlv7():
                            "lyric_mapping_impl": "rlv3",
                            "contract_sha256": rlv3_sha}}
     assert sc.item_contract_stale(man, {}, "rph") is True
-    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv7"
+    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv8"
 
 
 def test_j9_state_read_does_not_dirty(tmp_path, monkeypatch):
@@ -2523,7 +2523,7 @@ def _qc_route_man(route0, route1=None, ref_onsets=None):
         cl["ref_onsets"] = ref_onsets
         cl["ref_kinds"] = ["onset_peak"] * len(ref_onsets)
     man["calibration"]["lyric_evidence"]["articulation"] = {
-        "impl": "rlv7", "closed_loop": cl}
+        "impl": "rlv8", "closed_loop": cl}
     return man
 
 
@@ -3003,6 +3003,7 @@ def _inv_store(tmp_path, monkeypatch, specs):
             "phrase_key": s["phrase_key"],
             "phrase": dict(s.get("phrase")
                            or {"start": 0.0, "end": 5.0}),
+            "context": s.get("context") or [],
             "evidence_window": ew})
         ev_by_start[ew["start"]] = s["ev"]
         bounds_by_iid[iid] = s["bounds"]
@@ -3324,3 +3325,192 @@ def test_m10c_empty_roster_emits_no_surface(tmp_path, monkeypatch):
                         lambda d: {"ok": True, "violations": []})
     with pytest.raises(RuntimeError):
         sc.build_pilot_review(tmp_path, write=False)
+
+
+# ------------------------------------------------- §G5N semantic adjudication
+
+
+def _b2r(char, direction, oh_ms, ref):
+    """Minimal B2 route dict for _b2_semantic unit tests."""
+    import agent2utau.structure_calibration as sc
+    return {"char": char, "route": sc.ROUTE_B2,
+            "direction": direction, "overhang_ms": oh_ms,
+            "source_ref_onset": ref}
+
+
+def test_n1_benign_preutterance_needs_confirmed_obstruent():
+    """early obstruent + second family on the same side of the bound
+    → benign_preutterance. The overhang alone is never enough."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("等", "early", 37.0, 0.41)
+    sem = sc._b2_semantic(r, "等", "early", 0.037, 0.40, 0.45, 0.90,
+                          0.0, 0.4)
+    assert sem["b2_semantic"] == "benign_preutterance"
+    ev = sem["b2_evidence"]
+    assert ev["initial_class"] == "obstruent"
+    assert ev["second_family"] == "confirms"
+    assert ev["shared_bound_conflict"] is True
+
+
+def test_n2_benign_post_boundary_delay_confirmed():
+    """late + edge independently past the legal end →
+    benign_post_boundary_delay (small confirmed delay)."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("遮", "late", 66.0, 1.016)
+    sem = sc._b2_semantic(r, "遮", "late", 0.066, 1.00, 0.60, 0.95,
+                          0.0, 0.4)
+    assert sem["b2_semantic"] == "benign_post_boundary_delay"
+    assert sem["b2_evidence"]["second_family"] == "confirms"
+
+
+def test_n3_second_family_contradiction_is_ambiguous():
+    """edge stays inside the legal range while the primary landmark
+    crossed it → the conflict can't be trusted → ambiguous."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("等", "early", 37.0, 0.41)
+    sem = sc._b2_semantic(r, "等", "early", 0.037, 0.50, 0.45, 0.90,
+                          0.0, 0.4)
+    assert sem["b2_semantic"] == "measurement_ambiguous"
+    assert sem["b2_evidence"]["second_family"] == "contradicts"
+
+
+def test_n4_confirmed_large_overhang_is_written_timing_error():
+    """a 300ms+ early onset CONFIRMED by the second family → written
+    timing error routed upstream, never benign."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("圆", "early", 319.0, 0.25)
+    sem = sc._b2_semantic(r, "圆", "early", 0.319, 0.20, 0.57, 0.95,
+                          None, 0.4)
+    assert sem["b2_semantic"] == "written_timing_error"
+
+
+def test_n5_no_second_family_is_unresolved():
+    """without independent evidence a small overhang stays
+    unresolved — 'the number is small' is not evidence."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("等", "early", 37.0, 0.41)
+    sem = sc._b2_semantic(r, "等", "early", 0.037, None, 0.45, 0.90,
+                          0.0, 0.4)
+    assert sem["b2_semantic"] == "unresolved"
+    assert sem["b2_evidence"]["second_family"] == "unavailable"
+
+
+def test_n6_unknown_phoneme_never_benign():
+    """a char outside the audited initial table fails closed in BOTH
+    directions — no guessed phoneme may support a benign verdict."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("好", "early", 30.0, 0.42)
+    sem = sc._b2_semantic(r, "好", "early", 0.030, 0.41, 0.45, 0.90,
+                          0.0, 0.4)
+    assert sem["b2_semantic"] == "unresolved"
+    assert sem["b2_evidence"]["initial_class"] == "unknown"
+    r2 = _b2r("好", "late", 60.0, 1.0)
+    sem2 = sc._b2_semantic(r2, "好", "late", 0.06, 1.0, 0.6, 0.95,
+                           0.0, 0.4)
+    assert sem2["b2_semantic"] == "unresolved"
+
+
+def test_n7_glide_cannot_preutter():
+    """a glide-initial char has no consonant to preutter — early +
+    confirmed is still not benign (boundary/elision suspicion)."""
+    import agent2utau.structure_calibration as sc
+    r = _b2r("夜", "early", 37.0, 0.41)
+    sem = sc._b2_semantic(r, "夜", "early", 0.037, 0.40, 0.45, 0.90,
+                          0.0, 0.4)
+    assert sem["b2_semantic"] in ("unresolved",
+                                  "written_timing_error",
+                                  "measurement_ambiguous")
+    assert sem["b2_semantic"] != "benign_preutterance"
+
+
+def test_n8_lyric_outlier_recovered_by_second_family(monkeypatch):
+    """A4: ONE low-probability char whose position is independently
+    confirmed by the onset-peak family → evidence recovered; the
+    threshold itself is untouched."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "甲", "start": 0.0, "end": 0.3,
+              "probability": 0.9},
+             {"char": "乙", "start": 0.4, "end": 0.7,
+              "probability": 0.01},
+             {"char": "丙", "start": 0.8, "end": 1.1,
+              "probability": 0.9}]
+    run = {"chars": chars}
+    it = {"phrase": {"start": 0.0, "end": 2.0},
+          "evidence_window": {"start": 0.0, "end": 1.2}}
+    ev = {"ok": False, "reason": "low_confidence", "chars": None}
+    monkeypatch.setattr(
+        sc, "_source_ref_onsets",
+        lambda c, sw, ph0: ([0.0, 0.41, 0.8], ["onset_peak"] * 3))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, None, 0.0)
+    assert adj["recovered"] is True
+    assert adj["diagnosis"] == "A4_outlier_resolved"
+    assert adj["low_prob_chars"][0]["confirmed"] is True
+    # a landmark far from the claimed position does NOT confirm
+    monkeypatch.setattr(
+        sc, "_source_ref_onsets",
+        lambda c, sw, ph0: ([0.0, 0.60, 0.8], ["onset_peak"] * 3))
+    adj2 = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, None, 0.0)
+    assert adj2["recovered"] is False
+    assert adj2["diagnosis"] == "A4_outlier_unresolved"
+
+
+def test_n9_no_chars_instrumental_is_a5_not_a1():
+    """a window inside an instrumental span (nearest lyric chars far
+    away) is honestly A5-unbindable, not a coverage bug."""
+    import agent2utau.structure_calibration as sc
+    run = {"chars": [{"char": "甲", "start": 0.0, "end": 0.3},
+                     {"char": "乙", "start": 30.0, "end": 30.3}]}
+    it = {"phrase": {"start": 5.0, "end": 7.0},
+          "evidence_window": {"start": 5.0, "end": 7.0}}
+    ev = {"ok": False, "reason": "no_chars", "chars": None}
+    adj = sc._adjudicate_lyric_evidence(run, it, ev, [], None, 5.0)
+    assert adj["diagnosis"] == "A5_instrumental_no_lyrics"
+    assert adj["recovered"] is False
+
+
+def test_n10_phrase_level_is_target_independent(tmp_path, monkeypatch):
+    """the same B2 set on two targets of ONE phrase is ONE
+    target-independent finding routed to adjudication — never
+    double-confirmed evidence of a written-score error."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "夜", "start": 0.0, "end": 0.3}]
+    spec = dict(phrase_key="0.00-5.00", ev=_ev_ok(chars),
+                bounds=([0.40], [0.75]),
+                refs=([0.30], ["onset_peak"]))
+    _inv_store(tmp_path, monkeypatch, [
+        dict(note_id="note_0001", item_id="cal-a", **spec),
+        dict(note_id="note_0002", item_id="cal-b", **spec)])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    for e in doc["items"]:
+        assert e["phrase_level_target_independent_conflict"] is True
+        assert e["eligible"] is False
+        assert any(d.startswith("phrase_level_carrier_conflict")
+                   for d in e["disqualifiers"])
+
+
+def test_n10b_benign_b2_leaves_blocker_route(tmp_path, monkeypatch):
+    """a benign-resolved B2 stops disqualifying — but ONLY via the
+    independent-evidence path, never by number size."""
+    import agent2utau.structure_calibration as sc
+    chars = [{"char": "等", "start": 0.0, "end": 0.3},
+             {"char": "甲", "start": 0.4, "end": 0.7}]
+    ctx = [{"id": "n1", "start": 0.40, "end": 0.75, "dur": 0.35},
+           {"id": "n2", "start": 0.80, "end": 1.15, "dur": 0.35}]
+    _inv_store(tmp_path, monkeypatch, [dict(
+        note_id="note_0001", item_id="cal-ben",
+        phrase_key="0.00-5.00", ev=_ev_ok(chars),
+        context=ctx,
+        bounds=([0.40, 0.80], [0.75, 1.15]),
+        refs=([0.37, 0.85], ["onset_peak"] * 2),
+        man=None, qc=None)])
+    monkeypatch.setattr(sc, "_energy_edge_onsets",
+                        lambda sw, centers: [0.38, None])
+    doc = sc.eligibility_inventory(tmp_path, progress=None)
+    e = doc["items"][0]
+    r = e["char_routes"][0]
+    assert r["route"] == sc.ROUTE_B2
+    assert r["b2_semantic"] == "benign_preutterance"
+    assert e["eligible"] is True
+    assert e["disqualifiers"] == []

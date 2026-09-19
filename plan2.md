@@ -989,6 +989,41 @@ DO NOT treat phrase-level duplicate targets as independent proof
 DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
+
+##### G5N 实现记录（rlv8）
+
+- **Lane A `_adjudicate_lyric_evidence`**：每个 lyric-evidence fail 得到显式归因 —
+  `A1_coverage_suspect` / `A3_aligner_unreliable` / `A4_outlier_resolved` /
+  `A4_outlier_unresolved` / `A5_instrumental_no_lyrics` / `A5_unbindable`。
+  第二独立证据族 = `onset_strength_peak_v1`：低概率字的 whisper 位置必须在
+  ±50ms 内存在 onset landmark 才算 confirmed。全部低概率字 confirmed 且存在
+  高概率邻字 → recovered（threshold 0.25 不变）。真实结果：0231/0311/0325
+  恢复（春 +28ms / 是 +5ms / 着 −17ms）；0391/0404 落 184–205.75s 器乐段 →
+  A5；0076/0264/0305/0440 landmark 偏移 60–200ms 不确认 → A3/A4 unresolved。
+- **Lane B `_b2_semantic`**（下沉进 `_classify_routes`，ctx+edges 参数）：
+  逐字持久化 `b2_semantic` + `b2_evidence`（pinyin_initial / initial_class /
+  second_family confirms|contradicts|unavailable / energy_edge_onset /
+  gap_before|after_carrier / carrier_start|end / would_rewrite_written_timing /
+  shared_bound_conflict）。规则：obstruent+early+confirms → benign_preutterance；
+  late+confirms+≤150ms → benign_post_boundary_delay；大 overhang+confirms →
+  written_timing_error；glide 永不能 consonant-preutter；unknown 音素 fail-closed；
+  contradicts → measurement_ambiguous；无第二证据 → unresolved。
+  真实分布：`圆`318.7ms confirmed → written_timing_error；`遮`/`可`/`人` late
+  confirmed → benign_post_boundary_delay；其余全部 ambiguous/unresolved →
+  fail-closed。
+- **phrase-level** → `phrase_level_target_independent_conflict=true`：
+  同 phrase 跨 target 的重复 B2 集合是 ONE finding（共享 source phrase /
+  Candidate-0 context / lyric alignment / carrier bounds），路由到语义裁决，
+  不作双重证实。
+- **音素表**：`_PINYIN_INITIAL` 收录全部已观测 B2/低概率字符（可审计、表外
+  fail-closed）；obstruent 可辅音先行、sonorant ≤60ms、glide 不可。
+- **结果**：21 项 rlv8 重扫 → **0/21 eligible**（10 lyric-fail、1 B1、10
+  unresolved-B2-semantic、4 phrase-level）。3 项恢复歌词证据但路线仍不合格。
+  roster=[] → `pilot_authority.ok=false`、`review_ready=false` —— 全部
+  fail-closed，无试听请求。
+- 测试：N1–N10（benign 双向、contradiction→ambiguous、written_timing_error、
+  unknown/glide fail-closed、A4 recovery、A5 instrumental、target-independent、
+  benign 出 roster 路径）+ M1–M10/L1–L10 全回归 = 383 tests PASS。
 ---
 
 

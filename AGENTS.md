@@ -1144,6 +1144,36 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   systematic conflicts) or fresh source evidence for the 13
   lyric-evidence failures. M1-M10; 372 tests PASS.
 
+### M2.5 G5N — B2 semantic adjudication + lyric-evidence recovery (rlv8)
+
+- **Lane A `_adjudicate_lyric_evidence`**: every lyric-evidence fail
+  gets an explicit diagnosis — A1_coverage_suspect / A3_aligner_
+  unreliable / A4_outlier_resolved|unresolved / A5_instrumental_
+  no_lyrics / A5_unbindable. Second family = onset_strength_peak_v1:
+  a low-prob char's whisper position needs an onset landmark within
+  ±50ms to confirm. ALL low chars confirmed + a high-prob neighbour
+  → recovered (0.25 threshold never relaxed). Real: 0231/0311/0325
+  recovered; 0391/0404 sit in the 184–205.75s instrumental → A5;
+  items with landmarks 60–200ms off stay failed.
+- **Lane B `_b2_semantic`** (inside `_classify_routes`, ctx+edges):
+  per-char `b2_semantic` + `b2_evidence` (initial_class, second_family
+  confirms|contradicts|unavailable, gaps, carrier span,
+  shared_bound_conflict — same bound across options by construction,
+  never independent replication). obstruent+early+confirms→benign_
+  preutterance; late+confirms+≤150ms→benign_post_boundary_delay;
+  large+confirms→written_timing_error; glide can't preutter; unknown
+  initial fails closed; contradicts→ambiguous; no edge→unresolved.
+- phrase-level → `phrase_level_target_independent_conflict`: repeated
+  B2 sets across targets of ONE phrase = ONE finding routed to
+  adjudication, not double-confirmed written-score proof.
+- `_PINYIN_INITIAL` audited table for observed chars only —
+  unlisted chars get initial_class=unknown and can never be benign.
+- rlv8 regenerated: **0/21 eligible still** — but every failure now
+  carries a semantic cause (10 lyric-fail, 1 B1, 10 unresolved
+  semantic B2, 4 phrase-level). 3 lyric-recovered items still fail
+  on routes. roster empty → authority not-ok, review_ready=false.
+- N1–N10 + M1–M10 + L1–L10 regression; 383 tests PASS.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight
