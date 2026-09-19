@@ -272,8 +272,8 @@
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv11",
-    "contract_sha256": "d71efb246c913e109c82734f4c08090eb08f8efd089ab0f1a4376a97355b13e9",
+    "lyric_mapping_impl": "rlv12",
+    "contract_sha256": "4351fc232356771071b22a7a2f549d4e6212578d497e474229911602aa43f068",
     "choices": [
       "split",
       "baseline",
