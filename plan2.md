@@ -1,10 +1,10 @@
 # agent2utau — Plan 2：GAME 主转谱 + 自动证据裁决 + Phrase-Level 审核
 
-> 修订日期：2026-09-18
+> 修订日期：2026-09-19
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5J rlv5 acoustic closed-loop 已实现并完成 4-item pilot，但 4/4 均未收敛；当前 blocker 已从“有没有闭环”转为“unmeasurable onset 与 carrier-bound timing conflict 的语义处理”）。** 最新真实 pilot：SOURCE phrase lead/tail 截断已修；Web `/api/state` 改为 read-only compute，state 自污染已修；4/4 package valid；closed-loop 真正执行并把整体 acoustic timing 从旧的约 200–480ms 普遍错位压缩到多数项目 median 约 23–75ms，但仍分别以 `unmeasurable_chars` / `bound_limited` / `anchors_crossed` fail-closed，`auto_review_ready=false`、`review_ready=false`。不要继续只调 `k` / clamp / iteration count。下一步必须把字符分成：A) 有可靠 acoustic landmark 且 carrier 内可调 → closed-loop；B) 无可靠 landmark 或 source onset 落在合法 carrier bound 外 → 不允许 lyric overlay 继续越权侵入 written-score timing，必须显式标记 timing conflict / unmeasurable，决定 fail-closed、换 pilot，或升级到独立 written-timing adjudication；同时将 generated Whisper probability 从“timing confidence”拆分为独立的 intelligibility/ASR diagnostic。上述语义未定且 hard cases 未关闭前，禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。**
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5K/rlv6 hard-case routing 已实现，但语义仍未闭合；新增 G5L directional carrier-conflict + post-loop B1 adjudication）。** 最新真实状态：rlv6 已在闭环前将每个字符路由为 `class_A / B1_unmeasurable / B2_carrier_conflict`，B2 不再越权追 anchor，timing confidence 与 lyric intelligibility confidence 已拆分，4/4 package valid，`git_evidence.complete=true`；但 4/4 pilot 仍 `auto_review_ready=false`、`review_ready=false`。独立审计发现：① B2 当前用同一个 `anticipation_candidate` 覆盖 source onset 早于 carrier 和晚于 carrier 两个相反方向；② `ANTICIPATION_MAX_S=0.12` 仅凭绝对毫秒阈值决定 anticipation vs written_timing_suspect，缺乏足够物理/音素证据，不能作为最终 adjudication authority；③ 闭环运行后持续出现 render `acoustic_unmeasurable / acoustic_unstable` 的字符仍保留初始 `class_A`，没有正式降级为 B1。下一步必须修正这三点，再重选/重建 honest pilot。上述语义未关闭前，禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。**
 
 ---
 
@@ -4476,6 +4476,351 @@ route_detail 分布：4 字 anticipation_candidate（辅音先行合法假设，
 该 lyric 区的 written carrier timing 与源唱 articulation 系统性
 不兼容，已显式路由到 written-timing/structure 诊断，未被 overlay
 掩盖。review_ready=false（诚实）。
+
+
+#### G5L Directional carrier-conflict semantics + post-loop B1 adjudication（当前 blocker）
+
+rlv6/G5K 已建立 hard-case routing 框架，但 re-audit 发现当前 B2 语义仍把**方向相反**的 timing conflict 混在一起，而且 B1 只在 loop 前按 SOURCE landmark 分类，未覆盖 render 端持续测不到的字符。
+
+##### Blocker 1 — B2 必须区分 early-side 与 late-side conflict
+
+当前 `_classify_routes()`：
+
+```text
+source ref outside [carrier_lo, carrier_hi]
+→ gap = absolute overhang
+→ gap <= 120ms ? anticipation_candidate : written_timing_suspect
+```
+
+这会把两个物理意义不同的情况合并：
+
+```text
+A. source onset < carrier_lo
+   → source articulation 比 written carrier 更早
+   → 可能是 consonant anticipation / preutterance
+
+B. source onset > carrier_hi
+   → source articulation 比 written carrier 可用范围更晚
+   → 不是 anticipation
+   → 可能是 post-boundary delay / carrier-too-short / written timing mismatch
+```
+
+真实例：
+
+```text
+G2 `可`:
+source_ref = 0.2438
+carrier_lo = 0.33
+overhang = 86ms early
+→ anticipation_candidate 合理
+
+G2 `人`:
+source_ref = 2.4845
+carrier_hi = 2.37
+overhang = 115ms late
+→ 当前也写 anticipation_candidate，不合理
+
+G1 `个`:
+source_ref = 2.798
+carrier_hi = 2.74
+overhang = 58ms late
+→ 也不能称 anticipation
+```
+
+Required route_detail：
+
+```text
+source_ref < carrier_lo
+→ early_carrier_conflict
+→ may classify further as preutterance_candidate
+
+source_ref > carrier_hi
+→ late_carrier_conflict
+→ may classify further as post_boundary_delay_candidate
+   or written_timing_suspect
+```
+
+禁止再用单个 `anticipation_candidate` 覆盖两个方向。
+
+##### Blocker 2 — 120ms 不能直接作为最终语义 authority
+
+当前：
+
+```text
+ANTICIPATION_MAX_S = 0.12
+
+gap <= 120ms
+→ anticipation_candidate
+
+gap > 120ms
+→ written_timing_suspect
+```
+
+这只是 heuristic，不足以单独证明声学语义。
+
+真实边界例：
+
+```text
+G2 `人` overhang ≈ 115ms
+G2 `本` overhang ≈ 129ms
+```
+
+只差约 14ms，却被分成完全不同的类别。
+
+因此 120ms 只能作为：
+
+```text
+screening / triage prior
+```
+
+不能作为：
+
+```text
+final written_timing adjudication authority
+```
+
+最终判断至少应消费：
+
+```text
+direction (early vs late)
+phoneme / consonant-vowel context if available
+source/render acoustic landmark evidence
+neighbor char/note timing
+carrier duration / inter-note gap
+whether the same conflict repeats across independent structure options
+```
+
+##### Repeated conflict is stronger than one-off conflict
+
+90.03–96.96 这一句在两个不同 review target（G2/G3）上重复出现相同 B2 字集合：
+
+```text
+可 / 人 / 陪 / 这 / 本
+```
+
+这说明冲突不是某一个 split option 的偶发渲染问题，而是该句 SOURCE articulation 与当前 written-note carrier timing 存在系统性不兼容。
+
+这种跨 target 重复冲突应记录：
+
+```text
+phrase_level_carrier_conflict = true
+```
+
+并优先路由到 written-timing / lyric-articulation adjudication，而不是继续在每个 review item 内重复闭环。
+
+##### Blocker 3 — post-loop render-unmeasurable 必须正式降级 B1
+
+当前 B1 主要由 loop 前 SOURCE landmark 缺失决定。
+
+但真实 pilot 中存在：
+
+```text
+SOURCE landmark exists
+→ initial route = class_A
+→ render loop repeatedly yields:
+   acoustic_unmeasurable
+   acoustic_unstable
+   cross-option disagreement
+→ item not_converged
+```
+
+这类字符不能永远保留 `class_A`。
+
+必须新增 post-loop adjudication：
+
+```text
+class_A
++ persistent render measurement failure
+→ B1_render_unmeasurable
+```
+
+建议 B1 subtype：
+
+```text
+B1_source_unmeasurable
+B1_render_unmeasurable
+B1_cross_option_unstable
+B1_detector_relock
+```
+
+语义统一为：
+
+```text
+timing evidence unavailable
+!= timing correct
+!= timing wrong
+```
+
+##### Second-family evidence semantics
+
+rlv6 已加入 `energy_edge_v1` 作为第二 independent landmark family。
+
+其用途必须限定为：
+
+```text
+adjudicate whether B1 may become measurable
+```
+
+禁止：
+
+```text
+primary + second family 直接平均成一个伪高置信 timing
+```
+
+如果两个 independent families 对同一字符提供一致方向/位置，可将：
+
+```text
+B1 → measurable_with_secondary_evidence
+```
+
+再进入后续闭环；若不一致，继续 fail-closed。
+
+##### Directional B2 routing
+
+推荐 route schema：
+
+```text
+route = B2_carrier_conflict
+direction = early | late
+overhang_ms = ...
+route_detail =
+  preutterance_candidate
+  post_boundary_delay_candidate
+  written_timing_suspect
+  structure_timing_suspect
+  measurement_ambiguous
+```
+
+其中：
+
+```text
+early conflict
+→ 才允许考虑 preutterance_candidate
+
+late conflict
+→ 禁止标 preutterance/anticipation
+→ 先考虑 post-boundary / carrier duration / written timing
+```
+
+##### Candidate-0 protection remains absolute
+
+G5L 不改变 G5K 原则：
+
+```text
+review-only lyric overlay
+MUST NOT rewrite
+Candidate 0 note start/end
+split boundary
+inter-note gap
+written-note duration
+```
+
+任何需要越出 carrier 才能“修好”的 case，都不能由 lyric layer 自己偷偷解决。
+
+##### Pilot replacement policy
+
+当前 4 个 pilot 只是历史样本，不是必须保留的固定 roster。
+
+允许：
+
+```text
+Class A converged item → keep
+B1 persistent unmeasurable → replace
+B2 phrase-level/systematic conflict → route away and replace
+```
+
+新的 pilot 应优先选择：
+
+```text
+lyric timing measurable
+no phrase-level carrier conflict
+no unresolved intelligibility blocker
+target structure remains representative
+```
+
+##### Required diagnostics
+
+每个 char 至少记录：
+
+```text
+route
+route_subtype
+direction
+overhang_ms
+source_ref_onset
+carrier_lo
+carrier_hi
+primary_measurement
+secondary_measurement
+render_measurement_status
+final_class
+phrase_level_conflict_id if any
+```
+
+##### Regression matrix
+
+至少新增：
+
+```text
+L1. source_ref < carrier_lo by 80ms
+    → B2 early conflict
+    → may be preutterance_candidate
+
+L2. source_ref > carrier_hi by 80ms
+    → B2 late conflict
+    → MUST NOT be anticipation/preutterance
+
+L3. 115ms vs 129ms conflict
+    → threshold alone cannot decide semantic truth
+
+L4. identical B2 char set repeats across two review targets
+    → phrase_level_carrier_conflict
+
+L5. initial class_A but render onset missing repeatedly
+    → post-loop B1_render_unmeasurable
+
+L6. initial class_A but cross-option detector disagrees persistently
+    → B1_cross_option_unstable
+
+L7. second family confirms a B1 landmark independently
+    → may re-enter measurable path
+
+L8. second family disagrees
+    → remain fail-closed
+
+L9. no route may alter Candidate 0 written timing
+
+L10. final pilot roster excludes unresolved B1/B2 cases
+```
+
+##### Final acceptance
+
+G5L 关闭条件：
+
+```text
+B2 direction persisted explicitly
+early/late semantics no longer conflated
+120ms heuristic demoted to triage only
+post-loop render failures become explicit B1 subtypes
+second-family evidence used only as independent adjudication
+phrase-level repeated conflicts detected
+Candidate 0 written timing remains immutable
+final pilot contains only reviewable items
+new package/pilot/QC authority rebuilt
+review_ready=true only for that honest roster
+remote CI success
+```
+
+在此之前：
+
+```text
+DO NOT ask user to listen
+DO NOT use 120ms threshold as final written-timing truth
+DO NOT call late-side conflict 'anticipation'
+DO NOT leave persistent render-unmeasurable chars as class_A
+DO NOT record calibration decisions
+DO NOT freeze M2.5
+```
 
 ---
 
