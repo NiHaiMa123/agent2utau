@@ -53,12 +53,21 @@ LYRIC_MAPPING_IMPL_VERSION = {
     # syllable's tail (whisper-on-source ≈ accurate), so a whisper-vs-
     # whisper loop drove anchors ~200ms genuinely LATE. One acoustic
     # instrument on both sides cancels detector bias by construction.
-    "real_lyric_review": "rlv5",
+    # v6 (G5K): hard-case timing semantics — every char routes as
+    # class_A (reliable landmark + carrier-feasible correction) /
+    # B1_unmeasurable (no stable acoustic landmark — evidence
+    # unavailable, fail-closed or second-family adjudication) /
+    # B2_carrier_conflict (source onset outside the legal carrier
+    # range — the review overlay may NEVER rewrite written-score
+    # timing to reach it). Whisper confidence splits into
+    # intelligibility (ASR diction) vs acoustic timing measurability.
+    "real_lyric_review": "rlv6",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
-MIN_TIMING_CHAR_PROB = 0.30   # §G5J-B: rendered char alignment below
-                              # this is untrusted timing evidence —
-                              # can't prove acoustic PASS or bias
+MIN_TIMING_CHAR_PROB = 0.30   # rendered char ASR confidence below
+                              # this = lyric intelligibility concern
+                              # (§G5K: diction clarity, NOT acoustic
+                              # timing truth — kept as separate flag)
 LYRIC_PHRASE_LEAD_PAD_S = 0.15   # §G5J-A: phrase window must cover
 LYRIC_PHRASE_TAIL_PAD_S = 0.15   # first/last char articulation
 LOOP_K = 0.7                  # §G5J: anchor feedback gain (<1)
@@ -87,6 +96,13 @@ ONSET_FLIP_S = 0.15           # measured onset jumping more than this
 ONSET_FLIP_ANCH_S = 0.05      # while its anchor moved less than this
                             # is an artifact, not a real onset move
 ONSET_MIN_GAP_S = 0.06        # two chars can't share one peak
+ANTICIPATION_MAX_S = 0.12     # §G5K: a source onset within this of a
+                            # carrier bound can still be consonant
+                            # anticipation (lyric-only); beyond it the
+                            # conflict suspects written timing instead
+ROUTE_CLASS_A = "class_A"
+ROUTE_B1 = "B1_unmeasurable"
+ROUTE_B2 = "B2_carrier_conflict"
 MIN_USABLE_SEG_S = 0.12       # §G5J: an anchor update that would
                             # squeeze a char below this sung duration
                             # is bound-limited — held at the usable
@@ -1215,6 +1231,104 @@ def _render_onsets(wav, centers: list):
     return out
 
 
+def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
+                     off: float = 0.0) -> list:
+    """§10.1.5A-G5K per-char hard-case routing — decided BEFORE the
+    loop iterates, from evidence that cannot change under iteration:
+      class_A              reliable acoustic landmark AND the desired
+                           correction is carrier-feasible
+      B1_unmeasurable      no reliable source landmark — timing
+                           evidence unavailable (≠ wrong, ≠ right)
+      B2_carrier_conflict  source onset outside the legal carrier
+                           anchor range — the review overlay may
+                           never rewrite written-score timing to
+                           reach it
+    `hi` entries are the raw legal limits; feasibility uses the
+    usable-move bound (a char also needs MIN_USABLE_SEG_S of sung
+    span). `refs` are recorded verbatim; `off` shifts them into the
+    bounds' domain for the comparison (phrase-relative refs vs
+    absolute carrier times). Returns a list of route dicts."""
+    hi_move = [hi[k] + ARTICULATE_MIN_SEG_S - MIN_USABLE_SEG_S
+               for k in range(len(chars))]
+    routes = []
+    for k, c in enumerate(chars):
+        ref = None if refs is None else refs[k]
+        ra = None if ref is None else ref + off
+        r = {"char": c["char"],
+             "source_ref_onset": None if ref is None
+             else round(ref, 4),
+             "source_ref_kind": None if ref_kinds is None
+             else ref_kinds[k],
+             # carrier bounds recorded in the SAME domain as the ref
+             # (off subtracted) so reviewers compare like with like
+             "carrier_lo": round(lo[k] - off, 4),
+             "carrier_hi": round(hi_move[k] - off, 4),
+             "desired_anchor": None if ref is None
+             else round(ref, 4),
+             "bound_conflict": False,
+             "unmeasurable_reason": None,
+             "route_detail": None}
+        if (ra is None or ref_kinds is None
+                or ref_kinds[k] != "onset_peak"):
+            r["route"] = ROUTE_B1
+            r["unmeasurable_reason"] = "no_source_landmark"
+        elif (ra < lo[k] - 1e-9
+              or ra > hi_move[k] + 1e-9):
+            r["route"] = ROUTE_B2
+            r["bound_conflict"] = True
+            below = ra < lo[k]
+            r["unmeasurable_reason"] = (
+                "source_ref_below_carrier_lo" if below
+                else "source_ref_above_carrier_hi")
+            gap = (lo[k] - ra) if below else (ra - hi_move[k])
+            r["route_detail"] = (
+                "anticipation_candidate" if gap <= ANTICIPATION_MAX_S
+                else "written_timing_suspect")
+        else:
+            r["route"] = ROUTE_CLASS_A
+        routes.append(r)
+    return routes
+
+
+def _energy_edge_onsets(wav: Path, centers) -> list:
+    """§G5K-B1 second independent landmark family — adjudication
+    evidence ONLY (never merged into the primary measurement's
+    weight). Energy-envelope derivative: a consonant burst produces
+    a steep RMS-dB rise independent of spectral-flux peak shape.
+    Returns wav-relative seconds or None per char."""
+    import numpy as np
+    try:
+        import librosa
+        y, sr = librosa.load(str(wav), sr=None, mono=True)
+        rms = librosa.feature.rms(
+            y=y, frame_length=1024, hop_length=256)[0]
+        t = librosa.frames_to_time(np.arange(rms.size),
+                                 sr=sr, hop_length=256)
+        db = librosa.amplitude_to_db(np.maximum(rms, 1e-10),
+                                   ref=np.max)
+        slope = np.diff(db)
+        out = []
+        for k, c in enumerate(centers):
+            fwd = 0.25
+            if k + 1 < len(centers):
+                fwd = min(fwd, float(centers[k + 1]) - float(c)
+                          - ONSET_MIN_GAP_S)
+            w = (t[1:] >= float(c) - 0.15) & (t[1:] <= float(c) + fwd)
+            cand = np.where(w)[0]
+            if not cand.size:
+                out.append(None)
+                continue
+            i = cand[np.argmax(slope[cand])]
+            # edge must be a real rise, not noise-floor jitter
+            if slope[i] < 2.0:
+                out.append(None)
+            else:
+                out.append(float(t[i + 1]))
+        return out
+    except Exception:
+        return [None] * len(list(centers))
+
+
 def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
                          src_wav=None, progress=None) -> dict:
     """§10.1.5A-G5J acoustic lyric-timing closed loop (rlv5).
@@ -1241,12 +1355,14 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
         return {"converged": False, "reason": "unbindable_chars",
                 "iterations": [], "anchors": None, "rres": None,
                 "bound_limited": [], "unmeasurable_chars": [],
+                "char_routes": None, "hard_cases": [],
                 "bounds": None, **meta}
     lo, hi = bounds
     if any(lo[k] > hi[k] for k in range(len(chars))):
         return {"converged": False, "reason": "unbindable_chars",
                 "iterations": [], "anchors": None, "rres": None,
                 "bound_limited": [], "unmeasurable_chars": [],
+                "char_routes": None, "hard_cases": [],
                 "bounds": {"lo": lo, "hi": hi}, **meta}
     refs, ref_kinds = _source_ref_onsets(chars, src_wav, ph0)
     if refs is None:
@@ -1255,8 +1371,23 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
                 "bound_limited": [], "unmeasurable_chars":
                 list(range(len(chars))),
                 "ref_kinds": ref_kinds,
+                "char_routes": _classify_routes(
+                    chars, refs, ref_kinds, lo, hi, off=ph0),
+                "hard_cases": list(range(len(chars))),
                 "bounds": {"lo": lo, "hi": hi}, **meta}
-    anchors = [min(max(refs[k] + ph0, lo[k]), hi[k])
+    # §G5K: classify every char BEFORE iterating — B1 has no reliable
+    # landmark (timing evidence unavailable), B2's source onset sits
+    # outside the legal carrier range (the review overlay may never
+    # rewrite written-score timing to reach it). Hard-case anchors are
+    # held at their nearest legal position, never updated, and do not
+    # count toward convergence — they are routed, not repaired.
+    # refs are phrase-relative; bounds are absolute — off bridges them.
+    routes = _classify_routes(chars, refs, ref_kinds, lo, hi, off=ph0)
+    hard = [k for k in range(len(chars))
+            if routes[k]["route"] != ROUTE_CLASS_A]
+    hi_move = [hi[k] + ARTICULATE_MIN_SEG_S - MIN_USABLE_SEG_S
+               for k in range(len(chars))]
+    anchors = [min(max(refs[k] + ph0, lo[k]), hi_move[k])
                for k in range(len(chars))]
     if any(anchors[k + 1] - anchors[k] < ARTICULATE_MIN_SEG_S
            for k in range(len(anchors) - 1)):
@@ -1327,6 +1458,8 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
             prev_err = history[-1].get("shared_err_raw")
             prev_anch = history[-1]["anchors"]
             for k in range(len(chars)):
+                if routes[k]["route"] != ROUTE_CLASS_A:
+                    continue                # held — not update evidence
                 if shared[k] is None or prev_err is None \
                         or prev_err[k] is None:
                     continue
@@ -1334,11 +1467,17 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
                         and abs(anchors[k] - prev_anch[k]) \
                         < ONSET_FLIP_ANCH_S:
                     shared[k] = None
+        # §G5K: convergence judges ONLY class_A chars — a held
+        # hard-case anchor is neither converging evidence nor a
+        # converging blocker; its route is reported separately.
         unmeasurable = []
         if measurable:
             unmeasurable = [k for k in range(len(chars))
-                            if shared[k] is None]
-        trusted = [e for e in (shared or []) if e is not None]
+                            if routes[k]["route"] == ROUTE_CLASS_A
+                            and shared[k] is None]
+        trusted = [shared[k] for k in range(len(chars))
+                   if routes[k]["route"] == ROUTE_CLASS_A
+                   and shared[k] is not None]
         max_abs = max((abs(e) for e in trusted), default=None)
         history.append({
             "iteration": it_i,
@@ -1365,14 +1504,19 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
                 and not unmeasurable:
             converged, stop = True, "converged"
             break
+        if not any(routes[k]["route"] == ROUTE_CLASS_A
+                   for k in range(len(chars))):
+            stop = "hard_cases_only"        # nothing legal to update
+            break
         if it_i == LOOP_MAX_ITERS:
             break
         # §G5J: hi_move keeps ≥MIN_USABLE_SEG_S of sung duration inside
         # the carrier — an update past it is bound-limited, not applied
-        hi_move = [hi[k] + ARTICULATE_MIN_SEG_S - MIN_USABLE_SEG_S
-                   for k in range(len(chars))]
         new, limited = [], []
         for k, a in enumerate(anchors):
+            if routes[k]["route"] != ROUTE_CLASS_A:
+                new.append(a)               # §G5K: held hard case
+                continue
             if k in unmeasurable or shared[k] is None:
                 new.append(a)               # hold — no evidence
                 continue
@@ -1412,6 +1556,28 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
             stop = "unmeasurable_chars"
         elif limited:
             stop = "bound_limited"
+        elif hard:
+            stop = "hard_cases"
+    # §G5K: fill the persisted route table — reviewer must see
+    # 'measured nowhere' vs 'could never reach' as different stories
+    last = history[-1] if history else {}
+    last_on = last.get("onsets") or {}
+    last_er = last.get("errors_ms") or {}
+    last_un = set(last.get("unmeasurable_chars") or [])
+    for k, r in enumerate(routes):
+        r["final_anchor"] = (round(anchors[k] - ph0, 4)
+                             if anchors else None)
+        r["render_onset"] = {oid: (pv[k] if pv else None)
+                             for oid, pv in last_on.items()}
+        r["acoustic_error_ms"] = {oid: (ev[k] if ev else None)
+                                  for oid, ev in last_er.items()}
+        if r["route"] == ROUTE_B1:
+            r["measurement_stability"] = "unmeasurable_source"
+        elif k in last_un or r["route"] == ROUTE_B2:
+            r["measurement_stability"] = (
+                "unstable_measurement" if k in last_un else "held")
+        else:
+            r["measurement_stability"] = "stable"
     return {"converged": converged, "reason": stop,
             "iterations": history, "anchors": anchors, "rres": rres,
             "k": LOOP_K, "clamp_s": LOOP_CLAMP_S,
@@ -1420,6 +1586,8 @@ def _closed_loop_anchors(cfg, idir: Path, it: dict, chars: list,
             "ref_onsets": [round(r, 4) if r is not None else None
                            for r in refs],
             "ref_kinds": ref_kinds,
+            "char_routes": routes,
+            "hard_cases": hard,
             "bound_limited": sorted(set(limited)),
             "unmeasurable_chars": unmeasurable,
             "bounds": {"lo": lo, "hi": hi}}
@@ -1440,15 +1608,30 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
     src = ev.get("chars")
     if cal.get("lyric_contract") != "real_lyric_review" or not src:
         return None
-    # §G5J: an rlv5 package must carry a CONVERGED closed loop —
+    # §G5J: an rlv5+ package must carry a CONVERGED closed loop —
     # non-convergence means the acoustic timing gate can't claim PASS
     art = ev.get("articulation") or {}
     loop = art.get("closed_loop")
     flags0 = []
-    if art.get("impl") == "rlv5" and loop is not None \
-            and not loop.get("converged"):
+    if loop is not None and not loop.get("converged"):
         flags0.append(f"lyric_timing_not_converged:"
                       f"{loop.get('reason')}")
+    # §G5K: hard-case routes are item-level truth, independent of any
+    # option's render — B1 = timing evidence unavailable (≠ wrong),
+    # B2 = the source onset sits outside the legal carrier range and
+    # the review overlay may never rewrite written-score timing to
+    # reach it. Both block PASS; the char is routed, not 'fixed'.
+    char_routes = (loop or {}).get("char_routes") or []
+    b1 = [r["char"] for r in char_routes
+          if r.get("route") == ROUTE_B1]
+    b2 = [r for r in char_routes if r.get("route") == ROUTE_B2]
+    if b1:
+        flags0.append(
+            f"lyric_timing_evidence_unmeasurable:{''.join(b1)}")
+    if b2:
+        flags0.append(
+            "lyric_timing_carrier_conflict:"
+            f"{''.join(r['char'] for r in b2)}")
     from .analysis.lyrics import force_align, DEFAULT_MODEL
     import numpy as np
     ph_start = float(man["phrase"]["start"])
@@ -1491,15 +1674,17 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
             out["flags"].append(f"lyric_timing_mismatch:{oid}")
             gate.append(f"lyric_timing_mismatch:{oid}")
             continue
-        # §G5J-B: a rendered char whose alignment confidence is below
-        # threshold can't be used to prove acoustic timing — its delta
-        # is untrusted evidence, so the item can't PASS on it.
+        # §G5K: ASR/force-align confidence on the RENDER measures
+        # lyric intelligibility (can a recogniser hear the diction),
+        # NOT acoustic timing truth — a low value blocks review because
+        # diction may be unclear, but it is never evidence that the
+        # onset is wrong. Kept as a separate flag family by design.
         low = [c["char"] for c in cs
                if float(c.get("probability") or 0.0)
                < MIN_TIMING_CHAR_PROB]
         if low:
             out["flags"].append(
-                f"lyric_timing_low_confidence:{oid}:"
+                f"lyric_intelligibility_low:{oid}:"
                 f"{''.join(low)}")
     # §G5J-rlv5 acoustic onset evidence — onset-strength peaks, ONE
     # instrument on both source and rendered audio so detector bias
@@ -1571,6 +1756,35 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                     "lyric_timing_acoustic_unstable:"
                     f"{''.join(src[k]['char'] for k in sorted(ac_unstable))}")
         out["acoustic"]["unstable_chars"] = sorted(ac_unstable)
+        # §G5K: persist the route table so a reviewer sees 'measured
+        # nowhere' vs 'could never legally reach' as different stories
+        if char_routes:
+            out["acoustic"]["char_routes"] = char_routes
+        # §G5K-B1: second independent landmark family (energy-edge
+        # derivative) as adjudication evidence ONLY for B1 chars —
+        # same family on both sides, never merged into the primary
+        # instrument's weight. If it finds a consistent edge the
+        # char is adjudicable; if not, B1 stands confirmed.
+        if b1:
+            o_wavs = {o["option_id"]: o["wav"] for o in man["options"]}
+            src_wav = ((man.get("source_reference") or {})
+                       .get("separated_vocal") or {}).get("path")
+            sf2 = {"instrument": "energy_edge_v1", "chars": {}}
+            for k, r in enumerate(char_routes):
+                if r.get("route") != ROUTE_B1:
+                    continue
+                entry = {}
+                if src_wav and (idir / src_wav).exists():
+                    entry["src_edge"] = _energy_edge_onsets(
+                        (idir / src_wav).resolve(),
+                        [float(src[k]["start"]) - ph_start])[0]
+                for oid in opts_ok:
+                    starts = _option_char_starts(idir / f"{oid}.ustx")
+                    if starts and len(starts) == len(src):
+                        entry[f"{oid}_edge"] = _energy_edge_onsets(
+                            idir / o_wavs[oid], [starts[k]])[0]
+                sf2["chars"][src[k]["char"]] = entry
+            out["acoustic"]["second_family"] = sf2
     if not gate:
         # score-bound ground truth: the render voices each char exactly
         # at its carrier note position in OPTION_x.ustx (fixed
@@ -1611,6 +1825,19 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
         for k, sc_ in enumerate(out["source_chars"]):
             row = {"char": sc_["char"], "src_start": sc_["start"],
                    "src_end": sc_["end"]}
+            # §G5K: every char carries its route — 'unmeasurable'
+            # and 'could never reach' are different stories
+            if k < len(char_routes):
+                rt = char_routes[k]
+                row["route"] = rt.get("route")
+                row["bound_conflict"] = rt.get("bound_conflict")
+                row["carrier_lo"] = rt.get("carrier_lo")
+                row["carrier_hi"] = rt.get("carrier_hi")
+                row["desired_anchor"] = rt.get("desired_anchor")
+                row["final_anchor"] = rt.get("final_anchor")
+                row["measurement_stability"] = rt.get(
+                    "measurement_stability")
+                row["route_detail"] = rt.get("route_detail")
             if refs is not None:
                 row["src_acoustic_onset"] = (
                     round(refs[k], 4) if refs[k] is not None else None)
@@ -1658,7 +1885,9 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
                 "n_chars_over_200ms": int((a > 200).sum()),
                 "median_aligner_offset_ms":
                     round(float(np.median(aln_off[oid])), 1),
-                "min_alignment_probability":
+                # §G5K: ASR confidence = lyric intelligibility
+                # (diction clarity), NOT acoustic timing confidence
+                "min_intelligibility_probability":
                     round(min(probs[oid]), 3)}
             ta = a[np.asarray(probs[oid]) >= MIN_TIMING_CHAR_PROB]
             out["stats"][oid]["trusted_max_abs_onset_delta_ms"] = \
@@ -1672,12 +1901,19 @@ def _lyric_timing_qc(man: dict, idir: Path) -> dict:
             # onset-peak source ref AND a detected render peak; a
             # missing peak is already flagged unmeasurable above.
             if refs is not None and ac_on.get(oid):
+                # §G5K: the delta gate judges class_A chars only —
+                # a held B2 anchor's 'error' is a carrier conflict
+                # already flagged by its route, not a timing miss to
+                # re-measure, and B1 has no landmark to delta against.
                 ad = [abs((ac_on[oid][k] - refs[k]) * 1000.0)
                       for k in range(len(src))
                       if refs[k] is not None
                       and k < len(ref_kinds)
                       and ref_kinds[k] == "onset_peak"
                       and k not in ac_unstable
+                      and (k >= len(char_routes)
+                           or char_routes[k].get("route")
+                           == ROUTE_CLASS_A)
                       and ac_on[oid][k] is not None]
                 out["stats"][oid]["median_abs_acoustic_delta_ms"] = (
                     round(float(np.median(ad)), 1) if ad else None)
@@ -2511,7 +2747,7 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                     anchors=(it.get("_loop") or {}).get("anchors"))
                 loop = it.get("_loop")
                 if segs is not None:
-                    art = {"impl": "rlv5",
+                    art = {"impl": "rlv6",
                            "n_segments": len(segs),
                            "n_articulation_splits": sum(
                                1 for sg in segs
@@ -2534,6 +2770,10 @@ def build_calibration(run_dir: Path, cfg=None, render=True, only=None,
                                 loop.get("bound_limited") or [],
                             "unmeasurable_chars":
                                 loop.get("unmeasurable_chars") or [],
+                            "char_routes":
+                                loop.get("char_routes"),
+                            "hard_cases":
+                                loop.get("hard_cases") or [],
                             "iterations": loop["iterations"]}})
             man["calibration"]["lyric_evidence"] = {
                 "method": "force_align_source_bound",

@@ -1047,6 +1047,48 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   pilot_authority.ok=false -> review_ready=false. Honest hold for
   human adjudication, not a fake converged build.
 
+### M2.5 G5K — hard-case timing semantics (rlv6; 4/4 flagged, held)
+
+- **Per-char routing BEFORE iterating** (`_classify_routes`): every
+  char is class_A (reliable onset_peak landmark AND ref inside
+  [carrier_lo, hi_move]) / B1_unmeasurable (no source landmark —
+  timing evidence unavailable, ≠ wrong) / B2_carrier_conflict (source
+  onset outside the legal carrier range). Hard-case anchors are HELD
+  at the nearest legal position, never updated, never counted in
+  convergence — they are routed, not repaired.
+- **DOMAIN BUG caught by real data**: phrase-relative refs vs
+  absolute carrier bounds silently misrouted every char B2
+  (`hard_cases_only`). `_classify_routes(..., off=ph0)` bridges the
+  comparison; route records store carrier_lo/hi in the ref domain.
+  Test fixtures (phrase.start=0) masked it — only real data caught it.
+- **route_detail**: gap <= ANTICIPATION_MAX_S (120ms) →
+  anticipation_candidate (consonant pre/post-utterance is a legal
+  hypothesis); beyond → written_timing_suspect → routed to
+  written-timing/structure adjudication, never masked by the overlay.
+- **Review overlay can never rewrite written-score truth**: B2 chars
+  hold at the carrier bound; anchors_crossed/unbindable still fail
+  closed; `it["context"]` is byte-identical after the loop (K6).
+- **Confidence semantics split**: `lyric_intelligibility_low:{oid}:`
+  flags ASR diction clarity (was lyric_timing_low_confidence — ASR
+  confidence is never acoustic-timing truth); acoustic measurability
+  stays in ref kinds / acoustic_* flags. stats carries
+  min_intelligibility_probability (K8/K9 keep the concepts separate).
+- **Second landmark family for B1 adjudication**: `energy_edge_v1`
+  (RMS-dB slope, consonant bursts) runs ONLY on B1 chars in QC —
+  recorded under acoustic.second_family, never merged into the
+  primary instrument's weight.
+- **QC gate reads class_A only**: a held B2 anchor's residual is a
+  carrier conflict already flagged by its route, not a timing miss
+  to re-measure. per_char rows carry route/bound_conflict/carrier
+  bounds/desired/final/measurement_stability.
+- **rlv6 pilot (4 items)**: all valid; 9 B2 chars across 3 lyric
+  regions (90.03–96.96 句在两个不同 note 上冲突字完全一致 —
+  该 lyric 区 written carrier timing 与源唱系统性不兼容);
+  4 anticipation_candidate + 1 written_timing_suspect; class_A
+  loops ran but didn't converge (unmeasurable/bound_limited) →
+  auto_review_ready=false → review_ready=false. Honest routing,
+  not parameter-chasing. K1-K10 regression matrix; 350 tests PASS.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight

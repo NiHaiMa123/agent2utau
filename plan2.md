@@ -4429,6 +4429,54 @@ DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
 
+##### G5K 实现记录（rlv6，2026-09-17）
+
+实现：
+
+```text
+_classify_routes(): 闭环迭代前按不变量分类每个字 —
+  class_A              可靠 onset_peak landmark + ref∈[lo, hi_move]
+  B1_unmeasurable      ref 缺失 / whisper_fallback / none — 证据不可用
+  B2_carrier_conflict  ref 越出合法 carrier anchor 范围
+    route_detail: anticipation_candidate (gap ≤ 120ms)
+                | written_timing_suspect (gap > 120ms)
+闭环: hard-case anchor 保持不更新; converged 只评 Class A;
+  reason += hard_cases_only / hard_cases; char_routes 持久化
+  ref/kind/bounds/desired/final/route_detail/measurement_stability。
+QC: per_char 行带 route 字段; flag += lyric_timing_carrier_conflict
+  / lyric_timing_evidence_unmeasurable; acoustic delta gate 只评
+  class_A; B1 字跑第二独立测量族 energy_edge_v1（adjudication 证据
+  不重复计权）; Whisper 概率 flag 重命名 lyric_intelligibility_low
+  （发音清晰度 ≠ timing 真值）; stats.min_intelligibility_probability。
+impl bump rlv5 → rlv6; K1-K10 回归矩阵; 350 tests PASS。
+```
+
+真机核查发现并修复的 bug：
+
+```text
+_classify_routes 初版直接拿 phrase-relative refs 对比绝对时间的
+carrier bounds → 全部 4 项整句误路由 B2（hard_cases_only）。
+修复: off=ph0 参数桥接比较域；route dict 的 carrier_lo/hi 也
+统一记录为 ref 域，与 src_start 一致。测试 fixture phrase.start=0
+恰好掩盖——真机数据抓住。
+```
+
+4 项 rlv6 pilot 结果（全部 package_state=valid）：
+
+```text
+note_0061  unmeasurable_chars   conflict: 寒夜个等晨(5字)
+note_0188  bound_limited        conflict: 可人陪这本(5字) delta 163ms
+note_0192  bound_limited        conflict: 可人陪这本(5字) delta 244ms
+note_0379  unmeasurable_chars   conflict: 可没人我(4字) delta 163ms
+```
+
+route_detail 分布：4 字 anticipation_candidate（辅音先行合法假设，
+60–110ms 越界）+ 本(5.26s) written_timing_suspect（越界 129ms）。
+同一句 90.03–96.96 的 0188/0192 冲突字完全一致（可人陪这本）——
+该 lyric 区的 written carrier timing 与源唱 articulation 系统性
+不兼容，已显式路由到 written-timing/structure 诊断，未被 overlay
+掩盖。review_ready=false（诚实）。
+
 ---
 
 #### G6. Human-review readiness regressions
