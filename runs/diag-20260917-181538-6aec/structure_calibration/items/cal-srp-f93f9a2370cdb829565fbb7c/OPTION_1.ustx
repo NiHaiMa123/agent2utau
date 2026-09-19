@@ -414,7 +414,32 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 816
-    duration: 374
+    duration: 152
+    tone: 57
+    lyric: +
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides: []
+  - position: 968
+    duration: 222
     tone: 57
     lyric: 惜
     pitch:
@@ -439,32 +464,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 1190
-    duration: 145
-    tone: 59
-    lyric: +
-    pitch:
-      data:
-      - x: -40
-        y: 0
-        shape: io
-      - x: 40
-        y: 0
-        shape: io
-      snap_first: true
-    vibrato:
-      length: 0
-      period: 175
-      depth: 25
-      in: 10
-      out: 10
-      shift: 0
-      drift: 0
-      vol_link: 0
-    tuning: 0
-    phoneme_expressions: []
-    phoneme_overrides: []
-  - position: 1335
-    duration: 287
+    duration: 432
     tone: 59
     lyric: 从
     pitch:
@@ -639,7 +639,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 3168
-    duration: 103
+    duration: 154
     tone: 66
     lyric: +
     pitch:
@@ -663,8 +663,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 3271
-    duration: 262
+  - position: 3322
+    duration: 211
     tone: 66
     lyric: 演
     pitch:

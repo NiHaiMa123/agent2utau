@@ -439,7 +439,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 1190
-    duration: 102
+    duration: 117
     tone: 59
     lyric: +
     pitch:
@@ -463,8 +463,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 1292
-    duration: 330
+  - position: 1307
+    duration: 315
     tone: 59
     lyric: 从
     pitch:
@@ -639,7 +639,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 3168
-    duration: 120
+    duration: 138
     tone: 66
     lyric: +
     pitch:
@@ -663,8 +663,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 3288
-    duration: 245
+  - position: 3306
+    duration: 227
     tone: 66
     lyric: 演
     pitch:
@@ -739,7 +739,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 4214
-    duration: 233
+    duration: 237
     tone: 59
     lyric: +
     pitch:
@@ -763,8 +763,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 4447
-    duration: 123
+  - position: 4451
+    duration: 119
     tone: 59
     lyric: 剧
     pitch:

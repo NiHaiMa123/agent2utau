@@ -388,8 +388,8 @@ voice_parts:
   track_no: 0
   position: 0
   notes:
-  - position: 301
-    duration: 35
+  - position: 221
+    duration: 115
     tone: 62
     lyric: 可
     pitch:
@@ -439,7 +439,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 787
-    duration: 160
+    duration: 221
     tone: 57
     lyric: +
     pitch:
@@ -463,8 +463,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 947
-    duration: 176
+  - position: 1008
+    duration: 115
     tone: 57
     lyric: 惜
     pitch:
@@ -489,7 +489,32 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 1123
-    duration: 461
+    duration: 82
+    tone: 59
+    lyric: +
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides: []
+  - position: 1205
+    duration: 379
     tone: 59
     lyric: 从
     pitch:
@@ -539,7 +564,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 1949
-    duration: 325
+    duration: 297
     tone: 66
     lyric: +
     pitch:
@@ -563,8 +588,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 2274
-    duration: 88
+  - position: 2246
+    duration: 116
     tone: 66
     lyric: 人
     pitch:
@@ -614,7 +639,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 2698
-    duration: 322
+    duration: 259
     tone: 59
     lyric: +
     pitch:
@@ -638,8 +663,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 3020
-    duration: 52
+  - position: 2957
+    duration: 115
     tone: 59
     lyric: 我
     pitch:
@@ -664,7 +689,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 3072
-    duration: 294
+    duration: 298
     tone: 66
     lyric: +
     pitch:
@@ -688,8 +713,8 @@ voice_parts:
     tuning: 0
     phoneme_expressions: []
     phoneme_overrides: []
-  - position: 3366
-    duration: 119
+  - position: 3370
+    duration: 115
     tone: 66
     lyric: 演
     pitch:

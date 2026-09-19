@@ -66,7 +66,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "e89d0226fe0df99119134a77ab4bf716f7419d35d61e37afb8ea838dca2ba340",
+      "wav_sha256": "85bfa3279e3a72dc1dc351c3c33ab11d82d0134889ebf7b24a10a1adfff434cf",
       "sample_rate": 44100,
       "frames": 305613,
       "render_error": null
@@ -114,7 +114,7 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "160a47222fa2875fff5e199cdd5b9403ba45b0d43bf900a924b7a488595868e5",
+      "wav_sha256": "484cfd5dbd7843f1c276909a72f60ffa7946e76aceaac9a91ba976b51f24addb",
       "sample_rate": 44100,
       "frames": 305613,
       "render_error": null
@@ -195,7 +195,7 @@
     ]
   },
   "plan_hash": "92ea80f75d8a48b4378e7ee0cdf98cc5e18cfa5cc7007cb74f1bde17738e1ebc",
-  "audio_package_hash": "88d991a1996446380f2e7bbecef38f7e5266cf18a6d791a94976ff5af9276642",
+  "audio_package_hash": "67ad2be5a5a8d937bc83d1b4b88b6ca15c9cb7306d0eaefa19e691c8a3b3c3e3",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -273,8 +273,8 @@
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv5",
-    "contract_sha256": "8032020c55d8cc56f13dcb0fd82e2477b0aaa21162f31b1fb9aee45c90e7be8f",
+    "lyric_mapping_impl": "rlv6",
+    "contract_sha256": "eb51b78e043191d1eea7227c282db8da374fe7fbef501c10bf9fc8b8a3963258",
     "choices": [
       "split",
       "baseline",
@@ -355,13 +355,13 @@
         }
       ],
       "articulation": {
-        "impl": "rlv5",
+        "impl": "rlv6",
         "n_segments": 21,
         "n_articulation_splits": 12,
         "n_chars": 11,
         "closed_loop": {
           "converged": false,
-          "reason": "unmeasurable_chars",
+          "reason": "bound_limited",
           "k": 0.7,
           "clamp_s": 0.15,
           "tol_ms": 80.0,
@@ -394,14 +394,14 @@
           ],
           "anchors": [
             90.35999944865704,
-            90.88828827664399,
-            91.4202774829932,
-            91.77206662131519,
+            91.03828827664398,
+            91.34719748299321,
+            91.78018662131518,
             92.39999938547611,
             92.83999938309192,
             92.95999938309193,
-            93.43756326530612,
-            93.73841938309192,
+            93.49041326530612,
+            93.70999938309193,
             94.66999936640262,
             95.15999934613704
           ],
@@ -434,15 +434,259 @@
             ]
           },
           "bound_limited": [
+            6
+          ],
+          "unmeasurable_chars": [],
+          "char_routes": [
+            {
+              "char": "可",
+              "source_ref_onset": 0.2438,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 0.33,
+              "carrier_hi": 0.73,
+              "desired_anchor": 0.2438,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_below_carrier_lo",
+              "route_detail": "anticipation_candidate",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 0.33,
+              "render_onset": {
+                "OPTION_0": 0.2786,
+                "OPTION_1": 0.3831
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 34.8,
+                "OPTION_1": 139.3
+              },
+              "measurement_stability": "held"
+            },
+            {
+              "char": "惜",
+              "source_ref_onset": 0.8824,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 0.85,
+              "carrier_hi": 1.12,
+              "desired_anchor": 0.8824,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 1.0083,
+              "render_onset": {
+                "OPTION_0": 1.1262,
+                "OPTION_1": null
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 243.8,
+                "OPTION_1": null
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "从",
+              "source_ref_onset": 1.2887,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 1.24,
+              "carrier_hi": 1.57,
+              "desired_anchor": 1.2887,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 1.3172,
+              "render_onset": {
+                "OPTION_0": 1.3235,
+                "OPTION_1": 1.2074
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 34.8,
+                "OPTION_1": -81.3
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "没",
+              "source_ref_onset": 1.7299,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 1.69,
+              "carrier_hi": 1.99,
+              "desired_anchor": 1.7299,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 1.7502,
+              "render_onset": {
+                "OPTION_0": 1.7183,
+                "OPTION_1": 1.7299
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -11.6,
+                "OPTION_1": 0.0
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "人",
+              "source_ref_onset": 2.4845,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 2.11,
+              "carrier_hi": 2.37,
+              "desired_anchor": 2.4845,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_above_carrier_hi",
+              "route_detail": "anticipation_candidate",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 2.37,
+              "render_onset": {
+                "OPTION_0": 2.4265,
+                "OPTION_1": 2.4149
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -58.0,
+                "OPTION_1": -69.7
+              },
+              "measurement_stability": "held"
+            },
+            {
+              "char": "陪",
+              "source_ref_onset": 2.8212,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 2.49,
+              "carrier_hi": 2.81,
+              "desired_anchor": 2.8212,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_above_carrier_hi",
+              "route_detail": "anticipation_candidate",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 2.81,
+              "render_onset": {
+                "OPTION_0": 2.74,
+                "OPTION_1": 2.7748
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -81.3,
+                "OPTION_1": -46.4
+              },
+              "measurement_stability": "held"
+            },
+            {
+              "char": "我",
+              "source_ref_onset": 2.9605,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 2.93,
+              "carrier_hi": 3.18,
+              "desired_anchor": 2.9605,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 2.93,
+              "render_onset": {
+                "OPTION_0": 2.9722,
+                "OPTION_1": null
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 11.6,
+                "OPTION_1": null
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "演",
+              "source_ref_onset": 3.4482,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 3.3,
+              "carrier_hi": 3.56,
+              "desired_anchor": 3.4482,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 3.4604,
+              "render_onset": {
+                "OPTION_0": 3.4946,
+                "OPTION_1": 3.483
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 46.4,
+                "OPTION_1": 34.8
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "这",
+              "source_ref_onset": 3.6571,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 3.68,
+              "carrier_hi": 3.92,
+              "desired_anchor": 3.6571,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_below_carrier_lo",
+              "route_detail": "anticipation_candidate",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 3.68,
+              "render_onset": {
+                "OPTION_0": 3.6571,
+                "OPTION_1": 3.6688
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 0.0,
+                "OPTION_1": 11.6
+              },
+              "measurement_stability": "held"
+            },
+            {
+              "char": "剧",
+              "source_ref_onset": 4.6092,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 4.39,
+              "carrier_hi": 4.64,
+              "desired_anchor": 4.6092,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 4.64,
+              "render_onset": {
+                "OPTION_0": 4.6788,
+                "OPTION_1": 4.5395
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 69.7,
+                "OPTION_1": -69.7
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "本",
+              "source_ref_onset": 5.2593,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 5.03,
+              "carrier_hi": 5.13,
+              "desired_anchor": 5.2593,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_above_carrier_hi",
+              "route_detail": "written_timing_suspect",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 5.13,
+              "render_onset": {
+                "OPTION_0": 5.1664,
+                "OPTION_1": 5.1664
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -92.9,
+                "OPTION_1": -92.9
+              },
+              "measurement_stability": "held"
+            }
+          ],
+          "hard_cases": [
             0,
             4,
             5,
-            6,
-            9,
+            8,
             10
-          ],
-          "unmeasurable_chars": [
-            1
           ],
           "iterations": [
             {
@@ -452,502 +696,507 @@
                 90.9124,
                 91.3187,
                 91.7599,
-                92.49,
-                92.8512,
+                92.4,
+                92.84,
                 92.9905,
                 93.4782,
                 93.71,
                 94.6392,
-                95.25
+                95.16
+              ],
+              "onsets": {
+                "OPTION_0": [
+                  0.3715,
+                  0.8707,
+                  1.2887,
+                  1.7183,
+                  2.4033,
+                  2.7632,
+                  2.9838,
+                  3.4714,
+                  3.6571,
+                  4.5163,
+                  5.1548
+                ],
+                "OPTION_1": [
+                  0.3947,
+                  0.8824,
+                  1.1958,
+                  1.7299,
+                  2.4265,
+                  2.8444,
+                  2.9954,
+                  3.3088,
+                  3.6688,
+                  4.7949,
+                  5.1664
+                ]
+              },
+              "errors_ms": {
+                "OPTION_0": [
+                  127.7,
+                  -11.6,
+                  0.0,
+                  -11.6,
+                  -81.3,
+                  -58.0,
+                  23.2,
+                  23.2,
+                  0.0,
+                  -92.9,
+                  -104.5
+                ],
+                "OPTION_1": [
+                  150.9,
+                  0.0,
+                  -92.9,
+                  0.0,
+                  -58.0,
+                  23.2,
+                  34.8,
+                  -139.3,
+                  11.6,
+                  185.8,
+                  -92.9
+                ]
+              },
+              "shared_err_raw": [
+                0.1393,
+                -0.0058,
+                -0.0464,
+                -0.0058,
+                -0.0697,
+                -0.0174,
+                0.029,
+                null,
+                0.0058,
+                null,
+                -0.0987
+              ],
+              "shared_err_ms": [
+                139.3,
+                -5.8,
+                -46.4,
+                -5.8,
+                -69.7,
+                -17.4,
+                29.0,
+                null,
+                5.8,
+                null,
+                -98.7
+              ],
+              "unmeasurable_chars": [
+                7,
+                9
+              ],
+              "max_abs_err_ms": 46.4
+            },
+            {
+              "iteration": 1,
+              "anchors": [
+                90.36,
+                90.9164,
+                91.3512,
+                91.7639,
+                92.4,
+                92.84,
+                92.9702,
+                93.4782,
+                93.71,
+                94.6392,
+                95.16
+              ],
+              "onsets": {
+                "OPTION_0": [
+                  0.267,
+                  0.7082,
+                  1.2771,
+                  1.7183,
+                  null,
+                  2.7516,
+                  2.9838,
+                  3.483,
+                  3.6688,
+                  4.5279,
+                  5.1548
+                ],
+                "OPTION_1": [
+                  0.267,
+                  0.8707,
+                  1.37,
+                  1.7299,
+                  2.4265,
+                  2.74,
+                  2.9838,
+                  3.3088,
+                  3.6688,
+                  4.5279,
+                  5.1664
+                ]
+              },
+              "errors_ms": {
+                "OPTION_0": [
+                  23.2,
+                  -174.1,
+                  -11.6,
+                  -11.6,
+                  null,
+                  -69.7,
+                  23.2,
+                  34.8,
+                  11.6,
+                  -81.3,
+                  -104.5
+                ],
+                "OPTION_1": [
+                  23.2,
+                  -11.6,
+                  81.3,
+                  0.0,
+                  -58.0,
+                  -81.3,
+                  23.2,
+                  -139.3,
+                  11.6,
+                  -81.3,
+                  -92.9
+                ]
+              },
+              "shared_err_raw": [
+                0.0232,
+                null,
+                0.0348,
+                -0.0058,
+                -0.058,
+                -0.0755,
+                0.0232,
+                null,
+                0.0116,
+                -0.0813,
+                -0.0987
+              ],
+              "shared_err_ms": [
+                23.2,
+                null,
+                34.8,
+                -5.8,
+                -58.0,
+                -75.5,
+                23.2,
+                null,
+                11.6,
+                -81.3,
+                -98.7
+              ],
+              "unmeasurable_chars": [
+                1,
+                7
+              ],
+              "max_abs_err_ms": 81.3
+            },
+            {
+              "iteration": 2,
+              "anchors": [
+                90.36,
+                90.9164,
+                91.3268,
+                91.768,
+                92.4,
+                92.84,
+                92.96,
+                93.4782,
+                93.71,
+                94.67,
+                95.16
               ],
               "onsets": {
                 "OPTION_0": [
                   0.2786,
                   0.7082,
-                  1.1958,
-                  1.7299,
-                  2.5078,
-                  2.7748,
+                  1.2074,
+                  1.7183,
+                  2.4033,
+                  2.74,
                   2.9838,
-                  3.4714,
-                  3.6455,
-                  4.8181,
-                  5.2593
+                  3.3205,
+                  3.6688,
+                  4.5511,
+                  5.0503
                 ],
                 "OPTION_1": [
-                  0.3831,
-                  0.7198,
-                  1.1378,
+                  0.2554,
+                  0.7082,
+                  1.1842,
                   1.7299,
-                  2.4961,
-                  2.7748,
+                  2.4033,
+                  2.74,
                   2.9722,
-                  3.4598,
+                  3.4482,
                   3.6571,
-                  4.8065,
-                  5.2593
+                  4.6672,
+                  5.1548
                 ]
               },
               "errors_ms": {
                 "OPTION_0": [
                   34.8,
                   -174.1,
-                  -92.9,
-                  0.0,
-                  23.2,
-                  -46.4,
-                  23.2,
-                  23.2,
-                  -11.6,
-                  209.0,
-                  0.0
-                ],
-                "OPTION_1": [
-                  139.3,
-                  -162.5,
-                  -150.9,
-                  0.0,
-                  11.6,
-                  -46.4,
-                  11.6,
-                  11.6,
-                  0.0,
-                  197.4,
-                  0.0
-                ]
-              },
-              "shared_err_raw": [
-                0.0871,
-                -0.1683,
-                -0.1219,
-                0.0,
-                0.0174,
-                -0.0464,
-                0.0174,
-                0.0174,
-                -0.0058,
-                0.2032,
-                0.0
-              ],
-              "shared_err_ms": [
-                87.1,
-                -168.3,
-                -121.9,
-                0.0,
-                17.4,
-                -46.4,
-                17.4,
-                17.4,
-                -5.8,
-                203.2,
-                0.0
-              ],
-              "unmeasurable_chars": [],
-              "max_abs_err_ms": 203.2
-            },
-            {
-              "iteration": 1,
-              "anchors": [
-                90.36,
-                91.0302,
-                91.404,
-                91.7599,
-                92.4,
-                92.84,
-                92.9784,
-                93.466,
-                93.7141,
-                94.4969,
-                95.16
-              ],
-              "onsets": {
-                "OPTION_0": [
-                  0.3831,
-                  null,
-                  1.428,
-                  1.7299,
-                  2.3568,
-                  2.7516,
-                  2.9838,
-                  3.4946,
-                  3.6455,
-                  4.3073,
-                  5.1664
-                ],
-                "OPTION_1": [
-                  0.267,
-                  null,
-                  1.3235,
-                  1.7183,
-                  2.4149,
-                  2.7516,
-                  2.9838,
-                  3.4714,
-                  3.6571,
-                  4.2957,
-                  5.1432
-                ]
-              },
-              "errors_ms": {
-                "OPTION_0": [
-                  139.3,
-                  null,
-                  139.3,
-                  0.0,
-                  -127.7,
-                  -69.7,
-                  23.2,
-                  46.4,
-                  -11.6,
-                  -301.9,
-                  -92.9
-                ],
-                "OPTION_1": [
-                  23.2,
-                  null,
-                  34.8,
-                  -11.6,
-                  -69.7,
-                  -69.7,
-                  23.2,
-                  23.2,
-                  0.0,
-                  -313.5,
-                  -116.1
-                ]
-              },
-              "shared_err_raw": [
-                0.0813,
-                null,
-                0.0871,
-                -0.0058,
-                -0.0987,
-                -0.0697,
-                0.0232,
-                0.0348,
-                -0.0058,
-                -0.3077,
-                -0.1045
-              ],
-              "shared_err_ms": [
-                81.3,
-                null,
-                87.1,
-                -5.8,
-                -98.7,
-                -69.7,
-                23.2,
-                34.8,
-                -5.8,
-                -307.7,
-                -104.5
-              ],
-              "unmeasurable_chars": [
-                1
-              ],
-              "max_abs_err_ms": 307.7
-            },
-            {
-              "iteration": 2,
-              "anchors": [
-                90.36,
-                91.0302,
-                91.3431,
-                91.7639,
-                92.4,
-                92.84,
-                92.9621,
-                93.4416,
-                93.7181,
-                94.6469,
-                95.16
-              ],
-              "onsets": {
-                "OPTION_0": [
-                  0.2786,
-                  1.161,
-                  1.2887,
-                  1.7183,
-                  null,
-                  2.7516,
-                  2.9838,
-                  3.4598,
-                  3.6455,
-                  4.5395,
-                  5.1664
-                ],
-                "OPTION_1": [
-                  0.2786,
-                  1.1726,
-                  null,
-                  1.7183,
-                  2.4149,
-                  2.7748,
-                  2.9838,
-                  3.4366,
-                  3.6339,
-                  4.5279,
-                  5.1548
-                ]
-              },
-              "errors_ms": {
-                "OPTION_0": [
-                  34.8,
-                  278.6,
-                  0.0,
-                  -11.6,
-                  null,
-                  -69.7,
-                  23.2,
-                  11.6,
-                  -11.6,
-                  -69.7,
-                  -92.9
-                ],
-                "OPTION_1": [
-                  34.8,
-                  290.2,
-                  null,
-                  -11.6,
-                  -69.7,
-                  -46.4,
-                  23.2,
-                  -11.6,
-                  -23.2,
                   -81.3,
+                  -11.6,
+                  -81.3,
+                  -81.3,
+                  23.2,
+                  -127.7,
+                  11.6,
+                  -58.0,
+                  -209.0
+                ],
+                "OPTION_1": [
+                  11.6,
+                  -174.1,
+                  -104.5,
+                  0.0,
+                  -81.3,
+                  -81.3,
+                  11.6,
+                  0.0,
+                  0.0,
+                  58.0,
                   -104.5
                 ]
               },
               "shared_err_raw": [
-                0.0348,
-                0.2844,
-                0.0,
-                -0.0116,
-                -0.0697,
-                -0.058,
                 0.0232,
+                -0.1741,
+                -0.0929,
+                -0.0058,
+                -0.0813,
+                -0.0813,
+                0.0174,
+                -0.0639,
+                0.0058,
                 0.0,
-                -0.0174,
-                -0.0755,
-                -0.0987
+                -0.1568
               ],
               "shared_err_ms": [
-                34.8,
-                284.4,
-                0.0,
-                -11.6,
-                -69.7,
-                -58.0,
                 23.2,
+                -174.1,
+                -92.9,
+                -5.8,
+                -81.3,
+                -81.3,
+                17.4,
+                -63.9,
+                5.8,
                 0.0,
-                -17.4,
-                -75.5,
-                -98.7
+                -156.8
               ],
               "unmeasurable_chars": [],
-              "max_abs_err_ms": 284.4
+              "max_abs_err_ms": 174.1
             },
             {
               "iteration": 3,
               "anchors": [
                 90.36,
-                90.8802,
-                91.3431,
+                91.0383,
+                91.3919,
                 91.7721,
                 92.4,
                 92.84,
                 92.96,
-                93.4416,
-                93.7303,
+                93.5229,
+                93.71,
                 94.67,
                 95.16
               ],
               "onsets": {
                 "OPTION_0": [
-                  0.3831,
+                  0.2786,
                   null,
-                  1.1842,
-                  1.7299,
-                  2.4961,
-                  2.7516,
+                  1.4048,
+                  1.7183,
+                  null,
+                  2.7632,
                   2.9722,
-                  3.4598,
-                  3.6455,
-                  4.5511,
+                  null,
+                  3.6688,
+                  4.5395,
                   5.1664
                 ],
                 "OPTION_1": [
-                  0.2786,
-                  0.8707,
-                  1.1726,
-                  1.7299,
+                  0.267,
+                  null,
+                  1.3003,
+                  1.7183,
                   2.4265,
-                  2.7516,
+                  2.7748,
                   2.9722,
-                  3.4482,
-                  3.6455,
-                  4.5627,
-                  5.1664
+                  3.4946,
+                  3.6688,
+                  4.8065,
+                  5.1432
                 ]
               },
               "errors_ms": {
                 "OPTION_0": [
-                  139.3,
+                  34.8,
                   null,
-                  -104.5,
-                  0.0,
+                  116.1,
+                  -11.6,
+                  null,
+                  -58.0,
+                  11.6,
+                  null,
                   11.6,
                   -69.7,
-                  11.6,
-                  11.6,
-                  -11.6,
-                  -58.0,
                   -92.9
                 ],
                 "OPTION_1": [
-                  34.8,
-                  -11.6,
-                  -116.1,
-                  0.0,
-                  -58.0,
-                  -69.7,
+                  23.2,
+                  null,
                   11.6,
-                  0.0,
                   -11.6,
+                  -58.0,
                   -46.4,
-                  -92.9
+                  11.6,
+                  46.4,
+                  11.6,
+                  197.4,
+                  -116.1
                 ]
               },
               "shared_err_raw": [
-                0.0871,
+                0.029,
+                null,
+                0.0638,
                 -0.0116,
-                -0.1103,
-                0.0,
-                -0.0232,
-                -0.0697,
-                0.0116,
-                0.0058,
-                -0.0116,
+                -0.058,
                 -0.0522,
-                -0.0929
+                0.0116,
+                0.0464,
+                0.0116,
+                null,
+                -0.1045
               ],
               "shared_err_ms": [
-                87.1,
+                29.0,
+                null,
+                63.8,
                 -11.6,
-                -110.3,
-                0.0,
-                -23.2,
-                -69.7,
-                11.6,
-                5.8,
-                -11.6,
+                -58.0,
                 -52.2,
-                -92.9
+                11.6,
+                46.4,
+                11.6,
+                null,
+                -104.5
               ],
-              "unmeasurable_chars": [],
-              "max_abs_err_ms": 110.3
+              "unmeasurable_chars": [
+                1,
+                9
+              ],
+              "max_abs_err_ms": 63.8
             },
             {
               "iteration": 4,
               "anchors": [
                 90.36,
-                90.8883,
-                91.4203,
-                91.7721,
+                91.0383,
+                91.3472,
+                91.7802,
                 92.4,
                 92.84,
                 92.96,
-                93.4376,
-                93.7384,
+                93.4904,
+                93.71,
                 94.67,
                 95.16
               ],
               "onsets": {
                 "OPTION_0": [
-                  0.2902,
-                  0.7198,
+                  0.2786,
+                  1.1262,
                   1.3235,
-                  1.7299,
-                  null,
-                  2.7516,
+                  1.7183,
+                  2.4265,
+                  2.74,
                   2.9722,
-                  3.4249,
-                  3.6339,
-                  4.5743,
-                  5.1548
+                  3.4946,
+                  3.6571,
+                  4.6788,
+                  5.1664
                 ],
                 "OPTION_1": [
-                  0.2786,
-                  0.7198,
-                  1.3119,
+                  0.3831,
+                  null,
+                  1.2074,
                   1.7299,
                   2.4149,
-                  2.7516,
-                  2.9838,
-                  3.4482,
-                  3.6339,
-                  4.6788,
+                  2.7748,
+                  null,
+                  3.483,
+                  3.6688,
+                  4.5395,
                   5.1664
                 ]
               },
               "errors_ms": {
                 "OPTION_0": [
-                  46.4,
-                  -162.5,
                   34.8,
-                  0.0,
-                  null,
-                  -69.7,
+                  243.8,
+                  34.8,
+                  -11.6,
+                  -58.0,
+                  -81.3,
                   11.6,
-                  -23.2,
-                  -23.2,
-                  -34.8,
-                  -104.5
+                  46.4,
+                  0.0,
+                  69.7,
+                  -92.9
                 ],
                 "OPTION_1": [
+                  139.3,
+                  null,
+                  -81.3,
+                  0.0,
+                  -69.7,
+                  -46.4,
+                  null,
                   34.8,
-                  -162.5,
-                  23.2,
-                  0.0,
+                  11.6,
                   -69.7,
-                  -69.7,
-                  23.2,
-                  0.0,
-                  -23.2,
-                  69.7,
                   -92.9
                 ]
               },
               "shared_err_raw": [
-                0.0406,
-                -0.1625,
-                0.029,
-                0.0,
-                -0.0697,
-                -0.0697,
-                0.0174,
-                -0.0116,
+                0.0871,
+                0.2438,
                 -0.0232,
-                0.0175,
-                -0.0987
+                -0.0058,
+                -0.0639,
+                -0.0638,
+                0.0116,
+                0.0406,
+                0.0058,
+                0.0,
+                -0.0929
               ],
               "shared_err_ms": [
-                40.6,
-                null,
-                29.0,
-                0.0,
-                -69.7,
-                -69.7,
-                17.4,
-                -11.6,
+                87.1,
+                243.8,
                 -23.2,
-                17.5,
-                -98.7
+                -5.8,
+                -63.9,
+                -63.8,
+                11.6,
+                40.6,
+                5.8,
+                0.0,
+                -92.9
               ],
-              "unmeasurable_chars": [
-                1
-              ],
-              "max_abs_err_ms": 98.7
+              "unmeasurable_chars": [],
+              "max_abs_err_ms": 243.8
             }
           ]
         }

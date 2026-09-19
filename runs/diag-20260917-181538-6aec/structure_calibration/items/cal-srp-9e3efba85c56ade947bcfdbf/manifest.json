@@ -99,7 +99,7 @@
         }
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "d0c21bd38ca9eaa257f910ac106eebc1c96ad4173a35b5961936538bea87c4c8",
+      "wav_sha256": "7a4365f05be09eda45cd04473f8989e6d15e90cc4b79b40868299a9ec63c7a65",
       "sample_rate": 44100,
       "frames": 305613,
       "render_error": null
@@ -114,7 +114,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "2e192b31a488ce2b1d0619eecafaec10c1df581f8613655acd0cf8db27a3939d",
+      "wav_sha256": "8a394b7b2e268d8d084303f87b9a72f263d8d6267aa79d577f0e9d983bae546e",
       "sample_rate": 44100,
       "frames": 305613,
       "render_error": null
@@ -194,7 +194,7 @@
     ]
   },
   "plan_hash": "5315cd9e8b326c84a216e2e32de70ce602313d24a79435abb955286d6a6dc7d1",
-  "audio_package_hash": "436fb575b60403d8046e2a4dfb98516017e13a89eafe687803ee90ffb6b215c0",
+  "audio_package_hash": "27137e77b40fda7b95c892b6c0bc79323bfd20a4c095f47ae3d088140811dbec",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -272,8 +272,8 @@
     "candidate_role": "OPTION_0",
     "baseline_option": "OPTION_1",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv5",
-    "contract_sha256": "8032020c55d8cc56f13dcb0fd82e2477b0aaa21162f31b1fb9aee45c90e7be8f",
+    "lyric_mapping_impl": "rlv6",
+    "contract_sha256": "eb51b78e043191d1eea7227c282db8da374fe7fbef501c10bf9fc8b8a3963258",
     "choices": [
       "split",
       "baseline",
@@ -354,7 +354,7 @@
         }
       ],
       "articulation": {
-        "impl": "rlv5",
+        "impl": "rlv6",
         "n_segments": 21,
         "n_articulation_splits": 12,
         "n_chars": 11,
@@ -393,15 +393,15 @@
           ],
           "anchors": [
             90.35999944865704,
-            90.93671827664399,
-            91.3755474829932,
-            91.77612662131519,
+            90.92859827664398,
+            91.3918574829932,
+            91.77206662131519,
             92.39999938547611,
             92.83999938309192,
             92.95999938309193,
-            93.455,
-            93.73841938309192,
-            94.66280099773243,
+            93.4741732653061,
+            93.70999938309193,
+            94.66593936640263,
             95.15999934613704
           ],
           "bounds": {
@@ -433,14 +433,260 @@
             ]
           },
           "bound_limited": [
+            6
+          ],
+          "unmeasurable_chars": [],
+          "char_routes": [
+            {
+              "char": "可",
+              "source_ref_onset": 0.2438,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 0.33,
+              "carrier_hi": 0.73,
+              "desired_anchor": 0.2438,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_below_carrier_lo",
+              "route_detail": "anticipation_candidate",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 0.33,
+              "render_onset": {
+                "OPTION_0": 0.2786,
+                "OPTION_1": 0.2786
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 34.8,
+                "OPTION_1": 34.8
+              },
+              "measurement_stability": "held"
+            },
+            {
+              "char": "惜",
+              "source_ref_onset": 0.8824,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 0.85,
+              "carrier_hi": 1.12,
+              "desired_anchor": 0.8824,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 0.8986,
+              "render_onset": {
+                "OPTION_0": 0.7198,
+                "OPTION_1": 0.7198
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -162.5,
+                "OPTION_1": -162.5
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "从",
+              "source_ref_onset": 1.2887,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 1.24,
+              "carrier_hi": 1.57,
+              "desired_anchor": 1.2887,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 1.3619,
+              "render_onset": {
+                "OPTION_0": 1.4164,
+                "OPTION_1": 1.4048
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 127.7,
+                "OPTION_1": 116.1
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "没",
+              "source_ref_onset": 1.7299,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 1.69,
+              "carrier_hi": 1.99,
+              "desired_anchor": 1.7299,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 1.7421,
+              "render_onset": {
+                "OPTION_0": 1.7299,
+                "OPTION_1": 1.7299
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 0.0,
+                "OPTION_1": 0.0
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "人",
+              "source_ref_onset": 2.4845,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 2.11,
+              "carrier_hi": 2.37,
+              "desired_anchor": 2.4845,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_above_carrier_hi",
+              "route_detail": "anticipation_candidate",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 2.37,
+              "render_onset": {
+                "OPTION_0": 2.4845,
+                "OPTION_1": 2.3917
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 0.0,
+                "OPTION_1": -92.9
+              },
+              "measurement_stability": "held"
+            },
+            {
+              "char": "陪",
+              "source_ref_onset": 2.8212,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 2.49,
+              "carrier_hi": 2.81,
+              "desired_anchor": 2.8212,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_above_carrier_hi",
+              "route_detail": "anticipation_candidate",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 2.81,
+              "render_onset": {
+                "OPTION_0": 2.74,
+                "OPTION_1": 2.7516
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -81.3,
+                "OPTION_1": -69.7
+              },
+              "measurement_stability": "held"
+            },
+            {
+              "char": "我",
+              "source_ref_onset": 2.9605,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 2.93,
+              "carrier_hi": 3.18,
+              "desired_anchor": 2.9605,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 2.93,
+              "render_onset": {
+                "OPTION_0": 2.9838,
+                "OPTION_1": 2.9838
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 23.2,
+                "OPTION_1": 23.2
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "演",
+              "source_ref_onset": 3.4482,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 3.425,
+              "carrier_hi": 3.56,
+              "desired_anchor": 3.4482,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 3.4442,
+              "render_onset": {
+                "OPTION_0": 3.4598,
+                "OPTION_1": 3.4482
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 11.6,
+                "OPTION_1": 0.0
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "这",
+              "source_ref_onset": 3.6571,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 3.68,
+              "carrier_hi": 3.92,
+              "desired_anchor": 3.6571,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_below_carrier_lo",
+              "route_detail": "anticipation_candidate",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 3.68,
+              "render_onset": {
+                "OPTION_0": 3.6455,
+                "OPTION_1": 3.6571
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -11.6,
+                "OPTION_1": 0.0
+              },
+              "measurement_stability": "held"
+            },
+            {
+              "char": "剧",
+              "source_ref_onset": 4.6092,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 4.39,
+              "carrier_hi": 4.64,
+              "desired_anchor": 4.6092,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route": "class_A",
+              "final_anchor": 4.6359,
+              "render_onset": {
+                "OPTION_0": 4.5511,
+                "OPTION_1": 4.6788
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -58.0,
+                "OPTION_1": 69.7
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "本",
+              "source_ref_onset": 5.2593,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 4.76,
+              "carrier_hi": 5.13,
+              "desired_anchor": 5.2593,
+              "bound_conflict": true,
+              "unmeasurable_reason": "source_ref_above_carrier_hi",
+              "route_detail": "written_timing_suspect",
+              "route": "B2_carrier_conflict",
+              "final_anchor": 5.13,
+              "render_onset": {
+                "OPTION_0": 5.1548,
+                "OPTION_1": 5.1548
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -104.5,
+                "OPTION_1": -104.5
+              },
+              "measurement_stability": "held"
+            }
+          ],
+          "hard_cases": [
             0,
             4,
             5,
-            6,
-            7,
+            8,
             10
           ],
-          "unmeasurable_chars": [],
           "iterations": [
             {
               "iteration": 0,
@@ -449,441 +695,444 @@
                 90.9124,
                 91.3187,
                 91.7599,
-                92.49,
-                92.8512,
+                92.4,
+                92.84,
                 92.9905,
                 93.4782,
                 93.71,
                 94.6392,
-                95.25
+                95.16
               ],
               "onsets": {
                 "OPTION_0": [
                   0.267,
-                  0.8591,
-                  1.3003,
-                  1.7299,
-                  2.4961,
-                  2.798,
+                  0.7082,
+                  1.161,
+                  1.7183,
+                  2.4149,
+                  2.8561,
+                  2.9838,
+                  3.4598,
+                  3.6571,
+                  4.6672,
+                  5.1548
+                ],
+                "OPTION_1": [
+                  0.3715,
+                  0.8707,
+                  1.2887,
+                  1.7183,
+                  2.4033,
+                  2.7632,
                   2.9838,
                   3.4714,
                   3.6571,
-                  4.7949,
-                  5.2477
-                ],
-                "OPTION_1": [
-                  0.2786,
-                  0.7082,
-                  1.1958,
-                  1.7299,
-                  2.5078,
-                  2.7748,
-                  2.9838,
-                  3.4714,
-                  3.6455,
-                  4.8181,
-                  5.2593
+                  4.5163,
+                  5.1548
                 ]
               },
               "errors_ms": {
                 "OPTION_0": [
                   23.2,
-                  -23.2,
+                  -174.1,
+                  -127.7,
+                  -11.6,
+                  -69.7,
+                  34.8,
+                  23.2,
                   11.6,
                   0.0,
-                  11.6,
-                  -23.2,
-                  23.2,
-                  23.2,
-                  0.0,
-                  185.8,
-                  -11.6
+                  58.0,
+                  -104.5
                 ],
                 "OPTION_1": [
-                  34.8,
-                  -174.1,
-                  -92.9,
-                  0.0,
-                  23.2,
-                  -46.4,
-                  23.2,
-                  23.2,
+                  127.7,
                   -11.6,
-                  209.0,
-                  0.0
+                  0.0,
+                  -11.6,
+                  -81.3,
+                  -58.0,
+                  23.2,
+                  23.2,
+                  0.0,
+                  -92.9,
+                  -104.5
                 ]
               },
               "shared_err_raw": [
-                0.029,
+                0.0755,
                 null,
-                -0.0406,
-                0.0,
+                -0.0639,
+                -0.0116,
+                -0.0755,
+                -0.0116,
+                0.0232,
                 0.0174,
-                -0.0348,
-                0.0232,
-                0.0232,
-                -0.0058,
-                0.1974,
-                -0.0058
+                0.0,
+                null,
+                -0.1045
               ],
               "shared_err_ms": [
-                29.0,
+                75.5,
                 null,
-                -40.6,
-                0.0,
+                -63.9,
+                -11.6,
+                -75.5,
+                -11.6,
+                23.2,
                 17.4,
-                -34.8,
-                23.2,
-                23.2,
-                -5.8,
-                197.4,
-                -5.8
+                0.0,
+                null,
+                -104.5
               ],
               "unmeasurable_chars": [
-                1
+                1,
+                9
               ],
-              "max_abs_err_ms": 197.4
+              "max_abs_err_ms": 63.9
             },
             {
               "iteration": 1,
               "anchors": [
                 90.36,
                 90.9124,
-                91.3471,
-                91.7599,
+                91.3634,
+                91.768,
                 92.4,
                 92.84,
                 92.9743,
-                93.4619,
-                93.7141,
-                94.501,
+                93.466,
+                93.71,
+                94.6392,
                 95.16
               ],
               "onsets": {
                 "OPTION_0": [
-                  0.267,
+                  0.3831,
                   0.7198,
-                  1.2074,
-                  1.7183,
-                  2.4265,
-                  2.7632,
-                  2.9954,
+                  1.2423,
+                  1.7299,
+                  2.4961,
+                  2.7516,
+                  2.9838,
                   3.4482,
-                  3.6571,
-                  4.377,
+                  3.6455,
+                  4.5163,
                   5.1548
                 ],
                 "OPTION_1": [
-                  0.3831,
-                  0.7082,
-                  1.3235,
-                  1.7183,
-                  null,
+                  0.2786,
+                  0.7198,
+                  1.2771,
+                  1.7299,
+                  2.4265,
                   2.74,
-                  2.9954,
-                  3.4714,
+                  null,
+                  3.3088,
                   3.6571,
-                  4.3537,
-                  5.1664
+                  4.5279,
+                  5.1548
                 ]
               },
               "errors_ms": {
                 "OPTION_0": [
-                  23.2,
+                  139.3,
                   -162.5,
-                  -81.3,
+                  -46.4,
+                  0.0,
+                  11.6,
+                  -69.7,
+                  23.2,
+                  0.0,
                   -11.6,
-                  -58.0,
-                  -58.0,
-                  34.8,
-                  0.0,
-                  0.0,
-                  -232.2,
+                  -92.9,
                   -104.5
                 ],
                 "OPTION_1": [
-                  139.3,
-                  -174.1,
                   34.8,
+                  -162.5,
                   -11.6,
-                  null,
-                  -81.3,
-                  34.8,
-                  23.2,
                   0.0,
-                  -255.4,
-                  -92.9
+                  -58.0,
+                  -81.3,
+                  null,
+                  -139.3,
+                  0.0,
+                  -81.3,
+                  -104.5
                 ]
               },
               "shared_err_raw": [
-                0.0813,
-                -0.1683,
-                -0.0232,
-                -0.0116,
-                -0.058,
-                -0.0697,
-                0.0348,
-                0.0116,
+                0.0871,
+                -0.1625,
+                -0.029,
                 0.0,
-                -0.2438,
-                -0.0987
+                -0.0232,
+                -0.0755,
+                0.0232,
+                -0.0697,
+                -0.0058,
+                -0.0871,
+                -0.1045
               ],
               "shared_err_ms": [
-                81.3,
-                -168.3,
-                -23.2,
-                -11.6,
-                -58.0,
-                -69.7,
-                34.8,
-                11.6,
+                87.1,
+                -162.5,
+                -29.0,
                 0.0,
-                -243.8,
-                -98.7
+                -23.2,
+                -75.5,
+                23.2,
+                -69.7,
+                -5.8,
+                -87.1,
+                -104.5
               ],
               "unmeasurable_chars": [],
-              "max_abs_err_ms": 243.8
+              "max_abs_err_ms": 162.5
             },
             {
               "iteration": 2,
               "anchors": [
                 90.36,
-                91.0302,
-                91.3634,
+                91.0261,
+                91.3837,
                 91.768,
                 92.4,
                 92.84,
                 92.96,
-                93.455,
-                93.7141,
-                94.651,
+                93.5148,
+                93.71,
+                94.67,
                 95.16
               ],
               "onsets": {
                 "OPTION_0": [
-                  0.3831,
-                  1.0333,
-                  1.2771,
-                  1.7183,
-                  2.4149,
-                  2.7632,
-                  2.9838,
+                  0.2786,
+                  1.0217,
+                  1.4164,
+                  1.7299,
+                  2.4265,
+                  2.7516,
+                  2.9722,
                   3.4598,
-                  3.6339,
-                  null,
-                  5.062
+                  3.6571,
+                  4.6788,
+                  5.1548
                 ],
                 "OPTION_1": [
-                  0.267,
-                  0.9985,
-                  1.2887,
+                  0.3831,
+                  null,
+                  1.3932,
                   1.7299,
-                  2.4961,
-                  2.74,
+                  2.4149,
+                  2.7516,
                   2.9722,
-                  3.483,
-                  3.6339,
-                  4.8065,
-                  5.0503
+                  null,
+                  3.6688,
+                  4.6904,
+                  5.1548
                 ]
               },
               "errors_ms": {
                 "OPTION_0": [
+                  34.8,
                   139.3,
-                  150.9,
-                  -11.6,
-                  -11.6,
-                  -69.7,
+                  127.7,
+                  0.0,
                   -58.0,
-                  23.2,
+                  -69.7,
                   11.6,
-                  -23.2,
-                  null,
-                  -197.4
+                  11.6,
+                  0.0,
+                  69.7,
+                  -104.5
                 ],
                 "OPTION_1": [
-                  23.2,
-                  116.1,
+                  139.3,
+                  null,
+                  104.5,
                   0.0,
-                  0.0,
+                  -69.7,
+                  -69.7,
                   11.6,
-                  -81.3,
+                  null,
                   11.6,
-                  34.8,
-                  -23.2,
-                  197.4,
-                  -209.0
+                  81.3,
+                  -104.5
                 ]
               },
               "shared_err_raw": [
-                0.0813,
-                0.1335,
-                -0.0058,
-                -0.0058,
-                -0.029,
+                0.0871,
+                0.1393,
+                0.1161,
+                0.0,
+                -0.0639,
                 -0.0697,
-                0.0174,
-                0.0232,
-                -0.0232,
-                0.1974,
-                -0.2032
+                0.0116,
+                0.0116,
+                0.0058,
+                0.0755,
+                -0.1045
               ],
               "shared_err_ms": [
-                81.3,
-                133.5,
-                -5.8,
-                -5.8,
-                -29.0,
+                87.1,
+                139.3,
+                116.1,
+                0.0,
+                -63.9,
                 -69.7,
-                17.4,
-                23.2,
-                -23.2,
-                197.4,
-                -203.2
+                11.6,
+                11.6,
+                5.8,
+                null,
+                -104.5
               ],
-              "unmeasurable_chars": [],
-              "max_abs_err_ms": 203.2
+              "unmeasurable_chars": [
+                9
+              ],
+              "max_abs_err_ms": 139.3
             },
             {
               "iteration": 3,
               "anchors": [
                 90.36,
-                90.9367,
-                91.3674,
-                91.7721,
+                90.9286,
+                91.3025,
+                91.768,
                 92.4,
                 92.84,
                 92.96,
-                93.455,
-                93.7303,
-                94.5128,
+                93.5067,
+                93.71,
+                94.67,
                 95.16
               ],
               "onsets": {
                 "OPTION_0": [
-                  0.2786,
-                  0.7198,
-                  1.2539,
-                  1.7299,
+                  0.2902,
+                  null,
+                  1.1726,
+                  1.7183,
                   2.4265,
                   2.74,
-                  2.9722,
+                  2.9838,
                   3.4598,
                   3.6455,
-                  4.377,
-                  5.1548
+                  4.5511,
+                  5.1432
                 ],
                 "OPTION_1": [
-                  0.267,
-                  0.8824,
-                  1.3003,
-                  1.7183,
-                  2.4033,
-                  2.74,
-                  2.9722,
-                  3.4598,
-                  3.6455,
-                  4.3886,
-                  5.0387
+                  0.2786,
+                  null,
+                  1.1494,
+                  1.7299,
+                  2.4265,
+                  2.7283,
+                  2.9838,
+                  3.5294,
+                  3.6804,
+                  4.6788,
+                  5.1548
                 ]
               },
               "errors_ms": {
                 "OPTION_0": [
-                  34.8,
-                  -162.5,
-                  -34.8,
-                  0.0,
+                  46.4,
+                  null,
+                  -116.1,
+                  -11.6,
                   -58.0,
                   -81.3,
-                  11.6,
+                  23.2,
                   11.6,
                   -11.6,
-                  -232.2,
-                  -104.5
+                  -58.0,
+                  -116.1
                 ],
                 "OPTION_1": [
-                  23.2,
+                  34.8,
+                  null,
+                  -139.3,
                   0.0,
-                  11.6,
-                  -11.6,
-                  -81.3,
-                  -81.3,
-                  11.6,
-                  11.6,
-                  -11.6,
-                  -220.6,
-                  -220.6
+                  -58.0,
+                  -92.9,
+                  23.2,
+                  81.3,
+                  23.2,
+                  69.7,
+                  -104.5
                 ]
               },
               "shared_err_raw": [
-                0.029,
+                0.0406,
                 null,
-                -0.0116,
+                -0.1277,
                 -0.0058,
-                -0.0697,
-                -0.0813,
-                0.0116,
-                0.0116,
-                -0.0116,
-                -0.2264,
-                -0.1626
+                -0.058,
+                -0.0871,
+                0.0232,
+                0.0464,
+                0.0058,
+                0.0058,
+                -0.1103
               ],
               "shared_err_ms": [
-                29.0,
+                40.6,
                 null,
-                -11.6,
+                -127.7,
                 -5.8,
-                -69.7,
-                -81.3,
-                11.6,
-                11.6,
-                -11.6,
-                -226.4,
-                -162.6
+                -58.0,
+                -87.1,
+                23.2,
+                46.4,
+                5.8,
+                5.8,
+                -110.3
               ],
               "unmeasurable_chars": [
                 1
               ],
-              "max_abs_err_ms": 226.4
+              "max_abs_err_ms": 127.7
             },
             {
               "iteration": 4,
               "anchors": [
                 90.36,
-                90.9367,
-                91.3755,
-                91.7761,
+                90.9286,
+                91.3919,
+                91.7721,
                 92.4,
                 92.84,
                 92.96,
-                93.455,
-                93.7384,
-                94.6628,
+                93.4742,
+                93.71,
+                94.6659,
                 95.16
               ],
               "onsets": {
                 "OPTION_0": [
                   0.2786,
-                  0.8591,
-                  1.2655,
+                  0.7198,
+                  1.4164,
                   1.7299,
-                  2.4265,
+                  2.4845,
                   2.74,
-                  2.9722,
+                  2.9838,
                   3.4598,
-                  3.6571,
-                  4.8065,
+                  3.6455,
+                  4.5511,
                   5.1548
                 ],
                 "OPTION_1": [
-                  0.267,
+                  0.2786,
                   0.7198,
-                  1.2655,
+                  1.4048,
                   1.7299,
-                  null,
+                  2.3917,
                   2.7516,
-                  2.9722,
-                  3.4598,
+                  2.9838,
+                  3.4482,
                   3.6571,
                   4.6788,
                   5.1548
@@ -892,59 +1141,59 @@
               "errors_ms": {
                 "OPTION_0": [
                   34.8,
-                  -23.2,
-                  -23.2,
+                  -162.5,
+                  127.7,
                   0.0,
-                  -58.0,
+                  0.0,
                   -81.3,
+                  23.2,
                   11.6,
-                  11.6,
-                  0.0,
-                  197.4,
+                  -11.6,
+                  -58.0,
                   -104.5
                 ],
                 "OPTION_1": [
-                  23.2,
+                  34.8,
                   -162.5,
-                  -23.2,
+                  116.1,
                   0.0,
-                  null,
+                  -92.9,
                   -69.7,
-                  11.6,
-                  11.6,
+                  23.2,
+                  0.0,
                   0.0,
                   69.7,
                   -104.5
                 ]
               },
               "shared_err_raw": [
-                0.029,
-                -0.0929,
-                -0.0232,
+                0.0348,
+                -0.1625,
+                0.1219,
                 0.0,
-                -0.058,
+                -0.0464,
                 -0.0755,
-                0.0116,
-                0.0116,
-                0.0,
-                0.1336,
+                0.0232,
+                0.0058,
+                -0.0058,
+                0.0058,
                 -0.1045
               ],
               "shared_err_ms": [
-                29.0,
-                -92.9,
-                -23.2,
+                34.8,
+                -162.5,
+                121.9,
                 0.0,
-                -58.0,
+                -46.4,
                 -75.5,
-                11.6,
-                11.6,
-                0.0,
-                133.6,
+                23.2,
+                5.8,
+                -5.8,
+                5.8,
                 -104.5
               ],
               "unmeasurable_chars": [],
-              "max_abs_err_ms": 133.6
+              "max_abs_err_ms": 162.5
             }
           ]
         }
