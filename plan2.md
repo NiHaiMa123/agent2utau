@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5M inventory 已完成：0/21 当前 eligible；CURRENT blocker = G5N B2 semantic adjudication + lyric-evidence recovery）。** 最新真实状态：G5M 已扫描全部 21 个 machine split candidates，得到 13 项 `lyric_evidence` fail（11×low_confidence + 2×no_chars）、8 项 unresolved B2、0 项 unresolved B1；`roster_candidates=[]`、`pilot_authority.ok=false`、`review_ready=false`。HEAD `40225778` 的 `git_evidence=469/469 complete`、`plan_invariants.ok=true`，GitHub Actions run `35418822818` success。**0/21 的语义是“当前没有已经解决完 hard cases 的 review-ready item”，不是“21 项全部永久不可审核”。** 下一步禁止继续机械重选 roster，也禁止把任意 B2 直接等同于 written-score error：必须分别恢复 13 项 source lyric evidence，并对 8 项 B2 做 directional / phoneme-aware adjudication，区分 benign preutterance / post-boundary acoustic delay / measurement ambiguity / genuine written-timing error / genuine structure-timing error；之后重新生成 eligibility inventory。完成前禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5M inventory 已完成：0/21 当前 eligible；CURRENT blocker = G5N B2 semantic adjudication + lyric-evidence recovery）。** 最新真实状态：G5M 已扫描全部 21 个 machine split candidates，得到 13 项 `lyric_evidence` fail（11×low_confidence + 2×no_chars）、8 项 unresolved B2、0 项 unresolved B1；`roster_candidates=[]`、`pilot_authority.ok=false`、`review_ready=false`。G5M implementation/data baseline `40225778` 的 `git_evidence=469/469 complete`、`plan_invariants.ok=true`，GitHub Actions run `35418822818` success。**0/21 的语义是“当前没有已经解决完 hard cases 的 review-ready item”，不是“21 项全部永久不可审核”。** 下一步禁止继续机械重选 roster，也禁止把任意 B2 直接等同于 written-score error：必须分别恢复 13 项 source lyric evidence，并对 8 项 B2 做 directional / phoneme-aware adjudication，区分 benign preutterance / post-boundary acoustic delay / measurement ambiguity / genuine written-timing error / genuine structure-timing error；之后重新生成 eligibility inventory。完成前禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -484,7 +484,7 @@ none_correct gen2
 
 # 10. M2.5+ 后续阶段边界
 
-## 10.1 M2.5 — PROBABLE structure repair ← CURRENT / CALIBRATION HOLD
+## 10.1 M2.5 — PROBABLE structure repair ← CURRENT / QUALITY HOLD — G5N
 
 M2.4 v1 不实现 structure repair。Pre-M2.5 integrity 已通过，因此 M2.5 可以正式开始，但 **structure repair 仍需自己的 precision / identity / rollback acceptance**，不能因为 upstream 已冻结就自动视为安全。
 
