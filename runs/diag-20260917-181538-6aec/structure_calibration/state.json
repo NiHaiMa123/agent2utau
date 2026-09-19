@@ -1,6 +1,12 @@
 {
   "schema": "m25-cal-2",
-  "rebuilt_at": 1789787293.463102,
+  "rebuilt_at": 1789788662.9331815,
+  "eligibility": {
+    "inventory_present": true,
+    "n_eligible": 0,
+    "roster_candidates": [],
+    "roster_size_ok": false
+  },
   "total_machine_split_candidates": 21,
   "reviewed_count": 0,
   "split_preferred_count": 0,
@@ -33,27 +39,19 @@
   ],
   "reviewed": [],
   "store_contract_sha256": "c54f07d644d7d5672748a42ed0f966636fabe0dac6d32869dcb273ea652d105d",
-  "pilot_contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+  "pilot_contract_sha256": null,
   "pilot_authority": {
     "ok": false,
-    "sample_ids": [
-      "cal-srp-cb76bf56bb24b5c3d8849bc0",
-      "cal-srp-9e3efba85c56ade947bcfdbf",
-      "cal-srp-f93f9a2370cdb829565fbb7c",
-      "cal-srp-b04c10c381b66d1abfd9ec8a"
-    ],
+    "sample_ids": [],
     "violations": [
-      "cal-srp-cb76bf56bb24b5c3d8849bc0: auto_review_ready not true",
-      "cal-srp-9e3efba85c56ade947bcfdbf: auto_review_ready not true",
-      "cal-srp-f93f9a2370cdb829565fbb7c: auto_review_ready not true",
-      "cal-srp-b04c10c381b66d1abfd9ec8a: auto_review_ready not true"
+      "no resolvable samples"
     ]
   },
   "git_evidence": {
-    "complete": true,
+    "complete": false,
     "git": "ok",
-    "checked": 468,
-    "missing_count": 0
+    "checked": 469,
+    "missing_count": 1
   },
   "plan_invariants": {
     "ok": true,

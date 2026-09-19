@@ -1,0 +1,2162 @@
+{
+  "schema": "m25-cal-2",
+  "kind": "eligibility_inventory",
+  "generated_at": 1789788341.8297968,
+  "run_id": "diag-20260917-181538-6aec",
+  "lyric_contract": "real_lyric_review",
+  "lyric_mapping_impl": "rlv7",
+  "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+  "items": [
+    {
+      "note_id": "note_0012",
+      "cal_item_id": "cal-srp-c491a6b75c7d94cb28fd7a1e",
+      "repair_id": "srp-c491a6b75c7d94cb28fd7a1e",
+      "type": "split",
+      "phrase_key": "18.25-24.78",
+      "phrase": {
+        "start": 18.25,
+        "end": 24.78
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "879e4afe677eecb06444929e30939acdd22c4521a621a63ef1f35389bb424799",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": true,
+        "reason": null,
+        "min_probability": 0.314,
+        "n_chars": 13
+      },
+      "source_measurement": {
+        "wav": "phrases\\18.25-24.78\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 13,
+        "n_onset_landmarks": 13,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 6,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 7
+      },
+      "char_routes": [
+        {
+          "char": "圆",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "written_timing_suspect",
+          "route_subtype": null,
+          "overhang_ms": 318.7,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 0.0813,
+          "carrier_lo": 0.4,
+          "carrier_hi": 0.43
+        },
+        {
+          "char": "圈",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.7779,
+          "carrier_lo": 0.55,
+          "carrier_hi": 0.85
+        },
+        {
+          "char": "勾",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.9985,
+          "carrier_lo": 0.97,
+          "carrier_hi": 1.22
+        },
+        {
+          "char": "勒",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 68.6,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 1.6486,
+          "carrier_lo": 1.34,
+          "carrier_hi": 1.58
+        },
+        {
+          "char": "成",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 8.2,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 2.0782,
+          "carrier_lo": 1.86,
+          "carrier_hi": 2.07
+        },
+        {
+          "char": "指",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.3568,
+          "carrier_lo": 2.19,
+          "carrier_hi": 2.53
+        },
+        {
+          "char": "纹",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 119.0,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 2.531,
+          "carrier_lo": 2.65,
+          "carrier_hi": 2.81
+        },
+        {
+          "char": "印",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 52.9,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 3.6571,
+          "carrier_lo": 3.71,
+          "carrier_hi": 4.01
+        },
+        {
+          "char": "在",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 41.9,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 4.0519,
+          "carrier_lo": 3.71,
+          "carrier_hi": 4.01
+        },
+        {
+          "char": "我",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.1796,
+          "carrier_lo": 4.13,
+          "carrier_hi": 4.5
+        },
+        {
+          "char": "的",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.6672,
+          "carrier_lo": 4.62,
+          "carrier_hi": 4.91
+        },
+        {
+          "char": "嘴",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 37.8,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 5.3522,
+          "carrier_lo": 5.39,
+          "carrier_hi": 5.68
+        },
+        {
+          "char": "唇",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 5.9791,
+          "carrier_lo": 5.8,
+          "carrier_hi": 6.07
+        }
+      ],
+      "disqualifiers": [
+        "unresolved_B2:圆勒成纹印在嘴"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "written_timing_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0044",
+      "cal_item_id": "cal-srp-790d2a210c7ae363e271d4ad",
+      "repair_id": "srp-790d2a210c7ae363e271d4ad",
+      "type": "split",
+      "phrase_key": "31.00-37.78",
+      "phrase": {
+        "start": 31.0,
+        "end": 37.78
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "option_loudness_drift:1.436"
+      ],
+      "audio_package_hash": "a04914e6beab2f238f07c801ae3ecf56b0bc88e0838cfb55558004d93e20c75b",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": true,
+        "reason": null,
+        "min_probability": 0.698,
+        "n_chars": 13
+      },
+      "source_measurement": {
+        "wav": "phrases\\31.00-37.78\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 13,
+        "n_onset_landmarks": 13,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 11,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 2
+      },
+      "char_routes": [
+        {
+          "char": "春",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.2554,
+          "carrier_lo": 0.19,
+          "carrier_hi": 0.6
+        },
+        {
+          "char": "去",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.7546,
+          "carrier_lo": 0.72,
+          "carrier_hi": 1.01
+        },
+        {
+          "char": "秋",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.1726,
+          "carrier_lo": 1.13,
+          "carrier_hi": 1.44
+        },
+        {
+          "char": "来",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.6022,
+          "carrier_lo": 1.56,
+          "carrier_hi": 1.78
+        },
+        {
+          "char": "的",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.0782,
+          "carrier_lo": 2.04,
+          "carrier_hi": 2.18
+        },
+        {
+          "char": "茂",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.3452,
+          "carrier_lo": 2.3,
+          "carrier_hi": 2.59
+        },
+        {
+          "char": "盛",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.9722,
+          "carrier_lo": 2.71,
+          "carrier_hi": 3.04
+        },
+        {
+          "char": "却",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 23.8,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 3.5062,
+          "carrier_lo": 3.53,
+          "carrier_hi": 3.83
+        },
+        {
+          "char": "遮",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 65.7,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 4.2957,
+          "carrier_lo": 3.95,
+          "carrier_hi": 4.23
+        },
+        {
+          "char": "住",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.5976,
+          "carrier_lo": 4.35,
+          "carrier_hi": 4.61
+        },
+        {
+          "char": "了",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 5.1664,
+          "carrier_lo": 4.99,
+          "carrier_hi": 5.23
+        },
+        {
+          "char": "黄",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 5.7237,
+          "carrier_lo": 5.53,
+          "carrier_hi": 5.89
+        },
+        {
+          "char": "昏",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 6.2346,
+          "carrier_lo": 6.01,
+          "carrier_hi": 6.28
+        }
+      ],
+      "disqualifiers": [
+        "unresolved_B2:却遮"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "written_timing_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0061",
+      "cal_item_id": "cal-srp-cb76bf56bb24b5c3d8849bc0",
+      "repair_id": "srp-cb76bf56bb24b5c3d8849bc0",
+      "type": "split",
+      "phrase_key": "37.40-44.08",
+      "phrase": {
+        "start": 37.4,
+        "end": 44.08
+      },
+      "package_state": "valid",
+      "lyric_contract": "real_lyric_review",
+      "lyric_mapping_impl": "rlv7",
+      "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+      "contract_status": "current",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "lyric_timing_not_converged:unmeasurable_chars",
+        "lyric_timing_evidence_unmeasurable:一",
+        "lyric_timing_carrier_conflict:寒夜个等晨",
+        "lyric_intelligibility_low:OPTION_1:一个等清",
+        "lyric_timing_acoustic_unmeasurable:OPTION_0:剩",
+        "lyric_timing_acoustic_unstable:一"
+      ],
+      "audio_package_hash": "f8c997c0a5d92f6b4640bc227e965f243ee3e8de9051ba37d3ba53f5353958bf",
+      "closed_loop_stop_reason": "unmeasurable_chars",
+      "closed_loop_converged": false,
+      "post_loop_final_class": {
+        "寒": "B2_carrier_conflict",
+        "夜": "B2_carrier_conflict",
+        "剩": "class_A",
+        "我": "class_A",
+        "一": "B1_cross_option_unstable",
+        "个": "B2_carrier_conflict",
+        "人": "class_A",
+        "等": "B2_carrier_conflict",
+        "清": "class_A",
+        "晨": "B2_carrier_conflict"
+      },
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": true,
+        "reason": null,
+        "min_probability": 0.328,
+        "n_chars": 10
+      },
+      "source_measurement": {
+        "wav": "phrases\\37.40-44.08\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 10,
+        "n_onset_landmarks": 10,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 5,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 5
+      },
+      "char_routes": [
+        {
+          "char": "寒",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 88.3,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 0.3483,
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.26
+        },
+        {
+          "char": "夜",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 47.0,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 0.743,
+          "carrier_lo": 0.79,
+          "carrier_hi": 1.16
+        },
+        {
+          "char": "剩",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.3468,
+          "carrier_lo": 1.28,
+          "carrier_hi": 1.49
+        },
+        {
+          "char": "我",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.637,
+          "carrier_lo": 1.61,
+          "carrier_hi": 1.88
+        },
+        {
+          "char": "一",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.1711,
+          "carrier_lo": 2.13,
+          "carrier_hi": 2.27
+        },
+        {
+          "char": "个",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 58.0,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 2.798,
+          "carrier_lo": 2.39,
+          "carrier_hi": 2.74
+        },
+        {
+          "char": "人",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.9025,
+          "carrier_lo": 2.86,
+          "carrier_hi": 3.09
+        },
+        {
+          "char": "等",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 5.7,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 3.5643,
+          "carrier_lo": 3.57,
+          "carrier_hi": 3.92
+        },
+        {
+          "char": "清",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.2725,
+          "carrier_lo": 4.04,
+          "carrier_hi": 4.36
+        },
+        {
+          "char": "晨",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "written_timing_suspect",
+          "route_subtype": null,
+          "overhang_ms": 142.6,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 4.9226,
+          "carrier_lo": 4.69,
+          "carrier_hi": 4.78
+        }
+      ],
+      "disqualifiers": [
+        "unresolved_B2:寒夜个等晨"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "written_timing_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0076",
+      "cal_item_id": "cal-srp-e76868a477d06eadb8d5ff97",
+      "repair_id": "srp-e76868a477d06eadb8d5ff97",
+      "type": "split",
+      "phrase_key": "44.08-50.39",
+      "phrase": {
+        "start": 44.08,
+        "end": 50.39
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "ab9261d4439d695702dbb38d8fc4451c0652e2f54be54f240bf0a83c011ec0d0",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.022,
+        "n_chars": 13
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0077",
+      "cal_item_id": "cal-srp-903997a84c0ad331cd8ef4ba",
+      "repair_id": "srp-903997a84c0ad331cd8ef4ba",
+      "type": "split",
+      "phrase_key": "44.08-50.39",
+      "phrase": {
+        "start": 44.08,
+        "end": 50.39
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "f1a19aff206ad3236a7c61547595599d425ea35e288862a2354f1e31846b44e3",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.022,
+        "n_chars": 13
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0123",
+      "cal_item_id": "cal-srp-d2be57c8bd5099d60ab05227",
+      "repair_id": "srp-d2be57c8bd5099d60ab05227",
+      "type": "split",
+      "phrase_key": "63.68-68.34",
+      "phrase": {
+        "start": 63.68,
+        "end": 68.34
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "option_loudness_drift:1.468"
+      ],
+      "audio_package_hash": "300ae06d3b45dabb57d11316b5011a0fd6123d82b13f8613468d853b1e25de8d",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.0,
+        "n_chars": 10
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0188",
+      "cal_item_id": "cal-srp-9e3efba85c56ade947bcfdbf",
+      "repair_id": "srp-9e3efba85c56ade947bcfdbf",
+      "type": "split",
+      "phrase_key": "90.03-96.96",
+      "phrase": {
+        "start": 90.03,
+        "end": 96.96
+      },
+      "package_state": "valid",
+      "lyric_contract": "real_lyric_review",
+      "lyric_mapping_impl": "rlv7",
+      "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+      "contract_status": "current",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "lyric_timing_not_converged:bound_limited",
+        "lyric_timing_carrier_conflict:可人陪这本",
+        "lyric_timing_phrase_level_conflict:可人陪这本",
+        "lyric_intelligibility_low:OPTION_0:从",
+        "lyric_intelligibility_low:OPTION_1:从没",
+        "lyric_timing_acoustic_delta:OPTION_0:163ms",
+        "lyric_timing_acoustic_delta:OPTION_1:163ms"
+      ],
+      "audio_package_hash": "3b6ec49f996a053dddb2dea391d2df4d7c5aa4b79e06a1b6c3d248ec1b8950d4",
+      "closed_loop_stop_reason": "bound_limited",
+      "closed_loop_converged": false,
+      "post_loop_final_class": {
+        "可": "B2_carrier_conflict",
+        "惜": "class_A",
+        "从": "class_A",
+        "没": "class_A",
+        "人": "B2_carrier_conflict",
+        "陪": "B2_carrier_conflict",
+        "我": "class_A",
+        "演": "class_A",
+        "这": "B2_carrier_conflict",
+        "剧": "class_A",
+        "本": "B2_carrier_conflict"
+      },
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": true,
+        "reason": null,
+        "min_probability": 0.456,
+        "n_chars": 11
+      },
+      "source_measurement": {
+        "wav": "phrases\\90.03-96.96\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 11,
+        "n_onset_landmarks": 11,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 6,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 5
+      },
+      "char_routes": [
+        {
+          "char": "可",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 86.2,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 0.2438,
+          "carrier_lo": 0.33,
+          "carrier_hi": 0.73
+        },
+        {
+          "char": "惜",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.8824,
+          "carrier_lo": 0.85,
+          "carrier_hi": 1.12
+        },
+        {
+          "char": "从",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.2887,
+          "carrier_lo": 1.24,
+          "carrier_hi": 1.57
+        },
+        {
+          "char": "没",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.7299,
+          "carrier_lo": 1.69,
+          "carrier_hi": 1.99
+        },
+        {
+          "char": "人",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 114.5,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 2.4845,
+          "carrier_lo": 2.11,
+          "carrier_hi": 2.37
+        },
+        {
+          "char": "陪",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 11.2,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 2.8212,
+          "carrier_lo": 2.49,
+          "carrier_hi": 2.81
+        },
+        {
+          "char": "我",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.9605,
+          "carrier_lo": 2.93,
+          "carrier_hi": 3.18
+        },
+        {
+          "char": "演",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 3.4482,
+          "carrier_lo": 3.425,
+          "carrier_hi": 3.56
+        },
+        {
+          "char": "这",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 22.9,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 3.6571,
+          "carrier_lo": 3.68,
+          "carrier_hi": 3.92
+        },
+        {
+          "char": "剧",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.6092,
+          "carrier_lo": 4.39,
+          "carrier_hi": 4.64
+        },
+        {
+          "char": "本",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "written_timing_suspect",
+          "route_subtype": null,
+          "overhang_ms": 129.3,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 5.2593,
+          "carrier_lo": 4.76,
+          "carrier_hi": 5.13
+        }
+      ],
+      "disqualifiers": [
+        "unresolved_B2:可人陪这本",
+        "phrase_level_carrier_conflict:人可本这陪"
+      ],
+      "phrase_level_carrier_conflict": true,
+      "shared_b2_chars": [
+        "人",
+        "可",
+        "本",
+        "这",
+        "陪"
+      ],
+      "eligible": false,
+      "diagnosis_routes": [
+        "structure_diagnosis",
+        "written_timing_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0192",
+      "cal_item_id": "cal-srp-f93f9a2370cdb829565fbb7c",
+      "repair_id": "srp-f93f9a2370cdb829565fbb7c",
+      "type": "split",
+      "phrase_key": "90.03-96.96",
+      "phrase": {
+        "start": 90.03,
+        "end": 96.96
+      },
+      "package_state": "valid",
+      "lyric_contract": "real_lyric_review",
+      "lyric_mapping_impl": "rlv7",
+      "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+      "contract_status": "current",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "lyric_timing_not_converged:bound_limited",
+        "lyric_timing_carrier_conflict:可人陪这本",
+        "lyric_timing_phrase_level_conflict:可人陪这本",
+        "lyric_intelligibility_low:OPTION_0:从本",
+        "lyric_timing_acoustic_unmeasurable:OPTION_1:惜我",
+        "lyric_timing_acoustic_delta:OPTION_0:244ms"
+      ],
+      "audio_package_hash": "ccac494c19a8970f6993ce29ed326fc47a491a444e33b36da70bb1dbc3436431",
+      "closed_loop_stop_reason": "bound_limited",
+      "closed_loop_converged": false,
+      "post_loop_final_class": {
+        "可": "B2_carrier_conflict",
+        "惜": "class_A",
+        "从": "class_A",
+        "没": "class_A",
+        "人": "B2_carrier_conflict",
+        "陪": "B2_carrier_conflict",
+        "我": "class_A",
+        "演": "class_A",
+        "这": "B2_carrier_conflict",
+        "剧": "class_A",
+        "本": "B2_carrier_conflict"
+      },
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": true,
+        "reason": null,
+        "min_probability": 0.456,
+        "n_chars": 11
+      },
+      "source_measurement": {
+        "wav": "phrases\\90.03-96.96\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 11,
+        "n_onset_landmarks": 11,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 6,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 5
+      },
+      "char_routes": [
+        {
+          "char": "可",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 86.2,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 0.2438,
+          "carrier_lo": 0.33,
+          "carrier_hi": 0.73
+        },
+        {
+          "char": "惜",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.8824,
+          "carrier_lo": 0.85,
+          "carrier_hi": 1.12
+        },
+        {
+          "char": "从",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.2887,
+          "carrier_lo": 1.24,
+          "carrier_hi": 1.57
+        },
+        {
+          "char": "没",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.7299,
+          "carrier_lo": 1.69,
+          "carrier_hi": 1.99
+        },
+        {
+          "char": "人",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 114.5,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 2.4845,
+          "carrier_lo": 2.11,
+          "carrier_hi": 2.37
+        },
+        {
+          "char": "陪",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 11.2,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 2.8212,
+          "carrier_lo": 2.49,
+          "carrier_hi": 2.81
+        },
+        {
+          "char": "我",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.9605,
+          "carrier_lo": 2.93,
+          "carrier_hi": 3.18
+        },
+        {
+          "char": "演",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 3.4482,
+          "carrier_lo": 3.3,
+          "carrier_hi": 3.56
+        },
+        {
+          "char": "这",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 22.9,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 3.6571,
+          "carrier_lo": 3.68,
+          "carrier_hi": 3.92
+        },
+        {
+          "char": "剧",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.6092,
+          "carrier_lo": 4.39,
+          "carrier_hi": 4.64
+        },
+        {
+          "char": "本",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "written_timing_suspect",
+          "route_subtype": null,
+          "overhang_ms": 129.3,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 5.2593,
+          "carrier_lo": 5.03,
+          "carrier_hi": 5.13
+        }
+      ],
+      "disqualifiers": [
+        "unresolved_B2:可人陪这本",
+        "phrase_level_carrier_conflict:人可本这陪"
+      ],
+      "phrase_level_carrier_conflict": true,
+      "shared_b2_chars": [
+        "人",
+        "可",
+        "本",
+        "这",
+        "陪"
+      ],
+      "eligible": false,
+      "diagnosis_routes": [
+        "structure_diagnosis",
+        "written_timing_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0231",
+      "cal_item_id": "cal-srp-80eac026c81af9f4645b48f3",
+      "repair_id": "srp-80eac026c81af9f4645b48f3",
+      "type": "split",
+      "phrase_key": "118.32-124.90",
+      "phrase": {
+        "start": 118.32,
+        "end": 124.9
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "612f9c92567cd0f5515f1db35c245fdd05706ee629c1285345d3c28ee4924ff4",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.193,
+        "n_chars": 13
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0246",
+      "cal_item_id": "cal-srp-70a8d83afa17b8573ede590a",
+      "repair_id": "srp-70a8d83afa17b8573ede590a",
+      "type": "split",
+      "phrase_key": "124.90-131.30",
+      "phrase": {
+        "start": 124.9,
+        "end": 131.3
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "option_loudness_drift:0.7"
+      ],
+      "audio_package_hash": "3d37df99aadb9ac0c516c8a8b4857af7b29fd91a631dc5bd73a0158f1bb3b218",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": true,
+        "reason": null,
+        "min_probability": 0.525,
+        "n_chars": 10
+      },
+      "source_measurement": {
+        "wav": "phrases\\124.90-131.30\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 10,
+        "n_onset_landmarks": 10,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 7,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 3
+      },
+      "char_routes": [
+        {
+          "char": "寒",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.2902,
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.31
+        },
+        {
+          "char": "夜",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 37.3,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 0.8127,
+          "carrier_lo": 0.85,
+          "carrier_hi": 1.08
+        },
+        {
+          "char": "剩",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.3932,
+          "carrier_lo": 1.355,
+          "carrier_hi": 1.55
+        },
+        {
+          "char": "我",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.8924,
+          "carrier_lo": 1.67,
+          "carrier_hi": 1.93
+        },
+        {
+          "char": "一",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.2291,
+          "carrier_lo": 2.05,
+          "carrier_hi": 2.32
+        },
+        {
+          "char": "个",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.7632,
+          "carrier_lo": 2.44,
+          "carrier_hi": 2.78
+        },
+        {
+          "char": "人",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.9373,
+          "carrier_lo": 2.9,
+          "carrier_hi": 3.12
+        },
+        {
+          "char": "等",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 7.7,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 3.6223,
+          "carrier_lo": 3.63,
+          "carrier_hi": 3.87
+        },
+        {
+          "char": "清",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.2609,
+          "carrier_lo": 4.1,
+          "carrier_hi": 4.43
+        },
+        {
+          "char": "晨",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 24.3,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 4.5743,
+          "carrier_lo": 4.55,
+          "carrier_hi": 4.55
+        }
+      ],
+      "disqualifiers": [
+        "unresolved_B2:夜等晨",
+        "phrase_level_carrier_conflict:夜晨等"
+      ],
+      "phrase_level_carrier_conflict": true,
+      "shared_b2_chars": [
+        "夜",
+        "晨",
+        "等"
+      ],
+      "eligible": false,
+      "diagnosis_routes": [
+        "structure_diagnosis",
+        "written_timing_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0248",
+      "cal_item_id": "cal-srp-84862e2c08cf37c73d9e2791",
+      "repair_id": "srp-84862e2c08cf37c73d9e2791",
+      "type": "split",
+      "phrase_key": "124.90-131.30",
+      "phrase": {
+        "start": 124.9,
+        "end": 131.3
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "3ca44b01f8c26a7f148c79018f7abeff3a71630a823ac78945e9aa5db35b3a73",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": true,
+        "reason": null,
+        "min_probability": 0.525,
+        "n_chars": 10
+      },
+      "source_measurement": {
+        "wav": "phrases\\124.90-131.30\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 10,
+        "n_onset_landmarks": 10,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 7,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 3
+      },
+      "char_routes": [
+        {
+          "char": "寒",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.2902,
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.31
+        },
+        {
+          "char": "夜",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 37.3,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 0.8127,
+          "carrier_lo": 0.85,
+          "carrier_hi": 1.08
+        },
+        {
+          "char": "剩",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.3932,
+          "carrier_lo": 1.2,
+          "carrier_hi": 1.55
+        },
+        {
+          "char": "我",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.8924,
+          "carrier_lo": 1.67,
+          "carrier_hi": 1.93
+        },
+        {
+          "char": "一",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.2291,
+          "carrier_lo": 2.2,
+          "carrier_hi": 2.32
+        },
+        {
+          "char": "个",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.7632,
+          "carrier_lo": 2.44,
+          "carrier_hi": 2.78
+        },
+        {
+          "char": "人",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.9373,
+          "carrier_lo": 2.9,
+          "carrier_hi": 3.12
+        },
+        {
+          "char": "等",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 7.7,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 3.6223,
+          "carrier_lo": 3.63,
+          "carrier_hi": 3.87
+        },
+        {
+          "char": "清",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.2609,
+          "carrier_lo": 4.1,
+          "carrier_hi": 4.43
+        },
+        {
+          "char": "晨",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 24.3,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 4.5743,
+          "carrier_lo": 4.55,
+          "carrier_hi": 4.55
+        }
+      ],
+      "disqualifiers": [
+        "unresolved_B2:夜等晨",
+        "phrase_level_carrier_conflict:夜晨等"
+      ],
+      "phrase_level_carrier_conflict": true,
+      "shared_b2_chars": [
+        "夜",
+        "晨",
+        "等"
+      ],
+      "eligible": false,
+      "diagnosis_routes": [
+        "structure_diagnosis",
+        "written_timing_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0264",
+      "cal_item_id": "cal-srp-b5a2d7810c99bfc36b91d9f9",
+      "repair_id": "srp-b5a2d7810c99bfc36b91d9f9",
+      "type": "split",
+      "phrase_key": "131.30-137.93",
+      "phrase": {
+        "start": 131.3,
+        "end": 137.93
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "9990ae39dce2240423ac6c2ff8af68d7a5274b12d70303e401ee4c585a9a42d5",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.001,
+        "n_chars": 13
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0266",
+      "cal_item_id": "cal-srp-7789a8b8605761d704d5d38e",
+      "repair_id": "srp-7789a8b8605761d704d5d38e",
+      "type": "split",
+      "phrase_key": "131.30-137.93",
+      "phrase": {
+        "start": 131.3,
+        "end": 137.93
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "option_loudness_drift:0.556"
+      ],
+      "audio_package_hash": "86dca1d06580cc3ed663e442fc46143553f4a07f40fa76e2bad0e5c936c9a1dd",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.001,
+        "n_chars": 13
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0305",
+      "cal_item_id": "cal-srp-07716808971809b23ef8d9b8",
+      "repair_id": "srp-07716808971809b23ef8d9b8",
+      "type": "split",
+      "phrase_key": "144.56-150.89",
+      "phrase": {
+        "start": 144.56,
+        "end": 150.89
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "032ff1ba4fa895cd2a09f4fc1226e37199beecb6ca932a357b55a3671d45d97a",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.066,
+        "n_chars": 13
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0311",
+      "cal_item_id": "cal-srp-fbded6709db9336c1184e04d",
+      "repair_id": "srp-fbded6709db9336c1184e04d",
+      "type": "split",
+      "phrase_key": "151.27-155.92",
+      "phrase": {
+        "start": 151.27,
+        "end": 155.92
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "88c186291edcf803c732201ed14f7a8d810fbbef66b40a8efa0bef5430f38466",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.0,
+        "n_chars": 10
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0325",
+      "cal_item_id": "cal-srp-aa047ab899970cb881f77481",
+      "repair_id": "srp-aa047ab899970cb881f77481",
+      "type": "split",
+      "phrase_key": "156.70-159.90",
+      "phrase": {
+        "start": 156.7,
+        "end": 159.9
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "option_loudness_drift:0.446"
+      ],
+      "audio_package_hash": "64000540549eba17dd23b9e673708c16af4d1a3c684baa037e13be0db3169e21",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.211,
+        "n_chars": 7
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0379",
+      "cal_item_id": "cal-srp-b04c10c381b66d1abfd9ec8a",
+      "repair_id": "srp-b04c10c381b66d1abfd9ec8a",
+      "type": "split",
+      "phrase_key": "177.64-184.52",
+      "phrase": {
+        "start": 177.64,
+        "end": 184.52
+      },
+      "package_state": "valid",
+      "lyric_contract": "real_lyric_review",
+      "lyric_mapping_impl": "rlv7",
+      "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
+      "contract_status": "current",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": false,
+      "signal_qc_flags": [
+        "lyric_timing_not_converged:unmeasurable_chars",
+        "lyric_timing_evidence_unmeasurable:惜本",
+        "lyric_timing_carrier_conflict:可没人我",
+        "lyric_intelligibility_low:OPTION_0:从",
+        "lyric_intelligibility_low:OPTION_1:从本",
+        "lyric_timing_acoustic_unmeasurable:OPTION_1:人",
+        "lyric_timing_acoustic_delta:OPTION_0:128ms"
+      ],
+      "audio_package_hash": "c7e5ffb11174e479b5f267452b6c9cc0808099191b9319e25273b4485fe92253",
+      "closed_loop_stop_reason": "unmeasurable_chars",
+      "closed_loop_converged": false,
+      "post_loop_final_class": {
+        "可": "B2_carrier_conflict",
+        "惜": "B1_detector_relock",
+        "从": "class_A",
+        "没": "B2_carrier_conflict",
+        "人": "B2_carrier_conflict",
+        "陪": "class_A",
+        "我": "B2_carrier_conflict",
+        "演": "class_A",
+        "这": "class_A",
+        "剧": "class_A",
+        "本": "B1_detector_relock"
+      },
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": true,
+        "reason": null,
+        "min_probability": 0.92,
+        "n_chars": 11
+      },
+      "source_measurement": {
+        "wav": "phrases\\177.64-184.52\\SOURCE_PHRASE_separated_vocal.wav",
+        "n_chars": 11,
+        "n_onset_landmarks": 11,
+        "available": true
+      },
+      "route_summary": {
+        "class_A": 7,
+        "B1_unmeasurable": 0,
+        "B2_carrier_conflict": 4
+      },
+      "char_routes": [
+        {
+          "char": "可",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 83.5,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 0.3135,
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.23
+        },
+        {
+          "char": "惜",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 0.9868,
+          "carrier_lo": 0.82,
+          "carrier_hi": 1.05
+        },
+        {
+          "char": "从",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 1.2307,
+          "carrier_lo": 1.17,
+          "carrier_hi": 1.53
+        },
+        {
+          "char": "没",
+          "route": "B2_carrier_conflict",
+          "direction": "early",
+          "route_detail": "preutterance_candidate",
+          "route_subtype": null,
+          "overhang_ms": 36.2,
+          "unmeasurable_reason": "source_ref_below_carrier_lo",
+          "source_ref_onset": 1.6138,
+          "carrier_lo": 1.65,
+          "carrier_hi": 1.91
+        },
+        {
+          "char": "人",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 28.4,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 2.3684,
+          "carrier_lo": 2.03,
+          "carrier_hi": 2.34
+        },
+        {
+          "char": "陪",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 2.4961,
+          "carrier_lo": 2.46,
+          "carrier_hi": 2.69
+        },
+        {
+          "char": "我",
+          "route": "B2_carrier_conflict",
+          "direction": "late",
+          "route_detail": "post_boundary_delay_candidate",
+          "route_subtype": null,
+          "overhang_ms": 66.3,
+          "unmeasurable_reason": "source_ref_above_carrier_hi",
+          "source_ref_onset": 3.1463,
+          "carrier_lo": 2.81,
+          "carrier_hi": 3.08
+        },
+        {
+          "char": "演",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 3.5062,
+          "carrier_lo": 3.35,
+          "carrier_hi": 3.51
+        },
+        {
+          "char": "这",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 3.6804,
+          "carrier_lo": 3.63,
+          "carrier_hi": 4.15
+        },
+        {
+          "char": "剧",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.3073,
+          "carrier_lo": 4.27,
+          "carrier_hi": 4.46
+        },
+        {
+          "char": "本",
+          "route": "class_A",
+          "direction": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "overhang_ms": null,
+          "unmeasurable_reason": null,
+          "source_ref_onset": 4.9575,
+          "carrier_lo": 4.88,
+          "carrier_hi": 4.97
+        }
+      ],
+      "disqualifiers": [
+        "unresolved_B2:可没人我"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "written_timing_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0391",
+      "cal_item_id": "cal-srp-9ff662d834e7cbadd1aa9434",
+      "repair_id": "srp-9ff662d834e7cbadd1aa9434",
+      "type": "split",
+      "phrase_key": "185.38-189.51",
+      "phrase": {
+        "start": 185.38,
+        "end": 189.51
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "212d09a137ac022dfe08e0a5dd130cf8b0aac621972fb64a43f27a63a0ce0e65",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "no_chars",
+        "min_probability": null,
+        "n_chars": 0
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:no_chars"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0404",
+      "cal_item_id": "cal-srp-8f73580bd3c768145f417f0d",
+      "repair_id": "srp-8f73580bd3c768145f417f0d",
+      "type": "split",
+      "phrase_key": "194.55-201.14",
+      "phrase": {
+        "start": 194.55,
+        "end": 201.14
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "4f2679c9c0bf3575cfea7e5bdda3ce0e875884da9d9ebfb16f8708615e20b679",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "no_chars",
+        "min_probability": null,
+        "n_chars": 0
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:no_chars"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0440",
+      "cal_item_id": "cal-srp-fcebb308ea0d11ef772afdc4",
+      "repair_id": "srp-fcebb308ea0d11ef772afdc4",
+      "type": "split",
+      "phrase_key": "213.66-218.16",
+      "phrase": {
+        "start": 213.66,
+        "end": 218.16
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "a28543352b233bfbf20c1621818f447e735d5ebf245eb388a1b1b23142759dc1",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.002,
+        "n_chars": 9
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    },
+    {
+      "note_id": "note_0441",
+      "cal_item_id": "cal-srp-742cbf94d1991516823ba33c",
+      "repair_id": "srp-742cbf94d1991516823ba33c",
+      "type": "split",
+      "phrase_key": "213.66-218.16",
+      "phrase": {
+        "start": 213.66,
+        "end": 218.16
+      },
+      "package_state": "valid",
+      "lyric_contract": "neutral_vowel",
+      "lyric_mapping_impl": "nv1",
+      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
+      "contract_status": "stale",
+      "verify_package": "PASS",
+      "signal_qc_auto_review_ready": true,
+      "signal_qc_flags": [],
+      "audio_package_hash": "214d4edc73ecd94afaac63e9d1617f98c1c921263eee9f7aa2cd96f92189008a",
+      "closed_loop_stop_reason": null,
+      "closed_loop_converged": null,
+      "post_loop_final_class": null,
+      "second_family_verdicts": null,
+      "lyric_evidence": {
+        "ok": false,
+        "reason": "low_confidence",
+        "min_probability": 0.002,
+        "n_chars": 9
+      },
+      "char_routes": null,
+      "disqualifiers": [
+        "lyric_evidence:low_confidence"
+      ],
+      "phrase_level_carrier_conflict": false,
+      "shared_b2_chars": [],
+      "eligible": false,
+      "diagnosis_routes": [
+        "lyric_intelligibility_diagnosis"
+      ],
+      "rebuild_required": false
+    }
+  ],
+  "summary": {
+    "n_items": 21,
+    "n_eligible": 0,
+    "n_lyric_evidence_fail": 13,
+    "n_unresolved_B1": 0,
+    "n_unresolved_B2": 8,
+    "n_phrase_level": 4,
+    "n_rebuild_required": 0
+  },
+  "roster_candidates": [],
+  "roster_size_ok": false
+}
