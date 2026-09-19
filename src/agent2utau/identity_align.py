@@ -1,12 +1,21 @@
-"""§G5N.2 identity-aware lyric / phoneme alignment — second family.
+"""§G5N.3 lyric-constrained forced alignment — timing/alignment
+evidence family B.
 
 family A = current Whisper-derived char alignment (force_align DTW).
-family B = this module: a lyric-constrained identity-aware forced
-alignment — MMS_FA CTC aligner over romanized (toneless pinyin)
-syllables of the KNOWN lyric sequence against the separated source
-vocal. It answers "which known lyric token is actually sung here,
-and where", which waveform onset/energy or phoneme-class consistency
-can never answer.
+family B = this module: MMS_FA CTC aligner over romanized (toneless
+pinyin) syllables of the KNOWN lyric sequence against the separated
+source vocal.
+
+§G5N.3 authority correction: the KNOWN lyric sequence is the lexical
+identity authority — it is INJECTED as the forced-alignment target,
+so "the aligner found a span for token i" is NOT independent
+recognition of that Han character (many homophones share a syllable;
+the text was handed to the aligner). What family B independently
+measures is TIMING/BOUNDARY under the known-token constraint:
+where each known token's acoustics land, at what CTC confidence.
+The old `identity_*` verdict names are therefore retired from
+authority — a forced-alignment agreement can only ever support
+alignment/timing, never lexical identity.
 
 Output contract (persisted, auditable):
   aligner_family / aligner_version / model+lexicon provenance /
@@ -16,7 +25,7 @@ Output contract (persisted, auditable):
   status aligned|skipped|inserted
 
 Waveform-class evidence (`_onset_span_evidence`) stays a supporting
-acoustic diagnostic — it is NEVER identity authority.
+acoustic diagnostic — likewise never identity authority.
 """
 
 from __future__ import annotations
@@ -25,17 +34,18 @@ import hashlib
 from pathlib import Path
 
 ALIGNER_FAMILY = "mms_fa_ctc_uroman"
-ALIGNER_VERSION = "ifa1"
+ALIGNER_VERSION = "ifa2"
 # material aligner/model/lexicon/config change → bump ALIGNER_VERSION
-# (dependent inventory/package evidence becomes stale, §G5N.2-N30)
+# (dependent inventory/package evidence becomes stale, §G5N.3-N40)
 
 # CTC emission frame period for MMS_FA at 16 kHz (encoder stride 320).
 ALIGNER_FRAME_S = 0.02
-# Timing-disagreement safety bound for identity adjudication — a cap,
-# never a pass target (§G5N.2 tolerance semantics).
-IDENTITY_TIMING_CAP_S = 0.30
+# Timing-disagreement safety bound for alignment adjudication — a
+# cap, never a pass target (§G5N.3 tolerance semantics).
+ALIGN_TIMING_CAP_S = 0.30
 # Minimum mean CTC span log-prob for a token to count as confidently
-# aligned; below → low-confidence → identity_unverified (fail-closed).
+# aligned; below → low-confidence → alignment_unresolved
+# (fail-closed).
 MIN_TOKEN_LOGPROB = -4.0
 
 _MODEL = None
@@ -83,7 +93,7 @@ def _model():
     return _MODEL
 
 
-def identity_align(wav, chars):
+def forced_align(wav, chars):
     """Run family-B forced alignment.
 
     wav: Path (or None) to the separated source vocal clip.
@@ -93,7 +103,7 @@ def identity_align(wav, chars):
 
     Returns the contract dict. On any missing input / model failure /
     unalignable text → {"available": False, "reason": ...} — callers
-    must treat that as identity_unverified, never as evidence."""
+    must treat that as alignment_unresolved, never as evidence."""
     doc = {"aligner_family": ALIGNER_FAMILY,
            "aligner_version": ALIGNER_VERSION,
            "available": False, "reason": None, "tokens": []}
@@ -179,29 +189,33 @@ def identity_align(wav, chars):
         return doc
 
 
-def identity_adjudicate(align_doc, chars):
-    """Adjudicate each char's IDENTITY against family-B output.
+def alignment_adjudicate(align_doc, chars):
+    """Adjudicate each char's ALIGNMENT/TIMING against family-B
+    output — never its lexical identity (§G5N.3: the known lyric
+    sequence is already the lexical authority; both families merely
+    measure where each KNOWN token's acoustics land).
 
     chars: the SAME known-lyric sequence list used for alignment —
            entries carry family-A (Whisper) char/start/end/probability
            in wav-relative seconds.
 
     Per char verdict:
-      identity_verified   — family-B aligns the same token index,
-                            monotonic order, boundary disagreement
-                            within evidence-derived tolerance
-      identity_conflict   — family-B places the token at a
-                            non-monotonic / mismatched position
-      measurement_ambiguous — identity agrees but A/B timing
-                            disagreement exceeds tolerance
-      identity_unverified — family-B unavailable / low confidence
-                            / missing token
+      alignment_supported    — family-B aligns the same token index,
+                               monotonic order, boundary disagreement
+                               within evidence-derived tolerance
+      alignment_order_conflict — family-B places the token at a
+                               non-monotonic / mismatched position
+      measurement_ambiguous  — same token but A/B timing
+                               disagreement exceeds tolerance
+      alignment_unresolved   — family-B unavailable / low confidence
+                               / missing token
 
-    Tolerance is evidence-derived (§G5N.2): base = 3× frame period
-    plus the phrase's own confident-token disagreement dispersion
-    (median abs deviation), hard-capped by IDENTITY_TIMING_CAP_S."""
+    Tolerance is evidence-derived: base = 3× frame period plus the
+    phrase's own confident-token disagreement dispersion (median abs
+    deviation), hard-capped by ALIGN_TIMING_CAP_S."""
     n = len(chars)
-    verdicts = [{"verdict": "identity_unverified", "dev_start_s": None,
+    verdicts = [{"verdict": "alignment_unresolved",
+                 "dev_start_s": None,
                  "famB_start": None, "famB_end": None,
                  "famB_confidence": None, "tolerance_s": None}
                 for _ in range(n)]
@@ -221,7 +235,7 @@ def identity_adjudicate(align_doc, chars):
     if len(devs) >= 3:
         ds = sorted(devs)
         disp = ds[len(ds) // 2]
-    tol = min(IDENTITY_TIMING_CAP_S,
+    tol = min(ALIGN_TIMING_CAP_S,
               3 * ALIGNER_FRAME_S + disp)
 
     prev_end = -1e9
@@ -232,18 +246,26 @@ def identity_adjudicate(align_doc, chars):
         v["famB_confidence"] = t.get("confidence")
         v["tolerance_s"] = round(tol, 4)
         if t.get("status") != "aligned":
-            v["verdict"] = "identity_unverified"
+            v["verdict"] = "alignment_unresolved"
             continue
         if t["start"] < prev_end - 1e-4:
-            v["verdict"] = "identity_conflict"
+            v["verdict"] = "alignment_order_conflict"
             continue
         prev_end = t["end"]
         if c.get("start") is None:
-            v["verdict"] = "identity_unverified"
+            v["verdict"] = "alignment_unresolved"
             continue
         dev = abs(float(t["start"]) - float(c["start"]))
         v["dev_start_s"] = round(dev, 4)
-        v["verdict"] = ("identity_verified" if dev <= tol
+        v["verdict"] = ("alignment_supported" if dev <= tol
                         else "measurement_ambiguous")
     return {"available": True, "verdicts": verdicts, "reason": None,
             "tolerance_s": round(tol, 4)}
+
+
+# §G5N.3 audit back-compat: rlv10 artifacts persist the old
+# identity_* names — readable for audit, never consumed as current
+# authority. These aliases keep historical tooling unbroken.
+identity_align = forced_align
+identity_adjudicate = alignment_adjudicate
+IDENTITY_TIMING_CAP_S = ALIGN_TIMING_CAP_S

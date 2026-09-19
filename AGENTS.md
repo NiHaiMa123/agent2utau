@@ -1235,6 +1235,31 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   n_eligible=0, roster=[] — honest.
 - N22–N31 regression; 404 tests PASS.
 
+### M2.5 G5N.3 — lexical-identity vs alignment-timing (rlv11)
+
+- **Authority correction**: KNOWN lyric sequence = lexical identity
+  authority; lyric-constrained forced alignment injects tokens as
+  TARGETS so "same token aligned" ≠ independent recognition. ifa2
+  renames: identity_verified→alignment_supported, unverified→
+  alignment_unresolved, conflict→alignment_order_conflict; rlv10
+  identity_* stays readable in old artifacts, never authority.
+- **Dual lyric gate**: lexical_text_status (authoritative_known /
+  no_lyrics / coverage_mismatch / text_version_conflict) +
+  alignment_status (supported/ambiguous/unresolved/order_conflict).
+  Low Whisper prob = timing-measurement problem, never identity loss.
+  timing_supported (all lows family-B supported) → gate passes to
+  routes; onset-peak contradiction (|dev|>50ms) demotes → ambiguous.
+- **B1 re-adjudication (N41)**: `_classify_routes(mms=)` — a missed
+  onset landmark + aligned MMS token → source_ref_kind=mms_fa_token,
+  b1_readjudicated, classified by the MMS span. B2 evidence gains
+  mms_second_family (edge-unavailable corroboration only; never when
+  MMS is the primary — no circular evidence).
+- Real rlv11: 0/21 — n_lexical_coverage_fail=2 (0391/0404 no_lyrics),
+  n_alignment_fail=10 (Whisper/MMS boundary disagreement), 0325:
+  着 timing_supported AND 数 B1→B2 (onset miss hid a real 53.7ms
+  late carrier conflict — unresolved) → still fail-closed.
+- N22–N31 renamed + N32–N41; 414 tests PASS.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight

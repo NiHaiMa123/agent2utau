@@ -68,7 +68,19 @@ LYRIC_MAPPING_IMPL_VERSION = {
     # cross_option_unstable / detector_relock), second-family evidence
     # only adjudicates measurability (never averaged), and a B2 set
     # repeating across targets marks phrase_level_carrier_conflict.
-    "real_lyric_review": "rlv10",
+    # rlv8 (G5N): semantic B2 adjudication + lyric-evidence second
+    #   family (onset-peak timing corroboration only)
+    # rlv9 (G5N.1): span-evidence benign semantics, post-loop B1 gate,
+    #   phrase-level as audit fact, sub-resolution neutral
+    # rlv10 (G5N.2): family-B MMS forced alignment (ifa1) — identity
+    #   verdicts later corrected: lyric-constrained alignment is
+    #   TIMING evidence, never independent lexical recognition
+    # rlv11 (G5N.3): lexical identity authority = KNOWN lyric
+    #   sequence; dual lexical_text_status/alignment_status gate;
+    #   low Whisper probability is a timing-measurement problem, not
+    #   identity loss; MMS boundaries re-adjudicate B1 measurability
+    #   and corroborate B2 evidence (ifa2 verdict names)
+    "real_lyric_review": "rlv11",
 }
 MIN_REVIEW_CHAR_PROB = 0.25   # fail-closed below this char confidence
 MIN_TIMING_CHAR_PROB = 0.30   # rendered char ASR confidence below
@@ -1244,7 +1256,7 @@ def _render_onsets(wav, centers: list):
 
 def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
                      off: float = 0.0, ctx=None, edges=None,
-                     wav=None) -> list:
+                     wav=None, mms=None) -> list:
     """§10.1.5A-G5K per-char hard-case routing — decided BEFORE the
     loop iterates, from evidence that cannot change under iteration:
       class_A              reliable acoustic landmark AND the desired
@@ -1259,18 +1271,34 @@ def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
     usable-move bound (a char also needs MIN_USABLE_SEG_S of sung
     span). `refs` are recorded verbatim; `off` shifts them into the
     bounds' domain for the comparison (phrase-relative refs vs
-    absolute carrier times). Returns a list of route dicts."""
+    absolute carrier times). Returns a list of route dicts.
+
+    §G5N.3-N41 `mms`: per-char family-B (MMS forced-alignment) token
+    dicts ({start,end,confidence}) or None — an INDEPENDENT timing
+    measurement under the known-token constraint. Where the onset
+    detector missed a landmark but MMS confidently placed the token,
+    measurability is re-adjudicated: the char is classified by the
+    MMS span (route B1 no longer preserved by a detector miss alone).
+    For a B2 char the MMS boundary is recorded as corroborating
+    evidence — never as proof that the written score is wrong."""
     hi_move = [hi[k] + ARTICULATE_MIN_SEG_S - MIN_USABLE_SEG_S
                for k in range(len(chars))]
     routes = []
     for k, c in enumerate(chars):
         ref = None if refs is None else refs[k]
+        kind = None if ref_kinds is None else ref_kinds[k]
+        mms_tok = mms[k] if mms else None
+        if kind != "onset_peak" and mms_tok is not None:
+            # §G5N.3-N41: the MMS token span IS a usable source timing
+            # measurement — re-adjudicate, don't keep B1 on a missed
+            # onset landmark alone
+            ref = float(mms_tok["start"])
+            kind = "mms_fa_token"
         ra = None if ref is None else ref + off
         r = {"char": c["char"],
              "source_ref_onset": None if ref is None
              else round(ref, 4),
-             "source_ref_kind": None if ref_kinds is None
-             else ref_kinds[k],
+             "source_ref_kind": kind,
              # carrier bounds recorded in the SAME domain as the ref
              # (off subtracted) so reviewers compare like with like
              "carrier_lo": round(lo[k] - off, 4),
@@ -1284,13 +1312,18 @@ def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
              "route_subtype": None,
              "direction": None,
              "overhang_ms": None,
-             "primary_measurement": "onset_strength_peak_v1",
+             "primary_measurement": ("mms_fa_ctc_uroman"
+                                     if kind == "mms_fa_token"
+                                     else "onset_strength_peak_v1"),
              "secondary_measurement": None,
              "render_measurement_status": None,
              "final_class": None,
              "phrase_level_conflict_id": None}
-        if (ra is None or ref_kinds is None
-                or ref_kinds[k] != "onset_peak"):
+        if kind == "mms_fa_token":
+            r["b1_readjudicated"] = True
+            r["mms_confidence"] = (mms_tok or {}).get("confidence")
+        if (ra is None or kind not in ("onset_peak",
+                                       "mms_fa_token")):
             r["route"] = ROUTE_B1
             r["route_subtype"] = "source_unmeasurable"
             r["unmeasurable_reason"] = "no_source_landmark"
@@ -1353,6 +1386,15 @@ def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
                 sp_a, sp_b = float(hi_move[k]) - off, ref
             span_ev = _onset_span_evidence(wav, sp_a, sp_b) \
                 if wav and ref is not None else None
+            # §G5N.3: an MMS boundary may corroborate a B2 as a second
+            # timing family — but NEVER when it IS the primary
+            # measurement (a b1_readjudicated route), which would be
+            # circular evidence
+            mms_ev = None
+            if mms and mms[k] is not None \
+                    and not r.get("b1_readjudicated"):
+                mms_ev = {"start": float(mms[k]["start"]),
+                          "confidence": mms[k].get("confidence")}
             sem = _b2_semantic(
                 r, chars[k]["char"], r["direction"],
                 float(r["overhang_ms"]) / 1000.0,
@@ -1363,6 +1405,7 @@ def _classify_routes(chars: list, refs, ref_kinds, lo, hi,
                 (round(nxt - cend, 4)
                  if nxt is not None else None),
                 span_ev=span_ev,
+                mms_ev=mms_ev,
                 prev_class_a=(routes[k - 1]["route"] == ROUTE_CLASS_A
                               if k > 0 else None),
                 next_class_a=(routes[k + 1]["route"] == ROUTE_CLASS_A
@@ -2843,6 +2886,12 @@ def _phrase_level_conflicts(cdir: Path) -> dict:
 # matching diagnosis, never silently dropped or tuned into eligibility).
 _DIAGNOSIS_LANES = {
     "lyric_evidence": "lyric_intelligibility_diagnosis",
+    # §G5N.3 — coverage/text-source uncertainty has its own lane;
+    # alignment problems are timing diagnoses, never lexical ones
+    "lyric_coverage": "coverage_diagnosis",
+    "alignment_unresolved": "measurement_diagnosis",
+    "alignment_ambiguous": "measurement_diagnosis",
+    "alignment_order_conflict": "measurement_diagnosis",
     "unbindable_chars": "structure_diagnosis",
     "source_unmeasurable": "measurement_diagnosis",
     "unresolved_B1": "measurement_diagnosis",
@@ -2993,13 +3042,16 @@ def _onset_span_evidence(wav, t_a: float, t_b: float) -> dict:
 
 def _b2_semantic(r: dict, char: str, direction: str, overhang: float,
                  edge_rel, lo_rel: float, hi_move_rel: float,
-                 gap_before, gap_after, span_ev=None,
+                 gap_before, gap_after, span_ev=None, mms_ev=None,
                  prev_class_a=None, next_class_a=None) -> dict:
     """§G5N.1 per-B2 semantic adjudication — B2 proves the source
     landmark sits outside the legal carrier range; it does NOT prove
     the written score is wrong.
 
-    second_family semantics (energy_edge_v1, SAME source clip):
+    second_family semantics: energy_edge_v1 (SAME source clip) is
+    primary; §G5N.3 adds the MMS forced-alignment token boundary as
+    a second TIMING family (usable only when the edge is unavailable
+    — an edge contradiction can never be outvoted by the aligner).
     confirms/contradicts establish that the acoustic DISPLACEMENT is
     real — they can never by themselves establish benign SEMANTICS.
     A benign verdict additionally requires the independent
@@ -3031,10 +3083,27 @@ def _b2_semantic(r: dict, char: str, direction: str, overhang: float,
         else:
             second = "confirms" if edge_rel > hi_move_rel \
                 else "contradicts"
+    # §G5N.3 — MMS token boundary as an independent timing family:
+    # it may strengthen "the displacement is real" but never proves
+    # the written score wrong (geometry/neighbours still required),
+    # and it is only consulted when the energy edge is unavailable.
+    mms_second = "unavailable"
+    if mms_ev is not None:
+        ms = float(mms_ev["start"])
+        if direction == "early":
+            mms_second = "confirms" if ms < lo_rel else "contradicts"
+        else:
+            mms_second = "confirms" if ms > hi_move_rel \
+                else "contradicts"
+        if second == "unavailable":
+            second = mms_second
     ev = {"pinyin_initial": ini, "initial_class": iclass,
           "second_family": second,
           "energy_edge_onset": edge_rel,
           "energy_edge_deviation_ms": edge_dev,
+          "mms_second_family": mms_second,
+          "mms_token_start": (mms_ev or {}).get("start"),
+          "mms_confidence": (mms_ev or {}).get("confidence"),
           "gap_before_carrier_s": gap_before,
           "gap_after_carrier_s": gap_after,
           "span_evidence": span_ev,
@@ -3107,22 +3176,42 @@ def _b2_semantic(r: dict, char: str, direction: str, overhang: float,
 
 def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
                                ph0: float) -> dict:
-    """§G5N Lane A — WHY did lyric evidence fail, and does a second
-    independent family recover it? Never relaxes MIN_REVIEW_CHAR_PROB;
-    the low-probability record stays in evidence either way.
+    """§G5N.3 lyric gate — TWO separate tracks, never conflated.
 
-    A1 coverage bug:   chars exist just outside the evidence window
-                       (boundary artefact — flagged, still fail-closed
-                       until the window itself is regenerated)
-    A3 aligner-weak:   systemic low confidence on this vocal style
-    A4 single outlier: ≤ a few low-p chars whose POSITIONS are
-                       independently confirmed by the onset-peak
-                       family → sequence/timing recovered
-    A5 unbindable:     no chars in the window AND none nearby — an
-                       instrumental span; honestly permanent
-    """
-    adj = {"reason": ev["reason"], "recovered": False,
-           "diagnosis": None, "low_prob_chars": [],
+    lexical_text_status — the KNOWN lyric sequence is the lexical
+    identity authority:
+      authoritative_known   lyric chars are bound to the window
+      coverage_mismatch     lyric chars exist just outside the
+                            evidence window (boundary artefact —
+                            still fail-closed until the window is
+                            regenerated)
+      no_lyrics             instrumental span; honestly permanent
+      text_version_conflict (reserved) bound text ≠ supplied text
+
+    alignment_status — multi-family TIMING evidence (Whisper / MMS
+    forced alignment / waveform landmarks measure boundaries, never
+    identity):
+      supported      every low-confidence token's boundary is
+                     corroborated by family-B within the evidence-
+                     derived tolerance
+      ambiguous      same token but A/B timing disagreement beyond
+                     tolerance
+      unresolved     family-B unavailable / low-confidence / missing
+      order_conflict family-B places a token non-monotonically
+
+    A low Whisper char probability no longer says "we don't know
+    which char" — known lyrics already fix the lexical sequence.
+    It says the Whisper-derived boundary is unreliable, so the gate
+    asks family-B whether an INDEPENDENT timing measurement agrees.
+    The threshold itself is never relaxed and the low-probability
+    record stays in evidence either way."""
+    adj = {"reason": ev["reason"],
+           "lexical_text_status": None,
+           "alignment_status": None,
+           "timing_supported": False,
+           "diagnosis": None,
+           "low_prob_chars": [],
+           "family_b": None,
            "second_evidence": None}
     if ev["reason"] == "no_chars":
         all_c = run.get("chars") or []
@@ -3131,16 +3220,22 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
             (min(abs(c["start"] - win["end"]),
                  abs(c["end"] - win["start"])) for c in all_c),
             default=None)
+        adj["nearest_char_distance_s"] = nearest
         if nearest is None or nearest > INSTRUMENTAL_GAP_S:
+            adj["lexical_text_status"] = "no_lyrics"
             adj["diagnosis"] = "A5_instrumental_no_lyrics"
-            adj["nearest_char_distance_s"] = nearest
         else:
+            adj["lexical_text_status"] = "coverage_mismatch"
             adj["diagnosis"] = "A1_coverage_suspect"
-            adj["nearest_char_distance_s"] = nearest
         return adj
     if ev["reason"] != "low_confidence":
+        adj["lexical_text_status"] = "coverage_mismatch"
         adj["diagnosis"] = "A5_unbindable"
         return adj
+    # lyric chars ARE bound — lexical identity is authoritative_known
+    # regardless of Whisper probabilities; what remains to adjudicate
+    # is TIMING.
+    adj["lexical_text_status"] = "authoritative_known"
     chars = chars_in_win or []
     lows = [{"char": c["char"], "probability": float(
                  c.get("probability") or 0.0),
@@ -3163,18 +3258,20 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
         ent["landmark_kind"] = kinds[i] if kinds else None
         ent["landmark_dev_ms"] = round(dev * 1000.0, 1) \
             if dev is not None else None
-        # §G5N.1: an onset landmark corroborates TIMING only — it
-        # can never prove the char's lexical identity by itself
+        # an onset landmark corroborates TIMING only — supporting
+        # diagnostic evidence, never a pass authority by itself; a
+        # landmark FAR from the claimed position is a third-family
+        # CONTRADICTION of the boundary (fail-closed ambiguous)
         ent["timing_corroborated"] = bool(
             kinds and kinds[i] == "onset_peak"
             and dev is not None and abs(dev) <= LYRIC_CONFIRM_S)
+        ent["landmark_contradicted"] = bool(
+            kinds and kinds[i] == "onset_peak"
+            and dev is not None and abs(dev) > LYRIC_CONFIRM_S)
         confirmed += 1 if ent["timing_corroborated"] else 0
-        # §G5N.2 audit correction: this is a PHONEME-CLASS consistency
-        # check, not identity evidence — the 90ms before the onset is
-        # compared with the char's expected initial class (frication
-        # for an obstruent, voiced continuation for a sonorant/glide).
-        # It can never identify WHICH token is sung — many chars share
-        # a class. 'unclear' fails closed.
+        # phoneme-class consistency — diagnostic only: the 90ms
+        # before the onset is compared with the char's expected
+        # initial class; it can never identify WHICH token is sung.
         ini, iclass = _pinyin_initial(c["char"])
         ident = {"pinyin_initial": ini, "initial_class": iclass,
                  "consistent": None}
@@ -3192,17 +3289,16 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
                         (sp.get("periodicity") or 0.0) >= 0.5)
         ent["phoneme_class_evidence"] = ident
         ent["phoneme_class_consistent"] = ident["consistent"]
-    # §G5N.2 — family-B: identity-aware forced alignment of the KNOWN
-    # lyric sequence (text only as constraint) against the source
-    # vocal. The ONLY authority that can verify a low-confidence
-    # char's identity; waveform/onset evidence never can.
-    from .identity_align import identity_align, identity_adjudicate
-    fa_doc = identity_align(src_wav, chars)
+    # family-B: MMS forced alignment of the KNOWN lyric sequence
+    # (text only as constraint) against the source vocal — an
+    # INDEPENDENT timing/boundary measurement under the same tokens.
+    from .identity_align import forced_align, alignment_adjudicate
+    fa_doc = forced_align(src_wav, chars)
     rel_chars = [dict(c, start=float(c["start"]) - ph0,
                       end=(float(c["end"]) - ph0
                            if c.get("end") is not None else None))
                  for c in chars]
-    fa_adj = identity_adjudicate(fa_doc, rel_chars)
+    fa_adj = alignment_adjudicate(fa_doc, rel_chars)
     adj["family_b"] = {
         "aligner_family": fa_doc.get("aligner_family"),
         "aligner_version": fa_doc.get("aligner_version"),
@@ -3239,31 +3335,33 @@ def _adjudicate_lyric_evidence(run, it, ev, chars_in_win, src_wav,
         "n_low": len(lows), "n_confirmed": confirmed,
         "n_phoneme_class_consistent": sum(
             1 for l in lows if l.get("phoneme_class_consistent"))}
-    high = sum(1 for c in chars
-               if float(c.get("probability") or 0.0) >= 0.5)
+    # item-level alignment status = worst low-token verdict — a
+    # timing gate, never a lexical-identity gate; a contradicting
+    # onset landmark also demotes supported → ambiguous (a real
+    # timing-evidence conflict between measurement families)
     verdicts = [l.get("family_b_verdict") for l in lows]
-    ident_ok = bool(lows) and all(
-        v == "identity_verified" for v in verdicts)
-    if lows and confirmed == len(lows) and high >= 1 and ident_ok:
-        adj["diagnosis"] = "A4_outlier_resolved"
-        adj["recovered"] = True
-    elif lows and confirmed == len(lows) and high >= 1:
-        # timing is corroborated on every outlier — but identity is
-        # only recovered by family-B agreement. Distinguish WHY it
-        # failed: a real identity/timing conflict vs missing evidence.
-        if any(v == "identity_conflict" for v in verdicts):
-            adj["diagnosis"] = "identity_conflict"
-        elif any(v == "measurement_ambiguous" for v in verdicts):
-            adj["diagnosis"] = "measurement_ambiguous"
-        elif any(v == "identity_verified" for v in verdicts):
-            adj["diagnosis"] = "identity_partially_unverified"
-        else:
-            adj["diagnosis"] = \
-                "timing_corroborated_identity_unverified"
-    elif len(lows) <= 2 and high >= 1:
-        adj["diagnosis"] = "A4_outlier_unresolved"
+    contradicted = any(l.get("landmark_contradicted") for l in lows)
+    if any(v == "alignment_order_conflict" for v in verdicts):
+        adj["alignment_status"] = "order_conflict"
+    elif any(v == "measurement_ambiguous" for v in verdicts) \
+            or contradicted:
+        adj["alignment_status"] = "ambiguous"
+    elif any(v != "alignment_supported" for v in verdicts) \
+            or not lows:
+        adj["alignment_status"] = "unresolved"
     else:
-        adj["diagnosis"] = "A3_aligner_unreliable"
+        adj["alignment_status"] = "supported"
+    if adj["alignment_status"] == "supported":
+        adj["timing_supported"] = True
+        adj["diagnosis"] = "timing_supported"
+    elif adj["alignment_status"] == "order_conflict":
+        adj["diagnosis"] = "alignment_order_conflict"
+    elif adj["alignment_status"] == "ambiguous":
+        adj["diagnosis"] = "measurement_ambiguous"
+    elif any(v == "alignment_supported" for v in verdicts):
+        adj["diagnosis"] = "alignment_partially_unresolved"
+    else:
+        adj["diagnosis"] = "alignment_unresolved"
     return adj
 
 
@@ -3281,6 +3379,9 @@ def _eligibility_routes_summary(routes):
              "b2_evidence": r.get("b2_evidence"),
              "unmeasurable_reason": r.get("unmeasurable_reason"),
              "source_ref_onset": r.get("source_ref_onset"),
+             "source_ref_kind": r.get("source_ref_kind"),
+             "primary_measurement": r.get("primary_measurement"),
+             "b1_readjudicated": r.get("b1_readjudicated"),
              "carrier_lo": r.get("carrier_lo"),
              "carrier_hi": r.get("carrier_hi")}
             for r in routes]
@@ -3364,10 +3465,15 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
         # --- lyric evidence under the CURRENT contract ---
         win = it.get("evidence_window") or it["phrase"]
         ev = review_phrase_chars(run, win)
+        # §G5N.3 dual status — lexical identity comes from the KNOWN
+        # lyric sequence; Whisper/MMS/waveform are timing evidence
         ent["lyric_evidence"] = {
             "ok": ev["ok"], "reason": ev["reason"],
             "min_probability": ev["min_probability"],
-            "n_chars": ev["n_chars"]}
+            "n_chars": ev["n_chars"],
+            "lexical_text_status": ("authoritative_known"
+                                    if ev["n_chars"] else None),
+            "alignment_status": None}
         dq, routes = [], None
         chars, ev_ok = ev.get("chars"), ev["ok"]
         sw = (cdir / "phrases" / pk
@@ -3381,22 +3487,36 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                   it["phrase"]["start"], it["phrase"]["end"])
         ph0 = float(it["phrase"]["start"])
         if not ev_ok:
-            # §G5N Lane A — adjudicate WHY the evidence failed;
-            # the onset-peak family is an independent second
-            # measurement that may recover a single-outlier item.
+            # §G5N.3 — adjudicate WHY the gate fired: a low Whisper
+            # probability is a TIMING-measurement problem (family-B
+            # may independently corroborate the boundary), never a
+            # lexical-identity problem — known lyrics fix identity.
             # The threshold itself is never relaxed.
             chars_win = [
                 c for c in (run.get("chars") or [])
                 if c["start"] < win["end"] and c["end"] > win["start"]]
             ent["lyric_adjudication"] = _adjudicate_lyric_evidence(
                 run, it, ev, chars_win, sw, ph0)
-            if ent["lyric_adjudication"]["recovered"]:
+            adj = ent["lyric_adjudication"]
+            ent["lyric_evidence"]["lexical_text_status"] = \
+                adj["lexical_text_status"]
+            ent["lyric_evidence"]["alignment_status"] = \
+                adj["alignment_status"]
+            if adj["timing_supported"]:
                 ev_ok, chars = True, chars_win
                 ent["lyric_evidence"]["adjudicated"] = True
-                ent["lyric_evidence"]["second_family"] = \
-                    "onset_strength_peak_v1"
+                ent["lyric_evidence"]["timing_supported_by"] = \
+                    "mms_fa_ctc_uroman"
+            elif adj["lexical_text_status"] in (
+                    "no_lyrics", "coverage_mismatch",
+                    "text_version_conflict"):
+                dq.append(
+                    f"lyric_coverage:{adj['lexical_text_status']}")
             else:
-                dq.append(f"lyric_evidence:{ev['reason']}")
+                lows = adj.get("low_prob_chars") or []
+                dq.append(
+                    f"alignment_{adj['alignment_status']}:"
+                    + "".join(l["char"] for l in lows))
         if ev_ok and chars:
             bounds = _anchor_bounds(it, chars)
             if bounds is None:
@@ -3420,9 +3540,46 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                 edges = _energy_edge_onsets(
                     sw, [float(c["start"]) - ph0 for c in chars]) \
                     if refs is not None else None
+                # §G5N.3 — family-B (MMS forced alignment under the
+                # known tokens) supplies an INDEPENDENT timing
+                # measurement per token: it re-adjudicates B1
+                # measurability (N41) and corroborates B2 evidence.
+                # Reuse the adjudication's alignment when it already
+                # ran for this item — never align the same clip twice.
+                fb = ((ent.get("lyric_adjudication") or {})
+                      .get("family_b") or {})
+                if not fb:
+                    from .identity_align import (
+                        forced_align, alignment_adjudicate)
+                    fa_doc = forced_align(sw, chars)
+                    rel_chars = [dict(
+                        c, start=float(c["start"]) - ph0,
+                        end=(float(c["end"]) - ph0
+                             if c.get("end") is not None else None))
+                        for c in chars]
+                    fa_adj = alignment_adjudicate(
+                        fa_doc, rel_chars)
+                    fb = {"available": fa_doc.get("available"),
+                          "reason": fa_doc.get("reason"),
+                          "tokens": fa_doc.get("tokens"),
+                          "verdicts": fa_adj.get("verdicts")}
+                toks, verd = (fb.get("tokens") or [],
+                              fb.get("verdicts") or [])
+                mms = [None] * len(chars)
+                if len(toks) == len(chars) == len(verd):
+                    for i, t in enumerate(toks):
+                        if t.get("status") == "aligned" and \
+                                verd[i].get("verdict") \
+                                != "alignment_order_conflict":
+                            mms[i] = t
+                ent["family_b_align"] = {
+                    "available": fb.get("available"),
+                    "reason": fb.get("reason"),
+                    "n_aligned": sum(1 for m in mms if m)}
                 routes = _classify_routes(
                     chars, refs, kinds, lo, hi, off=ph0,
-                    ctx=it.get("context"), edges=edges, wav=sw)
+                    ctx=it.get("context"), edges=edges, wav=sw,
+                    mms=mms)
                 b1 = [r for r in routes
                       if r["route"] == ROUTE_B1]
                 b2 = [r for r in routes
@@ -3554,10 +3711,27 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                # roster members
                "n_eligible": len(roster),
                "n_pending_render": len(pending_render),
+               # §G5N.3 — the lyric gate has two separate failure
+               # tracks: lexical coverage/text-source (known lyrics
+               # are the identity authority) and alignment/timing
                "n_lyric_evidence_fail": sum(
                    1 for e in entries
-                   if any(d.startswith("lyric_evidence:")
+                   if any(d.split(":")[0] in (
+                       "lyric_coverage", "alignment_unresolved",
+                       "alignment_ambiguous",
+                       "alignment_order_conflict")
+                       for d in e["disqualifiers"])),
+               "n_lexical_coverage_fail": sum(
+                   1 for e in entries
+                   if any(d.startswith("lyric_coverage:")
                           for d in e["disqualifiers"])),
+               "n_alignment_fail": sum(
+                   1 for e in entries
+                   if any(d.split(":")[0] in (
+                       "alignment_unresolved",
+                       "alignment_ambiguous",
+                       "alignment_order_conflict")
+                       for d in e["disqualifiers"])),
                "n_unresolved_B1": sum(
                    1 for e in entries
                    if any(d.startswith("unresolved_B1:")
@@ -3573,10 +3747,17 @@ def eligibility_inventory(run_dir: Path, write: bool = True,
                        "structure_timing_error",
                        "unresolved", "unresolved_B2")
                        for d in e["disqualifiers"])),
-               "n_lyric_recovered": sum(
+               # §G5N.3 — items whose lyric gate passed only because
+               # family-B corroborated the low-prob boundaries (a
+               # timing pass, never an identity recovery)
+               "n_timing_supported": sum(
                    1 for e in entries
                    if (e.get("lyric_adjudication") or {})
-                   .get("recovered")),
+                   .get("timing_supported")),
+               "n_b1_readjudicated": sum(
+                   1 for e in entries
+                   if any(r.get("b1_readjudicated")
+                          for r in e.get("char_routes") or [])),
                "n_phrase_level": sum(
                    1 for e in entries
                    if e["phrase_level_carrier_conflict"]),

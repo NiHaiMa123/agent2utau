@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD / G5N.3 lexical-identity vs alignment-timing contract correction（CURRENT）。** G5N.2/rlv10 已接入 MMS_FA CTC forced alignment，并完成 21 项重扫；HEAD `5c8c5ba` 的机器状态为 `0/21 eligible`、`roster=[]`、`pilot_authority.ok=false`、`review_ready=false`、`git_evidence.complete=true`、`plan_invariants.ok=true`。但 maintainer/ChatGPT 审计确认：**known lyric sequence 本身才是本项目的 lexical identity authority；MMS/Whisper/波形证据只能估计 token timing / boundary / alignment uncertainty。** lyric-constrained forced alignment 把已知 token 作为 target 输入，因此“same token aligned”不能被解释为第二模型独立识别出该汉字，rlv10 的 `identity_verified` / `n_lyric_recovered` 语义不得继续作为 eligibility authority。下一步不是再加第三套 identity 模型，而是完成 G5N.3：重命名并重写 lyric gate，把低 Whisper char probability 从“identity unknown”降级为“timing/alignment measurement uncertain”，用 known lyrics 固定 lexical sequence，再由 MMS/Whisper/acoustic evidence 裁决边界与 written-timing/structure。完成 rlv11 重扫与 current-contract roster 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD / G5N.3 rlv11 已执行（lexical-identity vs alignment-timing contract 已纠正）；CURRENT blocker = honest roster 仍为空——需上游 written-timing/structure 裁决。** rlv11 机器状态：21 项重扫 `0/21 eligible`、`roster=[]`、`n_lexical_coverage_fail=2`、`n_alignment_fail=10`、`n_timing_supported=1`（0325 着 family-B 边界一致）、`n_b1_readjudicated=1`（0325 数：rlv10 的 B1 实为 onset 漏检 → MMS 定位揭示真身 B2 late conflict）、`n_unresolved_B2=9`、`n_phrase_level=4`。Known lyric sequence 是 lexical identity 唯一权威（`lexical_text_status`），MMS/Whisper/onset 只产出 timing/boundary evidence（`alignment_status`）——低 Whisper 概率不再等于"不知道唱哪个字"，只等于"该 token 边界测量不可靠"。完成 current-contract roster（≥3 且无 unresolved timing/structure/post-loop blocker）前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -1594,15 +1594,25 @@ N41. B1 no_source_landmark with usable MMS span
 ##### G5N.3 acceptance
 
 ```text
-[ ] lexical identity authority explicitly comes from official/known lyric sequence
-[ ] phrase/LRC coverage/text-version mismatch has its own fail-closed state
-[ ] forced alignment is documented and implemented as timing/alignment evidence, not independent Han-character recognition
-[ ] identity_* current authority fields removed/renamed or made historical-only
-[ ] low Whisper char probability alone no longer fails lexical identity
-[ ] timing-sensitive gates consume multi-family alignment uncertainty
-[ ] B1 no_source_landmark is re-adjudicated with MMS timing evidence where available
-[ ] B2 semantics may consume MMS boundaries without treating forced alignment as written-score truth
-[ ] all 21 candidates regenerated under rlv11
+[✓] lexical identity authority explicitly comes from official/known lyric sequence
+    (lexical_text_status=authoritative_known whenever lyric chars bound)
+[✓] phrase/LRC coverage/text-version mismatch has its own fail-closed state
+    (lyric_coverage:no_lyrics|coverage_mismatch → coverage_diagnosis lane)
+[✓] forced alignment is documented and implemented as timing/alignment evidence, not independent Han-character recognition
+    (ifa2 verdicts: alignment_supported/unresolved/order_conflict/measurement_ambiguous)
+[✓] identity_* current authority fields removed/renamed or made historical-only
+    (rlv10 identity_* stays readable in old artifacts; ifa2 authority never consumes them)
+[✓] low Whisper char probability alone no longer fails lexical identity
+    (low prob → timing-measurement problem; lexical stays authoritative_known)
+[✓] timing-sensitive gates consume multi-family alignment uncertainty
+    (Whisper/MMS agreement within evidence-derived tolerance → supported;
+     onset-peak contradiction demotes supported → ambiguous)
+[✓] B1 no_source_landmark is re-adjudicated with MMS timing evidence where available
+    (N41: b1_readjudicated via mms_fa_token; 0325 数 → revealed B2 late conflict)
+[✓] B2 semantics may consume MMS boundaries without treating forced alignment as written-score truth
+    (mms_second_family corroborates displacement only when edge unavailable;
+     never when MMS is the primary measurement — no circular evidence)
+[✓] all 21 candidates regenerated under rlv11
 [ ] rlv11 inventory / packages / plan / state committed
 [ ] git_evidence.complete == true
 [ ] plan_invariants.ok == true
@@ -1632,6 +1642,28 @@ DO NOT use low Whisper probability alone as a lyric-identity blocker
 DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
+
+##### G5N.3 实现记录（rlv11，2026-09-19）
+
+**权威模型重写**：known lyric sequence = lexical identity 唯一权威；Whisper/MMS/onset/phoneme-class 全部降为 timing/boundary evidence。
+
+- **verdict 改名（ifa2）**：`identity_verified→alignment_supported`、`identity_unverified→alignment_unresolved`、`identity_conflict→alignment_order_conflict`、`measurement_ambiguous` 保留。rlv10 `identity_*` 字段留在旧 artifacts 可审计，当前 authority 永不消费。
+- **双轨 lyric gate**（`_adjudicate_lyric_evidence` 重写）：
+  - `lexical_text_status`：`authoritative_known`（chars 已绑定即成立，与 Whisper 概率无关）/ `no_lyrics`（器乐段，诚实永久）/ `coverage_mismatch`（窗口外有 chars，fail-closed）/ `text_version_conflict`（保留）。
+  - `alignment_status`：低概率 token 逐字经 family-B 裁决，取最差；第三家族 onset landmark **矛盾**（|dev|>50ms）把 supported 降级为 ambiguous。
+  - `timing_supported`（全部低概率 token `alignment_supported`）→ gate 通过进入路由分类——**timing pass，非 identity recovery**。
+  - disqualifier：`lyric_coverage:*` → coverage_diagnosis；`alignment_{unresolved,ambiguous,order_conflict}:*` → measurement_diagnosis。
+- **B1 重裁决（N41）**：`_classify_routes` 新增 `mms` 参数——onset 漏检但 MMS token 已定位 → `source_ref_kind=mms_fa_token`、`b1_readjudicated=true`，按 MMS span 正常分类（class_A 或 B2）。
+- **B2 证据强化（防循环）**：`b2_evidence` 新增 `mms_second_family`/`mms_token_start`/`mms_confidence`——edge 不可用时 MMS 边界可作为第二 timing 家族确认位移；但 MMS 是主测量（b1_readjudicated）时绝不兼作第二家族。
+- **真实 rlv11 inventory（21 项）**：`n_eligible=0`、`roster=[]`。
+  - `n_lexical_coverage_fail=2`（0391/0404 → `lyric_coverage:no_lyrics`）
+  - `n_alignment_fail=10`（低概率 token family-B 与 Whisper 边界分歧 → `alignment_ambiguous:*`）
+  - `n_timing_supported=1`（0325 `着` family-B 边界一致 → 歌词 gate 通过）
+  - `n_b1_readjudicated=1`（0325 `数`：rlv10 的 `unresolved_B1` 实为 onset 漏检——MMS span 定位在 carrier 后 53.7ms → **真身 B2 late carrier conflict**，`unresolved` semantic）
+  - `n_unresolved_B2=9`、`n_phrase_level=4` —— 0 更诚实：每个失败都有语义归因
+- 4 项历史 pilot 重渲 rlv11（ifa2 合约）；回归 N22–N31 改名重写 + 新增 N32–N41；414 tests PASS。
+
+---
 
 ### 10.1.7 M2.5 CURRENT final acceptance gate
 
