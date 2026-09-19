@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5N.2/rlv10 identity-aware lyric alignment 已实现——MMS_FA CTC family-B；CURRENT blocker = honest roster 仍为空——需上游 written-timing/structure 裁决或更多独立测量族）。** rlv9 当前真实状态：21 项重扫仍为 `0/21 eligible`、`n_lyric_recovered=0`、`roster_candidates=[]`、`pilot_authority.ok=false`、`review_ready=false`；`git_evidence.complete=true`、`missing_count=0`、`plan_invariants.ok=true`，HEAD `6683c8d` 的 GitHub Actions run `35422117214` success。G5N.1 已正确撤销 rlv8 的 3 个假 lyric recovery、把 post-loop `B1_*` 纳入 hard gate、把 phrase-level 重复改为 audit/routing fact、把 sub-resolution displacement 改为 neutral。**但 `_onset_span_evidence` 只能证明声学/音素类别一致性，不能独立识别具体汉字/phoneme identity，因此不得被称为 authoritative identity-bearing evidence。** 下一步不再堆 waveform heuristic，而是接入真正消费 `known lyric sequence + source vocal` 的第二套 identity-aware forced-alignment / CTC / phoneme-alignment family，并用它恢复或拒绝 low-confidence lyric identity。完成 G5N.2 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD / G5N.3 lexical-identity vs alignment-timing contract correction（CURRENT）。** G5N.2/rlv10 已接入 MMS_FA CTC forced alignment，并完成 21 项重扫；HEAD `5c8c5ba` 的机器状态为 `0/21 eligible`、`roster=[]`、`pilot_authority.ok=false`、`review_ready=false`、`git_evidence.complete=true`、`plan_invariants.ok=true`。但 maintainer/ChatGPT 审计确认：**known lyric sequence 本身才是本项目的 lexical identity authority；MMS/Whisper/波形证据只能估计 token timing / boundary / alignment uncertainty。** lyric-constrained forced alignment 把已知 token 作为 target 输入，因此“same token aligned”不能被解释为第二模型独立识别出该汉字，rlv10 的 `identity_verified` / `n_lyric_recovered` 语义不得继续作为 eligibility authority。下一步不是再加第三套 identity 模型，而是完成 G5N.3：重命名并重写 lyric gate，把低 Whisper char probability 从“identity unknown”降级为“timing/alignment measurement uncertain”，用 known lyrics 固定 lexical sequence，再由 MMS/Whisper/acoustic evidence 裁决边界与 written-timing/structure。完成 rlv11 重扫与 current-contract roster 前禁止用户试听、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -1335,317 +1335,303 @@ G5N.1 的 roster lifecycle / post-loop B1 / phrase-level / sub-resolution 三类
 回归：N11–N21（timing-corroboration 非 identity、identity-bearing 恢复、late 同族≠benign、benign 需 phoneme+邻居、post-loop B1×2、verified→final、phrase benign→audit-only、phrase unresolved→阻塞、sub-resolution→neutral、post-loop gate 字段）+ M6/M10b 语义更新。
 ---
 
-#### G5N.2 Identity-aware lyric / phoneme alignment（当前唯一 blocker）
+#### G5N.2 Lyric-constrained forced alignment（✅ IMPLEMENTED @ rlv10；语义纠偏后降为 timing/alignment evidence）
 
-##### Why this blocker exists
-
-rlv9 已正确区分：
+G5N.2 的工程实现本身保留：
 
 ```text
-waveform onset / energy
-→ timing corroboration
-
-_onset_span_evidence
-→ acoustic / phoneme-class consistency
-```
-
-但二者都不能独立回答：
-
-```text
-这里实际对应 known lyric sequence 中的哪一个 char / syllable / phoneme？
-```
-
-当前 `_onset_span_evidence` 的逻辑是：
-
-```text
-先假设 char identity = X
-→ 根据 X 的预期 initial class
-→ 检查附近声音是否“像这一类”
-```
-
-它最多支持：
-
-```text
-phoneme_class_consistent = true|false
-```
-
-不能支持：
-
-```text
-identity_verified = true
-```
-
-因为多个不同汉字 / 拼音 / 声母会共享同一 acoustic class。**因此 rlv9 中 final gate 里任何把 `_onset_span_evidence` 称为 identity-bearing evidence 的表述全部作废。**
-
-##### Required architecture
-
-新增一个真正 identity-aware 的第二 alignment family：
-
-```text
-known lyric text / known lyric sequence
+known lyric sequence
 + separated source vocal
-+ Mandarin syllable / phoneme lexicon or equivalent mapping
-→ constrained char/syllable/phoneme alignment
-→ per-token identity + boundary + confidence/provenance
+→ MMS_FA CTC forced alignment
+→ per-token acoustic span / confidence / provenance
 ```
 
-它必须与当前 Whisper char alignment 在 decision semantics 上独立：
+rlv10 已完成：
 
 ```text
-family A = current Whisper-derived char alignment
-family B = lyric-constrained identity-aware forced alignment / CTC / phoneme alignment
+identity_align.py
+MMS_FA / pypinyin / source+lyric hashes
+21-item inventory rebuild
+4 historical pilot package rebuild
+404 tests PASS
+git_evidence.complete=true
+plan_invariants.ok=true
 ```
 
-family B 可以内部使用 acoustic model / CTC / forced alignment，但不得只是：
+但 G5N.2 的旧解释存在一个 contract error：
 
 ```text
-再跑一个 onset detector
-再换一组 hf_ratio / periodicity threshold
-把 known char 的 expected class 与波形做 heuristic consistency
+known token is injected as forced-alignment target
+→ aligner finds an acoustic path for that target
+!= an independent recognizer identified that Han character
 ```
 
-这些只能继续作为 acoustic diagnostic evidence。
-
-##### Minimum output contract
-
-第二 alignment family 至少持久化：
+因此以下旧语义全部废止为 acceptance authority：
 
 ```text
-aligner_family
-aligner_version
-model / lexicon / config provenance
-source_wav_sha256
-known_lyric_sequence_sha256 or canonical lyric hash
-
-per token:
-  token_index
-  char
-  pinyin / syllable
-  phoneme sequence if available
-  start / end
-  confidence or alignment cost
-  boundary uncertainty
-  aligned / skipped / inserted status
-```
-
-禁止只输出“某处有 onset”。
-
-##### Lyric identity adjudication
-
-对于 current Whisper 低置信 char：
-
-```text
-Whisper identity == known lyric token
-+ family-B identity == same known lyric token
-+ monotonic sequence/order consistent
-+ timing difference within evidence-derived tolerance
+family-B same token
 → identity_verified
+
+family-A + family-B same token
+→ independent lexical identity agreement
+
+low Whisper char probability
+→ lexical identity unknown
 ```
 
-如果 family B 明确对齐到不同 token / boundary order：
+rlv10 的 identity_verified、identity_conflict、n_lyric_recovered=1 保留为 historical/audit 字段，**不得直接授权 roster、review 或 repair**。其中 note_0325 “着”的结果应重新解释为：
 
 ```text
-identity_conflict
-→ fail-closed
+known lexical token = 着
+MMS acoustic alignment found a plausible span
+Whisper/MMS start disagreement = 0.176s
+→ alignment/timing evidence
+→ NOT independent proof that the sung Han character is 着
 ```
 
-如果 family B unavailable / low confidence：
+G5N.2 不再追求“第二个认字模型”。Mandarin 同音字本身也不能仅凭声学可靠地区分为具体汉字；对本项目而言，用户提供/正式歌词就是 lexical source of truth。
+
+---
+
+#### G5N.3 Lexical identity authority + alignment timing correction（← CURRENT）
+
+##### Core authority model
+
+新的单一语义：
 
 ```text
-identity_unverified
-→ fail-closed
+official / known lyric sequence
+→ lexical identity authority
+
+Whisper char alignment
+MMS_FA forced alignment
+waveform onset / energy
+phoneme-class evidence
+→ timing / boundary / alignment evidence only
 ```
 
-如果只有 waveform timing / class consistency：
+前提是 phrase/LRC coverage 已正确绑定。如果 phrase 本身取错歌词行、处于 instrumental/no-lyric 区间、或文本版本不一致，则必须进入 coverage/text-source diagnosis；不得硬套 known lyrics。
+
+##### Low-confidence Whisper semantics
+
+MIN_REVIEW_CHAR_PROB=0.25 不再表示：
 
 ```text
-timing_corroborated_identity_unverified
-→ fail-closed
+prob < 0.25
+→ 不知道唱的是哪个字
 ```
 
-禁止：
+而表示：
 
 ```text
-为了恢复 roster 而降低 MIN_REVIEW_CHAR_PROB
-为了通过低置信 char 而扩大固定 timing tolerance
-把 lyric text 本身当成“第二声学证据”
+prob < 0.25
+→ Whisper-derived token timing/boundary is low-confidence
+→ this measurement cannot be sole timing authority
 ```
 
-known lyric sequence 是 alignment constraint / identity namespace，不是 acoustic confirmation；真正证据来自 family-B 对 source vocal 的独立 alignment。
-
-##### Tolerance semantics
-
-禁止预设一个为了过样本的固定大窗口。boundary tolerance 必须来自：
+因此：
 
 ```text
-aligner frame/hop resolution
-+ token-level uncertainty / confidence
-+ calibration set disagreement distribution
+known lyric token remains lexically fixed
+low ASR probability alone does NOT disqualify lyric identity
 ```
 
-允许定义一个明确 cap，但：
+但如果当前 review/repair 需要精确边界，而 MMS/Whisper/其他 timing evidence 仍无法给出足够可靠的 token span：
 
 ```text
-cap = safety bound
-!= pass target
+alignment_unresolved / measurement_ambiguous
+→ fail-closed for timing-sensitive review/repair
 ```
 
-如果两套 identity-aware aligner 在同 token 上 timing disagreement 超出合理 uncertainty：
+##### Family roles
+
+Family A：
 
 ```text
-measurement_ambiguous
-→ no recovery
+Whisper-derived char/token alignment
+→ candidate timing measurement
+→ probability / DTW confidence describes measurement reliability
 ```
 
-##### Interaction with B2 semantics
-
-G5N.2 family-B phoneme/char boundaries也可以作为 B2 adjudication 的更强 semantic evidence，但必须区分用途：
+Family B：
 
 ```text
-lyric identity lane:
-  token identity + token boundary
-
-B2 lane:
-  phoneme boundary / consonant-vowel transition / preutterance context
+MMS_FA lyric-constrained forced alignment
+→ independent acoustic timing measurement under the same known token sequence
+→ span / CTC score / boundary uncertainty
 ```
 
-`_onset_span_evidence` 仍可保留：
+Family A/B 的独立性只允许用于：
 
 ```text
-frication_like
-periodicity
-pre_onset_gap
-voiced_continuation
+timing agreement
+boundary agreement
+alignment stability
+measurement ambiguity
 ```
 
-但它是：
+不得再称为：
 
 ```text
-supporting acoustic semantic evidence
+independent lexical identity agreement
+token identity verification
+same-token recognition agreement
 ```
 
-不是：
+##### Required implementation changes
+
+至少完成：
 
 ```text
-identity authority
+1. rename semantic verdicts
+   identity_verified      → alignment_supported / timing_supported
+   identity_unverified    → alignment_unresolved
+   identity_conflict      → alignment_order_conflict
+   measurement_ambiguous  → measurement_ambiguous (保留)
+
+2. lyric gate separation
+   lexical_text_status:
+     authoritative_known
+     coverage_mismatch
+     no_lyrics
+     text_version_conflict
+
+   alignment_status:
+     supported
+     ambiguous
+     unresolved
+     order_conflict
+
+3. eligibility
+   lexical identity is NOT failed by Whisper char probability alone
+   timing-sensitive eligibility consumes alignment_status
+   coverage/text-source uncertainty still fail-closed
+
+4. rlv10 historical fields
+   old identity_* fields remain readable for audit
+   but current rlv11 authority must not consume them
+
+5. B2 / written-timing
+   MMS token boundaries may strengthen carrier/timing adjudication
+   but forced alignment does not by itself prove the written score is wrong
+   B2 still requires geometry / neighboring timing / structure semantics
+
+6. post-loop
+   B1 no_source_landmark must be re-evaluated using the corrected
+   known-token + multi-family timing model before remaining a blocker
 ```
 
-##### Priority recovery set
+##### Re-evaluate current 21 items
 
-先验证 rlv9 中最有信息量的低置信样本：
+必须重新生成 **rlv11** inventory。不得简单把 rlv10 的 0/21 复制为新结论。
+
+优先复查：
 
 ```text
-note_0231  春
-note_0311  是
-note_0325  着
+note_0325
+  lexical sequence fixed by known lyrics
+  old lyric recovery gate removed
+  current blocker unresolved_B1:数 / no_source_landmark
+  → rerun timing/alignment diagnosis
+
+note_0231 / note_0311
+  old family-A/B disagreement
+  → measurement_ambiguous
+  → diagnose which timing family is wrong / whether structure carrier is wrong
+  → do NOT call lexical identity ambiguous merely because timing differs
+
+remaining low-confidence items
+  → keep known token identity
+  → classify alignment supported / ambiguous / unresolved
 ```
 
-因为它们已经有 timing corroboration，但 identity 尚未验证，非常适合验证 family-B 是否真的提供新增信息。
-
-然后覆盖：
-
-```text
-note_0123
-note_0305
-note_0076/0077
-note_0264/0266
-note_0440/0441
-```
-
-`0391/0404` 已是 A5 instrumental/no-lyric diagnosis，不应为了 roster 强行生成 token alignment；只需保留 coverage/instrumental audit。
+0391/0404 remain instrumental/no-lyrics coverage cases and must not receive forced lyric tokens.
 
 ##### Required regressions
 
-至少新增：
+Replace/extend N22–N31 with current semantics:
 
 ```text
-N22. waveform timing corroboration + class consistency only
-     → identity_verified=false
+N32. known lyric + low Whisper probability
+     → lexical_text_status=authoritative_known
+     → low probability alone cannot fail lexical identity
 
-N23. family-B aligns same known token with valid confidence/order
-     → identity_verified=true may recover low-confidence Whisper char
+N33. MMS forced alignment same token target
+     → may produce alignment_supported
+     → MUST NOT produce independent identity_verified authority
 
-N24. family-B aligns different token / violates monotonic order
-     → identity_conflict → fail-closed
+N34. Whisper/MMS boundary agreement within evidence-derived uncertainty
+     → timing_supported may pass timing gate
 
-N25. family-B unavailable / low confidence
-     → identity_unverified → fail-closed
+N35. Whisper/MMS timing disagreement beyond uncertainty
+     → measurement_ambiguous
+     → lexical token remains known
 
-N26. known lyric text alone without family-B acoustic alignment
-     → cannot count as second evidence
+N36. MMS unavailable / low CTC confidence
+     → alignment_unresolved
+     → no timing authority invented
 
-N27. family-A/B timing disagreement beyond uncertainty
-     → measurement_ambiguous → no recovery
+N37. phrase/LRC coverage mismatch
+     → lexical_text_status=coverage_mismatch
+     → fail-closed; do not force known token sequence into wrong phrase
 
-N28. threshold/tolerance-only relaxation cannot change identity result
+N38. instrumental/no-lyrics phrase
+     → lexical_text_status=no_lyrics
+     → no forced lyric alignment
 
-N29. recovered token persists family/provenance/hash/boundary evidence
+N39. rlv10 identity_verified historical artifact
+     → cannot directly authorize current roster/review/repair
 
-N30. material aligner/model/lexicon/config change
-     → evidence contract/version bump
+N40. material aligner/model/lexicon/config/source change
+     → timing evidence contract/version bump
      → dependent inventory/package/verdict stale
 
-N31. family-B evidence may strengthen B2 semantics
-     but waveform-class evidence alone never becomes identity authority
+N41. B1 no_source_landmark with usable MMS span
+     → re-adjudicate measurability/timing
+     → do not preserve B1 solely because the old onset detector missed a landmark
 ```
 
-##### G5N.2 acceptance
-
-只有以下同时满足才可关闭：
+##### G5N.3 acceptance
 
 ```text
-[✓] second identity-aware alignment family implemented and provenance-bound
-    (identity_align.py: MMS_FA CTC + pypinyin lexicon + sha/provenance)
-[✓] low-confidence chars adjudicated by token identity, not only waveform class
-[✓] rlv9 false identity-bearing claim removed from active acceptance text
-    (_onset_span_evidence → phoneme_class_consistency diagnostic)
-[✓] 0231/0311/0325 explicitly re-evaluated under family B
-    (0325 着→identity_verified 恢复; 0231/0311→measurement_ambiguous)
-[✓] all 21 inventory regenerated under new evidence contract (rlv10)
-[✓] any recovered item has auditable A/B family agreement
-    (0325: whisper '着' + MMS 'zhe' @dev 0.176s ≤ tol 0.236s)
-[✓] unresolved/conflicting identity remains fail-closed
-    (0231/0311 measurement_ambiguous → no recovery)
-[✓] post-loop B1 / phrase / sub-resolution rules from G5N.1 do not regress
-[✓] affected packages rebuilt under current contract (4 pilots rlv10 valid)
-[ ] state/plan rebuilt after artifact commit
+[ ] lexical identity authority explicitly comes from official/known lyric sequence
+[ ] phrase/LRC coverage/text-version mismatch has its own fail-closed state
+[ ] forced alignment is documented and implemented as timing/alignment evidence, not independent Han-character recognition
+[ ] identity_* current authority fields removed/renamed or made historical-only
+[ ] low Whisper char probability alone no longer fails lexical identity
+[ ] timing-sensitive gates consume multi-family alignment uncertainty
+[ ] B1 no_source_landmark is re-adjudicated with MMS timing evidence where available
+[ ] B2 semantics may consume MMS boundaries without treating forced alignment as written-score truth
+[ ] all 21 candidates regenerated under rlv11
+[ ] rlv11 inventory / packages / plan / state committed
 [ ] git_evidence.complete == true
 [ ] plan_invariants.ok == true
-[ ] FINAL SHA remote CI success
+[ ] any non-empty roster contains no unresolved timing/structure/post-loop blocker
+[ ] pilot_authority.ok == true before user listening
+[ ] review_ready == true before user listening
+[ ] FINAL acceptance SHA remote CI success
 [ ] maintainer/ChatGPT pre-human audit PASS
 ```
 
-即使完成后仍然：
+If rlv11 still yields zero eligible items:
 
 ```text
-0/21 eligible
+accept zero as evidence
+continue written-timing / structure diagnosis
+do not re-introduce lexical-identity gates
+do not lower thresholds to manufacture a roster
 ```
 
-也是允许结果。下一步才进入真正的 written-timing/structure upstream diagnosis；禁止用更多同类 waveform heuristics 人为制造 eligibility。
-
-在 G5N.2 关闭前：
+Until G5N.3 closes:
 
 ```text
 DO NOT ask user to listen
-DO NOT call phoneme-class consistency identity verification
-DO NOT add more onset/energy heuristics as a substitute for forced alignment
-DO NOT lower lyric confidence threshold to fill roster
+DO NOT add a third ASR/identity model merely to prove known lyrics
+DO NOT call lyric-constrained forced alignment independent lexical recognition
+DO NOT use low Whisper probability alone as a lyric-identity blocker
 DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
-
-##### G5N.2 实现记录（rlv10，2026-09-19）
-
-新增 `identity_align.py` —— 真正 identity-aware 的第二对齐族：
-
-- **family-B = MMS_FA CTC forced alignment**（`torchaudio.pipelines.MMS_FA`，315M，uroman 罗马化 29-label）。输入 = known lyric sequence（text 仅作约束）+ separated source vocal；汉字经 pypinyin toneless 罗马化成音节，`forced_align` + `merge_tokens` 归并为逐 token span。
-- **输出合约**持久化：`aligner_family=mms_fa_ctc_uroman`、`aligner_version=ifa1`、model/lexicon provenance、source_wav_sha256、lyric_sequence_sha256；每 token：index/char/pinyin/start/end/confidence(mean CTC span log-prob)/boundary_uncertainty/status(aligned|skipped)。
-- **`identity_adjudicate` 逐字裁决**：family-B 同 token + 单调序 + |边界偏差| ≤ 证据推导容差 → `identity_verified`；非单调/错位 → `identity_conflict`；不可用/低置信 → `identity_unverified`；同 token 但 A/B 边界分歧超容差 → `measurement_ambiguous`。容差 = `min(0.30s cap, 3×20ms frame + 该短语置信 token 偏差中位数)`——证据推导，cap 是安全上界非通过目标。
-- **身份权威分离**：`_onset_span_evidence` 降级为 `phoneme_class_consistency` 诊断（initial class + frication/voiced 一致性），永不当 identity authority；onset-peak 仍是 `timing_corroboration_only`。恢复条件收紧：全部低置信字 `identity_verified` + timing corroborated + ≥1 高置信邻字 → `A4_outlier_resolved`；阈值 0.25 未动。
-- **真实 rlv10 inventory（21 项）**：`n_lyric_recovered=1`——`0325 着`（p=0.21）dev 0.176s ≤ 容差 0.236s → `identity_verified` 真恢复；`0231 春`（dev 0.77s）与 `0311 是`（dev 0.55s）→ `measurement_ambiguous`（whisper DTW 边界错锚 vs MMS 定位真实 sung token）。0325 恢复后仍被 `unresolved_B1:数` 硬阻塞 → **`n_eligible=0`、`roster=[]`**。
-- 4 项历史 pilot 重渲 rlv10（全部 valid）；`plan_invariants.ok=true`、`pilot_authority.ok=false`、`review_ready=false`——未请求试听。
-- 回归：N22–N31（waveform-only≠identity、same-token 恢复、conflict/unverified fail-closed、known-text 非证据、A/B 分歧→ambiguous、容差不可放松、provenance 持久化、版本 bump、lane 分离）；404 tests PASS。
----
 
 ### 10.1.7 M2.5 CURRENT final acceptance gate
 
@@ -1663,26 +1649,24 @@ A. Engine / frozen safety
    [✓] rollback / conflict / idempotency remain green
    [✓] 189s / 202s permanent safety green
 
-B. G5N / G5N.1 / G5N.2 lyric evidence
-   [✓] no_chars root cause resolved or explicitly proven unavailable
-       (0391/0404 → A5_instrumental_no_lyrics, LRC 间奏段无歌词行)
-   [✓] low-confidence timing corroboration is NOT treated as lyric identity proof
-       (onset-peak → timing_corroboration_only; unverified → no recovery)
-   [✓] `_onset_span_evidence` is limited to phoneme-class/acoustic consistency
-       and is NOT accepted as independent token identity authority
-   [ ] second identity-aware forced-alignment / CTC / phoneme-alignment family
-       independently binds known lyric token identity to source vocal
-   [ ] low-confidence token recovery requires family-A/B identity agreement
-       + monotonic sequence/order + uncertainty-aware boundary agreement
-   [✓] no threshold relaxation solely to create pilot items
-       (MIN_REVIEW_CHAR_PROB=0.25 unchanged; n_lyric_recovered=0)
-   [ ] family-B model/lexicon/config/source/lyric provenance persisted and version-bound
+B. G5N.3 lexical text + alignment timing authority
+   [ ] official/known lyric sequence is the lexical identity authority
+   [ ] phrase/LRC coverage and text-version correctness are validated separately
+   [ ] Whisper probability is measurement confidence, not lexical-identity confidence
+   [ ] MMS_FA forced alignment is timing/alignment evidence only
+   [ ] current authority no longer treats forced target token as independent recognition
+   [ ] low-confidence Whisper token can remain lexically known while timing stays unresolved
+   [ ] family-A/B agreement is used only for timing/boundary confidence
+   [ ] family-A/B disagreement routes measurement_ambiguous without changing the known token
+   [ ] aligner model/lexicon/config/source/lyric provenance persisted and version-bound
+   [ ] rlv10 identity_* verdicts are historical/audit-only under the corrected contract
+   [ ] all 21 candidates rebuilt under rlv11 semantics
 
-C. G5N / G5N.1 B2 semantics
+C. G5N.3 timing / B2 semantics
    [✓] B2 is not treated as automatic written-score error
    [✓] same-family waveform agreement confirms displacement, not semantic benignness
    [✓] benign classifications use phoneme-class/acoustic semantic evidence + geometry/neighbor consistency
-   [ ] where G5N.2 family-B phoneme boundaries are available, B2 semantic routing consumes them without conflating them with waveform heuristics
+   [ ] where MMS family-B token boundaries are available, B2 routing may consume them as timing evidence without treating forced alignment as lexical recognition or written-score truth
    [✓] sub-resolution displacement is neutral unless stronger evidence establishes a real conflict
        (measurement_below_resolution)
    [✓] phrase-level repetition remains audit-only after all shared conflicts resolve benign
@@ -1690,14 +1674,13 @@ C. G5N / G5N.1 B2 semantics
    [✓] measurement_ambiguous / unresolved remain fail-closed
 
 D. Honest pilot roster
-   [✓] all 21 candidates rerun under revised current contract (rlv9 inventory)
+   [ ] all 21 candidates rerun under corrected current contract (rlv11 inventory)
    [✓] eligibility_inventory committed/auditable
-   [✓] roster contains only semantically resolved reviewable items (empty → vacuous)
-   [✓] no unresolved pre-loop OR post-loop B1/B2/lyric-evidence blocker in roster
-       (post_loop_gate verified/b1_block/needs_render enforced)
-   [✓] every proposed roster item has current-contract render/post-loop evidence
-       (final_eligible requires verified post-loop)
-   [✓] pilot size evidence-driven; do not lower gates to fill count (roster=[])
+   [ ] roster contains only semantically resolved reviewable items after rlv11 rerun (empty remains allowed)
+   [ ] no unresolved pre-loop OR post-loop B1/B2/alignment/coverage blocker in roster
+       (post_loop gate remains fail-closed)
+   [ ] every proposed roster item has rlv11 current-contract render/post-loop evidence
+   [✓] pilot size evidence-driven; do not lower gates to fill count
 
 E. Exact review authority
    [ ] state/plan are rebuilt after the final artifact commit
@@ -1889,7 +1872,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← QUALITY HOLD / G5N.2（rlv9 lifecycle correctness 已闭合；当前缺真正 identity-aware lyric/phoneme forced alignment；0/21 eligible；review_ready=false）
+### M2.5 — PROBABLE structure repair — ← QUALITY HOLD / G5N.3（known lyrics 固定 lexical identity；MMS/Whisper 改为 timing/alignment evidence；需 rlv11 重扫后重新判断 roster；当前 rlv10 0/21 不再作为 corrected-contract 最终结论）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -1977,11 +1960,12 @@ rollback coverage
 75. 先“唱对”，再做泠鸢风格。
 76. rlv7/current-contract 的正式 human pilot 只能由 current artifact evidence 证明可测、可审；历史 pilot 身份没有保留权。最终 roster 必须使 `pilot_authority.ok=true`、`review_ready=true`，并在 FINAL acceptance SHA 上取得 remote CI success 后才允许用户试听。
 77. B2 carrier conflict 只表示 source acoustic landmark 越出 legal carrier range；不得自动等同于 written-score error。最终语义必须消费 direction + phoneme/context + independent acoustic evidence；phrase-level 重复 target 只证明 target-independence，不得当作第二份独立 written-error 证据。
-78. lyric-evidence recovery 禁止为了凑 pilot 单纯降低 `MIN_REVIEW_CHAR_PROB`；no_chars / low-confidence 必须通过 coverage 修复或独立 evidence adjudication，仍不确定则 fail-closed。
-79. waveform onset/energy detector 只能 corroborate acoustic timing；没有 identity-bearing second evidence 时，不得把低置信 Whisper char 升级为 authoritative lyric identity。
+78. 禁止为了凑 pilot 单纯降低 `MIN_REVIEW_CHAR_PROB`；但该阈值只表示 Whisper timing/alignment measurement confidence，不得再被解释为 known lyric 的 lexical identity confidence。
+79. waveform onset/energy detector 只能 corroborate acoustic timing；official/known lyric sequence 提供 lexical identity，声学 detector 不负责把低置信 Whisper char“升级”为某个汉字。
 80. honest-roster eligibility 必须消费 current-contract post-loop final_class；任何 `B1_*` unresolved subtype 都必须 hard-block，不能只看 pre-loop route。
 81. `phrase_level_target_independent_conflict` 是 audit/routing fact，不是永久 blocker；shared conflicts 全部被独立证据裁决为 benign 后，不得因“重复出现”再次单独阻塞。
 82. 如果定义某 timing displacement 低于 detector resolution，则该 displacement 本身必须 neutral / below-resolution，不能同时作为 measurable semantic error 的 hard blocker。
 83. `_onset_span_evidence`、hf_ratio、periodicity、frication/gap 等 waveform-class feature 只能提供 acoustic/phoneme-class consistency；不得单独声明 char/syllable/phoneme token identity verified。
-84. low-confidence lyric identity 的自动恢复必须有第二套 identity-aware acoustic alignment family，对 known lyric sequence 与 source vocal 做 token-level binding；known lyric text 本身不是第二声学证据。
-85. identity-aware aligner 的 model/lexicon/config/source/lyric provenance 发生 material change 时必须 version/contract bump，并使依赖该 evidence 的 inventory/package/verdict stale。
+84. lyric-constrained forced alignment 的 token identity 来自已知 target sequence；它可以提供独立 acoustic timing/boundary measurement，但不得被称为对该 Han character 的独立 recognition/identity verification。
+85. alignment model/lexicon/config/source/lyric provenance 发生 material change 时必须 version/contract bump，并使依赖该 timing/alignment evidence 的 inventory/package/verdict stale。
+86. 只要 phrase/LRC/text-version coverage 已确认正确，known lyric token 的 lexical identity 不得因单个 ASR char probability 低而失效；真正需要 fail-closed 的是 coverage/text conflict 或 timing-sensitive decision 所需的 alignment evidence 仍 unresolved。
