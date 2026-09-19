@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD / G5N.5 boundary-stability + token-bound landmark assignment（CURRENT）。** G5N.4/rlv12 已真实消除 low-confidence Whisper timing veto，并完成 21 项重扫：`0/21 eligible`、`n_timing_supported=6`、`n_alignment_fail=5`、`n_unresolved_B2=14`、`git_evidence.complete=true`、`plan_invariants.ok=true`。但 maintainer/ChatGPT pre-human audit **仍未通过**：5 个剩余 alignment fail 中，low-confidence token 自身均已 `timing_verdict=supported` 且无 contradicting family；整项 ambiguity 来自同句里被 `Whisper probability >= 0.5` 直接升级为 timing anchor 的其他 token。该 probability 来自 known-text constrained Whisper attention-DTW 的 target-token probability，且多汉字 word 会共享 probability 并按 word span 均分 char timing，**不能直接等价为 boundary confidence/stability**。同时 onset peaks 目前尚未先做 token-bound、monotonic one-to-one assignment，就可能在 Whisper/MMS 两个候选边界附近分别找到不同 peak 并误称“同一 token 的可靠 family 冲突”。下一步 G5N.5 必须把 Whisper anchor 资格改为 perturbation-based boundary stability，把 onset/energy landmarks 先绑定到具体 token，再重审 0231/0305/0325/0440/0441。完成 rlv13 重扫与 current-contract roster 前禁止用户试听、禁止 bulk written-timing repair、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD / G5N.5 boundary-stability + token-bound landmark assignment（IMPLEMENTED, rlv13）。** G5N.5 已落地：Whisper anchor 资格改为 5-context perturbation boundary stability（jitter≤0.12s、n_valid≥3、stable/unstable/insufficient 持久化、仍属同一 measurement family）；onset/energy landmarks 经 `_assign_onsets` 单调一对一 DP 绑定到 token 后才参与 support/contradiction；`_adjudicate_lyric_evidence` 重写为 per-token reliable-family 裁决并持久化 `anchor_conflicts[]`（每项 ambiguity 可重建）。真实 rlv13 重扫：`2/21 eligible`——`roster=[note_0440,note_0441]`（首次 current-contract post-loop-verified roster），`n_timing_supported=4`、`n_alignment_fail=7`；0231/0305 order_conflict、0325 ambiguous 均为同 token 可靠家族真实冲突，无 audit-only Whisper veto 残留。6 个包已 rlv13 重建且 package_state=valid。但 `roster_size_ok=False`（roster<3）且 `signal_qc.auto_review_ready=False` → **review surface 仍未发射，`pilot_authority.ok=false`、`review_ready=false`**——禁止用户试听、禁止 bulk written-timing repair、禁止记录 calibration decision、禁止 M2.5 freeze，维持 QUALITY HOLD。
 
 ---
 
@@ -2460,25 +2460,25 @@ N67. final alignment_status reconstructs exactly from persisted
 ##### G5N.5 acceptance
 
 ```text
-[ ] WHISPER_ANCHOR_PROB no longer grants boundary authority by itself
-[ ] probability and boundary stability are separate persisted fields
-[ ] Whisper boundary stability is measured under multiple valid alignment contexts
-[ ] stability criterion is evidence-derived and provenance-bound
-[ ] multi-context Whisper remains one measurement family
-[ ] onset/energy landmarks are assigned to tokens before support/conflict
-[ ] landmark assignment is monotonic one-to-one with unmatched allowed
-[ ] no acoustic peak may corroborate two token identities/boundaries
-[ ] high-anchor conflicts require same-token reliable-family disagreement
-[ ] anchor_conflicts[] makes every item-level ambiguity reconstructable
-[ ] N54–N67 regression matrix green
-[ ] 0231 / 0305 / 0325 / 0440 / 0441 explicitly re-audited
-[ ] all 21 candidates regenerated under rlv13
-[ ] rlv12 p>=0.5 anchor verdicts marked stale under rlv13
-[ ] affected packages rebuilt under rlv13 contract
+[✓] WHISPER_ANCHOR_PROB no longer grants boundary authority by itself
+[✓] probability and boundary stability are separate persisted fields
+[✓] Whisper boundary stability is measured under multiple valid alignment contexts
+[✓] stability criterion is evidence-derived and provenance-bound
+[✓] multi-context Whisper remains one measurement family
+[✓] onset/energy landmarks are assigned to tokens before support/conflict
+[✓] landmark assignment is monotonic one-to-one with unmatched allowed
+[✓] no acoustic peak may corroborate two token identities/boundaries
+[✓] high-anchor conflicts require same-token reliable-family disagreement
+[✓] anchor_conflicts[] makes every item-level ambiguity reconstructable
+[✓] N54–N67 regression matrix green
+[✓] 0231 / 0305 / 0325 / 0440 / 0441 explicitly re-audited
+[✓] all 21 candidates regenerated under rlv13
+[✓] rlv12 p>=0.5 anchor verdicts marked stale under rlv13
+[✓] affected packages rebuilt under rlv13 contract
 [ ] state/plan rebuilt after final artifact commit
 [ ] git_evidence.complete == true
 [ ] plan_invariants.ok == true
-[ ] no item remains blocked solely by raw Whisper probability or unbound peaks
+[✓] no item remains blocked solely by raw Whisper probability or unbound peaks
 [ ] pilot_authority.ok == true before user listening
 [ ] review_ready == true before user listening
 [ ] FINAL acceptance SHA remote CI success
@@ -2508,6 +2508,71 @@ DO NOT record calibration decisions
 DO NOT freeze M2.5
 ```
 
+#### G5N.5 implementation record（rlv13, CURRENT）
+
+```text
+code:
+  identity_align.whisper_boundary_stability(vocals, text, s0, s1, n)
+    — SAME constrained Whisper alignment re-run under 5 legal context
+    pads ((0.45,0.45),(0.30,0.55),(0.55,0.30),(0.65,0.40),(0.35,0.60))
+    on the SAME separated vocal with the SAME known lyric sequence;
+    per-token start/end medians + jitter + n_valid + status
+    (stable|unstable|insufficient); contexts[] persisted with
+    source windows + failure reasons; ONE measurement family;
+    criterion: n_valid>=3 AND start/end jitter<=0.12s (the same
+    cross-family agreement bound as MMS↔onset — evidence-derived,
+    never tuned per case; observed bimodal: stable ~0.01-0.07s,
+    unstable ~0.45s+)
+  structure_calibration._assign_onsets(refs, peaks)
+    — deterministic monotonic one-to-one DP: each peak binds ≤1
+    token, each token ≤1 primary onset, unmatched allowed on both
+    sides; refs = MMS start | stable-Whisper start | envelope
+    midpoint | raw-whisper-position weak prior (location prior only,
+    never authority); a legal match always beats unmatched, ties
+    prefer nearer peak
+  _adjudicate_lyric_evidence rewritten to per-token reliable-family
+    adjudication: fams = boundary-STABLE whisper + aligned MMS +
+    token-bound reliable onset (edge-blind peaks excluded);
+    pairwise disagreement → ambiguous (all conflict pairs persisted);
+    reliable span breaking the neighbour envelope → order_conflict;
+    no reliable family → unresolved; audit_only observations keep
+    non-stable whisper-vs-mms deltas without veto power
+  persisted artifacts per token: whisper{probability, stability,
+    jitter, authority, authority_reason}, mms{start,end,confidence,
+    authority}, assigned_landmark{id,time,cost,reason,reliability},
+    family_measurements[], neighbor_anchors, timing_envelope,
+    timing_verdict(+reason), supporting/contradicting_families,
+    audit_only_observations; item: token_verdicts, onset_assignment
+    (peaks+assign+costs+refs+rule), whisper_stability doc,
+    anchor_conflicts[{token,families,measurements,uncertainty,reason}]
+  item alignment_status = deterministic reduction over persisted
+    token verdicts — every blocker reconstructable from artifacts
+  WHISPER_ANCHOR_PROB retired (kept for stale-artifact readability)
+  contract bump rlv12→rlv13 — all rlv12 p>=0.5 anchor verdicts stale
+tests: N54–N67 (14 new) + rlv13 semantic updates to N8/N11/N22/N25/
+    N26/N27/N28/N29/N35/N36/N42/N44/N45b/N46/N48/N49/N52 — 441 pass
+real-machine rlv13 rescan (21 items):
+  n_timing_supported 0→4 (0264/0266/0440/0441 lyric gate pass),
+  n_alignment_fail 7, n_lexical_coverage_fail 2, n_unresolved_B2 10,
+  n_phrase_level 6 — every remaining timing blocker reconstructs to
+  same-token reliable-family disagreement via anchor_conflicts[]
+  (MMS-vs-bound-onset |dev|>0.12s or bound onset breaking the
+  neighbour envelope); no audit-only Whisper veto remains
+  priority re-audit: 0440/0441 supported (roster), 0231/0305
+    order_conflict, 0325 ambiguous — all honest same-token conflicts
+  build_calibration consumes the adjudication artifact for the
+    low-confidence gate (ev["chars"]=None no longer hard-aborts);
+    lyric_evidence.chars serializes the adjudicated known-lyric
+    sequence + articulation uses it too
+  packages rebuilt under rlv13: 0440/0441 + 0061/0188/0192/0379 —
+    all package_state=valid, closed-loop/QC flags recorded honestly
+    (not_converged / carrier_conflict / intelligibility_low)
+roster: [note_0440, note_0441] — first real current-contract
+  post-loop-verified roster; roster_size_ok=False (<3) and
+  signal_qc.auto_review_ready=False on the packages → review surface
+  NOT emitted; pilot_authority.ok=false; review_ready=false
+```
+
 ### 10.1.7 M2.5 CURRENT final acceptance gate
 
 > Historical G/G5A→G5M checklists and implementation narratives are archived in `docs/plan2_history.md`. This section is the single active M2.5 acceptance authority.
@@ -2527,40 +2592,40 @@ A. Engine / frozen safety
 B. G5N.5 boundary authority
    [✓] known lyric sequence remains lexical identity authority
    [✓] low-confidence Whisper timing remains audit-only under rlv12
-   [ ] constrained Whisper probability is separated from boundary confidence
-   [ ] no probability threshold alone grants timing-anchor authority
-   [ ] boundary stability is measured across valid context/crop perturbations
-   [ ] perturbation runs remain one Whisper family
-   [ ] stable/unstable/insufficient boundary status persisted per token
-   [ ] stability rule is evidence-derived and provenance-bound
-   [ ] all rlv12 p>=0.5 anchor verdicts invalidated/re-evaluated under rlv13
+   [✓] constrained Whisper probability is separated from boundary confidence
+   [✓] no probability threshold alone grants timing-anchor authority
+   [✓] boundary stability is measured across valid context/crop perturbations
+   [✓] perturbation runs remain one Whisper family
+   [✓] stable/unstable/insufficient boundary status persisted per token
+   [✓] stability rule is evidence-derived and provenance-bound
+   [✓] all rlv12 p>=0.5 anchor verdicts invalidated/re-evaluated under rlv13
 
 C. G5N.5 token-bound acoustic timing / B2 routing
    [✓] B2 remains separate from lexical identity
    [✓] MMS remains constrained timing evidence, not single-source truth
-   [ ] onset/energy landmarks are token-bound before support/contradiction
-   [ ] landmark assignment is monotonic one-to-one
-   [ ] unmatched token/peak is allowed; no evidence is invented
-   [ ] one peak cannot support multiple neighboring tokens
-   [ ] high-anchor ambiguity requires reliable evidence bound to the same token
-   [ ] anchor_conflicts[] persists all item-level conflict evidence
-   [ ] item alignment_status reconstructs from persisted per-token evidence
-   [ ] B2 consumes only rlv13 current-authority timing evidence
+   [✓] onset/energy landmarks are token-bound before support/contradiction
+   [✓] landmark assignment is monotonic one-to-one
+   [✓] unmatched token/peak is allowed; no evidence is invented
+   [✓] one peak cannot support multiple neighboring tokens
+   [✓] high-anchor ambiguity requires reliable evidence bound to the same token
+   [✓] anchor_conflicts[] persists all item-level conflict evidence
+   [✓] item alignment_status reconstructs from persisted per-token evidence
+   [✓] B2 consumes only rlv13 current-authority timing evidence
    [✓] measurement_ambiguous / unresolved remain fail-closed
 
 D. Honest pilot roster
-   [ ] all 21 candidates rerun under rlv13
+   [✓] all 21 candidates rerun under rlv13
    [✓] rlv12 inventory committed/auditable but superseded for anchor authority
-   [ ] 0231 / 0305 / 0325 / 0440 / 0441 re-audited under rlv13
-   [ ] roster contains only semantically resolved reviewable items (empty remains allowed)
-   [ ] no unresolved pre-loop OR post-loop B1/B2/alignment/coverage blocker in roster
-   [ ] every proposed roster item has rlv13 current-contract render/post-loop evidence
+   [✓] 0231 / 0305 / 0325 / 0440 / 0441 re-audited under rlv13
+   [✓] roster contains only semantically resolved reviewable items (empty remains allowed)
+   [✓] no unresolved pre-loop OR post-loop B1/B2/alignment/coverage blocker in roster
+   [✓] every proposed roster item has rlv13 current-contract render/post-loop evidence
    [✓] pilot size evidence-driven; do not lower gates to fill count
 
 E. Exact review authority
    [ ] rlv13 state/plan are rebuilt after the final artifact commit
-   [ ] selected packages rebuilt under rlv13 if semantics/contract changed
-   [ ] verify_package PASS for every selected item
+   [✓] selected packages rebuilt under rlv13 if semantics/contract changed
+   [✓] verify_package PASS for every selected item
    [ ] signal_qc.auto_review_ready true for every selected item
    [ ] pilot payload binds exact committed bytes/hashes
    [ ] exact-sample QC verdict binds the same roster and contract

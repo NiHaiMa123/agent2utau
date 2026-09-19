@@ -269,3 +269,121 @@ def alignment_adjudicate(align_doc, chars):
 identity_align = forced_align
 identity_adjudicate = alignment_adjudicate
 IDENTITY_TIMING_CAP_S = ALIGN_TIMING_CAP_S
+
+
+# ------------------------------------------------- §G5N.5 boundary stability
+#
+# Whisper target-token probability is an acoustic-quality feature of
+# the constrained alignment — it is NOT a boundary-confidence measure
+# (multi-Hanzi words share one probability and split their span evenly
+# across chars). Boundary authority must instead be proven by
+# perturbation stability: the same constrained alignment is re-run
+# under several LEGAL context windows (same lyric sequence, varied
+# audio crops) and the boundary jitter is measured. Multi-context
+# outputs of the same Whisper model are ONE measurement family —
+# they can never count as N independent votes.
+
+# boundary jitter bound: the same physical agreement bound used for
+# cross-family onset↔MMS comparison (sung-consonant lead-in + frame
+# resolution) — observed on the calibration set as a bimodal gap
+# (stable tokens jitter ~0.01–0.07s, unstable ~0.45s+). Evidence-
+# derived, persisted in the stability doc, never tuned per case.
+WHISPER_STABLE_JITTER_S = 0.12
+# minimum valid contexts required before a stability verdict exists
+WHISPER_STABILITY_MIN_CTX = 3
+# context pads (left, right) around the token span — all keep the
+# same known lyric sequence and exact coverage; none is chosen to
+# favour a result
+WHISPER_STABILITY_PADS = (
+    (0.45, 0.45), (0.30, 0.55), (0.55, 0.30),
+    (0.65, 0.40), (0.35, 0.60))
+
+
+def whisper_boundary_stability(vocals_wav, text, span0, span1,
+                               n_tokens, align_fn=None, pads=None):
+    """Perturbation-based Whisper boundary stability (§G5N.5).
+
+    Re-runs the constrained Whisper alignment of the SAME known lyric
+    sequence on `vocals_wav` under several legal context crops around
+    [span0, span1] and measures per-token boundary jitter. Returns a
+    persisted doc:
+
+      contexts[]  per-crop result (window, validity, failure_reason)
+      tokens[]    per-token {start_median, end_median, start_jitter,
+                             end_jitter, n_valid, stability_status}
+      family      "whisper_attention_dtw_stability" (ONE family)
+      jitter_bound_s / min_valid_contexts (the evidence-derived rule)
+      provenance  vocals_wav_sha256 / lyric_sequence_sha256
+
+    align_fn is injectable for tests — signature
+    (wav, text, t0, t1) -> list of {char,start,end,probability}.
+    """
+    from .analysis.lyrics import force_align as _fa
+    fn = align_fn or _fa
+    pads = pads or WHISPER_STABILITY_PADS
+    contexts, per_token = [], [[] for _ in range(n_tokens)]
+    for ci, (lp, rp) in enumerate(pads):
+        t0, t1 = max(0.0, span0 - lp), span1 + rp
+        ctx = {"context_id": f"pad_{lp:.2f}_{rp:.2f}",
+               "source_start": round(t0, 4), "source_end": round(t1, 4),
+               "valid": False, "failure_reason": None}
+        try:
+            if not 0 < t1 - t0 <= 29:
+                raise ValueError("window_out_of_range")
+            al = fn(vocals_wav, text, t0, t1)
+            if len(al) != n_tokens:
+                raise ValueError("token_count_mismatch")
+            if any(al[k]["start"] < al[k - 1]["start"] - 1e-3
+                   for k in range(1, n_tokens)):
+                raise ValueError("non_monotonic")
+            ctx["valid"] = True
+            for i, c in enumerate(al):
+                per_token[i].append(
+                    (float(c["start"]), float(c["end"]),
+                     float(c.get("probability") or 0.0), ci))
+        except Exception as e:  # noqa: BLE001 — recorded, never fatal
+            ctx["failure_reason"] = f"{type(e).__name__}:{e}"
+        contexts.append(ctx)
+    n_valid = sum(1 for c in contexts if c["valid"])
+    import statistics as st
+
+    def _med(v):
+        return round(st.median(v), 4) if v else None
+
+    tokens = []
+    for i in range(n_tokens):
+        obs = per_token[i]
+        starts = [o[0] for o in obs]
+        ends = [o[1] for o in obs]
+        sj = round(max(starts) - min(starts), 4) if starts else None
+        ej = round(max(ends) - min(ends), 4) if ends else None
+        if not obs or n_valid < WHISPER_STABILITY_MIN_CTX:
+            status = "insufficient"
+        elif sj is not None and ej is not None \
+                and sj <= WHISPER_STABLE_JITTER_S \
+                and ej <= WHISPER_STABLE_JITTER_S:
+            status = "stable"
+        else:
+            status = "unstable"
+        tokens.append({
+            "token_index": i,
+            "start_median": _med(starts), "end_median": _med(ends),
+            "start_jitter": sj, "end_jitter": ej,
+            "n_valid": len(obs), "stability_status": status})
+    import json as _json
+    return {
+        "family": "whisper_attention_dtw_stability",
+        "contexts": contexts,
+        "tokens": tokens,
+        "n_valid_contexts": n_valid,
+        "jitter_bound_s": WHISPER_STABLE_JITTER_S,
+        "min_valid_contexts": WHISPER_STABILITY_MIN_CTX,
+        "criterion": ("stable iff n_valid>=%d and start/end jitter "
+                      "<= %.3fs (the cross-family agreement bound)"
+                      % (WHISPER_STABILITY_MIN_CTX,
+                         WHISPER_STABLE_JITTER_S)),
+        "vocals_wav_sha256": _sha256(vocals_wav)
+        if vocals_wav and Path(vocals_wav).exists() else None,
+        "lyric_sequence_sha256": hashlib.sha256(
+            _json.dumps(text, ensure_ascii=False,
+                        sort_keys=True).encode()).hexdigest()}

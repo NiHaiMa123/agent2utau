@@ -2297,7 +2297,7 @@ def test_j8_rlv3_artifacts_stale_under_rlv7():
                            "lyric_mapping_impl": "rlv3",
                            "contract_sha256": rlv3_sha}}
     assert sc.item_contract_stale(man, {}, "rph") is True
-    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv12"
+    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv13"
 
 
 def test_j9_state_read_does_not_dirty(tmp_path, monkeypatch):
@@ -3480,6 +3480,44 @@ def _fam_b_ok(monkeypatch, chars, offset=0.0):
     monkeypatch.setattr(ia, "forced_align", _fa)
 
 
+def _stab_ok(monkeypatch, chars, statuses=None):
+    """whisper boundary-stability mock: every token 'stable' at its
+    family-A position across >=MIN_CTX valid contexts (one family);
+    `statuses` may override per-token stability_status."""
+    import agent2utau.identity_align as ia
+    def _st(vocals, text, s0, s1, n, **kw):
+        return {"family": "whisper_attention_dtw_stability",
+                "contexts": [{"context_id": f"c{k}", "valid": True}
+                             for k in range(ia.WHISPER_STABILITY_MIN_CTX)],
+                "n_valid_contexts": ia.WHISPER_STABILITY_MIN_CTX,
+                "jitter_bound_s": ia.WHISPER_STABLE_JITTER_S,
+                "min_valid_contexts": ia.WHISPER_STABILITY_MIN_CTX,
+                "tokens": [{"token_index": i,
+                            "start_median": chars[i]["start"],
+                            "end_median": chars[i]["end"],
+                            "start_jitter": 0.01,
+                            "end_jitter": 0.01,
+                            "n_valid": ia.WHISPER_STABILITY_MIN_CTX,
+                            "stability_status":
+                                (statuses[i] if statuses else "stable")}
+                           for i in range(n)],
+                "vocals_wav_sha256": None,
+                "lyric_sequence_sha256": None}
+    monkeypatch.setattr(ia, "whisper_boundary_stability", _st)
+
+
+def _stab_unavailable(monkeypatch):
+    """stability audit ran but produced nothing usable — every token
+    'insufficient' (e.g. missing wav)."""
+    import agent2utau.identity_align as ia
+    monkeypatch.setattr(
+        ia, "whisper_boundary_stability",
+        lambda vocals, text, s0, s1, n, **kw: {
+            "family": "whisper_attention_dtw_stability",
+            "contexts": [], "tokens": [], "n_valid_contexts": 0,
+            "reason": "unavailable"})
+
+
 def test_n8_lyric_outlier_timing_supported_by_family_b(monkeypatch):
     """§G5N.3: a low-prob char's TIMING is corroborated ONLY via
     family-B alignment_supported — onset-peak is timing corroboration
@@ -3505,8 +3543,10 @@ def test_n8_lyric_outlier_timing_supported_by_family_b(monkeypatch):
         lambda sw, a, b: {"insufficient": False,
                           "frication_like": True,
                           "periodicity": 0.2})
-    # family-B aligns the same known token with valid order/timing
+    # family-B aligns the same known token with valid order/timing;
+    # whisper boundaries are stability-proven at their positions
     _fam_b_ok(monkeypatch, chars)
+    _stab_ok(monkeypatch, chars)
     adj = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     # lexical identity was NEVER doubted — the gate is about timing
@@ -3520,9 +3560,9 @@ def test_n8_lyric_outlier_timing_supported_by_family_b(monkeypatch):
     assert "onset_strength_peak_v1" in ent["supporting_families"]
     # phoneme-class consistency is recorded as diagnostic only
     assert ent["phoneme_class_consistent"] is True
-    # family-B unavailable → alignment_unresolved → fail closed even
-    # with perfect phoneme-class consistency (an onset near the low
-    # char's envelope alone supports timing though — see N49)
+    # family-B unavailable: whisper-stable boundaries still carry the
+    # gate (they are their own reliable family under rlv13) — but when
+    # BOTH families are unavailable the token fails closed
     monkeypatch.setattr(
         ia, "forced_align",
         lambda wav, chs: {"aligner_family": ia.ALIGNER_FAMILY,
@@ -3533,13 +3573,17 @@ def test_n8_lyric_outlier_timing_supported_by_family_b(monkeypatch):
     monkeypatch.setattr(sc, "_onset_peaks", lambda sw: None)
     adj2 = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
-    assert adj2["timing_supported"] is False
-    assert adj2["alignment_status"] == "unresolved"
-    assert adj2["diagnosis"] == "alignment_unresolved"
+    assert adj2["timing_supported"] is True
+    _stab_unavailable(monkeypatch)
+    adj3 = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj3["timing_supported"] is False
+    assert adj3["alignment_status"] == "unresolved"
     # a reliable onset far from the MMS span CONTRADICTS it — the
     # conflict is between reliable families, never vs audit-only
     # Whisper
     _fam_b_ok(monkeypatch, chars)
+    _stab_ok(monkeypatch, chars)
     monkeypatch.setattr(
         sc, "_onset_peaks", lambda sw: __import__("numpy").array(
             [0.01, 0.62, 0.81]))
@@ -3548,8 +3592,8 @@ def test_n8_lyric_outlier_timing_supported_by_family_b(monkeypatch):
     assert adj3["timing_supported"] is False
     assert adj3["alignment_status"] == "ambiguous"
     assert adj3["diagnosis"] == "measurement_ambiguous"
-    assert "onset_strength_peak_v1" in \
-        adj3["low_prob_chars"][0]["contradicting_families"]
+    cf = adj3["low_prob_chars"][0]["contradicting_families"]
+    assert any("onset_strength_peak_v1" in c for c in cf)
 
 
 def test_n9_no_chars_instrumental_is_a5_not_a1():
@@ -3648,27 +3692,30 @@ def test_n11_onset_peak_is_timing_corroboration_only(monkeypatch):
         lambda wav, chs: {"available": False,
                           "reason": "source_wav_missing",
                           "tokens": []})
-    # an onset peak inside the [prev_anchor_end, +inf) envelope is a
-    # sufficient measurement_support family — the token is timed
+    _stab_unavailable(monkeypatch)
+    # rlv13: with MMS AND whisper-boundary-authority both absent, a
+    # reliable token-bound onset is a sufficient family by itself —
+    # peaks bind via the weak whisper-position prior
     monkeypatch.setattr(sc, "_onset_peaks",
-                        lambda sw: np.array([0.0, 0.41]))
+                        lambda sw: np.array([0.15, 0.41]))
     adj = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     assert adj["timing_supported"] is True
     assert adj["alignment_status"] == "supported"
     ent = adj["low_prob_chars"][0]
     assert ent["timing_verdict"] == "supported"
-    assert ent["timing_verdict_reason"] == "onset_landmark_in_envelope"
+    assert ent["timing_verdict_reason"] == "onset_strength_peak_v1"
     assert ent["supporting_families"] == ["onset_strength_peak_v1"]
     assert ent["mms"]["authority"] == "unavailable"
-    # no onset inside the envelope → no reliable family → unresolved
+    assert ent["whisper"]["authority"] == "unavailable"
+    # no reliable onset for the low token → it stays unresolved
     monkeypatch.setattr(sc, "_onset_peaks",
-                        lambda sw: np.array([0.0]))
+                        lambda sw: np.array([0.15]))
     adj2 = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     assert adj2["timing_supported"] is False
     assert adj2["alignment_status"] == "unresolved"
-    assert adj2["diagnosis"] == "alignment_unresolved"
+    assert adj2["diagnosis"] == "alignment_partially_unresolved"
 
 
 def test_n12_family_b_agreement_supports_timing(monkeypatch):
@@ -3920,6 +3967,9 @@ def _n_fixture(monkeypatch):
         lambda sw, a, b: {"insufficient": False,
                           "frication_like": True,
                           "periodicity": 0.2})
+    # rlv13 default: whisper boundaries stability-proven at their
+    # positions — tests that exercise unstable/insufficient override
+    _stab_ok(monkeypatch, chars)
     return sc, chars, run, it, ev
 
 
@@ -3930,6 +3980,7 @@ def test_n22_waveform_only_never_supports(monkeypatch):
     import agent2utau.identity_align as ia
     import numpy as np
     sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _stab_unavailable(monkeypatch)
     monkeypatch.setattr(sc, "_onset_peaks",
                         lambda sw: np.array([]))
     monkeypatch.setattr(
@@ -4001,6 +4052,7 @@ def test_n25_family_b_unavailable_fails_closed(monkeypatch):
     import agent2utau.identity_align as ia
     import numpy as np
     sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _stab_unavailable(monkeypatch)
     monkeypatch.setattr(sc, "_onset_peaks", lambda sw: np.array([]))
     # low-confidence token (status=skipped)
     def _fa(wav, chs):
@@ -4031,6 +4083,7 @@ def test_n26_known_text_alone_is_not_evidence(monkeypatch):
     import agent2utau.identity_align as ia
     import numpy as np
     sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _stab_unavailable(monkeypatch)
     monkeypatch.setattr(sc, "_onset_peaks", lambda sw: np.array([]))
     monkeypatch.setattr(
         ia, "forced_align",
@@ -4063,7 +4116,7 @@ def test_n27_timing_disagreement_is_ambiguous(monkeypatch):
         run, it, ev, chars, "fake.wav", 0.0)
     ent = adj["low_prob_chars"][0]
     assert ent["family_b_verdict"] == "ambiguous"
-    assert "onset_strength_peak_v1" in ent["contradicting_families"]
+    assert any("onset_strength_peak_v1" in c for c in ent["contradicting_families"])
     assert adj["timing_supported"] is False
     assert adj["alignment_status"] == "ambiguous"
     assert adj["diagnosis"] == "measurement_ambiguous"
@@ -4075,12 +4128,17 @@ def test_n28_no_tolerance_relaxation(monkeypatch):
     veto — and the anchor tolerance cap stays a safety bound."""
     import agent2utau.identity_align as ia
     sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    # rlv13: whisper UNSTABLE → its raw boundary is audit-only; the
+    # 50ms raw-Whisper-vs-MMS delta is recorded, never a veto
+    _stab_ok(monkeypatch, chars,
+             statuses=["unstable", "unstable", "unstable"])
     _fam_b_ok(monkeypatch, chars, offset=0.05)  # inside envelope
     adj = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     ent = adj["low_prob_chars"][0]
     # the 50ms Whisper-vs-MMS delta is audit-only, not a conflict
     assert ent["audit_only_observations"][0]["dev_vs_mms_s"] > 0.0
+    assert ent["whisper"]["authority"] == "audit_only"
     assert ent["timing_verdict"] == "supported"
     assert adj["family_b"]["tolerance_s"] <= \
         ia.ALIGN_TIMING_CAP_S + 1e-9
@@ -4105,7 +4163,10 @@ def test_n29_supported_persists_provenance(monkeypatch):
     ent = adj["low_prob_chars"][0]
     assert ent["mms"]["start"] is not None
     assert ent["mms"]["authority"] == "measurement_support"
-    assert ent["whisper"]["authority"] == "audit_only"
+    # rlv13: boundary-STABLE whisper is itself measurement_support —
+    # probability alone would be audit_only, stability grants support
+    assert ent["whisper"]["authority"] == "measurement_support"
+    assert ent["whisper"]["boundary_stability"] == "stable"
     assert ent["timing_envelope"]["lo"] is not None
 
 
@@ -4116,7 +4177,7 @@ def test_n30_aligner_change_bumps_evidence_contract():
     import agent2utau.structure_calibration as sc
     assert ia.ALIGNER_VERSION == "ifa2"
     assert ia.ALIGNER_FAMILY == "mms_fa_ctc_uroman"
-    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv12"
+    assert sc.LYRIC_MAPPING_IMPL_VERSION["real_lyric_review"] == "rlv13"
 
 
 def test_n31_family_b_may_strengthen_b2_never_identity():
@@ -4237,21 +4298,38 @@ def test_n35_timing_disagreement_keeps_known_token(
     orig = rr.load_run
     monkeypatch.setattr(
         rr, "load_run", lambda d: dict(orig(d), chars=list(chars)))
-    _fam_b_ok(monkeypatch, chars, offset=0.6)  # 600ms disagreement
+    # rlv13: stable-whisper@0.4 vs MMS@0.75 on the SAME token is a
+    # genuine reliable-family disagreement beyond tolerance →
+    # ambiguous, reconstructable from anchor_conflicts[]
+    import agent2utau.identity_align as ia
+    def _fa(wav, chs):
+        offs = [0.0, 0.35, 0.0]
+        return {"aligner_family": ia.ALIGNER_FAMILY,
+                "aligner_version": ia.ALIGNER_VERSION,
+                "available": True, "reason": None,
+                "tokens": [
+                    {"token_index": i, "char": c["char"],
+                     "pinyin": "x", "phoneme_sequence": None,
+                     "start": c["start"] + offs[i],
+                     "end": c["start"] + offs[i] + 0.03,
+                     "confidence": -0.5,
+                     "boundary_uncertainty_s": 0.02,
+                     "status": "aligned"}
+                    for i, c in enumerate(chs)]}
+    monkeypatch.setattr(ia, "forced_align", _fa)
+    _stab_ok(monkeypatch, chars)  # whisper stable at ITS positions
     doc = sc.eligibility_inventory(tmp_path, progress=None)
     e = doc["items"][0]
     le = e["lyric_evidence"]
     assert le["lexical_text_status"] == "authoritative_known"
-    # MMS [1.0,1.3] sits past the next anchor (0.8) → order_conflict
-    assert le["alignment_status"] == "order_conflict"
-    assert any(d.startswith("alignment_order_conflict")
+    assert le["alignment_status"] == "ambiguous"
+    assert any(d.startswith("alignment_ambiguous")
                for d in e["disqualifiers"])
-    assert "measurement_diagnosis" in e["diagnosis_routes"]
-    # audit-only Whisper delta recorded, never a veto
-    ent = e["lyric_adjudication"]["low_prob_chars"][0]
-    assert ent["whisper"]["authority"] == "audit_only"
-    assert ent["audit_only_observations"][0]["dev_vs_mms_s"] \
-        == 0.6
+    ac = e["lyric_adjudication"]["anchor_conflicts"]
+    assert any(c["token_index"] == 1 for c in ac)
+    fams = {f["family"] for c in ac if c["token_index"] == 1
+            for f in c["families"]}
+    assert {"whisper_boundary", "mms_fa_ctc_uroman"} <= fams
     assert e["eligible"] is False
 
 
@@ -4260,6 +4338,7 @@ def test_n36_mms_unavailable_no_timing_authority(monkeypatch):
     alignment_unresolved — no timing authority is invented."""
     import agent2utau.identity_align as ia
     sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _stab_unavailable(monkeypatch)
     monkeypatch.setattr(
         ia, "forced_align",
         lambda wav, chs: {"available": False,
@@ -4343,7 +4422,7 @@ def test_n39_rlv10_identity_fields_are_historical_only():
     # historical field is READABLE…
     assert man["calibration"]["lyric_evidence"]["adjudication"][
         "family_b_verdict"] == "identity_verified"
-    # …but the artifact is stale under the current rlv12 contract —
+    # …but the artifact is stale under the current rlv13 contract —
     # it can never bind a current roster/review/repair
     assert sc.item_contract_stale(man, {}, "rph") is True
 
@@ -4437,6 +4516,10 @@ def test_n42_low_conf_whisper_good_mms_supported(monkeypatch):
     """N42: very-low-confidence Whisper + good MMS + valid neighbor
     envelope → timing_supported; the Whisper mismatch is audit-only."""
     sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    # low-prob token's whisper boundary is UNSTABLE → audit_only; the
+    # MMS family still carries it (probability alone never decides)
+    _stab_ok(monkeypatch, chars,
+             statuses=["stable", "unstable", "stable"])
     _fam_b_ok(monkeypatch, chars, offset=0.1)
     adj = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
@@ -4490,8 +4573,10 @@ def test_n44_anchor_plus_mms_two_family_support(monkeypatch):
     ent = adj["low_prob_chars"][0]
     assert ent["timing_verdict"] == "supported"
     na = ent["neighbor_anchors"]
-    assert na["prev"]["source"] == "whisper_anchor"
-    assert na["next"]["source"] == "whisper_anchor"
+    # rlv13: envelope bounds come from reliable families — MMS token
+    # spans or boundary-stable Whisper spans, never raw probability
+    assert na["prev"]["source"] == "mms_fa_token"
+    assert na["next"]["source"] == "mms_fa_token"
     assert "mms_fa_ctc_uroman" in ent["supporting_families"]
     assert "neighbor_anchor_envelope" in ent["supporting_families"]
 
@@ -4540,7 +4625,7 @@ def test_n47_onset_contradicts_mms_ambiguous(monkeypatch):
         run, it, ev, chars, "fake.wav", 0.0)
     ent = adj["low_prob_chars"][0]
     assert ent["timing_verdict"] == "ambiguous"
-    assert "onset_strength_peak_v1" in ent["contradicting_families"]
+    assert any("onset_strength_peak_v1" in c for c in ent["contradicting_families"])
     assert adj["alignment_status"] == "ambiguous"
 
 
@@ -4554,6 +4639,10 @@ def test_n48_onset_differs_from_whisper_only_supported(monkeypatch):
                                    end=0.75),
             _tok(2, chars[2])]
     _g54_fa(monkeypatch, toks)
+    # rlv13: the low token's whisper boundary is UNSTABLE → audit_only
+    # (its 150ms gap vs the onset can never create a contradiction)
+    _stab_ok(monkeypatch, chars,
+             statuses=["stable", "unstable", "stable"])
     # onset at 0.55: agrees with MMS start 0.50 (dev 0.05) but is
     # 150ms from the audit-only Whisper start 0.40 — that gap must
     # not create a contradiction
@@ -4582,9 +4671,11 @@ def test_n49_mms_unavailable_onset_sufficient(monkeypatch):
     ent = adj["low_prob_chars"][0]
     assert ent["mms"]["authority"] == "unavailable"
     assert ent["timing_verdict"] == "supported"
-    assert ent["timing_verdict_reason"] == "onset_landmark_in_envelope"
-    # no onset anywhere → unresolved
+    # rlv13: bound onset + stable whisper boundary both support
+    assert "onset_strength_peak_v1" in ent["supporting_families"]
+    # no onset anywhere AND no boundary-stable whisper → unresolved
     monkeypatch.setattr(sc, "_onset_peaks", lambda sw: np.array([]))
+    _stab_unavailable(monkeypatch)
     adj2 = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     assert adj2["low_prob_chars"][0]["timing_verdict"] == "unresolved"
@@ -4639,22 +4730,25 @@ def test_n51_no_neighbor_anchors_no_invented_confidence(monkeypatch):
     assert adj2["low_prob_chars"][0]["timing_verdict"] == "unresolved"
 
 
-def test_n52_rlv11_verdicts_stale_under_rlv12(monkeypatch):
+def test_n52_rlv12_verdicts_stale_under_rlv13(monkeypatch):
     """N52: an rlv11-style verdict driven by raw dev_start_s alone is
-    stale — the rlv12 artifact records authority classes instead and
+    stale — the rlv13 artifact records stability authority instead and
     the impl contract is bumped."""
     import agent2utau.structure_calibration as sc
     sc, chars, run, it, ev = _n_fixture(monkeypatch)
     assert sc.LYRIC_MAPPING_IMPL_VERSION[
-        "real_lyric_review"] == "rlv12"
+        "real_lyric_review"] == "rlv13"
     _fam_b_ok(monkeypatch, chars, offset=0.1)
     adj = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
     ent = adj["low_prob_chars"][0]
-    # no raw single-field verdict survives — authority-tagged only
+    # no raw single-field verdict survives — authority-tagged only;
+    # whisper authority now derives from boundary STABILITY, never
+    # from raw probability (p<0.25 + stable → measurement_support)
     assert "dev_start_s" not in ent
     assert "tolerance_s" not in ent
-    assert ent["whisper"]["authority"] == "audit_only"
+    assert ent["whisper"]["authority"] == "measurement_support"
+    assert ent["whisper"]["authority_reason"] == "boundary_stable"
 
 
 def test_n53_verdict_reconstructable_from_artifact(monkeypatch):
@@ -4693,21 +4787,320 @@ def test_n45b_dtw_boundary_unstable_demotes_anchor(monkeypatch):
     reliable-family conflict remains → supported."""
     import numpy as np
     sc, chars, run, it, ev = _n_fixture(monkeypatch)
-    # anchor 甲 whisper-start 0.0 vs MMS 0.60 (dev 0.60 > tol) —
-    # but a reliable onset sits at 0.62 (agrees MMS) and nothing
-    # near 0.0 → whisper boundary unstable → demoted, not ambiguous
-    toks = [_tok(0, chars[0], start=0.60, end=0.90),
-            _tok(1, chars[1], start=0.95, end=1.25),
+    # rlv13: 甲's whisper boundary is UNSTABLE (clip-edge DTW pinning
+    # shows up as jitter across crops) → audit_only; the MMS span
+    # 0.60 corroborated by an onset at 0.62 carries the token — no
+    # reliable-family conflict remains → supported
+    toks = [_tok(0, chars[0], start=0.60, end=0.75),
+            _tok(1, chars[1], start=0.80, end=1.10),
             _tok(2, chars[2], start=2.0, end=2.3)]
-    # fix chars so 丙 stays an anchor at 2.0 with matching mms
+    # consistent geometry: whisper-stable medians agree with MMS on
+    # tokens 1/2; 丙 stays at 2.0 with matching mms
+    chars[1] = dict(chars[1], start=0.8, end=1.1)
     chars[2] = dict(chars[2], start=2.0, end=2.3)
     run = {"chars": chars}
     _g54_fa(monkeypatch, toks)
+    _stab_ok(monkeypatch, chars,
+             statuses=["unstable", "stable", "stable"])
     monkeypatch.setattr(sc, "_onset_peaks",
-                        lambda sw: np.array([0.62, 0.97, 2.02]))
+                        lambda sw: np.array([0.62, 0.82, 2.02]))
     adj = sc._adjudicate_lyric_evidence(
         run, it, ev, chars, "fake.wav", 0.0)
-    assert adj.get("anchor_demotions")
-    assert adj["anchor_demotions"][0]["char"] == "甲"
+    tv0 = adj["token_verdicts"][0]
+    assert tv0["whisper"]["authority"] == "audit_only"
+    assert tv0["whisper"]["boundary_stability"] == "unstable"
+    assert tv0["timing_verdict"] == "supported"
+    assert adj["anchor_conflicts"] == []
     assert adj["alignment_status"] == "supported"
     assert adj["timing_supported"] is True
+
+
+# ------------------------------------------------------------------
+# §G5N.5 — boundary-stability timing audit (rlv13) regression matrix
+# ------------------------------------------------------------------
+
+
+def test_n54_probability_alone_never_anchor(monkeypatch):
+    """N54: a p>=0.5 Whisper char with NO boundary-stability proof is
+    NOT boundary authority — with MMS unavailable and no bound onset
+    the token fails closed instead of inheriting the old anchor."""
+    import numpy as np
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _stab_unavailable(monkeypatch)
+    monkeypatch.setattr(
+        ia, "forced_align",
+        lambda wav, chs: {"available": False,
+                          "reason": "source_wav_missing",
+                          "tokens": []})
+    monkeypatch.setattr(sc, "_onset_peaks", lambda sw: np.array([]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    tv0 = adj["token_verdicts"][0]  # p=0.9 — would have been 'anchor'
+    assert tv0["probability"] >= 0.5
+    assert tv0["whisper"]["authority"] == "unavailable"
+    assert tv0["timing_verdict"] == "unresolved"
+    assert adj["alignment_status"] == "unresolved"
+
+
+def test_n55_stable_boundary_is_timing_family(monkeypatch):
+    """N55: stability-proven whisper boundaries count as ONE timing
+    family and can carry the gate together with MMS."""
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars)
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    stab = adj["whisper_stability"]
+    assert stab["n_valid_contexts"] >= stab["min_valid_contexts"]
+    assert all(t["stability_status"] == "stable"
+               for t in stab["tokens"])
+    ent = adj["low_prob_chars"][0]
+    assert ent["whisper"]["boundary_stability"] == "stable"
+    assert "whisper_boundary" in ent["supporting_families"]
+    assert ent["timing_verdict"] == "supported"
+
+
+def test_n56_high_prob_unstable_never_vetoes(monkeypatch):
+    """N56: HIGH probability + large boundary jitter → unstable →
+    audit_only — it cannot veto the MMS family."""
+    import agent2utau.identity_align as ia
+    import numpy as np
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    # all tokens high-prob AND all unstable: probability cannot rescue
+    for c in chars:
+        c["probability"] = 0.95
+    _stab_ok(monkeypatch, chars,
+             statuses=["unstable", "unstable", "unstable"])
+    _fam_b_ok(monkeypatch, chars, offset=0.05)
+    monkeypatch.setattr(sc, "_onset_peaks", lambda sw: np.array([]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    for tv in adj["token_verdicts"]:
+        assert tv["whisper"]["authority"] == "audit_only"
+        assert tv["whisper"]["boundary_stability"] == "unstable"
+        assert tv["timing_verdict"] == "supported"
+    assert adj["alignment_status"] == "supported"
+    assert adj["anchor_conflicts"] == []
+
+
+def test_n57_low_prob_stable_boundary_supported(monkeypatch):
+    """N57: low/mid probability + boundary STABLE → authority comes
+    from the stability contract, not the probability — the boundary
+    may support timing."""
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars)
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    ent = adj["low_prob_chars"][0]  # p=0.01 but stable
+    assert ent["probability"] < 0.25
+    assert ent["whisper"]["authority"] == "measurement_support"
+    assert ent["whisper"]["authority_reason"] == "boundary_stable"
+    assert "whisper_boundary" in ent["supporting_families"]
+
+
+def test_n58_multi_context_is_one_family(monkeypatch):
+    """N58: multiple context runs of the SAME whisper model are ONE
+    measurement family — never independent votes."""
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars)
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    stab = adj["whisper_stability"]
+    # the persisted doc holds EVERY context — and the family is one
+    assert stab["family"] == "whisper_attention_dtw_stability"
+    assert len(stab["contexts"]) >= ia.WHISPER_STABILITY_MIN_CTX
+    for ent in adj["token_verdicts"]:
+        fams = [f["family"] for f in ent["family_measurements"]]
+        assert fams.count("whisper_boundary") <= 1
+
+
+def test_n59_onset_assignment_monotonic_one_to_one():
+    """N59: the DP binds each peak to at most one token and vice
+    versa, monotonically — one peak can never corroborate two
+    neighbouring boundaries."""
+    import agent2utau.structure_calibration as sc
+    import numpy as np
+    # one peak between two tokens binds once only
+    a, c = sc._assign_onsets([0.40, 0.42], np.array([0.41]))
+    assert sum(x is not None for x in a) == 1
+    # two peaks two tokens — monotonic assignment
+    a, c = sc._assign_onsets([0.4, 0.5], np.array([0.42, 0.44]))
+    assert a == [0, 1]
+    # crossed assignment is illegal — monotonic DP picks the legal
+    a, c = sc._assign_onsets([0.4, 0.5], np.array([0.51, 0.41]))
+    if a[0] is not None and a[1] is not None:
+        assert a[0] < a[1]
+
+
+def test_n60_neighbour_peaks_no_fake_conflict(monkeypatch):
+    """N60: two nearby peaks belonging to DIFFERENT tokens must not be
+    fabricated into a same-token whisper-vs-MMS contradiction."""
+    import numpy as np
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars)
+    # peaks sit at the MMS starts of tokens 1 and 2 — each binds to
+    # its own token; neither fabricates a conflict on the other
+    monkeypatch.setattr(sc, "_onset_peaks",
+                        lambda sw: np.array([0.42, 0.81]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj["alignment_status"] == "supported"
+    assert adj["anchor_conflicts"] == []
+    t1 = adj["token_verdicts"][1]
+    assert t1["assigned_landmark"]["landmark_id"] == 0
+
+
+def test_n61_unmatched_token_no_fake_onset(monkeypatch):
+    """N61: a token with no plausible peak stays unmatched — no onset
+    authority is invented for it."""
+    import numpy as np
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars)
+    # only a far-away peak — nothing within the assignment window of
+    # token 1
+    monkeypatch.setattr(sc, "_onset_peaks",
+                        lambda sw: np.array([0.81]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    ent = adj["low_prob_chars"][0]
+    assert ent["assigned_landmark"]["landmark_id"] is None
+    assert ent["assigned_landmark"]["reliability"] == "unavailable"
+    assert "onset_strength_peak_v1" not in ent["supporting_families"]
+    # still supported via stable whisper + MMS
+    assert ent["timing_verdict"] == "supported"
+
+
+def test_n62_edge_blind_peak_not_authoritative(monkeypatch):
+    """N62: a peak inside the detector's left-context blind zone binds
+    but is NEVER an authoritative measurement."""
+    import numpy as np
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _fam_b_ok(monkeypatch, chars)
+    monkeypatch.setattr(sc, "_onset_peaks",
+                        lambda sw: np.array([0.02, 0.42, 0.81]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    tv0 = adj["token_verdicts"][0]
+    assert tv0["assigned_landmark"]["landmark_id"] == 0
+    assert tv0["assigned_landmark"]["reliability"] == \
+        "detector_edge_blind"
+    # edge-blind landmark is not among the supporting families
+    assert "onset_strength_peak_v1" not in \
+        tv0["supporting_families"]
+    assert tv0["timing_verdict"] == "supported"  # whisper+mms carry
+
+
+def test_n63_stable_whisper_onset_vs_mms_genuine_ambiguity(
+        monkeypatch):
+    """N63: stable-whisper + bound onset agree on ONE boundary while
+    MMS places the token elsewhere → a REAL same-token reliable-
+    family ambiguity → fail-closed ambiguous."""
+    import numpy as np
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    # token 1: whisper stable@0.4, onset@0.42 — MMS disagrees at 0.75
+    toks = [_tok(0, chars[0]), _tok(1, chars[1], start=0.75, end=0.78),
+            _tok(2, chars[2])]
+    _g54_fa(monkeypatch, toks)
+    monkeypatch.setattr(sc, "_onset_peaks",
+                        lambda sw: np.array([0.42]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    ent = adj["low_prob_chars"][0]
+    assert ent["timing_verdict"] == "ambiguous"
+    assert "whisper_boundary_vs_mms_fa_ctc_uroman" in \
+        ent["contradicting_families"]
+    assert adj["alignment_status"] == "ambiguous"
+    ac = adj["anchor_conflicts"]
+    assert any(c["token_index"] == 1 for c in ac)
+
+
+def test_n64_unstable_whisper_plus_onset_agrees_mms(monkeypatch):
+    """N64: unstable whisper + bound onset agreeing with MMS → the
+    whisper side cannot keep an item-level ambiguity alive."""
+    import numpy as np
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    _stab_ok(monkeypatch, chars,
+             statuses=["stable", "unstable", "stable"])
+    _fam_b_ok(monkeypatch, chars)
+    monkeypatch.setattr(sc, "_onset_peaks",
+                        lambda sw: np.array([0.42]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    ent = adj["low_prob_chars"][0]
+    assert ent["whisper"]["authority"] == "audit_only"
+    assert ent["timing_verdict"] == "supported"
+    assert adj["alignment_status"] == "supported"
+    assert adj["anchor_conflicts"] == []
+
+
+def test_n65_machine_blocker_token_list(monkeypatch):
+    """N65: anchor_conflicts[] is a machine-derived exact list of the
+    ACTIVE blocker tokens — the same list a re-audit of
+    0231/0305/0325/0440/0441 must consume."""
+    import numpy as np
+    import agent2utau.identity_align as ia
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    toks = [_tok(0, chars[0]), _tok(1, chars[1], start=0.75, end=0.78),
+            _tok(2, chars[2])]
+    _g54_fa(monkeypatch, toks)
+    monkeypatch.setattr(sc, "_onset_peaks",
+                        lambda sw: np.array([0.42]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    blockers = [c["token_index"] for c in adj["anchor_conflicts"]]
+    assert blockers == [1]
+    assert adj["anchor_conflicts"][0]["char"] == "等"
+
+
+def test_n66_anchor_conflicts_reconstruct_ambiguity(monkeypatch):
+    """N66: every item-level ambiguous verdict is reconstructable
+    from persisted anchor_conflicts[] — same-token families,
+    measurements, uncertainty and reason."""
+    import numpy as np
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    toks = [_tok(0, chars[0]), _tok(1, chars[1], start=0.75, end=0.78),
+            _tok(2, chars[2])]
+    _g54_fa(monkeypatch, toks)
+    monkeypatch.setattr(sc, "_onset_peaks",
+                        lambda sw: np.array([0.42]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    assert adj["alignment_status"] == "ambiguous"
+    c = adj["anchor_conflicts"][0]
+    assert c["token_index"] == 1 and c["char"] == "等"
+    assert c["verdict"] == "ambiguous"
+    assert "whisper_boundary_vs_mms_fa_ctc_uroman" in c["reason"]
+    fams = {f["family"]: f["boundary_s"] for f in c["families"]}
+    assert abs(fams["whisper_boundary"] - 0.4) < 1e-6
+    assert abs(fams["mms_fa_ctc_uroman"] - 0.75) < 1e-6
+    assert c["uncertainty_s"] is not None
+
+
+def test_n67_status_deterministic_from_persisted_verdicts(
+        monkeypatch):
+    """N67: alignment_status reduces deterministically from persisted
+    token_verdicts — rebuild it from the artifact and get the same."""
+    import numpy as np
+    sc, chars, run, it, ev = _n_fixture(monkeypatch)
+    toks = [_tok(0, chars[0]), _tok(1, chars[1], start=0.75, end=0.78),
+            _tok(2, chars[2])]
+    _g54_fa(monkeypatch, toks)
+    monkeypatch.setattr(sc, "_onset_peaks",
+                        lambda sw: np.array([0.42]))
+    adj = sc._adjudicate_lyric_evidence(
+        run, it, ev, chars, "fake.wav", 0.0)
+    verdicts = [tv["timing_verdict"]
+                for tv in adj["token_verdicts"]]
+    if any(v == "order_conflict" for v in verdicts):
+        rebuilt = "order_conflict"
+    elif any(v == "ambiguous" for v in verdicts):
+        rebuilt = "ambiguous"
+    elif any(v != "supported" for v in verdicts) or not verdicts:
+        rebuilt = "unresolved"
+    else:
+        rebuilt = "supported"
+    assert rebuilt == adj["alignment_status"]
+    # and the item diagnosis follows the same persisted verdicts
+    assert adj["diagnosis"] == "measurement_ambiguous"

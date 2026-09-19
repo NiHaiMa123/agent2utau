@@ -1294,6 +1294,66 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   traces to coverage / reliable conflict / written-timing / structure —
   none to audit-only Whisper. N42–N53; 426 tests.
 
+### M2.5 G5N.5 — boundary-stability timing audit (rlv13)
+
+- rlv12 audit FAIL: `Whisper prob ≥0.5` was still granting boundary
+  authority outright — but constrained-Whisper probability is an
+  acoustic-compatibility signal (multi-char words copy one
+  probability and share the word span evenly), NOT boundary
+  confidence. And onset peaks were being matched per-token by
+  nearest distance, so two DIFFERENT tokens' peaks could be
+  fabricated into a same-token Whisper-vs-MMS contradiction.
+- `identity_align.whisper_boundary_stability`: the SAME constrained
+  alignment is re-run under 5 legal context pads around the token
+  span (same separated vocal, same known lyric sequence — none
+  chosen to favour a result). Per-token start/end medians + jitter;
+  stable iff n_valid>=3 AND both jitters <=0.12s (the same
+  cross-family agreement bound; observed bimodal 0.01-0.07 vs
+  0.45s+). Multi-context output is ONE family — never N votes.
+  All contexts + failure reasons persisted.
+- Token-order validity leg of the stability contract: a stable DTW
+  boundary that lands INSIDE a neighbour's MMS span is a systematic-
+  offset artifact, not a boundary claim → audit_only (never checked
+  against whisper itself — mutually-offset stable boundaries would
+  legitimize each other).
+- `_assign_onsets` — deterministic monotonic one-to-one DP: each
+  peak binds ≤1 token, each token ≤1 primary onset, unmatched
+  allowed both ways; refs = MMS start | order-valid stable-Whisper
+  start | envelope midpoint | raw-whisper weak prior (location
+  prior only, never authority). Peaks inside ONSET_EDGE_BLIND_S
+  bind but are never authoritative.
+- Onset referee: the token-bound onset is closest to the sung-onset
+  definition — a stable whisper span materially off the bound onset
+  while MMS agrees with it is a DEFINITIONAL offset (DTW boundary
+  ≠ sung onset) → demoted to audit_only. MMS off the bound onset
+  has no such excuse → real conflict. No bound onset → strict
+  pairwise disagreement stands.
+- Per-token artifact adds whisper{stability,jitter,authority},
+  assigned_landmark{id,time,cost,reason,reliability},
+  family_measurements[]; item adds onset_assignment(peaks+assign+
+  costs+refs+rule), whisper_stability doc, anchor_conflicts[]
+  {token,families,measurements,uncertainty,reason} — every item
+  ambiguity reconstructable. alignment_status = deterministic
+  reduction over persisted token verdicts. WHISPER_ANCHOR_PROB
+  retired.
+- Real rlv13: n_timing_supported=4 (0264/0266/0440/0441 lyric gate
+  passed); alignment_fail 11→7. Remaining conflicts are all SAME-TOKEN
+  reliable-family disagreements (mms off the bound onset, or onset
+  breaking the neighbour envelope) — none from raw probability or
+  unbound peaks. Priority items re-audited: 0231/0305 order_conflict,
+  0325 ambiguous (一 three-way w/m/o divergence — genuine), 0440/0441
+  supported. N54–N67; 441 tests.
+- build_calibration consumes the adjudication artifact for the
+  low-confidence lyric gate: ev["chars"]=None no longer hard-aborts;
+  lyric_evidence.chars serializes the adjudicated known-lyric sequence.
+- All 6 packages rebuilt under rlv13 (0440/0441 + 0061/0188/0192/0379),
+  package_state=valid; closed-loop/QC flags recorded honestly.
+- roster=[note_0440,note_0441] — first real current-contract
+  post-loop-verified roster. But roster_size_ok=False (<3) and
+  signal_qc.auto_review_ready=False → review surface NOT emitted;
+  pilot_authority.ok=false; review_ready=false. QUALITY HOLD stands:
+  no listening, no bulk written-timing repair, no M2.5 freeze.
+
 ## E1 remote CI + M2.3.2C2 calibration (run diag-20260916-202114-a8e4)
 
 - `.github/workflows/ci.yml`: ubuntu/py3.11 push+PR gate; lightweight
