@@ -272,8 +272,8 @@
     "candidate_role": "OPTION_0",
     "baseline_option": "OPTION_1",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv10",
-    "contract_sha256": "44806bf808126efa14d8f18bcfbda1a57ae5f6a40535c0e76528b230d7374952",
+    "lyric_mapping_impl": "rlv11",
+    "contract_sha256": "d71efb246c913e109c82734f4c08090eb08f8efd089ab0f1a4376a97355b13e9",
     "choices": [
       "split",
       "baseline",
@@ -455,6 +455,9 @@
                 "second_family": "unavailable",
                 "energy_edge_onset": null,
                 "energy_edge_deviation_ms": null,
+                "mms_second_family": "unavailable",
+                "mms_token_start": null,
+                "mms_confidence": null,
                 "gap_before_carrier_s": null,
                 "gap_after_carrier_s": 0.0,
                 "span_evidence": {
@@ -512,6 +515,9 @@
                 "second_family": "unavailable",
                 "energy_edge_onset": null,
                 "energy_edge_deviation_ms": null,
+                "mms_second_family": "unavailable",
+                "mms_token_start": null,
+                "mms_confidence": null,
                 "gap_before_carrier_s": 0.0,
                 "gap_after_carrier_s": 0.0,
                 "span_evidence": {
@@ -659,6 +665,9 @@
                 "second_family": "confirms",
                 "energy_edge_onset": 2.7573696145124718,
                 "energy_edge_deviation_ms": -40.6,
+                "mms_second_family": "unavailable",
+                "mms_token_start": null,
+                "mms_confidence": null,
                 "gap_before_carrier_s": 0.0,
                 "gap_after_carrier_s": 0.0,
                 "span_evidence": {
@@ -746,6 +755,9 @@
                 "second_family": "contradicts",
                 "energy_edge_onset": 3.9706122448979593,
                 "energy_edge_deviation_ms": 406.3,
+                "mms_second_family": "unavailable",
+                "mms_token_start": null,
+                "mms_confidence": null,
                 "gap_before_carrier_s": 0.0,
                 "gap_after_carrier_s": 0.0,
                 "span_evidence": {
@@ -834,6 +846,9 @@
                 "second_family": "unavailable",
                 "energy_edge_onset": null,
                 "energy_edge_deviation_ms": null,
+                "mms_second_family": "unavailable",
+                "mms_token_start": null,
+                "mms_confidence": null,
                 "gap_before_carrier_s": 0.0,
                 "gap_after_carrier_s": 0.0,
                 "span_evidence": {

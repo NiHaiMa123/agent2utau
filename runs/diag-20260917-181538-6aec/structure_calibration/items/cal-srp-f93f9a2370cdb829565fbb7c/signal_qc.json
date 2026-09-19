@@ -1059,6 +1059,9 @@
             "second_family": "contradicts",
             "energy_edge_onset": 0.4179591836734694,
             "energy_edge_deviation_ms": 174.2,
+            "mms_second_family": "unavailable",
+            "mms_token_start": null,
+            "mms_confidence": null,
             "gap_before_carrier_s": 0.0,
             "gap_after_carrier_s": 0.0,
             "span_evidence": {
@@ -1206,6 +1209,9 @@
             "second_family": "unavailable",
             "energy_edge_onset": null,
             "energy_edge_deviation_ms": null,
+            "mms_second_family": "unavailable",
+            "mms_token_start": null,
+            "mms_confidence": null,
             "gap_before_carrier_s": 0.0,
             "gap_after_carrier_s": 0.0,
             "span_evidence": {
@@ -1263,6 +1269,9 @@
             "second_family": "confirms",
             "energy_edge_onset": 2.896689342403628,
             "energy_edge_deviation_ms": 75.5,
+            "mms_second_family": "unavailable",
+            "mms_token_start": null,
+            "mms_confidence": null,
             "gap_before_carrier_s": 0.0,
             "gap_after_carrier_s": 0.0,
             "span_evidence": {
@@ -1381,6 +1390,9 @@
             "second_family": "unavailable",
             "energy_edge_onset": null,
             "energy_edge_deviation_ms": null,
+            "mms_second_family": "unavailable",
+            "mms_token_start": null,
+            "mms_confidence": null,
             "gap_before_carrier_s": 0.0,
             "gap_after_carrier_s": 0.0,
             "span_evidence": {
@@ -1468,6 +1480,9 @@
             "second_family": "unavailable",
             "energy_edge_onset": null,
             "energy_edge_deviation_ms": null,
+            "mms_second_family": "unavailable",
+            "mms_token_start": null,
+            "mms_confidence": null,
             "gap_before_carrier_s": -0.22,
             "gap_after_carrier_s": 0.03,
             "span_evidence": {
