@@ -1,6 +1,6 @@
 {
   "schema": "m25-cal-2",
-  "created_at": 1789810746.0635972,
+  "created_at": 1789819291.109386,
   "diagnostic_run_id": "diag-20260917-181538-6aec",
   "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
   "lyric_contract": "neutral_vowel",
@@ -63,7 +63,7 @@
       "audio_package_hash": "f8c997c0a5d92f6b4640bc227e965f243ee3e8de9051ba37d3ba53f5353958bf",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "4351fc232356771071b22a7a2f549d4e6212578d497e474229911602aa43f068",
+      "contract_sha256": "60eda3138464c1e43587f56150b67c1cc13ce40505db492dbb3ce2ab26c22c54",
       "signal_qc_flags": [
         "lyric_timing_not_converged:unmeasurable_chars",
         "lyric_timing_evidence_unmeasurable:一",
@@ -152,7 +152,7 @@
       "audio_package_hash": "3b6ec49f996a053dddb2dea391d2df4d7c5aa4b79e06a1b6c3d248ec1b8950d4",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "4351fc232356771071b22a7a2f549d4e6212578d497e474229911602aa43f068",
+      "contract_sha256": "60eda3138464c1e43587f56150b67c1cc13ce40505db492dbb3ce2ab26c22c54",
       "signal_qc_flags": [
         "lyric_timing_not_converged:bound_limited",
         "lyric_timing_carrier_conflict:可人陪这本",
@@ -180,7 +180,7 @@
       "audio_package_hash": "ccac494c19a8970f6993ce29ed326fc47a491a444e33b36da70bb1dbc3436431",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "4351fc232356771071b22a7a2f549d4e6212578d497e474229911602aa43f068",
+      "contract_sha256": "60eda3138464c1e43587f56150b67c1cc13ce40505db492dbb3ce2ab26c22c54",
       "signal_qc_flags": [
         "lyric_timing_not_converged:bound_limited",
         "lyric_timing_carrier_conflict:可人陪这本",
@@ -373,7 +373,7 @@
       "audio_package_hash": "049dcb3bdd100d55352d1861085132534d643462bf924bafcb44692cc8c85899",
       "package_state": "valid",
       "lyric_contract": "real_lyric_review",
-      "contract_sha256": "4351fc232356771071b22a7a2f549d4e6212578d497e474229911602aa43f068",
+      "contract_sha256": "60eda3138464c1e43587f56150b67c1cc13ce40505db492dbb3ce2ab26c22c54",
       "signal_qc_flags": [
         "lyric_timing_not_converged:unmeasurable_chars",
         "lyric_timing_evidence_unmeasurable:惜本",
@@ -438,12 +438,17 @@
       },
       "phrase_key": "213.66-218.16",
       "plan_hash": "672411cbc46195fab0f2d67c690fb9460b00e700e3a7e645ada98d8eb592cce3",
-      "audio_package_hash": "214d4edc73ecd94afaac63e9d1617f98c1c921263eee9f7aa2cd96f92189008a",
+      "audio_package_hash": "0733d26bfb5c63c1176787e88eae52296b4cf2b51601b5dcf5417547dc608baf",
       "package_state": "valid",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
-      "signal_qc_flags": [],
-      "semantic_diff_sha256": "a77c888b440ba688666ae7d99353eb0dc4b47600ea5f62e4ae009a8313e49720",
+      "lyric_contract": "real_lyric_review",
+      "contract_sha256": "60eda3138464c1e43587f56150b67c1cc13ce40505db492dbb3ce2ab26c22c54",
+      "signal_qc_flags": [
+        "lyric_timing_carrier_conflict:麻",
+        "lyric_intelligibility_low:OPTION_0:密自",
+        "lyric_intelligibility_low:OPTION_1:自",
+        "lyric_timing_acoustic_unmeasurable:OPTION_1:我"
+      ],
+      "semantic_diff_sha256": "84cb3711db57b4fab58801857f8b0ad859f1753e6759de425f78e7c8eee11fb1",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-742cbf94d1991516823ba33c\\manifest.json"
     },
     {
@@ -458,12 +463,14 @@
       },
       "phrase_key": "213.66-218.16",
       "plan_hash": "5ac55d98595d37549428b752d3149cca22e23d16cf4b20b7477a7dc9b01979b3",
-      "audio_package_hash": "a28543352b233bfbf20c1621818f447e735d5ebf245eb388a1b1b23142759dc1",
+      "audio_package_hash": "76d23a3f0ec19830597579c7c1cda24c82c5630737b3469fb8cb22b9655b0629",
       "package_state": "valid",
-      "lyric_contract": "neutral_vowel",
-      "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
-      "signal_qc_flags": [],
-      "semantic_diff_sha256": "75365239f36353569aeaf6ad21fe81945f8f8dff6ea382575a8e9f17c387608f",
+      "lyric_contract": "real_lyric_review",
+      "contract_sha256": "60eda3138464c1e43587f56150b67c1cc13ce40505db492dbb3ce2ab26c22c54",
+      "signal_qc_flags": [
+        "lyric_intelligibility_low:OPTION_0:密"
+      ],
+      "semantic_diff_sha256": "6fe060a326d18a534241534708ad81a445f5106b69098576f47d86ab82e76229",
       "manifest": "E:\\project\\agent2utau\\runs\\diag-20260917-181538-6aec\\structure_calibration\\items\\cal-srp-fcebb308ea0d11ef772afdc4\\manifest.json"
     }
   ]

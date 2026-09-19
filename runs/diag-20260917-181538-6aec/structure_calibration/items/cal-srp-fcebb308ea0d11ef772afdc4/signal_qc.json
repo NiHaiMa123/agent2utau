@@ -4,13 +4,13 @@
   "repair_id": "srp-fcebb308ea0d11ef772afdc4",
   "sample_rate": 44100,
   "duration": 4.5,
-  "baseline_rms": 0.031816,
-  "candidate_rms": 0.022439,
-  "baseline_peak": 0.138824,
-  "candidate_peak": 0.097778,
+  "baseline_rms": 0.05853,
+  "candidate_rms": 0.057008,
+  "baseline_peak": 0.218109,
+  "candidate_peak": 0.240784,
   "silence_fraction": {
-    "baseline": 0.0983,
-    "candidate": 0.1094
+    "baseline": 0.1227,
+    "candidate": 0.135
   },
   "declared_region": [
     214.5,
@@ -27,50 +27,49 @@
     ],
     "pad_s": 0.5
   },
-  "pre_target_ab_diff_rms_ratio": 0.7206,
-  "target_ab_diff_rms_ratio": 1.0197,
-  "post_target_ab_diff_rms_ratio": 1.4549,
-  "option_loudness_ratio": 0.7053,
+  "pre_target_ab_diff_rms_ratio": 0.3809,
+  "target_ab_diff_rms_ratio": 1.0815,
+  "post_target_ab_diff_rms_ratio": 1.5531,
+  "option_loudness_ratio": 0.974,
   "renderer_global_context": {
     "effect": "deterministic renderer; declared patch's phoneme delta propagates a constant timing shift + small acoustic smear into context notes (DiffSinger duration model attends the full phoneme sequence)",
-    "canonical_pre_ab_diff_rms_ratio": 0.7206,
-    "canonical_post_ab_diff_rms_ratio": 1.4549,
-    "canonical_target_ab_diff_rms_ratio": 1.0197,
+    "canonical_pre_ab_diff_rms_ratio": 0.3809,
+    "canonical_post_ab_diff_rms_ratio": 1.5531,
+    "canonical_target_ab_diff_rms_ratio": 1.0815,
     "timing_shift_ms_median": {
-      "pre": -0.02,
-      "post": 0.59
+      "pre": -0.11,
+      "post": 0.61
     },
     "aligned_residual_median": {
-      "pre": 0.188,
-      "post": 0.366
+      "pre": 0.168,
+      "post": 0.448
     },
     "flags": [
-      "pre_target_ab_drift:0.721",
-      "post_target_ab_drift:1.455"
+      "post_target_ab_drift:1.553"
     ]
   },
   "listen_surface": {
     "construction": "shared_context_splice",
     "splice_edges_rel": [
-      0.5148,
-      1.5799
+      0.5049,
+      1.5499
     ],
     "fade_zone_rel": [
-      0.4748,
-      1.6205
+      0.4648,
+      1.5899
     ],
     "edge_lag": {
       "left": {
-        "samples": -2,
-        "ms": -0.05,
-        "confidence": 0.985,
-        "applied": -2
+        "samples": -4,
+        "ms": -0.09,
+        "confidence": 0.98,
+        "applied": -4
       },
       "right": {
         "samples": 28,
         "ms": 0.63,
-        "confidence": 0.962,
-        "applied": 28
+        "confidence": 0.471,
+        "applied": 0
       }
     },
     "pre_outside_ab_diff_rms_ratio": 0.0,
@@ -86,17 +85,17 @@
   },
   "listen": {
     "target_dbfs": -16.0,
-    "pair_rms_db": -30.44,
-    "shared_gain_db": 14.44,
+    "pair_rms_db": -25.15,
+    "shared_gain_db": 9.15,
     "clipped": false,
     "option_rms_db": {
-      "OPTION_0": -30.99,
-      "OPTION_1": -29.95
+      "OPTION_0": -25.72,
+      "OPTION_1": -24.65
     },
-    "ab_loudness_delta_db": 1.04,
+    "ab_loudness_delta_db": 1.07,
     "listen_peak": {
-      "OPTION_0": 0.7316,
-      "OPTION_1": 0.7316
+      "OPTION_0": 0.6256,
+      "OPTION_1": 0.6256
     },
     "files": [
       "OPTION_0_LISTEN.wav",
@@ -105,25 +104,25 @@
     "construction": "shared_context_splice",
     "context_donor": "baseline",
     "splice_edges_rel": [
-      0.5148,
-      1.5799
+      0.5049,
+      1.5499
     ],
     "fade_zone_rel": [
-      0.4748,
-      1.6205
+      0.4648,
+      1.5899
     ],
     "edge_lag": {
       "left": {
-        "samples": -2,
-        "ms": -0.05,
-        "confidence": 0.985,
-        "applied": -2
+        "samples": -4,
+        "ms": -0.09,
+        "confidence": 0.98,
+        "applied": -4
       },
       "right": {
         "samples": 28,
         "ms": 0.63,
-        "confidence": 0.962,
-        "applied": 28
+        "confidence": 0.471,
+        "applied": 0
       }
     },
     "outside_surface": "bit-identical outside the fade zone"
@@ -161,10 +160,10 @@
           "n_frames": 15,
           "voiced_frames": 15,
           "voiced_fraction": 1.0,
-          "midi_median": 59.008,
-          "midi_iqr": 0.044,
-          "midi_min": 58.031,
-          "midi_max": 59.027,
+          "midi_median": 59.001,
+          "midi_iqr": 0.027,
+          "midi_min": 58.037,
+          "midi_max": 59.03,
           "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -177,16 +176,16 @@
           "n_frames": 15,
           "voiced_frames": 15,
           "voiced_fraction": 1.0,
-          "midi_median": 56.986,
-          "midi_iqr": 0.057,
-          "midi_min": 56.96,
-          "midi_max": 58.0,
-          "dominant_fraction": 0.933,
+          "midi_median": 56.987,
+          "midi_iqr": 0.081,
+          "midi_min": 56.962,
+          "midi_max": 57.936,
+          "dominant_fraction": 1.0,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": 1.776,
-        "candidate_error_semitones": -0.246
+        "baseline_error_semitones": 1.769,
+        "candidate_error_semitones": -0.245
       },
       {
         "child": 1,
@@ -219,10 +218,10 @@
           "n_frames": 25,
           "voiced_frames": 25,
           "voiced_fraction": 1.0,
-          "midi_median": 59.021,
-          "midi_iqr": 0.028,
-          "midi_min": 59.004,
-          "midi_max": 62.757,
+          "midi_median": 59.013,
+          "midi_iqr": 0.02,
+          "midi_min": 58.994,
+          "midi_max": 62.706,
           "dominant_fraction": 0.88,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
@@ -235,36 +234,952 @@
           "n_frames": 25,
           "voiced_frames": 25,
           "voiced_fraction": 1.0,
-          "midi_median": 59.02,
-          "midi_iqr": 0.028,
-          "midi_min": 58.412,
-          "midi_max": 62.802,
+          "midi_median": 59.018,
+          "midi_iqr": 0.044,
+          "midi_min": 58.392,
+          "midi_max": 62.804,
           "dominant_fraction": 0.88,
           "evidence": "ok",
           "provenance": "torchfcpe:InferCFNaiveMelPE"
         },
-        "baseline_error_semitones": -0.239,
-        "candidate_error_semitones": -0.24
+        "baseline_error_semitones": -0.247,
+        "candidate_error_semitones": -0.242
       }
     ],
     "baseline_child_error_semitones": [
-      1.776,
-      -0.239
+      1.769,
+      -0.247
     ],
     "candidate_child_error_semitones": [
-      -0.246,
-      -0.24
+      -0.245,
+      -0.242
     ],
-    "baseline_structure_error": 1.776,
-    "candidate_structure_error": 0.246,
-    "candidate_improvement_vs_baseline": 1.53,
+    "baseline_structure_error": 1.769,
+    "candidate_structure_error": 0.245,
+    "candidate_improvement_vs_baseline": 1.524,
     "unavailable_child_slots": 0,
     "ambiguous_children": [],
     "note": "review-readiness evidence only — never an automatic score truth; unavailable/ambiguous stays neutral"
   },
-  "target_focus_sha256": "0b11858a59b39d2a0533224a088f39aa617747577361a4ab6fb8d97f31f1736f",
-  "target_core_sha256": "b468a81663af8642b0be75f47b171f062105de47615c9a9ab70977d14e2e8439",
+  "lyric_timing": {
+    "aligner": "whisper-attention-dtw",
+    "model": "large-v3-turbo",
+    "text": "密密麻麻是我的自尊",
+    "source_chars": [
+      {
+        "char": "密",
+        "start": -0.1,
+        "end": 0.62,
+        "probability": 0.0019485332304611802
+      },
+      {
+        "char": "密",
+        "start": 0.62,
+        "end": 1.2,
+        "probability": 0.8094284534454346
+      },
+      {
+        "char": "麻",
+        "start": 1.2,
+        "end": 1.46,
+        "probability": 0.20750606060028076
+      },
+      {
+        "char": "麻",
+        "start": 1.46,
+        "end": 1.86,
+        "probability": 0.3361889123916626
+      },
+      {
+        "char": "是",
+        "start": 1.86,
+        "end": 2.24,
+        "probability": 0.5885825753211975
+      },
+      {
+        "char": "我",
+        "start": 2.24,
+        "end": 2.75,
+        "probability": 0.9984368681907654
+      },
+      {
+        "char": "的",
+        "start": 2.75,
+        "end": 3.26,
+        "probability": 0.9984368681907654
+      },
+      {
+        "char": "自",
+        "start": 3.26,
+        "end": 3.66,
+        "probability": 0.06285624206066132
+      },
+      {
+        "char": "尊",
+        "start": 3.66,
+        "end": 4.14,
+        "probability": 0.4322930723428726
+      }
+    ],
+    "options": {
+      "OPTION_0": {
+        "chars": [
+          {
+            "char": "密",
+            "start": 0.0,
+            "end": 0.38,
+            "probability": 0.12405995279550552,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "密",
+            "start": 0.38,
+            "end": 0.9,
+            "probability": 0.9881750345230103,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "麻",
+            "start": 0.9,
+            "end": 1.3,
+            "probability": 0.5453600883483887,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "麻",
+            "start": 1.3,
+            "end": 1.52,
+            "probability": 0.9376817941665649,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "是",
+            "start": 1.52,
+            "end": 1.98,
+            "probability": 0.8544957041740417,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "我",
+            "start": 1.98,
+            "end": 2.44,
+            "probability": 0.9803738594055176,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "的",
+            "start": 2.44,
+            "end": 2.9,
+            "probability": 0.9803738594055176,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "自",
+            "start": 2.9,
+            "end": 3.4,
+            "probability": 0.8875535726547241,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "尊",
+            "start": 3.4,
+            "end": 3.9,
+            "probability": 0.9987471699714661,
+            "method": "whisper-attention-dtw"
+          }
+        ]
+      },
+      "OPTION_1": {
+        "chars": [
+          {
+            "char": "密",
+            "start": 0.0,
+            "end": 0.42,
+            "probability": 0.6878027319908142,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "密",
+            "start": 0.42,
+            "end": 0.84,
+            "probability": 0.9984667897224426,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "麻",
+            "start": 0.84,
+            "end": 1.3,
+            "probability": 0.4540366530418396,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "麻",
+            "start": 1.3,
+            "end": 1.52,
+            "probability": 0.975592851638794,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "是",
+            "start": 1.52,
+            "end": 2.0,
+            "probability": 0.8716415762901306,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "我",
+            "start": 2.0,
+            "end": 2.47,
+            "probability": 0.973202645778656,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "的",
+            "start": 2.47,
+            "end": 2.94,
+            "probability": 0.973202645778656,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "自",
+            "start": 2.94,
+            "end": 3.42,
+            "probability": 0.356514573097229,
+            "method": "whisper-attention-dtw"
+          },
+          {
+            "char": "尊",
+            "start": 3.42,
+            "end": 3.9,
+            "probability": 0.9873447418212891,
+            "method": "whisper-attention-dtw"
+          }
+        ]
+      }
+    },
+    "per_char": [
+      {
+        "char": "密",
+        "src_start": -0.1,
+        "src_end": 0.62,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": -0.0,
+        "carrier_hi": 0.36,
+        "desired_anchor": 0.1045,
+        "final_anchor": 0.1167,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 0.1045,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 0.0,
+        "OPTION_0_end": 0.38,
+        "OPTION_0_score_onset": 0.1167,
+        "OPTION_0_onset_delta_ms": 100.0,
+        "OPTION_0_offset_delta_ms": -240.0,
+        "OPTION_0_score_delta_ms": 216.7,
+        "OPTION_0_aligner_offset_ms": -116.7,
+        "OPTION_0_acoustic_onset": 0.1277,
+        "OPTION_0_acoustic_delta_ms": 23.2,
+        "OPTION_1_start": 0.0,
+        "OPTION_1_end": 0.42,
+        "OPTION_1_score_onset": 0.1167,
+        "OPTION_1_onset_delta_ms": 100.0,
+        "OPTION_1_offset_delta_ms": -200.0,
+        "OPTION_1_score_delta_ms": 216.7,
+        "OPTION_1_aligner_offset_ms": -116.7,
+        "OPTION_1_acoustic_onset": 0.1393,
+        "OPTION_1_acoustic_delta_ms": 34.8
+      },
+      {
+        "char": "密",
+        "src_start": 0.62,
+        "src_end": 1.2,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": 0.48,
+        "carrier_hi": 0.72,
+        "desired_anchor": 0.6734,
+        "final_anchor": 0.649,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 0.6734,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 0.38,
+        "OPTION_0_end": 0.9,
+        "OPTION_0_score_onset": 0.649,
+        "OPTION_0_onset_delta_ms": -240.0,
+        "OPTION_0_offset_delta_ms": -300.0,
+        "OPTION_0_score_delta_ms": 29.0,
+        "OPTION_0_aligner_offset_ms": -269.0,
+        "OPTION_0_acoustic_onset": 0.685,
+        "OPTION_0_acoustic_delta_ms": 11.6,
+        "OPTION_1_start": 0.42,
+        "OPTION_1_end": 0.84,
+        "OPTION_1_score_onset": 0.649,
+        "OPTION_1_onset_delta_ms": -200.0,
+        "OPTION_1_offset_delta_ms": -360.0,
+        "OPTION_1_score_delta_ms": 29.0,
+        "OPTION_1_aligner_offset_ms": -229.0,
+        "OPTION_1_acoustic_onset": 0.685,
+        "OPTION_1_acoustic_delta_ms": 11.6
+      },
+      {
+        "char": "麻",
+        "src_start": 1.2,
+        "src_end": 1.46,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": 1.23,
+        "carrier_hi": 1.51,
+        "desired_anchor": 1.2539,
+        "final_anchor": 1.2458,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 1.2539,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 0.9,
+        "OPTION_0_end": 1.3,
+        "OPTION_0_score_onset": 1.2302,
+        "OPTION_0_onset_delta_ms": -300.0,
+        "OPTION_0_offset_delta_ms": -160.0,
+        "OPTION_0_score_delta_ms": 30.2,
+        "OPTION_0_aligner_offset_ms": -330.2,
+        "OPTION_0_acoustic_onset": 1.2655,
+        "OPTION_0_acoustic_delta_ms": 11.6,
+        "OPTION_1_start": 0.84,
+        "OPTION_1_end": 1.3,
+        "OPTION_1_score_onset": 1.2302,
+        "OPTION_1_onset_delta_ms": -360.0,
+        "OPTION_1_offset_delta_ms": -160.0,
+        "OPTION_1_score_delta_ms": 30.2,
+        "OPTION_1_aligner_offset_ms": -390.2,
+        "OPTION_1_acoustic_onset": 1.2655,
+        "OPTION_1_acoustic_delta_ms": 11.6
+      },
+      {
+        "char": "麻",
+        "src_start": 1.46,
+        "src_end": 1.86,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": 1.23,
+        "carrier_hi": 1.51,
+        "desired_anchor": 1.4048,
+        "final_anchor": 1.3804,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 1.4048,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 1.3,
+        "OPTION_0_end": 1.52,
+        "OPTION_0_score_onset": 1.3802,
+        "OPTION_0_onset_delta_ms": -160.0,
+        "OPTION_0_offset_delta_ms": -340.0,
+        "OPTION_0_score_delta_ms": -79.8,
+        "OPTION_0_aligner_offset_ms": -80.2,
+        "OPTION_0_acoustic_onset": 1.4164,
+        "OPTION_0_acoustic_delta_ms": 11.6,
+        "OPTION_1_start": 1.3,
+        "OPTION_1_end": 1.52,
+        "OPTION_1_score_onset": 1.3802,
+        "OPTION_1_onset_delta_ms": -160.0,
+        "OPTION_1_offset_delta_ms": -340.0,
+        "OPTION_1_score_delta_ms": -79.8,
+        "OPTION_1_aligner_offset_ms": -80.2,
+        "OPTION_1_acoustic_onset": 1.4164,
+        "OPTION_1_acoustic_delta_ms": 11.6
+      },
+      {
+        "char": "是",
+        "src_start": 1.86,
+        "src_end": 2.24,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": 1.63,
+        "carrier_hi": 1.98,
+        "desired_anchor": 1.7763,
+        "final_anchor": 1.7479,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 1.7763,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 1.52,
+        "OPTION_0_end": 1.98,
+        "OPTION_0_score_onset": 1.7479,
+        "OPTION_0_onset_delta_ms": -340.0,
+        "OPTION_0_offset_delta_ms": -260.0,
+        "OPTION_0_score_delta_ms": -112.1,
+        "OPTION_0_aligner_offset_ms": -227.9,
+        "OPTION_0_acoustic_onset": 1.7879,
+        "OPTION_0_acoustic_delta_ms": 11.6,
+        "OPTION_1_start": 1.52,
+        "OPTION_1_end": 2.0,
+        "OPTION_1_score_onset": 1.7479,
+        "OPTION_1_onset_delta_ms": -340.0,
+        "OPTION_1_offset_delta_ms": -240.0,
+        "OPTION_1_score_delta_ms": -112.1,
+        "OPTION_1_aligner_offset_ms": -227.9,
+        "OPTION_1_acoustic_onset": 1.7879,
+        "OPTION_1_acoustic_delta_ms": 11.6
+      },
+      {
+        "char": "我",
+        "src_start": 2.24,
+        "src_end": 2.75,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": 2.1,
+        "carrier_hi": 2.33,
+        "desired_anchor": 2.2756,
+        "final_anchor": 2.2674,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 2.2756,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 1.98,
+        "OPTION_0_end": 2.44,
+        "OPTION_0_score_onset": 2.2677,
+        "OPTION_0_onset_delta_ms": -260.0,
+        "OPTION_0_offset_delta_ms": -310.0,
+        "OPTION_0_score_delta_ms": 27.7,
+        "OPTION_0_aligner_offset_ms": -287.7,
+        "OPTION_0_acoustic_onset": 2.322,
+        "OPTION_0_acoustic_delta_ms": 46.4,
+        "OPTION_1_start": 2.0,
+        "OPTION_1_end": 2.47,
+        "OPTION_1_score_onset": 2.2677,
+        "OPTION_1_onset_delta_ms": -240.0,
+        "OPTION_1_offset_delta_ms": -280.0,
+        "OPTION_1_score_delta_ms": 27.7,
+        "OPTION_1_aligner_offset_ms": -267.7,
+        "OPTION_1_acoustic_onset": 2.3104,
+        "OPTION_1_acoustic_delta_ms": 34.8
+      },
+      {
+        "char": "的",
+        "src_start": 2.75,
+        "src_end": 3.26,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": 2.45,
+        "carrier_hi": 2.94,
+        "desired_anchor": 2.6703,
+        "final_anchor": 2.7272,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 2.6703,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 2.44,
+        "OPTION_0_end": 2.9,
+        "OPTION_0_score_onset": 2.7271,
+        "OPTION_0_onset_delta_ms": -310.0,
+        "OPTION_0_offset_delta_ms": -360.0,
+        "OPTION_0_score_delta_ms": -22.9,
+        "OPTION_0_aligner_offset_ms": -287.1,
+        "OPTION_0_acoustic_onset": 2.6355,
+        "OPTION_0_acoustic_delta_ms": -34.8,
+        "OPTION_1_start": 2.47,
+        "OPTION_1_end": 2.94,
+        "OPTION_1_score_onset": 2.7271,
+        "OPTION_1_onset_delta_ms": -280.0,
+        "OPTION_1_offset_delta_ms": -320.0,
+        "OPTION_1_score_delta_ms": -22.9,
+        "OPTION_1_aligner_offset_ms": -257.1,
+        "OPTION_1_acoustic_onset": 2.6471,
+        "OPTION_1_acoustic_delta_ms": -23.2
+      },
+      {
+        "char": "自",
+        "src_start": 3.26,
+        "src_end": 3.66,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": 3.06,
+        "carrier_hi": 3.41,
+        "desired_anchor": 3.2972,
+        "final_anchor": 3.3095,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 3.2972,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 2.9,
+        "OPTION_0_end": 3.4,
+        "OPTION_0_score_onset": 3.3094,
+        "OPTION_0_onset_delta_ms": -360.0,
+        "OPTION_0_offset_delta_ms": -260.0,
+        "OPTION_0_score_delta_ms": 49.4,
+        "OPTION_0_aligner_offset_ms": -409.4,
+        "OPTION_0_acoustic_onset": 3.3437,
+        "OPTION_0_acoustic_delta_ms": 46.5,
+        "OPTION_1_start": 2.94,
+        "OPTION_1_end": 3.42,
+        "OPTION_1_score_onset": 3.3094,
+        "OPTION_1_onset_delta_ms": -320.0,
+        "OPTION_1_offset_delta_ms": -240.0,
+        "OPTION_1_score_delta_ms": 49.4,
+        "OPTION_1_aligner_offset_ms": -369.4,
+        "OPTION_1_acoustic_onset": 3.3437,
+        "OPTION_1_acoustic_delta_ms": 46.5
+      },
+      {
+        "char": "尊",
+        "src_start": 3.66,
+        "src_end": 4.14,
+        "route": "class_A",
+        "route_subtype": null,
+        "direction": null,
+        "overhang_ms": null,
+        "bound_conflict": false,
+        "carrier_lo": 3.53,
+        "carrier_hi": 3.72,
+        "desired_anchor": 3.6804,
+        "final_anchor": 3.6926,
+        "measurement_stability": "stable",
+        "route_detail": null,
+        "render_measurement_status": "measured",
+        "final_class": "class_A",
+        "phrase_level_conflict_id": null,
+        "secondary_measurement": null,
+        "src_acoustic_onset": 3.6804,
+        "src_ref_kind": "onset_peak",
+        "OPTION_0_start": 3.4,
+        "OPTION_0_end": 3.9,
+        "OPTION_0_score_onset": 3.6927,
+        "OPTION_0_onset_delta_ms": -260.0,
+        "OPTION_0_offset_delta_ms": -240.0,
+        "OPTION_0_score_delta_ms": 32.7,
+        "OPTION_0_aligner_offset_ms": -292.7,
+        "OPTION_0_acoustic_onset": 3.7152,
+        "OPTION_0_acoustic_delta_ms": 34.8,
+        "OPTION_1_start": 3.42,
+        "OPTION_1_end": 3.9,
+        "OPTION_1_score_onset": 3.6927,
+        "OPTION_1_onset_delta_ms": -240.0,
+        "OPTION_1_offset_delta_ms": -240.0,
+        "OPTION_1_score_delta_ms": 32.7,
+        "OPTION_1_aligner_offset_ms": -272.7,
+        "OPTION_1_acoustic_onset": 3.7268,
+        "OPTION_1_acoustic_delta_ms": 46.4
+      }
+    ],
+    "stats": {
+      "OPTION_0": {
+        "median_abs_onset_delta_ms": 260.0,
+        "p90_abs_onset_delta_ms": 344.0,
+        "max_abs_onset_delta_ms": 360.0,
+        "median_abs_offset_delta_ms": 260.0,
+        "n_chars_over_100ms": 8,
+        "n_chars_over_200ms": 7,
+        "median_aligner_offset_ms": -287.1,
+        "min_intelligibility_probability": 0.124,
+        "trusted_max_abs_onset_delta_ms": 360.0,
+        "median_abs_acoustic_delta_ms": 23.2,
+        "max_abs_acoustic_delta_ms": 46.5
+      },
+      "OPTION_1": {
+        "median_abs_onset_delta_ms": 240.0,
+        "p90_abs_onset_delta_ms": 344.0,
+        "max_abs_onset_delta_ms": 360.0,
+        "median_abs_offset_delta_ms": 240.0,
+        "n_chars_over_100ms": 8,
+        "n_chars_over_200ms": 6,
+        "median_aligner_offset_ms": -257.1,
+        "min_intelligibility_probability": 0.357,
+        "trusted_max_abs_onset_delta_ms": 360.0,
+        "median_abs_acoustic_delta_ms": 23.2,
+        "max_abs_acoustic_delta_ms": 46.5
+      }
+    },
+    "flags": [
+      "lyric_intelligibility_low:OPTION_0:密"
+    ],
+    "acoustic": {
+      "instrument": "onset_strength_peak_v1",
+      "src_ref_onsets": [
+        0.1045,
+        0.6734,
+        1.2539,
+        1.4048,
+        1.7763,
+        2.2756,
+        2.6703,
+        3.2972,
+        3.6804
+      ],
+      "src_ref_kinds": [
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak",
+        "onset_peak"
+      ],
+      "render_onsets": {
+        "OPTION_0": [
+          0.1277,
+          0.685,
+          1.2655,
+          1.4164,
+          1.7879,
+          2.322,
+          2.6355,
+          3.3437,
+          3.7152
+        ],
+        "OPTION_1": [
+          0.1393,
+          0.685,
+          1.2655,
+          1.4164,
+          1.7879,
+          2.3104,
+          2.6471,
+          3.3437,
+          3.7268
+        ]
+      },
+      "unstable_chars": [],
+      "char_routes": [
+        {
+          "char": "密",
+          "source_ref_onset": 0.1045,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": -0.0,
+          "carrier_hi": 0.36,
+          "desired_anchor": 0.1045,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 0.1167,
+          "render_onset": {
+            "OPTION_0": 0.1277,
+            "OPTION_1": 0.1393
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": 23.2,
+            "OPTION_1": 34.8
+          },
+          "measurement_stability": "stable"
+        },
+        {
+          "char": "密",
+          "source_ref_onset": 0.6734,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": 0.48,
+          "carrier_hi": 0.72,
+          "desired_anchor": 0.6734,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 0.649,
+          "render_onset": {
+            "OPTION_0": 0.685,
+            "OPTION_1": 0.685
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": 11.6,
+            "OPTION_1": 11.6
+          },
+          "measurement_stability": "stable"
+        },
+        {
+          "char": "麻",
+          "source_ref_onset": 1.2539,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": 1.23,
+          "carrier_hi": 1.51,
+          "desired_anchor": 1.2539,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 1.2458,
+          "render_onset": {
+            "OPTION_0": 1.2655,
+            "OPTION_1": 1.2655
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": 11.6,
+            "OPTION_1": 11.6
+          },
+          "measurement_stability": "stable"
+        },
+        {
+          "char": "麻",
+          "source_ref_onset": 1.4048,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": 1.23,
+          "carrier_hi": 1.51,
+          "desired_anchor": 1.4048,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 1.3804,
+          "render_onset": {
+            "OPTION_0": 1.4164,
+            "OPTION_1": 1.4164
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": 11.6,
+            "OPTION_1": 11.6
+          },
+          "measurement_stability": "stable"
+        },
+        {
+          "char": "是",
+          "source_ref_onset": 1.7763,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": 1.63,
+          "carrier_hi": 1.98,
+          "desired_anchor": 1.7763,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 1.7479,
+          "render_onset": {
+            "OPTION_0": 1.7879,
+            "OPTION_1": 1.7879
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": 11.6,
+            "OPTION_1": 11.6
+          },
+          "measurement_stability": "stable"
+        },
+        {
+          "char": "我",
+          "source_ref_onset": 2.2756,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": 2.1,
+          "carrier_hi": 2.33,
+          "desired_anchor": 2.2756,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 2.2674,
+          "render_onset": {
+            "OPTION_0": 2.322,
+            "OPTION_1": 2.3104
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": 46.4,
+            "OPTION_1": 34.8
+          },
+          "measurement_stability": "stable"
+        },
+        {
+          "char": "的",
+          "source_ref_onset": 2.6703,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": 2.45,
+          "carrier_hi": 2.94,
+          "desired_anchor": 2.6703,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 2.7272,
+          "render_onset": {
+            "OPTION_0": 2.6355,
+            "OPTION_1": 2.6471
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": -34.8,
+            "OPTION_1": -23.2
+          },
+          "measurement_stability": "stable"
+        },
+        {
+          "char": "自",
+          "source_ref_onset": 3.2972,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": 3.06,
+          "carrier_hi": 3.41,
+          "desired_anchor": 3.2972,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 3.3095,
+          "render_onset": {
+            "OPTION_0": 3.3437,
+            "OPTION_1": 3.3437
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": 46.4,
+            "OPTION_1": 46.4
+          },
+          "measurement_stability": "stable"
+        },
+        {
+          "char": "尊",
+          "source_ref_onset": 3.6804,
+          "source_ref_kind": "onset_peak",
+          "carrier_lo": 3.53,
+          "carrier_hi": 3.72,
+          "desired_anchor": 3.6804,
+          "bound_conflict": false,
+          "unmeasurable_reason": null,
+          "route_detail": null,
+          "route_subtype": null,
+          "direction": null,
+          "overhang_ms": null,
+          "primary_measurement": "onset_strength_peak_v1",
+          "secondary_measurement": null,
+          "render_measurement_status": "measured",
+          "final_class": "class_A",
+          "phrase_level_conflict_id": null,
+          "route": "class_A",
+          "final_anchor": 3.6926,
+          "render_onset": {
+            "OPTION_0": 3.7152,
+            "OPTION_1": 3.7268
+          },
+          "acoustic_error_ms": {
+            "OPTION_0": 34.8,
+            "OPTION_1": 46.4
+          },
+          "measurement_stability": "stable"
+        }
+      ]
+    },
+    "convergence_iterations": 1,
+    "converged": true
+  },
+  "target_focus_sha256": "f946e7806e6ad6f909499141c4e6d941f83ff28105e6271269a979090400e37c",
+  "target_core_sha256": "276768a542c99206c7a06bbc7c6cb2966e903236c4e0a32e60141040688c3dea",
   "target_focus_is_primary": true,
-  "auto_flags": [],
-  "auto_review_ready": true
+  "auto_flags": [
+    "lyric_intelligibility_low:OPTION_0:密"
+  ],
+  "auto_review_ready": false
 }

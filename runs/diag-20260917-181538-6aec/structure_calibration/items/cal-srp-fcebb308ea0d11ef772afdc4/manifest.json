@@ -1,280 +1,863 @@
 {
- "schema": "m25-cal-2",
- "identity_schema": "review-target-v1",
- "review_item_id": "cal-srp-fcebb308ea0d11ef772afdc4",
- "target_key": "699efe7d2156abb7d155adc6516aeb48337b49126818c279eb60c6c5190b4165",
- "song_sha256": "5f851d3a760f230a",
- "diagnostic_run_id": "diag-20260917-181538-6aec",
- "review_batch_id": "structure-calibration",
- "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
- "target_group": {
-  "type": "split",
-  "parent_ids": [
-   "note_0440"
-  ],
-  "note_ids": [
-   "note_0440"
-  ],
-  "region": [
-   214.5,
-   214.89
-  ],
-  "packets": [
-   "note_0440"
-  ],
-  "reason": "machine_split_calibration"
- },
- "context": {
-  "phrase": {
-   "start": 213.66,
-   "end": 218.16,
-   "boundary_source": "lrc"
-  },
-  "phrase_key": "213.66-218.16",
-  "candidate0_note_ids": [
-   "note_0438",
-   "note_0439",
-   "note_0440",
-   "note_0441",
-   "note_0442",
-   "note_0443",
-   "note_0444",
-   "note_0445",
-   "note_0446",
-   "note_0447",
-   "note_0448"
-  ]
- },
- "phrase": {
-  "start": 213.66,
-  "end": 218.16,
-  "boundary_source": "lrc"
- },
- "options": [
-  {
-   "option_id": "OPTION_0",
-   "candidate_id": "machine_split",
-   "score_patch": {
+  "schema": "m25-cal-2",
+  "identity_schema": "review-target-v1",
+  "review_item_id": "cal-srp-fcebb308ea0d11ef772afdc4",
+  "target_key": "699efe7d2156abb7d155adc6516aeb48337b49126818c279eb60c6c5190b4165",
+  "song_sha256": "5f851d3a760f230a",
+  "diagnostic_run_id": "diag-20260917-181538-6aec",
+  "review_batch_id": "structure-calibration",
+  "candidate0_sha256": "d5dc30afcf565a06c8c446c3392865a957b527ec4b93f62caadd7893d26352ea",
+  "target_group": {
     "type": "split",
-    "note_ids": [
-     "note_0440"
+    "parent_ids": [
+      "note_0440"
     ],
-    "boundary": 214.64,
-    "children": [
-     {
-      "start": 214.5,
-      "end": 214.64,
-      "tone": 57.23
-     },
-     {
-      "start": 214.64,
-      "end": 214.89,
-      "tone": 59.2
-     }
+    "note_ids": [
+      "note_0440"
+    ],
+    "region": [
+      214.5,
+      214.89
+    ],
+    "packets": [
+      "note_0440"
+    ],
+    "reason": "machine_split_calibration"
+  },
+  "context": {
+    "phrase": {
+      "start": 213.66,
+      "end": 218.16,
+      "boundary_source": "lrc"
+    },
+    "phrase_key": "213.66-218.16",
+    "candidate0_note_ids": [
+      "note_0438",
+      "note_0439",
+      "note_0440",
+      "note_0441",
+      "note_0442",
+      "note_0443",
+      "note_0444",
+      "note_0445",
+      "note_0446",
+      "note_0447",
+      "note_0448"
     ]
-   },
-   "provenance": {
-    "kind": "machine_structure_candidate",
-    "repair_id": "srp-fcebb308ea0d11ef772afdc4",
-    "authority": {
-     "packet_id": "note_0440",
-     "c_status": "resolved_change_candidate",
-     "classification": "TRUE_SPLIT_CANDIDATE",
-     "virtual_b_statuses": [
-      "resolved_keep",
-      "resolved_keep"
-     ],
-     "child_presence": [
-      0.0,
-      0.0
-     ],
-     "dual_delta_agreement": true,
-     "non_f0_support": 0.748,
-     "game_split_ratio": 0.0
+  },
+  "phrase": {
+    "start": 213.66,
+    "end": 218.16,
+    "boundary_source": "lrc"
+  },
+  "options": [
+    {
+      "option_id": "OPTION_0",
+      "candidate_id": "machine_split",
+      "score_patch": {
+        "type": "split",
+        "note_ids": [
+          "note_0440"
+        ],
+        "boundary": 214.64,
+        "children": [
+          {
+            "start": 214.5,
+            "end": 214.64,
+            "tone": 57.23
+          },
+          {
+            "start": 214.64,
+            "end": 214.89,
+            "tone": 59.2
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "machine_structure_candidate",
+        "repair_id": "srp-fcebb308ea0d11ef772afdc4",
+        "authority": {
+          "packet_id": "note_0440",
+          "c_status": "resolved_change_candidate",
+          "classification": "TRUE_SPLIT_CANDIDATE",
+          "virtual_b_statuses": [
+            "resolved_keep",
+            "resolved_keep"
+          ],
+          "child_presence": [
+            0.0,
+            0.0
+          ],
+          "dual_delta_agreement": true,
+          "non_f0_support": 0.748,
+          "game_split_ratio": 0.0
+        }
+      },
+      "wav": "OPTION_0.wav",
+      "wav_sha256": "6fb7b47996684088c2898c6786193865d8dbf84280a6a8aec629e80263a3a677",
+      "sample_rate": 44100,
+      "frames": 198450,
+      "render_error": null
+    },
+    {
+      "option_id": "OPTION_1",
+      "candidate_id": "baseline",
+      "score_patch": {
+        "type": "identity"
+      },
+      "provenance": {
+        "kind": "candidate0"
+      },
+      "wav": "OPTION_1.wav",
+      "wav_sha256": "114ce17e86ba17b6a685c2c323b06127c923251100ab8d04bdd975a4c4fa4342",
+      "sample_rate": 44100,
+      "frames": 198450,
+      "render_error": null
     }
-   },
-   "wav": "OPTION_0.wav",
-   "wav_sha256": "cd114e6154953168229150b7bced5ff523319118317677e226c0adf758c02811",
-   "sample_rate": 44100,
-   "frames": 198450,
-   "render_error": null
-  },
-  {
-   "option_id": "OPTION_1",
-   "candidate_id": "baseline",
-   "score_patch": {
-    "type": "identity"
-   },
-   "provenance": {
-    "kind": "candidate0"
-   },
-   "wav": "OPTION_1.wav",
-   "wav_sha256": "df68b5e7a87f90fdd7fd33cb2f6cd7c23f01ed5155a8b5197593ea2e11905767",
-   "sample_rate": 44100,
-   "frames": 198450,
-   "render_error": null
-  }
- ],
- "baseline_option": "OPTION_1",
- "source_reference": {
-  "original_mix": {
-   "path": "../../phrases/213.66-218.16/SOURCE_PHRASE_original_mix.wav",
-   "sha256": "0ae4d97c061ef50bf6b06d4c69a9e03dffb264987d693b20f1054d165a83ad29",
-   "gain_db": -0.36,
-   "sample_rate": 44100
-  },
-  "separated_vocal": {
-   "path": "../../phrases/213.66-218.16/SOURCE_PHRASE_separated_vocal.wav",
-   "sha256": "16b2d3d592f5ab2a22d7a4bacf14267b72d640f0a0973fb36739de2d95bd9cf9",
-   "gain_db": 0.0,
-   "sample_rate": 44100
-  }
- },
- "render_profile": {
-  "singer": "YousaV1.65b",
-  "phonemizer": "zh",
-  "renderer": "DIFFSINGER",
-  "bpm": 120,
-  "resolution": 480,
-  "sample_rate": 44100,
-  "voice_color": null,
-  "pitd": "none",
-  "time_align": "shared_phrase_start",
-  "loudness": "shared_gain",
-  "ustx_template_sha256": "a11d1b6a2b1a3c13b4e3056c8a942ae8baf401d6bbfe0e431235db144cb9362b"
- },
- "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
- "shared_gain_db": 0.0,
- "machine_evidence": {
-  "pitch": {
-   "status": "not_needed",
-   "winning_hypothesis": null,
-   "reason": null,
-   "top_hypotheses": []
-  },
-  "structure": {
-   "status": "resolved_change_candidate",
-   "winning_hypothesis": "H1",
-   "boundary": 214.64,
-   "all_scores": {
-    "H0": 1.752,
-    "H1": 3.105,
-    "H3": 2.216
-   }
-  },
-  "virtual_b": [
-   {
-    "id": "note_0440__v0",
-    "status": "resolved_keep",
-    "winning_hypothesis": 57.23
-   },
-   {
-    "id": "note_0440__v1",
-    "status": "resolved_keep",
-    "winning_hypothesis": 59.2
-   }
   ],
-  "flags": [
-   "high_dispersion"
-  ]
- },
- "review": {
-  "generation": 1,
-  "blinded": true,
-  "choices": [
-   "OPTION_0",
-   "OPTION_1",
-   "equivalent",
-   "none_correct"
-  ]
- },
- "plan_hash": "5ac55d98595d37549428b752d3149cca22e23d16cf4b20b7477a7dc9b01979b3",
- "audio_package_hash": "a28543352b233bfbf20c1621818f447e735d5ebf245eb388a1b1b23142759dc1",
- "render_provenance": {
-  "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
-  "binaries": {
-   "OpenUtau.exe": {
-    "sha256": "de4b4b692e4871263e000ea072e6e539905ecf8f1feea455ead1c58795392461",
-    "size": 283136
-   },
-   "OpenUtau.Core.dll": {
-    "sha256": "bbb7ad4e767fc168824a8dbfd97401747f06848f0559c177c610e572e99efe0f",
-    "size": 32952320
-   },
-   "a2u-bridge.exe": {
-    "sha256": "e2af9acea5d8d2e140ddbc1db8b2669f61e81f76261d1cf7608d1e9c8c08fa19",
-    "size": 162304
-   }
-  },
-  "voicebank": {
-   "singer": "YousaV1.65b",
-   "materials": {
-    "0818_no_shuffle.onnx": "a8fdc96710113a5faefef9cc8d418d786ff8b7a4b36ebfc10cf30f7c6b87fe74",
-    "character.txt": "43cd1031e5958a59e740150020e65902d2950e36ab5ad80adf4447a9b7d71fbb",
-    "character.yaml": "fc3335a4c5f6304cad20f1b03bb7db18e280e881a5e049478811433aaca4ca99",
-    "dsconfig.yaml": "72d5197ba188ad24596b7d9b6652b6e65a0a919e4841f45e598946c37ef53d06",
-    "dsdur\\0801_sdp.dur.onnx": "0e5233392c02b9ab30947f4d9b766e2ba847e3eb8e33c049db865456e0ea1a1f",
-    "dsdur\\0801_sdp.linguistic.onnx": "6b8b8f7f4a685487f08497d274d49a72410a2410d600b279dfcb0d918b2ed929",
-    "dsdur\\dsconfig.yaml": "4b67e63f5cdf900c0b53f706ccfc765c7fde2bf6514d252106562adc68e43a8f",
-    "dsdur\\dsdict-ja.yaml": "193612e18ef3503b85d5c86e93008f98cad11cb0b244e34f92acba65767d80d4",
-    "dsdur\\dsdict-ko.yaml": "7e47ab6fa66cba553d6b3c26ab352f9c7f227e489239042c15506316bda640cc",
-    "dsdur\\dsdict-zh.yaml": "04734af1885f075da4d379f9dcd11d629ae46350dd83f36f1ca5c9adcc8fcbc4",
-    "dsdur\\dsdict.yaml": "fa61e140c0953f95b1b08f733a41e11444be51323d94257491531b7ea2afb328",
-    "dsdur\\phonemes.json": "3a4cbf6cd901fe526bae27f0109155697a80f55017f4fb5145219c9168d0a563",
-    "dsdur\\Yousa_Bright.emb": "e6f5ee37df710054aa2149ea39e8963fbd2cbdfe9ad5ba7c54c1b70e1fecc40b",
-    "dsdur\\Yousa_Classic.emb": "0697dfbcb1fa65da6d095bbfe88fafa4a5f39ef21611b9bd192c4d0c03e65697",
-    "dsdur\\Yousa_Cute.emb": "248ccb44e1c8d88cbbf3cad61695fe68b27ed8c6040dea32024909ac23e5c222",
-    "dsdur\\Yousa_Normal.emb": "5b3f51ac368264732163326110afd0559faa137f71345b833c1ec2ce0a5cf466",
-    "dsdur\\Yousa_Whisper.emb": "d7316ceeff8a978ddb880ca435e632c11fe57f2b39021bdc75018e1d3fb71490",
-    "dspitch\\0801_variance.linguistic.onnx": "4892ff20d9728b51c235d0912abae0473077de7043d4bff3684caf79fb0773e9",
-    "dspitch\\0801_variance.pitch.onnx": "eaf9c8ce9270701fb7563b2dac43d475769f3fe69d5ea83000dedeab81f79656",
-    "dspitch\\dsconfig.yaml": "7626b1b0d2799b4cb89067a9458c19963a55a7100ccdf68709e0f650b526bc65",
-    "dspitch\\dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
-    "dspitch\\Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
-    "dspitch\\Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
-    "dspitch\\Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
-    "dspitch\\Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
-    "dspitch\\Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
-    "dsvariance\\0801_variance.variance.onnx": "d68eb67d23be30f5ab7aba245f55a674413b120d25848bffd8bf67c5edb5c457",
-    "dsvariance\\dsconfig.yaml": "5f3a02f3b3a580c6b5600880ca6ea0bde77ddd2be2b81e863b7ed98772c8551b",
-    "dsvariance\\dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
-    "dsvariance\\Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
-    "dsvariance\\Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
-    "dsvariance\\Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
-    "dsvariance\\Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
-    "dsvariance\\Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
-    "dsvocoder\\TIPS.txt": "71d47eb3bf8cf21e6b4e9defc3dd8a80e7c0accac0071fb625343b04ee735258",
-    "dsvocoder\\vocoder.yaml": "a9dde1db7ed047c74247df89cb3676f0210ac60cd0776afad71d4bcf7b77ab2e",
-    "dsvocoder\\yousa_vocoder_FT_1002_pc_nsf_wm.onnx": "00ce253d8f616bb9ed8d219648aa8d37ff29b46888c99db6046b733e8f1fc16c",
-    "languages.json": "770e6713543dabffb0c122ef09c927bd5d4b89ef8db4299a8935a43e01a3e8c9",
-    "phonemes.json": "b69927aa2031a1b6c88fd309f48498cfe9b0bbe6e29a414932ea8fb88a5f848a",
-    "readme.txt": "9c59f112561a64883957e4a1401d0c4730e0f8d6b1967e289bd04e6f7cc66c5d",
-    "Yousa_Bright.emb": "dc40eeebd34a18b0d44d9ee887052d7d37d472eec6cbd13dd3acde30951f7832",
-    "Yousa_Classic.emb": "dde42450f7d38653aa520c9883e74473abe5105ea069cddcbe6ebadd2abbecb4",
-    "Yousa_Cute.emb": "5ffaef1e7d0366c70511eb493695afc992ab277b26f1145ac5fb929ec8e62a04",
-    "Yousa_Normal.emb": "9fa01d6ab16c67d52a520ab1a0c5cf9f293d093ef5c1be8c08ba94d926cd61e6",
-    "Yousa_Whisper.emb": "124ecc4622f34dc909810853a05a0bc9726b45e34aa56057b5cf97294ac5100a",
-    "词典补充说明.txt": "3d63067ebad603db19e8e7425d382f90d91b8ea7d68b78961ec381ef954edbeb"
-   }
-  },
-  "phonemizer": "OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer",
-  "impl": "d3"
- },
- "package_state": "valid",
- "calibration": {
-  "repair_id": "srp-fcebb308ea0d11ef772afdc4",
-  "patch_sha256": "35d006267675a2ec760b687c47b4379caf5411887728603248d2382e1a9a8179",
-  "candidate_role": "OPTION_0",
   "baseline_option": "OPTION_1",
-  "lyric_contract": "neutral_vowel",
-  "contract_sha256": "e3f54ae5a5c5ceb0c438f9bf10862c18bd12c81ac927c1e2ef33e6c1c3171a0a",
-  "choices": [
-   "split",
-   "baseline",
-   "equivalent",
-   "none_correct"
-  ],
-  "semantic_diff_sha256": "75365239f36353569aeaf6ad21fe81945f8f8dff6ea382575a8e9f17c387608f",
-  "lyric_mapping_impl": "nv1"
- }
+  "source_reference": {
+    "original_mix": {
+      "path": "../../phrases/213.66-218.16/SOURCE_PHRASE_original_mix.wav",
+      "sha256": "0ae4d97c061ef50bf6b06d4c69a9e03dffb264987d693b20f1054d165a83ad29",
+      "gain_db": -0.36,
+      "sample_rate": 44100
+    },
+    "separated_vocal": {
+      "path": "../../phrases/213.66-218.16/SOURCE_PHRASE_separated_vocal.wav",
+      "sha256": "16b2d3d592f5ab2a22d7a4bacf14267b72d640f0a0973fb36739de2d95bd9cf9",
+      "gain_db": 0.0,
+      "sample_rate": 44100
+    }
+  },
+  "render_profile": {
+    "singer": "YousaV1.65b",
+    "phonemizer": "zh",
+    "renderer": "DIFFSINGER",
+    "bpm": 120,
+    "resolution": 480,
+    "sample_rate": 44100,
+    "voice_color": null,
+    "pitd": "none",
+    "time_align": "shared_phrase_start",
+    "loudness": "shared_gain",
+    "ustx_template_sha256": "a11d1b6a2b1a3c13b4e3056c8a942ae8baf401d6bbfe0e431235db144cb9362b"
+  },
+  "render_profile_hash": "5f10ef8fdd1b3eecba70bc2d54facd6547a7fd377977d688367fc17b5013ffce",
+  "shared_gain_db": 0.0,
+  "machine_evidence": {
+    "pitch": {
+      "status": "not_needed",
+      "winning_hypothesis": null,
+      "reason": null,
+      "top_hypotheses": []
+    },
+    "structure": {
+      "status": "resolved_change_candidate",
+      "winning_hypothesis": "H1",
+      "boundary": 214.64,
+      "all_scores": {
+        "H0": 1.752,
+        "H1": 3.105,
+        "H3": 2.216
+      }
+    },
+    "virtual_b": [
+      {
+        "id": "note_0440__v0",
+        "status": "resolved_keep",
+        "winning_hypothesis": 57.23
+      },
+      {
+        "id": "note_0440__v1",
+        "status": "resolved_keep",
+        "winning_hypothesis": 59.2
+      }
+    ],
+    "flags": [
+      "high_dispersion"
+    ]
+  },
+  "review": {
+    "generation": 1,
+    "blinded": true,
+    "choices": [
+      "OPTION_0",
+      "OPTION_1",
+      "equivalent",
+      "none_correct"
+    ]
+  },
+  "plan_hash": "5ac55d98595d37549428b752d3149cca22e23d16cf4b20b7477a7dc9b01979b3",
+  "audio_package_hash": "76d23a3f0ec19830597579c7c1cda24c82c5630737b3469fb8cb22b9655b0629",
+  "render_provenance": {
+    "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
+    "binaries": {
+      "OpenUtau.exe": {
+        "sha256": "de4b4b692e4871263e000ea072e6e539905ecf8f1feea455ead1c58795392461",
+        "size": 283136
+      },
+      "OpenUtau.Core.dll": {
+        "sha256": "bbb7ad4e767fc168824a8dbfd97401747f06848f0559c177c610e572e99efe0f",
+        "size": 32952320
+      },
+      "a2u-bridge.exe": {
+        "sha256": "e2af9acea5d8d2e140ddbc1db8b2669f61e81f76261d1cf7608d1e9c8c08fa19",
+        "size": 162304
+      }
+    },
+    "voicebank": {
+      "singer": "YousaV1.65b",
+      "materials": {
+        "0818_no_shuffle.onnx": "a8fdc96710113a5faefef9cc8d418d786ff8b7a4b36ebfc10cf30f7c6b87fe74",
+        "character.txt": "43cd1031e5958a59e740150020e65902d2950e36ab5ad80adf4447a9b7d71fbb",
+        "character.yaml": "fc3335a4c5f6304cad20f1b03bb7db18e280e881a5e049478811433aaca4ca99",
+        "dsconfig.yaml": "72d5197ba188ad24596b7d9b6652b6e65a0a919e4841f45e598946c37ef53d06",
+        "dsdur\\0801_sdp.dur.onnx": "0e5233392c02b9ab30947f4d9b766e2ba847e3eb8e33c049db865456e0ea1a1f",
+        "dsdur\\0801_sdp.linguistic.onnx": "6b8b8f7f4a685487f08497d274d49a72410a2410d600b279dfcb0d918b2ed929",
+        "dsdur\\dsconfig.yaml": "4b67e63f5cdf900c0b53f706ccfc765c7fde2bf6514d252106562adc68e43a8f",
+        "dsdur\\dsdict-ja.yaml": "193612e18ef3503b85d5c86e93008f98cad11cb0b244e34f92acba65767d80d4",
+        "dsdur\\dsdict-ko.yaml": "7e47ab6fa66cba553d6b3c26ab352f9c7f227e489239042c15506316bda640cc",
+        "dsdur\\dsdict-zh.yaml": "04734af1885f075da4d379f9dcd11d629ae46350dd83f36f1ca5c9adcc8fcbc4",
+        "dsdur\\dsdict.yaml": "fa61e140c0953f95b1b08f733a41e11444be51323d94257491531b7ea2afb328",
+        "dsdur\\phonemes.json": "3a4cbf6cd901fe526bae27f0109155697a80f55017f4fb5145219c9168d0a563",
+        "dsdur\\Yousa_Bright.emb": "e6f5ee37df710054aa2149ea39e8963fbd2cbdfe9ad5ba7c54c1b70e1fecc40b",
+        "dsdur\\Yousa_Classic.emb": "0697dfbcb1fa65da6d095bbfe88fafa4a5f39ef21611b9bd192c4d0c03e65697",
+        "dsdur\\Yousa_Cute.emb": "248ccb44e1c8d88cbbf3cad61695fe68b27ed8c6040dea32024909ac23e5c222",
+        "dsdur\\Yousa_Normal.emb": "5b3f51ac368264732163326110afd0559faa137f71345b833c1ec2ce0a5cf466",
+        "dsdur\\Yousa_Whisper.emb": "d7316ceeff8a978ddb880ca435e632c11fe57f2b39021bdc75018e1d3fb71490",
+        "dspitch\\0801_variance.linguistic.onnx": "4892ff20d9728b51c235d0912abae0473077de7043d4bff3684caf79fb0773e9",
+        "dspitch\\0801_variance.pitch.onnx": "eaf9c8ce9270701fb7563b2dac43d475769f3fe69d5ea83000dedeab81f79656",
+        "dspitch\\dsconfig.yaml": "7626b1b0d2799b4cb89067a9458c19963a55a7100ccdf68709e0f650b526bc65",
+        "dspitch\\dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+        "dspitch\\Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+        "dspitch\\Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+        "dspitch\\Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+        "dspitch\\Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+        "dspitch\\Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+        "dsvariance\\0801_variance.variance.onnx": "d68eb67d23be30f5ab7aba245f55a674413b120d25848bffd8bf67c5edb5c457",
+        "dsvariance\\dsconfig.yaml": "5f3a02f3b3a580c6b5600880ca6ea0bde77ddd2be2b81e863b7ed98772c8551b",
+        "dsvariance\\dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+        "dsvariance\\Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+        "dsvariance\\Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+        "dsvariance\\Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+        "dsvariance\\Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+        "dsvariance\\Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+        "dsvocoder\\TIPS.txt": "71d47eb3bf8cf21e6b4e9defc3dd8a80e7c0accac0071fb625343b04ee735258",
+        "dsvocoder\\vocoder.yaml": "a9dde1db7ed047c74247df89cb3676f0210ac60cd0776afad71d4bcf7b77ab2e",
+        "dsvocoder\\yousa_vocoder_FT_1002_pc_nsf_wm.onnx": "00ce253d8f616bb9ed8d219648aa8d37ff29b46888c99db6046b733e8f1fc16c",
+        "languages.json": "770e6713543dabffb0c122ef09c927bd5d4b89ef8db4299a8935a43e01a3e8c9",
+        "phonemes.json": "b69927aa2031a1b6c88fd309f48498cfe9b0bbe6e29a414932ea8fb88a5f848a",
+        "readme.txt": "9c59f112561a64883957e4a1401d0c4730e0f8d6b1967e289bd04e6f7cc66c5d",
+        "Yousa_Bright.emb": "dc40eeebd34a18b0d44d9ee887052d7d37d472eec6cbd13dd3acde30951f7832",
+        "Yousa_Classic.emb": "dde42450f7d38653aa520c9883e74473abe5105ea069cddcbe6ebadd2abbecb4",
+        "Yousa_Cute.emb": "5ffaef1e7d0366c70511eb493695afc992ab277b26f1145ac5fb929ec8e62a04",
+        "Yousa_Normal.emb": "9fa01d6ab16c67d52a520ab1a0c5cf9f293d093ef5c1be8c08ba94d926cd61e6",
+        "Yousa_Whisper.emb": "124ecc4622f34dc909810853a05a0bc9726b45e34aa56057b5cf97294ac5100a",
+        "词典补充说明.txt": "3d63067ebad603db19e8e7425d382f90d91b8ea7d68b78961ec381ef954edbeb"
+      }
+    },
+    "phonemizer": "OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer",
+    "impl": "d3"
+  },
+  "package_state": "valid",
+  "calibration": {
+    "repair_id": "srp-fcebb308ea0d11ef772afdc4",
+    "patch_sha256": "35d006267675a2ec760b687c47b4379caf5411887728603248d2382e1a9a8179",
+    "candidate_role": "OPTION_0",
+    "baseline_option": "OPTION_1",
+    "lyric_contract": "real_lyric_review",
+    "lyric_mapping_impl": "rlv13",
+    "contract_sha256": "60eda3138464c1e43587f56150b67c1cc13ce40505db492dbb3ce2ab26c22c54",
+    "choices": [
+      "split",
+      "baseline",
+      "equivalent",
+      "none_correct"
+    ],
+    "semantic_diff_sha256": "6fe060a326d18a534241534708ad81a445f5106b69098576f47d86ab82e76229",
+    "lyric_evidence": {
+      "method": "force_align_source_bound",
+      "n_chars": 9,
+      "min_probability": 0.002,
+      "chars": [
+        {
+          "char": "密",
+          "start": 213.56,
+          "end": 214.28,
+          "probability": 0.0019485332304611802
+        },
+        {
+          "char": "密",
+          "start": 214.28,
+          "end": 214.86,
+          "probability": 0.8094284534454346
+        },
+        {
+          "char": "麻",
+          "start": 214.86,
+          "end": 215.12,
+          "probability": 0.20750606060028076
+        },
+        {
+          "char": "麻",
+          "start": 215.12,
+          "end": 215.52,
+          "probability": 0.3361889123916626
+        },
+        {
+          "char": "是",
+          "start": 215.52,
+          "end": 215.9,
+          "probability": 0.5885825753211975
+        },
+        {
+          "char": "我",
+          "start": 215.9,
+          "end": 216.41,
+          "probability": 0.9984368681907654
+        },
+        {
+          "char": "的",
+          "start": 216.41,
+          "end": 216.92,
+          "probability": 0.9984368681907654
+        },
+        {
+          "char": "自",
+          "start": 216.92,
+          "end": 217.32,
+          "probability": 0.06285624206066132
+        },
+        {
+          "char": "尊",
+          "start": 217.32,
+          "end": 217.8,
+          "probability": 0.4322930723428726
+        }
+      ],
+      "articulation": {
+        "impl": "rlv10",
+        "n_segments": 18,
+        "n_articulation_splits": 15,
+        "n_chars": 9,
+        "closed_loop": {
+          "converged": true,
+          "reason": "converged",
+          "k": 0.7,
+          "clamp_s": 0.15,
+          "tol_ms": 80.0,
+          "instrument": "onset_strength_peak_v1",
+          "ref_onsets": [
+            0.1045,
+            0.6734,
+            1.2539,
+            1.4048,
+            1.7763,
+            2.2756,
+            2.6703,
+            3.2972,
+            3.6804
+          ],
+          "ref_kinds": [
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak",
+            "onset_peak"
+          ],
+          "anchors": [
+            213.77666979591837,
+            214.30901868480726,
+            214.9057575510204,
+            215.04044725623584,
+            215.40790653061222,
+            215.92743555555555,
+            216.3872047845805,
+            216.96948356009068,
+            217.35261281179137
+          ],
+          "bounds": {
+            "lo": [
+              213.6599997729063,
+              214.13999976217747,
+              214.88999973237514,
+              214.88999973237514,
+              215.2899997085333,
+              215.7599997073412,
+              216.10999970138073,
+              216.71999971568584,
+              217.18999971449375
+            ],
+            "hi": [
+              214.10999976217747,
+              214.46999974668026,
+              215.2599997085333,
+              215.2599997085333,
+              215.7299997073412,
+              216.07999970138073,
+              216.68999971568584,
+              217.15999971449375,
+              217.46999971687794
+            ]
+          },
+          "bound_limited": [],
+          "unmeasurable_chars": [],
+          "char_routes": [
+            {
+              "char": "密",
+              "source_ref_onset": 0.1045,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": -0.0,
+              "carrier_hi": 0.36,
+              "desired_anchor": 0.1045,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 0.1167,
+              "render_onset": {
+                "OPTION_0": 0.1277,
+                "OPTION_1": 0.1393
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 23.2,
+                "OPTION_1": 34.8
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "密",
+              "source_ref_onset": 0.6734,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 0.48,
+              "carrier_hi": 0.72,
+              "desired_anchor": 0.6734,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 0.649,
+              "render_onset": {
+                "OPTION_0": 0.685,
+                "OPTION_1": 0.685
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 11.6,
+                "OPTION_1": 11.6
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "麻",
+              "source_ref_onset": 1.2539,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 1.23,
+              "carrier_hi": 1.51,
+              "desired_anchor": 1.2539,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 1.2458,
+              "render_onset": {
+                "OPTION_0": 1.2655,
+                "OPTION_1": 1.2655
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 11.6,
+                "OPTION_1": 11.6
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "麻",
+              "source_ref_onset": 1.4048,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 1.23,
+              "carrier_hi": 1.51,
+              "desired_anchor": 1.4048,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 1.3804,
+              "render_onset": {
+                "OPTION_0": 1.4164,
+                "OPTION_1": 1.4164
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 11.6,
+                "OPTION_1": 11.6
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "是",
+              "source_ref_onset": 1.7763,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 1.63,
+              "carrier_hi": 1.98,
+              "desired_anchor": 1.7763,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 1.7479,
+              "render_onset": {
+                "OPTION_0": 1.7879,
+                "OPTION_1": 1.7879
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 11.6,
+                "OPTION_1": 11.6
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "我",
+              "source_ref_onset": 2.2756,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 2.1,
+              "carrier_hi": 2.33,
+              "desired_anchor": 2.2756,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 2.2674,
+              "render_onset": {
+                "OPTION_0": 2.322,
+                "OPTION_1": 2.3104
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 46.4,
+                "OPTION_1": 34.8
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "的",
+              "source_ref_onset": 2.6703,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 2.45,
+              "carrier_hi": 2.94,
+              "desired_anchor": 2.6703,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 2.7272,
+              "render_onset": {
+                "OPTION_0": 2.6355,
+                "OPTION_1": 2.6471
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": -34.8,
+                "OPTION_1": -23.2
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "自",
+              "source_ref_onset": 3.2972,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 3.06,
+              "carrier_hi": 3.41,
+              "desired_anchor": 3.2972,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 3.3095,
+              "render_onset": {
+                "OPTION_0": 3.3437,
+                "OPTION_1": 3.3437
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 46.4,
+                "OPTION_1": 46.4
+              },
+              "measurement_stability": "stable"
+            },
+            {
+              "char": "尊",
+              "source_ref_onset": 3.6804,
+              "source_ref_kind": "onset_peak",
+              "carrier_lo": 3.53,
+              "carrier_hi": 3.72,
+              "desired_anchor": 3.6804,
+              "bound_conflict": false,
+              "unmeasurable_reason": null,
+              "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
+              "route": "class_A",
+              "final_anchor": 3.6926,
+              "render_onset": {
+                "OPTION_0": 3.7152,
+                "OPTION_1": 3.7268
+              },
+              "acoustic_error_ms": {
+                "OPTION_0": 34.8,
+                "OPTION_1": 46.4
+              },
+              "measurement_stability": "stable"
+            }
+          ],
+          "hard_cases": [],
+          "iterations": [
+            {
+              "iteration": 0,
+              "anchors": [
+                213.7645,
+                214.3334,
+                214.9139,
+                215.0648,
+                215.4363,
+                215.9356,
+                216.3303,
+                216.9572,
+                217.3404
+              ],
+              "onsets": {
+                "OPTION_0": [
+                  0.058,
+                  0.7082,
+                  1.2655,
+                  1.4396,
+                  1.8228,
+                  2.2523,
+                  2.589,
+                  3.2276,
+                  3.7152
+                ],
+                "OPTION_1": [
+                  0.1161,
+                  0.7082,
+                  1.2655,
+                  1.4396,
+                  1.8112,
+                  2.322,
+                  2.589,
+                  3.3321,
+                  3.6107
+                ]
+              },
+              "errors_ms": {
+                "OPTION_0": [
+                  -46.4,
+                  34.8,
+                  11.6,
+                  34.8,
+                  46.4,
+                  -23.2,
+                  -81.3,
+                  -69.7,
+                  34.8
+                ],
+                "OPTION_1": [
+                  11.6,
+                  34.8,
+                  11.6,
+                  34.8,
+                  34.8,
+                  46.4,
+                  -81.3,
+                  34.8,
+                  -69.7
+                ]
+              },
+              "shared_err_raw": [
+                -0.0174,
+                0.0348,
+                0.0116,
+                0.0348,
+                0.0406,
+                0.0116,
+                -0.0813,
+                -0.0175,
+                -0.0175
+              ],
+              "shared_err_ms": [
+                -17.4,
+                34.8,
+                11.6,
+                34.8,
+                40.6,
+                11.6,
+                -81.3,
+                -17.5,
+                -17.5
+              ],
+              "unmeasurable_chars": [],
+              "unmeasurable_reasons": {},
+              "max_abs_err_ms": 81.3
+            },
+            {
+              "iteration": 1,
+              "anchors": [
+                213.7767,
+                214.309,
+                214.9058,
+                215.0404,
+                215.4079,
+                215.9274,
+                216.3872,
+                216.9695,
+                217.3526
+              ],
+              "onsets": {
+                "OPTION_0": [
+                  0.1277,
+                  0.685,
+                  1.2655,
+                  1.4164,
+                  1.7879,
+                  2.322,
+                  2.6355,
+                  3.3437,
+                  3.7152
+                ],
+                "OPTION_1": [
+                  0.1393,
+                  0.685,
+                  1.2655,
+                  1.4164,
+                  1.7879,
+                  2.3104,
+                  2.6471,
+                  3.3437,
+                  3.7268
+                ]
+              },
+              "errors_ms": {
+                "OPTION_0": [
+                  23.2,
+                  11.6,
+                  11.6,
+                  11.6,
+                  11.6,
+                  46.4,
+                  -34.8,
+                  46.4,
+                  34.8
+                ],
+                "OPTION_1": [
+                  34.8,
+                  11.6,
+                  11.6,
+                  11.6,
+                  11.6,
+                  34.8,
+                  -23.2,
+                  46.4,
+                  46.4
+                ]
+              },
+              "shared_err_raw": [
+                0.029,
+                0.0116,
+                0.0116,
+                0.0116,
+                0.0116,
+                0.0406,
+                -0.029,
+                0.0464,
+                0.0406
+              ],
+              "shared_err_ms": [
+                29.0,
+                11.6,
+                11.6,
+                11.6,
+                11.6,
+                40.6,
+                -29.0,
+                46.4,
+                40.6
+              ],
+              "unmeasurable_chars": [],
+              "unmeasurable_reasons": {},
+              "max_abs_err_ms": 46.4
+            }
+          ]
+        }
+      }
+    }
+  }
 }
