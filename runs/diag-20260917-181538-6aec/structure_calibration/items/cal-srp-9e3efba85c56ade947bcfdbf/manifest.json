@@ -99,7 +99,7 @@
         }
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "7a4365f05be09eda45cd04473f8989e6d15e90cc4b79b40868299a9ec63c7a65",
+      "wav_sha256": "d67ecc8e9d4fbf1bb7b8dd549b12133dd3c42445eee74338238da960dcfa8560",
       "sample_rate": 44100,
       "frames": 305613,
       "render_error": null
@@ -114,7 +114,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "8a394b7b2e268d8d084303f87b9a72f263d8d6267aa79d577f0e9d983bae546e",
+      "wav_sha256": "be050e5bcbfda47d22dcf3a8a477c60bca893ea358309e4349adeae31554bf08",
       "sample_rate": 44100,
       "frames": 305613,
       "render_error": null
@@ -194,7 +194,7 @@
     ]
   },
   "plan_hash": "5315cd9e8b326c84a216e2e32de70ce602313d24a79435abb955286d6a6dc7d1",
-  "audio_package_hash": "27137e77b40fda7b95c892b6c0bc79323bfd20a4c095f47ae3d088140811dbec",
+  "audio_package_hash": "3b6ec49f996a053dddb2dea391d2df4d7c5aa4b79e06a1b6c3d248ec1b8950d4",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -272,8 +272,8 @@
     "candidate_role": "OPTION_0",
     "baseline_option": "OPTION_1",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv6",
-    "contract_sha256": "eb51b78e043191d1eea7227c282db8da374fe7fbef501c10bf9fc8b8a3963258",
+    "lyric_mapping_impl": "rlv7",
+    "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
     "choices": [
       "split",
       "baseline",
@@ -354,7 +354,7 @@
         }
       ],
       "articulation": {
-        "impl": "rlv6",
+        "impl": "rlv7",
         "n_segments": 21,
         "n_articulation_splits": 12,
         "n_chars": 11,
@@ -446,7 +446,15 @@
               "desired_anchor": 0.2438,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_below_carrier_lo",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "structure_timing_suspect",
+              "route_subtype": null,
+              "direction": "early",
+              "overhang_ms": 86.2,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": "90.03-96.96",
               "route": "B2_carrier_conflict",
               "final_anchor": 0.33,
               "render_onset": {
@@ -469,6 +477,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 0.8986,
               "render_onset": {
@@ -491,6 +507,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 1.3619,
               "render_onset": {
@@ -513,6 +537,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 1.7421,
               "render_onset": {
@@ -534,7 +566,15 @@
               "desired_anchor": 2.4845,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "structure_timing_suspect",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 114.5,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": "90.03-96.96",
               "route": "B2_carrier_conflict",
               "final_anchor": 2.37,
               "render_onset": {
@@ -556,7 +596,15 @@
               "desired_anchor": 2.8212,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "structure_timing_suspect",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 11.2,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": "90.03-96.96",
               "route": "B2_carrier_conflict",
               "final_anchor": 2.81,
               "render_onset": {
@@ -579,6 +627,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 2.93,
               "render_onset": {
@@ -601,6 +657,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 3.4442,
               "render_onset": {
@@ -622,7 +686,15 @@
               "desired_anchor": 3.6571,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_below_carrier_lo",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "structure_timing_suspect",
+              "route_subtype": null,
+              "direction": "early",
+              "overhang_ms": 22.9,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": "90.03-96.96",
               "route": "B2_carrier_conflict",
               "final_anchor": 3.68,
               "render_onset": {
@@ -645,6 +717,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 4.6359,
               "render_onset": {
@@ -666,7 +746,15 @@
               "desired_anchor": 5.2593,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
-              "route_detail": "written_timing_suspect",
+              "route_detail": "structure_timing_suspect",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 129.3,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": "90.03-96.96",
               "route": "B2_carrier_conflict",
               "final_anchor": 5.13,
               "render_onset": {
@@ -789,6 +877,10 @@
                 1,
                 9
               ],
+              "unmeasurable_reasons": {
+                "1": "cross_option_unstable",
+                "9": "cross_option_unstable"
+              },
               "max_abs_err_ms": 63.9
             },
             {
@@ -889,6 +981,7 @@
                 -104.5
               ],
               "unmeasurable_chars": [],
+              "unmeasurable_reasons": {},
               "max_abs_err_ms": 162.5
             },
             {
@@ -991,6 +1084,9 @@
               "unmeasurable_chars": [
                 9
               ],
+              "unmeasurable_reasons": {
+                "9": "detector_relock"
+              },
               "max_abs_err_ms": 139.3
             },
             {
@@ -1093,6 +1189,9 @@
               "unmeasurable_chars": [
                 1
               ],
+              "unmeasurable_reasons": {
+                "1": "render_unmeasurable"
+              },
               "max_abs_err_ms": 127.7
             },
             {
@@ -1193,8 +1292,18 @@
                 -104.5
               ],
               "unmeasurable_chars": [],
+              "unmeasurable_reasons": {},
               "max_abs_err_ms": 162.5
             }
+          ],
+          "phrase_level_carrier_conflict": true,
+          "phrase_level_conflict_id": "90.03-96.96",
+          "shared_b2_chars": [
+            "人",
+            "可",
+            "本",
+            "这",
+            "陪"
           ]
         }
       }

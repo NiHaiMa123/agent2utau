@@ -66,7 +66,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "249a6a3861e43eeee595abd62bd769f4a04125578c1033ae43e9dfb8786a41fc",
+      "wav_sha256": "9684a5767a3e1d1de02580da7a7db2d38a2cbca60a5ef910b5fd05ea48b66b90",
       "sample_rate": 44100,
       "frames": 303408,
       "render_error": null
@@ -114,7 +114,7 @@
         }
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "abd0f8ea39074d022e69318915c271617d8dca72a7c4af4b0e6e12901ba56a86",
+      "wav_sha256": "e11eb012e22412952db5549fc31699c624404703bf708ee2bc7d5f516e373c1a",
       "sample_rate": 44100,
       "frames": 303408,
       "render_error": null
@@ -194,7 +194,7 @@
     ]
   },
   "plan_hash": "cceab6e0f7f2da46384fd4b453c2f863c8b8615925d9a9ee85610790e18deebb",
-  "audio_package_hash": "c354ae4b39acca10bce630744d4647dfd1f1c65a4db945cc56d6a811d0cfd1f0",
+  "audio_package_hash": "c7e5ffb11174e479b5f267452b6c9cc0808099191b9319e25273b4485fe92253",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -272,8 +272,8 @@
     "candidate_role": "OPTION_1",
     "baseline_option": "OPTION_0",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv6",
-    "contract_sha256": "eb51b78e043191d1eea7227c282db8da374fe7fbef501c10bf9fc8b8a3963258",
+    "lyric_mapping_impl": "rlv7",
+    "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
     "choices": [
       "split",
       "baseline",
@@ -354,7 +354,7 @@
         }
       ],
       "articulation": {
-        "impl": "rlv6",
+        "impl": "rlv7",
         "n_segments": 21,
         "n_articulation_splits": 11,
         "n_chars": 11,
@@ -394,15 +394,15 @@
           "anchors": [
             177.86999921053646,
             178.6899992033839,
-            178.89501759637187,
+            178.85028759637189,
             179.28999919265507,
             179.97999916523693,
-            180.16050512471656,
+            180.15644512471656,
             180.71999914497135,
             181.1499991223216,
-            181.33660281179138,
-            181.98384158730158,
-            182.58563908596275
+            181.34472281179134,
+            182.05293158730157,
+            182.58157908596274
           ],
           "bounds": {
             "lo": [
@@ -433,11 +433,11 @@
             ]
           },
           "bound_limited": [
-            1
+            7
           ],
           "unmeasurable_chars": [
             1,
-            8
+            10
           ],
           "char_routes": [
             {
@@ -449,16 +449,24 @@
               "desired_anchor": 0.3135,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "post_boundary_delay_candidate",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 83.5,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 0.23,
               "render_onset": {
                 "OPTION_0": 0.1974,
-                "OPTION_1": 0.1974
+                "OPTION_1": 0.209
               },
               "acoustic_error_ms": {
                 "OPTION_0": -116.1,
-                "OPTION_1": -116.1
+                "OPTION_1": -104.5
               },
               "measurement_stability": "held"
             },
@@ -472,15 +480,23 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
-              "route": "class_A",
+              "route_subtype": "B1_detector_relock",
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "detector_relock",
+              "final_class": "B1_detector_relock",
+              "phrase_level_conflict_id": null,
+              "route": "B1_unmeasurable",
               "final_anchor": 1.05,
               "render_onset": {
-                "OPTION_0": null,
-                "OPTION_1": null
+                "OPTION_0": 0.9056,
+                "OPTION_1": 0.9172
               },
               "acoustic_error_ms": {
-                "OPTION_0": null,
-                "OPTION_1": null
+                "OPTION_0": -81.3,
+                "OPTION_1": -69.7
               },
               "measurement_stability": "unstable_measurement"
             },
@@ -494,15 +510,23 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
-              "final_anchor": 1.255,
+              "final_anchor": 1.2103,
               "render_onset": {
-                "OPTION_0": 1.1958,
-                "OPTION_1": 1.1958
+                "OPTION_0": 1.161,
+                "OPTION_1": 1.1726
               },
               "acoustic_error_ms": {
-                "OPTION_0": -34.8,
-                "OPTION_1": -34.8
+                "OPTION_0": -69.7,
+                "OPTION_1": -58.0
               },
               "measurement_stability": "stable"
             },
@@ -515,15 +539,23 @@
               "desired_anchor": 1.6138,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_below_carrier_lo",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "preutterance_candidate",
+              "route_subtype": null,
+              "direction": "early",
+              "overhang_ms": 36.2,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 1.65,
               "render_onset": {
-                "OPTION_0": 1.6951,
+                "OPTION_0": 1.6834,
                 "OPTION_1": 1.6834
               },
               "acoustic_error_ms": {
-                "OPTION_0": 81.3,
+                "OPTION_0": 69.7,
                 "OPTION_1": 69.7
               },
               "measurement_stability": "held"
@@ -537,16 +569,24 @@
               "desired_anchor": 2.3684,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "post_boundary_delay_candidate",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 28.4,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 2.34,
               "render_onset": {
-                "OPTION_0": null,
-                "OPTION_1": 2.38
+                "OPTION_0": 2.3104,
+                "OPTION_1": null
               },
               "acoustic_error_ms": {
-                "OPTION_0": null,
-                "OPTION_1": 11.6
+                "OPTION_0": -58.0,
+                "OPTION_1": null
               },
               "measurement_stability": "held"
             },
@@ -560,15 +600,23 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
-              "final_anchor": 2.5205,
+              "final_anchor": 2.5164,
               "render_onset": {
-                "OPTION_0": 2.4613,
-                "OPTION_1": null
+                "OPTION_0": 2.4381,
+                "OPTION_1": 2.4497
               },
               "acoustic_error_ms": {
-                "OPTION_0": -34.8,
-                "OPTION_1": null
+                "OPTION_0": -58.0,
+                "OPTION_1": -46.4
               },
               "measurement_stability": "stable"
             },
@@ -581,16 +629,24 @@
               "desired_anchor": 3.1463,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "post_boundary_delay_candidate",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 66.3,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 3.08,
               "render_onset": {
-                "OPTION_0": 3.1347,
-                "OPTION_1": 3.2276
+                "OPTION_0": 3.1231,
+                "OPTION_1": 3.1231
               },
               "acoustic_error_ms": {
-                "OPTION_0": -11.6,
-                "OPTION_1": 81.3
+                "OPTION_0": -23.2,
+                "OPTION_1": -23.2
               },
               "measurement_stability": "held"
             },
@@ -604,15 +660,23 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 3.51,
               "render_onset": {
-                "OPTION_0": null,
-                "OPTION_1": 3.5527
+                "OPTION_0": 3.3785,
+                "OPTION_1": 3.4017
               },
               "acoustic_error_ms": {
-                "OPTION_0": null,
-                "OPTION_1": 46.4
+                "OPTION_0": -127.7,
+                "OPTION_1": -104.5
               },
               "measurement_stability": "stable"
             },
@@ -626,17 +690,25 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
-              "final_anchor": 3.6966,
+              "final_anchor": 3.7047,
               "render_onset": {
-                "OPTION_0": null,
-                "OPTION_1": null
+                "OPTION_0": 3.6688,
+                "OPTION_1": 3.6571
               },
               "acoustic_error_ms": {
-                "OPTION_0": null,
-                "OPTION_1": null
+                "OPTION_0": -11.6,
+                "OPTION_1": -23.2
               },
-              "measurement_stability": "unstable_measurement"
+              "measurement_stability": "stable"
             },
             {
               "char": "剧",
@@ -648,15 +720,23 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
-              "final_anchor": 4.3438,
+              "final_anchor": 4.4129,
               "render_onset": {
-                "OPTION_0": 4.1448,
-                "OPTION_1": 4.2028
+                "OPTION_0": 4.3305,
+                "OPTION_1": 4.3305
               },
               "acoustic_error_ms": {
-                "OPTION_0": -162.5,
-                "OPTION_1": -104.5
+                "OPTION_0": 23.2,
+                "OPTION_1": 23.2
               },
               "measurement_stability": "stable"
             },
@@ -670,17 +750,25 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
-              "route": "class_A",
-              "final_anchor": 4.9456,
+              "route_subtype": "B1_detector_relock",
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "detector_relock",
+              "final_class": "B1_detector_relock",
+              "phrase_level_conflict_id": null,
+              "route": "B1_unmeasurable",
+              "final_anchor": 4.9416,
               "render_onset": {
-                "OPTION_0": 4.9226,
-                "OPTION_1": 4.911
+                "OPTION_0": 4.8181,
+                "OPTION_1": 4.8065
               },
               "acoustic_error_ms": {
-                "OPTION_0": -34.8,
-                "OPTION_1": -46.4
+                "OPTION_0": -139.3,
+                "OPTION_1": -150.9
               },
-              "measurement_stability": "stable"
+              "measurement_stability": "unstable_measurement"
             }
           ],
           "hard_cases": [
@@ -790,6 +878,11 @@
               "unmeasurable_chars": [
                 9
               ],
+              "unmeasurable_reasons": {
+                "4": "render_unmeasurable",
+                "6": "cross_option_unstable",
+                "9": "cross_option_unstable"
+              },
               "max_abs_err_ms": 139.3
             },
             {
@@ -893,6 +986,11 @@
                 2,
                 10
               ],
+              "unmeasurable_reasons": {
+                "4": "render_unmeasurable",
+                "2": "detector_relock",
+                "10": "detector_relock"
+              },
               "max_abs_err_ms": 220.6
             },
             {
@@ -933,7 +1031,7 @@
                   2.531,
                   3.2392,
                   3.3669,
-                  null,
+                  3.6107,
                   4.3537,
                   5.0039
                 ]
@@ -961,7 +1059,7 @@
                   34.8,
                   92.9,
                   -139.3,
-                  null,
+                  -69.7,
                   46.4,
                   46.4
                 ]
@@ -975,7 +1073,7 @@
                 0.029,
                 0.0406,
                 -0.1393,
-                -0.0232,
+                -0.0464,
                 0.0348,
                 -0.0058
               ],
@@ -988,11 +1086,12 @@
                 29.0,
                 40.6,
                 -139.3,
-                -23.2,
+                -46.4,
                 34.8,
                 -5.8
               ],
               "unmeasurable_chars": [],
+              "unmeasurable_reasons": {},
               "max_abs_err_ms": 139.3
             },
             {
@@ -1006,36 +1105,144 @@
                 180.1808,
                 180.72,
                 181.15,
-                181.3569,
+                181.3731,
                 182.0448,
                 182.61
+              ],
+              "onsets": {
+                "OPTION_0": [
+                  0.1741,
+                  1.0681,
+                  null,
+                  1.5906,
+                  2.3917,
+                  2.531,
+                  3.007,
+                  null,
+                  3.7268,
+                  4.2841,
+                  4.9923
+                ],
+                "OPTION_1": [
+                  0.2786,
+                  null,
+                  null,
+                  1.6834,
+                  null,
+                  2.531,
+                  3.2508,
+                  3.3785,
+                  3.7152,
+                  4.3073,
+                  5.0039
+                ]
+              },
+              "errors_ms": {
+                "OPTION_0": [
+                  -139.3,
+                  81.3,
+                  null,
+                  -23.2,
+                  23.2,
+                  34.8,
+                  -139.3,
+                  null,
+                  46.4,
+                  -23.2,
+                  34.8
+                ],
+                "OPTION_1": [
+                  -34.8,
+                  null,
+                  null,
+                  69.7,
+                  null,
+                  34.8,
+                  104.5,
+                  -127.7,
+                  34.8,
+                  0.0,
+                  46.4
+                ]
+              },
+              "shared_err_raw": [
+                -0.0871,
+                0.0813,
+                null,
+                0.0232,
+                0.0232,
+                0.0348,
+                null,
+                -0.1277,
+                0.0406,
+                -0.0116,
+                0.0406
+              ],
+              "shared_err_ms": [
+                -87.1,
+                null,
+                null,
+                23.2,
+                23.2,
+                34.8,
+                null,
+                -127.7,
+                40.6,
+                -11.6,
+                40.6
+              ],
+              "unmeasurable_chars": [
+                1,
+                2
+              ],
+              "unmeasurable_reasons": {
+                "2": "render_unmeasurable",
+                "6": "cross_option_unstable",
+                "1": "detector_relock"
+              },
+              "max_abs_err_ms": 127.7
+            },
+            {
+              "iteration": 4,
+              "anchors": [
+                177.87,
+                178.69,
+                178.8503,
+                179.29,
+                179.98,
+                180.1564,
+                180.72,
+                181.15,
+                181.3447,
+                182.0529,
+                182.5816
               ],
               "onsets": {
                 "OPTION_0": [
                   0.1974,
                   0.9056,
                   1.161,
-                  1.5906,
-                  null,
-                  2.531,
+                  1.6834,
+                  2.3104,
+                  2.4381,
                   3.1231,
-                  3.4017,
-                  3.7036,
+                  3.3785,
+                  3.6688,
                   4.3305,
-                  4.9923
+                  4.8181
                 ],
                 "OPTION_1": [
-                  0.1858,
-                  0.9056,
+                  0.209,
+                  0.9172,
                   1.1726,
                   1.6834,
                   null,
-                  2.5194,
-                  3.2508,
-                  3.5643,
-                  3.7152,
-                  4.4582,
-                  4.9923
+                  2.4497,
+                  3.1231,
+                  3.4017,
+                  3.6571,
+                  4.3305,
+                  4.8065
                 ]
               },
               "errors_ms": {
@@ -1043,162 +1250,64 @@
                   -116.1,
                   -81.3,
                   -69.7,
+                  69.7,
+                  -58.0,
+                  -58.0,
                   -23.2,
-                  null,
-                  34.8,
-                  -23.2,
-                  -104.5,
+                  -127.7,
+                  -11.6,
                   23.2,
-                  23.2,
-                  34.8
+                  -139.3
                 ],
                 "OPTION_1": [
-                  -127.7,
-                  -81.3,
+                  -104.5,
+                  -69.7,
                   -58.0,
                   69.7,
                   null,
-                  23.2,
-                  104.5,
-                  58.0,
-                  34.8,
-                  150.9,
-                  34.8
-                ]
-              },
-              "shared_err_raw": [
-                -0.1219,
-                -0.0813,
-                -0.0639,
-                0.0232,
-                null,
-                0.029,
-                0.0406,
-                null,
-                0.029,
-                0.0871,
-                0.0348
-              ],
-              "shared_err_ms": [
-                -121.9,
-                -81.3,
-                -63.9,
-                23.2,
-                null,
-                29.0,
-                40.6,
-                null,
-                29.0,
-                87.1,
-                34.8
-              ],
-              "unmeasurable_chars": [
-                7
-              ],
-              "max_abs_err_ms": 87.1
-            },
-            {
-              "iteration": 4,
-              "anchors": [
-                177.87,
-                178.69,
-                178.895,
-                179.29,
-                179.98,
-                180.1605,
-                180.72,
-                181.15,
-                181.3366,
-                181.9838,
-                182.5856
-              ],
-              "onsets": {
-                "OPTION_0": [
-                  0.1974,
-                  null,
-                  1.1958,
-                  1.6951,
-                  null,
-                  2.4613,
-                  3.1347,
-                  null,
-                  null,
-                  4.1448,
-                  4.9226
-                ],
-                "OPTION_1": [
-                  0.1974,
-                  null,
-                  1.1958,
-                  1.6834,
-                  2.38,
-                  null,
-                  3.2276,
-                  3.5527,
-                  null,
-                  4.2028,
-                  4.911
-                ]
-              },
-              "errors_ms": {
-                "OPTION_0": [
-                  -116.1,
-                  null,
-                  -34.8,
-                  81.3,
-                  null,
-                  -34.8,
-                  -11.6,
-                  null,
-                  null,
-                  -162.5,
-                  -34.8
-                ],
-                "OPTION_1": [
-                  -116.1,
-                  null,
-                  -34.8,
-                  69.7,
-                  11.6,
-                  null,
-                  81.3,
-                  46.4,
-                  null,
+                  -46.4,
+                  -23.2,
                   -104.5,
-                  -46.4
+                  -23.2,
+                  23.2,
+                  -150.9
                 ]
               },
               "shared_err_raw": [
+                -0.1103,
+                -0.0755,
+                -0.0639,
+                0.0697,
+                -0.058,
+                -0.0522,
+                -0.0232,
                 -0.1161,
-                null,
-                -0.0348,
-                0.0755,
-                0.0116,
-                -0.0348,
-                0.0348,
-                0.0464,
-                null,
-                -0.1335,
-                -0.0406
+                -0.0174,
+                0.0232,
+                -0.1451
               ],
               "shared_err_ms": [
+                -110.3,
+                null,
+                -63.9,
+                69.7,
+                -58.0,
+                -52.2,
+                -23.2,
                 -116.1,
-                null,
-                -34.8,
-                75.5,
-                11.6,
-                -34.8,
-                34.8,
-                46.4,
-                null,
-                -133.5,
-                -40.6
+                -17.4,
+                23.2,
+                null
               ],
               "unmeasurable_chars": [
                 1,
-                8
+                10
               ],
-              "max_abs_err_ms": 133.5
+              "unmeasurable_reasons": {
+                "1": "detector_relock",
+                "10": "detector_relock"
+              },
+              "max_abs_err_ms": 116.1
             }
           ]
         }

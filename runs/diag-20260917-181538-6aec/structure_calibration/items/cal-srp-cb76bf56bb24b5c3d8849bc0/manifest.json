@@ -99,7 +99,7 @@
         }
       },
       "wav": "OPTION_0.wav",
-      "wav_sha256": "3b8185c75412b04e3fb8d2efe6aeb86dd30cdc6a2c8232275c7328fb922999b8",
+      "wav_sha256": "92a5ada875cfdf8bfa3aeaab4e8f2f836c1cf8d1e0f12422328677f29aae8554",
       "sample_rate": 44100,
       "frames": 294588,
       "render_error": null
@@ -114,7 +114,7 @@
         "kind": "candidate0"
       },
       "wav": "OPTION_1.wav",
-      "wav_sha256": "31c7073177f94c4c390acd54c99bfaf8f798ead2207d1ed119e998c8d2f16269",
+      "wav_sha256": "4d7f1173396f9f988ada119df96744725d6dedb205586aa607ac20ecdcb8997f",
       "sample_rate": 44100,
       "frames": 294588,
       "render_error": null
@@ -194,7 +194,7 @@
     ]
   },
   "plan_hash": "3292f724b78fe53684704a905bbf741ebb6c765bbc3a5300830b5d726cd0c28b",
-  "audio_package_hash": "8a89ade914a8d6fa7e3c07dbec4ee07208db313d95b2cae438e9d5dffffea17d",
+  "audio_package_hash": "f8c997c0a5d92f6b4640bc227e965f243ee3e8de9051ba37d3ba53f5353958bf",
   "render_provenance": {
     "openutau_dir": "E:\\software\\OpenUtau-win-x64 (6)",
     "binaries": {
@@ -272,8 +272,8 @@
     "candidate_role": "OPTION_0",
     "baseline_option": "OPTION_1",
     "lyric_contract": "real_lyric_review",
-    "lyric_mapping_impl": "rlv6",
-    "contract_sha256": "eb51b78e043191d1eea7227c282db8da374fe7fbef501c10bf9fc8b8a3963258",
+    "lyric_mapping_impl": "rlv7",
+    "contract_sha256": "0e22f92157b416dad0e2716acf92459319b39e62a8ba66d2a62e4c6d19cde407",
     "choices": [
       "split",
       "baseline",
@@ -348,7 +348,7 @@
         }
       ],
       "articulation": {
-        "impl": "rlv6",
+        "impl": "rlv7",
         "n_segments": 21,
         "n_articulation_splits": 11,
         "n_chars": 10,
@@ -438,7 +438,15 @@
               "desired_anchor": 0.3483,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "post_boundary_delay_candidate",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 88.3,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 0.26,
               "render_onset": {
@@ -460,7 +468,15 @@
               "desired_anchor": 0.743,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_below_carrier_lo",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "preutterance_candidate",
+              "route_subtype": null,
+              "direction": "early",
+              "overhang_ms": 47.0,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 0.79,
               "render_onset": {
@@ -483,6 +499,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 1.3386,
               "render_onset": {
@@ -505,6 +529,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 1.61,
               "render_onset": {
@@ -527,7 +559,15 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
-              "route": "class_A",
+              "route_subtype": "B1_cross_option_unstable",
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "cross_option_unstable",
+              "final_class": "B1_cross_option_unstable",
+              "phrase_level_conflict_id": null,
+              "route": "B1_unmeasurable",
               "final_anchor": 2.2239,
               "render_onset": {
                 "OPTION_0": 2.2523,
@@ -548,7 +588,15 @@
               "desired_anchor": 2.798,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "post_boundary_delay_candidate",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 58.0,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 2.74,
               "render_onset": {
@@ -571,6 +619,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 2.9431,
               "render_onset": {
@@ -592,7 +648,15 @@
               "desired_anchor": 3.5643,
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_below_carrier_lo",
-              "route_detail": "anticipation_candidate",
+              "route_detail": "preutterance_candidate",
+              "route_subtype": null,
+              "direction": "early",
+              "overhang_ms": 5.7,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 3.57,
               "render_onset": {
@@ -615,6 +679,14 @@
               "bound_conflict": false,
               "unmeasurable_reason": null,
               "route_detail": null,
+              "route_subtype": null,
+              "direction": null,
+              "overhang_ms": null,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "class_A",
+              "phrase_level_conflict_id": null,
               "route": "class_A",
               "final_anchor": 4.36,
               "render_onset": {
@@ -637,6 +709,14 @@
               "bound_conflict": true,
               "unmeasurable_reason": "source_ref_above_carrier_hi",
               "route_detail": "written_timing_suspect",
+              "route_subtype": null,
+              "direction": "late",
+              "overhang_ms": 142.6,
+              "primary_measurement": "onset_strength_peak_v1",
+              "secondary_measurement": null,
+              "render_measurement_status": "measured",
+              "final_class": "B2_carrier_conflict",
+              "phrase_level_conflict_id": null,
               "route": "B2_carrier_conflict",
               "final_anchor": 4.78,
               "render_onset": {
@@ -751,6 +831,9 @@
               "unmeasurable_chars": [
                 8
               ],
+              "unmeasurable_reasons": {
+                "8": "cross_option_unstable"
+              },
               "max_abs_err_ms": 69.7
             },
             {
@@ -769,7 +852,7 @@
               ],
               "onsets": {
                 "OPTION_0": [
-                  0.1974,
+                  0.1858,
                   0.8127,
                   null,
                   1.6486,
@@ -795,7 +878,7 @@
               },
               "errors_ms": {
                 "OPTION_0": [
-                  -150.9,
+                  -162.5,
                   69.7,
                   null,
                   11.6,
@@ -820,7 +903,7 @@
                 ]
               },
               "shared_err_raw": [
-                -0.1509,
+                -0.1567,
                 0.0755,
                 -0.0697,
                 0.0116,
@@ -832,7 +915,7 @@
                 null
               ],
               "shared_err_ms": [
-                -150.9,
+                -156.7,
                 75.5,
                 -69.7,
                 11.6,
@@ -846,6 +929,10 @@
               "unmeasurable_chars": [
                 4
               ],
+              "unmeasurable_reasons": {
+                "4": "cross_option_unstable",
+                "9": "cross_option_unstable"
+              },
               "max_abs_err_ms": 127.7
             },
             {
@@ -941,6 +1028,10 @@
               "unmeasurable_chars": [
                 2
               ],
+              "unmeasurable_reasons": {
+                "2": "cross_option_unstable",
+                "9": "cross_option_unstable"
+              },
               "max_abs_err_ms": 69.7
             },
             {
@@ -1034,6 +1125,9 @@
                 null
               ],
               "unmeasurable_chars": [],
+              "unmeasurable_reasons": {
+                "9": "cross_option_unstable"
+              },
               "max_abs_err_ms": 92.9
             },
             {
@@ -1129,6 +1223,9 @@
               "unmeasurable_chars": [
                 4
               ],
+              "unmeasurable_reasons": {
+                "4": "cross_option_unstable"
+              },
               "max_abs_err_ms": 46.4
             }
           ]

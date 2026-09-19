@@ -489,32 +489,7 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 1123
-    duration: 82
-    tone: 59
-    lyric: +
-    pitch:
-      data:
-      - x: -40
-        y: 0
-        shape: io
-      - x: 40
-        y: 0
-        shape: io
-      snap_first: true
-    vibrato:
-      length: 0
-      period: 175
-      depth: 25
-      in: 10
-      out: 10
-      shift: 0
-      drift: 0
-      vol_link: 0
-    tuning: 0
-    phoneme_expressions: []
-    phoneme_overrides: []
-  - position: 1205
-    duration: 379
+    duration: 461
     tone: 59
     lyric: 从
     pitch:
@@ -764,7 +739,32 @@ voice_parts:
     phoneme_expressions: []
     phoneme_overrides: []
   - position: 4099
-    duration: 298
+    duration: 137
+    tone: 59
+    lyric: +
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides: []
+  - position: 4236
+    duration: 161
     tone: 59
     lyric: 剧
     pitch:
