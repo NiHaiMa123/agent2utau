@@ -4,7 +4,7 @@
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
 >
-> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5L/rlv7 hard-case semantics 已完成；CURRENT blocker = G5M honest pilot roster rebuild）。** 最新真实状态：rlv7 已显式区分 B2 `early/late`，late-side 不再误标 anticipation；120ms 只保留为 triage prior；post-loop 持续测量失败会正式降级为 `B1_render_unmeasurable / B1_cross_option_unstable / B1_detector_relock`；90.03–96.96 的 `可人陪这本` 已被识别为跨 target 重复的 `phrase_level_carrier_conflict → structure_timing_suspect`。当前 4 个历史 pilot 虽全部 `package_state=valid`，且 `git_evidence=468/468 complete`、`plan_invariants.ok=true`，但 4/4 均 `auto_review_ready=false`，`pilot_authority.ok=false`、`review_ready=false`。下一步禁止继续围绕这 4 项调参救活；必须扫描 21 个 candidate，剔除 unresolved B1/B2/systematic conflict，重选真正可测、无 phrase-level conflict、real-lyric 合法且 intelligibility 无 blocker 的 honest pilot，再重建 package/payload/QC/state 并取得 FINAL SHA remote CI success。完成前禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。
+> 当前阶段：**M2.5 HUMAN REVIEW PILOT = QUALITY HOLD（G5M inventory 已完成：0/21 当前 eligible；CURRENT blocker = G5N B2 semantic adjudication + lyric-evidence recovery）。** 最新真实状态：G5M 已扫描全部 21 个 machine split candidates，得到 13 项 `lyric_evidence` fail（11×low_confidence + 2×no_chars）、8 项 unresolved B2、0 项 unresolved B1；`roster_candidates=[]`、`pilot_authority.ok=false`、`review_ready=false`。HEAD `40225778` 的 `git_evidence=469/469 complete`、`plan_invariants.ok=true`，GitHub Actions run `35418822818` success。**0/21 的语义是“当前没有已经解决完 hard cases 的 review-ready item”，不是“21 项全部永久不可审核”。** 下一步禁止继续机械重选 roster，也禁止把任意 B2 直接等同于 written-score error：必须分别恢复 13 项 source lyric evidence，并对 8 项 B2 做 directional / phoneme-aware adjudication，区分 benign preutterance / post-boundary acoustic delay / measurement ambiguity / genuine written-timing error / genuine structure-timing error；之后重新生成 eligibility inventory。完成前禁止用户 A/B 复审、禁止记录 calibration decision、禁止 M2.5 freeze。
 
 ---
 
@@ -5110,7 +5110,334 @@ M1-M10 回归矩阵; 372 tests PASS。
 → 不合格项已路由: 8×written_timing/structure_diagnosis +
    13×lyric_intelligibility_diagnosis
 ```
+---
 
+#### G5N B2 semantic adjudication + lyric-evidence recovery（当前 blocker）
+
+G5M 已完成 21-item honest-roster scan，并诚实得到 `0/21 eligible`。该结果关闭了“继续机械重选 pilot”这条路，但**不能把所有失败项解释成永久不可审核，更不能把所有 B2 自动解释成 written-score error**。
+
+##### G5M 结果的正确语义
+
+当前 inventory：
+
+```text
+21 total
+13 lyric_evidence fail
+  11 low_confidence
+  2 no_chars
+
+8 unresolved B2
+0 unresolved B1
+
+roster_candidates = []
+review_ready = false
+```
+
+其中：
+
+```text
+B2 exists
+→ 证明 source acoustic landmark 落在当前 legal carrier range 外
+
+B2 exists
+!= 证明 written score 一定错
+!= 证明该 item 永久不可 human review
+```
+
+G5L 已明确：
+
+```text
+early B2
+→ may be consonant preutterance / anticipation
+→ only early direction may use this hypothesis
+
+late B2
+→ may be post-boundary acoustic delay / carrier-too-short /
+   written-timing mismatch
+→ MUST NOT be called anticipation
+
+120ms
+→ triage prior only
+→ never final semantic authority
+```
+
+因此 G5N 要解决的是 **B2 的语义归因**，而不是继续调 closed-loop 参数。
+
+##### Lane A — recover the 13 lyric-evidence failures
+
+当前：
+
+```text
+11 × low_confidence
+2 × no_chars
+```
+
+禁止：
+
+```text
+MIN_REVIEW_CHAR_PROB 0.25 → 直接降低阈值来凑 roster
+把单个低概率字静默当成可信 timing truth
+把 no_chars 当永久无歌词
+```
+
+需要逐项区分：
+
+```text
+A1. evidence-window / LRC / phrase-boundary coverage bug
+A2. source separation / vocal quality 导致 aligner 失败
+A3. Whisper attention/DTW 对该唱法本身低置信
+A4. 单个 char outlier，但整句顺序/边界有其他独立证据
+A5. 真正无法可靠绑定歌词
+```
+
+优先检查：
+
+```text
+note_0391 / note_0404
+→ no_chars
+→ first investigate phrase/LRC/evidence-window coverage
+
+note_0231 min_probability=0.193
+note_0325 min_probability=0.211
+→ 不得直接降 0.25 threshold
+→ 用第二独立 evidence 判断该低值是否只是单字 aligner outlier
+```
+
+允许新增的独立 evidence：
+
+```text
+second forced-align / CTC family
+manual small-subset char landmark annotation for calibration
+phoneme boundary evidence
+LRC + known lyric sequence constrained alignment
+```
+
+原则：
+
+```text
+second evidence confirms sequence/timing
+→ item may regain lyric-evidence eligibility
+
+evidence remains contradictory/unavailable
+→ fail-closed
+```
+
+任何 source lyric evidence contract/material method 改变：
+
+```text
+version/provenance must bump
+old package/pilot/verdict stale if review semantics change
+```
+
+##### Lane B — adjudicate the 8 unresolved B2 items
+
+当前 8 项不是一个同质问题。
+
+代表性实测：
+
+```text
+note_0012:
+  圆 early 318.7ms → written_timing_suspect
+  另有多个 8–119ms early/late conflicts
+
+note_0044:
+  却 early 23.8ms
+  遮 late 65.7ms
+
+note_0246 / note_0248:
+  夜 early 37.3ms
+  等 early 7.7ms
+  晨 late 24.3ms
+
+note_0061:
+  晨 late 142.6ms + 其他 conflicts
+
+note_0188 / note_0192:
+  可人陪这本 shared phrase conflict
+
+note_0379:
+  4 B2, 28–84ms range
+```
+
+这些不能继续统一成：
+
+```text
+B2 → written_timing_diagnosis → permanent pilot reject
+```
+
+必须增加 B2 adjudication result，例如：
+
+```text
+b2_semantic =
+  benign_preutterance
+  benign_post_boundary_delay
+  measurement_ambiguous
+  written_timing_error
+  structure_timing_error
+  unresolved
+```
+
+只有：
+
+```text
+benign_preutterance
+benign_post_boundary_delay
+```
+
+并且有独立 evidence 支持、不会污染 target split 判断时，才允许该 conflict 不再作为 ordinary pilot blocker。
+
+```text
+written_timing_error / structure_timing_error
+→ route upstream
+→ 不允许 review-only lyric overlay cosmetically hide it
+
+measurement_ambiguous / unresolved
+→ fail-closed
+```
+
+##### Required B2 evidence
+
+最终 adjudication 不得只消费 overhang ms。至少结合：
+
+```text
+direction: early / late
+phoneme context: initial/final, consonant/vowel onset semantics
+source acoustic landmark family
+second independent landmark family where available
+neighbor char onset/offset
+carrier start/end/duration
+inter-note gap / overlap
+whether required correction would rewrite written-note timing
+rendered phoneme/preutterance behavior
+same conflict across A/B target options
+```
+
+如果要把某个 20–80ms conflict 标为 benign，必须有**独立物理/音素证据**，不能因为“数值小”直接通过。
+
+##### Phrase-level conflict 的语义修正
+
+`0188/0192` 和 `0246/0248` 在同一 phrase 内重复出现相同 B2 集合，能够证明：
+
+```text
+conflict is target-independent
+→ 不是某一个 split option 偶发制造的
+```
+
+但两个 target 共享同一个：
+
+```text
+SOURCE phrase
+Candidate-0 context
+lyric alignment
+carrier timing
+```
+
+因此这种重复**不是独立第二证据**，不能自动升级成：
+
+```text
+double-confirmed written timing error
+```
+
+字段建议明确拆成：
+
+```text
+phrase_level_target_independent_conflict = true
+```
+
+其作用是：
+
+```text
+ordinary target-only pilot blocker
++ route to semantic adjudication
+```
+
+而不是最终 written-score verdict。
+
+##### Priority probes
+
+先用最小范围验证 B2 是否存在 benign phoneme-timing 类：
+
+```text
+Priority 1: note_0044
+  only 2 B2: early 23.8ms / late 65.7ms
+
+Priority 2: note_0246
+Priority 3: note_0248
+  B2 only 7.7–37.3ms / 24.3ms
+```
+
+原因：
+
+```text
+small overhang
++ source lyric evidence already good
++ ideal for testing phoneme-aware adjudication
+```
+
+不要优先拿：
+
+```text
+note_0012 圆 early 318.7ms
+note_0061 晨 late 142.6ms
+0188/0192 systematic phrase conflicts
+```
+
+去定义 benign semantics；这些应继续保留为 harder written-timing/structure cases。
+
+##### G5N acceptance
+
+G5N 关闭至少要求：
+
+```text
+A. lyric evidence
+   [ ] no_chars root cause resolved or explicitly proven unavailable
+   [ ] low-confidence items have independent-evidence adjudication
+   [ ] no threshold relaxation solely to recover roster
+   [ ] evidence provenance/version persisted
+
+B. B2 semantics
+   [ ] B2 no longer equals automatic written-timing error
+   [ ] early/late consume phoneme-aware evidence
+   [ ] small-overhang benign classification requires independent support
+   [ ] phrase-level repetition treated as target-independent, not independent duplicate proof
+   [ ] genuine written/structure errors route upstream
+   [ ] ambiguous cases remain fail-closed
+
+C. pilot eligibility
+   [ ] rerun all 21 through revised current contract
+   [ ] eligibility_inventory regenerated and committed
+   [ ] only semantically resolved items may enter honest roster
+   [ ] no unresolved B1/B2/lyric evidence blocker in roster
+
+D. authority
+   [ ] exact roster packages rebuilt if contract/material semantics changed
+   [ ] exact payload/QC/state binding rebuilt
+   [ ] pilot_authority.ok == true
+   [ ] review_ready == true
+   [ ] git_evidence.complete == true
+   [ ] plan_invariants.ok == true
+   [ ] FINAL SHA remote CI success
+   [ ] maintainer/ChatGPT pre-human audit PASS
+```
+
+如果处理后仍然：
+
+```text
+0 eligible
+```
+
+这是允许的结果；必须继续 upstream diagnosis，而不是放宽 gate。
+
+在 G5N 关闭前：
+
+```text
+DO NOT ask user to listen
+DO NOT lower MIN_REVIEW_CHAR_PROB merely to create candidates
+DO NOT treat every B2 as written-score error
+DO NOT treat phrase-level duplicate targets as independent proof
+DO NOT record calibration decisions
+DO NOT freeze M2.5
+```
 ---
 
 #### G6. Human-review readiness regressions
@@ -5410,7 +5737,69 @@ PITD 不得掩盖 written-note error。
 ## 10.6 M3 — 泠鸢 style profile
 
 > **原唱决定“唱什么”；泠鸢参考决定“怎么唱”。**
+---
 
+### 10.7 Plan 2 文档治理（需要精简，暂不删除历史）
+
+当前 `plan2.md` 已同时承担：
+
+```text
+current executable spec
+frozen-stage contract
+historical implementation log
+failed-attempt audit
+commit/CI ledger
+current blocker tracking
+```
+
+持续追加已经导致：
+
+```text
+- 旧状态与顶部 current 状态并存
+- 同一 gate 在 G5A...G5N 多次重复
+- Agent 容易消费过期 implementation record
+- current task 的上下文成本过高
+```
+
+因此后续应做**保留审计、缩短 active plan**的结构化精简，而不是直接删除历史。
+
+推荐目标：
+
+```text
+plan2.md
+  只保留：
+  - current status
+  - immutable/global contracts
+  - frozen-stage compact summary
+  - current M2.5 authoritative spec
+  - current blocker (G5N)
+  - final acceptance matrix
+  - milestones
+  - non-negotiable rules
+
+docs/plan2_history.md
+  迁移：
+  - G / G5A ... G5M 的逐轮实现记录
+  - 旧 blocker 原文
+  - historical commit / CI / local-run narratives
+  - superseded acceptance snapshots
+
+Git artifacts / manifests
+  保留 machine-readable evidence，不在 active plan 重复抄大段数值
+```
+
+精简原则：
+
+```text
+1. history move, not delete
+2. current authoritative rule only one copy
+3. superseded state must be clearly historical
+4. commit SHA / CI run 可保留索引，不重复完整过程
+5. final non-negotiable rules继续留在 active plan
+6. current blocker必须能单独被 Agent 直接执行
+```
+
+建议在 G5N 实现稳定后进行一次单独的 **Plan2 compaction commit**，避免文档重构和算法修改混在一个 commit 中。
 ---
 
 # 11. Evaluation / Audit
@@ -5496,7 +5885,7 @@ rollback coverage
 ### M2.3.2D FROZEN — ✅ @ 905f144 / CI 35238843522
 ### M2.4 — SAFE single-note pitch repair — ✅ HISTORICAL FREEZE @ ce083c9 / CI 35289803217
 ### Pre-M2.5 Freeze Integrity Patch — ✅ PASS @ 8a2d660 / CI 35294735189
-### M2.5 — PROBABLE structure repair — ← HUMAN PILOT QUALITY HOLD / G5M ROSTER REBUILD（G5L/rlv7 semantics 已完成；当前历史 4-item pilot 均 auto_review_ready=false，必须扫描 21 项并重选 honest reviewable roster；review_ready=false）
+### M2.5 — PROBABLE structure repair — ← QUALITY HOLD / G5N（G5M scan 已完成：0/21 current eligible；当前转向 13 项 lyric-evidence recovery + 8 项 B2 phoneme-aware semantic adjudication；review_ready=false）
 ### M2.6 — Optional second opinion
 ### M2.7 — Lyrics mapping + base USTX
 ### M2.8 — PITD + render loop
@@ -5583,3 +5972,5 @@ rollback coverage
 74. 在质量失败的 review package 上产生的 A/B 偏好只能记为 diagnostic preference，不得成为 official decision 或 repair authority。
 75. 先“唱对”，再做泠鸢风格。
 76. rlv7/current-contract 的正式 human pilot 只能由 current artifact evidence 证明可测、可审；历史 pilot 身份没有保留权。最终 roster 必须使 `pilot_authority.ok=true`、`review_ready=true`，并在 FINAL acceptance SHA 上取得 remote CI success 后才允许用户试听。
+77. B2 carrier conflict 只表示 source acoustic landmark 越出 legal carrier range；不得自动等同于 written-score error。最终语义必须消费 direction + phoneme/context + independent acoustic evidence；phrase-level 重复 target 只证明 target-independence，不得当作第二份独立 written-error 证据。
+78. lyric-evidence recovery 禁止为了凑 pilot 单纯降低 `MIN_REVIEW_CHAR_PROB`；no_chars / low-confidence 必须通过 coverage 修复或独立 evidence adjudication，仍不确定则 fail-closed。
