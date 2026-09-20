@@ -7,3 +7,4 @@ bridge/out-sc/
 bridge/OuBridge/bin/
 bridge/OuBridge/obj/
 configs/local.yaml
+external/
