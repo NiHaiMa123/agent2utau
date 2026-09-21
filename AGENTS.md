@@ -1482,3 +1482,35 @@ bodies center ~0 (never copy singer flatness). His roughness is coarser
 points rendered = tremble. pitd xs must be strictly increasing — dedupe
 AFTER int conversion or the piano-roll editor crashes on open. Deleting
 note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
+
+## M6 R2.1 — Event detector semantics (verified by synthetic tests + renders)
+
+- ContourSignal is segmented: unvoiced runs >=80ms split segments;
+  median/savgol trend never cross a segment boundary; interior holes
+  <80ms stay bridged. Gap frames stay nan. `phoneme_idx` is real.
+- Vibrato detection = longest chain of valid half-cycles (period inside
+  4-8.5Hz band ±35%, depth>=12c, all frames voiced+conf). Event start/end
+  = real cycle boundaries; phase fitted on the stable run, origin=ev_s.
+  rate_hz = 1/mean(measured periods), NOT the FFT bin.
+- Vibrato 3-state compile closed loop verified end-to-end (pseudo-source
+  renders, runs/expr-20260921/r21c): source_only -> note_vibrato,
+  matched -> override with SOURCE params (never stack), neutral_only ->
+  suppress (depth=0 + trend_resid in span).
+- **OpenUtau vibrato depth ≈ written x 0.69** — write depth/0.69.
+- **Note vibrato cannot express arbitrary phase** — put the sine-fit
+  residual (mod_src - fitted_sine) in PITD over the event span, then ONE
+  closed-loop pass `pitd += clip(src - render, ±300c)` converges
+  (Δdepth 4.2c / Δphase 0.20rad after one iteration).
+- Onset settle = continuous 60ms inside ±15c (not "all remaining
+  frames"); extremum must persist >=2 frames (median-3) or it's a spike.
+- Portamento departure = last sustained stay inside from-tone±30c;
+  arrival = first sustained stay inside to-tone±30c. Trajectory types:
+  stepped plateaus checked BEFORE extrema (flat-top edges masquerade
+  as s_curve turns); convex/concave via mean(normalized traj) >0.55/<0.45.
+- match_pitch_events: scored candidates + hard gates (zero overlap AND
+  far position -> ambiguous; opposite direction -> reject) + ambiguous
+  third state — never force a low-margin match.
+- Turning-point QA is segment-local (no cross-gap fill) and reports
+  matched/missing/extra/timing/amplitude/prominence/edit_distance —
+  a med-cents win with extra turns is a REGRESSION.
+- tests: `pytest tests/` (472 incl. 27 R2.1 synthetic regressions).

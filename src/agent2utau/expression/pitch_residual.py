@@ -350,6 +350,9 @@ def compile_C2(dense, notes, part_pos_tick, events, max_err_c=10.0):
             "ys": ys[keep].tolist()}, vibrato_marks
 
 
+VIBRATO_DEPTH_GAIN = 0.69   # measured render amplitude / written depth
+
+
 def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
                max_err_c=10.0):
     """True event-aware compile (plan §9.4 decomposition):
@@ -372,27 +375,46 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
 
     vals = np.where(dense["resid_consistent"], dense["resid_consensus"],
                     np.nan)
+    _, mod_s = robust_pitch_trend(src_sig, cutoff_hz=3.0)
+    mod_s_g = np.interp(g, src_sig.times, mod_s, left=0.0, right=0.0)
     vibrato_marks = {}
     for m in vib_match:
-        if m.get("recommended_representation") != "note_vibrato" \
-                or not m.get("source_vibrato"):
-            continue
+        rep = m.get("recommended_representation")
         i = m["note_index"]
         n = notes[i]
-        sv = m["source_vibrato"]
-        s_ev, e_ev = None, None
-        vmask = (g >= n["abs_start_s"] + n["dur_s"] * 0.35) & \
-                (g <= n["abs_start_s"] + n["dur_s"])
-        vals = np.where(vmask, trend_resid, vals)   # trend stays, wiggle out
-        length_pct = min(100.0, max(5.0,
-                         (n["abs_start_s"] + n["dur_s"]
-                          - (n["abs_start_s"] + n["dur_s"] * 0.35))
-                         / n["dur_s"] * 100.0))
-        vibrato_marks[i] = {
-            "length": round(length_pct, 1),
-            "period": round(1000.0 / sv["rate_hz"], 1),
-            "depth": round(sv["depth_c"], 1),
-            "in": 15, "out": 15, "shift": 0, "drift": 0, "volLink": 0}
+        n_end = n["abs_start_s"] + n["dur_s"]
+        if rep == "note_vibrato" and m.get("source_vibrato"):
+            sv = m["source_vibrato"]
+            ev_s, ev_e = m["source_span_s"]        # real detected span
+            ev_s = max(ev_s, n["abs_start_s"])
+            ev_e = min(ev_e, n_end)
+            # residual that sine vibrato cannot express (phase/envelope
+            # mismatch) stays explicitly in PITD: mod_src - fitted sine
+            w = 2 * np.pi * sv["rate_hz"]
+            tau = g - sv.get("phase_origin_s", ev_s)
+            fit = sv["depth_c"] * np.sin(w * tau + sv["phase_rad"])
+            span = (g >= ev_s) & (g <= ev_e)
+            vals = np.where(span,
+                            trend_resid + (mod_s_g - fit), vals)
+            length_pct = min(100.0, max(5.0,
+                             (n_end - ev_s) / n["dur_s"] * 100.0))
+            vibrato_marks[i] = {
+                "length": round(length_pct, 1),
+                "period": round(1000.0 / sv["rate_hz"], 1),
+                # OpenUtau vibrato depth renders at ~0.69x written value
+                # (calibrated on P3 render re-detection); pre-scale it
+                "depth": round(sv["depth_c"] / VIBRATO_DEPTH_GAIN, 1),
+                "in": 5, "out": 5, "shift": 0, "drift": 0,
+                "volLink": 0}
+        elif rep == "suppress_neutral" and m.get("neutral_span_s"):
+            ev_s, ev_e = m["neutral_span_s"]
+            span = (g >= max(ev_s, n["abs_start_s"])) & (g <= ev_e)
+            vals = np.where(span, trend_resid, vals)  # drop -neu periodic
+            vibrato_marks[i] = {"length": 0, "period": 150, "depth": 0,
+                                "in": 0, "out": 0, "shift": 0, "drift": 0,
+                                "volLink": 0}
+        # "matched"/"irregular_pitd": full consensus residual already
+        # encodes src - neu periodic difference on top of engine default
 
     xs_all, ys_all = [], []
     ok = ~np.isnan(vals)

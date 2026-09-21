@@ -1310,7 +1310,63 @@ f358236e 已完成：
 尤其当前 P3 的 topology = 44 matched / 9 missing / 11 extra，
 已经说明“pointwise 很近”并不等于 contour shape 正确。
 
-### R2.1 — Detector / Matcher / QA Semantic Fix — CURRENT BLOCKER
+### R2.1 — Detector / Matcher / QA Semantic Fix — DONE (pending listening)
+
+状态（本轮实现，472 pytest 全过）：
+- A: contour.py 分段化——voiced_segments/segment_ids（gap≥80ms 切段），
+  median3 与 savgol trend 均不跨段；phoneme_idx 真实填充；
+  provenance 记录 hop/min_gap/filter/段数。测试：300ms 静音两侧
+  trend 不互拉（500c 跳变 ±100ms 内偏差 <30c）。
+- B: vibrato detector 重写为"连续合法半周期最长链"——start/end =
+  真实周期边界，输出 depth_envelope/stable_cycle_count/period_cv/
+  depth_cv/mod_snr/phase（sine lstsq，phase_origin_s=event start）。
+  rate_hz 改用实测周期均值（非 FFT bin）。
+- C/D: 三态闭环通过 OpenUtau 实测渲染验收（pseudo-source renders，
+  runs/expr-20260921/r21c/）：
+  - A source_only → note_vibrato（span=真实 event，length=73.5%，
+    depth 校准 ÷0.69），一轮 closed-loop 修正后
+    Δrate 0.18Hz/Δdepth 4.2c/Δphase 0.20rad/Δstart 10ms；
+  - B matched → override 为 SOURCE 参数（不叠加），修正后
+    Δdepth 0.2c/Δphase 0.12rad；
+  - C neutral_only → suppress（depth=0 + span 内写 trend_resid），
+    渲染后 0 vibrato，pos_med 4.2c。
+  - 重要机制：note vibrato phase 无法直接表达 → 相位失配残差
+    必须留在 PITD；一轮 v2=v1+(src−render) 修正即可收敛。
+  - OpenUtau vibrato depth 语义 ≈ written×0.69（实测校准）。
+- E: onset settle = 连续 60ms 内 |dev|<15c（不再要求剩余全帧）；
+  extremum 限 onset 窗；median-3 剔单帧毛刺；baseline 取音体
+  55-90% 且排除 vibrato/ornament 事件段。
+- F: portamento 重写——departure=最后持续停留 from-tone±30c 的末尾，
+  arrival=首次持续停留 to-tone±30c 的开头；duration=真实 span；
+  trajectory_type 用归一化轨迹 mean-cn（convex>0.55/concave<0.45）
+  + plateau 检测（stepped 优先于 s_curve，修正平顶被误判极值）；
+  输出 slope_profile/curv_profile/norm_traj。
+- G: ornament 全音体滑窗（380ms 簇），事件 span=有效 excursion
+  首尾极值；exclude_events 传入 vibrato+onset 互斥；
+  structure_review_required 加 blocker_lane 标记。
+- H: artifact 分段 typed flags（extractor_disagreement/voiced_conflict/
+  octave_flip/spike/hf_jitter），30ms 内合并成 region；
+  artifact_mask() 供 compiler/QA 排除。
+- I: match_pitch_events 真语义评分（note_iou/time_iou/nucleus-or-
+  note-relative position/direction/trajectory/param_compat）+
+  硬门禁（零重叠且位置远 → ≤0.25；方向相反 → ≤0.15）+
+  ambiguous 三态。
+- J: contour_qa 全面 event-local 化——_fill_runs 不跨段插值；
+  turning_point 输出 matched/missing/extra/timing/amplitude/
+  prominence/edit_distance + coverage；modulation 按 event_windows
+  逐窗报 rate/depth/bandwidth/periodicity；portamento_metrics
+  比较真实 slope/curv profile。
+- K: tests/test_contour_r21a.py + test_vibrato_r21b.py +
+  test_events_r21.py = 27 个新 synthetic 回归测试，
+  全部随 472 测试套件通过。
+
+仍需：
+- §16.1 第 8 步人工试听确认（phrases3 C2/C3 vs D vs SOURCE）；
+- 当前 P3 topology C3=27/21/5 说明 dense-PITD 区域仍有
+  under-tracing——portamento/scoop/ornament compiler（R3 解锁后）
+  应进一步收敛。
+
+### R2.1 — Detector / Matcher / QA Semantic Fix — CURRENT BLOCKER（保留原验收清单备查）
 
 在本节完成前：
 - **禁止继续实现 portamento/scoop/ornament compiler；**

@@ -1,7 +1,16 @@
-"""Contour-shape QA (plan §9.11/§15.2-15.4).
+"""Contour-shape QA (plan §9.11/§15.2-15.4, R2.1-J).
 
 All metrics are same-time on the shared project grid; source and render
-are ContourSignal-like arrays already sampled onto a common grid.
+are cents arrays already sampled onto a common grid (nan = invalid).
+
+R2.1-J contract:
+- every metric honours a voiced-segment-local / event-local mask;
+- nothing interpolates across unvoiced or artifact gaps;
+- turning-point comparison reports count/type/relative timing/
+  prominence/ordering separately;
+- modulation is computed inside event windows (rate/depth/bandwidth/
+  periodicity), not as one dominant FFT bin over the whole phrase;
+- every report carries valid-frame coverage and artifact exclusion.
 """
 
 from __future__ import annotations
@@ -11,93 +20,126 @@ import numpy as np
 HOP_S = 0.010
 
 
-def _fill(y, g):
-    ok = ~np.isnan(y)
-    return np.interp(g, g[ok], y[ok]) if ok.sum() > 3 else y
+def _seg_runs(mask):
+    """Contiguous True runs of `mask` -> [(lo, hi)) index spans."""
+    idx = np.where(mask)[0]
+    if not len(idx):
+        return []
+    breaks = np.where(np.diff(idx) > 1)[0]
+    lo = np.concatenate([[0], breaks + 1])
+    hi = np.concatenate([breaks + 1, [len(idx)]])
+    return [(int(idx[a]), int(idx[b - 1]) + 1) for a, b in zip(lo, hi)]
 
 
-def _smooth_ms(y, g, ms):
-    k = max(1, int(round(ms / 1000.0 / HOP_S)))
-    if k < 2:
-        return y
-    ker = np.ones(k) / k
-    return np.convolve(y, ker, mode="same")
-
-
-def contour_position_metrics(source, render, mask):
-    d = np.abs(render - source)
-    d = d[mask & ~np.isnan(d)]
-    if not len(d):
-        return {"n": 0}
-    return {"n": int(len(d)),
-            "med_c": round(float(np.median(d)), 1),
-            "p90_c": round(float(np.percentile(d, 90)), 1),
-            "p95_c": round(float(np.percentile(d, 95)), 1)}
-
-
-def contour_slope_metrics(source, render, mask, smooth_ms=30):
-    s = _smooth_ms(_fill(source, np.arange(len(source)) * HOP_S),
-                   np.arange(len(source)) * HOP_S, smooth_ms)
-    r = _smooth_ms(_fill(render, np.arange(len(render)) * HOP_S),
-                   np.arange(len(render)) * HOP_S, smooth_ms)
-    ds = np.diff(s)
-    dr = np.diff(r)
-    e = np.abs(dr - ds)[mask[:-1] & ~np.isnan(ds) & ~np.isnan(dr)]
-    if not len(e):
-        return {"n": 0}
-    return {"n": int(len(e)),
-            "med_c_per10ms": round(float(np.median(e)), 1),
-            "p90_c_per10ms": round(float(np.percentile(e, 90)), 1)}
-
-
-def contour_curvature_metrics(source, render, mask, smooth_ms=40):
-    g = np.arange(len(source)) * HOP_S
-    s = _smooth_ms(_fill(source, g), g, smooth_ms)
-    r = _smooth_ms(_fill(render, g), g, smooth_ms)
-    cs = np.diff(s, 2)
-    cr = np.diff(r, 2)
-    e = np.abs(cr - cs)[mask[:-2] & ~np.isnan(cs) & ~np.isnan(cr)]
-    if not len(e):
-        return {"n": 0}
-    return {"n": int(len(e)),
-            "med_c_per10ms2": round(float(np.median(e)), 1),
-            "p90_c_per10ms2": round(float(np.percentile(e, 90)), 1)}
-
-
-def _turning_list(y, min_prominence_c=15.0):
-    """Return [(idx, kind, value_c)] with prominence filter."""
-    idx = []
-    for i in range(1, len(y) - 1):
-        if y[i] > y[i - 1] and y[i] >= y[i + 1]:
-            idx.append((i, "peak"))
-        elif y[i] < y[i - 1] and y[i] <= y[i + 1]:
-            idx.append((i, "trough"))
-    out = []
-    for i, k in idx:
-        lo = max(0, i - 25)
-        hi = min(len(y), i + 26)
-        if hi > lo + 1:
-            prom = abs(y[i] - np.median(np.concatenate([y[lo:i], y[i + 1:hi]])))
-        else:
-            prom = 0
-        if prom >= min_prominence_c:
-            out.append((i, k, float(y[i])))
+def _fill_runs(y, mask):
+    """Interpolate interior holes inside each valid run only."""
+    out = y.copy()
+    for lo, hi in _seg_runs(mask):
+        seg = y[lo:hi]
+        ok = ~np.isnan(seg)
+        if ok.sum() >= 2:
+            seg[~ok] = np.interp(np.flatnonzero(~ok),
+                                 np.flatnonzero(ok), seg[ok])
+        out[lo:hi] = seg
     return out
 
 
-def turning_point_metrics(source, render, event_windows=None,
-                          max_match_ms=80.0):
-    """Matched/missing/extra turns + timing/amplitude errors + edit dist."""
-    g = np.arange(len(source)) * HOP_S
-    S = _fill(source, g)
-    R = _fill(render, g)
-    ts = _turning_list(S)
-    tr = _turning_list(R)
+def _coverage(source, render, mask):
+    valid = mask & ~np.isnan(source) & ~np.isnan(render)
+    return {"valid_frames": int(valid.sum()),
+            "coverage": round(float(valid.sum() / max(mask.sum(), 1)), 3)}
+
+
+def contour_position_metrics(source, render, mask):
+    m = mask & ~np.isnan(source) & ~np.isnan(render)
+    d = np.abs(render - source)[m]
+    out = _coverage(source, render, mask)
+    if not len(d):
+        out.update({"n": 0})
+        return out
+    out.update({"n": int(len(d)),
+                "med_c": round(float(np.median(d)), 1),
+                "p90_c": round(float(np.percentile(d, 90)), 1),
+                "p95_c": round(float(np.percentile(d, 95)), 1)})
+    return out
+
+
+def contour_slope_metrics(source, render, mask, smooth_ms=30):
+    m = mask & ~np.isnan(source) & ~np.isnan(render)
+    sf = _fill_runs(source, m)
+    rf = _fill_runs(render, m)
+    ds = np.diff(sf)
+    dr = np.diff(rf)
+    ok = m[:-1] & m[1:] & ~np.isnan(ds) & ~np.isnan(dr)
+    e = np.abs(dr - ds)[ok]
+    out = _coverage(source, render, mask)
+    if not len(e):
+        out.update({"n": 0})
+        return out
+    out.update({"n": int(len(e)),
+                "med_c_per10ms": round(float(np.median(e)), 1),
+                "p90_c_per10ms": round(float(np.percentile(e, 90)), 1)})
+    return out
+
+
+def contour_curvature_metrics(source, render, mask, smooth_ms=40):
+    m = mask & ~np.isnan(source) & ~np.isnan(render)
+    sf = _fill_runs(source, m)
+    rf = _fill_runs(render, m)
+    cs = np.diff(sf, 2)
+    cr = np.diff(rf, 2)
+    ok = m[:-2] & m[1:-1] & m[2:] & ~np.isnan(cs) & ~np.isnan(cr)
+    e = np.abs(cr - cs)[ok]
+    out = _coverage(source, render, mask)
+    if not len(e):
+        out.update({"n": 0})
+        return out
+    out.update({"n": int(len(e)),
+                "med_c_per10ms2": round(float(np.median(e)), 1),
+                "p90_c_per10ms2": round(float(np.percentile(e, 90)), 1)})
+    return out
+
+
+def _turning_list(y, mask, min_prominence_c=15.0):
+    """[(idx, kind, value_c, prominence_c)] inside valid runs only —
+    never across an unvoiced/artifact gap."""
+    out = []
+    for lo, hi in _seg_runs(mask & ~np.isnan(y)):
+        seg = y[lo:hi]
+        for i in range(1, len(seg) - 1):
+            kind = None
+            if seg[i] > seg[i - 1] and seg[i] >= seg[i + 1]:
+                kind = "peak"
+            elif seg[i] < seg[i - 1] and seg[i] <= seg[i + 1]:
+                kind = "trough"
+            if kind is None:
+                continue
+            ctx = np.concatenate([seg[max(0, i - 25):i],
+                                  seg[i + 1:i + 26]])
+            prom = abs(seg[i] - np.median(ctx)) if len(ctx) else 0.0
+            if prom >= min_prominence_c:
+                out.append((lo + i, kind, float(seg[i]), float(prom)))
+    return out
+
+
+def turning_point_metrics(source, render, mask=None, max_match_ms=80.0):
+    """Topology QA per voiced segment.
+
+    Reports matched/missing/extra turns with timing, prominence and
+    amplitude errors, plus sequence edit distance — computed per segment
+    so turns are never joined across a gap.
+    """
+    if mask is None:
+        mask = ~np.isnan(source)
+    sm = mask & ~np.isnan(source)
+    rm = mask & ~np.isnan(render)
+    ts = _turning_list(source, sm)
+    tr = _turning_list(render, rm)
     used = set()
-    matched, t_err, a_err = [], [], []
-    for i_s, k_s, v_s in ts:
+    matched, t_err, a_err, p_err = [], [], [], []
+    for i_s, k_s, v_s, p_s in ts:
         best, bd = None, max_match_ms / 1000.0 / HOP_S
-        for j, (i_r, k_r, v_r) in enumerate(tr):
+        for j, (i_r, k_r, v_r, p_r) in enumerate(tr):
             if j in used or k_r != k_s:
                 continue
             if abs(i_r - i_s) < bd:
@@ -107,18 +149,23 @@ def turning_point_metrics(source, render, event_windows=None,
             matched.append((i_s, tr[best][0]))
             t_err.append(abs(i_s - tr[best][0]) * HOP_S * 1000)
             a_err.append(abs(v_s - tr[best][2]))
+            p_err.append(abs(p_s - tr[best][3]))
     missing = len(ts) - len(matched)
     extra = len(tr) - len(used)
-    seq_s = "".join("p" if k == "peak" else "v" for _, k, _ in ts)
-    seq_r = "".join("p" if k == "peak" else "v" for _, k, _ in tr)
-    edit = _levenshtein(seq_s, seq_r)
-    return {"matched_turns": len(matched), "missing_turns": missing,
-            "extra_turns": extra,
-            "turn_timing_err_ms_med": round(float(np.median(t_err)), 1)
-            if t_err else None,
-            "turn_amplitude_err_c_med": round(float(np.median(a_err)), 1)
-            if a_err else None,
-            "sequence_edit_distance": int(edit)}
+    seq_s = "".join("p" if k == "peak" else "v" for _, k, _, _ in ts)
+    seq_r = "".join("p" if k == "peak" else "v" for _, k, _, _ in tr)
+    out = {"matched_turns": len(matched), "missing_turns": missing,
+           "extra_turns": extra,
+           "source_turns": len(ts), "render_turns": len(tr),
+           "turn_timing_err_ms_med": round(float(np.median(t_err)), 1)
+           if t_err else None,
+           "turn_amplitude_err_c_med": round(float(np.median(a_err)), 1)
+           if a_err else None,
+           "turn_prominence_err_c_med": round(float(np.median(p_err)), 1)
+           if p_err else None,
+           "sequence_edit_distance": int(_levenshtein(seq_s, seq_r))}
+    out.update(_coverage(source, render, mask))
+    return out
 
 
 def _levenshtein(a, b):
@@ -134,30 +181,65 @@ def _levenshtein(a, b):
     return prev[-1]
 
 
-def modulation_metrics(source, render, event_windows=None,
+def modulation_metrics(source, render, mask=None, event_windows=None,
                        band_hz=(3.0, 12.0)):
-    """Modulation spectrum comparison: dominant rate/depth per window."""
-    g = np.arange(len(source)) * HOP_S
-    out = {}
-    for tag, y in (("source", source), ("render", render)):
-        yy = _fill(y, g)
-        tr = _smooth_ms(yy, g, 250)
-        r = yy - tr
-        spec = np.abs(np.fft.rfft(r * np.hanning(len(r))))
-        fr = np.fft.rfftfreq(len(r), HOP_S)
-        band = (fr >= band_hz[0]) & (fr <= band_hz[1])
-        if band.any() and spec[band].max() > 0:
+    """Modulation QA inside event windows (or each voiced segment when no
+    windows given): dominant rate, depth (p2p/2), bandwidth, periodicity.
+
+    event_windows: iterable of (start_idx, end_idx) frame spans.
+    """
+    if mask is None:
+        mask = ~np.isnan(source)
+    spans = event_windows if event_windows is not None else \
+        _seg_runs(mask)
+    rows = []
+    for (lo, hi) in spans:
+        row = {"window_frames": [int(lo), int(hi)]}
+        for tag, y in (("source", source), ("render", render)):
+            seg = y[lo:hi]
+            ok = ~np.isnan(seg)
+            if ok.sum() < int(0.25 / HOP_S):
+                row[tag] = None
+                continue
+            idx = np.flatnonzero(ok)
+            yy = np.interp(np.arange(len(seg)), idx, seg[ok])
+            tr = _smooth_ms(yy, np.arange(len(seg)) * HOP_S, 250)
+            r = yy - tr
+            spec = np.abs(np.fft.rfft(r * np.hanning(len(r))))
+            fr = np.fft.rfftfreq(len(r), HOP_S)
+            band = (fr >= band_hz[0]) & (fr <= band_hz[1])
+            if not band.any() or spec[band].max() <= 0:
+                row[tag] = None
+                continue
             i = int(np.argmax(spec[band]))
-            out[tag] = {"dom_rate_hz": round(float(fr[band][i]), 2),
-                        "band_power": round(float(spec[band].max()
-                                                  / len(r)), 2)}
-        else:
-            out[tag] = None
-    return out
+            # bandwidth at half power around the peak bin
+            peak = spec[band][i]
+            bidx = np.where(band)[0]
+            above = bidx[spec[band] >= peak * 0.5]
+            bw = float(fr[above[-1]] - fr[above[0]]) if len(above) else 0.0
+            period = int(round(1.0 / fr[band][i] / HOP_S))
+            ac = np.correlate(r - r.mean(), r - r.mean(), "full")
+            ac = ac[len(ac) // 2:] / ac[len(ac) // 2]
+            periodicity = float(ac[period]) if period < len(ac) else 0.0
+            row[tag] = {
+                "dom_rate_hz": round(float(fr[band][i]), 2),
+                "depth_c": round(float(np.percentile(np.abs(r), 90)), 1),
+                "bandwidth_hz": round(bw, 2),
+                "periodicity": round(periodicity, 3)}
+        rows.append(row)
+    return {"windows": rows}
+
+
+def _smooth_ms(y, g, ms):
+    k = max(1, int(round(ms / 1000.0 / HOP_S)))
+    if k < 2:
+        return y
+    ker = np.ones(k) / k
+    return np.convolve(y, ker, mode="same")
 
 
 def vibrato_metrics(source_events, render_events):
-    """Per matched vibrato event: rate/depth/start/end/cv deltas."""
+    """Per matched vibrato event: rate/depth/start/end/phase/cv deltas."""
     out = []
     for se in source_events:
         if se.type != "vibrato":
@@ -169,17 +251,39 @@ def vibrato_metrics(source_events, render_events):
             continue
         re_ = cand[0]
         d = {"note": se.note_indices[0], "state": "matched"}
-        for k in ("rate_hz", "depth_c", "period_cv", "depth_cv"):
+        for k in ("rate_hz", "depth_c", "period_cv", "depth_cv",
+                  "stable_cycle_count"):
             if k in se.params and k in re_.params:
                 d[f"delta_{k}"] = round(se.params[k] - re_.params[k], 3)
+        if "phase_rad" in se.params and "phase_rad" in re_.params:
+            w = 2 * np.pi * se.params["rate_hz"]
+            pa = se.params["phase_rad"] - w * se.params["phase_origin_s"]
+            pb = re_.params["phase_rad"] - w * re_.params["phase_origin_s"]
+            dp = (pa - pb) % (2 * np.pi)
+            d["delta_phase_rad"] = round(min(dp, 2 * np.pi - dp), 3)
         d["delta_start_ms"] = round((se.start_s - re_.start_s) * 1000, 1)
         d["delta_end_ms"] = round((se.end_s - re_.end_s) * 1000, 1)
         out.append(d)
     return out
 
 
+def _traj_profile(sig_times, sig_cents, s, e):
+    m = (sig_times >= s) & (sig_times <= e) & ~np.isnan(sig_cents)
+    if m.sum() < 4:
+        return None
+    t, c = sig_times[m], sig_cents[m]
+    # normalized trajectory: 0..1 by time and by pitch span
+    tn = (t - t[0]) / max(t[-1] - t[0], 1e-6)
+    cn = (c - c[0]) / max(abs(c[-1] - c[0]), 1e-6) \
+        * np.sign(c[-1] - c[0])
+    slope = np.gradient(cn, tn)
+    curv = np.gradient(slope, tn)
+    return {"dur_ms": (t[-1] - t[0]) * 1000, "span_c": c[-1] - c[0],
+            "slope_profile": slope, "curv_profile": curv, "cn": cn}
+
+
 def portamento_metrics(source_events, render_events):
-    """Per matched portamento: trajectory/slope/curvature deltas."""
+    """Per matched portamento: start/end/span/trajectory/slope/curvature."""
     out = []
     for se in source_events:
         if se.type != "portamento":
@@ -191,9 +295,20 @@ def portamento_metrics(source_events, render_events):
                         "state": "missing"})
             continue
         re_ = cand[0]
-        out.append({"from_note": se.params["from_note"], "state": "matched",
-                    "traj_match": se.params["trajectory_type"]
-                    == re_.params["trajectory_type"],
-                    "delta_span_c": round(se.params["span_cents"]
-                                          - re_.params["span_cents"], 1)})
+        d = {"from_note": se.params["from_note"], "state": "matched",
+             "traj_match": se.params["trajectory_type"]
+             == re_.params["trajectory_type"],
+             "delta_span_c": round(se.params["span_cents"]
+                                   - re_.params["span_cents"], 1),
+             "delta_start_ms": round((se.start_s - re_.start_s) * 1000, 1),
+             "delta_end_ms": round((se.end_s - re_.end_s) * 1000, 1)}
+        sp, rp = se.params.get("slope_profile"), re_.params.get("slope_profile")
+        if sp is not None and rp is not None and len(sp) == len(rp):
+            d["slope_profile_rmse"] = round(float(np.sqrt(
+                np.mean((np.asarray(sp) - np.asarray(rp)) ** 2))), 3)
+        cp, cr = se.params.get("curv_profile"), re_.params.get("curv_profile")
+        if cp is not None and cr is not None and len(cp) == len(cr):
+            d["curv_profile_rmse"] = round(float(np.sqrt(
+                np.mean((np.asarray(cp) - np.asarray(cr)) ** 2))), 3)
+        out.append(d)
     return out
