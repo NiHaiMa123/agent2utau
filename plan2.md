@@ -1,5 +1,7 @@
 # agent2utau — Plan 2：GAME 主转谱 + 自动证据裁决 + Phrase-Level 审核
 
+> **ARCHIVED EXECUTION PLAN（2026-09-21）**：本文件保留 written-score adjudication 的历史、冻结 contract 与审计证据；不再作为后续表现调校的当前执行计划。已验证且仍在使用的规则已汇总到 `pipeline.md`；新的 PITD / vibrato / DYN / BREC / VOIC / TENC / Yousa style 路线以 `plan.md` 为准。
+
 > 修订日期：2026-09-19
 >
 > 核心原则：**先把 written score 唱对，再做泠鸢演唱风格。**
