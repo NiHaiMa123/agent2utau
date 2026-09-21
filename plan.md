@@ -697,7 +697,17 @@ sequence_edit_distance
 `render_turns - source_turns`
 来代表好坏。
 
-### 9.12 Detector 的训练方案
+### 9.12 Detector 的训练方案 — BLOCKED UNTIL R2.1
+
+> **执行门禁（2026-09-21 review）**
+>
+> 当前 deterministic detector 仍存在会系统性污染 pseudo-label 的实现缺陷，
+> 尤其是 vibrato start/end、portamento departure/arrival、ornament window、
+> event matching 与 event-local QA。**在 R2.1 的函数级回归测试全部通过前，
+> 禁止生成正式训练集、禁止把当前 detector 输出当 ground truth、禁止启动 T1–T5。**
+>
+> 可以保留 exploratory dump，但必须标记 `INVALID_FOR_TRAINING`，不得进入
+> train/val/test split。
 
 第一阶段不要直接训练端到端“音频→曲线”模型。训练目标只能是：
 
@@ -912,8 +922,6 @@ test:  unseen songs
 
 **训练集上的低 cents 不构成通过；必须在 unseen song 的 render 后 shape QA + 人工试听通过。**
 
-
-## 10. Stage F — Event-Aware Curve Compilation
 
 ## 10. Stage F — Event-Aware Curve Compilation
 
@@ -1282,73 +1290,324 @@ f358236e 已完成：
 但：
 - 低 pointwise cents 仍不能代表 contour/perceptual success。
 
-### R2 — Detector/Contour QA 重构 — DONE (contour.py/events.py/contour_qa.py)
+### R2 — Detector/Contour QA 重构 — REOPENED / PARTIAL
 
-已实现的函数（全部在 SOURCE/neutral 独立信号上工作）：
-- contour.py: build_contour_signal, robust_pitch_trend, PitchEvent,
-  ContourSignal（fcpe+rmvpe 双提取器一致性标记 frame confidence）；
-- events.py: detect_vibrato_events（逐周期 period/depth CV，不再是
-  autocorr 单值）, match_vibrato_events, detect_onset_events,
-  detect_portamento_events, detect_ornament_events, detect_stable_trend,
-  detect_artifact_regions（含空 mask 守卫）, match_pitch_events；
-- contour_qa.py: position/slope/curvature/turning-point(matched,missing,
-  extra,timing_err,amplitude_err,edit_distance)/modulation/vibrato/
-  portamento 全套；单位修正为输入即 cents（不再二次 ×100）。
+9fd398f 已把架构从 residual-only detector 推进到 SOURCE / neutral
+独立检测再匹配，这是正确方向；但 2026-09-21 review 发现实现仍有
+多处“接口存在、语义未实现”的问题，因此撤销 DONE。
 
-P3 检测结果（SOURCE 43 events / neutral 37 / matched 33）：
-- vibrato 1 个（note11 根, 7.29Hz, depth 49.9c, period_cv 0.105,
-  depth_cv 0.149 → periodic, 推荐 note_vibrato 参数化）；
-- portamento 10 / ornament 7 / artifact 12 / scoop 4 / overshoot 2 /
-  stable 7。
-- 与旧 residual-detector 的分歧已记录：旧 detector 因 autocorr
-  stability 0.17 拒绝参数化；新逐周期分析显示 period_cv=0.105
-  实际相当规则 → 保留分歧供回归测试。
+目前可保留的成果：
+- contour.py: ContourSignal / PitchEvent / build_contour_signal /
+  robust_pitch_trend 基础框架；
+- events.py: detector API 与 SOURCE/neutral 独立检测框架；
+- contour_qa.py: position/slope/curvature/topology/modulation/vibrato/
+  portamento 的 QA API；
+- vibrato 已开始使用逐周期 period/depth CV，而不是把 autocorr
+  单值冒充 stability；
+- P3 已证明 note-vibrato 参数化路径在单一 source_only case 上可渲染。
 
-已修正的 f358236e 问题：residual 上检测 → 已改为 SOURCE/neutral
-分别检测后匹配；vibrato window 整段清空 → C3 保留 trend residual
-只移走 periodic component；extra_turns 单差值 → topology QA 已拆分
-matched/missing/extra/timing/amplitude/edit_distance。
+但这些结果**不得解释为 detector correctness 已验证**。
+尤其当前 P3 的 topology = 44 matched / 9 missing / 11 extra，
+已经说明“pointwise 很近”并不等于 contour shape 正确。
 
-### R3 进展 — C3 编译器（pitch_residual.compile_C3）
+### R2.1 — Detector / Matcher / QA Semantic Fix — CURRENT BLOCKER
 
-第一个真 event-aware 编译路径，已渲染验证：
-- periodic vibrato（period_cv<0.15 且 source_only）→ note vibrato
-  参数（length=65%, period=137.2ms, depth=49.9c, in/out=15）；
-- vibrato 窗口内 PITD = trend_src − trend_neu（slow trend 保留，
-  periodic 移出）；
-- 其余区域 = consensus residual（同 C2）。
+在本节完成前：
+- **禁止继续实现 portamento/scoop/ornament compiler；**
+- **禁止生成正式 detector training dataset；**
+- **禁止把 C3/P3 的低 cents 指标当 acceptance；**
+- 允许修 detector、matcher、QA、synthetic tests 与 C3 vibrato path。
 
-P3 渲染验证（runs/expr-20260921/phrases3/P3_vibrato_C3.wav）：
-- vibrato_metrics: matched, Δrate 0.0Hz, Δdepth −0.5c（note vibrato
-  与 PITD tracing 等效精度，但参数化可编辑）；
-- position med 5.0c / p95 91.6c（p95 高值来自 fcpe 在哑音边缘的
-  八度跳帧，非编译错误）；
-- topology 44 matched / 9 missing / 11 extra（与 C2 持平）。
+#### R2.1-A — segment-safe contour / trend
 
-剩余 R3 工作：portamento/scoop/ornament 的 parameterized compiler
-（目前这些事件仍在 PITD dense 里）；trend-only 与 dense residual 的
-音质对比试听；事件参数在 ustx 中的可调性验证。
+当前问题：
+- build_contour_signal 接收 `phonemes` 但 `phoneme_idx` 永远为 None；
+- robust_pitch_trend 会跨长 unvoiced gap 全局线性补值后再滤波，
+  gap 两侧的 transition / trend 会被人为连接；
+- confidence 目前只是 primary-vs-secondary raw F0 距离的粗 gate，
+  不等价于 residual-family confidence。
 
-### R2.5 — Detector dataset / training bootstrap
+必须修改：
+1. voiced region / phrase region 分段滤波，不跨 breath / long gap 插值；
+2. gap 两侧至少留 declared padding，禁止滤波核跨越不连续 voiced segment；
+3. 真正填充 `phoneme_idx`；
+4. 保存 raw / filtered / trend / modulation 的 segment provenance；
+5. 对 SOURCE、neutral、render 使用同一 segmentation contract。
 
-按 §9.12：
-- synthetic controlled corpus；
-- deterministic pseudo-label；
-- 人工 event correction；
-- song-held-out split；
-- active learning review queue。
+函数级测试：
+- 两段常音中间插 300ms silence，trend 不得跨 gap 产生斜坡；
+- silence 前后相差 500c 时，两侧 100ms 内 trend 不得被另一侧拉偏；
+- phoneme fixture 必须得到非空且时间一致的 phoneme_idx。
 
-在人工标签不足前，不训练端到端深模型。
+#### R2.1-B — vibrato detector 必须输出真实 event
 
-### R3 — True Event-Aware Curve Compiler
+当前问题：
+- detector 的 event span 实质上是 first_peak → last_peak；
+- 没有基于连续周期成立条件检测真正 start/end；
+- 缺少 depth_envelope；
+- phase 不是从第一个稳定周期拟合；
+- compiler 后续没有消费 event start/end。
 
+必须实现：
+- candidate frequency 仍可用 FFT/autocorr；
+- stable run 由连续 peak/trough/zero-crossing + modulation energy 判定；
+- start/end = stable periodic run 的真实边界，不得由固定 note 比例派生；
+- 输出 depth_envelope / cycle validity / stable_cycle_count；
+- phase 使用 event-local stable cycles；
+- event confidence 必须包含 extractor consistency、voiced coverage、
+  period_cv、depth_cv、cycle count、modulation SNR。
+
+synthetic regression 至少覆盖：
+1. vibrato 仅出现在 note 后 35%；
+2. vibrato 仅出现在 note 中间；
+3. 前半规则、后半不规则；
+4. depth ramp 20c→60c；
+5. 同 rate 但 phase 不同；
+6. 无 vibrato，仅慢趋势；
+7. 4–8Hz extractor jitter 但无连续周期。
+
+start/end MAE、rate/depth/phase error 必须分别报告，不能只看 render cents。
+
+#### R2.1-C — vibrato matching / compensation 三态必须闭环
+
+必须明确测试三个独立场景：
+
+~~~text
+A. SOURCE 有，neutral 无
+   → add source periodic component
+
+B. SOURCE 有，neutral 有
+   → apply periodic DELTA
+   → 不得直接把 source absolute depth/rate 再叠一遍
+
+C. SOURCE 无，neutral 有
+   → suppress / compensate neutral periodic component
+~~~
+
+当前 9fd398f 的问题：
+- match_vibrato_events 虽计算部分 delta，但 recommended_representation
+  主要看 SOURCE 是否规则；
+- C3 直接写 SOURCE absolute rate/depth；
+- `suppress_neutral` 在 compile_C3 中实际上未执行。
+
+验收：
+- 三个 synthetic case 都必须 render；
+- render 后重新 detect；
+- rate/depth/start/end/phase 与 SOURCE 比较；
+- B/C case 若出现重复振音或 neutral 残留，直接 fail。
+
+#### R2.1-D — compile_C3 必须消费真实 event span
+
+当前明确 bug：
+- `s_ev, e_ev = None, None` 未使用；
+- vmask 固定为 note 的后 65%；
+- note vibrato `length=65%` 不是 detector 结果。
+
+必须：
+- matcher 保留 source/neutral event 的 start_s/end_s；
+- C3 使用真实 event-local window；
+- note-vibrato length/start/in/out 尽可能由 event 参数确定；
+- OpenUtau note vibrato 无法表达的 start/phase/envelope residual，
+  必须明确留在 PITD/event curve，不得静默丢失；
+- periodic component 与 slow trend 的分离只作用于真实 event span。
+
+禁止再以“P3 恰好 rate/depth 接近”证明 C3 正确。
+
+#### R2.1-E — onset detector 修复
+
+当前问题：
+- settle 要求从某帧到窗口末尾全部落入 ±15c，遇 vibrato/NaN 很容易永不成立；
+- event end 固定接近 extremum 后约 80ms，而不是实际 settle；
+- baseline window 对短 note / 后续 transition 不稳健。
+
+必须：
+- settle 用连续 N ms / robust percentile 判定，不要求剩余全部帧成立；
+- end_s 使用真实 settle 或 declared unresolved；
+- baseline 必须来自同 note 的 stable body，且避开已知 vibrato/ornament；
+- scoop / overshoot / undershoot 分开；
+- 单帧 spike 不得触发。
+
+#### R2.1-F — portamento detector 重写 departure/arrival
+
+当前明确 bug：
+`dep_rel` 的倒序循环无论 `dev_a > 30` 还是 `<=30` 都立即 break，
+因此它没有真正找到“离开前一音高”的时刻。
+
+必须：
+- departure = 最后一次稳定处于 from-tone tolerance 后，持续离开的起点；
+- arrival = 第一次进入 to-tone tolerance 并持续成立的时刻；
+- duration = arrival - departure，不得等于固定分析窗；
+- span 使用 trajectory 本身，不含无关窗口 extrema；
+- trajectory_type 基于 normalized trajectory / slope / curvature profile，
+  不得用全窗 mean(second derivative)；
+- NaN/unvoiced 不能 `nan_to_num(..., 0)` 后参与 extrema；
+- 输出真实 slope_profile / curvature_profile；
+- stepped / irregular 必须可区分。
+
+synthetic test：
+linear / convex / concave / s_curve / stepped / gap-no-portamento，
+并检查 start/end/span/trajectory type。
+
+#### R2.1-G — ornament detector 改为滑窗 / event-local
+
+当前问题：
+- 长 note 只看 body 开头最多 350ms，后半 ornament 永远漏检；
+- event start/end 由所有 extrema 首尾决定，而不是有效 excursion；
+- vibrato 容易被误认为 ornament。
+
+必须：
+- 在整个 eligible note body 滑窗搜索；
+- 只用超过 prominence/excursion gate 的有效 extrema 定 event span；
+- 与 vibrato detector 做互斥/优先级 adjudication；
+- 输出 ordered excursion sequence + relative timing；
+- structure_review_required 必须进入 blocker lane。
+
+#### R2.1-H — artifact detector 必须以 residual-family 为核心
+
+当前实现不足：
+- 主要只看单 signal confidence + moving average spike；
+- 未实现 plan 要求的 residual disagreement / octave flip /
+  high-frequency non-periodic jitter；
+- NaN convolution 会污染局部 median。
+
+必须至少检测：
+- FCPE vs RMVPE residual disagreement；
+- octave flip；
+- isolated spike；
+- high-frequency aperiodic jitter；
+- voiced/unvoiced extractor conflict；
+- separation artifact suspect region。
+
+artifact region 必须从 event compiler 和 shape QA 的有效 mask 中隔离，
+不能等出完 p95 后再口头解释“这是 extractor 错”。
+
+#### R2.1-I — match_pitch_events 必须真正做语义匹配
+
+当前问题：
+- 实际主要只有 type + note overlap + time overlap；
+- `nucleus_times` 参数未使用；
+- direction / trajectory similarity 未进入 score；
+- 没有 ambiguous 状态。
+
+必须输出 candidate score，并使用：
+- exact note carrier；
+- nucleus/note-relative position；
+- temporal overlap；
+- direction；
+- trajectory similarity；
+- event parameter compatibility。
+
+结果必须包含：
+`matched / source_only / neutral_only / ambiguous`。
+低 margin match 进入 ambiguous，不得强配。
+
+#### R2.1-J — contour QA 必须 event-local
+
+当前问题：
+- `turning_point_metrics(..., event_windows)` 收参数但未使用；
+- `modulation_metrics(..., event_windows)` 收参数但未使用；
+- 整 phrase FFT 会把 scoop/portamento/transition 能量当 vibrato；
+- turning-point 先跨 NaN 插值，会制造不存在的连线；
+- 单纯 peak/trough 字符串 Levenshtein 信息量过低；
+- portamento_metrics 声称 slope/curvature，实际没计算。
+
+必须：
+1. 所有 shape metric 支持 event-local / voiced-segment-local mask；
+2. 不跨 unvoiced/artifact gap 插值；
+3. turning point 同时比较：
+   - count；
+   - type；
+   - relative timing；
+   - prominence/amplitude；
+   - local ordering；
+4. modulation 在 event window 内计算，并报告 rate/depth/bandwidth/
+   periodicity，不只 dominant FFT bin；
+5. portamento_metrics 真正比较 start/end、trajectory、slope profile、
+   curvature profile；
+6. 所有 QA 报告 valid-frame coverage 与 artifact exclusion ratio。
+
+#### R2.1-K — synthetic unit/regression suite 是硬门禁
+
+必须新增自动测试，至少覆盖：
+
+~~~text
+trend:
+  voiced-gap-voiced isolation
+
+vibrato:
+  source_only
+  matched source+neutral delta
+  neutral_only suppression
+  middle-only event
+  depth ramp
+  irregular modulation
+
+onset:
+  scoop
+  overshoot
+  no-event spike
+
+portamento:
+  linear / convex / concave / s_curve / stepped / no-portamento
+
+ornament:
+  early / middle / late note
+  vibrato-not-ornament
+
+matching:
+  exact match
+  ambiguous overlap
+  wrong-direction reject
+
+QA:
+  same pointwise cents but wrong topology -> MUST fail shape gate
+  lower pointwise error but extra turns -> MUST rank as regression
+~~~
+
+测试必须锁住函数行为；当前 HEAD 没有 CI/status check，R2.1 完成时至少应
+提供可重复的本地 test command，最好接 GitHub Actions。
+
+### R3 进展 — C3 编译器 — PROVISIONAL / NOT ACCEPTED
+
+9fd398f 的 C3 只证明了“note-vibrato 参数能写入并成功渲染”，
+尚未证明 event-aware semantics 正确。
+
+当前已知 invalid assumptions：
+- vibrato span 固定后 65%；
+- source/neutral matched case 没有真正按 periodic delta 编译；
+- neutral_only suppression 未实现；
+- detected start/end/phase/envelope 没有完整进入 compiler；
+- P3 topology 仍有 9 missing + 11 extra turns。
+
+因此：
+- 当前 P3 render 只保留为 regression artifact；
+- 不得作为 R3 acceptance；
+- 不得据此扩展到 portamento/scoop/ornament compiler。
+
+### R2.5 — Detector dataset / training bootstrap — BLOCKED
+
+训练方案本身保留 §9.12，但执行延后到 R2.1 通过之后。
+
+在此之前：
+- deterministic output 只能做 debug/pseudo-label 候选；
+- 不得固化为正式训练标签；
+- 不得开始 synthetic corpus 批量生产；
+- 不得训练 classifier/regressor。
+
+原因：当前 detector 的系统性 bug 会把错误 start/end/trajectory/event type
+直接写入训练集，之后模型只会学习 detector bug。
+
+### R3 — True Event-Aware Curve Compiler — BLOCKED BY R2.1
+
+R2.1 通过后再恢复：
 - 只消费已确认 event；
 - trend 与 periodic component 分离；
-- vibrato 只替换 periodic delta，不删除 slow trend；
+- vibrato 按 SOURCE-neutral periodic delta 编译；
 - phase/start/end/depth/rate 均来自 event；
 - portamento/scoop/ornament 使用各自 parameterized compiler；
 - no raw-extrema tracing；
-- shape metric 不退化。
+- shape metric 不退化；
+- 每新增一种 compiler，先有 synthetic unit test，再接真实歌曲。
 
 ### R4 — Closed-Loop Expression Correction
 
@@ -1389,6 +1648,26 @@ P3 渲染验证（runs/expr-20260921/phrases3/P3_vibrato_C3.wav）：
 - cross-extractor QA；
 - detector event accuracy；
 - 人工重点句试听。
+
+## 16.1 当前执行顺序（2026-09-21 review）
+
+严格按以下顺序执行，不并行扩 scope：
+
+~~~text
+1. R2.1-A segment-safe contour/trend
+2. R2.1-B/C/D vibrato detect → match → compile 三态闭环
+3. R2.1-J event-local QA
+4. R2.1-K synthetic regression tests
+5. R2.1-E/F/G/H/I 其余 detector + matcher
+6. 全部 synthetic tests 通过
+7. 回到 P1/P2/P3 做真实 phrase regression
+8. 人工试听确认“低 cents 高相似但线形错误”能够被 QA 抓住
+9. 才解除 R2.5 / R3 blocker
+~~~
+
+**验收原则：**
+任何实现如果让 pointwise cents 更低，但增加 extra turns、错误 vibrato、
+错误 portamento topology、非自然 wiggle，必须判 regression 并 rollback。
 
 ## 17. 建议目录
 
