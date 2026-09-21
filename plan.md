@@ -126,12 +126,12 @@ Stage G/H: DYN/BREC/VOIC/TENC + Yousa style
 - M2.5 QUALITY HOLD 的 structure candidate 不得进入 style stage；
 - 当前《年轮》base 必须与 pipeline.md 最新 verified artifact 对上。
 
-当前特别 gate：
+当前 baseline：
 
-- pipeline.md 已记录《年轮》填词后 **393 notes**；
-- 第一轮 expression 实验写的是 **392 notes**；
-- 在解释并验证这 1-note 差异前，该实验的所有 A/B/C/D 结果不得作为路线证据。
-- 如果后续确有更新后的 392-note trusted score，必须先把其来源、diff、bridge validation、semantic notes hash 回写 pipeline.md，再 supersede 393-note baseline。
+- pipeline.md 已在 2026-09-21 正式 supersede 393→392 notes；
+- trusted score = game_fix_seg0 / base_score 的 392-note 语义一致版本；
+- 58-tick 伪 "+" 碎片的 merge provenance、bridge inspect、Yousa_Normal clr=3 已写入 pipeline.md；
+- 后续 expression stage 以 392-note semantic hash 为唯一 base authority。
 
 生成 immutable：
 
@@ -320,57 +320,600 @@ dense/evidence.*
 
 后续所有简化/事件/曲线都必须能追溯回 dense artifact。
 
-## 9. Stage E — Event Decomposition
+## 9. Stage E — Event Detection / Decomposition
 
-先从 dense residual 识别事件，再决定 OpenUtau 表示。
+这一层是当前项目的核心。目标不是“把 residual 压成少量点”，而是把 SOURCE 与 neutral 的 pitch gesture 解释成可参数化事件。
 
-### 9.1 Stable intonation
+### 9.0 总原则
 
-- note body 内低频慢变；
-- 可以编译到 PITD；
-- 不跨 extractor-conflict hole 强插值。
+1. **SOURCE 与 neutral 必须分别分析，再比较事件。**
+   不能只在 `SOURCE - neutral` residual 上判断 vibrato/portamento/ornament。
+2. residual 负责告诉系统“哪里需要关注”，event detector 负责告诉系统“这是什么动作”。
+3. detector 的输出必须是结构化 event + confidence，不直接输出 PITD 点。
+4. 未通过 extractor consensus 的 frame 不允许回退到单 FCPE 继续当高置信事件证据；应 mask / low-confidence / third-F0。
+5. 第一版 detector 先 deterministic + 可解释；有足够人工标签后再训练分类/回归器。
 
-### 9.2 Onset scoop / overshoot
+### 9.1 统一数据结构
 
-- note/nucleus 附近的短时单向或反向偏移；
-- 保留其真实绝对时间；
-- 不通过 warp 消掉；
-- 不强制 note start PITD=0。
+新增：
 
-### 9.3 Portamento / transition
+~~~python
+@dataclass
+class ContourSignal:
+    times: np.ndarray
+    cents: np.ndarray
+    voiced: np.ndarray
+    confidence: np.ndarray
+    note_idx: np.ndarray
+    phoneme_idx: np.ndarray | None
+    source: str               # "source" | "neutral" | "render"
+    extractor: str            # "fcpe" | "rmvpe" | ...
 
-- 前后 note 的跨边界连续音高轨迹；
-- 允许跨 note boundary；
-- 不能因为每个 note 独立处理而截断；
-- 与 written split/structure error 区分：written score 已冻结；若证据指向 score 错误则回 written-score lane，而不是 style lane 修。
+@dataclass
+class PitchEvent:
+    type: str                 # stable/scoop/overshoot/portamento/ornament/vibrato/noise
+    note_indices: list[int]
+    start_s: float
+    end_s: float
+    confidence: float
+    params: dict
+    evidence: dict
+~~~
 
-### 9.4 Ornament
+所有 event JSON 必须保留：
+- source/neutral 各自 detector 结果；
+- detector version；
+- extractor family；
+- feature snapshot/hash；
+- confidence；
+- final matching / delta。
 
-- 短转音、倚音式连续 F0 轨迹；
-- 先判断是 written note 还是 expression；
-- structure unresolved 时不得 style 化掩盖。
+### 9.2 预处理函数
 
-### 9.5 Vibrato
+新增 `expression/contour.py`：
 
-参数化：
+~~~python
+def build_contour_signal(
+    f0_primary,
+    f0_secondary,
+    notes,
+    phonemes=None,
+    t0_s=None,
+    t1_s=None,
+) -> ContourSignal
+~~~
 
-- start/end；
-- rate Hz；
-- depth cents；
-- phase；
-- fade-in/out；
+职责：
+- FCPE/RMVPE 分别转 cents；
+- 只做 declared robust smoothing，不做自由 warp；
+- 建 voiced/confidence mask；
+- 标 note/phoneme carrier；
+- 保存 raw 与 filtered 两套 contour。
+
+~~~python
+def robust_pitch_trend(
+    contour: ContourSignal,
+    cutoff_hz: float = 3.0,
+) -> tuple[np.ndarray, np.ndarray]
+~~~
+
+返回：
+- `trend`：低频 pitch trend；
+- `modulation = contour - trend`：快速调制部分。
+
+不得用固定 250ms moving-average + 两端清零作为最终实现；边界使用 reflection / Savitzky-Golay / zero-phase low-pass 等不会人为制造大边界伪影的方法。
+
+### 9.3 Vibrato detector
+
+必须分别跑 SOURCE 与 neutral：
+
+~~~python
+def detect_vibrato_events(
+    contour: ContourSignal,
+    notes,
+    rate_range_hz=(4.0, 8.5),
+    min_cycles=2.5,
+) -> list[PitchEvent]
+~~~
+
+每个 event 至少计算：
+
+~~~text
+start_s
+end_s
+rate_hz
+depth_c
+phase_rad
+depth_envelope
+periods_ms[]
+period_cv
+cycle_depths_c[]
+depth_cv
+drift_c_per_s
+periodicity_score
+confidence
+~~~
+
+检测步骤：
+
+1. 只在 voiced + extractor-consistent 长音区域搜索；
+2. 对 raw contour 做稳健 trend/modulation 分解；
+3. 用局部 autocorrelation / FFT 只做候选频率发现；
+4. **真正的 period stability 必须由相邻 peak/zero-crossing 的周期序列计算**：
+   `period_cv = std(periods) / mean(periods)`；
+5. depth 用逐 cycle peak-to-trough / 2 统计，不用单一 p90(abs()) 代替；
+6. phase 从 event 第一个稳定周期拟合；
+7. start/end 通过 modulation energy + 连续周期成立位置检测，不能由固定 note 比例派生；
+8. confidence 综合 extractor consistency / cycle count / period_cv / depth_cv / SNR。
+
+当前 f358236e 里的 `ac[lag]` 只能改名为 `periodicity_score`，**不得再叫 period_stability**。
+
+### 9.4 Vibrato matching / compensation
+
+~~~python
+def match_vibrato_events(
+    source_events: list[PitchEvent],
+    neutral_events: list[PitchEvent],
+    notes,
+) -> list[dict]
+~~~
+
+输出每个 note 的：
+
+~~~text
+source_vibrato
+neutral_vibrato
+match_state
+delta_rate
+delta_depth
+delta_start
+delta_end
+delta_phase
+delta_drift
+recommended_representation
+~~~
+
+关键规则：
+
+- SOURCE 有 / neutral 无 → 新增 vibrato；
+- SOURCE/neutral 都有 → 调整参数，而不是把整个 residual window 清空；
+- SOURCE 无 / neutral 有 → 需要抑制 neutral 自带 modulation；
+- 如果 source 是不规则 modulation，不要强行塞标准 OpenUtau vibrato，保留为 irregular PITD/event curve；
+- **vibrato window 中的 slow trend 继续留给 PITD**，只从 trend 上分离 periodic component。
+
+因此编译逻辑必须是：
+
+~~~text
+SOURCE gesture
+= slow trend
++ periodic vibrato component
+
+neutral gesture
+= neutral trend
++ neutral periodic component
+
+PITD 负责 trend residual
+vibrato 参数负责 periodic component delta
+~~~
+
+### 9.5 Onset scoop / overshoot detector
+
+新增：
+
+~~~python
+def detect_onset_events(
+    contour: ContourSignal,
+    notes,
+    nucleus_times,
+    pre_ms=80,
+    post_ms=180,
+) -> list[PitchEvent]
+~~~
+
+事件参数：
+
+~~~text
+type = scoop | overshoot | undershoot
+anchor = nucleus
+depth_c
+peak_time_ms
+settle_time_ms
+direction
+monotonicity
+shape = linear | ease | s_curve | irregular
+confidence
+~~~
+
+判定重点：
+- nucleus-relative；
+- 与稳定 note body baseline 比；
+- 允许先下后上 / 先上后回；
+- 单帧 spike 不得成为 event；
+- SOURCE/neutral 分别检测，再比较 delta。
+
+### 9.6 Portamento detector
+
+新增：
+
+~~~python
+def detect_portamento_events(
+    contour: ContourSignal,
+    notes,
+    boundary_window_ms=220,
+) -> list[PitchEvent]
+~~~
+
+跨相邻 note boundary 分析：
+
+~~~text
+from_note
+to_note
+start_rel_prev_end_ms
+end_rel_next_start_ms
+span_cents
+duration_ms
+direction
+trajectory_type = linear | convex | concave | s_curve | stepped | irregular
+slope_profile
+curvature_profile
+confidence
+~~~
+
+必须使用真实 SOURCE contour 识别“什么时候开始滑、什么时候到达”，不是把整个 boundary window 交给 residual simplifier。
+
+### 9.7 Ornament detector
+
+新增：
+
+~~~python
+def detect_ornament_events(
+    contour: ContourSignal,
+    notes,
+    max_duration_ms=350,
+) -> list[PitchEvent]
+~~~
+
+识别：
+- short turn；
+- mordent-like up/down；
+- grace-like excursion；
+- brief multi-peak gesture。
+
+至少输出：
+- excursion sequence；
+- peak/valley count；
+- relative intervals；
+- duration；
+- return-to-baseline 状态；
+- confidence。
+
+如果形状更像 written note 而不是 expression，必须返回 `structure_review_required`，不能 style lane 自动吞掉。
+
+### 9.8 Stable intonation detector
+
+新增：
+
+~~~python
+def detect_stable_trend(
+    contour: ContourSignal,
+    notes,
+    excluded_events,
+) -> list[PitchEvent]
+~~~
+
+只在扣除：
+- onset；
+- portamento；
+- ornament；
+- vibrato；
+
+之后的 voiced body 上提取慢变 trend。
+
+输出可用：
+- piecewise cubic / low-order spline control；
+- start/end cents；
+- max deviation；
 - drift；
 - confidence。
 
-稳定周期事件优先编译到 note vibrato 或明确的 periodic representation；非周期余量留 PITD。
+### 9.9 Noise / extractor-artifact detector
 
-### 9.6 Timing/phoneme mismatch
+新增：
 
-如果差异本质是 voiced onset/release 时间不同，而不是同一时刻的音高偏差：
+~~~python
+def detect_artifact_regions(
+    source_fcpe,
+    source_rmvpe,
+    neutral_fcpe,
+    neutral_rmvpe,
+    contour_features,
+) -> list[PitchEvent]
+~~~
 
-- 不用 PITD 修；
-- 记录为 timing/phoneme/renderer event；
-- 后续另开 lane 调 duration/phoneme timing/variance，且不得越过 Stage A written-score contract。
+重点抓：
+- FCPE/RMVPE residual disagreement；
+- 单/双帧尖刺；
+- octave flip；
+- 高频无周期 jitter；
+- separation artifact 对 F0 的局部污染。
+
+artifact event 不进入 PITD/vibrato；必要时 third-F0 或人工 review。
+
+### 9.10 Event matching
+
+SOURCE 与 neutral 都完成 event detection 后：
+
+~~~python
+def match_pitch_events(
+    source_events,
+    neutral_events,
+    notes,
+    nucleus_times,
+) -> list[dict]
+~~~
+
+匹配依据：
+- note identity；
+- event type；
+- nucleus/note-relative position；
+- overlap；
+- direction；
+- trajectory similarity。
+
+输出：
+- matched；
+- source_only；
+- neutral_only；
+- ambiguous。
+
+之后才允许计算 expression delta。
+
+### 9.11 Contour QA 函数
+
+新增 `expression/contour_qa.py`：
+
+~~~python
+def contour_position_metrics(source, render, mask) -> dict
+def contour_slope_metrics(source, render, mask, smooth_ms=30) -> dict
+def contour_curvature_metrics(source, render, mask, smooth_ms=40) -> dict
+def turning_point_metrics(source, render, event_windows) -> dict
+def modulation_metrics(source, render, event_windows) -> dict
+def vibrato_metrics(source_events, render_events) -> dict
+def portamento_metrics(source_events, render_events) -> dict
+~~~
+
+turning-point 输出必须拆成：
+
+~~~text
+matched_turns
+missing_turns
+extra_turns
+turn_timing_error_ms
+turn_amplitude_error_c
+sequence_edit_distance
+~~~
+
+禁止再用单一：
+`render_turns - source_turns`
+来代表好坏。
+
+### 9.12 Detector 的训练方案
+
+第一阶段不要直接训练端到端“音频→曲线”模型。训练目标只能是：
+
+~~~text
+contour / acoustic features
+→ event class
+→ event parameters
+→ confidence
+~~~
+
+而不是：
+~~~text
+audio → 几百个 PITD 点
+~~~
+
+#### Phase T0 — Deterministic bootstrap（当前）
+
+先用 §9.3–§9.9 的确定性 detector 产生 pseudo-label。
+
+目标不是直接追求全自动准确，而是快速得到可检查的数据集。
+
+保存：
+
+~~~text
+training/events/<song>/<note_or_boundary>.npz
+training/events/<song>/<note_or_boundary>.json
+training/review_queue.json
+~~~
+
+每个 sample 包含：
+- SOURCE raw/filtered F0（FCPE+RMVPE）；
+- neutral raw/filtered F0；
+- residual families；
+- RMS / voicing；
+- note / phoneme / nucleus context；
+- pseudo event label；
+- event parameters；
+- detector confidence；
+- render candidate；
+- 人工 revision 状态。
+
+#### Phase T1 — Synthetic controlled corpus
+
+这是最重要的低成本 ground-truth 来源。
+
+用 Yousa/OpenUtau 自己生成受控事件：
+
+~~~text
+neutral score
++ 已知 scoop(depth,duration,shape)
++ 已知 portamento(start,end,trajectory)
++ 已知 vibrato(rate,depth,phase,start,envelope)
++ 已知 ornament sequence
+→ render wav
+~~~
+
+因为输入参数已知，所以天然得到 exact ground truth。
+
+需要随机覆盖：
+- 不同音高；
+- note duration；
+- 相邻音程；
+- vowel/phoneme；
+- 5 种 color；
+- dynamics；
+- vibrato rate/depth/phase；
+- scoop/portamento 曲线族；
+- 少量噪声/分离伪影模拟。
+
+但 synthetic corpus 只能教 detector “OpenUtau 可表达的事件是什么样”，不能替代真人分布。
+
+#### Phase T2 — Human SOURCE pseudo-label + 人工校正
+
+对原唱歌曲运行 deterministic detector，自动挑：
+- 高置信正样本；
+- 高置信负样本；
+- detector disagreement；
+- 模型最不确定样本；
+- 用户试听认为“不自然”的重点区。
+
+人工 review UI 每次只需要选：
+
+~~~text
+event type:
+  none / stable / scoop / overshoot / portamento / ornament / vibrato / artifact
+
+shape:
+  natural / too_flat / too_wiggly / wrong_shape
+
+必要参数修正:
+  start/end
+  depth
+  rate
+  phase
+  trajectory
+~~~
+
+不要要求人工逐点画线。
+
+#### Phase T3 — 训练 v1 classifier/regressor
+
+在数据量较小时，优先使用可解释模型，不先上大网络。
+
+推荐顺序：
+
+1. Gradient Boosted Trees / LightGBM/XGBoost（如果项目不想加外部依赖，可先 sklearn HistGradientBoosting）；
+2. 当人工标注达到数千 event window，再考虑 1D TCN/ConvNet；
+3. 暂不训练 Transformer/LLM 做底层 contour detector。
+
+输入 feature 建议：
+
+~~~text
+duration
+note interval
+relative position
+source/neutral trend stats
+slope stats
+curvature stats
+turning-point sequence
+modulation spectrum 3–12Hz
+autocorr peaks
+period sequence
+depth sequence
+FCPE/RMVPE disagreement
+voiced coverage
+RMS envelope
+phoneme class
+~~~
+
+输出采用多任务：
+
+~~~text
+classification head:
+  event type
+
+regression heads:
+  start/end
+  depth
+  rate
+  phase
+  drift
+  trajectory coefficients
+
+confidence/calibration head
+~~~
+
+损失：
+
+~~~text
+L =
+  CE_or_focal(event_class)
++ lambda1 * masked_Huber(parameters)
++ lambda2 * contour_reconstruction_loss
++ lambda3 * topology_loss
+~~~
+
+其中 parameter loss 只在相应 event type 上启用。
+
+#### Phase T4 — 数据划分必须按 song/singer 隔离
+
+禁止随机按 frame/window 打散 train/val/test，因为同一首歌相邻片段高度泄漏。
+
+至少：
+
+~~~text
+train: songs A/B/C...
+val:   unseen songs
+test:  unseen songs
+~~~
+
+后续若扩 singer：
+- singer-held-out test；
+- song-held-out test；
+- Yousa synthetic 与 human SOURCE 分别报指标。
+
+#### Phase T5 — Active learning
+
+每一轮模型只优先送人工检查：
+
+- confidence 最低；
+- detector vs model 不一致；
+- FCPE vs RMVPE residual 不一致；
+- contour QA 很好但用户听感差；
+- contour QA 很差但 pointwise cents 很好；
+- 新的 event shape cluster。
+
+这样人工标注集中在真正有价值的 hard cases。
+
+#### Phase T6 — Acceptance
+
+分类：
+- macro F1；
+- per-class precision/recall；
+- confusion matrix。
+
+参数：
+- start/end MAE ms；
+- depth MAE cents；
+- rate MAE Hz；
+- phase circular error；
+- period/depth CV error；
+- portamento trajectory slope/curvature error。
+
+最终 render：
+- position；
+- slope；
+- curvature；
+- topology；
+- modulation；
+- cross-extractor；
+- 人工 A/B。
+
+**训练集上的低 cents 不构成通过；必须在 unseen song 的 render 后 shape QA + 人工试听通过。**
+
+
+## 10. Stage F — Event-Aware Curve Compilation
 
 ## 10. Stage F — Event-Aware Curve Compilation
 
@@ -718,72 +1261,78 @@ natural / unnatural
 
 ## 16. 实施里程碑
 
-### R0 — Baseline integrity reset / formal close
+### R0 — Baseline integrity reset  ✅ CLOSED
 
-b5decb6 工作流已报告 G0–G4，但 Git authority 仍需正式闭环：
+f358236e 已完成：
+- pipeline.md 正式 supersede 393→392；
+- game_fix_seg0/base_score 语义一致；
+- bridge inspect 通过；
+- Yousa_Normal clr=3 per-phoneme 固化。
 
-- 392 vs pipeline verified 393 的 exact 1-note merge 必须回写 pipeline.md；
-- 提交 superseding trusted score hash/note count；
-- Yousa_Normal per-phoneme clr contract 固化；
-- SOURCE/neutral project-time 与 bridge manifest 固化。
+### R1 — Fixed-Time Dense Residual  ✅ measurement path
 
-在 pipeline.md 未正式 supersede 393 baseline 前，不把 G0 标为 FROZEN。
-
-### R1 — Fixed-Time Dense Residual  ✅ measurement prototype
-
-b5decb6 已实现：
-
+已完成：
 - no DTW / lag / warp；
-- same-time dense residual；
-- FCPE + RMVPE raw conflict observation；
+- FCPE + RMVPE residual families；
+- residual consensus；
 - frame-state mask；
 - dense artifact；
-- C0/C1 render prototype。
+- cross-extractor 基础验证。
 
-但当前结论只能是：
+但：
+- 低 pointwise cents 仍不能代表 contour/perceptual success。
 
-~~~text
-fixed-time residual measurement: PASS
-direct residual → PITD quality: NOT ACCEPTED
-3–4c median quality claim: INVALID
-C1 event-aware claim: FALSE / prototype only
-~~~
+### R2 — Detector/Contour QA 重构 ← CURRENT QUALITY BLOCKER
 
-R1 下一补丁必须加入 residual-consensus 与 cross-extractor evaluation。
+当前 f358236e 的问题：
+- detect_vibrato 在 residual 上检测，而不是 SOURCE/neutral 分别检测；
+- ac[lag] 被误称 period_stability；
+- inconsistent frame 会 fallback 到单 FCPE；
+- vibrato window 整段 PITD 被清空，slow trend 丢失；
+- start/end/phase 尚未真实检测；
+- extra_turns 单差值不能区分 over-tracing 与 under-tracing。
 
-### R2 — Contour QA + Event Decomposition ← CURRENT QUALITY BLOCKER
+R2 必须实现 §9 的函数：
+- build_contour_signal；
+- robust_pitch_trend；
+- detect_vibrato_events；
+- match_vibrato_events；
+- detect_onset_events；
+- detect_portamento_events；
+- detect_ornament_events；
+- detect_stable_trend；
+- detect_artifact_regions；
+- match_pitch_events；
+- contour QA 全套函数。
 
-- slope metric；
-- curvature metric；
-- turning-point/topology metric；
-- modulation spectrum / local periodicity；
-- residual consensus；
-- onset scoop / overshoot；
-- portamento；
-- ornament；
-- vibrato；
-- timing/phoneme mismatch；
-- event JSON schema。
+### R2.5 — Detector dataset / training bootstrap
 
-先用 P1/P2/P3 证明：机器能区分“点位很近但形状不对”。
+按 §9.12：
+- synthetic controlled corpus；
+- deterministic pseudo-label；
+- 人工 event correction；
+- song-held-out split；
+- active learning review queue。
+
+在人工标签不足前，不训练端到端深模型。
 
 ### R3 — True Event-Aware Curve Compiler
 
-- 只消费已分类 event；
-- vertical-cent error simplifier；
-- 不保护所有 raw extrema/steep points；
-- event keypoint protection；
-- no forced-zero note boundaries；
-- dense→event→compiled QA；
+- 只消费已确认 event；
+- trend 与 periodic component 分离；
+- vibrato 只替换 periodic delta，不删除 slow trend；
+- phase/start/end/depth/rate 均来自 event；
+- portamento/scoop/ornament 使用各自 parameterized compiler；
+- no raw-extrema tracing；
 - shape metric 不退化。
 
-### R4 — Closed-Loop PITD
+### R4 — Closed-Loop Expression Correction
 
-- neutral → residual → event → compile → render → remeasure；
+- neutral → detect SOURCE/neutral events → match → delta → compile → render；
+- render 后重新 detect/QA；
 - 1–3 iteration bounded update；
-- objective 同时包含 position + shape；
-- 禁止为了压低 median cents 增加无意义曲线抖动；
-- per-phrase rollback。
+- objective = position + slope + curvature + topology + modulation；
+- pointwise cents 下降但 shape 变差时 rollback。
 
 ### R5 — Other Expression Lanes
 
@@ -809,12 +1358,12 @@ R1 下一补丁必须加入 residual-consensus 与 cross-extractor evaluation。
 ### R8 — Full-Song Acceptance
 
 完整《年轮》：
-
 - base score 不被 expression stage 改坏；
 - neutral / dense / events / compiled / final 全部可追踪；
 - bridge reopen/render；
 - pointwise + contour-shape QA；
 - cross-extractor QA；
+- detector event accuracy；
 - 人工重点句试听。
 
 ## 17. 建议目录
@@ -826,6 +1375,8 @@ src/agent2utau/
     pitch_residual.py      # fixed-time dense residual
     frame_state.py
     events.py
+    contour_qa.py
+    detector_features.py
     vibrato.py
     portamento.py
     dynamics.py
@@ -834,6 +1385,13 @@ src/agent2utau/
     simplify.py            # vertical-cent reconstruction error
     compile_ustx.py
     controller.py
+
+training/
+  events/
+  synthetic/
+  labels/
+  models/
+  review_queue.json
 
 schemas/
   expression_dense.schema.json
@@ -1039,4 +1597,8 @@ consensus-generated → both evaluation
 11. QA 同时覆盖 pitch position、slope、curvature、turning-point/topology、modulation structure；
 12. 生成与评价至少存在 cross-extractor 验证，不允许同一 extractor 的自评分单独 PASS；
 13. vibrato / portamento / ornament 等主要 gesture 以 event 结构验证，不以逐帧 cents 最低为唯一目标；
-14. 人工试听与机器指标冲突时，必须形成可解释的 metric-blind-spot artifact，而不是用低 cents 分数覆盖听感。
+14. 人工试听与机器指标冲突时，必须形成可解释的 metric-blind-spot artifact，而不是用低 cents 分数覆盖听感；
+15. SOURCE 与 neutral 的 vibrato/portamento/onset/ornament 必须分别检测再匹配，不允许只在 residual 上直接分类；
+16. vibrato 至少具有真实 start/end/rate/depth/phase/period_cv/depth_cv，而不是用 autocorr 单值代替稳定性；
+17. event detector 的训练必须使用 song-held-out validation/test，并保留 synthetic 与 human 两套指标；
+18. 模型只预测 event/parameters/confidence，不直接端到端生成数百 PITD 点。
