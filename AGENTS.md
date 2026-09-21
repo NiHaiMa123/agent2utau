@@ -1445,3 +1445,40 @@ Final Integrity Patch (`5c54284`, remote CI run 35227944705, 175 passed):
   cosmetic). AP breaths ARE transferable (consistent convention).
 - Observed (lines 0:2): baseline med 55c/≤100c .91 vs pitd med 44.2c/.917 —
   pitd won. On 0:4 earlier: baseline ≤100c .75 vs pitd .80 (pitd chosen).
+
+## M5 F0→pitd ruleset (verified by listening on 花海 vs 白烁 hand-tuned)
+
+Pipeline: separated-vocal fcpe F0 -> note-relative cents (transposed songs:
+sung_tone = tone - shift; 花海+4 needs -4, audio aligns to wave-part pos
+1142 ticks). Per note, in order:
+
+1. Drop |dev|>1200c frames; skip note if <40% voiced or |median|>400c.
+2. median_filter(size=5) despeckle: kills <=2-frame spikes, keeps >=3-frame
+   real slides. NEVER threshold-vs-median for removal — that deleted real
+   portamento frames while keeping harmonic-flicker fakes (反向错误).
+3. gaussian sigma=60ms global; +sigma=100ms extra on body (15-85%) of
+   notes >=300ms with 80ms crossfades at seams (kills irregular tremble).
+4. Recenter body (15-85% median -> 0, clamp +-100c). Do this BEFORE any
+   injected dip — an injected dip contaminating the median caused a fake
+   +90c shift + W-wobble (the "天" bug).
+5. Plateau snap: body 25-70% pulled 50% toward plateau P = median(55-90%).
+   Singers drift through whole notes; tuner holds plateaus.
+6. Tail release lift: last 20% gradual decay lifted to >=P-60c ONLY when
+   next gap >=150ms or next is breath mark — dips before a syllable are
+   articulation needles, keep them.
+7. Tail portamento ramp: last 120ms raw extremum >150c toward next tone
+   -> linear ramp over last 80ms (median smoothing shrinks real slides).
+8. Synthetic onset scoop (-170c, trough ~75ms, 130ms wide, min() only):
+   inject ONLY when legato gap<80ms, prev note is not a breath mark, the
+   FINAL curve head still lacks a dip (>-120c), AND raw head has no
+   gesture (max<+100c — dip under a real overshoot = "憋气喷出" wobble).
+9. Gap bridges: voiced frames in <800ms gaps drawn relative to NEXT note,
+   |dev|<600c, sigma=60ms smoothed.
+
+Findings: 白烁 pitd vs real F0 median |diff| only 40c — hand-tuning IS
+stylized F0 transcription (needles, scoops, 6-7Hz vibrato all real). His
+bodies center ~0 (never copy singer flatness). His roughness is coarser
+(10c/step, sparse points) vs raw f0 (6c/step, 10ms jitter) — dense raw
+points rendered = tremble. pitd xs must be strictly increasing — dedupe
+AFTER int conversion or the piano-roll editor crashes on open. Deleting
+note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
