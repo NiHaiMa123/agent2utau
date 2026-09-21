@@ -35,7 +35,7 @@ def _fill_runs(y, mask):
     """Interpolate interior holes inside each valid run only."""
     out = y.copy()
     for lo, hi in _seg_runs(mask):
-        seg = y[lo:hi]
+        seg = y[lo:hi].copy()
         ok = ~np.isnan(seg)
         if ok.sum() >= 2:
             seg[~ok] = np.interp(np.flatnonzero(~ok),
@@ -262,10 +262,16 @@ def modulation_metrics(source, render, mask=None, event_windows=None,
 
 def _smooth_ms(y, g, ms):
     k = max(1, int(round(ms / 1000.0 / HOP_S)))
+    if k < 2 or len(y) < 3:
+        return y
+    k = min(k, len(y))
+    if k % 2 == 0:
+        k = max(1, k - 1)
     if k < 2:
         return y
-    ker = np.ones(k) / k
-    return np.convolve(y, ker, mode="same")
+    pad = k // 2
+    padded = np.pad(y, (pad, pad), mode="edge")
+    return np.convolve(padded, np.ones(k) / k, mode="valid")
 
 
 def vibrato_metrics(source_events, render_events):
