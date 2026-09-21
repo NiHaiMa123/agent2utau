@@ -251,15 +251,46 @@ residual_cents(t)
 - 至少两个独立 F0 family 对 octave/voicing 没有 material conflict；
 - frame 已绑定到合法 note/lyric carrier。
 
-### 8.1 F0 evidence
+### 8.1 F0 evidence：以 residual consensus 为主
 
-至少：
+至少同时计算：
 
 - FCPE；
 - RMVPE；
 - third-F0 只处理冲突区。
 
-F0 family 之间按 pipeline.md 的 evidence-independence 规则处理。
+不能只检查 FCPE_source 与 RMVPE_source 是否差到一个八度。真正准备施加的是 residual，因此必须分别计算：
+
+~~~text
+r_fcpe(t) = FCPE_source(t) - FCPE_neutral(t)
+r_rmvpe(t) = RMVPE_source(t) - RMVPE_neutral(t)
+~~~
+
+然后判断两个 extractor 对“需要补多少”是否一致。
+
+例如：
+
+~~~text
+r_fcpe = +34c
+r_rmvpe = +29c
+→ residual_consistent
+
+r_fcpe = +110c
+r_rmvpe = +18c
+→ extractor_sensitive / 不得直接写 PITD
+~~~
+
+当前 prototype 的 300c raw-F0 disagreement threshold 只够抓严重 octave/conflict，**不足以作为 expression transfer 的可信度 gate**。
+
+v1 必须保存每帧：
+
+- r_fcpe；
+- r_rmvpe；
+- residual disagreement；
+- consensus residual；
+- confidence/state。
+
+F0 family 之间继续服从 pipeline.md 的 evidence-independence 规则；同一 extractor 既生成控制量又评价自己的结果时，不得把分数当独立验证。
 
 ### 8.2 不把所有 residual 都当 PITD
 
@@ -343,22 +374,46 @@ dense/evidence.*
 
 ## 10. Stage F — Event-Aware Curve Compilation
 
-### 10.1 不再使用当前 RDP 的混合单位几何距离
+### 10.0 Dense residual 是 observation，不是最终控制曲线
 
-当前 prototype 把“秒”和“cent”放进二维欧氏距离，再声称 eps=8c，单位不成立。
+fixed-time residual 成立，只表示“这一时刻 SOURCE 与 neutral 在 F0 上差多少”。
 
-新简化器必须定义为**纵向 cents 重建误差**：
+**禁止把 dense residual 本身视为应该逐点复制的 ground truth。**
+
+尤其当前 b5decb6 prototype 的 C1 仍只是 feature-preserving simplifier：
+
+- 保留所有局部极值；
+- 10ms 内变化 >40c 的 steep point 强制保留；
+- 再按 vertical cents error 压缩。
+
+这会同时保护真正的 vibrato/portamento 和 FCPE jitter/分离伪影/短促错误，因此当前 C1 **不得称为真正 event-aware**，也不得进入生产 acceptance。
+
+真正的 Stage F 必须消费 Stage E 的 event JSON：
 
 ~~~text
-error_i = |dense_residual(t_i) - interpolated_compiled_curve(t_i)|
+dense observation
+→ event classification
+→ event parameters
+→ deterministic curve compiler
 ~~~
 
-验收直接约束：
+### 10.1 曲线简化必须约束纵向 cents 重建误差
+
+旧 RDP 把“秒”和“cent”放进二维欧氏距离，单位不成立；当前 vertical simplifier 修复了单位问题，但它只解决“压缩误差”，**没有解决“形状是否应该被保留”**。
+
+最终简化器应只在同一已确认 event 内工作，并定义：
+
+~~~text
+error_i = |event_target(t_i) - interpolated_compiled_curve(t_i)|
+~~~
+
+验收约束：
 
 - max / p95 cents reconstruction error；
 - event keypoint 必须保留；
 - voiced hole 不跨越填充；
-- note/phoneme transition keypoint 单独保护。
+- 不保护未分类的所有局部极值；
+- 不因单帧 steep/jitter 自动保留控制点。
 
 ### 10.2 不强制所有 note boundary 回 0
 
@@ -366,16 +421,13 @@ error_i = |dense_residual(t_i) - interpolated_compiled_curve(t_i)|
 
 portamento / scoop / overshoot / vibrato 必须允许连续跨边界或接近边界。
 
-### 10.3 初始精度
+### 10.3 形状优先于逐点贴合
 
-第一版可从：
+不能以“median cents 越低”驱动编译器增加控制点。
 
-- stable body：p95 reconstruction error ≤5–10c；
-- transition/event：保护关键 extrema/zero-crossing/phase points；
+如果增加点数只让 pointwise error 从 6c 降到 3c，却引入额外峰谷、折返或高频抖动，必须视为退化。
 
-开始做 A/B 校准。
-
-点数是结果，不是目标。
+点数是结果，不是目标；正确 event topology 与 contour shape 高于逐帧数值贴合。
 
 ## 11. Stage G — DYN / BREC / VOIC / TENC
 
@@ -509,52 +561,131 @@ PITD_2(t) = PITD_1(t) + compile(alpha * error_1(t))
 
 ## 15. QA 与接受标准
 
-### 15.1 主指标必须使用真实共同时间轴
+### 15.1 Pointwise pitch error 只是一项位置指标
 
-PITD 主指标：
+same-time cents error 保留，但解释必须严格限定为：
 
-- same-time |F0_render(t)-F0_SOURCE(t)|；
+> render 与 SOURCE 的 F0 在相同时间点上离得多远。
+
+至少记录：
+
+- median / p90 / p95 absolute cents；
 - voiced coverage；
-- octave conflict count；
-- per-event reconstruction；
-- note/phrase 分层统计。
+- octave conflict；
+- per-note / per-event 分层统计。
 
-**DTW-after-error 只能作为 diagnostic，不得作为生产优化目标。**
-否则会把 transition timing error 本身消掉。
+它**不能**单独证明两条音高线“形状相似”或“听感相似”。
 
-### 15.2 不再把 p95 frame jump 直接叫“毛糙度”
+尤其 median 会天然忽略少量但听感显著的坏区；3–4c median 不得写成“高度复刻原唱”。
 
-10ms F0 jump 会同时响应：
+### 15.2 必须新增 contour-shape metrics
 
-- 真 vibrato；
-- 真 portamento；
-- ornament；
-- extractor jitter；
-- 错误尖刺。
+QA 至少同时测四个层级：
 
-因此只能作为 anomaly feature。
+1. **position error**：当前逐帧 cents 位置误差；
+2. **slope error**：一阶差分/局部音高变化速度是否一致；
+3. **curvature error**：二阶差分/折返和弯曲方式是否一致；
+4. **modulation structure**：局部周期、频谱、峰谷拓扑是否一致。
 
-真正需要比较：
+推荐基础定义：
 
-- 与 SOURCE 对应 event 的 rate/depth/trajectory 差；
-- 高于 SOURCE 的非预期 high-frequency residual；
-- curve reconstruction error；
-- render 是否产生额外 spike。
+~~~text
+p(t) = pitch in cents
 
-### 15.3 Corr 不足以证明执行链正确
+slope(t) = Δp / Δt
+curvature(t) = Δ²p / Δt²
 
-intent vs render corr≈0.97 只能说明趋势相关。
+E_slope = robust(|slope_render - slope_source|)
+E_curve = robust(|curvature_render - curvature_source|)
+~~~
 
-还必须检查：
+计算前只做经过声明的低通/稳健去噪版本，并同时保留 raw 诊断，避免把 extractor jitter 当成真实 shape。
+
+### 15.3 Turning-point / topology QA
+
+逐个 event window 比较：
+
+- 峰数量；
+- 谷数量；
+- zero-crossing 数量；
+- 峰谷顺序；
+- 峰间距；
+- 非 SOURCE 中出现的额外 turning points。
+
+例如 SOURCE 一个平滑上拱只包含 1 peak，而 render 出现 4 peaks + 3 valleys，即使 median error 很低，也必须标记：
+
+~~~text
+extra_modulation / over_tracing
+~~~
+
+这类 topology mismatch 是当前 C1 最需要防止的问题。
+
+### 15.4 Vibrato 必须按结构评估
+
+P3/长音 vibrato 不以最低 frame jump 或最低 pointwise cents 为目标。
+
+至少比较：
+
+- start/end；
+- rate Hz；
+- depth cents；
+- cycle-to-cycle period stability；
+- depth envelope；
+- phase continuity；
+- drift；
+- waveform regularity / extra cycles。
+
+如果 render 每帧都接近 SOURCE，但周期忽快忽慢、深度乱变或多出峰谷，仍判 vibrato shape mismatch。
+
+### 15.5 Cross-extractor validation，防止“同一测量器出题又判卷”
+
+不能只做：
+
+~~~text
+FCPE residual → 生成 PITD → FCPE 评分
+~~~
+
+至少做交叉实验：
+
+~~~text
+C-F: FCPE residual 生成 → RMVPE 评价
+C-R: RMVPE residual 生成 → FCPE 评价
+C-consensus: 仅 residual-consistent 区生成 → FCPE + RMVPE 双评价
+~~~
+
+如果出现：
+
+~~~text
+FCPE→FCPE = 3c
+FCPE→RMVPE = 25c
+~~~
+
+则 3c 只能解释为 measurement/extractor overfit，不能作为质量 PASS。
+
+### 15.6 p95 frame jump 只能是 anomaly feature
+
+10ms F0 jump 同时会响应真实 vibrato、portamento、ornament、extractor jitter 和错误尖刺，不能直接命名为“毛糙度”。
+
+应改为比较：
+
+- SOURCE 中已有的 modulation；
+- render 新增的非预期 high-frequency modulation；
+- event shape mismatch；
+- extra spike / turning point。
+
+### 15.7 Corr 不足以证明执行链正确
+
+intent vs render corr≈0.97 只能说明趋势相关，还必须检查：
 
 - gain；
 - offset；
 - absolute cents error；
+- slope/curvature；
 - local transition；
 - saturation/clamp；
 - coverage。
 
-### 15.4 Neutral contract
+### 15.8 Neutral contract
 
 任何 candidate 比较前必须证明：
 
@@ -566,32 +697,67 @@ intent vs render corr≈0.97 只能说明趋势相关。
 - 同一 phrase window；
 - 不因 candidate 改 context/gain。
 
+### 15.9 人工试听是 shape/perception gate，不是兜底形式
+
+机器指标通过后仍需 phrase A/B。
+
+试听时重点记录可操作标签：
+
+~~~text
+too_many_turns
+too_wiggly
+too_flat
+wrong_vibrato_shape
+wrong_portamento_shape
+over_traced
+extra_spike
+natural / unnatural
+~~~
+
+人工听到明显异常而 pointwise metric 很好时，优先视为 QA metric blind spot，不得用低 cents 分数否定听感。
+
 ## 16. 实施里程碑
 
-### R0 — Baseline integrity reset ← CURRENT
+### R0 — Baseline integrity reset / formal close
 
-旧 expr-20260921 不能算 R0 完成。
+b5decb6 工作流已报告 G0–G4，但 Git authority 仍需正式闭环：
 
-必须先：
+- 392 vs pipeline verified 393 的 exact 1-note merge 必须回写 pipeline.md；
+- 提交 superseding trusted score hash/note count；
+- Yousa_Normal per-phoneme clr contract 固化；
+- SOURCE/neutral project-time 与 bridge manifest 固化。
 
-- 解释 392 vs verified 393 notes；
-- 重建 trusted Stage A base；
-- 重建确定为 Yousa_Normal 的 neutral；
-- 验证没有错误删除 clr per-phoneme expression；
-- 验证 SOURCE / score / neutral 的 project absolute time；
-- 固化 manifest/hash。
+在 pipeline.md 未正式 supersede 393 baseline 前，不把 G0 标为 FROZEN。
 
-### R1 — Fixed-Time Dense Residual
+### R1 — Fixed-Time Dense Residual  ✅ measurement prototype
 
-- 新建真正的 expression/pitch_residual.py；
-- 不调用 DTW / lag search / HFA warp；
-- same-time FCPE + RMVPE；
+b5decb6 已实现：
+
+- no DTW / lag / warp；
+- same-time dense residual；
+- FCPE + RMVPE raw conflict observation；
 - frame-state mask；
-- dense residual artifact；
-- 三个 phrase 跑通。
+- dense artifact；
+- C0/C1 render prototype。
 
-### R2 — Event Decomposition
+但当前结论只能是：
 
+~~~text
+fixed-time residual measurement: PASS
+direct residual → PITD quality: NOT ACCEPTED
+3–4c median quality claim: INVALID
+C1 event-aware claim: FALSE / prototype only
+~~~
+
+R1 下一补丁必须加入 residual-consensus 与 cross-extractor evaluation。
+
+### R2 — Contour QA + Event Decomposition ← CURRENT QUALITY BLOCKER
+
+- slope metric；
+- curvature metric；
+- turning-point/topology metric；
+- modulation spectrum / local periodicity；
+- residual consensus；
 - onset scoop / overshoot；
 - portamento；
 - ornament；
@@ -599,20 +765,25 @@ intent vs render corr≈0.97 只能说明趋势相关。
 - timing/phoneme mismatch；
 - event JSON schema。
 
-### R3 — Correct Curve Compiler
+先用 P1/P2/P3 证明：机器能区分“点位很近但形状不对”。
 
+### R3 — True Event-Aware Curve Compiler
+
+- 只消费已分类 event；
 - vertical-cent error simplifier；
+- 不保护所有 raw extrema/steep points；
 - event keypoint protection；
 - no forced-zero note boundaries；
-- render round-trip；
-- dense→compiled reconstruction QA。
+- dense→event→compiled QA；
+- shape metric 不退化。
 
 ### R4 — Closed-Loop PITD
 
-- neutral → residual → render → residual correction；
+- neutral → residual → event → compile → render → remeasure；
 - 1–3 iteration bounded update；
-- per-phrase rollback；
-- prove error decreases。
+- objective 同时包含 position + shape；
+- 禁止为了压低 median cents 增加无意义曲线抖动；
+- per-phrase rollback。
 
 ### R5 — Other Expression Lanes
 
@@ -642,7 +813,8 @@ intent vs render corr≈0.97 只能说明趋势相关。
 - base score 不被 expression stage 改坏；
 - neutral / dense / events / compiled / final 全部可追踪；
 - bridge reopen/render；
-- same-time QA；
+- pointwise + contour-shape QA；
+- cross-extractor QA；
 - 人工重点句试听。
 
 ## 17. 建议目录
@@ -787,50 +959,68 @@ pipeline.md verified 年轮结果：393 notes。
 - B_proto 贴近 SOURCE ≠ Expressive 已验证；
 - C_proto 失败 ≠ fixed-time residual 概念失败。
 
-### 18.3 新的第一项实际任务
+### 18.3 第二轮 fixed-time 实验状态（b5decb6）
 
-不要先试听旧 B/C。
+第二轮修正了 warp 问题，fixed-time residual measurement 本身成立；但当前报告中的 3–4c median 不能作为听感/shape 成功证据。
 
-按下面顺序重跑三个 phrase：
+原因：
 
-1. P1：稳音；
-2. P2：滑音/transition；
-3. P3：长音 vibrato。
+1. 生成控制量和评分都高度依赖同一 F0 measurement family，存在 self-scoring/measurement overfit 风险；
+2. C1 还没有真正 event decomposition，只是保留 extrema/steep point 的 vertical simplifier；
+3. pointwise median/p90 只测位置，不测曲线运动方式；
+4. median 对少量但听感显著的坏区不敏感；
+5. P3 vibrato 仍可能被当成大量 PITD 点描摹，而不是结构化 vibrato event。
 
-先做 contract gate：
+因此第二轮不得记为“residual quality confirmed”，只能记为：
 
 ~~~text
-G0 trusted score note count/hash matches pipeline
-G1 neutral confirmed Yousa_Normal
-G2 SOURCE and neutral project time aligned by construction
-G3 bridge/render manifest valid
-G4 FCPE/RMVPE frame clocks verified
+fixed-time residual framework: PASS
+dense measurement path: PASS
+direct dense residual to PITD: UNACCEPTED
+contour/perceptual similarity: UNMEASURED
 ~~~
 
-然后只生成：
+### 18.4 下一项实际任务
+
+仍使用 P1/P2/P3，但先不追求更低 median cents。
+
+必须生成并提交：
 
 ~~~text
-D = neutral
-A = legacy absolute-F0 baseline（diagnostic only）
-C0 = fixed-time dense residual, no simplification
-C1 = fixed-time event-aware compiled residual
+qa/position_metrics.json
+qa/slope_metrics.json
+qa/curvature_metrics.json
+qa/topology_metrics.json
+qa/modulation_metrics.json
+qa/cross_extractor_metrics.json
+events/*.json
+~~~
+
+实验至少包括：
+
+~~~text
+D  = neutral
+C0 = dense residual diagnostic
+C1 = current simplifier（仅 regression）
+C2 = residual-consensus + event-aware compiler
 SOURCE
 ~~~
 
-可选：
+并执行：
 
 ~~~text
-B_real = actual Expressive implementation
+FCPE-generated → RMVPE evaluation
+RMVPE-generated → FCPE evaluation
+consensus-generated → both evaluation
 ~~~
 
-但 B_real 不是 R1 的 blocker。
+第一轮 shape acceptance：
 
-第一轮验收：
-
-- P1：C1 same-time F0 error 应稳定低于 D；
-- P2：不得通过 warp 消除 transition timing；C1 应保留/改善 SOURCE transition trajectory；
-- P3：先识别 vibrato event，再比较 rate/depth/start，不以最低 frame jump 为目标；
-- C1 若不优于 D，先查 dense residual / event classification / renderer response，不进入全曲。
+- P1：不能为了压低 cents 引入额外峰谷/高频 modulation；
+- P2：transition trajectory 的 slope/curvature/topology 应比 D 更接近 SOURCE；
+- P3：必须先产生 vibrato event（rate/depth/start/period stability），再编译；禁止直接以 100+ PITD 点描 vibrato；
+- 人工试听若明确认为 C2 比 D/C1 更自然，而 pointwise cents 略差，允许 C2 胜出；
+- pointwise metric 与 contour/perceptual metric 冲突时，不得以 median cents 单独裁决。
 
 ## Definition of Done
 
@@ -845,4 +1035,8 @@ B_real = actual Expressive implementation
 7. render 后在同一时间轴重新测量并做 bounded closed-loop correction；
 8. Agent 只做少量高层事件与参数决策；
 9. 所有变化都可追踪、回滚、复现；
-10. expression stage 不破坏 pipeline.md 已验证的 written score / lyrics / timing。
+10. expression stage 不破坏 pipeline.md 已验证的 written score / lyrics / timing；
+11. QA 同时覆盖 pitch position、slope、curvature、turning-point/topology、modulation structure；
+12. 生成与评价至少存在 cross-extractor 验证，不允许同一 extractor 的自评分单独 PASS；
+13. vibrato / portamento / ornament 等主要 gesture 以 event 结构验证，不以逐帧 cents 最低为唯一目标；
+14. 人工试听与机器指标冲突时，必须形成可解释的 metric-blind-spot artifact，而不是用低 cents 分数覆盖听感。
