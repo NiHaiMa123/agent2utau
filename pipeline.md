@@ -213,6 +213,17 @@ PyYAML 解析 ustx 复核 note 数/零时长/重叠（见验证记录命令）�
 - 遗留：间奏/前奏/尾音的 GAME 误检 note 已删；`印在我`段"我"为单
   note（GAME 只检出一个 onset，HFA 词尾暗示元音持续到 23.53s，
   未做时长扩展——待听辨后定夺）。
+- **2026-09-21 基线 supersede（392 notes）**：`cover_review.ustx` 的
+  `game_fix_seg0` = `game_raw_seg0`(393) 合并一条 58-tick 伪 `+` 碎片
+  （165331，音高 62→63→62 的 60ms 闪动，非真实咬字）所得；
+  `runs/expr-20260921/expression/base_score.ustx` 的 `vocal_pipeline`
+  part 与 `game_fix_seg0` 语义 notes 完全一致（position/duration/tone/
+  lyric 逐项比对）。bridge inspect：392 notes、50 renderPhrases、
+  0 invalidNotes、0 invalidPhonemes、phonemesUpToDate。
+  Yousa_Normal = clr index 3（字母序 Bright/Classic/Cute/Normal/Whisper），
+  neutral 每音素 phoneme_expressions clr=3（3136 条）已固化。
+  自此 392-note `game_fix_seg0`/`base_score` 为本曲 trusted written
+  score，393 记录作废；M2.5 unresolved 结构候选维持不进入 style stage。
 
 ## 已验证但未纳入本流程的备选
 
