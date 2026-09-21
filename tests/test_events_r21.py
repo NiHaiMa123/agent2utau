@@ -4,10 +4,12 @@ import numpy as np
 from agent2utau.expression.contour import (
     ContourSignal, HOP_S, segment_ids)
 from agent2utau.expression.contour_qa import (
-    contour_position_metrics, turning_point_metrics)
+    contour_position_metrics, modulation_metrics, portamento_metrics,
+    turning_point_metrics)
 from agent2utau.expression.events import (
     PitchEvent, detect_onset_events, detect_ornament_events,
-    detect_portamento_events, detect_vibrato_events, match_pitch_events)
+    detect_portamento_events, detect_residual_artifact_regions,
+    detect_vibrato_events, match_pitch_events)
 
 
 def _sig(times, cents, conf=1.0):
@@ -53,6 +55,18 @@ def test_onset_overshoot_detected():
     assert len(ev) == 1 and ev[0].type == "overshoot"
 
 
+def test_onset_undershoot_detected_separately():
+    t = np.arange(0, 1.0, HOP_S)
+    cents = np.full(len(t), 6000.0)
+    nuc = 0.10
+    v = (t >= nuc + 0.04) & (t <= nuc + 0.22)
+    cents[v] += -75 * np.exp(-((t[v] - nuc - 0.09) / 0.035) ** 2)
+    ev = detect_onset_events(_sig(t, cents), [_note(0, 1.0)], {0: nuc})
+    assert len(ev) == 1
+    assert ev[0].type == "undershoot"
+    assert ev[0].start_s >= nuc - 0.08
+
+
 def test_onset_single_frame_spike_rejected():
     t = np.arange(0, 1.0, HOP_S)
     cents = np.full(len(t), 6000.0)
@@ -73,7 +87,7 @@ def _two_note_sig(slide_fn=None, gap=0.0, tone_b=64.0):
     """note A 60.0 0-0.5s, note B 64.0 0.5-1.0s (+gap)."""
     notes = [_note(0.0, 0.5, 60.0), _note(0.5 + gap, 0.5, tone_b)]
     t = np.arange(0, 1.0 + gap + HOP_S, HOP_S)
-    cents = np.where(t < 0.5, 6000.0, 6400.0)
+    cents = np.where(t < 0.5, 6000.0, tone_b * 100.0)
     if slide_fn is not None:
         cents = slide_fn(t, cents)
     sig = _sig(t, cents)
@@ -110,6 +124,41 @@ def test_portamento_convex_vs_concave():
     e2 = detect_portamento_events(*_two_note_sig(concave))[0]
     assert e1.params["trajectory_type"] == "convex"
     assert e2.params["trajectory_type"] == "concave"
+
+
+def test_portamento_downward_preserves_shape_semantics():
+    def convex_down(t, c):
+        v = (t >= 0.40) & (t <= 0.60)
+        u = (t[v] - 0.40) / 0.20
+        c[v] = 6000 - 400 * np.sqrt(u)
+        return c
+    def concave_down(t, c):
+        v = (t >= 0.40) & (t <= 0.60)
+        u = (t[v] - 0.40) / 0.20
+        c[v] = 6000 - 400 * u ** 2
+        return c
+    e1 = detect_portamento_events(
+        *_two_note_sig(convex_down, tone_b=56.0))[0]
+    e2 = detect_portamento_events(
+        *_two_note_sig(concave_down, tone_b=56.0))[0]
+    assert e1.params["direction"] == "down"
+    assert e2.params["direction"] == "down"
+    assert e1.params["trajectory_type"] == "convex"
+    assert e2.params["trajectory_type"] == "concave"
+    assert e1.params["norm_traj"][0] <= 0.05
+    assert e1.params["norm_traj"][-1] >= 0.95
+
+
+def test_portamento_s_curve_by_inflection():
+    def s_curve(t, c):
+        v = (t >= 0.40) & (t <= 0.60)
+        u = (t[v] - 0.40) / 0.20
+        smooth = 3 * u ** 2 - 2 * u ** 3
+        c[v] = 6000 + 400 * smooth
+        return c
+    ev = detect_portamento_events(*_two_note_sig(s_curve))
+    assert len(ev) == 1
+    assert ev[0].params["trajectory_type"] == "s_curve"
 
 
 def test_portamento_stepped():
@@ -163,6 +212,31 @@ def test_ornament_vibrato_excluded():
     assert vib                            # vibrato detected first
     orn = detect_ornament_events(sig, notes, exclude_events=vib)
     assert orn == []                      # not double-reported as ornament
+
+
+def test_ornament_exclusion_does_not_collapse_time_gap():
+    t = np.arange(0, 1.2 + HOP_S, HOP_S)
+    cents = np.full(len(t), 6000.0)
+    cents += 65 * np.exp(-((t - 0.36) / 0.025) ** 2)
+    cents -= 65 * np.exp(-((t - 0.74) / 0.025) ** 2)
+    sig = _sig(t, cents)
+    notes = [_note(0, 1.2)]
+    hole = PitchEvent("vibrato", [0], 0.45, 0.65, 1.0)
+    # Each side has only one qualifying extremum. Removing the middle span
+    # must not splice the two sides into a fake two-extremum ornament.
+    assert detect_ornament_events(sig, notes, exclude_events=[hole]) == []
+
+
+def test_residual_family_disagreement_is_artifact():
+    t = np.arange(0, 0.5, HOP_S)
+    r1 = np.zeros(len(t))
+    r2 = np.zeros(len(t))
+    r2[15:21] = 140.0
+    dense = {"times": t, "r_fcpe": r1, "r_rmvpe": r2,
+             "note_idx": np.zeros(len(t), dtype=int)}
+    ev = detect_residual_artifact_regions(dense)
+    assert ev
+    assert "residual_disagreement" in ev[0].params["artifact_kinds"]
 
 
 # ------------------------------------------------------------ matching
@@ -219,3 +293,33 @@ def test_qa_lower_cents_extra_turns_is_regression():
     pb = contour_position_metrics(src, ren_b, mask=mask)
     assert pb["med_c"] < pa["med_c"]            # b wins pointwise...
     assert tb["extra_turns"] > ta["extra_turns"]  # ...but is a regression
+
+
+def test_modulation_event_window_honours_artifact_mask():
+    g = np.arange(0, 1.0, HOP_S)
+    src = np.full(len(g), 6000.0)
+    ren = src.copy()
+    bad = (g >= 0.30) & (g <= 0.70)
+    ren[bad] += 45 * np.sin(2 * np.pi * 6.5 * (g[bad] - 0.30))
+    mask = ~bad
+    q = modulation_metrics(src, ren, mask=mask,
+                           event_windows=[(0, len(g))])
+    # The excluded wiggle must not be bridged back into the event metric.
+    assert q["windows"][0]["render"] is None
+
+
+def test_portamento_metrics_resample_unequal_profile_lengths():
+    a = PitchEvent("portamento", [0, 1], 0.4, 0.6, 1.0,
+                   params={"from_note": 0, "trajectory_type": "linear",
+                           "span_cents": 400,
+                           "slope_profile": [1, 1, 1, 1],
+                           "curv_profile": [0, 0, 0, 0]})
+    b = PitchEvent("portamento", [0, 1], 0.41, 0.61, 1.0,
+                   params={"from_note": 0, "trajectory_type": "linear",
+                           "span_cents": 395,
+                           "slope_profile": [1, 1, 1, 1, 1, 1, 1],
+                           "curv_profile": [0, 0, 0, 0, 0, 0, 0]})
+    q = portamento_metrics([a], [b])[0]
+    assert "slope_profile_rmse" in q
+    assert "curv_profile_rmse" in q
+    assert q["slope_profile_rmse"] == 0.0
