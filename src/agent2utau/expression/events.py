@@ -178,8 +178,7 @@ def detect_vibrato_events(contour: ContourSignal, notes,
 
 # ------------------------------------------------- §9.5 onset scoop/overshoot
 def _settle_time(t, dev, ei, tol_c=15.0, hold_ms=60):
-    """First time after extremum `ei` where |dev| stays < tol for a
-    continuous hold_ms run (nan breaks the run). None = unresolved."""
+    """First time after extremum where |dev| stays inside tolerance."""
     need = max(1, int(round(hold_ms / 1000.0 / HOP_S)))
     run = 0
     for j in range(ei, len(t)):
@@ -190,6 +189,31 @@ def _settle_time(t, dev, ei, tol_c=15.0, hold_ms=60):
         if run >= need:
             return float(t[j - need + 1])
     return None
+
+
+def _gesture_start_time(t, dev, ei, tol_c=15.0, hold_ms=30):
+    """Last sustained baseline stay before the onset extremum.
+
+    Returns the first frame after that stay; falls back to first valid frame.
+    """
+    need = max(1, int(round(hold_ms / 1000.0 / HOP_S)))
+    inside = (~np.isnan(dev)) & (np.abs(dev) < tol_c)
+    runs = _sustained(inside[:max(ei, 1)], need)
+    if runs:
+        j = min(runs[-1][1], len(t) - 1)
+        return float(t[j])
+    valid = np.flatnonzero(~np.isnan(dev[:ei + 1]))
+    return float(t[valid[0]]) if len(valid) else float(t[0])
+
+
+def _count_turns_valid(y):
+    """Count extrema without converting missing frames to zero."""
+    n = 0
+    valid = ~np.isnan(y)
+    for lo, hi in _sustained(valid, 1):
+        if hi - lo >= 3:
+            n += int(np.sum(_peaks_troughs(y[lo:hi]) != 0))
+    return n
 
 
 def detect_onset_events(contour: ContourSignal, notes, nucleus_times,
@@ -248,14 +272,18 @@ def detect_onset_events(contour: ContourSignal, notes, nucleus_times,
         dmax_i = int(np.nanargmax(early))
         dmin, dmax = med3[dmin_i], med3[dmax_i]
         typ = None
-        if dmin < -30 and t[dmin_i] <= nuc + 0.08:
+        # Early negative approach is a scoop; a later negative excursion
+        # after the nucleus is an undershoot. Keep them distinct.
+        if dmin < -30 and t[dmin_i] <= nuc + 0.06:
             typ = "scoop"
+        elif dmin < -30 and t[dmin_i] <= nuc + 0.12:
+            typ = "undershoot"
         elif dmax > 40 and t[dmax_i] <= nuc + 0.08:
             typ = "overshoot"
         if typ is None:
             continue
-        ei = dmin_i if typ == "scoop" else dmax_i
-        depth = float(-dmin if typ == "scoop" else dmax)
+        ei = dmin_i if typ in ("scoop", "undershoot") else dmax_i
+        depth = float(-dmin if typ in ("scoop", "undershoot") else dmax)
         peak_ms = float((t[ei] - nuc) * 1000)
         settle_s = _settle_time(t, med3, ei)
         ev_end = settle_s if settle_s is not None else float(t[-1])
@@ -263,12 +291,13 @@ def detect_onset_events(contour: ContourSignal, notes, nucleus_times,
         post = post[~np.isnan(post)]
         mono = float(np.mean(np.diff(post) * (1 if typ == "scoop" else -1)
                              > -5)) if len(post) > 1 else 1.0
-        n_turn = int(np.sum(_peaks_troughs(np.nan_to_num(dev)) != 0))
+        n_turn = _count_turns_valid(med3)
         shape = "irregular" if n_turn > 3 else \
             ("linear" if mono > 0.8 else "ease")
+        ev_start = _gesture_start_time(t, med3, ei)
         conf = min(1.0, 0.3 + depth / 200.0 + ok.mean() * 0.3)
         out.append(PitchEvent(
-            typ, [i], float(t[0]), float(ev_end),
+            typ, [i], float(ev_start), float(ev_end),
             round(conf, 3),
             params={"anchor_nucleus_s": round(float(nuc), 3),
                     "depth_c": round(depth, 1),
@@ -276,7 +305,8 @@ def detect_onset_events(contour: ContourSignal, notes, nucleus_times,
                     "settle_time_ms": (round((settle_s - nuc) * 1000, 1)
                                        if settle_s is not None else None),
                     "baseline_c": round(base, 1),
-                    "direction": "down-up" if typ == "scoop" else "up-down",
+                    "direction": ("down-up" if typ in ("scoop", "undershoot")
+                                  else "up-down"),
                     "monotonicity": round(mono, 2), "shape": shape},
             evidence={"extractor": contour.extractor}))
     return out
@@ -413,74 +443,68 @@ def detect_ornament_events(contour: ContourSignal, notes,
                            min_excursion_c=40.0, min_extrema=2):
     """Short multi-extremum gestures anywhere in the note body.
 
-    Sliding window over the whole eligible body (onset/settle and
-    vibrato event spans excluded); event span is bounded by the first
-    and last extremum that actually exceed min_excursion_c.
+    Excluded event spans remain real gaps: the detector works on contiguous
+    eligible runs and never compresses time across a removed vibrato/onset.
     """
     trend, _ = robust_pitch_trend(contour, cutoff_hz=2.0)
+    residual = contour.cents - trend
     out = []
     win = int(round(win_ms / 1000.0 / HOP_S))
     for i, n in enumerate(notes):
         s = n["abs_start_s"] + min(0.10, n["dur_s"] * 0.15)
         e = n["abs_start_s"] + n["dur_s"] - 0.04
-        m = (contour.times >= s) & (contour.times <= e)
-        # exclude frames belonging to other events (vibrato etc.)
+        eligible = (contour.times >= s) & (contour.times <= e) & \
+                   contour.voiced & ~np.isnan(residual)
         for ev in (exclude_events or []):
             if i in ev.note_indices:
-                m &= ~((contour.times >= ev.start_s)
-                       & (contour.times <= ev.end_s))
-        t = contour.times[m]
-        if len(t) < 10:
-            continue
-        c = (contour.cents - np.where(np.isnan(trend), 0, trend))[m]
-        ok = ~np.isnan(c) & contour.voiced[m]
-        if ok.sum() < 10:
-            continue
-        cf = np.interp(np.arange(len(c)), np.flatnonzero(ok), c[ok])
-        ext = _peaks_troughs(cf)
-        idx = np.where(ext != 0)[0]
-        if len(idx) < min_extrema:
-            continue
-        # group extrema into clusters within win frames; a cluster with
-        # >=min_extrema excursions above threshold becomes an event
-        big = [j for j in idx if abs(cf[j]) >= min_excursion_c]
-        if len(big) < min_extrema:
-            continue
-        groups, cur = [], [big[0]]
-        for j in big[1:]:
-            if j - cur[0] <= win:
-                cur.append(j)
-            else:
-                groups.append(cur)
-                cur = [j]
-        groups.append(cur)
-        for grp in groups:
-            if len(grp) < min_extrema:
-                continue
-            excur = [float(cf[j]) for j in grp]
-            signs = np.sign(excur)
-            altern = int(np.sum(signs[1:] * signs[:-1] < 0))
-            returns = abs(cf[min(grp[-1] + 3, len(cf) - 1)]) \
-                < min_excursion_c
-            ev = PitchEvent(
-                "ornament", [i], float(t[grp[0]]), float(t[grp[-1]]),
-                round(float(min(1.0, 0.35 + 0.1 * len(grp)
-                                + 0.15 * altern)), 3),
-                params={"excursions_c": [round(x, 1) for x in excur],
-                        "extrema_rel_ms": [round(float(t[j] - t[grp[0]])
-                                                 * 1000, 1) for j in grp],
-                        "n_extrema": int(len(grp)),
-                        "alternations": int(altern),
-                        "duration_ms": round(float(t[grp[-1]] - t[grp[0]])
-                                             * 1000, 1),
-                        "returns_to_baseline": bool(returns)},
-                evidence={"extractor": contour.extractor})
-            if not returns and abs(cf[-1]) > 80:
-                ev.evidence["structure_review_required"] = True
-                ev.evidence["blocker_lane"] = True
-            out.append(ev)
-    return out
+                eligible &= ~((contour.times >= ev.start_s)
+                              & (contour.times <= ev.end_s))
 
+        for lo, hi in _sustained(eligible, 1):
+            if hi - lo < 10:
+                continue
+            t = contour.times[lo:hi]
+            cf = residual[lo:hi]
+            ext = _peaks_troughs(cf)
+            idx = np.where(ext != 0)[0]
+            big = [j for j in idx if abs(cf[j]) >= min_excursion_c]
+            if len(big) < min_extrema:
+                continue
+            groups, cur = [], [big[0]]
+            for j in big[1:]:
+                if j - cur[0] <= win:
+                    cur.append(j)
+                else:
+                    groups.append(cur)
+                    cur = [j]
+            groups.append(cur)
+            for grp in groups:
+                if len(grp) < min_extrema:
+                    continue
+                excur = [float(cf[j]) for j in grp]
+                signs = np.sign(excur)
+                altern = int(np.sum(signs[1:] * signs[:-1] < 0))
+                after = min(grp[-1] + 3, len(cf) - 1)
+                returns = abs(cf[after]) < min_excursion_c
+                ev = PitchEvent(
+                    "ornament", [i], float(t[grp[0]]), float(t[grp[-1]]),
+                    round(float(min(1.0, 0.35 + 0.1 * len(grp)
+                                    + 0.15 * altern)), 3),
+                    params={"excursions_c": [round(x, 1) for x in excur],
+                            "extrema_rel_ms": [
+                                round(float(t[j] - t[grp[0]]) * 1000, 1)
+                                for j in grp],
+                            "n_extrema": int(len(grp)),
+                            "alternations": int(altern),
+                            "duration_ms": round(
+                                float(t[grp[-1]] - t[grp[0]]) * 1000, 1),
+                            "returns_to_baseline": bool(returns)},
+                    evidence={"extractor": contour.extractor})
+                if not returns and abs(cf[-1]) > 80:
+                    ev.evidence["structure_review_required"] = True
+                    ev.evidence["blocker_lane"] = True
+                out.append(ev)
+    return out
 
 # ------------------------------------------------------- §9.8 stable trend
 def detect_stable_trend(contour: ContourSignal, notes, excluded_events):
@@ -606,6 +630,52 @@ def artifact_mask(contour: ContourSignal, artifact_events):
     for ev in artifact_events:
         bad |= (contour.times >= ev.start_s) & (contour.times <= ev.end_s)
     return bad
+
+
+def detect_residual_artifact_regions(dense, notes=None,
+                                     disagree_c=80.0,
+                                     octave_lo=900.0, octave_hi=1500.0):
+    """Artifact regions from disagreement between residual extractor families.
+
+    This is deliberately separate from raw-F0 contour artifacts: two
+    extractors may each look plausible yet disagree on the correction that
+    should be applied. Such frames must not enter expression compilation.
+    """
+    g = np.asarray(dense["times"], dtype=float)
+    r1 = np.asarray(dense.get("r_fcpe"), dtype=float)
+    r2 = np.asarray(dense.get("r_rmvpe"), dtype=float)
+    if r1.shape != g.shape or r2.shape != g.shape:
+        return []
+    valid = ~np.isnan(r1) & ~np.isnan(r2)
+    d = np.abs(r1 - r2)
+    bad = valid & (d > disagree_c)
+    if not bad.any():
+        return []
+    kinds = {
+        "residual_disagreement": valid & (d > disagree_c),
+        "residual_octave_split": valid & (d >= octave_lo) & (d <= octave_hi),
+    }
+    idx = np.where(bad)[0]
+    groups, cur = [], [idx[0]]
+    for j in idx[1:]:
+        if g[j] - g[cur[-1]] <= 0.03:
+            cur.append(j)
+        else:
+            groups.append(cur)
+            cur = [j]
+    groups.append(cur)
+    note_idx = np.asarray(dense.get("note_idx", np.full(len(g), -1)))
+    out = []
+    for grp in groups:
+        ns = sorted({int(note_idx[j]) for j in grp if note_idx[j] >= 0})
+        ks = [name for name, mask in kinds.items() if mask[grp].any()]
+        out.append(PitchEvent(
+            "artifact", ns or [0], float(g[grp[0]]), float(g[grp[-1]]),
+            0.8, params={"n_frames": len(grp), "artifact_kinds": ks,
+                         "max_residual_disagree_c":
+                             round(float(np.nanmax(d[grp])), 1)},
+            evidence={"extractor": "residual_family"}))
+    return out
 
 
 # ------------------------------------------------------ §9.4/§9.10 match
