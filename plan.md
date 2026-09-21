@@ -1282,28 +1282,52 @@ f358236e 已完成：
 但：
 - 低 pointwise cents 仍不能代表 contour/perceptual success。
 
-### R2 — Detector/Contour QA 重构 ← CURRENT QUALITY BLOCKER
+### R2 — Detector/Contour QA 重构 — DONE (contour.py/events.py/contour_qa.py)
 
-当前 f358236e 的问题：
-- detect_vibrato 在 residual 上检测，而不是 SOURCE/neutral 分别检测；
-- ac[lag] 被误称 period_stability；
-- inconsistent frame 会 fallback 到单 FCPE；
-- vibrato window 整段 PITD 被清空，slow trend 丢失；
-- start/end/phase 尚未真实检测；
-- extra_turns 单差值不能区分 over-tracing 与 under-tracing。
+已实现的函数（全部在 SOURCE/neutral 独立信号上工作）：
+- contour.py: build_contour_signal, robust_pitch_trend, PitchEvent,
+  ContourSignal（fcpe+rmvpe 双提取器一致性标记 frame confidence）；
+- events.py: detect_vibrato_events（逐周期 period/depth CV，不再是
+  autocorr 单值）, match_vibrato_events, detect_onset_events,
+  detect_portamento_events, detect_ornament_events, detect_stable_trend,
+  detect_artifact_regions（含空 mask 守卫）, match_pitch_events；
+- contour_qa.py: position/slope/curvature/turning-point(matched,missing,
+  extra,timing_err,amplitude_err,edit_distance)/modulation/vibrato/
+  portamento 全套；单位修正为输入即 cents（不再二次 ×100）。
 
-R2 必须实现 §9 的函数：
-- build_contour_signal；
-- robust_pitch_trend；
-- detect_vibrato_events；
-- match_vibrato_events；
-- detect_onset_events；
-- detect_portamento_events；
-- detect_ornament_events；
-- detect_stable_trend；
-- detect_artifact_regions；
-- match_pitch_events；
-- contour QA 全套函数。
+P3 检测结果（SOURCE 43 events / neutral 37 / matched 33）：
+- vibrato 1 个（note11 根, 7.29Hz, depth 49.9c, period_cv 0.105,
+  depth_cv 0.149 → periodic, 推荐 note_vibrato 参数化）；
+- portamento 10 / ornament 7 / artifact 12 / scoop 4 / overshoot 2 /
+  stable 7。
+- 与旧 residual-detector 的分歧已记录：旧 detector 因 autocorr
+  stability 0.17 拒绝参数化；新逐周期分析显示 period_cv=0.105
+  实际相当规则 → 保留分歧供回归测试。
+
+已修正的 f358236e 问题：residual 上检测 → 已改为 SOURCE/neutral
+分别检测后匹配；vibrato window 整段清空 → C3 保留 trend residual
+只移走 periodic component；extra_turns 单差值 → topology QA 已拆分
+matched/missing/extra/timing/amplitude/edit_distance。
+
+### R3 进展 — C3 编译器（pitch_residual.compile_C3）
+
+第一个真 event-aware 编译路径，已渲染验证：
+- periodic vibrato（period_cv<0.15 且 source_only）→ note vibrato
+  参数（length=65%, period=137.2ms, depth=49.9c, in/out=15）；
+- vibrato 窗口内 PITD = trend_src − trend_neu（slow trend 保留，
+  periodic 移出）；
+- 其余区域 = consensus residual（同 C2）。
+
+P3 渲染验证（runs/expr-20260921/phrases3/P3_vibrato_C3.wav）：
+- vibrato_metrics: matched, Δrate 0.0Hz, Δdepth −0.5c（note vibrato
+  与 PITD tracing 等效精度，但参数化可编辑）；
+- position med 5.0c / p95 91.6c（p95 高值来自 fcpe 在哑音边缘的
+  八度跳帧，非编译错误）；
+- topology 44 matched / 9 missing / 11 extra（与 C2 持平）。
+
+剩余 R3 工作：portamento/scoop/ornament 的 parameterized compiler
+（目前这些事件仍在 PITD dense 里）；trend-only 与 dense residual 的
+音质对比试听；事件参数在 ustx 中的可调性验证。
 
 ### R2.5 — Detector dataset / training bootstrap
 

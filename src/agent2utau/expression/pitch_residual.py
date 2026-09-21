@@ -350,6 +350,79 @@ def compile_C2(dense, notes, part_pos_tick, events, max_err_c=10.0):
             "ys": ys[keep].tolist()}, vibrato_marks
 
 
+def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
+               max_err_c=10.0):
+    """True event-aware compile (plan §9.4 decomposition):
+
+        PITD(t) = trend_src(t) - trend_neu(t)        (slow residual)
+        note vibrato params = periodic component delta
+
+    For matched vibrato windows with periodic source vibrato
+    (recommended_representation == "note_vibrato"), the periodic component
+    moves OUT of PITD into note vibrato fields while the slow trend
+    residual stays in PITD. Irregular vibrato keeps full residual.
+    """
+    from .contour import robust_pitch_trend
+    g = dense["times"]
+    tr_s, _ = robust_pitch_trend(src_sig, cutoff_hz=3.0)
+    tr_n, _ = robust_pitch_trend(neu_sig, cutoff_hz=3.0)
+    tS = np.interp(g, src_sig.times, tr_s, left=np.nan, right=np.nan)
+    tN = np.interp(g, neu_sig.times, tr_n, left=np.nan, right=np.nan)
+    trend_resid = tS - tN
+
+    vals = np.where(dense["resid_consistent"], dense["resid_consensus"],
+                    np.nan)
+    vibrato_marks = {}
+    for m in vib_match:
+        if m.get("recommended_representation") != "note_vibrato" \
+                or not m.get("source_vibrato"):
+            continue
+        i = m["note_index"]
+        n = notes[i]
+        sv = m["source_vibrato"]
+        s_ev, e_ev = None, None
+        vmask = (g >= n["abs_start_s"] + n["dur_s"] * 0.35) & \
+                (g <= n["abs_start_s"] + n["dur_s"])
+        vals = np.where(vmask, trend_resid, vals)   # trend stays, wiggle out
+        length_pct = min(100.0, max(5.0,
+                         (n["abs_start_s"] + n["dur_s"]
+                          - (n["abs_start_s"] + n["dur_s"] * 0.35))
+                         / n["dur_s"] * 100.0))
+        vibrato_marks[i] = {
+            "length": round(length_pct, 1),
+            "period": round(1000.0 / sv["rate_hz"], 1),
+            "depth": round(sv["depth_c"], 1),
+            "in": 15, "out": 15, "shift": 0, "drift": 0, "volLink": 0}
+
+    xs_all, ys_all = [], []
+    ok = ~np.isnan(vals)
+    i = 0
+    while i < len(g):
+        if not ok[i]:
+            i += 1
+            continue
+        j = i
+        while j + 1 < len(g) and ok[j + 1] and g[j + 1] - g[j] < 0.015:
+            j += 1
+        seg_t, seg_y = g[i:j + 1], vals[i:j + 1]
+        if len(seg_t) >= 3:
+            keep = _vertical_simplify(seg_t, seg_y, max_err_c)
+            xs_all.extend(seg_t[keep])
+            ys_all.extend(seg_y[keep])
+        else:
+            xs_all.extend(seg_t)
+            ys_all.extend(seg_y)
+        i = j + 1
+    xs = np.round(np.asarray(xs_all) * 1000.0 / TICK_MS
+                  - part_pos_tick).astype(int)
+    ys = np.clip(np.round(np.asarray(ys_all)), -1150, 1150).astype(int)
+    order = np.argsort(xs, kind="stable")
+    xs, ys = xs[order], ys[order]
+    keep = np.concatenate([[True], np.diff(xs) > 0])
+    return {"abbr": "pitd", "xs": xs[keep].tolist(),
+            "ys": ys[keep].tolist()}, vibrato_marks
+
+
 def state_summary(dense):
     from collections import Counter
     names = {0: "both_voiced", 1: "src_only", 2: "neu_only", 3: "unvoiced",
