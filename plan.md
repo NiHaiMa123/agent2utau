@@ -1379,10 +1379,14 @@ regression evidence，但本轮 review 发现新的 phase/boundary acceptance �
   ornament exclusion gap、residual-family artifact、QA mask/profile 的回归测试。
 
 当前硬门禁：
-1. 最新 HEAD 完整 `pytest tests/` 必须重新全绿；
-2. 三态 vibrato 必须重新做真实 OpenUtau render → re-detect，不只 algebraic test；
-3. P1/P2/P3 重新跑 event-local QA；
-4. 人工试听通过前，R2.5/R3 继续 BLOCKED。
+1. 先完成 R2.1-L1：detector phase → OpenUtau `shift`，禁止默认 `shift=0`；
+2. 完成 R2.1-L3/L4：boundary evidence clamp + evidence/stable cycle 双门禁；
+3. 最新 HEAD 完整 `pytest tests/` 重新全绿；
+4. A/B/C/P3 做 **first-render** re-detect，必须先看 native params 本身是否正确；
+5. 再做 bounded closed-loop，并同时保存 before/after；
+6. P1/P2/P3 完整 shape QA + events artifact 必须实际提交；
+7. machine gate 通过后才进入人工试听；
+8. machine + listening 均通过前，R2.5/R3 继续 BLOCKED。
 
 原 20eee99 实现状态（保留作 provenance，不代表当前 acceptance）：
 - A: contour.py 分段化——voiced_segments/segment_ids（gap≥80ms 切段），
@@ -1435,10 +1439,11 @@ regression evidence，但本轮 review 发现新的 phase/boundary acceptance �
   全部随 472 测试套件通过。
 
 仍需：
-- §16.1 第 8 步人工试听确认（phrases3 C2/C3 vs D vs SOURCE）；
-- 当前 P3 topology C3=27/21/5 说明 dense-PITD 区域仍有
-  under-tracing——portamento/scoop/ornament compiler（R3 解锁后）
-  应进一步收敛。
+- 完成 R2.1-L 的 native phase / boundary / cycle revalidation；
+- 在最新 compiler 上重新生成并提交 P1/P2/P3 完整 shape QA artifact；
+- 旧 P3 topology C3=27/21/5 仅保留为历史 regression baseline，
+  不得代表当前 HEAD；必须用最新 first-render + closed-loop 两阶段结果替换；
+- machine gate 通过后，再进行 phrases3 C2/C3 vs D vs SOURCE 人工试听。
 
 ### R2.1 — Detector / Matcher / QA Semantic Fix — CURRENT BLOCKER（保留原验收清单备查）
 
@@ -1543,6 +1548,160 @@ C. SOURCE 无，neutral 有
 - periodic component 与 slow trend 的分离只作用于真实 event span。
 
 禁止再以“P3 恰好 rate/depth 接近”证明 C3 正确。
+
+#### R2.1-E — onset detector 修复
+
+当前问题：
+- settle 要求从某帧到窗口末尾全部落入 ±15c，遇 vibrato/NaN 很容易永不成立；
+- event end 固定接近 extremum 后约 80ms，而不是实际 settle；
+- baseline window 对短 note / 后续 transition 不稳健。
+
+必须：
+- settle 用连续 N ms / robust percentile 判定，不要求剩余全部帧成立；
+- end_s 使用真实 settle 或 declared unresolved；
+- baseline 必须来自同 note 的 stable body，且避开已知 vibrato/ornament；
+- scoop / overshoot / undershoot 分开；
+- 单帧 spike 不得触发。
+
+#### R2.1-F — portamento detector 重写 departure/arrival
+
+当前明确 bug：
+`dep_rel` 的倒序循环无论 `dev_a > 30` 还是 `<=30` 都立即 break，
+因此它没有真正找到“离开前一音高”的时刻。
+
+必须：
+- departure = 最后一次稳定处于 from-tone tolerance 后，持续离开的起点；
+- arrival = 第一次进入 to-tone tolerance 并持续成立的时刻；
+- duration = arrival - departure，不得等于固定分析窗；
+- span 使用 trajectory 本身，不含无关窗口 extrema；
+- trajectory_type 基于 normalized trajectory / slope / curvature profile，
+  不得用全窗 mean(second derivative)；
+- NaN/unvoiced 不能 `nan_to_num(..., 0)` 后参与 extrema；
+- 输出真实 slope_profile / curvature_profile；
+- stepped / irregular 必须可区分。
+
+synthetic test：
+linear / convex / concave / s_curve / stepped / gap-no-portamento，
+并检查 start/end/span/trajectory type。
+
+#### R2.1-G — ornament detector 改为滑窗 / event-local
+
+当前问题：
+- 长 note 只看 body 开头最多 350ms，后半 ornament 永远漏检；
+- event start/end 由所有 extrema 首尾决定，而不是有效 excursion；
+- vibrato 容易被误认为 ornament。
+
+必须：
+- 在整个 eligible note body 滑窗搜索；
+- 只用超过 prominence/excursion gate 的有效 extrema 定 event span；
+- 与 vibrato detector 做互斥/优先级 adjudication；
+- 输出 ordered excursion sequence + relative timing；
+- structure_review_required 必须进入 blocker lane。
+
+#### R2.1-H — artifact detector 必须以 residual-family 为核心
+
+当前实现不足：
+- 主要只看单 signal confidence + moving average spike；
+- 未实现 plan 要求的 residual disagreement / octave flip /
+  high-frequency non-periodic jitter；
+- NaN convolution 会污染局部 median。
+
+必须至少检测：
+- FCPE vs RMVPE residual disagreement；
+- octave flip；
+- isolated spike；
+- high-frequency aperiodic jitter；
+- voiced/unvoiced extractor conflict；
+- separation artifact suspect region。
+
+artifact region 必须从 event compiler 和 shape QA 的有效 mask 中隔离，
+不能等出完 p95 后再口头解释“这是 extractor 错”。
+
+#### R2.1-I — match_pitch_events 必须真正做语义匹配
+
+当前问题：
+- 实际主要只有 type + note overlap + time overlap；
+- `nucleus_times` 参数未使用；
+- direction / trajectory similarity 未进入 score；
+- 没有 ambiguous 状态。
+
+必须输出 candidate score，并使用：
+- exact note carrier；
+- nucleus/note-relative position；
+- temporal overlap；
+- direction；
+- trajectory similarity；
+- event parameter compatibility。
+
+结果必须包含：
+`matched / source_only / neutral_only / ambiguous`。
+低 margin match 进入 ambiguous，不得强配。
+
+#### R2.1-J — contour QA 必须 event-local
+
+当前问题：
+- `turning_point_metrics(..., event_windows)` 收参数但未使用；
+- `modulation_metrics(..., event_windows)` 收参数但未使用；
+- 整 phrase FFT 会把 scoop/portamento/transition 能量当 vibrato；
+- turning-point 先跨 NaN 插值，会制造不存在的连线；
+- 单纯 peak/trough 字符串 Levenshtein 信息量过低；
+- portamento_metrics 声称 slope/curvature，实际没计算。
+
+必须：
+1. 所有 shape metric 支持 event-local / voiced-segment-local mask；
+2. 不跨 unvoiced/artifact gap 插值；
+3. turning point 同时比较：
+   - count；
+   - type；
+   - relative timing；
+   - prominence/amplitude；
+   - local ordering；
+4. modulation 在 event window 内计算，并报告 rate/depth/bandwidth/
+   periodicity，不只 dominant FFT bin；
+5. portamento_metrics 真正比较 start/end、trajectory、slope profile、
+   curvature profile；
+6. 所有 QA 报告 valid-frame coverage 与 artifact exclusion ratio。
+
+#### R2.1-K — synthetic unit/regression suite 是硬门禁
+
+必须新增自动测试，至少覆盖：
+
+~~~text
+trend:
+  voiced-gap-voiced isolation
+
+vibrato:
+  source_only
+  matched source+neutral delta
+  neutral_only suppression
+  middle-only event
+  depth ramp
+  irregular modulation
+
+onset:
+  scoop
+  overshoot
+  no-event spike
+
+portamento:
+  linear / convex / concave / s_curve / stepped / no-portamento
+
+ornament:
+  early / middle / late note
+  vibrato-not-ornament
+
+matching:
+  exact match
+  ambiguous overlap
+  wrong-direction reject
+
+QA:
+  same pointwise cents but wrong topology -> MUST fail shape gate
+  lower pointwise error but extra turns -> MUST rank as regression
+~~~
+
+测试必须锁住函数行为；当前 HEAD 没有 CI/status check，R2.1 完成时至少应
+提供可重复的本地 test command，最好接 GitHub Actions。
 
 #### R2.1-L — OpenUtau Native Vibrato Phase / Boundary Revalidation — CURRENT BLOCKER
 
@@ -1757,160 +1916,6 @@ runs/<run>/expression/events/
 - FCPE↔RMVPE cross-extractor result。
 
 **只有 artifact 可复现，plan 中的汇总数字才有 acceptance 权限。**
-
-#### R2.1-E — onset detector 修复
-
-当前问题：
-- settle 要求从某帧到窗口末尾全部落入 ±15c，遇 vibrato/NaN 很容易永不成立；
-- event end 固定接近 extremum 后约 80ms，而不是实际 settle；
-- baseline window 对短 note / 后续 transition 不稳健。
-
-必须：
-- settle 用连续 N ms / robust percentile 判定，不要求剩余全部帧成立；
-- end_s 使用真实 settle 或 declared unresolved；
-- baseline 必须来自同 note 的 stable body，且避开已知 vibrato/ornament；
-- scoop / overshoot / undershoot 分开；
-- 单帧 spike 不得触发。
-
-#### R2.1-F — portamento detector 重写 departure/arrival
-
-当前明确 bug：
-`dep_rel` 的倒序循环无论 `dev_a > 30` 还是 `<=30` 都立即 break，
-因此它没有真正找到“离开前一音高”的时刻。
-
-必须：
-- departure = 最后一次稳定处于 from-tone tolerance 后，持续离开的起点；
-- arrival = 第一次进入 to-tone tolerance 并持续成立的时刻；
-- duration = arrival - departure，不得等于固定分析窗；
-- span 使用 trajectory 本身，不含无关窗口 extrema；
-- trajectory_type 基于 normalized trajectory / slope / curvature profile，
-  不得用全窗 mean(second derivative)；
-- NaN/unvoiced 不能 `nan_to_num(..., 0)` 后参与 extrema；
-- 输出真实 slope_profile / curvature_profile；
-- stepped / irregular 必须可区分。
-
-synthetic test：
-linear / convex / concave / s_curve / stepped / gap-no-portamento，
-并检查 start/end/span/trajectory type。
-
-#### R2.1-G — ornament detector 改为滑窗 / event-local
-
-当前问题：
-- 长 note 只看 body 开头最多 350ms，后半 ornament 永远漏检；
-- event start/end 由所有 extrema 首尾决定，而不是有效 excursion；
-- vibrato 容易被误认为 ornament。
-
-必须：
-- 在整个 eligible note body 滑窗搜索；
-- 只用超过 prominence/excursion gate 的有效 extrema 定 event span；
-- 与 vibrato detector 做互斥/优先级 adjudication；
-- 输出 ordered excursion sequence + relative timing；
-- structure_review_required 必须进入 blocker lane。
-
-#### R2.1-H — artifact detector 必须以 residual-family 为核心
-
-当前实现不足：
-- 主要只看单 signal confidence + moving average spike；
-- 未实现 plan 要求的 residual disagreement / octave flip /
-  high-frequency non-periodic jitter；
-- NaN convolution 会污染局部 median。
-
-必须至少检测：
-- FCPE vs RMVPE residual disagreement；
-- octave flip；
-- isolated spike；
-- high-frequency aperiodic jitter；
-- voiced/unvoiced extractor conflict；
-- separation artifact suspect region。
-
-artifact region 必须从 event compiler 和 shape QA 的有效 mask 中隔离，
-不能等出完 p95 后再口头解释“这是 extractor 错”。
-
-#### R2.1-I — match_pitch_events 必须真正做语义匹配
-
-当前问题：
-- 实际主要只有 type + note overlap + time overlap；
-- `nucleus_times` 参数未使用；
-- direction / trajectory similarity 未进入 score；
-- 没有 ambiguous 状态。
-
-必须输出 candidate score，并使用：
-- exact note carrier；
-- nucleus/note-relative position；
-- temporal overlap；
-- direction；
-- trajectory similarity；
-- event parameter compatibility。
-
-结果必须包含：
-`matched / source_only / neutral_only / ambiguous`。
-低 margin match 进入 ambiguous，不得强配。
-
-#### R2.1-J — contour QA 必须 event-local
-
-当前问题：
-- `turning_point_metrics(..., event_windows)` 收参数但未使用；
-- `modulation_metrics(..., event_windows)` 收参数但未使用；
-- 整 phrase FFT 会把 scoop/portamento/transition 能量当 vibrato；
-- turning-point 先跨 NaN 插值，会制造不存在的连线；
-- 单纯 peak/trough 字符串 Levenshtein 信息量过低；
-- portamento_metrics 声称 slope/curvature，实际没计算。
-
-必须：
-1. 所有 shape metric 支持 event-local / voiced-segment-local mask；
-2. 不跨 unvoiced/artifact gap 插值；
-3. turning point 同时比较：
-   - count；
-   - type；
-   - relative timing；
-   - prominence/amplitude；
-   - local ordering；
-4. modulation 在 event window 内计算，并报告 rate/depth/bandwidth/
-   periodicity，不只 dominant FFT bin；
-5. portamento_metrics 真正比较 start/end、trajectory、slope profile、
-   curvature profile；
-6. 所有 QA 报告 valid-frame coverage 与 artifact exclusion ratio。
-
-#### R2.1-K — synthetic unit/regression suite 是硬门禁
-
-必须新增自动测试，至少覆盖：
-
-~~~text
-trend:
-  voiced-gap-voiced isolation
-
-vibrato:
-  source_only
-  matched source+neutral delta
-  neutral_only suppression
-  middle-only event
-  depth ramp
-  irregular modulation
-
-onset:
-  scoop
-  overshoot
-  no-event spike
-
-portamento:
-  linear / convex / concave / s_curve / stepped / no-portamento
-
-ornament:
-  early / middle / late note
-  vibrato-not-ornament
-
-matching:
-  exact match
-  ambiguous overlap
-  wrong-direction reject
-
-QA:
-  same pointwise cents but wrong topology -> MUST fail shape gate
-  lower pointwise error but extra turns -> MUST rank as regression
-~~~
-
-测试必须锁住函数行为；当前 HEAD 没有 CI/status check，R2.1 完成时至少应
-提供可重复的本地 test command，最好接 GitHub Actions。
 
 ### R3 进展 — C3 编译器 — PROVISIONAL / NOT ACCEPTED
 
