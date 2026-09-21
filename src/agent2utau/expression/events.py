@@ -289,8 +289,9 @@ def detect_onset_events(contour: ContourSignal, notes, nucleus_times,
         ev_end = settle_s if settle_s is not None else float(t[-1])
         post = dev[ei:]
         post = post[~np.isnan(post)]
-        mono = float(np.mean(np.diff(post) * (1 if typ == "scoop" else -1)
-                             > -5)) if len(post) > 1 else 1.0
+        recover_sign = 1 if typ in ("scoop", "undershoot") else -1
+        mono = float(np.mean(np.diff(post) * recover_sign > -5)) \
+            if len(post) > 1 else 1.0
         n_turn = _count_turns_valid(med3)
         shape = "irregular" if n_turn > 3 else \
             ("linear" if mono > 0.8 else "ease")
