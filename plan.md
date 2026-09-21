@@ -1310,11 +1310,29 @@ f358236e 已完成：
 尤其当前 P3 的 topology = 44 matched / 9 missing / 11 extra，
 已经说明“pointwise 很近”并不等于 contour shape 正确。
 
-### R2.1 — Detector / Matcher / QA Semantic Fix — REVIEW FIXES APPLIED / REVALIDATION REQUIRED
+### R2.1 — Detector / Matcher / QA Semantic Fix — REVIEWER FIXES REVALIDATED
 
 20eee99 完成第一轮实现后，review 又发现并已直接修正一批未被原 472 tests
-覆盖的语义错误。**因此 20eee99 的“R2.1 DONE / 472 tests passed”不再构成
-当前 HEAD 的 acceptance；必须在最新 HEAD 重新跑完整 pytest + render regression。**
+覆盖的语义错误。revalidation 已在 ea3c5c5+local-boundary-fix HEAD 完成：
+
+- `pytest tests/`：**481 passed**（新增 9 个 reviewer 回归测试）
+- 三态 vibrato 真实 OpenUtau render → re-detect（r21c 重跑）：
+  - A source_only → note_vibrato：Δrate −0.11Hz / Δdepth +1.7c /
+    Δphase 0.023rad / Δstart −0.6ms / Δend +10.6ms，pos_med 5.8c；
+  - B matched → note_vibrato（不叠加 neutral）：Δdepth −1.5c /
+    Δphase 0.019rad / Δstart +9.4ms / Δend +20.6ms，pos_med 3.9c；
+  - C neutral_only → suppress_neutral：渲染后 0 可检测 vibrato，
+    pos_med 4.1c。
+- 真实 P3_vibrato C3 闭环（新代数下单次编译出现 phase-cancel：
+  引擎 vibrato 与 source fit 相位差 ≈π 导致渲染 depth 只剩 ~3.5c；
+  一轮 v2=v1+(src−render) 修正收敛）：v2 pos med 4.5c / p90 14.0c /
+  p95 23.5c；vib Δrate +0.06Hz / Δdepth −2.7c / Δphase 0.47rad。
+  **结论：单次编译无法猜引擎相位，closed-loop 一轮修正是 R3 编译器的
+  必要环节，不是可选优化。**
+- P1/P2/P3 event-local QA 已在 review 后 HEAD 重跑
+  （src_events 17/37/29，neu_events 15/32/28，matched 9/16/17）。
+- 剩余硬门禁：人工试听 phrases3 C2/C3 vs D vs SOURCE 通过前，
+  R2.5/R3 继续 BLOCKED。
 
 本轮 reviewer fixes：
 - vibrato validity：修复 `okf` 身份插值导致 unvoiced/conflict hole 被错误

@@ -58,7 +58,7 @@ def test_vibrato_tail_only():
     assert abs(e.end_s - 1.3) < 0.10
     assert abs(e.params["rate_hz"] - 6.5) < 0.4
     assert abs(e.params["depth_c"] - 50) < 10
-    assert e.params["stable_cycle_count"] >= 2.5
+    assert e.params["stable_cycle_count"] >= 2.0   # trimmed stable span
 
 
 def test_vibrato_middle_only():

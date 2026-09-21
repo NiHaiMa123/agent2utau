@@ -112,10 +112,23 @@ def detect_vibrato_events(contour: ContourSignal, notes,
                 runs.append(cur)
                 cur = [h]
         runs.append(cur)
-        run = max(runs, key=len)
-        n_cycles = len(run) / 2.0
+        run_raw = max(runs, key=len)
+        n_cycles = len(run_raw) / 2.0
         if n_cycles < min_cycles:
             continue
+        # Trim leading/trailing half-cycles whose amplitude collapsed:
+        # detrend-filter ringing decays sharply (>20% per half-cycle),
+        # while real vibrato amplitude fluctuates around its level.
+        # The min_cycles gate above uses the raw chain — onset/offset
+        # ramps still prove the event; trimming only moves boundaries.
+        run = run_raw
+        while len(run) > 1 and run[0][3] < 0.8 * run[1][3]:
+            run = run[1:]
+        while len(run) > 1 and run[-1][3] < 0.8 * run[-2][3]:
+            run = run[:-1]
+        if not run:
+            run = run_raw
+        n_cycles = len(run) / 2.0
         i0, i1 = run[0][0], run[-1][1]
         periods = np.array([run[k][2] + run[k + 1][2]
                             for k in range(0, len(run) - 1, 2)])
@@ -134,8 +147,12 @@ def detect_vibrato_events(contour: ContourSignal, notes,
         depth_c = float(depths.mean())
         depth_cv = float(np.std(depths) / depth_c) if len(depths) > 1 \
             and depth_c > 0 else 0.0
-        ev_s = float(t[i0])
-        ev_e = float(t[i1])
+        # Event bounds = first/last extremum ± quarter-period return to
+        # zero (declared constant, NOT data-following: ringing after a
+        # stopped oscillation would otherwise fake a longer event).
+        qr = 0.25 / measured_rate
+        ev_s = float(max(t[i0] - qr, t[0]))
+        ev_e = float(min(t[i1] + qr, t[-1]))
         seg_t = (np.arange(i0, i1 + 1) - i0) * HOP_S   # phase origin = ev_s
         seg_m = mmf[i0:i1 + 1]
         # Fit phase with the same measured frequency emitted below.
@@ -161,7 +178,7 @@ def detect_vibrato_events(contour: ContourSignal, notes,
                     "fft_bin_hz": round(f0_hz, 2),
                     "depth_c": round(depth_c, 1),
                     "phase_rad": round(phase, 3),
-                    "phase_origin_s": round(ev_s, 3),
+                    "phase_origin_s": round(float(t[i0]), 3),
                     "periods_ms": [round(float(x) * 1000, 1)
                                    for x in periods],
                     "depth_envelope_c": [round(float(x), 1)
