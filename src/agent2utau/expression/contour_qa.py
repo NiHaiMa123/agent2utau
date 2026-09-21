@@ -44,6 +44,28 @@ def _fill_runs(y, mask):
     return out
 
 
+def _smooth_runs(y, mask, ms):
+    """Moving-average smoothing inside contiguous valid runs only."""
+    out = np.full(len(y), np.nan)
+    k = max(1, int(round(ms / 1000.0 / HOP_S)))
+    for lo, hi in _seg_runs(mask & ~np.isnan(y)):
+        seg = np.asarray(y[lo:hi], dtype=float)
+        if k <= 1 or len(seg) < 3:
+            out[lo:hi] = seg
+            continue
+        kk = min(k, len(seg))
+        if kk % 2 == 0:
+            kk = max(1, kk - 1)
+        if kk <= 1:
+            out[lo:hi] = seg
+            continue
+        pad = kk // 2
+        padded = np.pad(seg, (pad, pad), mode="edge")
+        out[lo:hi] = np.convolve(padded, np.ones(kk) / kk,
+                                 mode="valid")
+    return out
+
+
 def _coverage(source, render, mask):
     valid = mask & ~np.isnan(source) & ~np.isnan(render)
     return {"valid_frames": int(valid.sum()),
@@ -66,8 +88,8 @@ def contour_position_metrics(source, render, mask):
 
 def contour_slope_metrics(source, render, mask, smooth_ms=30):
     m = mask & ~np.isnan(source) & ~np.isnan(render)
-    sf = _fill_runs(source, m)
-    rf = _fill_runs(render, m)
+    sf = _smooth_runs(source, m, smooth_ms)
+    rf = _smooth_runs(render, m, smooth_ms)
     ds = np.diff(sf)
     dr = np.diff(rf)
     ok = m[:-1] & m[1:] & ~np.isnan(ds) & ~np.isnan(dr)
@@ -84,8 +106,8 @@ def contour_slope_metrics(source, render, mask, smooth_ms=30):
 
 def contour_curvature_metrics(source, render, mask, smooth_ms=40):
     m = mask & ~np.isnan(source) & ~np.isnan(render)
-    sf = _fill_runs(source, m)
-    rf = _fill_runs(render, m)
+    sf = _smooth_runs(source, m, smooth_ms)
+    rf = _smooth_runs(render, m, smooth_ms)
     cs = np.diff(sf, 2)
     cr = np.diff(rf, 2)
     ok = m[:-2] & m[1:-1] & m[2:] & ~np.isnan(cs) & ~np.isnan(cr)
@@ -195,14 +217,21 @@ def modulation_metrics(source, render, mask=None, event_windows=None,
     rows = []
     for (lo, hi) in spans:
         row = {"window_frames": [int(lo), int(hi)]}
+        local_mask = mask[lo:hi]
+        row["coverage"] = round(float(local_mask.sum() / max(hi - lo, 1)), 3)
         for tag, y in (("source", source), ("render", render)):
             seg = y[lo:hi]
-            ok = ~np.isnan(seg)
-            if ok.sum() < int(0.25 / HOP_S):
+            ok = local_mask & ~np.isnan(seg)
+            runs = _seg_runs(ok)
+            if not runs:
                 row[tag] = None
                 continue
-            idx = np.flatnonzero(ok)
-            yy = np.interp(np.arange(len(seg)), idx, seg[ok])
+            # Never bridge an artifact/unvoiced gap inside an event window.
+            rlo, rhi = max(runs, key=lambda x: x[1] - x[0])
+            if rhi - rlo < int(0.25 / HOP_S):
+                row[tag] = None
+                continue
+            yy = np.asarray(seg[rlo:rhi], dtype=float)
             tr = _smooth_ms(yy, np.arange(len(seg)) * HOP_S, 250)
             r = yy - tr
             spec = np.abs(np.fft.rfft(r * np.hanning(len(r))))
@@ -223,7 +252,8 @@ def modulation_metrics(source, render, mask=None, event_windows=None,
             periodicity = float(ac[period]) if period < len(ac) else 0.0
             row[tag] = {
                 "dom_rate_hz": round(float(fr[band][i]), 2),
-                "depth_c": round(float(np.percentile(np.abs(r), 90)), 1),
+                "depth_c": round(float(
+                    (np.percentile(r, 95) - np.percentile(r, 5)) / 2.0), 1),
                 "bandwidth_hz": round(bw, 2),
                 "periodicity": round(periodicity, 3)}
         rows.append(row)
@@ -274,8 +304,8 @@ def _traj_profile(sig_times, sig_cents, s, e):
     t, c = sig_times[m], sig_cents[m]
     # normalized trajectory: 0..1 by time and by pitch span
     tn = (t - t[0]) / max(t[-1] - t[0], 1e-6)
-    cn = (c - c[0]) / max(abs(c[-1] - c[0]), 1e-6) \
-        * np.sign(c[-1] - c[0])
+    span = c[-1] - c[0]
+    cn = (c - c[0]) / span if abs(span) > 1e-6 else np.zeros_like(c)
     slope = np.gradient(cn, tn)
     curv = np.gradient(slope, tn)
     return {"dur_ms": (t[-1] - t[0]) * 1000, "span_c": c[-1] - c[0],
@@ -302,13 +332,24 @@ def portamento_metrics(source_events, render_events):
                                    - re_.params["span_cents"], 1),
              "delta_start_ms": round((se.start_s - re_.start_s) * 1000, 1),
              "delta_end_ms": round((se.end_s - re_.end_s) * 1000, 1)}
+        def _resample_profile(a, n=64):
+            a = np.asarray(a, dtype=float)
+            if len(a) < 2:
+                return None
+            x = np.linspace(0.0, 1.0, len(a))
+            return np.interp(np.linspace(0.0, 1.0, n), x, a)
+
         sp, rp = se.params.get("slope_profile"), re_.params.get("slope_profile")
-        if sp is not None and rp is not None and len(sp) == len(rp):
-            d["slope_profile_rmse"] = round(float(np.sqrt(
-                np.mean((np.asarray(sp) - np.asarray(rp)) ** 2))), 3)
+        if sp is not None and rp is not None:
+            sa, ra = _resample_profile(sp), _resample_profile(rp)
+            if sa is not None and ra is not None:
+                d["slope_profile_rmse"] = round(float(np.sqrt(
+                    np.mean((sa - ra) ** 2))), 3)
         cp, cr = se.params.get("curv_profile"), re_.params.get("curv_profile")
-        if cp is not None and cr is not None and len(cp) == len(cr):
-            d["curv_profile_rmse"] = round(float(np.sqrt(
-                np.mean((np.asarray(cp) - np.asarray(cr)) ** 2))), 3)
+        if cp is not None and cr is not None:
+            ca, cra = _resample_profile(cp), _resample_profile(cr)
+            if ca is not None and cra is not None:
+                d["curv_profile_rmse"] = round(float(np.sqrt(
+                    np.mean((ca - cra) ** 2))), 3)
         out.append(d)
     return out
