@@ -18,6 +18,46 @@
 | pip 依赖 | pypinyin、textgrid、librosa、onnxruntime、soundfile、matplotlib（均已装） |
 | ustx 网格 | 480 tpq @ 120bpm ⇒ `TICKS_PER_SEC = 960`；note position/duration 为 part 相对 tick，part.position 为工程绝对 tick |
 
+## 0.1 已验证基础设施与硬契约
+
+以下内容此前散落在 `plan.md / plan2.md / AGENTS.md`，但当前 pipeline 实际依赖，现统一记录在这里。
+
+### OpenUtau / Yousa
+
+- singer：`YousaV1.65b`；renderer：`DIFFSINGER`；默认 phonemizer：
+  `OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer`。
+- 当前声库已确认存在 duration / pitch / variance 模型；可用表现维度至少包括
+  pitch、breathiness、voicing、tension。不要因为 USTX expression 表里存在
+  `ene` / falsetto 字段就假设本声库实际支持。
+- 五种 color：`Yousa_Bright / Cute / Normal / Whisper / Classic`。
+  `clr` 是 **per-phoneme expression**；旧工程的 `01:Bright...` 必须按语义名称迁移，
+  不能按旧索引直接照抄。
+- `cl01..cl05` 的索引语义来自 character/subbank 顺序，而 `clr` option 顺序不同；
+  二者不得混为同一个索引空间。
+- part curve 的 x 是 **part-relative tick**；note.position 也是 part-relative；
+  part.position 才是 project-absolute。所有曲线/音符/波形比较必须先统一到绝对时间轴。
+
+### Headless render bridge
+
+仓库的 `bridge/OuBridge` 已验证可复用 OpenUtau 自身的 load / phonemize /
+DiffSinger render 路径，不重写合成器。当前命令运行时仍要求 OpenUtau 安装目录作为 cwd。
+
+Bridge 负责：
+
+- inspect：加载工程并报告 invalidNotes / invalidPhonemes；
+- render：导出实际 DiffSinger 干声；
+- round-trip：验证工程加载/保存后语义仍有效。
+
+不要用 GUI 自动化或伪造 `OpenUtau.exe --render` 取代已经跑通的 bridge。
+
+### F0 语义
+
+- `torchfcpe(..., retur_uv=True)` 返回的是 **unvoiced mask**（1=无基频），使用前必须反转；
+  模型原生时间步为 160 samples @16k = 10ms，不能拿 44.1k 输入采样率错误换算 hop。
+- 旧的错误 voiced-mask/F0 缓存不得继续作为质量证据；F0 cache/version 变更必须使旧结果 stale。
+- RMVPE / FCPE / third-F0 属于不同 evidence family；同一个模型的多次扰动/多次随机运行
+  不能伪装成多个独立测量家族。
+
 ## 1. 分离人声（verified）
 
 ```powershell
@@ -40,6 +80,47 @@ GAME raw（variant A）单 part，428 notes，part.position=10291 ticks（10.72s
 
 本次使用 run `diag-20260917-181538-6aec`。GAME 是随机模型：同配置
 `--repeats N` 可多跑取 medoid/consensus（见 AGENTS.md M2.1.2）。
+
+## 2.1 GAME 多跑、Candidate 0 与 uncertainty（verified）
+
+GAME 是 stochastic model。当前 written-score 诊断链使用同配置多次运行并做 formal sequence
+alignment；**Candidate 0 必须是某一次真实 GAME run**，不能是把多次结果平均后凭空构造的新谱。
+
+约束：
+
+- 多跑用于估计不确定性、split/merge correspondence 和 medoid 选择；
+- GAME 多个 stochastic runs 仍属于同一个模型 family，不可在证据投票时当成多个独立模型；
+- consensus/median 只能描述 uncertainty，不能覆盖 Candidate 0；
+- Candidate 0 在 adjudication / review / repair 中保持 immutable；所有修改 copy-on-write 生成新 artifact。
+
+## 2.2 Written-score 诊断/修复链（已实现部分）
+
+在歌词映射和表现调校之前，仓库已有一套 fail-closed 的 written-score 审计链：
+
+```text
+GAME multi-run
+→ formal alignment / medoid Candidate 0
+→ RMVPE + FCPE + third-F0 + waveform evidence
+→ pitch / structure / identity / separation 正交状态
+→ structure adjudication
+→ identity 固定后 pitch/octave adjudication
+→ unresolved 才进入 phrase-level review
+→ 仅 machine-safe 或 valid human-authorized candidate 可进入 repair
+```
+
+当前必须保留的安全规则：
+
+1. F0 measurement 不等于 score interpretation；F0 changepoint 本身不能证明 note boundary。
+2. missing/low-confidence evidence = neutral，既不是 support 也不是 opposition。
+3. structure 未 finalized 时，pitch 只能 provisional；structure identity/span 改变后旧 pitch verdict 必须重算。
+4. split 必须与 portamento/ornament 等解释竞争；两个 F0 plateau 本身不等于 written split。
+5. 单 note 自动 pitch repair 只能改 written tone；不得同时改 identity/timing/count/lyrics/PITD。
+6. phrase review 必须比较完整自然唱句，共享同一 context / singer / renderer / gain；候选音频需绑定 exact hash。
+7. 聊天中的“选 A/B”本身不是 repair authority，必须重新绑定到正式 decision/package。
+8. 0 repair 是合法结果；不能为了让流程继续而降低 gate。
+9. 当前 M2.5 bulk structure repair 仍处于 QUALITY HOLD：未通过 review-readiness 的候选不得进入 trusted written score。
+
+这些审计规则不是当前 HFA 填词算法的替代品；它们负责防止错误 GAME 结构/音高被静默写入基础乐谱。
 
 ## 3. 组装对比工程（verified）
 
@@ -139,6 +220,24 @@ PyYAML 解析 ustx 复核 note 数/零时长/重叠（见验证记录命令）�
 - GAME align 模式（known_boundaries 硬约束）：会把错误的字界当硬边界，
   对本任务不适用——保留 GAME 原生 note + HFA 区域归属才是正确分工。
 - Whisper DTW 字级 span：系统性偏早 0.3–0.6s，仅作行级窗参考。
+
+## 当前 pipeline 的不可破坏顺序
+
+后续任何新调校计划必须服从下面的层级：
+
+```text
+原曲/分离
+→ GAME written melody
+→ written-score audit / 必要修复
+→ HubertFA lyric/nucleus mapping
+→ base USTX + bridge validation
+→ neutral DiffSinger render
+→ 表现参数（PITD/DYN/TENC/BREC/VOIC/color）
+→ render loop / QA
+```
+
+**先唱对，再唱得像。** PITD、vibrato、portamento、color、breathiness 等都不得用来掩盖
+written-note pitch/timing/identity 错误。
 
 ## 渲染质检管线 (runs/qa, 2026-09-21)
 
