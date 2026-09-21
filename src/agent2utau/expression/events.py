@@ -58,13 +58,44 @@ def _cycle_runs(t, mm, ok, f0_hz, rate_range_hz, min_depth_c):
     return halfs, anchors
 
 
+def _vib_boundary(t, mmf, ok, seg_ids, i_ext, step, max_frames, depth_c):
+    """Extend the event boundary outward from extremum i_ext toward the
+    zero return, clamped by evidence: never cross unvoiced /
+    low-confidence frames or a segment boundary; stop where the local
+    modulation amplitude has collapsed below the zero-return threshold.
+    Returns (index, reason)."""
+    j = i_ext
+    low = 0
+    for _ in range(max_frames):
+        nj = j + step
+        if nj < 0 or nj >= len(t):
+            return j, "note_edge"
+        if not ok[nj]:
+            return j, "voiced_or_confidence_gap"
+        if seg_ids[nj] != seg_ids[i_ext]:
+            return j, "segment_boundary"
+        j = nj
+        if abs(mmf[j]) < 0.15 * depth_c:
+            low += 1
+            if low >= 2:
+                return j, "zero_return"
+        else:
+            low = 0
+    return j, "quarter_period"
+
+
 def detect_vibrato_events(contour: ContourSignal, notes,
-                          rate_range_hz=(4.0, 8.5), min_cycles=2.5,
-                          min_depth_c=12.0, max_gap_cycles=0):
+                          rate_range_hz=(4.0, 8.5), min_evidence_cycles=2.5,
+                          min_stable_cycles=2.0, min_depth_c=12.0,
+                          max_gap_cycles=0):
     """Vibrato = longest run of consecutive valid cycles on the detrended
     signal. Event start/end are the run's real boundaries (first valid
     cycle's first extremum -> last valid cycle's last extremum), never
-    derived from a fixed note fraction."""
+    derived from a fixed note fraction.
+
+    Two separate cycle gates (plan R2.1-L4): the raw evidence chain must
+    reach min_evidence_cycles, and the amplitude-trimmed stable run must
+    independently reach min_stable_cycles. Both counts are reported."""
     trend, mod = robust_pitch_trend(contour, cutoff_hz=3.0)
     events = []
     for i, n in enumerate(notes):
@@ -113,14 +144,15 @@ def detect_vibrato_events(contour: ContourSignal, notes,
                 cur = [h]
         runs.append(cur)
         run_raw = max(runs, key=len)
-        n_cycles = len(run_raw) / 2.0
-        if n_cycles < min_cycles:
+        evidence_cycles = len(run_raw) / 2.0
+        if evidence_cycles < min_evidence_cycles:
             continue
         # Trim leading/trailing half-cycles whose amplitude collapsed:
         # detrend-filter ringing decays sharply (>20% per half-cycle),
         # while real vibrato amplitude fluctuates around its level.
-        # The min_cycles gate above uses the raw chain — onset/offset
-        # ramps still prove the event; trimming only moves boundaries.
+        # The evidence gate above uses the raw chain — onset/offset
+        # ramps still prove the event; trimming only moves boundaries,
+        # and the trimmed run is independently gated below.
         run = run_raw
         while len(run) > 1 and run[0][3] < 0.8 * run[1][3]:
             run = run[1:]
@@ -128,7 +160,9 @@ def detect_vibrato_events(contour: ContourSignal, notes,
             run = run[:-1]
         if not run:
             run = run_raw
-        n_cycles = len(run) / 2.0
+        stable_cycles = len(run) / 2.0
+        if stable_cycles < min_stable_cycles:
+            continue
         i0, i1 = run[0][0], run[-1][1]
         periods = np.array([run[k][2] + run[k + 1][2]
                             for k in range(0, len(run) - 1, 2)])
@@ -147,12 +181,21 @@ def detect_vibrato_events(contour: ContourSignal, notes,
         depth_c = float(depths.mean())
         depth_cv = float(np.std(depths) / depth_c) if len(depths) > 1 \
             and depth_c > 0 else 0.0
-        # Event bounds = first/last extremum ± quarter-period return to
-        # zero (declared constant, NOT data-following: ringing after a
-        # stopped oscillation would otherwise fake a longer event).
+        # Event bounds = first/last extremum extended toward the zero
+        # return, clamped by evidence: never cross unvoiced /
+        # low-confidence frames or a segment boundary, and stop early
+        # where the local modulation amplitude has already collapsed
+        # (plan R2.1-L3).
         qr = 0.25 / measured_rate
-        ev_s = float(max(t[i0] - qr, t[0]))
-        ev_e = float(min(t[i1] + qr, t[-1]))
+        qr_frames = max(1, int(round(qr / HOP_S)))
+        seg = contour.segment_id[m] \
+            if contour.segment_id is not None else np.zeros(len(t), int)
+        i_lo, b_start = _vib_boundary(t, mmf, ok, seg, i0, -1,
+                                      qr_frames, depth_c)
+        i_hi, b_end = _vib_boundary(t, mmf, ok, seg, i1, +1,
+                                    qr_frames, depth_c)
+        ev_s = float(t[i_lo])
+        ev_e = float(t[i_hi])
         seg_t = (np.arange(i0, i1 + 1) - i0) * HOP_S   # phase origin = ev_s
         seg_m = mmf[i0:i1 + 1]
         # Fit phase with the same measured frequency emitted below.
@@ -169,7 +212,7 @@ def detect_vibrato_events(contour: ContourSignal, notes,
                    0.20 * min(snr / 8.0, 1.0)
                    + 0.20 * (1 - min(period_cv, 0.5) * 2)
                    + 0.15 * (1 - min(depth_cv, 0.6) / 0.6)
-                   + 0.15 * min(n_cycles / 6.0, 1.0)
+                   + 0.15 * min(stable_cycles / 6.0, 1.0)
                    + 0.15 * cover
                    + 0.15 * float(np.mean(contour.confidence[m][ok]))))
         events.append(PitchEvent(
@@ -183,7 +226,11 @@ def detect_vibrato_events(contour: ContourSignal, notes,
                                    for x in periods],
                     "depth_envelope_c": [round(float(x), 1)
                                          for x in depths],
-                    "stable_cycle_count": round(n_cycles, 1),
+                    "evidence_cycle_count": round(evidence_cycles, 1),
+                    "stable_cycle_count": round(stable_cycles, 1),
+                    "boundary_method": "extremum_zero_return",
+                    "boundary_start_reason": b_start,
+                    "boundary_end_reason": b_end,
                     "period_cv": round(period_cv, 3),
                     "depth_cv": round(depth_cv, 3),
                     "drift_c_per_s": round(drift, 1),
@@ -729,10 +776,18 @@ def match_vibrato_events(source_events, neutral_events, notes):
         # mid-note events must stay in dense PITD
         periodic = s0 and s0.params.get("period_cv", 1) < 0.15 \
             and s0.params.get("depth_cv", 1) < 0.4
-        # Note-vibrato is tail anchored and cannot stop early.
+        # Note-vibrato is tail anchored. A small end gap is either inside
+        # tolerance or expressible via the native `out` fade — bounded by
+        # both the vibrato fraction and an absolute fade length, since a
+        # >~100ms linear ramp would invent a shape the source never had.
+        # An event that dies materially earlier is a true early stop and
+        # stays in PITD.
         tail_gap = (n["abs_start_s"] + n["dur_s"] - s0.end_s) if s0 else 1e9
         tail_end_tol = max(0.03, min(0.08, 0.05 * n["dur_s"]))
-        tail_anchored = s0 and abs(tail_gap) <= tail_end_tol
+        vib_len = (n["abs_start_s"] + n["dur_s"] - s0.start_s) if s0 else 0
+        fade_expressible = 0 < tail_gap <= min(0.35 * vib_len, 0.10)
+        tail_anchored = s0 and (
+            abs(tail_gap) <= tail_end_tol or fade_expressible)
         if state == "neutral_only":
             rep = "suppress_neutral"
         elif periodic and tail_anchored:

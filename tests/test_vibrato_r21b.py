@@ -152,7 +152,7 @@ def test_compile_source_only_tail_vibrato():
                               [_note(dur)])
     assert vm[0]["match_state"] == "source_only"
     assert vm[0]["recommended_representation"] == "note_vibrato"
-    pitd, marks = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
+    pitd, marks, _prov = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
     assert 0 in marks
     assert abs(marks[0]["period"] - 1000 / 6.5) < 8
     # written depth is calibrated 1/0.69x so render amplitude matches
@@ -176,7 +176,7 @@ def test_compile_matched_does_not_double_add():
                               [_note(dur)])
     assert vm[0]["match_state"] == "matched"
     assert vm[0]["recommended_representation"] == "note_vibrato"
-    pitd, marks = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
+    pitd, marks, _prov = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
     assert marks[0]["depth"] < 100
 
     # Algebraic render surrogate: neutral + PITD + rendered note-vibrato
@@ -205,7 +205,7 @@ def test_compile_neutral_only_suppression():
                               [_note(dur)])
     assert vm[0]["match_state"] == "neutral_only"
     assert vm[0]["recommended_representation"] == "suppress_neutral"
-    pitd, marks = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
+    pitd, marks, _prov = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
     assert marks[0]["depth"] == 0
     # Neutral-only modulation is renderer behaviour in the Stage-B
     # baseline. PITD must CANCEL it, not discard the periodic residual.
@@ -228,7 +228,7 @@ def test_mid_note_vibrato_stays_pitd():
     vm = match_vibrato_events(detect_vibrato_events(src, [n]),
                               detect_vibrato_events(neu, [n]), [n])
     assert vm[0]["recommended_representation"] == "irregular_pitd"
-    pitd, marks = compile_C3(dense, src, neu, [n], 0, vm)
+    pitd, marks, _prov = compile_C3(dense, src, neu, [n], 0, vm)
     assert marks == {}                  # not forced into note vibrato
 
 
@@ -254,3 +254,145 @@ def test_vibrato_does_not_bridge_invalid_evidence_hole():
     # each side of the evidence hole has too few cycles; the detector must
     # not interpolate validity and join them into one accepted event.
     assert detect_vibrato_events(sig, [_note(dur)]) == []
+
+
+# ---- R2.1-L1: detector phase -> native OpenUtau shift -----------------
+
+def test_compile_writes_native_shift_from_phase():
+    dur = 1.3
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    vib = np.where(t >= 0.8,
+                   50 * np.sin(2 * np.pi * 6.5 * (t - 0.8) + 0.9), 0)
+    dense, src, neu = _dense_and_sigs(6000 + vib, np.full(len(t), 6000.0),
+                                      dur)
+    vm = match_vibrato_events(detect_vibrato_events(src, [_note(dur)]),
+                              [], [_note(dur)])
+    assert vm[0]["recommended_representation"] == "note_vibrato"
+    pitd, marks, prov = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
+    sv = vm[0]["source_vibrato"]
+    ev_s = vm[0]["source_span_s"][0]
+    expected = ((sv["phase_rad"]
+                 + 2 * np.pi * sv["rate_hz"]
+                 * (ev_s - sv["phase_origin_s"])) / (2 * np.pi)) % 1.0 * 100
+    assert abs(marks[0]["shift"] - expected) < 1.5
+    assert prov[0]["computed_shift_pct"] == marks[0]["shift"] or \
+        abs(prov[0]["computed_shift_pct"] - expected) < 1.5
+
+
+def test_compiled_engine_sine_matches_detector_phase():
+    """OpenUtau semantics: phase arg = 2pi[(nPos-nStart)/nPeriod+shift/100].
+    The compiled mark must reproduce the detected source phase, not leave
+    a ~pi cancellation for closed-loop to rescue."""
+    dur = 1.3
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    vib = np.where(t >= 0.8,
+                   50 * np.sin(2 * np.pi * 6.5 * (t - 0.8) + 0.9), 0)
+    dense, src, neu = _dense_and_sigs(6000 + vib, np.full(len(t), 6000.0),
+                                      dur)
+    vm = match_vibrato_events(detect_vibrato_events(src, [_note(dur)]),
+                              [], [_note(dur)])
+    pitd, marks, prov = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
+    sv = vm[0]["source_vibrato"]
+    mk = marks[0]
+    n_start_t = dur * (1.0 - mk["length"] / 100.0)
+    period_s = mk["period"] / 1000.0
+    eng = np.sin(2 * np.pi * ((t - n_start_t) / period_s
+                              + mk["shift"] / 100.0))
+    det = np.sin(2 * np.pi * sv["rate_hz"]
+                 * (t - sv["phase_origin_s"]) + sv["phase_rad"])
+    lo, hi = vm[0]["source_span_s"]
+    span = (t >= lo + 0.05) & (t <= hi - 0.05)   # avoid fade edges
+    assert np.corrcoef(eng[span], det[span])[0, 1] > 0.97
+
+
+# ---- R2.1-L3: evidence-bounded vibrato boundaries ----------------------
+
+def test_vibrato_boundary_clamped_by_unvoiced_tail():
+    dur = 1.3
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    cents = np.full(len(t), 6000.0)
+    v = (t >= 0.40) & (t <= 0.95)
+    cents[v] += 50 * np.sin(2 * np.pi * 6.5 * (t[v] - 0.40))
+    voiced = np.ones(len(t), dtype=bool)
+    voiced[t > 0.95] = False    # unvoiced inside the quarter-period window
+    sig = _sig(t, cents, voiced=voiced)
+    ev = _ev(sig, _note(dur))
+    assert len(ev) == 1
+    # extension must not cross the unvoiced region
+    assert ev[0].end_s <= 0.96
+    assert ev[0].params["boundary_end_reason"] in \
+        ("voiced_or_confidence_gap", "segment_boundary")
+
+
+def test_vibrato_boundary_stops_on_energy_collapse():
+    """Vibrato dies mid-note into a flat tail: the boundary must stop at
+    the collapse, not extend a quarter-period into dead signal."""
+    dur = 1.3
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    cents = np.full(len(t), 6000.0)
+    v = (t >= 0.5) & (t <= 1.0)
+    frac = (t[v] - 0.5) / 0.5
+    env = 50 * np.clip(1.6 - 1.6 * frac, 0.0, 1.0)   # dies by ~0.81s... 
+    env = np.where(frac < 0.625, 50.0, 50 * (1 - (frac - 0.625) / 0.375))
+    cents[v] += env * np.sin(2 * np.pi * 6.5 * (t[v] - 0.5))
+    sig = _sig(t, cents)
+    ev = _ev(sig, _note(dur))
+    assert len(ev) == 1
+    assert ev[0].end_s < 1.15
+    assert ev[0].params["boundary_end_reason"] in \
+        ("zero_return", "quarter_period")
+
+
+def test_vibrato_boundary_segment_clamp():
+    """A voiced gap right after the last extremum clamps the boundary at
+    the segment edge — never extends into another voiced segment."""
+    dur = 1.4
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    cents = np.full(len(t), 6000.0)
+    v = (t >= 0.6) & (t <= 1.05)
+    cents[v] += 50 * np.sin(2 * np.pi * 6.5 * (t[v] - 0.6))
+    voiced = np.ones(len(t), dtype=bool)
+    voiced[(t > 1.07) & (t < 1.20)] = False     # 130ms gap -> new segment
+    sig = _sig(t, cents, voiced=voiced)
+    ev = _ev(sig, _note(dur))
+    assert len(ev) == 1
+    assert ev[0].end_s <= 1.08
+
+
+def test_vibrato_asymmetric_waveform_still_detected():
+    dur = 1.3
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    cents = np.full(len(t), 6000.0)
+    v = t >= 0.55
+    cents[v] += (45 * np.sin(2 * np.pi * 6.5 * (t[v] - 0.55))
+                 + 15 * np.sin(4 * np.pi * 6.5 * (t[v] - 0.55)))
+    ev = _ev(_sig(t, cents), _note(dur))
+    assert len(ev) == 1
+    assert abs(ev[0].params["rate_hz"] - 6.5) < 0.6
+
+
+# ---- R2.1-L4: evidence vs stable cycle gates ---------------------------
+
+def test_evidence_and_stable_cycles_reported_separately():
+    """Weak leading half-cycle is trimmed: evidence count (raw chain)
+    differs from stable count (trimmed run); both gates apply."""
+    dur = 1.3
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    cents = np.full(len(t), 6000.0)
+    v = (t >= 0.5) & (t <= 1.3)
+    env = np.where(t[v] < 0.5 + 0.5 / 6.5, 32.0, 50.0)  # weak first half
+    cents[v] += env * np.sin(2 * np.pi * 6.5 * (t[v] - 0.5))
+    ev = _ev(_sig(t, cents), _note(dur))
+    assert len(ev) == 1
+    p = ev[0].params
+    assert p["evidence_cycle_count"] >= 2.5
+    assert p["stable_cycle_count"] >= 2.0
+    assert p["evidence_cycle_count"] >= p["stable_cycle_count"]
+
+
+def test_short_raw_chain_rejected_by_evidence_gate():
+    """Only ~2 real cycles: raw evidence below 2.5 must reject, even if
+    the trimmed run could still pass a lower stable threshold."""
+    dur = 1.3
+    sig = _vib_sig(dur, 0.95, 1.24, rate=6.5, depth=50)  # ~1.9 cycles
+    assert _ev(sig, _note(dur)) == []

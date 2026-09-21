@@ -1,0 +1,46 @@
+[
+  {
+    "note_index": 11,
+    "match_state": "source_only",
+    "source_vibrato": {
+      "rate_hz": 6.82,
+      "fft_bin_hz": 7.08,
+      "depth_c": 49.7,
+      "phase_rad": -1.202,
+      "phase_origin_s": 29.72,
+      "periods_ms": [
+        150.0,
+        140.0,
+        140.0,
+        140.0,
+        150.0,
+        160.0
+      ],
+      "depth_envelope_c": [
+        45.4,
+        55.3,
+        56.0,
+        41.8,
+        49.7,
+        49.9
+      ],
+      "evidence_cycle_count": 7.0,
+      "stable_cycle_count": 6.5,
+      "boundary_method": "extremum_zero_return",
+      "boundary_start_reason": "quarter_period",
+      "boundary_end_reason": "quarter_period",
+      "period_cv": 0.051,
+      "depth_cv": 0.101,
+      "drift_c_per_s": 16.8,
+      "mod_snr": 10.32,
+      "voiced_coverage": 1.0
+    },
+    "neutral_vibrato": null,
+    "source_span_s": [
+      29.68,
+      30.73
+    ],
+    "neutral_span_s": null,
+    "recommended_representation": "note_vibrato"
+  }
+]

@@ -383,6 +383,7 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
     mod_s_g = np.interp(g, src_sig.times, mod_s, left=0.0, right=0.0)
     mod_n_g = np.interp(g, neu_sig.times, mod_n, left=0.0, right=0.0)
     vibrato_marks = {}
+    vib_provenance = {}
     for m in vib_match:
         rep = m.get("recommended_representation")
         i = m["note_index"]
@@ -400,26 +401,61 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
             w = 2 * np.pi * sv["rate_hz"]
             tau = g - sv.get("phase_origin_s", ev_s)
             fit = sv["depth_c"] * np.sin(w * tau + sv["phase_rad"])
-            span = (g >= ev_s) & (g <= ev_e)
-            vals = np.where(
-                span, trend_resid + (mod_s_g - fit) - mod_n_g, vals)
-            # OpenUtau note-vibrato itself continues to the note tail. If
-            # detector end_s occurs before note end, cancel that parameter
-            # tail with PITD so the compiled event still respects real end_s.
-            post_span = (g > ev_e) & (g <= n_end)
-            vals = np.where(post_span, vals - fit, vals)
             length_pct = min(100.0, max(5.0,
                              (n_end - ev_s) / n["dur_s"] * 100.0))
+            vib_len = n_end - ev_s
+            tail_gap = n_end - ev_e
+            # The detector end is where modulation collapsed; OpenUtau
+            # can express that as the native `out` fade spanning the gap
+            # to the note tail.
+            out_pct = min(35.0, max(0.0, tail_gap / vib_len * 100.0)) \
+                if tail_gap > 0 else 5.0
+            in_len = 0.05 * vib_len
+            fade_len = out_pct / 100.0 * vib_len
+            # Engine envelope: linear `in` ramp, full body, linear `out`
+            # fade ending exactly at the note tail.
+            env = np.ones_like(g)
+            ramp_in = (g >= ev_s) & (g < ev_s + in_len)
+            env[ramp_in] = (g[ramp_in] - ev_s) / in_len
+            fade_zone = (g > ev_e) & (g <= n_end)
+            env[fade_zone] = np.clip((n_end - g[fade_zone])
+                                     / max(fade_len, 1e-6), 0, 1)
+            eng = fit * env
+            span = (g >= ev_s) & (g <= ev_e)
+            vals = np.where(
+                span, trend_resid + (mod_s_g - eng) - mod_n_g, vals)
+            # After the detected end the engine vibrato keeps fading to
+            # the tail; cancel exactly that rendered remainder.
+            vals = np.where(fade_zone, vals - eng, vals)
             depth_gain = float(m.get("render_depth_gain",
                                      VIBRATO_DEPTH_GAIN))
             if not np.isfinite(depth_gain) or depth_gain <= 0:
                 depth_gain = 1.0
+            # Plan R2.1-L1: detector phase -> native `shift`. Engine
+            # phase at vibrato start (= ev_s via NormalizedStart) is
+            # 2*pi*shift/100; equate it with the detector sine model
+            # m(t) = A sin(2*pi*rate*(t - phase_origin) + phase_rad).
+            phi_start = sv["phase_rad"] + w * (
+                ev_s - sv.get("phase_origin_s", ev_s))
+            shift_pct = (phi_start / (2 * np.pi)) % 1.0 * 100.0
             vibrato_marks[i] = {
                 "length": round(length_pct, 1),
                 "period": round(1000.0 / sv["rate_hz"], 1),
                 "depth": round(sv["depth_c"] / depth_gain, 1),
-                "in": 5, "out": 5, "shift": 0, "drift": 0,
-                "volLink": 0}
+                "in": 5, "out": round(out_pct, 1),
+                "shift": round(shift_pct, 1),
+                "drift": 0, "volLink": 0}
+            vib_provenance[i] = {
+                "detected_phase_rad": sv["phase_rad"],
+                "phase_origin_s": sv.get("phase_origin_s"),
+                "event_start_s": ev_s, "event_end_s": ev_e,
+                "computed_shift_pct": round(shift_pct, 2),
+                "computed_out_pct": round(out_pct, 2),
+                "tail_gap_s": round(tail_gap, 4),
+                "compiled_length_pct": round(length_pct, 1),
+                "compiled_period_ms": round(1000.0 / sv["rate_hz"], 1),
+                "compiled_depth_c": round(sv["depth_c"] / depth_gain, 1),
+                "depth_gain": round(depth_gain, 4)}
         elif rep == "suppress_neutral" and m.get("neutral_span_s"):
             ev_s, ev_e = m["neutral_span_s"]
             span = (g >= max(ev_s, n["abs_start_s"])) & (g <= ev_e)
@@ -459,7 +495,7 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
     xs, ys = xs[order], ys[order]
     keep = np.concatenate([[True], np.diff(xs) > 0])
     return {"abbr": "pitd", "xs": xs[keep].tolist(),
-            "ys": ys[keep].tolist()}, vibrato_marks
+            "ys": ys[keep].tolist()}, vibrato_marks, vib_provenance
 
 
 def state_summary(dense):

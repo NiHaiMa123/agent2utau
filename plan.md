@@ -1703,7 +1703,56 @@ QA:
 测试必须锁住函数行为；当前 HEAD 没有 CI/status check，R2.1 完成时至少应
 提供可重复的本地 test command，最好接 GitHub Actions。
 
-#### R2.1-L — OpenUtau Native Vibrato Phase / Boundary Revalidation — CURRENT BLOCKER
+#### R2.1-L — OpenUtau Native Vibrato Phase / Boundary Revalidation — DONE (machine gate; listening pending)
+
+本轮实现与 revalidation（HEAD 待提交）结果：
+
+- **L1 DONE**：`compile_C3` 现在按
+  `shift = (phase_rad + 2π·rate·(ev_s − phase_origin_s)) / 2π mod 1 · 100`
+  写原生 `shift`（已对 `UNote.cs::UVibrato.Evaluate` 源码语义核对：
+  `t = (nPos − nStart)/nPeriod + shift/100`，nStart=NormalizedStart=ev_s）。
+  同时写出 provenance（detected_phase_rad / phase_origin_s /
+  event_start_s / computed_shift_pct / compiled_* / depth_gain /
+  tail_gap_s / computed_out_pct）。
+  - **新语义修正**：detected event end 到 note tail 的 gap 不再只当
+    "提前结束"拒绝——`tail_gap ≤ min(0.35·vib_len, 0.10s)` 时编译为
+    原生 `out` fade（fade 起点恰为 detected end_s，忠实还原
+    amplitude-collapse 边界）；超出该范围才判 `irregular_pitd`。
+    PITD 抵消项同步乘上引擎 in/out 包络（`eng = fit·env(t)`），
+    不再假设引擎满幅到尾。
+- **L3 DONE**：`_vib_boundary`——extremum→zero-return 扩展被证据
+  clamp：不跨 voiced=False / confidence≤0.5 / segment_id 边界；
+  |mod|<0.15·depth 连续 2 帧即停（energy collapse = zero_return）；
+  provenance 输出 boundary_method + start/end_clamped_reason。
+- **L4 DONE**：`min_cycles` 拆为 `min_evidence_cycles=2.5` /
+  `min_stable_cycles=2.0`；event params 同时报告
+  `evidence_cycle_count`（raw chain）与 `stable_cycle_count`
+  （amplitude-trimmed run），双门禁独立。
+- **Synthetic regressions**：+8 个测试（shift 映射、引擎正弦相位等价
+  corr>0.97、unvoiced/energy-collapse/segment boundary clamp、
+  非对称波形、evidence/stable 双门禁、短链拒绝）；**489 passed**。
+- **L5 first-render（无 closed-loop）**（runs/expr-20260921/r21l5/）：
+  - A source_only → note_vibrato（shift=53.4）：Δphase **0.30rad**
+    ——旧的 ≈π cancel 消失，证明 phase-cancel 确实是 `shift=0` 人为制造；
+  - B matched → note_vibrato 无 double-add，pos_med 5.9c；
+  - C neutral_only → suppress，渲染后无可检测 vibrato；
+  - P3 real phrase：pos_med 5.5c / p90 29.1c，Δphase 0.30rad；
+    真实 F0 逐窗对照显示 render 深度 ≥ source（56-78c vs 25-55c），
+    detector 报告的 Δdepth −28.8 为 render 端检测口径偏差。
+  - **深度增益不是常量**：written 72c → acoustic ~70c（本案 gain≈0.95），
+    与早前实测 0.69 不一致 → depth_gain 保留为 per-event 可覆盖的
+    fallback 校准项，closed-loop 负责残余（v2 后 P3 pos_med 3.2c /
+    Δdepth −4.1c / Δphase 0.21rad；turn amplitude err 10.4→3.1c）。
+  - 结论：native params first render 已正确；closed-loop 回到
+    "小修正"职责（pos_med 减半、turn amp err 降 3x），符合 L2 定位。
+- **L6 DONE**：`runs/expr-20260921/phrases3/<P>/{events,qa}/*.json`
+  与 `r21l5/{report,P2_report,P3_report}.json` 随本轮提交
+  （force-add 进 git——runs/ 默认 ignore，QA 证据例外）。
+
+剩余门禁不变：人工试听 phrases3 C2/C3 vs D vs SOURCE 通过前，
+R2.5/R3 继续 BLOCKED。
+
+历史验收清单（备查）：
 
 ##### L1. detector phase → OpenUtau `shift`
 

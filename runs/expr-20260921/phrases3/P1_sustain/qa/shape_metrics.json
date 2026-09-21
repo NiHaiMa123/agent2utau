@@ -1,0 +1,62 @@
+{
+  "D": {
+    "pos_med_c": 27.7,
+    "pos_p90_c": 191.8,
+    "pos_p95_c": 227.0,
+    "slope_med_c_per10ms": 8.8,
+    "slope_p90_c_per10ms": 40.8,
+    "curv_med_c_per10ms2": 5.3,
+    "curv_p90_c_per10ms2": 22.8,
+    "turns_render": 68,
+    "turns_source": 43,
+    "extra_turns": 25
+  },
+  "C0": {
+    "pos_med_c": 2.8,
+    "pos_p90_c": 17.6,
+    "pos_p95_c": 94.1,
+    "slope_med_c_per10ms": 2.0,
+    "slope_p90_c_per10ms": 20.1,
+    "curv_med_c_per10ms2": 2.2,
+    "curv_p90_c_per10ms2": 27.5,
+    "turns_render": 39,
+    "turns_source": 43,
+    "extra_turns": -4
+  },
+  "C0r": {
+    "pos_med_c": 4.8,
+    "pos_p90_c": 28.8,
+    "pos_p95_c": 74.5,
+    "slope_med_c_per10ms": 2.3,
+    "slope_p90_c_per10ms": 20.1,
+    "curv_med_c_per10ms2": 2.2,
+    "curv_p90_c_per10ms2": 25.3,
+    "turns_render": 39,
+    "turns_source": 43,
+    "extra_turns": -4
+  },
+  "C1": {
+    "pos_med_c": 3.4,
+    "pos_p90_c": 24.4,
+    "pos_p95_c": 45.4,
+    "slope_med_c_per10ms": 2.3,
+    "slope_p90_c_per10ms": 16.5,
+    "curv_med_c_per10ms2": 2.3,
+    "curv_p90_c_per10ms2": 24.8,
+    "turns_render": 35,
+    "turns_source": 43,
+    "extra_turns": -8
+  },
+  "C2": {
+    "pos_med_c": 4.1,
+    "pos_p90_c": 52.3,
+    "pos_p95_c": 95.3,
+    "slope_med_c_per10ms": 2.6,
+    "slope_p90_c_per10ms": 24.2,
+    "curv_med_c_per10ms2": 2.6,
+    "curv_p90_c_per10ms2": 25.8,
+    "turns_render": 33,
+    "turns_source": 43,
+    "extra_turns": -10
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "compiler": {
+    "marks": {
+      "11": {
+        "length": 95.8,
+        "period": 138.5,
+        "depth": 72.9,
+        "in": 5,
+        "out": 0.9,
+        "shift": 57.3,
+        "drift": 0,
+        "volLink": 0
+      }
+    },
+    "provenance": {
+      "11": {
+        "detected_phase_rad": -1.322,
+        "phase_origin_s": 55.61,
+        "event_start_s": 55.58,
+        "event_end_s": 56.7,
+        "computed_shift_pct": 57.3,
+        "computed_out_pct": 0.92,
+        "tail_gap_s": 0.0104,
+        "compiled_length_pct": 95.8,
+        "compiled_period_ms": 138.5,
+        "compiled_depth_c": 72.9,
+        "depth_gain": 0.69
+      }
+    },
+    "pitd_points": 129
+  },
+  "before_closed_loop": {
+    "position": {
+      "valid_frames": 419,
+      "coverage": 0.88,
+      "n": 419,
+      "med_c": 6.1,
+      "p90_c": 32.4,
+      "p95_c": 91.2
+    },
+    "topology": {
+      "matched_turns": 43,
+      "missing_turns": 18,
+      "extra_turns": 2,
+      "source_turns": 61,
+      "render_turns": 45,
+      "turn_timing_err_ms_med": 0.0,
+      "turn_amplitude_err_c_med": 6.8,
+      "turn_prominence_err_c_med": 16.8,
+      "sequence_edit_distance": 16,
+      "valid_frames": 419,
+      "coverage": 0.88
+    },
+    "vibrato": [
+      {
+        "note": 11,
+        "state": "matched",
+        "delta_rate_hz": 0.15,
+        "delta_depth_c": -30.2,
+        "delta_period_cv": 0.001,
+        "delta_depth_cv": 0.08,
+        "delta_stable_cycle_count": 0.5,
+        "delta_phase_rad": 0.607,
+        "delta_start_ms": 20.0,
+        "delta_end_ms": 70.0
+      }
+    ]
+  },
+  "after_closed_loop": {
+    "position": {
+      "valid_frames": 417,
+      "coverage": 0.876,
+      "n": 417,
+      "med_c": 3.0,
+      "p90_c": 21.7,
+      "p95_c": 46.5
+    },
+    "topology": {
+      "matched_turns": 45,
+      "missing_turns": 16,
+      "extra_turns": 4,
+      "source_turns": 61,
+      "render_turns": 49,
+      "turn_timing_err_ms_med": 0.0,
+      "turn_amplitude_err_c_med": 2.6,
+      "turn_prominence_err_c_med": 6.4,
+      "sequence_edit_distance": 12,
+      "valid_frames": 417,
+      "coverage": 0.876
+    },
+    "vibrato": [
+      {
+        "note": 11,
+        "state": "matched",
+        "delta_rate_hz": 0.22,
+        "delta_depth_c": -5.7,
+        "delta_period_cv": -0.001,
+        "delta_depth_cv": 0.022,
+        "delta_stable_cycle_count": 0.0,
+        "delta_phase_rad": 0.653,
+        "delta_start_ms": 30.0,
+        "delta_end_ms": 0.0
+      }
+    ]
+  }
+}

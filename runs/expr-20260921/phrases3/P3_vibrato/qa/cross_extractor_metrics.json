@@ -1,0 +1,27 @@
+{
+  "D": {
+    "generated_by": "none",
+    "fcpe_med_c": 29.2,
+    "rmvpe_med_c": 27.6
+  },
+  "C0": {
+    "generated_by": "fcpe",
+    "fcpe_med_c": 3.3,
+    "rmvpe_med_c": 3.6
+  },
+  "C0r": {
+    "generated_by": "rmvpe",
+    "fcpe_med_c": 3.6,
+    "rmvpe_med_c": 2.9
+  },
+  "C1": {
+    "generated_by": "fcpe",
+    "fcpe_med_c": 4.1,
+    "rmvpe_med_c": 3.6
+  },
+  "C2": {
+    "generated_by": "fcpe",
+    "fcpe_med_c": 4.0,
+    "rmvpe_med_c": 3.7
+  }
+}
