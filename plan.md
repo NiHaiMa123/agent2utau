@@ -414,7 +414,7 @@ neutral
 
 ## 16. 实施里程碑
 
-### R0 — Expressive baseline
+### R0 — Expressive baseline  ✅ 已完成（见 §18.1）
 
 - clone/adapter Expressive；
 - 选《年轮》3–5 个代表句；
@@ -423,14 +423,14 @@ neutral
 - A/B：neutral vs Expressive；
 - 只验证，不先大改仓库。
 
-### R1 — Residual PITD
+### R1 — Residual PITD  🔄 原型已建，对齐未达标
 
-- 新建 `analysis/expression_pitch.py`；
-- reference vs neutral F0 residual；
-- HFA anchor constrained alignment；
-- dense residual artifact；
-- adaptive curve compiler；
-- 替换旧固定 20 points/s 主路径。
+- ✅ `expression/pitch_variants.py`（替代 `analysis/expression_pitch.py`）；
+- ✅ reference vs neutral F0 residual；
+- ⚠️ HFA anchor constrained alignment —— 已实现但产出不稳（见 §18.2 难点）；
+- ⚠️ dense residual artifact —— 有 audit，尚无独立 dense 文件；
+- ✅ adaptive curve compiler（RDP ε=8c，替代固定 20 points/s）；
+- ❌ 尚不能替换旧主路径：C 在 3 个乐句上均未稳定优于 A/D。
 
 ### R2 — Event decomposition
 
@@ -476,14 +476,15 @@ neutral
 ```text
 src/agent2utau/
   expression/
-    align.py
-    pitch_residual.py
+    pitch_variants.py   ✅ 已有：A/B/C 生成器 + RDP 简化（原型）
+    align.py            ⬜ 待拆：HFA 锚点 / 局部 DTW（当前在 pitch_variants 内）
+    pitch_residual.py   ⬜ 待拆：事件分解前的 residual 主路径
     events.py
     vibrato.py
     dynamics.py
     breath_voice.py
     tension.py
-    simplify.py
+    simplify.py         ⬜ 待拆：RDP 目前在 pitch_variants 内
     compile_ustx.py
     controller.py
 
@@ -526,6 +527,70 @@ SOURCE = 原唱 vocal
 
 先确认 **B/C 是否明显优于 A**。如果 residual 方法在这三类句型上都不能稳定改善，
 先查 alignment/F0/renderer 叠加语义，不进入全曲开发。
+
+### 18.1 实验结果（2026-09-21，run `expr-20260921`）
+
+已完成 Stage A/B + 三乐句 A/B/C/D 渲染：
+
+- Stage A：`runs/expr-20260921/expression/base_score.ustx` + `base_manifest.json`
+  （392 notes，`vocal_pipeline`，sha256/notes_hash/singer/renderer 已记录）；
+- Stage B：`neutral/ustx_neutral.ustx` + `neutral/yousa_neutral_vocal.wav` +
+  `neutral/f0_neutral.npz`（剥 vibrato/pitch.data/phoneme 表达式字段）；
+- 三乐句：`runs/expr-20260921/phrases/{P1_sustain,P2_slides,P3_vibrato}/`
+  各含 A/B/C/D ustx+wav + src/SOURCE.wav + 汇总 `report.json`。
+
+**中位 |渲染 F0 − 原唱 F0|（fcpe，越低越像原唱）：**
+
+| | A 旧转写 | B Expressive | C residual | D neutral |
+|---|---|---|---|---|
+| P1 稳音 | 23.8 | **21.8** | 71.9 | 27.7 |
+| P2 滑音 | 27.9 | **26.8** | 44.8 | 31.6 |
+| P3 长音颤音 | **21.4** | 24.5 | 43.6 | 28.9 |
+
+| p95 帧跳变（毛糙度） | A | B | C | D |
+|---|---|---|---|---|
+| P1 | 27.7 | 67.3 | 35.7 | **12.1** |
+| P2 | 56.5 | 102.8 | 58.1 | **25.7** |
+| P3 | 42.3 | 74.0 | 66.7 | **24.8** |
+
+**判读：B/C 未"明显优于 A"——按 plan 规则触发 alignment 排查，不进入全曲开发。**
+
+- B 贴原唱最近但最糙（DTW 把原唱连同毛刺一起 warp，265-473 点）；
+- C 三轮对齐全部失败，见 §18.2；
+- A 意外地不差——但它抄绝对 F0，不是目标架构；
+- pitd 执行链本身已验证（意图 vs 渲染 corr=0.97），问题只在"算什么"。
+
+### 18.2 当前难点：对齐是瓶颈
+
+C 的 residual 概念已验证可行（`neutral + residual` 能忠实渲染出来），
+败因全在"residual 用什么对齐"：
+
+1. **per-note lag（±40ms 搜索）**：稳音上 lag 不可辨识，argmin 在噪声里乱跳，
+   渲染比 neutral 更偏离原唱。
+2. **全局 lag（±100ms 搜索）**：P1 搜到边界值——median-error 曲面对 lag 太平。
+3. **HFA 锚点 warp**（plan 正解，已实现）：HFA 字起点比 GAME 音符起点
+   **早 100-260ms**（辅音段归属不同），分段线性 warp 把原唱的过渡段
+   拉进音体，residual 中位出现 -150~-240c 伪偏移。
+
+深层原因：**GAME 音符边界和 HFA 字边界不是同一套时间基准**。
+核(nucleus)在元音稳态区是可靠锚点；字起点(w0)含辅音，两边定义不一致，
+直接当锚点会污染 residual。
+
+### 18.3 待决策项
+
+1. **C 的对齐方案**：
+   a. 只用 nucleus↔nucleus 锚点（避开字起点争议，推荐先试）；
+   b. |resid|>150c 的区域不算 residual，留给事件分解（onset/portamento
+      单独建模，符合 Stage D 分层）；
+   c. 用 neutral render 的音素时序反推 written 侧核位置（不假设 r 比例）。
+2. **B 是否保留为对照基线**：它最贴原唱但不可解释、毛糙；
+   建议保留作 upper-bound 参考，不进生产路径。
+3. **QA 指标口径**：`med|render−ref|` 对"把表达重定时到 written grid"的
+   方法有系统性惩罚（时序差被算两次）。需要一个 timing-invariant 指标
+   （如 DTW 后误差 / 每音 lag 后误差）才能公平比较 residual 类方案。
+4. **试听裁决**：数值排除不了 A vs B——需要人工听 `phrases/P*/` 下
+   四变体 + SOURCE，确认"糙但像"(B) 与 "稳但偏"(A) 哪个更可接受，
+   再决定 C 的修复方向投入。
 
 ## Definition of Done
 
