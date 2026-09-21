@@ -403,6 +403,11 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
             span = (g >= ev_s) & (g <= ev_e)
             vals = np.where(
                 span, trend_resid + (mod_s_g - fit) - mod_n_g, vals)
+            # OpenUtau note-vibrato itself continues to the note tail. If
+            # detector end_s occurs before note end, cancel that parameter
+            # tail with PITD so the compiled event still respects real end_s.
+            post_span = (g > ev_e) & (g <= n_end)
+            vals = np.where(post_span, vals - fit, vals)
             length_pct = min(100.0, max(5.0,
                              (n_end - ev_s) / n["dur_s"] * 100.0))
             depth_gain = float(m.get("render_depth_gain",
@@ -422,7 +427,6 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
             # periodic output is renderer/singer behaviour, so preserve the
             # full source-neutral residual already present in vals to cancel
             # that modulation; replacing it with trend_resid would leave it.
-            vals = np.where(span, vals, vals)
             vibrato_marks[i] = {"length": 0, "period": 150, "depth": 0,
                                 "in": 0, "out": 0, "shift": 0, "drift": 0,
                                 "volLink": 0}
