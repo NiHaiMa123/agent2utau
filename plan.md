@@ -1310,29 +1310,42 @@ f358236e 已完成：
 尤其当前 P3 的 topology = 44 matched / 9 missing / 11 extra，
 已经说明“pointwise 很近”并不等于 contour shape 正确。
 
-### R2.1 — Detector / Matcher / QA Semantic Fix — REVIEWER FIXES REVALIDATED
+### R2.1 — Detector / Matcher / QA Semantic Fix — REOPENED / PHASE+BOUNDARY+QA ARTIFACT BLOCKER
 
-20eee99 完成第一轮实现后，review 又发现并已直接修正一批未被原 472 tests
-覆盖的语义错误。revalidation 已在 ea3c5c5+local-boundary-fix HEAD 完成：
+20eee99 与后续 reviewer fixes 已解决大量 detector / matcher / QA 语义问题；
+ecb83a3 又报告了 481 tests 与三态 render/re-detect。**这些结果保留为有价值的
+regression evidence，但本轮 review 发现新的 phase/boundary acceptance 缺口，
+因此撤销“REVALIDATED”状态，R2.1 继续 BLOCK。**
 
-- `pytest tests/`：**481 passed**（新增 9 个 reviewer 回归测试）
-- 三态 vibrato 真实 OpenUtau render → re-detect（r21c 重跑）：
-  - A source_only → note_vibrato：Δrate −0.11Hz / Δdepth +1.7c /
-    Δphase 0.023rad / Δstart −0.6ms / Δend +10.6ms，pos_med 5.8c；
-  - B matched → note_vibrato（不叠加 neutral）：Δdepth −1.5c /
-    Δphase 0.019rad / Δstart +9.4ms / Δend +20.6ms，pos_med 3.9c；
-  - C neutral_only → suppress_neutral：渲染后 0 可检测 vibrato，
-    pos_med 4.1c。
-- 真实 P3_vibrato C3 闭环（新代数下单次编译出现 phase-cancel：
-  引擎 vibrato 与 source fit 相位差 ≈π 导致渲染 depth 只剩 ~3.5c；
-  一轮 v2=v1+(src−render) 修正收敛）：v2 pos med 4.5c / p90 14.0c /
-  p95 23.5c；vib Δrate +0.06Hz / Δdepth −2.7c / Δphase 0.47rad。
-  **结论：单次编译无法猜引擎相位，closed-loop 一轮修正是 R3 编译器的
-  必要环节，不是可选优化。**
-- P1/P2/P3 event-local QA 已在 review 后 HEAD 重跑
-  （src_events 17/37/29，neu_events 15/32/28，matched 9/16/17）。
-- 剩余硬门禁：人工试听 phrases3 C2/C3 vs D vs SOURCE 通过前，
-  R2.5/R3 继续 BLOCKED。
+#### ecb83a3 revalidation 中可保留的证据
+
+- `pytest tests/`：报告 **481 passed**；
+- 三态 vibrato render/re-detect 数值可保留作 regression baseline；
+- 新的 SOURCE-neutral residual 代数已比 20eee99 正确；
+- P3 一轮 closed-loop 后 pointwise/vibrato 指标明显改善。
+
+但以下两个“结论”**不得继续作为 architecture assumption**：
+
+1. **“OpenUtau note vibrato 无法表达 phase”——INVALIDATED。**
+   OpenUtau 当前 `UVibrato` 原生提供 `shift`，其源码
+   `OpenUtau.Core/Ustx/UNote.cs::UVibrato.Evaluate()` 的核心语义为：
+
+   ~~~text
+   t = (nPos - nStart) / nPeriod + shift / 100
+   y = sin(2π * t) * depth + drift
+   ~~~
+
+   即 `shift` 是“一个周期长度的百分比”，直接控制 vibrato phase。
+   因此 C3 把 `shift=0` 写死，再把出现的 ≈π phase-cancel 解释成
+   “引擎相位不可知、必须靠 closed-loop 修复”，属于错误归因。
+
+2. **“P1/P2/P3 event-local QA 已通过”——EVIDENCE INCOMPLETE。**
+   当前提交只在 plan 中记录 `src_events / neu_events / matched` 数量，
+   没有提交本轮完整 position/slope/curvature/topology/modulation/
+   portamento/artifact-coverage artifact。事件数量不能代替 shape QA。
+
+因此当前优先级不是人工试听，而是先完成 §R2.1-L 的 phase/boundary revalidation，
+再提交完整 shape QA artifact，之后才进入试听。
 
 本轮 reviewer fixes：
 - vibrato validity：修复 `okf` 身份插值导致 unvoiced/conflict hole 被错误
@@ -1389,8 +1402,10 @@ f358236e 已完成：
     Δdepth 0.2c/Δphase 0.12rad；
   - C neutral_only → suppress（depth=0 + span 内写 trend_resid），
     渲染后 0 vibrato，pos_med 4.2c。
-  - 重要机制：note vibrato phase 无法直接表达 → 相位失配残差
-    必须留在 PITD；一轮 v2=v1+(src−render) 修正即可收敛。
+  - **历史结论 INVALIDATED（2026-09-21 review）：**当时把 `shift=0`
+    写死后出现 phase mismatch，误判为“note vibrato phase 无法直接表达”。
+    OpenUtau `UVibrato.shift` 原生就是 phase control；后续必须先做
+    detector phase → shift 映射，再评估剩余 PITD/closed-loop 误差。
   - OpenUtau vibrato depth 语义 ≈ written×0.69（实测校准）。
 - E: onset settle = 连续 60ms 内 |dev|<15c（不再要求剩余全帧）；
   extremum 限 onset 窗；median-3 剔单帧毛刺；baseline 取音体
@@ -1522,11 +1537,226 @@ C. SOURCE 无，neutral 有
 - matcher 保留 source/neutral event 的 start_s/end_s；
 - C3 使用真实 event-local window；
 - note-vibrato length/start/in/out 尽可能由 event 参数确定；
-- OpenUtau note vibrato 无法表达的 start/phase/envelope residual，
-  必须明确留在 PITD/event curve，不得静默丢失；
+- OpenUtau note vibrato 的 phase **优先映射到原生 `shift`**；
+  只有 start/end、depth envelope、非正弦形状等原生参数无法精确表达的
+  residual 才留在 PITD/event curve，不得把可表达的 phase 先丢给 closed-loop；
 - periodic component 与 slow trend 的分离只作用于真实 event span。
 
 禁止再以“P3 恰好 rate/depth 接近”证明 C3 正确。
+
+#### R2.1-L — OpenUtau Native Vibrato Phase / Boundary Revalidation — CURRENT BLOCKER
+
+##### L1. detector phase → OpenUtau `shift`
+
+当前 C3 明确 bug：
+
+~~~python
+"shift": 0
+~~~
+
+必须改成 event-derived 初值。detector 当前约定：
+
+~~~text
+m(t) = A * sin(2π * rate_hz * (t - phase_origin_s) + phase_rad)
+~~~
+
+若 OpenUtau note-vibrato 的实际 start = `ev_s`，则目标起始相位：
+
+~~~text
+phi_start =
+    wrap_2pi(
+        phase_rad
+        + 2π * rate_hz * (ev_s - phase_origin_s)
+    )
+
+shift_pct =
+    (phi_start / 2π * 100) mod 100
+~~~
+
+编译器必须写：
+
+~~~python
+"shift": shift_pct
+~~~
+
+并保存 provenance：
+
+~~~text
+detected_phase_rad
+phase_origin_s
+event_start_s
+computed_shift_pct
+rendered_phase_rad
+phase_error_rad
+~~~
+
+注意：
+- 上式是 deterministic 初值，不允许为了某次 render 手调常数；
+- 必须用真实 OpenUtau render 验证符号、起点语义与 bridge 写回语义；
+- 若 renderer 对 note-vibrato 有系统响应偏差，再由 calibration/closed-loop 修正；
+- **禁止 `shift=0` 后把 phase error 全部交给 PITD。**
+
+##### L2. closed-loop 的正确职责
+
+closed-loop 保留，但职责改为：
+
+~~~text
+native event params first
+  length / period / depth / shift / in / out
+        ↓
+first render
+        ↓
+measure renderer deviation
+        ↓
+bounded correction
+~~~
+
+closed-loop 用于修正：
+- renderer depth gain 非线性；
+- phase 的小系统偏差；
+- rate/period quantization；
+- start/end/fade envelope 误差；
+- DiffSinger 自带 modulation；
+- 非正弦/非平稳 residual。
+
+**closed-loop 不得代替本来就存在的 OpenUtau phase 参数。**
+
+ecb83a3 的 P3 “first render phase-cancel → 一轮 closed-loop 才恢复”
+必须重新跑；只有在 `shift` 正确映射后仍出现 material phase error，
+才能把该误差归因于 renderer response。
+
+##### L3. vibrato boundary 必须是 evidence-bounded
+
+ecb83a3 新增的：
+
+~~~text
+first/last extremum ± quarter-period
+~~~
+
+可作为理想正弦的边界估计，但**不能叫真实 zero-return**，且 commit message
+所写的 “early-stop on unvoiced/energy drop” 当前代码并未实现。
+
+必须：
+1. quarter-period extension 不得跨 `voiced=False`；
+2. 不得跨 `confidence` invalid frame；
+3. 不得跨 `segment_id` boundary；
+4. 若局部 modulation energy 在 extension 内已 collapse，边界应提前停止；
+5. 输出 `boundary_method / boundary_clamped_reason` provenance；
+6. synthetic test 加：
+   - event end 后立即 unvoiced；
+   - event end 后低能量衰减；
+   - event end 靠近 segment boundary；
+   - depth ramp-down；
+   - asymmetric waveform。
+
+##### L4. raw evidence cycles 与 trimmed stable cycles 分开
+
+当前实现：
+
+~~~text
+run_raw >= min_cycles
+→ trim weak edge half-cycles
+→ trimmed run 可能 < min_cycles
+→ 仍然 accept
+~~~
+
+不能通过把 test 从 `>=2.5` 放宽成 `>=2.0` 来隐藏语义变化。
+
+必须显式拆成：
+
+~~~text
+evidence_cycle_count = len(run_raw) / 2
+stable_cycle_count   = len(run) / 2
+
+evidence_cycle_count >= min_evidence_cycles
+stable_cycle_count   >= min_stable_cycles
+~~~
+
+两个 threshold 必须分别命名、记录到 event provenance 并有独立 regression。
+建议初始 contract：
+
+~~~text
+min_evidence_cycles = 2.5
+min_stable_cycles   = 2.0
+~~~
+
+如需改阈值，必须基于 synthetic + real validation，而不是为了让现有测试通过。
+
+##### L5. 真实 render revalidation
+
+修完 L1–L4 后，必须重新执行：
+
+~~~text
+A source_only
+B matched source+neutral
+C neutral_only
+P3 real vibrato phrase
+~~~
+
+每个 case 至少保存：
+
+~~~text
+before_closed_loop:
+  rate/depth/start/end/phase
+  position
+  modulation
+  topology
+
+after_closed_loop:
+  同上
+
+compiler:
+  length/period/depth/shift/in/out
+  PITD residual point count
+~~~
+
+关键验收：
+- 首次 render 的 phase 不得再出现由 `shift=0` 人为制造的 ≈π cancel；
+- B 不得出现 neutral vibrato double-add；
+- C 不得残留 neutral-only modulation；
+- closed-loop 必须是“小修正”，不能负责把错误原生参数从失败状态救回来。
+
+##### L6. P1/P2/P3 shape QA artifact 必须实际提交
+
+禁止只在 plan 中写：
+
+~~~text
+src_events / neu_events / matched
+~~~
+
+必须把本轮真实结果提交到可追踪 artifact，例如：
+
+~~~text
+runs/<run>/expression/qa/
+  position_metrics.json
+  slope_metrics.json
+  curvature_metrics.json
+  topology_metrics.json
+  modulation_metrics.json
+  vibrato_metrics.json
+  portamento_metrics.json
+  artifact_coverage.json
+  cross_extractor_metrics.json
+
+runs/<run>/expression/events/
+  source_events.json
+  neutral_events.json
+  render_events.json
+  event_matches.json
+~~~
+
+至少报告：
+- matched / missing / extra turns；
+- turn timing/amplitude/prominence error；
+- slope / curvature error；
+- event-local modulation rate/depth/periodicity；
+- vibrato start/end/rate/depth/phase；
+- portamento trajectory/profile；
+- valid-frame coverage；
+- artifact-excluded ratio；
+- FCPE↔RMVPE cross-extractor result。
+
+**只有 artifact 可复现，plan 中的汇总数字才有 acceptance 权限。**
 
 #### R2.1-E — onset detector 修复
 
@@ -1687,12 +1917,14 @@ QA:
 9fd398f 的 C3 只证明了“note-vibrato 参数能写入并成功渲染”，
 尚未证明 event-aware semantics 正确。
 
-当前已知 invalid assumptions：
+当前已知 / 历史 invalid assumptions：
 - vibrato span 固定后 65%；
 - source/neutral matched case 没有真正按 periodic delta 编译；
 - neutral_only suppression 未实现；
 - detected start/end/phase/envelope 没有完整进入 compiler；
-- P3 topology 仍有 9 missing + 11 extra turns。
+- **`shift=0` 并误认为 OpenUtau note-vibrato phase 不可表达；**
+- 把 `shift=0` 造成的 phase-cancel 当作“closed-loop 必然性”证据；
+- P3 topology 仍需在最新 compiler 上重新提交完整 artifact 验证。
 
 因此：
 - 当前 P3 render 只保留为 regression artifact；
@@ -1718,7 +1950,8 @@ R2.1 通过后再恢复：
 - 只消费已确认 event；
 - trend 与 periodic component 分离；
 - vibrato 按 SOURCE-neutral periodic delta 编译；
-- phase/start/end/depth/rate 均来自 event；
+- phase/start/end/depth/rate 均来自 event；phase 必须优先编译为
+  OpenUtau `shift`，不得默认 `shift=0`；
 - portamento/scoop/ornament 使用各自 parameterized compiler；
 - no raw-extrema tracing；
 - shape metric 不退化；
@@ -1726,9 +1959,12 @@ R2.1 通过后再恢复：
 
 ### R4 — Closed-Loop Expression Correction
 
-- neutral → detect SOURCE/neutral events → match → delta → compile → render；
+- neutral → detect SOURCE/neutral events → match → delta → **native-parameter-first compile** → render；
+- vibrato 首轮必须先使用 length/period/depth/**shift**/in/out；
 - render 后重新 detect/QA；
 - 1–3 iteration bounded update；
+- closed-loop 只修 renderer response / calibration / non-parametric residual，
+  **不得替代已有的 native phase parameter**；
 - objective = position + slope + curvature + topology + modulation；
 - pointwise cents 下降但 shape 变差时 rollback。
 
@@ -1769,20 +2005,27 @@ R2.1 通过后再恢复：
 严格按以下顺序执行，不并行扩 scope：
 
 ~~~text
-1. R2.1-A segment-safe contour/trend
-2. R2.1-B/C/D vibrato detect → match → compile 三态闭环
-3. R2.1-J event-local QA
-4. R2.1-K synthetic regression tests
-5. R2.1-E/F/G/H/I 其余 detector + matcher
-6. 全部 synthetic tests 通过
-7. 回到 P1/P2/P3 做真实 phrase regression
-8. 人工试听确认“低 cents 高相似但线形错误”能够被 QA 抓住
-9. 才解除 R2.5 / R3 blocker
+1. R2.1-L1：detector phase → OpenUtau shift；禁止 shift=0 默认
+2. R2.1-L3/L4：修 boundary evidence clamp + evidence/stable cycle 双门禁
+3. 补 synthetic regressions，并在最新 HEAD 重跑完整 pytest
+4. A/B/C 三态真实 OpenUtau first-render re-detect（先不 closed-loop）
+5. P3 首次 render：确认旧 ≈π phase-cancel 是否由 shift 修复
+6. 再做 bounded closed-loop；比较 before/after，而不是只报 after
+7. P1/P2/P3 重新跑并提交完整 shape QA + events artifact
+8. machine gate：topology/modulation/portamento/artifact/cross-extractor 不退化
+9. 人工试听 phrases3 C2/C3 vs D vs SOURCE
+10. 只有 machine + listening 都通过，才解除 R2.5 / R3 blocker
 ~~~
 
 **验收原则：**
 任何实现如果让 pointwise cents 更低，但增加 extra turns、错误 vibrato、
 错误 portamento topology、非自然 wiggle，必须判 regression 并 rollback。
+
+另外：
+- native OpenUtau 参数能表达的维度必须先使用 native 参数；
+- 不允许故意保留错误 native 参数，再用 closed-loop/PITD 抵消；
+- 测试阈值不得为适应当前实现而静默放宽；contract 变化必须有独立证据；
+- “已重跑/已通过”必须有可提交、可复现的 artifact，不接受只写 plan 汇总。
 
 ## 17. 建议目录
 
@@ -2017,6 +2260,8 @@ consensus-generated → both evaluation
 13. vibrato / portamento / ornament 等主要 gesture 以 event 结构验证，不以逐帧 cents 最低为唯一目标；
 14. 人工试听与机器指标冲突时，必须形成可解释的 metric-blind-spot artifact，而不是用低 cents 分数覆盖听感；
 15. SOURCE 与 neutral 的 vibrato/portamento/onset/ornament 必须分别检测再匹配，不允许只在 residual 上直接分类；
-16. vibrato 至少具有真实 start/end/rate/depth/phase/period_cv/depth_cv，而不是用 autocorr 单值代替稳定性；
+16. vibrato 至少具有真实 start/end/rate/depth/phase/period_cv/depth_cv；
+    phase 必须可追踪地映射到 OpenUtau `shift`，而不是默认 `shift=0`
+    后靠 PITD/closed-loop 补偿；不得用 autocorr 单值代替稳定性；
 17. event detector 的训练必须使用 song-held-out validation/test，并保留 synthetic 与 human 两套指标；
 18. 模型只预测 event/parameters/confidence，不直接端到端生成数百 PITD 点。
