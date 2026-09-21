@@ -82,9 +82,9 @@ def detect_vibrato_events(contour: ContourSignal, notes,
         mm = np.where(ok, mm, np.nan)
         ok_i = np.where(ok)[0]
         mmf = np.interp(np.arange(len(mm)), ok_i, mm[ok_i])
-        okf = np.interp(np.arange(len(mm)), ok_i,
-                        ok_i.astype(float))
-        okf = np.abs(okf - np.arange(len(mm))) < 0.5   # filled map back
+        # Keep the original validity mask. Interpolating identity indices
+        # makes every interior evidence hole look valid.
+        okf = ok.copy()
 
         # candidate frequency via FFT on the detrended segment
         spec = np.abs(np.fft.rfft(mmf * np.hanning(len(mmf))))
@@ -124,6 +124,11 @@ def detect_vibrato_events(contour: ContourSignal, notes,
         if len(periods) == 0:
             periods = np.array([run[0][2] * 2])
             depths = np.array([run[0][3]])
+        measured_rate = float(1.0 / periods.mean())
+        # FFT is candidate discovery only; accepted measured cycles must
+        # themselves obey the declared vibrato-rate contract.
+        if not (rate_range_hz[0] <= measured_rate <= rate_range_hz[1]):
+            continue
         period_cv = float(np.std(periods) / periods.mean()) \
             if len(periods) > 1 else 0.0
         depth_c = float(depths.mean())
@@ -133,8 +138,8 @@ def detect_vibrato_events(contour: ContourSignal, notes,
         ev_e = float(t[i1])
         seg_t = (np.arange(i0, i1 + 1) - i0) * HOP_S   # phase origin = ev_s
         seg_m = mmf[i0:i1 + 1]
-        # phase from the stable run itself: m(t) = A sin(2πf t + φ)
-        w = 2 * np.pi * f0_hz
+        # Fit phase with the same measured frequency emitted below.
+        w = 2 * np.pi * measured_rate
         X = np.column_stack([np.sin(w * seg_t), np.cos(w * seg_t)])
         coef, *_ = np.linalg.lstsq(X, seg_m, rcond=None)
         phase = float(np.arctan2(coef[1], coef[0]))
@@ -152,7 +157,7 @@ def detect_vibrato_events(contour: ContourSignal, notes,
                    + 0.15 * float(np.mean(contour.confidence[m][ok]))))
         events.append(PitchEvent(
             "vibrato", [i], ev_s, ev_e, round(conf, 3),
-            params={"rate_hz": round(float(1.0 / periods.mean()), 2),
+            params={"rate_hz": round(measured_rate, 2),
                     "fft_bin_hz": round(f0_hz, 2),
                     "depth_c": round(depth_c, 1),
                     "phase_rad": round(phase, 3),
@@ -307,6 +312,15 @@ def _traj_type(cn, slope, curv):
     monotonic = float(np.mean(np.diff(cn) > -0.02))
     if turns >= 2 and monotonic < 0.9:
         return "irregular"
+    # Monotonic S-curves have an inflection, not pitch extrema.
+    core = np.asarray(curv[1:-1], dtype=float) if len(curv) > 2 else np.array([])
+    if monotonic >= 0.9 and len(core):
+        scale = float(np.percentile(np.abs(core), 75))
+        if scale > 0.1:
+            pos = np.mean(core > 0.20 * scale)
+            neg = np.mean(core < -0.20 * scale)
+            if pos >= 0.15 and neg >= 0.15:
+                return "s_curve"
     if turns >= 2:
         return "s_curve"
     m = float(np.mean(cn))       # linear mean=0.5; trimmed span shifts it
@@ -364,7 +378,8 @@ def detect_portamento_events(contour: ContourSignal, notes,
         cf = np.interp(np.arange(len(cc)), idx, cc[idx])
         span = float(cf[-1] - cf[0])
         tn = (tt - tt[0]) / max(tt[-1] - tt[0], 1e-6)
-        cn = (cf - cf[0]) / span * np.sign(span) if abs(span) > 1e-6 \
+        # Signed span already maps both upward and downward slides 0 -> 1.
+        cn = (cf - cf[0]) / span if abs(span) > 1e-6 \
             else np.zeros_like(cf)
         slope = np.gradient(cn, np.maximum(tn, 1e-6))
         curv = np.gradient(slope, np.maximum(tn, 1e-6))
@@ -626,8 +641,10 @@ def match_vibrato_events(source_events, neutral_events, notes):
         # mid-note events must stay in dense PITD
         periodic = s0 and s0.params.get("period_cv", 1) < 0.15 \
             and s0.params.get("depth_cv", 1) < 0.4
-        tail_anchored = s0 and \
-            (n["abs_start_s"] + n["dur_s"] - s0.end_s) < 0.20 * n["dur_s"]
+        # Note-vibrato is tail anchored and cannot stop early.
+        tail_gap = (n["abs_start_s"] + n["dur_s"] - s0.end_s) if s0 else 1e9
+        tail_end_tol = max(0.03, min(0.08, 0.05 * n["dur_s"]))
+        tail_anchored = s0 and abs(tail_gap) <= tail_end_tol
         if state == "neutral_only":
             rep = "suppress_neutral"
         elif periodic and tail_anchored:
