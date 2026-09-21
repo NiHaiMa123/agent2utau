@@ -1310,9 +1310,50 @@ f358236e 已完成：
 尤其当前 P3 的 topology = 44 matched / 9 missing / 11 extra，
 已经说明“pointwise 很近”并不等于 contour shape 正确。
 
-### R2.1 — Detector / Matcher / QA Semantic Fix — DONE (pending listening)
+### R2.1 — Detector / Matcher / QA Semantic Fix — REVIEW FIXES APPLIED / REVALIDATION REQUIRED
 
-状态（本轮实现，472 pytest 全过）：
+20eee99 完成第一轮实现后，review 又发现并已直接修正一批未被原 472 tests
+覆盖的语义错误。**因此 20eee99 的“R2.1 DONE / 472 tests passed”不再构成
+当前 HEAD 的 acceptance；必须在最新 HEAD 重新跑完整 pytest + render regression。**
+
+本轮 reviewer fixes：
+- vibrato validity：修复 `okf` 身份插值导致 unvoiced/conflict hole 被错误
+  当作 valid、从而把两侧周期串成一个 event；
+- vibrato phase/rate：phase fit 与 compiler 统一使用 measured cycle rate，
+  FFT 只做 candidate discovery；measured rate 再次硬 gate 到 4–8.5Hz；
+- vibrato source/neutral 代数：note-vibrato 参数加入 source periodic 后，
+  PITD 保留 `trend_resid + (mod_source-fit_source) - mod_neutral`，不再遗漏
+  `-mod_neutral` 导致 matched case 残留/叠加 neutral modulation；
+- neutral_only：Stage-B neutral 的 renderer periodic modulation 必须由完整
+  source-neutral PITD residual 抵消，不能用 trend-only 替换；
+- real event end：OpenUtau note-vibrato 虽 tail-anchored，但 event end 后到
+  note end 的多余参数振音由 PITD 反向抵消；同时提前结束较多的 event 不再
+  强行参数化；
+- depth calibration：0.69 降级为当前 Yousa/OpenUtau fallback，可由 event
+  calibration 覆盖，不再宣称 singer/rate/pitch-independent 常量；
+- portamento：修复 downward trajectory 0→-1 归一化错误；新增 downward
+  convex/concave regression；S-curve 改用 curvature inflection 识别并补测试；
+- onset：新增 undershoot 独立分类、真实 gesture start、NaN-safe turn count，
+  修正 undershoot 回稳方向；
+- ornament：exclude span 保持真实时间 gap，不再删除数组后把两侧 contour
+  拼接成假 ornament；
+- artifact：新增 FCPE/RMVPE residual-family disagreement artifact detector，
+  不再只依赖单 signal raw-F0 confidence；
+- QA：slope/curvature 真正使用 smooth_ms；event modulation 遵守 artifact
+  mask、不跨 gap；depth 改 robust p2p/2；downward trajectory 归一化修复；
+  portamento profile 不同长度先归一化重采样再比较；修复 helper 意外修改
+  输入数组与 moving-average 边界伪影；
+- 新增针对 matched/neutral-only residual algebra、invalid evidence hole、
+  early-stop tail vibrato、downward/S-curve portamento、undershoot、
+  ornament exclusion gap、residual-family artifact、QA mask/profile 的回归测试。
+
+当前硬门禁：
+1. 最新 HEAD 完整 `pytest tests/` 必须重新全绿；
+2. 三态 vibrato 必须重新做真实 OpenUtau render → re-detect，不只 algebraic test；
+3. P1/P2/P3 重新跑 event-local QA；
+4. 人工试听通过前，R2.5/R3 继续 BLOCKED。
+
+原 20eee99 实现状态（保留作 provenance，不代表当前 acceptance）：
 - A: contour.py 分段化——voiced_segments/segment_ids（gap≥80ms 切段），
   median3 与 savgol trend 均不跨段；phoneme_idx 真实填充；
   provenance 记录 hop/min_gap/filter/段数。测试：300ms 静音两侧
