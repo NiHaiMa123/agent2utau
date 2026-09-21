@@ -5,7 +5,8 @@ from agent2utau.expression.contour import (
     ContourSignal, HOP_S, robust_pitch_trend, segment_ids)
 from agent2utau.expression.events import (
     detect_vibrato_events, match_vibrato_events)
-from agent2utau.expression.pitch_residual import compile_C3
+from agent2utau.expression.pitch_residual import (
+    TICK_MS, VIBRATO_DEPTH_GAIN, compile_C3)
 
 
 def _sig(times, cents, voiced=None, conf=1.0):
@@ -122,6 +123,14 @@ def test_aperiodic_jitter_rejected():
 
 # ---- R2.1-C/D: match states + compile consumes real spans -------------
 
+def _pitd_on_grid(pitd, t):
+    xs = np.asarray(pitd["xs"], dtype=float) * TICK_MS / 1000.0
+    ys = np.asarray(pitd["ys"], dtype=float)
+    if not len(xs):
+        return np.full(len(t), np.nan)
+    return np.interp(t, xs, ys, left=np.nan, right=np.nan)
+
+
 def _dense_and_sigs(src_cents, neu_cents, dur=1.3):
     t = np.arange(0, dur + HOP_S, HOP_S)
     src = _sig(t, src_cents)
@@ -166,10 +175,22 @@ def test_compile_matched_does_not_double_add():
                               detect_vibrato_events(neu, [_note(dur)]),
                               [_note(dur)])
     assert vm[0]["match_state"] == "matched"
-    if vm[0]["recommended_representation"] == "note_vibrato":
-        pitd, marks = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
-        # override writes SOURCE depth once — not source+neutral stacked
-        assert marks[0]["depth"] < 100
+    assert vm[0]["recommended_representation"] == "note_vibrato"
+    pitd, marks = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
+    assert marks[0]["depth"] < 100
+
+    # Algebraic render surrogate: neutral + PITD + rendered note-vibrato
+    # must reconstruct SOURCE. This specifically catches omission of
+    # -neutral modulation in the matched case.
+    ctl = _pitd_on_grid(pitd, t)
+    sv = vm[0]["source_vibrato"]
+    w = 2 * np.pi * sv["rate_hz"]
+    fit = marks[0]["depth"] * VIBRATO_DEPTH_GAIN * np.sin(
+        w * (t - sv["phase_origin_s"]) + sv["phase_rad"])
+    span = (t >= vm[0]["source_span_s"][0]) & \
+           (t <= vm[0]["source_span_s"][1]) & ~np.isnan(ctl)
+    recon = (6000 + neu_vib) + ctl + fit
+    assert np.median(np.abs(recon[span] - (6000 + src_vib)[span])) < 15
 
 
 def test_compile_neutral_only_suppression():
@@ -186,10 +207,14 @@ def test_compile_neutral_only_suppression():
     assert vm[0]["recommended_representation"] == "suppress_neutral"
     pitd, marks = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
     assert marks[0]["depth"] == 0
-    # residual inside the suppressed span must not carry -neutral vibrato
-    span = (dense["times"] >= vm[0]["neutral_span_s"][0]) & \
-           (dense["times"] <= vm[0]["neutral_span_s"][1])
-    assert np.nanmax(np.abs(np.asarray(pitd["ys"]))) < 200
+    # Neutral-only modulation is renderer behaviour in the Stage-B
+    # baseline. PITD must CANCEL it, not discard the periodic residual.
+    ctl = _pitd_on_grid(pitd, t)
+    span = (t >= vm[0]["neutral_span_s"][0]) & \
+           (t <= vm[0]["neutral_span_s"][1]) & ~np.isnan(ctl)
+    recon = 6000 + neu_vib + ctl
+    assert np.median(np.abs(recon[span] - 6000.0)) < 12
+    assert np.percentile(np.abs(ctl[span]), 90) > 15
 
 
 def test_mid_note_vibrato_stays_pitd():
@@ -205,3 +230,27 @@ def test_mid_note_vibrato_stays_pitd():
     assert vm[0]["recommended_representation"] == "irregular_pitd"
     pitd, marks = compile_C3(dense, src, neu, [n], 0, vm)
     assert marks == {}                  # not forced into note vibrato
+
+
+def test_tail_vibrato_that_stops_early_stays_pitd():
+    dur = 1.3
+    sig = _vib_sig(dur, 0.72, 1.16, rate=6.5, depth=50)
+    ev = detect_vibrato_events(sig, [_note(dur)])
+    assert ev
+    vm = match_vibrato_events(ev, [], [_note(dur)])
+    # note-vibrato cannot encode an event that ends materially before tail
+    assert vm[0]["recommended_representation"] == "irregular_pitd"
+
+
+def test_vibrato_does_not_bridge_invalid_evidence_hole():
+    dur = 1.2
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    cents = np.full(len(t), 6000.0)
+    v = (t >= 0.35) & (t <= 0.85)
+    cents[v] += 50 * np.sin(2 * np.pi * 6.5 * (t[v] - 0.35))
+    voiced = np.ones(len(t), dtype=bool)
+    voiced[(t >= 0.55) & (t <= 0.72)] = False
+    sig = _sig(t, cents, voiced=voiced)
+    # each side of the evidence hole has too few cycles; the detector must
+    # not interpolate validity and join them into one accepted event.
+    assert detect_vibrato_events(sig, [_note(dur)]) == []
