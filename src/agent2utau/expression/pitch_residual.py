@@ -491,9 +491,10 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
                              (n_end - ev_s) / n["dur_s"] * 100.0))
             vib_len = n_end - ev_s
             tail_gap = n_end - ev_e
-            # The detector end is where modulation collapsed; OpenUtau
-            # can express that as the native `out` fade spanning the gap
-            # to the note tail.
+            # The detector end is an evidence-clamped near-zero-return
+            # boundary, not proof that modulation energy has collapsed.
+            # When the remaining tail gap is small, OpenUtau can approximate
+            # that boundary with the native `out` fade.
             out_pct = min(35.0, max(0.0, tail_gap / vib_len * 100.0)) \
                 if tail_gap > 0 else 5.0
             depth_gain = float(m.get("render_depth_gain",
