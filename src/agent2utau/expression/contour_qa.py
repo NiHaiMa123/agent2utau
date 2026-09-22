@@ -158,8 +158,9 @@ def turning_point_metrics(source, render, mask=None, max_match_ms=80.0):
     ts = _turning_list(source, sm)
     tr = _turning_list(render, rm)
     used = set()
+    matched_src = set()
     matched, t_err, a_err, p_err = [], [], [], []
-    for i_s, k_s, v_s, p_s in ts:
+    for s_idx, (i_s, k_s, v_s, p_s) in enumerate(ts):
         best, bd = None, max_match_ms / 1000.0 / HOP_S
         for j, (i_r, k_r, v_r, p_r) in enumerate(tr):
             if j in used or k_r != k_s:
@@ -168,12 +169,25 @@ def turning_point_metrics(source, render, mask=None, max_match_ms=80.0):
                 best, bd = j, abs(i_r - i_s)
         if best is not None:
             used.add(best)
+            matched_src.add(s_idx)
             matched.append((i_s, tr[best][0]))
             t_err.append(abs(i_s - tr[best][0]) * HOP_S * 1000)
             a_err.append(abs(v_s - tr[best][2]))
             p_err.append(abs(p_s - tr[best][3]))
-    missing = len(ts) - len(matched)
-    extra = len(tr) - len(used)
+    missing_rows = [
+        {"frame_idx": int(i), "kind": k, "value_c": round(v, 1),
+         "prominence_c": round(p, 1)}
+        for s_idx, (i, k, v, p) in enumerate(ts)
+        if s_idx not in matched_src
+    ]
+    extra_rows = [
+        {"frame_idx": int(i), "kind": k, "value_c": round(v, 1),
+         "prominence_c": round(p, 1)}
+        for r_idx, (i, k, v, p) in enumerate(tr)
+        if r_idx not in used
+    ]
+    missing = len(missing_rows)
+    extra = len(extra_rows)
     seq_s = "".join("p" if k == "peak" else "v" for _, k, _, _ in ts)
     seq_r = "".join("p" if k == "peak" else "v" for _, k, _, _ in tr)
     out = {"matched_turns": len(matched), "missing_turns": missing,
@@ -185,7 +199,12 @@ def turning_point_metrics(source, render, mask=None, max_match_ms=80.0):
            if a_err else None,
            "turn_prominence_err_c_med": round(float(np.median(p_err)), 1)
            if p_err else None,
-           "sequence_edit_distance": int(_levenshtein(seq_s, seq_r))}
+           "sequence_edit_distance": int(_levenshtein(seq_s, seq_r)),
+           # Exact rows come from the same matcher that produced the counts.
+           # Downstream attribution must consume these instead of
+           # re-discovering missing turns with a second ad-hoc pass.
+           "missing_turn_details": missing_rows,
+           "extra_turn_details": extra_rows}
     out.update(_coverage(source, render, mask))
     return out
 
