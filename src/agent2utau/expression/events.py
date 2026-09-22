@@ -61,8 +61,10 @@ def _cycle_runs(t, mm, ok, f0_hz, rate_range_hz, min_depth_c):
 def _vib_boundary(t, mmf, ok, seg_ids, i_ext, step, max_frames, depth_c):
     """Extend the event boundary outward from extremum i_ext toward the
     zero return, clamped by evidence: never cross unvoiced /
-    low-confidence frames or a segment boundary; stop where the local
-    modulation amplitude has collapsed below the zero-return threshold.
+    low-confidence frames or a segment boundary; optionally stop near the
+    local modulation zero return.  The |mod| threshold below is NOT an
+    amplitude/energy-collapse detector: every regular vibrato cycle crosses
+    zero.  True envelope collapse must be inferred from cycle-depth history.
     Returns (index, reason)."""
     j = i_ext
     low = 0
@@ -183,9 +185,10 @@ def detect_vibrato_events(contour: ContourSignal, notes,
             and depth_c > 0 else 0.0
         # Event bounds = first/last extremum extended toward the zero
         # return, clamped by evidence: never cross unvoiced /
-        # low-confidence frames or a segment boundary, and stop early
-        # where the local modulation amplitude has already collapsed
-        # (plan R2.1-L3).
+        # low-confidence frames or a segment boundary.  The near-zero
+        # test only estimates the return from an extremum toward baseline;
+        # it must not be interpreted as modulation-energy collapse
+        # (plan R2.1-L3/L7).
         qr = 0.25 / measured_rate
         qr_frames = max(1, int(round(qr / HOP_S)))
         seg = contour.segment_id[m] \
