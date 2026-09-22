@@ -496,6 +496,136 @@ PITD 负责 trend residual
 vibrato 参数负责 periodic component delta
 ~~~
 
+### 9.4.1 Adaptive pitch-gesture representation（在 topology 稳定后启用）
+
+当前 native vibrato 的核心表示仍近似：
+
+~~~text
+V(t) = A * sin(2π f t + φ)
+~~~
+
+该表示只适合**规则、近似平稳的振音**。真实原唱常存在：
+
+- depth envelope 随时间变化；
+- instantaneous rate 随时间变化；
+- 上/下半周期不对称；
+- vibrato 上叠加 drift / scoop / overshoot；
+- 尾部逐渐收窄、加速、减速；
+- 局部非周期 turning point。
+
+因此长期目标不得把所有 pitch gesture 强塞进固定 `A/f/φ` 三参数模型。
+但**当前 L7 topology regression 修复完成前禁止直接增加模型复杂度**：
+若 C3v1 已存在的 turn 在 closed-loop 中被 simplifier 擦除，增加参数只会
+把“表示能力不足”与“优化器破坏已有形状”混在一起。
+
+表示层按复杂度分三级，必须选择**能满足 shape gate 的最低复杂度表示**：
+
+~~~text
+Level 1 — native_regular_vibrato
+  V(t) = A * sin(φ(t))
+  φ'(t) = 2πf, A/f 近似常量
+  → 使用 OpenUtau native vibrato
+
+Level 2 — adaptive_vibrato
+  V(t) = A(t) * sin(φ(t))
+  φ(t) = φ0 + 2π ∫ f(τ)dτ
+  → A(t) 与 f(t) 仅使用少量 knots / low-DOF envelope
+  → 目标是保留 rate/depth 演化与周期 topology
+
+Level 3 — irregular_local_gesture
+  Pitch(t) = TrendSpline(t) + LocalResidualSpline(t)
+  → 用于非规则 modulation / scoop / overshoot / ornament /
+     asymmetric turn，不再硬拟合为正弦
+~~~
+
+禁止默认采用高阶全局 polynomial 拟合整段 F0。高阶多项式会把局部修改传播到
+整个区间，容易产生 ringing / overshoot，也不符合本项目 event-local、
+可审计、可回滚的要求。优先使用局部 cubic spline / monotone Hermite /
+piecewise Bézier 一类局部支持表示。
+
+完整 pitch model 目标为：
+
+~~~text
+Pitch(t)
+= WrittenScore(t)
++ TrendResidualSpline(t)
++ AdaptivePeriodicComponent(t)
++ LocalGestureResidual(t)
+~~~
+
+其中：
+
+~~~text
+AdaptivePeriodicComponent(t)
+= A(t) * sin(φ0 + 2π * integral(f(t) dt))
+~~~
+
+#### representation selection gate
+
+对每个 vibrato / modulation event，先尝试 Level 1。只有真实 render 后出现下列
+任一情况，才允许升级复杂度：
+
+- matched-turn / missing-turn / extra-turn topology 无法达标；
+- vibrato cycle depth envelope 与 SOURCE 持续明显不一致；
+- period sequence / instantaneous rate 演化无法由固定 period 表达；
+- phase 局部对齐后仍出现系统性的半周期形状偏差；
+- 为降低 pointwise cents error，native representation 必须牺牲 SOURCE turning points。
+
+Level 2 相比 Level 1 必须证明**真实渲染的 shape 有增益**，不能只证明训练/拟合误差下降。
+Level 3 相比 Level 2 同理。若更复杂模型不能改善 topology / perceptual phrase review，
+回滚到更简单 representation。
+
+#### adaptive-vibrato 参数
+
+Level 2 event 至少保存：
+
+~~~text
+start_s / end_s
+phase_origin_s
+phase0
+amplitude_knots[(t_rel, cents)]
+rate_knots[(t_rel, hz)]
+trend_knots[(t_rel, cents)]      # 仅需要时
+cycle_landmarks[]                # peak/trough/zero-crossing
+representation_level
+fit_error
+render_error
+topology_before / topology_after
+~~~
+
+v1 首版限制自由度：
+
+- amplitude knots 默认 3–6 个；
+- rate knots 默认 2–5 个；
+- knot 必须锚定真实 cycle / envelope 证据，不允许为压 RMSE 任意增点；
+- interpolation 必须局部、平滑且保留正 rate；
+- 每增加一个 knot 都要有 shape residual 证据；
+- 不做“每 10ms 一个可训练参数”的 dense overfit。
+
+#### 训练 / 拟合目标
+
+后续训练 detector / regressor 时，loss 不得只用 pointwise cents RMSE。
+至少联合：
+
+~~~text
+L =
+  w_pos   * pitch_position_loss
++ w_turn  * turning_topology_loss
++ w_time  * turn_timing_loss
++ w_amp   * turn_amplitude_loss
++ w_slope * slope_shape_loss
++ w_curv  * curvature_shape_loss
++ w_cycle * vibrato_cycle_loss
++ w_comp  * representation_complexity_penalty
+~~~
+
+其中 `representation_complexity_penalty` 用于阻止“为了追误差不断增加 knots”。
+
+**优先级固定：先 topology 不退化，再降低 cents error。**
+若一个 candidate 的 median/p90 cents 更低，但 matched turns 下降、
+missing/extra turns 增加或 sequence edit distance 变差，则不得仅凭
+pointwise 指标接受。
+
 ### 9.5 Onset scoop / overshoot detector
 
 新增：
@@ -1881,7 +2011,7 @@ run_manifest.json
 
 **禁止把旧 C0/C1/C2 artifact 与新 C3 report 混在一起宣称同一 machine gate。**
 
-##### L7 execution status — post-review revalidation DONE（等人工试听）
+##### L7 execution status — post-review revalidation DONE，但 topology regression 重新 BLOCK
 
 **Post-review revalidation @ code_head=0b9185e（2026-09-22）：**
 
@@ -1957,6 +2087,16 @@ reviewer 再审发现 **当前仍不能进入人工试听**：
 - 如果修复触及共享 `closed_loop_update()` / simplifier / event ownership，
   必须同时重跑 P1/P2/P3 真实 render 与对应 machine regression，禁止只证明 P3。
 只有上述 machine gate 通过后，才进入 C2/C3 vs D vs SOURCE 人工试听。
+
+**人工试听后的下一判定：**
+- 如果 topology non-regression 修复后，C3v2 的 turn/shape gate 已通过，
+  但用户仍能稳定听出“曲线形状不像原唱”，不得继续只调 `max_err_c`、
+  depth gain 或单一 sinusoid 参数；
+- 此时进入 §9.4.1 representation escalation：先对问题 event 做
+  Level 1(native) vs Level 2(adaptive A(t)/f(t)) A/B；
+- 只有 Level 2 仍无法复现局部非周期 gesture 时，才进入 Level 3 local spline；
+- 该阶段仍必须以真实 OpenUtau render 作为 acceptance，不接受只在控制曲线/F0
+  数学拟合上更漂亮但实际声音无改善的方案。
 
 —— 以下为上一轮（pre-review）记录，保留备查 ——
 
