@@ -403,9 +403,12 @@ def event_shape_gate(source_events, render_events, neutral_sig,
     trusting traj_match flags.
 
     Classes (checked in order):
-      render_voicing_loss  render unvoiced over >=40% of [s-50ms, e] —
-                           a synth dropout (neutral shows the same gap),
-                           not curve evidence.
+      render_voicing_loss  render unvoiced over >=40% of [s-50ms, e]
+                           while neutral remains voiced — audible synthesis
+                           regression, blocks.
+      shared_voicing_gap    render and neutral both lose voicing over the
+                           same event window — not attributable to the
+                           candidate curve, non-blocking shape evidence.
       source_irregular     source coverage <80% in-window or |cn_src|
                            exceeds 1.5 — extraction-noise region, too
                            little reliable evidence to judge shape.
@@ -435,9 +438,11 @@ def event_shape_gate(source_events, render_events, neutral_sig,
         ms_all = (source_sig.times >= s) & (source_sig.times <= e)
         ms = ms_all & ~np.isnan(source_sig.cents) & source_sig.voiced
         me = (render_sig.times >= s - 0.05) & (render_sig.times <= e)
+        mn = (neutral_sig.times >= s - 0.05) & (neutral_sig.times <= e)
         src_cov = float(np.mean(source_sig.voiced[ms_all])) \
             if ms_all.sum() else 0.0
         rend_cov = float(np.mean(render_sig.voiced[me])) if me.sum() else 0.0
+        neu_cov = float(np.mean(neutral_sig.voiced[mn])) if mn.sum() else 0.0
         c0 = float(source_sig.cents[ms][0]) if ms.sum() else 0.0
         span = float(source_sig.cents[ms][-1] - c0) if ms.sum() else 0.0
         span = span if abs(span) > 1e-6 else 1e-6
@@ -458,7 +463,11 @@ def event_shape_gate(source_events, render_events, neutral_sig,
         label_rend = re_.params.get("trajectory_type")
 
         if rend_cov < 0.60:
-            cls = "render_voicing_loss"
+            # A render-only dropout is an audible synthesis regression and
+            # must block.  It is non-shape evidence only when the neutral
+            # baseline loses voicing in the same window as well.
+            cls = "shared_voicing_gap" if neu_cov < 0.60 \
+                else "render_voicing_loss"
         elif src_cov < 0.80 or (src_exc is not None and src_exc > 1.5):
             cls = "source_irregular"
         elif cn_rmse_clean is not None and cn_rmse_clean > 0.35:
@@ -473,13 +482,14 @@ def event_shape_gate(source_events, render_events, neutral_sig,
             cls = "match"
         rows.append({
             "from_note": fn, "class": cls,
-            "blocking": cls == "distortion",
+            "blocking": cls in ("distortion", "render_voicing_loss"),
             "traj_src": label_src, "traj_render": label_rend,
             "cn_rmse": round(cn_rmse, 3) if cn_rmse is not None else None,
             "cn_rmse_clean": round(cn_rmse_clean, 3)
                 if cn_rmse_clean is not None else None,
             "src_excursion": round(src_exc, 3) if src_exc is not None else None,
             "src_coverage": round(src_cov, 3),
+            "neutral_coverage_ext": round(neu_cov, 3),
             "rend_coverage_ext": round(rend_cov, 3),
             "delta_start_ms": round(d_start, 1),
             "delta_end_ms": round(d_end, 1),
