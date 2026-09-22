@@ -1703,7 +1703,7 @@ QA:
 测试必须锁住函数行为；当前 HEAD 没有 CI/status check，R2.1 完成时至少应
 提供可重复的本地 test command，最好接 GitHub Actions。
 
-#### R2.1-L — OpenUtau Native Vibrato Phase / Boundary Revalidation — DONE (machine gate; listening pending)
+#### R2.1-L — OpenUtau Native Vibrato Phase / Boundary Revalidation — PARTIAL / L7 BLOCKER
 
 本轮实现与 revalidation（HEAD 待提交）结果：
 
@@ -1720,10 +1720,12 @@ QA:
     amplitude-collapse 边界）；超出该范围才判 `irregular_pitd`。
     PITD 抵消项同步乘上引擎 in/out 包络（`eng = fit·env(t)`），
     不再假设引擎满幅到尾。
-- **L3 DONE**：`_vib_boundary`——extremum→zero-return 扩展被证据
-  clamp：不跨 voiced=False / confidence≤0.5 / segment_id 边界；
-  |mod|<0.15·depth 连续 2 帧即停（energy collapse = zero_return）；
-  provenance 输出 boundary_method + start/end_clamped_reason。
+- **L3 PARTIAL/PASS FOR EVIDENCE CLAMP**：`_vib_boundary`——extremum→zero-return
+  扩展已被证据 clamp：不跨 voiced=False / confidence≤0.5 / segment_id 边界。
+  当前 `|mod|<0.15·depth` 连续 2 帧只证明 **near-zero return**，不是
+  modulation-energy collapse。后续不得把该条件命名/解释成 energy detector；
+  若需要真正的 amplitude-collapse 判定，必须使用局部 cycle envelope /
+  Hilbert-like amplitude / cycle-depth trend 等独立证据。
 - **L4 DONE**：`min_cycles` 拆为 `min_evidence_cycles=2.5` /
   `min_stable_cycles=2.0`；event params 同时报告
   `evidence_cycle_count`（raw chain）与 `stable_cycle_count`
@@ -1735,7 +1737,10 @@ QA:
   - A source_only → note_vibrato（shift=53.4）：Δphase **0.30rad**
     ——旧的 ≈π cancel 消失，证明 phase-cancel 确实是 `shift=0` 人为制造；
   - B matched → note_vibrato 无 double-add，pos_med 5.9c；
-  - C neutral_only → suppress，渲染后无可检测 vibrato；
+  - C neutral_only → **FIRST-RENDER FAIL**：`r21l5/report.json` 的
+    `before_closed_loop` 仍检测到 6.38Hz / 27.2c vibrato，且 topology =
+    0 matched / 0 missing / **9 extra turns**；只有 after_closed_loop 才归零。
+    因此“三态 first-render all correct”结论撤销；
   - P3 real phrase：pos_med 5.5c / p90 29.1c，Δphase 0.30rad；
     真实 F0 逐窗对照显示 render 深度 ≥ source（56-78c vs 25-55c），
     detector 报告的 Δdepth −28.8 为 render 端检测口径偏差。
@@ -1743,14 +1748,156 @@ QA:
     与早前实测 0.69 不一致 → depth_gain 保留为 per-event 可覆盖的
     fallback 校准项，closed-loop 负责残余（v2 后 P3 pos_med 3.2c /
     Δdepth −4.1c / Δphase 0.21rad；turn amplitude err 10.4→3.1c）。
-  - 结论：native params first render 已正确；closed-loop 回到
-    "小修正"职责（pos_med 减半、turn amp err 降 3x），符合 L2 定位。
-- **L6 DONE**：`runs/expr-20260921/phrases3/<P>/{events,qa}/*.json`
-  与 `r21l5/{report,P2_report,P3_report}.json` 随本轮提交
-  （force-add 进 git——runs/ 默认 ignore，QA 证据例外）。
+  - 结论修正：A/B 的 native phase 路径基本成立，旧 ≈π cancel 已解决；
+    但 C neutral_only 仍依赖 closed-loop 才能消除 modulation，因此当前不能
+    宣称“三态 native first-render 已正确”。closed-loop 在 C 场景仍承担
+    material correction，必须先修 first-render suppression。
+- **L6 PARTIAL**：大量 events/QA artifact 已提交，这是有效进展；但当前
+  artifact 集仍是新旧结果混合，不能作为完整 machine acceptance：
+  - `cross_extractor_metrics.json` 未包含最新 C3；
+  - 部分 `shape_metrics.json` 未包含最新 C3；
+  - plan 要求的 `artifact_coverage.json` 未完整提交；
+  - C3 的最新值分散在 `r21l5/*_report.json` 与 phrases3 QA 中，
+    缺少单一 run-manifest/variant hash 绑定。
 
-剩余门禁不变：人工试听 phrases3 C2/C3 vs D vs SOURCE 通过前，
-R2.5/R3 继续 BLOCKED。
+#### R2.1-L7 — Native-first suppression + shape non-regression — CURRENT BLOCKER
+
+L1 已证明 phase→shift 的主路径成立。当前 blocker 已从“phase 架构错误”
+转为 **native first-render suppression + shape preservation + artifact completeness**。
+
+##### L7-A. neutral-only first-render 必须真正 suppress
+
+当前真实证据：
+
+~~~text
+C_neutral_only before_closed_loop:
+  detected vibrato = 6.38 Hz / 27.2c
+  topology = 0 matched / 0 missing / 9 extra turns
+
+after_closed_loop:
+  no vibrato
+  extra turns = 0
+~~~
+
+因此当前 `suppress_neutral` 不能记 PASS。
+
+必须定位为什么 full `SOURCE-neutral` PITD residual 在第一次 render 中只消掉
+一部分 neutral modulation。至少拆查：
+
+1. dense residual 本身是否在 neutral vibrato window 内完整覆盖；
+2. PITD vertical simplifier 是否把周期性 cancellation 过度简化；
+3. USTX PITD cents → acoustic F0 的 renderer response 是否近似线性；
+4. neutral modulation 是否会随 PITD 输入发生 phase/depth response shift；
+5. first-render suppression 是否需要 event-local tighter simplification /
+   render-measured transfer function，而不是全局 `max_err_c=10`。
+
+硬验收：
+- first-render re-detect **不得出现 stable vibrato event**；
+- topology extra turns ≤1；
+- 不允许用第二轮 closed-loop 才达到这两个条件；
+- closed-loop 只能做 residual 小修正。
+
+##### L7-B. P2 portamento 不得因 C3/closed-loop 退化
+
+最新 artifact 已暴露 regression：
+- P2 C2 在 `from_note=6` 仍 matched，C3 变成 **missing**；
+- C3 多个 transition 的 curvature RMSE 仍非常高
+  （约 954 / 605 / 299 等量级）。
+
+必须把 closed-loop update 约束到责任 lane：
+- vibrato correction 不得修改已确认 portamento/onset/ornament event window；
+- residual correction 必须有 event ownership mask；
+- 若一个 frame 同时属于多个 event，必须显式 arbitration，而不是最后写入者覆盖；
+- P2 每个 SOURCE portamento 在 C3 后不得从 matched 退化为 missing；
+- trajectory_type / start/end / slope / curvature 的 aggregate gate 不得比 C2 退化。
+
+##### L7-C. P3 missing-turn under-tracing 是当前主要 shape blocker
+
+最新 P3 C3 after_closed_loop：
+
+~~~text
+source_turns  = 46
+matched_turns = 36
+missing_turns = 10
+extra_turns   = 4
+edit_distance = 8
+pos_med       = 3.2c
+~~~
+
+这说明 pointwise 已很好，但仍明显 under-trace。
+
+下一步必须对 10 个 missing turns 逐个归因：
+
+~~~text
+detector miss
+event matcher miss
+artifact mask exclusion
+PITD simplifier loss
+native vibrato envelope mismatch
+closed-loop oversmoothing
+written-score/structure issue
+~~~
+
+禁止仅继续压低 median cents。每个 missing turn 必须关联：
+- absolute time；
+- note/phoneme；
+- SOURCE prominence；
+- SOURCE event type；
+- render 对应局部；
+- loss stage；
+- proposed owner/fix。
+
+##### L7-D. QA artifact 必须对同一最终 C3 完整闭合
+
+同一 run / 同一 candidate SHA 必须同时提交：
+
+~~~text
+position_metrics.json
+slope_metrics.json
+curvature_metrics.json
+topology_metrics.json
+modulation_metrics.json
+vibrato_metrics.json
+portamento_metrics.json
+artifact_coverage.json
+cross_extractor_metrics.json
+events/source_events.json
+events/neutral_events.json
+events/render_events.json
+events/event_matches.json
+run_manifest.json
+~~~
+
+`run_manifest.json` 至少绑定：
+- git HEAD；
+- base semantic hash；
+- USTX candidate hash；
+- render wav hash；
+- FCPE/RMVPE config；
+- compiler config；
+- closed-loop iteration；
+- variant name。
+
+**禁止把旧 C0/C1/C2 artifact 与新 C3 report 混在一起宣称同一 machine gate。**
+
+##### L7-E. machine gate 后才试听
+
+执行顺序更新为：
+
+~~~text
+1. 修 neutral-only first-render suppression
+2. 给 closed-loop 加 event/lane ownership，修 P2 portamento regression
+3. 对 P3 10 missing turns 做逐项归因并减少 under-tracing
+4. 生成同一最终 C3 的完整 QA + manifest
+5. cross-extractor + artifact coverage gate
+6. 再人工试听 phrases3 C2/C3 vs D vs SOURCE
+~~~
+
+在 L7-A/B/C/D 完成前：
+- R2.1-L 不得标 DONE；
+- R2.5/R3 继续 BLOCKED；
+- 不进入正式 detector training；
+- 不以“489 tests passed”替代真实 render/shape acceptance。
 
 历史验收清单（备查）：
 
@@ -2059,13 +2206,13 @@ R2.1 通过后再恢复：
 严格按以下顺序执行，不并行扩 scope：
 
 ~~~text
-1. R2.1-L1：detector phase → OpenUtau shift；禁止 shift=0 默认
-2. R2.1-L3/L4：修 boundary evidence clamp + evidence/stable cycle 双门禁
-3. 补 synthetic regressions，并在最新 HEAD 重跑完整 pytest
-4. A/B/C 三态真实 OpenUtau first-render re-detect（先不 closed-loop）
-5. P3 首次 render：确认旧 ≈π phase-cancel 是否由 shift 修复
-6. 再做 bounded closed-loop；比较 before/after，而不是只报 after
-7. P1/P2/P3 重新跑并提交完整 shape QA + events artifact
+1. 保留已通过的 L1 phase→shift 与 L4 cycle 双门禁
+2. L7-A：修 neutral-only first-render suppression，禁止靠 closed-loop 才消失
+3. L7-B：给 closed-loop 加 event/lane ownership，消除 P2 portamento regression
+4. L7-C：逐个归因并减少 P3 的 10 个 missing turns
+5. 最新 HEAD 重跑完整 pytest
+6. A/B/C/P2/P3 做 first-render → closed-loop 两阶段真实 render
+7. L7-D：同一最终 C3 提交完整 QA + events + run_manifest
 8. machine gate：topology/modulation/portamento/artifact/cross-extractor 不退化
 9. 人工试听 phrases3 C2/C3 vs D vs SOURCE
 10. 只有 machine + listening 都通过，才解除 R2.5 / R3 blocker
