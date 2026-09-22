@@ -356,8 +356,35 @@ def compile_C2(dense, notes, part_pos_tick, events, max_err_c=10.0):
 VIBRATO_DEPTH_GAIN = 0.69
 
 
+def _engine_vib_model(marks, n_start, n_end, g, depth_gain=1.0):
+    """Acoustic-space model of an ustx vibrato mark set.
+
+    OpenUtau evaluates sin(2*pi*((nPos-nStart)/nPeriod + shift/100)) with
+    linear in/out fades; the acoustic result additionally picks up the
+    empirical depth gain. Returns zeros for an absent/disabled vibrato.
+    """
+    if not marks or marks.get("depth", 0) <= 0 or marks.get("length", 0) <= 0:
+        return np.zeros_like(g)
+    dur = n_end - n_start
+    vib_len = marks["length"] / 100.0 * dur
+    vib_start = n_end - vib_len
+    period_s = max(marks["period"], 5.0) / 1000.0
+    ph = 2 * np.pi * ((g - vib_start) / period_s
+                      + marks.get("shift", 0.0) / 100.0)
+    env = np.zeros_like(g)
+    body = (g >= vib_start) & (g <= n_end)
+    env[body] = 1.0
+    in_len = marks.get("in", 0.0) / 100.0 * vib_len
+    out_len = marks.get("out", 0.0) / 100.0 * vib_len
+    rin = (g >= vib_start) & (g < vib_start + in_len)
+    env[rin] = (g[rin] - vib_start) / max(in_len, 1e-6)
+    fout = (g > n_end - out_len) & (g <= n_end)
+    env[fout] = (n_end - g[fout]) / max(out_len, 1e-6)
+    return marks["depth"] * depth_gain * np.sin(ph) * env
+
+
 def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
-               max_err_c=10.0):
+               max_err_c=10.0, base_vibrato=None):
     """True event-aware compile (plan §9.4 decomposition):
 
         PITD(t) = trend_src(t) - trend_neu(t)        (slow residual)
@@ -399,8 +426,6 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
             # Note-vibrato adds the fitted source sine on top of neutral,
             # so PITD must also cancel neutral modulation.
             w = 2 * np.pi * sv["rate_hz"]
-            tau = g - sv.get("phase_origin_s", ev_s)
-            fit = sv["depth_c"] * np.sin(w * tau + sv["phase_rad"])
             length_pct = min(100.0, max(5.0,
                              (n_end - ev_s) / n["dur_s"] * 100.0))
             vib_len = n_end - ev_s
@@ -410,23 +435,6 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
             # to the note tail.
             out_pct = min(35.0, max(0.0, tail_gap / vib_len * 100.0)) \
                 if tail_gap > 0 else 5.0
-            in_len = 0.05 * vib_len
-            fade_len = out_pct / 100.0 * vib_len
-            # Engine envelope: linear `in` ramp, full body, linear `out`
-            # fade ending exactly at the note tail.
-            env = np.ones_like(g)
-            ramp_in = (g >= ev_s) & (g < ev_s + in_len)
-            env[ramp_in] = (g[ramp_in] - ev_s) / in_len
-            fade_zone = (g > ev_e) & (g <= n_end)
-            env[fade_zone] = np.clip((n_end - g[fade_zone])
-                                     / max(fade_len, 1e-6), 0, 1)
-            eng = fit * env
-            span = (g >= ev_s) & (g <= ev_e)
-            vals = np.where(
-                span, trend_resid + (mod_s_g - eng) - mod_n_g, vals)
-            # After the detected end the engine vibrato keeps fading to
-            # the tail; cancel exactly that rendered remainder.
-            vals = np.where(fade_zone, vals - eng, vals)
             depth_gain = float(m.get("render_depth_gain",
                                      VIBRATO_DEPTH_GAIN))
             if not np.isfinite(depth_gain) or depth_gain <= 0:
@@ -438,13 +446,28 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
             phi_start = sv["phase_rad"] + w * (
                 ev_s - sv.get("phase_origin_s", ev_s))
             shift_pct = (phi_start / (2 * np.pi)) % 1.0 * 100.0
-            vibrato_marks[i] = {
+            compiled_marks = {
                 "length": round(length_pct, 1),
                 "period": round(1000.0 / sv["rate_hz"], 1),
                 "depth": round(sv["depth_c"] / depth_gain, 1),
                 "in": 5, "out": round(out_pct, 1),
                 "shift": round(shift_pct, 1),
                 "drift": 0, "volLink": 0}
+            vibrato_marks[i] = compiled_marks
+            # Residual algebra must account for the engine vibrato that
+            # the compiled note will actually produce versus what the
+            # base note produced in the neutral render:
+            #   PITD = residual + V_eng_base - V_eng_compiled
+            # Over the whole note (incl. pre-event frames when the base
+            # had its own vibrato).
+            Vc = _engine_vib_model(compiled_marks, n["abs_start_s"],
+                                   n_end, g, depth_gain)
+            Vb = _engine_vib_model((base_vibrato or {}).get(i),
+                                   n["abs_start_s"], n_end, g,
+                                   depth_gain)
+            nmask = (g >= n["abs_start_s"]) & (g <= n_end) \
+                & ~np.isnan(vals)
+            vals = np.where(nmask, vals + (Vb - Vc), vals)
             vib_provenance[i] = {
                 "detected_phase_rad": sv["phase_rad"],
                 "phase_origin_s": sv.get("phase_origin_s"),
@@ -457,15 +480,14 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
                 "compiled_depth_c": round(sv["depth_c"] / depth_gain, 1),
                 "depth_gain": round(depth_gain, 4)}
         elif rep == "suppress_neutral" and m.get("neutral_span_s"):
-            ev_s, ev_e = m["neutral_span_s"]
-            span = (g >= max(ev_s, n["abs_start_s"])) & (g <= ev_e)
-            # Stage-B neutral has note-vibrato disabled. A neutral-only
-            # periodic output is renderer/singer behaviour, so preserve the
-            # full source-neutral residual already present in vals to cancel
-            # that modulation; replacing it with trend_resid would leave it.
-            vibrato_marks[i] = {"length": 0, "period": 150, "depth": 0,
-                                "in": 0, "out": 0, "shift": 0, "drift": 0,
-                                "volLink": 0}
+            # Keep the note's existing vibrato marks: the compiled
+            # project is derived from the same base as the neutral
+            # render, so its engine vibrato keeps producing the same
+            # modulation and the full source-neutral residual already in
+            # vals cancels it. Overwriting with depth=0 would remove the
+            # engine term while PITD still carries -mod_n -> double
+            # subtraction (L7-A first-render failure).
+            pass
         # "matched"/"irregular_pitd": full consensus residual already
         # encodes src - neu periodic difference on top of engine default
 
@@ -496,6 +518,96 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
     keep = np.concatenate([[True], np.diff(xs) > 0])
     return {"abbr": "pitd", "xs": xs[keep].tolist(),
             "ys": ys[keep].tolist()}, vibrato_marks, vib_provenance
+
+
+# ------------------------------------------------- R4 closed-loop lanes
+# Frames owned by a confirmed non-vibrato event (portamento, onset,
+# ornament, artifact) must not be rewritten by the generic residual
+# correction — the update would smear their trajectories (L7-B P2
+# portamento regression). Vibrato windows stay correctable: the note
+# param cannot carry its phase/envelope residual.
+LANE_PROTECTED_TYPES = {"portamento", "scoop", "overshoot", "undershoot",
+                        "ornament", "artifact"}
+
+
+def closed_loop_update(pitd, src_sig, render_sig, notes, part_pos_tick,
+                       protected_events=None, clip_c=300.0,
+                       max_err_c=10.0, hop_s=0.010, guard_s=0.15):
+    """One bounded correction iteration: pitd += clip(src - render).
+
+    Event-lane ownership (plan R2.1-L7-B): frames inside a confirmed
+    portamento/onset/ornament/artifact window are excluded from the
+    correction mask, so the update cannot degrade those gestures.
+    Returns the new pitd curve dict.
+    """
+    xs = np.asarray(pitd["xs"], dtype=float) * TICK_MS / 1000.0 \
+        + part_pos_tick * TICK_MS / 1000.0
+    ys = np.asarray(pitd["ys"], dtype=float)
+    s = notes[0]["abs_start_s"]
+    e = notes[-1]["abs_start_s"] + notes[-1]["dur_s"]
+    g = np.arange(s, e, hop_s)
+    sg = np.interp(g, src_sig.times, src_sig.cents,
+                   left=np.nan, right=np.nan)
+    rg = np.interp(g, render_sig.times, render_sig.cents,
+                   left=np.nan, right=np.nan)
+    err = sg - rg
+    prot = np.zeros(len(g), dtype=bool)
+    # event ownership mask: protected frames keep v1 behaviour; the
+    # guard band covers the detector context that extends beyond the
+    # event span (stays/departure tests look ±350ms around it).
+    for ev in protected_events or []:
+        if ev.type in LANE_PROTECTED_TYPES:
+            prot |= (g >= ev.start_s - guard_s) & (g <= ev.end_s + guard_s)
+    ok = ~np.isnan(err) & ~prot
+    now = np.interp(g, xs, ys, left=np.nan, right=np.nan)
+    corr = np.clip(np.nan_to_num(err), -clip_c, clip_c)
+    # taper the correction to 0 across ~50ms approaching protected
+    # windows: an abrupt correction step at the lane boundary renders as
+    # a fake onset/overshoot and can knock out the neighbouring event
+    # in re-detection even though the protected curve is untouched.
+    if np.any(prot):
+        pi = np.where(prot)[0]
+        dist = np.min(np.abs(np.subtract.outer(
+            np.arange(len(g), dtype=float), pi)), axis=1) * hop_s
+        corr = corr * np.clip(dist / 0.05, 0.0, 1.0)
+    new = np.where(ok, np.nan_to_num(now) + corr, now)
+    # Emit per contiguous run: correctable runs are re-simplified;
+    # non-corrected runs (protected events or dead zones) re-emit v1's
+    # OWN keypoints verbatim — the global simplifier budget must not
+    # thin out owned-event detail (L7-B P2 portamento regression).
+    keep_x, keep_y = [], []
+    i = 0
+    while i < len(g):
+        j = i
+        if ok[i]:
+            while j < len(g) and ok[j]:
+                j += 1
+            sub = ~np.isnan(new[i:j])
+            gg, vv = g[i:j][sub], new[i:j][sub]
+            if len(gg):
+                kp = _vertical_simplify(gg, vv, max_err_c)
+                keep_x.extend(gg[kp].tolist())
+                keep_y.extend(vv[kp].tolist())
+        else:
+            while j < len(g) and not ok[j]:
+                j += 1
+            inside = (xs >= g[i] - 1e-9) & (xs <= g[j - 1] + 1e-9)
+            keep_x.extend(xs[inside].tolist())
+            keep_y.extend(ys[inside].tolist())
+            for t in (g[i], g[j - 1]):
+                v = np.interp(t, xs, ys)
+                if not np.isnan(v):
+                    keep_x.append(t)
+                    keep_y.append(v)
+        i = j
+    xn = np.round(np.asarray(keep_x) * 1000.0 / TICK_MS
+                  - part_pos_tick).astype(int)
+    yn = np.clip(np.round(np.asarray(keep_y)), -1150, 1150).astype(int)
+    o = np.argsort(xn, kind="stable")
+    xn, yn = xn[o], yn[o]
+    keep = np.concatenate([[True], np.diff(xn) > 0])
+    return {"abbr": "pitd", "xs": xn[keep].tolist(),
+            "ys": yn[keep].tolist()}
 
 
 def state_summary(dense):

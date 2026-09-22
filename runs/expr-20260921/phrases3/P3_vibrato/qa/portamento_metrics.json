@@ -1,446 +1,76 @@
-{
-  "D": [
-    {
-      "from_note": 0,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -14.3,
-      "delta_start_ms": -100.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 1.349,
-      "curv_profile_rmse": 7.592
-    },
-    {
-      "from_note": 1,
-      "state": "missing"
-    },
-    {
-      "from_note": 2,
-      "state": "missing"
-    },
-    {
-      "from_note": 3,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": 50.2,
-      "delta_start_ms": -30.0,
-      "delta_end_ms": 200.0,
-      "slope_profile_rmse": 2.972,
-      "curv_profile_rmse": 34.774
-    },
-    {
-      "from_note": 4,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -55.2,
-      "delta_start_ms": -60.0,
-      "delta_end_ms": 30.0,
-      "slope_profile_rmse": 1.015,
-      "curv_profile_rmse": 4.679
-    },
-    {
-      "from_note": 5,
-      "state": "missing"
-    },
-    {
-      "from_note": 8,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": 87.0,
-      "delta_start_ms": -50.0,
-      "delta_end_ms": 70.0,
-      "slope_profile_rmse": 1.625,
-      "curv_profile_rmse": 9.71
-    },
-    {
-      "from_note": 9,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": 26.2,
-      "delta_start_ms": 10.0,
-      "delta_end_ms": 20.0,
-      "slope_profile_rmse": 0.171,
-      "curv_profile_rmse": 0.785
-    }
-  ],
-  "C0": [
-    {
-      "from_note": 0,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": 7.6,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 0.751,
-      "curv_profile_rmse": 6.723
-    },
-    {
-      "from_note": 1,
-      "state": "missing"
-    },
-    {
-      "from_note": 2,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -8.6,
-      "delta_start_ms": 160.0,
-      "delta_end_ms": -100.0,
-      "slope_profile_rmse": 14.914,
-      "curv_profile_rmse": 440.278
-    },
-    {
-      "from_note": 3,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -12.1,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 3.636,
-      "curv_profile_rmse": 73.203
-    },
-    {
-      "from_note": 4,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -1.9,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 1.371,
-      "curv_profile_rmse": 10.881
-    },
-    {
-      "from_note": 5,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -10.6,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": -110.0,
-      "slope_profile_rmse": 4.822,
-      "curv_profile_rmse": 183.683
-    },
-    {
-      "from_note": 8,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 2.9,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 1.384,
-      "curv_profile_rmse": 14.27
-    },
-    {
-      "from_note": 9,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": 13.8,
-      "delta_start_ms": 40.0,
-      "delta_end_ms": 10.0,
-      "slope_profile_rmse": 2.293,
-      "curv_profile_rmse": 10.009
-    }
-  ],
-  "C0r": [
-    {
-      "from_note": 0,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -40.6,
-      "delta_start_ms": -120.0,
-      "delta_end_ms": -50.0,
-      "slope_profile_rmse": 1.927,
-      "curv_profile_rmse": 7.354
-    },
-    {
-      "from_note": 1,
-      "state": "missing"
-    },
-    {
-      "from_note": 2,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -19.4,
-      "delta_start_ms": 160.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 11.8,
-      "curv_profile_rmse": 275.999
-    },
-    {
-      "from_note": 3,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -15.7,
-      "delta_start_ms": -10.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 3.673,
-      "curv_profile_rmse": 94.912
-    },
-    {
-      "from_note": 4,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -27.3,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 30.0,
-      "slope_profile_rmse": 0.701,
-      "curv_profile_rmse": 3.406
-    },
-    {
-      "from_note": 5,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -8.2,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": -110.0,
-      "slope_profile_rmse": 3.162,
-      "curv_profile_rmse": 109.729
-    },
-    {
-      "from_note": 8,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 8.4,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": -10.0,
-      "slope_profile_rmse": 2.045,
-      "curv_profile_rmse": 23.08
-    },
-    {
-      "from_note": 9,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": 50.5,
-      "delta_start_ms": 30.0,
-      "delta_end_ms": 10.0,
-      "slope_profile_rmse": 2.238,
-      "curv_profile_rmse": 10.728
-    }
-  ],
-  "C1": [
-    {
-      "from_note": 0,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -6.7,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": -10.0,
-      "slope_profile_rmse": 0.905,
-      "curv_profile_rmse": 10.437
-    },
-    {
-      "from_note": 1,
-      "state": "missing"
-    },
-    {
-      "from_note": 2,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -14.4,
-      "delta_start_ms": 160.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 12.202,
-      "curv_profile_rmse": 286.055
-    },
-    {
-      "from_note": 3,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -1.8,
-      "delta_start_ms": 10.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 2.685,
-      "curv_profile_rmse": 61.967
-    },
-    {
-      "from_note": 4,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 2.7,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 0.919,
-      "curv_profile_rmse": 9.41
-    },
-    {
-      "from_note": 5,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 2.2,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 0.976,
-      "curv_profile_rmse": 21.179
-    },
-    {
-      "from_note": 8,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 8.3,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": -10.0,
-      "slope_profile_rmse": 2.294,
-      "curv_profile_rmse": 27.316
-    },
-    {
-      "from_note": 9,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": 36.0,
-      "delta_start_ms": 30.0,
-      "delta_end_ms": 10.0,
-      "slope_profile_rmse": 2.125,
-      "curv_profile_rmse": 9.467
-    }
-  ],
-  "C2": [
-    {
-      "from_note": 0,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -19.1,
-      "delta_start_ms": -10.0,
-      "delta_end_ms": -10.0,
-      "slope_profile_rmse": 2.146,
-      "curv_profile_rmse": 19.805
-    },
-    {
-      "from_note": 1,
-      "state": "missing"
-    },
-    {
-      "from_note": 2,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -27.1,
-      "delta_start_ms": 160.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 11.201,
-      "curv_profile_rmse": 260.395
-    },
-    {
-      "from_note": 3,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -16.3,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 0.986,
-      "curv_profile_rmse": 26.898
-    },
-    {
-      "from_note": 4,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -11.0,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 10.0,
-      "slope_profile_rmse": 1.246,
-      "curv_profile_rmse": 11.798
-    },
-    {
-      "from_note": 5,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -28.2,
-      "delta_start_ms": 10.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 6.307,
-      "curv_profile_rmse": 179.605
-    },
-    {
-      "from_note": 8,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 9.8,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 1.661,
-      "curv_profile_rmse": 17.338
-    },
-    {
-      "from_note": 9,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": 26.1,
-      "delta_start_ms": 30.0,
-      "delta_end_ms": 10.0,
-      "slope_profile_rmse": 0.812,
-      "curv_profile_rmse": 2.631
-    }
-  ],
-  "C3": [
-    {
-      "from_note": 0,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -17.4,
-      "delta_start_ms": 10.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 0.492,
-      "curv_profile_rmse": 6.29
-    },
-    {
-      "from_note": 1,
-      "state": "missing"
-    },
-    {
-      "from_note": 2,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 1.0,
-      "delta_start_ms": 160.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 13.356,
-      "curv_profile_rmse": 313.138
-    },
-    {
-      "from_note": 3,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 1.2,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 1.123,
-      "curv_profile_rmse": 20.218
-    },
-    {
-      "from_note": 4,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -19.3,
-      "delta_start_ms": -10.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 1.317,
-      "curv_profile_rmse": 9.262
-    },
-    {
-      "from_note": 5,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": -28.5,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": -10.0,
-      "slope_profile_rmse": 4.907,
-      "curv_profile_rmse": 131.323
-    },
-    {
-      "from_note": 8,
-      "state": "matched",
-      "traj_match": true,
-      "delta_span_c": 5.0,
-      "delta_start_ms": 10.0,
-      "delta_end_ms": 0.0,
-      "slope_profile_rmse": 0.955,
-      "curv_profile_rmse": 11.0
-    },
-    {
-      "from_note": 9,
-      "state": "matched",
-      "traj_match": false,
-      "delta_span_c": -16.0,
-      "delta_start_ms": 0.0,
-      "delta_end_ms": 10.0,
-      "slope_profile_rmse": 0.094,
-      "curv_profile_rmse": 0.522
-    }
-  ]
-}
+[
+  {
+    "from_note": 0,
+    "state": "matched",
+    "traj_match": true,
+    "delta_span_c": -19.0,
+    "delta_start_ms": -10.0,
+    "delta_end_ms": -10.0,
+    "slope_profile_rmse": 2.148,
+    "curv_profile_rmse": 19.787
+  },
+  {
+    "from_note": 1,
+    "state": "missing"
+  },
+  {
+    "from_note": 2,
+    "state": "matched",
+    "traj_match": true,
+    "delta_span_c": -27.2,
+    "delta_start_ms": 160.0,
+    "delta_end_ms": 0.0,
+    "slope_profile_rmse": 11.198,
+    "curv_profile_rmse": 260.309
+  },
+  {
+    "from_note": 3,
+    "state": "matched",
+    "traj_match": false,
+    "delta_span_c": -16.4,
+    "delta_start_ms": 0.0,
+    "delta_end_ms": 0.0,
+    "slope_profile_rmse": 0.991,
+    "curv_profile_rmse": 27.14
+  },
+  {
+    "from_note": 4,
+    "state": "matched",
+    "traj_match": true,
+    "delta_span_c": -11.1,
+    "delta_start_ms": 0.0,
+    "delta_end_ms": 10.0,
+    "slope_profile_rmse": 1.245,
+    "curv_profile_rmse": 11.807
+  },
+  {
+    "from_note": 5,
+    "state": "matched",
+    "traj_match": true,
+    "delta_span_c": -28.3,
+    "delta_start_ms": 10.0,
+    "delta_end_ms": 0.0,
+    "slope_profile_rmse": 6.305,
+    "curv_profile_rmse": 179.562
+  },
+  {
+    "from_note": 8,
+    "state": "matched",
+    "traj_match": true,
+    "delta_span_c": 8.1,
+    "delta_start_ms": 0.0,
+    "delta_end_ms": 0.0,
+    "slope_profile_rmse": 1.629,
+    "curv_profile_rmse": 17.29
+  },
+  {
+    "from_note": 9,
+    "state": "matched",
+    "traj_match": false,
+    "delta_span_c": 32.0,
+    "delta_start_ms": 30.0,
+    "delta_end_ms": 0.0,
+    "slope_profile_rmse": 2.101,
+    "curv_profile_rmse": 10.842
+  }
+]

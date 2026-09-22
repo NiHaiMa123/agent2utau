@@ -1,0 +1,50 @@
+{
+  "variant": "C3v2",
+  "git_head": "13d158247e3d951e1de04f90ca67aaa22a630025",
+  "base_semantic_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
+  "ustx_sha256": "1552861c5c7910d9c6e6aa75ae7417abb0929d8b2c35462d8635985d0daacb60",
+  "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3v2.ustx",
+  "render_wav_sha256": "26e4ad181fdbd3b26056f0f5068bba750d67263a6ed28f1463cff90f1f078e0e",
+  "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3v2_vocal.wav",
+  "f0_extractors": {
+    "fcpe": {
+      "model": "torchfcpe",
+      "hop_ms": 10,
+      "sr": 16000
+    },
+    "rmvpe": {
+      "model": "rmvpe onnx",
+      "hop_ms": 10
+    }
+  },
+  "compiler": {
+    "module": "agent2utau.expression.pitch_residual",
+    "candidate": "C3",
+    "vibrato_depth_gain": 0.69,
+    "closed_loop_clip_c": 300.0,
+    "closed_loop_max_err_c": 10.0,
+    "closed_loop_guard_s": 0.15,
+    "closed_loop_iterations": 1
+  },
+  "phrase_window_s": [
+    25.23,
+    30.77
+  ],
+  "qa_files": [
+    "artifact_coverage.json",
+    "cross_extractor_metrics.json",
+    "curvature_metrics.json",
+    "modulation_metrics.json",
+    "portamento_metrics.json",
+    "position_metrics.json",
+    "slope_metrics.json",
+    "topology_metrics.json",
+    "vibrato_metrics.json"
+  ],
+  "event_files": [
+    "source_events.json",
+    "neutral_events.json",
+    "render_events.json",
+    "event_matches.json"
+  ]
+}

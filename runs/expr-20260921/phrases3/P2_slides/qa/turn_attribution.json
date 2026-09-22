@@ -1,0 +1,445 @@
+{
+  "phrase": "P2_slides",
+  "v1_missing": [
+    {
+      "t_s": 51.22,
+      "kind": "trough",
+      "value_c": 5645.0,
+      "prominence_c": 35.6,
+      "idx": 6
+    },
+    {
+      "t_s": 51.52,
+      "kind": "peak",
+      "value_c": 6162.8,
+      "prominence_c": 395.3,
+      "idx": 36
+    },
+    {
+      "t_s": 51.55,
+      "kind": "trough",
+      "value_c": 5737.0,
+      "prominence_c": 45.6,
+      "idx": 39
+    },
+    {
+      "t_s": 51.63,
+      "kind": "peak",
+      "value_c": 5769.6,
+      "prominence_c": 117.3,
+      "idx": 47
+    },
+    {
+      "t_s": 51.88,
+      "kind": "peak",
+      "value_c": 5926.4,
+      "prominence_c": 15.8,
+      "idx": 72
+    },
+    {
+      "t_s": 52.39,
+      "kind": "peak",
+      "value_c": 6296.1,
+      "prominence_c": 35.7,
+      "idx": 123
+    },
+    {
+      "t_s": 52.8,
+      "kind": "trough",
+      "value_c": 6396.5,
+      "prominence_c": 17.4,
+      "idx": 164
+    },
+    {
+      "t_s": 53.04,
+      "kind": "trough",
+      "value_c": 6627.7,
+      "prominence_c": 144.6,
+      "idx": 188
+    },
+    {
+      "t_s": 53.06,
+      "kind": "peak",
+      "value_c": 6629.8,
+      "prominence_c": 110.8,
+      "idx": 190
+    },
+    {
+      "t_s": 53.56,
+      "kind": "trough",
+      "value_c": 5973.4,
+      "prominence_c": 250.8,
+      "idx": 240
+    },
+    {
+      "t_s": 53.6,
+      "kind": "peak",
+      "value_c": 6293.5,
+      "prominence_c": 66.6,
+      "idx": 244
+    },
+    {
+      "t_s": 53.72,
+      "kind": "trough",
+      "value_c": 6214.9,
+      "prominence_c": 35.0,
+      "idx": 256
+    },
+    {
+      "t_s": 54.6,
+      "kind": "trough",
+      "value_c": 5771.7,
+      "prominence_c": 416.5,
+      "idx": 344
+    },
+    {
+      "t_s": 54.76,
+      "kind": "trough",
+      "value_c": 5964.5,
+      "prominence_c": 682.3,
+      "idx": 360
+    },
+    {
+      "t_s": 54.78,
+      "kind": "peak",
+      "value_c": 5966.0,
+      "prominence_c": 682.6,
+      "idx": 362
+    },
+    {
+      "t_s": 54.8,
+      "kind": "trough",
+      "value_c": 5964.4,
+      "prominence_c": 685.2,
+      "idx": 364
+    },
+    {
+      "t_s": 54.85,
+      "kind": "peak",
+      "value_c": 6671.3,
+      "prominence_c": 18.7,
+      "idx": 369
+    },
+    {
+      "t_s": 55.42,
+      "kind": "peak",
+      "value_c": 6860.8,
+      "prominence_c": 238.7,
+      "idx": 426
+    },
+    {
+      "t_s": 55.46,
+      "kind": "peak",
+      "value_c": 6644.1,
+      "prominence_c": 22.9,
+      "idx": 430
+    }
+  ],
+  "v2_missing_n": 18,
+  "source_turns": 61,
+  "attributions": [
+    {
+      "t_s": 51.22,
+      "kind": "trough",
+      "value_c": 5645.0,
+      "prominence_c": 35.6,
+      "note": 0,
+      "lyric": "可",
+      "phoneme": "可",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 200.4,
+        "nearest_same_kind_prom_c": 27.3
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 51.52,
+      "kind": "peak",
+      "value_c": 6162.8,
+      "prominence_c": 395.3,
+      "note": 0,
+      "lyric": "可",
+      "phoneme": "可",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 79.6,
+        "nearest_same_kind_prom_c": 15.7
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 51.55,
+      "kind": "trough",
+      "value_c": 5737.0,
+      "prominence_c": 45.6,
+      "note": 0,
+      "lyric": "可",
+      "phoneme": "可",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 129.6,
+        "nearest_same_kind_prom_c": 27.3
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 51.63,
+      "kind": "peak",
+      "value_c": 5769.6,
+      "prominence_c": 117.3,
+      "note": 1,
+      "lyric": "惜",
+      "phoneme": "惜",
+      "source_event": "undershoot",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 130.4,
+        "nearest_same_kind_prom_c": 56.3
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 51.88,
+      "kind": "peak",
+      "value_c": 5926.4,
+      "prominence_c": 15.8,
+      "note": 1,
+      "lyric": "惜",
+      "phoneme": "惜",
+      "source_event": "undershoot",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 110.4,
+        "nearest_same_kind_prom_c": 121.9
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 52.39,
+      "kind": "peak",
+      "value_c": 6296.1,
+      "prominence_c": 35.7,
+      "note": 3,
+      "lyric": "从",
+      "phoneme": "从",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 189.6,
+        "nearest_same_kind_prom_c": 17.1
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 52.8,
+      "kind": "trough",
+      "value_c": 6396.5,
+      "prominence_c": 17.4,
+      "note": 4,
+      "lyric": "未",
+      "phoneme": "未",
+      "source_event": null,
+      "render_region": {
+        "nearest_same_kind_dt_ms": 100.4,
+        "nearest_same_kind_prom_c": 92.2
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 53.04,
+      "kind": "trough",
+      "value_c": 6627.7,
+      "prominence_c": 144.6,
+      "note": 5,
+      "lyric": "+",
+      "phoneme": "+",
+      "source_event": "ornament",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 139.6,
+        "nearest_same_kind_prom_c": 92.2
+      },
+      "pitd_v1_extremum": true,
+      "pitd_v2_extremum": true,
+      "dense_residual_extremum": true,
+      "loss_stage": "render/extraction loss",
+      "owner_fix": "synthesis context / extractor limit"
+    },
+    {
+      "t_s": 53.06,
+      "kind": "peak",
+      "value_c": 6629.8,
+      "prominence_c": 110.8,
+      "note": 5,
+      "lyric": "+",
+      "phoneme": "+",
+      "source_event": "ornament",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 69.6,
+        "nearest_same_kind_prom_c": 231.1
+      },
+      "pitd_v1_extremum": true,
+      "pitd_v2_extremum": true,
+      "dense_residual_extremum": false,
+      "loss_stage": "render/extraction loss",
+      "owner_fix": "synthesis context / extractor limit"
+    },
+    {
+      "t_s": 53.56,
+      "kind": "trough",
+      "value_c": 5973.4,
+      "prominence_c": 250.8,
+      "note": 6,
+      "lyric": "心",
+      "phoneme": "心",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 99.6,
+        "nearest_same_kind_prom_c": 29.8
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 53.6,
+      "kind": "peak",
+      "value_c": 6293.5,
+      "prominence_c": 66.6,
+      "note": 6,
+      "lyric": "心",
+      "phoneme": "心",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 90.4,
+        "nearest_same_kind_prom_c": 99.6
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 53.72,
+      "kind": "trough",
+      "value_c": 6214.9,
+      "prominence_c": 35.0,
+      "note": 7,
+      "lyric": "疼",
+      "phoneme": "疼",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 0.4,
+        "nearest_same_kind_prom_c": 74.6
+      },
+      "pitd_v1_extremum": true,
+      "pitd_v2_extremum": true,
+      "dense_residual_extremum": true,
+      "loss_stage": "render/extraction loss",
+      "owner_fix": "synthesis context / extractor limit"
+    },
+    {
+      "t_s": 54.76,
+      "kind": "trough",
+      "value_c": 5964.5,
+      "prominence_c": 682.3,
+      "note": 8,
+      "lyric": "我",
+      "phoneme": "我",
+      "source_event": "portamento",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 159.6,
+        "nearest_same_kind_prom_c": 385.7
+      },
+      "pitd_v1_extremum": false,
+      "pitd_v2_extremum": false,
+      "dense_residual_extremum": false,
+      "loss_stage": "detector miss (absent in residual)",
+      "owner_fix": "residual builder: frame-state/coverage"
+    },
+    {
+      "t_s": 54.78,
+      "kind": "peak",
+      "value_c": 5966.0,
+      "prominence_c": 682.6,
+      "note": 8,
+      "lyric": "我",
+      "phoneme": "我",
+      "source_event": "portamento",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 109.6,
+        "nearest_same_kind_prom_c": 327.2
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 54.8,
+      "kind": "trough",
+      "value_c": 5964.4,
+      "prominence_c": 685.2,
+      "note": 8,
+      "lyric": "我",
+      "phoneme": "我",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 130.4,
+        "nearest_same_kind_prom_c": 220.6
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 54.85,
+      "kind": "peak",
+      "value_c": 6671.3,
+      "prominence_c": 18.7,
+      "note": 8,
+      "lyric": "我",
+      "phoneme": "我",
+      "source_event": "scoop",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 179.6,
+        "nearest_same_kind_prom_c": 327.2
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 55.42,
+      "kind": "peak",
+      "value_c": 6860.8,
+      "prominence_c": 238.7,
+      "note": 10,
+      "lyric": "+",
+      "phoneme": "+",
+      "source_event": "ornament",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 249.6,
+        "nearest_same_kind_prom_c": 441.2
+      },
+      "pitd_v1_extremum": false,
+      "pitd_v2_extremum": false,
+      "dense_residual_extremum": false,
+      "loss_stage": "detector miss (absent in residual)",
+      "owner_fix": "residual builder: frame-state/coverage"
+    },
+    {
+      "t_s": 55.46,
+      "kind": "peak",
+      "value_c": 6644.1,
+      "prominence_c": 22.9,
+      "note": 10,
+      "lyric": "+",
+      "phoneme": "+",
+      "source_event": "artifact",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 210.4,
+        "nearest_same_kind_prom_c": 56.1
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    }
+  ]
+}

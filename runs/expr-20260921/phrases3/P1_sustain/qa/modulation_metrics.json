@@ -1,352 +1,70 @@
 {
-  "D": {
-    "windows": [
-      {
-        "window_frames": [
-          0,
-          22
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
+  "windows": [
+    {
+      "window_frames": [
+        0,
+        22
+      ],
+      "coverage": 1.0,
+      "source": null,
+      "render": null
+    },
+    {
+      "window_frames": [
+        35,
+        147
+      ],
+      "coverage": 1.0,
+      "source": {
+        "dom_rate_hz": 4.46,
+        "depth_c": 104.4,
+        "bandwidth_hz": 4.46,
+        "periodicity": 0.218
       },
-      {
-        "window_frames": [
-          35,
-          147
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 4.46,
-          "depth_c": 104.4,
-          "bandwidth_hz": 4.46,
-          "periodicity": 0.218
-        },
-        "render": {
-          "dom_rate_hz": 4.35,
-          "depth_c": 58.9,
-          "bandwidth_hz": 2.9,
-          "periodicity": -0.022
-        }
-      },
-      {
-        "window_frames": [
-          163,
-          195
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 96.9,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        },
-        "render": {
-          "dom_rate_hz": 6.25,
-          "depth_c": 2.9,
-          "bandwidth_hz": 6.25,
-          "periodicity": 0.178
-        }
-      },
-      {
-        "window_frames": [
-          209,
-          281
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 131.6,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.147
-        },
-        "render": {
-          "dom_rate_hz": 4.17,
-          "depth_c": 157.1,
-          "bandwidth_hz": 2.78,
-          "periodicity": -0.024
-        }
+      "render": {
+        "dom_rate_hz": 7.25,
+        "depth_c": 93.4,
+        "bandwidth_hz": 2.9,
+        "periodicity": 0.213
       }
-    ]
-  },
-  "C0": {
-    "windows": [
-      {
-        "window_frames": [
-          0,
-          22
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
+    },
+    {
+      "window_frames": [
+        163,
+        195
+      ],
+      "coverage": 1.0,
+      "source": {
+        "dom_rate_hz": 3.12,
+        "depth_c": 96.9,
+        "bandwidth_hz": 3.12,
+        "periodicity": 0.0
       },
-      {
-        "window_frames": [
-          35,
-          147
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 4.46,
-          "depth_c": 104.4,
-          "bandwidth_hz": 4.46,
-          "periodicity": 0.218
-        },
-        "render": {
-          "dom_rate_hz": 5.71,
-          "depth_c": 129.5,
-          "bandwidth_hz": 4.76,
-          "periodicity": 0.083
-        }
-      },
-      {
-        "window_frames": [
-          163,
-          195
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 96.9,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        },
-        "render": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 96.1,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        }
-      },
-      {
-        "window_frames": [
-          209,
-          281
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 131.6,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.147
-        },
-        "render": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 221.5,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.173
-        }
+      "render": {
+        "dom_rate_hz": 3.12,
+        "depth_c": 90.2,
+        "bandwidth_hz": 3.12,
+        "periodicity": 0.0
       }
-    ]
-  },
-  "C0r": {
-    "windows": [
-      {
-        "window_frames": [
-          0,
-          22
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
+    },
+    {
+      "window_frames": [
+        209,
+        281
+      ],
+      "coverage": 1.0,
+      "source": {
+        "dom_rate_hz": 5.56,
+        "depth_c": 131.6,
+        "bandwidth_hz": 2.78,
+        "periodicity": 0.147
       },
-      {
-        "window_frames": [
-          35,
-          147
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 4.46,
-          "depth_c": 104.4,
-          "bandwidth_hz": 4.46,
-          "periodicity": 0.218
-        },
-        "render": {
-          "dom_rate_hz": 7.14,
-          "depth_c": 96.3,
-          "bandwidth_hz": 2.86,
-          "periodicity": 0.233
-        }
-      },
-      {
-        "window_frames": [
-          163,
-          195
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 96.9,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        },
-        "render": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 96.0,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        }
-      },
-      {
-        "window_frames": [
-          209,
-          281
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 131.6,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.147
-        },
-        "render": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 216.7,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.193
-        }
+      "render": {
+        "dom_rate_hz": 5.56,
+        "depth_c": 190.5,
+        "bandwidth_hz": 2.78,
+        "periodicity": 0.186
       }
-    ]
-  },
-  "C1": {
-    "windows": [
-      {
-        "window_frames": [
-          0,
-          22
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
-      },
-      {
-        "window_frames": [
-          35,
-          147
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 4.46,
-          "depth_c": 104.4,
-          "bandwidth_hz": 4.46,
-          "periodicity": 0.218
-        },
-        "render": {
-          "dom_rate_hz": 7.25,
-          "depth_c": 92.8,
-          "bandwidth_hz": 2.9,
-          "periodicity": 0.235
-        }
-      },
-      {
-        "window_frames": [
-          163,
-          195
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 96.9,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        },
-        "render": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 91.5,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        }
-      },
-      {
-        "window_frames": [
-          209,
-          281
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 131.6,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.147
-        },
-        "render": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 204.5,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.179
-        }
-      }
-    ]
-  },
-  "C2": {
-    "windows": [
-      {
-        "window_frames": [
-          0,
-          22
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
-      },
-      {
-        "window_frames": [
-          35,
-          147
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 4.46,
-          "depth_c": 104.4,
-          "bandwidth_hz": 4.46,
-          "periodicity": 0.218
-        },
-        "render": {
-          "dom_rate_hz": 5.66,
-          "depth_c": 127.8,
-          "bandwidth_hz": 4.72,
-          "periodicity": 0.059
-        }
-      },
-      {
-        "window_frames": [
-          163,
-          195
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 96.9,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        },
-        "render": {
-          "dom_rate_hz": 3.12,
-          "depth_c": 90.5,
-          "bandwidth_hz": 3.12,
-          "periodicity": 0.0
-        }
-      },
-      {
-        "window_frames": [
-          209,
-          281
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 131.6,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.147
-        },
-        "render": {
-          "dom_rate_hz": 5.56,
-          "depth_c": 210.8,
-          "bandwidth_hz": 2.78,
-          "periodicity": 0.181
-        }
-      }
-    ]
-  }
+    }
+  ]
 }

@@ -440,6 +440,11 @@ def detect_portamento_events(contour: ContourSignal, notes,
     """
     out = []
     hold = max(2, int(round(hold_ms / 1000.0 / HOP_S)))
+    # Trend fallback for the stay test: a vibrato-bearing arrival
+    # legitimately oscillates outside tol_c on raw frames, fragmenting
+    # the sustained-stay run and dropping real portamentos (L7-B P2
+    # from_note=6). When raw stays fail, retry on the smoothed trend.
+    trend, _mod = robust_pitch_trend(contour)
     for i in range(len(notes) - 1):
         a, b = notes[i], notes[i + 1]
         a_e = a["abs_start_s"] + a["dur_s"]
@@ -461,6 +466,12 @@ def detect_portamento_events(contour: ContourSignal, notes,
         in_b = ok & (np.abs(c - tone_b) <= tol_c)
         stays_a = _sustained(in_a & (t < a_e), hold)
         stays_b = _sustained(in_b & (t >= b["abs_start_s"]), hold)
+        if not stays_a or not stays_b:
+            tr = trend[m]
+            in_a = ok & (np.abs(tr - tone_a) <= tol_c)
+            in_b = ok & (np.abs(tr - tone_b) <= tol_c)
+            stays_a = _sustained(in_a & (t < a_e), hold)
+            stays_b = _sustained(in_b & (t >= b["abs_start_s"]), hold)
         if not stays_a or not stays_b:
             continue
         dep_i = stays_a[-1][1] - 1       # last frame still in tone_a

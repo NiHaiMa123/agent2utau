@@ -1,0 +1,1218 @@
+name: nianlun_pipeline_styleB
+comment: migrated from 雨爱-有参by白烁.ustx track 0 ticks 21120-28440
+output_dir: Vocal
+cache_dir: UCache
+ustx_version: '0.9'
+bpm: 120.0
+beat_per_bar: 4
+beat_unit: 4
+expressions:
+  dyn:
+    name: dynamics (curve)
+    abbr: dyn
+    type: Curve
+    min: -240
+    max: 120
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  pitd:
+    name: pitch deviation (curve)
+    abbr: pitd
+    type: Curve
+    min: -1200
+    max: 1200
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  clr:
+    name: voice color
+    abbr: clr
+    type: Options
+    min: 0
+    max: 4
+    default_value: 0
+    is_flag: false
+    options:
+    - Yousa_Bright
+    - Yousa_Classic
+    - Yousa_Cute
+    - Yousa_Normal
+    - Yousa_Whisper
+    skip_output_if_default: false
+  eng:
+    name: resampler engine
+    abbr: eng
+    type: Options
+    min: 0
+    max: 1
+    default_value: 0
+    is_flag: false
+    options:
+    - ''
+    - worldline
+    skip_output_if_default: false
+  vel:
+    name: velocity
+    abbr: vel
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  vol:
+    name: volume
+    abbr: vol
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  atk:
+    name: attack
+    abbr: atk
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  dec:
+    name: decay
+    abbr: dec
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  gen:
+    name: gender
+    abbr: gen
+    type: Numerical
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: g
+    skip_output_if_default: false
+  genc:
+    name: gender (curve)
+    abbr: genc
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  bre:
+    name: breath
+    abbr: bre
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: B
+    skip_output_if_default: false
+  brec:
+    name: breathiness (curve)
+    abbr: brec
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  lpf:
+    name: lowpass
+    abbr: lpf
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: H
+    skip_output_if_default: false
+  norm:
+    name: normalize
+    abbr: norm
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 86
+    is_flag: true
+    flag: P
+    skip_output_if_default: false
+  mod:
+    name: modulation
+    abbr: mod
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  mod+:
+    name: modulation plus
+    abbr: mod+
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  alt:
+    name: alternate
+    abbr: alt
+    type: Numerical
+    min: 0
+    max: 16
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  dir:
+    name: direct
+    abbr: dir
+    type: Options
+    min: 0
+    max: 1
+    default_value: 0
+    is_flag: false
+    options:
+    - 'false'
+    - 'true'
+    skip_output_if_default: false
+  shft:
+    name: tone shift
+    abbr: shft
+    type: Numerical
+    min: -36
+    max: 36
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  shfc:
+    name: tone shift (curve)
+    abbr: shfc
+    type: Curve
+    min: -1200
+    max: 1200
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  tenc:
+    name: tension (curve)
+    abbr: tenc
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  voic:
+    name: voicing (curve)
+    abbr: voic
+    type: Curve
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  ope:
+    name: opening
+    abbr: ope
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  velc:
+    name: velocity (curve)
+    abbr: velc
+    type: Curve
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  ene:
+    name: energy (curve)
+    abbr: ene
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  pexp:
+    name: pitch expressiveness (curve)
+    abbr: pexp
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl01:
+    name: voice color Yousa_Bright
+    abbr: cl01
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl02:
+    name: voice color Yousa_Cute
+    abbr: cl02
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl03:
+    name: voice color Yousa_Normal
+    abbr: cl03
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl04:
+    name: voice color Yousa_Whisper
+    abbr: cl04
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl05:
+    name: voice color Yousa_Classic
+    abbr: cl05
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  clry:
+    name: voice color y
+    abbr: clry
+    type: Options
+    min: 0
+    max: -1
+    default_value: 0
+    is_flag: false
+    options: []
+    skip_output_if_default: false
+  xsy:
+    name: cross synthesis (curve)
+    abbr: xsy
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+exp_selectors:
+- dyn
+- pitd
+- clr
+- tenc
+- voic
+- brec
+- shfc
+- dec
+- cl02
+- cl05
+exp_primary: 3
+exp_secondary: 5
+key: 0
+time_signatures:
+- bar_position: 0
+  beat_per_bar: 4
+  beat_unit: 4
+tempos:
+- position: 0
+  bpm: 120.0
+tracks:
+- singer: YousaV1.65b
+  phonemizer: OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer
+  renderer_settings:
+    renderer: DIFFSINGER
+  track_name: vocal
+  track_color: Blue
+  mute: false
+  solo: false
+  volume: 0
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - Yousa_Bright
+  - Yousa_Classic
+  - Yousa_Cute
+  - Yousa_Normal
+  - Yousa_Whisper
+- singer: ''
+  phonemizer: ''
+  renderer_settings:
+    renderer: DIFFSINGER
+  track_name: source vocal (original)
+  track_color: Orange
+  mute: false
+  solo: false
+  volume: 0
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - Yousa_Bright
+  - Yousa_Classic
+  - Yousa_Cute
+  - Yousa_Normal
+  - Yousa_Whisper
+voice_parts:
+- duration: 222653
+  name: P1_sustain_C0r
+  comment: ''
+  track_no: 0
+  position: 17568
+  notes:
+  - position: 480
+    duration: 403
+    tone: 57
+    lyric: 圆
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: false
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 883
+    duration: 355
+    tone: 59
+    lyric: 圈
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 1238
+    duration: 346
+    tone: 62
+    lyric: 勾
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 1584
+    duration: 470
+    tone: 64
+    lyric: 勒
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 2054
+    duration: 442
+    tone: 66
+    lyric: 成
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 2496
+    duration: 269
+    tone: 59
+    lyric: 指
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 2765
+    duration: 413
+    tone: 64
+    lyric: 纹
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  curves:
+  - abbr: pitd
+    xs:
+    - 480
+    - 490
+    - 499
+    - 509
+    - 518
+    - 528
+    - 538
+    - 547
+    - 557
+    - 566
+    - 576
+    - 586
+    - 595
+    - 605
+    - 614
+    - 624
+    - 634
+    - 643
+    - 653
+    - 662
+    - 672
+    - 682
+    - 691
+    - 874
+    - 883
+    - 893
+    - 902
+    - 912
+    - 922
+    - 931
+    - 941
+    - 950
+    - 960
+    - 970
+    - 979
+    - 989
+    - 998
+    - 1008
+    - 1018
+    - 1027
+    - 1037
+    - 1046
+    - 1056
+    - 1066
+    - 1075
+    - 1085
+    - 1094
+    - 1104
+    - 1114
+    - 1123
+    - 1133
+    - 1142
+    - 1152
+    - 1162
+    - 1171
+    - 1181
+    - 1190
+    - 1200
+    - 1210
+    - 1219
+    - 1229
+    - 1238
+    - 1248
+    - 1258
+    - 1267
+    - 1277
+    - 1286
+    - 1296
+    - 1306
+    - 1315
+    - 1325
+    - 1334
+    - 1344
+    - 1354
+    - 1363
+    - 1373
+    - 1382
+    - 1392
+    - 1402
+    - 1411
+    - 1421
+    - 1430
+    - 1440
+    - 1450
+    - 1459
+    - 1469
+    - 1478
+    - 1488
+    - 1498
+    - 1507
+    - 1517
+    - 1526
+    - 1536
+    - 1546
+    - 1555
+    - 1565
+    - 1574
+    - 1584
+    - 1594
+    - 1603
+    - 1613
+    - 1622
+    - 1632
+    - 1642
+    - 1651
+    - 1661
+    - 1670
+    - 1680
+    - 1690
+    - 1699
+    - 1709
+    - 1718
+    - 1728
+    - 1738
+    - 1747
+    - 1757
+    - 1766
+    - 1776
+    - 1786
+    - 1795
+    - 1805
+    - 1814
+    - 1824
+    - 1834
+    - 1843
+    - 1853
+    - 1862
+    - 1872
+    - 1882
+    - 1891
+    - 2045
+    - 2054
+    - 2064
+    - 2074
+    - 2083
+    - 2093
+    - 2102
+    - 2112
+    - 2122
+    - 2131
+    - 2141
+    - 2150
+    - 2160
+    - 2170
+    - 2179
+    - 2189
+    - 2198
+    - 2208
+    - 2218
+    - 2227
+    - 2237
+    - 2246
+    - 2256
+    - 2266
+    - 2275
+    - 2285
+    - 2294
+    - 2304
+    - 2314
+    - 2323
+    - 2333
+    - 2342
+    - 2352
+    - 2362
+    - 2486
+    - 2496
+    - 2506
+    - 2515
+    - 2525
+    - 2534
+    - 2544
+    - 2554
+    - 2563
+    - 2573
+    - 2582
+    - 2592
+    - 2602
+    - 2611
+    - 2621
+    - 2630
+    - 2640
+    - 2650
+    - 2659
+    - 2669
+    - 2678
+    - 2688
+    - 2698
+    - 2707
+    - 2717
+    - 2726
+    - 2736
+    - 2746
+    - 2755
+    - 2765
+    - 2774
+    - 2784
+    - 2794
+    - 2803
+    - 2813
+    - 2822
+    - 2832
+    - 2842
+    - 2851
+    - 2861
+    - 2870
+    - 2880
+    - 2890
+    - 2899
+    - 2909
+    - 2918
+    - 2928
+    - 2938
+    - 2947
+    - 2957
+    - 2966
+    - 2976
+    - 2986
+    - 2995
+    - 3005
+    - 3014
+    - 3024
+    - 3034
+    - 3043
+    - 3053
+    - 3062
+    - 3072
+    - 3082
+    - 3091
+    - 3101
+    ys:
+    - -17
+    - 2
+    - 9
+    - 8
+    - 6
+    - 4
+    - 0
+    - -11
+    - -18
+    - -22
+    - -20
+    - -12
+    - 3
+    - 15
+    - 23
+    - 25
+    - 30
+    - 29
+    - 21
+    - 5
+    - -21
+    - -36
+    - -32
+    - -194
+    - -177
+    - -166
+    - -157
+    - -152
+    - -150
+    - -157
+    - -174
+    - -184
+    - -190
+    - -191
+    - -186
+    - -174
+    - -144
+    - -93
+    - -32
+    - -2
+    - 14
+    - 20
+    - 19
+    - 16
+    - 13
+    - 11
+    - 7
+    - 4
+    - 5
+    - 6
+    - 5
+    - 1
+    - -6
+    - -18
+    - -24
+    - -50
+    - -133
+    - -221
+    - -386
+    - -447
+    - -108
+    - -60
+    - -19
+    - 14
+    - 33
+    - 50
+    - 57
+    - 54
+    - 47
+    - 36
+    - 21
+    - 6
+    - -1
+    - -5
+    - -7
+    - -6
+    - -6
+    - -5
+    - -2
+    - 0
+    - 4
+    - 6
+    - 7
+    - 7
+    - 6
+    - 6
+    - 7
+    - 9
+    - 5
+    - 1
+    - 1
+    - -6
+    - -109
+    - -197
+    - -217
+    - -222
+    - -209
+    - -192
+    - -180
+    - -178
+    - -185
+    - -195
+    - -204
+    - -219
+    - -233
+    - -247
+    - -249
+    - -242
+    - -228
+    - -198
+    - -160
+    - -116
+    - -67
+    - -12
+    - 23
+    - 38
+    - 40
+    - 35
+    - 23
+    - 6
+    - -12
+    - -22
+    - -21
+    - -10
+    - 6
+    - 17
+    - 20
+    - 5
+    - -38
+    - -66
+    - -158
+    - -158
+    - -162
+    - -165
+    - -178
+    - -190
+    - -199
+    - -211
+    - -222
+    - -225
+    - -218
+    - -206
+    - -187
+    - -156
+    - -109
+    - -66
+    - -28
+    - 14
+    - 38
+    - 49
+    - 48
+    - 41
+    - 31
+    - 21
+    - 10
+    - 8
+    - 16
+    - 25
+    - 26
+    - 20
+    - -3
+    - -34
+    - -51
+    - -49
+    - -39
+    - -6
+    - 7
+    - 10
+    - 7
+    - 4
+    - -1
+    - -10
+    - -16
+    - -18
+    - -18
+    - -13
+    - -5
+    - 6
+    - 15
+    - 21
+    - 21
+    - 20
+    - 17
+    - 8
+    - -4
+    - -23
+    - -19
+    - -73
+    - -518
+    - -585
+    - -606
+    - -603
+    - -569
+    - -507
+    - -418
+    - -335
+    - -254
+    - -192
+    - -149
+    - -125
+    - -115
+    - -114
+    - -121
+    - -128
+    - -132
+    - -134
+    - -130
+    - -121
+    - -99
+    - -73
+    - -38
+    - 1
+    - 32
+    - 55
+    - 65
+    - 58
+    - 40
+    - 16
+    - -10
+    - -28
+    - -34
+    - -24
+    - -8
+    - 10
+    - 31
+    - 45
+    - 54
+    - 56
+    - 76
+  Duration: 3658
+wave_parts: []

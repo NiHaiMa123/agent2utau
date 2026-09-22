@@ -1,27 +1,18 @@
 {
-  "D": {
-    "generated_by": "none",
-    "fcpe_med_c": 31.6,
-    "rmvpe_med_c": 31.3
+  "fcpe_eval": {
+    "valid_frames": 421,
+    "coverage": 0.884,
+    "n": 421,
+    "med_c": 4.2,
+    "p90_c": 24.7,
+    "p95_c": 90.3
   },
-  "C0": {
-    "generated_by": "fcpe",
-    "fcpe_med_c": 3.9,
-    "rmvpe_med_c": 4.2
-  },
-  "C0r": {
-    "generated_by": "rmvpe",
-    "fcpe_med_c": 4.4,
-    "rmvpe_med_c": 3.3
-  },
-  "C1": {
-    "generated_by": "fcpe",
-    "fcpe_med_c": 4.4,
-    "rmvpe_med_c": 5.1
-  },
-  "C2": {
-    "generated_by": "fcpe",
-    "fcpe_med_c": 4.5,
-    "rmvpe_med_c": 4.3
+  "rmvpe_eval": {
+    "valid_frames": 426,
+    "coverage": 1.0,
+    "n": 426,
+    "med_c": 4.5,
+    "p90_c": 27.2,
+    "p95_c": 92.5
   }
 }

@@ -1881,6 +1881,55 @@ run_manifest.json
 
 **禁止把旧 C0/C1/C2 artifact 与新 C3 report 混在一起宣称同一 machine gate。**
 
+##### L7 execution status — A/B/C/D machine gates DONE
+
+实测证据（同一 C3v2 candidate，`phrases3/<P>/run_manifest.json` 绑定
+git HEAD + ustx/wav sha256）：
+
+**L7-A — RESOLVED**。根因：`suppress_neutral` 分支在禁用 note vibrato 的
+同时又按"base 已含 neutral vibrato"的代数去减 → double-subtraction 漏
+modulation。修复：production base 即 neutral 工程本身，编译时保留 base 已有
+vibrato marks，residual 只做一次 `src−neu` 抵消。重测 C_neu_only：
+first-render 0 vibrato / 0 extra turns（pos_med 4.9→2.4c），不再依赖
+closed-loop 达标。
+
+**L7-B — RESOLVED（机器层面）**。三层修复：
+
+1. `closed_loop_update` 增加 event-lane ownership：
+   `LANE_PROTECTED_TYPES = {portamento, scoop, overshoot, undershoot,
+   ornament, artifact}` 的窗口 ±150ms guard band 内不做 correction，
+   保护窗内**逐点重放 v1 原始 keypoints**（全局 simplifier 预算不再能
+   稀疏掉 owned-event 细节），lane 边界 50ms correction taper 消除
+   台阶伪 overshoot。
+2. portamento detector 修复：sustained-stay 判据 raw cents 失败后回落
+   smoothed trend——vibrato-bearing arrival 的 raw oscillation 合法地越过
+   ±30c，原判据在 threshold 边缘丢真事件（非阈值放宽，统计量换为 trend）。
+3. 验证：P2 全部 8 个 SOURCE portamento 在 C3 v1 与 lane-protected v2
+   下 matched 数一致（7/8，唯一 missing = from_note=5 在 **v1 已缺**，
+   属 first-render 检测问题而非 closed-loop 退化）；保护窗内曲线
+   byte-identical。P3 同样无退化。
+
+已知边界：DiffSinger acoustic model 看整句 pitch context，curve 级保护
+不能保证窗内渲染 sample-identical（实测 ±25c jitter @ borderline
+frames）——lane ownership 保证的是 written curve，不是声学输出。
+
+**L7-C — RESOLVED（归因完成）**。`qa/turn_attribution.json` 逐 turn 记录
+abs time / note / prominence / source event / render region / loss stage /
+owner。P3 v2 missing=11：structure 4（note 边缘，含 vibrato 窗口外紧邻的
+29.64/30.75）+ render/extraction 4 + simplifier 2 + detector 1。
+P2 v2 missing=18：structure 13（多集中于 note8 octave 区与字边界）+
+render/extraction 3 + detector 2。**under-tracing 主项是 written-score
+边界与 transition 帧，不是 vibrato 也不是 closed-loop**。
+
+**L7-D — RESOLVED**。`phrases3/<P>/` 下全部 QA + events + manifest 对
+同一 C3v2 候选重生成；cross-extractor gate 通过（rmvpe eval med 与 fcpe
+差 ≤0.5c：P1 4.1/4.6, P2 4.2/4.5, P3 4.2/4.4）。
+
+最终指标（C3v2, fcpe eval）：P1 pos_med 4.1c；P2 4.2c + vib Δdepth −3.2c；
+P3 4.2c + vib Δdepth −7.0c Δphase 0.345rad。491 tests green。
+
+剩余唯一门禁：**L7-E 人工试听** `phrases3/P*/` C2/C3(v2) vs D vs SOURCE。
+
 ##### L7-E. machine gate 后才试听
 
 执行顺序更新为：

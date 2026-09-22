@@ -206,15 +206,45 @@ def test_compile_neutral_only_suppression():
     assert vm[0]["match_state"] == "neutral_only"
     assert vm[0]["recommended_representation"] == "suppress_neutral"
     pitd, marks, _prov = compile_C3(dense, src, neu, [_note(dur)], 0, vm)
-    assert marks[0]["depth"] == 0
-    # Neutral-only modulation is renderer behaviour in the Stage-B
-    # baseline. PITD must CANCEL it, not discard the periodic residual.
+    # Suppression keeps the base note's vibrato marks unchanged: the
+    # compiled project derives from the same base as the neutral render,
+    # so its engine modulation recurs and the full residual cancels it.
+    # Writing depth=0 instead would leave -mod_n in PITD with nothing to
+    # cancel (L7-A first-render failure mode).
+    assert 0 not in marks
     ctl = _pitd_on_grid(pitd, t)
     span = (t >= vm[0]["neutral_span_s"][0]) & \
            (t <= vm[0]["neutral_span_s"][1]) & ~np.isnan(ctl)
     recon = 6000 + neu_vib + ctl
     assert np.median(np.abs(recon[span] - 6000.0)) < 12
     assert np.percentile(np.abs(ctl[span]), 90) > 15
+
+
+def test_compile_note_vibrato_accounts_for_base_vibrato():
+    """Base note had its own engine vibrato (present in the neutral
+    render). Compiling source vibrato onto it must write
+    PITD = residual + V_base - V_compiled, so the render lands on SOURCE
+    without the old engine term leaking through."""
+    from agent2utau.expression.pitch_residual import _engine_vib_model
+    dur = 1.3
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    src_vib = np.where(t >= 0.8,
+                       50 * np.sin(2 * np.pi * 6.5 * (t - 0.8) + 0.9), 0)
+    base_marks = {"length": 70, "period": 150, "depth": 30, "in": 10,
+                  "out": 10, "shift": 25, "drift": 0, "volLink": 0}
+    Vb = _engine_vib_model(base_marks, 0.0, dur, t, VIBRATO_DEPTH_GAIN)
+    dense, src, neu = _dense_and_sigs(6000 + src_vib, 6000 + Vb, dur)
+    vm = match_vibrato_events(detect_vibrato_events(src, [_note(dur)]),
+                              [], [_note(dur)])
+    assert vm[0]["recommended_representation"] == "note_vibrato"
+    pitd, marks, _prov = compile_C3(dense, src, neu, [_note(dur)], 0, vm,
+                                  base_vibrato={0: base_marks})
+    Vc = _engine_vib_model(marks[0], 0.0, dur, t, VIBRATO_DEPTH_GAIN)
+    ctl = _pitd_on_grid(pitd, t)
+    # render = (neutral minus its own engine vib) + PITD + compiled vib
+    recon = (6000 + Vb) - Vb + ctl + Vc
+    span = (t >= 0.8) & (t <= dur) & ~np.isnan(ctl)
+    assert np.median(np.abs(recon[span] - (6000 + src_vib)[span])) < 15
 
 
 def test_mid_note_vibrato_stays_pitd():
@@ -398,3 +428,43 @@ def test_short_raw_chain_rejected_by_evidence_gate():
     dur = 1.3
     sig = _vib_sig(dur, 0.95, 1.24, rate=6.5, depth=50)  # ~1.9 cycles
     assert _ev(sig, _note(dur)) == []
+
+
+def test_closed_loop_preserves_protected_portamento():
+    """L7-B: lane-protected windows must keep v1's own keypoints
+    verbatim — a global simplifier pass over mixed frames thins the
+    portamento ramp and the render loses the event (P2 from_note=6
+    matched->missing regression)."""
+    from agent2utau.expression.contour import PitchEvent
+    from agent2utau.expression.pitch_residual import closed_loop_update
+
+    dur = 2.0
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    note = _note(dur)
+    # v1 pitd: flat 0 except a dense portamento ramp in [0.8, 1.0]s
+    v1_t = np.arange(0.0, dur, 0.02)
+    v1_y = np.zeros(len(v1_t))
+    ramp = (v1_t >= 0.8) & (v1_t <= 1.0)
+    v1_y[ramp] = -200.0 * (v1_t[ramp] - 0.8) / 0.2
+    v1_y[v1_t > 1.0] = -200.0
+    pitd = {"abbr": "pitd",
+            "xs": (v1_t * 1000 / TICK_MS).astype(int).tolist(),
+            "ys": v1_y.astype(int).tolist()}
+    # source = render + constant +80c error everywhere
+    src = _sig(t, np.full(len(t), 6080.0))
+    rnd = _sig(t, np.full(len(t), 6000.0))
+    port = PitchEvent(type="portamento", note_indices=[0],
+                      start_s=0.8, end_s=1.0, confidence=1.0,
+                      params={"from_note": 0})
+    out = closed_loop_update(pitd, src, rnd, [note], 0,
+                             protected_events=[port])
+    xs = np.asarray(out["xs"]) * TICK_MS / 1000.0
+    ys = np.asarray(out["ys"], dtype=float)
+    # inside the protected window the corrected curve must equal v1's
+    # ramp (within 1c rounding), not +80c and not a thinned chord
+    for tt, vv in zip(v1_t[ramp][::3], v1_y[ramp][::3]):
+        assert abs(np.interp(tt, xs, ys) - vv) <= 2.0, \
+            f"protected portamento degraded at t={tt}"
+    # unprotected region still gets the correction
+    assert np.interp(0.4, xs, ys) > 50.0
+    assert np.interp(1.5, xs, ys) > -200.0 + 50.0

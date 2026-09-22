@@ -1,78 +1,14 @@
-{
-  "D": [
-    {
-      "note": 11,
-      "state": "missing"
-    }
-  ],
-  "C0": [
-    {
-      "note": 11,
-      "state": "matched",
-      "delta_rate_hz": 0.22,
-      "delta_depth_c": -3.3,
-      "delta_period_cv": 0.009,
-      "delta_depth_cv": -0.008,
-      "delta_stable_cycle_count": 0.5,
-      "delta_phase_rad": 0.821,
-      "delta_start_ms": 30.0,
-      "delta_end_ms": 70.0
-    }
-  ],
-  "C0r": [
-    {
-      "note": 11,
-      "state": "matched",
-      "delta_rate_hz": 0.16,
-      "delta_depth_c": 3.1,
-      "delta_period_cv": 0.022,
-      "delta_depth_cv": -0.039,
-      "delta_stable_cycle_count": 1.0,
-      "delta_phase_rad": 0.55,
-      "delta_start_ms": -50.0,
-      "delta_end_ms": 60.0
-    }
-  ],
-  "C1": [
-    {
-      "note": 11,
-      "state": "matched",
-      "delta_rate_hz": 0.29,
-      "delta_depth_c": -0.2,
-      "delta_period_cv": -0.011,
-      "delta_depth_cv": -0.021,
-      "delta_stable_cycle_count": 0.5,
-      "delta_phase_rad": 0.989,
-      "delta_start_ms": 30.0,
-      "delta_end_ms": 60.0
-    }
-  ],
-  "C2": [
-    {
-      "note": 11,
-      "state": "matched",
-      "delta_rate_hz": 0.29,
-      "delta_depth_c": 3.3,
-      "delta_period_cv": -0.011,
-      "delta_depth_cv": -0.027,
-      "delta_stable_cycle_count": 0.5,
-      "delta_phase_rad": 0.987,
-      "delta_start_ms": 30.0,
-      "delta_end_ms": 60.0
-    }
-  ],
-  "C3": [
-    {
-      "note": 11,
-      "state": "matched",
-      "delta_rate_hz": 0.22,
-      "delta_depth_c": -5.7,
-      "delta_period_cv": -0.001,
-      "delta_depth_cv": 0.022,
-      "delta_stable_cycle_count": 0.0,
-      "delta_phase_rad": 0.653,
-      "delta_start_ms": 30.0,
-      "delta_end_ms": 0.0
-    }
-  ]
-}
+[
+  {
+    "note": 11,
+    "state": "matched",
+    "delta_rate_hz": 0.22,
+    "delta_depth_c": -3.2,
+    "delta_period_cv": -0.001,
+    "delta_depth_cv": 0.02,
+    "delta_stable_cycle_count": 0.5,
+    "delta_phase_rad": 0.749,
+    "delta_start_ms": 30.0,
+    "delta_end_ms": 70.0
+  }
+]

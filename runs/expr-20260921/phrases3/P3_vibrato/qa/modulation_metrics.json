@@ -1,194 +1,126 @@
 {
-  "D": {
-    "windows": [
-      {
-        "window_frames": [
-          445,
-          550
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 51.2,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.736
-        },
-        "render": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 0.9,
-          "bandwidth_hz": 1.9,
-          "periodicity": 0.024
-        }
+  "windows": [
+    {
+      "window_frames": [
+        0,
+        72
+      ],
+      "coverage": 1.0,
+      "source": {
+        "dom_rate_hz": 6.94,
+        "depth_c": 44.2,
+        "bandwidth_hz": 4.17,
+        "periodicity": -0.11
       },
-      {
-        "window_frames": [
-          207,
-          216
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
+      "render": {
+        "dom_rate_hz": 5.88,
+        "depth_c": 80.2,
+        "bandwidth_hz": 4.41,
+        "periodicity": 0.07
       }
-    ]
-  },
-  "C0": {
-    "windows": [
-      {
-        "window_frames": [
-          445,
-          550
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 51.2,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.736
-        },
-        "render": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 53.8,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.738
-        }
+    },
+    {
+      "window_frames": [
+        82,
+        219
+      ],
+      "coverage": 1.0,
+      "source": {
+        "dom_rate_hz": 7.3,
+        "depth_c": 116.4,
+        "bandwidth_hz": 3.65,
+        "periodicity": -0.087
       },
-      {
-        "window_frames": [
-          207,
-          216
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
+      "render": {
+        "dom_rate_hz": 8.11,
+        "depth_c": 91.8,
+        "bandwidth_hz": 1.35,
+        "periodicity": -0.134
       }
-    ]
-  },
-  "C0r": {
-    "windows": [
-      {
-        "window_frames": [
-          445,
-          550
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 51.2,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.736
-        },
-        "render": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 50.9,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.728
-        }
+    },
+    {
+      "window_frames": [
+        233,
+        273
+      ],
+      "coverage": 1.0,
+      "source": {
+        "dom_rate_hz": 5.0,
+        "depth_c": 88.4,
+        "bandwidth_hz": 2.5,
+        "periodicity": -0.202
       },
-      {
-        "window_frames": [
-          207,
-          216
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
+      "render": {
+        "dom_rate_hz": 5.13,
+        "depth_c": 86.7,
+        "bandwidth_hz": 2.56,
+        "periodicity": -0.176
       }
-    ]
-  },
-  "C1": {
-    "windows": [
-      {
-        "window_frames": [
-          445,
-          550
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 51.2,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.736
-        },
-        "render": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 49.4,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.731
-        }
+    },
+    {
+      "window_frames": [
+        322,
+        341
+      ],
+      "coverage": 1.0,
+      "source": null,
+      "render": null
+    },
+    {
+      "window_frames": [
+        344,
+        350
+      ],
+      "coverage": 1.0,
+      "source": null,
+      "render": null
+    },
+    {
+      "window_frames": [
+        365,
+        417
+      ],
+      "coverage": 1.0,
+      "source": {
+        "dom_rate_hz": 3.85,
+        "depth_c": 94.8,
+        "bandwidth_hz": 3.85,
+        "periodicity": 0.093
       },
-      {
-        "window_frames": [
-          207,
-          216
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
+      "render": {
+        "dom_rate_hz": 7.84,
+        "depth_c": 157.1,
+        "bandwidth_hz": 3.92,
+        "periodicity": -0.034
       }
-    ]
-  },
-  "C2": {
-    "windows": [
-      {
-        "window_frames": [
-          445,
-          550
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 51.2,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.736
-        },
-        "render": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 50.2,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.721
-        }
+    },
+    {
+      "window_frames": [
+        419,
+        424
+      ],
+      "coverage": 1.0,
+      "source": null,
+      "render": null
+    },
+    {
+      "window_frames": [
+        429,
+        554
+      ],
+      "coverage": 1.0,
+      "source": {
+        "dom_rate_hz": 7.2,
+        "depth_c": 50.6,
+        "bandwidth_hz": 0.8,
+        "periodicity": 0.684
       },
-      {
-        "window_frames": [
-          207,
-          216
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
+      "render": {
+        "dom_rate_hz": 7.14,
+        "depth_c": 63.1,
+        "bandwidth_hz": 0.89,
+        "periodicity": 0.652
       }
-    ]
-  },
-  "C3": {
-    "windows": [
-      {
-        "window_frames": [
-          445,
-          550
-        ],
-        "coverage": 1.0,
-        "source": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 51.2,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.736
-        },
-        "render": {
-          "dom_rate_hz": 6.67,
-          "depth_c": 53.5,
-          "bandwidth_hz": 0.95,
-          "periodicity": 0.762
-        }
-      },
-      {
-        "window_frames": [
-          207,
-          216
-        ],
-        "coverage": 1.0,
-        "source": null,
-        "render": null
-      }
-    ]
-  }
+    }
+  ]
 }

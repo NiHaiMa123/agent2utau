@@ -1,0 +1,165 @@
+{
+  "pitch_matches": {
+    "matched": [
+      {
+        "source": "PitchEvent(type='scoop', note_indices=[1], start_s=19.14, end_s=19.37, confidence=1.0, params={'anchor_nucleus_s': 19.203, 'depth_c': 202.3, 'peak_time_ms': -23.2, 'settle_time_ms': 166.8, 'baseline_c': 5904.9, 'direction': 'down-up', 'monotonicity': 0.82, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='scoop', note_indices=[1], start_s=19.13, end_s=19.23, confidence=1.0, params={'anchor_nucleus_s': 19.203, 'depth_c': 155.6, 'peak_time_ms': -73.2, 'settle_time_ms': 26.8, 'baseline_c': 5901.6, 'direction': 'down-up', 'monotonicity': 0.89, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+        "score": 0.838,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.3749999999999963,
+          "nuc_pos": 0.972957746478869,
+          "direction": 1.0,
+          "trajectory": 1.0,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='scoop', note_indices=[2], start_s=19.51, end_s=19.74, confidence=1.0, params={'anchor_nucleus_s': 19.582, 'depth_c': 429.6, 'peak_time_ms': -21.7, 'settle_time_ms': 158.3, 'baseline_c': 6205.3, 'direction': 'down-up', 'monotonicity': 0.82, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='scoop', note_indices=[2], start_s=19.51, end_s=19.59, confidence=1.0, params={'anchor_nucleus_s': 19.582, 'depth_c': 281.5, 'peak_time_ms': -71.7, 'settle_time_ms': 8.3, 'baseline_c': 6204.2, 'direction': 'down-up', 'monotonicity': 0.93, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+        "score": 0.837,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.34782608695651906,
+          "nuc_pos": 1.0,
+          "direction": 1.0,
+          "trajectory": 1.0,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='scoop', note_indices=[6], start_s=21.09, end_s=21.56, confidence=1.0, params={'anchor_nucleus_s': 21.165, 'depth_c': 590.9, 'peak_time_ms': -14.5, 'settle_time_ms': None, 'baseline_c': 6388.9, 'direction': 'down-up', 'monotonicity': 0.8, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='scoop', note_indices=[6], start_s=21.09, end_s=21.13, confidence=1.0, params={'anchor_nucleus_s': 21.165, 'depth_c': 497.3, 'peak_time_ms': -54.5, 'settle_time_ms': -34.5, 'baseline_c': 6398.9, 'direction': 'down-up', 'monotonicity': 1.0, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+        "score": 0.771,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.08510638297872179,
+          "nuc_pos": 1.0,
+          "direction": 1.0,
+          "trajectory": 1.0,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='portamento', note_indices=[0, 1], start_s=19.21, end_s=19.37, confidence=0.907, params={'from_note': 0, 'to_note': 1, 'departure_rel_prev_end_ms': -9.8, 'arrival_rel_next_start_ms': 150.2, 'span_cents': 161.1, 'duration_ms': 160.0, 'direction': 'up', 'trajectory_type': 'irregular', 'boundary_ms': 0.0, 'voiced_coverage': 1.0, 'slope_profile': [1.035, 0.892, 0.574, 0.301, 0.102, -0.342, -1.056, -1.314, -0.805, -0.205, 0.29, 1.079, 2.027, 3.191, 4.356, 4.4, 3.992], 'curv_profile': [-2.279, -3.685, -4.732, -3.78, -5.146, -9.263, -7.773, 2.007, 8.871, 8.765, 10.27, 13.892, 16.897, 18.636, 9.672, -2.917, -6.529], 'norm_traj': [0.0, 0.065, 0.112, 0.136, 0.149, 0.149, 0.106, 0.017, -0.058, -0.084, -0.084, -0.047, 0.051, 0.206, 0.45, 0.751, 1.0]}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='portamento', note_indices=[0, 1], start_s=19.08, end_s=19.22, confidence=0.774, params={'from_note': 0, 'to_note': 1, 'departure_rel_prev_end_ms': -139.8, 'arrival_rel_next_start_ms': 0.2, 'span_cents': 201.1, 'duration_ms': 140.0, 'direction': 'up', 'trajectory_type': 'stepped', 'boundary_ms': 0.0, 'voiced_coverage': 0.6, 'slope_profile': [0.935, 0.864, 0.397, 0.062, 0.104, 0.126, 0.947, 1.726, 1.726, 1.726, 1.726, 1.726, 1.726, 0.771, -0.185], 'curv_profile': [-0.992, -3.768, -5.616, -2.051, 0.447, 5.901, 11.204, 5.456, 0.0, 0.0, -0.0, -0.0, -6.687, -13.375, -13.375], 'norm_traj': [0.0, 0.067, 0.123, 0.123, 0.132, 0.138, 0.15, 0.273, 0.397, 0.52, 0.643, 0.767, 0.89, 1.013, 1.0]}, evidence={'extractor': 'fcpe'})",
+        "score": 0.637,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.03448275862068247,
+          "nuc_pos": 0.6903225806451552,
+          "direction": 1.0,
+          "trajectory": 0.4,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='portamento', note_indices=[1, 2], start_s=19.54, end_s=19.68, confidence=1.0, params={'from_note': 1, 'to_note': 2, 'departure_rel_prev_end_ms': -49.6, 'arrival_rel_next_start_ms': 90.4, 'span_cents': 336.1, 'duration_ms': 140.0, 'direction': 'up', 'trajectory_type': 'stepped', 'boundary_ms': 0.0, 'voiced_coverage': 1.0, 'slope_profile': [-1.755, -2.193, -1.316, 5.015, 6.856, 3.258, 2.171, 1.177, 0.711, 0.451, 0.163, -0.149, -0.387, -0.56, -0.642], 'curv_profile': [-6.135, 3.075, 50.457, 57.202, -12.298, -32.798, -14.565, -10.215, -5.085, -3.836, -4.197, -3.855, -2.878, -1.782, -1.151], 'norm_traj': [0.0, -0.125, -0.313, -0.313, 0.403, 0.666, 0.869, 0.976, 1.037, 1.078, 1.101, 1.101, 1.08, 1.046, 1.0]}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='portamento', note_indices=[1, 2], start_s=19.51, end_s=19.59, confidence=0.854, params={'from_note': 1, 'to_note': 2, 'departure_rel_prev_end_ms': -79.6, 'arrival_rel_next_start_ms': 0.4, 'span_cents': 281.7, 'duration_ms': 80.0, 'direction': 'up', 'trajectory_type': 'convex', 'boundary_ms': 0.0, 'voiced_coverage': 0.67, 'slope_profile': [0.367, 0.439, 1.246, 1.98, 1.98, 1.98, 0.85, -0.4, -0.52], 'curv_profile': [0.575, 3.514, 6.166, 2.939, 0.0, -4.521, -9.521, -5.48, -0.959], 'norm_traj': [0.0, 0.046, 0.11, 0.357, 0.605, 0.852, 1.1, 1.065, 1.0]}, evidence={'extractor': 'fcpe'})",
+        "score": 0.747,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.2941176470588309,
+          "nuc_pos": 0.9188732394366262,
+          "direction": 1.0,
+          "trajectory": 0.4,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='portamento', note_indices=[2, 3], start_s=19.95, end_s=20.16, confidence=0.94, params={'from_note': 2, 'to_note': 3, 'departure_rel_prev_end_ms': -0.0, 'arrival_rel_next_start_ms': 210.0, 'span_cents': 210.4, 'duration_ms': 210.0, 'direction': 'up', 'trajectory_type': 'irregular', 'boundary_ms': -0.0, 'voiced_coverage': 1.0, 'slope_profile': [0.981, 0.49, -0.148, -0.635, -1.084, -1.314, -1.462, -1.262, -0.517, 0.284, 0.987, 1.937, 3.104, 4.141, 4.887, 5.116, 4.155, 2.56, 0.905, -0.178, -0.818, -1.279], 'curv_profile': [-10.3, -11.853, -11.822, -9.831, -7.126, -3.967, 0.551, 9.923, 16.225, 15.796, 17.365, 22.224, 23.141, 18.726, 10.237, -7.692, -26.843, -34.127, -28.751, -18.085, -11.551, -9.677], 'norm_traj': [0.0, 0.047, 0.047, 0.033, -0.014, -0.071, -0.139, -0.21, -0.259, -0.259, -0.232, -0.165, -0.048, 0.131, 0.347, 0.596, 0.834, 0.992, 1.078, 1.078, 1.061, 1.0]}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='portamento', note_indices=[2, 3], start_s=19.89, end_s=19.95, confidence=0.929, params={'from_note': 2, 'to_note': 3, 'departure_rel_prev_end_ms': -60.0, 'arrival_rel_next_start_ms': 0.0, 'span_cents': 193.6, 'duration_ms': 60.0, 'direction': 'up', 'trajectory_type': 'stepped', 'boundary_ms': -0.0, 'voiced_coverage': 1.0, 'slope_profile': [3.675, 2.728, 1.104, 0.273, 0.059, -0.001, -0.001], 'curv_profile': [-5.684, -7.713, -7.365, -3.136, -0.82, -0.18, -0.003], 'norm_traj': [0.0, 0.613, 0.909, 0.981, 1.0, 1.0, 1.0]}, evidence={'extractor': 'fcpe'})",
+        "score": 0.657,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.0,
+          "nuc_pos": 0.833526011560697,
+          "direction": 1.0,
+          "trajectory": 0.4,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='portamento', note_indices=[5, 6], start_s=21.05, end_s=21.35, confidence=1.0, params={'from_note': 5, 'to_note': 6, 'departure_rel_prev_end_ms': -130.2, 'arrival_rel_next_start_ms': 169.8, 'span_cents': 442.3, 'duration_ms': 300.0, 'direction': 'up', 'trajectory_type': 'stepped', 'boundary_ms': 0.0, 'voiced_coverage': 1.0, 'slope_profile': [0.0, -0.059, -0.235, -0.455, -0.745, -1.094, -1.451, -1.708, -1.563, -0.802, -0.124, 0.871, 2.96, 5.275, 5.981, 5.292, 4.894, 3.789, 2.09, 1.049, 0.35, -0.037, -0.179, -0.258, -0.126, -0.01, 0.291, 0.883, 1.585, 2.264, 2.54], 'curv_profile': [-1.77, -3.522, -5.936, -7.652, -9.595, -10.598, -9.199, -1.672, 13.587, 21.59, 25.086, 46.258, 66.061, 45.31, 0.257, -16.302, -22.534, -42.065, -41.106, -26.09, -16.285, -7.935, -3.32, 0.788, 3.717, 6.263, 13.401, 19.408, 20.708, 14.327, 8.3], 'norm_traj': [0.0, 0.0, -0.004, -0.016, -0.034, -0.065, -0.107, -0.162, -0.221, -0.266, -0.275, -0.275, -0.216, -0.077, 0.135, 0.322, 0.488, 0.648, 0.741, 0.787, 0.811, 0.811, 0.808, 0.799, 0.791, 0.79, 0.79, 0.81, 0.849, 0.915, 1.0]}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='portamento', note_indices=[5, 6], start_s=21.12, end_s=21.19, confidence=1.0, params={'from_note': 5, 'to_note': 6, 'departure_rel_prev_end_ms': -60.2, 'arrival_rel_next_start_ms': 9.8, 'span_cents': 497.4, 'duration_ms': 70.0, 'direction': 'up', 'trajectory_type': 'stepped', 'boundary_ms': 0.0, 'voiced_coverage': 1.0, 'slope_profile': [7.12, 3.56, -0.017, -0.045, -0.033, -0.01, -0.01, -0.009], 'curv_profile': [-24.919, -24.978, -12.617, -0.056, 0.122, 0.079, 0.004, 0.008], 'norm_traj': [0.0, 1.017, 1.017, 1.012, 1.004, 1.003, 1.001, 1.0]}, evidence={'extractor': 'fcpe'})",
+        "score": 0.758,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.23333333333333373,
+          "nuc_pos": 0.750185873605947,
+          "direction": 1.0,
+          "trajectory": 1.0,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='stable', note_indices=[1], start_s=19.38, end_s=19.53, confidence=1.0, params={'start_c': 5818.0, 'end_c': 5994.0, 'max_dev_c': 91.9, 'drift_c_per_s': 1186.1}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='stable', note_indices=[1], start_s=19.27, end_s=19.5, confidence=1.0, params={'start_c': 5852.2, 'end_c': 6013.4, 'max_dev_c': 88.2, 'drift_c_per_s': 720.6}, evidence={'extractor': 'fcpe'})",
+        "score": 0.806,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.46153846153846256,
+          "nuc_pos": 0.7025352112676071,
+          "direction": 1.0,
+          "trajectory": 1.0,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='stable', note_indices=[2], start_s=19.75, end_s=19.9, confidence=1.0, params={'start_c': 6195.8, 'end_c': 6204.4, 'max_dev_c': 10.6, 'drift_c_per_s': 73.2}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='stable', note_indices=[2], start_s=19.64, end_s=19.88, confidence=1.0, params={'start_c': 6130.1, 'end_c': 6289.7, 'max_dev_c': 104.2, 'drift_c_per_s': 690.1}, evidence={'extractor': 'fcpe'})",
+        "score": 0.814,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.5,
+          "nuc_pos": 0.6947976878612733,
+          "direction": 1.0,
+          "trajectory": 1.0,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      },
+      {
+        "source": "PitchEvent(type='stable', note_indices=[4], start_s=20.67, end_s=20.75, confidence=1.0, params={'start_c': 6650.3, 'end_c': 6515.0, 'max_dev_c': 113.7, 'drift_c_per_s': -1659.3}, evidence={'extractor': 'fcpe'})",
+        "neutral": "PitchEvent(type='stable', note_indices=[4], start_s=20.49, end_s=20.8, confidence=1.0, params={'start_c': 6597.8, 'end_c': 6579.0, 'max_dev_c': 20.2, 'drift_c_per_s': -35.0}, evidence={'extractor': 'fcpe'})",
+        "score": 0.736,
+        "detail": {
+          "note_iou": 1.0,
+          "time_iou": 0.25806451612902487,
+          "nuc_pos": 0.6090497737556491,
+          "direction": 1.0,
+          "trajectory": 1.0,
+          "param_compat": 1.0
+        },
+        "state": "matched"
+      }
+    ],
+    "source_only": [
+      "PitchEvent(type='undershoot', note_indices=[3], start_s=19.87, end_s=20.34, confidence=1.0, params={'anchor_nucleus_s': 19.942, 'depth_c': 246.2, 'peak_time_ms': 87.9, 'settle_time_ms': None, 'baseline_c': 6398.9, 'direction': 'down-up', 'monotonicity': 0.71, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='undershoot', note_indices=[4], start_s=20.42, end_s=20.66, confidence=1.0, params={'anchor_nucleus_s': 20.432, 'depth_c': 232.8, 'peak_time_ms': 77.8, 'settle_time_ms': 227.8, 'baseline_c': 6607.6, 'direction': 'down-up', 'monotonicity': 0.75, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='portamento', note_indices=[3, 4], start_s=20.25, end_s=20.65, confidence=0.808, params={'from_note': 3, 'to_note': 4, 'departure_rel_prev_end_ms': -189.6, 'arrival_rel_next_start_ms': 210.4, 'span_cents': 232.1, 'duration_ms': 400.0, 'direction': 'up', 'trajectory_type': 'stepped', 'boundary_ms': 0.0, 'voiced_coverage': 0.63, 'slope_profile': [-5.898, -4.633, -1.097, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 1.174, 0.577, -0.436, -1.515, -2.123, -1.941, -1.817, -2.002, -2.14, -1.047, 0.517, 1.643, 2.7, 3.985, 6.458, 7.85, 7.495, 7.007, 5.405, 2.785, 0.696, -0.581, -1.515, -1.869], 'curv_profile': [50.601, 96.024, 116.148, 45.424, -0.0, 0.0, -0.0, -0.0, -0.0, -0.0, 0.0, 0.0, -0.0, 0.0, 0.0, -0.0, 0.0, -11.935, -32.198, -41.856, -33.741, -8.519, 6.124, -1.207, -6.475, 19.088, 53.148, 53.812, 43.664, 46.843, 75.155, 77.294, 20.732, -16.856, -41.8, -84.454, -94.167, -67.307, -44.235, -25.774, -14.159], 'norm_traj': [0.0, -0.147, -0.232, -0.202, -0.173, -0.144, -0.114, -0.085, -0.056, -0.026, 0.003, 0.033, 0.062, 0.091, 0.121, 0.15, 0.179, 0.209, 0.238, 0.238, 0.216, 0.162, 0.11, 0.065, 0.019, -0.035, -0.088, -0.088, -0.062, -0.006, 0.073, 0.194, 0.396, 0.586, 0.771, 0.937, 1.041, 1.076, 1.076, 1.047, 1.0]}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='artifact', note_indices=[0], start_s=18.76, end_s=18.76, confidence=0.45, params={'n_frames': 1, 'artifact_kinds': ['voiced_conflict'], 'mean_conf': 0.4}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='artifact', note_indices=[0, 1, 2, 3], start_s=19.15, end_s=19.19, confidence=0.45, params={'n_frames': 5, 'artifact_kinds': ['voiced_conflict'], 'mean_conf': 0.4}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='artifact', note_indices=[4, 5, 6], start_s=21.54, end_s=21.61, confidence=0.45, params={'n_frames': 8, 'artifact_kinds': ['voiced_conflict'], 'mean_conf': 0.4}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='stable', note_indices=[0], start_s=18.85, end_s=19.02, confidence=1.0, params={'start_c': 5710.7, 'end_c': 5697.8, 'max_dev_c': 15.4, 'drift_c_per_s': -189.0}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='stable', note_indices=[5], start_s=20.95, end_s=21.04, confidence=1.0, params={'start_c': 5875.5, 'end_c': 5843.8, 'max_dev_c': 32.8, 'drift_c_per_s': -344.3}, evidence={'extractor': 'fcpe'})"
+    ],
+    "neutral_only": [
+      "PitchEvent(type='scoop', note_indices=[0], start_s=18.78, end_s=19.08, confidence=np.float64(0.686), params={'anchor_nucleus_s': 18.783, 'depth_c': 32.1, 'peak_time_ms': 46.5, 'settle_time_ms': 296.5, 'baseline_c': 5731.7, 'direction': 'down-up', 'monotonicity': 1.0, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='scoop', note_indices=[3], start_s=19.87, end_s=19.92, confidence=1.0, params={'anchor_nucleus_s': 19.942, 'depth_c': 195.1, 'peak_time_ms': -62.1, 'settle_time_ms': -22.1, 'baseline_c': 6401.1, 'direction': 'down-up', 'monotonicity': 1.0, 'shape': 'irregular'}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='ornament', note_indices=[5], start_s=20.97, end_s=21.13, confidence=0.95, params={'excursions_c': [43.4, -228.0, 250.5], 'extrema_rel_ms': [0.0, 150.0, 160.0], 'n_extrema': 3, 'alternations': 2, 'duration_ms': 160.0, 'returns_to_baseline': False}, evidence={'extractor': 'fcpe', 'structure_review_required': True, 'blocker_lane': True})",
+      "PitchEvent(type='stable', note_indices=[3], start_s=20.0, end_s=20.29, confidence=1.0, params={'start_c': 6368.2, 'end_c': 6356.8, 'max_dev_c': 53.2, 'drift_c_per_s': -5.0}, evidence={'extractor': 'fcpe'})",
+      "PitchEvent(type='stable', note_indices=[6], start_s=21.240000000000002, end_s=21.56, confidence=1.0, params={'start_c': 6331.5, 'end_c': 6386.6, 'max_dev_c': 81.5, 'drift_c_per_s': 104.3}, evidence={'extractor': 'fcpe'})"
+    ],
+    "ambiguous": []
+  },
+  "vibrato_matches": []
+}

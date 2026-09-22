@@ -1,0 +1,283 @@
+{
+  "phrase": "P3_vibrato",
+  "v1_missing": [
+    {
+      "t_s": 25.86,
+      "kind": "peak",
+      "value_c": 5906.6,
+      "prominence_c": 49.3,
+      "idx": 63
+    },
+    {
+      "t_s": 25.92,
+      "kind": "trough",
+      "value_c": 5829.0,
+      "prominence_c": 69.6,
+      "idx": 69
+    },
+    {
+      "t_s": 26.15,
+      "kind": "trough",
+      "value_c": 6176.9,
+      "prominence_c": 24.0,
+      "idx": 92
+    },
+    {
+      "t_s": 26.23,
+      "kind": "trough",
+      "value_c": 6120.4,
+      "prominence_c": 83.1,
+      "idx": 100
+    },
+    {
+      "t_s": 26.39,
+      "kind": "peak",
+      "value_c": 6290.7,
+      "prominence_c": 82.2,
+      "idx": 116
+    },
+    {
+      "t_s": 26.63,
+      "kind": "trough",
+      "value_c": 6363.6,
+      "prominence_c": 17.6,
+      "idx": 140
+    },
+    {
+      "t_s": 27.27,
+      "kind": "peak",
+      "value_c": 5890.4,
+      "prominence_c": 105.6,
+      "idx": 204
+    },
+    {
+      "t_s": 27.32,
+      "kind": "trough",
+      "value_c": 5878.3,
+      "prominence_c": 44.0,
+      "idx": 209
+    },
+    {
+      "t_s": 27.69,
+      "kind": "peak",
+      "value_c": 6183.4,
+      "prominence_c": 127.8,
+      "idx": 246
+    },
+    {
+      "t_s": 28.48,
+      "kind": "peak",
+      "value_c": 6236.3,
+      "prominence_c": 25.7,
+      "idx": 325
+    },
+    {
+      "t_s": 29.64,
+      "kind": "peak",
+      "value_c": 6642.5,
+      "prominence_c": 32.6,
+      "idx": 441
+    }
+  ],
+  "v2_missing_n": 11,
+  "source_turns": 46,
+  "attributions": [
+    {
+      "t_s": 25.86,
+      "kind": "peak",
+      "value_c": 5906.6,
+      "prominence_c": 49.3,
+      "note": 1,
+      "lyric": "忆",
+      "phoneme": "忆",
+      "source_event": "stable",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 109.8,
+        "nearest_same_kind_prom_c": 173.1
+      },
+      "pitd_v1_extremum": true,
+      "pitd_v2_extremum": true,
+      "dense_residual_extremum": true,
+      "loss_stage": "render/extraction loss",
+      "owner_fix": "synthesis context / extractor limit"
+    },
+    {
+      "t_s": 25.92,
+      "kind": "trough",
+      "value_c": 5829.0,
+      "prominence_c": 69.6,
+      "note": 1,
+      "lyric": "忆",
+      "phoneme": "忆",
+      "source_event": "portamento",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 99.8,
+        "nearest_same_kind_prom_c": 31.1
+      },
+      "pitd_v1_extremum": false,
+      "pitd_v2_extremum": false,
+      "dense_residual_extremum": false,
+      "loss_stage": "detector miss (absent in residual)",
+      "owner_fix": "residual builder: frame-state/coverage"
+    },
+    {
+      "t_s": 26.15,
+      "kind": "trough",
+      "value_c": 6176.9,
+      "prominence_c": 24.0,
+      "note": 2,
+      "lyric": "苦",
+      "phoneme": "苦",
+      "source_event": "overshoot",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 329.8,
+        "nearest_same_kind_prom_c": 31.1
+      },
+      "pitd_v1_extremum": true,
+      "pitd_v2_extremum": true,
+      "dense_residual_extremum": true,
+      "loss_stage": "render/extraction loss",
+      "owner_fix": "synthesis context / extractor limit"
+    },
+    {
+      "t_s": 26.23,
+      "kind": "trough",
+      "value_c": 6120.4,
+      "prominence_c": 83.1,
+      "note": 2,
+      "lyric": "苦",
+      "phoneme": "苦",
+      "source_event": "overshoot",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 250.2,
+        "nearest_same_kind_prom_c": 172.4
+      },
+      "pitd_v1_extremum": false,
+      "pitd_v2_extremum": false,
+      "dense_residual_extremum": true,
+      "loss_stage": "PITD simplifier loss",
+      "owner_fix": "simplifier: protect turn keypoints"
+    },
+    {
+      "t_s": 26.39,
+      "kind": "peak",
+      "value_c": 6290.7,
+      "prominence_c": 82.2,
+      "note": 2,
+      "lyric": "苦",
+      "phoneme": "苦",
+      "source_event": "undershoot",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 180.2,
+        "nearest_same_kind_prom_c": 54.6
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 26.63,
+      "kind": "trough",
+      "value_c": 6363.6,
+      "prominence_c": 17.6,
+      "note": 3,
+      "lyric": "涩",
+      "phoneme": "涩",
+      "source_event": "undershoot",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 140.2,
+        "nearest_same_kind_prom_c": 120.7
+      },
+      "pitd_v1_extremum": true,
+      "pitd_v2_extremum": true,
+      "dense_residual_extremum": true,
+      "loss_stage": "render/extraction loss",
+      "owner_fix": "synthesis context / extractor limit"
+    },
+    {
+      "t_s": 27.27,
+      "kind": "peak",
+      "value_c": 5890.4,
+      "prominence_c": 105.6,
+      "note": 5,
+      "lyric": "吻",
+      "phoneme": "吻",
+      "source_event": null,
+      "render_region": {
+        "nearest_same_kind_dt_ms": 130.2,
+        "nearest_same_kind_prom_c": 239.4
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 27.32,
+      "kind": "trough",
+      "value_c": 5878.3,
+      "prominence_c": 44.0,
+      "note": 5,
+      "lyric": "吻",
+      "phoneme": "吻",
+      "source_event": "ornament",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 100.2,
+        "nearest_same_kind_prom_c": 372.8
+      },
+      "pitd_v1_extremum": true,
+      "pitd_v2_extremum": true,
+      "dense_residual_extremum": true,
+      "loss_stage": "render/extraction loss",
+      "owner_fix": "synthesis context / extractor limit"
+    },
+    {
+      "t_s": 27.69,
+      "kind": "peak",
+      "value_c": 6183.4,
+      "prominence_c": 127.8,
+      "note": 6,
+      "lyric": "痕",
+      "phoneme": "痕",
+      "source_event": "undershoot",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 100.2,
+        "nearest_same_kind_prom_c": 186.9
+      },
+      "pitd_v1_extremum": false,
+      "pitd_v2_extremum": false,
+      "dense_residual_extremum": true,
+      "loss_stage": "PITD simplifier loss",
+      "owner_fix": "simplifier: protect turn keypoints"
+    },
+    {
+      "t_s": 29.64,
+      "kind": "peak",
+      "value_c": 6642.5,
+      "prominence_c": 32.6,
+      "note": 11,
+      "lyric": "根",
+      "phoneme": "根",
+      "source_event": null,
+      "render_region": {
+        "nearest_same_kind_dt_ms": 140.2,
+        "nearest_same_kind_prom_c": 47.7
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
+      "t_s": 30.75,
+      "kind": "trough",
+      "value_c": 6554.3,
+      "prominence_c": 67.1,
+      "note": 11,
+      "lyric": "根",
+      "phoneme": "根",
+      "source_event": null,
+      "render_region": {
+        "nearest_same_kind_dt_ms": 149.8,
+        "nearest_same_kind_prom_c": 34.9
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    }
+  ]
+}
