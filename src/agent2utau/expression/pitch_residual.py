@@ -362,24 +362,6 @@ def compile_C2(dense, notes, part_pos_tick, events, max_err_c=10.0):
         vib_mask |= (g >= ev["start_s"]) & (g <= ev["end_s"])
     vals = np.where(vib_mask, np.nan, vals)
 
-    # Preserve source contour topology that the residual actually has enough
-    # evidence to correct.  This closes the L7-C failure mode where a
-    # QA-significant SOURCE turn existed in the dense residual but was erased
-    # only because its vertical interpolation error was below max_err_c.
-    #
-    # Do NOT protect turns inside native note-vibrato spans: those periodic
-    # turns belong to OpenUtau vibrato parameters, not dense PITD.
-    src_on_g = np.interp(g, src_sig.times, src_sig.cents,
-                         left=np.nan, right=np.nan)
-    src_voiced_g = np.interp(
-        g, src_sig.times, src_sig.voiced.astype(float),
-        left=0.0, right=0.0) > 0.5
-    src_turn_protect = _prominent_turn_mask(
-        src_on_g, valid=src_voiced_g,
-        min_prominence_c=max(15.0, 1.5 * max_err_c))
-    src_turn_protect &= ~native_vib_mask
-    src_turn_protect &= ~np.isnan(vals)
-
     xs_all, ys_all = [], []
     ok = ~np.isnan(vals)
     i = 0
