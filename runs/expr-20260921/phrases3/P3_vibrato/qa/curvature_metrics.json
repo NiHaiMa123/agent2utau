@@ -1,7 +1,7 @@
 {
-  "valid_frames": 417,
-  "coverage": 0.914,
-  "n": 397,
+  "valid_frames": 418,
+  "coverage": 0.917,
+  "n": 400,
   "med_c_per10ms2": 1.2,
-  "p90_c_per10ms2": 5.8
+  "p90_c_per10ms2": 6.9
 }

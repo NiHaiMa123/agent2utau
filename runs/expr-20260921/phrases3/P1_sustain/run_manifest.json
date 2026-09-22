@@ -1,11 +1,37 @@
 {
-  "variant": "C3v2",
-  "code_head": "8a1a41f4cd11f7554d395ac77d1422d3eae657b4",
+  "variant": "C3v3",
+  "generator_code_head": "2d6dc0aaec8dd4cf4fb977bf854d370f7c4e3a99",
+  "qa_code_head": "8be5bd1bf84c86f282ae85a3bb31af10b88e4775",
   "base_semantic_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
-  "ustx_sha256": "373016d9a8a02e16b898531d1db33448e0aa85196a594f2476cddb6bfd7cbd4d",
-  "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2.ustx",
-  "render_wav_sha256": "acd210a0efdeedf4b2a707742a29d80502e0a99a1fd469aef13966478b05337f",
-  "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2_vocal.wav",
+  "candidate_ustx_sha256": "81b77d66f1e14825a1b05a919a09fe2f95e3fc808c18472b18fe08f55a0ef245",
+  "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v3.ustx",
+  "render_wav_sha256": "7c3268d54c82fb24f7b764528ab85ef0352feeba8875023541100b03fc9e44f0",
+  "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v3_vocal.wav",
+  "shape_gate": {
+    "final_candidate": "C3v3",
+    "blocked": false,
+    "stages": [
+      {
+        "candidate": "v1",
+        "gate_passed": true,
+        "violations": []
+      },
+      {
+        "candidate": "v2",
+        "gate_passed": false,
+        "violations": [
+          "matched_turns",
+          "missing_turns",
+          "extra_turns"
+        ]
+      },
+      {
+        "candidate": "v3",
+        "gate_passed": true,
+        "violations": []
+      }
+    ]
+  },
   "f0_extractors": {
     "fcpe": {
       "model": "torchfcpe",
@@ -34,6 +60,7 @@
     "artifact_coverage.json",
     "cross_extractor_metrics.json",
     "curvature_metrics.json",
+    "event_shape_metrics.json",
     "modulation_metrics.json",
     "portamento_metrics.json",
     "position_metrics.json",

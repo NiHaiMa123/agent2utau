@@ -5,15 +5,15 @@
   "source_turns": 23,
   "render_turns": 21,
   "turn_timing_err_ms_med": 0.0,
-  "turn_amplitude_err_c_med": 2.7,
-  "turn_prominence_err_c_med": 8.8,
-  "sequence_edit_distance": 3,
+  "turn_amplitude_err_c_med": 2.5,
+  "turn_prominence_err_c_med": 13.2,
+  "sequence_edit_distance": 4,
   "missing_turn_details": [
     {
-      "frame_idx": 38,
+      "frame_idx": 76,
       "kind": "trough",
-      "value_c": 5702.6,
-      "prominence_c": 44.1
+      "value_c": 5775.7,
+      "prominence_c": 141.4
     },
     {
       "frame_idx": 276,
@@ -30,12 +30,24 @@
   ],
   "extra_turn_details": [
     {
-      "frame_idx": 44,
+      "frame_idx": 113,
       "kind": "peak",
-      "value_c": 5749.4,
-      "prominence_c": 98.8
+      "value_c": 6300.1,
+      "prominence_c": 93.9
     }
   ],
-  "valid_frames": 231,
-  "coverage": 0.971
+  "edge_uncertain_turn_details": {
+    "source": [
+      {
+        "frame_idx": 20,
+        "kind": "trough",
+        "value_c": 5674.6,
+        "prominence_c": 28.9,
+        "reason": "insufficient_two_sided_evidence"
+      }
+    ],
+    "render": []
+  },
+  "valid_frames": 225,
+  "coverage": 0.945
 }

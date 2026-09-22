@@ -1,11 +1,28 @@
 {
   "variant": "C3v2",
-  "code_head": "8a1a41f4cd11f7554d395ac77d1422d3eae657b4",
+  "generator_code_head": "2d6dc0aaec8dd4cf4fb977bf854d370f7c4e3a99",
+  "qa_code_head": "8be5bd1bf84c86f282ae85a3bb31af10b88e4775",
   "base_semantic_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
-  "ustx_sha256": "0e7acb6f015c6241e9f4956babdb30d02fad7ba551eed8dc5d74512337687bbe",
+  "candidate_ustx_sha256": "06d759fc058c2d625833fcd2c6a83900a8cc35d2a81c5570dd263752ca128983",
   "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v2.ustx",
-  "render_wav_sha256": "01beab8c523f4bfce868f7c0a8f5a4e3bfe9c8ebfcbeb33884c5257924d736f2",
+  "render_wav_sha256": "00d3ee174d6caa22489dc723857eb6bd704cc03adc90b89abf6d4c64ec960d11",
   "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v2_vocal.wav",
+  "shape_gate": {
+    "final_candidate": "C3v2",
+    "blocked": false,
+    "stages": [
+      {
+        "candidate": "v1",
+        "gate_passed": true,
+        "violations": []
+      },
+      {
+        "candidate": "v2",
+        "gate_passed": true,
+        "violations": []
+      }
+    ]
+  },
   "f0_extractors": {
     "fcpe": {
       "model": "torchfcpe",
@@ -34,6 +51,7 @@
     "artifact_coverage.json",
     "cross_extractor_metrics.json",
     "curvature_metrics.json",
+    "event_shape_metrics.json",
     "modulation_metrics.json",
     "portamento_metrics.json",
     "position_metrics.json",

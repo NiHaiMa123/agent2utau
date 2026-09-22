@@ -4,8 +4,8 @@
     "src_only": 0.0552,
     "neu_only": 0.0406,
     "unvoiced": 0.0276,
-    "extractor_conflict": 0.0276,
-    "note_transition": 0.1802,
+    "extractor_conflict": 0.0244,
+    "note_transition": 0.1834,
     "gap": 0.1591
   },
   "artifact_regions": 15,

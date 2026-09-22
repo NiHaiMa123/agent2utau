@@ -1,13 +1,13 @@
 {
   "matched_turns": 45,
   "missing_turns": 14,
-  "extra_turns": 2,
+  "extra_turns": 4,
   "source_turns": 59,
-  "render_turns": 47,
+  "render_turns": 49,
   "turn_timing_err_ms_med": 0.0,
-  "turn_amplitude_err_c_med": 5.0,
-  "turn_prominence_err_c_med": 6.7,
-  "sequence_edit_distance": 12,
+  "turn_amplitude_err_c_med": 4.4,
+  "turn_prominence_err_c_med": 8.9,
+  "sequence_edit_distance": 10,
   "missing_turn_details": [
     {
       "frame_idx": 36,
@@ -22,28 +22,28 @@
       "prominence_c": 45.6
     },
     {
+      "frame_idx": 66,
+      "kind": "trough",
+      "value_c": 5885.5,
+      "prominence_c": 36.2
+    },
+    {
       "frame_idx": 72,
       "kind": "peak",
       "value_c": 5926.4,
       "prominence_c": 15.8
     },
     {
+      "frame_idx": 74,
+      "kind": "trough",
+      "value_c": 5917.6,
+      "prominence_c": 29.7
+    },
+    {
       "frame_idx": 123,
       "kind": "peak",
       "value_c": 6296.1,
       "prominence_c": 35.7
-    },
-    {
-      "frame_idx": 164,
-      "kind": "trough",
-      "value_c": 6396.5,
-      "prominence_c": 17.4
-    },
-    {
-      "frame_idx": 188,
-      "kind": "trough",
-      "value_c": 6627.7,
-      "prominence_c": 144.6
     },
     {
       "frame_idx": 190,
@@ -96,18 +96,64 @@
   ],
   "extra_turn_details": [
     {
-      "frame_idx": 174,
-      "kind": "trough",
-      "value_c": 6331.6,
-      "prominence_c": 80.0
+      "frame_idx": 104,
+      "kind": "peak",
+      "value_c": 6222.9,
+      "prominence_c": 16.8
     },
     {
-      "frame_idx": 218,
+      "frame_idx": 176,
+      "kind": "peak",
+      "value_c": 6546.5,
+      "prominence_c": 128.9
+    },
+    {
+      "frame_idx": 178,
       "kind": "trough",
-      "value_c": 5879.8,
-      "prominence_c": 16.1
+      "value_c": 6531.3,
+      "prominence_c": 111.8
+    },
+    {
+      "frame_idx": 217,
+      "kind": "trough",
+      "value_c": 5879.6,
+      "prominence_c": 16.8
     }
   ],
-  "valid_frames": 418,
-  "coverage": 0.878
+  "edge_uncertain_turn_details": {
+    "source": [
+      {
+        "frame_idx": 237,
+        "kind": "peak",
+        "value_c": 5982.9,
+        "prominence_c": 237.0,
+        "reason": "insufficient_two_sided_evidence"
+      },
+      {
+        "frame_idx": 430,
+        "kind": "peak",
+        "value_c": 6644.1,
+        "prominence_c": 22.9,
+        "reason": "insufficient_two_sided_evidence"
+      }
+    ],
+    "render": [
+      {
+        "frame_idx": 44,
+        "kind": "trough",
+        "value_c": 5761.5,
+        "prominence_c": 125.2,
+        "reason": "insufficient_two_sided_evidence"
+      },
+      {
+        "frame_idx": 73,
+        "kind": "peak",
+        "value_c": 5954.9,
+        "prominence_c": 61.7,
+        "reason": "insufficient_two_sided_evidence"
+      }
+    ]
+  },
+  "valid_frames": 419,
+  "coverage": 0.88
 }
