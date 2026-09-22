@@ -324,9 +324,11 @@ def test_vibrato_boundary_clamped_by_unvoiced_tail():
         ("voiced_or_confidence_gap", "segment_boundary")
 
 
-def test_vibrato_boundary_stops_on_energy_collapse():
-    """Vibrato dies mid-note into a flat tail: the boundary must stop at
-    the collapse, not extend a quarter-period into dead signal."""
+def test_vibrato_boundary_stops_near_zero_return_on_fading_tail():
+    """A fading vibrato tail should not force a full quarter-period extension.
+
+    This test covers near-zero return only. It is intentionally NOT evidence
+    of a true modulation-envelope/energy-collapse detector."""
     dur = 1.3
     t = np.arange(0, dur + HOP_S, HOP_S)
     cents = np.full(len(t), 6000.0)
