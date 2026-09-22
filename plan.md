@@ -2248,10 +2248,48 @@ manifest 现为 `generator_code_head`（candidate ustx/wav 未变时继承旧值
 turns）；P1/P2/P3 真实 OpenUtau render 全部经 `run_shape_gate` 编排；
 QA/events/manifest 对各自最终候选（C3v3/C3v2/C3v3）重生成。
 
-**剩余门禁 = L7-E 人工试听**：`runs/expr-20260921/phrases3/P*/` 下
-最终候选（P1 C3v3 / P2 C3v2 / P3 C3v3）vs D vs SOURCE。
+**上一轮执行记录认为剩余门禁 = L7-E 人工试听**，但 2026-09-23
+reviewer 再审发现两项 production/audit 缺口，人工试听暂时继续 **BLOCKED**：
 
-完成以上 reviewer blocker 后，再进入 L7-E。届时人工试听的作用是发现
+1. **manifest generator provenance 写错，已由 reviewer 直接修复。**
+   本轮最终候选与 `2d6dc0aa` 不可能对应：
+   - P1 `C3v3.ustx` 在 `2d6dc0aa` 时根本不存在；
+   - P2 `C3v2.ustx` blob 从 `fdba53ce...` 变为 `ae360631...`；
+   - P3 `C3v3.ustx` blob 从 `5d905f4d...` 变为 `5c7d78d0...`；
+   - 真正修改 generator/orchestrator/dense transition 逻辑的是
+     `8be5bd1b`。
+   因此三个 manifest 的 `generator_code_head` 已修正为
+   `8be5bd1bf84c86f282ae85a3bb31af10b88e4775`；`qa_code_head` 同样保持
+   `8be5bd1b`。禁止再“继承”一个无法生成当前 bytes 的旧 code head。
+
+2. **absolute event-shape QA 仍未成为 `run_shape_gate` 的 acceptance 条件。**
+   当前 `run_shape_gate()` 只检查 topology + event-lane matched/missing；
+   `event_shape_gate()` 虽然生成 `event_shape_metrics.json`，但没有在
+   committed gate flow 中要求 `gate_passed=True` 才接受 final candidate。
+   因此“absolute event-shape gate 已落地”仍不完整。SWE2 必须：
+   - 把 event-shape verdict 接入 committed runner / `run_shape_gate`
+     acceptance；
+   - manifest 的 `shape_gate` 或独立 `absolute_shape_gate` 字段必须绑定
+     `event_shape_metrics.json` 的 verdict 与 blocking event count；
+   - 任一 clean-evidence `distortion` 或 render-only voicing loss 必须
+     block final candidate，不能只生成一个 QA 文件后继续接受。
+
+reviewer 同时修复一个确定的 QA 漏洞：旧 `event_shape_gate` 在
+`rend_cov < 0.60` 时直接标 `render_voicing_loss` 但仍 **non-blocking**，
+而注释却声称 neutral 也有同样 gap；代码实际完全没检查 neutral。
+现已修改为：
+- render 掉声、neutral 仍 voiced → `render_voicing_loss`，**blocking**；
+- render 与 neutral 同窗都掉声 → `shared_voicing_gap`，non-blocking；
+并新增对应回归测试（`edecac49` + `367fbfc6`）。
+
+SWE2 下一轮必须先：
+- latest HEAD 全量 pytest；
+- 用修正后的 QA 重算 P1/P2/P3 `event_shape_metrics.json`；
+- 将 absolute event-shape verdict 接入真实 candidate acceptance；
+- 更新 manifests 并确认 generator/QA head 与 artifact bytes provenance 一致；
+- 若三句仍为 0 blocking 且 topology/event-lane gates 均 PASS，才进入 L7-E。
+
+**完成以上 reviewer blocker 后，再进入 L7-E。**届时人工试听的作用是发现
 machine metric 尚未覆盖的 perceptual mismatch，而不是替机器检查已经明确
 报出的 `traj_match=false` / 大 timing-shape error。
 
