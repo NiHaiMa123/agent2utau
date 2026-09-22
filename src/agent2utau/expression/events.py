@@ -462,10 +462,38 @@ def detect_portamento_events(contour: ContourSignal, notes,
         tone_b = b["tone"] * 100.0
         if abs(tone_b - tone_a) < 80:
             continue                     # near-unison: not a slide event
+        b_end = int(np.searchsorted(t, b["abs_start_s"] + b["dur_s"]))
+        trm = trend[m]
+        # "Usable" post-arrival evidence: voiced, finite trend, and not an
+        # extraction spike (raw vs trend divergence).  A transit verdict is
+        # only allowed on usable evidence — if note B's tail is trashy
+        # (octave junk / unvoiced gaps collapsing the trend), absence of
+        # proof is not proof of transit.
+        usable = ok & ~np.isnan(trm) & (np.abs(c - trm) <= 150.0)
+
+        def _drop_transits(stays, band_c):
+            # A trend-lagged slide into an off-tolerance plateau sweeps
+            # through the band for ~hold frames and can fake a stay.  A
+            # real arrival keeps its level near tone_b for the rest of the
+            # note; a run whose post-run trend settles outside the band
+            # while note B is still sounding was a pass-through.  The check
+            # is limited to note B's own duration — a departure to the next
+            # note after a real arrival is not a transit.
+            kept = []
+            for r in stays:
+                post_u = usable[r[1]:b_end]
+                post = trm[r[1]:b_end]
+                if post_u.sum() >= hold and \
+                        np.median(np.abs(post[post_u] - tone_b)) > band_c:
+                    continue
+                kept.append(r)
+            return kept
+
         in_a = ok & (np.abs(c - tone_a) <= tol_c)
         in_b = ok & (np.abs(c - tone_b) <= tol_c)
         stays_a = _sustained(in_a & (t < a_e), hold)
-        stays_b = _sustained(in_b & (t >= b["abs_start_s"]), hold)
+        stays_b = _drop_transits(
+            _sustained(in_b & (t >= b["abs_start_s"]), hold), tol_c)
         if not stays_a or not stays_b:
             # Per-side fallback to the smoothed trend: a vibrato-bearing
             # arrival legitimately oscillates outside tol_c on raw frames,
@@ -477,7 +505,27 @@ def detect_portamento_events(contour: ContourSignal, notes,
                 stays_a = _sustained(in_a & (t < a_e), hold)
             if not stays_b:
                 in_b = ok & (np.abs(tr - tone_b) <= tol_c)
-                stays_b = _sustained(in_b & (t >= b["abs_start_s"]), hold)
+                stays_b = _drop_transits(
+                    _sustained(in_b & (t >= b["abs_start_s"]), hold), tol_c)
+        arrival_relaxed = False
+        if stays_a and not stays_b:
+            # Third level, arrival side only: a faithful render may hold a
+            # sustained plateau that lands sharp/flat of the nominal tone —
+            # e.g. the source itself arrives ~+40c sharp and a faithful copy
+            # inherits that offset (L7 P2 from_note=4, render holds +34c).
+            # The slide gesture happened; the landing is off-tolerance.
+            # Accept a plateau inside min(2*tol_c, half the interval) but
+            # flag it so QA can distinguish an off-tolerance arrival from a
+            # clean match.
+            tol_b = min(tol_c * 2.0, abs(tone_b - tone_a) * 0.5)
+            in_b = ok & (np.abs(c - tone_b) <= tol_b)
+            stays_b = _drop_transits(
+                _sustained(in_b & (t >= b["abs_start_s"]), hold), tol_b)
+            if not stays_b:
+                in_b = ok & (np.abs(trend[m] - tone_b) <= tol_b)
+                stays_b = _drop_transits(
+                    _sustained(in_b & (t >= b["abs_start_s"]), hold), tol_b)
+            arrival_relaxed = bool(stays_b)
         if not stays_a or not stays_b:
             continue
         dep_i = stays_a[-1][1] - 1       # last frame still in tone_a
@@ -508,6 +556,11 @@ def detect_portamento_events(contour: ContourSignal, notes,
                         round(float((t[dep_i] - a_e) * 1000), 1),
                     "arrival_rel_next_start_ms":
                         round(float((t[arr_i] - b["abs_start_s"]) * 1000), 1),
+                    "arrival_relaxed": arrival_relaxed,
+                    "arrival_offset_c": round(float(np.nanmedian(
+                        c[max(stays_b[0][0], stays_b[0][1] - 5):
+                          stays_b[0][1]]) - tone_b), 1)
+                        if arrival_relaxed else 0.0,
                     "span_cents": round(span, 1),
                     "duration_ms": round(float(t[arr_i] - t[dep_i])
                                          * 1000, 1),

@@ -164,14 +164,18 @@ def turning_point_metrics(source, render, mask=None, max_match_ms=80.0):
         visibility flips on sub-frame jitter of the minimum's position
         (observed on real renders: an identical dip counted as a turn at
         run-edge-1 but invisible at the edge frame).  Such boundary
-        extrema are excluded from topology counts on BOTH sides."""
+        extrema are excluded from topology counts on BOTH sides, but are
+        NOT silently dropped: they are returned separately for audit."""
         n = len(m)
-        return [t for t in turns
-                if t[0] - k >= 0 and t[0] + k < n
-                and m[t[0] - k:t[0] + k + 1].all()]
+        kept, excluded = [], []
+        for t in turns:
+            ok = (t[0] - k >= 0 and t[0] + k < n
+                  and m[t[0] - k:t[0] + k + 1].all())
+            (kept if ok else excluded).append(t)
+        return kept, excluded
 
-    ts = _edge_confident(_turning_list(source, sm), sm)
-    tr = _edge_confident(_turning_list(render, rm), rm)
+    ts, ts_uncertain = _edge_confident(_turning_list(source, sm), sm)
+    tr, tr_uncertain = _edge_confident(_turning_list(render, rm), rm)
     used = set()
     matched_src = set()
     matched, t_err, a_err, p_err = [], [], [], []
@@ -219,7 +223,21 @@ def turning_point_metrics(source, render, mask=None, max_match_ms=80.0):
            # Downstream attribution must consume these instead of
            # re-discovering missing turns with a second ad-hoc pass.
            "missing_turn_details": missing_rows,
-           "extra_turn_details": extra_rows}
+           "extra_turn_details": extra_rows,
+           # Audit trail: extrema excluded by the edge-evidence rule are
+           # still reported (never silently dropped) so a reviewer can
+           # verify the confirmed-only gate did not hide real turns.
+           "edge_uncertain_turn_details": {
+               "source": [{"frame_idx": int(i), "kind": k,
+                           "value_c": round(v, 1),
+                           "prominence_c": round(p, 1),
+                           "reason": "insufficient_two_sided_evidence"}
+                          for i, k, v, p in ts_uncertain],
+               "render": [{"frame_idx": int(i), "kind": k,
+                           "value_c": round(v, 1),
+                           "prominence_c": round(p, 1),
+                           "reason": "insufficient_two_sided_evidence"}
+                          for i, k, v, p in tr_uncertain]}}
     out.update(_coverage(source, render, mask))
     return out
 
@@ -352,6 +370,131 @@ def _traj_profile(sig_times, sig_cents, s, e):
             "slope_profile": slope, "curv_profile": curv, "cn": cn}
 
 
+def _cn_profile(sig, s, e, c0, span, n=33, glitch_c=None):
+    """Normalized trajectory sampled on a uniform 0..1 grid, expressed in
+    the SOURCE event's coordinate frame (c0/span from the source event) —
+    comparing shapes in a shared frame keeps a faithful render that copies
+    a source-side dip from looking like an 'overshoot'.
+
+    glitch_c: when given, frames whose raw cents deviate from the smoothed
+    trend by more than this are dropped before profiling — a single-frame
+    extraction spike is not shape evidence."""
+    cents = sig.cents
+    if glitch_c is not None:
+        from agent2utau.expression.contour import robust_pitch_trend
+        tr, _ = robust_pitch_trend(sig)
+        cents = np.where(np.abs(sig.cents - tr) > glitch_c,
+                         np.nan, sig.cents)
+    m = (sig.times >= s) & (sig.times <= e) & ~np.isnan(cents) \
+        & sig.voiced
+    if m.sum() < 4:
+        return None
+    t, c = sig.times[m], cents[m]
+    tn = (t - t[0]) / max(t[-1] - t[0], 1e-6)
+    cn = (c - c0) / span
+    return np.interp(np.linspace(0.0, 1.0, n), tn, cn)
+
+
+def event_shape_gate(source_events, render_events, neutral_sig,
+                     source_sig, render_sig):
+    """Absolute event-shape gate (plan R3/L7): for every matched
+    portamento event, overlay the normalized SOURCE/NEUTRAL/RENDER
+    trajectories in the source frame and classify the mismatch BEFORE
+    trusting traj_match flags.
+
+    Classes (checked in order):
+      render_voicing_loss  render unvoiced over >=40% of [s-50ms, e] —
+                           a synth dropout (neutral shows the same gap),
+                           not curve evidence.
+      source_irregular     source coverage <80% in-window or |cn_src|
+                           exceeds 1.5 — extraction-noise region, too
+                           little reliable evidence to judge shape.
+      distortion           cn_rmse > 0.35 on CLEAN evidence — a real
+                           trajectory divergence (blocks listening).
+      extraction_artifact  raw rmse > 0.35 but rmse drops below it once
+                           single-frame extraction spikes (|raw-trend| >
+                           150c) are excluded — the divergence lives in
+                           glitch frames, not in the sung contour.
+      label_mismatch       trajectory_type differs but shape is close —
+                           classifier granularity, not a shape defect.
+      boundary_shift       start/end estimate differs by >80ms while the
+                           shape is close — detector boundary estimate.
+      match                label and shape both consistent.
+    """
+    rows = []
+    for se in source_events:
+        if se.type != "portamento":
+            continue
+        fn = se.params.get("from_note")
+        cand = [e for e in render_events if e.type == "portamento"
+                and e.params.get("from_note") == fn]
+        if not cand:
+            continue                      # missing handled elsewhere
+        re_ = cand[0]
+        s, e = se.start_s, se.end_s
+        ms_all = (source_sig.times >= s) & (source_sig.times <= e)
+        ms = ms_all & ~np.isnan(source_sig.cents) & source_sig.voiced
+        me = (render_sig.times >= s - 0.05) & (render_sig.times <= e)
+        src_cov = float(np.mean(source_sig.voiced[ms_all])) \
+            if ms_all.sum() else 0.0
+        rend_cov = float(np.mean(render_sig.voiced[me])) if me.sum() else 0.0
+        c0 = float(source_sig.cents[ms][0]) if ms.sum() else 0.0
+        span = float(source_sig.cents[ms][-1] - c0) if ms.sum() else 0.0
+        span = span if abs(span) > 1e-6 else 1e-6
+        ps = _cn_profile(source_sig, s, e, c0, span)
+        pn_ = _cn_profile(neutral_sig, s, e, c0, span)
+        pr_ = _cn_profile(render_sig, s, e, c0, span)
+        cn_rmse = (float(np.sqrt(np.mean((ps - pr_) ** 2)))
+                   if ps is not None and pr_ is not None else None)
+        # clean evidence: same profiles with extraction spikes excluded
+        ps_c = _cn_profile(source_sig, s, e, c0, span, glitch_c=150.0)
+        pr_c = _cn_profile(render_sig, s, e, c0, span, glitch_c=150.0)
+        cn_rmse_clean = (float(np.sqrt(np.mean((ps_c - pr_c) ** 2)))
+                         if ps_c is not None and pr_c is not None else None)
+        src_exc = float(np.abs(ps).max()) if ps is not None else None
+        d_start = (se.start_s - re_.start_s) * 1000.0
+        d_end = (se.end_s - re_.end_s) * 1000.0
+        label_src = se.params.get("trajectory_type")
+        label_rend = re_.params.get("trajectory_type")
+
+        if rend_cov < 0.60:
+            cls = "render_voicing_loss"
+        elif src_cov < 0.80 or (src_exc is not None and src_exc > 1.5):
+            cls = "source_irregular"
+        elif cn_rmse_clean is not None and cn_rmse_clean > 0.35:
+            cls = "distortion"
+        elif cn_rmse is not None and cn_rmse > 0.35:
+            cls = "extraction_artifact"
+        elif label_src != label_rend:
+            cls = "label_mismatch"
+        elif abs(d_start) > 80.0 or abs(d_end) > 80.0:
+            cls = "boundary_shift"
+        else:
+            cls = "match"
+        rows.append({
+            "from_note": fn, "class": cls,
+            "blocking": cls == "distortion",
+            "traj_src": label_src, "traj_render": label_rend,
+            "cn_rmse": round(cn_rmse, 3) if cn_rmse is not None else None,
+            "cn_rmse_clean": round(cn_rmse_clean, 3)
+                if cn_rmse_clean is not None else None,
+            "src_excursion": round(src_exc, 3) if src_exc is not None else None,
+            "src_coverage": round(src_cov, 3),
+            "rend_coverage_ext": round(rend_cov, 3),
+            "delta_start_ms": round(d_start, 1),
+            "delta_end_ms": round(d_end, 1),
+            "window_s": [round(s, 3), round(e, 3)],
+            "overlay_src": np.round(ps, 3).tolist() if ps is not None else None,
+            "overlay_neu": np.round(pn_, 3).tolist() if pn_ is not None else None,
+            "overlay_render": np.round(pr_, 3).tolist() if pr_ is not None else None})
+    n_block = sum(1 for r in rows if r["blocking"])
+    return {"events": rows, "n_events": len(rows),
+            "n_blocking": n_block,
+            "by_class": {c: sum(1 for r in rows if r["class"] == c)
+                         for c in {r["class"] for r in rows}},
+            "gate_passed": n_block == 0}
+
+
 def portamento_metrics(source_events, render_events):
     """Per matched portamento: start/end/span/trajectory/slope/curvature."""
     out = []
@@ -365,7 +508,11 @@ def portamento_metrics(source_events, render_events):
                         "state": "missing"})
             continue
         re_ = cand[0]
-        d = {"from_note": se.params["from_note"], "state": "matched",
+        d = {"from_note": se.params["from_note"],
+             "state": "matched_relaxed" if re_.params.get("arrival_relaxed")
+                      else "matched",
+             "arrival_relaxed": bool(re_.params.get("arrival_relaxed")),
+             "arrival_offset_c": re_.params.get("arrival_offset_c", 0.0),
              "traj_match": se.params["trajectory_type"]
              == re_.params["trajectory_type"],
              "delta_span_c": round(se.params["span_cents"]

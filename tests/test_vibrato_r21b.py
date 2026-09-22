@@ -513,6 +513,96 @@ def test_closed_loop_preserves_protected_portamento():
     assert np.interp(1.5, xs, ys) > -200.0 + 50.0
 
 
+def test_shape_gate_orchestrator_paths(monkeypatch):
+    """The committed gate wiring: v2 pass -> accept; v2 fail -> one
+    bounded rollback -> v3 real 'render' -> re-QA -> accept only if
+    non-worse; still failing -> keep v1 and stay blocked."""
+    import agent2utau.expression.pitch_residual as PR
+    from agent2utau.expression.pitch_residual import (
+        run_shape_gate, topology_gate_verdict)
+
+    # shape_rollback's curve math is covered by its own test; here we only
+    # verify the orchestration calls it exactly once and renders v3.
+    monkeypatch.setattr(
+        PR, "shape_rollback",
+        lambda *a, **k: ({"abbr": "pitd", "xs": [0, 100], "ys": [0, 0]},
+                         {"rolled_back_windows": [[0.4, 0.6]]}))
+
+    def _topo(m, x, e, ed):
+        return {"matched_turns": m, "missing_turns": x,
+                "extra_turns": e, "sequence_edit_distance": ed}
+
+    ok, viol = topology_gate_verdict(_topo(10, 3, 2, 4),
+                                     _topo(10, 3, 2, 4))
+    assert ok and not viol
+    ok, viol = topology_gate_verdict(_topo(10, 3, 2, 4),
+                                     _topo(9, 4, 3, 5))
+    assert not ok and len(viol) == 4
+
+    src = _sig(np.arange(0, 1.0, HOP_S), np.full(100, 6000.0))
+    p1 = {"abbr": "pitd", "xs": [0, 100], "ys": [0, 0]}
+    p2 = {"abbr": "pitd", "xs": [0, 100], "ys": [5, 5]}
+    note = _note(1.0)
+
+    def make_case(t2, t3=None):
+        calls = {"render": []}
+        topos = {"v1": _topo(10, 3, 2, 4), "v2": t2, "v3": t3}
+
+        def cand(curve, tag):
+            calls["render"].append(tag)
+            return curve, ("sig", tag)
+
+        def qa(sig):
+            return topos[sig[1]]
+        return calls, cand, qa
+
+    # path 1: v2 passes -> no rollback render attempted
+    calls, cand, qa = make_case(_topo(10, 3, 2, 4))
+    final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
+                                candidate_fn=cand, qa_fn=qa)
+    assert rep["final_candidate"] == "v2" and not rep["blocked"]
+    assert calls["render"] == ["v2"]
+
+    # path 2: v2 fails, v3 passes -> v3 accepted after ONE extra render
+    calls, cand, qa = make_case(_topo(8, 5, 4, 6), _topo(10, 3, 2, 4))
+    final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
+                                candidate_fn=cand, qa_fn=qa)
+    assert rep["final_candidate"] == "v3" and not rep["blocked"]
+    assert calls["render"] == ["v2", "v3"]
+    assert "shape_rollback" in rep
+
+    # path 3: v2 fails, v3 still fails -> keep v1, blocked, no 2nd retry
+    calls, cand, qa = make_case(_topo(8, 5, 4, 6), _topo(9, 4, 3, 5))
+    final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
+                                candidate_fn=cand, qa_fn=qa)
+    assert rep["final_candidate"] == "v1" and rep["blocked"]
+    assert calls["render"] == ["v2", "v3"]
+
+    # path 4: topology passes but an event lane regresses -> gate fires
+    from agent2utau.expression.pitch_residual import event_lane_verdict
+    qa1 = {"topology": _topo(10, 3, 2, 4),
+           "portamento": [{"state": "matched"}, {"state": "matched"}]}
+    qa2 = {"topology": _topo(10, 3, 2, 4),
+           "portamento": [{"state": "matched"}, {"state": "missing"}]}
+    ok, viol = event_lane_verdict(qa1, qa2)
+    assert not ok and "portamento.missing" in viol
+    # matched_relaxed counts as matched, not as a regression
+    qa3 = {"topology": _topo(10, 3, 2, 4),
+           "portamento": [{"state": "matched"},
+                          {"state": "matched_relaxed"}]}
+    ok, viol = event_lane_verdict(qa1, qa3)
+    assert ok
+
+    def cand2(curve, tag):
+        return curve, ("sig", tag)
+    lane = {"v1": qa1, "v2": qa2, "v3": qa1}
+    final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
+                                candidate_fn=cand2,
+                                qa_fn=lambda s: lane[s[1]])
+    assert rep["final_candidate"] == "v3"
+    assert "portamento.missing" in rep["stages"][1]["violations"]
+
+
 def test_shape_rollback_restores_lost_turn_only():
     """L7 shape gate: v2 lost a source peak v1 had, and invented a trough
     elsewhere. Rollback must restore v1's curve in exactly those windows

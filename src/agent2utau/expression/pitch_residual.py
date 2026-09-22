@@ -93,8 +93,20 @@ def compute_dense(ref_f0, neu_f0, ref_f0_b, neu_f0_b, notes,
     state[(state == SAME_NOTE_BOTH_VOICED) & trans] = NOTE_TRANSITION
     state[conflict] = EXTRACTOR_CONFLICT
 
+    # Written pitch per frame: the carrier note's tone in cents.  During
+    # transition frames src and neutral sit on DIFFERENT notes (the
+    # synth anticipates the boundary earlier than the source), so
+    # src-neu embeds the neutral engine's own transition timing and can
+    # fabricate phantom +/-300c spikes.  pitd is an offset applied to the
+    # WRITTEN pitch input, so the correct transition residual is
+    # src - written: it describes the source's actual transition shape.
+    written = np.full(len(g), np.nan)   # midi units, same as R/RB
+    for i, n in enumerate(notes):
+        written[note_idx == i] = float(n["tone"])
+
     resid = np.where(state == SAME_NOTE_BOTH_VOICED, (R - N) * 100.0, np.nan)
-    resid_t = np.where(state == NOTE_TRANSITION, (R - N) * 100.0, np.nan)
+    resid_t = np.where(state == NOTE_TRANSITION,
+                       (R - written) * 100.0, np.nan)
     # residual beyond sanity range is extractor junk even if states agree
     bad = np.abs(np.nan_to_num(resid, nan=0.0)) > MAX_RESID_CENTS
     bad |= np.abs(np.nan_to_num(resid_t, nan=0.0)) > MAX_RESID_CENTS
@@ -103,8 +115,14 @@ def compute_dense(ref_f0, neu_f0, ref_f0_b, neu_f0_b, notes,
     resid_t[bad] = np.nan
 
     # plan §8.1 residual consensus: compare what each extractor family
-    # says the correction should be — not raw F0 agreement
-    r_rmvpe = np.where(RBok & NBok, (RB - NB) * 100.0, np.nan)
+    # says the correction should be — not raw F0 agreement.  On
+    # transition frames the reference is written pitch (same as resid_t),
+    # not the neutral render.
+    r_rmvpe = np.where(
+        RBok & NBok, (RB - NB) * 100.0, np.nan)
+    r_rmvpe = np.where(
+        (state == NOTE_TRANSITION) & RBok & ~np.isnan(written),
+        (RB - written) * 100.0, r_rmvpe)
     eligible = (state == SAME_NOTE_BOTH_VOICED) | (state == NOTE_TRANSITION)
     r_fcpe = np.where(eligible, np.where(~np.isnan(resid), resid,
                                          resid_t), np.nan)
@@ -810,6 +828,137 @@ def shape_rollback(pitd_v1, pitd_v2, src_sig, render_v1_sig,
     keep = np.concatenate([[True], np.diff(xn) > 0])
     return {"abbr": "pitd", "xs": xn[keep].tolist(),
             "ys": yn[keep].tolist()}, report
+
+
+TOPOLOGY_GATE_KEYS = ("matched_turns", "missing_turns",
+                      "extra_turns", "sequence_edit_distance")
+
+
+def topology_gate_verdict(t_v1, t_cand):
+    """L7 shape non-regression gate: a closed-loop candidate must be
+    non-worse than the first render on every topology term.  Lower
+    pointwise cents error can never compensate a shape regression.
+    Returns (passed, violations)."""
+    viol = []
+    if t_cand["matched_turns"] < t_v1["matched_turns"]:
+        viol.append("matched_turns")
+    if t_cand["missing_turns"] > t_v1["missing_turns"]:
+        viol.append("missing_turns")
+    if t_cand["extra_turns"] > t_v1["extra_turns"]:
+        viol.append("extra_turns")
+    if t_cand["sequence_edit_distance"] > t_v1["sequence_edit_distance"]:
+        viol.append("sequence_edit_distance")
+    return not viol, viol
+
+
+def event_lane_verdict(qa_v1, qa_cand):
+    """Non-topology lanes must not regress either (plan R2): for each event
+    lane present in both QA dicts ("portamento", "vibrato", ...), the
+    candidate's matched count must be >= v1's and its missing count <= v1's.
+    "matched_relaxed" counts as matched — the gesture happened, it landed
+    off-tolerance, which is recorded but not a regression."""
+    viol = []
+    for lane, qa1, qa2 in ((k, qa_v1[k], qa_cand[k])
+                           for k in qa_v1 if k in qa_cand
+                           and isinstance(qa_v1[k], list)):
+        if not qa1 or not isinstance(qa1[0], dict) or "state" not in qa1[0]:
+            continue
+        m1 = sum(1 for d in qa1 if d["state"] in ("matched",
+                                                  "matched_relaxed"))
+        m2 = sum(1 for d in qa2 if d["state"] in ("matched",
+                                                  "matched_relaxed"))
+        x1 = sum(1 for d in qa1 if d["state"] == "missing")
+        x2 = sum(1 for d in qa2 if d["state"] == "missing")
+        if m2 < m1:
+            viol.append("%s.matched" % lane)
+        if x2 > x1:
+            viol.append("%s.missing" % lane)
+    return not viol, viol
+
+
+def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
+                   part_pos_tick, *, candidate_fn, qa_fn,
+                   max_rollbacks=1):
+    """Committed orchestrator for the closed-loop shape gate.
+
+    The caller owns USTX writing, real OpenUtau render and F0->signal
+    extraction; this function owns the gate decision flow:
+
+      candidate_fn(curve, tag) -> (curve_used, render_sig)
+          build a candidate part around `curve`, render it for real and
+          return the render's contour signal.
+      qa_fn(render_sig) -> topology dict (or full QA dict containing a
+          "topology" sub-dict).
+
+    v2 PASS -> accept v2.  v2 FAIL -> shape_rollback -> real render v3
+    -> re-QA -> accept v3 only if the four-term gate is non-worse vs v1;
+    otherwise keep v1 and mark blocked.  At most `max_rollbacks` rollbacks
+    are attempted; a still-failing candidate is never iterated further.
+
+    Returns (final_curve, report) where report carries per-stage topology,
+    the rollback report (if any), gate verdicts and final_candidate name.
+    """
+    def _topo(q):
+        return q["topology"] if "topology" in q else q
+
+    report = {"stages": []}
+
+    # v1 must already be rendered by the caller; its topology is computed
+    # here so the same code path measures both candidates.
+    qa_v1 = qa_fn(render_v1_sig)
+    t1 = _topo(qa_v1)
+    report["stages"].append({"candidate": "v1", "qa": qa_v1,
+                             "topology": t1,
+                             "gate_passed": True, "violations": []})
+
+    curve_v2, sig_v2 = candidate_fn(pitd_v2, "v2")
+    qa_v2 = qa_fn(sig_v2)
+    t2 = _topo(qa_v2)
+    ok2, viol2 = topology_gate_verdict(t1, t2)
+    if ok2:
+        ok2, lane_viol = event_lane_verdict(qa_v1, qa_v2)
+        viol2 += lane_viol
+    report["stages"].append({"candidate": "v2", "qa": qa_v2,
+                             "topology": t2,
+                             "gate_passed": ok2, "violations": viol2})
+    if ok2:
+        report["final_candidate"] = "v2"
+        report["blocked"] = False
+        return pitd_v2, report
+
+    if max_rollbacks < 1:
+        report["final_candidate"] = "v1"
+        report["blocked"] = True
+        report["block_reason"] = "shape gate violated; rollbacks disabled"
+        return pitd_v1, report
+
+    # v2 violated the gate -> bounded local rollback, at most once.
+    curve_v3, rb_rep = shape_rollback(
+        pitd_v1, pitd_v2, src_sig, render_v1_sig, sig_v2,
+        notes, part_pos_tick)
+    report["shape_rollback"] = rb_rep
+    curve_v3, sig_v3 = candidate_fn(curve_v3, "v3")
+    qa_v3 = qa_fn(sig_v3)
+    t3 = _topo(qa_v3)
+    ok3, viol3 = topology_gate_verdict(t1, t3)
+    if ok3:
+        ok3, lane_viol = event_lane_verdict(qa_v1, qa_v3)
+        viol3 += lane_viol
+    report["stages"].append({"candidate": "v3", "qa": qa_v3,
+                             "topology": t3,
+                             "gate_passed": ok3, "violations": viol3})
+    if ok3:
+        report["final_candidate"] = "v3"
+        report["blocked"] = False
+        return curve_v3, report
+
+    # Rollback exhausted: keep the verified first render and stay blocked —
+    # never iterate further just to chase the metric.
+    report["final_candidate"] = "v1"
+    report["blocked"] = True
+    report["block_reason"] = "shape gate still violated after %d rollback" % (
+        max_rollbacks)
+    return pitd_v1, report
 
 
 def state_summary(dense):

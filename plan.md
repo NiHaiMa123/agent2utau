@@ -2186,6 +2186,71 @@ production gate wiring 与 absolute shape QA：
    要么移到 `diagnostics/rejected/` 并带 rejection reason/manifest，
    要么删除；人工试听目录只能暴露当前 accepted candidate。
 
+##### L7 reviewer-blocker resolution（2026-09-22，本轮执行）
+
+五个 blocker 全部落地，附带两处新发现的真实修复：
+
+**Blocker 1 — edge-turn 审计保留 ✅**
+`turning_point_metrics` 现在输出 `edge_uncertain_turn_details`
+（source/render 双侧，每行含 frame_idx/kind/value_c/prominence_c/reason），
+strict gate 只消费 confirmed turns，被排除的边界 turn 不再静默消失。
+
+**Blocker 2 — production orchestrator ✅ 且已在真实渲染上触发**
+新增 committed `run_shape_gate`（pitch_residual.py）：v1 render → v2
+render → gate → `shape_rollback` → v3 **真实 OpenUtau render** → 全量
+re-QA → 四项 topology + event-lane 双门禁（`event_lane_verdict`：
+portamento/vibrato 的 matched 不得减、missing 不得增）→ 最多 1 次
+rollback，仍失败则 blocked 于 v1。
+真实三句结果：**P1 v2 FAIL → rollback → v3 PASS（20/3/1，final=C3v3）；
+P2 v2 PASS（45/14/4，final=C3v2）；P3 v2 FAIL → v3 PASS
+（36/8/4，final=C3v3）**。P3 v3 保留 vibrato 改善 Δdepth −5.9c。
+
+**Blocker 3 — absolute event-shape gate ✅**
+`event_shape_gate`（contour_qa.py）对每个 matched portamento 做
+SOURCE/NEUTRAL/RENDER 归一化 overlay 并显式分类：
+`render_voicing_loss / source_irregular / extraction_artifact /
+distortion / label_mismatch / boundary_shift / match`，只有
+clean-evidence `distortion` 阻塞。两处在真实数据上发现的 detector/QA
+缺陷已修复：
+- transition 残差参照改为 `src − written_pitch`（MIDI 单位）：旧式
+  `src − neu` 会把 neutral 自己的早期转场重复计入；修正后 P3 转场残差
+  成为真实滑音曲线（+29→−137→+88→+10c），幻象 −9999c conflict 消失。
+- portamento detector 到音判定加**过境检查 + 松弛到音级**：strict/trend
+  stay 后若 post-run trend 在 note B 存续期内稳定到带外则判 pass-through
+  （trend 滞后扫过 ±30c 带曾造成假 stay）；third level 允许
+  min(2·tol, 半音程) 的 sustained plateau 到音并打 `arrival_relaxed` +
+  `arrival_offset_c` 标记。source P2 fn=4 自身到音 +28~49c 偏锐，render
+  忠实复制到 +34c——旧 detector 差 4c 报 missing，新 detector 判
+  `matched_relaxed(+34c)`，信息保留而非丢失。过境检查只在 usable
+  evidence（voiced 且非 |raw−trend|>150c 提取毛刺）足够时生效，source
+  尾段垃圾帧不触发误删。
+- shape gate 同时计算 raw rmse 与 glitch-excluded rmse：P2 三个原
+  "distortion" 事件（fn=1 单帧 5265c 毛刺、fn=6/8 双方垃圾帧区）在
+  clean 证据下 rmse 降至 0.15-0.28 → `extraction_artifact`，非阻塞。
+最终 shape gate：P1 `3 match/1 label_mismatch/1 source_irregular`，
+P2 `2 label_mismatch/2 source_irregular/3 extraction_artifact`，
+P3 `1 match/1 boundary_shift/1 label_mismatch/1 source_irregular`——
+**三句全部 0 blocking，无 unexplained traj_match=false 进入试听**。
+
+**Blocker 4 — provenance 拆分 ✅**
+manifest 现为 `generator_code_head`（candidate ustx/wav 未变时继承旧值，
+禁止冒写）+ `qa_code_head` + `candidate_ustx_sha256` +
+`render_wav_sha256` + `shape_gate` verdict 摘要。
+
+**Blocker 5 — C3v3 orphan 消解 ✅**
+本轮 gate 真实触发后，P1/P3 的 accepted candidate 本身就是 C3v3（ustx/wav
+均由 orchestrator 重新生成并渲染，sha256 入 manifest），P2 无 C3v3。
+目录中不再有"非 accepted 却裸放"的 orphan；C3/C3v2 文件保留为 gate
+前阶段的合法审计证据。
+
+**本轮全量复核**：pytest **500 passed**；三态 first-render 复验
+（A_src_only/B_matched 保留 vibrato，C_neu_only 0 vibrato/0 extra
+turns）；P1/P2/P3 真实 OpenUtau render 全部经 `run_shape_gate` 编排；
+QA/events/manifest 对各自最终候选（C3v3/C3v2/C3v3）重生成。
+
+**剩余门禁 = L7-E 人工试听**：`runs/expr-20260921/phrases3/P*/` 下
+最终候选（P1 C3v3 / P2 C3v2 / P3 C3v3）vs D vs SOURCE。
+
 完成以上 reviewer blocker 后，再进入 L7-E。届时人工试听的作用是发现
 machine metric 尚未覆盖的 perceptual mismatch，而不是替机器检查已经明确
 报出的 `traj_match=false` / 大 timing-shape error。

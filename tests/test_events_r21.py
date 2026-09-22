@@ -184,6 +184,36 @@ def test_portamento_breath_gap_not_detected():
     assert detect_portamento_events(sig, notes) == []
 
 
+def test_portamento_off_tolerance_arrival_relaxed_not_missing():
+    """A slide that lands sharp/flat but holds a sustained plateau is a
+    real portamento with an off-tolerance arrival — flag it, don't drop it
+    (P2 from_note=4: source itself arrives ~+40c sharp, a faithful render
+    holding +34c was being reported missing under the strict +-30c stay)."""
+    def slide(t, c):
+        v = (t >= 0.40) & (t <= 0.60)
+        c[v] = 6000 + 435 * (t[v] - 0.40) / 0.20
+        c[t > 0.60] = 6435.0          # sustained plateau +35c off tone_b
+        return c
+    sig, notes = _two_note_sig(slide)
+    ev = detect_portamento_events(sig, notes)
+    assert len(ev) == 1
+    p = ev[0].params
+    assert p["arrival_relaxed"] is True
+    assert 20 < p["arrival_offset_c"] < 50
+
+
+def test_portamento_wrong_note_landing_still_missing():
+    """The relaxed arrival band is capped at min(2*tol, half the interval):
+    landing a whole semitone off (65 vs 64) must still report no event."""
+    def slide(t, c):
+        v = (t >= 0.40) & (t <= 0.60)
+        c[v] = 6000 + 500 * (t[v] - 0.40) / 0.20
+        c[t > 0.60] = 6500.0          # lands on tone 65 — not tone_b=64
+        return c
+    sig, notes = _two_note_sig(slide)
+    assert detect_portamento_events(sig, notes) == []
+
+
 # ----------------------------------------------------------- ornament
 def _orn_sig(orn_s, dur=1.2):
     t = np.arange(0, dur + HOP_S, HOP_S)
@@ -328,6 +358,54 @@ def test_topology_edge_jitter_is_stable():
     ta = turning_point_metrics(src, ren_a, mask=mask)
     tb = turning_point_metrics(src, ren_b, mask=mask)
     assert ta["extra_turns"] == tb["extra_turns"]
+
+
+def _port_ev(fn, s, e, traj="linear", span=-300.0):
+    return PitchEvent("portamento", [fn, fn + 1], s, e, 1.0,
+                      params={"from_note": fn, "trajectory_type": traj,
+                              "span_cents": span})
+
+
+def test_event_shape_gate_classes():
+    """Absolute shape gate classifies mismatch causes instead of trusting
+    raw traj_match flags."""
+    from agent2utau.expression.contour_qa import event_shape_gate
+    t = np.arange(0, 1.0, HOP_S)
+    base = np.full(len(t), 6000.0)
+    # source: linear slide 6000->5700 over 0.4-0.6
+    src_c = base.copy()
+    w = (t >= 0.4) & (t <= 0.6)
+    src_c[w] = 6000 - 300 * (t[w] - 0.4) / 0.2
+    src_c[t > 0.6] = 5700.0
+    src = _sig(t, src_c)
+    neu = _sig(t, base)
+    # render A: identical shape -> match (label differs deliberately)
+    rend_a = _sig(t, src_c)
+    # render B: plunge completed in the first 20% of the window then flat
+    # — clearly divergent shape, must be classified as distortion
+    rb = base.copy()
+    w2 = (t >= 0.4) & (t <= 0.44)
+    rb[w2] = 6000 - 300 * (t[w2] - 0.4) / 0.04
+    rb[t > 0.44] = 5700.0
+    rend_b = _sig(t, rb)
+    # render C: unvoiced through most of the window
+    rc = src_c.copy()
+    rc[(t >= 0.38) & (t <= 0.56)] = np.nan
+    rend_c = _sig(t, rc)
+
+    se = _port_ev(0, 0.4, 0.6, traj="linear")
+    gate = lambda r: event_shape_gate([se], [_port_ev(0, 0.41, 0.6,
+                                                     traj="concave")],
+                                      neu, src, r)
+    ga = gate(rend_a)
+    assert ga["events"][0]["class"] == "label_mismatch"   # shape close
+    gb = gate(rend_b)
+    assert gb["events"][0]["class"] == "distortion"
+    assert gb["n_blocking"] == 1 and not gb["gate_passed"]
+    gc = gate(rend_c)
+    assert gc["events"][0]["class"] == "render_voicing_loss"
+    # excluded-but-flagged classes never silently pass as match
+    assert ga["gate_passed"] and gc["gate_passed"]
 
 
 def test_modulation_event_window_honours_artifact_mask():
