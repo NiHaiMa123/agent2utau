@@ -1,0 +1,3382 @@
+{
+  "compiler": {
+    "marks": {
+      "11": {
+        "length": 95.8,
+        "period": 138.5,
+        "depth": 72.9,
+        "in": 5,
+        "out": 0.9,
+        "shift": 57.3,
+        "drift": 0,
+        "volLink": 0
+      }
+    },
+    "provenance": {
+      "11": {
+        "detected_phase_rad": -1.322,
+        "phase_origin_s": 55.61,
+        "event_start_s": 55.58,
+        "event_end_s": 56.7,
+        "computed_shift_pct": 57.3,
+        "computed_out_pct": 0.92,
+        "tail_gap_s": 0.0104,
+        "compiled_length_pct": 95.8,
+        "compiled_period_ms": 138.5,
+        "compiled_depth_c": 72.9,
+        "depth_gain": 0.69
+      }
+    },
+    "pitd_points": 129,
+    "vib_match": [
+      {
+        "note_index": 11,
+        "match_state": "source_only",
+        "source_vibrato": {
+          "rate_hz": 7.22,
+          "fft_bin_hz": 6.78,
+          "depth_c": 50.3,
+          "phase_rad": -1.322,
+          "phase_origin_s": 55.61,
+          "periods_ms": [
+            120.0,
+            150.0,
+            140.0,
+            140.0,
+            140.0,
+            130.0,
+            150.0
+          ],
+          "depth_envelope_c": [
+            56.4,
+            59.1,
+            59.8,
+            56.9,
+            35.7,
+            41.1,
+            42.8
+          ],
+          "evidence_cycle_count": 7.5,
+          "stable_cycle_count": 7.5,
+          "boundary_method": "extremum_zero_return",
+          "boundary_start_reason": "quarter_period",
+          "boundary_end_reason": "quarter_period",
+          "period_cv": 0.071,
+          "depth_cv": 0.185,
+          "drift_c_per_s": 14.8,
+          "mod_snr": 6.25,
+          "voiced_coverage": 1.0
+        },
+        "neutral_vibrato": null,
+        "source_span_s": [
+          55.58,
+          56.7
+        ],
+        "neutral_span_s": null,
+        "recommended_representation": "note_vibrato"
+      }
+    ]
+  },
+  "before_closed_loop": {
+    "position": {
+      "valid_frames": 422,
+      "coverage": 0.887,
+      "n": 422,
+      "med_c": 6.3,
+      "p90_c": 27.7,
+      "p95_c": 75.1
+    },
+    "topology": {
+      "matched_turns": 45,
+      "missing_turns": 16,
+      "extra_turns": 2,
+      "source_turns": 61,
+      "render_turns": 47,
+      "turn_timing_err_ms_med": 0.0,
+      "turn_amplitude_err_c_med": 6.8,
+      "turn_prominence_err_c_med": 16.2,
+      "sequence_edit_distance": 14,
+      "missing_turn_details": [
+        {
+          "frame_idx": 36,
+          "kind": "peak",
+          "value_c": 6162.8,
+          "prominence_c": 395.3
+        },
+        {
+          "frame_idx": 39,
+          "kind": "trough",
+          "value_c": 5737.0,
+          "prominence_c": 45.6
+        },
+        {
+          "frame_idx": 72,
+          "kind": "peak",
+          "value_c": 5926.4,
+          "prominence_c": 15.8
+        },
+        {
+          "frame_idx": 123,
+          "kind": "peak",
+          "value_c": 6296.1,
+          "prominence_c": 35.7
+        },
+        {
+          "frame_idx": 164,
+          "kind": "trough",
+          "value_c": 6396.5,
+          "prominence_c": 17.4
+        },
+        {
+          "frame_idx": 188,
+          "kind": "trough",
+          "value_c": 6627.7,
+          "prominence_c": 144.6
+        },
+        {
+          "frame_idx": 190,
+          "kind": "peak",
+          "value_c": 6629.8,
+          "prominence_c": 110.8
+        },
+        {
+          "frame_idx": 237,
+          "kind": "peak",
+          "value_c": 5982.9,
+          "prominence_c": 237.0
+        },
+        {
+          "frame_idx": 240,
+          "kind": "trough",
+          "value_c": 5973.4,
+          "prominence_c": 250.8
+        },
+        {
+          "frame_idx": 244,
+          "kind": "peak",
+          "value_c": 6293.5,
+          "prominence_c": 66.6
+        },
+        {
+          "frame_idx": 360,
+          "kind": "trough",
+          "value_c": 5964.5,
+          "prominence_c": 682.3
+        },
+        {
+          "frame_idx": 362,
+          "kind": "peak",
+          "value_c": 5966.0,
+          "prominence_c": 682.6
+        },
+        {
+          "frame_idx": 364,
+          "kind": "trough",
+          "value_c": 5964.4,
+          "prominence_c": 685.2
+        },
+        {
+          "frame_idx": 369,
+          "kind": "peak",
+          "value_c": 6671.3,
+          "prominence_c": 18.7
+        },
+        {
+          "frame_idx": 426,
+          "kind": "peak",
+          "value_c": 6860.8,
+          "prominence_c": 238.7
+        },
+        {
+          "frame_idx": 430,
+          "kind": "peak",
+          "value_c": 6644.1,
+          "prominence_c": 22.9
+        }
+      ],
+      "extra_turn_details": [
+        {
+          "frame_idx": 174,
+          "kind": "trough",
+          "value_c": 6331.5,
+          "prominence_c": 80.2
+        },
+        {
+          "frame_idx": 218,
+          "kind": "trough",
+          "value_c": 5879.9,
+          "prominence_c": 16.1
+        }
+      ],
+      "valid_frames": 422,
+      "coverage": 0.887
+    },
+    "vibrato": [
+      {
+        "note": 11,
+        "state": "matched",
+        "delta_rate_hz": 0.08,
+        "delta_depth_c": -27.4,
+        "delta_period_cv": 0.013,
+        "delta_depth_cv": 0.082,
+        "delta_stable_cycle_count": 1.0,
+        "delta_phase_rad": 0.343,
+        "delta_start_ms": -60.0,
+        "delta_end_ms": 80.0
+      }
+    ],
+    "portamento": [
+      {
+        "from_note": 0,
+        "state": "matched",
+        "traj_match": true,
+        "delta_span_c": -7.1,
+        "delta_start_ms": -20.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 27.406,
+        "curv_profile_rmse": 850.499
+      },
+      {
+        "from_note": 1,
+        "state": "matched",
+        "traj_match": true,
+        "delta_span_c": 9.6,
+        "delta_start_ms": 40.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 3.174,
+        "curv_profile_rmse": 47.277
+      },
+      {
+        "from_note": 2,
+        "state": "matched",
+        "traj_match": false,
+        "delta_span_c": 41.3,
+        "delta_start_ms": 10.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 20.053,
+        "curv_profile_rmse": 588.305
+      },
+      {
+        "from_note": 4,
+        "state": "matched",
+        "traj_match": false,
+        "delta_span_c": 38.7,
+        "delta_start_ms": 30.0,
+        "delta_end_ms": 80.0,
+        "slope_profile_rmse": 2.412,
+        "curv_profile_rmse": 8.57
+      },
+      {
+        "from_note": 5,
+        "state": "missing"
+      },
+      {
+        "from_note": 6,
+        "state": "matched",
+        "traj_match": true,
+        "delta_span_c": 0.2,
+        "delta_start_ms": 0.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 10.802,
+        "curv_profile_rmse": 374.675
+      },
+      {
+        "from_note": 8,
+        "state": "matched",
+        "traj_match": true,
+        "delta_span_c": -4.3,
+        "delta_start_ms": 100.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 10.818,
+        "curv_profile_rmse": 390.53
+      },
+      {
+        "from_note": 9,
+        "state": "matched",
+        "traj_match": false,
+        "delta_span_c": 49.0,
+        "delta_start_ms": 30.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 1.79,
+        "curv_profile_rmse": 9.399
+      }
+    ],
+    "render_events": [
+      {
+        "type": "vibrato",
+        "note_indices": [
+          11
+        ],
+        "start_s": 55.64,
+        "end_s": 56.62,
+        "confidence": 0.949,
+        "params": {
+          "rate_hz": 7.14,
+          "fft_bin_hz": 6.78,
+          "depth_c": 77.7,
+          "phase_rad": 1.743,
+          "phase_origin_s": 55.67,
+          "periods_ms": [
+            130.0,
+            150.0,
+            130.0,
+            140.0,
+            150.0,
+            140.0
+          ],
+          "depth_envelope_c": [
+            83.1,
+            80.7,
+            88.2,
+            77.1,
+            62.7,
+            74.4
+          ],
+          "evidence_cycle_count": 7.0,
+          "stable_cycle_count": 6.5,
+          "boundary_method": "extremum_zero_return",
+          "boundary_start_reason": "quarter_period",
+          "boundary_end_reason": "quarter_period",
+          "period_cv": 0.058,
+          "depth_cv": 0.103,
+          "drift_c_per_s": -7.1,
+          "mod_snr": 35.83,
+          "voiced_coverage": 1.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "undershoot",
+        "note_indices": [
+          1
+        ],
+        "start_s": 51.56,
+        "end_s": 51.93,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 51.571,
+          "depth_c": 168.1,
+          "peak_time_ms": 89.2,
+          "settle_time_ms": null,
+          "baseline_c": 5901.1,
+          "direction": "down-up",
+          "monotonicity": 0.74,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "scoop",
+        "note_indices": [
+          2
+        ],
+        "start_s": 51.87,
+        "end_s": 52.34,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 51.943,
+          "depth_c": 301.6,
+          "peak_time_ms": -42.4,
+          "settle_time_ms": null,
+          "baseline_c": 6164.9,
+          "direction": "down-up",
+          "monotonicity": 0.66,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "scoop",
+        "note_indices": [
+          3
+        ],
+        "start_s": 52.39,
+        "end_s": 52.61,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 52.394,
+          "depth_c": 211.6,
+          "peak_time_ms": 26.6,
+          "settle_time_ms": 216.6,
+          "baseline_c": 6397.2,
+          "direction": "down-up",
+          "monotonicity": 0.88,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "overshoot",
+        "note_indices": [
+          6
+        ],
+        "start_s": 53.23,
+        "end_s": 53.45,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 53.254,
+          "depth_c": 103.8,
+          "peak_time_ms": -23.9,
+          "settle_time_ms": 196.1,
+          "baseline_c": 5852.6,
+          "direction": "up-down",
+          "monotonicity": 0.73,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "scoop",
+        "note_indices": [
+          7
+        ],
+        "start_s": 53.53,
+        "end_s": 53.96,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 53.604,
+          "depth_c": 1234.5,
+          "peak_time_ms": -73.1,
+          "settle_time_ms": null,
+          "baseline_c": 6393.3,
+          "direction": "down-up",
+          "monotonicity": 0.67,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "overshoot",
+        "note_indices": [
+          8
+        ],
+        "start_s": 54.33,
+        "end_s": 54.64,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 54.337,
+          "depth_c": 395.2,
+          "peak_time_ms": -6.9,
+          "settle_time_ms": 303.1,
+          "baseline_c": 5822.1,
+          "direction": "up-down",
+          "monotonicity": 0.78,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "scoop",
+        "note_indices": [
+          9
+        ],
+        "start_s": 54.78,
+        "end_s": 55.02,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 54.855,
+          "depth_c": 1301.2,
+          "peak_time_ms": -44.7,
+          "settle_time_ms": 165.3,
+          "baseline_c": 6916.3,
+          "direction": "down-up",
+          "monotonicity": 0.78,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          0,
+          1
+        ],
+        "start_s": 51.34,
+        "end_s": 51.78,
+        "confidence": 0.844,
+        "params": {
+          "from_note": 0,
+          "to_note": 1,
+          "departure_rel_prev_end_ms": -239.8,
+          "arrival_rel_next_start_ms": 200.2,
+          "span_cents": 239.3,
+          "duration_ms": 440.0,
+          "direction": "up",
+          "trajectory_type": "irregular",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 0.71,
+          "slope_profile": [
+            -1.169,
+            -1.035,
+            -1.025,
+            -1.211,
+            -1.026,
+            -0.39,
+            0.112,
+            0.112,
+            -62.485,
+            -57.255,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            5.543,
+            0.526,
+            0.29,
+            0.077,
+            -0.437,
+            -1.078,
+            -1.421,
+            -1.625,
+            -1.579,
+            -0.735,
+            0.512,
+            2.295,
+            4.9,
+            7.316,
+            8.326,
+            7.776,
+            5.806,
+            2.157,
+            -0.009,
+            -1.34,
+            -2.912,
+            -3.162
+          ],
+          "curv_profile": [
+            5.918,
+            3.172,
+            -3.871,
+            -0.018,
+            18.051,
+            25.031,
+            11.046,
+            -1377.13,
+            -1262.073,
+            1604.779,
+            1489.722,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            -108.166,
+            -218.537,
+            -115.569,
+            -9.884,
+            -15.986,
+            -25.401,
+            -21.655,
+            -12.033,
+            -3.481,
+            19.58,
+            46.011,
+            66.644,
+            96.535,
+            110.48,
+            75.363,
+            10.115,
+            -55.434,
+            -123.63,
+            -127.938,
+            -76.928,
+            -63.849,
+            -40.078,
+            -11.008
+          ],
+          "norm_traj": [
+            0.0,
+            -0.027,
+            -0.047,
+            -0.073,
+            -0.102,
+            -0.12,
+            -0.12,
+            -0.115,
+            -0.115,
+            -2.955,
+            -2.717,
+            -2.479,
+            -2.242,
+            -2.004,
+            -1.766,
+            -1.529,
+            -1.291,
+            -1.053,
+            -0.815,
+            -0.578,
+            -0.34,
+            -0.102,
+            0.135,
+            0.373,
+            0.387,
+            0.397,
+            0.401,
+            0.401,
+            0.381,
+            0.352,
+            0.316,
+            0.278,
+            0.244,
+            0.244,
+            0.268,
+            0.349,
+            0.49,
+            0.681,
+            0.869,
+            1.035,
+            1.133,
+            1.133,
+            1.132,
+            1.072,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          1,
+          2
+        ],
+        "start_s": 51.86,
+        "end_s": 52.15,
+        "confidence": 0.991,
+        "params": {
+          "from_note": 1,
+          "to_note": 2,
+          "departure_rel_prev_end_ms": -79.2,
+          "arrival_rel_next_start_ms": 210.8,
+          "span_cents": 286.2,
+          "duration_ms": 290.0,
+          "direction": "up",
+          "trajectory_type": "irregular",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 1.0,
+          "slope_profile": [
+            1.743,
+            0.871,
+            -1.67,
+            -3.814,
+            -2.144,
+            3.052,
+            7.265,
+            8.399,
+            8.838,
+            7.236,
+            3.438,
+            0.877,
+            0.023,
+            -0.719,
+            -2.055,
+            -2.973,
+            -3.299,
+            -2.786,
+            -1.124,
+            0.686,
+            2.412,
+            3.483,
+            3.446,
+            2.826,
+            1.688,
+            0.552,
+            -0.445,
+            -1.588,
+            -2.747,
+            -3.207
+          ],
+          "curv_profile": [
+            -25.271,
+            -49.479,
+            -67.934,
+            -6.881,
+            99.552,
+            136.431,
+            77.528,
+            22.81,
+            -16.854,
+            -78.296,
+            -92.204,
+            -49.518,
+            -23.143,
+            -30.127,
+            -32.681,
+            -18.047,
+            2.701,
+            31.542,
+            50.348,
+            51.273,
+            40.553,
+            14.994,
+            -9.53,
+            -25.491,
+            -32.963,
+            -30.927,
+            -31.033,
+            -33.38,
+            -23.473,
+            -13.341
+          ],
+          "norm_traj": [
+            0.0,
+            0.06,
+            0.06,
+            -0.055,
+            -0.203,
+            -0.203,
+            0.008,
+            0.298,
+            0.587,
+            0.908,
+            1.086,
+            1.145,
+            1.146,
+            1.146,
+            1.097,
+            1.005,
+            0.892,
+            0.777,
+            0.7,
+            0.7,
+            0.747,
+            0.866,
+            0.987,
+            1.104,
+            1.182,
+            1.22,
+            1.22,
+            1.189,
+            1.111,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          2,
+          3
+        ],
+        "start_s": 52.21,
+        "end_s": 52.56,
+        "confidence": 0.761,
+        "params": {
+          "from_note": 2,
+          "to_note": 3,
+          "departure_rel_prev_end_ms": -179.2,
+          "arrival_rel_next_start_ms": 170.8,
+          "span_cents": 175.0,
+          "duration_ms": 350.0,
+          "direction": "up",
+          "trajectory_type": "s_curve",
+          "boundary_ms": -0.0,
+          "voiced_coverage": 0.61,
+          "slope_profile": [
+            -10.064,
+            -8.271,
+            -3.399,
+            -69.838,
+            -64.639,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            10.078,
+            4.791,
+            -0.43,
+            -0.182,
+            0.099,
+            0.684,
+            1.347,
+            1.417,
+            1.278,
+            1.253,
+            1.258,
+            1.566,
+            2.849,
+            4.821,
+            6.48,
+            7.399,
+            7.142,
+            6.628
+          ],
+          "curv_profile": [
+            62.747,
+            116.63,
+            -1077.425,
+            -1071.697,
+            1398.537,
+            1307.552,
+            -0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            0.0,
+            -92.524,
+            -183.893,
+            -87.029,
+            9.261,
+            15.152,
+            21.843,
+            12.826,
+            -1.22,
+            -2.871,
+            -0.342,
+            5.489,
+            27.839,
+            56.954,
+            63.542,
+            45.112,
+            11.592,
+            -13.489,
+            -18.003
+          ],
+          "norm_traj": [
+            0.0,
+            -0.288,
+            -0.473,
+            -0.482,
+            -4.463,
+            -4.175,
+            -3.887,
+            -3.6,
+            -3.312,
+            -3.024,
+            -2.736,
+            -2.448,
+            -2.16,
+            -1.872,
+            -1.584,
+            -1.296,
+            -1.008,
+            -0.72,
+            -0.432,
+            -0.144,
+            -0.158,
+            -0.169,
+            -0.169,
+            -0.163,
+            -0.13,
+            -0.086,
+            -0.049,
+            -0.013,
+            0.023,
+            0.059,
+            0.112,
+            0.222,
+            0.388,
+            0.592,
+            0.811,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          4,
+          5
+        ],
+        "start_s": 52.88,
+        "end_s": 52.95,
+        "confidence": 0.908,
+        "params": {
+          "from_note": 4,
+          "to_note": 5,
+          "departure_rel_prev_end_ms": -49.8,
+          "arrival_rel_next_start_ms": 20.2,
+          "span_cents": 161.6,
+          "duration_ms": 70.0,
+          "direction": "up",
+          "trajectory_type": "concave",
+          "boundary_ms": -0.0,
+          "voiced_coverage": 1.0,
+          "slope_profile": [
+            -3.393,
+            -1.696,
+            0.594,
+            2.623,
+            2.86,
+            1.768,
+            1.742,
+            1.611
+          ],
+          "curv_profile": [
+            11.874,
+            13.954,
+            15.119,
+            7.931,
+            -2.995,
+            -3.915,
+            -0.55,
+            -0.918
+          ],
+          "norm_traj": [
+            0.0,
+            -0.485,
+            -0.485,
+            -0.315,
+            0.265,
+            0.502,
+            0.77,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          6,
+          7
+        ],
+        "start_s": 53.37,
+        "end_s": 53.88,
+        "confidence": 0.946,
+        "params": {
+          "from_note": 6,
+          "to_note": 7,
+          "departure_rel_prev_end_ms": -240.0,
+          "arrival_rel_next_start_ms": 270.0,
+          "span_cents": 459.6,
+          "duration_ms": 510.0,
+          "direction": "up",
+          "trajectory_type": "irregular",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 0.87,
+          "slope_profile": [
+            2.237,
+            2.184,
+            1.884,
+            0.819,
+            -0.51,
+            -2.54,
+            -5.083,
+            -4.27,
+            -1.218,
+            0.114,
+            0.522,
+            0.594,
+            0.185,
+            -0.449,
+            -0.753,
+            -38.641,
+            -30.792,
+            15.088,
+            15.088,
+            15.088,
+            15.088,
+            15.088,
+            15.088,
+            15.088,
+            7.238,
+            -1.129,
+            -1.275,
+            -0.452,
+            0.285,
+            0.502,
+            0.217,
+            -0.047,
+            -0.255,
+            -0.35,
+            -0.142,
+            0.304,
+            1.05,
+            2.336,
+            4.013,
+            4.741,
+            4.623,
+            4.22,
+            2.732,
+            0.816,
+            -0.899,
+            -2.795,
+            -4.024,
+            -2.591,
+            -0.463,
+            0.636,
+            1.782,
+            2.293
+          ],
+          "curv_profile": [
+            -2.701,
+            -8.996,
+            -34.816,
+            -61.047,
+            -85.654,
+            -116.615,
+            -44.112,
+            98.563,
+            111.786,
+            44.373,
+            12.249,
+            -8.6,
+            -26.584,
+            -23.927,
+            -973.909,
+            -766.001,
+            1370.094,
+            1169.953,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            -200.164,
+            -413.534,
+            -217.093,
+            17.275,
+            39.791,
+            24.32,
+            -1.754,
+            -13.998,
+            -12.036,
+            -7.734,
+            2.902,
+            16.684,
+            30.381,
+            51.799,
+            75.555,
+            61.333,
+            15.553,
+            -13.271,
+            -48.222,
+            -86.805,
+            -92.586,
+            -92.088,
+            -79.675,
+            5.199,
+            90.785,
+            82.282,
+            57.261,
+            42.264,
+            26.056
+          ],
+          "norm_traj": [
+            0.0,
+            0.044,
+            0.086,
+            0.118,
+            0.118,
+            0.098,
+            0.018,
+            -0.102,
+            -0.149,
+            -0.149,
+            -0.145,
+            -0.129,
+            -0.122,
+            -0.122,
+            -0.139,
+            -0.151,
+            -1.655,
+            -1.359,
+            -1.063,
+            -0.767,
+            -0.471,
+            -0.175,
+            0.121,
+            0.416,
+            0.712,
+            0.7,
+            0.668,
+            0.65,
+            0.65,
+            0.661,
+            0.67,
+            0.67,
+            0.668,
+            0.66,
+            0.654,
+            0.654,
+            0.666,
+            0.696,
+            0.758,
+            0.853,
+            0.944,
+            1.034,
+            1.109,
+            1.141,
+            1.141,
+            1.106,
+            1.032,
+            0.948,
+            0.93,
+            0.93,
+            0.955,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          8,
+          9
+        ],
+        "start_s": 54.55,
+        "end_s": 55.02,
+        "confidence": 0.933,
+        "params": {
+          "from_note": 8,
+          "to_note": 9,
+          "departure_rel_prev_end_ms": -299.6,
+          "arrival_rel_next_start_ms": 170.4,
+          "span_cents": 701.7,
+          "duration_ms": 470.0,
+          "direction": "up",
+          "trajectory_type": "stepped",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 0.83,
+          "slope_profile": [
+            -10.239,
+            -9.527,
+            -7.36,
+            -4.542,
+            -2.117,
+            -0.527,
+            0.483,
+            0.997,
+            1.002,
+            0.891,
+            0.61,
+            0.207,
+            -0.122,
+            -0.218,
+            -22.926,
+            -19.37,
+            6.92,
+            6.92,
+            6.92,
+            6.92,
+            6.92,
+            6.92,
+            6.92,
+            3.449,
+            -0.297,
+            -23.154,
+            0.791,
+            47.316,
+            23.631,
+            -0.181,
+            -0.435,
+            -0.475,
+            -0.308,
+            -0.244,
+            -0.284,
+            -0.26,
+            -0.197,
+            -0.09,
+            0.081,
+            0.425,
+            1.028,
+            1.675,
+            2.127,
+            2.531,
+            2.82,
+            2.749,
+            2.409,
+            2.172
+          ],
+          "curv_profile": [
+            33.431,
+            67.65,
+            117.166,
+            123.213,
+            94.343,
+            61.1,
+            35.825,
+            12.204,
+            -2.492,
+            -9.212,
+            -16.079,
+            -17.222,
+            -9.98,
+            -535.876,
+            -450.092,
+            701.383,
+            617.834,
+            0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -81.568,
+            -169.613,
+            -625.174,
+            25.561,
+            1656.031,
+            536.752,
+            -1116.172,
+            -565.543,
+            -6.903,
+            2.982,
+            5.43,
+            0.557,
+            -0.388,
+            2.055,
+            3.996,
+            6.529,
+            12.097,
+            22.253,
+            29.375,
+            25.816,
+            20.12,
+            16.291,
+            5.128,
+            -9.66,
+            -13.551,
+            -11.12
+          ],
+          "norm_traj": [
+            0.0,
+            -0.218,
+            -0.405,
+            -0.531,
+            -0.599,
+            -0.621,
+            -0.621,
+            -0.601,
+            -0.579,
+            -0.558,
+            -0.541,
+            -0.532,
+            -0.532,
+            -0.537,
+            -0.541,
+            -1.513,
+            -1.365,
+            -1.218,
+            -1.071,
+            -0.924,
+            -0.776,
+            -0.629,
+            -0.482,
+            -0.335,
+            -0.335,
+            -0.347,
+            -1.32,
+            -0.314,
+            0.693,
+            0.692,
+            0.685,
+            0.673,
+            0.665,
+            0.66,
+            0.655,
+            0.648,
+            0.644,
+            0.64,
+            0.64,
+            0.643,
+            0.658,
+            0.687,
+            0.729,
+            0.777,
+            0.837,
+            0.897,
+            0.954,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          9,
+          10
+        ],
+        "start_s": 55.13,
+        "end_s": 55.21,
+        "confidence": 1.0,
+        "params": {
+          "from_note": 9,
+          "to_note": 10,
+          "departure_rel_prev_end_ms": -69.6,
+          "arrival_rel_next_start_ms": 10.4,
+          "span_cents": -301.8,
+          "duration_ms": 80.0,
+          "direction": "down",
+          "trajectory_type": "concave",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 1.0,
+          "slope_profile": [
+            -1.027,
+            -1.704,
+            -1.482,
+            -0.291,
+            3.152,
+            4.544,
+            2.274,
+            1.451,
+            1.14
+          ],
+          "curv_profile": [
+            -5.418,
+            -1.819,
+            5.653,
+            18.534,
+            19.34,
+            -3.512,
+            -12.37,
+            -4.537,
+            -2.495
+          ],
+          "norm_traj": [
+            -0.0,
+            -0.128,
+            -0.426,
+            -0.499,
+            -0.499,
+            0.289,
+            0.637,
+            0.858,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "ornament",
+        "note_indices": [
+          0
+        ],
+        "start_s": 51.33,
+        "end_s": 51.42,
+        "confidence": 0.7,
+        "params": {
+          "excursions_c": [
+            -50.2,
+            231.2
+          ],
+          "extrema_rel_ms": [
+            0.0,
+            90.0
+          ],
+          "n_extrema": 2,
+          "alternations": 1,
+          "duration_ms": 90.0,
+          "returns_to_baseline": false
+        },
+        "evidence": {
+          "extractor": "fcpe",
+          "structure_review_required": true,
+          "blocker_lane": true
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          0
+        ],
+        "start_s": 51.43,
+        "end_s": 51.43,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          0,
+          1,
+          2
+        ],
+        "start_s": 52.25,
+        "end_s": 52.25,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          3,
+          4,
+          5
+        ],
+        "start_s": 53.05,
+        "end_s": 53.05,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          5,
+          6,
+          7
+        ],
+        "start_s": 53.53,
+        "end_s": 53.53,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          5,
+          6,
+          7
+        ],
+        "start_s": 53.96,
+        "end_s": 53.96,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "spike"
+          ],
+          "mean_conf": 0.88
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          8,
+          9,
+          10
+        ],
+        "start_s": 54.7,
+        "end_s": 54.7,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "spike"
+          ],
+          "mean_conf": 0.94
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          8,
+          9,
+          10
+        ],
+        "start_s": 54.81,
+        "end_s": 54.81,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          8,
+          9,
+          10
+        ],
+        "start_s": 55.43,
+        "end_s": 55.43,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "spike"
+          ],
+          "mean_conf": 0.92
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          10,
+          11
+        ],
+        "start_s": 56.73,
+        "end_s": 56.73,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "spike"
+          ],
+          "mean_conf": 0.95
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          0
+        ],
+        "start_s": 51.21,
+        "end_s": 51.32,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 5671.8,
+          "end_c": 5731.2,
+          "max_dev_c": 49.9,
+          "drift_c_per_s": 595.2
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          3
+        ],
+        "start_s": 52.62,
+        "end_s": 52.7,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6379.5,
+          "end_c": 6392.6,
+          "max_dev_c": 8.8,
+          "drift_c_per_s": 160.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          4
+        ],
+        "start_s": 52.81,
+        "end_s": 52.87,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6435.1,
+          "end_c": 6452.2,
+          "max_dev_c": 9.0,
+          "drift_c_per_s": 284.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          5
+        ],
+        "start_s": 52.98,
+        "end_s": 53.04,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6502.0,
+          "end_c": 6547.3,
+          "max_dev_c": 24.6,
+          "drift_c_per_s": 753.5
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          9
+        ],
+        "start_s": 55.03,
+        "end_s": 55.12,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6898.8,
+          "end_c": 6885.4,
+          "max_dev_c": 13.8,
+          "drift_c_per_s": -138.7
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          10
+        ],
+        "start_s": 55.25,
+        "end_s": 55.42,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6699.1,
+          "end_c": 6464.3,
+          "max_dev_c": 141.4,
+          "drift_c_per_s": -1416.4
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          11
+        ],
+        "start_s": 55.58,
+        "end_s": 56.66,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6628.1,
+          "end_c": 6543.0,
+          "max_dev_c": 74.6,
+          "drift_c_per_s": -60.9
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      }
+    ]
+  },
+  "after_closed_loop": {
+    "position": {
+      "valid_frames": 418,
+      "coverage": 0.878,
+      "n": 418,
+      "med_c": 4.7,
+      "p90_c": 23.8,
+      "p95_c": 76.9
+    },
+    "topology": {
+      "matched_turns": 45,
+      "missing_turns": 16,
+      "extra_turns": 2,
+      "source_turns": 61,
+      "render_turns": 47,
+      "turn_timing_err_ms_med": 0.0,
+      "turn_amplitude_err_c_med": 5.0,
+      "turn_prominence_err_c_med": 6.7,
+      "sequence_edit_distance": 14,
+      "missing_turn_details": [
+        {
+          "frame_idx": 36,
+          "kind": "peak",
+          "value_c": 6162.8,
+          "prominence_c": 395.3
+        },
+        {
+          "frame_idx": 39,
+          "kind": "trough",
+          "value_c": 5737.0,
+          "prominence_c": 45.6
+        },
+        {
+          "frame_idx": 72,
+          "kind": "peak",
+          "value_c": 5926.4,
+          "prominence_c": 15.8
+        },
+        {
+          "frame_idx": 123,
+          "kind": "peak",
+          "value_c": 6296.1,
+          "prominence_c": 35.7
+        },
+        {
+          "frame_idx": 164,
+          "kind": "trough",
+          "value_c": 6396.5,
+          "prominence_c": 17.4
+        },
+        {
+          "frame_idx": 188,
+          "kind": "trough",
+          "value_c": 6627.7,
+          "prominence_c": 144.6
+        },
+        {
+          "frame_idx": 190,
+          "kind": "peak",
+          "value_c": 6629.8,
+          "prominence_c": 110.8
+        },
+        {
+          "frame_idx": 237,
+          "kind": "peak",
+          "value_c": 5982.9,
+          "prominence_c": 237.0
+        },
+        {
+          "frame_idx": 240,
+          "kind": "trough",
+          "value_c": 5973.4,
+          "prominence_c": 250.8
+        },
+        {
+          "frame_idx": 244,
+          "kind": "peak",
+          "value_c": 6293.5,
+          "prominence_c": 66.6
+        },
+        {
+          "frame_idx": 360,
+          "kind": "trough",
+          "value_c": 5964.5,
+          "prominence_c": 682.3
+        },
+        {
+          "frame_idx": 362,
+          "kind": "peak",
+          "value_c": 5966.0,
+          "prominence_c": 682.6
+        },
+        {
+          "frame_idx": 364,
+          "kind": "trough",
+          "value_c": 5964.4,
+          "prominence_c": 685.2
+        },
+        {
+          "frame_idx": 369,
+          "kind": "peak",
+          "value_c": 6671.3,
+          "prominence_c": 18.7
+        },
+        {
+          "frame_idx": 426,
+          "kind": "peak",
+          "value_c": 6860.8,
+          "prominence_c": 238.7
+        },
+        {
+          "frame_idx": 430,
+          "kind": "peak",
+          "value_c": 6644.1,
+          "prominence_c": 22.9
+        }
+      ],
+      "extra_turn_details": [
+        {
+          "frame_idx": 174,
+          "kind": "trough",
+          "value_c": 6331.6,
+          "prominence_c": 80.0
+        },
+        {
+          "frame_idx": 218,
+          "kind": "trough",
+          "value_c": 5879.8,
+          "prominence_c": 16.1
+        }
+      ],
+      "valid_frames": 418,
+      "coverage": 0.878
+    },
+    "vibrato": [
+      {
+        "note": 11,
+        "state": "matched",
+        "delta_rate_hz": 0.15,
+        "delta_depth_c": -6.8,
+        "delta_period_cv": 0.012,
+        "delta_depth_cv": 0.006,
+        "delta_stable_cycle_count": 0.5,
+        "delta_phase_rad": 0.506,
+        "delta_start_ms": 20.0,
+        "delta_end_ms": 70.0
+      }
+    ],
+    "portamento": [
+      {
+        "from_note": 0,
+        "state": "matched",
+        "traj_match": true,
+        "delta_span_c": -7.1,
+        "delta_start_ms": -20.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 27.405,
+        "curv_profile_rmse": 850.483
+      },
+      {
+        "from_note": 1,
+        "state": "matched",
+        "traj_match": true,
+        "delta_span_c": 9.6,
+        "delta_start_ms": 40.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 3.174,
+        "curv_profile_rmse": 47.283
+      },
+      {
+        "from_note": 2,
+        "state": "matched",
+        "traj_match": false,
+        "delta_span_c": 41.3,
+        "delta_start_ms": 10.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 20.053,
+        "curv_profile_rmse": 588.286
+      },
+      {
+        "from_note": 4,
+        "state": "matched",
+        "traj_match": false,
+        "delta_span_c": 38.6,
+        "delta_start_ms": 30.0,
+        "delta_end_ms": 80.0,
+        "slope_profile_rmse": 2.408,
+        "curv_profile_rmse": 8.552
+      },
+      {
+        "from_note": 5,
+        "state": "missing"
+      },
+      {
+        "from_note": 6,
+        "state": "matched",
+        "traj_match": true,
+        "delta_span_c": 0.2,
+        "delta_start_ms": 0.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 10.801,
+        "curv_profile_rmse": 374.655
+      },
+      {
+        "from_note": 8,
+        "state": "matched",
+        "traj_match": true,
+        "delta_span_c": 36.1,
+        "delta_start_ms": 100.0,
+        "delta_end_ms": 10.0,
+        "slope_profile_rmse": 8.01,
+        "curv_profile_rmse": 279.951
+      },
+      {
+        "from_note": 9,
+        "state": "matched",
+        "traj_match": false,
+        "delta_span_c": 52.3,
+        "delta_start_ms": 30.0,
+        "delta_end_ms": 0.0,
+        "slope_profile_rmse": 1.632,
+        "curv_profile_rmse": 8.019
+      }
+    ],
+    "render_events": [
+      {
+        "type": "vibrato",
+        "note_indices": [
+          11
+        ],
+        "start_s": 55.56,
+        "end_s": 56.63,
+        "confidence": 0.93,
+        "params": {
+          "rate_hz": 7.07,
+          "fft_bin_hz": 6.78,
+          "depth_c": 57.1,
+          "phase_rad": -1.27,
+          "phase_origin_s": 55.6,
+          "periods_ms": [
+            140.0,
+            140.0,
+            140.0,
+            140.0,
+            140.0,
+            130.0,
+            160.0
+          ],
+          "depth_envelope_c": [
+            63.0,
+            65.6,
+            66.3,
+            61.1,
+            38.1,
+            44.9,
+            60.8
+          ],
+          "evidence_cycle_count": 7.0,
+          "stable_cycle_count": 7.0,
+          "boundary_method": "extremum_zero_return",
+          "boundary_start_reason": "quarter_period",
+          "boundary_end_reason": "quarter_period",
+          "period_cv": 0.059,
+          "depth_cv": 0.179,
+          "drift_c_per_s": -1.7,
+          "mod_snr": 13.37,
+          "voiced_coverage": 1.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "undershoot",
+        "note_indices": [
+          1
+        ],
+        "start_s": 51.56,
+        "end_s": 51.93,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 51.571,
+          "depth_c": 168.1,
+          "peak_time_ms": 89.2,
+          "settle_time_ms": null,
+          "baseline_c": 5901.1,
+          "direction": "down-up",
+          "monotonicity": 0.74,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "scoop",
+        "note_indices": [
+          2
+        ],
+        "start_s": 51.87,
+        "end_s": 52.34,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 51.943,
+          "depth_c": 301.6,
+          "peak_time_ms": -42.4,
+          "settle_time_ms": null,
+          "baseline_c": 6164.9,
+          "direction": "down-up",
+          "monotonicity": 0.66,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "scoop",
+        "note_indices": [
+          3
+        ],
+        "start_s": 52.39,
+        "end_s": 52.61,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 52.394,
+          "depth_c": 211.6,
+          "peak_time_ms": 26.6,
+          "settle_time_ms": 216.6,
+          "baseline_c": 6397.2,
+          "direction": "down-up",
+          "monotonicity": 0.88,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "overshoot",
+        "note_indices": [
+          6
+        ],
+        "start_s": 53.23,
+        "end_s": 53.45,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 53.254,
+          "depth_c": 103.7,
+          "peak_time_ms": -23.9,
+          "settle_time_ms": 196.1,
+          "baseline_c": 5852.6,
+          "direction": "up-down",
+          "monotonicity": 0.73,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "scoop",
+        "note_indices": [
+          7
+        ],
+        "start_s": 53.53,
+        "end_s": 53.96,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 53.604,
+          "depth_c": 1234.5,
+          "peak_time_ms": -73.1,
+          "settle_time_ms": null,
+          "baseline_c": 6393.3,
+          "direction": "down-up",
+          "monotonicity": 0.67,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "overshoot",
+        "note_indices": [
+          8
+        ],
+        "start_s": 54.33,
+        "end_s": 54.73,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 54.337,
+          "depth_c": 403.9,
+          "peak_time_ms": -6.9,
+          "settle_time_ms": null,
+          "baseline_c": 5824.4,
+          "direction": "up-down",
+          "monotonicity": 0.8,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "undershoot",
+        "note_indices": [
+          9
+        ],
+        "start_s": 54.83,
+        "end_s": 55.02,
+        "confidence": 1.0,
+        "params": {
+          "anchor_nucleus_s": 54.855,
+          "depth_c": 267.7,
+          "peak_time_ms": 65.3,
+          "settle_time_ms": 165.3,
+          "baseline_c": 6916.7,
+          "direction": "down-up",
+          "monotonicity": 0.78,
+          "shape": "irregular"
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          0,
+          1
+        ],
+        "start_s": 51.34,
+        "end_s": 51.78,
+        "confidence": 0.844,
+        "params": {
+          "from_note": 0,
+          "to_note": 1,
+          "departure_rel_prev_end_ms": -239.8,
+          "arrival_rel_next_start_ms": 200.2,
+          "span_cents": 239.3,
+          "duration_ms": 440.0,
+          "direction": "up",
+          "trajectory_type": "irregular",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 0.71,
+          "slope_profile": [
+            -1.167,
+            -1.034,
+            -1.025,
+            -1.21,
+            -1.025,
+            -0.389,
+            0.108,
+            0.108,
+            -62.476,
+            -57.246,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            10.46,
+            5.545,
+            0.526,
+            0.278,
+            0.066,
+            -0.438,
+            -1.078,
+            -1.421,
+            -1.623,
+            -1.577,
+            -0.733,
+            0.513,
+            2.295,
+            4.897,
+            7.315,
+            8.33,
+            7.78,
+            5.805,
+            2.155,
+            -0.009,
+            -1.339,
+            -2.911,
+            -3.162
+          ],
+          "curv_profile": [
+            5.858,
+            3.109,
+            -3.887,
+            0.02,
+            18.059,
+            24.917,
+            10.945,
+            -1376.843,
+            -1261.782,
+            1604.587,
+            1489.526,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            -108.141,
+            -218.552,
+            -115.871,
+            -10.109,
+            -15.739,
+            -25.184,
+            -21.622,
+            -11.99,
+            -3.441,
+            19.579,
+            45.974,
+            66.622,
+            96.449,
+            110.445,
+            75.53,
+            10.22,
+            -55.559,
+            -123.746,
+            -127.909,
+            -76.873,
+            -63.83,
+            -40.086,
+            -11.033
+          ],
+          "norm_traj": [
+            0.0,
+            -0.027,
+            -0.047,
+            -0.073,
+            -0.102,
+            -0.12,
+            -0.12,
+            -0.115,
+            -0.115,
+            -2.955,
+            -2.717,
+            -2.479,
+            -2.241,
+            -2.004,
+            -1.766,
+            -1.528,
+            -1.291,
+            -1.053,
+            -0.815,
+            -0.577,
+            -0.34,
+            -0.102,
+            0.136,
+            0.374,
+            0.388,
+            0.397,
+            0.401,
+            0.401,
+            0.381,
+            0.351,
+            0.316,
+            0.278,
+            0.244,
+            0.244,
+            0.268,
+            0.349,
+            0.49,
+            0.681,
+            0.869,
+            1.035,
+            1.133,
+            1.133,
+            1.132,
+            1.072,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          1,
+          2
+        ],
+        "start_s": 51.86,
+        "end_s": 52.15,
+        "confidence": 0.991,
+        "params": {
+          "from_note": 1,
+          "to_note": 2,
+          "departure_rel_prev_end_ms": -79.2,
+          "arrival_rel_next_start_ms": 210.8,
+          "span_cents": 286.2,
+          "duration_ms": 290.0,
+          "direction": "up",
+          "trajectory_type": "irregular",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 1.0,
+          "slope_profile": [
+            1.743,
+            0.871,
+            -1.669,
+            -3.814,
+            -2.145,
+            3.052,
+            7.27,
+            8.402,
+            8.835,
+            7.235,
+            3.438,
+            0.878,
+            0.024,
+            -0.718,
+            -2.054,
+            -2.974,
+            -3.302,
+            -2.788,
+            -1.124,
+            0.686,
+            2.413,
+            3.485,
+            3.45,
+            2.826,
+            1.687,
+            0.552,
+            -0.447,
+            -1.591,
+            -2.747,
+            -3.206
+          ],
+          "curv_profile": [
+            -25.271,
+            -49.475,
+            -67.943,
+            -6.898,
+            99.568,
+            136.517,
+            77.564,
+            22.693,
+            -16.916,
+            -78.251,
+            -92.181,
+            -49.515,
+            -23.133,
+            -30.121,
+            -32.71,
+            -18.092,
+            2.683,
+            31.569,
+            50.382,
+            51.291,
+            40.589,
+            15.035,
+            -9.555,
+            -25.563,
+            -32.983,
+            -30.935,
+            -31.069,
+            -33.364,
+            -23.419,
+            -13.3
+          ],
+          "norm_traj": [
+            0.0,
+            0.06,
+            0.06,
+            -0.055,
+            -0.203,
+            -0.203,
+            0.008,
+            0.298,
+            0.587,
+            0.908,
+            1.086,
+            1.145,
+            1.146,
+            1.146,
+            1.097,
+            1.005,
+            0.892,
+            0.777,
+            0.7,
+            0.7,
+            0.747,
+            0.866,
+            0.987,
+            1.104,
+            1.182,
+            1.22,
+            1.22,
+            1.189,
+            1.111,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          2,
+          3
+        ],
+        "start_s": 52.21,
+        "end_s": 52.56,
+        "confidence": 0.761,
+        "params": {
+          "from_note": 2,
+          "to_note": 3,
+          "departure_rel_prev_end_ms": -179.2,
+          "arrival_rel_next_start_ms": 170.8,
+          "span_cents": 175.0,
+          "duration_ms": 350.0,
+          "direction": "up",
+          "trajectory_type": "s_curve",
+          "boundary_ms": -0.0,
+          "voiced_coverage": 0.61,
+          "slope_profile": [
+            -10.059,
+            -8.266,
+            -3.4,
+            -69.835,
+            -64.634,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            10.077,
+            4.789,
+            -0.428,
+            -0.179,
+            0.106,
+            0.691,
+            1.346,
+            1.414,
+            1.277,
+            1.251,
+            1.257,
+            1.567,
+            2.849,
+            4.82,
+            6.479,
+            7.398,
+            7.142,
+            6.629
+          ],
+          "curv_profile": [
+            62.738,
+            116.527,
+            -1077.45,
+            -1071.582,
+            1398.454,
+            1307.427,
+            -0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            0.0,
+            -92.54,
+            -183.836,
+            -86.925,
+            9.35,
+            15.214,
+            21.694,
+            12.661,
+            -1.209,
+            -2.854,
+            -0.348,
+            5.524,
+            27.874,
+            56.932,
+            63.514,
+            45.109,
+            11.612,
+            -13.451,
+            -17.962
+          ],
+          "norm_traj": [
+            0.0,
+            -0.287,
+            -0.472,
+            -0.482,
+            -4.463,
+            -4.175,
+            -3.887,
+            -3.599,
+            -3.311,
+            -3.023,
+            -2.736,
+            -2.448,
+            -2.16,
+            -1.872,
+            -1.584,
+            -1.296,
+            -1.008,
+            -0.72,
+            -0.432,
+            -0.144,
+            -0.159,
+            -0.169,
+            -0.169,
+            -0.163,
+            -0.129,
+            -0.086,
+            -0.049,
+            -0.013,
+            0.023,
+            0.059,
+            0.112,
+            0.222,
+            0.388,
+            0.592,
+            0.811,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          4,
+          5
+        ],
+        "start_s": 52.88,
+        "end_s": 52.95,
+        "confidence": 0.908,
+        "params": {
+          "from_note": 4,
+          "to_note": 5,
+          "departure_rel_prev_end_ms": -49.8,
+          "arrival_rel_next_start_ms": 20.2,
+          "span_cents": 161.7,
+          "duration_ms": 70.0,
+          "direction": "up",
+          "trajectory_type": "concave",
+          "boundary_ms": -0.0,
+          "voiced_coverage": 1.0,
+          "slope_profile": [
+            -3.38,
+            -1.69,
+            0.593,
+            2.62,
+            2.858,
+            1.765,
+            1.739,
+            1.609
+          ],
+          "curv_profile": [
+            11.83,
+            13.904,
+            15.085,
+            7.93,
+            -2.991,
+            -3.917,
+            -0.547,
+            -0.909
+          ],
+          "norm_traj": [
+            0.0,
+            -0.483,
+            -0.483,
+            -0.314,
+            0.266,
+            0.503,
+            0.77,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          6,
+          7
+        ],
+        "start_s": 53.37,
+        "end_s": 53.88,
+        "confidence": 0.946,
+        "params": {
+          "from_note": 6,
+          "to_note": 7,
+          "departure_rel_prev_end_ms": -240.0,
+          "arrival_rel_next_start_ms": 270.0,
+          "span_cents": 459.6,
+          "duration_ms": 510.0,
+          "direction": "up",
+          "trajectory_type": "irregular",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 0.87,
+          "slope_profile": [
+            2.241,
+            2.187,
+            1.885,
+            0.819,
+            -0.51,
+            -2.542,
+            -5.085,
+            -4.272,
+            -1.219,
+            0.114,
+            0.524,
+            0.595,
+            0.185,
+            -0.45,
+            -0.753,
+            -38.64,
+            -30.795,
+            15.084,
+            15.084,
+            15.084,
+            15.084,
+            15.084,
+            15.084,
+            15.084,
+            7.238,
+            -1.12,
+            -1.258,
+            -0.442,
+            0.285,
+            0.501,
+            0.216,
+            -0.047,
+            -0.256,
+            -0.351,
+            -0.142,
+            0.305,
+            1.052,
+            2.339,
+            4.013,
+            4.74,
+            4.622,
+            4.217,
+            2.728,
+            0.814,
+            -0.899,
+            -2.794,
+            -4.022,
+            -2.591,
+            -0.464,
+            0.636,
+            1.783,
+            2.295
+          ],
+          "curv_profile": [
+            -2.778,
+            -9.088,
+            -34.884,
+            -61.069,
+            -85.693,
+            -116.657,
+            -44.122,
+            98.586,
+            111.86,
+            44.447,
+            12.254,
+            -8.639,
+            -26.637,
+            -23.927,
+            -973.859,
+            -766.066,
+            1369.962,
+            1169.906,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            -200.08,
+            -413.21,
+            -216.65,
+            17.291,
+            39.354,
+            24.057,
+            -1.749,
+            -13.978,
+            -12.045,
+            -7.74,
+            2.92,
+            16.713,
+            30.445,
+            51.877,
+            75.486,
+            61.217,
+            15.532,
+            -13.336,
+            -48.283,
+            -86.767,
+            -92.5,
+            -92.013,
+            -79.623,
+            5.181,
+            90.717,
+            82.286,
+            57.314,
+            42.305,
+            26.088
+          ],
+          "norm_traj": [
+            0.0,
+            0.044,
+            0.086,
+            0.118,
+            0.118,
+            0.098,
+            0.018,
+            -0.102,
+            -0.149,
+            -0.149,
+            -0.145,
+            -0.129,
+            -0.122,
+            -0.122,
+            -0.139,
+            -0.151,
+            -1.654,
+            -1.359,
+            -1.063,
+            -0.767,
+            -0.471,
+            -0.176,
+            0.12,
+            0.416,
+            0.712,
+            0.7,
+            0.668,
+            0.65,
+            0.65,
+            0.661,
+            0.67,
+            0.67,
+            0.668,
+            0.66,
+            0.654,
+            0.654,
+            0.666,
+            0.696,
+            0.758,
+            0.853,
+            0.944,
+            1.034,
+            1.109,
+            1.141,
+            1.141,
+            1.106,
+            1.032,
+            0.948,
+            0.93,
+            0.93,
+            0.955,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          8,
+          9
+        ],
+        "start_s": 54.55,
+        "end_s": 55.01,
+        "confidence": 0.881,
+        "params": {
+          "from_note": 8,
+          "to_note": 9,
+          "departure_rel_prev_end_ms": -299.6,
+          "arrival_rel_next_start_ms": 160.4,
+          "span_cents": 661.3,
+          "duration_ms": 460.0,
+          "direction": "up",
+          "trajectory_type": "stepped",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 0.7,
+          "slope_profile": [
+            -6.348,
+            -9.24,
+            -10.518,
+            -6.109,
+            -1.846,
+            -0.19,
+            0.411,
+            1.038,
+            1.348,
+            1.299,
+            0.631,
+            0.052,
+            -0.239,
+            -24.319,
+            -20.48,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            7.201,
+            3.463,
+            -0.36,
+            -0.449,
+            -0.339,
+            -0.21,
+            -0.287,
+            -0.35,
+            -0.259,
+            -0.099,
+            0.107,
+            0.438,
+            0.994,
+            1.701,
+            2.321,
+            2.735,
+            2.878,
+            2.835,
+            2.819
+          ],
+          "curv_profile": [
+            -133.049,
+            -95.927,
+            72.013,
+            199.455,
+            136.146,
+            51.91,
+            28.244,
+            21.55,
+            5.984,
+            -16.492,
+            -28.682,
+            -20.002,
+            -560.53,
+            -465.537,
+            724.954,
+            636.649,
+            0.0,
+            0.0,
+            -0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            -85.959,
+            -173.891,
+            -89.982,
+            0.474,
+            5.505,
+            1.208,
+            -3.225,
+            0.641,
+            5.766,
+            8.405,
+            12.358,
+            20.416,
+            29.041,
+            30.514,
+            23.796,
+            12.815,
+            2.296,
+            -1.352,
+            -0.731
+          ],
+          "norm_traj": [
+            0.0,
+            -0.138,
+            -0.402,
+            -0.595,
+            -0.667,
+            -0.676,
+            -0.676,
+            -0.658,
+            -0.63,
+            -0.599,
+            -0.574,
+            -0.572,
+            -0.572,
+            -0.582,
+            -1.629,
+            -1.473,
+            -1.316,
+            -1.159,
+            -1.003,
+            -0.846,
+            -0.69,
+            -0.533,
+            -0.377,
+            -0.22,
+            -0.064,
+            0.093,
+            0.249,
+            0.406,
+            0.562,
+            0.719,
+            0.713,
+            0.703,
+            0.693,
+            0.689,
+            0.684,
+            0.676,
+            0.669,
+            0.665,
+            0.665,
+            0.669,
+            0.684,
+            0.713,
+            0.758,
+            0.814,
+            0.877,
+            0.939,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "portamento",
+        "note_indices": [
+          9,
+          10
+        ],
+        "start_s": 55.13,
+        "end_s": 55.21,
+        "confidence": 1.0,
+        "params": {
+          "from_note": 9,
+          "to_note": 10,
+          "departure_rel_prev_end_ms": -69.6,
+          "arrival_rel_next_start_ms": 10.4,
+          "span_cents": -305.1,
+          "duration_ms": 80.0,
+          "direction": "down",
+          "trajectory_type": "concave",
+          "boundary_ms": 0.0,
+          "voiced_coverage": 1.0,
+          "slope_profile": [
+            -1.045,
+            -1.374,
+            -1.228,
+            -0.377,
+            2.155,
+            4.21,
+            2.929,
+            1.541,
+            1.334
+          ],
+          "curv_profile": [
+            -2.628,
+            -0.73,
+            3.989,
+            13.531,
+            18.347,
+            3.098,
+            -10.676,
+            -6.381,
+            -1.656
+          ],
+          "norm_traj": [
+            -0.0,
+            -0.131,
+            -0.343,
+            -0.438,
+            -0.438,
+            0.101,
+            0.615,
+            0.833,
+            1.0
+          ]
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "ornament",
+        "note_indices": [
+          0
+        ],
+        "start_s": 51.33,
+        "end_s": 51.42,
+        "confidence": 0.7,
+        "params": {
+          "excursions_c": [
+            -50.2,
+            231.2
+          ],
+          "extrema_rel_ms": [
+            0.0,
+            90.0
+          ],
+          "n_extrema": 2,
+          "alternations": 1,
+          "duration_ms": 90.0,
+          "returns_to_baseline": false
+        },
+        "evidence": {
+          "extractor": "fcpe",
+          "structure_review_required": true,
+          "blocker_lane": true
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          0
+        ],
+        "start_s": 51.43,
+        "end_s": 51.43,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          0,
+          1,
+          2
+        ],
+        "start_s": 52.25,
+        "end_s": 52.25,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          3,
+          4,
+          5
+        ],
+        "start_s": 53.05,
+        "end_s": 53.05,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          5,
+          6,
+          7
+        ],
+        "start_s": 53.53,
+        "end_s": 53.53,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          5,
+          6,
+          7
+        ],
+        "start_s": 53.96,
+        "end_s": 53.96,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "spike"
+          ],
+          "mean_conf": 0.88
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          8
+        ],
+        "start_s": 54.69,
+        "end_s": 54.69,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "extractor_disagreement",
+            "spike"
+          ],
+          "mean_conf": 0.0
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          8,
+          9,
+          10
+        ],
+        "start_s": 55.43,
+        "end_s": 55.43,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "spike"
+          ],
+          "mean_conf": 0.92
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "artifact",
+        "note_indices": [
+          10,
+          11
+        ],
+        "start_s": 56.73,
+        "end_s": 56.73,
+        "confidence": 0.45,
+        "params": {
+          "n_frames": 1,
+          "artifact_kinds": [
+            "spike"
+          ],
+          "mean_conf": 0.96
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          0
+        ],
+        "start_s": 51.21,
+        "end_s": 51.32,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 5671.8,
+          "end_c": 5731.3,
+          "max_dev_c": 49.9,
+          "drift_c_per_s": 595.1
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          3
+        ],
+        "start_s": 52.62,
+        "end_s": 52.7,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6379.5,
+          "end_c": 6392.6,
+          "max_dev_c": 8.8,
+          "drift_c_per_s": 160.1
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          4
+        ],
+        "start_s": 52.81,
+        "end_s": 52.87,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6435.1,
+          "end_c": 6452.2,
+          "max_dev_c": 9.0,
+          "drift_c_per_s": 284.2
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          5
+        ],
+        "start_s": 52.98,
+        "end_s": 53.04,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6502.0,
+          "end_c": 6547.3,
+          "max_dev_c": 24.6,
+          "drift_c_per_s": 753.4
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          9
+        ],
+        "start_s": 55.03,
+        "end_s": 55.12,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6865.7,
+          "end_c": 6841.7,
+          "max_dev_c": 22.3,
+          "drift_c_per_s": -272.6
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      },
+      {
+        "type": "stable",
+        "note_indices": [
+          10
+        ],
+        "start_s": 55.25,
+        "end_s": 55.42,
+        "confidence": 1.0,
+        "params": {
+          "start_c": 6726.5,
+          "end_c": 6424.1,
+          "max_dev_c": 162.2,
+          "drift_c_per_s": -1790.9
+        },
+        "evidence": {
+          "extractor": "fcpe"
+        }
+      }
+    ]
+  }
+}

@@ -3,41 +3,41 @@
     "from_note": 0,
     "state": "matched",
     "traj_match": true,
-    "delta_span_c": -9.3,
+    "delta_span_c": -7.1,
     "delta_start_ms": -20.0,
     "delta_end_ms": 0.0,
-    "slope_profile_rmse": 27.384,
-    "curv_profile_rmse": 843.343
+    "slope_profile_rmse": 27.405,
+    "curv_profile_rmse": 850.483
   },
   {
     "from_note": 1,
     "state": "matched",
     "traj_match": true,
-    "delta_span_c": 11.1,
+    "delta_span_c": 9.6,
     "delta_start_ms": 40.0,
     "delta_end_ms": 0.0,
-    "slope_profile_rmse": 3.245,
-    "curv_profile_rmse": 48.989
+    "slope_profile_rmse": 3.174,
+    "curv_profile_rmse": 47.283
   },
   {
     "from_note": 2,
     "state": "matched",
-    "traj_match": true,
-    "delta_span_c": 46.8,
+    "traj_match": false,
+    "delta_span_c": 41.3,
     "delta_start_ms": 10.0,
     "delta_end_ms": 0.0,
-    "slope_profile_rmse": 19.81,
-    "curv_profile_rmse": 580.622
+    "slope_profile_rmse": 20.053,
+    "curv_profile_rmse": 588.286
   },
   {
     "from_note": 4,
     "state": "matched",
     "traj_match": false,
-    "delta_span_c": 29.8,
+    "delta_span_c": 38.6,
     "delta_start_ms": 30.0,
     "delta_end_ms": 80.0,
-    "slope_profile_rmse": 2.444,
-    "curv_profile_rmse": 8.83
+    "slope_profile_rmse": 2.408,
+    "curv_profile_rmse": 8.552
   },
   {
     "from_note": 5,
@@ -47,30 +47,30 @@
     "from_note": 6,
     "state": "matched",
     "traj_match": true,
-    "delta_span_c": -4.2,
+    "delta_span_c": 0.2,
     "delta_start_ms": 0.0,
     "delta_end_ms": 0.0,
-    "slope_profile_rmse": 10.668,
-    "curv_profile_rmse": 367.822
+    "slope_profile_rmse": 10.801,
+    "curv_profile_rmse": 374.655
   },
   {
     "from_note": 8,
     "state": "matched",
     "traj_match": true,
-    "delta_span_c": 30.1,
+    "delta_span_c": 36.1,
     "delta_start_ms": 100.0,
     "delta_end_ms": 10.0,
-    "slope_profile_rmse": 7.798,
-    "curv_profile_rmse": 271.657
+    "slope_profile_rmse": 8.01,
+    "curv_profile_rmse": 279.951
   },
   {
     "from_note": 9,
     "state": "matched",
     "traj_match": false,
-    "delta_span_c": 67.7,
+    "delta_span_c": 52.3,
     "delta_start_ms": 30.0,
     "delta_end_ms": 0.0,
-    "slope_profile_rmse": 1.796,
-    "curv_profile_rmse": 9.538
+    "slope_profile_rmse": 1.632,
+    "curv_profile_rmse": 8.019
   }
 ]

@@ -1,13 +1,101 @@
 {
-  "matched_turns": 34,
-  "missing_turns": 12,
+  "matched_turns": 36,
+  "missing_turns": 10,
   "extra_turns": 4,
   "source_turns": 46,
-  "render_turns": 38,
+  "render_turns": 40,
   "turn_timing_err_ms_med": 0.0,
-  "turn_amplitude_err_c_med": 3.5,
-  "turn_prominence_err_c_med": 15.3,
-  "sequence_edit_distance": 9,
-  "valid_frames": 414,
-  "coverage": 0.908
+  "turn_amplitude_err_c_med": 4.9,
+  "turn_prominence_err_c_med": 10.4,
+  "sequence_edit_distance": 7,
+  "missing_turn_details": [
+    {
+      "frame_idx": 63,
+      "kind": "peak",
+      "value_c": 5906.6,
+      "prominence_c": 49.3
+    },
+    {
+      "frame_idx": 69,
+      "kind": "trough",
+      "value_c": 5829.0,
+      "prominence_c": 69.6
+    },
+    {
+      "frame_idx": 100,
+      "kind": "trough",
+      "value_c": 6120.4,
+      "prominence_c": 83.1
+    },
+    {
+      "frame_idx": 116,
+      "kind": "peak",
+      "value_c": 6290.7,
+      "prominence_c": 82.2
+    },
+    {
+      "frame_idx": 246,
+      "kind": "peak",
+      "value_c": 6183.4,
+      "prominence_c": 127.8
+    },
+    {
+      "frame_idx": 325,
+      "kind": "peak",
+      "value_c": 6236.3,
+      "prominence_c": 25.7
+    },
+    {
+      "frame_idx": 408,
+      "kind": "trough",
+      "value_c": 6609.5,
+      "prominence_c": 270.7
+    },
+    {
+      "frame_idx": 412,
+      "kind": "peak",
+      "value_c": 6612.3,
+      "prominence_c": 297.8
+    },
+    {
+      "frame_idx": 441,
+      "kind": "peak",
+      "value_c": 6642.5,
+      "prominence_c": 32.6
+    },
+    {
+      "frame_idx": 552,
+      "kind": "trough",
+      "value_c": 6554.3,
+      "prominence_c": 67.1
+    }
+  ],
+  "extra_turn_details": [
+    {
+      "frame_idx": 40,
+      "kind": "peak",
+      "value_c": 5748.4,
+      "prominence_c": 15.9
+    },
+    {
+      "frame_idx": 44,
+      "kind": "trough",
+      "value_c": 5730.0,
+      "prominence_c": 15.3
+    },
+    {
+      "frame_idx": 339,
+      "kind": "trough",
+      "value_c": 6080.8,
+      "prominence_c": 136.1
+    },
+    {
+      "frame_idx": 536,
+      "kind": "trough",
+      "value_c": 6586.3,
+      "prominence_c": 33.3
+    }
+  ],
+  "valid_frames": 417,
+  "coverage": 0.914
 }

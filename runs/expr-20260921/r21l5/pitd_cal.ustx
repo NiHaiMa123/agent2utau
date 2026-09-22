@@ -1,0 +1,579 @@
+name: nianlun_pipeline_styleB
+comment: migrated from 雨爱-有参by白烁.ustx track 0 ticks 21120-28440
+output_dir: Vocal
+cache_dir: UCache
+ustx_version: '0.9'
+bpm: 120.0
+beat_per_bar: 4
+beat_unit: 4
+expressions:
+  dyn:
+    name: dynamics (curve)
+    abbr: dyn
+    type: Curve
+    min: -240
+    max: 120
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  pitd:
+    name: pitch deviation (curve)
+    abbr: pitd
+    type: Curve
+    min: -1200
+    max: 1200
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  clr:
+    name: voice color
+    abbr: clr
+    type: Options
+    min: 0
+    max: 4
+    default_value: 0
+    is_flag: false
+    options:
+    - Yousa_Bright
+    - Yousa_Classic
+    - Yousa_Cute
+    - Yousa_Normal
+    - Yousa_Whisper
+    skip_output_if_default: false
+  eng:
+    name: resampler engine
+    abbr: eng
+    type: Options
+    min: 0
+    max: 1
+    default_value: 0
+    is_flag: false
+    options:
+    - ''
+    - worldline
+    skip_output_if_default: false
+  vel:
+    name: velocity
+    abbr: vel
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  vol:
+    name: volume
+    abbr: vol
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  atk:
+    name: attack
+    abbr: atk
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  dec:
+    name: decay
+    abbr: dec
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  gen:
+    name: gender
+    abbr: gen
+    type: Numerical
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: g
+    skip_output_if_default: false
+  genc:
+    name: gender (curve)
+    abbr: genc
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  bre:
+    name: breath
+    abbr: bre
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: B
+    skip_output_if_default: false
+  brec:
+    name: breathiness (curve)
+    abbr: brec
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  lpf:
+    name: lowpass
+    abbr: lpf
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: H
+    skip_output_if_default: false
+  norm:
+    name: normalize
+    abbr: norm
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 86
+    is_flag: true
+    flag: P
+    skip_output_if_default: false
+  mod:
+    name: modulation
+    abbr: mod
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  mod+:
+    name: modulation plus
+    abbr: mod+
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  alt:
+    name: alternate
+    abbr: alt
+    type: Numerical
+    min: 0
+    max: 16
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  dir:
+    name: direct
+    abbr: dir
+    type: Options
+    min: 0
+    max: 1
+    default_value: 0
+    is_flag: false
+    options:
+    - 'false'
+    - 'true'
+    skip_output_if_default: false
+  shft:
+    name: tone shift
+    abbr: shft
+    type: Numerical
+    min: -36
+    max: 36
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  shfc:
+    name: tone shift (curve)
+    abbr: shfc
+    type: Curve
+    min: -1200
+    max: 1200
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  tenc:
+    name: tension (curve)
+    abbr: tenc
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  voic:
+    name: voicing (curve)
+    abbr: voic
+    type: Curve
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  ope:
+    name: opening
+    abbr: ope
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  velc:
+    name: velocity (curve)
+    abbr: velc
+    type: Curve
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  ene:
+    name: energy (curve)
+    abbr: ene
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  pexp:
+    name: pitch expressiveness (curve)
+    abbr: pexp
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl01:
+    name: voice color Yousa_Bright
+    abbr: cl01
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl02:
+    name: voice color Yousa_Cute
+    abbr: cl02
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl03:
+    name: voice color Yousa_Normal
+    abbr: cl03
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl04:
+    name: voice color Yousa_Whisper
+    abbr: cl04
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl05:
+    name: voice color Yousa_Classic
+    abbr: cl05
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  clry:
+    name: voice color y
+    abbr: clry
+    type: Options
+    min: 0
+    max: -1
+    default_value: 0
+    is_flag: false
+    options: []
+    skip_output_if_default: false
+  xsy:
+    name: cross synthesis (curve)
+    abbr: xsy
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+exp_selectors:
+- dyn
+- pitd
+- clr
+- tenc
+- voic
+- brec
+- shfc
+- dec
+- cl02
+- cl05
+exp_primary: 3
+exp_secondary: 5
+key: 0
+time_signatures:
+- bar_position: 0
+  beat_per_bar: 4
+  beat_unit: 4
+tempos:
+- position: 0
+  bpm: 120.0
+tracks:
+- singer: YousaV1.65b
+  phonemizer: OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer
+  renderer_settings:
+    renderer: DIFFSINGER
+  track_name: vocal
+  track_color: Blue
+  mute: false
+  solo: false
+  volume: 0
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - Yousa_Bright
+  - Yousa_Classic
+  - Yousa_Cute
+  - Yousa_Normal
+  - Yousa_Whisper
+- singer: ''
+  phonemizer: ''
+  renderer_settings:
+    renderer: DIFFSINGER
+  track_name: source vocal (original)
+  track_color: Orange
+  mute: false
+  solo: false
+  volume: 0
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - Yousa_Bright
+  - Yousa_Classic
+  - Yousa_Cute
+  - Yousa_Normal
+  - Yousa_Whisper
+voice_parts:
+- duration: 222653
+  name: PITD_CAL
+  comment: ''
+  track_no: 0
+  position: 0
+  notes:
+  - position: 0
+    duration: 1085
+    tone: 66
+    lyric: 根
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 150
+      depth: 0
+      in: 0
+      out: 0
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 19
+    - 38
+    - 58
+    - 77
+    - 96
+    - 115
+    - 134
+    - 154
+    - 173
+    - 192
+    - 211
+    - 230
+    - 250
+    - 269
+    - 288
+    - 307
+    - 326
+    - 346
+    - 365
+    - 384
+    - 403
+    - 422
+    - 442
+    - 461
+    - 480
+    - 499
+    - 518
+    - 538
+    - 557
+    - 576
+    - 595
+    - 614
+    - 634
+    - 653
+    - 672
+    - 691
+    - 710
+    - 730
+    - 749
+    - 768
+    - 787
+    - 806
+    - 826
+    - 845
+    - 864
+    - 883
+    - 902
+    - 922
+    - 941
+    - 960
+    - 979
+    - 998
+    - 1018
+    - 1037
+    - 1056
+    - 1075
+    ys:
+    - 0
+    - 22
+    - 30
+    - 20
+    - -2
+    - -23
+    - -30
+    - -18
+    - 5
+    - 24
+    - 29
+    - 16
+    - -7
+    - -26
+    - -29
+    - -14
+    - 9
+    - 27
+    - 28
+    - 12
+    - -11
+    - -28
+    - -27
+    - -10
+    - 13
+    - 29
+    - 26
+    - 8
+    - -15
+    - -29
+    - -25
+    - -6
+    - 17
+    - 30
+    - 24
+    - 4
+    - -19
+    - -30
+    - -23
+    - -2
+    - 21
+    - 30
+    - 21
+    - -1
+    - -22
+    - -30
+    - -19
+    - 3
+    - 24
+    - 30
+    - 18
+    - -5
+    - -25
+    - -29
+    - -16
+    - 7
+    - 26
+wave_parts: []

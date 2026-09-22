@@ -1,13 +1,125 @@
 {
-  "matched_turns": 43,
-  "missing_turns": 18,
+  "matched_turns": 45,
+  "missing_turns": 16,
   "extra_turns": 2,
   "source_turns": 61,
-  "render_turns": 45,
+  "render_turns": 47,
   "turn_timing_err_ms_med": 0.0,
-  "turn_amplitude_err_c_med": 4.4,
-  "turn_prominence_err_c_med": 6.9,
-  "sequence_edit_distance": 16,
-  "valid_frames": 421,
-  "coverage": 0.884
+  "turn_amplitude_err_c_med": 5.0,
+  "turn_prominence_err_c_med": 6.7,
+  "sequence_edit_distance": 14,
+  "missing_turn_details": [
+    {
+      "frame_idx": 36,
+      "kind": "peak",
+      "value_c": 6162.8,
+      "prominence_c": 395.3
+    },
+    {
+      "frame_idx": 39,
+      "kind": "trough",
+      "value_c": 5737.0,
+      "prominence_c": 45.6
+    },
+    {
+      "frame_idx": 72,
+      "kind": "peak",
+      "value_c": 5926.4,
+      "prominence_c": 15.8
+    },
+    {
+      "frame_idx": 123,
+      "kind": "peak",
+      "value_c": 6296.1,
+      "prominence_c": 35.7
+    },
+    {
+      "frame_idx": 164,
+      "kind": "trough",
+      "value_c": 6396.5,
+      "prominence_c": 17.4
+    },
+    {
+      "frame_idx": 188,
+      "kind": "trough",
+      "value_c": 6627.7,
+      "prominence_c": 144.6
+    },
+    {
+      "frame_idx": 190,
+      "kind": "peak",
+      "value_c": 6629.8,
+      "prominence_c": 110.8
+    },
+    {
+      "frame_idx": 237,
+      "kind": "peak",
+      "value_c": 5982.9,
+      "prominence_c": 237.0
+    },
+    {
+      "frame_idx": 240,
+      "kind": "trough",
+      "value_c": 5973.4,
+      "prominence_c": 250.8
+    },
+    {
+      "frame_idx": 244,
+      "kind": "peak",
+      "value_c": 6293.5,
+      "prominence_c": 66.6
+    },
+    {
+      "frame_idx": 360,
+      "kind": "trough",
+      "value_c": 5964.5,
+      "prominence_c": 682.3
+    },
+    {
+      "frame_idx": 362,
+      "kind": "peak",
+      "value_c": 5966.0,
+      "prominence_c": 682.6
+    },
+    {
+      "frame_idx": 364,
+      "kind": "trough",
+      "value_c": 5964.4,
+      "prominence_c": 685.2
+    },
+    {
+      "frame_idx": 369,
+      "kind": "peak",
+      "value_c": 6671.3,
+      "prominence_c": 18.7
+    },
+    {
+      "frame_idx": 426,
+      "kind": "peak",
+      "value_c": 6860.8,
+      "prominence_c": 238.7
+    },
+    {
+      "frame_idx": 430,
+      "kind": "peak",
+      "value_c": 6644.1,
+      "prominence_c": 22.9
+    }
+  ],
+  "extra_turn_details": [
+    {
+      "frame_idx": 174,
+      "kind": "trough",
+      "value_c": 6331.6,
+      "prominence_c": 80.0
+    },
+    {
+      "frame_idx": 218,
+      "kind": "trough",
+      "value_c": 5879.8,
+      "prominence_c": 16.1
+    }
+  ],
+  "valid_frames": 418,
+  "coverage": 0.878
 }

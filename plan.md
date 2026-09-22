@@ -1881,7 +1881,45 @@ run_manifest.json
 
 **禁止把旧 C0/C1/C2 artifact 与新 C3 report 混在一起宣称同一 machine gate。**
 
-##### L7 execution status — A/B PASS；C/D DIRECT PATCH APPLIED / REVALIDATION REQUIRED
+##### L7 execution status — post-review revalidation DONE（等人工试听）
+
+**Post-review revalidation @ code_head=0b9185e（2026-09-22）：**
+
+- pytest：**493 passed**（含 reviewer 新增的 turn-protection / topology-rows
+  回归测试；修复了 reviewer patch 引入的 `src_turn_protect` NameError）。
+- 三态重测：C_neu_only first-render 仍 0 vibrato / 0 extra turns；
+  A/B note_vibrato 保留（dPhase 0.07-0.29 rad）。
+- P1/P2/P3 C3v1→C3v2 真实渲染重跑：
+  - **P1**：portamento 5/5 matched（v1 与 v2 一致，无退化）；
+    pos_med 4.1→3.9c；turns 18/6/2→20/4/1。
+  - **P2**：portamento 7/8 两版一致（唯一 missing = from_note=5，
+    v1 已缺，属 first-render 检测非 loop 退化）；pos_med 6.3→4.7c；
+    vib Δdepth −27.4→−6.8c。
+  - **P3**：portamento 7/8 一致；pos_med 6.2→4.7c；turns 38/8/3→36/10/4；
+    vib Δdepth −24.6→−7.2c，Δphase 0.029→0.40rad。
+  - P3 before 从旧版 35 matched 提升到 **38**（turn-protection 实际恢复了
+    3 个 simplifier-loss turns）。
+- **L7-C 归因重做**：`turn_attribution.json` 现消费
+  `topology_metrics.missing_turn_details` 单一真源，计数严格一致
+  （P3 missing=10, P2 missing=16）。
+  - P3：structure 6 + render/extraction 2 + unvoiced-render 1 +
+    one-sided 1（25.92s 诊断为 **state=src_only**：neutral 在该帧
+    unvoiced → src−neu residual 不存在，按规则不强行写 PITD）。
+  - **simplifier loss 归零**——reviewer 的 turn-protection 修复在真实
+    render 上验证生效。
+  - P2：structure 7 + one-sided 4 + unvoiced-render 3 +
+    render/extraction 1 + detector miss 1。
+- **L7-D 重生成**：全部 QA/events/manifest 对同一 C3v2 候选重算；
+  manifest 改用 `code_head`（生成源码 commit），USTX/WAV sha256 更新。
+  cross-extractor：rmvpe vs fcpe eval 差 ≤0.8c（P1 3.9/4.7, P2 4.7/5.0,
+  P3 4.7/5.0）。
+- portamento detector 修复一处真实缺陷：stay 判据改为**每侧独立**
+  raw→trend fallback（P1 5→6 是 raw 出发 + trend 到达的混合情形，
+  双侧统一重试会失败）。
+
+剩余唯一门禁：**L7-E 人工试听** `phrases3/P*/` C2/C3v2 vs D vs SOURCE。
+
+—— 以下为上一轮（pre-review）记录，保留备查 ——
 
 上一轮实测证据保留，但 2026-09-22 reviewer 复核发现：
 - P3 `topology_metrics.json` 报 **12 missing**，而旧

@@ -22,10 +22,10 @@
         "periodicity": 0.218
       },
       "render": {
-        "dom_rate_hz": 7.25,
-        "depth_c": 93.4,
-        "bandwidth_hz": 2.9,
-        "periodicity": 0.213
+        "dom_rate_hz": 5.71,
+        "depth_c": 125.1,
+        "bandwidth_hz": 4.76,
+        "periodicity": 0.078
       }
     },
     {
@@ -42,7 +42,7 @@
       },
       "render": {
         "dom_rate_hz": 3.12,
-        "depth_c": 90.2,
+        "depth_c": 92.7,
         "bandwidth_hz": 3.12,
         "periodicity": 0.0
       }
@@ -61,9 +61,9 @@
       },
       "render": {
         "dom_rate_hz": 5.56,
-        "depth_c": 190.5,
+        "depth_c": 195.0,
         "bandwidth_hz": 2.78,
-        "periodicity": 0.186
+        "periodicity": 0.209
       }
     }
   ]
