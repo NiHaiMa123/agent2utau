@@ -671,6 +671,147 @@ def closed_loop_update(pitd, src_sig, render_sig, notes, part_pos_tick,
             "ys": yn[keep].tolist()}
 
 
+def shape_rollback(pitd_v1, pitd_v2, src_sig, render_v1_sig,
+                   render_v2_sig, notes, part_pos_tick,
+                   win_s=0.08, hop_s=0.010):
+    """Shape non-regression gate for a closed-loop candidate.
+
+    Compares turning-point topology of render_v1 and render_v2 against
+    SOURCE on the shared grid.  For every source turn that v1 matched but
+    v2 lost, and every render turn v2 invented, the local window of the
+    v2 curve is reverted to v1's own keypoints (v1 was verified correct
+    there).  Returns (curve_dict, rollback_report).
+    """
+    from .contour_qa import turning_point_metrics
+    s = notes[0]["abs_start_s"]
+    e = notes[-1]["abs_start_s"] + notes[-1]["dur_s"]
+    g = np.arange(s, e, hop_s)
+    sg = np.interp(g, src_sig.times, src_sig.cents,
+                   left=np.nan, right=np.nan)
+    mask = ~np.isnan(sg)
+    rg1 = np.interp(g, render_v1_sig.times, render_v1_sig.cents,
+                    left=np.nan, right=np.nan)
+    rg2 = np.interp(g, render_v2_sig.times, render_v2_sig.cents,
+                    left=np.nan, right=np.nan)
+    t1 = turning_point_metrics(sg, rg1, mask=mask)
+    t2 = turning_point_metrics(sg, rg2, mask=mask)
+    lost = [r for r in t2["missing_turn_details"]
+            if (r["frame_idx"], r["kind"])
+            not in {(d["frame_idx"], d["kind"])
+                    for d in t1["missing_turn_details"]}]
+    gained = [r for r in t2["extra_turn_details"]
+              if (r["frame_idx"], r["kind"])
+              not in {(d["frame_idx"], d["kind"])
+                      for d in t1["extra_turn_details"]}]
+    report = {"v1": {"matched": t1["matched_turns"],
+                     "missing": t1["missing_turns"],
+                     "extra": t1["extra_turns"],
+                     "edit": t1["sequence_edit_distance"]},
+              "v2": {"matched": t2["matched_turns"],
+                     "missing": t2["missing_turns"],
+                     "extra": t2["extra_turns"],
+                     "edit": t2["sequence_edit_distance"]},
+              "lost_by_v2": [{"t_s": round(float(g[r["frame_idx"]]), 3),
+                              "kind": r["kind"],
+                              "prominence_c": r["prominence_c"]}
+                             for r in lost],
+              "gained_by_v2": [{"t_s": round(float(g[r["frame_idx"]]), 3),
+                                "kind": r["kind"],
+                                "prominence_c": r["prominence_c"]}
+                               for r in gained]}
+    if not lost and not gained:
+        report["rolled_back_windows"] = []
+        return pitd_v2, report
+
+    # rollback windows: lost source turns and invented render turns.
+    # Each window is extended to cover the whole shared-valid run
+    # fragment containing it: reverting only a small window while the
+    # neighbouring island keeps v2 corrections lets synthesis context
+    # shift the extremum a frame or two across the masked-run edge,
+    # which flips turn visibility without any real shape change.
+    shared = mask & ~np.isnan(rg1) & ~np.isnan(rg2)
+    runs = []
+    i = 0
+    while i < len(shared):
+        if not shared[i]:
+            i += 1
+            continue
+        j = i
+        while j < len(shared) and shared[j]:
+            j += 1
+        runs.append((i, j - 1))
+        i = j
+    wins = []
+    for r in lost + gained:
+        fi = r["frame_idx"]
+        w0 = g[fi] - win_s
+        w1 = g[fi] + win_s
+        for a, b in runs:
+            if a <= fi <= b:
+                # extend to the run edge only when it is close —
+                # a far edge cannot shadow the turn, and reverting a
+                # long run would sacrifice v2 improvements wholesale
+                w0 = min(w0, g[a] if g[fi] - g[a] <= 0.5 else w0)
+                w1 = max(w1, g[b] if g[b] - g[fi] <= 0.5 else w1)
+                break
+        wins.append([w0, w1])
+    wins.sort()
+    merged = []
+    for w0, w1 in wins:
+        if merged and w0 <= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], w1)
+        else:
+            merged.append([w0, w1])
+    report["rolled_back_windows"] = [
+        [round(a, 3), round(b, 3)] for a, b in merged]
+
+    off = part_pos_tick * TICK_MS / 1000.0
+    x1 = np.asarray(pitd_v1["xs"], dtype=float) * TICK_MS / 1000.0 + off
+    y1 = np.asarray(pitd_v1["ys"], dtype=float)
+    x2 = np.asarray(pitd_v2["xs"], dtype=float) * TICK_MS / 1000.0 + off
+    y2 = np.asarray(pitd_v2["ys"], dtype=float)
+    rb = np.zeros(len(g), dtype=bool)
+    for a, b in merged:
+        rb |= (g >= a) & (g <= b)
+
+    keep_x, keep_y = [], []
+    i = 0
+    while i < len(g):
+        j = i
+        if rb[i]:
+            while j < len(g) and rb[j]:
+                j += 1
+            a, b = g[i], g[j - 1]
+            inside = (x1 >= a - 1e-9) & (x1 <= b + 1e-9)
+            keep_x.extend(x1[inside].tolist())
+            keep_y.extend(y1[inside].tolist())
+            for t in (a, b):
+                v = np.interp(t, x1, y1)
+                if not np.isnan(v):
+                    keep_x.append(t)
+                    keep_y.append(v)
+        else:
+            while j < len(g) and not rb[j]:
+                j += 1
+            inside = (x2 >= g[i] - 1e-9) & (x2 <= g[j - 1] + 1e-9)
+            keep_x.extend(x2[inside].tolist())
+            keep_y.extend(y2[inside].tolist())
+            for t in (g[i], g[j - 1]):
+                v = np.interp(t, x2, y2)
+                if not np.isnan(v):
+                    keep_x.append(t)
+                    keep_y.append(v)
+        i = j
+    xn = np.round(np.asarray(keep_x) * 1000.0 / TICK_MS
+                  - part_pos_tick).astype(int)
+    yn = np.clip(np.round(np.asarray(keep_y)), -1150, 1150).astype(int)
+    o = np.argsort(xn, kind="stable")
+    xn, yn = xn[o], yn[o]
+    keep = np.concatenate([[True], np.diff(xn) > 0])
+    return {"abbr": "pitd", "xs": xn[keep].tolist(),
+            "ys": yn[keep].tolist()}, report
+
+
 def state_summary(dense):
     from collections import Counter
     names = {0: "both_voiced", 1: "src_only", 2: "neu_only", 3: "unvoiced",

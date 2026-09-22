@@ -155,8 +155,23 @@ def turning_point_metrics(source, render, mask=None, max_match_ms=80.0):
         mask = ~np.isnan(source)
     sm = mask & ~np.isnan(source)
     rm = mask & ~np.isnan(render)
-    ts = _turning_list(source, sm)
-    tr = _turning_list(render, rm)
+
+    def _edge_confident(turns, m, k=2):
+        """A local extremum needs >=k valid frames on each side to be a
+        confirmed direction change.  An extremum within k-1 frames of a
+        run boundary rests on one-sided evidence: whether the curve
+        actually turns is hidden inside the unvoiced gap, so its counted
+        visibility flips on sub-frame jitter of the minimum's position
+        (observed on real renders: an identical dip counted as a turn at
+        run-edge-1 but invisible at the edge frame).  Such boundary
+        extrema are excluded from topology counts on BOTH sides."""
+        n = len(m)
+        return [t for t in turns
+                if t[0] - k >= 0 and t[0] + k < n
+                and m[t[0] - k:t[0] + k + 1].all()]
+
+    ts = _edge_confident(_turning_list(source, sm), sm)
+    tr = _edge_confident(_turning_list(render, rm), rm)
     used = set()
     matched_src = set()
     matched, t_err, a_err, p_err = [], [], [], []

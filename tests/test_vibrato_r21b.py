@@ -511,3 +511,43 @@ def test_closed_loop_preserves_protected_portamento():
     # unprotected region still gets the correction
     assert np.interp(0.4, xs, ys) > 50.0
     assert np.interp(1.5, xs, ys) > -200.0 + 50.0
+
+
+def test_shape_rollback_restores_lost_turn_only():
+    """L7 shape gate: v2 lost a source peak v1 had, and invented a trough
+    elsewhere. Rollback must restore v1's curve in exactly those windows
+    and keep v2 corrections elsewhere."""
+    from agent2utau.expression.pitch_residual import shape_rollback
+    dur = 2.0
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    note = _note(dur)
+    # SOURCE: flat with a peak at 0.9s
+    src_c = np.full(len(t), 6000.0)
+    src_c += 60.0 * np.maximum(0, 1 - np.abs(t - 0.9) / 0.06)
+    src = _sig(t, src_c)
+    # render_v1: same peak present (matched); render_v2: peak gone AND
+    # a spurious trough at 1.5s
+    r1 = _sig(t, src_c.copy())
+    r2c = np.full(len(t), 6000.0)
+    r2c -= 80.0 * np.maximum(0, 1 - np.abs(t - 1.5) / 0.05)
+    r2 = _sig(t, r2c)
+    # v1 pitd carries the peak shape; v2 pitd flattened it and added dip
+    v1_t = np.arange(0.0, dur, 0.02)
+    v1_y = 60.0 * np.maximum(0, 1 - np.abs(v1_t - 0.9) / 0.06)
+    v2_y = v1_y * 0.0
+    v2_y -= 80.0 * np.maximum(0, 1 - np.abs(v1_t - 1.5) / 0.05)
+    p1 = {"abbr": "pitd",
+          "xs": (v1_t * 1000 / TICK_MS).astype(int).tolist(),
+          "ys": v1_y.astype(int).tolist()}
+    p2 = {"abbr": "pitd",
+          "xs": (v1_t * 1000 / TICK_MS).astype(int).tolist(),
+          "ys": v2_y.astype(int).tolist()}
+    out, rep = shape_rollback(p1, p2, src, r1, r2, [note], 0)
+    xs = np.asarray(out["xs"]) * TICK_MS / 1000.0
+    ys = np.asarray(out["ys"], dtype=float)
+    # rollback windows: the lost peak (~0.9) and gained trough (~1.5)
+    assert len(rep["rolled_back_windows"]) >= 2
+    # inside lost-turn window curve follows v1 (peak ~60c at 0.9)
+    assert np.interp(0.9, xs, ys) > 40.0
+    # inside gained-turn window the fake dip is gone (v1 was flat 0)
+    assert abs(np.interp(1.5, xs, ys)) < 5.0

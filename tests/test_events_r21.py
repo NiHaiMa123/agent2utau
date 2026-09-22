@@ -311,6 +311,25 @@ def test_turning_point_detail_rows_exactly_match_counts():
                for row in q["missing_turn_details"])
 
 
+def test_topology_edge_jitter_is_stable():
+    """An extremum that lands ON a masked-run boundary must not flip the
+    count when the same physical dip shifts one frame inward — the run
+    edge hides whether the curve really turns, so boundary extrema are
+    excluded symmetrically on both sides."""
+    g = np.arange(0, 2.0, HOP_S)
+    src = np.full(len(g), 6000.0)
+    mask = np.ones(len(g), bool)
+    mask[105:] = False                        # source run ends at f104
+    ren_a = src.copy()
+    ren_a[90:104] -= np.linspace(0, 140, 14)  # dip bottoms at f103 (edge)
+    ren_b = ren_a.copy()
+    ren_b[90:103] -= np.linspace(0, 140, 13)  # same dip bottoms at f102
+    ren_b[103] -= 139                         # (edge-1, still a trough)
+    ta = turning_point_metrics(src, ren_a, mask=mask)
+    tb = turning_point_metrics(src, ren_b, mask=mask)
+    assert ta["extra_turns"] == tb["extra_turns"]
+
+
 def test_modulation_event_window_honours_artifact_mask():
     g = np.arange(0, 1.0, HOP_S)
     src = np.full(len(g), 6000.0)
