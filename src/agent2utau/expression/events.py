@@ -467,11 +467,17 @@ def detect_portamento_events(contour: ContourSignal, notes,
         stays_a = _sustained(in_a & (t < a_e), hold)
         stays_b = _sustained(in_b & (t >= b["abs_start_s"]), hold)
         if not stays_a or not stays_b:
+            # Per-side fallback to the smoothed trend: a vibrato-bearing
+            # arrival legitimately oscillates outside tol_c on raw frames,
+            # while a fast-moving trend can skip the departure band
+            # entirely — resolve each side independently (L7-B).
             tr = trend[m]
-            in_a = ok & (np.abs(tr - tone_a) <= tol_c)
-            in_b = ok & (np.abs(tr - tone_b) <= tol_c)
-            stays_a = _sustained(in_a & (t < a_e), hold)
-            stays_b = _sustained(in_b & (t >= b["abs_start_s"]), hold)
+            if not stays_a:
+                in_a = ok & (np.abs(tr - tone_a) <= tol_c)
+                stays_a = _sustained(in_a & (t < a_e), hold)
+            if not stays_b:
+                in_b = ok & (np.abs(tr - tone_b) <= tol_c)
+                stays_b = _sustained(in_b & (t >= b["abs_start_s"]), hold)
         if not stays_a or not stays_b:
             continue
         dep_i = stays_a[-1][1] - 1       # last frame still in tone_a

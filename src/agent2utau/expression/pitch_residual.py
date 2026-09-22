@@ -554,6 +554,20 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
         # "matched"/"irregular_pitd": full consensus residual already
         # encodes src - neu periodic difference on top of engine default
 
+    # Preserve QA-significant SOURCE turning points that have residual
+    # evidence (mirrors compile_C2; native vibrato spans excluded —
+    # periodic turns there belong to note vibrato parameters).
+    src_on_g = np.interp(g, src_sig.times, src_sig.cents,
+                         left=np.nan, right=np.nan)
+    src_voiced_g = np.interp(
+        g, src_sig.times, src_sig.voiced.astype(float),
+        left=0.0, right=0.0) > 0.5
+    src_turn_protect = _prominent_turn_mask(
+        src_on_g, valid=src_voiced_g,
+        min_prominence_c=max(15.0, 1.5 * max_err_c))
+    src_turn_protect &= ~native_vib_mask
+    src_turn_protect &= ~np.isnan(vals)
+
     xs_all, ys_all = [], []
     ok = ~np.isnan(vals)
     i = 0
