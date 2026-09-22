@@ -1891,7 +1891,7 @@ QA:
   - C3 的最新值分散在 `r21l5/*_report.json` 与 phrases3 QA 中，
     缺少单一 run-manifest/variant hash 绑定。
 
-#### R2.1-L7 — Native-first suppression + shape non-regression — machine gates DONE, awaiting L7-E listening
+#### R2.1-L7 — Native-first suppression + shape non-regression — REVIEW BLOCK: gate wiring + absolute shape QA
 
 L1 已证明 phase→shift 的主路径成立。当前 blocker 已从“phase 架构错误”
 转为 **native first-render suppression + shape preservation + artifact completeness**。
@@ -2129,8 +2129,66 @@ missing_turn_details 单一真源重算（P3=10、P2=14）；L7-D 全部
 QA/events/manifest 对同一 C3v2 重生成，manifest 绑定 code_head
 8a1a41f + ustx/wav sha256；cross-extractor rmvpe vs fcpe 差 ≤0.8c。
 
-**L7 剩余唯一门禁 = L7-E 人工试听** `phrases3/P*/` C2/C3v2 vs D vs
-SOURCE。
+**上一轮执行记录曾判定 L7 剩余唯一门禁 = L7-E 人工试听**，但
+2026-09-22 reviewer 对 `8a1a41f / 9c96ea07` 再审后，人工试听再次
+**BLOCKED**。原因不是否定 edge-confidence metric，而是当前“PASS”仍缺少
+production gate wiring 与 absolute shape QA：
+
+1. **P3 的“通过”来自 metric 修正，不是 candidate 本身变好。**
+   - P3 C3v2 的 USTX/WAV hash 与上一轮完全相同；
+   - `position_metrics.json`、`vibrato_metrics.json`、
+     `portamento_metrics.json` blob 也完全相同；
+   - 变化的是 `turning_point_metrics` 对 masked-run 边界 turn 的定义。
+   这可以是正确修复，但必须把被排除的边界 turn 作为
+   `edge_uncertain_turn_details` 单独保留，禁止从 QA 证据中静默消失。
+   strict topology gate 可以只消费 confirmed turns，但 audit artifact 必须同时
+   保存 source/render 两侧被排除的 frame/kind/prominence/reason。
+
+2. **`shape_rollback()` 目前只是 helper + unit test，不是 production gate。**
+   `8a1a41f` 在 `pitch_residual.py` 中新增了 rollback 函数，但现有
+   `closed_loop_update()` 主路径没有调用它，也没有 committed orchestrator
+   执行“v1 render → v2 render → gate → rollback → v3 real render → re-QA”。
+   因此“未来若 topology 真退化就会自动回滚”目前并不成立。
+   SWE2 必须把 non-regression gate 接入实际 runner，并且：
+   - v2 PASS → 接受 v2；
+   - v2 FAIL → 调 `shape_rollback` 生成 bounded v3 candidate；
+   - **必须真实 OpenUtau render v3 后重新计算全部 QA**；
+   - v3 只有在四项 topology gate 均 non-worse 且其它 event lane 无回归时才可接受；
+   - rollback 最多 1 次；仍 FAIL 则保持 blocked，不允许继续无限迭代压指标。
+
+3. **当前 portamento 只证明“没比 v1 更差”，还没有证明最终 shape 合格。**
+   当前最终 QA 已明确报告多个 absolute mismatch：
+   - P1：2 个 `traj_match=false`；另有 from_note=0 的
+     `delta_start_ms=190`；
+   - P2：3 个 `traj_match=false`；from_note=0
+     `slope_profile_rmse=27.405`、`curv_profile_rmse=850.483`，
+     from_note=2 `20.053 / 588.286`；
+   - P3：2 个 `traj_match=false`；from_note=2
+     `delta_start_ms=160`、`curv_profile_rmse=265.363`。
+   这些正是用户此前所说“整体 cents 很近，但线形明显不对”的机器可见证据。
+   因此 L7 不能只设 non-regression gate，必须增加 **absolute event-shape gate**。
+   第一版不要拍脑袋定统一 RMSE 阈值：先按 event 做 SOURCE/neutral/render
+   归一化轨迹 overlay，区分 detector classification mismatch、边界估计误差和
+   真正 trajectory distortion；对可修的真实 distortion 修复后再建立阈值。
+   `traj_match=false` 的事件在有充分 detector evidence 时不得直接进入人工试听。
+
+4. **provenance 需要区分生成代码与 QA 代码。**
+   目前 P2/P3 的 USTX/WAV hash 未变，但 manifest 的 `code_head` 从
+   `0b9185e` 改为 `8a1a41f`。即使本地确实重新渲染出了 byte-identical
+   artifact，单一 `code_head` 也无法区分“生成 candidate 的代码”和“重算
+   metric 的代码”。manifest 改为至少：
+   `generator_code_head`、`qa_code_head`、`candidate_ustx_sha256`、
+   `render_wav_sha256`。若沿用旧 candidate 只重算 QA，禁止冒写
+   `generator_code_head`。
+
+5. **P3 目录中的 `P3_vibrato_C3v3.ustx/.wav` 当前是 orphan diagnostic。**
+   最终 manifest 指向 C3v2，因此 v3 不得与人工试听候选并列裸放。
+   要么移到 `diagnostics/rejected/` 并带 rejection reason/manifest，
+   要么删除；人工试听目录只能暴露当前 accepted candidate。
+
+完成以上 reviewer blocker 后，再进入 L7-E。届时人工试听的作用是发现
+machine metric 尚未覆盖的 perceptual mismatch，而不是替机器检查已经明确
+报出的 `traj_match=false` / 大 timing-shape error。
 
 **人工试听后的下一判定：**
 - 如果 topology non-regression 修复后，C3v2 的 turn/shape gate 已通过，
