@@ -404,8 +404,20 @@ def test_event_shape_gate_classes():
     assert gb["n_blocking"] == 1 and not gb["gate_passed"]
     gc = gate(rend_c)
     assert gc["events"][0]["class"] == "render_voicing_loss"
+    assert gc["events"][0]["blocking"] and not gc["gate_passed"]
+
+    # If the neutral baseline loses voicing in the same window too, the
+    # dropout cannot be attributed to the candidate curve.
+    neu_c = base.copy()
+    neu_c[(t >= 0.38) & (t <= 0.56)] = np.nan
+    gd = event_shape_gate([se], [_port_ev(0, 0.41, 0.6,
+                                          traj="concave")],
+                          _sig(t, neu_c), src, rend_c)
+    assert gd["events"][0]["class"] == "shared_voicing_gap"
+    assert not gd["events"][0]["blocking"] and gd["gate_passed"]
+
     # excluded-but-flagged classes never silently pass as match
-    assert ga["gate_passed"] and gc["gate_passed"]
+    assert ga["gate_passed"]
 
 
 def test_modulation_event_window_honours_artifact_mask():
