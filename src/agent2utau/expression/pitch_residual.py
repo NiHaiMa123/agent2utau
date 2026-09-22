@@ -169,6 +169,48 @@ def _vertical_simplify(t, y, max_err_c, protect_mask=None):
     return keep
 
 
+def _prominent_turn_mask(y, valid=None, min_prominence_c=15.0,
+                         context_frames=25):
+    """Protect QA-relevant source turning points from simplification.
+
+    The prominence definition intentionally mirrors contour_qa._turning_list:
+    a local peak/trough must differ from the median of its ±context window by
+    at least min_prominence_c.  Detection is segment-safe and never bridges
+    invalid frames.
+    """
+    y = np.asarray(y, dtype=float)
+    if valid is None:
+        valid = ~np.isnan(y)
+    else:
+        valid = np.asarray(valid, dtype=bool) & ~np.isnan(y)
+    out = np.zeros(len(y), dtype=bool)
+    idx = np.where(valid)[0]
+    if not len(idx):
+        return out
+    breaks = np.where(np.diff(idx) > 1)[0]
+    starts = np.concatenate([[0], breaks + 1])
+    ends = np.concatenate([breaks + 1, [len(idx)]])
+    for a, b in zip(starts, ends):
+        run = idx[a:b]
+        if len(run) < 3:
+            continue
+        lo, hi = run[0], run[-1] + 1
+        seg = y[lo:hi]
+        for j in range(1, len(seg) - 1):
+            is_peak = seg[j] > seg[j - 1] and seg[j] >= seg[j + 1]
+            is_trough = seg[j] < seg[j - 1] and seg[j] <= seg[j + 1]
+            if not (is_peak or is_trough):
+                continue
+            ctx = np.concatenate([
+                seg[max(0, j - context_frames):j],
+                seg[j + 1:j + 1 + context_frames],
+            ])
+            prom = abs(seg[j] - np.median(ctx)) if len(ctx) else 0.0
+            if prom >= min_prominence_c:
+                out[lo + j] = True
+    return out
+
+
 def compile_C1(dense, notes, part_pos_tick, max_err_c=10.0):
     """Event-aware compiled residual.
 
@@ -320,6 +362,24 @@ def compile_C2(dense, notes, part_pos_tick, events, max_err_c=10.0):
         vib_mask |= (g >= ev["start_s"]) & (g <= ev["end_s"])
     vals = np.where(vib_mask, np.nan, vals)
 
+    # Preserve source contour topology that the residual actually has enough
+    # evidence to correct.  This closes the L7-C failure mode where a
+    # QA-significant SOURCE turn existed in the dense residual but was erased
+    # only because its vertical interpolation error was below max_err_c.
+    #
+    # Do NOT protect turns inside native note-vibrato spans: those periodic
+    # turns belong to OpenUtau vibrato parameters, not dense PITD.
+    src_on_g = np.interp(g, src_sig.times, src_sig.cents,
+                         left=np.nan, right=np.nan)
+    src_voiced_g = np.interp(
+        g, src_sig.times, src_sig.voiced.astype(float),
+        left=0.0, right=0.0) > 0.5
+    src_turn_protect = _prominent_turn_mask(
+        src_on_g, valid=src_voiced_g,
+        min_prominence_c=max(15.0, 1.5 * max_err_c))
+    src_turn_protect &= ~native_vib_mask
+    src_turn_protect &= ~np.isnan(vals)
+
     xs_all, ys_all = [], []
     ok = ~np.isnan(vals)
     i = 0
@@ -411,6 +471,7 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
     mod_n_g = np.interp(g, neu_sig.times, mod_n, left=0.0, right=0.0)
     vibrato_marks = {}
     vib_provenance = {}
+    native_vib_mask = np.zeros(len(g), dtype=bool)
     for m in vib_match:
         rep = m.get("recommended_representation")
         i = m["note_index"]
@@ -454,6 +515,7 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
                 "shift": round(shift_pct, 1),
                 "drift": 0, "volLink": 0}
             vibrato_marks[i] = compiled_marks
+            native_vib_mask |= (g >= ev_s) & (g <= n_end)
             # Residual algebra must account for the engine vibrato that
             # the compiled note will actually produce versus what the
             # base note produced in the neutral render:
@@ -503,7 +565,9 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
             j += 1
         seg_t, seg_y = g[i:j + 1], vals[i:j + 1]
         if len(seg_t) >= 3:
-            keep = _vertical_simplify(seg_t, seg_y, max_err_c)
+            protect = src_turn_protect[i:j + 1]
+            keep = _vertical_simplify(
+                seg_t, seg_y, max_err_c, protect_mask=protect)
             xs_all.extend(seg_t[keep])
             ys_all.extend(seg_y[keep])
         else:
