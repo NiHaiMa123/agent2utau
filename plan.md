@@ -1716,7 +1716,8 @@ QA:
   tail_gap_s / computed_out_pct）。
   - **新语义修正**：detected event end 到 note tail 的 gap 不再只当
     "提前结束"拒绝——`tail_gap ≤ min(0.35·vib_len, 0.10s)` 时编译为
-    原生 `out` fade（fade 起点恰为 detected end_s，忠实还原
+    原生 `out` fade（fade 起点取 detected end_s；该 end_s 当前是
+    evidence-clamped near-zero-return boundary，不得解释为已验证的
     amplitude-collapse 边界）；超出该范围才判 `irregular_pitd`。
     PITD 抵消项同步乘上引擎 in/out 包络（`eng = fit·env(t)`），
     不再假设引擎满幅到尾。
@@ -1731,7 +1732,7 @@ QA:
   `evidence_cycle_count`（raw chain）与 `stable_cycle_count`
   （amplitude-trimmed run），双门禁独立。
 - **Synthetic regressions**：+8 个测试（shift 映射、引擎正弦相位等价
-  corr>0.97、unvoiced/energy-collapse/segment boundary clamp、
+  corr>0.97、unvoiced/near-zero-return/segment boundary clamp、
   非对称波形、evidence/stable 双门禁、短链拒绝）；**489 passed**。
 - **L5 first-render（无 closed-loop）**（runs/expr-20260921/r21l5/）：
   - A source_only → note_vibrato（shift=53.4）：Δphase **0.30rad**
