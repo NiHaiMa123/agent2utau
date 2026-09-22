@@ -295,6 +295,22 @@ def test_qa_lower_cents_extra_turns_is_regression():
     assert tb["extra_turns"] > ta["extra_turns"]  # ...but is a regression
 
 
+def test_turning_point_detail_rows_exactly_match_counts():
+    """Attribution rows must come from the exact topology matcher, never a
+    second pass that can disagree with missing_turns/extra_turns."""
+    g = np.arange(0, 1.0, HOP_S)
+    src = 6000 + 50 * np.sin(2 * np.pi * 3.0 * g)
+    ren = src.copy()
+    ren[g >= 0.55] = 6000.0
+    mask = np.ones(len(g), bool)
+    q = turning_point_metrics(src, ren, mask=mask)
+    assert q["missing_turns"] > 0
+    assert len(q["missing_turn_details"]) == q["missing_turns"]
+    assert len(q["extra_turn_details"]) == q["extra_turns"]
+    assert all("frame_idx" in row and "prominence_c" in row
+               for row in q["missing_turn_details"])
+
+
 def test_modulation_event_window_honours_artifact_mask():
     g = np.arange(0, 1.0, HOP_S)
     src = np.full(len(g), 6000.0)
