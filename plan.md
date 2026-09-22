@@ -1917,7 +1917,44 @@ run_manifest.json
   raw→trend fallback（P1 5→6 是 raw 出发 + trend 到达的混合情形，
   双侧统一重试会失败）。
 
-剩余唯一门禁：**L7-E 人工试听** `phrases3/P*/` C2/C3v2 vs D vs SOURCE。
+上一轮执行记录认为剩余唯一门禁是 **L7-E 人工试听**，但 2026-09-22
+reviewer 再审发现 **当前仍不能进入人工试听**：
+
+1. **C2 frozen baseline 被误伤。** `compile_C2()` 在 turn-protection patch 后
+   引用了签名中不存在的 `src_sig` 与 `native_vib_mask`，实际调用会
+   `NameError`；493 tests 未覆盖这条 frozen baseline 路径。该静态确定 bug 已
+   直接修复：
+   - `ba366823`：移除误插入 C2 的 C3-only turn-protection block；
+   - `468a5489`：新增 `compile_C2` baseline-callable 回归测试。
+   这两个 commit **不修改 C3 生成逻辑**，因此已生成的 C3 artifact 仍应保留
+   `code_head=0b9185e...` 的真实 provenance，禁止把 manifest 冒写成新 HEAD；
+   但 latest HEAD 仍须重新跑完整 pytest。
+
+2. **P3 closed-loop 存在明确 topology regression。** 同一真实 render：
+   - C3v1：matched/missing/extra = **38/8/3**，edit distance = **5**；
+   - C3v2：**36/10/4**，edit distance = **7**。
+   v2 虽把 pos_med 6.2→4.7c、vibrato Δdepth −24.6→−7.2c，
+   但最终 shape 比 v1 少 2 个 matched turn、多 2 个 missing、多 1 个 extra。
+   P1 为 18/6/2→20/4/1（改善），P2 45/16/2→45/16/2（持平），因此问题
+   集中在 P3，而不是 topology metric 本身随机漂移。
+
+3. 根因方向与代码一致：`compile_C3()` first-render 已有
+   `src_turn_protect`，但 `closed_loop_update()` 对 correctable run 再次
+   `_vertical_simplify(..., max_err_c)` 时**没有 topology protection / rollback gate**。
+   不能因为 cents 指标更好就接受 shape 更差的 v2。
+
+因此 L7-E 重新 **BLOCKED**。SWE2 下一轮必须先完成：
+- latest HEAD 全量 pytest，确认新增 C2 regression test 通过；
+- 对 P3 逐条 diff v1 vs v2 的 missing/extra rows，确认哪些 turn 在
+  closed-loop 后丢失/新增；
+- closed-loop 加 **shape non-regression gate**：最终候选至少满足
+  `matched_turns >= v1`、`missing_turns <= v1`、`extra_turns <= v1`、
+  `sequence_edit_distance <= v1`；若 generic correction 违反任一项，
+  必须做 event/local rollback 或局部 correction，不能只保留较低 pos_med；
+- 保留当前 P3 vibrato 深度/phase 改善，目标是“v2 的 vibrato 改善 + v1 的
+  topology 不退化”，而不是简单整体退回 v1；
+- 真实 OpenUtau render 后重算 P3 QA/turn attribution/run manifest。
+只有上述 machine gate 通过后，才进入 C2/C3 vs D vs SOURCE 人工试听。
 
 —— 以下为上一轮（pre-review）记录，保留备查 ——
 
