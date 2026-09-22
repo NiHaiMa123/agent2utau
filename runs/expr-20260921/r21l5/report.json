@@ -121,9 +121,9 @@
         "valid_frames": 113,
         "coverage": 1.0,
         "n": 113,
-        "med_c": 5.5,
-        "p90_c": 19.9,
-        "p95_c": 21.5
+        "med_c": 10.7,
+        "p90_c": 28.0,
+        "p95_c": 28.9
       },
       "topology": {
         "matched_turns": 10,
@@ -132,8 +132,8 @@
         "source_turns": 10,
         "render_turns": 10,
         "turn_timing_err_ms_med": 0.0,
-        "turn_amplitude_err_c_med": 12.4,
-        "turn_prominence_err_c_med": 14.0,
+        "turn_amplitude_err_c_med": 24.0,
+        "turn_prominence_err_c_med": 27.2,
         "sequence_edit_distance": 0,
         "valid_frames": 113,
         "coverage": 1.0
@@ -143,13 +143,13 @@
           "note": 0,
           "state": "matched",
           "delta_rate_hz": -0.23,
-          "delta_depth_c": -18.8,
+          "delta_depth_c": -32.2,
           "delta_period_cv": 0.013,
-          "delta_depth_cv": 0.001,
-          "delta_stable_cycle_count": 0.0,
-          "delta_phase_rad": 0.302,
+          "delta_depth_cv": -0.026,
+          "delta_stable_cycle_count": -0.5,
+          "delta_phase_rad": 0.339,
           "delta_start_ms": 0.0,
-          "delta_end_ms": 20.0
+          "delta_end_ms": -60.0
         }
       ],
       "render_events": [
@@ -159,13 +159,13 @@
             0
           ],
           "start_s": 0.38,
-          "end_s": 1.04,
-          "confidence": 0.918,
+          "end_s": 1.12,
+          "confidence": 0.926,
           "params": {
             "rate_hz": 6.9,
             "fft_bin_hz": 7.02,
-            "depth_c": 72.8,
-            "phase_rad": -1.553,
+            "depth_c": 86.2,
+            "phase_rad": -1.59,
             "phase_origin_s": 0.42,
             "periods_ms": [
               140.0,
@@ -174,20 +174,20 @@
               140.0
             ],
             "depth_envelope_c": [
-              65.4,
-              73.9,
-              75.1,
-              76.9
+              73.5,
+              87.4,
+              93.0,
+              90.7
             ],
             "evidence_cycle_count": 5.0,
-            "stable_cycle_count": 4.0,
+            "stable_cycle_count": 4.5,
             "boundary_method": "extremum_zero_return",
             "boundary_start_reason": "quarter_period",
             "boundary_end_reason": "quarter_period",
             "period_cv": 0.034,
-            "depth_cv": 0.061,
-            "drift_c_per_s": -4.5,
-            "mod_snr": 14.28,
+            "depth_cv": 0.088,
+            "drift_c_per_s": -9.1,
+            "mod_snr": 13.26,
             "voiced_coverage": 1.0
           },
           "evidence": {
@@ -199,8 +199,8 @@
           "note_indices": [
             0
           ],
-          "start_s": 1.16,
-          "end_s": 1.16,
+          "start_s": 1.15,
+          "end_s": 1.15,
           "confidence": 0.45,
           "params": {
             "n_frames": 1,
@@ -219,13 +219,13 @@
             0
           ],
           "start_s": 0.05,
-          "end_s": 1.08,
+          "end_s": 0.37,
           "confidence": 1.0,
           "params": {
-            "start_c": 6605.0,
-            "end_c": 6598.9,
-            "max_dev_c": 6.9,
-            "drift_c_per_s": -8.3
+            "start_c": 6601.3,
+            "end_c": 6602.8,
+            "max_dev_c": 7.1,
+            "drift_c_per_s": -23.9
           },
           "evidence": {
             "extractor": "fcpe"
@@ -238,9 +238,9 @@
         "valid_frames": 113,
         "coverage": 1.0,
         "n": 113,
-        "med_c": 4.3,
-        "p90_c": 16.5,
-        "p95_c": 19.8
+        "med_c": 4.4,
+        "p90_c": 9.3,
+        "p95_c": 9.6
       },
       "topology": {
         "matched_turns": 10,
@@ -249,8 +249,8 @@
         "source_turns": 10,
         "render_turns": 10,
         "turn_timing_err_ms_med": 0.0,
-        "turn_amplitude_err_c_med": 8.5,
-        "turn_prominence_err_c_med": 14.6,
+        "turn_amplitude_err_c_med": 2.7,
+        "turn_prominence_err_c_med": 3.7,
         "sequence_edit_distance": 0,
         "valid_frames": 113,
         "coverage": 1.0
@@ -259,14 +259,14 @@
         {
           "note": 0,
           "state": "matched",
-          "delta_rate_hz": -0.11,
-          "delta_depth_c": -15.3,
-          "delta_period_cv": 0.018,
-          "delta_depth_cv": -0.022,
+          "delta_rate_hz": 0.0,
+          "delta_depth_c": 4.1,
+          "delta_period_cv": 0.0,
+          "delta_depth_cv": 0.015,
           "delta_stable_cycle_count": 0.0,
-          "delta_phase_rad": 0.215,
+          "delta_phase_rad": 0.074,
           "delta_start_ms": 0.0,
-          "delta_end_ms": 10.0
+          "delta_end_ms": 0.0
         }
       ],
       "render_events": [
@@ -276,35 +276,35 @@
             0
           ],
           "start_s": 0.38,
-          "end_s": 1.05,
-          "confidence": 0.916,
+          "end_s": 1.06,
+          "confidence": 0.917,
           "params": {
-            "rate_hz": 6.78,
+            "rate_hz": 6.67,
             "fft_bin_hz": 7.02,
-            "depth_c": 69.3,
-            "phase_rad": -1.466,
+            "depth_c": 49.9,
+            "phase_rad": -1.325,
             "phase_origin_s": 0.42,
             "periods_ms": [
               150.0,
               140.0,
               150.0,
-              150.0
+              160.0
             ],
             "depth_envelope_c": [
-              59.6,
-              70.6,
-              75.3,
-              71.6
+              46.3,
+              49.3,
+              52.1,
+              51.9
             ],
             "evidence_cycle_count": 5.0,
             "stable_cycle_count": 4.0,
             "boundary_method": "extremum_zero_return",
             "boundary_start_reason": "quarter_period",
             "boundary_end_reason": "quarter_period",
-            "period_cv": 0.029,
-            "depth_cv": 0.084,
-            "drift_c_per_s": -12.6,
-            "mod_snr": 40.27,
+            "period_cv": 0.047,
+            "depth_cv": 0.047,
+            "drift_c_per_s": -6.2,
+            "mod_snr": 93.94,
             "voiced_coverage": 1.0
           },
           "evidence": {
@@ -320,10 +320,10 @@
           "end_s": 1.08,
           "confidence": 1.0,
           "params": {
-            "start_c": 6603.0,
-            "end_c": 6593.1,
-            "max_dev_c": 12.3,
-            "drift_c_per_s": -15.8
+            "start_c": 6608.9,
+            "end_c": 6604.5,
+            "max_dev_c": 5.8,
+            "drift_c_per_s": -8.7
           },
           "evidence": {
             "extractor": "fcpe"
@@ -435,7 +435,7 @@
           "depth_gain": 0.69
         }
       },
-      "pitd_points": 18
+      "pitd_points": 14
     },
     "src_vibrato": [
       {
@@ -526,9 +526,9 @@
         "valid_frames": 113,
         "coverage": 1.0,
         "n": 113,
-        "med_c": 5.9,
-        "p90_c": 22.8,
-        "p95_c": 28.5
+        "med_c": 6.9,
+        "p90_c": 20.7,
+        "p95_c": 23.7
       },
       "topology": {
         "matched_turns": 10,
@@ -536,9 +536,9 @@
         "extra_turns": 0,
         "source_turns": 10,
         "render_turns": 10,
-        "turn_timing_err_ms_med": 5.0,
-        "turn_amplitude_err_c_med": 11.8,
-        "turn_prominence_err_c_med": 15.7,
+        "turn_timing_err_ms_med": 0.0,
+        "turn_amplitude_err_c_med": 19.6,
+        "turn_prominence_err_c_med": 23.9,
         "sequence_edit_distance": 0,
         "valid_frames": 113,
         "coverage": 1.0
@@ -547,13 +547,13 @@
         {
           "note": 0,
           "state": "matched",
-          "delta_rate_hz": -0.23,
-          "delta_depth_c": -17.6,
-          "delta_period_cv": 0.013,
-          "delta_depth_cv": -0.068,
+          "delta_rate_hz": -0.11,
+          "delta_depth_c": -25.3,
+          "delta_period_cv": 0.018,
+          "delta_depth_cv": 0.0,
           "delta_stable_cycle_count": 0.0,
-          "delta_phase_rad": 0.615,
-          "delta_start_ms": -10.0,
+          "delta_phase_rad": 0.199,
+          "delta_start_ms": 0.0,
           "delta_end_ms": 10.0
         }
       ],
@@ -563,37 +563,56 @@
           "note_indices": [
             0
           ],
-          "start_s": 0.39,
+          "start_s": 0.38,
           "end_s": 1.05,
-          "confidence": 0.901,
+          "confidence": 0.921,
           "params": {
-            "rate_hz": 6.9,
+            "rate_hz": 6.78,
             "fft_bin_hz": 7.02,
-            "depth_c": 71.6,
-            "phase_rad": -1.447,
-            "phase_origin_s": 0.43,
+            "depth_c": 79.3,
+            "phase_rad": -1.45,
+            "phase_origin_s": 0.42,
             "periods_ms": [
               140.0,
               150.0,
               150.0,
-              140.0
+              150.0
             ],
             "depth_envelope_c": [
-              79.0,
-              80.5,
-              69.7,
-              57.2
+              71.2,
+              80.2,
+              84.3,
+              81.6
             ],
-            "evidence_cycle_count": 5.5,
+            "evidence_cycle_count": 5.0,
             "stable_cycle_count": 4.0,
             "boundary_method": "extremum_zero_return",
             "boundary_start_reason": "quarter_period",
             "boundary_end_reason": "quarter_period",
-            "period_cv": 0.034,
-            "depth_cv": 0.13,
-            "drift_c_per_s": -0.5,
-            "mod_snr": 11.23,
+            "period_cv": 0.029,
+            "depth_cv": 0.062,
+            "drift_c_per_s": -5.4,
+            "mod_snr": 44.11,
             "voiced_coverage": 1.0
+          },
+          "evidence": {
+            "extractor": "fcpe"
+          }
+        },
+        {
+          "type": "artifact",
+          "note_indices": [
+            0
+          ],
+          "start_s": 1.15,
+          "end_s": 1.15,
+          "confidence": 0.45,
+          "params": {
+            "n_frames": 1,
+            "artifact_kinds": [
+              "voiced_conflict"
+            ],
+            "mean_conf": 0.4
           },
           "evidence": {
             "extractor": "fcpe"
@@ -608,10 +627,10 @@
           "end_s": 1.08,
           "confidence": 1.0,
           "params": {
-            "start_c": 6604.7,
-            "end_c": 6603.5,
-            "max_dev_c": 6.6,
-            "drift_c_per_s": -4.4
+            "start_c": 6603.2,
+            "end_c": 6594.0,
+            "max_dev_c": 10.0,
+            "drift_c_per_s": -11.5
           },
           "evidence": {
             "extractor": "fcpe"
@@ -624,9 +643,9 @@
         "valid_frames": 113,
         "coverage": 1.0,
         "n": 113,
-        "med_c": 4.4,
-        "p90_c": 13.7,
-        "p95_c": 16.3
+        "med_c": 4.7,
+        "p90_c": 8.0,
+        "p95_c": 8.7
       },
       "topology": {
         "matched_turns": 10,
@@ -635,8 +654,8 @@
         "source_turns": 10,
         "render_turns": 10,
         "turn_timing_err_ms_med": 0.0,
-        "turn_amplitude_err_c_med": 9.1,
-        "turn_prominence_err_c_med": 12.0,
+        "turn_amplitude_err_c_med": 4.7,
+        "turn_prominence_err_c_med": 6.2,
         "sequence_edit_distance": 0,
         "valid_frames": 113,
         "coverage": 1.0
@@ -646,11 +665,11 @@
           "note": 0,
           "state": "matched",
           "delta_rate_hz": -0.11,
-          "delta_depth_c": -11.1,
-          "delta_period_cv": -0.009,
-          "delta_depth_cv": -0.001,
+          "delta_depth_c": -5.6,
+          "delta_period_cv": 0.018,
+          "delta_depth_cv": 0.0,
           "delta_stable_cycle_count": -0.5,
-          "delta_phase_rad": 0.262,
+          "delta_phase_rad": 0.292,
           "delta_start_ms": 0.0,
           "delta_end_ms": -60.0
         }
@@ -663,35 +682,54 @@
           ],
           "start_s": 0.38,
           "end_s": 1.12,
-          "confidence": 0.923,
+          "confidence": 0.934,
           "params": {
             "rate_hz": 6.78,
             "fft_bin_hz": 7.02,
-            "depth_c": 65.1,
-            "phase_rad": -1.513,
+            "depth_c": 59.6,
+            "phase_rad": -1.543,
             "phase_origin_s": 0.42,
             "periods_ms": [
+              150.0,
               140.0,
-              160.0,
-              140.0,
+              150.0,
               150.0
             ],
             "depth_envelope_c": [
-              58.4,
-              64.8,
-              69.0,
-              68.0
+              53.2,
+              61.8,
+              62.5,
+              60.7
             ],
-            "evidence_cycle_count": 5.5,
+            "evidence_cycle_count": 5.0,
             "stable_cycle_count": 4.5,
             "boundary_method": "extremum_zero_return",
-            "boundary_start_reason": "zero_return",
+            "boundary_start_reason": "quarter_period",
             "boundary_end_reason": "quarter_period",
-            "period_cv": 0.056,
-            "depth_cv": 0.063,
-            "drift_c_per_s": -8.5,
-            "mod_snr": 37.69,
+            "period_cv": 0.029,
+            "depth_cv": 0.062,
+            "drift_c_per_s": -8.9,
+            "mod_snr": 30.79,
             "voiced_coverage": 1.0
+          },
+          "evidence": {
+            "extractor": "fcpe"
+          }
+        },
+        {
+          "type": "artifact",
+          "note_indices": [
+            0
+          ],
+          "start_s": 1.16,
+          "end_s": 1.16,
+          "confidence": 0.45,
+          "params": {
+            "n_frames": 1,
+            "artifact_kinds": [
+              "voiced_conflict"
+            ],
+            "mean_conf": 0.4
           },
           "evidence": {
             "extractor": "fcpe"
@@ -706,10 +744,10 @@
           "end_s": 0.37,
           "confidence": 1.0,
           "params": {
-            "start_c": 6600.4,
-            "end_c": 6599.6,
-            "max_dev_c": 5.6,
-            "drift_c_per_s": -21.2
+            "start_c": 6606.3,
+            "end_c": 6604.2,
+            "max_dev_c": 7.7,
+            "drift_c_per_s": -29.2
           },
           "evidence": {
             "extractor": "fcpe"
@@ -760,18 +798,7 @@
       }
     ],
     "compiler": {
-      "marks": {
-        "0": {
-          "length": 0,
-          "period": 150,
-          "depth": 0,
-          "in": 0,
-          "out": 0,
-          "shift": 0,
-          "drift": 0,
-          "volLink": 0
-        }
-      },
+      "marks": {},
       "provenance": {},
       "pitd_points": 13
     },
@@ -822,91 +849,8 @@
         "valid_frames": 114,
         "coverage": 1.0,
         "n": 114,
-        "med_c": 9.3,
-        "p90_c": 21.8,
-        "p95_c": 24.1
-      },
-      "topology": {
-        "matched_turns": 0,
-        "missing_turns": 0,
-        "extra_turns": 9,
-        "source_turns": 0,
-        "render_turns": 9,
-        "turn_timing_err_ms_med": null,
-        "turn_amplitude_err_c_med": null,
-        "turn_prominence_err_c_med": null,
-        "sequence_edit_distance": 9,
-        "valid_frames": 114,
-        "coverage": 1.0
-      },
-      "vibrato": [],
-      "render_events": [
-        {
-          "type": "vibrato",
-          "note_indices": [
-            0
-          ],
-          "start_s": 0.4,
-          "end_s": 1.03,
-          "confidence": 0.909,
-          "params": {
-            "rate_hz": 6.38,
-            "fft_bin_hz": 6.14,
-            "depth_c": 27.2,
-            "phase_rad": -1.732,
-            "phase_origin_s": 0.44,
-            "periods_ms": [
-              150.0,
-              170.0,
-              150.0
-            ],
-            "depth_envelope_c": [
-              26.8,
-              27.5,
-              27.2
-            ],
-            "evidence_cycle_count": 4.5,
-            "stable_cycle_count": 3.5,
-            "boundary_method": "extremum_zero_return",
-            "boundary_start_reason": "quarter_period",
-            "boundary_end_reason": "quarter_period",
-            "period_cv": 0.06,
-            "depth_cv": 0.01,
-            "drift_c_per_s": -6.6,
-            "mod_snr": 33.26,
-            "voiced_coverage": 1.0
-          },
-          "evidence": {
-            "extractor": "fcpe"
-          }
-        },
-        {
-          "type": "stable",
-          "note_indices": [
-            0
-          ],
-          "start_s": 0.05,
-          "end_s": 1.08,
-          "confidence": 1.0,
-          "params": {
-            "start_c": 6607.7,
-            "end_c": 6593.7,
-            "max_dev_c": 10.7,
-            "drift_c_per_s": -9.8
-          },
-          "evidence": {
-            "extractor": "fcpe"
-          }
-        }
-      ]
-    },
-    "after_closed_loop": {
-      "position": {
-        "valid_frames": 112,
-        "coverage": 0.982,
-        "n": 112,
-        "med_c": 5.2,
-        "p90_c": 9.1,
+        "med_c": 4.9,
+        "p90_c": 8.8,
         "p95_c": 9.7
       },
       "topology": {
@@ -919,8 +863,8 @@
         "turn_amplitude_err_c_med": null,
         "turn_prominence_err_c_med": null,
         "sequence_edit_distance": 0,
-        "valid_frames": 112,
-        "coverage": 0.982
+        "valid_frames": 114,
+        "coverage": 1.0
       },
       "vibrato": [],
       "render_events": [
@@ -933,10 +877,54 @@
           "end_s": 1.08,
           "confidence": 1.0,
           "params": {
-            "start_c": 6592.5,
-            "end_c": 6596.0,
-            "max_dev_c": 12.8,
-            "drift_c_per_s": 12.6
+            "start_c": 6606.8,
+            "end_c": 6605.3,
+            "max_dev_c": 1.1,
+            "drift_c_per_s": 0.8
+          },
+          "evidence": {
+            "extractor": "fcpe"
+          }
+        }
+      ]
+    },
+    "after_closed_loop": {
+      "position": {
+        "valid_frames": 114,
+        "coverage": 1.0,
+        "n": 114,
+        "med_c": 2.4,
+        "p90_c": 5.2,
+        "p95_c": 5.7
+      },
+      "topology": {
+        "matched_turns": 0,
+        "missing_turns": 0,
+        "extra_turns": 0,
+        "source_turns": 0,
+        "render_turns": 0,
+        "turn_timing_err_ms_med": null,
+        "turn_amplitude_err_c_med": null,
+        "turn_prominence_err_c_med": null,
+        "sequence_edit_distance": 0,
+        "valid_frames": 114,
+        "coverage": 1.0
+      },
+      "vibrato": [],
+      "render_events": [
+        {
+          "type": "stable",
+          "note_indices": [
+            0
+          ],
+          "start_s": 0.05,
+          "end_s": 1.08,
+          "confidence": 1.0,
+          "params": {
+            "start_c": 6603.8,
+            "end_c": 6597.5,
+            "max_dev_c": 4.5,
+            "drift_c_per_s": 1.1
           },
           "evidence": {
             "extractor": "fcpe"
