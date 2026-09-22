@@ -1953,7 +1953,9 @@ reviewer 再审发现 **当前仍不能进入人工试听**：
   必须做 event/local rollback 或局部 correction，不能只保留较低 pos_med；
 - 保留当前 P3 vibrato 深度/phase 改善，目标是“v2 的 vibrato 改善 + v1 的
   topology 不退化”，而不是简单整体退回 v1；
-- 真实 OpenUtau render 后重算 P3 QA/turn attribution/run manifest。
+- 真实 OpenUtau render 后重算 P3 QA/turn attribution/run manifest；
+- 如果修复触及共享 `closed_loop_update()` / simplifier / event ownership，
+  必须同时重跑 P1/P2/P3 真实 render 与对应 machine regression，禁止只证明 P3。
 只有上述 machine gate 通过后，才进入 C2/C3 vs D vs SOURCE 人工试听。
 
 —— 以下为上一轮（pre-review）记录，保留备查 ——
