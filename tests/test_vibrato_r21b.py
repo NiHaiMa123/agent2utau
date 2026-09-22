@@ -247,6 +247,30 @@ def test_compile_note_vibrato_accounts_for_base_vibrato():
     assert np.median(np.abs(recon[span] - (6000 + src_vib)[span])) < 15
 
 
+def test_compile_c3_preserves_prominent_source_turn_below_error_budget():
+    """A QA-significant SOURCE turn must not disappear only because the
+    residual's vertical interpolation error is below max_err_c.
+
+    Native vibrato spans are handled separately; this covers ordinary
+    non-vibrato expression topology (L7-C simplifier-loss regression).
+    """
+    dur = 0.30
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    # SOURCE has a clear 30c turn at 0.15s.  Neutral already follows most
+    # of it, so the correction itself is only 8c — small enough that a
+    # 10c vertical simplifier would normally erase the residual extremum.
+    tri = np.maximum(0.0, 1.0 - np.abs(t - 0.15) / 0.08)
+    src_c = 6000.0 + 30.0 * tri
+    neu_c = 6000.0 + 22.0 * tri
+    dense, src, neu = _dense_and_sigs(src_c, neu_c, dur)
+    pitd, marks, _prov = compile_C3(
+        dense, src, neu, [_note(dur)], 0, [], max_err_c=10.0)
+    assert marks == {}
+    xs_s = np.asarray(pitd["xs"], dtype=float) * TICK_MS / 1000.0
+    # The source turn itself must survive as a PITD keypoint.
+    assert np.min(np.abs(xs_s - 0.15)) <= 0.012
+
+
 def test_mid_note_vibrato_stays_pitd():
     dur = 1.4
     t = np.arange(0, dur + HOP_S, HOP_S)
