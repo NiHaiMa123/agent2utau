@@ -51,13 +51,6 @@
       "idx": 190
     },
     {
-      "t_s": 53.53,
-      "kind": "peak",
-      "value_c": 5982.9,
-      "prominence_c": 237.0,
-      "idx": 237
-    },
-    {
       "t_s": 53.56,
       "kind": "trough",
       "value_c": 5973.4,
@@ -105,17 +98,10 @@
       "value_c": 6860.8,
       "prominence_c": 238.7,
       "idx": 426
-    },
-    {
-      "t_s": 55.46,
-      "kind": "peak",
-      "value_c": 6644.1,
-      "prominence_c": 22.9,
-      "idx": 430
     }
   ],
-  "v2_missing_n": 16,
-  "source_turns": 61,
+  "v2_missing_n": 14,
+  "source_turns": 59,
   "attributions": [
     {
       "t_s": 51.52,
@@ -235,23 +221,6 @@
       "owner_fix": "synthesis dropped voicing — phoneme/voicing layer"
     },
     {
-      "t_s": 53.53,
-      "kind": "peak",
-      "value_c": 5982.9,
-      "prominence_c": 237.0,
-      "note": 6,
-      "lyric": "心",
-      "phoneme": "心",
-      "source_event": "portamento",
-      "render_region": {
-        "nearest_same_kind_dt_ms": 29.6,
-        "nearest_same_kind_prom_c": 23.3
-      },
-      "render_voiced_ratio": 0.58,
-      "loss_stage": "render/extraction loss (unvoiced render)",
-      "owner_fix": "synthesis dropped voicing — phoneme/voicing layer"
-    },
-    {
       "t_s": 53.56,
       "kind": "trough",
       "value_c": 5973.4,
@@ -367,22 +336,6 @@
       "dense_residual_extremum": false,
       "loss_stage": "detector miss (absent in residual)",
       "owner_fix": "residual builder: frame-state/coverage"
-    },
-    {
-      "t_s": 55.46,
-      "kind": "peak",
-      "value_c": 6644.1,
-      "prominence_c": 22.9,
-      "note": 10,
-      "lyric": "+",
-      "phoneme": "+",
-      "source_event": "artifact",
-      "render_region": {
-        "nearest_same_kind_dt_ms": 210.4,
-        "nearest_same_kind_prom_c": 54.5
-      },
-      "loss_stage": "one-sided frame (state=1: no src-neu residual)",
-      "owner_fix": "structural: src_voiced where neutral unvoiced"
     }
   ]
 }

@@ -1,12 +1,12 @@
 {
-  "matched_turns": 36,
+  "matched_turns": 34,
   "missing_turns": 10,
-  "extra_turns": 4,
-  "source_turns": 46,
-  "render_turns": 40,
+  "extra_turns": 3,
+  "source_turns": 44,
+  "render_turns": 37,
   "turn_timing_err_ms_med": 0.0,
-  "turn_amplitude_err_c_med": 4.9,
-  "turn_prominence_err_c_med": 10.4,
+  "turn_amplitude_err_c_med": 4.2,
+  "turn_prominence_err_c_med": 9.7,
   "sequence_edit_distance": 7,
   "missing_turn_details": [
     {
@@ -46,6 +46,12 @@
       "prominence_c": 25.7
     },
     {
+      "frame_idx": 398,
+      "kind": "peak",
+      "value_c": 6927.3,
+      "prominence_c": 150.8
+    },
+    {
       "frame_idx": 408,
       "kind": "trough",
       "value_c": 6609.5,
@@ -62,12 +68,6 @@
       "kind": "peak",
       "value_c": 6642.5,
       "prominence_c": 32.6
-    },
-    {
-      "frame_idx": 552,
-      "kind": "trough",
-      "value_c": 6554.3,
-      "prominence_c": 67.1
     }
   ],
   "extra_turn_details": [
@@ -82,12 +82,6 @@
       "kind": "trough",
       "value_c": 5730.0,
       "prominence_c": 15.3
-    },
-    {
-      "frame_idx": 339,
-      "kind": "trough",
-      "value_c": 6080.8,
-      "prominence_c": 136.1
     },
     {
       "frame_idx": 536,

@@ -37,6 +37,20 @@
       "idx": 246
     },
     {
+      "t_s": 28.48,
+      "kind": "peak",
+      "value_c": 6236.3,
+      "prominence_c": 25.7,
+      "idx": 325
+    },
+    {
+      "t_s": 29.21,
+      "kind": "peak",
+      "value_c": 6927.3,
+      "prominence_c": 150.8,
+      "idx": 398
+    },
+    {
       "t_s": 29.31,
       "kind": "trough",
       "value_c": 6609.5,
@@ -59,7 +73,7 @@
     }
   ],
   "v2_missing_n": 10,
-  "source_turns": 46,
+  "source_turns": 44,
   "attributions": [
     {
       "t_s": 25.86,
@@ -167,6 +181,22 @@
       "owner_fix": "score: boundary/phoneme structure"
     },
     {
+      "t_s": 29.21,
+      "kind": "peak",
+      "value_c": 6927.3,
+      "prominence_c": 150.8,
+      "note": 9,
+      "lyric": "+",
+      "phoneme": "+",
+      "source_event": "stable",
+      "render_region": {
+        "nearest_same_kind_dt_ms": 20.2,
+        "nearest_same_kind_prom_c": 230.1
+      },
+      "loss_stage": "written-score/structure issue",
+      "owner_fix": "score: boundary/phoneme structure"
+    },
+    {
       "t_s": 29.31,
       "kind": "trough",
       "value_c": 6609.5,
@@ -210,22 +240,6 @@
       "render_region": {
         "nearest_same_kind_dt_ms": 140.2,
         "nearest_same_kind_prom_c": 46.8
-      },
-      "loss_stage": "written-score/structure issue",
-      "owner_fix": "score: boundary/phoneme structure"
-    },
-    {
-      "t_s": 30.75,
-      "kind": "trough",
-      "value_c": 6554.3,
-      "prominence_c": 67.1,
-      "note": 11,
-      "lyric": "根",
-      "phoneme": "根",
-      "source_event": null,
-      "render_region": {
-        "nearest_same_kind_dt_ms": 159.8,
-        "nearest_same_kind_prom_c": 33.3
       },
       "loss_stage": "written-score/structure issue",
       "owner_fix": "score: boundary/phoneme structure"

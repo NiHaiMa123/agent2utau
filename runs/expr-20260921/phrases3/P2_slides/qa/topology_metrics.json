@@ -1,13 +1,13 @@
 {
   "matched_turns": 45,
-  "missing_turns": 16,
+  "missing_turns": 14,
   "extra_turns": 2,
-  "source_turns": 61,
+  "source_turns": 59,
   "render_turns": 47,
   "turn_timing_err_ms_med": 0.0,
   "turn_amplitude_err_c_med": 5.0,
   "turn_prominence_err_c_med": 6.7,
-  "sequence_edit_distance": 14,
+  "sequence_edit_distance": 12,
   "missing_turn_details": [
     {
       "frame_idx": 36,
@@ -52,12 +52,6 @@
       "prominence_c": 110.8
     },
     {
-      "frame_idx": 237,
-      "kind": "peak",
-      "value_c": 5982.9,
-      "prominence_c": 237.0
-    },
-    {
       "frame_idx": 240,
       "kind": "trough",
       "value_c": 5973.4,
@@ -98,12 +92,6 @@
       "kind": "peak",
       "value_c": 6860.8,
       "prominence_c": 238.7
-    },
-    {
-      "frame_idx": 430,
-      "kind": "peak",
-      "value_c": 6644.1,
-      "prominence_c": 22.9
     }
   ],
   "extra_turn_details": [

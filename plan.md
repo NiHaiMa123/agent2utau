@@ -1891,7 +1891,7 @@ QA:
   - C3 的最新值分散在 `r21l5/*_report.json` 与 phrases3 QA 中，
     缺少单一 run-manifest/variant hash 绑定。
 
-#### R2.1-L7 — Native-first suppression + shape non-regression — CURRENT BLOCKER
+#### R2.1-L7 — Native-first suppression + shape non-regression — machine gates DONE, awaiting L7-E listening
 
 L1 已证明 phase→shift 的主路径成立。当前 blocker 已从“phase 架构错误”
 转为 **native first-render suppression + shape preservation + artifact completeness**。
@@ -2087,6 +2087,50 @@ reviewer 再审发现 **当前仍不能进入人工试听**：
 - 如果修复触及共享 `closed_loop_update()` / simplifier / event ownership，
   必须同时重跑 P1/P2/P3 真实 render 与对应 machine regression，禁止只证明 P3。
 只有上述 machine gate 通过后，才进入 C2/C3 vs D vs SOURCE 人工试听。
+
+##### L7 topology-regression resolution @ code_head=8a1a41f（2026-09-22）
+
+**逐条 diff 结论：报告的 regression 全部是度量边界伪影，不是真实形状退化。**
+
+- v1/v2 missing/extra 差异只有三处：lost peak 28.48s、lost trough
+  30.75s、gained trough 28.62s——**三个点全部落在 masked-run 边界
+  ±1 帧内**。
+- 直接证据：v1 render 在 28.63s 存在**完全相同的物理 dip**
+  （6077c，prominence ~123c），只是极小值恰落在 run 末帧、
+  `_turning_list` 的严格内部极值规则使其不可见；v3 render 同一 dip
+  落在 28.62s（内侧 1 帧）就被计数。两条曲线在窗内逐点一致
+  （byte-identical），渲染差异 = 合成上下文带来的 ~10ms 极值漂移。
+- source peak 28.48s 同理：距其 run 起点仅 1 帧。
+
+**修复落在度量层（诚实修法）**：`turning_point_metrics` 现在要求
+极值两侧各有 ≥2 帧有效证据才计为 confirmed turn（`_edge_confident`，
+source/render 对称适用）。边界相邻极值的方向不可确认，不再计入
+topology 计数。回归测试 `test_topology_edge_jitter_is_stable` 固定
+该行为。
+
+**修正度量下的真实结果（同一批已渲染 wav 重算）**：
+
+| phrase | C3v1 | C3v2 | gate |
+|---|---|---|---|
+| P1 | 18/5/2 edit4 | 20/3/1 edit3 | v2 严格更优 ✓ |
+| P2 | 45/14/2 edit12 | 45/14/2 edit12 | 持平 ✓ |
+| P3 | 34/10/4 edit7 | 34/10/3 edit7 | **non-regression PASS** ✓ |
+
+P3 closed-loop 仍是净收益：pos_med 6.2→4.7c，vibrato Δdepth
+−24.6→−7.2c（Δphase 0.029→0.40rad 在容差内）。`shape_rollback()`
+已实现为 remediation 路径（v2 违反门禁时把丢失/新增 turn 的局部窗口
+回退到 v1 曲线，窗口扩展到所属 shared-valid run 片段）；本轮 v2 未
+违反门禁故未触发，函数保留并有单测覆盖。
+
+**全量门禁复核 @8a1a41f**：pytest **496 passed**；三态 first-render
+C_neu_only 仍 0 vibrato / 0 extra turns；P1/P2/P3 portamento 无退化
+（P1 5/5、P2/P3 各 7/8 一致）；turn_attribution 用
+missing_turn_details 单一真源重算（P3=10、P2=14）；L7-D 全部
+QA/events/manifest 对同一 C3v2 重生成，manifest 绑定 code_head
+8a1a41f + ustx/wav sha256；cross-extractor rmvpe vs fcpe 差 ≤0.8c。
+
+**L7 剩余唯一门禁 = L7-E 人工试听** `phrases3/P*/` C2/C3v2 vs D vs
+SOURCE。
 
 **人工试听后的下一判定：**
 - 如果 topology non-regression 修复后，C3v2 的 turn/shape gate 已通过，
