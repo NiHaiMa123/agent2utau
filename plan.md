@@ -1870,7 +1870,7 @@ run_manifest.json
 ~~~
 
 `run_manifest.json` 至少绑定：
-- git HEAD；
+- code_head（**生成 artifact 时实际使用的源码 commit**；artifact 自己可以在后续 commit 提交，禁止用“artifact 提交后的 HEAD”反推生成代码）；
 - base semantic hash；
 - USTX candidate hash；
 - render wav hash；
@@ -1881,10 +1881,20 @@ run_manifest.json
 
 **禁止把旧 C0/C1/C2 artifact 与新 C3 report 混在一起宣称同一 machine gate。**
 
-##### L7 execution status — A/B/C/D machine gates DONE
+##### L7 execution status — A/B PASS；C/D DIRECT PATCH APPLIED / REVALIDATION REQUIRED
 
-实测证据（同一 C3v2 candidate，`phrases3/<P>/run_manifest.json` 绑定
-git HEAD + ustx/wav sha256）：
+上一轮实测证据保留，但 2026-09-22 reviewer 复核发现：
+- P3 `topology_metrics.json` 报 **12 missing**，而旧
+  `turn_attribution.json` 只归因 **11**，说明 attribution 不是 topology
+  matcher 的单一真源；
+- 三个 `run_manifest.json` 仍写 `git_head=13d1582...`，但 L7-A/B
+  实现实际在后续 commit 中才提交，因此 provenance 不能证明当前 artifact
+  对应哪一份源码；
+- 旧 P3 attribution 中仍有 2 个明确 `PITD simplifier loss` +
+  1 个 residual/detector miss，不能仅以“已归因”宣告 under-tracing solved。
+
+因此人工试听重新 BLOCK，先对 reviewer 直接修复后的最新 code_head 做一次
+真实 render revalidation。
 
 **L7-A — RESOLVED**。根因：`suppress_neutral` 分支在禁用 note vibrato 的
 同时又按"base 已含 neutral vibrato"的代数去减 → double-subtraction 漏
@@ -1913,41 +1923,70 @@ closed-loop 达标。
 不能保证窗内渲染 sample-identical（实测 ±25c jitter @ borderline
 frames）——lane ownership 保证的是 written curve，不是声学输出。
 
-**L7-C — RESOLVED（归因完成）**。`qa/turn_attribution.json` 逐 turn 记录
+**L7-C — DIRECT PATCH APPLIED / REAL RENDER REVALIDATION REQUIRED**。`qa/turn_attribution.json` 逐 turn 记录
 abs time / note / prominence / source event / render region / loss stage /
 owner。P3 v2 missing=11：structure 4（note 边缘，含 vibrato 窗口外紧邻的
 29.64/30.75）+ render/extraction 4 + simplifier 2 + detector 1。
 P2 v2 missing=18：structure 13（多集中于 note8 octave 区与字边界）+
-render/extraction 3 + detector 2。**under-tracing 主项是 written-score
-边界与 transition 帧，不是 vibrato 也不是 closed-loop**。
+render/extraction 3 + detector 2。
 
-**L7-D — RESOLVED**。`phrases3/<P>/` 下全部 QA + events + manifest 对
+Reviewer 已直接修复两类静态确定问题：
+1. `compile_C3` 现在会保护 SOURCE 中达到 QA prominence gate 的显著
+   turning points，且 native-vibrato span 明确排除，不会把振音重新密集
+   写回 PITD。该修复针对旧 attribution 中的 **2 个 PITD simplifier loss**；
+2. `turning_point_metrics` 现在直接输出
+   `missing_turn_details/extra_turn_details`，详情和 count 来自同一个 matcher。
+   后续 `turn_attribution.json` **必须消费这些 exact rows**，禁止二次独立
+   搜索 missing turns，因此不再允许出现 12-count / 11-attribution。
+
+仍需 SWE2 真实验证：
+- 对最新 code_head 重跑 P3，确认 simplifier-loss turn 实际恢复；
+- 对 25.92s 附近旧的 `detector miss (absent in residual)` 只做诊断：
+  先查 frame-state / voiced coverage / extractor conflict / transition mask，
+  **禁止为了补一个 turn 直接把 source-only/neutral-only frame 当 PITD**；
+- 新 topology 若仍有 missing，必须直接从
+  `topology_metrics.missing_turn_details` 生成 attribution。
+
+**L7-D — STALE AFTER REVIEWER CODE PATCH / REGENERATE REQUIRED**。`phrases3/<P>/` 下全部 QA + events + manifest 对
 同一 C3v2 候选重生成；cross-extractor gate 通过（rmvpe eval med 与 fcpe
 差 ≤0.5c：P1 4.1/4.6, P2 4.2/4.5, P3 4.2/4.4）。
 
-最终指标（C3v2, fcpe eval）：P1 pos_med 4.1c；P2 4.2c + vib Δdepth −3.2c；
-P3 4.2c + vib Δdepth −7.0c Δphase 0.345rad。491 tests green。
+上一轮指标仅保留作 regression baseline：
+P1 pos_med 4.1c；P2 4.2c + vib Δdepth −3.2c；
+P3 4.2c + vib Δdepth −7.0c Δphase 0.345rad；491 tests green。
 
-剩余唯一门禁：**L7-E 人工试听** `phrases3/P*/` C2/C3(v2) vs D vs SOURCE。
+但 reviewer 代码已继续变化，以上 artifact 对最新 code_head **全部 stale**。
+SWE2 必须在最新源码 commit 上：
+- 先完整 pytest；
+- 再重生成 P1/P2/P3 C3v1 + C3v2 render；
+- 重生成 QA/events/turn attribution；
+- manifest 使用 `code_head=<实际生成代码 commit>`，而不是 artifact commit；
+- 重新计算 USTX/WAV SHA256。
+
+下一门禁不是人工试听，而是 **post-review machine revalidation**。
 
 ##### L7-E. machine gate 后才试听
 
 执行顺序更新为：
 
 ~~~text
-1. 修 neutral-only first-render suppression
-2. 给 closed-loop 加 event/lane ownership，修 P2 portamento regression
-3. 对 P3 10 missing turns 做逐项归因并减少 under-tracing
-4. 生成同一最终 C3 的完整 QA + manifest
-5. cross-extractor + artifact coverage gate
-6. 再人工试听 phrases3 C2/C3 vs D vs SOURCE
+1. 以 reviewer 最新 code_head 为基准跑完整 pytest
+2. 重跑 P1/P2/P3 C3v1 → C3v2 真实 OpenUtau render
+3. 确认 neutral-only first-render 仍为 0 vibrato / ≤1 extra turn
+4. 确认 P2 portamento matched 数不比 v1/C2 退化
+5. 用 topology_metrics 自带 missing_turn_details 生成唯一 attribution
+6. 验证旧 2 个 simplifier-loss turns 是否恢复；单独诊断 25.92s residual miss
+7. 重生成完整 QA/events/artifact_coverage/cross-extractor
+8. run_manifest 绑定实际 code_head + USTX/WAV hash
+9. 所有 machine gate 通过后，再人工试听 C2/C3v2 vs D vs SOURCE
 ~~~
 
-在 L7-A/B/C/D 完成前：
+在 post-review machine revalidation 完成前：
 - R2.1-L 不得标 DONE；
+- L7-E 人工试听保持 BLOCKED；
 - R2.5/R3 继续 BLOCKED；
 - 不进入正式 detector training；
-- 不以“489 tests passed”替代真实 render/shape acceptance。
+- 不以 pytest green 替代真实 render/shape acceptance。
 
 历史验收清单（备查）：
 
