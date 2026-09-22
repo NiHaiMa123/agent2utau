@@ -6,7 +6,7 @@ from agent2utau.expression.contour import (
 from agent2utau.expression.events import (
     detect_vibrato_events, match_vibrato_events)
 from agent2utau.expression.pitch_residual import (
-    TICK_MS, VIBRATO_DEPTH_GAIN, compile_C3)
+    TICK_MS, VIBRATO_DEPTH_GAIN, compile_C2, compile_C3)
 
 
 def _sig(times, cents, voiced=None, conf=1.0):
@@ -245,6 +245,25 @@ def test_compile_note_vibrato_accounts_for_base_vibrato():
     recon = (6000 + Vb) - Vb + ctl + Vc
     span = (t >= 0.8) & (t <= dur) & ~np.isnan(ctl)
     assert np.median(np.abs(recon[span] - (6000 + src_vib)[span])) < 15
+
+
+def test_compile_c2_baseline_path_still_runs():
+    """C2 is a frozen historical baseline and must remain callable.
+
+    Turn-protection belongs to C3; C2 must not accidentally reference
+    C3-only source/native-vibrato state.
+    """
+    dur = 0.30
+    t = np.arange(0, dur + HOP_S, HOP_S)
+    tri = np.maximum(0.0, 1.0 - np.abs(t - 0.15) / 0.08)
+    src_c = 6000.0 + 20.0 * tri
+    neu_c = np.full(len(t), 6000.0)
+    dense, _src, _neu = _dense_and_sigs(src_c, neu_c, dur)
+    dense["state"] = np.zeros(len(t), dtype=int)
+    pitd, marks = compile_C2(dense, [_note(dur)], 0, [], max_err_c=10.0)
+    assert marks == {}
+    assert pitd["abbr"] == "pitd"
+    assert len(pitd["xs"]) >= 2
 
 
 def test_compile_c3_preserves_prominent_source_turn_below_error_budget():
