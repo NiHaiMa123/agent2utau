@@ -1,0 +1,13 @@
+{
+ "round": "J7A human listening verdict",
+ "evaluated_head": "fae5010",
+ "verdict": {
+  "B_j7_rules": "FAIL — 调都不对 (notes enter hundreds of cents off target)",
+  "A_neutral_base": "FAIL_AS_REFERENCE — 音高完全平的, heavy machine feel (expected: zero expression baseline)"
+ },
+ "failure_attribution": {
+  "B": "sparse knots anchor only note CORES; the inter-note transition region is left to pitd interpolation, so notes enter at the previous notes tail value instead of their own target (e.g. you enters -203c, de +588c in first 150ms). Steep linear-body slopes amplify the carry-over. Pitch.data y0 convention verified identical to human written values — not the cause. Design-level defect: transitions/departure/arrival regions need explicit structural anchors, not free interpolation.",
+  "A": "zero-expression baseline is flat by construction"
+ },
+ "evidence": "runs/huahai_j7/j7_*_{rules.json,diag.json,render_f0_*.npz,cand.ustx,*_AB.ustx}, agent2utau_J7_all_AB.ustx"
+}

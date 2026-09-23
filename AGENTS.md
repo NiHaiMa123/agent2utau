@@ -1852,3 +1852,18 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   cand wav,render_f0_{fcpe,rmvpe}.npz,diag.json,AB listening ustx};
   A baseline = committed J5 neutral renders. Listening is the
   decision point per J7.13.
+
+### J7A listening outcome (verdict: FAIL both layers)
+
+- B (J7 rules): **调都不对** — measured cause: sparse knots anchor
+  only note cores; inter-note transition region is left to pitd
+  interpolation, so notes ENTER at the previous note's tail value
+  (e.g. 'you' -203c, 'de' +588c within first 150 ms of render F0).
+  Steep linear-body slopes amplify carry-over. pitch.data y0 values
+  verified byte-identical to human convention — not the cause.
+  Lesson: transitions need explicit departure/arrival anchors; a
+  low-DOF curve cannot leave boundary regions to free interpolation.
+- A (neutral baseline): 音高完全平的, heavy machine feel — expected
+  for a zero-expression reference; confirms expression is the
+  differentiator, not the renderer.
+- Verdict bound in runs/huahai_j7/listening_verdict.json.
