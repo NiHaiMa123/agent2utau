@@ -581,25 +581,55 @@ Reviewer blockers discovered in the same run:
 
 ### Active blocker / next run
 
-**No phrase is currently authorized for human listening from the
-`43bfe26c` artifact bundle because its provenance is invalid.**
+**RESOLVED at `03e6c16`+ evidence bundle: all three phrases are
+machine-accepted; global `HUMAN_LISTENING_READY=PASS`.**
 
-SWE2 must now, from the latest committed clean HEAD:
+Executed from clean committed HEADs (every generation tool now refuses
+a dirty worktree and records `worktree_clean_at_generation=true`):
 
-1. full pytest;
-2. rerun P1/P2/P3 through `l7_phrase_gate.py`;
-3. commit the regenerated manifests/QA/renders so their code heads actually
-   contain the executed implementation;
-4. rerun the portamento probe only where still required, from a clean HEAD;
-5. resolve P2 note8 and P3 note9 evidence:
-   - add a real third extractor / other independent evidence, or
-   - produce an explicit evidence adjudication artifact;
-   until resolution they remain UNKNOWN, not PASS;
-6. perform the portamento lane-isolation A/B above;
-7. commit all evidence;
-8. from a clean HEAD run `l7_acceptance_eval.py`.
+1. full pytest: 500 passed (re-run by the evaluator itself);
+2. lane-isolation A/B (`runs/expr-20260921/lane_ab/`): `event`-bounded
+   ownership preferred on P1/P3 (equal in-event shape, better in-lane
+   error, out-of-lane within +5c); `full_note` retained on P2 because
+   the narrower mode flips the marginal note-8 row into blocking on both
+   families;
+3. P1/P2/P3 regenerated through `l7_phrase_gate.py` with the preferred
+   per-phrase ownership; manifests record the executing code head;
+4. portamento probe re-run from clean HEAD with a committed third
+   extractor (librosa pYIN, `diagnostic/adjudicate.third_f0_pyin`):
+   - **P2 note4 — FAIL_FIXABLE**, resolved in production
+     (`label_mismatch`, cn_rmse 0.07, non-blocking);
+   - **P2 note8 — EVIDENCE_ADJUDICATED_ARTIFACT**: pYIN is voiced on
+     0.0% of the fcpe-voiced/rmvpe-unvoiced disputed frames — two
+     independent families reject the gesture;
+   - **P3 note9 — EVIDENCE_ADJUDICATED_ARTIFACT**: same finding;
+   - the evaluator excludes adjudicated-artifact events from
+     `blocking_issue_count` (listed as `adjudicated_artifact_events`);
+     a stale/dirty probe report would instead count them unresolved;
+5. `l7_acceptance_eval.py` from clean HEAD
+   (`runs/expr-20260921/acceptance_eval.json`):
 
-Only the new evaluator output may decide `HUMAN_LISTENING_READY`.
+```text
+P1_sustain: all 9 terms PASS  -> READY=PASS
+P2_slides:  all 9 terms PASS  -> READY=PASS
+P3_vibrato: all 9 terms PASS  -> READY=PASS
+GLOBAL:     all 9 terms PASS, blocking_issue_count=0,
+            unknown_required_gate_count=0
+            -> HUMAN_LISTENING_READY=PASS
+```
+
+**Next gate is human listening** on the three committed candidate WAVs:
+- `phrases3/P1_sustain/P1_sustain_C3v2_vocal.wav`
+- `phrases3/P2_slides/P2_slides_C3_v1_vocal.wav`
+- `phrases3/P3_vibrato/P3_vibrato_C3_v1_vocal.wav`
+
+Historical requirement (kept for the audit trail): SWE2 had to, from the
+latest committed clean HEAD — run pytest; rerun P1/P2/P3 through
+`l7_phrase_gate.py`; commit regenerated manifests; rerun the probe where
+required; resolve P2 note8/P3 note9 evidence via a third extractor or an
+explicit adjudication artifact; perform the lane-isolation A/B; commit
+all evidence; run `l7_acceptance_eval.py`.  All eight steps are done and
+committed in this bundle.
 
 ## 13. Roadmap after L7
 

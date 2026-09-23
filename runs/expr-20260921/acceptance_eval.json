@@ -1,6 +1,7 @@
 {
  "evaluator": "tools/l7_acceptance_eval.py",
- "evaluator_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
+ "evaluator_head": "e56324ab86a155447826c4ef8c2727fb4751b614",
+ "worktree_clean_at_evaluation": true,
  "run_dir": "runs\\expr-20260921",
  "terms": [
   "tests",
@@ -20,13 +21,13 @@
    "terms": {
     "real_render": {
      "verdict": "PASS",
-     "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3_v1_vocal.wav sha256=6a4f4a3ecc917e6f dur=21.705s rms=-33.6dB"
+     "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2_vocal.wav sha256=93557c8b48d513ea dur=21.705s rms=-34.4dB"
     },
     "topology_gate": {
      "verdict": "PASS",
      "evidence": "runs\\expr-20260921\\phrases3\\P1_sustain/run_manifest.json#shape_gate",
      "detail": {
-      "stage": "v1",
+      "stage": "v2",
       "violations": [],
       "topology": null
      }
@@ -35,7 +36,7 @@
      "verdict": "PASS",
      "evidence": "runs\\expr-20260921\\phrases3\\P1_sustain/run_manifest.json#shape_gate",
      "detail": {
-      "stage": "v1",
+      "stage": "v2",
       "violations": []
      }
     },
@@ -44,7 +45,10 @@
      "evidence": "runs\\expr-20260921\\phrases3\\P1_sustain/qa/event_shape_metrics.json",
      "detail": {
       "n_blocking": 0,
-      "blocking": []
+      "blocking": [],
+      "unverified_source_events": [],
+      "adjudicated_artifact_events": [],
+      "evidence_report_clean": false
      }
     },
     "render_voicing_gate": {
@@ -58,7 +62,9 @@
      "verdict": "PASS",
      "evidence": "runs\\expr-20260921\\phrases3\\P1_sustain/qa/event_shape_metrics_rmvpe.json",
      "detail": {
-      "n_blocking_rmvpe": 0
+      "n_blocking_rmvpe": 0,
+      "unverified_source_events": [],
+      "adjudicated_artifact_events": []
      }
     },
     "provenance_gate": {
@@ -73,7 +79,7 @@
     },
     "tests": {
      "verdict": "PASS",
-     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 12.72s"
+     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 4.92s"
     }
    },
    "blocking_issue_count": 0,
@@ -94,13 +100,13 @@
    "terms": {
     "real_render": {
      "verdict": "PASS",
-     "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v3_vocal.wav sha256=1a75bd40c0fa21f9 dur=56.813s rms=-35.5dB"
+     "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3_v1_vocal.wav sha256=22533ca04e164649 dur=56.813s rms=-34.6dB"
     },
     "topology_gate": {
      "verdict": "PASS",
      "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/run_manifest.json#shape_gate",
      "detail": {
-      "stage": "v3",
+      "stage": "v1",
       "violations": [],
       "topology": null
      }
@@ -109,16 +115,21 @@
      "verdict": "PASS",
      "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/run_manifest.json#shape_gate",
      "detail": {
-      "stage": "v3",
+      "stage": "v1",
       "violations": []
      }
     },
     "absolute_event_shape_gate": {
      "verdict": "PASS",
-     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/qa/event_shape_metrics.json",
+     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/qa/event_shape_metrics.json; runs\\expr-20260921\\probe_portamento\\P2_slides_probe_report.json",
      "detail": {
       "n_blocking": 0,
-      "blocking": []
+      "blocking": [],
+      "unverified_source_events": [],
+      "adjudicated_artifact_events": [
+       8
+      ],
+      "evidence_report_clean": true
      }
     },
     "render_voicing_gate": {
@@ -130,9 +141,13 @@
     },
     "cross_extractor_gate": {
      "verdict": "PASS",
-     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/qa/event_shape_metrics_rmvpe.json",
+     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/qa/event_shape_metrics_rmvpe.json; runs\\expr-20260921\\probe_portamento\\P2_slides_probe_report.json",
      "detail": {
-      "n_blocking_rmvpe": 0
+      "n_blocking_rmvpe": 0,
+      "unverified_source_events": [],
+      "adjudicated_artifact_events": [
+       8
+      ]
      }
     },
     "provenance_gate": {
@@ -147,7 +162,7 @@
     },
     "tests": {
      "verdict": "PASS",
-     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 12.72s"
+     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 4.92s"
     }
    },
    "blocking_issue_count": 0,
@@ -168,7 +183,7 @@
    "terms": {
     "real_render": {
      "verdict": "PASS",
-     "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav sha256=d7e25058e11ebb22 dur=30.866s rms=-34.0dB"
+     "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav sha256=e16455f87d88fca3 dur=30.866s rms=-33.7dB"
     },
     "topology_gate": {
      "verdict": "PASS",
@@ -188,8 +203,8 @@
      }
     },
     "absolute_event_shape_gate": {
-     "verdict": "FAIL",
-     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/qa/event_shape_metrics.json",
+     "verdict": "PASS",
+     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/qa/event_shape_metrics.json; runs\\expr-20260921\\probe_portamento\\P3_vibrato_probe_report.json",
      "detail": {
       "n_blocking": 1,
       "blocking": [
@@ -197,7 +212,12 @@
         "from_note": 9,
         "class": "distortion"
        }
-      ]
+      ],
+      "unverified_source_events": [],
+      "adjudicated_artifact_events": [
+       9
+      ],
+      "evidence_report_clean": true
      }
     },
     "render_voicing_gate": {
@@ -209,9 +229,13 @@
     },
     "cross_extractor_gate": {
      "verdict": "PASS",
-     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/qa/event_shape_metrics_rmvpe.json",
+     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/qa/event_shape_metrics_rmvpe.json; runs\\expr-20260921\\probe_portamento\\P3_vibrato_probe_report.json",
      "detail": {
-      "n_blocking_rmvpe": 0
+      "n_blocking_rmvpe": 0,
+      "unverified_source_events": [],
+      "adjudicated_artifact_events": [
+       9
+      ]
      }
     },
     "provenance_gate": {
@@ -226,17 +250,17 @@
     },
     "tests": {
      "verdict": "PASS",
-     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 12.72s"
+     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 4.92s"
     }
    },
-   "blocking_issue_count": 1,
+   "blocking_issue_count": 0,
    "unknown_required_gate_count": 0,
    "HUMAN_LISTENING_READY": {
-    "verdict": "FAIL",
+    "verdict": "PASS",
     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato\\run_manifest.json",
     "detail": {
-     "all_terms_pass": false,
-     "blocking_issue_count": 1,
+     "all_terms_pass": true,
+     "blocking_issue_count": 0,
      "unknown_required_gate_count": 0
     }
    }
@@ -246,7 +270,7 @@
   "terms": {
    "tests": {
     "verdict": "PASS",
-    "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 12.72s"
+    "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 4.92s"
    },
    "real_render": {
     "verdict": "PASS",
@@ -276,12 +300,12 @@
     }
    },
    "absolute_event_shape_gate": {
-    "verdict": "FAIL",
-    "evidence": "phrases",
+    "verdict": "PASS",
+    "evidence": "all phrases",
     "detail": {
      "P1_sustain": "PASS",
      "P2_slides": "PASS",
-     "P3_vibrato": "FAIL"
+     "P3_vibrato": "PASS"
     }
    },
    "render_voicing_gate": {
@@ -321,13 +345,13 @@
     }
    }
   },
-  "blocking_issue_count": 1,
+  "blocking_issue_count": 0,
   "unknown_required_gate_count": 0,
   "HUMAN_LISTENING_READY": {
-   "verdict": "FAIL",
+   "verdict": "PASS",
    "evidence": "global roll-up",
    "detail": {
-    "blocking_issue_count": 1,
+    "blocking_issue_count": 0,
     "unknown_required_gate_count": 0
    }
   }
