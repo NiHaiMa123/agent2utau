@@ -558,6 +558,7 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
                for fn in blocking]
     out = {"phrase": phrase, "generator_code_head": head,
            "qa_code_head": drv._git_head(),
+           "worktree_clean_at_generation": True,
            "base_file_sha256": sha256(drv.BASE_USTX),
            "base_semantic_sha256": semantic_notes_sha256(base_doc),
            "v1_ustx_sha256": sha256(v1_ustx),
