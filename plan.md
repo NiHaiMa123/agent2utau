@@ -790,122 +790,101 @@ Therefore `full_note` vs `event` is too coarse a control variable.
 
 **Do not unlock Round C from this BLOCKED result.**
 
-#### Round B2 — ACTIVE: per-lane ownership isolation and hybrid repair
+#### Round B2 — ACTIVE: exhaustive per-lane ownership closure
 
-Purpose: determine whether a mixed ownership vector can preserve the
-non-portamento lanes **and** avoid the RMVPE note9 distortion.
+Executor bundle `febd8814 → c8ddf303 → 7e0b23e3` successfully established
+useful single-lane causal evidence, but its final claim
+“no admissible narrower ownership exists” is **not yet proven**.
 
-This is a bounded repair round created from the valid Round-B BLOCKED result.
+Accepted findings:
+- applied target-note lanes are exactly `{2,5,7}`;
+- lane 7 alone toggled to `event` reproduces the RMVPE
+  `from_note=9 distortion` blocker;
+- lane 2 / lane 5 single toggles do not improve the discrete SOURCE-event
+  state and introduce additional render-only/matching regressions;
+- all artifacts are bound to clean `febd8814` generation provenance.
 
-### Minimal implementation allowed
+Reviewer blocker:
+- the renderer has already demonstrated non-local/context-dependent behavior;
+- testing only FFF + three one-lane toggles cannot prove that a two-lane
+  combination such as `EEF`, `EFE` or `FEE` is inadmissible;
+- the previous greedy hybrid therefore over-claims when it concludes that
+  FFF is the only valid vector.
 
-Extend `compile_portamento_lane` in a backwards-compatible way so ownership
-may be specified either as:
+Because only three lanes are active, heuristic inference is unnecessary.
+The complete state-space has only eight vectors.
 
-```text
-"full_note"
-"event"
-```
+Reviewer patch:
+- `2f4c52ed`: `l7_lane_isolation_perlane.py` now enumerates all
+  `2^N` ownership vectors and selects from measured real-render evidence
+  only.
 
-or as an explicit per-target-note map, e.g.:
+### Required exhaustive rerun
 
-```python
-{2: "event", 5: "full_note", 7: "event"}
-```
+Scope remains **only P2_slides**.
 
-Existing string behavior must remain byte/semantic compatible.
-Every applied lane must record its actual resolved ownership in provenance.
-
-Do not change:
-- portamento eligibility;
-- extractor thresholds;
-- anchor spacing;
-- settle duration;
-- event-shape thresholds;
-- Round-A edge evidence.
-
-### Isolation experiment
-
-P2 currently has three applied target-note lanes (derive/verify the exact
-indices from committed `lane_provenance`; expected set is 2, 5, 7).
-
-From a clean HEAD render:
+From the latest committed clean HEAD render all eight vectors:
 
 ```text
-FFF = all full_note baseline
-EFF = only target 2 -> event
-FEF = only target 5 -> event
-FFE = only target 7 -> event
+FFF
+FFE
+FEF
+FEE
+EFF
+EFE
+EEF
+EEE
 ```
 
-where F = full_note and E = event.
+where the positions correspond to applied target-note lanes `[2,5,7]`.
 
-For each render record:
-- FCPE/RMVPE absolute event-shape blocker identities;
-- especially whether RMVPE `from_note=9 distortion` appears;
-- discrete non-portamento lane identities, not counts only:
-  - type;
-  - note_indices;
-  - start/end time;
-  - matched / source_only / ambiguous / render_only;
+For every vector record:
+- exact ownership map and owned spans;
+- USTX/WAV hashes;
+- FCPE blocker identities;
+- RMVPE blocker identities;
+- discrete non-portamento event identities/states on both families;
 - vibrato missing-event count;
-- in-lane/out-of-lane position;
+- in-lane / out-of-lane position;
 - out-of-lane topology;
-- exact ownership vector and per-lane spans;
-- artifact hashes and clean-worktree provenance.
+- committed Round-A source-edge evidence hash.
 
-### Causal attribution rule
+A vector is admissible only if, relative to FFF:
+- FCPE blockers = 0;
+- RMVPE blockers = 0;
+- discrete non-portamento lanes are non-worse on both extractor families;
+- vibrato missing count is non-worse;
+- out-of-lane median |err| <= FFF + 5 c;
+- out-of-lane topology is non-worse in:
+  - sequence edit distance;
+  - missing turns;
+  - extra turns.
 
-A discrete event may be attributed to a lane-ownership change only when:
-- its time window overlaps that lane's incremental
-  `full_note - event` ownership tail, or
-- a reproducible downstream renderer-context effect is demonstrated by
-  toggling only that lane.
+Selection is deterministic:
+1. minimum total owned-span duration;
+2. then lower out-of-lane median |err|;
+3. then deterministic vector label.
 
-Do not infer swallowing from aggregate count changes alone.
-
-### Hybrid selection
-
-After the three one-lane toggles:
-
-1. keep a lane `full_note` if toggling only that lane to `event`
-   introduces a required blocker such as RMVPE note9 distortion;
-2. use `event` for a lane when the toggle preserves required shape gates
-   and improves/preserves discrete non-portamento lanes;
-3. render **one final hybrid vector** built from those attributions;
-4. the hybrid is accepted only if:
-   - FCPE blockers = 0;
-   - RMVPE blockers = 0;
-   - discrete non-portamento lanes are non-worse than the all-full baseline
-     on both extractor families;
-   - vibrato structure is non-worse;
-   - out-of-lane behavior remains within the existing tolerance.
-
-If no hybrid vector satisfies all required gates, output:
+Allowed final verdict:
 
 ```text
-BLOCKED_PER_LANE
+preferred = full_note
+          | hybrid(<ownership map>)
+          | BLOCKED_PER_LANE
 ```
 
-and STOP.  Do not add more representation degrees of freedom in this round.
+Only an exhaustive result may now justify the statement
+“no admissible narrower ownership exists.”
 
 ### Round B2 STOP condition
 
-Commit one evidence packet containing:
-- FFF / EFF / FEF / FFE results;
-- causal attribution per lane;
-- one final hybrid validation (if a viable hybrid exists);
-- final verdict:
-
-```text
-preferred = hybrid(<ownership map>) | full_note | BLOCKED_PER_LANE
-```
-
-Then STOP.
+Commit one clean exhaustive P2 evidence packet containing all eight vectors,
+their admissibility states, the selected vector, hashes/provenance and final
+verdict. Then STOP.
 
 **Forbidden in Round B2:**
 - do not reopen Round-A evidence;
-- do not modify QA thresholds;
+- do not modify portamento thresholds / settle duration / QA thresholds;
 - do not regenerate production P1/P2/P3 artifacts;
 - do not run final acceptance;
 - do not start Round C.
