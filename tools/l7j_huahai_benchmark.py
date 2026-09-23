@@ -509,6 +509,29 @@ def main():
     for r in j4["rules"]:
         print(" ", r["id"], "—", r["rule"][:100])
 
+    # ---------- Phase J5: current agent2utau on same phrases -------
+    # gated: only runs when J0-J4 evidence is committed (this run IS
+    # from clean HEAD, so the committed j0-j4 files are inputs)
+    print("J5: agent2utau compile path on benchmark phrases ...",
+          flush=True)
+    j5_layers = j5_agent_layer(doc, picked, t2s, wave_off, ms_tick,
+                               head)
+    j5 = {"phase": "J5 agent layer D",
+          "evaluated_head": head,
+          "worktree_clean_at_generation": True,
+          "method": ("current compile path: neutral render -> dense "
+                     "residual -> compile_C3 -> portamento lane "
+                     "(full_note) -> candidate render. SOURCE F0 "
+                     "transposed +4st into the written pitch frame; "
+                     "production arbitration (v2/v3 closed loop) NOT "
+                     "replicated — the compiled representation is the "
+                     "benchmark layer"),
+          "phrases": j5_layers}
+    out5 = OUT / "j5_agent.json"
+    out5.write_text(json.dumps(j5, indent=1, ensure_ascii=False),
+                    encoding="utf-8")
+    print("wrote", out5)
+
 
 def crop_phrase_ustx(doc, part_index, a_s, b_s, wave_off, ms_tick,
                      singer):
@@ -852,6 +875,177 @@ def j4_rules(j3, head):
             "evaluated_head": head,
             "worktree_clean_at_generation": True,
             "rules": rules}
+
+
+KIM2_VOCALS = Path("runs/huahai_benchmark/separation_kim2") / \
+    "04. 周杰伦 - 花海_(Vocals)_Kim_Vocal_2.wav"
+TRANSPOSE_ST = 4.0
+PAD_S = 0.30
+
+
+def _flat_pitd(n_pts=2):
+    return {"abbr": "pitd", "xs": [0, 480], "ys": [0, 0],
+            "isBase64": False}
+
+
+def j5_agent_layer(doc, picked, t2s, wave_off, ms_tick, head):
+    """Run the current agent2utau compile path on each benchmark
+    phrase (layer D): neutral base render -> dense residual ->
+    compile_C3 + portamento lane -> candidate render -> QA.
+    SOURCE F0 is transposed +4st into the written pitch frame."""
+    import copy
+    from agent2utau.expression.contour import build_contour_signal
+    from agent2utau.expression.pitch_residual import (
+        compute_dense, compile_C3, compile_portamento_lane,
+        flatten_pitd_spans)
+    from agent2utau.analysis.rmvpe import infer_rmvpe
+    from agent2utau.expression.events import (
+        match_vibrato_events, match_pitch_events)
+
+    cfg = load_config()
+    scale = 2.0 ** (TRANSPOSE_ST / 12.0)
+
+    print("  extracting SOURCE f0 on Kim2 stem (fcpe+rmvpe, +4st) ...",
+          flush=True)
+    f0c = extract_f0(KIM2_VOCALS)
+    f0r = infer_rmvpe(KIM2_VOCALS)
+
+    def shifted(f):
+        return {"times": f["times"],
+                "f0_hz": np.asarray(f["f0_hz"], dtype=float) * scale,
+                "voiced": f["voiced"]}
+    src_fcpe, src_rmvpe = shifted(f0c), shifted(f0r)
+
+    layers = []
+    for k, ph in enumerate(picked):
+        a, b = ph["a"], ph["b"]
+        t0, t1 = a - PAD_S, b + PAD_S
+        part = doc["voice_parts"][ph["part"]]
+        notes = []
+        for n in part["notes"]:
+            lyr = str(n.get("lyric"))
+            if lyr in SPECIAL_LYRICS or lyr == "+":
+                continue
+            s_p = t2s(part["position"] + n["position"])
+            e_p = t2s(part["position"] + n["position"]
+                      + n["duration"])
+            s, e = s_p - wave_off, e_p - wave_off   # audio axis
+            if s >= a - 1e-3 and e <= b + 1e-3:
+                notes.append({"abs_start_s": s, "dur_s": e - s,
+                              "tone": n["tone"], "lyric": lyr,
+                              "_abs_tick": part["position"]
+                              + n["position"],
+                              "_dur_tick": n["duration"],
+                              "_note": n})
+        if not notes:
+            layers.append({"class": ph["class"], "error": "no notes"})
+            continue
+        part_pos = notes[0]["_abs_tick"] - 480
+        tag = f"j5_{k}_{ph['class']}"
+        pdir = OUT / tag
+        pdir.mkdir(parents=True, exist_ok=True)
+        print(f"  == {ph['class']} {len(notes)} notes "
+              f"[{a:.1f}-{b:.1f}]", flush=True)
+
+        base_doc = copy.deepcopy(doc)
+        for tr in base_doc["tracks"]:
+            tr["singer"] = "YousaV1.65c"
+
+        neu_doc = drv.build_phrase_doc(base_doc, part, notes,
+                                       part_pos, _flat_pitd(), {},
+                                       tag + "_neutral")
+        neu_ustx = pdir / (tag + "_neutral.ustx")
+        save_ustx(neu_doc, neu_ustx)
+        neu_wav = drv.render(cfg, neu_ustx, pdir / (tag + "_neutral"))
+        nf = extract_f0(neu_wav)
+        nr = infer_rmvpe(neu_wav)
+
+        def to_audio(f):
+            return {"times": np.asarray(f["times"], dtype=float)
+                    - wave_off,
+                    "f0_hz": np.asarray(f["f0_hz"], dtype=float),
+                    "voiced": f["voiced"]}
+        neu_fcpe, neu_rmvpe = to_audio(nf), to_audio(nr)
+
+        src_sig = build_contour_signal(src_fcpe, src_rmvpe, notes,
+                                       t0_s=t0, t1_s=t1,
+                                       extractor="fcpe",
+                                       source="source")
+        src_sig_b = build_contour_signal(src_rmvpe, src_fcpe, notes,
+                                         t0_s=t0, t1_s=t1,
+                                         extractor="rmvpe",
+                                         source="source")
+        neu_sig = build_contour_signal(neu_fcpe, neu_rmvpe, notes,
+                                       t0_s=t0, t1_s=t1,
+                                       extractor="fcpe",
+                                       source="neutral")
+        neu_sig_b = build_contour_signal(neu_rmvpe, neu_fcpe, notes,
+                                         t0_s=t0, t1_s=t1,
+                                         extractor="rmvpe",
+                                         source="neutral")
+        dense = compute_dense(src_fcpe, neu_fcpe, src_rmvpe,
+                              neu_rmvpe, notes, t0, t1)
+        np.savez(pdir / "dense.npz", **dense)
+
+        nuc = {}
+        src_events = drv.detect_all(src_sig, notes, nuc)
+        neu_events = drv.detect_all(neu_sig, notes, nuc)
+        src_events_b = drv.detect_all(src_sig_b, notes, nuc)
+        neu_events_b = drv.detect_all(neu_sig_b, notes, nuc)
+        vib_match = match_vibrato_events(src_events, neu_events,
+                                       notes)
+        pitch_match = match_pitch_events(src_events, neu_events,
+                                         notes, nuc)
+        print(f"     events src={len(src_events)} "
+              f"neu={len(neu_events)} "
+              f"matched={len(pitch_match['matched'])}", flush=True)
+
+        pitd_v1, vib_marks, vib_prov = compile_C3(
+            dense, src_sig, neu_sig, notes, part_pos, vib_match,
+            max_err_c=10.0)
+        porta_marks, porta_spans, porta_prov = \
+            compile_portamento_lane(
+                src_sig, src_sig_b, notes, src_events,
+                vib_marks=vib_marks, ownership="full_note")
+        if porta_spans:
+            pitd_v1 = flatten_pitd_spans(pitd_v1, porta_spans,
+                                         part_pos)
+        cand_doc = drv.build_phrase_doc(
+            base_doc, part, notes, part_pos, pitd_v1, vib_marks,
+            tag + "_agent", porta_marks=porta_marks)
+        cand_ustx = pdir / (tag + "_agent.ustx")
+        save_ustx(cand_doc, cand_ustx)
+        cand_wav = drv.render(cfg, cand_ustx, pdir / (tag + "_agent"))
+        af = extract_f0(cand_wav)
+        (pdir / "agent_render_f0.json").write_text(json.dumps(
+            {"times": (np.asarray(af["times"]) - wave_off)
+             .round(3).tolist(),
+             "f0_hz": np.where(af["voiced"], af["f0_hz"], 0)
+             .round(2).tolist(),
+             "voiced": af["voiced"].astype(int).tolist()},
+            ensure_ascii=False), encoding="utf-8")
+        layers.append(drv._jsonable({
+            "class": ph["class"], "part": ph["part"],
+            "audio_span_s": [round(a, 2), round(b, 2)],
+            "n_notes": len(notes),
+            "src_events": len(src_events),
+            "neu_events": len(neu_events),
+            "pitch_matched": len(pitch_match["matched"]),
+            "vib_marks": {str(kk): vv for kk, vv in
+                          vib_marks.items()},
+            "porta_marks": len(porta_marks),
+            "porta_spans": len(porta_spans),
+            "agent_ustx": str(cand_ustx),
+            "agent_ustx_sha256": sha256(cand_ustx),
+            "agent_wav": str(cand_wav),
+            "agent_wav_sha256": sha256(cand_wav),
+            "neutral_ustx": str(neu_ustx),
+            "neutral_wav": str(neu_wav),
+            "vib_provenance": vib_prov,
+            "porta_provenance": porta_prov}))
+        print(f"     agent render done: {cand_wav.name}",
+              flush=True)
+    return layers
 
 
 if __name__ == "__main__":
