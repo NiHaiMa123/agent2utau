@@ -1663,3 +1663,14 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   fallback reason recorded; v2/v3 topology violations preserved as
   stage evidence; ownership event; probe hash e1daca2a bound.
 - P2 untouched.  Round D remains reviewer-locked.
+
+## L7 Round D — final machine acceptance PASS (@4e83c57)
+
+- Full pytest: 512 passed (evaluator reran it internally, exit 0).
+- Frozen 10-term `l7_acceptance_eval.py` at HEAD 4e83c57:
+  all terms PASS on P1_sustain / P2_slides / P3_vibrato;
+  blocking_issue_count=0, unknown_required_gate_count=0;
+  HUMAN_LISTENING_READY=PASS.
+- Evidence bundle: runs/expr-20260921/acceptance_eval.json.
+- No generation/QA/threshold/gate semantics changed in Round D.
+- PASS authorizes L7-E human listening per plan verdict rules.

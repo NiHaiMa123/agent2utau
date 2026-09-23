@@ -1,11 +1,12 @@
 {
  "evaluator": "tools/l7_acceptance_eval.py",
- "evaluator_head": "e56324ab86a155447826c4ef8c2727fb4751b614",
+ "evaluator_head": "4e83c5701aa79c19dbf3d0b65cf0617780a560de",
  "worktree_clean_at_evaluation": true,
  "run_dir": "runs\\expr-20260921",
  "terms": [
   "tests",
   "real_render",
+  "candidate_arbitration_gate",
   "topology_gate",
   "event_lane_gate",
   "absolute_event_shape_gate",
@@ -22,6 +23,15 @@
     "real_render": {
      "verdict": "PASS",
      "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2_vocal.wav sha256=93557c8b48d513ea dur=21.705s rms=-34.4dB"
+    },
+    "candidate_arbitration_gate": {
+     "verdict": "PASS",
+     "evidence": "runs\\expr-20260921\\phrases3\\P1_sustain/run_manifest.json#shape_gate",
+     "detail": {
+      "blocked": false,
+      "final_candidate": "C3v2",
+      "final_stage_gate_passed": true
+     }
     },
     "topology_gate": {
      "verdict": "PASS",
@@ -79,7 +89,7 @@
     },
     "tests": {
      "verdict": "PASS",
-     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 4.92s"
+     "evidence": "pytest tests/ -x -q -> exit 0; 512 passed in 9.63s"
     }
    },
    "blocking_issue_count": 0,
@@ -100,13 +110,22 @@
    "terms": {
     "real_render": {
      "verdict": "PASS",
-     "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3_v1_vocal.wav sha256=22533ca04e164649 dur=56.813s rms=-34.6dB"
+     "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v2_vocal.wav sha256=4c12360d29896d2f dur=56.813s rms=-36.3dB"
+    },
+    "candidate_arbitration_gate": {
+     "verdict": "PASS",
+     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/run_manifest.json#shape_gate",
+     "detail": {
+      "blocked": false,
+      "final_candidate": "C3v2",
+      "final_stage_gate_passed": true
+     }
     },
     "topology_gate": {
      "verdict": "PASS",
      "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/run_manifest.json#shape_gate",
      "detail": {
-      "stage": "v1",
+      "stage": "v2",
       "violations": [],
       "topology": null
      }
@@ -115,20 +134,18 @@
      "verdict": "PASS",
      "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/run_manifest.json#shape_gate",
      "detail": {
-      "stage": "v1",
+      "stage": "v2",
       "violations": []
      }
     },
     "absolute_event_shape_gate": {
      "verdict": "PASS",
-     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/qa/event_shape_metrics.json; runs\\expr-20260921\\probe_portamento\\P2_slides_probe_report.json",
+     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/qa/event_shape_metrics.json",
      "detail": {
       "n_blocking": 0,
       "blocking": [],
       "unverified_source_events": [],
-      "adjudicated_artifact_events": [
-       8
-      ],
+      "adjudicated_artifact_events": [],
       "evidence_report_clean": true
      }
     },
@@ -141,13 +158,11 @@
     },
     "cross_extractor_gate": {
      "verdict": "PASS",
-     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/qa/event_shape_metrics_rmvpe.json; runs\\expr-20260921\\probe_portamento\\P2_slides_probe_report.json",
+     "evidence": "runs\\expr-20260921\\phrases3\\P2_slides/qa/event_shape_metrics_rmvpe.json",
      "detail": {
       "n_blocking_rmvpe": 0,
       "unverified_source_events": [],
-      "adjudicated_artifact_events": [
-       8
-      ]
+      "adjudicated_artifact_events": []
      }
     },
     "provenance_gate": {
@@ -162,7 +177,7 @@
     },
     "tests": {
      "verdict": "PASS",
-     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 4.92s"
+     "evidence": "pytest tests/ -x -q -> exit 0; 512 passed in 9.63s"
     }
    },
    "blocking_issue_count": 0,
@@ -185,6 +200,15 @@
      "verdict": "PASS",
      "evidence": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav sha256=e16455f87d88fca3 dur=30.866s rms=-33.7dB"
     },
+    "candidate_arbitration_gate": {
+     "verdict": "PASS",
+     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/run_manifest.json#shape_gate",
+     "detail": {
+      "blocked": false,
+      "final_candidate": "C3",
+      "final_stage_gate_passed": true
+     }
+    },
     "topology_gate": {
      "verdict": "PASS",
      "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/run_manifest.json#shape_gate",
@@ -204,19 +228,12 @@
     },
     "absolute_event_shape_gate": {
      "verdict": "PASS",
-     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/qa/event_shape_metrics.json; runs\\expr-20260921\\probe_portamento\\P3_vibrato_probe_report.json",
+     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/qa/event_shape_metrics.json",
      "detail": {
-      "n_blocking": 1,
-      "blocking": [
-       {
-        "from_note": 9,
-        "class": "distortion"
-       }
-      ],
+      "n_blocking": 0,
+      "blocking": [],
       "unverified_source_events": [],
-      "adjudicated_artifact_events": [
-       9
-      ],
+      "adjudicated_artifact_events": [],
       "evidence_report_clean": true
      }
     },
@@ -229,13 +246,11 @@
     },
     "cross_extractor_gate": {
      "verdict": "PASS",
-     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/qa/event_shape_metrics_rmvpe.json; runs\\expr-20260921\\probe_portamento\\P3_vibrato_probe_report.json",
+     "evidence": "runs\\expr-20260921\\phrases3\\P3_vibrato/qa/event_shape_metrics_rmvpe.json",
      "detail": {
       "n_blocking_rmvpe": 0,
       "unverified_source_events": [],
-      "adjudicated_artifact_events": [
-       9
-      ]
+      "adjudicated_artifact_events": []
      }
     },
     "provenance_gate": {
@@ -250,7 +265,7 @@
     },
     "tests": {
      "verdict": "PASS",
-     "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 4.92s"
+     "evidence": "pytest tests/ -x -q -> exit 0; 512 passed in 9.63s"
     }
    },
    "blocking_issue_count": 0,
@@ -270,9 +285,18 @@
   "terms": {
    "tests": {
     "verdict": "PASS",
-    "evidence": "pytest tests/ -x -q -> exit 0; 500 passed in 4.92s"
+    "evidence": "pytest tests/ -x -q -> exit 0; 512 passed in 9.63s"
    },
    "real_render": {
+    "verdict": "PASS",
+    "evidence": "all phrases",
+    "detail": {
+     "P1_sustain": "PASS",
+     "P2_slides": "PASS",
+     "P3_vibrato": "PASS"
+    }
+   },
+   "candidate_arbitration_gate": {
     "verdict": "PASS",
     "evidence": "all phrases",
     "detail": {
