@@ -923,99 +923,101 @@ It is too strict once v1 is a verified clean baseline.
 A closed-loop correction is optional. If both correction attempts regress relative topology,
 the safe behavior is to retain a v1 that already satisfies all required absolute gates.
 
-#### Round C2 — ACTIVE: fallback-arbitration semantics only
+#### Round C2 — COMPLETE / REVIEWER ACCEPTED
 
-Purpose: distinguish a failed fallback from a verified v1 retained after regressive optional improvements.
-This round is **not** a new expression-tuning round.
+Reviewer decision: **ACCEPT**. Round C/C2 is closed and must not be reopened during final acceptance.
 
-### Required code change
+Accepted implementation/evidence:
+- fallback arbitration fix: `97da2b5`;
+- clean P3 regeneration/evidence: `91d72f8`;
+- P3 final candidate = `C3/v1`;
+- `shape_gate.blocked=false`;
+- `fallback_reason=verified_v1_after_regressive_improvements`;
+- v1 absolute gate remains PASS with zero blocking event-shape issues;
+- v2/v3 remain recorded as regressive attempts rather than being threshold-relaxed into PASS;
+- candidate USTX/WAV hashes and generation-head provenance are recorded.
 
-Update `run_shape_gate` fail-closed semantics:
+Interpretation:
+- this closes an **arbitration/state-machine defect**, not a claim that v2/v3 improved P3;
+- the verified v1 baseline is retained because both optional correction attempts regress;
+- do not tune P3 further merely because v2/v3 failed;
+- do not rename/refactor fallback semantics during Round D. Any cosmetic/generalization cleanup belongs to a later reviewed maintenance round.
 
-1. v1 remains evaluated exactly as today.
-2. v1 is eligible as a successful fallback only when every required absolute v1 gate is PASS.
-   At minimum in the current architecture:
-   - `event_shape_fn` was executed;
-   - `event_shape.gate_passed=true`;
-   - no v1 absolute blocking issue exists.
-3. v2/v3 continue to require the existing relative topology/event-lane non-regression gates plus
-   absolute event-shape PASS.
-4. If v2 and v3 both fail only as attempted improvements, but v1 is eligible:
-   - `final_candidate = v1`;
-   - `blocked = false`;
-   - report an explicit state such as
-     `fallback_reason = "verified_v1_after_regressive_improvements"`.
-5. If v1 itself fails a required absolute gate, existing fail-closed behavior remains:
-   - retaining v1 is not acceptance;
-   - `blocked = true`.
-6. Missing required evidence / NOT_RUN must never become an accepted v1 fallback.
+Round C2 is now immutable for purposes of L7 final acceptance.
 
-### Required regression tests
+#### Round D — ACTIVE: final machine acceptance only
 
-Add focused tests proving both branches:
+**Single goal:** determine whether the current L7 state satisfies the complete frozen acceptance contract.
 
-```text
-Case A
-v1 absolute PASS
-v2 topology FAIL
-v3 topology FAIL
-→ final=v1, blocked=false
+This is an **evaluation-only round**. Do not repair, tune, regenerate, or reinterpret the system while running it.
 
-Case B
-v1 absolute FAIL
-v2 FAIL
-v3 FAIL
-→ final=v1, blocked=true
-```
+### Required execution
 
-Also retain a PASS case where v2 or v3 legitimately wins.
+From a clean current HEAD:
 
-### Required P3 rerun
+1. verify the worktree is clean and record the evaluated HEAD;
+2. run the **full pytest suite**;
+3. if full pytest is not PASS:
+   - record the failing tests and evidence;
+   - classify Round D = FAIL;
+   - **STOP**;
+4. if pytest passes, run the frozen **10-term `l7_acceptance_eval.py`**;
+5. emit one final evidence bundle containing, for every required term:
+   - term name;
+   - PASS / FAIL / UNKNOWN / NOT_RUN;
+   - direct artifact/metric reference sufficient to audit the verdict;
+6. record the overall Round-D verdict;
+7. **STOP immediately after the evidence bundle is committed.**
 
-After the code/tests are committed, from a clean HEAD:
+### Frozen acceptance semantics
 
-1. rerun **P3_vibrato only** through production;
-2. do not alter curves, ownership, thresholds, edge evidence or topology metrics;
-3. expected result if current measurements reproduce:
+During Round D, do **not** modify:
+- generator/compiler code;
+- pitch/expression generation logic;
+- P2 or P3 candidates;
+- topology/event-shape metric definitions;
+- thresholds, masks, tolerances, or failure classifications;
+- ownership/representation decisions;
+- QA gate semantics;
+- acceptance evaluator semantics;
+- existing Round A/B/B2/C/C2 evidence.
 
-```text
-final candidate    = C3 / v1
-shape_gate.blocked = false
-fallback_reason    = verified_v1_after_regressive_improvements
-```
+Do not:
+- rerun candidate optimization to seek a better result;
+- change a threshold because one term nearly passes;
+- replace the verified P3 v1 fallback with v2/v3;
+- convert FAIL/UNKNOWN/NOT_RUN into PASS through relabeling;
+- start a repair while the acceptance run is still in progress;
+- repeatedly rerun acceptance until a favorable result appears.
 
-4. manifest must retain:
-   - v1 PASS;
-   - v2/v3 topology violations;
-   - P3 Round-A edge-evidence hash;
-   - accepted ownership = event;
-   - clean generation head;
-   - candidate USTX/WAV hashes.
-5. commit focused code/tests + P3 regenerated evidence;
-6. STOP.
+A reproducibility rerun is allowed only when needed to classify an execution failure, and it must not include code/config/threshold changes. Preserve both attempts in the evidence.
 
-If v1 itself becomes non-PASS on the clean rerun, do not force fallback acceptance; keep P3 blocked
-and report the new evidence.
+### Verdict rules
 
-**Forbidden in Round C2:**
-- do not change closed-loop curve generation;
-- do not change topology/event-shape thresholds;
-- do not reopen Round A/B/B2;
-- do not change P2;
-- do not run or modify final acceptance;
-- do not start Round D.
-#### Round D — LOCKED: final machine acceptance
+- **PASS**: full pytest PASS **and** all 10 frozen acceptance terms PASS.
+- **FAIL**: any required test/term produces a genuine failing result.
+- **UNKNOWN**: required evidence is insufficient or contradictory.
+- **NOT_RUN**: a required check could not execute.
 
-Unlock only after reviewer accepts Round C.
+Only overall **PASS** authorizes L7-E human listening.
 
-Then:
-- run full pytest;
-- run the 10-term `l7_acceptance_eval.py` from a clean HEAD;
-- make **no code/threshold/gate changes in this round**;
-- emit only the final PASS/FAIL/UNKNOWN/NOT_RUN evidence bundle;
-- **STOP**.
+If the overall result is FAIL / UNKNOWN / NOT_RUN:
+- do not reopen Round C2 automatically;
+- do not patch the failure in Round D;
+- identify the smallest concrete failing acceptance term and its evidence;
+- close Round D and wait for reviewer assignment of a new bounded repair round.
 
-Only a fresh Round-D output with every required term PASS may authorize L7-E human listening.
+### Round-D output contract
+
+The executor's final Round-D report must contain only:
+- evaluated clean HEAD;
+- full pytest result;
+- the 10 acceptance-term verdicts and direct evidence;
+- overall PASS / FAIL / UNKNOWN / NOT_RUN;
+- if non-PASS, the smallest concrete blocker(s);
+- confirmation that no generation/QA/threshold/gate semantics were changed.
+
+No new implementation work is authorized in this round.
 
 ## 13. Roadmap after L7
 
