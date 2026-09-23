@@ -287,8 +287,34 @@ def main():
                          for v in nv.values())}
     # ---- routing classification --------------------------------------
     p2 = signals["P2_base"]["segments"]
-    f0_flags = {s: p2[s]["grammar"]["flags"] for s in p2}
-    abnormal_f0 = [s for s, f in f0_flags.items() if f]
+    src_seg = signals["P2_source"]["segments"]
+    f0_flags = {}
+    for s in p2:
+        rf = set(p2[s]["grammar"]["flags"])
+        sf = set(src_seg[s]["grammar"]["flags"])
+        # a flag present in BOTH source and render is faithful transfer,
+        # not a render defect; note magnitude too.
+        f0_flags[s] = {
+            "render": sorted(rf),
+            "source": sorted(sf),
+            "render_only": sorted(rf - sf),
+            "faithful_to_source": sorted(rf & sf),
+            "render_vs_source": {
+                "range_c": [p2[s]["geometry"].get("range_c"),
+                            src_seg[s]["geometry"].get("range_c")],
+                "max_abs_d1_cs": [p2[s]["geometry"].get("max_abs_d1_cs"),
+                                  src_seg[s]["geometry"].get(
+                                      "max_abs_d1_cs")],
+                "reversals_per_s": [
+                    p2[s]["geometry"].get("reversals_per_s"),
+                    src_seg[s]["geometry"].get("reversals_per_s")],
+                "periodic_depth_c": [
+                    p2[s]["periodic"].get("periodic_depth_c"),
+                    src_seg[s]["periodic"].get("periodic_depth_c")],
+            },
+        }
+    abnormal_f0 = [s for s, f in f0_flags.items()
+                   if f["render_only"]]
     ph_bad = []
     for s, d in p2.items():
         ph = d["phonation"]
