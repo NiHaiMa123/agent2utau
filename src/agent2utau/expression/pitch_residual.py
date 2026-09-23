@@ -932,10 +932,18 @@ def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
     # baseline retained when candidates block.
     qa_v1 = qa_fn(render_v1_sig)
     t1 = _topo(qa_v1)
+    es1 = _event_shape(render_v1_sig)
+    # v1 is the relative/fallback baseline, not automatically an
+    # absolute-quality PASS.  Under the fail-closed contract a baseline
+    # that fails required event-shape QA must remain visibly failed even
+    # though it is retained when v2/v3 are rejected.
+    v1_viol = [] if es1["gate_passed"] else _es_violations(es1)
     report["stages"].append({"candidate": "v1", "qa": qa_v1,
                              "topology": t1,
-                             "event_shape": _event_shape(render_v1_sig),
-                             "gate_passed": True, "violations": []})
+                             "event_shape": es1,
+                             "relative_baseline": True,
+                             "gate_passed": bool(es1["gate_passed"]),
+                             "violations": v1_viol})
 
     curve_v2, sig_v2 = candidate_fn(pitd_v2, "v2")
     qa_v2 = qa_fn(sig_v2)
