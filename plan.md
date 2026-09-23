@@ -379,6 +379,9 @@ FAIL_FIXABLE
 FAIL_EVIDENCE
   observability is insufficient or extractors disagree materially
   → collect/repair evidence; do not tune the candidate against unknown truth
+  → any required acceptance term depending on that target is UNKNOWN until
+    the evidence is explicitly resolved; threshold reclassification alone
+    cannot turn FAIL_EVIDENCE into PASS
 
 FAIL_CAPABILITY
   the current representation/model cannot express the verified target even when correctly wired
@@ -511,79 +514,92 @@ Reviewer recheck after that run:
   hash. Next manifest schema must distinguish `base_file_sha256` from the
   upstream semantic score hash.
 
-Executor run at `df3fb95`-era head, via committed driver
-`tools/l7_phrase_gate.py` plus `tools/l7_portamento_probe.py` and
-`tools/l7_acceptance_eval.py` on fresh real renders:
+Executor implementation at `43bfe26c` produced a useful discriminating
+result, but the committed artifacts from that run are **STALE / NOT
+ACCEPTANCE-AUTHORITATIVE** after reviewer recheck.
 
-- Discriminating portamento probe executed on exactly the required events
-  (`runs/expr-20260921/probe_portamento/`):
-  - **P2 note 4 — FAIL_FIXABLE.** PITD dense/step candidates moved the
-    render but produced a delayed steep jump (acoustic-model transition
-    smoothing eats ~40 ms written-coords commands); inverse-response
-    calibration destabilized voicing. The native note-level `pitch.data`
-    carrier (negative-x io anchors on the target note, `snap_first=false`)
-    cleared the blocking shape: normalized RMSE 0.586 → 0.098
-    (`label_mismatch`, non-blocking) in the committed probe artifact.
-  - **P2 note 8 — FAIL_EVIDENCE.** FCPE reads a −236 c dip while RMVPE
-    and librosa-pYIN both call the span unvoiced (extractor cn_rmse
-    ≈ 0.503); the apparent gesture is an extraction artifact, not a
-    verified target.
-  - **P3 note 9 — FAIL_EVIDENCE.** Same structure: RMVPE/pYIN unvoiced,
-    FCPE dip not reliable evidence.
-- Minimal production portamento lane implemented and verified:
-  `compile_portamento_lane` + `flatten_pitd_spans` in
-  `pitch_residual.py` emit `pitch.data` anchors on the target note for
-  extractor-stable cross-note slides only (fail-closed on
-  `extractor_cn_rmse <= 0.25` and coverage >= 0.80; skipped when the
-  target carries a vibrato mark), and pin PITD to 0 inside lane-owned
-  spans on every candidate so the residual is never applied twice.
-- `base_semantic_sha256` is now a real canonical semantic-notes hash
-  (`ustx.semantic_notes_sha256`) distinct from `base_file_sha256`.
-- The committed evaluator `tools/l7_acceptance_eval.py` emits every
-  §10.3 term as PASS/FAIL/UNKNOWN/NOT_RUN per phrase and globally with
-  evidence references, re-running pytest itself for the `tests` term.
-  Output: `runs/expr-20260921/acceptance_eval.json`.
-- Fresh manifests regenerated for all three phrases under corrected gate
-  semantics; every artifact hash re-bound.
+What the run legitimately established:
 
-Evaluator verdict on the fresh manifests:
+- **P2 note 4 — FAIL_FIXABLE.** The experiment strongly separates carrier
+  choice from model capability: dense/step PITD stayed poor, while native
+  target-note `pitch.data` reduced normalized shape RMSE from 0.586 to
+  0.098. A dedicated portamento carrier is therefore justified.
+- **P2 note 8 — FAIL_EVIDENCE.**
+- **P3 note 9 — FAIL_EVIDENCE.**
+  The committed probe implementation only compares FCPE vs RMVPE for this
+  classification. Earlier prose claiming independent librosa-pYIN evidence
+  is unsupported: no pYIN/librosa implementation or artifact exists in
+  `tools/l7_portamento_probe.py`. Do not cite a third extractor until it
+  is actually committed and bound.
+- `base_file_sha256` vs canonical `base_semantic_sha256` is now correctly
+  separated.
+- a single §10.3 acceptance evaluator now exists.
 
-- **P1_sustain**: all 9 terms PASS, `blocking_issue_count=0`,
-  `HUMAN_LISTENING_READY=PASS`.
-- **P2_slides**: all 9 terms PASS — the production lane carried note 4
-  (cn_rmse 0.106, `label_mismatch` non-blocking) and honestly refused
-  note 8 (evidence not extractor-stable); fcpe + rmvpe event-shape
-  families both `n_blocking=0`. `HUMAN_LISTENING_READY=PASS`.
-- **P3_vibrato**: `absolute_event_shape_gate=FAIL` — note 9 remains a
-  blocking `distortion` on the fcpe family while the rmvpe family is
-  clean; FAIL_EVIDENCE stands. `HUMAN_LISTENING_READY=FAIL`.
-- **Global**: `HUMAN_LISTENING_READY=FAIL`, `blocking_issue_count=1`,
-  `unknown_required_gate_count=0`.
+Reviewer blockers discovered in the same run:
 
-### Active blocker
+1. **Dirty-worktree provenance — FAIL_FIXABLE.**
+   `compile_portamento_lane`, the new evaluator and related code were first
+   committed at `43bfe26c`, but the generated manifests and
+   `acceptance_eval.json` claim code/evaluator head `20c3cc69`.
+   Therefore those artifacts were produced from `HEAD=20c3cc69` plus
+   uncommitted source changes; that HEAD cannot reproduce them.
+   P1/P2 PASS claims from that bundle are invalid under §9/§10.
 
-**Global L7-E human listening remains BLOCKED by P3 note 9 only.**
-P1 and P2 are machine-accepted; P3's sole blocking event is classified
-FAIL_EVIDENCE — fcpe reports a pitch dip inside a span that RMVPE and
-pYIN both call unvoiced, so there is no verified SOURCE target to
-transfer. The honest next actions are evidence-level, not compiler-level:
+   Reviewer patches now require a clean git worktree before:
+   - `l7_phrase_gate.py` real-render generation;
+   - `l7_portamento_probe.py` probes;
+   - `l7_acceptance_eval.py` evaluation.
+   New manifests must record `worktree_clean_at_generation=true`, and the
+   evaluator must reject a missing/false marker.
 
-- adjudicate the P3 note-9 span (listening or a stronger extractor) to
-  either confirm a real gesture — which would re-enter the probe/lane
-  path — or confirm the dip is an extraction artifact, which reclassifies
-  the event non-blocking through the committed gate unchanged;
-- until then `absolute_event_shape_gate` stays FAIL for P3 and the
-  global expression cannot be PASS.
+2. **FAIL_EVIDENCE may not collapse to PASS.**
+   P2 note8 was diagnosed `FAIL_EVIDENCE`, yet the old evaluator later
+   marked P2 PASS because the current FCPE event happened to fall below a
+   blocking threshold / classify as `extraction_artifact`.
+   That is not an evidence adjudication. Under §10.1/§11.1 an unverified
+   SOURCE target is `UNKNOWN`, and UNKNOWN blocks.
+   Reviewer evaluator logic now carries unresolved probe
+   `FAIL_EVIDENCE` into `absolute_event_shape_gate=UNKNOWN` and
+   `cross_extractor_gate=UNKNOWN` unless a later evidence run resolves it.
+   The same applies to P3 note9.
 
-Resolved since the last state entry:
+3. **Portamento lane isolation is not yet proved.**
+   Current `compile_portamento_lane` samples SOURCE from roughly
+   `event_start-30ms` through the **end of the target note**, and
+   `flatten_pitd_spans` hands that whole span to `pitch.data`.
+   Example: the ~40 ms P2 note4 portamento owns approximately
+   52.88–53.25 s. This may absorb later stable intonation/onset/ornament
+   content into the portamento lane.
+   Before full-song acceptance, run an isolation A/B:
+   - current full-target-note ownership;
+   - event-bounded ownership + only the minimum settle/return anchors needed
+     by OpenUtau.
+   Compare event shape **and** out-of-event position/topology/event lanes.
+   Prefer the narrower ownership if it preserves the portamento result.
+   Portamento ownership must never silently overlap another confirmed
+   non-portamento event.
 
-- the portamento probe has run and classified all three events
-  (FAIL_FIXABLE / FAIL_EVIDENCE / FAIL_EVIDENCE) — the ordering problem
-  is closed, `FAIL_CAPABILITY` was not established for any event;
-- the minimal portamento-lane compiler was pulled forward into L7 and is
-  verified on real renders;
-- the single committed §10.3 evaluator exists and is the only authority
-  for `HUMAN_LISTENING_READY`.
+### Active blocker / next run
+
+**No phrase is currently authorized for human listening from the
+`43bfe26c` artifact bundle because its provenance is invalid.**
+
+SWE2 must now, from the latest committed clean HEAD:
+
+1. full pytest;
+2. rerun P1/P2/P3 through `l7_phrase_gate.py`;
+3. commit the regenerated manifests/QA/renders so their code heads actually
+   contain the executed implementation;
+4. rerun the portamento probe only where still required, from a clean HEAD;
+5. resolve P2 note8 and P3 note9 evidence:
+   - add a real third extractor / other independent evidence, or
+   - produce an explicit evidence adjudication artifact;
+   until resolution they remain UNKNOWN, not PASS;
+6. perform the portamento lane-isolation A/B above;
+7. commit all evidence;
+8. from a clean HEAD run `l7_acceptance_eval.py`.
+
+Only the new evaluator output may decide `HUMAN_LISTENING_READY`.
 
 ## 13. Roadmap after L7
 
