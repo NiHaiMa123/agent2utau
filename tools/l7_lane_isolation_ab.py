@@ -161,6 +161,10 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
             "blocking_events_fcpe": [
                 {"from_note": r["from_note"], "class": r["class"]}
                 for r in qa["event_shape"]["events"] if r.get("blocking")],
+            "blocking_events_rmvpe": [
+                {"from_note": r["from_note"], "class": r["class"]}
+                for r in qa["event_shape_rmvpe"]["events"]
+                if r.get("blocking")],
             "qa": qa}
         print(f"   {mode}: blocking fcpe={qa['event_shape']['n_blocking']}"
               f" rmvpe={qa['event_shape_rmvpe']['n_blocking']}",
