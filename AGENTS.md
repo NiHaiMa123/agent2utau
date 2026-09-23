@@ -1742,3 +1742,24 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   binary hashes are the identity.
 - Round E ends here per contract; reviewer/human listening of the new
   project decides next routing.  No expression semantics were changed.
+
+## L7 Round F — P2 periodic-ownership A/B (@eb4fb00, artifacts runs/expr-20260921/rebaseline/P2_slides/round_f/)
+
+- Verdict: FAIL_STRATEGY — duplicate periodic ownership exists in the
+  representation but is NOT the material cause of "我的笨" shake.
+- Measured: n11 vibrato-owned interval [55.55, 56.71] holds a PITD
+  periodic component at 6.87 Hz / 97.1 c (native vib 7.07 Hz / 74.2 c,
+  out=0) — rate matches, so ownership IS duplicated on paper.
+- BUT removing it (variant B) made the render WORSE: owned-interval
+  render periodic depth A=179.8 c -> B=318.0 c vs SOURCE 157.1 c.
+  The PITD periodic was ANTI-PHASE to the native vibrato — it was
+  partially CANCELLING an over-deep fixed vibrato, not adding to it.
+- SOURCE depth envelope decays 196->121 c p2p over the note; the
+  fixed Level-1 vibrato (out=0, constant depth) cannot reproduce that
+  decay — recorded as capability evidence for a possible Level-2 round.
+- A's rendered depth (179.8 c) is already near SOURCE (157.1 c); the
+  perceptual "piercing/shaky" FAIL likely lives elsewhere (waveform
+  shape/phase, the 54.85-55.5 non-vibrato oscillation, or timbre).
+- Artifacts: ownfix ustx+wav, full decomposition/modulation/defect
+  measurements in l7f_periodic_ownership_report.json.  No listening
+  project produced (PASS_CAUSAL required).  P1/P3 untouched.

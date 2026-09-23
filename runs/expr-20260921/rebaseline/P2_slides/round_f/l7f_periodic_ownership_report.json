@@ -1,0 +1,627 @@
+{
+ "tool": "tools/l7f_periodic_ownership.py",
+ "round": "L7 Round F \u2014 P2 periodic-ownership causal A/B",
+ "evaluated_head": "eb4fb0073d5d87a0a09db3d85a2b9b7a9f7c5db3",
+ "worktree_clean_at_generation": true,
+ "baseline": {
+  "ustx": "runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c.ustx",
+  "ustx_sha256": "d3a812f2e7f9da563d75b43063979dd46a1a8b34ea83f397ed8cdaf5470560d7",
+  "wav": "runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c_vocal.wav",
+  "wav_sha256": "0ade6097ee6f5ce95023742691da010582c25946c53d0636741c6e4310bd9ff1"
+ },
+ "b_variant": {
+  "ustx": "runs\\expr-20260921\\rebaseline\\P2_slides\\round_f\\P2_slides_C3v2_v165c_ownfix.ustx",
+  "ustx_sha256": "af384a01f9f26e20a534cb8cf982c65e400cceb2acec490a5161179160165d90",
+  "wav": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P2_slides\\round_f\\P2_slides_C3v2_v165c_ownfix_vocal.wav",
+  "wav_sha256": "4e1c5c203535e82f44f6ccf34d1d5e1af7815f0cba8d41f1d87def4c2bc50c3d"
+ },
+ "human_fail_span": {
+  "target_notes": [
+   8,
+   9,
+   10,
+   11
+  ],
+  "note_span_s": [
+   54.35,
+   56.71
+  ]
+ },
+ "vibrato_owned_intervals": [
+  {
+   "note": 11,
+   "start_s": 55.5503,
+   "end_s": 56.7104,
+   "vibrato": {
+    "length": 98.3,
+    "period": 141.4,
+    "depth": 74.2,
+    "in": 5,
+    "out": 0.0,
+    "shift": 43.7,
+    "drift": 0,
+    "volLink": 0
+   },
+   "rate_hz": 7.072
+  }
+ ],
+ "decomposition": [
+  {
+   "note": 11,
+   "start_s": 55.5503,
+   "end_s": 56.7104,
+   "vibrato": {
+    "length": 98.3,
+    "period": 141.4,
+    "depth": 74.2,
+    "in": 5,
+    "out": 0.0,
+    "shift": 43.7,
+    "drift": 0,
+    "volLink": 0
+   },
+   "rate_hz": 7.072,
+   "n_curve_pts": 30,
+   "residual_rate_hz": 6.87,
+   "periodic_depth_c": 97.1,
+   "periodic_share_of_residual": 1.586,
+   "duplicate_periodic": true
+  }
+ ],
+ "pitd_points_changed": 29,
+ "pitd_unchanged_before_first_edit": true,
+ "measurements": {
+  "A_baseline": {
+   "wav": "runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c_vocal.wav",
+   "sha256": "0ade6097ee6f5ce95023742691da010582c25946c53d0636741c6e4310bd9ff1",
+   "owned_interval_mod": {
+    "n_voiced": 116,
+    "window_frames": 116,
+    "voiced_frac": 1.0,
+    "mod_rate_hz": 6.96,
+    "periodic_depth_c": 179.8,
+    "nonperiodic_rms_c": 19.5,
+    "depth_env_c": [
+     {
+      "t": 55.63,
+      "p2p_c": 219.8
+     },
+     {
+      "t": 55.7,
+      "p2p_c": 217.7
+     },
+     {
+      "t": 55.77,
+      "p2p_c": 204.0
+     },
+     {
+      "t": 55.84,
+      "p2p_c": 192.1
+     },
+     {
+      "t": 55.91,
+      "p2p_c": 206.4
+     },
+     {
+      "t": 55.98,
+      "p2p_c": 221.0
+     },
+     {
+      "t": 56.05,
+      "p2p_c": 201.6
+     },
+     {
+      "t": 56.12,
+      "p2p_c": 174.0
+     },
+     {
+      "t": 56.19,
+      "p2p_c": 138.4
+     },
+     {
+      "t": 56.26,
+      "p2p_c": 108.6
+     },
+     {
+      "t": 56.33,
+      "p2p_c": 122.5
+     },
+     {
+      "t": 56.4,
+      "p2p_c": 143.7
+     },
+     {
+      "t": 56.47,
+      "p2p_c": 157.1
+     },
+     {
+      "t": 56.54,
+      "p2p_c": 167.1
+     },
+     {
+      "t": 56.61,
+      "p2p_c": 168.5
+     }
+    ]
+   },
+   "jitter": {
+    "n_frames": 556,
+    "voiced_frac": 0.826,
+    "dcent_med": 11.2,
+    "dcent_p90": 37.5,
+    "dcent_gt30_frac": 0.155,
+    "detrended_rms_c": 12.6,
+    "n_voiced_frames": 459
+   },
+   "quality": {
+    "n_frames_used": 459,
+    "acf_peak_med": 0.961,
+    "spec_flat_2_8k_med": 0.458
+   },
+   "defects": {
+    "pitch_dips_gt300c": [],
+    "unvoiced_dropouts": [
+     {
+      "t": [
+       51.42,
+       51.57
+      ],
+      "dur_ms": 160.0,
+      "src_voiced_frac": 0.67
+     },
+     {
+      "t": [
+       52.24,
+       52.37
+      ],
+      "dur_ms": 140.0,
+      "src_voiced_frac": 0.42
+     },
+     {
+      "t": [
+       53.1,
+       53.23
+      ],
+      "dur_ms": 140.0,
+      "src_voiced_frac": 0.46
+     },
+     {
+      "t": [
+       53.98,
+       54.32
+      ],
+      "dur_ms": 350.0,
+      "src_voiced_frac": 0.26
+     }
+    ],
+    "energy_collapses": [
+     {
+      "t": 51.36,
+      "render_dbfs": -38.1,
+      "source_dbfs": -25.0
+     },
+     {
+      "t": 54.16,
+      "render_dbfs": -40.3,
+      "source_dbfs": -22.2
+     }
+    ]
+   },
+   "note_gesture_table": [
+    {
+     "note": 0,
+     "t_s": 51.16,
+     "offset_c": -6.0,
+     "src_range_c": 560.0,
+     "render_range_c": 79.0,
+     "range_ratio": 0.14
+    },
+    {
+     "note": 1,
+     "t_s": 51.58,
+     "offset_c": -2.0,
+     "src_range_c": 221.0,
+     "render_range_c": 234.0,
+     "range_ratio": 1.06
+    },
+    {
+     "note": 2,
+     "t_s": 51.94,
+     "offset_c": 13.0,
+     "src_range_c": 188.0,
+     "render_range_c": 174.0,
+     "range_ratio": 0.92
+    },
+    {
+     "note": 3,
+     "t_s": 52.39,
+     "offset_c": 1.0,
+     "src_range_c": 242.0,
+     "render_range_c": 233.0,
+     "range_ratio": 0.97
+    },
+    {
+     "note": 4,
+     "t_s": 52.76,
+     "offset_c": 3.0,
+     "src_range_c": 24.0,
+     "render_range_c": 24.0,
+     "range_ratio": 1.02
+    },
+    {
+     "note": 5,
+     "t_s": 52.93,
+     "offset_c": 56.0,
+     "src_range_c": 116.0,
+     "render_range_c": 66.0,
+     "range_ratio": 0.57
+    },
+    {
+     "note": 6,
+     "t_s": 53.25,
+     "offset_c": -24.0,
+     "src_range_c": 285.0,
+     "render_range_c": 171.0,
+     "range_ratio": 0.6
+    },
+    {
+     "note": 7,
+     "t_s": 53.61,
+     "offset_c": -6.0,
+     "src_range_c": 236.0,
+     "render_range_c": 238.0,
+     "range_ratio": 1.01
+    },
+    {
+     "note": 8,
+     "t_s": 54.35,
+     "offset_c": -1.0,
+     "src_range_c": 493.0,
+     "render_range_c": 745.0,
+     "range_ratio": 1.51
+    },
+    {
+     "note": 9,
+     "t_s": 54.85,
+     "offset_c": -12.0,
+     "src_range_c": 285.0,
+     "render_range_c": 286.0,
+     "range_ratio": 1.0
+    },
+    {
+     "note": 10,
+     "t_s": 55.2,
+     "offset_c": -19.0,
+     "src_range_c": 287.0,
+     "render_range_c": 48.0,
+     "range_ratio": 0.17
+    },
+    {
+     "note": 11,
+     "t_s": 55.53,
+     "offset_c": -2.0,
+     "src_range_c": 122.0,
+     "render_range_c": 130.0,
+     "range_ratio": 1.07
+    }
+   ]
+  },
+  "B_ownfix": {
+   "wav": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P2_slides\\round_f\\P2_slides_C3v2_v165c_ownfix_vocal.wav",
+   "sha256": "4e1c5c203535e82f44f6ccf34d1d5e1af7815f0cba8d41f1d87def4c2bc50c3d",
+   "owned_interval_mod": {
+    "n_voiced": 116,
+    "window_frames": 116,
+    "voiced_frac": 1.0,
+    "mod_rate_hz": 6.96,
+    "periodic_depth_c": 318.0,
+    "nonperiodic_rms_c": 32.7,
+    "depth_env_c": [
+     {
+      "t": 55.63,
+      "p2p_c": 284.6
+     },
+     {
+      "t": 55.7,
+      "p2p_c": 285.4
+     },
+     {
+      "t": 55.77,
+      "p2p_c": 295.1
+     },
+     {
+      "t": 55.84,
+      "p2p_c": 306.1
+     },
+     {
+      "t": 55.91,
+      "p2p_c": 313.1
+     },
+     {
+      "t": 55.98,
+      "p2p_c": 319.2
+     },
+     {
+      "t": 56.05,
+      "p2p_c": 325.9
+     },
+     {
+      "t": 56.12,
+      "p2p_c": 332.6
+     },
+     {
+      "t": 56.19,
+      "p2p_c": 338.6
+     },
+     {
+      "t": 56.26,
+      "p2p_c": 342.8
+     },
+     {
+      "t": 56.33,
+      "p2p_c": 335.0
+     },
+     {
+      "t": 56.4,
+      "p2p_c": 326.3
+     },
+     {
+      "t": 56.47,
+      "p2p_c": 328.2
+     },
+     {
+      "t": 56.54,
+      "p2p_c": 331.8
+     },
+     {
+      "t": 56.61,
+      "p2p_c": 332.9
+     }
+    ]
+   },
+   "jitter": {
+    "n_frames": 556,
+    "voiced_frac": 0.824,
+    "dcent_med": 12.8,
+    "dcent_p90": 39.5,
+    "dcent_gt30_frac": 0.251,
+    "detrended_rms_c": 12.5,
+    "n_voiced_frames": 458
+   },
+   "quality": {
+    "n_frames_used": 458,
+    "acf_peak_med": 0.957,
+    "spec_flat_2_8k_med": 0.492
+   },
+   "defects": {
+    "pitch_dips_gt300c": [],
+    "unvoiced_dropouts": [
+     {
+      "t": [
+       51.42,
+       51.57
+      ],
+      "dur_ms": 160.0,
+      "src_voiced_frac": 0.67
+     },
+     {
+      "t": [
+       52.24,
+       52.37
+      ],
+      "dur_ms": 140.0,
+      "src_voiced_frac": 0.42
+     },
+     {
+      "t": [
+       53.1,
+       53.23
+      ],
+      "dur_ms": 140.0,
+      "src_voiced_frac": 0.46
+     },
+     {
+      "t": [
+       53.98,
+       54.32
+      ],
+      "dur_ms": 350.0,
+      "src_voiced_frac": 0.26
+     },
+     {
+      "t": [
+       55.43,
+       55.51
+      ],
+      "dur_ms": 90.0,
+      "src_voiced_frac": 0.62
+     }
+    ],
+    "energy_collapses": [
+     {
+      "t": 51.36,
+      "render_dbfs": -38.1,
+      "source_dbfs": -25.0
+     }
+    ]
+   },
+   "note_gesture_table": [
+    {
+     "note": 0,
+     "t_s": 51.16,
+     "offset_c": -6.0,
+     "src_range_c": 560.0,
+     "render_range_c": 79.0,
+     "range_ratio": 0.14
+    },
+    {
+     "note": 1,
+     "t_s": 51.58,
+     "offset_c": -2.0,
+     "src_range_c": 221.0,
+     "render_range_c": 234.0,
+     "range_ratio": 1.06
+    },
+    {
+     "note": 2,
+     "t_s": 51.94,
+     "offset_c": 13.0,
+     "src_range_c": 188.0,
+     "render_range_c": 174.0,
+     "range_ratio": 0.92
+    },
+    {
+     "note": 3,
+     "t_s": 52.39,
+     "offset_c": 1.0,
+     "src_range_c": 242.0,
+     "render_range_c": 233.0,
+     "range_ratio": 0.97
+    },
+    {
+     "note": 4,
+     "t_s": 52.76,
+     "offset_c": 3.0,
+     "src_range_c": 24.0,
+     "render_range_c": 24.0,
+     "range_ratio": 1.02
+    },
+    {
+     "note": 5,
+     "t_s": 52.93,
+     "offset_c": 56.0,
+     "src_range_c": 116.0,
+     "render_range_c": 66.0,
+     "range_ratio": 0.57
+    },
+    {
+     "note": 6,
+     "t_s": 53.25,
+     "offset_c": -24.0,
+     "src_range_c": 285.0,
+     "render_range_c": 171.0,
+     "range_ratio": 0.6
+    },
+    {
+     "note": 7,
+     "t_s": 53.61,
+     "offset_c": -6.0,
+     "src_range_c": 236.0,
+     "render_range_c": 238.0,
+     "range_ratio": 1.01
+    },
+    {
+     "note": 8,
+     "t_s": 54.35,
+     "offset_c": 1.0,
+     "src_range_c": 493.0,
+     "render_range_c": 623.0,
+     "range_ratio": 1.26
+    },
+    {
+     "note": 9,
+     "t_s": 54.85,
+     "offset_c": -9.0,
+     "src_range_c": 285.0,
+     "render_range_c": 282.0,
+     "range_ratio": 0.99
+    },
+    {
+     "note": 10,
+     "t_s": 55.2,
+     "offset_c": -14.0,
+     "src_range_c": 287.0,
+     "render_range_c": 41.0,
+     "range_ratio": 0.14
+    },
+    {
+     "note": 11,
+     "t_s": 55.53,
+     "offset_c": -6.0,
+     "src_range_c": 122.0,
+     "render_range_c": 237.0,
+     "range_ratio": 1.95
+    }
+   ]
+  },
+  "SOURCE_owned_interval": {
+   "n_voiced": 116,
+   "window_frames": 116,
+   "voiced_frac": 1.0,
+   "mod_rate_hz": 6.93,
+   "periodic_depth_c": 157.1,
+   "nonperiodic_rms_c": 17.8,
+   "depth_env_c": [
+    {
+     "t": 4.77,
+     "p2p_c": 196.2
+    },
+    {
+     "t": 4.84,
+     "p2p_c": 194.5
+    },
+    {
+     "t": 4.91,
+     "p2p_c": 184.3
+    },
+    {
+     "t": 4.98,
+     "p2p_c": 175.8
+    },
+    {
+     "t": 5.05,
+     "p2p_c": 188.0
+    },
+    {
+     "t": 5.12,
+     "p2p_c": 199.9
+    },
+    {
+     "t": 5.19,
+     "p2p_c": 182.5
+    },
+    {
+     "t": 5.26,
+     "p2p_c": 157.7
+    },
+    {
+     "t": 5.33,
+     "p2p_c": 123.6
+    },
+    {
+     "t": 5.4,
+     "p2p_c": 94.7
+    },
+    {
+     "t": 5.47,
+     "p2p_c": 109.8
+    },
+    {
+     "t": 5.54,
+     "p2p_c": 130.6
+    },
+    {
+     "t": 5.61,
+     "p2p_c": 127.5
+    },
+    {
+     "t": 5.68,
+     "p2p_c": 121.2
+    },
+    {
+     "t": 5.75,
+     "p2p_c": 121.3
+    }
+   ]
+  }
+ },
+ "ab_effect": {
+  "a_periodic_depth_c": 179.8,
+  "b_periodic_depth_c": 318.0,
+  "src_periodic_depth_c": 157.1,
+  "direction": "removal_increased_depth \u2014 PITD periodic component was ANTI-PHASE to native vibrato (partial cancellation), not additive",
+  "src_depth_envelope_decays": true
+ },
+ "verdict": "FAIL_STRATEGY",
+ "verdict_reason": "periodic-PITD removal did not materially improve the local modulation"
+}
