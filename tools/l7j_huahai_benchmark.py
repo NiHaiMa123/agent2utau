@@ -156,6 +156,152 @@ def transposition_evidence(doc, f0, t2s, wave_off_s, rms):
             "per_note": rows[:400]}
 
 
+def _acf_track(wav_mono, sr, windows):
+    """Independent ACF pitch track (vocal band 150-600Hz) on the given
+    (a,b) second windows; returns list of (t_center, midi, clarity)."""
+    from scipy.signal import butter, sosfiltfilt
+    sos = butter(4, 180, "highpass", fs=sr, output="sos")
+    wf = sosfiltfilt(sos, wav_mono)
+    lo, hi = int(sr / 600), int(sr / 150)
+    out = []
+    hop, win = 0.05, 0.04
+    for a, b in windows:
+        t = a
+        while t < b - win:
+            x = wf[int(t * sr):int((t + win) * sr)].astype(np.float64)
+            x -= x.mean()
+            if np.abs(x).max() < 1e-4:
+                t += hop
+                continue
+            ac = np.correlate(x, x, "full")[len(x) - 1:]
+            if hi < len(ac) and ac[0] > 0:
+                lag = lo + int(np.argmax(ac[lo:hi]))
+                clar = float(ac[lag] / ac[0])
+                if clar > 0.4:
+                    out.append((t + win / 2,
+                                69 + 12 * np.log2((sr / lag) / 440),
+                                clar))
+            t += hop
+    return out
+
+
+def _pitd_for(part):
+    c = next((c for c in part.get("curves", []) if c["abbr"] == "pitd"),
+             None)
+    if not c:
+        return np.array([]), np.array([])
+    return np.array(c["xs"]), np.array(c["ys"], dtype=float)
+
+
+def _reversals(y):
+    if y.size < 3:
+        return 0
+    d = np.diff(y)
+    return int(np.sum(d[1:] * d[:-1] < 0))
+
+
+def _osc_hz(y, dt_s):
+    """Dominant oscillation rate of a curve via FFT, 3-10Hz band."""
+    if y.size < 8:
+        return 0.0, 0.0
+    yy = y - np.mean(y)
+    sp = np.abs(np.fft.rfft(yy))
+    fr = np.fft.rfftfreq(y.size, dt_s)
+    band = (fr >= 3) & (fr <= 10)
+    if not band.any() or sp[band].max() < 5:
+        return 0.0, 0.0
+    i = np.argmax(sp[band])
+    return float(fr[band][i]), float(sp[band][i] * 2 / y.size)
+
+
+def note_table(part, t2s, wave_off, ms_tick):
+    """Per sung note: audio span, tone, lyric, written-control features."""
+    xs, ys = _pitd_for(part)
+    pitd_dt = 10.0 * ms_tick / 1000.0  # pitd xs step = 10 ticks
+    rows, prev = [], None
+    for i, n in enumerate(part["notes"]):
+        lyr = str(n.get("lyric"))
+        if lyr in SPECIAL_LYRICS or lyr == "+":
+            continue
+        a = t2s(part["position"] + n["position"]) - wave_off
+        d = n["duration"] * ms_tick / 1000.0
+        x0, x1 = n["position"], n["position"] + n["duration"]
+        pm = (xs >= x0) & (xs < x1)
+        py = ys[pm]
+        om = pm & (xs < x0 + 150)
+        rows.append({
+            "i": i, "a": a, "b": a + d, "dur": d, "tone": int(n["tone"]),
+            "lyric": lyr, "leap": (None if prev is None
+                                   else int(n["tone"]) - prev),
+            "vibrato": (n.get("vibrato") or {}).get("length", 0) > 0,
+            "portamento_y0": ((n.get("pitch") or {}).get("data")
+                              or [{}])[0].get("y", 0),
+            "pitd_rng": float(py.max() - py.min()) if py.size > 2 else 0,
+            "pitd_rev": _reversals(py),
+            "pitd_onset_rng": (float(ys[om].max() - ys[om].min())
+                               if om.sum() > 2 else 0.0),
+            "pitd_osc": _osc_hz(py, pitd_dt)})
+        prev = n["tone"]
+    return rows
+
+
+def select_phrases(part_rows, acf, f0, rms):
+    """Score phrase candidates: written evidence + dual-extractor
+    SOURCE reliability; class assignment happens in j1()."""
+    tt, hz, vv = f0["times"], f0["f0_hz"], f0["voiced"]
+    mm = _midi(hz)
+    acf_t = np.array([x[0] for x in acf]) if acf else np.array([])
+    acf_m = np.array([x[1] for x in acf]) if acf else np.array([])
+
+    def phrase_stats(rows):
+        a, b = rows[0]["a"], rows[-1]["b"]
+        fc = (tt >= a) & (tt <= b) & vv & (rms > 0.008)
+        n_fc = int(fc.sum())
+        agree = 0
+        if n_fc and acf_t.size:
+            for tm, fm in zip(tt[fc], mm[fc]):
+                j = np.searchsorted(acf_t, tm)
+                ok = any(0 <= k < acf_m.size
+                         and abs(acf_m[k] - fm) < 1.0
+                         for k in (j - 1, j))
+                agree += ok
+        rel = agree / n_fc if n_fc else 0.0
+        src_rng = float(np.percentile(mm[fc], 95)
+                        - np.percentile(mm[fc], 5)) if n_fc > 8 else 0.0
+        return {"a": a, "b": b, "n_notes": len(rows),
+                "source_reliable": round(rel, 3),
+                "source_f0_rng_c": round(src_rng, 1),
+                "max_dur": max(r["dur"] for r in rows),
+                "max_leap": max(abs(r["leap"] or 0) for r in rows),
+                "max_pitd_rng": max(r["pitd_rng"] for r in rows),
+                "max_onset_rng": max(r["pitd_onset_rng"] for r in rows),
+                "max_rev": max(r["pitd_rev"] for r in rows),
+                "max_osc": max(r["pitd_osc"][0] for r in rows),
+                "lyrics": "".join(r["lyric"] for r in rows)[:24],
+                "notes": [{"a": r["a"], "b": r["b"], "tone": r["tone"],
+                           "lyric": r["lyric"], "leap": r["leap"],
+                           "vibrato": r["vibrato"],
+                           "pitd_rng": round(r["pitd_rng"], 1),
+                           "pitd_rev": r["pitd_rev"],
+                           "portamento_y0": r["portamento_y0"]}
+                          for r in rows]}
+
+    cands = []
+    for pi, rows in part_rows.items():
+        i = 0
+        while i < len(rows):
+            j = i + 1
+            while j < len(rows) and rows[j]["a"] - rows[i]["a"] < 4.5:
+                j += 1
+            if j - i >= 4:
+                st = phrase_stats(rows[i:j])
+                st["part"] = pi
+                st["note_ids"] = [rows[i]["i"], rows[j - 1]["i"]]
+                cands.append(st)
+            i = j
+    return cands
+
+
 def main():
     head = drv._require_clean_worktree("l7j_huahai_benchmark")
     OUT.mkdir(parents=True, exist_ok=True)
@@ -243,6 +389,83 @@ def main():
     if manifest["transposition_verdict"] == "not_proven":
         print("WARNING: +4 transposition not proven — per contract "
               "classify UNKNOWN for note correspondence")
+        return
+
+    # ---------- Phase J1: phrase selection ----------
+    print("J1: phrase selection ...", flush=True)
+    ms_tick = 60000.0 / (doc["tempos"][0]["bpm"] * RESOLUTION)
+    part_rows = {}
+    acf_windows = []
+    for pi in (0, 1):
+        part = doc["voice_parts"][pi]
+        rows = note_table(part, t2s, wave_off, ms_tick)
+        part_rows[pi] = rows
+        if rows:
+            acf_windows.append((max(0.0, rows[0]["a"] - 0.2),
+                                rows[-1]["b"] + 0.2))
+    acf = _acf_track(w, sr, acf_windows)
+    print(f"  acf frames={len(acf)}", flush=True)
+    cands = select_phrases(part_rows, acf, f0, rms)
+
+    # class tagging (deterministic evidence thresholds)
+    def tags(c):
+        tg = set()
+        if c["max_dur"] >= 1.2:
+            tg.add("sustained")
+        if c["max_leap"] >= 4:
+            tg.add("transition")
+        if c["max_onset_rng"] >= 150 or \
+                any(n["portamento_y0"] not in (0, None)
+                    for n in c["notes"]):
+            tg.add("portamento_or_scoop")
+        if c["max_onset_rng"] >= 150:
+            tg.add("onset_over_undershoot")
+        if 4.0 <= c["max_osc"] <= 8.0 and c["max_dur"] >= 0.8:
+            tg.add("vibrato")
+        if c["max_rev"] >= 8:
+            tg.add("ornament")
+        return tg
+
+    for c in cands:
+        c["classes"] = sorted(tags(c))
+
+    CLASS_ORDER = ["vibrato", "portamento_or_scoop", "onset_over_undershoot",
+                   "ornament", "sustained", "transition"]
+    picked, used = [], []
+    for cls in CLASS_ORDER:
+        pool = [c for c in cands if cls in c["classes"]
+                and all(c["b"] <= u[0] or c["a"] >= u[1] for u in used)]
+        pool.sort(key=lambda c: (-c["source_reliable"],
+                                 -(c["max_osc"] if cls == "vibrato"
+                                   else c["max_onset_rng"]
+                                   if "onset" in cls or "porta" in cls
+                                   else c["max_pitd_rng"]),
+                                 c["a"]))
+        if pool:
+            c = pool[0]
+            picked.append({"class": cls, **c})
+            used.append((c["a"], c["b"]))
+    picked = picked[:5]
+    j1 = {"phase": "J1 phrase selection",
+          "evaluated_head": head,
+          "worktree_clean_at_generation": True,
+          "selection_rule": ("class coverage over written-control "
+                             "evidence (pitd range/reversals/osc, "
+                             "portamento_y0, leaps, durations) ranked "
+                             "by dual-extractor SOURCE reliability; "
+                             "non-overlapping; agent output not used"),
+          "n_candidates": len(cands),
+          "selected": picked,
+          "candidates_ranked": sorted(
+              cands, key=lambda c: -c["source_reliable"])[:40]}
+    out1 = OUT / "j1_phrases.json"
+    out1.write_text(json.dumps(j1, indent=1, ensure_ascii=False),
+                    encoding="utf-8")
+    print("wrote", out1)
+    for p_ in picked:
+        print(f"  {p_['class']:24s} part{p_['part']} "
+              f"[{p_['a']:.1f}-{p_['b']:.1f}s] rel={p_['source_reliable']} "
+              f"{p_['lyrics']}")
 
 
 if __name__ == "__main__":
