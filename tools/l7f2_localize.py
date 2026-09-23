@@ -322,7 +322,12 @@ def main():
         "abnormal_phonation_segments": ph_bad,
         "classification": cls,
     }
-    REPORT.write_text(json.dumps(report, indent=1), encoding="utf-8")
+    REPORT.write_text(json.dumps(
+        report, indent=1, default=lambda o:
+        float(o) if isinstance(o, np.floating)
+        else int(o) if isinstance(o, np.integer)
+        else o.tolist() if isinstance(o, np.ndarray)
+        else str(o)), encoding="utf-8")
     print(f"classification={cls}")
     print(f"abnormal_f0={abnormal_f0} abnormal_phonation={ph_bad}")
     print(f"wrote {REPORT}")
