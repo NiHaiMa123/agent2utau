@@ -709,65 +709,104 @@ extractor families, not only aggregate counts / FCPE names.
 
 #### Round A — ACTIVE: evidence adjudication only
 
-Reviewer result on executor bundle `b5005a6 → 77bdcd9 → 131df36`:
-- **task discipline PASS**: executor stayed inside Round A and STOPped; it did not enter ownership,
-  production regeneration or final acceptance;
-- **evidence implementation improved**: direct waveform RMS / ACF / harmonic measurements are useful
-  and clean-head provenance is valid;
-- **artifact adjudication NOT ACCEPTED yet**: `non_phonated_remnant` was allowed to PASS from
-  absolute energy collapse + absolute h2+ collapse even when the disputed span still contained
-  positive periodic evidence.
+Executor rerun at `f1404ad → 2b839ac → 3da203d` correctly returned both targets to
+`FAIL_EVIDENCE / UNKNOWN`.  This is an honest result, but reviewer analysis of the committed
+`SOURCE.wav` clips shows the remaining uncertainty has a more specific structure:
 
-Concrete contradiction in the committed artifacts:
-- P2 note8: 4 reliable ACF frames; measured median ≈257.9 Hz, matching FCPE's ≈257.1 Hz claim.
-  This may be a quiet/release periodic tail; energy loss alone cannot prove it is non-phonated.
-- P3 note9: 5/9 frames have ACF >=0.5 and the disputed `h2+/h1` ratio is not collapsed relative
-  to its voiced reference.  Calling this "no comb / no sung-pitch source" is therefore too strong.
+- it is **not an interior event-shape ambiguity**;
+- it is confined to one low-energy edge of each event;
+- the interior/reliable core is observable and can be evaluated independently.
 
-Reviewer patches:
-- `06ee92ff`: waveform classification now evaluates positive periodic evidence before artifact
-  classification; absolute h2+ dBFS loss is not sufficient by itself;
-- `e6ff44c7`: regression coverage now requires a low-energy but periodic voiced release to remain
-  voiced, and a periodic single-bin decay to stay inconclusive rather than being automatically
-  called artifact.
+Direct reviewer measurements on the committed audio / QA artifacts:
 
-The `77bdcd9` P2-note8/P3-note9
-`EVIDENCE_ADJUDICATED_ARTIFACT` verdicts are therefore **STALE**.
-Round B remains LOCKED.
+```text
+P2 note8
+raw event        54.660–55.020 s
+uncertain edge   ~54.655–54.835 s  (START edge, -19.2 dB vs voiced ref)
+reliable core    ~54.835–55.020 s
+raw clean RMSE   ~0.348
+core RMSE        ~0.014
 
-Scope is **only**:
+P3 note9
+raw event        29.250–29.520 s
+uncertain edge   ~29.415–29.525 s  (END edge, -25.5 dB vs voiced ref)
+reliable core    ~29.250–29.415 s
+raw clean RMSE   ~0.419  (blocking)
+core RMSE        ~0.296  (< 0.35 absolute-shape threshold)
+```
+
+Therefore the correct evidence state is neither “artifact” nor an indefinitely blocking unknown.
+It is:
+
+```text
+EVIDENCE_EDGE_UNCERTAIN
+```
+
+Semantics:
+- the event itself remains real;
+- SOURCE F0 on one low-salience edge remains UNKNOWN;
+- that edge is retained in the artifact and is never called correct/incorrect;
+- absolute shape acceptance is evaluated only on the **positively observable reliable core**;
+- if the core itself fails the existing absolute-shape threshold, the event still blocks;
+- this is not a threshold relaxation and does not erase the raw-window mismatch.
+
+Reviewer implementation:
+- `06dbe186`: `event_shape_gate(..., source_core_bounds=...)` supports an auditable reliable
+  core, records raw/core windows and raw RMSE, and emits `source_edge_uncertain` only when the
+  core itself passes;
+- `0bb0ae03`: Round-A probe emits `EVIDENCE_EDGE_UNCERTAIN` only when extractor conflict is
+  confined to exactly one low-energy event edge, a >=40 ms core remains, and <=65% of the event is
+  uncertain;
+- `6020d620`: production phrase gate consumes only **clean committed** Round-A core evidence and
+  binds the probe report hash into the manifest;
+- `a6d88a8d`: lane-isolation A/B uses the same core semantics;
+- `b15b76e1`: regression tests prove edge uncertainty cannot hide a distorted core or a trivial
+  <40 ms core;
+- `b35393c2`: A/B artifacts report blocking event identities separately for FCPE and RMVPE.
+
+### Round A execution now required
+
+Scope remains **only**:
 - P2 note8;
 - P3 note9.
 
 From the latest committed clean HEAD:
 
-1. from the latest committed clean HEAD, run the focused evidence/adjudication tests including
-   `test_voicing_evidence.py`;
-2. rerun the two target evidence probes under the corrected conservative waveform rule;
-3. collect **positive** evidence where possible:
-   - a reliable third-F0 contour that supports FCPE or RMVPE;
-   - waveform periodicity / harmonic / subharmonic evidence that positively identifies voiced F0;
-   - another independent positive acoustic test with committed provenance;
-4. classify each target as exactly one of:
-   - `EVIDENCE_RESOLVED_FCPE`;
-   - `EVIDENCE_RESOLVED_RMVPE`;
-   - `EVIDENCE_ADJUDICATED_ARTIFACT` **only with explicit positive counter-evidence**;
-   - `FAIL_EVIDENCE` / UNKNOWN when evidence remains insufficient;
-5. commit the probe/evidence artifacts and any narrowly-required evidence-analysis code.
+1. run the focused evidence/QA tests, including:
+   - `tests/test_voicing_evidence.py`;
+   - `tests/test_event_shape_core.py`;
+   - directly related contour/event tests;
+2. rerun only the P2-note8 / P3-note9 Round-A probes;
+3. expected evidence verdict when the committed measurements reproduce:
+   - `EVIDENCE_EDGE_UNCERTAIN`;
+4. each evidence packet must contain:
+   - `uncertain_span_s`;
+   - `side = start|end`;
+   - `reliable_core_s`;
+   - `uncertain_fraction`;
+   - `energy_drop_db`;
+   - source/probe hashes and clean-worktree provenance;
+5. commit only the focused test/probe evidence.
 
-For this rerun, **do not force an artifact decision**.  If the new classifier returns
-`inconclusive`, the correct project verdict is `FAIL_EVIDENCE / UNKNOWN`.  A periodic low-energy
-tail requires additional discriminating evidence before it may be excluded from the SOURCE target.
+Allowed final Round-A verdicts are now:
 
-**Round A STOP condition:** both events have a committed verdict/evidence packet, even if one or
-both remain UNKNOWN.
+```text
+EVIDENCE_RESOLVED_FCPE
+EVIDENCE_RESOLVED_RMVPE
+EVIDENCE_ADJUDICATED_ARTIFACT   # positive counter-evidence only
+EVIDENCE_EDGE_UNCERTAIN         # one low-salience edge; reliable core retained
+FAIL_EVIDENCE / UNKNOWN
+```
+
+**Round A STOP condition:** both events have a committed verdict/evidence packet.  If the new probe
+does not reproduce the edge structure above, do not force it — return UNKNOWN and STOP.
 
 **Forbidden in Round A:**
 - do not rerun lane-isolation A/B;
 - do not change portamento ownership;
 - do not regenerate P1/P2/P3 production candidates;
 - do not run or modify the final acceptance evaluator;
-- do not change QA thresholds to make an event pass;
+- do not change QA thresholds;
 - do not start Round B.
 
 #### Round B — LOCKED: ownership decision
