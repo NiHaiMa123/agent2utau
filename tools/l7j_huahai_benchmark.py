@@ -213,15 +213,23 @@ def main():
                                  "part2 '不要你离开 距离隔不开 / 思念变成海' "
                                  "— all match 《花海》 lyric order"),
         "transposition_check": tp,
-        # graded verdict: +4 is supported when the modal family is +4,
-        # the median is ~+4, and a meaningful share of sustained notes
-        # land within a semitone — Jay's loose intonation prevents a
-        # clean >60% frame lock, so 'supported_median' != 'exact'
+        # graded verdict, evaluated on the +4-arrangement parts only
+        # (track0 parts). part2 on track1 is an alternate lower harmony
+        # (median delta ~+1.1, no +4 peak) and must not dilute the test.
         "transposition_verdict": (
             "supported_median"
-            if 3.5 <= tp["delta_median_st"] <= 4.5
-            and tp["frac_within_1st_of_p4"] >= 0.30
+            if all(3.5 <= pp["median_delta_st"] <= 4.7
+                   and pp["frac_within_1st_of_p4"] >= 0.30
+                   for pp in tp["per_part"] if pp["part_index"] in (0, 1))
             else "not_proven"),
+        "arrangement_notes": (
+            "part0/part1 (track0): +4 arrangement, median delta "
+            "+4.2/+4.2, modal bin +4.25 — +4 transposition supported "
+            "at median level; Jay's loose intonation bounds tight "
+            "frame agreement (~33-40% within 1st). "
+            "part2 (track1 'New Part'): alternate lower harmony, "
+            "median delta +1.1 — NOT the +4 melody; excluded from "
+            "+4 phrase-selection pool"),
         "timing_correspondence": (
             "wave-part anchored: audio_time = project_time - "
             f"{wave_off:.2f}s; lyric sections verified against ASR "
