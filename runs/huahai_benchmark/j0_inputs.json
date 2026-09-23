@@ -1,0 +1,3654 @@
+{
+ "tool": "tools/l7j_huahai_benchmark.py",
+ "phase": "J0 inputs",
+ "evaluated_head": "7cbec4e6298370e8d68e72f8dc5a4a32b378f036",
+ "worktree_clean_at_generation": true,
+ "jay_original": {
+  "path": "E:\\data\\music\\周杰伦音乐 所有专辑和单曲\\2008-魔杰座\\04. 周杰伦 - 花海.flac",
+  "sha256": "09cd1fac8ef464d425e53830f1205c85ebea1ae9d8b638fc65237b0e03d1d425",
+  "duration_s": 262.11,
+  "sample_rate": 44100
+ },
+ "separated_vocals": {
+  "path": "runs\\huahai_benchmark\\separation\\04. 周杰伦 - 花海_(Vocals)_UVR-MDX-NET-Voc_FT.wav",
+  "sha256": "e0299d96b8e60c1613593cd3b62e2445279ca5801e5f151d31c776e861d09eee",
+  "model": "UVR-MDX-NET-Voc_FT.onnx"
+ },
+ "human_project": {
+  "path": "E:\\data\\project_opentuau\\花海+4-有参by白烁.ustx",
+  "sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377",
+  "author": "白烁",
+  "declared_transposition": "+4 semitones",
+  "ustx_version": "0.9",
+  "bpm": 150,
+  "tempos": [
+   {
+    "position": 0,
+    "bpm": 75
+   }
+  ],
+  "tracks": [
+   {
+    "track_name": "main",
+    "singer": "yousaV1.56",
+    "phonemizer": "OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer",
+    "renderer": "DIFFSINGER"
+   },
+   {
+    "track_name": "Track6",
+    "singer": "yousaV1.56",
+    "phonemizer": "OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer",
+    "renderer": "DIFFSINGER"
+   },
+   {
+    "track_name": "Track2",
+    "singer": null,
+    "phonemizer": "OpenUtau.Core.DefaultPhonemizer",
+    "renderer": null
+   },
+   {
+    "track_name": "Track3",
+    "singer": null,
+    "phonemizer": "OpenUtau.Core.DefaultPhonemizer",
+    "renderer": null
+   },
+   {
+    "track_name": "Track4",
+    "singer": null,
+    "phonemizer": "OpenUtau.Core.DefaultPhonemizer",
+    "renderer": null
+   },
+   {
+    "track_name": "Track5",
+    "singer": null,
+    "phonemizer": "OpenUtau.Core.DefaultPhonemizer",
+    "renderer": null
+   },
+   {
+    "track_name": "Track10",
+    "singer": null,
+    "phonemizer": "OpenUtau.Core.DefaultPhonemizer",
+    "renderer": null
+   }
+  ],
+  "voice_parts": [
+   {
+    "index": 0,
+    "name": "",
+    "track_no": 0,
+    "span_s": [
+     27.9,
+     131.2
+    ],
+    "n_notes": 218,
+    "n_sung": 156,
+    "n_vibrato_notes": 1,
+    "curve_abbrs": [
+     "cl03",
+     "pitd",
+     "cl04",
+     "tenc",
+     "voic",
+     "brec",
+     "ene",
+     "shfc"
+    ],
+    "pitd_points": 4840
+   },
+   {
+    "index": 1,
+    "name": "-2",
+    "track_no": 0,
+    "span_s": [
+     155.6,
+     243.0
+    ],
+    "n_notes": 175,
+    "n_sung": 124,
+    "n_vibrato_notes": 0,
+    "curve_abbrs": [
+     "cl03",
+     "pitd",
+     "cl04",
+     "tenc",
+     "voic",
+     "brec",
+     "ene",
+     "shfc",
+     "cl05",
+     "cl01"
+    ],
+    "pitd_points": 5327
+   },
+   {
+    "index": 2,
+    "name": "New Part",
+    "track_no": 1,
+    "span_s": [
+     78.8,
+     225.4
+    ],
+    "n_notes": 171,
+    "n_sung": 151,
+    "n_vibrato_notes": 0,
+    "curve_abbrs": [
+     "cl04",
+     "cl05",
+     "tenc",
+     "voic",
+     "pitd",
+     "ene",
+     "brec",
+     "pexp",
+     "shfc"
+    ],
+    "pitd_points": 4384
+   }
+  ],
+  "wave_parts": [
+   {
+    "name": "1accf3f4c3bfd3ceb22e6e63a752cd0b.mp3",
+    "track_no": 2,
+    "relative_path": "1accf3f4c3bfd3ceb22e6e63a752cd0b.mp3",
+    "file_exists": false
+   },
+   {
+    "name": "1158592800-1-192.wav",
+    "track_no": 3,
+    "relative_path": "1158592800-1-192.wav",
+    "file_exists": false
+   },
+   {
+    "name": "伴奏.mp3",
+    "track_no": 4,
+    "relative_path": "伴奏.mp3",
+    "file_exists": false
+   },
+   {
+    "name": "伴奏+4.mp3",
+    "track_no": 5,
+    "relative_path": "伴奏+4.mp3",
+    "file_exists": false
+   },
+   {
+    "name": "38739772859-1-192_noreverb.wav",
+    "track_no": 6,
+    "relative_path": "38739772859-1-192_noreverb.wav",
+    "file_exists": false
+   }
+  ]
+ },
+ "singer_identity": {
+  "project_singer": "yousaV1.56",
+  "installed": false,
+  "render_substitution": "YousaV1.65c (V1.56 not installed; human-render layer rendered through the dpV2 baseline, substitution recorded)"
+ },
+ "lyric_correspondence": "part0 '静止了 所有的花开 / 遥远了 清晰了爱', part1 '你喜欢 站在那窗台 / 你好久 都没再来', part2 '不要你离开 距离隔不开 / 思念变成海' — all match 《花海》 lyric order",
+ "transposition_check": {
+  "wave_offset_s": 1.2866666666666668,
+  "n_notes_measured": 343,
+  "delta_mode_st": 4.25,
+  "delta_median_st": 3.23,
+  "frac_within_1p5st_of_mode": 0.329,
+  "frac_within_1st_of_p4": 0.289,
+  "delta_p25_p75": [
+   0.46,
+   4.74
+  ],
+  "per_part": [
+   {
+    "part_index": 0,
+    "n": 121,
+    "median_delta_st": 4.24,
+    "frac_within_1st_of_p4": 0.397
+   },
+   {
+    "part_index": 1,
+    "n": 96,
+    "median_delta_st": 4.2,
+    "frac_within_1st_of_p4": 0.333
+   },
+   {
+    "part_index": 2,
+    "n": 126,
+    "median_delta_st": 1.06,
+    "frac_within_1st_of_p4": 0.151
+   }
+  ],
+  "per_note": [
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 27.11,
+    "tone": 61,
+    "lyric": "jing",
+    "measured_midi": 60.83,
+    "voiced_frames": 18,
+    "delta_st": 0.17
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 27.41,
+    "tone": 65,
+    "lyric": "zhi",
+    "measured_midi": 60.85,
+    "voiced_frames": 28,
+    "delta_st": 4.15
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 27.81,
+    "tone": 65,
+    "lyric": "le",
+    "measured_midi": 60.77,
+    "voiced_frames": 55,
+    "delta_st": 4.23
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 29.51,
+    "tone": 65,
+    "lyric": "suo",
+    "measured_midi": 57.09,
+    "voiced_frames": 26,
+    "delta_st": 7.91
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 29.91,
+    "tone": 63,
+    "lyric": "you",
+    "measured_midi": 57.05,
+    "voiced_frames": 25,
+    "delta_st": 5.95
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 30.31,
+    "tone": 61,
+    "lyric": "de",
+    "measured_midi": 58.99,
+    "voiced_frames": 28,
+    "delta_st": 2.01
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 30.71,
+    "tone": 63,
+    "lyric": "hua",
+    "measured_midi": 59.03,
+    "voiced_frames": 68,
+    "delta_st": 3.97
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 31.51,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 60.77,
+    "voiced_frames": 61,
+    "delta_st": 4.23
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 33.71,
+    "tone": 65,
+    "lyric": "yuan",
+    "measured_midi": 60.76,
+    "voiced_frames": 28,
+    "delta_st": 4.24
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 34.11,
+    "tone": 65,
+    "lyric": "le",
+    "measured_midi": 60.7,
+    "voiced_frames": 44,
+    "delta_st": 4.3
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 35.91,
+    "tone": 66,
+    "lyric": "qing",
+    "measured_midi": 61.08,
+    "voiced_frames": 28,
+    "delta_st": 4.92
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 36.31,
+    "tone": 65,
+    "lyric": "xi",
+    "measured_midi": 64.27,
+    "voiced_frames": 26,
+    "delta_st": 0.73
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 36.71,
+    "tone": 68,
+    "lyric": "le",
+    "measured_midi": 56.6,
+    "voiced_frames": 28,
+    "delta_st": 11.4
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 37.31,
+    "tone": 61,
+    "lyric": "ai",
+    "measured_midi": 56.34,
+    "voiced_frames": 91,
+    "delta_st": 4.66
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 40.11,
+    "tone": 66,
+    "lyric": "yu",
+    "measured_midi": 61.8,
+    "voiced_frames": 28,
+    "delta_st": 4.2
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 40.51,
+    "tone": 66,
+    "lyric": "men",
+    "measured_midi": 61.85,
+    "voiced_frames": 33,
+    "delta_st": 4.15
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 42.31,
+    "tone": 66,
+    "lyric": "ai",
+    "measured_midi": 57.54,
+    "voiced_frames": 24,
+    "delta_st": 8.46
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 42.71,
+    "tone": 65,
+    "lyric": "que",
+    "measured_midi": 52.85,
+    "voiced_frames": 14,
+    "delta_st": 12.15
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 43.11,
+    "tone": 61,
+    "lyric": "hen",
+    "measured_midi": 52.09,
+    "voiced_frames": 28,
+    "delta_st": 8.91
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 43.51,
+    "tone": 56,
+    "lyric": "xi",
+    "measured_midi": 59.83,
+    "voiced_frames": 67,
+    "delta_st": -3.83
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 44.31,
+    "tone": 65,
+    "lyric": "huan",
+    "measured_midi": 60.44,
+    "voiced_frames": 68,
+    "delta_st": 4.56
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 46.51,
+    "tone": 65,
+    "lyric": "shi",
+    "measured_midi": 59.16,
+    "voiced_frames": 28,
+    "delta_st": 5.84
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 46.91,
+    "tone": 63,
+    "lyric": "hou",
+    "measured_midi": 59.12,
+    "voiced_frames": 35,
+    "delta_st": 3.88
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 48.11,
+    "tone": 65,
+    "lyric": "bu",
+    "measured_midi": 58.95,
+    "voiced_frames": 28,
+    "delta_st": 6.05
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 48.51,
+    "tone": 63,
+    "lyric": "dong",
+    "measured_midi": 58.9,
+    "voiced_frames": 31,
+    "delta_st": 4.1
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 49.71,
+    "tone": 65,
+    "lyric": "jiao",
+    "measured_midi": 58.92,
+    "voiced_frames": 28,
+    "delta_st": 6.08
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 50.11,
+    "tone": 63,
+    "lyric": "ai",
+    "measured_midi": 58.65,
+    "voiced_frames": 89,
+    "delta_st": 4.35
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 52.91,
+    "tone": 65,
+    "lyric": "xi",
+    "measured_midi": 60.85,
+    "voiced_frames": 28,
+    "delta_st": 4.15
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 53.31,
+    "tone": 65,
+    "lyric": "huan",
+    "measured_midi": 60.77,
+    "voiced_frames": 89,
+    "delta_st": 4.23
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 55.11,
+    "tone": 65,
+    "lyric": "zhan",
+    "measured_midi": 57.23,
+    "voiced_frames": 28,
+    "delta_st": 7.77
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 55.51,
+    "tone": 63,
+    "lyric": "zai",
+    "measured_midi": 59.11,
+    "voiced_frames": 15,
+    "delta_st": 3.89
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 55.91,
+    "tone": 61,
+    "lyric": "na",
+    "measured_midi": 58.97,
+    "voiced_frames": 28,
+    "delta_st": 2.03
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 56.31,
+    "tone": 63,
+    "lyric": "chuang",
+    "measured_midi": 63.5,
+    "voiced_frames": 66,
+    "delta_st": -0.5
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 57.11,
+    "tone": 68,
+    "lyric": "tai",
+    "measured_midi": 61.87,
+    "voiced_frames": 70,
+    "delta_st": 6.13
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 59.31,
+    "tone": 65,
+    "lyric": "hao",
+    "measured_midi": 60.83,
+    "voiced_frames": 28,
+    "delta_st": 4.17
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 59.71,
+    "tone": 65,
+    "lyric": "jiu",
+    "measured_midi": 60.6,
+    "voiced_frames": 82,
+    "delta_st": 4.4
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 61.51,
+    "tone": 66,
+    "lyric": "dou",
+    "measured_midi": 61.94,
+    "voiced_frames": 28,
+    "delta_st": 4.06
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 61.91,
+    "tone": 65,
+    "lyric": "mei",
+    "measured_midi": 57.58,
+    "voiced_frames": 28,
+    "delta_st": 7.42
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 62.31,
+    "tone": 68,
+    "lyric": "zai",
+    "measured_midi": 56.84,
+    "voiced_frames": 28,
+    "delta_st": 11.16
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 62.91,
+    "tone": 61,
+    "lyric": "lai",
+    "measured_midi": 56.05,
+    "voiced_frames": 89,
+    "delta_st": 4.95
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 65.71,
+    "tone": 66,
+    "lyric": "se",
+    "measured_midi": 61.72,
+    "voiced_frames": 28,
+    "delta_st": 4.28
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 66.11,
+    "tone": 66,
+    "lyric": "de",
+    "measured_midi": 61.72,
+    "voiced_frames": 74,
+    "delta_st": 4.28
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 67.91,
+    "tone": 66,
+    "lyric": "shi",
+    "measured_midi": 56.89,
+    "voiced_frames": 28,
+    "delta_st": 9.11
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 68.31,
+    "tone": 65,
+    "lyric": "jian",
+    "measured_midi": 62.36,
+    "voiced_frames": 17,
+    "delta_st": 2.64
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 68.71,
+    "tone": 61,
+    "lyric": "ran",
+    "measured_midi": 64.0,
+    "voiced_frames": 28,
+    "delta_st": -3.0
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 69.11,
+    "tone": 68,
+    "lyric": "shang",
+    "measured_midi": 60.66,
+    "voiced_frames": 67,
+    "delta_st": 7.34
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 70.71,
+    "tone": 73,
+    "lyric": "bai",
+    "measured_midi": 68.82,
+    "voiced_frames": 62,
+    "delta_st": 4.18
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 72.71,
+    "tone": 68,
+    "lyric": "shi",
+    "measured_midi": 61.72,
+    "voiced_frames": 28,
+    "delta_st": 6.28
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 73.11,
+    "tone": 66,
+    "lyric": "ni",
+    "measured_midi": 59.29,
+    "voiced_frames": 28,
+    "delta_st": 6.71
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 73.51,
+    "tone": 66,
+    "lyric": "liu",
+    "measured_midi": 56.83,
+    "voiced_frames": 28,
+    "delta_st": 9.17
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 73.91,
+    "tone": 61,
+    "lyric": "de",
+    "measured_midi": 56.54,
+    "voiced_frames": 28,
+    "delta_st": 4.46
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 74.31,
+    "tone": 61,
+    "lyric": "lei",
+    "measured_midi": 56.23,
+    "voiced_frames": 27,
+    "delta_st": 4.77
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 75.11,
+    "tone": 60,
+    "lyric": "yun",
+    "measured_midi": 56.5,
+    "voiced_frames": 28,
+    "delta_st": 3.5
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 75.51,
+    "tone": 61,
+    "lyric": "kai",
+    "measured_midi": 56.25,
+    "voiced_frames": 54,
+    "delta_st": 4.75
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 77.51,
+    "tone": 61,
+    "lyric": "bu",
+    "measured_midi": 59.78,
+    "voiced_frames": 28,
+    "delta_st": 1.22
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 77.91,
+    "tone": 63,
+    "lyric": "yao",
+    "measured_midi": 63.42,
+    "voiced_frames": 28,
+    "delta_st": -0.42
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 78.31,
+    "tone": 65,
+    "lyric": "ni",
+    "measured_midi": 64.05,
+    "voiced_frames": 28,
+    "delta_st": 0.95
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 78.91,
+    "tone": 68,
+    "lyric": "kai",
+    "measured_midi": 63.74,
+    "voiced_frames": 118,
+    "delta_st": 4.26
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 80.71,
+    "tone": 65,
+    "lyric": "ju",
+    "measured_midi": 56.65,
+    "voiced_frames": 28,
+    "delta_st": 8.35
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 81.11,
+    "tone": 63,
+    "lyric": "li",
+    "measured_midi": 57.88,
+    "voiced_frames": 28,
+    "delta_st": 5.12
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 81.51,
+    "tone": 61,
+    "lyric": "ge",
+    "measured_midi": 59.36,
+    "voiced_frames": 28,
+    "delta_st": 1.64
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 82.11,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 60.79,
+    "voiced_frames": 117,
+    "delta_st": 4.21
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 83.91,
+    "tone": 61,
+    "lyric": "si",
+    "measured_midi": 60.07,
+    "voiced_frames": 28,
+    "delta_st": 0.93
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 84.31,
+    "tone": 63,
+    "lyric": "nian",
+    "measured_midi": 66.51,
+    "voiced_frames": 28,
+    "delta_st": -3.51
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 84.71,
+    "tone": 65,
+    "lyric": "bian",
+    "measured_midi": 68.58,
+    "voiced_frames": 28,
+    "delta_st": -3.58
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 85.31,
+    "tone": 73,
+    "lyric": "hai",
+    "measured_midi": 68.65,
+    "voiced_frames": 28,
+    "delta_st": 4.35
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 86.71,
+    "tone": 73,
+    "lyric": "zai",
+    "measured_midi": 67.85,
+    "voiced_frames": 28,
+    "delta_st": 5.15
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 87.11,
+    "tone": 72,
+    "lyric": "chuang",
+    "measured_midi": 63.52,
+    "voiced_frames": 28,
+    "delta_st": 8.48
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 87.91,
+    "tone": 68,
+    "lyric": "jin",
+    "measured_midi": 64.0,
+    "voiced_frames": 28,
+    "delta_st": 4.0
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 88.51,
+    "tone": 70,
+    "lyric": "lai",
+    "measured_midi": 63.77,
+    "voiced_frames": 28,
+    "delta_st": 6.23
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 90.31,
+    "tone": 61,
+    "lyric": "yuan",
+    "measured_midi": 59.3,
+    "voiced_frames": 16,
+    "delta_st": 1.7
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 90.71,
+    "tone": 63,
+    "lyric": "liang",
+    "measured_midi": 63.95,
+    "voiced_frames": 26,
+    "delta_st": -0.95
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 91.11,
+    "tone": 65,
+    "lyric": "shuo",
+    "measured_midi": 63.77,
+    "voiced_frames": 28,
+    "delta_st": 1.23
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 91.71,
+    "tone": 68,
+    "lyric": "kuai",
+    "measured_midi": 63.81,
+    "voiced_frames": 73,
+    "delta_st": 4.19
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 93.51,
+    "tone": 65,
+    "lyric": "ai",
+    "measured_midi": 56.75,
+    "voiced_frames": 28,
+    "delta_st": 8.25
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 93.91,
+    "tone": 63,
+    "lyric": "cheng",
+    "measured_midi": 56.59,
+    "voiced_frames": 28,
+    "delta_st": 6.41
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 94.31,
+    "tone": 61,
+    "lyric": "le",
+    "measured_midi": 56.78,
+    "voiced_frames": 28,
+    "delta_st": 4.22
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 94.91,
+    "tone": 61,
+    "lyric": "ai",
+    "measured_midi": 56.33,
+    "voiced_frames": 87,
+    "delta_st": 4.67
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 96.71,
+    "tone": 61,
+    "lyric": "shou",
+    "measured_midi": 58.61,
+    "voiced_frames": 28,
+    "delta_st": 2.39
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 97.11,
+    "tone": 63,
+    "lyric": "zhong",
+    "measured_midi": 63.94,
+    "voiced_frames": 25,
+    "delta_st": -0.94
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 97.51,
+    "tone": 65,
+    "lyric": "de",
+    "measured_midi": 61.97,
+    "voiced_frames": 28,
+    "delta_st": 3.03
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 97.91,
+    "tone": 68,
+    "lyric": "feng",
+    "measured_midi": 62.34,
+    "voiced_frames": 28,
+    "delta_st": 5.66
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 98.31,
+    "tone": 68,
+    "lyric": "zheng",
+    "measured_midi": 61.77,
+    "voiced_frames": 28,
+    "delta_st": 6.23
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 98.71,
+    "tone": 66,
+    "lyric": "fang",
+    "measured_midi": 60.86,
+    "voiced_frames": 28,
+    "delta_st": 5.14
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 99.11,
+    "tone": 66,
+    "lyric": "tai",
+    "measured_midi": 68.73,
+    "voiced_frames": 28,
+    "delta_st": -2.73
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 99.51,
+    "tone": 65,
+    "lyric": "kuai",
+    "measured_midi": 68.75,
+    "voiced_frames": 28,
+    "delta_st": -3.75
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 99.91,
+    "tone": 73,
+    "lyric": "hui",
+    "measured_midi": 60.99,
+    "voiced_frames": 68,
+    "delta_st": 12.01
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 100.71,
+    "tone": 65,
+    "lyric": "bu",
+    "measured_midi": 60.26,
+    "voiced_frames": 28,
+    "delta_st": 4.74
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 101.11,
+    "tone": 65,
+    "lyric": "lai",
+    "measured_midi": 58.78,
+    "voiced_frames": 28,
+    "delta_st": 6.22
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 103.11,
+    "tone": 61,
+    "lyric": "bu",
+    "measured_midi": 59.54,
+    "voiced_frames": 28,
+    "delta_st": 1.46
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 103.51,
+    "tone": 63,
+    "lyric": "yao",
+    "measured_midi": 63.78,
+    "voiced_frames": 28,
+    "delta_st": -0.78
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 103.91,
+    "tone": 65,
+    "lyric": "ni",
+    "measured_midi": 63.87,
+    "voiced_frames": 28,
+    "delta_st": 1.13
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 104.51,
+    "tone": 68,
+    "lyric": "kai",
+    "measured_midi": 63.68,
+    "voiced_frames": 107,
+    "delta_st": 4.32
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 106.31,
+    "tone": 65,
+    "lyric": "hui",
+    "measured_midi": 56.95,
+    "voiced_frames": 28,
+    "delta_st": 8.05
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 106.71,
+    "tone": 63,
+    "lyric": "yi",
+    "measured_midi": 58.76,
+    "voiced_frames": 26,
+    "delta_st": 4.24
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 107.11,
+    "tone": 61,
+    "lyric": "hua",
+    "measured_midi": 59.81,
+    "voiced_frames": 28,
+    "delta_st": 1.19
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 107.71,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 60.77,
+    "voiced_frames": 84,
+    "delta_st": 4.23
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 109.51,
+    "tone": 61,
+    "lyric": "qian",
+    "measured_midi": 60.78,
+    "voiced_frames": 28,
+    "delta_st": 0.22
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 109.91,
+    "tone": 63,
+    "lyric": "ni",
+    "measured_midi": 64.52,
+    "voiced_frames": 23,
+    "delta_st": -1.52
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 110.31,
+    "tone": 65,
+    "lyric": "de",
+    "measured_midi": 68.53,
+    "voiced_frames": 28,
+    "delta_st": -3.53
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 110.91,
+    "tone": 73,
+    "lyric": "ai",
+    "measured_midi": 68.82,
+    "voiced_frames": 28,
+    "delta_st": 4.18
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 112.31,
+    "tone": 73,
+    "lyric": "wo",
+    "measured_midi": 67.44,
+    "voiced_frames": 28,
+    "delta_st": 5.56
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 112.71,
+    "tone": 72,
+    "lyric": "zai",
+    "measured_midi": 63.89,
+    "voiced_frames": 28,
+    "delta_st": 8.11
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 113.51,
+    "tone": 68,
+    "lyric": "dai",
+    "measured_midi": 64.55,
+    "voiced_frames": 28,
+    "delta_st": 3.45
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 114.11,
+    "tone": 70,
+    "lyric": "lai",
+    "measured_midi": 63.75,
+    "voiced_frames": 28,
+    "delta_st": 6.25
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 115.91,
+    "tone": 61,
+    "lyric": "tian",
+    "measured_midi": 59.49,
+    "voiced_frames": 28,
+    "delta_st": 1.51
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 116.31,
+    "tone": 63,
+    "lyric": "kong",
+    "measured_midi": 63.83,
+    "voiced_frames": 25,
+    "delta_st": -0.83
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 116.71,
+    "tone": 65,
+    "lyric": "reng",
+    "measured_midi": 64.06,
+    "voiced_frames": 28,
+    "delta_st": 0.94
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 117.31,
+    "tone": 68,
+    "lyric": "lan",
+    "measured_midi": 63.67,
+    "voiced_frames": 78,
+    "delta_st": 4.33
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 119.11,
+    "tone": 65,
+    "lyric": "ta",
+    "measured_midi": 56.74,
+    "voiced_frames": 24,
+    "delta_st": 8.26
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 119.51,
+    "tone": 63,
+    "lyric": "ai",
+    "measured_midi": 56.97,
+    "voiced_frames": 28,
+    "delta_st": 6.03
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 119.91,
+    "tone": 61,
+    "lyric": "zhe",
+    "measured_midi": 56.99,
+    "voiced_frames": 28,
+    "delta_st": 4.01
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 120.51,
+    "tone": 61,
+    "lyric": "hai",
+    "measured_midi": 56.3,
+    "voiced_frames": 62,
+    "delta_st": 4.7
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 122.31,
+    "tone": 61,
+    "lyric": "qing",
+    "measured_midi": 58.6,
+    "voiced_frames": 26,
+    "delta_st": 2.4
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 122.71,
+    "tone": 63,
+    "lyric": "ge",
+    "measured_midi": 62.3,
+    "voiced_frames": 28,
+    "delta_st": 0.7
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 123.11,
+    "tone": 65,
+    "lyric": "bei",
+    "measured_midi": 57.09,
+    "voiced_frames": 28,
+    "delta_st": 7.91
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 123.71,
+    "tone": 61,
+    "lyric": "bai",
+    "measured_midi": 56.5,
+    "voiced_frames": 64,
+    "delta_st": 4.5
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 125.51,
+    "tone": 61,
+    "lyric": "ai",
+    "measured_midi": 54.56,
+    "voiced_frames": 23,
+    "delta_st": 6.44
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 125.91,
+    "tone": 60,
+    "lyric": "yi",
+    "measured_midi": 55.53,
+    "voiced_frames": 22,
+    "delta_st": 4.47
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 126.31,
+    "tone": 58,
+    "lyric": "bu",
+    "measured_midi": 56.4,
+    "voiced_frames": 28,
+    "delta_st": 1.6
+   },
+   {
+    "part_index": 0,
+    "part_track": 0,
+    "t_audio_s": 126.91,
+    "tone": 61,
+    "lyric": "zai",
+    "measured_midi": 56.51,
+    "voiced_frames": 231,
+    "delta_st": 4.49
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 155.31,
+    "tone": 65,
+    "lyric": "xi",
+    "measured_midi": 60.98,
+    "voiced_frames": 28,
+    "delta_st": 4.02
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 155.71,
+    "tone": 65,
+    "lyric": "huan",
+    "measured_midi": 60.82,
+    "voiced_frames": 60,
+    "delta_st": 4.18
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 157.51,
+    "tone": 65,
+    "lyric": "zhan",
+    "measured_midi": 57.3,
+    "voiced_frames": 28,
+    "delta_st": 7.7
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 157.91,
+    "tone": 63,
+    "lyric": "zai",
+    "measured_midi": 59.0,
+    "voiced_frames": 19,
+    "delta_st": 4.0
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 158.31,
+    "tone": 61,
+    "lyric": "na",
+    "measured_midi": 58.87,
+    "voiced_frames": 28,
+    "delta_st": 2.13
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 158.71,
+    "tone": 63,
+    "lyric": "chuang",
+    "measured_midi": 60.66,
+    "voiced_frames": 68,
+    "delta_st": 2.34
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 159.51,
+    "tone": 68,
+    "lyric": "tai",
+    "measured_midi": 60.4,
+    "voiced_frames": 50,
+    "delta_st": 7.6
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 161.71,
+    "tone": 65,
+    "lyric": "hao",
+    "measured_midi": 60.84,
+    "voiced_frames": 28,
+    "delta_st": 4.16
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 162.11,
+    "tone": 65,
+    "lyric": "jiu",
+    "measured_midi": 60.56,
+    "voiced_frames": 97,
+    "delta_st": 4.44
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 163.91,
+    "tone": 66,
+    "lyric": "dou",
+    "measured_midi": 60.66,
+    "voiced_frames": 28,
+    "delta_st": 5.34
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 164.31,
+    "tone": 65,
+    "lyric": "mei",
+    "measured_midi": 62.26,
+    "voiced_frames": 28,
+    "delta_st": 2.74
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 164.71,
+    "tone": 68,
+    "lyric": "zai",
+    "measured_midi": 56.75,
+    "voiced_frames": 28,
+    "delta_st": 11.25
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 165.31,
+    "tone": 61,
+    "lyric": "lai",
+    "measured_midi": 56.22,
+    "voiced_frames": 69,
+    "delta_st": 4.78
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 168.11,
+    "tone": 66,
+    "lyric": "se",
+    "measured_midi": 61.62,
+    "voiced_frames": 28,
+    "delta_st": 4.38
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 168.51,
+    "tone": 66,
+    "lyric": "de",
+    "measured_midi": 61.63,
+    "voiced_frames": 72,
+    "delta_st": 4.37
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 170.31,
+    "tone": 66,
+    "lyric": "shi",
+    "measured_midi": 57.01,
+    "voiced_frames": 28,
+    "delta_st": 8.99
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 170.71,
+    "tone": 65,
+    "lyric": "jian",
+    "measured_midi": 62.58,
+    "voiced_frames": 13,
+    "delta_st": 2.42
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 171.11,
+    "tone": 61,
+    "lyric": "ran",
+    "measured_midi": 63.97,
+    "voiced_frames": 28,
+    "delta_st": -2.97
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 171.51,
+    "tone": 68,
+    "lyric": "shang",
+    "measured_midi": 60.78,
+    "voiced_frames": 64,
+    "delta_st": 7.22
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 173.11,
+    "tone": 73,
+    "lyric": "bai",
+    "measured_midi": 68.74,
+    "voiced_frames": 63,
+    "delta_st": 4.26
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 175.11,
+    "tone": 68,
+    "lyric": "shi",
+    "measured_midi": 61.68,
+    "voiced_frames": 28,
+    "delta_st": 6.32
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 175.51,
+    "tone": 66,
+    "lyric": "ni",
+    "measured_midi": 61.59,
+    "voiced_frames": 28,
+    "delta_st": 4.41
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 175.91,
+    "tone": 66,
+    "lyric": "liu",
+    "measured_midi": 56.83,
+    "voiced_frames": 28,
+    "delta_st": 9.17
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 176.31,
+    "tone": 61,
+    "lyric": "de",
+    "measured_midi": 56.38,
+    "voiced_frames": 28,
+    "delta_st": 4.62
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 176.71,
+    "tone": 61,
+    "lyric": "lei",
+    "measured_midi": 55.86,
+    "voiced_frames": 28,
+    "delta_st": 5.14
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 177.51,
+    "tone": 60,
+    "lyric": "yun",
+    "measured_midi": 57.0,
+    "voiced_frames": 28,
+    "delta_st": 3.0
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 177.91,
+    "tone": 61,
+    "lyric": "kai",
+    "measured_midi": 56.8,
+    "voiced_frames": 78,
+    "delta_st": 4.2
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 179.91,
+    "tone": 61,
+    "lyric": "bu",
+    "measured_midi": 59.77,
+    "voiced_frames": 28,
+    "delta_st": 1.23
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 180.31,
+    "tone": 63,
+    "lyric": "yao",
+    "measured_midi": 63.19,
+    "voiced_frames": 28,
+    "delta_st": -0.19
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 180.71,
+    "tone": 65,
+    "lyric": "ni",
+    "measured_midi": 64.07,
+    "voiced_frames": 28,
+    "delta_st": 0.93
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 181.31,
+    "tone": 68,
+    "lyric": "kai",
+    "measured_midi": 63.76,
+    "voiced_frames": 110,
+    "delta_st": 4.24
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 183.11,
+    "tone": 65,
+    "lyric": "ju",
+    "measured_midi": 56.63,
+    "voiced_frames": 28,
+    "delta_st": 8.37
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 183.51,
+    "tone": 63,
+    "lyric": "li",
+    "measured_midi": 57.95,
+    "voiced_frames": 28,
+    "delta_st": 5.05
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 183.91,
+    "tone": 61,
+    "lyric": "ge",
+    "measured_midi": 59.03,
+    "voiced_frames": 28,
+    "delta_st": 1.97
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 184.51,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 60.8,
+    "voiced_frames": 115,
+    "delta_st": 4.2
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 186.31,
+    "tone": 61,
+    "lyric": "si",
+    "measured_midi": 60.94,
+    "voiced_frames": 28,
+    "delta_st": 0.06
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 186.71,
+    "tone": 63,
+    "lyric": "nian",
+    "measured_midi": 66.49,
+    "voiced_frames": 28,
+    "delta_st": -3.49
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 187.11,
+    "tone": 65,
+    "lyric": "bian",
+    "measured_midi": 68.58,
+    "voiced_frames": 28,
+    "delta_st": -3.58
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 187.71,
+    "tone": 73,
+    "lyric": "hai",
+    "measured_midi": 68.65,
+    "voiced_frames": 28,
+    "delta_st": 4.35
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 189.11,
+    "tone": 73,
+    "lyric": "zai",
+    "measured_midi": 67.85,
+    "voiced_frames": 28,
+    "delta_st": 5.15
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 189.51,
+    "tone": 72,
+    "lyric": "chuang",
+    "measured_midi": 63.54,
+    "voiced_frames": 27,
+    "delta_st": 8.46
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 190.31,
+    "tone": 68,
+    "lyric": "jin",
+    "measured_midi": 64.4,
+    "voiced_frames": 28,
+    "delta_st": 3.6
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 190.91,
+    "tone": 70,
+    "lyric": "lai",
+    "measured_midi": 63.78,
+    "voiced_frames": 28,
+    "delta_st": 6.22
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 192.71,
+    "tone": 61,
+    "lyric": "yuan",
+    "measured_midi": 58.78,
+    "voiced_frames": 15,
+    "delta_st": 2.22
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 193.11,
+    "tone": 63,
+    "lyric": "liang",
+    "measured_midi": 63.95,
+    "voiced_frames": 26,
+    "delta_st": -0.95
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 193.51,
+    "tone": 65,
+    "lyric": "shuo",
+    "measured_midi": 63.82,
+    "voiced_frames": 28,
+    "delta_st": 1.18
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 194.11,
+    "tone": 68,
+    "lyric": "kuai",
+    "measured_midi": 63.92,
+    "voiced_frames": 79,
+    "delta_st": 4.08
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 195.91,
+    "tone": 65,
+    "lyric": "ai",
+    "measured_midi": 56.75,
+    "voiced_frames": 28,
+    "delta_st": 8.25
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 196.31,
+    "tone": 63,
+    "lyric": "cheng",
+    "measured_midi": 56.43,
+    "voiced_frames": 27,
+    "delta_st": 6.57
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 196.71,
+    "tone": 61,
+    "lyric": "le",
+    "measured_midi": 56.85,
+    "voiced_frames": 28,
+    "delta_st": 4.15
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 197.31,
+    "tone": 61,
+    "lyric": "ai",
+    "measured_midi": 56.43,
+    "voiced_frames": 86,
+    "delta_st": 4.57
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 199.11,
+    "tone": 61,
+    "lyric": "shou",
+    "measured_midi": 59.17,
+    "voiced_frames": 28,
+    "delta_st": 1.83
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 199.51,
+    "tone": 63,
+    "lyric": "zhong",
+    "measured_midi": 63.95,
+    "voiced_frames": 23,
+    "delta_st": -0.95
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 199.91,
+    "tone": 65,
+    "lyric": "de",
+    "measured_midi": 61.93,
+    "voiced_frames": 28,
+    "delta_st": 3.07
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 200.31,
+    "tone": 68,
+    "lyric": "feng",
+    "measured_midi": 62.77,
+    "voiced_frames": 28,
+    "delta_st": 5.23
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 200.71,
+    "tone": 68,
+    "lyric": "zheng",
+    "measured_midi": 61.79,
+    "voiced_frames": 28,
+    "delta_st": 6.21
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 201.11,
+    "tone": 66,
+    "lyric": "fang",
+    "measured_midi": 60.85,
+    "voiced_frames": 28,
+    "delta_st": 5.15
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 201.51,
+    "tone": 66,
+    "lyric": "tai",
+    "measured_midi": 68.76,
+    "voiced_frames": 28,
+    "delta_st": -2.76
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 201.91,
+    "tone": 65,
+    "lyric": "kuai",
+    "measured_midi": 68.75,
+    "voiced_frames": 28,
+    "delta_st": -3.75
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 202.31,
+    "tone": 73,
+    "lyric": "hui",
+    "measured_midi": 61.0,
+    "voiced_frames": 68,
+    "delta_st": 12.0
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 203.11,
+    "tone": 65,
+    "lyric": "bu",
+    "measured_midi": 60.16,
+    "voiced_frames": 28,
+    "delta_st": 4.84
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 203.51,
+    "tone": 65,
+    "lyric": "lai",
+    "measured_midi": 58.8,
+    "voiced_frames": 28,
+    "delta_st": 6.2
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 205.51,
+    "tone": 61,
+    "lyric": "bu",
+    "measured_midi": 59.42,
+    "voiced_frames": 28,
+    "delta_st": 1.58
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 205.91,
+    "tone": 63,
+    "lyric": "yao",
+    "measured_midi": 63.73,
+    "voiced_frames": 28,
+    "delta_st": -0.73
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 206.31,
+    "tone": 65,
+    "lyric": "ni",
+    "measured_midi": 63.91,
+    "voiced_frames": 28,
+    "delta_st": 1.09
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 206.91,
+    "tone": 68,
+    "lyric": "kai",
+    "measured_midi": 63.82,
+    "voiced_frames": 117,
+    "delta_st": 4.18
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 208.71,
+    "tone": 65,
+    "lyric": "hui",
+    "measured_midi": 56.95,
+    "voiced_frames": 28,
+    "delta_st": 8.05
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 209.11,
+    "tone": 63,
+    "lyric": "yi",
+    "measured_midi": 58.78,
+    "voiced_frames": 26,
+    "delta_st": 4.22
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 209.51,
+    "tone": 61,
+    "lyric": "hua",
+    "measured_midi": 59.77,
+    "voiced_frames": 28,
+    "delta_st": 1.23
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 210.11,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 60.77,
+    "voiced_frames": 88,
+    "delta_st": 4.23
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 211.91,
+    "tone": 61,
+    "lyric": "qian",
+    "measured_midi": 60.79,
+    "voiced_frames": 28,
+    "delta_st": 0.21
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 212.31,
+    "tone": 63,
+    "lyric": "ni",
+    "measured_midi": 61.2,
+    "voiced_frames": 23,
+    "delta_st": 1.8
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 212.71,
+    "tone": 65,
+    "lyric": "de",
+    "measured_midi": 68.54,
+    "voiced_frames": 28,
+    "delta_st": -3.54
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 213.31,
+    "tone": 73,
+    "lyric": "ai",
+    "measured_midi": 68.84,
+    "voiced_frames": 28,
+    "delta_st": 4.16
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 214.71,
+    "tone": 73,
+    "lyric": "wo",
+    "measured_midi": 67.4,
+    "voiced_frames": 28,
+    "delta_st": 5.6
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 215.11,
+    "tone": 72,
+    "lyric": "zai",
+    "measured_midi": 63.92,
+    "voiced_frames": 28,
+    "delta_st": 8.08
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 215.91,
+    "tone": 68,
+    "lyric": "dai",
+    "measured_midi": 63.27,
+    "voiced_frames": 28,
+    "delta_st": 4.73
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 216.51,
+    "tone": 70,
+    "lyric": "lai",
+    "measured_midi": 63.76,
+    "voiced_frames": 28,
+    "delta_st": 6.24
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 218.31,
+    "tone": 61,
+    "lyric": "tian",
+    "measured_midi": 58.95,
+    "voiced_frames": 28,
+    "delta_st": 2.05
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 218.71,
+    "tone": 63,
+    "lyric": "kong",
+    "measured_midi": 63.75,
+    "voiced_frames": 27,
+    "delta_st": -0.75
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 219.11,
+    "tone": 65,
+    "lyric": "reng",
+    "measured_midi": 64.08,
+    "voiced_frames": 28,
+    "delta_st": 0.92
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 219.71,
+    "tone": 68,
+    "lyric": "lan",
+    "measured_midi": 63.87,
+    "voiced_frames": 84,
+    "delta_st": 4.13
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 221.51,
+    "tone": 65,
+    "lyric": "ta",
+    "measured_midi": 56.7,
+    "voiced_frames": 25,
+    "delta_st": 8.3
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 221.91,
+    "tone": 63,
+    "lyric": "ai",
+    "measured_midi": 56.99,
+    "voiced_frames": 28,
+    "delta_st": 6.01
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 222.31,
+    "tone": 61,
+    "lyric": "zhe",
+    "measured_midi": 56.96,
+    "voiced_frames": 28,
+    "delta_st": 4.04
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 222.91,
+    "tone": 61,
+    "lyric": "hai",
+    "measured_midi": 56.35,
+    "voiced_frames": 61,
+    "delta_st": 4.65
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 224.71,
+    "tone": 61,
+    "lyric": "qing",
+    "measured_midi": 59.29,
+    "voiced_frames": 28,
+    "delta_st": 1.71
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 225.11,
+    "tone": 63,
+    "lyric": "ge",
+    "measured_midi": 61.21,
+    "voiced_frames": 28,
+    "delta_st": 1.79
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 225.51,
+    "tone": 65,
+    "lyric": "bei",
+    "measured_midi": 56.62,
+    "voiced_frames": 28,
+    "delta_st": 8.38
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 226.11,
+    "tone": 61,
+    "lyric": "bai",
+    "measured_midi": 55.34,
+    "voiced_frames": 78,
+    "delta_st": 5.66
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 227.91,
+    "tone": 61,
+    "lyric": "ai",
+    "measured_midi": 52.94,
+    "voiced_frames": 23,
+    "delta_st": 8.06
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 228.31,
+    "tone": 60,
+    "lyric": "yi",
+    "measured_midi": 54.13,
+    "voiced_frames": 28,
+    "delta_st": 5.87
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 228.71,
+    "tone": 58,
+    "lyric": "bu",
+    "measured_midi": 53.92,
+    "voiced_frames": 34,
+    "delta_st": 4.08
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 230.31,
+    "tone": 60,
+    "lyric": "cun",
+    "measured_midi": 57.1,
+    "voiced_frames": 68,
+    "delta_st": 2.9
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 231.11,
+    "tone": 61,
+    "lyric": "zai",
+    "measured_midi": 56.95,
+    "voiced_frames": 348,
+    "delta_st": 4.05
+   },
+   {
+    "part_index": 1,
+    "part_track": 0,
+    "t_audio_s": 238.71,
+    "tone": 75,
+    "lyric": "h o",
+    "measured_midi": 68.94,
+    "voiced_frames": 68,
+    "delta_st": 6.06
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 77.51,
+    "tone": 56,
+    "lyric": "bu",
+    "measured_midi": 59.78,
+    "voiced_frames": 28,
+    "delta_st": -3.78
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 77.91,
+    "tone": 56,
+    "lyric": "yao",
+    "measured_midi": 63.42,
+    "voiced_frames": 28,
+    "delta_st": -7.42
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 78.31,
+    "tone": 61,
+    "lyric": "ni",
+    "measured_midi": 64.05,
+    "voiced_frames": 28,
+    "delta_st": -3.05
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 78.91,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 63.74,
+    "voiced_frames": 118,
+    "delta_st": 1.26
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 80.71,
+    "tone": 61,
+    "lyric": "ju",
+    "measured_midi": 56.65,
+    "voiced_frames": 28,
+    "delta_st": 4.35
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 81.11,
+    "tone": 60,
+    "lyric": "li",
+    "measured_midi": 57.88,
+    "voiced_frames": 28,
+    "delta_st": 2.12
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 81.51,
+    "tone": 58,
+    "lyric": "ge",
+    "measured_midi": 59.36,
+    "voiced_frames": 28,
+    "delta_st": -1.36
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 82.11,
+    "tone": 61,
+    "lyric": "kai",
+    "measured_midi": 60.79,
+    "voiced_frames": 117,
+    "delta_st": 0.21
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 83.91,
+    "tone": 56,
+    "lyric": "si",
+    "measured_midi": 60.07,
+    "voiced_frames": 28,
+    "delta_st": -4.07
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 84.31,
+    "tone": 56,
+    "lyric": "nian",
+    "measured_midi": 66.51,
+    "voiced_frames": 28,
+    "delta_st": -10.51
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 84.71,
+    "tone": 61,
+    "lyric": "bian",
+    "measured_midi": 68.58,
+    "voiced_frames": 28,
+    "delta_st": -7.58
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 85.31,
+    "tone": 70,
+    "lyric": "hai",
+    "measured_midi": 68.65,
+    "voiced_frames": 28,
+    "delta_st": 1.35
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 86.71,
+    "tone": 70,
+    "lyric": "zai",
+    "measured_midi": 67.85,
+    "voiced_frames": 28,
+    "delta_st": 2.15
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 87.11,
+    "tone": 68,
+    "lyric": "chuang",
+    "measured_midi": 63.52,
+    "voiced_frames": 28,
+    "delta_st": 4.48
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 87.51,
+    "tone": 66,
+    "lyric": "wai",
+    "measured_midi": 65.51,
+    "voiced_frames": 28,
+    "delta_st": 0.49
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 87.91,
+    "tone": 65,
+    "lyric": "jin",
+    "measured_midi": 64.0,
+    "voiced_frames": 28,
+    "delta_st": 1.0
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 88.51,
+    "tone": 66,
+    "lyric": "lai",
+    "measured_midi": 63.77,
+    "voiced_frames": 28,
+    "delta_st": 2.23
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 90.31,
+    "tone": 56,
+    "lyric": "yuan",
+    "measured_midi": 59.3,
+    "voiced_frames": 16,
+    "delta_st": -3.3
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 90.71,
+    "tone": 56,
+    "lyric": "liang",
+    "measured_midi": 63.95,
+    "voiced_frames": 26,
+    "delta_st": -7.95
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 91.11,
+    "tone": 61,
+    "lyric": "shuo",
+    "measured_midi": 63.77,
+    "voiced_frames": 28,
+    "delta_st": -2.77
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 91.71,
+    "tone": 65,
+    "lyric": "kuai",
+    "measured_midi": 63.81,
+    "voiced_frames": 73,
+    "delta_st": 1.19
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 93.51,
+    "tone": 60,
+    "lyric": "ai",
+    "measured_midi": 56.75,
+    "voiced_frames": 28,
+    "delta_st": 3.25
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 93.91,
+    "tone": 60,
+    "lyric": "cheng",
+    "measured_midi": 56.59,
+    "voiced_frames": 28,
+    "delta_st": 3.41
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 94.31,
+    "tone": 58,
+    "lyric": "le",
+    "measured_midi": 56.78,
+    "voiced_frames": 28,
+    "delta_st": 1.22
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 94.91,
+    "tone": 58,
+    "lyric": "ai",
+    "measured_midi": 56.33,
+    "voiced_frames": 87,
+    "delta_st": 1.67
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 96.71,
+    "tone": 58,
+    "lyric": "shou",
+    "measured_midi": 58.61,
+    "voiced_frames": 28,
+    "delta_st": -0.61
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 97.11,
+    "tone": 60,
+    "lyric": "zhong",
+    "measured_midi": 63.94,
+    "voiced_frames": 25,
+    "delta_st": -3.94
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 97.51,
+    "tone": 61,
+    "lyric": "de",
+    "measured_midi": 61.97,
+    "voiced_frames": 28,
+    "delta_st": -0.97
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 97.91,
+    "tone": 65,
+    "lyric": "feng",
+    "measured_midi": 62.34,
+    "voiced_frames": 28,
+    "delta_st": 2.66
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 98.31,
+    "tone": 65,
+    "lyric": "zheng",
+    "measured_midi": 61.77,
+    "voiced_frames": 28,
+    "delta_st": 3.23
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 98.71,
+    "tone": 63,
+    "lyric": "fang",
+    "measured_midi": 60.86,
+    "voiced_frames": 28,
+    "delta_st": 2.14
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 99.11,
+    "tone": 63,
+    "lyric": "tai",
+    "measured_midi": 68.73,
+    "voiced_frames": 28,
+    "delta_st": -5.73
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 99.51,
+    "tone": 61,
+    "lyric": "kuai",
+    "measured_midi": 68.75,
+    "voiced_frames": 28,
+    "delta_st": -7.75
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 99.91,
+    "tone": 70,
+    "lyric": "hui",
+    "measured_midi": 60.99,
+    "voiced_frames": 68,
+    "delta_st": 9.01
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 100.71,
+    "tone": 68,
+    "lyric": "bu",
+    "measured_midi": 60.26,
+    "voiced_frames": 28,
+    "delta_st": 7.74
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 101.11,
+    "tone": 68,
+    "lyric": "lai",
+    "measured_midi": 58.78,
+    "voiced_frames": 28,
+    "delta_st": 9.22
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 103.11,
+    "tone": 56,
+    "lyric": "bu",
+    "measured_midi": 59.54,
+    "voiced_frames": 28,
+    "delta_st": -3.54
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 103.51,
+    "tone": 56,
+    "lyric": "yao",
+    "measured_midi": 63.78,
+    "voiced_frames": 28,
+    "delta_st": -7.78
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 103.91,
+    "tone": 61,
+    "lyric": "ni",
+    "measured_midi": 63.87,
+    "voiced_frames": 28,
+    "delta_st": -2.87
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 104.51,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 63.67,
+    "voiced_frames": 110,
+    "delta_st": 1.33
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 106.31,
+    "tone": 61,
+    "lyric": "hui",
+    "measured_midi": 56.95,
+    "voiced_frames": 28,
+    "delta_st": 4.05
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 106.71,
+    "tone": 60,
+    "lyric": "yi",
+    "measured_midi": 58.76,
+    "voiced_frames": 26,
+    "delta_st": 1.24
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 107.11,
+    "tone": 58,
+    "lyric": "hua",
+    "measured_midi": 59.81,
+    "voiced_frames": 28,
+    "delta_st": -1.81
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 107.71,
+    "tone": 61,
+    "lyric": "kai",
+    "measured_midi": 60.77,
+    "voiced_frames": 84,
+    "delta_st": 0.23
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 109.51,
+    "tone": 56,
+    "lyric": "qian",
+    "measured_midi": 60.78,
+    "voiced_frames": 28,
+    "delta_st": -4.78
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 109.91,
+    "tone": 56,
+    "lyric": "ni",
+    "measured_midi": 64.52,
+    "voiced_frames": 23,
+    "delta_st": -8.52
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 110.31,
+    "tone": 61,
+    "lyric": "de",
+    "measured_midi": 68.53,
+    "voiced_frames": 28,
+    "delta_st": -7.53
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 110.91,
+    "tone": 70,
+    "lyric": "ai",
+    "measured_midi": 68.82,
+    "voiced_frames": 28,
+    "delta_st": 1.18
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 112.31,
+    "tone": 70,
+    "lyric": "wo",
+    "measured_midi": 67.44,
+    "voiced_frames": 28,
+    "delta_st": 2.56
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 112.71,
+    "tone": 68,
+    "lyric": "zai",
+    "measured_midi": 63.89,
+    "voiced_frames": 28,
+    "delta_st": 4.11
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 113.11,
+    "tone": 66,
+    "lyric": "deng",
+    "measured_midi": 65.6,
+    "voiced_frames": 24,
+    "delta_st": 0.4
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 113.51,
+    "tone": 65,
+    "lyric": "dai",
+    "measured_midi": 64.55,
+    "voiced_frames": 28,
+    "delta_st": 0.45
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 114.11,
+    "tone": 66,
+    "lyric": "lai",
+    "measured_midi": 63.75,
+    "voiced_frames": 28,
+    "delta_st": 2.25
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 115.91,
+    "tone": 56,
+    "lyric": "tian",
+    "measured_midi": 59.49,
+    "voiced_frames": 28,
+    "delta_st": -3.49
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 116.31,
+    "tone": 56,
+    "lyric": "kong",
+    "measured_midi": 63.83,
+    "voiced_frames": 25,
+    "delta_st": -7.83
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 116.71,
+    "tone": 61,
+    "lyric": "reng",
+    "measured_midi": 64.06,
+    "voiced_frames": 28,
+    "delta_st": -3.06
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 117.31,
+    "tone": 65,
+    "lyric": "lan",
+    "measured_midi": 63.67,
+    "voiced_frames": 78,
+    "delta_st": 1.33
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 119.11,
+    "tone": 61,
+    "lyric": "ta",
+    "measured_midi": 56.8,
+    "voiced_frames": 27,
+    "delta_st": 4.2
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 119.51,
+    "tone": 60,
+    "lyric": "ai",
+    "measured_midi": 56.97,
+    "voiced_frames": 28,
+    "delta_st": 3.03
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 119.91,
+    "tone": 58,
+    "lyric": "zhe",
+    "measured_midi": 56.99,
+    "voiced_frames": 28,
+    "delta_st": 1.01
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 120.51,
+    "tone": 58,
+    "lyric": "hai",
+    "measured_midi": 56.3,
+    "voiced_frames": 62,
+    "delta_st": 1.7
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 125.51,
+    "tone": 65,
+    "lyric": "ai",
+    "measured_midi": 54.53,
+    "voiced_frames": 28,
+    "delta_st": 10.47
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 125.91,
+    "tone": 63,
+    "lyric": "yi",
+    "measured_midi": 55.53,
+    "voiced_frames": 22,
+    "delta_st": 7.47
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 126.31,
+    "tone": 61,
+    "lyric": "bu",
+    "measured_midi": 56.4,
+    "voiced_frames": 28,
+    "delta_st": 4.6
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 126.91,
+    "tone": 65,
+    "lyric": "zai",
+    "measured_midi": 56.51,
+    "voiced_frames": 231,
+    "delta_st": 8.49
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 179.91,
+    "tone": 56,
+    "lyric": "bu",
+    "measured_midi": 59.77,
+    "voiced_frames": 28,
+    "delta_st": -3.77
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 180.31,
+    "tone": 56,
+    "lyric": "yao",
+    "measured_midi": 63.19,
+    "voiced_frames": 28,
+    "delta_st": -7.19
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 180.71,
+    "tone": 61,
+    "lyric": "ni",
+    "measured_midi": 64.07,
+    "voiced_frames": 28,
+    "delta_st": -3.07
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 181.31,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 63.76,
+    "voiced_frames": 110,
+    "delta_st": 1.24
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 183.11,
+    "tone": 61,
+    "lyric": "ju",
+    "measured_midi": 56.63,
+    "voiced_frames": 28,
+    "delta_st": 4.37
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 183.51,
+    "tone": 60,
+    "lyric": "li",
+    "measured_midi": 57.95,
+    "voiced_frames": 28,
+    "delta_st": 2.05
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 183.91,
+    "tone": 58,
+    "lyric": "ge",
+    "measured_midi": 59.03,
+    "voiced_frames": 28,
+    "delta_st": -1.03
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 184.51,
+    "tone": 61,
+    "lyric": "kai",
+    "measured_midi": 60.8,
+    "voiced_frames": 115,
+    "delta_st": 0.2
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 186.31,
+    "tone": 56,
+    "lyric": "si",
+    "measured_midi": 60.94,
+    "voiced_frames": 28,
+    "delta_st": -4.94
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 186.71,
+    "tone": 56,
+    "lyric": "nian",
+    "measured_midi": 66.49,
+    "voiced_frames": 28,
+    "delta_st": -10.49
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 187.11,
+    "tone": 61,
+    "lyric": "bian",
+    "measured_midi": 68.58,
+    "voiced_frames": 28,
+    "delta_st": -7.58
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 187.71,
+    "tone": 70,
+    "lyric": "hai",
+    "measured_midi": 68.65,
+    "voiced_frames": 28,
+    "delta_st": 1.35
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 189.11,
+    "tone": 70,
+    "lyric": "zai",
+    "measured_midi": 67.85,
+    "voiced_frames": 28,
+    "delta_st": 2.15
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 189.51,
+    "tone": 68,
+    "lyric": "chuang",
+    "measured_midi": 63.54,
+    "voiced_frames": 27,
+    "delta_st": 4.46
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 189.91,
+    "tone": 66,
+    "lyric": "wai",
+    "measured_midi": 65.54,
+    "voiced_frames": 28,
+    "delta_st": 0.46
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 190.31,
+    "tone": 65,
+    "lyric": "jin",
+    "measured_midi": 64.4,
+    "voiced_frames": 28,
+    "delta_st": 0.6
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 190.91,
+    "tone": 66,
+    "lyric": "lai",
+    "measured_midi": 63.78,
+    "voiced_frames": 28,
+    "delta_st": 2.22
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 192.71,
+    "tone": 56,
+    "lyric": "yuan",
+    "measured_midi": 58.78,
+    "voiced_frames": 15,
+    "delta_st": -2.78
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 193.11,
+    "tone": 56,
+    "lyric": "liang",
+    "measured_midi": 63.95,
+    "voiced_frames": 26,
+    "delta_st": -7.95
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 193.51,
+    "tone": 61,
+    "lyric": "shuo",
+    "measured_midi": 63.82,
+    "voiced_frames": 28,
+    "delta_st": -2.82
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 194.11,
+    "tone": 65,
+    "lyric": "kuai",
+    "measured_midi": 63.92,
+    "voiced_frames": 79,
+    "delta_st": 1.08
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 195.91,
+    "tone": 60,
+    "lyric": "ai",
+    "measured_midi": 56.75,
+    "voiced_frames": 28,
+    "delta_st": 3.25
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 196.31,
+    "tone": 60,
+    "lyric": "cheng",
+    "measured_midi": 56.43,
+    "voiced_frames": 27,
+    "delta_st": 3.57
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 196.71,
+    "tone": 58,
+    "lyric": "le",
+    "measured_midi": 56.85,
+    "voiced_frames": 28,
+    "delta_st": 1.15
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 197.31,
+    "tone": 58,
+    "lyric": "ai",
+    "measured_midi": 56.43,
+    "voiced_frames": 86,
+    "delta_st": 1.57
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 199.11,
+    "tone": 58,
+    "lyric": "shou",
+    "measured_midi": 59.17,
+    "voiced_frames": 28,
+    "delta_st": -1.17
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 199.51,
+    "tone": 60,
+    "lyric": "zhong",
+    "measured_midi": 63.95,
+    "voiced_frames": 23,
+    "delta_st": -3.95
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 199.91,
+    "tone": 61,
+    "lyric": "de",
+    "measured_midi": 61.93,
+    "voiced_frames": 28,
+    "delta_st": -0.93
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 200.31,
+    "tone": 65,
+    "lyric": "feng",
+    "measured_midi": 62.77,
+    "voiced_frames": 28,
+    "delta_st": 2.23
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 200.71,
+    "tone": 65,
+    "lyric": "zheng",
+    "measured_midi": 61.79,
+    "voiced_frames": 28,
+    "delta_st": 3.21
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 201.11,
+    "tone": 63,
+    "lyric": "fang",
+    "measured_midi": 60.85,
+    "voiced_frames": 28,
+    "delta_st": 2.15
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 201.51,
+    "tone": 63,
+    "lyric": "tai",
+    "measured_midi": 68.76,
+    "voiced_frames": 28,
+    "delta_st": -5.76
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 201.91,
+    "tone": 61,
+    "lyric": "kuai",
+    "measured_midi": 68.75,
+    "voiced_frames": 28,
+    "delta_st": -7.75
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 202.31,
+    "tone": 70,
+    "lyric": "hui",
+    "measured_midi": 61.0,
+    "voiced_frames": 68,
+    "delta_st": 9.0
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 203.11,
+    "tone": 68,
+    "lyric": "bu",
+    "measured_midi": 60.16,
+    "voiced_frames": 28,
+    "delta_st": 7.84
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 203.51,
+    "tone": 68,
+    "lyric": "lai",
+    "measured_midi": 58.8,
+    "voiced_frames": 28,
+    "delta_st": 9.2
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 205.51,
+    "tone": 56,
+    "lyric": "bu",
+    "measured_midi": 59.42,
+    "voiced_frames": 28,
+    "delta_st": -3.42
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 205.91,
+    "tone": 56,
+    "lyric": "yao",
+    "measured_midi": 63.73,
+    "voiced_frames": 28,
+    "delta_st": -7.73
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 206.31,
+    "tone": 61,
+    "lyric": "ni",
+    "measured_midi": 63.91,
+    "voiced_frames": 28,
+    "delta_st": -2.91
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 206.91,
+    "tone": 65,
+    "lyric": "kai",
+    "measured_midi": 63.81,
+    "voiced_frames": 120,
+    "delta_st": 1.19
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 208.71,
+    "tone": 61,
+    "lyric": "hui",
+    "measured_midi": 56.95,
+    "voiced_frames": 28,
+    "delta_st": 4.05
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 209.11,
+    "tone": 60,
+    "lyric": "yi",
+    "measured_midi": 58.78,
+    "voiced_frames": 26,
+    "delta_st": 1.22
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 209.51,
+    "tone": 58,
+    "lyric": "hua",
+    "measured_midi": 59.77,
+    "voiced_frames": 28,
+    "delta_st": -1.77
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 210.11,
+    "tone": 61,
+    "lyric": "kai",
+    "measured_midi": 60.77,
+    "voiced_frames": 88,
+    "delta_st": 0.23
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 211.91,
+    "tone": 56,
+    "lyric": "qian",
+    "measured_midi": 60.79,
+    "voiced_frames": 28,
+    "delta_st": -4.79
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 212.31,
+    "tone": 56,
+    "lyric": "ni",
+    "measured_midi": 61.2,
+    "voiced_frames": 23,
+    "delta_st": -5.2
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 212.71,
+    "tone": 61,
+    "lyric": "de",
+    "measured_midi": 68.54,
+    "voiced_frames": 28,
+    "delta_st": -7.54
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 213.31,
+    "tone": 70,
+    "lyric": "ai",
+    "measured_midi": 68.84,
+    "voiced_frames": 28,
+    "delta_st": 1.16
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 214.71,
+    "tone": 70,
+    "lyric": "wo",
+    "measured_midi": 67.4,
+    "voiced_frames": 28,
+    "delta_st": 2.6
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 215.11,
+    "tone": 68,
+    "lyric": "zai",
+    "measured_midi": 63.92,
+    "voiced_frames": 28,
+    "delta_st": 4.08
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 215.51,
+    "tone": 66,
+    "lyric": "deng",
+    "measured_midi": 65.63,
+    "voiced_frames": 24,
+    "delta_st": 0.37
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 215.91,
+    "tone": 65,
+    "lyric": "dai",
+    "measured_midi": 63.27,
+    "voiced_frames": 28,
+    "delta_st": 1.73
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 216.51,
+    "tone": 66,
+    "lyric": "lai",
+    "measured_midi": 63.76,
+    "voiced_frames": 28,
+    "delta_st": 2.24
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 218.31,
+    "tone": 56,
+    "lyric": "tian",
+    "measured_midi": 58.95,
+    "voiced_frames": 28,
+    "delta_st": -2.95
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 218.71,
+    "tone": 56,
+    "lyric": "kong",
+    "measured_midi": 63.75,
+    "voiced_frames": 27,
+    "delta_st": -7.75
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 219.11,
+    "tone": 61,
+    "lyric": "reng",
+    "measured_midi": 64.08,
+    "voiced_frames": 28,
+    "delta_st": -3.08
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 219.71,
+    "tone": 65,
+    "lyric": "lan",
+    "measured_midi": 63.87,
+    "voiced_frames": 84,
+    "delta_st": 1.13
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 221.51,
+    "tone": 61,
+    "lyric": "ta",
+    "measured_midi": 56.83,
+    "voiced_frames": 28,
+    "delta_st": 4.17
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 221.91,
+    "tone": 60,
+    "lyric": "ai",
+    "measured_midi": 56.99,
+    "voiced_frames": 28,
+    "delta_st": 3.01
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 222.31,
+    "tone": 58,
+    "lyric": "zhe",
+    "measured_midi": 56.96,
+    "voiced_frames": 28,
+    "delta_st": 1.04
+   },
+   {
+    "part_index": 2,
+    "part_track": 1,
+    "t_audio_s": 222.91,
+    "tone": 58,
+    "lyric": "hai",
+    "measured_midi": 56.35,
+    "voiced_frames": 61,
+    "delta_st": 1.65
+   }
+  ]
+ },
+ "transposition_verdict": "supported_median",
+ "arrangement_notes": "part0/part1 (track0): +4 arrangement, median delta +4.2/+4.2, modal bin +4.25 — +4 transposition supported at median level; Jay's loose intonation bounds tight frame agreement (~33-40% within 1st). part2 (track1 'New Part'): alternate lower harmony, median delta +1.1 — NOT the +4 melody; excluded from +4 phrase-selection pool",
+ "timing_correspondence": "wave-part anchored: audio_time = project_time - 1.29s; lyric sections verified against ASR map of the original (part0=verse1+prechorus+chorus1 ~29-127s, part1=prechorus2+chorus2 ~160-230s)"
+}

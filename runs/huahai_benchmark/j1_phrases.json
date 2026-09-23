@@ -1,0 +1,4595 @@
+{
+ "phase": "J1 phrase selection",
+ "evaluated_head": "7cbec4e6298370e8d68e72f8dc5a4a32b378f036",
+ "worktree_clean_at_generation": true,
+ "selection_rule": "class coverage over written-control evidence (pitd range/reversals/osc, portamento_y0, leaps, durations) ranked by dual-extractor SOURCE reliability; non-overlapping; agent output not used",
+ "n_candidates": 34,
+ "selected": [
+  {
+   "class": "vibrato",
+   "a": 27.113333333333333,
+   "b": 32.71333333333333,
+   "n_notes": 8,
+   "source_reliable": 1.0,
+   "source_f0_rng_c": 4.2,
+   "max_dur": 1.2,
+   "max_leap": 4,
+   "max_pitd_rng": 425.0,
+   "max_onset_rng": 210.0,
+   "max_rev": 13,
+   "max_osc": 7.0588235294117645,
+   "lyrics": "jingzhilesuoyoudehuakai",
+   "notes": [
+    {
+     "a": 27.113333333333333,
+     "b": 27.413333333333334,
+     "tone": 61,
+     "lyric": "jing",
+     "leap": null,
+     "vibrato": false,
+     "pitd_rng": 203.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 27.413333333333334,
+     "b": 27.813333333333333,
+     "tone": 65,
+     "lyric": "zhi",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 172.0,
+     "pitd_rev": 4,
+     "portamento_y0": -40
+    },
+    {
+     "a": 27.813333333333336,
+     "b": 28.813333333333336,
+     "tone": 65,
+     "lyric": "le",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 95.0,
+     "pitd_rev": 11,
+     "portamento_y0": 0
+    },
+    {
+     "a": 29.513333333333335,
+     "b": 29.913333333333334,
+     "tone": 65,
+     "lyric": "suo",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 154.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 29.913333333333334,
+     "b": 30.313333333333333,
+     "tone": 63,
+     "lyric": "you",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 425.0,
+     "pitd_rev": 3,
+     "portamento_y0": 20
+    },
+    {
+     "a": 30.313333333333336,
+     "b": 30.713333333333335,
+     "tone": 61,
+     "lyric": "de",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 205.0,
+     "pitd_rev": 3,
+     "portamento_y0": 20
+    },
+    {
+     "a": 30.713333333333335,
+     "b": 31.513333333333335,
+     "tone": 63,
+     "lyric": "hua",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 233.0,
+     "pitd_rev": 11,
+     "portamento_y0": -20
+    },
+    {
+     "a": 31.513333333333332,
+     "b": 32.71333333333333,
+     "tone": 65,
+     "lyric": "kai",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 238.0,
+     "pitd_rev": 13,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    1,
+    10
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "class": "portamento_or_scoop",
+   "a": 33.51333333333333,
+   "b": 38.71333333333333,
+   "n_notes": 8,
+   "source_reliable": 0.98,
+   "source_f0_rng_c": 8.3,
+   "max_dur": 1.4,
+   "max_leap": 7,
+   "max_pitd_rng": 533.0,
+   "max_onset_rng": 249.0,
+   "max_rev": 21,
+   "max_osc": 7.346938775510204,
+   "lyrics": "yaoyuanleqingxileGSai",
+   "notes": [
+    {
+     "a": 33.51333333333333,
+     "b": 33.71333333333333,
+     "tone": 61,
+     "lyric": "yao",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 138.0,
+     "pitd_rev": 1,
+     "portamento_y0": 0
+    },
+    {
+     "a": 33.71333333333333,
+     "b": 34.11333333333333,
+     "tone": 65,
+     "lyric": "yuan",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 234.0,
+     "pitd_rev": 1,
+     "portamento_y0": -40
+    },
+    {
+     "a": 34.11333333333333,
+     "b": 35.11333333333333,
+     "tone": 65,
+     "lyric": "le",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 74.0,
+     "pitd_rev": 14,
+     "portamento_y0": 0
+    },
+    {
+     "a": 35.913333333333334,
+     "b": 36.31333333333333,
+     "tone": 66,
+     "lyric": "qing",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 187.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 36.31333333333333,
+     "b": 36.71333333333333,
+     "tone": 65,
+     "lyric": "xi",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 78.0,
+     "pitd_rev": 7,
+     "portamento_y0": 10
+    },
+    {
+     "a": 36.71333333333333,
+     "b": 37.11333333333333,
+     "tone": 68,
+     "lyric": "le",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 533.0,
+     "pitd_rev": 3,
+     "portamento_y0": -30
+    },
+    {
+     "a": 37.26333333333333,
+     "b": 37.313333333333325,
+     "tone": 61,
+     "lyric": "GS",
+     "leap": -7,
+     "vibrato": false,
+     "pitd_rng": 51.0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 37.31333333333333,
+     "b": 38.71333333333333,
+     "tone": 61,
+     "lyric": "ai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 128.0,
+     "pitd_rev": 21,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    13,
+    23
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "class": "onset_over_undershoot",
+   "a": 69.91333333333334,
+   "b": 74.71333333333334,
+   "n_notes": 8,
+   "source_reliable": 0.976,
+   "source_f0_rng_c": 13.0,
+   "max_dur": 1.0,
+   "max_leap": 12,
+   "max_pitd_rng": 571.0,
+   "max_onset_rng": 308.0,
+   "max_rev": 8,
+   "max_osc": 8.181818181818183,
+   "lyrics": "kongbaiy eshiniliudelei",
+   "notes": [
+    {
+     "a": 69.91333333333334,
+     "b": 70.11333333333334,
+     "tone": 65,
+     "lyric": "kong",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 179.0,
+     "pitd_rev": 0,
+     "portamento_y0": 30
+    },
+    {
+     "a": 70.71333333333334,
+     "b": 71.71333333333334,
+     "tone": 73,
+     "lyric": "bai",
+     "leap": 8,
+     "vibrato": false,
+     "pitd_rng": 241.0,
+     "pitd_rev": 8,
+     "portamento_y0": -80
+    },
+    {
+     "a": 71.71333333333334,
+     "b": 71.76333333333334,
+     "tone": 61,
+     "lyric": "y e",
+     "leap": -12,
+     "vibrato": false,
+     "pitd_rng": 0,
+     "pitd_rev": 0,
+     "portamento_y0": 120
+    },
+    {
+     "a": 72.71333333333334,
+     "b": 73.11333333333334,
+     "tone": 68,
+     "lyric": "shi",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 128.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 73.11333333333334,
+     "b": 73.51333333333335,
+     "tone": 66,
+     "lyric": "ni",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 272.0,
+     "pitd_rev": 0,
+     "portamento_y0": 20
+    },
+    {
+     "a": 73.51333333333334,
+     "b": 73.91333333333334,
+     "tone": 66,
+     "lyric": "liu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 571.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 73.91333333333334,
+     "b": 74.31333333333335,
+     "tone": 61,
+     "lyric": "de",
+     "leap": -5,
+     "vibrato": false,
+     "pitd_rng": 308.0,
+     "pitd_rev": 4,
+     "portamento_y0": 50
+    },
+    {
+     "a": 74.31333333333333,
+     "b": 74.71333333333334,
+     "tone": 61,
+     "lyric": "lei",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 114.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    83,
+    94
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "transition"
+   ]
+  },
+  {
+   "class": "ornament",
+   "a": 167.76333333333335,
+   "b": 172.31333333333336,
+   "n_notes": 8,
+   "source_reliable": 0.964,
+   "source_f0_rng_c": 7.6,
+   "max_dur": 1.2,
+   "max_leap": 7,
+   "max_pitd_rng": 806.0,
+   "max_onset_rng": 427.0,
+   "max_rev": 8,
+   "max_osc": 8.181818181818183,
+   "lyrics": "ncaisedeshijianranshang",
+   "notes": [
+    {
+     "a": 167.76333333333335,
+     "b": 167.91333333333336,
+     "tone": 61,
+     "lyric": "n",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 153.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 167.91333333333333,
+     "b": 168.11333333333332,
+     "tone": 61,
+     "lyric": "cai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 427.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 168.11333333333334,
+     "b": 168.51333333333335,
+     "tone": 66,
+     "lyric": "se",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 283.0,
+     "pitd_rev": 3,
+     "portamento_y0": -50
+    },
+    {
+     "a": 168.51333333333335,
+     "b": 169.71333333333334,
+     "tone": 66,
+     "lyric": "de",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 94.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 170.31333333333333,
+     "b": 170.71333333333334,
+     "tone": 66,
+     "lyric": "shi",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 297.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 170.71333333333334,
+     "b": 171.11333333333334,
+     "tone": 65,
+     "lyric": "jian",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 428.0,
+     "pitd_rev": 3,
+     "portamento_y0": 10
+    },
+    {
+     "a": 171.11333333333334,
+     "b": 171.51333333333335,
+     "tone": 61,
+     "lyric": "ran",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 806.0,
+     "pitd_rev": 3,
+     "portamento_y0": 40
+    },
+    {
+     "a": 171.51333333333335,
+     "b": 172.31333333333336,
+     "tone": 68,
+     "lyric": "shang",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 411.0,
+     "pitd_rev": 8,
+     "portamento_y0": -70
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    22,
+    31
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "class": "sustained",
+   "a": 52.71333333333333,
+   "b": 58.21333333333333,
+   "n_notes": 8,
+   "source_reliable": 0.952,
+   "source_f0_rng_c": 7.0,
+   "max_dur": 1.2,
+   "max_leap": 5,
+   "max_pitd_rng": 373.0,
+   "max_onset_rng": 349.0,
+   "max_rev": 10,
+   "max_osc": 8.181818181818183,
+   "lyrics": "nixihuanzhanzainachuangt",
+   "notes": [
+    {
+     "a": 52.71333333333333,
+     "b": 52.913333333333334,
+     "tone": 61,
+     "lyric": "ni",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 349.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 52.913333333333334,
+     "b": 53.31333333333333,
+     "tone": 65,
+     "lyric": "xi",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 196.0,
+     "pitd_rev": 3,
+     "portamento_y0": -40
+    },
+    {
+     "a": 53.31333333333333,
+     "b": 54.513333333333335,
+     "tone": 65,
+     "lyric": "huan",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 62.0,
+     "pitd_rev": 10,
+     "portamento_y0": 0
+    },
+    {
+     "a": 55.11333333333333,
+     "b": 55.51333333333333,
+     "tone": 65,
+     "lyric": "zhan",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 218.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 55.51333333333333,
+     "b": 55.91333333333333,
+     "tone": 63,
+     "lyric": "zai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 322.0,
+     "pitd_rev": 6,
+     "portamento_y0": 20
+    },
+    {
+     "a": 55.913333333333334,
+     "b": 56.31333333333333,
+     "tone": 61,
+     "lyric": "na",
+     "leap": -2,
+     "vibrato": true,
+     "pitd_rng": 293.0,
+     "pitd_rev": 1,
+     "portamento_y0": 20
+    },
+    {
+     "a": 56.31333333333333,
+     "b": 57.11333333333333,
+     "tone": 63,
+     "lyric": "chuang",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 373.0,
+     "pitd_rev": 4,
+     "portamento_y0": -20
+    },
+    {
+     "a": 57.11333333333333,
+     "b": 58.21333333333333,
+     "tone": 68,
+     "lyric": "tai",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 199.0,
+     "pitd_rev": 1,
+     "portamento_y0": -50
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    52,
+    60
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  }
+ ],
+ "candidates_ranked": [
+  {
+   "a": 27.113333333333333,
+   "b": 32.71333333333333,
+   "n_notes": 8,
+   "source_reliable": 1.0,
+   "source_f0_rng_c": 4.2,
+   "max_dur": 1.2,
+   "max_leap": 4,
+   "max_pitd_rng": 425.0,
+   "max_onset_rng": 210.0,
+   "max_rev": 13,
+   "max_osc": 7.0588235294117645,
+   "lyrics": "jingzhilesuoyoudehuakai",
+   "notes": [
+    {
+     "a": 27.113333333333333,
+     "b": 27.413333333333334,
+     "tone": 61,
+     "lyric": "jing",
+     "leap": null,
+     "vibrato": false,
+     "pitd_rng": 203.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 27.413333333333334,
+     "b": 27.813333333333333,
+     "tone": 65,
+     "lyric": "zhi",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 172.0,
+     "pitd_rev": 4,
+     "portamento_y0": -40
+    },
+    {
+     "a": 27.813333333333336,
+     "b": 28.813333333333336,
+     "tone": 65,
+     "lyric": "le",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 95.0,
+     "pitd_rev": 11,
+     "portamento_y0": 0
+    },
+    {
+     "a": 29.513333333333335,
+     "b": 29.913333333333334,
+     "tone": 65,
+     "lyric": "suo",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 154.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 29.913333333333334,
+     "b": 30.313333333333333,
+     "tone": 63,
+     "lyric": "you",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 425.0,
+     "pitd_rev": 3,
+     "portamento_y0": 20
+    },
+    {
+     "a": 30.313333333333336,
+     "b": 30.713333333333335,
+     "tone": 61,
+     "lyric": "de",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 205.0,
+     "pitd_rev": 3,
+     "portamento_y0": 20
+    },
+    {
+     "a": 30.713333333333335,
+     "b": 31.513333333333335,
+     "tone": 63,
+     "lyric": "hua",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 233.0,
+     "pitd_rev": 11,
+     "portamento_y0": -20
+    },
+    {
+     "a": 31.513333333333332,
+     "b": 32.71333333333333,
+     "tone": 65,
+     "lyric": "kai",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 238.0,
+     "pitd_rev": 13,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    1,
+    10
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 33.51333333333333,
+   "b": 38.71333333333333,
+   "n_notes": 8,
+   "source_reliable": 0.98,
+   "source_f0_rng_c": 8.3,
+   "max_dur": 1.4,
+   "max_leap": 7,
+   "max_pitd_rng": 533.0,
+   "max_onset_rng": 249.0,
+   "max_rev": 21,
+   "max_osc": 7.346938775510204,
+   "lyrics": "yaoyuanleqingxileGSai",
+   "notes": [
+    {
+     "a": 33.51333333333333,
+     "b": 33.71333333333333,
+     "tone": 61,
+     "lyric": "yao",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 138.0,
+     "pitd_rev": 1,
+     "portamento_y0": 0
+    },
+    {
+     "a": 33.71333333333333,
+     "b": 34.11333333333333,
+     "tone": 65,
+     "lyric": "yuan",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 234.0,
+     "pitd_rev": 1,
+     "portamento_y0": -40
+    },
+    {
+     "a": 34.11333333333333,
+     "b": 35.11333333333333,
+     "tone": 65,
+     "lyric": "le",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 74.0,
+     "pitd_rev": 14,
+     "portamento_y0": 0
+    },
+    {
+     "a": 35.913333333333334,
+     "b": 36.31333333333333,
+     "tone": 66,
+     "lyric": "qing",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 187.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 36.31333333333333,
+     "b": 36.71333333333333,
+     "tone": 65,
+     "lyric": "xi",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 78.0,
+     "pitd_rev": 7,
+     "portamento_y0": 10
+    },
+    {
+     "a": 36.71333333333333,
+     "b": 37.11333333333333,
+     "tone": 68,
+     "lyric": "le",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 533.0,
+     "pitd_rev": 3,
+     "portamento_y0": -30
+    },
+    {
+     "a": 37.26333333333333,
+     "b": 37.313333333333325,
+     "tone": 61,
+     "lyric": "GS",
+     "leap": -7,
+     "vibrato": false,
+     "pitd_rng": 51.0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 37.31333333333333,
+     "b": 38.71333333333333,
+     "tone": 61,
+     "lyric": "ai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 128.0,
+     "pitd_rev": 21,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    13,
+    23
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 69.91333333333334,
+   "b": 74.71333333333334,
+   "n_notes": 8,
+   "source_reliable": 0.976,
+   "source_f0_rng_c": 13.0,
+   "max_dur": 1.0,
+   "max_leap": 12,
+   "max_pitd_rng": 571.0,
+   "max_onset_rng": 308.0,
+   "max_rev": 8,
+   "max_osc": 8.181818181818183,
+   "lyrics": "kongbaiy eshiniliudelei",
+   "notes": [
+    {
+     "a": 69.91333333333334,
+     "b": 70.11333333333334,
+     "tone": 65,
+     "lyric": "kong",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 179.0,
+     "pitd_rev": 0,
+     "portamento_y0": 30
+    },
+    {
+     "a": 70.71333333333334,
+     "b": 71.71333333333334,
+     "tone": 73,
+     "lyric": "bai",
+     "leap": 8,
+     "vibrato": false,
+     "pitd_rng": 241.0,
+     "pitd_rev": 8,
+     "portamento_y0": -80
+    },
+    {
+     "a": 71.71333333333334,
+     "b": 71.76333333333334,
+     "tone": 61,
+     "lyric": "y e",
+     "leap": -12,
+     "vibrato": false,
+     "pitd_rng": 0,
+     "pitd_rev": 0,
+     "portamento_y0": 120
+    },
+    {
+     "a": 72.71333333333334,
+     "b": 73.11333333333334,
+     "tone": 68,
+     "lyric": "shi",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 128.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 73.11333333333334,
+     "b": 73.51333333333335,
+     "tone": 66,
+     "lyric": "ni",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 272.0,
+     "pitd_rev": 0,
+     "portamento_y0": 20
+    },
+    {
+     "a": 73.51333333333334,
+     "b": 73.91333333333334,
+     "tone": 66,
+     "lyric": "liu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 571.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 73.91333333333334,
+     "b": 74.31333333333335,
+     "tone": 61,
+     "lyric": "de",
+     "leap": -5,
+     "vibrato": false,
+     "pitd_rng": 308.0,
+     "pitd_rev": 4,
+     "portamento_y0": 50
+    },
+    {
+     "a": 74.31333333333333,
+     "b": 74.71333333333334,
+     "tone": 61,
+     "lyric": "lei",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 114.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    83,
+    94
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "transition"
+   ]
+  },
+  {
+   "a": 167.76333333333335,
+   "b": 172.31333333333336,
+   "n_notes": 8,
+   "source_reliable": 0.964,
+   "source_f0_rng_c": 7.6,
+   "max_dur": 1.2,
+   "max_leap": 7,
+   "max_pitd_rng": 806.0,
+   "max_onset_rng": 427.0,
+   "max_rev": 8,
+   "max_osc": 8.181818181818183,
+   "lyrics": "ncaisedeshijianranshang",
+   "notes": [
+    {
+     "a": 167.76333333333335,
+     "b": 167.91333333333336,
+     "tone": 61,
+     "lyric": "n",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 153.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 167.91333333333333,
+     "b": 168.11333333333332,
+     "tone": 61,
+     "lyric": "cai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 427.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 168.11333333333334,
+     "b": 168.51333333333335,
+     "tone": 66,
+     "lyric": "se",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 283.0,
+     "pitd_rev": 3,
+     "portamento_y0": -50
+    },
+    {
+     "a": 168.51333333333335,
+     "b": 169.71333333333334,
+     "tone": 66,
+     "lyric": "de",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 94.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 170.31333333333333,
+     "b": 170.71333333333334,
+     "tone": 66,
+     "lyric": "shi",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 297.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 170.71333333333334,
+     "b": 171.11333333333334,
+     "tone": 65,
+     "lyric": "jian",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 428.0,
+     "pitd_rev": 3,
+     "portamento_y0": 10
+    },
+    {
+     "a": 171.11333333333334,
+     "b": 171.51333333333335,
+     "tone": 61,
+     "lyric": "ran",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 806.0,
+     "pitd_rev": 3,
+     "portamento_y0": 40
+    },
+    {
+     "a": 171.51333333333335,
+     "b": 172.31333333333336,
+     "tone": 68,
+     "lyric": "shang",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 411.0,
+     "pitd_rev": 8,
+     "portamento_y0": -70
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    22,
+    31
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 52.71333333333333,
+   "b": 58.21333333333333,
+   "n_notes": 8,
+   "source_reliable": 0.952,
+   "source_f0_rng_c": 7.0,
+   "max_dur": 1.2,
+   "max_leap": 5,
+   "max_pitd_rng": 373.0,
+   "max_onset_rng": 349.0,
+   "max_rev": 10,
+   "max_osc": 8.181818181818183,
+   "lyrics": "nixihuanzhanzainachuangt",
+   "notes": [
+    {
+     "a": 52.71333333333333,
+     "b": 52.913333333333334,
+     "tone": 61,
+     "lyric": "ni",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 349.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 52.913333333333334,
+     "b": 53.31333333333333,
+     "tone": 65,
+     "lyric": "xi",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 196.0,
+     "pitd_rev": 3,
+     "portamento_y0": -40
+    },
+    {
+     "a": 53.31333333333333,
+     "b": 54.513333333333335,
+     "tone": 65,
+     "lyric": "huan",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 62.0,
+     "pitd_rev": 10,
+     "portamento_y0": 0
+    },
+    {
+     "a": 55.11333333333333,
+     "b": 55.51333333333333,
+     "tone": 65,
+     "lyric": "zhan",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 218.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 55.51333333333333,
+     "b": 55.91333333333333,
+     "tone": 63,
+     "lyric": "zai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 322.0,
+     "pitd_rev": 6,
+     "portamento_y0": 20
+    },
+    {
+     "a": 55.913333333333334,
+     "b": 56.31333333333333,
+     "tone": 61,
+     "lyric": "na",
+     "leap": -2,
+     "vibrato": true,
+     "pitd_rng": 293.0,
+     "pitd_rev": 1,
+     "portamento_y0": 20
+    },
+    {
+     "a": 56.31333333333333,
+     "b": 57.11333333333333,
+     "tone": 63,
+     "lyric": "chuang",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 373.0,
+     "pitd_rev": 4,
+     "portamento_y0": -20
+    },
+    {
+     "a": 57.11333333333333,
+     "b": 58.21333333333333,
+     "tone": 68,
+     "lyric": "tai",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 199.0,
+     "pitd_rev": 1,
+     "portamento_y0": -50
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    52,
+    60
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 39.913333333333334,
+   "b": 45.513333333333335,
+   "n_notes": 8,
+   "source_reliable": 0.949,
+   "source_f0_rng_c": 10.2,
+   "max_dur": 1.2,
+   "max_leap": 9,
+   "max_pitd_rng": 713.0,
+   "max_onset_rng": 318.0,
+   "max_rev": 7,
+   "max_osc": 8.0,
+   "lyrics": "tianyumenaiquehenxihuan",
+   "notes": [
+    {
+     "a": 39.913333333333334,
+     "b": 40.11333333333334,
+     "tone": 61,
+     "lyric": "tian",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 222.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 40.11333333333333,
+     "b": 40.51333333333333,
+     "tone": 66,
+     "lyric": "yu",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 171.0,
+     "pitd_rev": 6,
+     "portamento_y0": -50
+    },
+    {
+     "a": 40.51333333333333,
+     "b": 41.51333333333333,
+     "tone": 66,
+     "lyric": "men",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 44.0,
+     "pitd_rev": 7,
+     "portamento_y0": 0
+    },
+    {
+     "a": 42.31333333333333,
+     "b": 42.71333333333333,
+     "tone": 66,
+     "lyric": "ai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 158.0,
+     "pitd_rev": 7,
+     "portamento_y0": 0
+    },
+    {
+     "a": 42.71333333333333,
+     "b": 43.11333333333333,
+     "tone": 65,
+     "lyric": "que",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 362.0,
+     "pitd_rev": 3,
+     "portamento_y0": 10
+    },
+    {
+     "a": 43.11333333333333,
+     "b": 43.51333333333333,
+     "tone": 61,
+     "lyric": "hen",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 325.0,
+     "pitd_rev": 1,
+     "portamento_y0": 40
+    },
+    {
+     "a": 43.51333333333333,
+     "b": 44.313333333333325,
+     "tone": 56,
+     "lyric": "xi",
+     "leap": -5,
+     "vibrato": false,
+     "pitd_rng": 713.0,
+     "pitd_rev": 7,
+     "portamento_y0": 50
+    },
+    {
+     "a": 44.31333333333333,
+     "b": 45.513333333333335,
+     "tone": 65,
+     "lyric": "huan",
+     "leap": 9,
+     "vibrato": false,
+     "pitd_rng": 318.0,
+     "pitd_rev": 7,
+     "portamento_y0": -90
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    27,
+    36
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "sustained",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 65.36333333333334,
+   "b": 69.91333333333334,
+   "n_notes": 8,
+   "source_reliable": 0.945,
+   "source_f0_rng_c": 7.4,
+   "max_dur": 1.2,
+   "max_leap": 7,
+   "max_pitd_rng": 806.0,
+   "max_onset_rng": 427.0,
+   "max_rev": 8,
+   "max_osc": 8.181818181818183,
+   "lyrics": "ncaisedeshijianranshang",
+   "notes": [
+    {
+     "a": 65.36333333333334,
+     "b": 65.51333333333335,
+     "tone": 61,
+     "lyric": "n",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 153.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 65.51333333333334,
+     "b": 65.71333333333334,
+     "tone": 61,
+     "lyric": "cai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 427.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 65.71333333333334,
+     "b": 66.11333333333334,
+     "tone": 66,
+     "lyric": "se",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 283.0,
+     "pitd_rev": 3,
+     "portamento_y0": -50
+    },
+    {
+     "a": 66.11333333333334,
+     "b": 67.31333333333335,
+     "tone": 66,
+     "lyric": "de",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 94.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 67.91333333333334,
+     "b": 68.31333333333335,
+     "tone": 66,
+     "lyric": "shi",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 297.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 68.31333333333333,
+     "b": 68.71333333333334,
+     "tone": 65,
+     "lyric": "jian",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 428.0,
+     "pitd_rev": 3,
+     "portamento_y0": 10
+    },
+    {
+     "a": 68.71333333333334,
+     "b": 69.11333333333334,
+     "tone": 61,
+     "lyric": "ran",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 806.0,
+     "pitd_rev": 3,
+     "portamento_y0": 40
+    },
+    {
+     "a": 69.11333333333334,
+     "b": 69.91333333333334,
+     "tone": 68,
+     "lyric": "shang",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 411.0,
+     "pitd_rev": 8,
+     "portamento_y0": -70
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    73,
+    82
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 59.11333333333333,
+   "b": 64.31333333333333,
+   "n_notes": 7,
+   "source_reliable": 0.941,
+   "source_f0_rng_c": 8.5,
+   "max_dur": 1.4,
+   "max_leap": 7,
+   "max_pitd_rng": 473.0,
+   "max_onset_rng": 292.0,
+   "max_rev": 12,
+   "max_osc": 9.333333333333332,
+   "lyrics": "nihaojiudoumeizailai",
+   "notes": [
+    {
+     "a": 59.11333333333333,
+     "b": 59.31333333333333,
+     "tone": 61,
+     "lyric": "ni",
+     "leap": -7,
+     "vibrato": false,
+     "pitd_rng": 292.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 59.31333333333333,
+     "b": 59.71333333333333,
+     "tone": 65,
+     "lyric": "hao",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 187.0,
+     "pitd_rev": 5,
+     "portamento_y0": -40
+    },
+    {
+     "a": 59.71333333333333,
+     "b": 61.01333333333333,
+     "tone": 65,
+     "lyric": "jiu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 58.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 61.51333333333333,
+     "b": 61.91333333333333,
+     "tone": 66,
+     "lyric": "dou",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 184.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 61.913333333333334,
+     "b": 62.31333333333333,
+     "tone": 65,
+     "lyric": "mei",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 206.0,
+     "pitd_rev": 4,
+     "portamento_y0": 10
+    },
+    {
+     "a": 62.31333333333333,
+     "b": 62.71333333333333,
+     "tone": 68,
+     "lyric": "zai",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 473.0,
+     "pitd_rev": 2,
+     "portamento_y0": -30
+    },
+    {
+     "a": 62.913333333333334,
+     "b": 64.31333333333333,
+     "tone": 61,
+     "lyric": "lai",
+     "leap": -7,
+     "vibrato": false,
+     "pitd_rng": 107.0,
+     "pitd_rev": 12,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    63,
+    71
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 123.71333333333334,
+   "b": 129.61333333333332,
+   "n_notes": 8,
+   "source_reliable": 0.932,
+   "source_f0_rng_c": 2.9,
+   "max_dur": 2.7,
+   "max_leap": 7,
+   "max_pitd_rng": 474.0,
+   "max_onset_rng": 324.0,
+   "max_rev": 17,
+   "max_osc": 7.826086956521739,
+   "lyrics": "baiyaaiGSyibucunzai",
+   "notes": [
+    {
+     "a": 123.71333333333334,
+     "b": 124.71333333333334,
+     "tone": 61,
+     "lyric": "bai",
+     "leap": -7,
+     "vibrato": false,
+     "pitd_rng": 474.0,
+     "pitd_rev": 13,
+     "portamento_y0": 70
+    },
+    {
+     "a": 124.71333333333334,
+     "b": 124.81333333333333,
+     "tone": 56,
+     "lyric": "ya",
+     "leap": -5,
+     "vibrato": false,
+     "pitd_rng": 324.0,
+     "pitd_rev": 1,
+     "portamento_y0": 50
+    },
+    {
+     "a": 125.51333333333334,
+     "b": 125.86333333333333,
+     "tone": 61,
+     "lyric": "ai",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 119.0,
+     "pitd_rev": 1,
+     "portamento_y0": 0
+    },
+    {
+     "a": 125.86333333333334,
+     "b": 125.91333333333334,
+     "tone": 61,
+     "lyric": "GS",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 57.0,
+     "pitd_rev": 1,
+     "portamento_y0": 0
+    },
+    {
+     "a": 125.91333333333334,
+     "b": 126.31333333333335,
+     "tone": 60,
+     "lyric": "yi",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 310.0,
+     "pitd_rev": 5,
+     "portamento_y0": 10
+    },
+    {
+     "a": 126.31333333333333,
+     "b": 126.71333333333334,
+     "tone": 58,
+     "lyric": "bu",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 248.0,
+     "pitd_rev": 6,
+     "portamento_y0": 20
+    },
+    {
+     "a": 126.71333333333334,
+     "b": 126.91333333333334,
+     "tone": 60,
+     "lyric": "cun",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 120.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    },
+    {
+     "a": 126.91333333333333,
+     "b": 129.61333333333332,
+     "tone": 61,
+     "lyric": "zai",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 196.0,
+     "pitd_rev": 17,
+     "portamento_y0": -10
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    207,
+    216
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 155.11333333333334,
+   "b": 160.61333333333334,
+   "n_notes": 8,
+   "source_reliable": 0.931,
+   "source_f0_rng_c": 3.8,
+   "max_dur": 1.2,
+   "max_leap": 5,
+   "max_pitd_rng": 373.0,
+   "max_onset_rng": 349.0,
+   "max_rev": 10,
+   "max_osc": 8.181818181818183,
+   "lyrics": "nixihuanzhanzainachuangt",
+   "notes": [
+    {
+     "a": 155.11333333333334,
+     "b": 155.31333333333333,
+     "tone": 61,
+     "lyric": "ni",
+     "leap": null,
+     "vibrato": false,
+     "pitd_rng": 349.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 155.31333333333333,
+     "b": 155.71333333333334,
+     "tone": 65,
+     "lyric": "xi",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 196.0,
+     "pitd_rev": 3,
+     "portamento_y0": -40
+    },
+    {
+     "a": 155.71333333333334,
+     "b": 156.91333333333333,
+     "tone": 65,
+     "lyric": "huan",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 62.0,
+     "pitd_rev": 10,
+     "portamento_y0": 0
+    },
+    {
+     "a": 157.51333333333335,
+     "b": 157.91333333333336,
+     "tone": 65,
+     "lyric": "zhan",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 218.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 157.91333333333333,
+     "b": 158.31333333333333,
+     "tone": 63,
+     "lyric": "zai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 322.0,
+     "pitd_rev": 6,
+     "portamento_y0": 20
+    },
+    {
+     "a": 158.31333333333333,
+     "b": 158.71333333333334,
+     "tone": 61,
+     "lyric": "na",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 293.0,
+     "pitd_rev": 1,
+     "portamento_y0": 20
+    },
+    {
+     "a": 158.71333333333334,
+     "b": 159.51333333333335,
+     "tone": 63,
+     "lyric": "chuang",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 373.0,
+     "pitd_rev": 4,
+     "portamento_y0": -20
+    },
+    {
+     "a": 159.51333333333335,
+     "b": 160.61333333333334,
+     "tone": 68,
+     "lyric": "tai",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 199.0,
+     "pitd_rev": 1,
+     "portamento_y0": -50
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    1,
+    9
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 161.51333333333335,
+   "b": 166.71333333333334,
+   "n_notes": 7,
+   "source_reliable": 0.931,
+   "source_f0_rng_c": 8.8,
+   "max_dur": 1.4,
+   "max_leap": 7,
+   "max_pitd_rng": 473.0,
+   "max_onset_rng": 292.0,
+   "max_rev": 12,
+   "max_osc": 8.181818181818183,
+   "lyrics": "nihaojiudoumeizailai",
+   "notes": [
+    {
+     "a": 161.51333333333335,
+     "b": 161.71333333333334,
+     "tone": 61,
+     "lyric": "ni",
+     "leap": -7,
+     "vibrato": false,
+     "pitd_rng": 292.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 161.71333333333334,
+     "b": 162.11333333333334,
+     "tone": 65,
+     "lyric": "hao",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 187.0,
+     "pitd_rev": 5,
+     "portamento_y0": -40
+    },
+    {
+     "a": 162.11333333333334,
+     "b": 163.41333333333336,
+     "tone": 65,
+     "lyric": "jiu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 86.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 163.91333333333333,
+     "b": 164.31333333333333,
+     "tone": 66,
+     "lyric": "dou",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 184.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 164.31333333333333,
+     "b": 164.71333333333334,
+     "tone": 65,
+     "lyric": "mei",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 206.0,
+     "pitd_rev": 4,
+     "portamento_y0": 10
+    },
+    {
+     "a": 164.71333333333334,
+     "b": 165.11333333333334,
+     "tone": 68,
+     "lyric": "zai",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 473.0,
+     "pitd_rev": 2,
+     "portamento_y0": -30
+    },
+    {
+     "a": 165.31333333333333,
+     "b": 166.71333333333334,
+     "tone": 61,
+     "lyric": "lai",
+     "leap": -7,
+     "vibrato": false,
+     "pitd_rng": 107.0,
+     "pitd_rev": 12,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    12,
+    20
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 221.51333333333335,
+   "b": 226.11333333333332,
+   "n_notes": 10,
+   "source_reliable": 0.931,
+   "source_f0_rng_c": 7.3,
+   "max_dur": 1.2,
+   "max_leap": 3,
+   "max_pitd_rng": 342.0,
+   "max_onset_rng": 342.0,
+   "max_rev": 11,
+   "max_osc": 7.826086956521739,
+   "lyrics": "taGSaizhedahaiqinggebeid",
+   "notes": [
+    {
+     "a": 221.51333333333335,
+     "b": 221.88833333333335,
+     "tone": 65,
+     "lyric": "ta",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 237.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 221.88833333333335,
+     "b": 221.91333333333336,
+     "tone": 65,
+     "lyric": "GS",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 221.91333333333333,
+     "b": 222.31333333333333,
+     "tone": 63,
+     "lyric": "ai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 342.0,
+     "pitd_rev": 4,
+     "portamento_y0": 20
+    },
+    {
+     "a": 222.31333333333333,
+     "b": 222.71333333333334,
+     "tone": 61,
+     "lyric": "zhe",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 124.0,
+     "pitd_rev": 5,
+     "portamento_y0": 20
+    },
+    {
+     "a": 222.71333333333334,
+     "b": 222.91333333333333,
+     "tone": 63,
+     "lyric": "da",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 249.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 222.91333333333333,
+     "b": 224.11333333333332,
+     "tone": 61,
+     "lyric": "hai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 183.0,
+     "pitd_rev": 11,
+     "portamento_y0": 20
+    },
+    {
+     "a": 224.71333333333334,
+     "b": 225.11333333333334,
+     "tone": 61,
+     "lyric": "qing",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 227.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 225.11333333333334,
+     "b": 225.51333333333335,
+     "tone": 63,
+     "lyric": "ge",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 326.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    },
+    {
+     "a": 225.51333333333335,
+     "b": 225.91333333333336,
+     "tone": 65,
+     "lyric": "bei",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 268.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    },
+    {
+     "a": 225.91333333333333,
+     "b": 226.11333333333332,
+     "tone": 68,
+     "lyric": "da",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 342.0,
+     "pitd_rev": 2,
+     "portamento_y0": -30
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    145,
+    155
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 172.31333333333333,
+   "b": 177.11333333333334,
+   "n_notes": 8,
+   "source_reliable": 0.924,
+   "source_f0_rng_c": 13.1,
+   "max_dur": 1.0,
+   "max_leap": 12,
+   "max_pitd_rng": 571.0,
+   "max_onset_rng": 308.0,
+   "max_rev": 8,
+   "max_osc": 8.181818181818183,
+   "lyrics": "kongbaiy eshiniliudelei",
+   "notes": [
+    {
+     "a": 172.31333333333333,
+     "b": 172.51333333333332,
+     "tone": 65,
+     "lyric": "kong",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 179.0,
+     "pitd_rev": 0,
+     "portamento_y0": 30
+    },
+    {
+     "a": 173.11333333333334,
+     "b": 174.11333333333334,
+     "tone": 73,
+     "lyric": "bai",
+     "leap": 8,
+     "vibrato": false,
+     "pitd_rng": 241.0,
+     "pitd_rev": 8,
+     "portamento_y0": -80
+    },
+    {
+     "a": 174.11333333333334,
+     "b": 174.16333333333336,
+     "tone": 61,
+     "lyric": "y e",
+     "leap": -12,
+     "vibrato": false,
+     "pitd_rng": 0,
+     "pitd_rev": 0,
+     "portamento_y0": 120
+    },
+    {
+     "a": 175.11333333333334,
+     "b": 175.51333333333335,
+     "tone": 68,
+     "lyric": "shi",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 128.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 175.51333333333335,
+     "b": 175.91333333333336,
+     "tone": 66,
+     "lyric": "ni",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 272.0,
+     "pitd_rev": 0,
+     "portamento_y0": 20
+    },
+    {
+     "a": 175.91333333333333,
+     "b": 176.31333333333333,
+     "tone": 66,
+     "lyric": "liu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 571.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 176.31333333333333,
+     "b": 176.71333333333334,
+     "tone": 61,
+     "lyric": "de",
+     "leap": -5,
+     "vibrato": false,
+     "pitd_rng": 308.0,
+     "pitd_rev": 4,
+     "portamento_y0": 50
+    },
+    {
+     "a": 176.71333333333334,
+     "b": 177.11333333333334,
+     "tone": 61,
+     "lyric": "lei",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 114.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    32,
+    43
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "transition"
+   ]
+  },
+  {
+   "a": 46.31333333333333,
+   "b": 51.71333333333333,
+   "n_notes": 9,
+   "source_reliable": 0.901,
+   "source_f0_rng_c": 13.7,
+   "max_dur": 1.6,
+   "max_leap": 4,
+   "max_pitd_rng": 393.0,
+   "max_onset_rng": 293.0,
+   "max_rev": 7,
+   "max_osc": 8.88888888888889,
+   "lyrics": "nashihouwobudongzhejiaoa",
+   "notes": [
+    {
+     "a": 46.31333333333333,
+     "b": 46.513333333333335,
+     "tone": 61,
+     "lyric": "na",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 292.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 46.51333333333333,
+     "b": 46.91333333333333,
+     "tone": 65,
+     "lyric": "shi",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 219.0,
+     "pitd_rev": 2,
+     "portamento_y0": -40
+    },
+    {
+     "a": 46.913333333333334,
+     "b": 47.513333333333335,
+     "tone": 63,
+     "lyric": "hou",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 100.0,
+     "pitd_rev": 5,
+     "portamento_y0": 20
+    },
+    {
+     "a": 47.913333333333334,
+     "b": 48.11333333333334,
+     "tone": 61,
+     "lyric": "wo",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 293.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 48.11333333333333,
+     "b": 48.51333333333333,
+     "tone": 65,
+     "lyric": "bu",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 141.0,
+     "pitd_rev": 2,
+     "portamento_y0": -40
+    },
+    {
+     "a": 48.51333333333333,
+     "b": 49.11333333333333,
+     "tone": 63,
+     "lyric": "dong",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 148.0,
+     "pitd_rev": 4,
+     "portamento_y0": 20
+    },
+    {
+     "a": 49.51333333333333,
+     "b": 49.71333333333333,
+     "tone": 61,
+     "lyric": "zhe",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 264.0,
+     "pitd_rev": 1,
+     "portamento_y0": 0
+    },
+    {
+     "a": 49.71333333333333,
+     "b": 50.11333333333333,
+     "tone": 65,
+     "lyric": "jiao",
+     "leap": 4,
+     "vibrato": false,
+     "pitd_rng": 393.0,
+     "pitd_rev": 2,
+     "portamento_y0": -40
+    },
+    {
+     "a": 50.11333333333333,
+     "b": 51.71333333333333,
+     "tone": 63,
+     "lyric": "ai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 172.0,
+     "pitd_rev": 7,
+     "portamento_y0": 20
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    39,
+    49
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 119.11333333333334,
+   "b": 123.71333333333334,
+   "n_notes": 10,
+   "source_reliable": 0.894,
+   "source_f0_rng_c": 8.2,
+   "max_dur": 1.2,
+   "max_leap": 3,
+   "max_pitd_rng": 342.0,
+   "max_onset_rng": 342.0,
+   "max_rev": 11,
+   "max_osc": 7.826086956521739,
+   "lyrics": "taGSaizhedahaiqinggebeid",
+   "notes": [
+    {
+     "a": 119.11333333333334,
+     "b": 119.48833333333334,
+     "tone": 65,
+     "lyric": "ta",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 237.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 119.48833333333334,
+     "b": 119.51333333333335,
+     "tone": 65,
+     "lyric": "GS",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 119.51333333333334,
+     "b": 119.91333333333334,
+     "tone": 63,
+     "lyric": "ai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 342.0,
+     "pitd_rev": 4,
+     "portamento_y0": 20
+    },
+    {
+     "a": 119.91333333333334,
+     "b": 120.31333333333335,
+     "tone": 61,
+     "lyric": "zhe",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 124.0,
+     "pitd_rev": 5,
+     "portamento_y0": 20
+    },
+    {
+     "a": 120.31333333333333,
+     "b": 120.51333333333334,
+     "tone": 63,
+     "lyric": "da",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 249.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 120.51333333333334,
+     "b": 121.71333333333334,
+     "tone": 61,
+     "lyric": "hai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 183.0,
+     "pitd_rev": 11,
+     "portamento_y0": 20
+    },
+    {
+     "a": 122.31333333333333,
+     "b": 122.71333333333334,
+     "tone": 61,
+     "lyric": "qing",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 227.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 122.71333333333334,
+     "b": 123.11333333333334,
+     "tone": 63,
+     "lyric": "ge",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 318.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    },
+    {
+     "a": 123.11333333333334,
+     "b": 123.51333333333335,
+     "tone": 65,
+     "lyric": "bei",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 243.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    },
+    {
+     "a": 123.51333333333334,
+     "b": 123.71333333333334,
+     "tone": 68,
+     "lyric": "da",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 342.0,
+     "pitd_rev": 2,
+     "portamento_y0": -30
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    196,
+    206
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 201.91333333333333,
+   "b": 206.71333333333334,
+   "n_notes": 8,
+   "source_reliable": 0.892,
+   "source_f0_rng_c": 14.3,
+   "max_dur": 0.8,
+   "max_leap": 8,
+   "max_pitd_rng": 617.0,
+   "max_onset_rng": 235.0,
+   "max_rev": 7,
+   "max_osc": 7.199999999999999,
+   "lyrics": "kuaihuibulainbuyaoni",
+   "notes": [
+    {
+     "a": 201.91333333333333,
+     "b": 202.31333333333333,
+     "tone": 65,
+     "lyric": "kuai",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 617.0,
+     "pitd_rev": 5,
+     "portamento_y0": 10
+    },
+    {
+     "a": 202.31333333333333,
+     "b": 203.11333333333334,
+     "tone": 73,
+     "lyric": "hui",
+     "leap": 8,
+     "vibrato": false,
+     "pitd_rng": 395.0,
+     "pitd_rev": 7,
+     "portamento_y0": -80
+    },
+    {
+     "a": 203.11333333333334,
+     "b": 203.51333333333335,
+     "tone": 65,
+     "lyric": "bu",
+     "leap": -8,
+     "vibrato": false,
+     "pitd_rng": 187.0,
+     "pitd_rev": 4,
+     "portamento_y0": 80
+    },
+    {
+     "a": 203.51333333333335,
+     "b": 203.91333333333336,
+     "tone": 65,
+     "lyric": "lai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 140.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 205.41333333333333,
+     "b": 205.51333333333332,
+     "tone": 61,
+     "lyric": "n",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 180.0,
+     "pitd_rev": 1,
+     "portamento_y0": 0
+    },
+    {
+     "a": 205.51333333333335,
+     "b": 205.91333333333336,
+     "tone": 61,
+     "lyric": "bu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 369.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 205.91333333333333,
+     "b": 206.31333333333333,
+     "tone": 63,
+     "lyric": "yao",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 235.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 206.31333333333333,
+     "b": 206.71333333333334,
+     "tone": 65,
+     "lyric": "ni",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 330.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    99,
+    109
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 80.28833333333334,
+   "b": 85.11333333333334,
+   "n_notes": 9,
+   "source_reliable": 0.889,
+   "source_f0_rng_c": 12.6,
+   "max_dur": 1.4,
+   "max_leap": 4,
+   "max_pitd_rng": 558.0,
+   "max_onset_rng": 370.0,
+   "max_rev": 6,
+   "max_osc": 8.571428571428571,
+   "lyrics": "EPjuligebukaisinianbian",
+   "notes": [
+    {
+     "a": 80.28833333333334,
+     "b": 80.31333333333335,
+     "tone": 68,
+     "lyric": "EP",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 55.0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 80.71333333333334,
+     "b": 81.11333333333334,
+     "tone": 65,
+     "lyric": "ju",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 157.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 81.11333333333334,
+     "b": 81.51333333333335,
+     "tone": 63,
+     "lyric": "li",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 354.0,
+     "pitd_rev": 2,
+     "portamento_y0": 20
+    },
+    {
+     "a": 81.51333333333334,
+     "b": 81.91333333333334,
+     "tone": 61,
+     "lyric": "ge",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 428.0,
+     "pitd_rev": 2,
+     "portamento_y0": 20
+    },
+    {
+     "a": 81.91333333333334,
+     "b": 82.11333333333334,
+     "tone": 63,
+     "lyric": "bu",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 370.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 82.11333333333334,
+     "b": 83.51333333333335,
+     "tone": 65,
+     "lyric": "kai",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 188.0,
+     "pitd_rev": 6,
+     "portamento_y0": -20
+    },
+    {
+     "a": 83.91333333333334,
+     "b": 84.31333333333335,
+     "tone": 61,
+     "lyric": "si",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 88.0,
+     "pitd_rev": 3,
+     "portamento_y0": 40
+    },
+    {
+     "a": 84.31333333333333,
+     "b": 84.71333333333334,
+     "tone": 63,
+     "lyric": "nian",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 370.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    },
+    {
+     "a": 84.71333333333334,
+     "b": 85.11333333333334,
+     "tone": 65,
+     "lyric": "bian",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 558.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    104,
+    114
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 99.51333333333334,
+   "b": 104.31333333333335,
+   "n_notes": 8,
+   "source_reliable": 0.881,
+   "source_f0_rng_c": 14.5,
+   "max_dur": 0.8,
+   "max_leap": 8,
+   "max_pitd_rng": 617.0,
+   "max_onset_rng": 235.0,
+   "max_rev": 7,
+   "max_osc": 7.199999999999999,
+   "lyrics": "kuaihuibulainbuyaoni",
+   "notes": [
+    {
+     "a": 99.51333333333334,
+     "b": 99.91333333333334,
+     "tone": 65,
+     "lyric": "kuai",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 617.0,
+     "pitd_rev": 5,
+     "portamento_y0": 10
+    },
+    {
+     "a": 99.91333333333334,
+     "b": 100.71333333333334,
+     "tone": 73,
+     "lyric": "hui",
+     "leap": 8,
+     "vibrato": false,
+     "pitd_rng": 395.0,
+     "pitd_rev": 7,
+     "portamento_y0": -80
+    },
+    {
+     "a": 100.71333333333334,
+     "b": 101.11333333333334,
+     "tone": 65,
+     "lyric": "bu",
+     "leap": -8,
+     "vibrato": false,
+     "pitd_rng": 187.0,
+     "pitd_rev": 4,
+     "portamento_y0": 80
+    },
+    {
+     "a": 101.11333333333334,
+     "b": 101.51333333333335,
+     "tone": 65,
+     "lyric": "lai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 140.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 103.01333333333334,
+     "b": 103.11333333333333,
+     "tone": 61,
+     "lyric": "n",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 180.0,
+     "pitd_rev": 1,
+     "portamento_y0": 0
+    },
+    {
+     "a": 103.11333333333334,
+     "b": 103.51333333333335,
+     "tone": 61,
+     "lyric": "bu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 369.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 103.51333333333334,
+     "b": 103.91333333333334,
+     "tone": 63,
+     "lyric": "yao",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 235.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 103.91333333333334,
+     "b": 104.31333333333335,
+     "tone": 65,
+     "lyric": "ni",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 330.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    150,
+    160
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 177.51333333333335,
+   "b": 182.68833333333333,
+   "n_notes": 7,
+   "source_reliable": 0.878,
+   "source_f0_rng_c": 10.2,
+   "max_dur": 1.375,
+   "max_leap": 3,
+   "max_pitd_rng": 748.0,
+   "max_onset_rng": 579.0,
+   "max_rev": 9,
+   "max_osc": 10.0,
+   "lyrics": "yunkaibuyaonilikai",
+   "notes": [
+    {
+     "a": 177.51333333333335,
+     "b": 177.91333333333336,
+     "tone": 60,
+     "lyric": "yun",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 176.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 177.91333333333333,
+     "b": 179.11333333333332,
+     "tone": 61,
+     "lyric": "kai",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 122.0,
+     "pitd_rev": 9,
+     "portamento_y0": -10
+    },
+    {
+     "a": 179.91333333333333,
+     "b": 180.31333333333333,
+     "tone": 61,
+     "lyric": "bu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 691.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 180.31333333333333,
+     "b": 180.71333333333334,
+     "tone": 63,
+     "lyric": "yao",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 130.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 180.71333333333334,
+     "b": 181.11333333333334,
+     "tone": 65,
+     "lyric": "ni",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 242.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 181.11333333333334,
+     "b": 181.31333333333333,
+     "tone": 68,
+     "lyric": "li",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 504.0,
+     "pitd_rev": 1,
+     "portamento_y0": -30
+    },
+    {
+     "a": 181.31333333333333,
+     "b": 182.68833333333333,
+     "tone": 68,
+     "lyric": "kai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 748.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    45,
+    52
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained"
+   ]
+  },
+  {
+   "a": 75.11333333333334,
+   "b": 80.28833333333334,
+   "n_notes": 7,
+   "source_reliable": 0.872,
+   "source_f0_rng_c": 9.3,
+   "max_dur": 1.375,
+   "max_leap": 3,
+   "max_pitd_rng": 748.0,
+   "max_onset_rng": 579.0,
+   "max_rev": 9,
+   "max_osc": 10.0,
+   "lyrics": "yunkaibuyaonilikai",
+   "notes": [
+    {
+     "a": 75.11333333333334,
+     "b": 75.51333333333335,
+     "tone": 60,
+     "lyric": "yun",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 176.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 75.51333333333334,
+     "b": 76.71333333333334,
+     "tone": 61,
+     "lyric": "kai",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 122.0,
+     "pitd_rev": 9,
+     "portamento_y0": -10
+    },
+    {
+     "a": 77.51333333333334,
+     "b": 77.91333333333334,
+     "tone": 61,
+     "lyric": "bu",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 691.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 77.91333333333334,
+     "b": 78.31333333333335,
+     "tone": 63,
+     "lyric": "yao",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 130.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 78.31333333333333,
+     "b": 78.71333333333334,
+     "tone": 65,
+     "lyric": "ni",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 242.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 78.71333333333334,
+     "b": 78.91333333333334,
+     "tone": 68,
+     "lyric": "li",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 504.0,
+     "pitd_rev": 1,
+     "portamento_y0": -30
+    },
+    {
+     "a": 78.91333333333334,
+     "b": 80.28833333333334,
+     "tone": 68,
+     "lyric": "kai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 748.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    96,
+    103
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained"
+   ]
+  },
+  {
+   "a": 226.11333333333334,
+   "b": 231.11333333333334,
+   "n_notes": 7,
+   "source_reliable": 0.85,
+   "source_f0_rng_c": 6.1,
+   "max_dur": 1.0,
+   "max_leap": 7,
+   "max_pitd_rng": 474.0,
+   "max_onset_rng": 324.0,
+   "max_rev": 13,
+   "max_osc": 6.666666666666667,
+   "lyrics": "baiyaaiGSyibucun",
+   "notes": [
+    {
+     "a": 226.11333333333334,
+     "b": 227.11333333333334,
+     "tone": 61,
+     "lyric": "bai",
+     "leap": -7,
+     "vibrato": false,
+     "pitd_rng": 474.0,
+     "pitd_rev": 13,
+     "portamento_y0": 70
+    },
+    {
+     "a": 227.11333333333334,
+     "b": 227.21333333333334,
+     "tone": 56,
+     "lyric": "ya",
+     "leap": -5,
+     "vibrato": false,
+     "pitd_rng": 324.0,
+     "pitd_rev": 1,
+     "portamento_y0": 50
+    },
+    {
+     "a": 227.91333333333333,
+     "b": 228.26333333333332,
+     "tone": 61,
+     "lyric": "ai",
+     "leap": 5,
+     "vibrato": false,
+     "pitd_rng": 197.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 228.26333333333335,
+     "b": 228.31333333333336,
+     "tone": 61,
+     "lyric": "GS",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 247.0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 228.31333333333333,
+     "b": 228.71333333333334,
+     "tone": 60,
+     "lyric": "yi",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 336.0,
+     "pitd_rev": 6,
+     "portamento_y0": 10
+    },
+    {
+     "a": 228.71333333333334,
+     "b": 229.71333333333334,
+     "tone": 58,
+     "lyric": "bu",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 178.0,
+     "pitd_rev": 9,
+     "portamento_y0": 20
+    },
+    {
+     "a": 230.31333333333333,
+     "b": 231.11333333333334,
+     "tone": 60,
+     "lyric": "cun",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 457.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    156,
+    165
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 94.91333333333334,
+   "b": 99.51333333333335,
+   "n_notes": 8,
+   "source_reliable": 0.848,
+   "source_f0_rng_c": 11.8,
+   "max_dur": 1.2,
+   "max_leap": 3,
+   "max_pitd_rng": 426.0,
+   "max_onset_rng": 265.0,
+   "max_rev": 13,
+   "max_osc": 7.826086956521739,
+   "lyrics": "aishouzhongdefengzhengfa",
+   "notes": [
+    {
+     "a": 94.91333333333334,
+     "b": 96.11333333333334,
+     "tone": 61,
+     "lyric": "ai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 168.0,
+     "pitd_rev": 13,
+     "portamento_y0": 20
+    },
+    {
+     "a": 96.71333333333334,
+     "b": 97.11333333333334,
+     "tone": 61,
+     "lyric": "shou",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 426.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 97.11333333333334,
+     "b": 97.51333333333335,
+     "tone": 63,
+     "lyric": "zhong",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 174.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    },
+    {
+     "a": 97.51333333333334,
+     "b": 97.91333333333334,
+     "tone": 65,
+     "lyric": "de",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 182.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 97.91333333333334,
+     "b": 98.31333333333335,
+     "tone": 68,
+     "lyric": "feng",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 204.0,
+     "pitd_rev": 4,
+     "portamento_y0": -30
+    },
+    {
+     "a": 98.31333333333333,
+     "b": 98.71333333333334,
+     "tone": 68,
+     "lyric": "zheng",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 205.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 98.71333333333334,
+     "b": 99.11333333333334,
+     "tone": 66,
+     "lyric": "fang",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 189.0,
+     "pitd_rev": 1,
+     "portamento_y0": 20
+    },
+    {
+     "a": 99.11333333333334,
+     "b": 99.51333333333335,
+     "tone": 66,
+     "lyric": "tai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 196.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    141,
+    149
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 197.31333333333333,
+   "b": 201.91333333333336,
+   "n_notes": 8,
+   "source_reliable": 0.844,
+   "source_f0_rng_c": 12.3,
+   "max_dur": 1.2,
+   "max_leap": 3,
+   "max_pitd_rng": 426.0,
+   "max_onset_rng": 265.0,
+   "max_rev": 13,
+   "max_osc": 7.826086956521739,
+   "lyrics": "aishouzhongdefengzhengfa",
+   "notes": [
+    {
+     "a": 197.31333333333333,
+     "b": 198.51333333333332,
+     "tone": 61,
+     "lyric": "ai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 168.0,
+     "pitd_rev": 13,
+     "portamento_y0": 20
+    },
+    {
+     "a": 199.11333333333334,
+     "b": 199.51333333333335,
+     "tone": 61,
+     "lyric": "shou",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 426.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 199.51333333333335,
+     "b": 199.91333333333336,
+     "tone": 63,
+     "lyric": "zhong",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 174.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    },
+    {
+     "a": 199.91333333333333,
+     "b": 200.31333333333333,
+     "tone": 65,
+     "lyric": "de",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 182.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 200.31333333333333,
+     "b": 200.71333333333334,
+     "tone": 68,
+     "lyric": "feng",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 204.0,
+     "pitd_rev": 4,
+     "portamento_y0": -30
+    },
+    {
+     "a": 200.71333333333334,
+     "b": 201.11333333333334,
+     "tone": 68,
+     "lyric": "zheng",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 205.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 201.11333333333334,
+     "b": 201.51333333333335,
+     "tone": 66,
+     "lyric": "fang",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 189.0,
+     "pitd_rev": 1,
+     "portamento_y0": 20
+    },
+    {
+     "a": 201.51333333333335,
+     "b": 201.91333333333336,
+     "tone": 66,
+     "lyric": "tai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 196.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    90,
+    98
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 104.31333333333333,
+   "b": 108.91333333333334,
+   "n_notes": 8,
+   "source_reliable": 0.831,
+   "source_f0_rng_c": 10.2,
+   "max_dur": 1.375,
+   "max_leap": 3,
+   "max_pitd_rng": 447.0,
+   "max_onset_rng": 447.0,
+   "max_rev": 11,
+   "max_osc": 6.315789473684211,
+   "lyrics": "likaiEPhuiyihuabukai",
+   "notes": [
+    {
+     "a": 104.31333333333333,
+     "b": 104.51333333333334,
+     "tone": 68,
+     "lyric": "li",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 328.0,
+     "pitd_rev": 0,
+     "portamento_y0": -30
+    },
+    {
+     "a": 104.51333333333334,
+     "b": 105.88833333333334,
+     "tone": 68,
+     "lyric": "kai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 244.0,
+     "pitd_rev": 9,
+     "portamento_y0": 0
+    },
+    {
+     "a": 105.88833333333334,
+     "b": 105.96333333333334,
+     "tone": 68,
+     "lyric": "EP",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 200.0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 106.31333333333333,
+     "b": 106.71333333333334,
+     "tone": 65,
+     "lyric": "hui",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 245.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 106.71333333333334,
+     "b": 107.11333333333334,
+     "tone": 63,
+     "lyric": "yi",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 221.0,
+     "pitd_rev": 6,
+     "portamento_y0": 20
+    },
+    {
+     "a": 107.11333333333334,
+     "b": 107.51333333333335,
+     "tone": 61,
+     "lyric": "hua",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 335.0,
+     "pitd_rev": 5,
+     "portamento_y0": 20
+    },
+    {
+     "a": 107.51333333333334,
+     "b": 107.71333333333334,
+     "tone": 63,
+     "lyric": "bu",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 447.0,
+     "pitd_rev": 1,
+     "portamento_y0": -20
+    },
+    {
+     "a": 107.71333333333334,
+     "b": 108.91333333333334,
+     "tone": 65,
+     "lyric": "kai",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 223.0,
+     "pitd_rev": 11,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    161,
+    169
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 182.68833333333333,
+   "b": 187.51333333333335,
+   "n_notes": 9,
+   "source_reliable": 0.819,
+   "source_f0_rng_c": 12.8,
+   "max_dur": 1.4,
+   "max_leap": 4,
+   "max_pitd_rng": 558.0,
+   "max_onset_rng": 370.0,
+   "max_rev": 5,
+   "max_osc": 8.571428571428571,
+   "lyrics": "EPjuligebukaisinianbian",
+   "notes": [
+    {
+     "a": 182.68833333333333,
+     "b": 182.71333333333334,
+     "tone": 68,
+     "lyric": "EP",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 55.0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 183.11333333333334,
+     "b": 183.51333333333335,
+     "tone": 65,
+     "lyric": "ju",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 157.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    },
+    {
+     "a": 183.51333333333335,
+     "b": 183.91333333333336,
+     "tone": 63,
+     "lyric": "li",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 354.0,
+     "pitd_rev": 2,
+     "portamento_y0": 20
+    },
+    {
+     "a": 183.91333333333333,
+     "b": 184.31333333333333,
+     "tone": 61,
+     "lyric": "ge",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 428.0,
+     "pitd_rev": 2,
+     "portamento_y0": 20
+    },
+    {
+     "a": 184.31333333333333,
+     "b": 184.51333333333332,
+     "tone": 63,
+     "lyric": "bu",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 370.0,
+     "pitd_rev": 1,
+     "portamento_y0": -20
+    },
+    {
+     "a": 184.51333333333335,
+     "b": 185.91333333333336,
+     "tone": 65,
+     "lyric": "kai",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 181.0,
+     "pitd_rev": 4,
+     "portamento_y0": -20
+    },
+    {
+     "a": 186.31333333333333,
+     "b": 186.71333333333334,
+     "tone": 61,
+     "lyric": "si",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 88.0,
+     "pitd_rev": 3,
+     "portamento_y0": 40
+    },
+    {
+     "a": 186.71333333333334,
+     "b": 187.11333333333334,
+     "tone": 63,
+     "lyric": "nian",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 370.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    },
+    {
+     "a": 187.11333333333334,
+     "b": 187.51333333333335,
+     "tone": 65,
+     "lyric": "bian",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 558.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    53,
+    63
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 206.71333333333334,
+   "b": 211.31333333333333,
+   "n_notes": 8,
+   "source_reliable": 0.805,
+   "source_f0_rng_c": 10.3,
+   "max_dur": 1.375,
+   "max_leap": 3,
+   "max_pitd_rng": 447.0,
+   "max_onset_rng": 447.0,
+   "max_rev": 11,
+   "max_osc": 6.315789473684211,
+   "lyrics": "likaiEPhuiyihuabukai",
+   "notes": [
+    {
+     "a": 206.71333333333334,
+     "b": 206.91333333333333,
+     "tone": 68,
+     "lyric": "li",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 328.0,
+     "pitd_rev": 0,
+     "portamento_y0": -30
+    },
+    {
+     "a": 206.91333333333333,
+     "b": 208.28833333333333,
+     "tone": 68,
+     "lyric": "kai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 244.0,
+     "pitd_rev": 9,
+     "portamento_y0": 0
+    },
+    {
+     "a": 208.28833333333333,
+     "b": 208.36333333333332,
+     "tone": 68,
+     "lyric": "EP",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 200.0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 208.71333333333334,
+     "b": 209.11333333333334,
+     "tone": 65,
+     "lyric": "hui",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 245.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 209.11333333333334,
+     "b": 209.51333333333335,
+     "tone": 63,
+     "lyric": "yi",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 221.0,
+     "pitd_rev": 6,
+     "portamento_y0": 20
+    },
+    {
+     "a": 209.51333333333335,
+     "b": 209.91333333333336,
+     "tone": 61,
+     "lyric": "hua",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 335.0,
+     "pitd_rev": 5,
+     "portamento_y0": 20
+    },
+    {
+     "a": 209.91333333333333,
+     "b": 210.11333333333332,
+     "tone": 63,
+     "lyric": "bu",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 447.0,
+     "pitd_rev": 1,
+     "portamento_y0": -20
+    },
+    {
+     "a": 210.11333333333334,
+     "b": 211.31333333333333,
+     "tone": 65,
+     "lyric": "kai",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 213.0,
+     "pitd_rev": 11,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    110,
+    118
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 90.31333333333333,
+   "b": 94.91333333333334,
+   "n_notes": 10,
+   "source_reliable": 0.789,
+   "source_f0_rng_c": 7.9,
+   "max_dur": 1.2,
+   "max_leap": 9,
+   "max_pitd_rng": 495.0,
+   "max_onset_rng": 392.0,
+   "max_rev": 9,
+   "max_osc": 10.0,
+   "lyrics": "yuanliangshuotaikuaiGSai",
+   "notes": [
+    {
+     "a": 90.31333333333333,
+     "b": 90.71333333333334,
+     "tone": 61,
+     "lyric": "yuan",
+     "leap": -9,
+     "vibrato": false,
+     "pitd_rng": 384.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 90.71333333333334,
+     "b": 91.11333333333334,
+     "tone": 63,
+     "lyric": "liang",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 208.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    },
+    {
+     "a": 91.11333333333334,
+     "b": 91.51333333333335,
+     "tone": 65,
+     "lyric": "shuo",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 495.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 91.51333333333334,
+     "b": 91.71333333333334,
+     "tone": 68,
+     "lyric": "tai",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 392.0,
+     "pitd_rev": 3,
+     "portamento_y0": -30
+    },
+    {
+     "a": 91.71333333333334,
+     "b": 92.91333333333334,
+     "tone": 68,
+     "lyric": "kuai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 196.0,
+     "pitd_rev": 9,
+     "portamento_y0": 0
+    },
+    {
+     "a": 93.48833333333334,
+     "b": 93.51333333333335,
+     "tone": 65,
+     "lyric": "GS",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 93.51333333333334,
+     "b": 93.91333333333334,
+     "tone": 65,
+     "lyric": "ai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 344.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 93.91333333333334,
+     "b": 94.31333333333335,
+     "tone": 63,
+     "lyric": "cheng",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 454.0,
+     "pitd_rev": 6,
+     "portamento_y0": 20
+    },
+    {
+     "a": 94.31333333333333,
+     "b": 94.71333333333334,
+     "tone": 61,
+     "lyric": "le",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 288.0,
+     "pitd_rev": 2,
+     "portamento_y0": 20
+    },
+    {
+     "a": 94.71333333333334,
+     "b": 94.91333333333334,
+     "tone": 63,
+     "lyric": "zu",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 252.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    129,
+    140
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 192.71333333333334,
+   "b": 197.31333333333333,
+   "n_notes": 10,
+   "source_reliable": 0.774,
+   "source_f0_rng_c": 8.1,
+   "max_dur": 1.2,
+   "max_leap": 9,
+   "max_pitd_rng": 495.0,
+   "max_onset_rng": 392.0,
+   "max_rev": 11,
+   "max_osc": 10.0,
+   "lyrics": "yuanliangshuotaikuaiGSai",
+   "notes": [
+    {
+     "a": 192.71333333333334,
+     "b": 193.11333333333334,
+     "tone": 61,
+     "lyric": "yuan",
+     "leap": -9,
+     "vibrato": false,
+     "pitd_rng": 384.0,
+     "pitd_rev": 2,
+     "portamento_y0": 0
+    },
+    {
+     "a": 193.11333333333334,
+     "b": 193.51333333333335,
+     "tone": 63,
+     "lyric": "liang",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 208.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    },
+    {
+     "a": 193.51333333333335,
+     "b": 193.91333333333336,
+     "tone": 65,
+     "lyric": "shuo",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 495.0,
+     "pitd_rev": 3,
+     "portamento_y0": -20
+    },
+    {
+     "a": 193.91333333333333,
+     "b": 194.11333333333332,
+     "tone": 68,
+     "lyric": "tai",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 392.0,
+     "pitd_rev": 3,
+     "portamento_y0": -30
+    },
+    {
+     "a": 194.11333333333334,
+     "b": 195.31333333333333,
+     "tone": 68,
+     "lyric": "kuai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 174.0,
+     "pitd_rev": 11,
+     "portamento_y0": 0
+    },
+    {
+     "a": 195.88833333333335,
+     "b": 195.91333333333336,
+     "tone": 65,
+     "lyric": "GS",
+     "leap": -3,
+     "vibrato": false,
+     "pitd_rng": 0,
+     "pitd_rev": 0,
+     "portamento_y0": 0
+    },
+    {
+     "a": 195.91333333333333,
+     "b": 196.31333333333333,
+     "tone": 65,
+     "lyric": "ai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 344.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 196.31333333333333,
+     "b": 196.71333333333334,
+     "tone": 63,
+     "lyric": "cheng",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 454.0,
+     "pitd_rev": 6,
+     "portamento_y0": 20
+    },
+    {
+     "a": 196.71333333333334,
+     "b": 197.11333333333334,
+     "tone": 61,
+     "lyric": "le",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 288.0,
+     "pitd_rev": 2,
+     "portamento_y0": 20
+    },
+    {
+     "a": 197.11333333333334,
+     "b": 197.31333333333333,
+     "tone": 63,
+     "lyric": "zu",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 252.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    78,
+    89
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition"
+   ]
+  },
+  {
+   "a": 216.51333333333335,
+   "b": 220.91333333333333,
+   "n_notes": 6,
+   "source_reliable": 0.7,
+   "source_f0_rng_c": 10.7,
+   "max_dur": 1.2,
+   "max_leap": 9,
+   "max_pitd_rng": 470.0,
+   "max_onset_rng": 245.0,
+   "max_rev": 11,
+   "max_osc": 6.315789473684211,
+   "lyrics": "laitiankongrengcanlan",
+   "notes": [
+    {
+     "a": 216.51333333333335,
+     "b": 216.91333333333336,
+     "tone": 70,
+     "lyric": "lai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 166.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 218.31333333333333,
+     "b": 218.71333333333334,
+     "tone": 61,
+     "lyric": "tian",
+     "leap": -9,
+     "vibrato": false,
+     "pitd_rng": 314.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 218.71333333333334,
+     "b": 219.11333333333334,
+     "tone": 63,
+     "lyric": "kong",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 136.0,
+     "pitd_rev": 4,
+     "portamento_y0": -20
+    },
+    {
+     "a": 219.11333333333334,
+     "b": 219.51333333333335,
+     "tone": 65,
+     "lyric": "reng",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 470.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    },
+    {
+     "a": 219.51333333333335,
+     "b": 219.71333333333334,
+     "tone": 68,
+     "lyric": "can",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 205.0,
+     "pitd_rev": 0,
+     "portamento_y0": -30
+    },
+    {
+     "a": 219.71333333333334,
+     "b": 220.91333333333333,
+     "tone": 68,
+     "lyric": "lan",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 45.0,
+     "pitd_rev": 11,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    134,
+    142
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 211.91333333333333,
+   "b": 216.51333333333332,
+   "n_notes": 10,
+   "source_reliable": 0.636,
+   "source_f0_rng_c": 10.1,
+   "max_dur": 0.4,
+   "max_leap": 7,
+   "max_pitd_rng": 687.0,
+   "max_onset_rng": 499.0,
+   "max_rev": 6,
+   "max_osc": 8.181818181818183,
+   "lyrics": "qiannidechongaiwozaideng",
+   "notes": [
+    {
+     "a": 211.91333333333333,
+     "b": 212.31333333333333,
+     "tone": 61,
+     "lyric": "qian",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 249.0,
+     "pitd_rev": 4,
+     "portamento_y0": 40
+    },
+    {
+     "a": 212.31333333333333,
+     "b": 212.71333333333334,
+     "tone": 63,
+     "lyric": "ni",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 357.0,
+     "pitd_rev": 6,
+     "portamento_y0": -20
+    },
+    {
+     "a": 212.71333333333334,
+     "b": 213.11333333333334,
+     "tone": 65,
+     "lyric": "de",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 687.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    },
+    {
+     "a": 213.11333333333334,
+     "b": 213.31333333333333,
+     "tone": 72,
+     "lyric": "chong",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 499.0,
+     "pitd_rev": 2,
+     "portamento_y0": -70
+    },
+    {
+     "a": 213.31333333333333,
+     "b": 213.71333333333334,
+     "tone": 73,
+     "lyric": "ai",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 187.0,
+     "pitd_rev": 3,
+     "portamento_y0": -10
+    },
+    {
+     "a": 214.71333333333334,
+     "b": 215.11333333333334,
+     "tone": 73,
+     "lyric": "wo",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 177.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 215.11333333333334,
+     "b": 215.51333333333335,
+     "tone": 72,
+     "lyric": "zai",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 161.0,
+     "pitd_rev": 3,
+     "portamento_y0": 10
+    },
+    {
+     "a": 215.51333333333335,
+     "b": 215.71333333333334,
+     "tone": 70,
+     "lyric": "deng",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 149.0,
+     "pitd_rev": 2,
+     "portamento_y0": 20
+    },
+    {
+     "a": 215.91333333333333,
+     "b": 216.31333333333333,
+     "tone": 68,
+     "lyric": "dai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 249.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 216.31333333333333,
+     "b": 216.51333333333332,
+     "tone": 70,
+     "lyric": "chong",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 204.0,
+     "pitd_rev": 0,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    121,
+    133
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "transition"
+   ]
+  },
+  {
+   "a": 114.11333333333334,
+   "b": 118.51333333333334,
+   "n_notes": 6,
+   "source_reliable": 0.621,
+   "source_f0_rng_c": 11.0,
+   "max_dur": 1.2,
+   "max_leap": 9,
+   "max_pitd_rng": 470.0,
+   "max_onset_rng": 245.0,
+   "max_rev": 11,
+   "max_osc": 6.315789473684211,
+   "lyrics": "laitiankongrengcanlan",
+   "notes": [
+    {
+     "a": 114.11333333333334,
+     "b": 114.51333333333335,
+     "tone": 70,
+     "lyric": "lai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 166.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 115.91333333333334,
+     "b": 116.31333333333335,
+     "tone": 61,
+     "lyric": "tian",
+     "leap": -9,
+     "vibrato": false,
+     "pitd_rng": 314.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 116.31333333333333,
+     "b": 116.71333333333334,
+     "tone": 63,
+     "lyric": "kong",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 136.0,
+     "pitd_rev": 4,
+     "portamento_y0": -20
+    },
+    {
+     "a": 116.71333333333334,
+     "b": 117.11333333333334,
+     "tone": 65,
+     "lyric": "reng",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 470.0,
+     "pitd_rev": 5,
+     "portamento_y0": -20
+    },
+    {
+     "a": 117.11333333333334,
+     "b": 117.31333333333335,
+     "tone": 68,
+     "lyric": "can",
+     "leap": 3,
+     "vibrato": false,
+     "pitd_rng": 205.0,
+     "pitd_rev": 0,
+     "portamento_y0": -30
+    },
+    {
+     "a": 117.31333333333333,
+     "b": 118.51333333333334,
+     "tone": 68,
+     "lyric": "lan",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 45.0,
+     "pitd_rev": 11,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    185,
+    193
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "ornament",
+    "portamento_or_scoop",
+    "sustained",
+    "transition",
+    "vibrato"
+   ]
+  },
+  {
+   "a": 109.51333333333334,
+   "b": 114.11333333333334,
+   "n_notes": 10,
+   "source_reliable": 0.612,
+   "source_f0_rng_c": 8.3,
+   "max_dur": 0.4,
+   "max_leap": 7,
+   "max_pitd_rng": 687.0,
+   "max_onset_rng": 499.0,
+   "max_rev": 6,
+   "max_osc": 8.181818181818183,
+   "lyrics": "qiannidechongaiwozaideng",
+   "notes": [
+    {
+     "a": 109.51333333333334,
+     "b": 109.91333333333334,
+     "tone": 61,
+     "lyric": "qian",
+     "leap": -4,
+     "vibrato": false,
+     "pitd_rng": 249.0,
+     "pitd_rev": 4,
+     "portamento_y0": 40
+    },
+    {
+     "a": 109.91333333333334,
+     "b": 110.31333333333335,
+     "tone": 63,
+     "lyric": "ni",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 357.0,
+     "pitd_rev": 6,
+     "portamento_y0": -20
+    },
+    {
+     "a": 110.31333333333333,
+     "b": 110.71333333333334,
+     "tone": 65,
+     "lyric": "de",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 687.0,
+     "pitd_rev": 2,
+     "portamento_y0": -20
+    },
+    {
+     "a": 110.71333333333334,
+     "b": 110.91333333333334,
+     "tone": 72,
+     "lyric": "chong",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 499.0,
+     "pitd_rev": 2,
+     "portamento_y0": -70
+    },
+    {
+     "a": 110.91333333333334,
+     "b": 111.31333333333335,
+     "tone": 73,
+     "lyric": "ai",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 187.0,
+     "pitd_rev": 3,
+     "portamento_y0": -10
+    },
+    {
+     "a": 112.31333333333333,
+     "b": 112.71333333333334,
+     "tone": 73,
+     "lyric": "wo",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 177.0,
+     "pitd_rev": 3,
+     "portamento_y0": 0
+    },
+    {
+     "a": 112.71333333333334,
+     "b": 113.11333333333334,
+     "tone": 72,
+     "lyric": "zai",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 161.0,
+     "pitd_rev": 3,
+     "portamento_y0": 10
+    },
+    {
+     "a": 113.11333333333334,
+     "b": 113.31333333333335,
+     "tone": 70,
+     "lyric": "deng",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 149.0,
+     "pitd_rev": 2,
+     "portamento_y0": 20
+    },
+    {
+     "a": 113.51333333333334,
+     "b": 113.91333333333334,
+     "tone": 68,
+     "lyric": "dai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 249.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 113.91333333333334,
+     "b": 114.11333333333334,
+     "tone": 70,
+     "lyric": "chong",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 204.0,
+     "pitd_rev": 0,
+     "portamento_y0": -20
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    172,
+    184
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "transition"
+   ]
+  },
+  {
+   "a": 187.51333333333335,
+   "b": 191.31333333333333,
+   "n_notes": 8,
+   "source_reliable": 0.554,
+   "source_f0_rng_c": 7.9,
+   "max_dur": 0.4,
+   "max_leap": 7,
+   "max_pitd_rng": 263.0,
+   "max_onset_rng": 242.0,
+   "max_rev": 6,
+   "max_osc": 7.5,
+   "lyrics": "chenghaizaichuangwaijinb",
+   "notes": [
+    {
+     "a": 187.51333333333335,
+     "b": 187.71333333333334,
+     "tone": 72,
+     "lyric": "cheng",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 67.0,
+     "pitd_rev": 5,
+     "portamento_y0": -70
+    },
+    {
+     "a": 187.71333333333334,
+     "b": 188.11333333333334,
+     "tone": 73,
+     "lyric": "hai",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 147.0,
+     "pitd_rev": 2,
+     "portamento_y0": -10
+    },
+    {
+     "a": 189.11333333333334,
+     "b": 189.51333333333335,
+     "tone": 73,
+     "lyric": "zai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 216.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 189.51333333333335,
+     "b": 189.91333333333336,
+     "tone": 72,
+     "lyric": "chuang",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 263.0,
+     "pitd_rev": 4,
+     "portamento_y0": 10
+    },
+    {
+     "a": 189.91333333333333,
+     "b": 190.11333333333332,
+     "tone": 70,
+     "lyric": "wai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 60.0,
+     "pitd_rev": 4,
+     "portamento_y0": 20
+    },
+    {
+     "a": 190.31333333333333,
+     "b": 190.71333333333334,
+     "tone": 68,
+     "lyric": "jin",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 71.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 190.71333333333334,
+     "b": 190.91333333333333,
+     "tone": 70,
+     "lyric": "bu",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 96.0,
+     "pitd_rev": 1,
+     "portamento_y0": -20
+    },
+    {
+     "a": 190.91333333333333,
+     "b": 191.31333333333333,
+     "tone": 70,
+     "lyric": "lai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 167.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 1,
+   "note_ids": [
+    64,
+    74
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "transition"
+   ]
+  },
+  {
+   "a": 85.11333333333334,
+   "b": 88.91333333333334,
+   "n_notes": 8,
+   "source_reliable": 0.499,
+   "source_f0_rng_c": 7.3,
+   "max_dur": 0.4,
+   "max_leap": 7,
+   "max_pitd_rng": 263.0,
+   "max_onset_rng": 242.0,
+   "max_rev": 6,
+   "max_osc": 7.5,
+   "lyrics": "chenghaizaichuangwaijinb",
+   "notes": [
+    {
+     "a": 85.11333333333334,
+     "b": 85.31333333333335,
+     "tone": 72,
+     "lyric": "cheng",
+     "leap": 7,
+     "vibrato": false,
+     "pitd_rng": 67.0,
+     "pitd_rev": 5,
+     "portamento_y0": -70
+    },
+    {
+     "a": 85.31333333333333,
+     "b": 85.71333333333334,
+     "tone": 73,
+     "lyric": "hai",
+     "leap": 1,
+     "vibrato": false,
+     "pitd_rng": 147.0,
+     "pitd_rev": 2,
+     "portamento_y0": -10
+    },
+    {
+     "a": 86.71333333333334,
+     "b": 87.11333333333334,
+     "tone": 73,
+     "lyric": "zai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 216.0,
+     "pitd_rev": 5,
+     "portamento_y0": 0
+    },
+    {
+     "a": 87.11333333333334,
+     "b": 87.51333333333335,
+     "tone": 72,
+     "lyric": "chuang",
+     "leap": -1,
+     "vibrato": false,
+     "pitd_rng": 263.0,
+     "pitd_rev": 4,
+     "portamento_y0": 10
+    },
+    {
+     "a": 87.51333333333334,
+     "b": 87.71333333333334,
+     "tone": 70,
+     "lyric": "wai",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 60.0,
+     "pitd_rev": 4,
+     "portamento_y0": 20
+    },
+    {
+     "a": 87.91333333333334,
+     "b": 88.31333333333335,
+     "tone": 68,
+     "lyric": "jin",
+     "leap": -2,
+     "vibrato": false,
+     "pitd_rng": 71.0,
+     "pitd_rev": 6,
+     "portamento_y0": 0
+    },
+    {
+     "a": 88.31333333333333,
+     "b": 88.51333333333334,
+     "tone": 70,
+     "lyric": "bu",
+     "leap": 2,
+     "vibrato": false,
+     "pitd_rng": 96.0,
+     "pitd_rev": 1,
+     "portamento_y0": -20
+    },
+    {
+     "a": 88.51333333333334,
+     "b": 88.91333333333334,
+     "tone": 70,
+     "lyric": "lai",
+     "leap": 0,
+     "vibrato": false,
+     "pitd_rng": 167.0,
+     "pitd_rev": 4,
+     "portamento_y0": 0
+    }
+   ],
+   "part": 0,
+   "note_ids": [
+    115,
+    125
+   ],
+   "classes": [
+    "onset_over_undershoot",
+    "portamento_or_scoop",
+    "transition"
+   ]
+  }
+ ]
+}
