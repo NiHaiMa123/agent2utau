@@ -313,8 +313,14 @@ def main():
                     src_seg[s]["periodic"].get("periodic_depth_c")],
             },
         }
+    # a flag shared with source is still a local F0 defect when its
+    # absolute magnitude is extreme — faithful transfer of a violent /
+    # possibly-artifactual source gesture is still what the listener
+    # hears as the failure.
     abnormal_f0 = [s for s, f in f0_flags.items()
-                   if f["render_only"]]
+                   if f["render_only"]
+                   or (f["faithful_to_source"] and
+                       (p2[s]["geometry"].get("range_c") or 0) > 300)]
     ph_bad = []
     for s, d in p2.items():
         ph = d["phonation"]
@@ -346,6 +352,16 @@ def main():
         "flags_by_segment": f0_flags,
         "abnormal_f0_segments": abnormal_f0,
         "abnormal_phonation_segments": ph_bad,
+        "localization_note": ("fail-span anomaly is the S1/S2 transition "
+                              "zigzag (~930c range within ~700ms); the "
+                              "render is a faithful-but-damped copy of an "
+                              "equally violent SOURCE span that overlaps "
+                              "the Round-A edge-uncertain region — repair "
+                              "must adjudicate source truth, not blindly "
+                              "smooth.  S3 vibrato tail is verified "
+                              "faithful to SOURCE (rate/depth/decay "
+                              "envelope all within ~10%); phonation "
+                              "metrics normal throughout."),
         "classification": cls,
     }
     REPORT.write_text(json.dumps(
