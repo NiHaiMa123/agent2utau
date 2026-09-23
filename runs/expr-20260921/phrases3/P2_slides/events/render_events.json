@@ -1,1355 +1,1286 @@
 [
-  {
-    "type": "vibrato",
-    "note_indices": [
-      11
-    ],
-    "start_s": 55.55,
-    "end_s": 56.63,
-    "confidence": 0.927,
-    "params": {
-      "rate_hz": 7.0,
-      "fft_bin_hz": 6.78,
-      "depth_c": 57.7,
-      "phase_rad": -1.502,
-      "phase_origin_s": 55.59,
-      "periods_ms": [
-        150.0,
-        140.0,
-        140.0,
-        150.0,
-        130.0,
-        130.0,
-        160.0
-      ],
-      "depth_envelope_c": [
-        62.3,
-        63.5,
-        66.0,
-        62.2,
-        39.1,
-        46.3,
-        64.6
-      ],
-      "evidence_cycle_count": 7.0,
-      "stable_cycle_count": 7.0,
-      "boundary_method": "extremum_zero_return",
-      "boundary_start_reason": "zero_return",
-      "boundary_end_reason": "quarter_period",
-      "period_cv": 0.072,
-      "depth_cv": 0.17,
-      "drift_c_per_s": -9.2,
-      "mod_snr": 9.82,
-      "voiced_coverage": 1.0
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
+ {
+  "type": "vibrato",
+  "note_indices": [
+   11
+  ],
+  "start_s": 55.55,
+  "end_s": 56.62,
+  "confidence": 0.96,
+  "params": {
+   "rate_hz": 7.07,
+   "fft_bin_hz": 6.78,
+   "depth_c": 77.8,
+   "phase_rad": -1.664,
+   "phase_origin_s": 55.59,
+   "periods_ms": [
+    140.0,
+    140.0,
+    150.0,
+    140.0,
+    140.0,
+    140.0,
+    140.0
+   ],
+   "depth_envelope_c": [
+    82.2,
+    86.5,
+    87.1,
+    85.8,
+    64.5,
+    68.9,
+    69.9
+   ],
+   "evidence_cycle_count": 7.5,
+   "stable_cycle_count": 7.0,
+   "boundary_method": "extremum_zero_return",
+   "boundary_start_reason": "zero_return",
+   "boundary_end_reason": "quarter_period",
+   "period_cv": 0.025,
+   "depth_cv": 0.115,
+   "drift_c_per_s": -1.1,
+   "mod_snr": 35.58,
+   "voiced_coverage": 1.0
   },
-  {
-    "type": "undershoot",
-    "note_indices": [
-      1
-    ],
-    "start_s": 51.57,
-    "end_s": 51.93,
-    "confidence": 1.0,
-    "params": {
-      "anchor_nucleus_s": 51.571,
-      "depth_c": 170.0,
-      "peak_time_ms": 89.2,
-      "settle_time_ms": null,
-      "baseline_c": 5905.9,
-      "direction": "down-up",
-      "monotonicity": 0.76,
-      "shape": "irregular"
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "scoop",
-    "note_indices": [
-      2
-    ],
-    "start_s": 51.87,
-    "end_s": 52.34,
-    "confidence": 1.0,
-    "params": {
-      "anchor_nucleus_s": 51.943,
-      "depth_c": 896.9,
-      "peak_time_ms": -32.4,
-      "settle_time_ms": null,
-      "baseline_c": 6162.0,
-      "direction": "down-up",
-      "monotonicity": 0.59,
-      "shape": "irregular"
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "scoop",
-    "note_indices": [
-      3
-    ],
-    "start_s": 52.38,
-    "end_s": 52.6,
-    "confidence": 1.0,
-    "params": {
-      "anchor_nucleus_s": 52.394,
-      "depth_c": 207.7,
-      "peak_time_ms": 46.6,
-      "settle_time_ms": 206.6,
-      "baseline_c": 6397.3,
-      "direction": "down-up",
-      "monotonicity": 0.87,
-      "shape": "irregular"
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "undershoot",
-    "note_indices": [
-      6
-    ],
-    "start_s": 53.23,
-    "end_s": 53.61,
-    "confidence": 0.664,
-    "params": {
-      "anchor_nucleus_s": 53.254,
-      "depth_c": 33.2,
-      "peak_time_ms": 66.1,
-      "settle_time_ms": null,
-      "baseline_c": 5912.8,
-      "direction": "down-up",
-      "monotonicity": 0.75,
-      "shape": "irregular"
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "scoop",
-    "note_indices": [
-      7
-    ],
-    "start_s": 53.59,
-    "end_s": 53.96,
-    "confidence": 1.0,
-    "params": {
-      "anchor_nucleus_s": 53.604,
-      "depth_c": 170.3,
-      "peak_time_ms": 36.9,
-      "settle_time_ms": null,
-      "baseline_c": 6386.5,
-      "direction": "down-up",
-      "monotonicity": 0.75,
-      "shape": "irregular"
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "overshoot",
-    "note_indices": [
-      8
-    ],
-    "start_s": 54.32,
-    "end_s": 54.73,
-    "confidence": 1.0,
-    "params": {
-      "anchor_nucleus_s": 54.337,
-      "depth_c": 240.4,
-      "peak_time_ms": -16.9,
-      "settle_time_ms": null,
-      "baseline_c": 5986.5,
-      "direction": "up-down",
-      "monotonicity": 0.7,
-      "shape": "irregular"
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "scoop",
-    "note_indices": [
-      9
-    ],
-    "start_s": 54.83,
-    "end_s": 55.07,
-    "confidence": 1.0,
-    "params": {
-      "anchor_nucleus_s": 54.855,
-      "depth_c": 250.7,
-      "peak_time_ms": 55.3,
-      "settle_time_ms": 215.3,
-      "baseline_c": 6898.9,
-      "direction": "down-up",
-      "monotonicity": 0.68,
-      "shape": "irregular"
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "portamento",
-    "note_indices": [
-      0,
-      1
-    ],
-    "start_s": 51.4,
-    "end_s": 51.78,
-    "confidence": 0.79,
-    "params": {
-      "from_note": 0,
-      "to_note": 1,
-      "departure_rel_prev_end_ms": -179.8,
-      "arrival_rel_next_start_ms": 200.2,
-      "arrival_relaxed": false,
-      "arrival_offset_c": 0.0,
-      "span_cents": 200.4,
-      "duration_ms": 380.0,
-      "direction": "up",
-      "trajectory_type": "irregular",
-      "boundary_ms": 0.0,
-      "voiced_coverage": 0.64,
-      "slope_profile": [
-        2.089,
-        1.045,
-        -64.53,
-        -60.022,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        9.016,
-        4.345,
-        -0.163,
-        0.063,
-        0.07,
-        0.007,
-        -0.675,
-        -1.561,
-        -1.827,
-        -0.941,
-        0.457,
-        2.507,
-        5.435,
-        7.766,
-        8.899,
-        7.852,
-        5.098,
-        1.765,
-        -0.009,
-        -1.014,
-        -2.42,
-        -2.829
-      ],
-      "curv_profile": [
-        -39.692,
-        -1265.736,
-        -1160.262,
-        1397.368,
-        1311.717,
-        0.0,
-        0.0,
-        -0.0,
-        -0.0,
-        0.0,
-        0.0,
-        -0.0,
-        -0.0,
-        0.0,
-        -0.0,
-        -0.0,
-        0.0,
-        -88.745,
-        -174.395,
-        -81.362,
-        4.429,
-        -1.054,
-        -14.16,
-        -29.801,
-        -21.882,
-        11.789,
-        43.398,
-        65.507,
-        94.582,
-        99.913,
-        65.806,
-        1.644,
-        -72.216,
-        -115.665,
-        -97.041,
-        -52.803,
-        -45.794,
-        -34.477,
-        -15.559
-      ],
-      "norm_traj": [
-        0.0,
-        0.055,
-        0.055,
-        -3.341,
-        -3.104,
-        -2.867,
-        -2.63,
-        -2.392,
-        -2.155,
-        -1.918,
-        -1.681,
-        -1.443,
-        -1.206,
-        -0.969,
-        -0.731,
-        -0.494,
-        -0.257,
-        -0.02,
-        0.218,
-        0.209,
-        0.209,
-        0.212,
-        0.213,
-        0.213,
-        0.177,
-        0.131,
-        0.081,
-        0.081,
-        0.105,
-        0.213,
-        0.391,
-        0.622,
-        0.86,
-        1.035,
-        1.128,
-        1.128,
-        1.127,
-        1.074,
-        1.0
-      ]
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "portamento",
-    "note_indices": [
-      1,
-      2
-    ],
-    "start_s": 51.85,
-    "end_s": 52.15,
-    "confidence": 0.97,
-    "params": {
-      "from_note": 1,
-      "to_note": 2,
-      "departure_rel_prev_end_ms": -89.2,
-      "arrival_rel_next_start_ms": 210.8,
-      "arrival_relaxed": false,
-      "arrival_offset_c": 0.0,
-      "span_cents": 293.8,
-      "duration_ms": 300.0,
-      "direction": "up",
-      "trajectory_type": "irregular",
-      "boundary_ms": 0.0,
-      "voiced_coverage": 0.94,
-      "slope_profile": [
-        2.011,
-        1.824,
-        1.097,
-        0.279,
-        -35.222,
-        -20.998,
-        28.448,
-        28.448,
-        15.137,
-        3.905,
-        5.177,
-        3.352,
-        1.485,
-        0.319,
-        -0.744,
-        -2.195,
-        -2.986,
-        -3.119,
-        -2.76,
-        -1.176,
-        0.637,
-        2.306,
-        3.423,
-        3.724,
-        3.204,
-        1.7,
-        0.466,
-        -0.552,
-        -1.752,
-        -2.816,
-        -3.232
-      ],
-      "curv_profile": [
-        -5.617,
-        -13.71,
-        -23.179,
-        -544.796,
-        -319.159,
-        955.054,
-        741.694,
-        -199.663,
-        -368.151,
-        -149.395,
-        -8.284,
-        -55.38,
-        -45.498,
-        -33.445,
-        -37.712,
-        -33.632,
-        -13.863,
-        3.394,
-        29.141,
-        50.956,
-        52.233,
-        41.785,
-        21.267,
-        -3.281,
-        -30.351,
-        -41.069,
-        -33.781,
-        -33.266,
-        -33.961,
-        -22.206,
-        -12.486
-      ],
-      "norm_traj": [
-        0.0,
-        0.067,
-        0.122,
-        0.14,
-        0.14,
-        -2.208,
-        -1.26,
-        -0.311,
-        0.637,
-        0.698,
-        0.897,
-        1.043,
-        1.121,
-        1.142,
-        1.142,
-        1.092,
-        0.996,
-        0.893,
-        0.788,
-        0.709,
-        0.709,
-        0.752,
-        0.863,
-        0.98,
-        1.111,
-        1.193,
-        1.225,
-        1.225,
-        1.188,
-        1.108,
-        1.0
-      ]
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "portamento",
-    "note_indices": [
-      2,
-      3
-    ],
-    "start_s": 52.21,
-    "end_s": 52.56,
-    "confidence": 0.766,
-    "params": {
-      "from_note": 2,
-      "to_note": 3,
-      "departure_rel_prev_end_ms": -179.2,
-      "arrival_rel_next_start_ms": 170.8,
-      "arrival_relaxed": false,
-      "arrival_offset_c": 0.0,
-      "span_cents": 165.0,
-      "duration_ms": 350.0,
-      "direction": "up",
-      "trajectory_type": "irregular",
-      "boundary_ms": -0.0,
-      "voiced_coverage": 0.64,
-      "slope_profile": [
-        -12.647,
-        -12.573,
-        -6.805,
-        -74.007,
-        -66.866,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        13.169,
-        5.184,
-        -4.861,
-        -6.312,
-        -4.118,
-        -1.297,
-        -0.03,
-        0.829,
-        1.714,
-        1.604,
-        1.385,
-        1.511,
-        2.136,
-        3.258,
-        4.74,
-        6.328,
-        7.542,
-        7.373,
-        6.774
-      ],
-      "curv_profile": [
-        2.591,
-        102.226,
-        -1075.091,
-        -1051.063,
-        1525.581,
-        1400.62,
-        -0.0,
-        0.0,
-        0.0,
-        -0.0,
-        0.0,
-        0.0,
-        -0.0,
-        -0.0,
-        0.0,
-        -0.0,
-        -0.0,
-        -139.742,
-        -315.526,
-        -201.174,
-        12.992,
-        87.763,
-        71.554,
-        37.199,
-        30.505,
-        13.559,
-        -5.754,
-        -1.627,
-        13.148,
-        30.581,
-        45.57,
-        53.715,
-        49.031,
-        18.292,
-        -13.444,
-        -20.981
-      ],
-      "norm_traj": [
-        0.0,
-        -0.361,
-        -0.718,
-        -0.75,
-        -4.947,
-        -4.571,
-        -4.195,
-        -3.819,
-        -3.442,
-        -3.066,
-        -2.69,
-        -2.314,
-        -1.937,
-        -1.561,
-        -1.185,
-        -0.808,
-        -0.432,
-        -0.056,
-        0.32,
-        0.24,
-        0.043,
-        -0.12,
-        -0.193,
-        -0.194,
-        -0.194,
-        -0.147,
-        -0.097,
-        -0.055,
-        -0.017,
-        0.031,
-        0.105,
-        0.217,
-        0.376,
-        0.579,
-        0.806,
-        1.0
-      ]
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "portamento",
-    "note_indices": [
-      4,
-      5
-    ],
-    "start_s": 52.89,
-    "end_s": 52.95,
-    "confidence": 0.899,
-    "params": {
-      "from_note": 4,
-      "to_note": 5,
-      "departure_rel_prev_end_ms": -39.8,
-      "arrival_rel_next_start_ms": 20.2,
-      "arrival_relaxed": true,
-      "arrival_offset_c": 34.0,
-      "span_cents": 148.4,
-      "duration_ms": 60.0,
-      "direction": "up",
-      "trajectory_type": "irregular",
-      "boundary_ms": -0.0,
-      "voiced_coverage": 1.0,
-      "slope_profile": [
-        2.887,
-        2.423,
-        0.979,
-        -0.308,
-        -0.308,
-        0.886,
-        1.771
-      ],
-      "curv_profile": [
-        -2.789,
-        -5.725,
-        -8.192,
-        -3.861,
-        3.581,
-        6.237,
-        5.313
-      ],
-      "norm_traj": [
-        0.0,
-        0.481,
-        0.808,
-        0.808,
-        0.705,
-        0.705,
-        1.0
-      ]
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "portamento",
-    "note_indices": [
-      6,
-      7
-    ],
-    "start_s": 53.47,
-    "end_s": 53.77,
-    "confidence": 0.884,
-    "params": {
-      "from_note": 6,
-      "to_note": 7,
-      "departure_rel_prev_end_ms": -140.0,
-      "arrival_rel_next_start_ms": 160.0,
-      "arrival_relaxed": true,
-      "arrival_offset_c": 16.5,
-      "span_cents": 422.7,
-      "duration_ms": 300.0,
-      "direction": "up",
-      "trajectory_type": "stepped",
-      "boundary_ms": 0.0,
-      "voiced_coverage": 0.71,
-      "slope_profile": [
-        1.753,
-        0.877,
-        -23.492,
-        -19.68,
-        7.624,
-        7.624,
-        7.624,
-        7.624,
-        7.624,
-        7.624,
-        7.624,
-        7.624,
-        7.624,
-        2.929,
-        -3.584,
-        -4.373,
-        -1.692,
-        -0.019,
-        0.267,
-        0.439,
-        0.173,
-        -0.061,
-        -0.204,
-        -0.205,
-        -0.063,
-        0.18,
-        0.6,
-        1.408,
-        2.576,
-        3.011,
-        2.846
-      ],
-      "curv_profile": [
-        -26.302,
-        -378.677,
-        -308.353,
-        466.738,
-        409.559,
-        0.0,
-        0.0,
-        -0.0,
-        -0.0,
-        0.0,
-        0.0,
-        -0.0,
-        -70.428,
-        -168.111,
-        -109.53,
-        28.367,
-        65.311,
-        29.391,
-        6.882,
-        -1.417,
-        -7.506,
-        -5.644,
-        -2.168,
-        2.118,
-        5.787,
-        9.942,
-        18.417,
-        29.637,
-        24.036,
-        4.05,
-        -4.939
-      ],
-      "norm_traj": [
-        0.0,
-        0.058,
-        0.058,
-        -1.508,
-        -1.254,
-        -0.999,
-        -0.745,
-        -0.491,
-        -0.237,
-        0.017,
-        0.271,
-        0.525,
-        0.779,
-        1.034,
-        0.975,
-        0.795,
-        0.683,
-        0.682,
-        0.682,
-        0.7,
-        0.711,
-        0.711,
-        0.707,
-        0.698,
-        0.693,
-        0.693,
-        0.705,
-        0.733,
-        0.799,
-        0.905,
-        1.0
-      ]
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "portamento",
-    "note_indices": [
-      8,
-      9
-    ],
-    "start_s": 54.55,
-    "end_s": 55.02,
-    "confidence": 0.892,
-    "params": {
-      "from_note": 8,
-      "to_note": 9,
-      "departure_rel_prev_end_ms": -299.6,
-      "arrival_rel_next_start_ms": 170.4,
-      "arrival_relaxed": false,
-      "arrival_offset_c": 0.0,
-      "span_cents": 686.9,
-      "duration_ms": 470.0,
-      "direction": "up",
-      "trajectory_type": "irregular",
-      "boundary_ms": 0.0,
-      "voiced_coverage": 0.73,
-      "slope_profile": [
-        -8.697,
-        -9.56,
-        -9.157,
-        -5.41,
-        -1.465,
-        0.83,
-        2.513,
-        3.202,
-        2.698,
-        2.57,
-        2.856,
-        2.694,
-        1.962,
-        0.734,
-        -22.359,
-        -19.172,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        6.375,
-        2.902,
-        -1.236,
-        -1.561,
-        -0.857,
-        -0.334,
-        -0.16,
-        -0.143,
-        -0.07,
-        0.013,
-        0.147,
-        0.513,
-        1.132,
-        1.791,
-        2.282,
-        2.584,
-        2.678,
-        2.604,
-        2.256,
-        1.98
-      ],
-      "curv_profile": [
-        -40.607,
-        -10.829,
-        97.546,
-        180.779,
-        146.641,
-        93.482,
-        55.735,
-        4.348,
-        -14.853,
-        3.701,
-        2.901,
-        -20.996,
-        -46.052,
-        -571.559,
-        -467.778,
-        675.262,
-        600.351,
-        -0.0,
-        -0.0,
-        0.0,
-        0.0,
-        -0.0,
-        0.0,
-        0.0,
-        -0.0,
-        -0.0,
-        0.0,
-        0.0,
-        -81.622,
-        -178.878,
-        -104.874,
-        8.915,
-        28.819,
-        16.377,
-        4.492,
-        2.119,
-        3.673,
-        5.1,
-        11.744,
-        23.157,
-        30.043,
-        27.006,
-        18.624,
-        9.306,
-        0.472,
-        -9.9,
-        -14.666,
-        -12.996
-      ],
-      "norm_traj": [
-        0.0,
-        -0.185,
-        -0.407,
-        -0.575,
-        -0.637,
-        -0.637,
-        -0.602,
-        -0.53,
-        -0.465,
-        -0.415,
-        -0.356,
-        -0.294,
-        -0.241,
-        -0.21,
-        -0.21,
-        -1.162,
-        -1.026,
-        -0.89,
-        -0.755,
-        -0.619,
-        -0.483,
-        -0.348,
-        -0.212,
-        -0.076,
-        0.059,
-        0.195,
-        0.33,
-        0.466,
-        0.602,
-        0.737,
-        0.725,
-        0.685,
-        0.659,
-        0.648,
-        0.645,
-        0.641,
-        0.639,
-        0.639,
-        0.639,
-        0.645,
-        0.661,
-        0.693,
-        0.737,
-        0.79,
-        0.847,
-        0.904,
-        0.958,
-        1.0
-      ]
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "portamento",
-    "note_indices": [
-      9,
-      10
-    ],
-    "start_s": 55.15,
-    "end_s": 55.21,
-    "confidence": 0.98,
-    "params": {
-      "from_note": 9,
-      "to_note": 10,
-      "departure_rel_prev_end_ms": -49.6,
-      "arrival_rel_next_start_ms": 10.4,
-      "arrival_relaxed": false,
-      "arrival_offset_c": 0.0,
-      "span_cents": -269.9,
-      "duration_ms": 60.0,
-      "direction": "down",
-      "trajectory_type": "s_curve",
-      "boundary_ms": 0.0,
-      "voiced_coverage": 1.0,
-      "slope_profile": [
-        0.522,
-        0.997,
-        2.072,
-        1.621,
-        0.389,
-        0.383,
-        0.556
-      ],
-      "curv_profile": [
-        2.845,
-        4.648,
-        1.873,
-        -5.047,
-        -3.714,
-        0.499,
-        1.037
-      ],
-      "norm_traj": [
-        -0.0,
-        0.087,
-        0.332,
-        0.778,
-        0.872,
-        0.907,
-        1.0
-      ]
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "ornament",
-    "note_indices": [
-      0
-    ],
-    "start_s": 51.33,
-    "end_s": 51.42,
-    "confidence": 0.7,
-    "params": {
-      "excursions_c": [
-        -57.0,
-        229.3
-      ],
-      "extrema_rel_ms": [
-        0.0,
-        90.0
-      ],
-      "n_extrema": 2,
-      "alternations": 1,
-      "duration_ms": 90.0,
-      "returns_to_baseline": false
-    },
-    "evidence": {
-      "extractor": "fcpe",
-      "structure_review_required": true,
-      "blocker_lane": true
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      0
-    ],
-    "start_s": 51.43,
-    "end_s": 51.43,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 1,
-      "artifact_kinds": [
-        "extractor_disagreement",
-        "spike"
-      ],
-      "mean_conf": 0.0
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      1,
-      2
-    ],
-    "start_s": 51.9,
-    "end_s": 51.9,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 1,
-      "artifact_kinds": [
-        "extractor_disagreement",
-        "spike"
-      ],
-      "mean_conf": 0.0
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      1,
-      2
-    ],
-    "start_s": 52.25,
-    "end_s": 52.25,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 1,
-      "artifact_kinds": [
-        "spike"
-      ],
-      "mean_conf": 0.85
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      3,
-      4,
-      5
-    ],
-    "start_s": 53.06,
-    "end_s": 53.06,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 1,
-      "artifact_kinds": [
-        "extractor_disagreement",
-        "spike"
-      ],
-      "mean_conf": 0.0
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      5,
-      6
-    ],
-    "start_s": 53.5,
-    "end_s": 53.5,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 1,
-      "artifact_kinds": [
-        "extractor_disagreement",
-        "spike"
-      ],
-      "mean_conf": 0.0
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      6,
-      7
-    ],
-    "start_s": 53.99,
-    "end_s": 54.02,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 4,
-      "artifact_kinds": [
-        "extractor_disagreement",
-        "voiced_conflict",
-        "spike"
-      ],
-      "mean_conf": 0.3
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      8
-    ],
-    "start_s": 54.7,
-    "end_s": 54.7,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 1,
-      "artifact_kinds": [
-        "extractor_disagreement",
-        "spike"
-      ],
-      "mean_conf": 0.0
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      8,
-      9,
-      10
-    ],
-    "start_s": 55.42,
-    "end_s": 55.42,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 1,
-      "artifact_kinds": [
-        "extractor_disagreement",
-        "spike"
-      ],
-      "mean_conf": 0.0
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "artifact",
-    "note_indices": [
-      10,
-      11
-    ],
-    "start_s": 56.72,
-    "end_s": 56.72,
-    "confidence": 0.45,
-    "params": {
-      "n_frames": 1,
-      "artifact_kinds": [
-        "spike"
-      ],
-      "mean_conf": 0.97
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "stable",
-    "note_indices": [
-      0
-    ],
-    "start_s": 51.21,
-    "end_s": 51.32,
-    "confidence": 1.0,
-    "params": {
-      "start_c": 5633.4,
-      "end_c": 5745.5,
-      "max_dev_c": 58.3,
-      "drift_c_per_s": 1119.0
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "stable",
-    "note_indices": [
-      3
-    ],
-    "start_s": 52.61,
-    "end_s": 52.7,
-    "confidence": 1.0,
-    "params": {
-      "start_c": 6359.6,
-      "end_c": 6392.4,
-      "max_dev_c": 17.5,
-      "drift_c_per_s": 362.2
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "stable",
-    "note_indices": [
-      4
-    ],
-    "start_s": 52.81,
-    "end_s": 52.87,
-    "confidence": 1.0,
-    "params": {
-      "start_c": 6461.4,
-      "end_c": 6487.7,
-      "max_dev_c": 13.5,
-      "drift_c_per_s": 437.9
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "stable",
-    "note_indices": [
-      5
-    ],
-    "start_s": 52.98,
-    "end_s": 53.05,
-    "confidence": 1.0,
-    "params": {
-      "start_c": 6528.1,
-      "end_c": 6548.9,
-      "max_dev_c": 10.8,
-      "drift_c_per_s": 297.1
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "stable",
-    "note_indices": [
-      9
-    ],
-    "start_s": 55.08,
-    "end_s": 55.14,
-    "confidence": 1.0,
-    "params": {
-      "start_c": 6833.8,
-      "end_c": 6809.4,
-      "max_dev_c": 15.8,
-      "drift_c_per_s": -407.3
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
-  },
-  {
-    "type": "stable",
-    "note_indices": [
-      10
-    ],
-    "start_s": 55.25,
-    "end_s": 55.41,
-    "confidence": 1.0,
-    "params": {
-      "start_c": 6696.3,
-      "end_c": 6414.8,
-      "max_dev_c": 154.6,
-      "drift_c_per_s": -1765.4
-    },
-    "evidence": {
-      "extractor": "fcpe"
-    }
+  "evidence": {
+   "extractor": "fcpe"
   }
+ },
+ {
+  "type": "scoop",
+  "note_indices": [
+   0
+  ],
+  "start_s": 51.14,
+  "end_s": 51.4,
+  "confidence": 0.838,
+  "params": {
+   "anchor_nucleus_s": 51.165,
+   "depth_c": 70.2,
+   "peak_time_ms": 35.5,
+   "settle_time_ms": 235.5,
+   "baseline_c": 5724.3,
+   "direction": "down-up",
+   "monotonicity": 0.92,
+   "shape": "linear"
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "undershoot",
+  "note_indices": [
+   1
+  ],
+  "start_s": 51.57,
+  "end_s": 51.93,
+  "confidence": 1.0,
+  "params": {
+   "anchor_nucleus_s": 51.571,
+   "depth_c": 171.1,
+   "peak_time_ms": 88.8,
+   "settle_time_ms": null,
+   "baseline_c": 5914.4,
+   "direction": "down-up",
+   "monotonicity": 0.81,
+   "shape": "linear"
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "scoop",
+  "note_indices": [
+   2
+  ],
+  "start_s": 51.87,
+  "end_s": 52.34,
+  "confidence": 1.0,
+  "params": {
+   "anchor_nucleus_s": 51.943,
+   "depth_c": 261.6,
+   "peak_time_ms": -72.8,
+   "settle_time_ms": null,
+   "baseline_c": 6212.2,
+   "direction": "down-up",
+   "monotonicity": 0.68,
+   "shape": "irregular"
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "scoop",
+  "note_indices": [
+   3
+  ],
+  "start_s": 52.38,
+  "end_s": 52.61,
+  "confidence": 1.0,
+  "params": {
+   "anchor_nucleus_s": 52.394,
+   "depth_c": 207.3,
+   "peak_time_ms": 46.1,
+   "settle_time_ms": 216.1,
+   "baseline_c": 6398.7,
+   "direction": "down-up",
+   "monotonicity": 0.88,
+   "shape": "irregular"
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "undershoot",
+  "note_indices": [
+   6
+  ],
+  "start_s": 53.23,
+  "end_s": 53.61,
+  "confidence": 0.8,
+  "params": {
+   "anchor_nucleus_s": 53.254,
+   "depth_c": 60.4,
+   "peak_time_ms": 65.7,
+   "settle_time_ms": null,
+   "baseline_c": 5941.0,
+   "direction": "down-up",
+   "monotonicity": 0.85,
+   "shape": "linear"
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "scoop",
+  "note_indices": [
+   7
+  ],
+  "start_s": 53.6,
+  "end_s": 53.96,
+  "confidence": 1.0,
+  "params": {
+   "anchor_nucleus_s": 53.604,
+   "depth_c": 175.8,
+   "peak_time_ms": 36.5,
+   "settle_time_ms": null,
+   "baseline_c": 6390.5,
+   "direction": "down-up",
+   "monotonicity": 0.72,
+   "shape": "irregular"
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "overshoot",
+  "note_indices": [
+   8
+  ],
+  "start_s": 54.3,
+  "end_s": 54.73,
+  "confidence": 1.0,
+  "params": {
+   "anchor_nucleus_s": 54.337,
+   "depth_c": 210.7,
+   "peak_time_ms": 12.7,
+   "settle_time_ms": null,
+   "baseline_c": 6005.9,
+   "direction": "up-down",
+   "monotonicity": 0.65,
+   "shape": "irregular"
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "scoop",
+  "note_indices": [
+   9
+  ],
+  "start_s": 54.83,
+  "end_s": 55.07,
+  "confidence": 1.0,
+  "params": {
+   "anchor_nucleus_s": 54.855,
+   "depth_c": 252.6,
+   "peak_time_ms": 54.9,
+   "settle_time_ms": 214.9,
+   "baseline_c": 6900.7,
+   "direction": "down-up",
+   "monotonicity": 0.69,
+   "shape": "irregular"
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "portamento",
+  "note_indices": [
+   0,
+   1
+  ],
+  "start_s": 51.44,
+  "end_s": 51.72,
+  "confidence": 0.726,
+  "params": {
+   "from_note": 0,
+   "to_note": 1,
+   "departure_rel_prev_end_ms": -140.2,
+   "arrival_rel_next_start_ms": 139.8,
+   "arrival_relaxed": true,
+   "arrival_offset_c": 50.6,
+   "span_cents": 157.6,
+   "duration_ms": 280.0,
+   "direction": "up",
+   "trajectory_type": "stepped",
+   "boundary_ms": 0.0,
+   "voiced_coverage": 0.55,
+   "slope_profile": [
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.546,
+    0.08,
+    -0.224,
+    -0.265,
+    -0.425,
+    -0.493,
+    -0.769,
+    -1.031,
+    -1.089,
+    -0.526,
+    0.256,
+    1.674,
+    3.962,
+    6.602,
+    8.467,
+    8.818
+   ],
+   "curv_profile": [
+    -0.0,
+    -0.0,
+    -0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    -6.516,
+    -10.777,
+    -4.834,
+    -2.822,
+    -3.189,
+    -4.81,
+    -7.538,
+    -4.473,
+    7.073,
+    18.819,
+    30.801,
+    51.896,
+    68.989,
+    63.069,
+    31.03,
+    9.83
+   ],
+   "norm_traj": [
+    0.0,
+    0.019,
+    0.039,
+    0.058,
+    0.078,
+    0.097,
+    0.117,
+    0.136,
+    0.156,
+    0.175,
+    0.195,
+    0.214,
+    0.234,
+    0.253,
+    0.273,
+    0.259,
+    0.257,
+    0.24,
+    0.227,
+    0.205,
+    0.172,
+    0.131,
+    0.094,
+    0.094,
+    0.112,
+    0.213,
+    0.395,
+    0.685,
+    1.0
+   ]
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "portamento",
+  "note_indices": [
+   1,
+   2
+  ],
+  "start_s": 51.85,
+  "end_s": 52.15,
+  "confidence": 0.998,
+  "params": {
+   "from_note": 1,
+   "to_note": 2,
+   "departure_rel_prev_end_ms": -89.6,
+   "arrival_rel_next_start_ms": 210.4,
+   "arrival_relaxed": false,
+   "arrival_offset_c": 0.0,
+   "span_cents": 296.5,
+   "duration_ms": 300.0,
+   "direction": "up",
+   "trajectory_type": "irregular",
+   "boundary_ms": 0.0,
+   "voiced_coverage": 1.0,
+   "slope_profile": [
+    1.883,
+    1.832,
+    1.283,
+    0.444,
+    0.533,
+    4.888,
+    6.649,
+    3.863,
+    2.54,
+    2.79,
+    3.672,
+    2.866,
+    1.587,
+    0.523,
+    -0.72,
+    -2.351,
+    -3.249,
+    -3.257,
+    -2.64,
+    -1.0,
+    0.589,
+    2.296,
+    3.652,
+    3.704,
+    2.851,
+    1.56,
+    0.468,
+    -0.381,
+    -1.362,
+    -2.775,
+    -3.588
+   ],
+   "curv_profile": [
+    -1.505,
+    -8.987,
+    -20.824,
+    -11.254,
+    66.655,
+    91.734,
+    -15.378,
+    -61.626,
+    -16.091,
+    16.977,
+    1.144,
+    -31.284,
+    -35.149,
+    -34.599,
+    -43.111,
+    -37.928,
+    -13.591,
+    9.122,
+    33.852,
+    48.443,
+    49.442,
+    45.942,
+    21.122,
+    -12.021,
+    -32.161,
+    -35.742,
+    -29.116,
+    -27.451,
+    -35.905,
+    -33.385,
+    -24.39
+   ],
+   "norm_traj": [
+    0.0,
+    0.063,
+    0.122,
+    0.148,
+    0.152,
+    0.184,
+    0.478,
+    0.627,
+    0.735,
+    0.796,
+    0.921,
+    1.041,
+    1.112,
+    1.147,
+    1.147,
+    1.099,
+    0.99,
+    0.882,
+    0.773,
+    0.706,
+    0.706,
+    0.746,
+    0.86,
+    0.989,
+    1.106,
+    1.179,
+    1.21,
+    1.21,
+    1.185,
+    1.12,
+    1.0
+   ]
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "portamento",
+  "note_indices": [
+   2,
+   3
+  ],
+  "start_s": 52.23,
+  "end_s": 52.56,
+  "confidence": 0.771,
+  "params": {
+   "from_note": 2,
+   "to_note": 3,
+   "departure_rel_prev_end_ms": -159.6,
+   "arrival_rel_next_start_ms": 170.4,
+   "arrival_relaxed": false,
+   "arrival_offset_c": 0.0,
+   "span_cents": 204.2,
+   "duration_ms": 330.0,
+   "direction": "up",
+   "trajectory_type": "irregular",
+   "boundary_ms": 0.0,
+   "voiced_coverage": 0.59,
+   "slope_profile": [
+    -2.262,
+    -0.514,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    1.234,
+    -0.089,
+    -3.893,
+    -5.672,
+    -3.296,
+    -1.027,
+    -0.216,
+    0.512,
+    1.109,
+    1.1,
+    1.032,
+    1.161,
+    1.541,
+    2.264,
+    3.44,
+    4.879,
+    5.925,
+    5.866,
+    5.472
+   ],
+   "curv_profile": [
+    57.687,
+    57.687,
+    28.843,
+    -0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    -21.833,
+    -84.593,
+    -92.113,
+    9.854,
+    76.645,
+    50.813,
+    25.397,
+    21.865,
+    9.702,
+    -1.267,
+    1.002,
+    8.399,
+    18.194,
+    31.335,
+    43.156,
+    41.005,
+    16.288,
+    -7.485,
+    -13.027
+   ],
+   "norm_traj": [
+    0.0,
+    -0.069,
+    -0.031,
+    0.006,
+    0.044,
+    0.081,
+    0.118,
+    0.156,
+    0.193,
+    0.231,
+    0.268,
+    0.305,
+    0.343,
+    0.38,
+    0.417,
+    0.455,
+    0.492,
+    0.449,
+    0.256,
+    0.106,
+    0.057,
+    0.043,
+    0.043,
+    0.074,
+    0.111,
+    0.141,
+    0.173,
+    0.212,
+    0.267,
+    0.349,
+    0.475,
+    0.644,
+    0.834,
+    1.0
+   ]
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "portamento",
+  "note_indices": [
+   4,
+   5
+  ],
+  "start_s": 52.92,
+  "end_s": 53.01,
+  "confidence": 0.942,
+  "params": {
+   "from_note": 4,
+   "to_note": 5,
+   "departure_rel_prev_end_ms": -10.2,
+   "arrival_rel_next_start_ms": 79.8,
+   "arrival_relaxed": false,
+   "arrival_offset_c": 0.0,
+   "span_cents": 212.6,
+   "duration_ms": 90.0,
+   "direction": "up",
+   "trajectory_type": "stepped",
+   "boundary_ms": 0.0,
+   "voiced_coverage": 1.0,
+   "slope_profile": [
+    7.764,
+    4.134,
+    0.47,
+    0.438,
+    0.34,
+    0.13,
+    0.01,
+    -0.089,
+    -0.202,
+    -0.227
+   ],
+   "curv_profile": [
+    -32.674,
+    -32.827,
+    -16.632,
+    -0.583,
+    -1.384,
+    -1.484,
+    -0.986,
+    -0.957,
+    -0.623,
+    -0.224
+   ],
+   "norm_traj": [
+    0.0,
+    0.863,
+    0.919,
+    0.967,
+    1.016,
+    1.043,
+    1.045,
+    1.045,
+    1.025,
+    1.0
+   ]
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "portamento",
+  "note_indices": [
+   5,
+   6
+  ],
+  "start_s": 53.05,
+  "end_s": 53.43,
+  "confidence": 0.815,
+  "params": {
+   "from_note": 5,
+   "to_note": 6,
+   "departure_rel_prev_end_ms": -200.0,
+   "arrival_rel_next_start_ms": 180.0,
+   "arrival_relaxed": false,
+   "arrival_offset_c": 0.0,
+   "span_cents": -697.7,
+   "duration_ms": 380.0,
+   "direction": "down",
+   "trajectory_type": "stepped",
+   "boundary_ms": 0.0,
+   "voiced_coverage": 0.54,
+   "slope_profile": [
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    2.051,
+    1.055,
+    0.124,
+    0.309,
+    0.377,
+    0.296,
+    0.215,
+    0.107,
+    0.065,
+    0.039,
+    -0.005,
+    -0.186,
+    -0.542,
+    -0.814,
+    -1.033,
+    -1.148,
+    -0.955,
+    -0.386,
+    0.375,
+    1.273,
+    1.796
+   ],
+   "curv_profile": [
+    -0.001,
+    -0.001,
+    -0.001,
+    -0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    -18.914,
+    -36.608,
+    -14.177,
+    4.81,
+    -0.253,
+    -3.088,
+    -3.592,
+    -2.851,
+    -1.284,
+    -1.315,
+    -4.278,
+    -10.208,
+    -11.934,
+    -9.326,
+    -6.343,
+    1.48,
+    14.485,
+    25.273,
+    31.519,
+    26.988,
+    19.857
+   ],
+   "norm_traj": [
+    -0.0,
+    0.054,
+    0.108,
+    0.162,
+    0.216,
+    0.27,
+    0.324,
+    0.378,
+    0.432,
+    0.486,
+    0.54,
+    0.594,
+    0.648,
+    0.702,
+    0.755,
+    0.809,
+    0.863,
+    0.917,
+    0.971,
+    1.025,
+    1.027,
+    1.032,
+    1.043,
+    1.052,
+    1.059,
+    1.063,
+    1.064,
+    1.066,
+    1.066,
+    1.066,
+    1.057,
+    1.038,
+    1.014,
+    0.983,
+    0.953,
+    0.933,
+    0.933,
+    0.953,
+    1.0
+   ]
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "portamento",
+  "note_indices": [
+   6,
+   7
+  ],
+  "start_s": 53.47,
+  "end_s": 53.77,
+  "confidence": 0.884,
+  "params": {
+   "from_note": 6,
+   "to_note": 7,
+   "departure_rel_prev_end_ms": -140.4,
+   "arrival_rel_next_start_ms": 159.6,
+   "arrival_relaxed": true,
+   "arrival_offset_c": 24.8,
+   "span_cents": 440.8,
+   "duration_ms": 300.0,
+   "direction": "up",
+   "trajectory_type": "stepped",
+   "boundary_ms": 0.0,
+   "voiced_coverage": 0.71,
+   "slope_profile": [
+    2.005,
+    1.89,
+    1.937,
+    1.676,
+    1.458,
+    1.661,
+    1.661,
+    1.661,
+    1.661,
+    1.661,
+    1.661,
+    1.661,
+    1.661,
+    1.661,
+    0.426,
+    -1.169,
+    -1.151,
+    -0.387,
+    0.198,
+    0.362,
+    0.193,
+    0.029,
+    -0.127,
+    -0.243,
+    -0.117,
+    0.157,
+    0.558,
+    1.318,
+    2.527,
+    3.062,
+    2.905
+   ],
+   "curv_profile": [
+    -3.446,
+    -1.027,
+    -3.206,
+    -7.182,
+    -0.237,
+    3.042,
+    0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    -0.0,
+    -18.519,
+    -42.439,
+    -23.661,
+    11.723,
+    20.236,
+    11.23,
+    -0.066,
+    -4.982,
+    -4.801,
+    -4.091,
+    0.153,
+    6.001,
+    10.112,
+    17.422,
+    29.548,
+    26.163,
+    5.666,
+    -4.72
+   ],
+   "norm_traj": [
+    0.0,
+    0.067,
+    0.126,
+    0.196,
+    0.238,
+    0.293,
+    0.348,
+    0.404,
+    0.459,
+    0.515,
+    0.57,
+    0.625,
+    0.681,
+    0.736,
+    0.791,
+    0.764,
+    0.713,
+    0.688,
+    0.688,
+    0.701,
+    0.712,
+    0.714,
+    0.714,
+    0.705,
+    0.697,
+    0.697,
+    0.708,
+    0.735,
+    0.796,
+    0.903,
+    1.0
+   ]
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "portamento",
+  "note_indices": [
+   8,
+   9
+  ],
+  "start_s": 54.55,
+  "end_s": 55.02,
+  "confidence": 0.883,
+  "params": {
+   "from_note": 8,
+   "to_note": 9,
+   "departure_rel_prev_end_ms": -300.0,
+   "arrival_rel_next_start_ms": 170.0,
+   "arrival_relaxed": false,
+   "arrival_offset_c": 0.0,
+   "span_cents": 687.1,
+   "duration_ms": 470.0,
+   "direction": "up",
+   "trajectory_type": "irregular",
+   "boundary_ms": 0.0,
+   "voiced_coverage": 0.71,
+   "slope_profile": [
+    -13.792,
+    -9.794,
+    -6.176,
+    -5.769,
+    -2.491,
+    0.711,
+    2.367,
+    2.981,
+    2.845,
+    3.189,
+    3.254,
+    3.506,
+    3.189,
+    1.836,
+    2.025,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    2.914,
+    0.114,
+    -2.607,
+    -1.815,
+    -0.763,
+    -0.309,
+    -0.192,
+    -0.182,
+    -0.087,
+    0.001,
+    0.133,
+    0.468,
+    0.997,
+    1.659,
+    2.13,
+    2.436,
+    2.762,
+    2.917,
+    2.608,
+    2.3
+   ],
+   "curv_profile": [
+    187.946,
+    178.993,
+    94.58,
+    86.602,
+    152.285,
+    114.159,
+    53.331,
+    11.236,
+    4.909,
+    9.6,
+    7.448,
+    -1.525,
+    -39.259,
+    -27.35,
+    25.341,
+    20.892,
+    0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    0.0,
+    0.0,
+    -65.807,
+    -129.749,
+    -45.321,
+    43.33,
+    35.383,
+    13.425,
+    2.988,
+    2.478,
+    4.286,
+    5.168,
+    10.996,
+    20.293,
+    27.987,
+    26.638,
+    18.259,
+    14.847,
+    11.286,
+    -3.616,
+    -14.489,
+    -14.49
+   ],
+   "norm_traj": [
+    0.0,
+    -0.293,
+    -0.417,
+    -0.556,
+    -0.662,
+    -0.662,
+    -0.632,
+    -0.561,
+    -0.505,
+    -0.44,
+    -0.369,
+    -0.302,
+    -0.22,
+    -0.166,
+    -0.142,
+    -0.08,
+    -0.018,
+    0.044,
+    0.106,
+    0.168,
+    0.23,
+    0.292,
+    0.354,
+    0.416,
+    0.478,
+    0.54,
+    0.602,
+    0.664,
+    0.726,
+    0.788,
+    0.731,
+    0.677,
+    0.654,
+    0.645,
+    0.64,
+    0.636,
+    0.633,
+    0.633,
+    0.633,
+    0.638,
+    0.653,
+    0.681,
+    0.723,
+    0.771,
+    0.827,
+    0.889,
+    0.951,
+    1.0
+   ]
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "portamento",
+  "note_indices": [
+   9,
+   10
+  ],
+  "start_s": 55.15,
+  "end_s": 55.2,
+  "confidence": 1.0,
+  "params": {
+   "from_note": 9,
+   "to_note": 10,
+   "departure_rel_prev_end_ms": -50.0,
+   "arrival_rel_next_start_ms": 0.0,
+   "arrival_relaxed": false,
+   "arrival_offset_c": 0.0,
+   "span_cents": -305.3,
+   "duration_ms": 50.0,
+   "direction": "down",
+   "trajectory_type": "convex",
+   "boundary_ms": 0.0,
+   "voiced_coverage": 1.0,
+   "slope_profile": [
+    1.731,
+    1.652,
+    1.3,
+    0.732,
+    0.334,
+    0.23
+   ],
+   "curv_profile": [
+    -0.394,
+    -1.078,
+    -2.3,
+    -2.415,
+    -1.255,
+    -0.519
+   ],
+   "norm_traj": [
+    -0.0,
+    0.346,
+    0.661,
+    0.866,
+    0.954,
+    1.0
+   ]
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "artifact",
+  "note_indices": [
+   3,
+   4,
+   5
+  ],
+  "start_s": 52.92,
+  "end_s": 52.93,
+  "confidence": 0.45,
+  "params": {
+   "n_frames": 2,
+   "artifact_kinds": [
+    "voiced_conflict"
+   ],
+   "mean_conf": 0.4
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "artifact",
+  "note_indices": [
+   10,
+   11
+  ],
+  "start_s": 56.74,
+  "end_s": 56.74,
+  "confidence": 0.45,
+  "params": {
+   "n_frames": 1,
+   "artifact_kinds": [
+    "voiced_conflict"
+   ],
+   "mean_conf": 0.4
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "stable",
+  "note_indices": [
+   3
+  ],
+  "start_s": 52.62,
+  "end_s": 52.71,
+  "confidence": 1.0,
+  "params": {
+   "start_c": 6364.3,
+   "end_c": 6392.3,
+   "max_dev_c": 15.0,
+   "drift_c_per_s": 309.1
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "stable",
+  "note_indices": [
+   4
+  ],
+  "start_s": 52.82,
+  "end_s": 52.88,
+  "confidence": 1.0,
+  "params": {
+   "start_c": 6432.0,
+   "end_c": 6468.2,
+   "max_dev_c": 20.0,
+   "drift_c_per_s": 603.2
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "stable",
+  "note_indices": [
+   9
+  ],
+  "start_s": 55.08,
+  "end_s": 55.14,
+  "confidence": 1.0,
+  "params": {
+   "start_c": 6819.9,
+   "end_c": 6773.2,
+   "max_dev_c": 26.2,
+   "drift_c_per_s": -779.5
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ },
+ {
+  "type": "stable",
+  "note_indices": [
+   10
+  ],
+  "start_s": 55.25,
+  "end_s": 55.42,
+  "confidence": 1.0,
+  "params": {
+   "start_c": 6657.4,
+   "end_c": 6584.4,
+   "max_dev_c": 68.4,
+   "drift_c_per_s": -456.2
+  },
+  "evidence": {
+   "extractor": "fcpe"
+  }
+ }
 ]

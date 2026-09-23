@@ -1,53 +1,59 @@
 {
-  "matched_turns": 20,
-  "missing_turns": 3,
-  "extra_turns": 1,
-  "source_turns": 23,
-  "render_turns": 21,
-  "turn_timing_err_ms_med": 0.0,
-  "turn_amplitude_err_c_med": 2.5,
-  "turn_prominence_err_c_med": 13.2,
-  "sequence_edit_distance": 4,
-  "missing_turn_details": [
-    {
-      "frame_idx": 76,
-      "kind": "trough",
-      "value_c": 5775.7,
-      "prominence_c": 141.4
-    },
-    {
-      "frame_idx": 276,
-      "kind": "trough",
-      "value_c": 6336.2,
-      "prominence_c": 52.0
-    },
-    {
-      "frame_idx": 278,
-      "kind": "peak",
-      "value_c": 6338.6,
-      "prominence_c": 50.3
-    }
-  ],
-  "extra_turn_details": [
-    {
-      "frame_idx": 113,
-      "kind": "peak",
-      "value_c": 6300.1,
-      "prominence_c": 93.9
-    }
-  ],
-  "edge_uncertain_turn_details": {
-    "source": [
-      {
-        "frame_idx": 20,
-        "kind": "trough",
-        "value_c": 5674.6,
-        "prominence_c": 28.9,
-        "reason": "insufficient_two_sided_evidence"
-      }
-    ],
-    "render": []
+ "matched_turns": 20,
+ "missing_turns": 4,
+ "extra_turns": 1,
+ "source_turns": 24,
+ "render_turns": 21,
+ "turn_timing_err_ms_med": 0.0,
+ "turn_amplitude_err_c_med": 2.5,
+ "turn_prominence_err_c_med": 15.7,
+ "sequence_edit_distance": 4,
+ "missing_turn_details": [
+  {
+   "frame_idx": 50,
+   "kind": "trough",
+   "value_c": 5674.6,
+   "prominence_c": 28.7
   },
-  "valid_frames": 225,
-  "coverage": 0.945
+  {
+   "frame_idx": 106,
+   "kind": "trough",
+   "value_c": 5775.7,
+   "prominence_c": 141.4
+  },
+  {
+   "frame_idx": 306,
+   "kind": "trough",
+   "value_c": 6336.2,
+   "prominence_c": 44.2
+  },
+  {
+   "frame_idx": 308,
+   "kind": "peak",
+   "value_c": 6338.6,
+   "prominence_c": 50.0
+  }
+ ],
+ "extra_turn_details": [
+  {
+   "frame_idx": 143,
+   "kind": "peak",
+   "value_c": 6300.1,
+   "prominence_c": 94.0
+  }
+ ],
+ "edge_uncertain_turn_details": {
+  "source": [],
+  "render": [
+   {
+    "frame_idx": 51,
+    "kind": "trough",
+    "value_c": 5672.7,
+    "prominence_c": 30.8,
+    "reason": "insufficient_two_sided_evidence"
+   }
+  ]
+ },
+ "valid_frames": 230,
+ "coverage": 0.95
 }

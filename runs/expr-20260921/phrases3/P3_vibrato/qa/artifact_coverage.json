@@ -1,13 +1,12 @@
 {
-  "frame_state_ratio": {
-    "both_voiced": 0.5008,
-    "src_only": 0.052,
-    "neu_only": 0.0179,
-    "unvoiced": 0.0472,
-    "extractor_conflict": 0.0195,
-    "note_transition": 0.1902,
-    "gap": 0.1724
-  },
-  "artifact_regions": 9,
-  "artifact_frames_ratio": 0.0848
+ "frame_state_ratio": {
+  "both_voiced": 0.5008,
+  "src_only": 0.0537,
+  "neu_only": 0.0228,
+  "unvoiced": 0.0472,
+  "note_transition": 0.1967,
+  "gap": 0.1789
+ },
+ "artifact_regions": 6,
+ "artifact_frames_ratio": 0.0823
 }

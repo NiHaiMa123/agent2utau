@@ -1,116 +1,120 @@
 {
-  "matched_turns": 36,
-  "missing_turns": 8,
-  "extra_turns": 4,
-  "source_turns": 44,
-  "render_turns": 40,
-  "turn_timing_err_ms_med": 0.0,
-  "turn_amplitude_err_c_med": 3.1,
-  "turn_prominence_err_c_med": 5.6,
-  "sequence_edit_distance": 8,
-  "missing_turn_details": [
-    {
-      "frame_idx": 59,
-      "kind": "trough",
-      "value_c": 5898.6,
-      "prominence_c": 58.1
-    },
-    {
-      "frame_idx": 63,
-      "kind": "peak",
-      "value_c": 5906.6,
-      "prominence_c": 49.3
-    },
-    {
-      "frame_idx": 69,
-      "kind": "trough",
-      "value_c": 5829.0,
-      "prominence_c": 69.6
-    },
-    {
-      "frame_idx": 100,
-      "kind": "trough",
-      "value_c": 6120.4,
-      "prominence_c": 83.1
-    },
-    {
-      "frame_idx": 116,
-      "kind": "peak",
-      "value_c": 6290.7,
-      "prominence_c": 82.2
-    },
-    {
-      "frame_idx": 246,
-      "kind": "peak",
-      "value_c": 6183.4,
-      "prominence_c": 127.8
-    },
-    {
-      "frame_idx": 325,
-      "kind": "peak",
-      "value_c": 6236.3,
-      "prominence_c": 25.7
-    },
-    {
-      "frame_idx": 441,
-      "kind": "peak",
-      "value_c": 6642.5,
-      "prominence_c": 32.6
-    }
-  ],
-  "extra_turn_details": [
-    {
-      "frame_idx": 49,
-      "kind": "peak",
-      "value_c": 5915.6,
-      "prominence_c": 154.2
-    },
-    {
-      "frame_idx": 157,
-      "kind": "peak",
-      "value_c": 6453.8,
-      "prominence_c": 40.3
-    },
-    {
-      "frame_idx": 536,
-      "kind": "trough",
-      "value_c": 6575.6,
-      "prominence_c": 43.2
-    },
-    {
-      "frame_idx": 551,
-      "kind": "trough",
-      "value_c": 6537.6,
-      "prominence_c": 86.0
-    }
-  ],
-  "edge_uncertain_turn_details": {
-    "source": [
-      {
-        "frame_idx": 217,
-        "kind": "peak",
-        "value_c": 6136.5,
-        "prominence_c": 248.5,
-        "reason": "insufficient_two_sided_evidence"
-      },
-      {
-        "frame_idx": 552,
-        "kind": "trough",
-        "value_c": 6554.3,
-        "prominence_c": 67.1,
-        "reason": "insufficient_two_sided_evidence"
-      }
-    ],
-    "render": [
-      {
-        "frame_idx": 339,
-        "kind": "trough",
-        "value_c": 6111.4,
-        "prominence_c": 108.6,
-        "reason": "insufficient_two_sided_evidence"
-      }
-    ]
+ "matched_turns": 35,
+ "missing_turns": 9,
+ "extra_turns": 5,
+ "source_turns": 44,
+ "render_turns": 40,
+ "turn_timing_err_ms_med": 0.0,
+ "turn_amplitude_err_c_med": 8.5,
+ "turn_prominence_err_c_med": 32.0,
+ "sequence_edit_distance": 8,
+ "missing_turn_details": [
+  {
+   "frame_idx": 93,
+   "kind": "peak",
+   "value_c": 5906.8,
+   "prominence_c": 55.7
   },
-  "valid_frames": 418,
-  "coverage": 0.917
+  {
+   "frame_idx": 99,
+   "kind": "trough",
+   "value_c": 5828.9,
+   "prominence_c": 68.8
+  },
+  {
+   "frame_idx": 130,
+   "kind": "trough",
+   "value_c": 6120.0,
+   "prominence_c": 83.7
+  },
+  {
+   "frame_idx": 146,
+   "kind": "peak",
+   "value_c": 6290.6,
+   "prominence_c": 82.1
+  },
+  {
+   "frame_idx": 234,
+   "kind": "peak",
+   "value_c": 5890.4,
+   "prominence_c": 108.0
+  },
+  {
+   "frame_idx": 355,
+   "kind": "peak",
+   "value_c": 6236.4,
+   "prominence_c": 27.3
+  },
+  {
+   "frame_idx": 438,
+   "kind": "trough",
+   "value_c": 6609.5,
+   "prominence_c": 269.4
+  },
+  {
+   "frame_idx": 442,
+   "kind": "peak",
+   "value_c": 6612.3,
+   "prominence_c": 283.6
+  },
+  {
+   "frame_idx": 471,
+   "kind": "peak",
+   "value_c": 6642.7,
+   "prominence_c": 32.7
+  }
+ ],
+ "extra_turn_details": [
+  {
+   "frame_idx": 79,
+   "kind": "peak",
+   "value_c": 5928.7,
+   "prominence_c": 133.3
+  },
+  {
+   "frame_idx": 187,
+   "kind": "peak",
+   "value_c": 6456.4,
+   "prominence_c": 41.8
+  },
+  {
+   "frame_idx": 277,
+   "kind": "trough",
+   "value_c": 6184.8,
+   "prominence_c": 95.2
+  },
+  {
+   "frame_idx": 369,
+   "kind": "trough",
+   "value_c": 6102.1,
+   "prominence_c": 113.5
+  },
+  {
+   "frame_idx": 566,
+   "kind": "trough",
+   "value_c": 6573.5,
+   "prominence_c": 43.7
+  }
+ ],
+ "edge_uncertain_turn_details": {
+  "source": [
+   {
+    "frame_idx": 370,
+    "kind": "trough",
+    "value_c": 6100.8,
+    "prominence_c": 111.6,
+    "reason": "insufficient_two_sided_evidence"
+   },
+   {
+    "frame_idx": 582,
+    "kind": "trough",
+    "value_c": 6553.5,
+    "prominence_c": 67.9,
+    "reason": "insufficient_two_sided_evidence"
+   }
+  ],
+  "render": []
+ },
+ "valid_frames": 423,
+ "coverage": 0.916
 }

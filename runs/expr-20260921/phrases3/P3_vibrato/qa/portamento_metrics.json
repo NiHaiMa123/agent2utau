@@ -1,54 +1,54 @@
 [
-  {
-    "from_note": 1,
-    "state": "missing"
-  },
-  {
-    "from_note": 2,
-    "state": "matched",
-    "arrival_relaxed": false,
-    "arrival_offset_c": 0.0,
-    "traj_match": true,
-    "delta_span_c": -7.3,
-    "delta_start_ms": 160.0,
-    "delta_end_ms": 0.0,
-    "slope_profile_rmse": 12.771,
-    "curv_profile_rmse": 299.392
-  },
-  {
-    "from_note": 5,
-    "state": "matched",
-    "arrival_relaxed": false,
-    "arrival_offset_c": 0.0,
-    "traj_match": true,
-    "delta_span_c": 2.1,
-    "delta_start_ms": 0.0,
-    "delta_end_ms": 0.0,
-    "slope_profile_rmse": 6.433,
-    "curv_profile_rmse": 221.837
-  },
-  {
-    "from_note": 8,
-    "state": "matched",
-    "arrival_relaxed": false,
-    "arrival_offset_c": 0.0,
-    "traj_match": true,
-    "delta_span_c": 4.5,
-    "delta_start_ms": 0.0,
-    "delta_end_ms": 0.0,
-    "slope_profile_rmse": 1.008,
-    "curv_profile_rmse": 10.31
-  },
-  {
-    "from_note": 9,
-    "state": "matched",
-    "arrival_relaxed": false,
-    "arrival_offset_c": 0.0,
-    "traj_match": false,
-    "delta_span_c": 24.8,
-    "delta_start_ms": 10.0,
-    "delta_end_ms": 0.0,
-    "slope_profile_rmse": 1.001,
-    "curv_profile_rmse": 5.571
-  }
+ {
+  "from_note": 1,
+  "state": "missing"
+ },
+ {
+  "from_note": 2,
+  "state": "matched",
+  "arrival_relaxed": false,
+  "arrival_offset_c": 0.0,
+  "traj_match": true,
+  "delta_span_c": -32.1,
+  "delta_start_ms": 140.0,
+  "delta_end_ms": 0.0,
+  "slope_profile_rmse": 2.563,
+  "curv_profile_rmse": 29.702
+ },
+ {
+  "from_note": 5,
+  "state": "matched",
+  "arrival_relaxed": false,
+  "arrival_offset_c": 0.0,
+  "traj_match": true,
+  "delta_span_c": -5.0,
+  "delta_start_ms": 0.0,
+  "delta_end_ms": -110.0,
+  "slope_profile_rmse": 2.254,
+  "curv_profile_rmse": 41.6
+ },
+ {
+  "from_note": 8,
+  "state": "matched",
+  "arrival_relaxed": false,
+  "arrival_offset_c": 0.0,
+  "traj_match": true,
+  "delta_span_c": 5.2,
+  "delta_start_ms": 0.0,
+  "delta_end_ms": 0.0,
+  "slope_profile_rmse": 1.061,
+  "curv_profile_rmse": 11.726
+ },
+ {
+  "from_note": 9,
+  "state": "matched",
+  "arrival_relaxed": false,
+  "arrival_offset_c": 0.0,
+  "traj_match": false,
+  "delta_span_c": 20.6,
+  "delta_start_ms": 10.0,
+  "delta_end_ms": 230.0,
+  "slope_profile_rmse": 3.79,
+  "curv_profile_rmse": 52.04
+ }
 ]
