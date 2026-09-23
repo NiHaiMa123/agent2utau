@@ -1583,3 +1583,19 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   not provisional.
 - Round B STOP satisfied; Round C (production regeneration with
   `source_edge_uncertain` core scoring) remains reviewer-locked.
+
+### Round B rerun under expanded lane check (@e27a314, artifacts 7095c07)
+
+- Reviewer required explicit non-portamento lane preservation:
+  `scoop/undershoot/overshoot/ornament` matched/source_only/ambiguous/
+  render_only on BOTH families + vibrato missing-event count.
+- Result: **BLOCKED** — neither ownership dominates.
+  - `event` protects discrete lanes: fcpe unresolved 1 vs 2, render-only
+    extras 1 vs 2; rmvpe extras 4 vs 5 (full-note pitch.data ownership
+    does swallow discrete event content).
+  - `full_note` protects the RMVPE event-shape gate: `event` adds a
+    blocking `distortion` at note 9 (slide target).
+  - vibrato missing 0/0; out-of-lane 7.0c vs 8.1c (within +5c).
+- The trade-off is real and committed, not hidden.  Any future P2
+  ownership change must address BOTH the note-9 RMVPE distortion and
+  the discrete-lane absorption; Round C remains reviewer-locked.
