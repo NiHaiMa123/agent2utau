@@ -1618,3 +1618,20 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   narrower ownership vector exists.  P2 ownership decided on causal
   evidence, not aggregate counts.
 - Round B2 STOP satisfied; Round C remains reviewer-locked.
+
+### Round B2 exhaustive rerun (@1e52db0, artifacts 92fe97f)
+
+- Reviewer correctly rejected "no admissible vector" as unproven — 4 of
+  8 vectors were untested.  The tool now enumerates the full 2^N
+  state-space with deterministic selection (min owned duration, then
+  out-of-lane med |err|, then label).
+- Exhaustive result over lanes {2,5,7}: EVERY lane7=event vector
+  (FFE/FEE/EFE/EEE) reproduces RMVPE note9 `distortion` — lane 7 must
+  stay full_note.  EFF inadmissible (fcpe unresolved 2->3), EEF
+  inadmissible (fcpe extras 2->3).  Admissible: FFF, FEF.
+- preferred = `hybrid({2:full_note, 5:event, 7:full_note})` (label FEF,
+  1.24s owned vs FFF 1.46s): fcpe discrete lanes improve 2/2 -> 1/1 —
+  lane5's released tail [53.00,53.22] overlaps SOURCE undershoot n6 —
+  all gates pass.  The earlier all-full conclusion was wrong BECAUSE
+  the greedy hybrid never tested lane5-alone.
+- Round C remains reviewer-locked.
