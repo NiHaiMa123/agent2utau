@@ -543,6 +543,8 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
     p1 = {"abbr": "pitd", "xs": [0, 100], "ys": [0, 0]}
     p2 = {"abbr": "pitd", "xs": [0, 100], "ys": [5, 5]}
     note = _note(1.0)
+    es_ok = lambda sig: {"gate_passed": True, "n_blocking": 0,
+                         "events": []}
 
     def make_case(t2, t3=None):
         calls = {"render": []}
@@ -559,14 +561,16 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
     # path 1: v2 passes -> no rollback render attempted
     calls, cand, qa = make_case(_topo(10, 3, 2, 4))
     final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
-                                candidate_fn=cand, qa_fn=qa)
+                                candidate_fn=cand, qa_fn=qa,
+                                event_shape_fn=es_ok)
     assert rep["final_candidate"] == "v2" and not rep["blocked"]
     assert calls["render"] == ["v2"]
 
     # path 2: v2 fails, v3 passes -> v3 accepted after ONE extra render
     calls, cand, qa = make_case(_topo(8, 5, 4, 6), _topo(10, 3, 2, 4))
     final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
-                                candidate_fn=cand, qa_fn=qa)
+                                candidate_fn=cand, qa_fn=qa,
+                                event_shape_fn=es_ok)
     assert rep["final_candidate"] == "v3" and not rep["blocked"]
     assert calls["render"] == ["v2", "v3"]
     assert "shape_rollback" in rep
@@ -574,7 +578,8 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
     # path 3: v2 fails, v3 still fails -> keep v1, blocked, no 2nd retry
     calls, cand, qa = make_case(_topo(8, 5, 4, 6), _topo(9, 4, 3, 5))
     final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
-                                candidate_fn=cand, qa_fn=qa)
+                                candidate_fn=cand, qa_fn=qa,
+                                event_shape_fn=es_ok)
     assert rep["final_candidate"] == "v1" and rep["blocked"]
     assert calls["render"] == ["v2", "v3"]
 
@@ -598,9 +603,40 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
     lane = {"v1": qa1, "v2": qa2, "v3": qa1}
     final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
                                 candidate_fn=cand2,
-                                qa_fn=lambda s: lane[s[1]])
+                                qa_fn=lambda s: lane[s[1]],
+                                event_shape_fn=es_ok)
     assert rep["final_candidate"] == "v3"
     assert "portamento.missing" in rep["stages"][1]["violations"]
+
+    # absolute event-shape gate: a clean-topology candidate carrying a
+    # blocking event-shape class must NOT be accepted; rollback renders
+    # v3 once, and a still-blocking v3 keeps v1 and stays blocked.
+    es_block = {"v2": {"gate_passed": False, "n_blocking": 1,
+                       "events": [{"class": "distortion", "blocking": True,
+                                   "from_note": 0}]},
+                "v3": {"gate_passed": False, "n_blocking": 1,
+                       "events": [{"class": "render_voicing_loss",
+                                   "blocking": True, "from_note": 0}]},
+                "v1": {"gate_passed": True, "n_blocking": 0, "events": []}}
+    calls, cand, qa = make_case(_topo(10, 3, 2, 4), _topo(10, 3, 2, 4))
+    final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
+                                candidate_fn=cand, qa_fn=qa,
+                                event_shape_fn=lambda s: es_block[s[1]])
+    assert rep["final_candidate"] == "v1" and rep["blocked"]
+    assert calls["render"] == ["v2", "v3"]
+    v2v = rep["stages"][1]["violations"]
+    assert any(v.startswith("event_shape_gate:distortion") for v in v2v)
+    assert rep["stages"][1]["event_shape"]["status"] == "fail"
+
+    # fail-closed: the required event-shape gate NOT_RUN can never
+    # produce an accepted candidate — and no rollback render is wasted.
+    calls, cand, qa = make_case(_topo(10, 3, 2, 4), _topo(10, 3, 2, 4))
+    final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
+                                candidate_fn=cand, qa_fn=qa)
+    assert rep["final_candidate"] == "v1" and rep["blocked"]
+    assert rep["block_reason"] == "event-shape gate not run (fail-closed)"
+    assert calls["render"] == ["v2"]
+    assert rep["stages"][1]["event_shape"]["status"] == "not_run"
 
 
 def test_shape_rollback_restores_lost_turn_only():

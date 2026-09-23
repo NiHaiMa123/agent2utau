@@ -878,7 +878,7 @@ def event_lane_verdict(qa_v1, qa_cand):
 
 def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
                    part_pos_tick, *, candidate_fn, qa_fn,
-                   max_rollbacks=1):
+                   event_shape_fn=None, max_rollbacks=1):
     """Committed orchestrator for the closed-loop shape gate.
 
     The caller owns USTX writing, real OpenUtau render and F0->signal
@@ -889,26 +889,52 @@ def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
           return the render's contour signal.
       qa_fn(render_sig) -> topology dict (or full QA dict containing a
           "topology" sub-dict).
+      event_shape_fn(render_sig) -> absolute event-shape verdict
+          (contour_qa.event_shape_gate result: gate_passed only when
+          n_blocking == 0).  Plan §10 fail-closed: this is a required
+          gate, so a candidate cannot be accepted while it is NOT_RUN —
+          pass the callback in production.
 
     v2 PASS -> accept v2.  v2 FAIL -> shape_rollback -> real render v3
-    -> re-QA -> accept v3 only if the four-term gate is non-worse vs v1;
-    otherwise keep v1 and mark blocked.  At most `max_rollbacks` rollbacks
-    are attempted; a still-failing candidate is never iterated further.
+    -> re-QA -> accept v3 only if the four-term gate is non-worse vs v1
+    AND the absolute event-shape verdict is clean; otherwise keep v1 and
+    mark blocked.  At most `max_rollbacks` rollbacks are attempted; a
+    still-failing candidate is never iterated further.
 
     Returns (final_curve, report) where report carries per-stage topology,
-    the rollback report (if any), gate verdicts and final_candidate name.
+    event-shape verdicts, the rollback report (if any), gate verdicts and
+    final_candidate name.
     """
     def _topo(q):
         return q["topology"] if "topology" in q else q
 
+    def _event_shape(sig):
+        if event_shape_fn is None:
+            return {"status": "not_run", "gate_passed": False,
+                    "n_blocking": None, "events": []}
+        es = dict(event_shape_fn(sig))
+        es["status"] = "pass" if es.get("gate_passed") else "fail"
+        return es
+
+    def _es_violations(es):
+        if es["status"] == "not_run":
+            return ["event_shape_gate:not_run"]
+        blocking = [r for r in es.get("events", []) if r.get("blocking")]
+        return ["event_shape_gate:%s@note%s" % (r["class"], r["from_note"])
+                for r in blocking] or \
+               ["event_shape_gate:n_blocking=%s" % es.get("n_blocking")]
+
     report = {"stages": []}
 
     # v1 must already be rendered by the caller; its topology is computed
-    # here so the same code path measures both candidates.
+    # here so the same code path measures both candidates.  Its event
+    # shape is recorded for audit but does not gate: v1 is the verified
+    # baseline retained when candidates block.
     qa_v1 = qa_fn(render_v1_sig)
     t1 = _topo(qa_v1)
     report["stages"].append({"candidate": "v1", "qa": qa_v1,
                              "topology": t1,
+                             "event_shape": _event_shape(render_v1_sig),
                              "gate_passed": True, "violations": []})
 
     curve_v2, sig_v2 = candidate_fn(pitd_v2, "v2")
@@ -918,18 +944,27 @@ def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
     if ok2:
         ok2, lane_viol = event_lane_verdict(qa_v1, qa_v2)
         viol2 += lane_viol
+    es2 = _event_shape(sig_v2)
+    if not es2["gate_passed"]:
+        ok2 = False
+        viol2 += _es_violations(es2)
     report["stages"].append({"candidate": "v2", "qa": qa_v2,
-                             "topology": t2,
+                             "topology": t2, "event_shape": es2,
                              "gate_passed": ok2, "violations": viol2})
     if ok2:
         report["final_candidate"] = "v2"
         report["blocked"] = False
         return pitd_v2, report
 
-    if max_rollbacks < 1:
+    if max_rollbacks < 1 or event_shape_fn is None:
+        # Rollback cannot remediate a gate whose evidence was never
+        # collected; a missing required gate stays blocked (fail-closed).
         report["final_candidate"] = "v1"
         report["blocked"] = True
-        report["block_reason"] = "shape gate violated; rollbacks disabled"
+        report["block_reason"] = (
+            "event-shape gate not run (fail-closed)"
+            if event_shape_fn is None
+            else "shape gate violated; rollbacks disabled")
         return pitd_v1, report
 
     # v2 violated the gate -> bounded local rollback, at most once.
@@ -944,8 +979,12 @@ def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
     if ok3:
         ok3, lane_viol = event_lane_verdict(qa_v1, qa_v3)
         viol3 += lane_viol
+    es3 = _event_shape(sig_v3)
+    if not es3["gate_passed"]:
+        ok3 = False
+        viol3 += _es_violations(es3)
     report["stages"].append({"candidate": "v3", "qa": qa_v3,
-                             "topology": t3,
+                             "topology": t3, "event_shape": es3,
                              "gate_passed": ok3, "violations": viol3})
     if ok3:
         report["final_candidate"] = "v3"
