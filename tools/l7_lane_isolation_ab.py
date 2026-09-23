@@ -125,6 +125,10 @@ def _lane_nonworse(candidate, reference):
     )
 
 
+def _vibrato_missing_count(rows):
+    return sum(1 for r in rows if r.get("state") == "missing")
+
+
 def run_phrase(phrase, cfg, base_doc, caches, head):
     w0, w1 = drv.PHRASES[phrase]
     t0, t1 = w0 - drv.PAD_S, w1 + drv.PAD_S
@@ -241,12 +245,16 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
         "preferred": None}
     a_np = a["qa"]["non_portamento_event_lanes"]
     b_np = b["qa"]["non_portamento_event_lanes"]
+    a_vib_missing = _vibrato_missing_count(a["qa"]["vibrato"])
+    b_vib_missing = _vibrato_missing_count(b["qa"]["vibrato"])
     event_nonporta_ok = (
         _lane_nonworse(b_np["fcpe"], a_np["fcpe"])
-        and _lane_nonworse(b_np["rmvpe"], a_np["rmvpe"]))
+        and _lane_nonworse(b_np["rmvpe"], a_np["rmvpe"])
+        and b_vib_missing <= a_vib_missing)
     full_nonporta_ok = (
         _lane_nonworse(a_np["fcpe"], b_np["fcpe"])
-        and _lane_nonworse(a_np["rmvpe"], b_np["rmvpe"]))
+        and _lane_nonworse(a_np["rmvpe"], b_np["rmvpe"])
+        and a_vib_missing <= b_vib_missing)
 
     narrow_ok = (b["n_blocking_fcpe"] <= a["n_blocking_fcpe"]
                  and b["n_blocking_rmvpe"] <= a["n_blocking_rmvpe"]
@@ -268,6 +276,10 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
     verdict["non_portamento_event_lanes"] = {
         "full_note": a_np,
         "event": b_np,
+        "vibrato_missing": {
+            "full_note": a_vib_missing,
+            "event": b_vib_missing,
+        },
         "event_nonworse": event_nonporta_ok,
         "full_note_nonworse": full_nonporta_ok,
     }
