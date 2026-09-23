@@ -74,6 +74,26 @@ def _load_json(path):
         return None
 
 
+def _unresolved_fail_evidence(phrase_name):
+    """Return current source events whose probe verdict is FAIL_EVIDENCE.
+
+    A candidate cannot receive positive absolute/cross-extractor shape
+    acceptance against an unverified SOURCE target.  The probe report is
+    the committed failure-class authority until a later evidence
+    adjudication/regenerated probe resolves it.
+    """
+    p = drv.RUN_DIR / "probe_portamento" / f"{phrase_name}_probe_report.json"
+    rep = _load_json(p)
+    if rep is None:
+        return [], str(p)
+    notes = sorted({
+        int(r["from_note"]) for r in rep.get("events", [])
+        if r.get("verdict") == "FAIL_EVIDENCE"
+        and r.get("from_note") is not None
+    })
+    return notes, str(p)
+
+
 def _wav_stats(path):
     try:
         with wave.open(str(path)) as w:
@@ -169,6 +189,7 @@ def eval_phrase(pdir: Path) -> dict:
     # ---- absolute_event_shape_gate (primary fcpe family) --------------
     es = _load_json(pdir / "qa" / "event_shape_metrics.json")
     es_ev = f"{ev_base}/qa/event_shape_metrics.json"
+    evidence_unknown, evidence_ev = _unresolved_fail_evidence(name)
     if es is None:
         out["terms"]["absolute_event_shape_gate"] = _term(
             NOT_RUN, es_ev, "artifact missing")
@@ -176,11 +197,22 @@ def eval_phrase(pdir: Path) -> dict:
     else:
         n_block_a = int(es.get("n_blocking") or 0)
         blocking = [r for r in es.get("events", []) if r.get("blocking")]
+        known_blocking = [r for r in blocking
+                          if int(r.get("from_note", -1))
+                          not in set(evidence_unknown)]
+        if known_blocking:
+            abs_verdict = FAIL
+        elif evidence_unknown:
+            abs_verdict = UNKNOWN
+        else:
+            abs_verdict = PASS
         out["terms"]["absolute_event_shape_gate"] = _term(
-            FAIL if n_block_a else PASS, es_ev,
+            abs_verdict,
+            f"{es_ev}; {evidence_ev}" if evidence_unknown else es_ev,
             {"n_blocking": n_block_a,
              "blocking": [{"from_note": r["from_note"],
-                           "class": r["class"]} for r in blocking]})
+                           "class": r["class"]} for r in blocking],
+             "unverified_source_events": evidence_unknown})
 
     # ---- render_voicing_gate ------------------------------------------
     if es is None:
@@ -204,9 +236,16 @@ def eval_phrase(pdir: Path) -> dict:
         n_block_b = None
     else:
         n_block_b = int(es_b.get("n_blocking") or 0)
+        # Cross-family disagreement that already caused FAIL_EVIDENCE is
+        # uncertainty, not a positive cross-extractor PASS.  A later
+        # evidence adjudication/probe must resolve the SOURCE target.
+        cross_verdict = (FAIL if n_block_b else
+                         UNKNOWN if evidence_unknown else PASS)
         out["terms"]["cross_extractor_gate"] = _term(
-            FAIL if n_block_b else PASS, esb_ev,
-            {"n_blocking_rmvpe": n_block_b})
+            cross_verdict,
+            f"{esb_ev}; {evidence_ev}" if evidence_unknown else esb_ev,
+            {"n_blocking_rmvpe": n_block_b,
+             "unverified_source_events": evidence_unknown})
 
     out["blocking_issue_count"] = (
         None if n_block_a is None and n_block_b is None
@@ -291,6 +330,7 @@ def run_tests() -> dict:
 
 
 def main():
+    evaluator_head = drv._require_clean_worktree("l7_acceptance_eval")
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-tests", action="store_true")
     ap.add_argument("--out", default=str(drv.RUN_DIR / "acceptance_eval.json"))
@@ -343,7 +383,7 @@ def main():
         and glob_unk == 0 and glob_block == 0
     report = {
         "evaluator": "tools/l7_acceptance_eval.py",
-        "evaluator_head": drv._git_head(),
+        "evaluator_head": evaluator_head,
         "run_dir": str(drv.RUN_DIR),
         "terms": TERMS,
         "phrases": phrases,
