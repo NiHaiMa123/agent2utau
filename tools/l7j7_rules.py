@@ -101,13 +101,16 @@ def _note_evidence(tt, mm, a, b, tone):
     if core_rel.size >= 5:
         core_off = float(np.median(core_rel))
         ev["core_off_c"] = round(core_off, 1)
-        # linear body trend inside the core
+        # linear body trend inside the core; knots must not
+        # extrapolate beyond the consensus-supported interval
         A = np.vstack([core_t - core_t.mean(),
                        np.ones(core_t.size)]).T
         slope, off = np.linalg.lstsq(A, core_rel, rcond=None)[0]
         ev["trend_slope_c_s"] = round(float(slope), 1)
         ev["trend_span_c"] = round(float(slope) *
                                    (core_t.max() - core_t.min()), 1)
+        ev["core_support_s"] = [round(float(core_t.min()), 3),
+                               round(float(core_t.max()), 3)]
     # onset gesture: consensus median in first 150ms
     om = tt < min(a + 0.15, a + 0.35 * dur)
     if om.sum() >= 5 and ev.get("core_off_c") is not None:
@@ -198,9 +201,13 @@ def _compile_note(i, note, prev, nxt, ev, vib, ms_tick):
             slope = ev["trend_slope_c_s"]
             rec["classes"].append("linear_body")
             rec["body_slope_c_s"] = slope
-    # body knot times
+    # body knot times: clamp to the consensus-supported core so the
+    # linear trend is never extrapolated beyond measured evidence
     m0 = max(0.12, 0.2 * dur)
     c0, c1 = a + m0, b - m0
+    sup = ev.get("core_support_s")
+    if sup:
+        c0, c1 = max(c0, sup[0]), min(c1, sup[1])
     mid_t = (a + b) / 2.0
 
     def body_at(t):
