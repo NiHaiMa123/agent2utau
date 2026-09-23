@@ -404,15 +404,15 @@ tracks:
   - Yousa_Whisper
 voice_parts:
 - duration: 222653
-  name: P1_sustain_C3
+  name: P3_vibrato_ab
   comment: ''
   track_no: 0
-  position: 17568
+  position: 23741
   notes:
   - position: 480
-    duration: 403
+    duration: 480
     tone: 57
-    lyric: 圆
+    lyric: 回
     pitch:
       data:
       - x: -40
@@ -458,52 +458,19 @@ voice_parts:
       abbr: clr
       value: 3
     phoneme_overrides: []
-  - position: 883
-    duration: 355
+  - position: 960
+    duration: 326
     tone: 59
-    lyric: 圈
+    lyric: 忆
     pitch:
       data:
-      - x: -39.8
-        y: -19.74
+      - x: -40
+        y: 0
         shape: io
-      - x: -19.8
-        y: -19.01
+      - x: 0
+        y: 0
         shape: io
-      - x: 0.2
-        y: -16.05
-        shape: io
-      - x: 20.2
-        y: -14.89
-        shape: io
-      - x: 40.2
-        y: -14.68
-        shape: io
-      - x: 60.2
-        y: -16.81
-        shape: io
-      - x: 80.2
-        y: -18.43
-        shape: io
-      - x: 100.2
-        y: -17.85
-        shape: io
-      - x: 120.2
-        y: -13.77
-        shape: io
-      - x: 140.2
-        y: -5.0
-        shape: io
-      - x: 160.2
-        y: 1.27
-        shape: io
-      - x: 180.2
-        y: 1.71
-        shape: io
-      - x: 200.2
-        y: 1.38
-        shape: io
-      snap_first: false
+      snap_first: true
     vibrato:
       length: 0
       period: 175
@@ -540,49 +507,19 @@ voice_parts:
       abbr: clr
       value: 3
     phoneme_overrides: []
-  - position: 1238
-    duration: 346
+  - position: 1286
+    duration: 317
     tone: 62
-    lyric: 勾
+    lyric: 苦
     pitch:
       data:
-      - x: -79.6
-        y: -29.51
+      - x: -40
+        y: 0
         shape: io
-      - x: -59.6
-        y: -30.22
+      - x: 0
+        y: 0
         shape: io
-      - x: -39.6
-        y: -36.11
-        shape: io
-      - x: -19.6
-        y: -42.43
-        shape: io
-      - x: 0.4
-        y: -9.51
-        shape: io
-      - x: 20.4
-        y: 0.91
-        shape: io
-      - x: 40.4
-        y: 4.32
-        shape: io
-      - x: 60.4
-        y: 5.11
-        shape: io
-      - x: 80.4
-        y: 3.25
-        shape: io
-      - x: 100.4
-        y: 0.3
-        shape: io
-      - x: 120.4
-        y: -1.01
-        shape: io
-      - x: 140.4
-        y: -1.15
-        shape: io
-      snap_first: false
+      snap_first: true
     vibrato:
       length: 0
       period: 175
@@ -619,61 +556,19 @@ voice_parts:
       abbr: clr
       value: 3
     phoneme_overrides: []
-  - position: 1584
-    duration: 470
+  - position: 1603
+    duration: 394
     tone: 64
-    lyric: 勒
+    lyric: 涩
     pitch:
       data:
-      - x: -40.0
-        y: -21.13
+      - x: -40
+        y: 0
         shape: io
-      - x: -20.0
-        y: -21.74
+      - x: 0
+        y: 0
         shape: io
-      - x: 0.0
-        y: -19.29
-        shape: io
-      - x: 20.0
-        y: -18.3
-        shape: io
-      - x: 40.0
-        y: -19.58
-        shape: io
-      - x: 60.0
-        y: -22.21
-        shape: io
-      - x: 80.0
-        y: -24.74
-        shape: io
-      - x: 100.0
-        y: -24.17
-        shape: io
-      - x: 120.0
-        y: -20.29
-        shape: io
-      - x: 140.0
-        y: -11.99
-        shape: io
-      - x: 160.0
-        y: -1.73
-        shape: io
-      - x: 180.0
-        y: 3.4
-        shape: io
-      - x: 200.0
-        y: 3.04
-        shape: io
-      - x: 220.0
-        y: 0.19
-        shape: io
-      - x: 240.0
-        y: -2.19
-        shape: io
-      - x: 260.0
-        y: -1.16
-        shape: io
-      snap_first: false
+      snap_first: true
     vibrato:
       length: 0
       period: 175
@@ -710,10 +605,10 @@ voice_parts:
       abbr: clr
       value: 3
     phoneme_overrides: []
-  - position: 2054
-    duration: 442
+  - position: 1997
+    duration: 374
     tone: 66
-    lyric: 成
+    lyric: 的
     pitch:
       data:
       - x: -40
@@ -759,10 +654,10 @@ voice_parts:
       abbr: clr
       value: 3
     phoneme_overrides: []
-  - position: 2496
-    duration: 269
+  - position: 2371
+    duration: 365
     tone: 59
-    lyric: 指
+    lyric: 吻
     pitch:
       data:
       - x: -40
@@ -808,62 +703,66 @@ voice_parts:
       abbr: clr
       value: 3
     phoneme_overrides: []
-  - position: 2765
-    duration: 413
+  - position: 2736
+    duration: 374
     tone: 64
-    lyric: 纹
+    lyric: 痕
     pitch:
       data:
-      - x: -100.2
-        y: -48.75
+      - x: -40
+        y: 0
         shape: io
-      - x: -80.2
-        y: -50.94
+      - x: 0
+        y: 0
         shape: io
-      - x: -60.2
-        y: -55.22
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 3571
+    duration: 422
+    tone: 62
+    lyric: 是
+    pitch:
+      data:
+      - x: -40
+        y: 0
         shape: io
-      - x: -40.2
-        y: -59.83
-        shape: io
-      - x: -20.2
-        y: -60.2
-        shape: io
-      - x: -0.2
-        y: -51.47
-        shape: io
-      - x: 19.8
-        y: -33.83
-        shape: io
-      - x: 39.8
-        y: -19.4
-        shape: io
-      - x: 59.8
-        y: -13.24
-        shape: io
-      - x: 79.8
-        y: -12.21
-        shape: io
-      - x: 99.8
-        y: -12.74
-        shape: io
-      - x: 119.8
-        y: -13.11
-        shape: io
-      - x: 139.8
-        y: -12.25
-        shape: io
-      - x: 159.8
-        y: -7.57
-        shape: io
-      - x: 179.8
-        y: -0.31
-        shape: io
-      - x: 199.8
-        y: 5.01
-        shape: io
-      - x: 219.8
-        y: 5.7
+      - x: 0
+        y: 0
         shape: io
       snap_first: false
     vibrato:
@@ -873,6 +772,235 @@ voice_parts:
       in: 10
       out: 10
       shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 3993
+    duration: 173
+    tone: 68
+    lyric: 树
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 4166
+    duration: 202
+    tone: 69
+    lyric: +
+    pitch:
+      data:
+      - x: -109.8
+        y: -12.34
+        shape: io
+      - x: -89.8
+        y: -12.64
+        shape: io
+      - x: -69.8
+        y: -13.48
+        shape: io
+      - x: -49.8
+        y: -15.41
+        shape: io
+      - x: -29.8
+        y: -14.22
+        shape: io
+      - x: -9.8
+        y: -9.24
+        shape: io
+      - x: 10.2
+        y: -2.35
+        shape: io
+      - x: 30.2
+        y: 3.32
+        shape: io
+      - x: 50.2
+        y: 4.42
+        shape: io
+      - x: 70.2
+        y: 2.96
+        shape: io
+      - x: 90.2
+        y: 1.44
+        shape: io
+      - x: 110.2
+        y: 1.52
+        shape: io
+      - x: 130.2
+        y: 2.37
+        shape: io
+      snap_first: false
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 4368
+    duration: 345
+    tone: 66
+    lyric: +
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions:
+    - index: 0
+      abbr: clr
+      value: 3
+    - index: 1
+      abbr: clr
+      value: 3
+    - index: 2
+      abbr: clr
+      value: 3
+    - index: 3
+      abbr: clr
+      value: 3
+    - index: 4
+      abbr: clr
+      value: 3
+    - index: 5
+      abbr: clr
+      value: 3
+    - index: 6
+      abbr: clr
+      value: 3
+    - index: 7
+      abbr: clr
+      value: 3
+    phoneme_overrides: []
+  - position: 4713
+    duration: 1085
+    tone: 66
+    lyric: 根
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 100.0
+      period: 148.6
+      depth: 70.3
+      in: 5
+      out: 3.5
+      shift: 30.5
       drift: 0
       volLink: 0
     tuning: 0
@@ -905,114 +1033,252 @@ voice_parts:
   curves:
   - abbr: pitd
     xs:
-    - 480
-    - 499
-    - 576
-    - 605
-    - 634
-    - 653
-    - 672
+    - 489
+    - 528
+    - 585
+    - 643
     - 691
-    - 833
-    - 845
-    - 1075
-    - 1087
+    - 739
+    - 787
+    - 854
+    - 902
+    - 931
+    - 960
+    - 969
+    - 989
+    - 1046
+    - 1085
     - 1133
-    - 1150
-    - 1162
-    - 1373
-    - 1384
-    - 1488
-    - 1534
-    - 1546
-    - 1834
-    - 1845
-    - 1853
-    - 1862
-    - 1872
-    - 1891
-    - 2045
-    - 2054
-    - 2122
-    - 2141
-    - 2160
-    - 2170
-    - 2208
-    - 2227
+    - 1267
+    - 1277
+    - 1286
+    - 1363
+    - 1421
+    - 1430
+    - 1440
+    - 1593
+    - 1603
+    - 1651
+    - 1680
+    - 1709
+    - 1747
+    - 1766
+    - 1785
+    - 1824
+    - 1881
+    - 1910
+    - 1949
+    - 1958
+    - 1968
+    - 1987
+    - 1997
+    - 2006
+    - 2073
+    - 2102
+    - 2150
+    - 2169
+    - 2217
+    - 2256
     - 2275
-    - 2314
+    - 2285
+    - 2294
+    - 2304
     - 2323
-    - 2342
     - 2352
+    - 2361
+    - 2371
+    - 2400
+    - 2438
     - 2486
     - 2496
     - 2515
-    - 2573
-    - 2630
-    - 2657
-    - 2659
-    - 2669
-    - 2976
-    - 2986
-    - 2988
-    - 3014
-    - 3034
-    - 3072
-    - 3091
+    - 2534
+    - 2563
+    - 2582
+    - 2717
+    - 2726
+    - 2736
+    - 2745
+    - 2765
+    - 2813
+    - 2841
+    - 2861
+    - 2880
+    - 2899
+    - 2928
+    - 2937
+    - 2957
+    - 2995
+    - 3005
+    - 3043
+    - 3062
+    - 3081
+    - 3101
+    - 3571
+    - 3600
+    - 3705
+    - 3725
+    - 3734
+    - 3984
+    - 3993
+    - 4003
+    - 4022
+    - 4049
+    - 4061
+    - 4291
+    - 4301
+    - 4303
+    - 4320
+    - 4339
+    - 4349
+    - 4368
+    - 4377
+    - 4397
+    - 4435
+    - 4483
+    - 4713
+    - 4742
+    - 4781
+    - 4829
+    - 4896
+    - 4953
+    - 5021
+    - 5165
+    - 5232
+    - 5289
+    - 5366
+    - 5385
+    - 5424
+    - 5491
+    - 5529
+    - 5577
+    - 5635
+    - 5683
+    - 5750
+    - 5789
     ys:
-    - -7
-    - 15
-    - -20
-    - 13
-    - 25
-    - 20
-    - -23
-    - -26
-    - 17
-    - 0
-    - 0
-    - 12
-    - 6
-    - -9
-    - 0
-    - 0
-    - -3
-    - 9
-    - -9
-    - 0
-    - 0
-    - 8
-    - 15
-    - 19
-    - 0
-    - -75
-    - 47
-    - -152
-    - -223
-    - -218
-    - -188
-    - -159
-    - 13
-    - 47
-    - 10
-    - 25
-    - 20
-    - -43
-    - -52
-    - -706
-    - 8
+    - -30
     - 11
-    - -19
+    - -18
+    - 1
+    - -13
+    - 5
+    - -9
+    - 52
+    - 34
+    - 84
+    - 189
+    - 12
+    - 25
+    - -5
+    - 5
+    - -47
+    - 333
+    - 336
+    - 33
+    - -23
+    - 6
+    - 2
+    - -44
+    - 103
+    - -102
+    - -178
+    - -205
+    - -186
+    - -16
+    - 29
+    - 26
+    - -34
+    - 11
+    - 15
+    - -33
+    - -85
+    - -346
+    - -21
+    - 15
+    - -171
+    - -206
+    - -167
     - 20
+    - 50
+    - 6
+    - 16
+    - -5
+    - -51
+    - -123
+    - -215
+    - -499
+    - -721
+    - -753
+    - -61
+    - -21
+    - -8
+    - -28
+    - -25
     - 17
-    - 17
-    - 0
-    - 0
-    - 41
-    - 37
-    - -29
-    - -24
-    - 45
+    - 90
+    - 237
+    - 262
+    - 413
+    - 411
+    - 382
+    - -147
+    - -191
+    - -218
+    - -214
+    - -218
+    - -198
+    - -127
+    - 16
+    - 32
+    - 20
+    - -65
+    - -65
+    - 31
+    - 20
+    - -110
+    - -180
+    - 33
     - 38
-  Duration: 3658
+    - -4
+    - -57
+    - -118
+    - 537
+    - -34
+    - -14
+    - -6
+    - -15
+    - 0
+    - 0
+    - 23
+    - 23
+    - 25
+    - -17
+    - -64
+    - -213
+    - 33
+    - 6
+    - 12
+    - -14
+    - 45
+    - 17
+    - 9
+    - -41
+    - 19
+    - -10
+    - 13
+    - 1
+    - 17
+    - -9
+    - 59
+    - 48
+    - -4
+    - -14
+    - 18
+    - -1
+    - 48
+    - 5
+    - 31
+    - -44
+  Duration: 6278
 wave_parts: []

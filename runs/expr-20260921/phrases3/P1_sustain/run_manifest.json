@@ -1,16 +1,17 @@
 {
- "variant": "C3",
- "generator_code_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
- "qa_code_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
+ "variant": "C3v2",
+ "generator_code_head": "03e6c1621ebd7e88b5c1d526b550f365161fef03",
+ "qa_code_head": "03e6c1621ebd7e88b5c1d526b550f365161fef03",
+ "worktree_clean_at_generation": true,
  "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
  "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
- "candidate_ustx_sha256": "7b167de02d261adf3a88b9c67f31d2bc70f3204f9044933ec1574607ad228cee",
- "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3.ustx",
- "render_wav_sha256": "6a4f4a3ecc917e6fbb47aa364d4a3e478b774407a073de6f12f6b2429290d59e",
- "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3_v1_vocal.wav",
+ "candidate_ustx_sha256": "315c7d5477e0047f6c94bbc59e9ef0629334e90e09504db895a4d764a75364df",
+ "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2.ustx",
+ "render_wav_sha256": "93557c8b48d513ead109552f86c142bc1560a30aa359da29c443c38711ed0659",
+ "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2_vocal.wav",
  "shape_gate": {
-  "final_candidate": "C3",
-  "blocked": true,
+  "final_candidate": "C3v2",
+  "blocked": false,
   "stages": [
    {
     "candidate": "v1",
@@ -23,21 +24,8 @@
    },
    {
     "candidate": "v2",
-    "gate_passed": false,
-    "violations": [
-     "extra_turns"
-    ],
-    "event_shape": {
-     "status": "pass",
-     "n_blocking": 0
-    }
-   },
-   {
-    "candidate": "v3",
-    "gate_passed": false,
-    "violations": [
-     "extra_turns"
-    ],
+    "gate_passed": true,
+    "violations": [],
     "event_shape": {
      "status": "pass",
      "n_blocking": 0
@@ -64,6 +52,7 @@
   "closed_loop_max_err_c": 10,
   "closed_loop_guard_s": 0.15,
   "closed_loop_iterations": 1,
+  "portamento_lane_ownership": "event",
   "portamento_lane": {
    "1": {
     "window_s": [
@@ -74,10 +63,11 @@
     "extractor_cn_rmse": 0.031,
     "stable": true,
     "applied": true,
-    "n_anchors": 21,
+    "n_anchors": 13,
+    "ownership": "event",
     "carrier_span_s": [
      19.18,
-     19.59
+     19.42
     ]
    },
    "2": {
@@ -89,10 +79,11 @@
     "extractor_cn_rmse": 0.074,
     "stable": true,
     "applied": true,
-    "n_anchors": 22,
+    "n_anchors": 12,
+    "ownership": "event",
     "carrier_span_s": [
      19.51,
-     19.95
+     19.73
     ]
    },
    "3": {
@@ -104,10 +95,11 @@
     "extractor_cn_rmse": 0.007,
     "stable": true,
     "applied": true,
-    "n_anchors": 20,
+    "n_anchors": 16,
+    "ownership": "event",
     "carrier_span_s": [
      19.91,
-     20.44
+     20.21
     ]
    },
    "4": {
@@ -130,10 +122,11 @@
     "extractor_cn_rmse": 0.009,
     "stable": true,
     "applied": true,
-    "n_anchors": 27,
+    "n_anchors": 17,
+    "ownership": "event",
     "carrier_span_s": [
      21.08,
-     21.61
+     21.4
     ]
    }
   }

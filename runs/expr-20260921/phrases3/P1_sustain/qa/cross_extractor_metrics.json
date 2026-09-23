@@ -1,18 +1,18 @@
 {
  "fcpe_eval": {
-  "valid_frames": 234,
-  "coverage": 0.967,
-  "n": 234,
-  "med_c": 6.9,
-  "p90_c": 107.4,
-  "p95_c": 132.4
+  "valid_frames": 236,
+  "coverage": 0.975,
+  "n": 236,
+  "med_c": 4.5,
+  "p90_c": 50.4,
+  "p95_c": 84.1
  },
  "rmvpe_eval": {
-  "valid_frames": 228,
-  "coverage": 0.991,
-  "n": 228,
-  "med_c": 7.5,
-  "p90_c": 113.3,
-  "p95_c": 134.4
+  "valid_frames": 230,
+  "coverage": 1.0,
+  "n": 230,
+  "med_c": 5.7,
+  "p90_c": 20.5,
+  "p95_c": 55.0
  }
 }

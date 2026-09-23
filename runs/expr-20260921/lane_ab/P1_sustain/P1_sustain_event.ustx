@@ -404,7 +404,7 @@ tracks:
   - Yousa_Whisper
 voice_parts:
 - duration: 222653
-  name: P1_sustain_C3
+  name: P1_sustain_ab
   comment: ''
   track_no: 0
   position: 17568

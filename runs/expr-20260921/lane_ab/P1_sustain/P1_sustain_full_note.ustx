@@ -404,7 +404,7 @@ tracks:
   - Yousa_Whisper
 voice_parts:
 - duration: 222653
-  name: P1_sustain_C3
+  name: P1_sustain_ab
   comment: ''
   track_no: 0
   position: 17568
@@ -503,6 +503,30 @@ voice_parts:
       - x: 200.2
         y: 1.38
         shape: io
+      - x: 220.2
+        y: 0.82
+        shape: io
+      - x: 240.2
+        y: 0.38
+        shape: io
+      - x: 260.2
+        y: 0.81
+        shape: io
+      - x: 280.2
+        y: 0.58
+        shape: io
+      - x: 300.2
+        y: 0.4
+        shape: io
+      - x: 320.2
+        y: -1.9
+        shape: io
+      - x: 340.2
+        y: -12.43
+        shape: io
+      - x: 360.2
+        y: 11.65
+        shape: io
       snap_first: false
     vibrato:
       length: 0
@@ -581,6 +605,36 @@ voice_parts:
         shape: io
       - x: 140.4
         y: -1.15
+        shape: io
+      - x: 160.4
+        y: -0.54
+        shape: io
+      - x: 180.4
+        y: -0.07
+        shape: io
+      - x: 200.4
+        y: 0.33
+        shape: io
+      - x: 220.4
+        y: 0.53
+        shape: io
+      - x: 240.4
+        y: 0.81
+        shape: io
+      - x: 260.4
+        y: 1.11
+        shape: io
+      - x: 280.4
+        y: 0.68
+        shape: io
+      - x: 300.4
+        y: -0.64
+        shape: io
+      - x: 320.4
+        y: -1.13
+        shape: io
+      - x: 340.4
+        y: -1.74
         shape: io
       snap_first: false
     vibrato:
@@ -672,6 +726,18 @@ voice_parts:
         shape: io
       - x: 260.0
         y: -1.16
+        shape: io
+      - x: 280.0
+        y: 1.35
+        shape: io
+      - x: 300.0
+        y: -0.48
+        shape: io
+      - x: 320.0
+        y: -5.85
+        shape: io
+      - x: 480.0
+        y: 5.05
         shape: io
       snap_first: false
     vibrato:
@@ -865,6 +931,36 @@ voice_parts:
       - x: 219.8
         y: 5.7
         shape: io
+      - x: 239.8
+        y: 1.59
+        shape: io
+      - x: 259.8
+        y: -3.22
+        shape: io
+      - x: 279.8
+        y: -2.74
+        shape: io
+      - x: 299.8
+        y: 0.9
+        shape: io
+      - x: 319.8
+        y: 4.48
+        shape: io
+      - x: 339.8
+        y: 1.93
+        shape: io
+      - x: 359.8
+        y: -5.29
+        shape: io
+      - x: 379.8
+        y: -6.38
+        shape: io
+      - x: 399.8
+        y: -6.14
+        shape: io
+      - x: 419.8
+        y: -6.38
+        shape: io
       snap_first: false
     vibrato:
       length: 0
@@ -915,24 +1011,17 @@ voice_parts:
     - 691
     - 833
     - 845
-    - 1075
-    - 1087
-    - 1133
     - 1150
     - 1162
-    - 1373
-    - 1384
-    - 1488
+    - 1229
+    - 1240
     - 1534
     - 1546
-    - 1834
-    - 1845
-    - 1853
-    - 1862
-    - 1872
-    - 1891
+    - 1565
+    - 1576
     - 2045
     - 2054
+    - 2056
     - 2122
     - 2141
     - 2160
@@ -952,13 +1041,8 @@ voice_parts:
     - 2657
     - 2659
     - 2669
-    - 2976
-    - 2986
-    - 2988
-    - 3014
-    - 3034
-    - 3072
-    - 3091
+    - 3168
+    - 3180
     ys:
     - -7
     - 15
@@ -970,24 +1054,17 @@ voice_parts:
     - -26
     - 17
     - 0
-    - 0
-    - 12
-    - 6
     - -9
     - 0
     - 0
-    - -3
-    - 9
+    - -67
     - -9
     - 0
     - 0
-    - 8
-    - 15
-    - 19
-    - 0
-    - -75
+    - -50
     - 47
     - -152
+    - -154
     - -223
     - -218
     - -188
@@ -1008,11 +1085,6 @@ voice_parts:
     - 17
     - 0
     - 0
-    - 41
-    - 37
-    - -29
-    - -24
-    - 45
     - 38
   Duration: 3658
 wave_parts: []
