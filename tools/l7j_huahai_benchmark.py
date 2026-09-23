@@ -499,8 +499,11 @@ def crop_phrase_ustx(doc, part_index, a_s, b_s, wave_off, ms_tick,
     import copy
     d = copy.deepcopy(doc)
     part = d["voice_parts"][part_index]
-    x0 = int(round((a_s + wave_off) * 1000.0 / ms_tick))
-    x1 = int(round((b_s + wave_off) * 1000.0 / ms_tick))
+    # note positions/curve xs are part-relative ticks
+    x0 = int(round((a_s + wave_off) * 1000.0 / ms_tick)) \
+        - part["position"]
+    x1 = int(round((b_s + wave_off) * 1000.0 / ms_tick)) \
+        - part["position"]
     kept = []
     for n in part["notes"]:
         n0, n1 = n["position"], n["position"] + n["duration"]
@@ -562,8 +565,10 @@ def j2_layers(doc, picked, t2s, wave_off, ms_tick, f0, acf, w, sr,
                                   pdir / tag).resolve()
         except Exception as e:  # noqa: BLE001 — record honestly
             render_ok, wav_path, err = False, None, str(e)[:300]
-        rf0 = extract_f0(wav_path) if wav_path and wav_path.exists() \
-            else None
+        rf0 = None
+        if wav_path and wav_path.exists() \
+                and wav_path.stat().st_size > 4096:
+            rf0 = extract_f0(wav_path)
         layer = {"class": ph["class"], "part": ph["part"],
                  "audio_span_s": [round(a, 2), round(b, 2)],
                  "note_ids": ph["note_ids"], "lyrics": ph["lyrics"],
