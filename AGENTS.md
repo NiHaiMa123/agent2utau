@@ -1763,3 +1763,34 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
 - Artifacts: ownfix ustx+wav, full decomposition/modulation/defect
   measurements in l7f_periodic_ownership_report.json.  No listening
   project produced (PASS_CAUSAL required).  P1/P3 untouched.
+
+## L7 Round F2 — P2 failure localization (@0d66c70+, artifacts runs/expr-20260921/rebaseline/P2_slides/round_f2/)
+
+- Classification: F0_LOCAL_DEFECT, localized to S1_onset_transition
+  (note8 "我", 54.35-54.85s) + S2_previbrato (notes9-10, 54.85-55.53s).
+  Phonation normal everywhere (ACF 0.95-0.97, no dips/dropouts/
+  collapses in span).  S3 vibrato tail is a VERIFIED FAITHFUL copy of
+  SOURCE (rate 6.75 vs 6.78 Hz, depth 162.6 vs 146.5 c, decay slope
+  -106 vs -91 c/s, rev/s identical) — vibrato is NOT the defect.
+- Mechanism: the written PITD encodes a ~930c zigzag across the
+  note8->9 boundary (-440 -> +485 c within ~240 ms) plus 17.6 rev/s
+  oscillation through S2.  SOURCE F0 in the SAME span is even more
+  violent (range 938c, slope_p95 18.5k c/s, +-370c single-frame spikes
+  at ~54.83s) — the render is a faithful-but-damped copy of a source
+  span whose reliability is already in doubt (overlaps the Round-A
+  EVIDENCE_EDGE_UNCERTAIN region at 54.66-54.835).
+- Control check passed: spike/maxd1/accel/slope_p95 separate the known
+  old-P3 glitch (3 spikes, 123k c/s) from P1/P3-new controls (0 spikes,
+  ~14k c/s); P2 render sits between (15.3k c/s in S1).
+- Discriminating A/C rendered: zigfix = 7-pt median inside the suspect
+  span only (outside bytes identical).  Written zigzag removed, but
+  rendered S1 F0 got MORE reversal-dense (rev/s 6->18, maxd1 15k->29k)
+  — the perceived harshness is not fully explained by the written
+  zigzag; the render motion there is dominated by content the curve
+  edit doesn't control.  Listening project for human A/C:
+  round_f2/agent2utau_L7F2_P2_AC.ustx (track0=A baseline, track1=C).
+- Routing: F0_LOCAL_DEFECT authorizes a later bounded expression
+  repair, but the repair must first adjudicate source truth for
+  54.55-55.5 (dual-extractor evidence), not blindly smooth.
+- Tool bug fixes this round: YamlDotNet rejects float ys (List<int>),
+  voiced_frac window denominator, np scalar JSON default.

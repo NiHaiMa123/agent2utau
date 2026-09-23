@@ -1,0 +1,995 @@
+{
+ "tool": "tools/l7f2_localize.py",
+ "round": "L7 Round F2 \u2014 P2 perceptual-failure localization",
+ "evaluated_head": "b9e2c7bc58591dd95923c581547f424c7a4d70f9",
+ "worktree_clean_at_generation": true,
+ "baseline": {
+  "ustx": "runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c.ustx",
+  "ustx_sha256": "d3a812f2e7f9da563d75b43063979dd46a1a8b34ea83f397ed8cdaf5470560d7",
+  "wav": "runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c_vocal.wav",
+  "wav_sha256": "0ade6097ee6f5ce95023742691da010582c25946c53d0636741c6e4310bd9ff1"
+ },
+ "segments": {
+  "S1_onset_transition": [
+   54.35,
+   54.85
+  ],
+  "S2_previbrato": [
+   54.85,
+   55.53
+  ],
+  "S3_vibrato_tail": [
+   55.53,
+   56.71
+  ]
+ },
+ "signals": {
+  "P2_base": {
+   "path": "runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c_vocal.wav",
+   "sha256": "0ade6097ee6f5ce95023742691da010582c25946c53d0636741c6e4310bd9ff1",
+   "segments": {
+    "S1_onset_transition": {
+     "span_s": [
+      54.35,
+      54.85
+     ],
+     "geometry": {
+      "n_voiced": 46,
+      "window_frames": 51,
+      "voiced_frac": 0.9,
+      "range_c": 932.0,
+      "slope_med_cs": 2187.0,
+      "slope_p95_cs": 7790.0,
+      "accel_rms_c": 36.0,
+      "spikes_gt300c": [],
+      "reversals_per_s": 6.0,
+      "max_abs_d1_cs": 15295.0
+     },
+     "periodic": {
+      "dominant_rate_hz": 6.0,
+      "periodic_depth_c": 181.5,
+      "periodic_share": 0.285,
+      "shape_resid_rms_c": 112.8,
+      "depth_env_c": [
+       225.6,
+       227.6,
+       227.9,
+       222.8,
+       108.7
+      ],
+      "depth_env_cv": 0.232,
+      "depth_env_slope_c_per_s": -298.3
+     },
+     "phonation": {
+      "acf_peak_med": 0.954,
+      "spec_flat_2_8k_med": 0.502,
+      "n_dips_gt300c": 0,
+      "dropouts": [],
+      "energy_collapses": [],
+      "energy_dbfs_bins": [
+       -28.0,
+       -29.2,
+       -35.7,
+       -25.9,
+       -32.4
+      ],
+      "energy_min_dbfs": -35.7
+     },
+     "grammar": {
+      "label": "transition",
+      "flags": [
+       "extreme_slope"
+      ]
+     }
+    },
+    "S2_previbrato": {
+     "span_s": [
+      54.85,
+      55.53
+     ],
+     "geometry": {
+      "n_voiced": 61,
+      "window_frames": 69,
+      "voiced_frac": 0.88,
+      "range_c": 354.0,
+      "slope_med_cs": 967.0,
+      "slope_p95_cs": 4659.0,
+      "accel_rms_c": 27.0,
+      "spikes_gt300c": [],
+      "reversals_per_s": 17.600000381469727,
+      "max_abs_d1_cs": 10435.0
+     },
+     "periodic": {
+      "dominant_rate_hz": 4.38,
+      "periodic_depth_c": 195.2,
+      "periodic_share": 1.044,
+      "shape_resid_rms_c": 69.3,
+      "depth_env_c": [
+       241.9,
+       242.6,
+       242.5,
+       240.0
+      ],
+      "depth_env_cv": 0.004,
+      "depth_env_slope_c_per_s": -5.0
+     },
+     "phonation": {
+      "acf_peak_med": 0.969,
+      "spec_flat_2_8k_med": 0.288,
+      "n_dips_gt300c": 0,
+      "dropouts": [],
+      "energy_collapses": [],
+      "energy_dbfs_bins": [
+       -26.3,
+       -23.4,
+       -24.8,
+       -27.1,
+       -25.5,
+       -31.0,
+       -29.7
+      ],
+      "energy_min_dbfs": -31.0
+     },
+     "grammar": {
+      "label": "vibrato",
+      "flags": [
+       "rapid_reversal_density",
+       "extreme_slope"
+      ]
+     }
+    },
+    "S3_vibrato_tail": {
+     "span_s": [
+      55.53,
+      56.71
+     ],
+     "geometry": {
+      "n_voiced": 119,
+      "window_frames": 119,
+      "voiced_frac": 1.0,
+      "range_c": 130.0,
+      "slope_med_cs": 1312.0,
+      "slope_p95_cs": 2843.0,
+      "accel_rms_c": 8.0,
+      "spikes_gt300c": [],
+      "reversals_per_s": 13.600000381469727,
+      "max_abs_d1_cs": 3219.0
+     },
+     "periodic": {
+      "dominant_rate_hz": 6.75,
+      "periodic_depth_c": 162.6,
+      "periodic_share": 1.488,
+      "shape_resid_rms_c": 22.7,
+      "depth_env_c": [
+       209.8,
+       204.4,
+       192.5,
+       187.7,
+       201.8,
+       212.7,
+       195.4,
+       170.8,
+       134.7,
+       103.4,
+       128.3,
+       140.4,
+       148.5,
+       105.4
+      ],
+      "depth_env_cv": 0.226,
+      "depth_env_slope_c_per_s": -105.7
+     },
+     "phonation": {
+      "acf_peak_med": 0.968,
+      "spec_flat_2_8k_med": 0.387,
+      "n_dips_gt300c": 0,
+      "dropouts": [],
+      "energy_collapses": [],
+      "energy_dbfs_bins": [
+       -24.3,
+       -25.8,
+       -26.3,
+       -28.2,
+       -26.7,
+       -28.0,
+       -29.1,
+       -30.1,
+       -31.0,
+       -33.7,
+       -35.4,
+       -40.8
+      ],
+      "energy_min_dbfs": -40.8
+     },
+     "grammar": {
+      "label": "vibrato",
+      "flags": [
+       "extreme_slope"
+      ]
+     }
+    }
+   }
+  },
+  "P2_source": {
+   "path": "runs\\expr-20260921\\phrases3\\P2_slides\\SOURCE.wav",
+   "sha256": "1919231c87d8b1b60174e2b7d258ed0f50cd905e6301bdd56ce715453a06f2b4",
+   "segments": {
+    "S1_onset_transition": {
+     "span_s": [
+      54.35,
+      54.85
+     ],
+     "geometry": {
+      "n_voiced": 47,
+      "window_frames": 51,
+      "voiced_frac": 0.92,
+      "range_c": 938.0,
+      "slope_med_cs": 434.0,
+      "slope_p95_cs": 18502.0,
+      "accel_rms_c": 185.0,
+      "spikes_gt300c": [
+       {
+        "t": 3.97,
+        "dev_c": -370.0
+       },
+       {
+        "t": 3.98,
+        "dev_c": 357.0
+       }
+      ],
+      "reversals_per_s": 22.0,
+      "max_abs_d1_cs": 72080.0
+     },
+     "periodic": {
+      "dominant_rate_hz": 6.0,
+      "periodic_depth_c": 209.6,
+      "periodic_share": 0.217,
+      "shape_resid_rms_c": 153.9,
+      "depth_env_c": [
+       262.3,
+       261.8,
+       261.8,
+       261.8,
+       131.1
+      ],
+      "depth_env_cv": 0.222,
+      "depth_env_slope_c_per_s": -328.0
+     },
+     "phonation": {},
+     "grammar": {
+      "label": "zigzag_transition",
+      "flags": [
+       "spike_gt300c",
+       "rapid_reversal_density",
+       "extreme_slope",
+       "unsupported_zigzag"
+      ]
+     }
+    },
+    "S2_previbrato": {
+     "span_s": [
+      54.85,
+      55.53
+     ],
+     "geometry": {
+      "n_voiced": 65,
+      "window_frames": 69,
+      "voiced_frac": 0.94,
+      "range_c": 342.0,
+      "slope_med_cs": 859.0,
+      "slope_p95_cs": 5840.0,
+      "accel_rms_c": 62.0,
+      "spikes_gt300c": [],
+      "reversals_per_s": 17.600000381469727,
+      "max_abs_d1_cs": 24974.0
+     },
+     "periodic": {
+      "dominant_rate_hz": 7.3,
+      "periodic_depth_c": 38.2,
+      "periodic_share": 0.111,
+      "shape_resid_rms_c": 40.6,
+      "depth_env_c": [
+       39.3,
+       38.1,
+       32.9,
+       31.5,
+       42.6,
+       52.1,
+       53.3,
+       52.9,
+       26.7
+      ],
+      "depth_env_cv": 0.228,
+      "depth_env_slope_c_per_s": 14.2
+     },
+     "phonation": {},
+     "grammar": {
+      "label": "zigzag_transition",
+      "flags": [
+       "rapid_reversal_density",
+       "extreme_slope",
+       "unsupported_zigzag"
+      ]
+     }
+    },
+    "S3_vibrato_tail": {
+     "span_s": [
+      55.53,
+      56.71
+     ],
+     "geometry": {
+      "n_voiced": 119,
+      "window_frames": 119,
+      "voiced_frac": 1.0,
+      "range_c": 127.0,
+      "slope_med_cs": 1154.0,
+      "slope_p95_cs": 2631.0,
+      "accel_rms_c": 7.0,
+      "spikes_gt300c": [],
+      "reversals_per_s": 13.600000381469727,
+      "max_abs_d1_cs": 3122.0
+     },
+     "periodic": {
+      "dominant_rate_hz": 6.78,
+      "periodic_depth_c": 146.5,
+      "periodic_share": 1.569,
+      "shape_resid_rms_c": 18.1,
+      "depth_env_c": [
+       184.6,
+       180.6,
+       172.4,
+       170.3,
+       182.2,
+       190.8,
+       175.8,
+       153.5,
+       119.4,
+       91.8,
+       121.4,
+       131.2,
+       138.3,
+       88.3
+      ],
+      "depth_env_cv": 0.224,
+      "depth_env_slope_c_per_s": -91.4
+     },
+     "phonation": {},
+     "grammar": {
+      "label": "vibrato",
+      "flags": [
+       "extreme_slope"
+      ]
+     }
+    }
+   }
+  }
+ },
+ "controls": {
+  "P1_base_control": {
+   "path": "runs\\expr-20260921\\rebaseline\\P1_sustain\\P1_sustain_C3v2_v165c_vocal.wav",
+   "sha256": "4f0e2c2ec4260bbd0f4b62960c6037e640e2f86398b73e0795aa60b07a2cd65c",
+   "window_s": [
+    18.8,
+    21.61
+   ],
+   "geometry": {
+    "n_voiced": 246,
+    "window_frames": 282,
+    "voiced_frac": 0.87,
+    "range_c": 969.0,
+    "slope_med_cs": 752.0,
+    "slope_p95_cs": 4715.0,
+    "accel_rms_c": 31.0,
+    "spikes_gt300c": [],
+    "reversals_per_s": 12.100000381469727,
+    "max_abs_d1_cs": 14738.0
+   },
+   "periodic": {
+    "dominant_rate_hz": 4.26,
+    "periodic_depth_c": 120.6,
+    "periodic_share": 0.839,
+    "shape_resid_rms_c": 33.9,
+    "depth_env_c": [
+     57.1,
+     57.1,
+     89.1,
+     128.2,
+     101.1,
+     53.2,
+     44.8,
+     52.8,
+     62.3,
+     89.4,
+     184.7,
+     253.3,
+     239.7,
+     183.5,
+     153.6,
+     163.6,
+     144.0,
+     75.3,
+     59.6,
+     111.6,
+     139.2,
+     138.1,
+     68.4
+    ],
+    "depth_env_cv": 0.514,
+    "depth_env_slope_c_per_s": 21.9
+   },
+   "phonation": {
+    "n_frames_used": 246,
+    "acf_peak_med": 0.952,
+    "spec_flat_2_8k_med": 0.484
+   }
+  },
+  "P3_new_control": {
+   "path": "runs\\expr-20260921\\rebaseline\\P3_vibrato\\P3_vibrato_C3_v165c_vocal.wav",
+   "sha256": "69b7902be271d0a06b8c701ef540f439a8d7d8c200513023fe68ca2963f090b7",
+   "window_s": [
+    25.23,
+    30.77
+   ],
+   "geometry": {
+    "n_voiced": 433,
+    "window_frames": 555,
+    "voiced_frac": 0.78,
+    "range_c": 1277.0,
+    "slope_med_cs": 865.0,
+    "slope_p95_cs": 4170.0,
+    "accel_rms_c": 52.0,
+    "spikes_gt300c": [],
+    "reversals_per_s": 12.300000190734863,
+    "max_abs_d1_cs": 13643.0
+   },
+   "periodic": {
+    "dominant_rate_hz": 5.23,
+    "periodic_depth_c": 85.2,
+    "periodic_share": 0.7,
+    "shape_resid_rms_c": 23.3,
+    "depth_env_c": [
+     4.2,
+     3.8,
+     1.9,
+     7.5,
+     23.4,
+     28.5,
+     23.5,
+     26.4,
+     35.5,
+     35.7,
+     121.5,
+     159.9,
+     164.1,
+     148.1,
+     97.3,
+     45.6,
+     64.5,
+     88.5,
+     56.7,
+     18.5,
+     21.9,
+     39.7,
+     73.1,
+     114.0,
+     135.5,
+     129.5,
+     124.5,
+     54.0,
+     39.8,
+     17.6,
+     3.9,
+     2.0,
+     12.6,
+     19.9,
+     63.0,
+     102.7,
+     91.0,
+     60.6,
+     59.6,
+     61.5,
+     59.8,
+     31.5,
+     24.6,
+     16.6,
+     73.1,
+     121.1,
+     130.5,
+     130.5,
+     123.1,
+     116.9,
+     121.9,
+     108.1,
+     120.9,
+     183.9,
+     192.7,
+     191.9,
+     95.8
+    ],
+    "depth_env_cv": 0.726,
+    "depth_env_slope_c_per_s": 15.7
+   },
+   "phonation": {
+    "n_frames_used": 433,
+    "acf_peak_med": 0.961,
+    "spec_flat_2_8k_med": 0.464
+   }
+  },
+  "P3_old_glitch_abnormal": {
+   "path": "runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav",
+   "sha256": "e16455f87d88fca3c6a75688ace5803070e53ef885aa0fbda6d813d77e26f3f9",
+   "window_s": [
+    25.23,
+    30.77
+   ],
+   "geometry": {
+    "n_voiced": 443,
+    "window_frames": 555,
+    "voiced_frac": 0.8,
+    "range_c": 1569.0,
+    "slope_med_cs": 841.0,
+    "slope_p95_cs": 4175.0,
+    "accel_rms_c": 143.0,
+    "spikes_gt300c": [
+     {
+      "t": 29.26,
+      "dev_c": 423.0
+     },
+     {
+      "t": 29.27,
+      "dev_c": -1210.0
+     },
+     {
+      "t": 29.28,
+      "dev_c": 611.0
+     }
+    ],
+    "reversals_per_s": 13.199999809265137,
+    "max_abs_d1_cs": 122857.0
+   },
+   "periodic": {
+    "dominant_rate_hz": 4.69,
+    "periodic_depth_c": 93.8,
+    "periodic_share": 0.313,
+    "shape_resid_rms_c": 49.3,
+    "depth_env_c": [
+     2.2,
+     4.3,
+     12.2,
+     20.5,
+     30.7,
+     34.5,
+     44.6,
+     29.4,
+     73.2,
+     113.8,
+     179.0,
+     191.4,
+     190.1,
+     100.6,
+     93.8,
+     129.6,
+     127.5,
+     63.1,
+     66.4,
+     95.5,
+     89.3,
+     52.0,
+     42.8,
+     76.5,
+     50.0,
+     41.6,
+     49.9,
+     17.5,
+     6.6,
+     14.7,
+     53.8,
+     94.6,
+     112.7,
+     69.7,
+     48.4,
+     57.0,
+     105.3,
+     227.6,
+     256.5,
+     135.3,
+     80.6,
+     127.2,
+     111.3,
+     73.5,
+     60.2,
+     76.6,
+     73.5,
+     94.9,
+     101.4,
+     97.8,
+     90.3
+    ],
+    "depth_env_cv": 0.668,
+    "depth_env_slope_c_per_s": 9.0
+   },
+   "phonation": {
+    "n_frames_used": 443,
+    "acf_peak_med": 0.96,
+    "spec_flat_2_8k_med": 0.436
+   },
+   "glitch_window_29.15_29.45": {
+    "geometry": {
+     "n_voiced": 31,
+     "window_frames": 31,
+     "voiced_frac": 1.0,
+     "range_c": 1569.0,
+     "slope_med_cs": 473.0,
+     "slope_p95_cs": 81120.0,
+     "accel_rms_c": 531.0,
+     "spikes_gt300c": [
+      {
+       "t": 29.26,
+       "dev_c": 423.0
+      },
+      {
+       "t": 29.27,
+       "dev_c": -1210.0
+      },
+      {
+       "t": 29.28,
+       "dev_c": 611.0
+      }
+     ],
+     "reversals_per_s": 23.299999237060547,
+     "max_abs_d1_cs": 122857.0
+    }
+   }
+  }
+ },
+ "feature_separation_check": {
+  "spikes_gt300c": {
+   "abnormal_P3old": 3,
+   "P1_base_control": 0,
+   "P3_new_control": 0,
+   "separates": true
+  },
+  "reversals_per_s": {
+   "abnormal_P3old": 23.299999237060547,
+   "P1_base_control": 12.100000381469727,
+   "P3_new_control": 12.300000190734863,
+   "separates": false
+  },
+  "max_abs_d1_cs": {
+   "abnormal_P3old": 122857.0,
+   "P1_base_control": 14738.0,
+   "P3_new_control": 13643.0,
+   "separates": true
+  },
+  "accel_rms_c": {
+   "abnormal_P3old": 531.0,
+   "P1_base_control": 31.0,
+   "P3_new_control": 52.0,
+   "separates": true
+  },
+  "slope_p95_cs": {
+   "abnormal_P3old": 81120.0,
+   "P1_base_control": 4715.0,
+   "P3_new_control": 4170.0,
+   "separates": true
+  }
+ },
+ "flags_by_segment": {
+  "S1_onset_transition": {
+   "render": [
+    "extreme_slope"
+   ],
+   "source": [
+    "extreme_slope",
+    "rapid_reversal_density",
+    "spike_gt300c",
+    "unsupported_zigzag"
+   ],
+   "render_only": [],
+   "faithful_to_source": [
+    "extreme_slope"
+   ],
+   "render_vs_source": {
+    "range_c": [
+     932.0,
+     938.0
+    ],
+    "max_abs_d1_cs": [
+     15295.0,
+     72080.0
+    ],
+    "reversals_per_s": [
+     6.0,
+     22.0
+    ],
+    "periodic_depth_c": [
+     181.5,
+     209.6
+    ]
+   }
+  },
+  "S2_previbrato": {
+   "render": [
+    "extreme_slope",
+    "rapid_reversal_density"
+   ],
+   "source": [
+    "extreme_slope",
+    "rapid_reversal_density",
+    "unsupported_zigzag"
+   ],
+   "render_only": [],
+   "faithful_to_source": [
+    "extreme_slope",
+    "rapid_reversal_density"
+   ],
+   "render_vs_source": {
+    "range_c": [
+     354.0,
+     342.0
+    ],
+    "max_abs_d1_cs": [
+     10435.0,
+     24974.0
+    ],
+    "reversals_per_s": [
+     17.600000381469727,
+     17.600000381469727
+    ],
+    "periodic_depth_c": [
+     195.2,
+     38.2
+    ]
+   }
+  },
+  "S3_vibrato_tail": {
+   "render": [
+    "extreme_slope"
+   ],
+   "source": [
+    "extreme_slope"
+   ],
+   "render_only": [],
+   "faithful_to_source": [
+    "extreme_slope"
+   ],
+   "render_vs_source": {
+    "range_c": [
+     130.0,
+     127.0
+    ],
+    "max_abs_d1_cs": [
+     3219.0,
+     3122.0
+    ],
+    "reversals_per_s": [
+     13.600000381469727,
+     13.600000381469727
+    ],
+    "periodic_depth_c": [
+     162.6,
+     146.5
+    ]
+   }
+  }
+ },
+ "abnormal_f0_segments": [
+  "S1_onset_transition",
+  "S2_previbrato"
+ ],
+ "abnormal_phonation_segments": [],
+ "localization_note": "fail-span anomaly is the S1/S2 transition zigzag (~930c range within ~700ms); the render is a faithful-but-damped copy of an equally violent SOURCE span that overlaps the Round-A edge-uncertain region \u2014 repair must adjudicate source truth, not blindly smooth.  S3 vibrato tail is verified faithful to SOURCE (rate/depth/decay envelope all within ~10%); phonation metrics normal throughout.",
+ "classification": "F0_LOCAL_DEFECT",
+ "ab_variant_C": {
+  "suspect_interval_s": [
+   54.35,
+   55.53
+  ],
+  "operation": "PITD ys -> running median (7-pt) inside suspect span, 40ms edge taper; all other bytes identical",
+  "ustx": "runs\\expr-20260921\\rebaseline\\P2_slides\\round_f2\\P2_slides_C3v2_v165c_zigfix.ustx",
+  "ustx_sha256": "a8756d9f6b95a68f4b9dd961ba668bfa80ede92cf424d494f3903cc678126987",
+  "wav": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P2_slides\\round_f2\\P2_slides_C3v2_v165c_zigfix_vocal.wav",
+  "wav_sha256": "f4738541a8db38e80fc06d0c224daa9b52bee125986fa7031f840e7c8516fd3b",
+  "segments": {
+   "S1_onset_transition": {
+    "span_s": [
+     54.35,
+     54.85
+    ],
+    "geometry": {
+     "n_voiced": 49,
+     "window_frames": 51,
+     "voiced_frac": 0.96,
+     "range_c": 711.0,
+     "slope_med_cs": 211.0,
+     "slope_p95_cs": 9391.0,
+     "accel_rms_c": 56.0,
+     "spikes_gt300c": [],
+     "reversals_per_s": 18.0,
+     "max_abs_d1_cs": 29497.0
+    },
+    "periodic": {
+     "dominant_rate_hz": 10.0,
+     "periodic_depth_c": 12.6,
+     "periodic_share": 0.001,
+     "shape_resid_rms_c": 120.3,
+     "depth_env_c": [
+      7.4,
+      6.9,
+      9.7,
+      13.8,
+      18.5,
+      20.4,
+      20.5,
+      19.2,
+      0.0
+     ],
+     "depth_env_cv": 0.534,
+     "depth_env_slope_c_per_s": 11.8
+    },
+    "phonation": {
+     "acf_peak_med": 0.953,
+     "spec_flat_2_8k_med": 0.574,
+     "n_dips_gt300c": 0,
+     "dropouts": [],
+     "energy_collapses": [],
+     "energy_dbfs_bins": [
+      -24.1,
+      -25.6,
+      -28.8,
+      -26.4,
+      -35.4
+     ],
+     "energy_min_dbfs": -35.4
+    },
+    "grammar": {
+     "label": "zigzag_transition",
+     "flags": [
+      "rapid_reversal_density",
+      "extreme_slope",
+      "unsupported_zigzag"
+     ]
+    }
+   },
+   "S2_previbrato": {
+    "span_s": [
+     54.85,
+     55.53
+    ],
+    "geometry": {
+     "n_voiced": 60,
+     "window_frames": 69,
+     "voiced_frac": 0.87,
+     "range_c": 357.0,
+     "slope_med_cs": 354.0,
+     "slope_p95_cs": 4406.0,
+     "accel_rms_c": 33.0,
+     "spikes_gt300c": [],
+     "reversals_per_s": 10.300000190734863,
+     "max_abs_d1_cs": 19128.0
+    },
+    "periodic": {
+     "dominant_rate_hz": 4.38,
+     "periodic_depth_c": 147.3,
+     "periodic_share": 1.347,
+     "shape_resid_rms_c": 47.3,
+     "depth_env_c": [
+      183.0,
+      183.1,
+      183.0,
+      177.5
+     ],
+     "depth_env_cv": 0.013,
+     "depth_env_slope_c_per_s": -14.4
+    },
+    "phonation": {
+     "acf_peak_med": 0.974,
+     "spec_flat_2_8k_med": 0.316,
+     "n_dips_gt300c": 0,
+     "dropouts": [
+      {
+       "t": [
+        55.43,
+        55.51
+       ],
+       "dur_ms": 90.0,
+       "src_voiced_frac": 0.0
+      }
+     ],
+     "energy_collapses": [],
+     "energy_dbfs_bins": [
+      -23.3,
+      -22.8,
+      -21.3,
+      -24.0,
+      -23.6,
+      -28.0,
+      -28.9
+     ],
+     "energy_min_dbfs": -28.9
+    },
+    "grammar": {
+     "label": "vibrato",
+     "flags": [
+      "extreme_slope"
+     ]
+    }
+   },
+   "S3_vibrato_tail": {
+    "span_s": [
+     55.53,
+     56.71
+    ],
+    "geometry": {
+     "n_voiced": 119,
+     "window_frames": 119,
+     "voiced_frac": 1.0,
+     "range_c": 130.0,
+     "slope_med_cs": 1266.0,
+     "slope_p95_cs": 2852.0,
+     "accel_rms_c": 8.0,
+     "spikes_gt300c": [],
+     "reversals_per_s": 13.600000381469727,
+     "max_abs_d1_cs": 3174.0
+    },
+    "periodic": {
+     "dominant_rate_hz": 6.75,
+     "periodic_depth_c": 160.1,
+     "periodic_share": 1.532,
+     "shape_resid_rms_c": 21.3,
+     "depth_env_c": [
+      209.4,
+      203.3,
+      189.4,
+      182.9,
+      196.5,
+      207.3,
+      191.7,
+      169.0,
+      134.0,
+      103.5,
+      124.2,
+      137.1,
+      144.5,
+      100.9
+     ],
+     "depth_env_cv": 0.228,
+     "depth_env_slope_c_per_s": -106.9
+    },
+    "phonation": {
+     "acf_peak_med": 0.97,
+     "spec_flat_2_8k_med": 0.384,
+     "n_dips_gt300c": 0,
+     "dropouts": [],
+     "energy_collapses": [],
+     "energy_dbfs_bins": [
+      -21.1,
+      -20.5,
+      -21.2,
+      -20.7,
+      -20.9,
+      -21.4,
+      -21.6,
+      -22.5,
+      -23.4,
+      -23.0,
+      -27.3,
+      -33.2
+     ],
+     "energy_min_dbfs": -33.2
+    },
+    "grammar": {
+     "label": "vibrato",
+     "flags": [
+      "extreme_slope"
+     ]
+    }
+   }
+  },
+  "pitd_unchanged_outside_span": true
+ },
+ "listening_project": {
+  "path": "runs\\expr-20260921\\rebaseline\\P2_slides\\round_f2\\agent2utau_L7F2_P2_AC.ustx",
+  "sha256": "fec2110ccd735583c71d75ffa05771591023c4256b1bc6fb8dd06fe933054ddc"
+ }
+}
