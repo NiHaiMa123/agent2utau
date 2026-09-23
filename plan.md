@@ -739,71 +739,175 @@ Round-A semantics are now frozen for downstream L7 work:
 **Round A is CLOSED. Do not reopen evidence adjudication unless new positive evidence contradicts the
 committed packets.**
 
-#### Round B — ACTIVE: P2 ownership decision only
+#### Round B — COMPLETE: global ownership A/B exposed a real lane split
 
-Executor bundle `ee1532ac → abddc238` is **directionally correct but not yet complete**.
+Reviewer accepts executor bundle `7095c07f → cd396809` as a valid **BLOCKED** result.
 
-What is already established from clean-head A/B evidence:
-- committed Round-A P2 note8 `EVIDENCE_EDGE_UNCERTAIN` packet was consumed and its SHA256 bound;
-- `full_note`:
-  - FCPE blockers = 0;
-  - RMVPE blockers = 0;
-  - in-lane median |err| = 7.5 c;
-  - out-of-lane median |err| = 7.0 c;
-- `event`:
-  - FCPE blockers = 0;
-  - RMVPE gains a blocking `from_note=9 distortion`;
-  - in-lane median |err| = 11.8 c;
-  - out-of-lane median |err| = 8.1 c;
-- therefore the narrow `event` ownership already fails the required “non-worse on both extractor
-  families” condition.  Existing evidence favors `full_note`.
+Committed evidence:
 
-Reviewer found one missing acceptance item before Round B can close:
-- the A/B tool described the risk that full-note ownership may absorb onset / ornament content, but
-  it did **not explicitly measure those discrete non-portamento lanes**;
-- vibrato metrics were emitted but were not part of the ownership verdict.
+```text
+all full_note:
+  FCPE blockers = 0
+  RMVPE blockers = 0
+  non-portamento FCPE unresolved/extras = 2 / 2
+  non-portamento RMVPE unresolved/extras = 1 / 5
+  vibrato missing = 0
+  out-of-lane med |err| = 7.0 c
 
-Reviewer patches:
-- `b651ef0f`: add explicit SOURCE→render matching summaries for
-  `scoop / undershoot / overshoot / ornament` on both FCPE and RMVPE families;
-- `d986d7ec`: include vibrato structural preservation (missing-event count) in the ownership
-  non-regression gate;
-- if one mode protects portamento while the other protects non-portamento events, the result is now
-  `BLOCKED` rather than hiding the trade-off behind a scalar preference.
+all event:
+  FCPE blockers = 0
+  RMVPE blocker = from_note 9 distortion
+  non-portamento FCPE unresolved/extras = 1 / 1
+  non-portamento RMVPE unresolved/extras = 1 / 4
+  vibrato missing = 0
+  out-of-lane med |err| = 8.1 c
+```
 
-### Required Round-B rerun
+The trade-off is real:
+- narrower ownership preserves more discrete SOURCE event content;
+- full-note ownership prevents the later RMVPE shape regression.
 
-Scope remains **only P2_slides**.
+Spatial attribution also supports the discrete-lane concern.  The extra
+`full_note` ownership tails overlap real SOURCE events:
 
-From the latest committed clean HEAD:
+```text
+lane target note 2:
+  full-only tail ~52.210–52.370 s
+  overlaps SOURCE scoop note2 / start of scoop note3
 
-1. run focused tests / static checks required by `l7_lane_isolation_ab.py`;
-2. rerun P2 `full_note` vs `event` A/B once;
-3. retain the same committed Round-A source-edge evidence hash;
-4. report, for **both FCPE and RMVPE**:
-   - absolute portamento/event-shape blocker identities;
-   - `scoop / undershoot / overshoot / ornament`:
-     - matched_by_type;
-     - source_only_by_type;
-     - ambiguous_by_type;
-     - render_only_by_type;
-   - vibrato missing-event count;
-5. retain in-lane/out-of-lane position and out-of-lane topology;
-6. verdict rules:
-   - choose `event` only if portamento blocking, non-portamento lanes, vibrato structure and
-     out-of-lane behavior are all non-worse;
-   - otherwise choose `full_note` only if its non-portamento lanes/vibrato are also non-worse;
-   - if neither ownership dominates, output `BLOCKED`;
-7. commit only the refreshed P2 A/B evidence + notes.
+lane target note 5:
+  full-only tail ~53.000–53.220 s
+  overlaps SOURCE undershoot note6
 
-**Round B STOP condition:** one clean committed P2 A/B packet with
-`preferred = event | full_note | BLOCKED` under the expanded lane-preservation check.
+lane target note 7:
+  full-only tail ~53.940–53.960 s
+  overlaps end of SOURCE scoop note7
+```
 
-**Forbidden in Round B:**
+However, the global A/B changes all three applied lanes simultaneously.
+It cannot identify which lane causes the downstream RMVPE note9 distortion.
+Therefore `full_note` vs `event` is too coarse a control variable.
+
+**Do not unlock Round C from this BLOCKED result.**
+
+#### Round B2 — ACTIVE: per-lane ownership isolation and hybrid repair
+
+Purpose: determine whether a mixed ownership vector can preserve the
+non-portamento lanes **and** avoid the RMVPE note9 distortion.
+
+This is a bounded repair round created from the valid Round-B BLOCKED result.
+
+### Minimal implementation allowed
+
+Extend `compile_portamento_lane` in a backwards-compatible way so ownership
+may be specified either as:
+
+```text
+"full_note"
+"event"
+```
+
+or as an explicit per-target-note map, e.g.:
+
+```python
+{2: "event", 5: "full_note", 7: "event"}
+```
+
+Existing string behavior must remain byte/semantic compatible.
+Every applied lane must record its actual resolved ownership in provenance.
+
+Do not change:
+- portamento eligibility;
+- extractor thresholds;
+- anchor spacing;
+- settle duration;
+- event-shape thresholds;
+- Round-A edge evidence.
+
+### Isolation experiment
+
+P2 currently has three applied target-note lanes (derive/verify the exact
+indices from committed `lane_provenance`; expected set is 2, 5, 7).
+
+From a clean HEAD render:
+
+```text
+FFF = all full_note baseline
+EFF = only target 2 -> event
+FEF = only target 5 -> event
+FFE = only target 7 -> event
+```
+
+where F = full_note and E = event.
+
+For each render record:
+- FCPE/RMVPE absolute event-shape blocker identities;
+- especially whether RMVPE `from_note=9 distortion` appears;
+- discrete non-portamento lane identities, not counts only:
+  - type;
+  - note_indices;
+  - start/end time;
+  - matched / source_only / ambiguous / render_only;
+- vibrato missing-event count;
+- in-lane/out-of-lane position;
+- out-of-lane topology;
+- exact ownership vector and per-lane spans;
+- artifact hashes and clean-worktree provenance.
+
+### Causal attribution rule
+
+A discrete event may be attributed to a lane-ownership change only when:
+- its time window overlaps that lane's incremental
+  `full_note - event` ownership tail, or
+- a reproducible downstream renderer-context effect is demonstrated by
+  toggling only that lane.
+
+Do not infer swallowing from aggregate count changes alone.
+
+### Hybrid selection
+
+After the three one-lane toggles:
+
+1. keep a lane `full_note` if toggling only that lane to `event`
+   introduces a required blocker such as RMVPE note9 distortion;
+2. use `event` for a lane when the toggle preserves required shape gates
+   and improves/preserves discrete non-portamento lanes;
+3. render **one final hybrid vector** built from those attributions;
+4. the hybrid is accepted only if:
+   - FCPE blockers = 0;
+   - RMVPE blockers = 0;
+   - discrete non-portamento lanes are non-worse than the all-full baseline
+     on both extractor families;
+   - vibrato structure is non-worse;
+   - out-of-lane behavior remains within the existing tolerance.
+
+If no hybrid vector satisfies all required gates, output:
+
+```text
+BLOCKED_PER_LANE
+```
+
+and STOP.  Do not add more representation degrees of freedom in this round.
+
+### Round B2 STOP condition
+
+Commit one evidence packet containing:
+- FFF / EFF / FEF / FFE results;
+- causal attribution per lane;
+- one final hybrid validation (if a viable hybrid exists);
+- final verdict:
+
+```text
+preferred = hybrid(<ownership map>) | full_note | BLOCKED_PER_LANE
+```
+
+Then STOP.
+
+**Forbidden in Round B2:**
 - do not reopen Round-A evidence;
-- do not modify compiler logic or QA thresholds;
-- do not regenerate production P1/P2/P3 candidates;
-- do not run or modify final acceptance;
+- do not modify QA thresholds;
+- do not regenerate production P1/P2/P3 artifacts;
+- do not run final acceptance;
 - do not start Round C.
 
 #### Round C — LOCKED: production regeneration
