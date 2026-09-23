@@ -455,6 +455,7 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
         "variant": variant,
         "generator_code_head": head,
         "qa_code_head": _git_head(),
+        "worktree_clean_at_generation": True,
         "base_file_sha256": sha256(BASE_USTX),
         "base_semantic_sha256": semantic_notes_sha256(base_doc),
         "candidate_ustx_sha256": sha256(rec["ustx"]),
