@@ -665,18 +665,19 @@ def j3_gap_analysis(doc, picked, t2s, wave_off, ms_tick, f0, acf,
                 src_vib = _osc_hz(uv / 100.0, 0.01)
             else:
                 src_vib = (0.0, 0.0)
-            # render layer (wav t=0 == phrase a)
+            # render layer: wav t=0 == project time 0, so
+            # audio_time = render_t - wave_off
             ren_rng = ren_onset = ren_vib = None
             if rf0 is not None:
                 rt, rh, rv = rf0
                 rm_ = _midi(rh)
-                sel = rv & (rt >= a0 - ph["a"] + 0.02) \
-                    & (rt <= b0 - ph["a"] - 0.02)
+                sel = rv & (rt >= a0 + wave_off + 0.02) \
+                    & (rt <= b0 + wave_off - 0.02)
                 rc = rm_[sel] * 100 - r["tone"] * 100.0
                 if rc.size > 8:
                     ren_rng = float(np.percentile(rc, 95)
                                     - np.percentile(rc, 5))
-                    ro = rc[(rt[sel] - (a0 - ph["a"])) < 0.15]
+                    ro = rc[(rt[sel] - (a0 + wave_off)) < 0.15]
                     ren_onset = float(np.median(ro)) \
                         if ro.size >= 3 else None
                     if rc.size > 30:
@@ -742,7 +743,7 @@ def j3_gap_analysis(doc, picked, t2s, wave_off, ms_tick, f0, acf,
             rt, rh, rv = rf0
             rm_ = _midi(rh)
             for gi, g in enumerate(grid):
-                ri = np.searchsorted(rt, g - ph["a"])
+                ri = np.searchsorted(rt, g + wave_off)
                 if ri < len(rt) and rv[ri] \
                         and np.isfinite(exp_step[gi]):
                     ov["render_rel_c"].append(
