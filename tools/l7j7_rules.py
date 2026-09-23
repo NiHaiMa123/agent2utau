@@ -401,12 +401,17 @@ def main():
         hb.save_ustx(ab, ab_ustx)
 
         diag = _render_diag(cwav, notes, WAVE_OFF, ms_tick, evs)
-        (pdir / "diag.json").write_text(json.dumps(
+        for name in ("fcpe", "rmvpe"):
+            sig = diag.pop(name)
+            np.savez(pdir / f"render_f0_{name}.npz",
+                     times=sig["times"], midi=sig["midi"],
+                     voiced=sig["voiced"])
+        (pdir / "diag.json").write_text(json.dumps(drv._jsonable(
             {"phrase": ph["class"], "candidate_wav": str(cwav),
              "candidate_wav_sha256": sha256(cwav),
              "candidate_ustx_sha256": sha256(custx),
              "baseline_wav": str(neut_wav),
-             "baseline_ustx": str(neut_ustx), **diag},
+             "baseline_ustx": str(neut_ustx), **diag}),
             indent=1, ensure_ascii=False), encoding="utf-8")
         dof = [r["dof"] for r in recs]
         manifest["phrases"].append({
