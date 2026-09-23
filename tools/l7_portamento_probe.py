@@ -572,6 +572,7 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
 
 
 def main():
+    head = drv._require_clean_worktree("l7_portamento_probe")
     cfg = load_config()
     which = sys.argv[1:] or list(drv.PHRASES)
     base_doc = load_ustx(drv.BASE_USTX)
@@ -579,7 +580,6 @@ def main():
               "src_rmvpe": drv._npz_f0(drv.SRC_RMVPE),
               "neu_fcpe": drv._npz_f0(drv.NEU_FCPE),
               "neu_rmvpe": drv._npz_f0(drv.NEU_RMVPE)}
-    head = drv._git_head()
     PROBE_DIR.mkdir(parents=True, exist_ok=True)
     for phrase in which:
         run_phrase(phrase, cfg, base_doc, caches, head)
