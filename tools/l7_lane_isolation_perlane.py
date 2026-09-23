@@ -2,17 +2,17 @@
 
 The global full_note/event A/B is too coarse: it toggles every applied
 lane at once and cannot attribute either the RMVPE note9 distortion or
-the discrete-lane absorption to a specific ownership tail.  This tool
-renders one single-lane toggle per applied portamento lane plus one
-final hybrid vector, and reports per-event (not per-count) lane state.
+the discrete-lane absorption to a specific ownership tail.  This tool renders the complete ownership state-space for the applied
+portamento lanes and reports per-event (not per-count) lane state.
 
-Vectors over the applied target-note lanes (P2: {2,5,7}):
+For P2 lanes {2,5,7}, all eight vectors are rendered:
 
-    FFF  all full_note (baseline)
-    EFF  only target 2 -> event
-    FEF  only target 5 -> event
-    FFE  only target 7 -> event
-    H    hybrid built from the per-lane attributions
+    FFF EFF FEF FFE EEF EFE FEE EEE
+
+where F=full_note and E=event.  Exhaustive enumeration is required
+because the renderer has already shown non-local context effects:
+single-lane toggles cannot prove that a multi-lane combination is
+inadmissible.
 
 Causal attribution: a discrete-lane difference between a single-toggle
 render and FFF is caused by that lane by construction (one variable
@@ -27,6 +27,7 @@ Usage (clean worktree required):
 from __future__ import annotations
 
 import sys
+from itertools import product
 from pathlib import Path
 
 import numpy as np
@@ -192,18 +193,22 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
         tails[i] = [round(e_end, 3), round(f_end, 3)]
     print(f"   applied lanes={lanes} tails={tails}", flush=True)
 
-    vectors = {"F" * len(lanes): {}}
-    for pos, i in enumerate(lanes):
-        label = list("F" * len(lanes))
-        label[pos] = "E"
-        vectors["".join(label)] = {i: "event"}
+    # Exhaust the full ownership state-space.  P2 has only three
+    # applied lanes, so 2^3=8 real renders is cheaper and safer than
+    # assuming independent/monotonic renderer response.
+    vectors = {}
+    for bits in product(("F", "E"), repeat=len(lanes)):
+        label = "".join(bits)
+        vec = {i: ("event" if bit == "E" else "full_note")
+               for i, bit in zip(lanes, bits)}
+        vectors[label] = vec
 
     # ---- render + QA each vector --------------------------------------
     results = {}
     for label, vec in vectors.items():
         marks, spans, prov = compile_portamento_lane(
             src_sig, src_sig_b, notes, src_events, vib_marks=vib_marks,
-            ownership=vec if vec else "full_note")
+            ownership=vec)
         curve = flatten_pitd_spans(pitd_v1, spans, part_pos)
         ustx = pdir / f"{phrase}_{label}.ustx"
         save_ustx(drv.build_phrase_doc(base_doc, base_part, notes,
@@ -280,88 +285,104 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
                                **diffs}
         print(f"   lane {i} ({label}): {json_brief(diffs)}", flush=True)
 
-    # ---- hybrid selection ----------------------------------------------
-    hybrid = {}
-    for i in lanes:
-        at = attribution[str(i)]
-        introduces_blocker = (at["new_blockers_fcpe"]
-                              or at["new_blockers_rmvpe"]
-                              or at["vibrato_missing_delta"] > 0)
-        discrete_worse = False
-        for fam in ("fcpe", "rmvpe"):
-            for d in at.get("discrete_state_changes", []):
-                if d["family"] == fam and _worse_state(
-                        d["baseline_state"], d["toggle_state"]):
-                    discrete_worse = True
-            if at.get("new_render_only"):
-                if any(r["family"] == fam
-                       for r in at["new_render_only"]):
-                    discrete_worse = True
-        hybrid[i] = "full_note" if (introduces_blocker or discrete_worse) \
-            else "event"
-
-    # ---- render + validate the hybrid ----------------------------------
-    marks, spans, prov = compile_portamento_lane(
-        src_sig, src_sig_b, notes, src_events, vib_marks=vib_marks,
-        ownership=hybrid)
-    curve = flatten_pitd_spans(pitd_v1, spans, part_pos)
-    ustx = pdir / f"{phrase}_hybrid.ustx"
-    save_ustx(drv.build_phrase_doc(base_doc, base_part, notes,
-                                   part_pos, curve, vib_marks,
-                                   f"{phrase}_pl", porta_marks=marks),
-              ustx)
-    rec = ab._load_render(
-        drv.render(cfg, ustx, pdir / f"{phrase}_hybrid"),
-        notes, t0, t1, nuc)
-    qa = _qa_battery(src_sig, src_sig_b, neu_sig, neu_sig_b,
-                     src_events, src_events_b, rec, spans,
-                     notes, nuc, core_bounds)
-    drv._dump(qa, pdir / "qa_hybrid.json")
-    hyb_np = qa["non_portamento_event_lanes"]
+    # ---- exhaustive admissibility + deterministic selection ----------
+    # The all-full baseline is always a legal fallback.  A narrower
+    # vector is admissible only if it preserves every required gate
+    # relative to FFF; no additive/independence assumption is made.
     base_np = base["qa"]["non_portamento_event_lanes"]
-    out_med = qa["out_of_lane_position"].get("med_c")
     base_med = base["qa"]["out_of_lane_position"].get("med_c")
-    hybrid_ok = (
-        not [r for r in qa["event_shape"]["events"] if r.get("blocking")]
-        and not [r for r in qa["event_shape_rmvpe"]["events"]
-                 if r.get("blocking")]
-        and ab._lane_nonworse(hyb_np["fcpe"], base_np["fcpe"])
-        and ab._lane_nonworse(hyb_np["rmvpe"], base_np["rmvpe"])
-        and ab._vibrato_missing_count(qa["vibrato"])
-            <= base["vibrato_missing"]
-        and (out_med is None or base_med is None
-             or out_med <= base_med + 5.0))
-    hybrid_rec = {
-        "ownership_vector": hybrid,
-        "ustx": ustx.name, "ustx_sha256": sha256(ustx),
-        "wav": rec["wav"].name, "wav_sha256": sha256(rec["wav"]),
-        "lane_provenance": prov, "owned_spans_s": spans,
-        "blocking_events_fcpe": [
-            {"from_note": r["from_note"], "class": r["class"]}
-            for r in qa["event_shape"]["events"] if r.get("blocking")],
-        "blocking_events_rmvpe": [
-            {"from_note": r["from_note"], "class": r["class"]}
-            for r in qa["event_shape_rmvpe"]["events"]
-            if r.get("blocking")],
-        "vibrato_missing": ab._vibrato_missing_count(qa["vibrato"]),
-        "out_of_lane_med_c": out_med,
-        "accepted": bool(hybrid_ok),
-        "qa": qa}
+    base_top = base["qa"]["out_of_lane_topology"]
 
-    if all(v == "full_note" for v in hybrid.values()):
-        preferred = "full_note"
-        reason = ("no single-lane toggle preserved all gates; the "
-                  "all-full baseline is retained (aggregate lane "
-                  "differences are not attributable to any one lane)")
-    elif hybrid_ok:
-        preferred = f"hybrid({hybrid})"
-        reason = ("hybrid preserves every required gate while "
-                  "narrowing ownership on the attributed lanes")
-    else:
+    def _topology_nonworse(q):
+        t = q["out_of_lane_topology"]
+        return (
+            t["sequence_edit_distance"] <= base_top["sequence_edit_distance"]
+            and t["missing_turns"] <= base_top["missing_turns"]
+            and t["extra_turns"] <= base_top["extra_turns"])
+
+    def _admissible(rec):
+        q = rec["qa"]
+        out_med = q["out_of_lane_position"].get("med_c")
+        npq = q["non_portamento_event_lanes"]
+        return (
+            not rec["blocking_events_fcpe"]
+            and not rec["blocking_events_rmvpe"]
+            and ab._lane_nonworse(npq["fcpe"], base_np["fcpe"])
+            and ab._lane_nonworse(npq["rmvpe"], base_np["rmvpe"])
+            and rec["vibrato_missing"] <= base["vibrato_missing"]
+            and (out_med is None or base_med is None
+                 or out_med <= base_med + 5.0)
+            and _topology_nonworse(q))
+
+    exhaustive = {}
+    for label, rec in results.items():
+        owned_dur = sum(max(0.0, b - a) for a, b in rec["owned_spans_s"])
+        exhaustive[label] = {
+            "admissible": bool(_admissible(rec)),
+            "owned_duration_s": round(float(owned_dur), 6),
+            "event_lane_count": label.count("E"),
+            "blocking_events_fcpe": rec["blocking_events_fcpe"],
+            "blocking_events_rmvpe": rec["blocking_events_rmvpe"],
+            "vibrato_missing": rec["vibrato_missing"],
+            "out_of_lane_med_c":
+                rec["qa"]["out_of_lane_position"].get("med_c"),
+            "out_of_lane_topology": {
+                k: rec["qa"]["out_of_lane_topology"][k]
+                for k in ("matched_turns", "missing_turns",
+                          "extra_turns", "sequence_edit_distance")},
+            "non_portamento_event_lanes":
+                rec["qa"]["non_portamento_event_lanes"],
+        }
+
+    admissible = [
+        (label, rec) for label, rec in results.items()
+        if exhaustive[label]["admissible"]]
+    if not admissible:
+        preferred_label = None
         preferred = "BLOCKED_PER_LANE"
-        reason = ("the composed hybrid fails at least one required "
-                  "gate; no representation degrees of freedom may be "
-                  "added in this round")
+        reason = ("no ownership vector in the complete 2^N state-space "
+                  "satisfies all required gates")
+    else:
+        # Narrowest carrier first (minimum total owned duration), then
+        # lower out-of-lane median error, then deterministic label.
+        def _rank(item):
+            label, rec = item
+            dur = exhaustive[label]["owned_duration_s"]
+            med = rec["qa"]["out_of_lane_position"].get("med_c")
+            return (dur, float("inf") if med is None else med, label)
+
+        preferred_label, preferred_rec = min(admissible, key=_rank)
+        own = preferred_rec["ownership_vector"]
+        if all(v == "full_note" for v in own.values()):
+            preferred = "full_note"
+        else:
+            preferred = f"hybrid({own})"
+        reason = (
+            f"exhaustive 2^{len(lanes)} ownership search; "
+            f"{preferred_label} is the narrowest admissible vector "
+            "under both-F0 shape, discrete-lane, vibrato, position and "
+            "out-of-lane topology gates")
+
+    preferred_rec = (results[preferred_label]
+                     if preferred_label is not None else None)
+    selected = None
+    if preferred_rec is not None:
+        selected = {
+            "label": preferred_label,
+            "ownership_vector": preferred_rec["ownership_vector"],
+            "ustx": preferred_rec["ustx"],
+            "ustx_sha256": preferred_rec["ustx_sha256"],
+            "wav": preferred_rec["wav"],
+            "wav_sha256": preferred_rec["wav_sha256"],
+            "lane_provenance": preferred_rec["lane_provenance"],
+            "owned_spans_s": preferred_rec["owned_spans_s"],
+            "blocking_events_fcpe": preferred_rec["blocking_events_fcpe"],
+            "blocking_events_rmvpe": preferred_rec["blocking_events_rmvpe"],
+            "vibrato_missing": preferred_rec["vibrato_missing"],
+            "out_of_lane_med_c":
+                preferred_rec["qa"]["out_of_lane_position"].get("med_c"),
+            "accepted": True,
+        }
 
     rep = {"phrase": phrase, "generator_code_head": head,
            "qa_code_head": drv._git_head(),
@@ -371,15 +392,21 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
            "source_edge_evidence": edge_evidence,
            "applied_lanes": lanes, "incremental_tails_s": tails,
            "vectors": results, "attribution": attribution,
-           "hybrid": hybrid_rec,
-           "verdict": {"preferred": preferred, "reason": reason,
-                       "rule": ("per-lane toggle attribution; hybrid "
-                                "accepted only with 0 blockers on both "
-                                "families, non-worse discrete lanes, "
-                                "non-worse vibrato, out-of-lane within "
-                                "+5c vs the all-full baseline")}}
+           "exhaustive_admissibility": exhaustive,
+           "selected": selected,
+           "verdict": {"preferred": preferred,
+                       "preferred_label": preferred_label,
+                       "reason": reason,
+                       "rule": ("complete 2^N ownership enumeration; "
+                                "candidate must have 0 blockers on both "
+                                "F0 families, non-worse discrete lanes "
+                                "and vibrato, out-of-lane median within "
+                                "+5c, and non-worse out-of-lane topology; "
+                                "among admissible vectors choose minimum "
+                                "owned duration, then lower out-of-lane "
+                                "median error")}}
     drv._dump(rep, pdir / "perlane_report.json")
-    print(f"   preferred={preferred}", flush=True)
+    print(f"   preferred={preferred} label={preferred_label}", flush=True)
     return rep
 
 
