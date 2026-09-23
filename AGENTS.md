@@ -1674,3 +1674,30 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
 - Evidence bundle: runs/expr-20260921/acceptance_eval.json.
 - No generation/QA/threshold/gate semantics changed in Round D.
 - PASS authorizes L7-E human listening per plan verdict rules.
+
+## L7-E listening — P1 PASS / P2 FAIL / P3 FAIL (@a3922fc, evidence l7e)
+
+- Human verdict: P1_sustain passes; P2_slides and P3_vibrato FAIL
+  (reported modes: pitch instability/wobble + audio noise).  Listening
+  project verified faithful: parts' notes+pitd identical to accepted
+  candidates (P2=C3v2, P3=C3/v1, P1=C3v2), track/singer identical.
+- Evidence tool: tools/l7e_listening_evidence.py ->
+  runs/expr-20260921/listening/l7e_listening_evidence.json.
+- P3 mechanism confirmed: accepted v1 has a ~30ms pitch-glitch cluster
+  (29.26-29.28s, >300c dips; single frame -1538c) + detrRMS 62.5c vs
+  12.7/15.7c for rejected v2/v3.  The shape gate scores turn fidelity
+  vs source but has NO render-stability term — v1 wins fidelity while
+  being the glitchiest render.  Blind spot = missing render-artifact
+  gate, not wrong arbitration code.
+- P2 evidence: render F0 smooth (no dips, cleaner than neutral C0);
+  real defects are gesture-range compression (note0 560c->89c,
+  note10 287c->41c, ratio 0.14-0.16; notes 5/6 +-40c opposite offsets),
+  140ms phonation dropout at 54.70-54.83 (source fully voiced — inside
+  note-8's EVIDENCE_EDGE_UNCERTAIN span, present in accepted, absent
+  in C0), and energy collapse during the 53.0 slide (-40dB).
+- P1 contrast: note offsets of similar size exist but gesture ranges
+  preserved (ratio ~1.0), no dips, dropouts only where source also
+  unvoiced — consistent with its PASS.
+- Frozen gates never measured: render stability (dips/glitch),
+  gesture range fidelity, phonation continuity, render energy.  These
+  are the concrete blind-spot terms for a future repair round.

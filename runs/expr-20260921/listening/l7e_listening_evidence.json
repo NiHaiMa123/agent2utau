@@ -1,0 +1,1117 @@
+{
+ "tool": "tools/l7e_listening_evidence.py",
+ "purpose": "quantify perceptual blind spot behind L7-E P2/P3 listening FAIL (pitch wobble + noise)",
+ "human_verdict": {
+  "P1_sustain": "PASS",
+  "P2_slides": "FAIL",
+  "P3_vibrato": "FAIL",
+  "reported_modes": [
+   "pitch_instability_wobble",
+   "audio_quality_noise"
+  ]
+ },
+ "phrases": {
+  "P1_sustain": {
+   "window_s": [
+    18.8,
+    21.61
+   ],
+   "signals": {
+    "source": {
+     "path": "runs\\expr-20260921\\phrases3\\P1_sustain\\SOURCE.wav",
+     "sha256": "632ba9001aaca32b",
+     "jitter": {
+      "n_frames": 342,
+      "voiced_frac": 0.719,
+      "dcent_med": 8.2,
+      "dcent_p90": 38.7,
+      "dcent_gt30_frac": 0.153,
+      "detrended_rms_c": 14.5,
+      "n_voiced_frames": 246
+     },
+     "quality": {
+      "n_frames_used": 246,
+      "acf_peak_med": 0.946,
+      "spec_flat_2_8k_med": 0.511
+     }
+    },
+    "neutral_C0": {
+     "path": "runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C0_vocal.wav",
+     "sha256": "ac5cd11ef4346f37",
+     "jitter": {
+      "n_frames": 282,
+      "voiced_frac": 0.879,
+      "dcent_med": 8.3,
+      "dcent_p90": 46.9,
+      "dcent_gt30_frac": 0.18,
+      "detrended_rms_c": 24.0,
+      "n_voiced_frames": 248
+     },
+     "quality": {
+      "n_frames_used": 248,
+      "acf_peak_med": 0.952,
+      "spec_flat_2_8k_med": 0.511
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         19.11,
+         19.21
+        ],
+        "dur_ms": 110.0,
+        "src_voiced_frac": 0.67
+       },
+       {
+        "t": [
+         20.29,
+         20.41
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         20.79,
+         20.88
+        ],
+        "dur_ms": 100.0,
+        "src_voiced_frac": 0.0
+       }
+      ],
+      "energy_collapses": []
+     }
+    },
+    "accepted": {
+     "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2_vocal.wav",
+     "sha256": "93557c8b48d513ea",
+     "jitter": {
+      "n_frames": 282,
+      "voiced_frac": 0.883,
+      "dcent_med": 7.5,
+      "dcent_p90": 40.9,
+      "dcent_gt30_frac": 0.155,
+      "detrended_rms_c": 16.5,
+      "n_voiced_frames": 249
+     },
+     "quality": {
+      "n_frames_used": 249,
+      "acf_peak_med": 0.952,
+      "spec_flat_2_8k_med": 0.491
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         19.1,
+         19.19
+        ],
+        "dur_ms": 100.0,
+        "src_voiced_frac": 0.56
+       },
+       {
+        "t": [
+         20.3,
+         20.42
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         20.8,
+         20.89
+        ],
+        "dur_ms": 100.0,
+        "src_voiced_frac": 0.0
+       }
+      ],
+      "energy_collapses": []
+     },
+     "note_gesture_table": [
+      {
+       "note": 0,
+       "t_s": 18.8,
+       "offset_c": -5.0,
+       "src_range_c": 54.0,
+       "render_range_c": 54.0,
+       "range_ratio": 0.99
+      },
+      {
+       "note": 1,
+       "t_s": 19.22,
+       "offset_c": 15.0,
+       "src_range_c": 200.0,
+       "render_range_c": 210.0,
+       "range_ratio": 1.05
+      },
+      {
+       "note": 2,
+       "t_s": 19.59,
+       "offset_c": -12.0,
+       "src_range_c": 63.0,
+       "render_range_c": 79.0,
+       "range_ratio": 1.25
+      },
+      {
+       "note": 3,
+       "t_s": 19.95,
+       "offset_c": -49.0,
+       "src_range_c": 284.0,
+       "render_range_c": 289.0,
+       "range_ratio": 1.02
+      },
+      {
+       "note": 4,
+       "t_s": 20.44,
+       "offset_c": -25.0,
+       "src_range_c": 272.0,
+       "render_range_c": 353.0,
+       "range_ratio": 1.3
+      },
+      {
+       "note": 5,
+       "t_s": 20.9,
+       "offset_c": -0.0,
+       "src_range_c": 127.0,
+       "render_range_c": 133.0,
+       "range_ratio": 1.05
+      },
+      {
+       "note": 6,
+       "t_s": 21.18,
+       "offset_c": 68.0,
+       "src_range_c": 252.0,
+       "render_range_c": 292.0,
+       "range_ratio": 1.16
+      }
+     ]
+    },
+    "alt_C3_v1": {
+     "path": "runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3_v1_vocal.wav",
+     "sha256": "dde0c4344e021552",
+     "jitter": {
+      "n_frames": 282,
+      "voiced_frac": 0.862,
+      "dcent_med": 7.6,
+      "dcent_p90": 36.0,
+      "dcent_gt30_frac": 0.134,
+      "detrended_rms_c": 14.2,
+      "n_voiced_frames": 243
+     },
+     "quality": {
+      "n_frames_used": 243,
+      "acf_peak_med": 0.952,
+      "spec_flat_2_8k_med": 0.497
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         19.09,
+         19.2
+        ],
+        "dur_ms": 120.0,
+        "src_voiced_frac": 0.55
+       },
+       {
+        "t": [
+         20.3,
+         20.43
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.07
+       },
+       {
+        "t": [
+         20.79,
+         20.89
+        ],
+        "dur_ms": 110.0,
+        "src_voiced_frac": 0.0
+       }
+      ],
+      "energy_collapses": []
+     }
+    },
+    "alt_C3v3": {
+     "path": "runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v3_vocal.wav",
+     "sha256": "9320e05978c2ff47",
+     "jitter": {
+      "n_frames": 282,
+      "voiced_frac": 0.879,
+      "dcent_med": 7.5,
+      "dcent_p90": 37.4,
+      "dcent_gt30_frac": 0.157,
+      "detrended_rms_c": 12.1,
+      "n_voiced_frames": 248
+     },
+     "quality": {
+      "n_frames_used": 248,
+      "acf_peak_med": 0.951,
+      "spec_flat_2_8k_med": 0.533
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         19.11,
+         19.2
+        ],
+        "dur_ms": 100.0,
+        "src_voiced_frac": 0.67
+       },
+       {
+        "t": [
+         20.3,
+         20.43
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.07
+       }
+      ],
+      "energy_collapses": []
+     }
+    }
+   },
+   "curve": {
+    "accepted_pitd": {
+     "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2.ustx",
+     "n_points": 57,
+     "dur_s": 3.31,
+     "reversal_per_s": 17.0,
+     "d2_rms_c": 56.5,
+     "abs_d1_med_c": 0.3,
+     "abs_d1_p95_c": 43.5
+    }
+   }
+  },
+  "P2_slides": {
+   "window_s": [
+    51.16,
+    56.71
+   ],
+   "signals": {
+    "source": {
+     "path": "runs\\expr-20260921\\phrases3\\P2_slides\\SOURCE.wav",
+     "sha256": "1919231c87d8b1b6",
+     "jitter": {
+      "n_frames": 616,
+      "voiced_frac": 0.881,
+      "dcent_med": 8.3,
+      "dcent_p90": 33.3,
+      "dcent_gt30_frac": 0.115,
+      "detrended_rms_c": 24.5,
+      "n_voiced_frames": 543
+     },
+     "quality": {
+      "n_frames_used": 537,
+      "acf_peak_med": 0.948,
+      "spec_flat_2_8k_med": 0.547
+     }
+    },
+    "neutral_C0": {
+     "path": "runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C0_vocal.wav",
+     "sha256": "e311059968de5a0d",
+     "jitter": {
+      "n_frames": 556,
+      "voiced_frac": 0.826,
+      "dcent_med": 10.7,
+      "dcent_p90": 40.8,
+      "dcent_gt30_frac": 0.162,
+      "detrended_rms_c": 18.4,
+      "n_voiced_frames": 459
+     },
+     "quality": {
+      "n_frames_used": 459,
+      "acf_peak_med": 0.962,
+      "spec_flat_2_8k_med": 0.482
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         51.44,
+         51.57
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.69
+       },
+       {
+        "t": [
+         52.26,
+         52.39
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.46
+       },
+       {
+        "t": [
+         53.06,
+         53.23
+        ],
+        "dur_ms": 180.0,
+        "src_voiced_frac": 0.56
+       },
+       {
+        "t": [
+         53.98,
+         54.32
+        ],
+        "dur_ms": 350.0,
+        "src_voiced_frac": 0.26
+       }
+      ],
+      "energy_collapses": [
+       {
+        "t": 54.16,
+        "render_dbfs": -38.4,
+        "source_dbfs": -22.2
+       }
+      ]
+     }
+    },
+    "accepted": {
+     "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v2_vocal.wav",
+     "sha256": "4c12360d29896d2f",
+     "jitter": {
+      "n_frames": 556,
+      "voiced_frac": 0.806,
+      "dcent_med": 9.7,
+      "dcent_p90": 35.2,
+      "dcent_gt30_frac": 0.123,
+      "detrended_rms_c": 9.6,
+      "n_voiced_frames": 448
+     },
+     "quality": {
+      "n_frames_used": 448,
+      "acf_peak_med": 0.961,
+      "spec_flat_2_8k_med": 0.52
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         51.44,
+         51.58
+        ],
+        "dur_ms": 150.0,
+        "src_voiced_frac": 0.73
+       },
+       {
+        "t": [
+         52.26,
+         52.38
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.46
+       },
+       {
+        "t": [
+         53.07,
+         53.24
+        ],
+        "dur_ms": 180.0,
+        "src_voiced_frac": 0.5
+       },
+       {
+        "t": [
+         53.99,
+         54.32
+        ],
+        "dur_ms": 340.0,
+        "src_voiced_frac": 0.22
+       },
+       {
+        "t": [
+         54.7,
+         54.83
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 1.0
+       }
+      ],
+      "energy_collapses": []
+     },
+     "note_gesture_table": [
+      {
+       "note": 0,
+       "t_s": 51.16,
+       "offset_c": -9.0,
+       "src_range_c": 560.0,
+       "render_range_c": 89.0,
+       "range_ratio": 0.16
+      },
+      {
+       "note": 1,
+       "t_s": 51.58,
+       "offset_c": -2.0,
+       "src_range_c": 221.0,
+       "render_range_c": 231.0,
+       "range_ratio": 1.05
+      },
+      {
+       "note": 2,
+       "t_s": 51.94,
+       "offset_c": 10.0,
+       "src_range_c": 188.0,
+       "render_range_c": 179.0,
+       "range_ratio": 0.95
+      },
+      {
+       "note": 3,
+       "t_s": 52.39,
+       "offset_c": -0.0,
+       "src_range_c": 242.0,
+       "render_range_c": 232.0,
+       "range_ratio": 0.96
+      },
+      {
+       "note": 4,
+       "t_s": 52.76,
+       "offset_c": -1.0,
+       "src_range_c": 24.0,
+       "render_range_c": 24.0,
+       "range_ratio": 1.02
+      },
+      {
+       "note": 5,
+       "t_s": 52.93,
+       "offset_c": 45.0,
+       "src_range_c": 116.0,
+       "render_range_c": 54.0,
+       "range_ratio": 0.47
+      },
+      {
+       "note": 6,
+       "t_s": 53.25,
+       "offset_c": -38.0,
+       "src_range_c": 285.0,
+       "render_range_c": 144.0,
+       "range_ratio": 0.51
+      },
+      {
+       "note": 7,
+       "t_s": 53.61,
+       "offset_c": -6.0,
+       "src_range_c": 236.0,
+       "render_range_c": 241.0,
+       "range_ratio": 1.02
+      },
+      {
+       "note": 8,
+       "t_s": 54.35,
+       "offset_c": -5.0,
+       "src_range_c": 493.0,
+       "render_range_c": 451.0,
+       "range_ratio": 0.91
+      },
+      {
+       "note": 9,
+       "t_s": 54.85,
+       "offset_c": -9.0,
+       "src_range_c": 285.0,
+       "render_range_c": 281.0,
+       "range_ratio": 0.99
+      },
+      {
+       "note": 10,
+       "t_s": 55.2,
+       "offset_c": -12.0,
+       "src_range_c": 287.0,
+       "render_range_c": 41.0,
+       "range_ratio": 0.14
+      },
+      {
+       "note": 11,
+       "t_s": 55.53,
+       "offset_c": -0.0,
+       "src_range_c": 122.0,
+       "render_range_c": 117.0,
+       "range_ratio": 0.96
+      }
+     ]
+    },
+    "alt_C3_v1": {
+     "path": "runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3_v1_vocal.wav",
+     "sha256": "9619e33cc277e6c2",
+     "jitter": {
+      "n_frames": 556,
+      "voiced_frac": 0.797,
+      "dcent_med": 12.0,
+      "dcent_p90": 36.2,
+      "dcent_gt30_frac": 0.164,
+      "detrended_rms_c": 13.3,
+      "n_voiced_frames": 443
+     },
+     "quality": {
+      "n_frames_used": 443,
+      "acf_peak_med": 0.956,
+      "spec_flat_2_8k_med": 0.507
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         51.45,
+         51.57
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.73
+       },
+       {
+        "t": [
+         52.25,
+         52.38
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.5
+       },
+       {
+        "t": [
+         53.07,
+         53.23
+        ],
+        "dur_ms": 170.0,
+        "src_voiced_frac": 0.56
+       },
+       {
+        "t": [
+         53.99,
+         54.32
+        ],
+        "dur_ms": 340.0,
+        "src_voiced_frac": 0.22
+       },
+       {
+        "t": [
+         54.7,
+         54.83
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 1.0
+       },
+       {
+        "t": [
+         55.43,
+         55.52
+        ],
+        "dur_ms": 100.0,
+        "src_voiced_frac": 0.6
+       }
+      ],
+      "energy_collapses": [
+       {
+        "t": 55.26,
+        "render_dbfs": -38.6,
+        "source_dbfs": -20.1
+       }
+      ]
+     }
+    },
+    "alt_C3v3": {
+     "path": "runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v3_vocal.wav",
+     "sha256": "ab44300961fda5ce",
+     "jitter": {
+      "n_frames": 556,
+      "voiced_frac": 0.804,
+      "dcent_med": 9.9,
+      "dcent_p90": 35.6,
+      "dcent_gt30_frac": 0.125,
+      "detrended_rms_c": 10.9,
+      "n_voiced_frames": 447
+     },
+     "quality": {
+      "n_frames_used": 447,
+      "acf_peak_med": 0.962,
+      "spec_flat_2_8k_med": 0.517
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         51.44,
+         51.58
+        ],
+        "dur_ms": 150.0,
+        "src_voiced_frac": 0.73
+       },
+       {
+        "t": [
+         52.26,
+         52.38
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.46
+       },
+       {
+        "t": [
+         53.08,
+         53.23
+        ],
+        "dur_ms": 160.0,
+        "src_voiced_frac": 0.5
+       },
+       {
+        "t": [
+         53.52,
+         53.6
+        ],
+        "dur_ms": 90.0,
+        "src_voiced_frac": 1.0
+       },
+       {
+        "t": [
+         53.98,
+         54.32
+        ],
+        "dur_ms": 350.0,
+        "src_voiced_frac": 0.26
+       },
+       {
+        "t": [
+         54.7,
+         54.83
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 1.0
+       }
+      ],
+      "energy_collapses": []
+     }
+    }
+   },
+   "curve": {
+    "accepted_pitd": {
+     "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v2.ustx",
+     "n_points": 110,
+     "dur_s": 6.05,
+     "reversal_per_s": 11.9,
+     "d2_rms_c": 46.5,
+     "abs_d1_med_c": 4.6,
+     "abs_d1_p95_c": 38.6
+    }
+   }
+  },
+  "P3_vibrato": {
+   "window_s": [
+    25.23,
+    30.77
+   ],
+   "signals": {
+    "source": {
+     "path": "runs\\expr-20260921\\phrases3\\P3_vibrato\\SOURCE.wav",
+     "sha256": "af3690224b5274a0",
+     "jitter": {
+      "n_frames": 615,
+      "voiced_frac": 0.808,
+      "dcent_med": 8.1,
+      "dcent_p90": 33.6,
+      "dcent_gt30_frac": 0.115,
+      "detrended_rms_c": 17.1,
+      "n_voiced_frames": 497
+     },
+     "quality": {
+      "n_frames_used": 494,
+      "acf_peak_med": 0.955,
+      "spec_flat_2_8k_med": 0.522
+     }
+    },
+    "neutral_C0": {
+     "path": "runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C0_vocal.wav",
+     "sha256": "2875d57ece5a8b2c",
+     "jitter": {
+      "n_frames": 555,
+      "voiced_frac": 0.787,
+      "dcent_med": 9.3,
+      "dcent_p90": 39.0,
+      "dcent_gt30_frac": 0.142,
+      "detrended_rms_c": 30.5,
+      "n_voiced_frames": 437
+     },
+     "quality": {
+      "n_frames_used": 437,
+      "acf_peak_med": 0.959,
+      "spec_flat_2_8k_med": 0.447
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         25.92,
+         26.06
+        ],
+        "dur_ms": 150.0,
+        "src_voiced_frac": 0.36
+       },
+       {
+        "t": [
+         26.23,
+         26.37
+        ],
+        "dur_ms": 150.0,
+        "src_voiced_frac": 1.0
+       },
+       {
+        "t": [
+         27.43,
+         27.56
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         27.99,
+         28.43
+        ],
+        "dur_ms": 450.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         28.74,
+         28.88
+        ],
+        "dur_ms": 150.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         29.49,
+         29.62
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.86
+       }
+      ],
+      "energy_collapses": []
+     }
+    },
+    "accepted": {
+     "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav",
+     "sha256": "e16455f87d88fca3",
+     "jitter": {
+      "n_frames": 555,
+      "voiced_frac": 0.798,
+      "dcent_med": 8.4,
+      "dcent_p90": 32.6,
+      "dcent_gt30_frac": 0.12,
+      "detrended_rms_c": 62.5,
+      "n_voiced_frames": 443
+     },
+     "quality": {
+      "n_frames_used": 443,
+      "acf_peak_med": 0.96,
+      "spec_flat_2_8k_med": 0.436
+     },
+     "defects": {
+      "pitch_dips_gt300c": [
+       {
+        "t": 29.26,
+        "dev_c": 423.0
+       },
+       {
+        "t": 29.27,
+        "dev_c": -1210.0
+       },
+       {
+        "t": 29.28,
+        "dev_c": 611.0
+       }
+      ],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         25.92,
+         26.05
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.31
+       },
+       {
+        "t": [
+         26.24,
+         26.38
+        ],
+        "dur_ms": 150.0,
+        "src_voiced_frac": 1.0
+       },
+       {
+        "t": [
+         27.99,
+         28.44
+        ],
+        "dur_ms": 460.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         28.76,
+         28.88
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         29.5,
+         29.62
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.92
+       }
+      ],
+      "energy_collapses": []
+     },
+     "note_gesture_table": [
+      {
+       "note": 0,
+       "t_s": 25.23,
+       "offset_c": -3.0,
+       "src_range_c": 98.0,
+       "render_range_c": 175.0,
+       "range_ratio": 1.78
+      },
+      {
+       "note": 1,
+       "t_s": 25.73,
+       "offset_c": 1.0,
+       "src_range_c": 98.0,
+       "render_range_c": 37.0,
+       "range_ratio": 0.38
+      },
+      {
+       "note": 2,
+       "t_s": 26.07,
+       "offset_c": -2.0,
+       "src_range_c": 96.0,
+       "render_range_c": 38.0,
+       "range_ratio": 0.39
+      },
+      {
+       "note": 3,
+       "t_s": 26.4,
+       "offset_c": 5.0,
+       "src_range_c": 373.0,
+       "render_range_c": 246.0,
+       "range_ratio": 0.66
+      },
+      {
+       "note": 4,
+       "t_s": 26.81,
+       "offset_c": 5.0,
+       "src_range_c": 649.0,
+       "render_range_c": 482.0,
+       "range_ratio": 0.74
+      },
+      {
+       "note": 5,
+       "t_s": 27.2,
+       "offset_c": 50.0,
+       "src_range_c": 299.0,
+       "render_range_c": 356.0,
+       "range_ratio": 1.19
+      },
+      {
+       "note": 6,
+       "t_s": 27.58,
+       "offset_c": 0.0,
+       "src_range_c": 252.0,
+       "render_range_c": 248.0,
+       "range_ratio": 0.99
+      },
+      {
+       "note": 7,
+       "t_s": 28.45,
+       "offset_c": 3.0,
+       "src_range_c": 163.0,
+       "render_range_c": 332.0,
+       "range_ratio": 2.04
+      },
+      {
+       "note": 8,
+       "t_s": 28.89,
+       "offset_c": 1.0,
+       "src_range_c": 49.0,
+       "render_range_c": 43.0,
+       "range_ratio": 0.88
+      },
+      {
+       "note": 9,
+       "t_s": 29.07,
+       "offset_c": 9.0,
+       "src_range_c": 65.0,
+       "render_range_c": 38.0,
+       "range_ratio": 0.59
+      },
+      {
+       "note": 10,
+       "t_s": 29.28,
+       "offset_c": -16.0,
+       "src_range_c": 239.0,
+       "render_range_c": 27.0,
+       "range_ratio": 0.11
+      },
+      {
+       "note": 11,
+       "t_s": 29.64,
+       "offset_c": 2.0,
+       "src_range_c": 122.0,
+       "render_range_c": 169.0,
+       "range_ratio": 1.38
+      }
+     ]
+    },
+    "alt_C3v2": {
+     "path": "runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3v2_vocal.wav",
+     "sha256": "cad386e338fde35b",
+     "jitter": {
+      "n_frames": 555,
+      "voiced_frac": 0.811,
+      "dcent_med": 7.7,
+      "dcent_p90": 29.9,
+      "dcent_gt30_frac": 0.1,
+      "detrended_rms_c": 12.7,
+      "n_voiced_frames": 450
+     },
+     "quality": {
+      "n_frames_used": 450,
+      "acf_peak_med": 0.962,
+      "spec_flat_2_8k_med": 0.486
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         25.92,
+         26.05
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.31
+       },
+       {
+        "t": [
+         26.24,
+         26.38
+        ],
+        "dur_ms": 150.0,
+        "src_voiced_frac": 1.0
+       },
+       {
+        "t": [
+         27.99,
+         28.43
+        ],
+        "dur_ms": 450.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         28.75,
+         28.88
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         29.5,
+         29.62
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.92
+       }
+      ],
+      "energy_collapses": []
+     }
+    },
+    "alt_C3v3": {
+     "path": "runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3v3_vocal.wav",
+     "sha256": "130cdd0dd6446bc3",
+     "jitter": {
+      "n_frames": 555,
+      "voiced_frac": 0.795,
+      "dcent_med": 8.8,
+      "dcent_p90": 30.7,
+      "dcent_gt30_frac": 0.106,
+      "detrended_rms_c": 15.7,
+      "n_voiced_frames": 441
+     },
+     "quality": {
+      "n_frames_used": 441,
+      "acf_peak_med": 0.961,
+      "spec_flat_2_8k_med": 0.444
+     },
+     "defects": {
+      "pitch_dips_gt300c": [],
+      "unvoiced_dropouts": [
+       {
+        "t": [
+         25.92,
+         26.05
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.31
+       },
+       {
+        "t": [
+         26.24,
+         26.39
+        ],
+        "dur_ms": 160.0,
+        "src_voiced_frac": 1.0
+       },
+       {
+        "t": [
+         27.97,
+         28.44
+        ],
+        "dur_ms": 480.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         28.75,
+         28.88
+        ],
+        "dur_ms": 140.0,
+        "src_voiced_frac": 0.0
+       },
+       {
+        "t": [
+         29.5,
+         29.62
+        ],
+        "dur_ms": 130.0,
+        "src_voiced_frac": 0.92
+       }
+      ],
+      "energy_collapses": []
+     }
+    }
+   },
+   "curve": {
+    "accepted_pitd": {
+     "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3.ustx",
+     "n_points": 123,
+     "dur_s": 6.03,
+     "reversal_per_s": 12.7,
+     "d2_rms_c": 69.3,
+     "abs_d1_med_c": 4.9,
+     "abs_d1_p95_c": 45.0
+    }
+   }
+  }
+ }
+}
