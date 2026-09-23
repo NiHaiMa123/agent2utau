@@ -39,7 +39,8 @@ import l7_phrase_gate as drv                      # noqa: E402
 
 from agent2utau.expression import contour_qa as cq  # noqa: E402
 from agent2utau.expression.contour import build_contour_signal  # noqa: E402
-from agent2utau.expression.events import match_vibrato_events  # noqa: E402
+from agent2utau.expression.events import (                    # noqa: E402
+    match_pitch_events, match_vibrato_events)
 from agent2utau.analysis.f0 import extract_f0     # noqa: E402
 from agent2utau.analysis.rmvpe import infer_rmvpe  # noqa: E402
 from agent2utau.expression.pitch_residual import (  # noqa: E402
@@ -70,6 +71,58 @@ def _out_of_lane_mask(sig, spans):
     for a, b in spans:
         m &= ~((sig.times >= a - 0.01) & (sig.times <= b + 0.01))
     return m
+
+
+NON_PORTA_DISCRETE_TYPES = {
+    "scoop", "undershoot", "overshoot", "ornament"
+}
+
+
+def _non_porta_lane_summary(source_events, render_events, notes, nuc):
+    """Explicit onset/ornament preservation check.
+
+    Stable intonation is covered by out-of-lane position/topology and
+    vibrato has its dedicated metrics.  This summary covers the discrete
+    non-portamento lanes most likely to be swallowed by full-note
+    pitch.data ownership.
+    """
+    src = [e for e in source_events if e.type in NON_PORTA_DISCRETE_TYPES]
+    ren = [e for e in render_events if e.type in NON_PORTA_DISCRETE_TYPES]
+    m = match_pitch_events(src, ren, notes, nucleus_times=nuc)
+
+    def _count(events):
+        out = {t: 0 for t in sorted(NON_PORTA_DISCRETE_TYPES)}
+        for e in events:
+            if e.type in out:
+                out[e.type] += 1
+        return out
+
+    matched = {t: 0 for t in sorted(NON_PORTA_DISCRETE_TYPES)}
+    for row in m["matched"]:
+        t = row["source"].type
+        if t in matched:
+            matched[t] += 1
+
+    ambiguous_src = [row["source"] for row in m["ambiguous"]]
+    return {
+        "matched_by_type": matched,
+        "source_only_by_type": _count(m["source_only"]),
+        "ambiguous_by_type": _count(ambiguous_src),
+        "render_only_by_type": _count(m["neutral_only"]),
+        "source_unresolved_total": (
+            len(m["source_only"]) + len(m["ambiguous"])),
+        "render_only_total": len(m["neutral_only"]),
+    }
+
+
+def _lane_nonworse(candidate, reference):
+    """Candidate must add neither unresolved SOURCE events nor extras."""
+    return (
+        candidate["source_unresolved_total"]
+        <= reference["source_unresolved_total"]
+        and candidate["render_only_total"]
+        <= reference["render_only_total"]
+    )
 
 
 def run_phrase(phrase, cfg, base_doc, caches, head):
@@ -136,6 +189,12 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
         qa = {
             "portamento": cq.portamento_metrics(src_events, rec["events"]),
             "vibrato": cq.vibrato_metrics(src_events, rec["events"]),
+            "non_portamento_event_lanes": {
+                "fcpe": _non_porta_lane_summary(
+                    src_events, rec["events"], notes, nuc),
+                "rmvpe": _non_porta_lane_summary(
+                    src_events_b, rec["events_b"], notes, nuc),
+            },
             "topology": cq.turning_point_metrics(
                 src_sig.cents, rec["sig"].cents, qa_mask),
             "event_shape": cq.event_shape_gate(
@@ -180,15 +239,45 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
         "out_of_lane_med_abs_err_c":
             {"full_note": _med_err(a["qa"]), "event": _med_err(b["qa"])},
         "preferred": None}
+    a_np = a["qa"]["non_portamento_event_lanes"]
+    b_np = b["qa"]["non_portamento_event_lanes"]
+    event_nonporta_ok = (
+        _lane_nonworse(b_np["fcpe"], a_np["fcpe"])
+        and _lane_nonworse(b_np["rmvpe"], a_np["rmvpe"]))
+    full_nonporta_ok = (
+        _lane_nonworse(a_np["fcpe"], b_np["fcpe"])
+        and _lane_nonworse(a_np["rmvpe"], b_np["rmvpe"]))
+
     narrow_ok = (b["n_blocking_fcpe"] <= a["n_blocking_fcpe"]
                  and b["n_blocking_rmvpe"] <= a["n_blocking_rmvpe"]
+                 and event_nonporta_ok
                  and (_med_err(b["qa"]) is None or _med_err(a["qa"]) is None
                       or _med_err(b["qa"]) <= _med_err(a["qa"]) + 5.0))
-    verdict["preferred"] = "event" if narrow_ok else "full_note"
-    verdict["rule"] = ("prefer event-bounded ownership when in-event "
-                       "blocking is non-worse on both extractor families "
-                       "and out-of-lane median |err| is non-worse "
-                       "(+5c tolerance)")
+
+    if narrow_ok:
+        preferred = "event"
+    elif full_nonporta_ok:
+        preferred = "full_note"
+    else:
+        # Neither ownership dominates: one protects portamento/position
+        # while the other protects a discrete onset/ornament lane.
+        # Do not hide the trade-off behind a single scalar preference.
+        preferred = "BLOCKED"
+
+    verdict["preferred"] = preferred
+    verdict["non_portamento_event_lanes"] = {
+        "full_note": a_np,
+        "event": b_np,
+        "event_nonworse": event_nonporta_ok,
+        "full_note_nonworse": full_nonporta_ok,
+    }
+    verdict["rule"] = (
+        "prefer event-bounded ownership only when absolute event-shape "
+        "blocking is non-worse on both extractor families, discrete "
+        "non-portamento event lanes are non-worse, and out-of-lane median "
+        "|err| is non-worse (+5c tolerance); otherwise retain full_note "
+        "only if its discrete non-portamento lanes are also non-worse; "
+        "if neither mode dominates, verdict=BLOCKED")
 
     rep = {"phrase": phrase, "generator_code_head": head,
            "qa_code_head": drv._git_head(),
