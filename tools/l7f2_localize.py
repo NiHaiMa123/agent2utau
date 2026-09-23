@@ -136,8 +136,8 @@ def _periodic(tt, cc):
         if p2p and np.mean(p2p) > 0 else None,
         "depth_env_slope_c_per_s": round(
             float(np.polyfit(range(len(p2p)), p2p, 1)[0])
-            / (0.005 * (len(p2p) and
-               int(round(1.0 / f_dom / 0.005)) // 2 or 1)), 1)
+            / max(1e-9, (int(round(1.0 / f_dom / 0.005)) // 2 or 1)
+                  * 0.005), 1)
         if len(p2p) > 2 else None,
     }
 
@@ -155,8 +155,8 @@ def _phonation(wav_path, f0, t0, t1, src_f0, src_wav, src_off):
     while t < t1 - 0.05:
         seg = wav[int(t * sr): int((t + 0.1) * sr)]
         if len(seg):
-            bins.append(round(20 * np.log10(
-                max(np.sqrt(np.mean(seg ** 2)), 1e-9)), 1))
+            bins.append(round(float(20 * np.log10(
+                max(np.sqrt(np.mean(seg ** 2)), 1e-9))), 1))
         t += 0.1
     return {"acf_peak_med": q.get("acf_peak_med"),
             "spec_flat_2_8k_med": q.get("spec_flat_2_8k_med"),
