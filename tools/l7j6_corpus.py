@@ -163,10 +163,11 @@ def _project_meta(doc, path):
 
 def _render_env(cfg):
     import hashlib
-    exe = Path(cfg.openutau_dir) / "OpenUtau.exe"
-    core = Path(cfg.openutau_dir) / "OpenUtau.Core.dll"
+    oudir = Path(cfg["openutau_dir"])
+    exe = oudir / "OpenUtau.exe"
+    core = oudir / "OpenUtau.Core.dll"
     return {
-        "openutau_dir": str(cfg.openutau_dir),
+        "openutau_dir": str(oudir),
         "singer": RENDER_SINGER,
         "openutau_exe_sha256":
             hashlib.sha256(exe.read_bytes()).hexdigest()
