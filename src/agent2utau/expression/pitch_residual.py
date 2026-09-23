@@ -927,9 +927,9 @@ def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
     report = {"stages": []}
 
     # v1 must already be rendered by the caller; its topology is computed
-    # here so the same code path measures both candidates.  Its event
-    # shape is recorded for audit but does not gate: v1 is the verified
-    # baseline retained when candidates block.
+    # here so the same code path measures both candidates.  v1 is only the
+    # relative/fallback baseline.  Its absolute event-shape result is still
+    # reported truthfully and may be FAIL; retention is not acceptance.
     qa_v1 = qa_fn(render_v1_sig)
     t1 = _topo(qa_v1)
     es1 = _event_shape(render_v1_sig)
