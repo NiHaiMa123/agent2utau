@@ -43,7 +43,9 @@ import l7_phrase_gate as drv                          # noqa: E402
 import l7e_listening_evidence as lev                  # noqa: E402
 import l7f_periodic_ownership as own                  # noqa: E402
 from agent2utau.analysis.f0 import extract_f0         # noqa: E402
-from agent2utau.openutau.ustx import load_ustx, sha256  # noqa: E402
+from agent2utau.openutau.ustx import (
+    load_ustx, save_ustx, sha256)                      # noqa: E402
+from agent2utau.resources.config import load_config   # noqa: E402
 from agent2utau.expression.pitch_residual import TICK_MS  # noqa: E402
 
 PHRASE = "P2_slides"
@@ -206,6 +208,7 @@ def eval_segments(name, wav, f0, segments, src_f0, src_wav, off=0.0):
 
 def main():
     head = drv._require_clean_worktree("l7f2_localize")
+    cfg = load_config()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     doc = load_ustx(BASE_USTX)
@@ -364,6 +367,79 @@ def main():
                               "metrics normal throughout."),
         "classification": cls,
     }
+    # ---- optional single discriminating A/B --------------------------
+    # Contract: allowed only when ONE concrete F0-localized suspect
+    # interval was identified.  Variant C replaces the PITD ys inside
+    # the flagged span with a ~140 ms running median (removes the
+    # zigzag, keeps the broad gesture); every other byte is identical.
+    ab = None
+    if cls == "F0_LOCAL_DEFECT" and abnormal_f0:
+        import copy as _copy
+        z0 = min(p2[s]["span_s"][0] for s in abnormal_f0)
+        z1 = max(p2[s]["span_s"][1] for s in abnormal_f0)
+        cur = next(c for c in part["curves"] if c["abbr"] == "pitd")
+        xs = (np.asarray(cur["xs"], float) + part["position"]) \
+            * TICK_MS / 1000.0
+        ys = np.asarray(cur["ys"], float)
+        k_med = 7  # ~one zigzag period at typical 10-20ms pt spacing
+        ys_med = np.array([np.median(ys[max(0, i - k_med // 2):
+                                       i + k_med // 2 + 1])
+                           for i in range(len(ys))])
+        tap = np.clip(np.minimum((xs - z0) / 0.04,
+                                 (z1 - xs) / 0.04), 0.0, 1.0)
+        in_span = (xs >= z0) & (xs <= z1)
+        ys_c = ys.copy()
+        ys_c[in_span] = ys[in_span] * (1 - tap[in_span]) \
+            + ys_med[in_span] * tap[in_span]
+        c_doc = _copy.deepcopy(doc)
+        cpart = c_doc["voice_parts"][0]
+        ccur = next(c for c in cpart["curves"] if c["abbr"] == "pitd")
+        ccur["ys"] = [int(round(v)) for v in ys_c]
+        cpart["name"] = part["name"] + "_zigfix"
+        c_ustx = OUT_DIR / "P2_slides_C3v2_v165c_zigfix.ustx"
+        save_ustx(c_doc, c_ustx)
+        c_wav = drv.render(cfg, c_ustx,
+                           OUT_DIR / "P2_slides_C3v2_v165c_zigfix")
+        c_f0 = extract_f0(c_wav)
+        ab = {
+            "suspect_interval_s": [round(z0, 3), round(z1, 3)],
+            "operation": "PITD ys -> running median (7-pt) inside "
+                         "suspect span, 40ms edge taper; all other "
+                         "bytes identical",
+            "ustx": str(c_ustx), "ustx_sha256": sha256(c_ustx),
+            "wav": str(c_wav), "wav_sha256": sha256(c_wav),
+            "segments": eval_segments("C_zigfix", c_wav, c_f0,
+                                      segments, src_f0, src_wav, 0.0),
+            "pitd_unchanged_outside_span": bool(
+                (ys_c[~in_span] == ys[~in_span]).all()),
+        }
+        report["ab_variant_C"] = ab
+
+        # P2-only listening project: track0 = A baseline, track1 = C.
+        lp = _copy.deepcopy(load_ustx(
+            drv.RUN_DIR / "listening" /
+            "agent2utau_L7E_P1_P3_P2.ustx"))
+        tr_a = lp["tracks"][0]
+        tr_c = _copy.deepcopy(tr_a)
+        tr_c["track_name"] = "vocal C zigfix"
+        lp["tracks"] = [tr_a, tr_c, lp["tracks"][1]]
+        pa = next(p for p in lp["voice_parts"]
+                  if p["name"] == "P2_slides_C3")
+        pa["track_no"] = 0
+        pa["name"] = "P2_A_baseline"
+        pc = _copy.deepcopy(load_ustx(c_ustx)["voice_parts"][0])
+        pc["track_no"] = 1
+        pc["name"] = "P2_C_zigfix"
+        lp["voice_parts"] = [pa, pc]
+        for wp in lp.get("wave_parts", []):
+            wp["track_no"] = 2
+        lp["name"] = "agent2utau L7-F2 P2 zigfix A/C"
+        lp_path = OUT_DIR / "agent2utau_L7F2_P2_AC.ustx"
+        save_ustx(lp, lp_path)
+        report["listening_project"] = {"path": str(lp_path),
+                                       "sha256": sha256(lp_path)}
+        print(f"wrote {lp_path}", flush=True)
+
     REPORT.write_text(json.dumps(
         report, indent=1, default=lambda o:
         float(o) if isinstance(o, np.floating)
