@@ -238,33 +238,37 @@ def span_voicing_evidence(voc_seg: np.ndarray, sr: int, *,
         if d.get("h2p_max_dbfs") is not None and u_floor is not None
         else None)
 
-    remnant_comb = d.get("h2p_max_dbfs") is not None and (
-        (u_floor is not None
-         and d["h2p_max_dbfs"] <= u_floor + REMNANT_H2P_FLOOR_DB)
-        or (h2p_drop is not None and h2p_drop >= REMNANT_H2P_DROP_DB))
-    phonated = (drop is not None and drop <= PHONATED_DROP_DB
-                and (h2p_drop is None or h2p_drop <= PHONATED_H2P_DROP_DB)
-                and (d["acf_med"] or 0.0) >= ACF_VOICED_MED)
-    if phonated:
-        cls = "phonated"
-    elif (drop is not None and drop >= REMNANT_DROP_DB and remnant_comb):
-        cls = "non_phonated_remnant"
-    else:
-        cls = "inconclusive"
-    out["classification"] = cls
-
-    # which claimed contour does the measured best-lag track support?
-    # (only frames whose own periodicity clears RELIABLE_ACF vote)
-    meas = [f for f, c in zip(d["f0_best_track_hz"], d["acf_track"])
-            if f is not None and c >= RELIABLE_ACF]
-    meas_med = float(np.median(meas)) if meas else None
-    out["measured_f0_med_hz"] = (round(meas_med, 1)
-                                 if meas_med is not None else None)
-    out["measured_f0_n_reliable"] = len(meas)
+    # Periodicity is POSITIVE evidence and must be evaluated before a
+    # low-level span can be called "non-phonated".  Absolute harmonic
+    # power falls with amplitude, so h2+ being quiet in dBFS cannot by
+    # itself distinguish a quiet voiced release from a passive resonance.
+    reliable = [
+        (f, a) for f, a in zip(d["f0_best_track_hz"], d["acf_track"])
+        if f is not None and a >= RELIABLE_ACF
+    ]
+    periodic_fraction = (len(reliable) / max(1, d["n_frames"]))
+    out["periodic_fraction"] = round(periodic_fraction, 3)
 
     def _close(a, b):
         return (a is not None and b is not None
                 and abs(1200.0 * np.log2(a / b)) <= CLAIM_TOL_CENTS)
+
+    claim_support = [
+        f for f, _ in reliable if _close(f, claimed_f0_hz)
+    ]
+    alt_support = [
+        f for f, _ in reliable if _close(f, alt_f0_hz)
+    ]
+    out["claim_support_fraction"] = round(
+        len(claim_support) / max(1, d["n_frames"]), 3)
+    out["alt_support_fraction"] = round(
+        len(alt_support) / max(1, d["n_frames"]), 3)
+
+    meas = [f for f, _ in reliable]
+    meas_med = float(np.median(meas)) if meas else None
+    out["measured_f0_med_hz"] = (round(meas_med, 1)
+                                 if meas_med is not None else None)
+    out["measured_f0_n_reliable"] = len(meas)
 
     if meas_med is not None and _close(meas_med, claimed_f0_hz):
         out["consistent_with"] = "claimed"
@@ -272,4 +276,57 @@ def span_voicing_evidence(voc_seg: np.ndarray, sr: int, *,
         out["consistent_with"] = "alt"
     else:
         out["consistent_with"] = "none"
+
+    # Compare COMB SHAPE after normalizing out the fundamental level.
+    # A true single-bin remnant should lose h2+ relative to h1; simply
+    # lowering the whole voiced spectrum is not counter-evidence.
+    d_ratio = d.get("comb_ratio_h2p_h1")
+    v_ratio = v.get("comb_ratio_h2p_h1")
+    comb_rel_db = None
+    if d_ratio is not None and v_ratio is not None             and d_ratio > 0 and v_ratio > 0:
+        comb_rel_db = 10.0 * np.log10(d_ratio / v_ratio)
+    out["comb_ratio_relative_db"] = (
+        round(float(comb_rel_db), 1) if comb_rel_db is not None else None)
+
+    # Positive phonation: either context-level sustained periodicity, or
+    # a quiet span with a sustained reliable periodic track that follows
+    # one of the competing F0 hypotheses.  Low amplitude alone must not
+    # disqualify phonation.
+    follows_hypothesis = out["consistent_with"] in ("claimed", "alt")
+    phonated = (
+        (drop is not None and drop <= PHONATED_DROP_DB
+         and (d["acf_med"] or 0.0) >= ACF_VOICED_MED)
+        or (periodic_fraction >= 0.50 and follows_hypothesis)
+    )
+
+    # Positive non-phonation is deliberately conservative.  It requires
+    # an energy collapse PLUS absence of material periodic support.  If
+    # a measurable periodic track survives, especially near a claimed
+    # F0, the correct result is UNKNOWN/inconclusive rather than artifact.
+    no_material_periodicity = (
+        periodic_fraction < 0.20
+        and out["claim_support_fraction"] < 0.10
+        and out["alt_support_fraction"] < 0.10
+    )
+    normalized_comb_collapse = (
+        comb_rel_db is not None and comb_rel_db <= -10.0
+    )
+    floor_like = (
+        u_floor is not None
+        and d.get("h2p_max_dbfs") is not None
+        and d["h2p_max_dbfs"] <= u_floor + REMNANT_H2P_FLOOR_DB
+    )
+    non_phonated = (
+        drop is not None and drop >= REMNANT_DROP_DB
+        and no_material_periodicity
+        and (normalized_comb_collapse or floor_like)
+    )
+
+    if phonated:
+        cls = "phonated"
+    elif non_phonated:
+        cls = "non_phonated_remnant"
+    else:
+        cls = "inconclusive"
+    out["classification"] = cls
     return out
