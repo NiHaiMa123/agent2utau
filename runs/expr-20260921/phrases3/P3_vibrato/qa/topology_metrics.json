@@ -1,12 +1,12 @@
 {
  "matched_turns": 37,
  "missing_turns": 7,
- "extra_turns": 6,
+ "extra_turns": 8,
  "source_turns": 44,
- "render_turns": 43,
- "turn_timing_err_ms_med": 0.0,
- "turn_amplitude_err_c_med": 6.5,
- "turn_prominence_err_c_med": 27.7,
+ "render_turns": 45,
+ "turn_timing_err_ms_med": 10.0,
+ "turn_amplitude_err_c_med": 7.4,
+ "turn_prominence_err_c_med": 27.9,
  "sequence_edit_distance": 8,
  "missing_turn_details": [
   {
@@ -56,38 +56,50 @@
   {
    "frame_idx": 79,
    "kind": "peak",
-   "value_c": 5928.9,
-   "prominence_c": 133.5
+   "value_c": 5929.2,
+   "prominence_c": 133.7
   },
   {
    "frame_idx": 187,
    "kind": "peak",
-   "value_c": 6456.6,
-   "prominence_c": 41.9
+   "value_c": 6456.8,
+   "prominence_c": 42.1
   },
   {
    "frame_idx": 277,
    "kind": "trough",
    "value_c": 6184.8,
-   "prominence_c": 95.2
+   "prominence_c": 95.1
   },
   {
    "frame_idx": 369,
    "kind": "trough",
-   "value_c": 6109.9,
-   "prominence_c": 104.9
+   "value_c": 6104.7,
+   "prominence_c": 110.4
+  },
+  {
+   "frame_idx": 433,
+   "kind": "trough",
+   "value_c": 6573.5,
+   "prominence_c": 239.7
+  },
+  {
+   "frame_idx": 435,
+   "kind": "peak",
+   "value_c": 6610.3,
+   "prominence_c": 234.9
   },
   {
    "frame_idx": 566,
    "kind": "trough",
-   "value_c": 6573.2,
-   "prominence_c": 46.2
+   "value_c": 6574.2,
+   "prominence_c": 42.9
   },
   {
-   "frame_idx": 580,
+   "frame_idx": 581,
    "kind": "trough",
-   "value_c": 6550.7,
-   "prominence_c": 73.3
+   "value_c": 6548.8,
+   "prominence_c": 85.4
   }
  ],
  "edge_uncertain_turn_details": {
@@ -109,6 +121,6 @@
   ],
   "render": []
  },
- "valid_frames": 425,
- "coverage": 0.92
+ "valid_frames": 426,
+ "coverage": 0.922
 }

@@ -1,12 +1,13 @@
 {
  "variant": "C3",
- "generator_code_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
- "qa_code_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
+ "generator_code_head": "8a1b818f9a3f33e8040ca966daebb77606a11c75",
+ "qa_code_head": "8a1b818f9a3f33e8040ca966daebb77606a11c75",
+ "worktree_clean_at_generation": true,
  "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
  "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
- "candidate_ustx_sha256": "4b40ac2387efbb6d55a59c44d4598d93eedc8615be55aab8b53a7a9abfaad82e",
+ "candidate_ustx_sha256": "a61af2acd58cfbadb952ee4ea5ffb92f7663318690bfe44fa3507c0cf1c3c37b",
  "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3.ustx",
- "render_wav_sha256": "d7e25058e11ebb22e1141e709637aabcef72415443a2c736986778cf5448833c",
+ "render_wav_sha256": "e16455f87d88fca3c6a75688ace5803070e53ef885aa0fbda6d813d77e26f3f9",
  "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav",
  "shape_gate": {
   "final_candidate": "C3",
@@ -30,7 +31,6 @@
      "matched_turns",
      "missing_turns",
      "extra_turns",
-     "sequence_edit_distance",
      "event_shape_gate:distortion@note9"
     ],
     "event_shape": {
@@ -44,7 +44,6 @@
     "violations": [
      "matched_turns",
      "missing_turns",
-     "sequence_edit_distance",
      "event_shape_gate:distortion@note9"
     ],
     "event_shape": {
@@ -73,6 +72,7 @@
   "closed_loop_max_err_c": 10,
   "closed_loop_guard_s": 0.15,
   "closed_loop_iterations": 1,
+  "portamento_lane_ownership": "event",
   "portamento_lane": {
    "2": {
     "window_s": [
@@ -116,10 +116,11 @@
     "extractor_cn_rmse": 0.028,
     "stable": true,
     "applied": true,
-    "n_anchors": 16,
+    "n_anchors": 13,
+    "ownership": "event",
     "carrier_span_s": [
      28.96,
-     29.28
+     29.2
     ]
    },
    "10": {

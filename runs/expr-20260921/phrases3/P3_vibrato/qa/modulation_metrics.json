@@ -89,9 +89,9 @@
    },
    "render": {
     "dom_rate_hz": 3.85,
-    "depth_c": 92.6,
-    "bandwidth_hz": 3.85,
-    "periodicity": 0.073
+    "depth_c": 127.4,
+    "bandwidth_hz": 5.77,
+    "periodicity": 0.12
    }
   },
   {
@@ -116,10 +116,10 @@
     "periodicity": 0.684
    },
    "render": {
-    "dom_rate_hz": 7.08,
-    "depth_c": 77.6,
+    "dom_rate_hz": 7.02,
+    "depth_c": 76.8,
     "bandwidth_hz": 0.88,
-    "periodicity": 0.779
+    "periodicity": 0.773
    }
   }
  ]
