@@ -55,16 +55,30 @@ def test_phonated_disputed_span_classifies_phonated():
     assert ev["energy_drop_db"] <= 12.0
 
 
-def test_decay_ring_is_non_phonated_remnant():
-    # -40 dB single-bin ring: real spectral content, no comb, collapse
+def test_decay_ring_is_inconclusive_when_periodicity_survives():
+    # A passive single-bin ring is low-energy, but its ACF can remain
+    # strongly periodic at exactly the claimed f0.  Waveform evidence
+    # alone cannot then prove "no phonated source"; fail closed.
     disp = _ring(417.0, 0.2, 0.002)
     seg, ds, rv, ru = _scene(disp)
     ev = span_voicing_evidence(seg, SR, disputed=ds, ref_voiced=rv,
                              ref_unvoiced=ru, claimed_f0_hz=417.0)
-    assert ev["classification"] == "non_phonated_remnant"
+    assert ev["classification"] == "inconclusive"
     assert ev["energy_drop_db"] >= REMNANT_DROP_DB
-    # harmonics at the claimed f0 sit at the unvoiced floor
-    assert ev["h2p_vs_unvoiced_floor_db"] <= 6.5
+    assert ev["measured_f0_n_reliable"] > 0
+
+
+def test_quiet_harmonic_release_is_not_mislabeled_artifact():
+    # A genuinely voiced tail can be >20 dB below the earlier vowel while
+    # retaining a stable F0.  Absolute h2+ dBFS must not erase it.
+    disp = _tone(415.0, 0.2, 0.012)
+    seg, ds, rv, ru = _scene(disp)
+    ev = span_voicing_evidence(seg, SR, disputed=ds, ref_voiced=rv,
+                             ref_unvoiced=ru, claimed_f0_hz=415.0)
+    assert ev["energy_drop_db"] >= REMNANT_DROP_DB
+    assert ev["classification"] == "phonated"
+    assert ev["consistent_with"] == "claimed"
+    assert ev["periodic_fraction"] >= 0.5
 
 
 def test_low_noise_span_is_non_phonated():
@@ -85,12 +99,12 @@ def test_moderate_drop_with_comb_is_inconclusive():
     assert ev["classification"] == "inconclusive"
 
 
-def test_missing_unvoiced_ref_still_classifies():
+def test_missing_unvoiced_ref_with_periodic_ring_stays_inconclusive():
     disp = _ring(256.0, 0.2, 0.002)
     seg, ds, rv, ru = _scene(disp)
     ev = span_voicing_evidence(seg, SR, disputed=ds, ref_voiced=rv,
                              ref_unvoiced=None, claimed_f0_hz=256.0)
-    assert ev["classification"] == "non_phonated_remnant"
+    assert ev["classification"] == "inconclusive"
     assert ev["h2p_drop_db"] >= 18.0
 
 
