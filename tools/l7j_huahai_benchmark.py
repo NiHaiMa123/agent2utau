@@ -500,6 +500,15 @@ def main():
                     encoding="utf-8")
     print("wrote", out3)
 
+    # ---------- Phase J4: candidate rules (diagnostic only) --------
+    j4 = j4_rules(j3, head)
+    out4 = OUT / "j4_rules.json"
+    out4.write_text(json.dumps(j4, indent=1, ensure_ascii=False),
+                    encoding="utf-8")
+    print("wrote", out4)
+    for r in j4["rules"]:
+        print(" ", r["id"], "—", r["rule"][:100])
+
 
 def crop_phrase_ustx(doc, part_index, a_s, b_s, wave_off, ms_tick,
                      singer):
@@ -760,6 +769,89 @@ def j3_gap_analysis(doc, picked, t2s, wave_off, ms_tick, f0, acf,
             "normalization": "relative cents to written tone "
                              "(SOURCE vs tone-4; render vs tone)",
             "phrases": phrases}
+
+
+def j4_rules(j3, head):
+    """Aggregate J3 events into candidate general rules (diagnostic
+    hypotheses only — NOT production rules)."""
+    evs = [(ph["class"], e) for ph in j3["phrases"]
+           for e in ph["events"]]
+    def med(vals):
+        vals = [v for v in vals if v is not None]
+        return round(float(np.median(vals)), 1) if vals else None
+    src_onsets = [abs(e["source"]["onset_med_c"])
+                  for _, e in evs
+                  if e["source"]["onset_med_c"] is not None]
+    ren_onsets = [e["render"]["onset_med_c"]
+                  for _, e in evs
+                  if e["render"]["onset_med_c"] is not None]
+    ratios = [e["render"]["rng_c"] / e["written"]["pitd_rng_c"]
+              for _, e in evs
+              if e["render"]["rng_c"] and e["written"]["pitd_rng_c"]
+              and e["written"]["pitd_rng_c"] >= 80]
+    big_src = [(c, e) for c, e in evs
+               if e["source"]["rng_c"] >= 250]
+    encoded = [(c, e) for c, e in big_src
+               if e["written"]["pitd_rng_c"] >= 0.5
+               * e["source"]["rng_c"]]
+    flat_src = [(c, e) for c, e in evs
+                if e["source"]["rng_c"] and e["source"]["rng_c"] < 60
+                and e["source"]["reliable_frac"] >= 0.8]
+    tuner_added = [(c, e) for c, e in flat_src
+                   if e["written"]["pitd_rng_c"] >= 150]
+    rules = [
+        {"id": "J4-R1 renderer_onset_bias",
+         "rule": ("the DiffSinger renderer applies its own onset "
+                  "undershoot (~{}c median) at note starts; written "
+                  "onset dips below ~150c are partially redundant — "
+                  "large SOURCE undershoots still need explicit "
+                  "encoding but can be scaled by ~0.6-0.8"
+                  .format(med(ren_onsets))),
+         "evidence": {"render_onset_med_c": med(ren_onsets),
+                      "source_onset_abs_med_c": med(src_onsets),
+                      "n": len(ren_onsets)}},
+        {"id": "J4-R2 pitd_survival_ratio",
+         "rule": ("written PITD excursion survives the renderer at "
+                  "~{:.2f} median ratio (rng/pitd_rng) — expect "
+                  "damping, encode ~1.2x the intended render depth"
+                  .format(med(ratios) or 0)),
+         "evidence": {"median_survival": med(ratios),
+                      "n": len(ratios)}},
+        {"id": "J4-R3 big_gesture_encoding",
+         "rule": ("SOURCE excursions >=250c are consistently encoded "
+                  "by the human ({} of {} events reach >=50% of "
+                  "source magnitude) — big real gestures belong in "
+                  "PITD, not native parameters"
+                  .format(len(encoded), len(big_src))),
+         "evidence": {"n_big": len(big_src), "n_encoded": len(encoded),
+                      "examples": [[e["lyric"], e["source"]["rng_c"],
+                                    e["written"]["pitd_rng_c"]]
+                                   for _, e in encoded[:6]]}},
+        {"id": "J4-R4 flat_source_expression",
+         "rule": ("where SOURCE is flat (<60c, reliable), the tuner "
+                  "still writes 150-350c PITD on {} of {} events — "
+                  "expression is partly authored for musicality, not "
+                  "only traced; agent may add moderate motion on "
+                  "sustained notes when source is flat"
+                  .format(len(tuner_added), len(flat_src))),
+         "evidence": {"n_flat": len(flat_src),
+                      "n_tuner_added": len(tuner_added)}},
+        {"id": "J4-R5 vibrato_via_pitd",
+         "rule": ("vibrato is encoded almost exclusively as PITD "
+                  "oscillation (1 native-vibrato note in 393 vs "
+                  "dozens of 4-8Hz pitd-osc notes); render reproduces "
+                  "it at reduced depth — prefer PITD over native "
+                  "vibrato for source-matched vibrato"),
+         "evidence": {"native_vibrato_notes":
+                      sum(1 for _, e in evs
+                          if e["written"]["native_vibrato"]),
+                      "pitd_osc_notes":
+                      sum(1 for _, e in evs
+                          if e["written"]["pitd_rev"] >= 6)}}]
+    return {"phase": "J4 candidate rules (hypotheses, not production)",
+            "evaluated_head": head,
+            "worktree_clean_at_generation": True,
+            "rules": rules}
 
 
 if __name__ == "__main__":
