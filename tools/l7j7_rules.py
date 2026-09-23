@@ -322,10 +322,11 @@ def main():
             s_p = t2s(part["position"] + n["position"])
             e_p = t2s(part["position"] + n["position"]
                       + n["duration"])
-            # same overlap rule j1 used when listing phrase notes, so
-            # the candidate and the J5 neutral baseline carry the
-            # identical note set for A/B listening
-            if e_p - WAVE_OFF > a and s_p - WAVE_OFF < b:
+            # overlap rule for phrase notes; right edge is tightened
+            # by 10 ms so a contiguous note that merely touches the
+            # phrase boundary (kong, +3 ms) is not pulled in — keeps
+            # the candidate note set identical to j1/neutral
+            if e_p - WAVE_OFF > a and s_p - WAVE_OFF < b - 0.01:
                 notes.append({"a": s_p, "b": e_p, "tone": n["tone"],
                               "lyric": lyr,
                               "_abs_tick": part["position"]
