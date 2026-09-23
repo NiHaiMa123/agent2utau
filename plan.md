@@ -133,18 +133,22 @@ drift / confidence
 OpenUtau `shift` must receive the detected phase mapping. Never default `shift=0` and ask PITD or
 closed-loop to repair the resulting phase error.
 
-Periodic-expression ownership is exclusive:
+Periodic-expression ownership must be **explicit and causal**, not assumed exclusive.
+
+Default representation:
 
 ```text
 one periodic gesture
-→ either native/adaptive vibrato owns it
-OR PITD/local residual owns only the non-periodic remainder
-→ never both encode the same periodic motion
+→ one primary owner (native/adaptive vibrato OR PITD periodic component)
+→ other lanes retain trend/local non-periodic residual only
 ```
 
-If native vibrato is active on a note, PITD inside that vibrato-owned interval must be decomposed into
-trend/local non-periodic residual only. It must not retain a second oscillatory component that
-duplicates rate/depth/phase already represented by vibrato. Ownership must be auditable per interval.
+However, Round F demonstrated that a second periodic component can be **anti-phase compensation** for
+renderer response rather than accidental additive duplication. Therefore a secondary periodic
+component is allowed only when a controlled real-render A/B proves that it materially compensates a
+known response defect. Such compensation must be recorded explicitly as a renderer-correction term,
+with rate/depth/phase evidence and a bound render. Never delete or preserve duplicate periodic content
+from curve-space reasoning alone.
 
 ### 5.2 Portamento
 
@@ -537,6 +541,7 @@ Rules:
 ## 12. Current state — R2.1/L7
 
 Verified direction:
+- Round F disproved simple additive duplicate-periodic ownership; secondary periodic PITD may act as anti-phase renderer compensation and must be judged from real render;
 - active renderer baseline is now YousaV1.65c + matching OpenUtau dpV2;
 - native phase→`shift`;
 - neutral-only suppression no longer depends on closed-loop;
@@ -1084,106 +1089,177 @@ P2 “我的笨” mapping:
 **Round E is CLOSED.** Old 1.65b renderer artifacts remain historical evidence only. Current repair
 work must use YousaV1.65c + matching dpV2 OpenUtau.
 
-#### Round F — ACTIVE: P2 “我的笨” periodic-ownership repair
+#### Round F — COMPLETE / REVIEWER ACCEPTED: duplicate ownership hypothesis falsified
 
-**Primary blocker:** P2 remains a clear human-listening FAIL on the new renderer, concentrated in
-“我的笨”: piercing, unstable, excessively shaky.
+Reviewer accepts executor bundle `fc33674 → 357ed3d → eb4fb00 → acb2e9d` as a valid causal
+discrimination result.
 
-**Single goal:** determine whether duplicate/incorrect periodic-expression ownership
-(native vibrato + oscillatory PITD) is the causal mechanism, and if supported, repair only this local
-P2 region without changing score/lyrics/timing or unrelated phrase expression.
-
-P3 is **LOCKED** during Round F. Do not polish P3 in the same execution round.
-
-### Round-F hypothesis
-
-Current P2 “笨” has:
-- nearly full-note native vibrato;
-- fast/deep fixed vibrato (`~7.07 Hz`, `~74 c`);
-- zero native vibrato release (`out=0`);
-- simultaneous oscillatory PITD across the same interval.
-
-Hypothesis:
+Verdict:
 
 ```text
-same periodic gesture is represented twice
-→ native vibrato + PITD periodic residual add in render space
-→ excessive modulation / piercing shake
+FAIL_STRATEGY
 ```
 
-This is a testable hypothesis, not yet an accepted root cause.
+What was proved:
+- P2 note11 / “笨” has genuine overlapping periodic representations:
+  - native vibrato: ~7.07 Hz / 74.2 c;
+  - PITD periodic component: ~6.87 Hz / 97.1 c;
+- but the two components are **not additively causing the shake**;
+- removing the periodic PITD made the rendered modulation much worse:
+  - baseline A periodic depth = 179.8 c;
+  - ownership-removal B = 318.0 c;
+  - SOURCE = 157.1 c;
+- therefore the PITD component is anti-phase compensation for an over-deep native-vibrato response.
 
-### Required execution
+This falsifies the earlier simple rule “duplicate periodic ownership is itself the material cause”.
+The architecture rule is revised accordingly: periodic ownership must be explicit and causal, while
+evidence-backed compensation is permitted.
 
-From a clean current HEAD:
+Capability evidence:
+- SOURCE note11 modulation envelope decays roughly `196 c → 121 c p2p`;
+- current native vibrato is fixed-rate/fixed-depth with `out=0`;
+- Level-1 parameters alone do not obviously explain the SOURCE envelope;
+- however baseline A's aggregate periodic depth is already relatively near SOURCE, so this evidence
+  does **not** prove that Level-2 vibrato is the main cause of the user's “刺耳、颤抖” complaint.
 
-1. bind the exact 1.65c P2 baseline USTX/WAV and the human-fail span for “我的笨”;
-2. decompose the accepted P2 PITD over notes 8–11 into:
-   - slow trend / centre offset;
-   - transition/local non-periodic gesture;
-   - periodic component;
-3. measure native-vibrato-owned intervals and identify where PITD contains a competing periodic
-   component with materially similar rate/phase support;
-4. create a **minimal local ownership A/B**, keeping every unrelated field byte-semantically fixed:
+Important unresolved fact:
+- human P2 FAIL remains;
+- the dominant perceptual defect may instead lie in:
+  - the pre-vibrato / non-vibrato portion around ~54.85–55.55 s;
+  - cycle waveform/phase rather than aggregate rate/depth;
+  - onset/transition geometry;
+  - phonation/timbre/energy rather than F0 trajectory alone.
+
+No Round-F candidate is accepted. Variant B is diagnostic evidence only.
+
+#### Round F2 — ACTIVE: localize the P2 perceptual failure before further repair
+
+**Single goal:** determine which measurable subsystem actually corresponds to the human complaint
+“我的笨完全不行，刺耳，颤抖” on the current 1.65c/dpV2 baseline.
+
+This is an **evidence/localization round**, not a production repair round.
+
+Do not assume:
+- Level-2 adaptive vibrato is the answer;
+- duplicate periodic ownership is bad;
+- F0 alone explains “刺耳”;
+- a lower pointwise/source error necessarily sounds better.
+
+### Frozen target and segmentation
+
+Freeze the current 1.65c P2 baseline. Analyze notes 8–11 / approximately 54.35–56.71 s.
+
+At minimum split evidence into:
+
+```text
+S1: note8 / “我” onset + transition region
+S2: note9–10 / “的” + continuation, pre-vibrato region
+S3: note11 / “笨” vibrato-owned tail
+```
+
+Exact boundaries must come from the committed score/phoneme/render evidence rather than the prose
+labels above.
+
+### Required diagnostic families
+
+For SOURCE and baseline render, measure each segment separately.
+
+1. **F0 trajectory geometry**
+   - isolated spike magnitude/duration;
+   - local slope and acceleration/jerk;
+   - reversal density and reversal timing;
+   - overshoot / settling structure;
+   - note-centre offset;
+   - local gesture-range ratio.
+
+2. **Periodic / vibrato structure**
+   - instantaneous/cycle rate;
+   - cycle depth;
+   - rate envelope;
+   - depth envelope;
+   - cycle-to-cycle variation;
+   - phase / zero-crossing alignment where observable;
+   - waveform-shape residual after fitting the dominant periodic component.
+
+3. **Phonation / render quality**
+   - voiced continuity;
+   - local energy envelope / collapses;
+   - harmonic-periodicity evidence (existing ACF metric or a better committed equivalent);
+   - spectral roughness/flatness already available in the repository;
+   - do not infer a pitch defect when F0 is plausible but acoustic quality is abnormal.
+
+4. **Singing-motion grammar, diagnostic only**
+   Classify local motion where evidence permits into:
 
    ```text
-   A = current baseline
-   B = native vibrato owns the periodic component;
-       remove only duplicated periodic PITD from the owned interval,
-       preserve non-periodic trend/local residual
+   preparation
+   transition
+   overshoot / undershoot
+   settling
+   sustain / fine fluctuation
+   vibrato
+   release
+   unknown
    ```
 
-5. real-render A and B through YousaV1.65c + dpV2;
-6. compare at minimum:
-   - local F0 modulation depth/rate/envelope;
-   - gesture-range fidelity for “我的笨”;
-   - note-centre offsets;
-   - >300 c glitch / local instability;
-   - voiced continuity / energy;
-   - topology outside the modified local interval;
-7. if B materially reduces the excessive shake **without creating a new shape/topology/voicing
-   regression**, produce one P2-only OpenUtau listening project for human review;
-8. if B fails or exposes that fixed native vibrato itself cannot reproduce the SOURCE modulation,
-   classify `FAIL_CAPABILITY` for Level-1 vibrato and STOP; do not immediately implement Level 2 in
-   the same round;
-9. commit evidence and **STOP**.
+   Flag geometrically implausible patterns (spike, unsupported rapid reversal, unstructured zig-zag,
+   abrupt periodic start/stop), but **do not create global PASS/FAIL thresholds in Round F2**.
 
-### Round-F forbidden actions
+### Controls / anti-overfit requirement
 
-Do **not**:
-- change P1 or P3;
-- modify lyrics, note identity, note timing or score;
-- globally smooth PITD;
-- globally reduce vibrato depth;
-- tune arbitrary scalars until the sound becomes less offensive;
-- change QA thresholds to favor candidate B;
-- add adaptive vibrato in the same round unless the A/B first proves Level-1 capability failure;
-- treat new renderer energy collapses as compiler defects without direct causal evidence;
-- run full-song regeneration.
+Compare P2 diagnostics against committed known controls:
+- P1 current positive listening control;
+- old 1.65b P3 29.26–29.28 s glitch as a known hard abnormal example;
+- current 1.65c P3 as a case where that hard abnormality disappeared.
 
-### Round-F PASS / routing semantics
+The purpose is to verify that proposed features separate at least obvious normal vs obvious abnormal
+behaviour before using them to explain P2.
 
-Round F is a causal-discrimination round.
+Do not claim a feature explains P2 merely because P2 has a large value. The feature must have a
+causal or comparative interpretation.
+
+### Optional discriminating A/B
+
+Only if the diagnostics identify one concrete F0-localized suspect interval, one minimal A/B is
+allowed:
+- change only that suspect component;
+- preserve the rest of P2 byte-semantically;
+- real-render both variants;
+- produce a P2-only listening artifact.
+
+Do not perform more than one candidate-changing A/B in this round.
+
+If diagnostics instead indicate that F0 motion is broadly plausible while acoustic
+phonation/timbre is abnormal, do **not** modify pitch curves; record the route as render/phonation.
+
+### Round-F2 routing
+
+End the round with exactly one primary classification:
 
 ```text
-PASS_CAUSAL:
-  removing only duplicate periodic PITD materially improves the P2 render
-  and preserves unrelated/local non-periodic expression
+F0_LOCAL_DEFECT
+  a specific onset/transition/periodic trajectory defect corresponds to the human-fail region
+  → authorize one later bounded expression repair
 
-FAIL_CAPABILITY:
-  ownership is corrected but fixed native vibrato still cannot reproduce
-  the verified SOURCE rate/depth/envelope
+VIBRATO_CAPABILITY
+  fixed Level-1 vibrato cannot reproduce the verified SOURCE cycle/rate/depth envelope and the
+  mismatch corresponds to the perceptual failure
+  → authorize a separate Level-2 adaptive-vibrato implementation round
 
-FAIL_STRATEGY:
-  duplicate ownership is not the material cause
+PHONATION_RENDER_DEFECT
+  F0 trajectory is plausible enough, but render acoustic/phonation evidence is abnormal
+  → leave pitch compiler unchanged and investigate render/voice parameters
 
-FAIL_EVIDENCE:
-  SOURCE periodic structure in the target span cannot be measured reliably
+MIXED_DEFECT
+  independently supported pitch and acoustic defects coexist
+  → split them into separate later rounds
+
+FAIL_EVIDENCE
+  available evidence cannot localize the complaint reliably
+  → STOP; improve observability, do not tune
 ```
 
-Only `PASS_CAUSAL` authorizes a later bounded production repair using the same ownership rule.
-`FAIL_CAPABILITY` authorizes a separate reviewed Level-2 adaptive-vibrato round.
-No result authorizes opportunistic P3 work.
+Commit the diagnostic packet and **STOP**. P1 and P3 remain frozen.
 
 #### Round G — LOCKED: P3 local polish
 
@@ -1205,6 +1281,55 @@ two discriminating subproblems:
 
 P3's old 29.26–29.28 s glitch is permanently excluded from compiler-repair scope unless new positive
 evidence contradicts Round E.
+
+#### Round H — LOCKED: human singing plausibility gate
+
+Do not execute until the current P2/P3 localized defects have produced enough positive/negative
+examples for calibration.
+
+**Goal:** add a source-independent first-pass judge that asks whether a rendered pitch trajectory is
+plausible as human singing before asking how closely it matches the target singer.
+
+This is a **general system capability**, not a special-case repair for P2/P3.
+
+The gate must model structured singing motion rather than “smoothness” alone. Candidate feature
+families include:
+- preparation / transition / overshoot / settling structure;
+- isolated spikes;
+- unsupported rapid reversals / zig-zag density;
+- local slope / acceleration / jerk;
+- sustain fine fluctuation;
+- vibrato rate/depth and their envelopes;
+- cycle-to-cycle rate/depth variation;
+- vibrato onset/release naturalness;
+- voiced continuity.
+
+Known replay cases for initial validation:
+- P1 current render: positive control;
+- old P3 29.26–29.28 s `+423 / -1210 / +611 c` cluster: must be a hard abnormal case;
+- P3 “涩” onset: should be at least suspicious/context-dependent rather than blindly accepted;
+- P3 final “根” constant-feeling vibrato: should expose low naturalness / envelope mismatch if the
+  rendered cycles are indeed over-regular;
+- P2 “我的笨”: must be evaluated with both pitch-motion and phonation/render evidence; a pure F0
+  plausibility score is not allowed to claim coverage if it misses the human FAIL.
+
+Do **not** begin with arbitrary universal constants such as `rate > 7 Hz = FAIL`.
+Initial thresholds/prior ranges must come from real-singing data and/or robust control distributions.
+Prefer conditional distributions by motion state and note context.
+
+The eventual acceptance architecture should distinguish:
+
+```text
+human_pitch_plausibility
+source_expression_fidelity
+phonation_render_plausibility
+```
+
+A candidate must not be made acceptable merely because source-similarity is numerically high while
+its local motion is implausible.
+
+Round H must be developed and calibrated separately from candidate repair; metric construction and
+candidate tuning must not occur in the same execution round.
 
 ## 13. Roadmap after L7
 
