@@ -133,6 +133,19 @@ drift / confidence
 OpenUtau `shift` must receive the detected phase mapping. Never default `shift=0` and ask PITD or
 closed-loop to repair the resulting phase error.
 
+Periodic-expression ownership is exclusive:
+
+```text
+one periodic gesture
+→ either native/adaptive vibrato owns it
+OR PITD/local residual owns only the non-periodic remainder
+→ never both encode the same periodic motion
+```
+
+If native vibrato is active on a note, PITD inside that vibrato-owned interval must be decomposed into
+trend/local non-periodic residual only. It must not retain a second oscillatory component that
+duplicates rate/depth/phase already represented by vibrato. Ownership must be auditable per interval.
+
 ### 5.2 Portamento
 
 Detect real departure and arrival around adjacent notes rather than treating an arbitrary boundary
@@ -1005,117 +1018,193 @@ Before producing new renderer evidence, configuration must resolve unambiguously
 If any fallback path still points to the old OpenUtau install, classify that as an environment
 precondition defect and fix only that path before the re-baseline; do not change expression logic.
 
-#### Round E — ACTIVE: 1.65c / dpV2 renderer re-baseline only
+#### Round E — COMPLETE / REVIEWER ACCEPTED: 1.65c + dpV2 re-baseline
 
-**Question to resolve:** with the accepted expression candidates held byte-semantically fixed, which
-P2/P3 listening failures persist after changing only the singer/editor renderer environment from
-1.65b + old OpenUtau to 1.65c + matching dpV2 OpenUtau?
+Reviewer accepts executor bundle `58bc93e → ac08257 → 4bbf37b` as the new renderer baseline.
 
-This is a controlled renderer A/B / variable-isolation round. It is **not** a candidate-repair round.
+Round-E contract was respected:
+- P1/P2/P3 accepted expression states were copied with only `tracks[0].singer`
+  changed to `YousaV1.65c`;
+- recursive structural comparison reports zero unexpected semantic differences;
+- all three were rendered through the matching dpV2 bridge;
+- evidence reused the existing post-listening blind-spot measurements rather than redefining them;
+- generation provenance is bound to clean `ac08257`;
+- OpenUtau executable/Core/bridge hashes and 46 voicebank material hashes, including
+  `dsdur/0923_dpv2_nogru.dur.onnx`, are committed.
 
-### Frozen candidate inputs
-
-Use the previously accepted expression states:
+Human listening of the new 1.65c project establishes:
 
 ```text
-P1_sustain = C3v2
-P2_slides  = C3v2
-P3_vibrato = C3/v1 fallback
+P1_sustain:
+  perceptually acceptable / control remains stable
+
+P3_vibrato:
+  previous major discomfort is gone
+  old 29.26–29.28 s glitch is no longer a compiler blocker
+  remaining issues are local performance-shape defects:
+    - “涩” onset sounds slightly front-pushed / juvenile
+    - final “根” vibrato sounds constant-rate/constant-depth and does not decay naturally
+
+P2_slides:
+  hard FAIL
+  “我的笨” is piercing / excessively shaky
 ```
 
-For the new 1.65c copies:
-- preserve written note identities, lyrics, positions and durations;
-- preserve PITD curve samples;
-- preserve note pitch.data / portamento ownership;
-- preserve vibrato parameters;
-- preserve every other expression field relevant to the accepted candidate;
-- change only renderer-environment identity required for 1.65c/dpV2 compatibility;
-- set singer explicitly to `YousaV1.65c`; do not rely on the 1.65b junction for formal evidence.
+Renderer attribution:
+- P3 >300 c glitch cluster: `3 → 0`;
+- P3 detrended F0 RMS: `62.5 c → 12.0 c`;
+- identical P3/v1 expression now renders cleanly at that old glitch location;
+- therefore the old 29.26–29.28 s failure is **renderer-attributable** and must not be repaired in the
+  compiler.
 
-Old 1.65b artifacts remain immutable comparison evidence.
+P2 persistent evidence on the new renderer:
+- note0 gesture range ratio remains severely compressed: `0.16 → 0.14`;
+- note10 remains severely compressed: `0.14 → 0.17`;
+- note5/note6 opposing offsets persist at approximately `+56 c / -24 c`;
+- old 54.70–54.83 s fully-voiced dropout disappears under 1.65c/dpV2, so that old dropout is not a
+  compiler repair target;
+- new render-energy collapses remain renderer/performance evidence and must not be assigned to the
+  compiler without a discriminating experiment.
+
+P3 local parameter evidence:
+- “涩” = P3 note3, start near 26.40 s;
+- its note-local `pitch.data` is flat, but surrounding PITD contains a sharp onset excursion
+  approximately `+103 c → -102 c → -205 c`;
+- final “根” native vibrato currently uses approximately:
+  `length=100%`, `period=148.6 ms`, `depth=70.3 c`, `out=3.5%`;
+- this representation is effectively constant-rate/constant-depth with almost no release decay.
+
+P2 “我的笨” mapping:
+- phrase span begins around note8;
+- final “笨” native vibrato currently uses approximately:
+  `length=98.3%`, `period=141.4 ms`, `depth=74.2 c`, `out=0%`;
+- the same note also carries substantial oscillatory PITD (roughly `-38 c … +95 c`), creating a
+  credible duplicate-modulation hypothesis.
+
+**Round E is CLOSED.** Old 1.65b renderer artifacts remain historical evidence only. Current repair
+work must use YousaV1.65c + matching dpV2 OpenUtau.
+
+#### Round F — ACTIVE: P2 “我的笨” periodic-ownership repair
+
+**Primary blocker:** P2 remains a clear human-listening FAIL on the new renderer, concentrated in
+“我的笨”: piercing, unstable, excessively shaky.
+
+**Single goal:** determine whether duplicate/incorrect periodic-expression ownership
+(native vibrato + oscillatory PITD) is the causal mechanism, and if supported, repair only this local
+P2 region without changing score/lyrics/timing or unrelated phrase expression.
+
+P3 is **LOCKED** during Round F. Do not polish P3 in the same execution round.
+
+### Round-F hypothesis
+
+Current P2 “笨” has:
+- nearly full-note native vibrato;
+- fast/deep fixed vibrato (`~7.07 Hz`, `~74 c`);
+- zero native vibrato release (`out=0`);
+- simultaneous oscillatory PITD across the same interval.
+
+Hypothesis:
+
+```text
+same periodic gesture is represented twice
+→ native vibrato + PITD periodic residual add in render space
+→ excessive modulation / piercing shake
+```
+
+This is a testable hypothesis, not yet an accepted root cause.
 
 ### Required execution
 
-From a clean HEAD:
+From a clean current HEAD:
 
-1. verify all runtime configuration resolves to the intended dpV2 OpenUtau build and
-   `YousaV1.65c`; record exact environment provenance;
-2. create explicit 1.65c copies of the accepted P1/P2/P3 USTX candidates without changing expression
-   semantics;
-3. prove candidate semantic identity apart from allowed environment fields
-   (notes/lyrics/timing/PITD/pitch.data/vibrato must match);
-4. render all three through the 1.65c + dpV2 bridge;
-5. measure the new renders with the same post-listening evidence definitions used to expose the old
-   blind spots;
-6. compare old-render vs new-render deltas at minimum for:
-   - render pitch stability / >300 c glitch events / detrended F0 RMS;
-   - per-note gesture range and centre offset;
-   - phonation continuity / voiced dropout;
-   - render energy collapse;
-7. produce one combined OpenUtau listening project containing the **new 1.65c renders' source USTX
-   candidates** at their original song positions so the reviewer can listen directly in OpenUtau;
-8. commit the re-baseline evidence bundle;
-9. **STOP.**
+1. bind the exact 1.65c P2 baseline USTX/WAV and the human-fail span for “我的笨”;
+2. decompose the accepted P2 PITD over notes 8–11 into:
+   - slow trend / centre offset;
+   - transition/local non-periodic gesture;
+   - periodic component;
+3. measure native-vibrato-owned intervals and identify where PITD contains a competing periodic
+   component with materially similar rate/phase support;
+4. create a **minimal local ownership A/B**, keeping every unrelated field byte-semantically fixed:
 
-### Required provenance
+   ```text
+   A = current baseline
+   B = native vibrato owns the periodic component;
+       remove only duplicated periodic PITD from the owned interval,
+       preserve non-periodic trend/local residual
+   ```
 
-The re-baseline report must bind:
-- evaluated repository HEAD;
-- worktree-clean state;
-- OpenUtau fork/branch/commit when recoverable;
-- hashes for OpenUtau executable/Core/bridge used by the run;
-- `YousaV1.65c` model/config hashes, including the duration-model bytes used;
-- old accepted USTX hashes;
-- new explicit-1.65c USTX hashes;
-- old and new render WAV hashes;
-- semantic-identity comparison result for every phrase.
+5. real-render A and B through YousaV1.65c + dpV2;
+6. compare at minimum:
+   - local F0 modulation depth/rate/envelope;
+   - gesture-range fidelity for “我的笨”;
+   - note-centre offsets;
+   - >300 c glitch / local instability;
+   - voiced continuity / energy;
+   - topology outside the modified local interval;
+7. if B materially reduces the excessive shake **without creating a new shape/topology/voicing
+   regression**, produce one P2-only OpenUtau listening project for human review;
+8. if B fails or exposes that fixed native vibrato itself cannot reproduce the SOURCE modulation,
+   classify `FAIL_CAPABILITY` for Level-1 vibrato and STOP; do not immediately implement Level 2 in
+   the same round;
+9. commit evidence and **STOP**.
 
-### Forbidden during Round E
+### Round-F forbidden actions
 
 Do **not**:
-- regenerate PITD from SOURCE;
-- run closed-loop correction;
-- alter portamento ownership;
-- alter vibrato parameters;
-- tune any candidate;
-- change topology/event-shape/render-stability metric definitions or thresholds;
-- change machine acceptance semantics;
-- choose v2/v3 for P3 because they happen to render smoother;
-- repair a newly observed P2/P3 defect;
-- declare the project perceptually fixed from metrics alone.
+- change P1 or P3;
+- modify lyrics, note identity, note timing or score;
+- globally smooth PITD;
+- globally reduce vibrato depth;
+- tune arbitrary scalars until the sound becomes less offensive;
+- change QA thresholds to favor candidate B;
+- add adaptive vibrato in the same round unless the A/B first proves Level-1 capability failure;
+- treat new renderer energy collapses as compiler defects without direct causal evidence;
+- run full-song regeneration.
 
-If a render or evidence step fails, classify the execution/environment failure and STOP rather than
-changing expression content.
+### Round-F PASS / routing semantics
 
-### Round-E interpretation / routing
-
-Round E answers attribution, not final acceptance.
-
-Use the resulting evidence to separate:
+Round F is a causal-discrimination round.
 
 ```text
-renderer-attributable change
-vs
-expression/compiler defect that persists under the new renderer
+PASS_CAUSAL:
+  removing only duplicate periodic PITD materially improves the P2 render
+  and preserves unrelated/local non-periodic expression
+
+FAIL_CAPABILITY:
+  ownership is corrected but fixed native vibrato still cannot reproduce
+  the verified SOURCE rate/depth/envelope
+
+FAIL_STRATEGY:
+  duplicate ownership is not the material cause
+
+FAIL_EVIDENCE:
+  SOURCE periodic structure in the target span cannot be measured reliably
 ```
 
-Expected routing after reviewer inspection:
+Only `PASS_CAUSAL` authorizes a later bounded production repair using the same ownership rule.
+`FAIL_CAPABILITY` authorizes a separate reviewed Level-2 adaptive-vibrato round.
+No result authorizes opportunistic P3 work.
 
-- **P1 materially regresses under 1.65c/dpV2**:
-  treat renderer migration itself as a blocker; do not proceed to expression repair.
-- **P2 phonation/dropout or gesture behaviour materially improves while the candidate is unchanged**:
-  record that portion as renderer/duration-model attributable; only persistent residual defects may
-  enter a later repair round.
-- **P3 29.26–29.28 s glitch / high instability persists**:
-  retain it as evidence for a later render-stability / expression-repair round.
-- **P3 glitch disappears solely from renderer migration**:
-  do not patch the compiler for that old failure; re-evaluate the remaining perceptual defects first.
-- **P2/P3 both improve strongly**:
-  old 1.65b machine/listening evidence remains historical, but downstream repair scope must be
-  rebuilt from the new 1.65c baseline.
+#### Round G — LOCKED: P3 local polish
 
-No matter how favorable the metrics look, Round E ends with reviewer/human listening of the new
-OpenUtau project. It does not authorize full-song acceptance or downstream implementation work.
+Do not execute until Round F is reviewed/closed.
+
+P3 is no longer a hard L7 renderer-stability blocker. Remaining work is local and must be split into
+two discriminating subproblems:
+
+1. **“涩” onset (~26.40 s)**  
+   Test whether the front-pushed / juvenile onset comes from the sharp local PITD excursion or from
+   1.65c phoneme/timbre timing. First A/B only the onset PITD support; do not alter phonemes and pitch
+   simultaneously.
+
+2. **final “根” vibrato**  
+   Current fixed `period/depth` with `out≈3.5%` does not match the heard decay. Measure SOURCE
+   cycle-by-cycle `periods_ms[]` and `cycle_depths[]` first. If constant Level-1 vibrato cannot
+   reproduce the verified rate/depth envelope, classify `FAIL_CAPABILITY` and escalate to Level-2
+   adaptive vibrato with low-DOF rate/depth envelopes and explicit tail decay.
+
+P3's old 29.26–29.28 s glitch is permanently excluded from compiler-repair scope unless new positive
+evidence contradicts Round E.
 
 ## 13. Roadmap after L7
 
