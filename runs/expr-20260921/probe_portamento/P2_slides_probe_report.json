@@ -1,7 +1,7 @@
 {
  "phrase": "P2_slides",
- "generator_code_head": "f1404adb436bd08f00b8656e1582b1ea41e9ea54",
- "qa_code_head": "f1404adb436bd08f00b8656e1582b1ea41e9ea54",
+ "generator_code_head": "bba542eb10501c4eba902baf92d2586e5622d5a5",
+ "qa_code_head": "bba542eb10501c4eba902baf92d2586e5622d5a5",
  "worktree_clean_at_generation": true,
  "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
  "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
@@ -40,6 +40,15 @@
      52.91,
      52.95
     ],
+    "raw_window_s": [
+     52.91,
+     52.95
+    ],
+    "reliable_core_s": null,
+    "edge_uncertain_side": null,
+    "trimmed_start_ms": 0.0,
+    "trimmed_end_ms": 0.0,
+    "raw_cn_rmse_clean": null,
     "overlay_src": [
      0.0,
      0.019,
@@ -166,6 +175,7 @@
     },
     "waveform": null,
     "waveform_resolved": null,
+    "edge_uncertainty": null,
     "adjudication": null,
     "adjudication_basis": null,
     "third_family_non_detection": false,
@@ -209,6 +219,15 @@
      54.66,
      55.02
     ],
+    "raw_window_s": [
+     54.66,
+     55.02
+    ],
+    "reliable_core_s": null,
+    "edge_uncertain_side": null,
+    "trimmed_start_ms": 0.0,
+    "trimmed_end_ms": 0.0,
+    "raw_cn_rmse_clean": null,
     "overlay_src": [
      0.0,
      -0.007,
@@ -618,6 +637,21 @@
      "mix_sha256": "fd8c3960858d4ff4db3f82438051119564b2fd9d38a2f0d6d1b3894d8d886816"
     },
     "waveform_resolved": null,
+    "edge_uncertainty": {
+     "side": "start",
+     "uncertain_span_s": [
+      54.66,
+      54.835
+     ],
+     "reliable_core_s": [
+      54.835,
+      55.02
+     ],
+     "uncertain_fraction": 0.486,
+     "energy_drop_db": 19.2,
+     "classification": "edge_low_salience_unknown",
+     "reason": "extractor conflict is confined to one low-energy event edge; preserve the edge as unknown and score only the observable event core"
+    },
     "adjudication": null,
     "adjudication_basis": null,
     "third_family_non_detection": true,
@@ -625,9 +659,9 @@
     "stable": false
    },
    "candidates": {},
-   "verdict": "FAIL_EVIDENCE",
+   "verdict": "EVIDENCE_EDGE_UNCERTAIN",
    "reasons": [
-    "source target not extractor-consistent (ext_rmse=0.5031180787289337, coverage=0.892)"
+    "source F0 remains ambiguous only on the start edge [54.66, 54.835]; reliable observable core is [54.835, 55.02] and the edge is 19.2 dB below the local voiced reference"
    ]
   }
  ]
