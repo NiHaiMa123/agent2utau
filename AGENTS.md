@@ -1515,7 +1515,33 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   a med-cents win with extra turns is a REGRESSION.
 - tests: `pytest tests/` (472 incl. 27 R2.1 synthetic regressions).
 
-## L7 Round A — evidence adjudication (probe @f1404ad, artifacts 2b839ac)
+## L7 Round A — RESOLVED as edge uncertainty (probe @bba542e, artifacts 3f4ccb0)
+
+- Final verdict for both disputed events: `EVIDENCE_EDGE_UNCERTAIN` —
+  the event stays real; SOURCE F0 on ONE low-energy edge stays UNKNOWN
+  and is never scored correct/incorrect; absolute shape is evaluated on
+  the positively observable reliable core only (core must still pass
+  the existing threshold — no relaxation, raw-window mismatch kept).
+- P2 n8: uncertain START edge [54.66, 54.835] (-19.2dB); reliable core
+  [54.835, 55.02]; uncertain_fraction 0.486; core RMSE ~0.014.
+- P3 n9: uncertain END edge [29.415, 29.52] (-25.5dB); reliable core
+  [29.25, 29.415]; uncertain_fraction 0.389; core RMSE ~0.296 (<0.35).
+- Downstream semantics (reviewer commits 06dbe18..b35393c):
+  `event_shape_gate(source_core_bounds=...)` scores the committed core
+  and emits `source_edge_uncertain` only when the core passes; the
+  production phrase gate consumes ONLY clean committed Round-A reports
+  (binds probe-report sha256 into the manifest); lane-isolation A/B
+  uses the same core semantics and reports blocking identities for
+  BOTH extractor families separately.
+- Historical attempt below: artifact adjudication was rejected — a
+  quiet periodic release tail is positive periodic evidence, and a
+  periodic-but-hypothesis-less span is inconclusive, not remnant.
+- Round A STOP satisfied; Round B (P2 ownership A/B with core
+  semantics) remains reviewer-locked.
+- tests: 72 passed (voicing_evidence + event_shape_core + adjudicate/
+  contour/events).
+
+## L7 Round A — earlier iteration (probe @f1404ad, artifacts 2b839ac)
 
 - `expression/voicing_evidence.py` — waveform battery for fcpe-voiced /
   rmvpe-unvoiced disputed spans: per-frame normalized ACF (80-1000Hz),
