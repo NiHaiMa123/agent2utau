@@ -32,7 +32,6 @@ from agent2utau.analysis.f0 import extract_f0         # noqa: E402
 from agent2utau.openutau.ustx import (
     load_ustx, save_ustx, sha256)                      # noqa: E402
 from agent2utau.resources.config import load_config   # noqa: E402
-from agent2utau.expression.pitch_residual import TICK_MS  # noqa: E402
 from agent2utau.openutau.ustx import SPECIAL_LYRICS   # noqa: E402
 
 JAY_FLAC = Path("E:/data/music/周杰伦音乐 所有专辑和单曲/"
@@ -41,13 +40,33 @@ HUMAN_USTX = Path("E:/data/project_opentuau/花海+4-有参by白烁.ustx")
 VOCALS = Path("runs/huahai_benchmark/separation") / \
     "04. 周杰伦 - 花海_(Vocals)_UVR-MDX-NET-Voc_FT.wav"
 OUT = Path("runs/huahai_benchmark")
+RESOLUTION = 480.0  # OpenUtau ticks per quarter note
 
 
 def _midi(hz):
     return 69.0 + 12.0 * np.log2(np.maximum(hz, 1e-6) / 440.0)
 
 
-def project_summary(doc):
+def tempo_map(doc):
+    """tick -> seconds using the project's tempo map (NOT the fixed
+    TICK_MS 120bpm convention — this project is written at 75bpm)."""
+    tempos = sorted(doc.get("tempos") or [{"position": 0, "bpm": 120}],
+                    key=lambda t: t["position"])
+    # cumulative seconds at each tempo change
+    sec_at = [0.0]
+    for i in range(1, len(tempos)):
+        prev = tempos[i - 1]
+        sec_at.append(sec_at[-1] + (tempos[i]["position"]
+                                    - prev["position"])
+                      * 60000.0 / (prev["bpm"] * RESOLUTION) / 1000.0)
+    def tick_to_s(tick):
+        i = max(k for k, t in enumerate(tempos) if t["position"] <= tick)
+        return sec_at[i] + (tick - tempos[i]["position"]) \
+            * 60000.0 / (tempos[i]["bpm"] * RESOLUTION) / 1000.0
+    return tick_to_s
+
+
+def project_summary(doc, t2s):
     trs = [{"track_name": t.get("track_name"), "singer": t.get("singer"),
             "phonemizer": t.get("phonemizer"),
             "renderer": (t.get("renderer_settings") or {})
@@ -56,9 +75,8 @@ def project_summary(doc):
     parts = []
     for i, p in enumerate(doc.get("voice_parts", [])):
         ns = p["notes"]
-        a = (p["position"] + ns[0]["position"]) * TICK_MS / 1000.0
-        b = (p["position"] + ns[-1]["position"] + ns[-1]["duration"]) \
-            * TICK_MS / 1000.0
+        a = t2s(p["position"] + ns[0]["position"])
+        b = t2s(p["position"] + ns[-1]["position"] + ns[-1]["duration"])
         sung = [n for n in ns if str(n.get("lyric")) not in SPECIAL_LYRICS
                 and str(n.get("lyric")) != "+"]
         parts.append({
@@ -81,7 +99,7 @@ def project_summary(doc):
             "tracks": trs, "voice_parts": parts, "wave_parts": waves}
 
 
-def transposition_evidence(doc, f0):
+def transposition_evidence(doc, f0, t2s):
     """Delta (written_tone - measured_midi) over sustained sung notes."""
     times, hz, vv = f0["times"], f0["f0_hz"], f0["voiced"]
     rows = []
@@ -90,8 +108,8 @@ def transposition_evidence(doc, f0):
             if str(n.get("lyric")) in SPECIAL_LYRICS \
                     or str(n.get("lyric")) == "+":
                 continue
-            a = (p["position"] + n["position"]) * TICK_MS / 1000.0
-            d = n["duration"] * TICK_MS / 1000.0
+            a = t2s(p["position"] + n["position"])
+            d = t2s(p["position"] + n["position"] + n["duration"]) - a
             if d < 0.30:
                 continue
             m = (times >= a + 0.06) & (times <= a + d - 0.06) & vv
@@ -125,9 +143,10 @@ def main():
     doc = load_ustx(HUMAN_USTX)
     info = sf.info(str(JAY_FLAC))
 
+    t2s = tempo_map(doc)
     print("extracting vocal F0 ...", flush=True)
     f0 = extract_f0(VOCALS)
-    tp = transposition_evidence(doc, f0)
+    tp = transposition_evidence(doc, f0, t2s)
     print(f"  delta mode={tp['delta_mode_st']}st "
           f"within={tp['frac_within_1p5st_of_mode']}", flush=True)
 
@@ -146,7 +165,7 @@ def main():
         "human_project": {
             "path": str(HUMAN_USTX), "sha256": sha256(HUMAN_USTX),
             "author": "白烁", "declared_transposition": "+4 semitones",
-            **project_summary(doc)},
+            **project_summary(doc, t2s)},
         "singer_identity": {
             "project_singer": "yousaV1.56",
             "installed": False,
