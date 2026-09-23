@@ -1,6 +1,6 @@
 {
  "phase": "J1 phrase selection",
- "evaluated_head": "1ec92eb45bb8e41e232b3e0dfe9fb4802acd4952",
+ "evaluated_head": "c40af3561769a3286025004edf8e55bb64407d22",
  "worktree_clean_at_generation": true,
  "selection_rule": "class coverage over written-control evidence (pitd range/reversals/osc, portamento_y0, leaps, durations) ranked by dual-extractor SOURCE reliability; non-overlapping; agent output not used",
  "n_candidates": 34,
