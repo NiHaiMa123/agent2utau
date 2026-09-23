@@ -1515,24 +1515,29 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   a med-cents win with extra turns is a REGRESSION.
 - tests: `pytest tests/` (472 incl. 27 R2.1 synthetic regressions).
 
-## L7 Round A — evidence adjudication (probe @b5005a6, artifacts 77bdcd9)
+## L7 Round A — evidence adjudication (probe @f1404ad, artifacts 2b839ac)
 
 - `expression/voicing_evidence.py` — waveform battery for fcpe-voiced /
   rmvpe-unvoiced disputed spans: per-frame normalized ACF (80-1000Hz),
-  frame-median RMS, and Parseval harmonic-band power at the claimed f0,
+  frame-median RMS, Parseval harmonic-band power at the claimed f0, and
+  an amplitude-free comb-shape ratio (h2+/h1 vs the voiced reference);
   calibrated against the window's own both-voiced and both-unvoiced
   spans; disputed span also measured on the pre-separation mix.
-  `non_phonated_remnant` needs BOTH energy collapse (>=15dB vs voiced
-  ref) AND claimed-f0 harmonics at the unvoiced floor / >=18dB below ref
-  — that is positive counter-evidence, not extractor absence.
-- P2 n8 (54.66-54.83s): disputed span is note8's release decay, -19dB,
-  h2+ 39dB below voiced ref / below unvoiced floor; measured best-lag
-  257.9Hz == fcpe's claim 257Hz but single-bin, no comb, also on the
-  mix. fcpe tracked a real decaying resonance — artifact.
-- P3 n9 (29.42-29.52s): -25.5dB remnant, measured ~394Hz vs fcpe's
-  claimed 421Hz (+105c), no comb; identical character pre-separation.
-  fcpe locked onto a formant ring — artifact.
-- Both events: EVIDENCE_ADJUDICATED_ARTIFACT,
-  adjudication_basis=positive_counterevidence. Round A STOP satisfied —
-  Round B (P2 lane-ownership A/B) remains reviewer-locked.
-- tests: 68 passed (8 new voicing_evidence + adjudicate/contour/events).
+- Classification contract (reviewer-corrected, `06ee92f`/`f1404ad`):
+  periodicity is POSITIVE evidence evaluated before artifact claims.
+  `phonated` = context-level periodicity, OR collapsed energy PLUS a
+  sustained periodic track AND a preserved comb following a claimed/alt
+  f0 (quiet voiced release).  `non_phonated_remnant` = energy collapse
+  PLUS no material periodic support PLUS comb-shape collapse / unvoiced
+  floor / >=18dB absolute h2+ loss.  Anything else = inconclusive.
+  A periodic single-bin ring is periodic but comb-less -> inconclusive.
+- P2 n8 (54.66-54.83s): 4/16 reliable ACF frames at 257.9Hz tracking
+  fcpe's 257Hz claim, comb_rel -8.5dB — a quiet periodic release tail.
+  Energy loss alone cannot exclude it -> inconclusive -> FAIL_EVIDENCE.
+- P3 n9 (29.42-29.52s): periodic 5/9 frames at ~394Hz matching NEITHER
+  fcpe's 421Hz claim nor rmvpe's ~372Hz contour; comb not collapsed
+  (+11.5dB) -> inconclusive -> FAIL_EVIDENCE.
+- Both events remain UNKNOWN — the earlier artifact verdicts (77bdcd9)
+  were stale under the corrected rule.  Round A STOP satisfied with
+  unresolved events; Round B stays reviewer-locked.
+- tests: 69 passed (voicing_evidence + adjudicate/contour/events).
