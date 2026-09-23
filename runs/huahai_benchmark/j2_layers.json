@@ -1,6 +1,6 @@
 {
  "phase": "J2 layers A/B/C",
- "evaluated_head": "2768f18ef7b0e278dadf44fb0fcc675d337c8ac9",
+ "evaluated_head": "c912ee61af93a50605319d14d48ecebb15f4d291",
  "worktree_clean_at_generation": true,
  "normalization": "pitch comparisons in relative cents to written tone; +4 transposition removed by comparing motion, not absolute Hz",
  "source_extraction": {

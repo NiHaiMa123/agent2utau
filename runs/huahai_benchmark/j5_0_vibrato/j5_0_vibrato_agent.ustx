@@ -1,0 +1,795 @@
+name: New Project
+comment: ''
+output_dir: Vocal
+cache_dir: UCache
+ustx_version: '0.9'
+bpm: 150
+beat_per_bar: 4
+beat_unit: 4
+expressions:
+  dyn:
+    name: dynamics (curve)
+    abbr: dyn
+    type: Curve
+    min: -240
+    max: 120
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  pitd:
+    name: pitch deviation (curve)
+    abbr: pitd
+    type: Curve
+    min: -1200
+    max: 1200
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  clr:
+    name: voice color
+    abbr: clr
+    type: Options
+    min: 0
+    max: 0
+    default_value: 0
+    is_flag: false
+    options:
+    - ''
+    skip_output_if_default: false
+  eng:
+    name: resampler engine
+    abbr: eng
+    type: Options
+    min: 0
+    max: 1
+    default_value: 0
+    is_flag: false
+    options:
+    - ''
+    - worldline
+    skip_output_if_default: false
+  vel:
+    name: velocity
+    abbr: vel
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  vol:
+    name: volume
+    abbr: vol
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  atk:
+    name: attack
+    abbr: atk
+    type: Numerical
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  dec:
+    name: decay
+    abbr: dec
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  gen:
+    name: gender
+    abbr: gen
+    type: Numerical
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: g
+    skip_output_if_default: false
+  genc:
+    name: gender (curve)
+    abbr: genc
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  bre:
+    name: breath
+    abbr: bre
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: B
+    skip_output_if_default: false
+  brec:
+    name: breathiness (curve)
+    abbr: brec
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  lpf:
+    name: lowpass
+    abbr: lpf
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: true
+    flag: H
+    skip_output_if_default: false
+  norm:
+    name: normalize
+    abbr: norm
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 86
+    is_flag: true
+    flag: P
+    skip_output_if_default: false
+  mod:
+    name: modulation
+    abbr: mod
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  mod+:
+    name: modulation plus
+    abbr: mod+
+    type: Numerical
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  alt:
+    name: alternate
+    abbr: alt
+    type: Numerical
+    min: 0
+    max: 16
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  dir:
+    name: direct
+    abbr: dir
+    type: Options
+    min: 0
+    max: 1
+    default_value: 0
+    is_flag: false
+    options:
+    - false
+    - true
+    skip_output_if_default: false
+  shft:
+    name: tone shift
+    abbr: shft
+    type: Numerical
+    min: -36
+    max: 36
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  shfc:
+    name: tone shift (curve)
+    abbr: shfc
+    type: Curve
+    min: -1200
+    max: 1200
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  tenc:
+    name: tension (curve)
+    abbr: tenc
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  voic:
+    name: voicing (curve)
+    abbr: voic
+    type: Curve
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  velc:
+    name: velocity (curve)
+    abbr: velc
+    type: Curve
+    min: 0
+    max: 200
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  ene:
+    name: energy (curve)
+    abbr: ene
+    type: Curve
+    min: -100
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  pexp:
+    name: pitch expressiveness (curve)
+    abbr: pexp
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 100
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl01:
+    name: voice color Yousa_Bright
+    abbr: cl01
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl02:
+    name: voice color Yousa_Cute
+    abbr: cl02
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl03:
+    name: voice color Yousa_Normal
+    abbr: cl03
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl04:
+    name: voice color Yousa_Whisper
+    abbr: cl04
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+  cl05:
+    name: voice color Yousa_Classic
+    abbr: cl05
+    type: Curve
+    min: 0
+    max: 100
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+exp_selectors:
+- dyn
+- tenc
+- voic
+- brec
+- shfc
+- clr
+- atk
+- pexp
+- cl05
+- cl01
+exp_primary: 7
+exp_secondary: 6
+key: 0
+time_signatures:
+- bar_position: 0
+  beat_per_bar: 4
+  beat_unit: 4
+tempos:
+- position: 0
+  bpm: 75
+tracks:
+- singer: YousaV1.65c
+  phonemizer: OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer
+  renderer_settings:
+    renderer: DIFFSINGER
+  track_name: main
+  track_color: Blue
+  mute: false
+  solo: false
+  volume: 5.803278688524607
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - 01:Bright
+  - 02:Cute
+  - 03:Normal
+  - 04:Whisper
+  - 05:Classic
+- singer: YousaV1.65c
+  phonemizer: OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer
+  renderer_settings:
+    renderer: DIFFSINGER
+  track_name: Track6
+  track_color: Blue
+  mute: false
+  solo: false
+  volume: 3.4426229508196755
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - 01:Bright
+  - 02:Cute
+  - 03:Normal
+  - 04:Whisper
+  - 05:Classic
+- phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings: {}
+  track_name: Track2
+  track_color: Blue
+  mute: true
+  solo: false
+  volume: 0
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - ''
+  singer: YousaV1.65c
+- phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings: {}
+  track_name: Track3
+  track_color: Blue
+  mute: true
+  solo: false
+  volume: -1.8688524590163809
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - ''
+  singer: YousaV1.65c
+- phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings: {}
+  track_name: Track4
+  track_color: Blue
+  mute: true
+  solo: false
+  volume: 0
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - ''
+  singer: YousaV1.65c
+- phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings: {}
+  track_name: Track5
+  track_color: Blue
+  mute: false
+  solo: false
+  volume: -7.1803278688524586
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - ''
+  singer: YousaV1.65c
+- phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings: {}
+  track_name: Track10
+  track_color: Blue
+  mute: true
+  solo: false
+  volume: 0
+  pan: 0
+  track_expressions: []
+  voice_color_names:
+  - ''
+  singer: YousaV1.65c
+voice_parts:
+- duration: 90120
+  name: j5_0_vibrato_agent
+  comment: ''
+  track_no: 0
+  position: 16560
+  notes:
+  - position: 480
+    duration: 180
+    tone: 61
+    lyric: jing
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides: []
+  - position: 660
+    duration: 240
+    tone: 65
+    lyric: zhi
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides:
+    - index: 0
+      offset: -25
+  - position: 900
+    duration: 600
+    tone: 65
+    lyric: le
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides:
+    - index: 0
+      offset: -27
+  - position: 1920
+    duration: 240
+    tone: 65
+    lyric: suo
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides:
+    - index: 1
+      offset: 7
+  - position: 2160
+    duration: 240
+    tone: 63
+    lyric: you
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides: []
+  - position: 2400
+    duration: 240
+    tone: 61
+    lyric: de
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides: []
+  - position: 2640
+    duration: 480
+    tone: 63
+    lyric: hua
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides: []
+  - position: 3120
+    duration: 720
+    tone: 65
+    lyric: kai
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 0
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 175
+      depth: 25
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      volLink: 0
+    tuning: 0
+    phoneme_expressions: []
+    phoneme_overrides:
+    - index: 0
+      offset: -4
+  curves:
+  - abbr: pitd
+    xs:
+    - 9469
+    - 9498
+    - 9555
+    - 9632
+    - 9642
+    - 9747
+    - 9757
+    - 9805
+    - 9843
+    - 9949
+    - 10026
+    - 10112
+    - 10179
+    - 10237
+    - 10285
+    - 10323
+    - 10352
+    - 10362
+    - 10371
+    - 10390
+    - 10400
+    - 11782
+    - 11859
+    - 11888
+    - 11955
+    - 11984
+    - 12042
+    - 12109
+    - 12147
+    - 12157
+    - 12224
+    - 12253
+    - 12282
+    - 12310
+    - 12397
+    - 12416
+    - 12435
+    - 12531
+    - 12541
+    - 12550
+    - 12579
+    - 12618
+    - 12714
+    - 12733
+    - 12762
+    - 12925
+    - 12934
+    - 12963
+    - 12982
+    - 13002
+    - 13155
+    - 13213
+    - 13251
+    - 13280
+    - 13366
+    - 13405
+    - 13434
+    - 13453
+    - 13482
+    - 13693
+    - 13712
+    - 13741
+    - 13798
+    - 13894
+    - 13933
+    - 13990
+    - 14038
+    - 14067
+    - 14106
+    - 14115
+    - 14163
+    - 14173
+    ys:
+    - 371
+    - 362
+    - 394
+    - 368
+    - 371
+    - 386
+    - -10
+    - -22
+    - -3
+    - -36
+    - -10
+    - -33
+    - 2
+    - -36
+    - -15
+    - -23
+    - 16
+    - 22
+    - 3
+    - -70
+    - -91
+    - -204
+    - -225
+    - -289
+    - -335
+    - -401
+    - -455
+    - -406
+    - -435
+    - -235
+    - -222
+    - -199
+    - -223
+    - -303
+    - 17
+    - 20
+    - 73
+    - 7
+    - 7
+    - 203
+    - 195
+    - 223
+    - 172
+    - 161
+    - 196
+    - 173
+    - -21
+    - 9
+    - 5
+    - -77
+    - -31
+    - -2
+    - -49
+    - -35
+    - 60
+    - 141
+    - 173
+    - 174
+    - 197
+    - 8
+    - 20
+    - 8
+    - -60
+    - 3
+    - -2
+    - -37
+    - -134
+    - -171
+    - -164
+    - -147
+    - -58
+    - -67
+  Duration: 4320
+wave_parts: []

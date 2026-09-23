@@ -1,0 +1,123 @@
+{
+ "phase": "J5 agent layer D",
+ "evaluated_head": "c912ee61af93a50605319d14d48ecebb15f4d291",
+ "worktree_clean_at_generation": true,
+ "method": "current compile path: neutral render -> dense residual -> compile_C3 -> portamento lane (full_note) -> candidate render. SOURCE F0 transposed +4st into the written pitch frame; production arbitration (v2/v3 closed loop) NOT replicated — the compiled representation is the benchmark layer",
+ "phrases": [
+  {
+   "class": "vibrato",
+   "part": 0,
+   "audio_span_s": [
+    27.11,
+    32.71
+   ],
+   "n_notes": 8,
+   "src_events": 18,
+   "neu_events": 10,
+   "pitch_matched": 9,
+   "vib_marks": {},
+   "porta_marks": 0,
+   "porta_spans": 0,
+   "agent_ustx": "runs\\huahai_benchmark\\j5_0_vibrato\\j5_0_vibrato_agent.ustx",
+   "agent_ustx_sha256": "bfc630b204cc28339d1a24e768c760713e6144ed5d3f8be42c38fd4622ff4359",
+   "agent_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_0_vibrato\\j5_0_vibrato_agent_main.wav",
+   "agent_wav_sha256": "499c721fca9cc61cbec1ded2074fc10c5bfa8cb7f50c0d21621ebfdccdefbfcd",
+   "neutral_ustx": "runs\\huahai_benchmark\\j5_0_vibrato\\j5_0_vibrato_neutral.ustx",
+   "neutral_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_0_vibrato\\j5_0_vibrato_neutral_main.wav",
+   "vib_provenance": {},
+   "porta_provenance": {}
+  },
+  {
+   "class": "portamento_or_scoop",
+   "part": 0,
+   "audio_span_s": [
+    33.51,
+    38.71
+   ],
+   "n_notes": 8,
+   "src_events": 16,
+   "neu_events": 11,
+   "pitch_matched": 7,
+   "vib_marks": {},
+   "porta_marks": 0,
+   "porta_spans": 0,
+   "agent_ustx": "runs\\huahai_benchmark\\j5_1_portamento_or_scoop\\j5_1_portamento_or_scoop_agent.ustx",
+   "agent_ustx_sha256": "39ba15cfbbd4e31087c82f94687d4480f702d1e0b398747e754eb8dc0b8a5b0b",
+   "agent_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_1_portamento_or_scoop\\j5_1_portamento_or_scoop_agent_main.wav",
+   "agent_wav_sha256": "8ca195606bb1e130aa6b1a5220be683830924fa857b4bde179eef2f282d248e8",
+   "neutral_ustx": "runs\\huahai_benchmark\\j5_1_portamento_or_scoop\\j5_1_portamento_or_scoop_neutral.ustx",
+   "neutral_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_1_portamento_or_scoop\\j5_1_portamento_or_scoop_neutral_main.wav",
+   "vib_provenance": {},
+   "porta_provenance": {}
+  },
+  {
+   "class": "onset_over_undershoot",
+   "part": 0,
+   "audio_span_s": [
+    69.91,
+    74.71
+   ],
+   "n_notes": 8,
+   "src_events": 13,
+   "neu_events": 11,
+   "pitch_matched": 8,
+   "vib_marks": {},
+   "porta_marks": 0,
+   "porta_spans": 0,
+   "agent_ustx": "runs\\huahai_benchmark\\j5_2_onset_over_undershoot\\j5_2_onset_over_undershoot_agent.ustx",
+   "agent_ustx_sha256": "8b5db7fcbeeffd01360ca09954362d6b13f5ed5f4ff99a0705648a25b00f7f04",
+   "agent_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_2_onset_over_undershoot\\j5_2_onset_over_undershoot_agent_main.wav",
+   "agent_wav_sha256": "5fb1d71ccc79298a19ae057c2477fbef9b052def8193d50d0e36e8a48e5d65b6",
+   "neutral_ustx": "runs\\huahai_benchmark\\j5_2_onset_over_undershoot\\j5_2_onset_over_undershoot_neutral.ustx",
+   "neutral_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_2_onset_over_undershoot\\j5_2_onset_over_undershoot_neutral_main.wav",
+   "vib_provenance": {},
+   "porta_provenance": {}
+  },
+  {
+   "class": "ornament",
+   "part": 1,
+   "audio_span_s": [
+    167.76,
+    172.31
+   ],
+   "n_notes": 8,
+   "src_events": 16,
+   "neu_events": 8,
+   "pitch_matched": 6,
+   "vib_marks": {},
+   "porta_marks": 0,
+   "porta_spans": 0,
+   "agent_ustx": "runs\\huahai_benchmark\\j5_3_ornament\\j5_3_ornament_agent.ustx",
+   "agent_ustx_sha256": "884917ebccabd590472633cafa45d52e728320fd6f395cbc0f4dcd4ad9e12403",
+   "agent_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_3_ornament\\j5_3_ornament_agent_main.wav",
+   "agent_wav_sha256": "55f164427366c8132ba24f62a498a050b3d02ae9a0ebc433a05f26202851590f",
+   "neutral_ustx": "runs\\huahai_benchmark\\j5_3_ornament\\j5_3_ornament_neutral.ustx",
+   "neutral_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_3_ornament\\j5_3_ornament_neutral_main.wav",
+   "vib_provenance": {},
+   "porta_provenance": {}
+  },
+  {
+   "class": "sustained",
+   "part": 0,
+   "audio_span_s": [
+    52.71,
+    58.21
+   ],
+   "n_notes": 8,
+   "src_events": 19,
+   "neu_events": 8,
+   "pitch_matched": 7,
+   "vib_marks": {},
+   "porta_marks": 0,
+   "porta_spans": 0,
+   "agent_ustx": "runs\\huahai_benchmark\\j5_4_sustained\\j5_4_sustained_agent.ustx",
+   "agent_ustx_sha256": "a188899cdf6e5960cf50121016314c6d756564b2d7bd81b1a285b34c84d07884",
+   "agent_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_4_sustained\\j5_4_sustained_agent_main.wav",
+   "agent_wav_sha256": "43224c19ed78f7e441ba5a574c0b774081497d842d61fc9c5a327391b322f3de",
+   "neutral_ustx": "runs\\huahai_benchmark\\j5_4_sustained\\j5_4_sustained_neutral.ustx",
+   "neutral_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j5_4_sustained\\j5_4_sustained_neutral_main.wav",
+   "vib_provenance": {},
+   "porta_provenance": {}
+  }
+ ]
+}
