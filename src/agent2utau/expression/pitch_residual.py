@@ -444,7 +444,7 @@ def _engine_vib_model(marks, n_start, n_end, g, depth_gain=1.0):
 
 
 def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
-               max_err_c=10.0, base_vibrato=None):
+               max_err_c=10.0, base_vibrato=None, tick_ms=TICK_MS):
     """True event-aware compile (plan §9.4 decomposition):
 
         PITD(t) = trend_src(t) - trend_neu(t)        (slow residual)
@@ -589,7 +589,7 @@ def compile_C3(dense, src_sig, neu_sig, notes, part_pos_tick, vib_match,
             xs_all.extend(seg_t)
             ys_all.extend(seg_y)
         i = j + 1
-    xs = np.round(np.asarray(xs_all) * 1000.0 / TICK_MS
+    xs = np.round(np.asarray(xs_all) * 1000.0 / tick_ms
                   - part_pos_tick).astype(int)
     ys = np.clip(np.round(np.asarray(ys_all)), -1150, 1150).astype(int)
     order = np.argsort(xs, kind="stable")
@@ -760,8 +760,8 @@ def flatten_pitd_spans(pitd, spans_s, part_pos_tick, edge_s=0.012):
     introduced at the hand-off."""
     if not spans_s:
         return pitd
-    xs = np.asarray(pitd["xs"], dtype=float) * TICK_MS / 1000.0 \
-        + part_pos_tick * TICK_MS / 1000.0
+    xs = np.asarray(pitd["xs"], dtype=float) * tick_ms / 1000.0 \
+        + part_pos_tick * tick_ms / 1000.0
     ys = np.asarray(pitd["ys"], dtype=float)
     keep = np.ones(len(xs), dtype=bool)
     for a, b in spans_s:
@@ -772,7 +772,7 @@ def flatten_pitd_spans(pitd, spans_s, part_pos_tick, edge_s=0.012):
                      (a, 0.0), (b, 0.0),
                      (b + edge_s, float(np.interp(b + edge_s, xs, ys)))]:
             xo.append(t); yo.append(y)
-    xn = np.round(np.asarray(xo) * 1000.0 / TICK_MS
+    xn = np.round(np.asarray(xo) * 1000.0 / tick_ms
                   - part_pos_tick).astype(int)
     yn = np.clip(np.round(np.asarray(yo)), -1150, 1150).astype(int)
     o = np.argsort(xn, kind="stable")

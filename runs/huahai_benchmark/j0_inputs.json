@@ -1,7 +1,7 @@
 {
  "tool": "tools/l7j_huahai_benchmark.py",
  "phase": "J0 inputs",
- "evaluated_head": "c912ee61af93a50605319d14d48ecebb15f4d291",
+ "evaluated_head": "1ec92eb45bb8e41e232b3e0dfe9fb4802acd4952",
  "worktree_clean_at_generation": true,
  "jay_original": {
   "path": "E:\\data\\music\\周杰伦音乐 所有专辑和单曲\\2008-魔杰座\\04. 周杰伦 - 花海.flac",

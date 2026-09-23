@@ -923,7 +923,10 @@ def j5_agent_layer(doc, picked, t2s, wave_off, ms_tick, head):
     f0r = infer_rmvpe(KIM2_VOCALS)
 
     def shifted(f):
-        return {"times": f["times"],
+        # source f0: transpose +4st into the written pitch frame and
+        # shift onto the project axis (audio t + wave_off)
+        return {"times": np.asarray(f["times"], dtype=float)
+                + wave_off,
                 "f0_hz": np.asarray(f["f0_hz"], dtype=float) * scale,
                 "voiced": f["voiced"]}
     src_fcpe, src_rmvpe = shifted(f0c), shifted(f0r)
@@ -931,8 +934,10 @@ def j5_agent_layer(doc, picked, t2s, wave_off, ms_tick, head):
     layers = []
     for k, ph in enumerate(picked):
         a, b = ph["a"], ph["b"]
-        t0, t1 = a - PAD_S, b + PAD_S
+        t0, t1 = a + wave_off - PAD_S, b + wave_off + PAD_S
         part = doc["voice_parts"][ph["part"]]
+        # compile runs on the PROJECT axis (note times = project
+        # seconds); source/render f0 are shifted +wave_off to match
         notes = []
         for n in part["notes"]:
             lyr = str(n.get("lyric"))
@@ -941,9 +946,9 @@ def j5_agent_layer(doc, picked, t2s, wave_off, ms_tick, head):
             s_p = t2s(part["position"] + n["position"])
             e_p = t2s(part["position"] + n["position"]
                       + n["duration"])
-            s, e = s_p - wave_off, e_p - wave_off   # audio axis
-            if s >= a - 1e-3 and e <= b + 1e-3:
-                notes.append({"abs_start_s": s, "dur_s": e - s,
+            if s_p - wave_off >= a - 1e-3 \
+                    and e_p - wave_off <= b + 1e-3:
+                notes.append({"abs_start_s": s_p, "dur_s": e_p - s_p,
                               "tone": n["tone"], "lyric": lyr,
                               "_abs_tick": part["position"]
                               + n["position"],
@@ -969,15 +974,9 @@ def j5_agent_layer(doc, picked, t2s, wave_off, ms_tick, head):
         neu_ustx = pdir / (tag + "_neutral.ustx")
         save_ustx(neu_doc, neu_ustx)
         neu_wav = drv.render(cfg, neu_ustx, pdir / (tag + "_neutral"))
-        nf = extract_f0(neu_wav)
-        nr = infer_rmvpe(neu_wav)
-
-        def to_audio(f):
-            return {"times": np.asarray(f["times"], dtype=float)
-                    - wave_off,
-                    "f0_hz": np.asarray(f["f0_hz"], dtype=float),
-                    "voiced": f["voiced"]}
-        neu_fcpe, neu_rmvpe = to_audio(nf), to_audio(nr)
+        # render wav is already on the project axis (t=0 = project 0)
+        neu_fcpe = extract_f0(neu_wav)
+        neu_rmvpe = infer_rmvpe(neu_wav)
 
         src_sig = build_contour_signal(src_fcpe, src_rmvpe, notes,
                                        t0_s=t0, t1_s=t1,
@@ -1014,14 +1013,14 @@ def j5_agent_layer(doc, picked, t2s, wave_off, ms_tick, head):
 
         pitd_v1, vib_marks, vib_prov = compile_C3(
             dense, src_sig, neu_sig, notes, part_pos, vib_match,
-            max_err_c=10.0)
+            max_err_c=10.0, tick_ms=ms_tick)
         porta_marks, porta_spans, porta_prov = \
             compile_portamento_lane(
                 src_sig, src_sig_b, notes, src_events,
                 vib_marks=vib_marks, ownership="full_note")
         if porta_spans:
             pitd_v1 = flatten_pitd_spans(pitd_v1, porta_spans,
-                                         part_pos)
+                                         part_pos, tick_ms=ms_tick)
         cand_doc = drv.build_phrase_doc(
             base_doc, part, notes, part_pos, pitd_v1, vib_marks,
             tag + "_agent", porta_marks=porta_marks)
