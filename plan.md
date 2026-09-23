@@ -51,6 +51,11 @@ Agent/LLM responsibility is limited to high-level diagnosis, experiment choice a
 parameter strategy. Signal measurement, candidate generation, rendering and acceptance must be
 deterministic/reproducible code.
 
+A human-tuned synthesis project may be used as a **representation reference**, distinct from SOURCE.
+It is evidence for how a human maps singing motion into practical synthesizer controls, not an
+absolute acoustic truth. SOURCE, written project controls, and rendered project audio must remain
+separate evidence layers.
+
 ## 3. Non-negotiable invariants
 
 1. Expression work must not alter trusted note count / identity / lyric / base timing.
@@ -541,6 +546,7 @@ Rules:
 ## 12. Current state — R2.1/L7
 
 Verified direction:
+- current validation focus is moving from Rain Love local repairs to a Huahai three-way benchmark (Jay original / human +4-key project / agent2utau) to avoid overfitting local failures;
 - Round F disproved simple additive duplicate-periodic ownership; secondary periodic PITD may act as anti-phase renderer compensation and must be judged from real render;
 - active renderer baseline is now YousaV1.65c + matching OpenUtau dpV2;
 - native phase→`shift`;
@@ -1132,138 +1138,294 @@ Important unresolved fact:
 
 No Round-F candidate is accepted. Variant B is diagnostic evidence only.
 
-#### Round F2 — ACTIVE: localize the P2 perceptual failure before further repair
+#### Round F2 — COMPLETE / REVIEWER ACCEPTED AS LOCALIZATION EVIDENCE ONLY
 
-**Single goal:** determine which measurable subsystem actually corresponds to the human complaint
-“我的笨完全不行，刺耳，颤抖” on the current 1.65c/dpV2 baseline.
+Reviewer accepts executor bundle `0d66c70 → 1cf9e7b → 803ea10 → ff5ee10 → 6a5ff77 → 394f1fa → b9e2c7b → d5e33cb`
+as useful localization evidence, with one correction to interpretation.
 
-This is an **evidence/localization round**, not a production repair round.
+Reliable findings:
+- the P2 human-fail region is concentrated in approximately 54.35–55.53 s (S1/S2), not the
+  later S3 vibrato tail;
+- S3 rate/depth/decay and phonation are close to SOURCE and are not the current primary blocker;
+- S1/S2 contain very large transition/oscillation geometry;
+- however SOURCE itself contains similarly violent motion in the same span, and the span overlaps
+  previously edge-uncertain evidence;
+- the one allowed zigfix A/C experiment substantially changed the written PITD but the rendered S1
+  remained rough/extreme.
 
-Do not assume:
-- Level-2 adaptive vibrato is the answer;
-- duplicate periodic ownership is bad;
-- F0 alone explains “刺耳”;
-- a lower pointwise/source error necessarily sounds better.
+Therefore the committed executor label `F0_LOCAL_DEFECT` is retained as historical output but is
+**not accepted as a proven causal diagnosis**.
 
-### Frozen target and segmentation
-
-Freeze the current 1.65c P2 baseline. Analyze notes 8–11 / approximately 54.35–56.71 s.
-
-At minimum split evidence into:
+Reviewer classification:
 
 ```text
-S1: note8 / “我” onset + transition region
-S2: note9–10 / “的” + continuation, pre-vibrato region
-S3: note11 / “笨” vibrato-owned tail
+LOCALIZED_CAUSE_UNRESOLVED
 ```
 
-Exact boundaries must come from the committed score/phoneme/render evidence rather than the prose
-labels above.
+Interpretation:
+- P2 localizes successfully;
+- written-PITD zigzag alone is not proven to be the material perceptual cause;
+- SOURCE may contain real difficult motion, extraction artefact, or both;
+- renderer response may recreate/reshape rough motion even after written smoothing;
+- further Rain Love micro-tuning risks overfitting three local examples.
 
-### Required diagnostic families
+The A/C listening project remains diagnostic evidence only. No zigfix candidate is accepted.
 
-For SOURCE and baseline render, measure each segment separately.
+**Round F2 is CLOSED. Pause Rain Love P2/P3 local repair as the main development route.**
 
-1. **F0 trajectory geometry**
-   - isolated spike magnitude/duration;
-   - local slope and acceleration/jerk;
-   - reversal density and reversal timing;
-   - overshoot / settling structure;
-   - note-centre offset;
-   - local gesture-range ratio.
+#### Round J — ACTIVE: Huahai three-way benchmark / representation study
 
-2. **Periodic / vibrato structure**
-   - instantaneous/cycle rate;
-   - cycle depth;
-   - rate envelope;
-   - depth envelope;
-   - cycle-to-cycle variation;
-   - phase / zero-crossing alignment where observable;
-   - waveform-shape residual after fitting the dominant periodic component.
+**Primary goal:** establish a generalizable benchmark for how real human singing motion is represented
+by a successful human-tuned OpenUtau project, before continuing local repair of Rain Love.
 
-3. **Phonation / render quality**
-   - voiced continuity;
-   - local energy envelope / collapses;
-   - harmonic-periodicity evidence (existing ACF metric or a better committed equivalent);
-   - spectral roughness/flatness already available in the repository;
-   - do not infer a pitch defect when F0 is plausible but acoustic quality is abnormal.
+Benchmark song: **《花海》**.
 
-4. **Singing-motion grammar, diagnostic only**
-   Classify local motion where evidence permits into:
+Required evidence sources:
+1. Jay Chou original vocal/audio — real human singing SOURCE;
+2. an existing human-authored **+4 key** singing-synthesis/OpenUtau project that is judged usable by
+   listening;
+3. agent2utau output/render for matched benchmark phrases, but only after the reference analysis
+   artifacts exist.
 
-   ```text
-   preparation
-   transition
-   overshoot / undershoot
-   settling
-   sustain / fine fluctuation
-   vibrato
-   release
-   unknown
-   ```
-
-   Flag geometrically implausible patterns (spike, unsupported rapid reversal, unstructured zig-zag,
-   abrupt periodic start/stop), but **do not create global PASS/FAIL thresholds in Round F2**.
-
-### Controls / anti-overfit requirement
-
-Compare P2 diagnostics against committed known controls:
-- P1 current positive listening control;
-- old 1.65b P3 29.26–29.28 s glitch as a known hard abnormal example;
-- current 1.65c P3 as a case where that hard abnormality disappeared.
-
-The purpose is to verify that proposed features separate at least obvious normal vs obvious abnormal
-behaviour before using them to explain P2.
-
-Do not claim a feature explains P2 merely because P2 has a large value. The feature must have a
-causal or comparative interpretation.
-
-### Optional discriminating A/B
-
-Only if the diagnostics identify one concrete F0-localized suspect interval, one minimal A/B is
-allowed:
-- change only that suspect component;
-- preserve the rest of P2 byte-semantically;
-- real-render both variants;
-- produce a P2-only listening artifact.
-
-Do not perform more than one candidate-changing A/B in this round.
-
-If diagnostics instead indicate that F0 motion is broadly plausible while acoustic
-phonation/timbre is abnormal, do **not** modify pitch curves; record the route as render/phonation.
-
-### Round-F2 routing
-
-End the round with exactly one primary classification:
+The +4-key project is valuable because absolute pitch is not the comparison target. Normalize every
+comparison to relative cents around each written note / local tonal target:
 
 ```text
-F0_LOCAL_DEFECT
-  a specific onset/transition/periodic trajectory defect corresponds to the human-fail region
-  → authorize one later bounded expression repair
+relative_cents(t) = 1200 * log2(F0(t) / F_note(t))
+```
 
-VIBRATO_CAPABILITY
-  fixed Level-1 vibrato cannot reproduce the verified SOURCE cycle/rate/depth envelope and the
-  mismatch corresponds to the perceptual failure
-  → authorize a separate Level-2 adaptive-vibrato implementation round
+A global +4-semitone transposition must therefore disappear from the expression comparison. If note
+mapping/transposition cannot be proven, classify UNKNOWN and STOP rather than force alignment.
 
-PHONATION_RENDER_DEFECT
-  F0 trajectory is plausible enough, but render acoustic/phonation evidence is abnormal
-  → leave pitch compiler unchanged and investigate render/voice parameters
+### Round-J question
 
-MIXED_DEFECT
-  independently supported pitch and acoustic defects coexist
-  → split them into separate later rounds
+For the same musical phrase, determine:
+
+```text
+real human F0 motion
+        ↓
+what a human tuner actually encoded in the +4-key project
+        ↓
+what the synthesis renderer produced from that encoding
+```
+
+The key research question is not “how closely did the tuner trace every SOURCE point?” It is:
+
+> Which human singing motions are preserved explicitly, simplified, moved into native parameters,
+> or intentionally omitted while still yielding a normal/convincing synthesized result?
+
+This round must distinguish:
+- human-singing motion;
+- human-authored control representation;
+- renderer response;
+- agent2utau representation.
+
+### Phase J0 — input/provenance discovery only
+
+Before extracting anything, bind:
+- exact Jay original audio file/hash;
+- exact +4-key project file(s)/hashes;
+- project format and singer/renderer identity;
+- any rendered audio belonging to the human-tuned project;
+- key/transposition relation and note correspondence evidence.
+
+Do not silently use a file merely because its filename contains 花海.
+If multiple candidate files/projects exist and identity cannot be established from repository/local
+evidence, record them and STOP for reviewer selection.
+
+If the required original audio or +4-key project is not available to the executor, end as:
+
+```text
+BLOCKED_MISSING_BENCHMARK_INPUT
+```
+
+No substitute song may be selected automatically.
+
+### Phase J1 — phrase selection
+
+Select only **3–5 benchmark phrases**, not the full song.
+
+The set should cover different motion classes where available:
+- stable/sustained note;
+- ordinary note transition;
+- clear portamento or scoop;
+- onset overshoot/undershoot;
+- long vibrato with observable onset/release;
+- one complex ornament/irregular gesture.
+
+Selection must be evidence-driven from the real SOURCE and human project, not chosen merely because
+the current detector already handles the phrase well.
+
+For every chosen phrase retain:
+- absolute song time;
+- note IDs / lyrics;
+- SOURCE voiced-confidence coverage;
+- why the phrase represents the target motion class.
+
+### Phase J2 — four-layer extraction
+
+For every benchmark phrase produce four aligned layers where available:
+
+```text
+A. Jay SOURCE real F0
+B. human +4-key project written controls
+   - notes
+   - pitch.data / portamento
+   - PITD
+   - native vibrato
+   - other pitch-affecting controls
+C. human +4-key project real render F0
+D. agent2utau candidate written controls + real render F0
+   (D is generated only after A/B/C evidence is committed)
+```
+
+For A/C/D retain raw extractor outputs and independent extractor evidence.
+
+Normalize comparison into:
+- relative cents to note/tonal centre;
+- note-normalized time where useful;
+- absolute real time for phoneme/transition provenance.
+
+Do not compare the +4-key project and SOURCE by raw Hz or raw MIDI number.
+
+### Phase J3 — representation-gap analysis
+
+For each event/gesture answer explicitly:
+
+1. What motion exists in SOURCE?
+2. Did the human tuner encode it?
+3. If yes, through which representation?
+   - note geometry / portamento;
+   - native vibrato;
+   - PITD;
+   - mixed representation;
+4. How much of the SOURCE fine fluctuation was omitted/simplified?
+5. What did the renderer add, damp, distort or reshape?
+6. Does the final human-tuned render remain perceptually plausible despite simplification?
+
+Required outputs include normalized overlays and an event table such as:
+
+```text
+event
+SOURCE structure
+human written representation
+human render structure
+representation complexity
+omitted detail
+renderer transformation
+plausibility/listening note
+```
+
+Do not score the human project as “ground truth perfect”. It is a second reference:
+- SOURCE = evidence for real human singing;
+- human project = evidence for a practical synthesis representation chosen by a person.
+
+Where they disagree, preserve the disagreement.
+
+### Phase J4 — derive candidate general rules, diagnostic only
+
+From the benchmark, propose candidate rules for later implementation, for example:
+- which SOURCE micro-fluctuations should not be copied pointwise;
+- when a preparation/overshoot is better represented structurally than by dense PITD;
+- when native vibrato is sufficient;
+- when an adaptive envelope is justified;
+- how much renderer response changes the written control;
+- which local shapes are plausible human singing even when numerically extreme.
+
+These are **hypotheses**, not production rules in Round J.
+
+No global threshold may be introduced from only 3–5 phrases.
+
+### Phase J5 — agent2utau comparison
+
+Only after J0–J4 evidence is committed:
+- run the current agent2utau expression path on the same selected phrases;
+- render through the current YousaV1.65c + dpV2 baseline;
+- compare D against A/B/C;
+- identify whether agent2utau is:
+  - copying SOURCE detail the human tuner intentionally simplified;
+  - missing a structure the human tuner preserved;
+  - choosing a higher-complexity representation unnecessarily;
+  - relying on renderer compensation differently from the human project.
+
+This phase is evaluation only. Do not repair the generator in the same round.
+
+### Human singing plausibility connection
+
+Round J is the calibration precursor for the planned human-singing plausibility gate.
+
+Use the benchmark to separate three concepts:
+
+```text
+human_pitch_plausibility
+  “could this rendered F0 reasonably be human singing?”
+
+source_expression_fidelity
+  “does it reproduce the intended singer/phrase expression?”
+
+synthesis_representation_efficiency
+  “does it achieve that behavior with an appropriate low-complexity OpenUtau representation?”
+```
+
+The human +4-key project is especially important for the third term.
+
+Known Rain Love examples remain replay controls, not the calibration dataset:
+- P1 positive control;
+- old P3 hard glitch negative control;
+- P3 “涩” suspicious onset;
+- P3 final vibrato naturalness concern;
+- P2 “我的笨” unresolved perceptual FAIL.
+
+### Round-J forbidden actions
+
+Do **not**:
+- resume Rain Love P2/P3 tuning;
+- change generator/compiler logic;
+- change acceptance thresholds;
+- build a classifier from only the selected 花海 phrases;
+- assume every SOURCE F0 detail should be reproduced;
+- assume the human +4-key project is always correct;
+- compare raw absolute pitch across the +4-key transposition;
+- process the whole song before the benchmark phrase method is validated;
+- let J5 agent output influence J1 phrase selection.
+
+### Round-J output contract
+
+Commit:
+- benchmark input manifest + hashes;
+- note/key correspondence evidence;
+- 3–5 phrase-selection manifest;
+- SOURCE / human-project / human-render measurements;
+- normalized overlays/data;
+- event-by-event representation-gap report;
+- current agent2utau comparison for the same phrases;
+- explicit unknown/conflict fields;
+- no production generator changes.
+
+Then **STOP** for reviewer inspection and listening.
+
+Possible round conclusions:
+
+```text
+BENCHMARK_READY
+  evidence is sufficient to design the next general representation/plausibility experiment
+
+BENCHMARK_CONFLICT
+  SOURCE vs human project exposes unresolved mapping/interpretation conflicts
+  → preserve conflict and STOP
+
+BLOCKED_MISSING_BENCHMARK_INPUT
+  required original/project/render evidence is unavailable
+  → STOP
 
 FAIL_EVIDENCE
-  available evidence cannot localize the complaint reliably
-  → STOP; improve observability, do not tune
+  extraction/alignment is too unreliable for one or more selected phrases
+  → replace only the affected phrase under the same selection criteria; do not relax evidence rules
 ```
-
-Commit the diagnostic packet and **STOP**. P1 and P3 remain frozen.
 
 #### Round G — LOCKED: P3 local polish
 
-Do not execute until Round F is reviewed/closed.
+Paused while Round J establishes the general benchmark. Do not resume merely because a local Rain Love repair appears obvious.
 
 P3 is no longer a hard L7 renderer-stability blocker. Remaining work is local and must be split into
 two discriminating subproblems:
@@ -1284,8 +1446,7 @@ evidence contradicts Round E.
 
 #### Round H — LOCKED: human singing plausibility gate
 
-Do not execute until the current P2/P3 localized defects have produced enough positive/negative
-examples for calibration.
+Do not execute until Round J provides benchmark evidence from real SOURCE + human-tuned project + human-project render. Rain Love examples alone are insufficient calibration.
 
 **Goal:** add a source-independent first-pass judge that asks whether a rendered pitch trajectory is
 plausible as human singing before asking how closely it matches the target singer.
