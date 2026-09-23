@@ -29,11 +29,21 @@ Each candidate is real-rendered through the bridge and judged by the
 SAME absolute event-shape gate as the phrase run, plus a
 command-vs-response record.  Verdict rules (deterministic):
 
-  source target unstable across extractors          -> FAIL_EVIDENCE
+  source target unstable across extractors, third
+    family (librosa pYIN) agrees the span is not a
+    voiced gesture                                     -> EVIDENCE_ADJUDICATED_ARTIFACT
+  source target unstable across extractors and the
+    third family cannot resolve it                     -> FAIL_EVIDENCE
+  third family confirms the FCPE gesture that RMVPE
+    rejected -> evidence rescued, candidates decide
   dense probe clears the blocking shape             -> FAIL_FIXABLE
   materially different commands render to the same
     smoothed/incorrect shape                        -> FAIL_CAPABILITY
   otherwise                                         -> INCONCLUSIVE
+
+`EVIDENCE_ADJUDICATED_ARTIFACT` is the explicit evidence adjudication
+required by plan §12: a committed, hash-bound finding that the detected
+SOURCE event is an extraction artifact, not a real gesture.
 
 Artifacts per event under
 runs/expr-20260921/probe_portamento/<phrase>_n<from_note>/.
@@ -57,6 +67,7 @@ import l7_phrase_gate as drv                      # noqa: E402
 
 from agent2utau.analysis.f0 import extract_f0     # noqa: E402
 from agent2utau.analysis.rmvpe import infer_rmvpe  # noqa: E402
+from agent2utau.diagnostic.adjudicate import third_f0_pyin  # noqa: E402
 from agent2utau.expression import contour_qa as cq  # noqa: E402
 from agent2utau.expression.contour import build_contour_signal  # noqa: E402
 from agent2utau.expression.pitch_residual import TICK_MS  # noqa: E402
@@ -74,6 +85,44 @@ DISTORTION_RMSE = 0.35        # contour_qa blocking threshold
 MATERIAL_GAIN = 0.60          # probe must reach <=60% of v1 rmse
 CMD_DIV_MIN = 0.30            # normalized rmse between the two commands
 RESP_RATIO = 0.35             # resp_div <= RESP_RATIO*cmd_div -> same out
+# third-family (librosa pYIN) adjudication thresholds
+PYIN_DISPUTED_VMAX = 0.30     # voiced rate on fcpe-voiced/rmvpe-unvoiced
+                              # frames below which pYIN rejects the gesture
+PYIN_RESCUE_COV = 0.80        # pYIN coverage needed to confirm a gesture
+PYIN_PROB_MIN = 0.5           # voicing-probability floor
+
+
+def _pyin_window(ctx, s, e):
+    """Third-family (librosa pYIN) evidence inside [s,e] on SOURCE."""
+    py = ctx.get("pyin")
+    if py is None:
+        return None
+    t, midi, prob = py["times"], py["midi"], py["voiced_prob"]
+    m = (t >= s) & (t <= e)
+    if not m.sum():
+        return {"coverage": 0.0, "n_frames": 0}
+    voiced = np.isfinite(midi[m]) & (prob[m] >= PYIN_PROB_MIN)
+    out = {"coverage": round(float(voiced.mean()), 3),
+           "n_frames": int(m.sum()),
+           "provenance": py["provenance"]}
+    if voiced.sum() >= 3:
+        cents = 100.0 * (midi[m][voiced] - 69.0)
+        out["median_cents_rel_a4"] = round(float(np.median(cents)), 1)
+    # disputed frames: fcpe voiced but rmvpe unvoiced inside the window
+    fs, fv = ctx["src_sig"].times, ctx["src_sig"].voiced
+    bs, bv = ctx["src_sig_b"].times, ctx["src_sig_b"].voiced
+    fv_i = np.interp(t, fs, fv.astype(float), left=0.0, right=0.0) > 0.5
+    bv_i = np.interp(t, bs, bv.astype(float), left=0.0, right=0.0) > 0.5
+    disp = m & fv_i & ~bv_i
+    if disp.sum() >= 3:
+        dv = np.isfinite(midi[disp]) & (prob[disp] >= PYIN_PROB_MIN)
+        out["disputed_frames"] = int(disp.sum())
+        out["disputed_voiced_rate"] = round(float(dv.mean()), 3)
+        if dv.sum() >= 3:
+            dc = 100.0 * (midi[disp][dv] - 69.0)
+            out["disputed_median_cents_rel_a4"] = round(
+                float(np.median(dc)), 1)
+    return out
 
 
 def _written_cents(t, notes):
@@ -264,9 +313,18 @@ def probe_event(phrase, from_note, ctx, cfg, head):
     notes = ctx["notes"]
     ev = ctx["src_event_by_from"].get(from_note)
     if ev is None:
+        # The detector no longer reports a SOURCE portamento at this
+        # index (e.g. re-detection after a fix).  If the committed row is
+        # non-blocking and the lane owns it, the issue is resolved in
+        # production; otherwise the evidence stays unresolved.
+        committed = ctx["committed_rows"].get(from_note) or {}
         return {"phrase": phrase, "from_note": from_note,
-                "verdict": "FAIL_EVIDENCE",
-                "reason": "source portamento event not detected on rerun"}
+                "verdict": ("RESOLVED"
+                            if committed and not committed.get("blocking")
+                            else "FAIL_EVIDENCE"),
+                "reasons": ["source portamento event not detected on "
+                            "rerun"],
+                "committed_event": committed}
     s, e = ev.start_s, ev.end_s
     bnd = notes[from_note + 1]["abs_start_s"] \
         if from_note + 1 < len(notes) else 0.5 * (s + e)
@@ -297,6 +355,37 @@ def probe_event(phrase, from_note, ctx, cfg, head):
                        and ext_rmse <= EXTRACTOR_AGREE_RMSE
                        and src_cov >= MIN_SRC_COVERAGE)
 
+    # --- third-family adjudication (committed librosa pYIN) -----------
+    pyin = _pyin_window(ctx, s, e)
+    adjudication = None
+    rescued = False
+    if not evidence_stable and pyin is not None:
+        disp_n = pyin.get("disputed_frames", 0)
+        disp_v = pyin.get("disputed_voiced_rate")
+        if disp_n >= 3 and disp_v is not None \
+                and disp_v < PYIN_DISPUTED_VMAX:
+            # pYIN independently rejects the gesture on exactly the
+            # frames where fcpe and rmvpe disagree — the detected event
+            # is a two-family-confirmed extraction artifact.
+            adjudication = "artifact"
+        elif pyin["coverage"] >= PYIN_RESCUE_COV:
+            # pYIN sees a voiced gesture where rmvpe does not — check
+            # whether its normalized profile agrees with fcpe's.
+            cents = np.where(
+                np.isfinite(ctx["pyin"]["midi"])
+                & (ctx["pyin"]["voiced_prob"] >= PYIN_PROB_MIN),
+                ctx["pyin"]["midi"] * 100.0, np.nan)
+            from types import SimpleNamespace
+            psig = SimpleNamespace(
+                times=ctx["pyin"]["times"], cents=cents,
+                voiced=np.isfinite(cents))
+            pc = _own_cn(psig, s, e)
+            if pc is not None and pa_own is not None and \
+                    float(np.sqrt(np.mean((pc - pa_own) ** 2))) \
+                    <= EXTRACTOR_AGREE_RMSE:
+                rescued = True
+                evidence_stable = True
+
     c0 = float(ctx["src_sig"].cents[ms][0]) if ms.sum() else 0.0
     span = float(ctx["src_sig"].cents[ms][-1] - c0) if ms.sum() else 1e-6
     if abs(span) < 1e-6:
@@ -320,8 +409,36 @@ def probe_event(phrase, from_note, ctx, cfg, head):
                   "extractor_cn_rmse": (round(ext_rmse, 3)
                                        if ext_rmse is not None else None),
                   "src_coverage_rmvpe": round(src_cov_b, 3),
+                  "third_f0_pyin": pyin,
+                  "adjudication": adjudication,
+                  "rescued_by_pyin": rescued,
                   "stable": bool(evidence_stable)},
               "candidates": {}}
+
+    # --- fast paths that need no renders -------------------------------
+    if adjudication == "artifact":
+        report["verdict"] = "EVIDENCE_ADJUDICATED_ARTIFACT"
+        report["reasons"] = [
+            "fcpe-vs-rmvpe disagreement resolved by third family: pYIN "
+            "is unvoiced on %.1f%% of the disputed frames — the SOURCE "
+            "event is an extraction artifact, not a real gesture"
+            % (100.0 * pyin["disputed_voiced_rate"])]
+        return report
+    if from_note not in ctx["blocking_set"]:
+        if not evidence_stable:
+            report["verdict"] = "FAIL_EVIDENCE"
+            report["reasons"] = [
+                "source target not extractor-consistent "
+                "(ext_rmse=%s, coverage=%.3f)" % (ext_rmse, src_cov)]
+        else:
+            c_row = committed or {}
+            report["verdict"] = "FAIL_FIXABLE"
+            report["reasons"] = [
+                "resolved in production: committed event-shape row is "
+                "non-blocking (class=%s cn_rmse=%s) under the native "
+                "pitch.data lane" % (c_row.get("class"),
+                                     c_row.get("cn_rmse_clean"))]
+        return report
 
     resp_by_kind = {}
     cmd_by_kind = {}
@@ -511,12 +628,23 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
     man = json.loads((pdir / "run_manifest.json").read_text("utf-8"))
     committed_es = json.loads(
         (pdir / "qa" / "event_shape_metrics.json").read_text("utf-8"))
-    blocking = [r["from_note"] for r in committed_es["events"]
-                if r.get("blocking")]
-    if not blocking:
+    blocking = {r["from_note"] for r in committed_es["events"]
+                if r.get("blocking")}
+    # Evidence authority must cover every event the previous probe
+    # report classified, not only the currently-blocking set — a
+    # FAIL_EVIDENCE note keeps its UNKNOWN status in the evaluator until
+    # a clean-head report re-adjudicates it.
+    prev_p = PROBE_DIR / f"{phrase}_probe_report.json"
+    prev = drv._jsonable(json.loads(prev_p.read_text("utf-8"))) \
+        if prev_p.exists() else {}
+    targets = sorted(blocking |
+                     {int(r["from_note"]) for r in prev.get("events", [])
+                      if r.get("from_note") is not None})
+    if not targets:
         print(f"== {phrase}: no blocking events, skipped", flush=True)
         return None
-    print(f"== {phrase}: blocking events {blocking}", flush=True)
+    print(f"== {phrase}: probe targets {targets} "
+          f"(blocking {sorted(blocking)})", flush=True)
 
     base_part, notes = drv.phrase_notes(base_doc, w0, w1)
     part_pos = notes[0]["_abs_tick"] - 480
@@ -543,10 +671,24 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
     assert v1_wav.exists(), v1_wav
     v1 = _load_render(v1_wav, notes, t0, t1, nuc)
 
+    # Third extractor family on the SOURCE vocal, once per phrase.
+    import soundfile as sf
+    wav, sr = sf.read(str(drv.SRC_VOCAL), dtype="float32")
+    if wav.ndim > 1:
+        wav = wav.mean(axis=1)
+    seg = wav[int(t0 * sr):int(t1 * sr)]
+    pyin = third_f0_pyin(seg, sr)
+    pyin["times"] = pyin["times"] + t0
+    print(f"   pyin: {int(pyin['voiced_prob'].shape[0])} frames "
+          f"@ {pyin['provenance']['frame_period_s']*1000:.0f}ms",
+          flush=True)
+
     ctx = {"notes": notes, "part_pos": part_pos, "t0": t0, "t1": t1,
            "nuc": nuc,
            "src_sig": src_sig, "src_sig_b": src_sig_b,
            "neu_sig": neu_sig, "src_events": src_events,
+           "pyin": pyin,
+           "blocking_set": blocking,
            "src_event_by_from": {
                e.params["from_note"]: e for e in src_events
                if e.type == "portamento"},
@@ -555,7 +697,7 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
            "v1_doc": v1_doc, "v1_part": v1_part, "v1": v1}
 
     reports = [probe_event(phrase, fn, ctx, cfg, head)
-               for fn in blocking]
+               for fn in targets]
     out = {"phrase": phrase, "generator_code_head": head,
            "qa_code_head": drv._git_head(),
            "worktree_clean_at_generation": True,

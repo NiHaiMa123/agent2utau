@@ -75,23 +75,37 @@ def _load_json(path):
 
 
 def _unresolved_fail_evidence(phrase_name):
-    """Return current source events whose probe verdict is FAIL_EVIDENCE.
+    """Split probe-report events into unresolved vs adjudicated.
 
     A candidate cannot receive positive absolute/cross-extractor shape
     acceptance against an unverified SOURCE target.  The probe report is
     the committed failure-class authority until a later evidence
-    adjudication/regenerated probe resolves it.
+    adjudication/regenerated probe resolves it:
+
+    - verdict FAIL_EVIDENCE -> unresolved: gates become UNKNOWN
+    - verdict EVIDENCE_ADJUDICATED_ARTIFACT -> the detected SOURCE event
+      is positively adjudicated an extraction artifact by an independent
+      extractor family; its blocking rows measure deviation from a
+      non-existent target and are excluded from `known_blocking`, but
+      they stay visible in `adjudicated_artifact_events`.
+    - a report without worktree_clean_at_generation=true is stale
+      evidence: every event in it counts as unresolved.
     """
     p = drv.RUN_DIR / "probe_portamento" / f"{phrase_name}_probe_report.json"
     rep = _load_json(p)
     if rep is None:
-        return [], str(p)
-    notes = sorted({
+        return [], [], str(p), False
+    clean = rep.get("worktree_clean_at_generation") is True
+    unresolved = sorted({
         int(r["from_note"]) for r in rep.get("events", [])
-        if r.get("verdict") == "FAIL_EVIDENCE"
+        if r.get("from_note") is not None
+        and (r.get("verdict") == "FAIL_EVIDENCE" or not clean)})
+    adjudicated = sorted({
+        int(r["from_note"]) for r in rep.get("events", [])
+        if r.get("verdict") == "EVIDENCE_ADJUDICATED_ARTIFACT"
         and r.get("from_note") is not None
-    })
-    return notes, str(p)
+        and clean})
+    return unresolved, adjudicated, str(p), clean
 
 
 def _wav_stats(path):
@@ -189,17 +203,19 @@ def eval_phrase(pdir: Path) -> dict:
     # ---- absolute_event_shape_gate (primary fcpe family) --------------
     es = _load_json(pdir / "qa" / "event_shape_metrics.json")
     es_ev = f"{ev_base}/qa/event_shape_metrics.json"
-    evidence_unknown, evidence_ev = _unresolved_fail_evidence(name)
+    evidence_unknown, adjudicated, evidence_ev, evidence_clean = \
+        _unresolved_fail_evidence(name)
     if es is None:
         out["terms"]["absolute_event_shape_gate"] = _term(
             NOT_RUN, es_ev, "artifact missing")
         n_block_a = None
+        known_blocking = None
     else:
         n_block_a = int(es.get("n_blocking") or 0)
         blocking = [r for r in es.get("events", []) if r.get("blocking")]
+        exempt = set(evidence_unknown) | set(adjudicated)
         known_blocking = [r for r in blocking
-                          if int(r.get("from_note", -1))
-                          not in set(evidence_unknown)]
+                          if int(r.get("from_note", -1)) not in exempt]
         if known_blocking:
             abs_verdict = FAIL
         elif evidence_unknown:
@@ -208,11 +224,14 @@ def eval_phrase(pdir: Path) -> dict:
             abs_verdict = PASS
         out["terms"]["absolute_event_shape_gate"] = _term(
             abs_verdict,
-            f"{es_ev}; {evidence_ev}" if evidence_unknown else es_ev,
+            f"{es_ev}; {evidence_ev}"
+            if (evidence_unknown or adjudicated) else es_ev,
             {"n_blocking": n_block_a,
              "blocking": [{"from_note": r["from_note"],
                            "class": r["class"]} for r in blocking],
-             "unverified_source_events": evidence_unknown})
+             "unverified_source_events": evidence_unknown,
+             "adjudicated_artifact_events": adjudicated,
+             "evidence_report_clean": evidence_clean})
 
     # ---- render_voicing_gate ------------------------------------------
     if es is None:
@@ -234,22 +253,34 @@ def eval_phrase(pdir: Path) -> dict:
             NOT_RUN, esb_ev,
             "independent extractor-family shape verdict missing")
         n_block_b = None
+        known_b = None
     else:
         n_block_b = int(es_b.get("n_blocking") or 0)
         # Cross-family disagreement that already caused FAIL_EVIDENCE is
         # uncertainty, not a positive cross-extractor PASS.  A later
         # evidence adjudication/probe must resolve the SOURCE target.
-        cross_verdict = (FAIL if n_block_b else
+        block_b = [r for r in es_b.get("events", []) if r.get("blocking")]
+        known_b = [r for r in block_b
+                   if int(r.get("from_note", -1))
+                   not in set(evidence_unknown) | set(adjudicated)]
+        cross_verdict = (FAIL if known_b else
                          UNKNOWN if evidence_unknown else PASS)
         out["terms"]["cross_extractor_gate"] = _term(
             cross_verdict,
-            f"{esb_ev}; {evidence_ev}" if evidence_unknown else esb_ev,
+            f"{esb_ev}; {evidence_ev}"
+            if (evidence_unknown or adjudicated) else esb_ev,
             {"n_blocking_rmvpe": n_block_b,
-             "unverified_source_events": evidence_unknown})
+             "unverified_source_events": evidence_unknown,
+             "adjudicated_artifact_events": adjudicated})
 
-    out["blocking_issue_count"] = (
-        None if n_block_a is None and n_block_b is None
-        else (n_block_a or 0) + (n_block_b or 0))
+    # Blocking issues = blocking rows not explained by an adjudicated
+    # extraction artifact.  Unresolved-evidence events block via
+    # unknown_required_gate_count instead.
+    if known_blocking is None and known_b is None:
+        out["blocking_issue_count"] = None
+    else:
+        out["blocking_issue_count"] = len(known_blocking or []) \
+            + len(known_b or [])
 
     # ---- provenance_gate ----------------------------------------------
     prov_ev = f"{ev_base}/run_manifest.json"

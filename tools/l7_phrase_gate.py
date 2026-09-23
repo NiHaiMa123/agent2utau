@@ -236,7 +236,8 @@ def render(cfg, ustx_path, out_stem, timeout=600):
     return Path(files[0]["path"])
 
 
-def run_phrase(phrase, cfg, base_doc, caches, head):
+def run_phrase(phrase, cfg, base_doc, caches, head,
+               porta_ownership="full_note"):
     w0, w1 = PHRASES[phrase]
     t0, t1 = w0 - PAD_S, w1 + PAD_S
     pdir = PHRASE_DIR / phrase
@@ -300,7 +301,8 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
     # span absolutely, so PITD is flattened there to avoid a double
     # residual.
     porta_marks, porta_spans, porta_prov = compile_portamento_lane(
-        src_sig, src_sig_b, notes, src_events, vib_marks=vib_marks)
+        src_sig, src_sig_b, notes, src_events, vib_marks=vib_marks,
+        ownership=porta_ownership)
     if porta_spans:
         pitd_v1 = flatten_pitd_spans(pitd_v1, porta_spans, part_pos)
         print(f"   portamento lane: {len(porta_marks)} notes, "
@@ -481,6 +483,7 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
             "candidate": "C3", "vibrato_depth_gain": 0.69,
             "closed_loop_clip_c": 300, "closed_loop_max_err_c": 10,
             "closed_loop_guard_s": 0.15, "closed_loop_iterations": 1,
+            "portamento_lane_ownership": porta_ownership,
             "portamento_lane": porta_prov},
         "phrase_window_s": [w0, w1],
         "qa_files": sorted(f"{n}.json" for n in qa),
@@ -495,12 +498,17 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
 def main():
     head = _require_clean_worktree("l7_phrase_gate")
     cfg = load_config()
-    which = sys.argv[1:] or list(PHRASES)
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    opts = {a.split("=", 1)[0]: a.split("=", 1)[1]
+            for a in sys.argv[1:] if "=" in a}
+    porta_ownership = opts.get("--porta-ownership", "full_note")
+    which = args or list(PHRASES)
     base_doc = load_ustx(BASE_USTX)
     caches = {"src_fcpe": _npz_f0(SRC_FCPE), "src_rmvpe": _npz_f0(SRC_RMVPE),
               "neu_fcpe": _npz_f0(NEU_FCPE), "neu_rmvpe": _npz_f0(NEU_RMVPE)}
     for phrase in which:
-        run_phrase(phrase, cfg, base_doc, caches, head)
+        run_phrase(phrase, cfg, base_doc, caches, head,
+                   porta_ownership=porta_ownership)
 
 
 if __name__ == "__main__":

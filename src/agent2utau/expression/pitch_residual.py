@@ -613,6 +613,9 @@ LANE_PROTECTED_TYPES = {"portamento", "scoop", "overshoot", "undershoot",
 PORTA_AGREE_RMSE = 0.25     # fcpe-vs-rmvpe normalized trajectory agreement
 PORTA_MIN_COVERAGE = 0.80   # source voiced coverage inside the event
 PORTA_ANCHOR_S = 0.020      # pitch.data anchor spacing on the target note
+PORTA_PRE_S = 0.030         # anchors start this far before event start
+PORTA_SETTLE_S = 0.060      # event ownership tail past event end
+PORTA_OWNERSHIP = ("full_note", "event")
 
 
 def _cn_profile_own(sig, s, e, n=33):
@@ -629,7 +632,8 @@ def _cn_profile_own(sig, s, e, n=33):
 def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
                             vib_marks=None, agree_rmse=PORTA_AGREE_RMSE,
                             min_coverage=PORTA_MIN_COVERAGE,
-                            anchor_s=PORTA_ANCHOR_S):
+                            anchor_s=PORTA_ANCHOR_S,
+                            ownership="full_note"):
     """Native pitch.data portamento lane (L7-R3; probe verdict
     FAIL_FIXABLE on P2 from_note=4).
 
@@ -647,15 +651,23 @@ def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
     target note must not carry a compiled vibrato mark.
 
     Anchors are absolute measured-source pitch sampled every `anchor_s`
-    from departure-30ms through target-note end-5ms, expressed as y in
-    0.1-semitone units relative to the target tone.  The carrier then
-    owns that whole span: the returned `owned_spans` must have PITD
-    flattened to 0 inside (see flatten_pitd_spans) or the residual would
-    be applied twice.
+    from departure-30ms, expressed as y in 0.1-semitone units relative
+    to the target tone.  `ownership` selects the carrier extent:
+
+      "full_note": through the target note's end (minus 5 ms);
+      "event":     only through event end + PORTA_SETTLE_S — the
+                   minimum tail needed to land the gesture, after which
+                   PITD resumes ownership of the remainder of the note.
+
+    The carrier then owns that whole span: the returned `owned_spans`
+    must have PITD flattened to 0 inside (see flatten_pitd_spans) or the
+    residual would be applied twice.
 
     Returns (porta_marks {note_index: pitch_dict},
              owned_spans_s [(a,b)], provenance).
     """
+    if ownership not in PORTA_OWNERSHIP:
+        raise ValueError(f"ownership must be one of {PORTA_OWNERSHIP}")
     marks, spans, prov = {}, [], {}
     for ev in src_events:
         if ev.type != "portamento":
@@ -690,7 +702,11 @@ def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
             continue
         pos_s = tgt["abs_start_s"]
         tone_c = tgt["tone"] * 100.0
-        g = np.arange(s - 0.030, n_end - 0.005 + 1e-9, anchor_s)
+        if ownership == "event":
+            lane_end = min(n_end - 0.005, e + PORTA_SETTLE_S)
+        else:
+            lane_end = n_end - 0.005
+        g = np.arange(s - PORTA_PRE_S, lane_end + 1e-9, anchor_s)
         vv = src_sig.voiced & ~np.isnan(src_sig.cents)
         sc = np.interp(g, src_sig.times[vv], src_sig.cents[vv],
                        left=np.nan, right=np.nan)
@@ -714,9 +730,11 @@ def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
             continue
         marks[i_t] = {"data": pts, "snap_first": False}
         a_s = pos_s + pts[0]["x"] / 1000.0
-        spans.append((a_s, n_end))
+        b_s = pos_s + pts[-1]["x"] / 1000.0
+        spans.append((a_s, b_s))
         prov[i_t] = {**rec, "applied": True, "n_anchors": len(pts),
-                     "carrier_span_s": [round(a_s, 3), round(n_end, 3)]}
+                     "ownership": ownership,
+                     "carrier_span_s": [round(a_s, 3), round(b_s, 3)]}
     return marks, spans, prov
 
 
