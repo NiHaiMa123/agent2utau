@@ -418,6 +418,10 @@ def event_shape_gate(source_events, render_events, neutral_sig,
                            single-frame extraction spikes (|raw-trend| >
                            150c) are excluded — the divergence lives in
                            glitch frames, not in the sung contour.
+      source_edge_uncertain a committed evidence packet marks one
+                           low-salience SOURCE edge as unobservable; the
+                           reliable core passes absolute shape. The raw
+                           window mismatch remains recorded for audit.
       label_mismatch       trajectory_type differs but shape is close —
                            classifier granularity, not a shape defect.
       boundary_shift       start/end estimate differs by >80ms while the
