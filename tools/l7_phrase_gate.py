@@ -197,9 +197,12 @@ def build_phrase_doc(base_doc, base_part, notes, part_pos, pitd,
 
 
 def render(cfg, ustx_path, out_stem, timeout=600):
-    """Real render through the bridge; returns the produced vocal wav."""
-    res = run_bridge(cfg, ["render", "--project", str(ustx_path),
-                           "--out", str(out_stem) + ".wav"],
+    """Real render through the bridge; returns the produced vocal wav.
+    Paths must be absolute — the bridge cwd is the OpenUtau install dir."""
+    res = run_bridge(cfg, ["render", "--project",
+                           str(Path(ustx_path).resolve()),
+                           "--out",
+                           str(Path(out_stem).resolve()) + ".wav"],
                      timeout=timeout)
     if not res.get("ok"):
         raise RuntimeError(f"bridge render failed for {ustx_path}: "
