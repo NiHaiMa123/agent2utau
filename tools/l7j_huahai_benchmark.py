@@ -467,6 +467,126 @@ def main():
               f"[{p_['a']:.1f}-{p_['b']:.1f}s] rel={p_['source_reliable']} "
               f"{p_['lyrics']}")
 
+    # ---------- Phase J2: four-layer extraction (A/B/C; D deferred) --
+    print("J2: layer extraction + human renders ...", flush=True)
+    layers = j2_layers(doc, picked, t2s, wave_off, ms_tick, f0, acf,
+                       w, sr, head)
+    j2 = {"phase": "J2 layers A/B/C",
+          "evaluated_head": head,
+          "worktree_clean_at_generation": True,
+          "normalization": ("pitch comparisons in relative cents to "
+                           "written tone; +4 transposition removed by "
+                           "comparing motion, not absolute Hz"),
+          "source_extraction": {
+              "fcpe": "torchfcpe on Kim_Vocal_2 separated stem",
+              "acf": "independent ACF track, 180Hz highpass, "
+                     "150-600Hz lag band — second evidence family",
+              "caveat": ("stems retain stable instrumental "
+                         "periodicity (~50-56 midi pedals); frames "
+                         "where the two families disagree are "
+                         "unreliable — recorded per-phrase")},
+          "phrases": layers}
+    out2 = OUT / "j2_layers.json"
+    out2.write_text(json.dumps(j2, indent=1, ensure_ascii=False),
+                    encoding="utf-8")
+    print("wrote", out2)
+
+
+def crop_phrase_ustx(doc, part_index, a_s, b_s, wave_off, ms_tick,
+                     singer):
+    """Clone the doc, keep one track + one voice part cropped to the
+    phrase window (project-time = audio + wave_off), substitute singer."""
+    import copy
+    d = copy.deepcopy(doc)
+    part = d["voice_parts"][part_index]
+    x0 = int(round((a_s + wave_off) * 1000.0 / ms_tick))
+    x1 = int(round((b_s + wave_off) * 1000.0 / ms_tick))
+    kept = []
+    for n in part["notes"]:
+        n0, n1 = n["position"], n["position"] + n["duration"]
+        if n1 > x0 and n0 < x1:
+            n2 = dict(n)
+            n2["position"] = n0 - x0
+            kept.append(n2)
+    part["notes"] = kept
+    part["position"] = part["position"] + x0
+    for c in part.get("curves", []):
+        m = [(x - x0, y) for x, y in zip(c["xs"], c["ys"])
+             if x0 <= x <= x1]
+        c["xs"] = [x for x, _ in m]
+        c["ys"] = [y for _, y in m]
+    d["voice_parts"] = [part]
+    d["wave_parts"] = []
+    trk = part.get("track_no", 0)
+    d["tracks"] = [d["tracks"][trk]] if trk < len(d["tracks"]) \
+        else d["tracks"][:1]
+    part["track_no"] = 0
+    for t in d["tracks"]:
+        t["singer"] = singer
+    return d
+
+
+def j2_layers(doc, picked, t2s, wave_off, ms_tick, f0, acf, w, sr,
+              head):
+    """Per selected phrase: A source F0 (fcpe+acf), B written controls,
+    C human render (singer-substituted) + render F0."""
+    cfg = load_config()
+    layers = []
+    for k, ph in enumerate(picked):
+        tag = f"j2_{k}_{ph['class']}"
+        pdir = OUT / tag
+        pdir.mkdir(parents=True, exist_ok=True)
+        a, b = ph["a"], ph["b"]
+        # ---- A: SOURCE layers ----
+        tt, hz, vv = f0["times"], f0["f0_hz"], f0["voiced"]
+        fc = (tt >= a) & (tt <= b)
+        src = {"times": tt[fc].round(3).tolist(),
+               "f0_hz": np.where(vv[fc], hz[fc], 0).round(2).tolist(),
+               "voiced": vv[fc].astype(int).tolist()}
+        acf_sel = [x for x in acf if a <= x[0] <= b]
+        (pdir / "source_fcpe.json").write_text(
+            json.dumps(src, ensure_ascii=False), encoding="utf-8")
+        (pdir / "source_acf.json").write_text(json.dumps(
+            [{"t": round(x[0], 3), "midi": round(x[1], 2),
+              "clarity": round(x[2], 3)} for x in acf_sel],
+            ensure_ascii=False), encoding="utf-8")
+        # ---- B: written controls ----
+        u = crop_phrase_ustx(doc, ph["part"], a, b, wave_off, ms_tick,
+                             "YousaV1.65c")
+        ustx_path = pdir / f"{tag}.ustx"
+        save_ustx(ustx_path, u)
+        # ---- C: human render ----
+        render_ok, err = True, None
+        try:
+            wav_path = drv.render(cfg, ustx_path,
+                                  pdir / tag).resolve()
+        except Exception as e:  # noqa: BLE001 — record honestly
+            render_ok, wav_path, err = False, None, str(e)[:300]
+        rf0 = extract_f0(wav_path) if wav_path and wav_path.exists() \
+            else None
+        layer = {"class": ph["class"], "part": ph["part"],
+                 "audio_span_s": [round(a, 2), round(b, 2)],
+                 "note_ids": ph["note_ids"], "lyrics": ph["lyrics"],
+                 "source_reliable": ph["source_reliable"],
+                 "slice_ustx": str(ustx_path),
+                 "slice_ustx_sha256": sha256(ustx_path),
+                 "human_render_wav": str(wav_path),
+                 "human_render_sha256":
+                     sha256(wav_path) if wav_path else None,
+                 "render_ok": render_ok, "render_error": err,
+                 "render_f0": str(pdir / "render_f0.json")}
+        if rf0:
+            (pdir / "render_f0.json").write_text(json.dumps(
+                {"times": rf0["times"].round(3).tolist(),
+                 "f0_hz": np.where(rf0["voiced"], rf0["f0_hz"], 0)
+                 .round(2).tolist(),
+                 "voiced": rf0["voiced"].astype(int).tolist()},
+                ensure_ascii=False), encoding="utf-8")
+        layers.append(layer)
+        print(f"  {ph['class']:24s} render_ok={layer['render_ok']}",
+              flush=True)
+    return layers
+
 
 if __name__ == "__main__":
     main()
