@@ -1,0 +1,77 @@
+{
+ "evaluated_head": "442f63eaa5bf110e96ebe7681a926880bc9d24a1",
+ "worktree_clean_at_generation": true,
+ "corpus": "huahai full reference corpus (J6)",
+ "human_projects": [
+  {
+   "project_id": "huahai_plus4_baishuo_710dbc6b",
+   "state": "COMMITTED",
+   "path": "E:\\project\\agent2utau\\runs\\huahai_corpus\\human_projects\\huahai_plus4_baishuo_710dbc6b",
+   "sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377",
+   "original_render": "MISSING (no referenced wave files exist locally)",
+   "standardized_render": {
+    "wav": "E:\\project\\agent2utau\\runs\\huahai_corpus\\human_projects\\huahai_plus4_baishuo_710dbc6b\\standardized_render_main.wav",
+    "sha256": "eec1fa832981793aeab60b9468aad50d10ec41f94d1e2f72b902588e3a03a50d",
+    "singer_substitution": "YousaV1.65c"
+   }
+  }
+ ],
+ "source": {
+  "uvr_mdx_voc_ft": {
+   "stem": "runs\\huahai_benchmark\\separation\\04. 周杰伦 - 花海_(Vocals)_UVR-MDX-NET-Voc_FT.wav",
+   "stem_sha256": "e0299d96b8e60c1613593cd3b62e2445279ca5801e5f151d31c776e861d09eee",
+   "f0_extractors": [
+    "fcpe",
+    "rmvpe"
+   ]
+  },
+  "kim_vocal_2": {
+   "stem": "runs\\huahai_benchmark\\separation_kim2\\04. 周杰伦 - 花海_(Vocals)_Kim_Vocal_2.wav",
+   "stem_sha256": "1bf96b98c8cb3b13198b61b4265555072264375e55aa7cfb211596b8d861f73f",
+   "f0_extractors": [
+    "fcpe",
+    "rmvpe"
+   ]
+  },
+  "original_audio": {
+   "path": "E:\\data\\music\\周杰伦音乐 所有专辑和单曲\\2008-魔杰座\\04. 周杰伦 - 花海.flac",
+   "sha256": "09cd1fac8ef464d425e53830f1205c85ebea1ae9d8b638fc65237b0e03d1d425",
+   "note": "bound by path+hash; bytes not duplicated"
+  }
+ },
+ "game": {
+  "state": "GENERATED_NO_EXISTING_ARTIFACT",
+  "note": "no pre-existing Huahai GAME artifact found anywhere in runs/ or project dirs; generated_for_corpus=true with the pinned existing implementation",
+  "generator": "agent2utau.transcription.game_onnx (pinned code head below)",
+  "code_head": "442f63eaa5bf110e96ebe7681a926880bc9d24a1",
+  "seed": 42,
+  "language": "zh",
+  "input_audio": "runs\\huahai_benchmark\\separation_kim2\\04. 周杰伦 - 花海_(Vocals)_Kim_Vocal_2.wav",
+  "input_audio_sha256": "1bf96b98c8cb3b13198b61b4265555072264375e55aa7cfb211596b8d861f73f",
+  "n_notes": 440,
+  "audio_axis": "jay_audio",
+  "representation": "note-level {start,dur,tone,voiced} — GAME's written-pitch form, not a frame F0"
+ },
+ "other_discovered_projects": [
+  {
+   "path": "E:\\data\\project_opentuau\\最后一页-有参by白烁.ustx",
+   "sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b",
+   "class": "other_song"
+  },
+  {
+   "path": "E:\\data\\project_opentuau\\极星流浪夜有参.ustx",
+   "sha256": "1c77463e2e1a20ca9de9baebc06be84d1d485632f82e53967e06cc0461dffc0e",
+   "class": "other_song"
+  },
+  {
+   "path": "E:\\data\\project_opentuau\\江南-有参by白烁.ustx",
+   "sha256": "79ce71629b04c90e9dbebba2ae799870f09b65cf86c252102cba73c9bf7f8548",
+   "class": "other_song"
+  },
+  {
+   "path": "E:\\data\\project_opentuau\\雨爱-有参by白烁.ustx",
+   "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce",
+   "class": "other_song"
+  }
+ ]
+}

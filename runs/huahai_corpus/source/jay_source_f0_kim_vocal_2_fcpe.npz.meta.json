@@ -1,0 +1,14 @@
+{
+ "extractor": "fcpe",
+ "hop_ms": 10.0,
+ "audio_sha256": "1bf96b98c8cb3b13198b61b4265555072264375e55aa7cfb211596b8d861f73f",
+ "audio": "runs\\huahai_benchmark\\separation_kim2\\04. 周杰伦 - 花海_(Vocals)_Kim_Vocal_2.wav",
+ "audio_axis": "jay_audio",
+ "wave_offset_s": 0.0,
+ "project_sha256": null,
+ "render_environment": null,
+ "n_frames": 26211,
+ "t0_s": 0.0,
+ "t1_s": 262.1000061035156,
+ "voiced_frac": 0.7592232268894739
+}

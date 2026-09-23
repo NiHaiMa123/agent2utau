@@ -1,0 +1,20 @@
+{
+ "extractor": "rmvpe",
+ "hop_ms": 10.0,
+ "audio_sha256": "eec1fa832981793aeab60b9468aad50d10ec41f94d1e2f72b902588e3a03a50d",
+ "audio": "E:\\project\\agent2utau\\runs\\huahai_corpus\\human_projects\\huahai_plus4_baishuo_710dbc6b\\standardized_render_main.wav",
+ "audio_axis": "project",
+ "wave_offset_s": 1.29,
+ "project_sha256": "651d392e596a3dcf1e6f1c447a4a915f06985011f0d5b325cad2de5d45d028de",
+ "render_environment": {
+  "openutau_dir": "E:\\software\\OpenUtau-win-x64_dpV2\\OpenUtau-win-x64",
+  "singer": "YousaV1.65c",
+  "openutau_exe_sha256": "c732ec79379bd8bb5f4352dae09f6505a17aee1a7ee7ddc1d64369004953bcf3",
+  "openutau_core_sha256": "855a4cc7ef730c68b2853903b0dbadc24e5cfb0ba9d02a9d6a4d16688fb8f8d7",
+  "note": "standardized render substitutes project singer with the installed voicebank; original singer yousaV1.56 is NOT installed"
+ },
+ "n_frames": 24311,
+ "t0_s": 0.0,
+ "t1_s": 243.10000610351562,
+ "voiced_frac": 0.6116572744848011
+}

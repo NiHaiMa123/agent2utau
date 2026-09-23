@@ -1,0 +1,14 @@
+{
+ "extractor": "fcpe",
+ "hop_ms": 10.0,
+ "audio_sha256": "e0299d96b8e60c1613593cd3b62e2445279ca5801e5f151d31c776e861d09eee",
+ "audio": "runs\\huahai_benchmark\\separation\\04. 周杰伦 - 花海_(Vocals)_UVR-MDX-NET-Voc_FT.wav",
+ "audio_axis": "jay_audio",
+ "wave_offset_s": 0.0,
+ "project_sha256": null,
+ "render_environment": null,
+ "n_frames": 26211,
+ "t0_s": 0.0,
+ "t1_s": 262.1000061035156,
+ "voiced_frac": 0.7173705696081798
+}
