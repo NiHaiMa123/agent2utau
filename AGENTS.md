@@ -1567,3 +1567,19 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   were stale under the corrected rule.  Round A STOP satisfied with
   unresolved events; Round B stays reviewer-locked.
 - tests: 69 passed (voicing_evidence + adjudicate/contour/events).
+
+## L7 Round B — P2 ownership decision (A/B @7a49114, artifacts ee1532a)
+
+- Scope: P2_slides only, `full_note` vs `event` ownership, both modes
+  scoring note8 on the committed Round-A reliable core (probe report
+  sha256 34cb9585 bound into lane_ab_report.json).
+- full_note: 0 blocking events on BOTH families (fcpe + rmvpe);
+  out-of-lane med |err| 7.0c, in-lane 7.5c.
+- event: fcpe clean but RMVPE gains a blocking `distortion` at note 9
+  (the slide's target note — cutting pitch.data ownership at event end
+  distorts the target's measured shape); out-of-lane 8.1c, in-lane 11.8c.
+- preferred = **full_note** — the narrower mode is worse on the RMVPE
+  blocking gate and on in-lane position.  P2 ownership is now decided,
+  not provisional.
+- Round B STOP satisfied; Round C (production regeneration with
+  `source_edge_uncertain` core scoring) remains reviewer-locked.
