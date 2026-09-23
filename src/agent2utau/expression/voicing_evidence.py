@@ -289,14 +289,19 @@ def span_voicing_evidence(voc_seg: np.ndarray, sr: int, *,
         round(float(comb_rel_db), 1) if comb_rel_db is not None else None)
 
     # Positive phonation: either context-level sustained periodicity, or
-    # a quiet span with a sustained reliable periodic track that follows
-    # one of the competing F0 hypotheses.  Low amplitude alone must not
-    # disqualify phonation.
+    # a collapsed-energy span that still carries a sustained reliable
+    # periodic track AND a preserved harmonic comb following one of the
+    # competing F0 hypotheses — the quiet voiced release.  A periodic
+    # single-bin ring has no comb and must not pass as phonation; a
+    # gray-zone drop must not be forced into a positive verdict either.
+    comb_preserved = comb_rel_db is not None and comb_rel_db > -10.0
     follows_hypothesis = out["consistent_with"] in ("claimed", "alt")
     phonated = (
         (drop is not None and drop <= PHONATED_DROP_DB
          and (d["acf_med"] or 0.0) >= ACF_VOICED_MED)
-        or (periodic_fraction >= 0.50 and follows_hypothesis)
+        or (drop is not None and drop >= REMNANT_DROP_DB
+            and periodic_fraction >= 0.50 and follows_hypothesis
+            and comb_preserved)
     )
 
     # Positive non-phonation is deliberately conservative.  It requires
@@ -319,7 +324,9 @@ def span_voicing_evidence(voc_seg: np.ndarray, sr: int, *,
     non_phonated = (
         drop is not None and drop >= REMNANT_DROP_DB
         and no_material_periodicity
-        and (normalized_comb_collapse or floor_like)
+        and (normalized_comb_collapse or floor_like
+             or (h2p_drop is not None
+                 and h2p_drop >= REMNANT_H2P_DROP_DB))
     )
 
     if phonated:
