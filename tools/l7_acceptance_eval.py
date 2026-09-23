@@ -50,7 +50,8 @@ from agent2utau.openutau.ustx import (             # noqa: E402
     load_ustx, semantic_notes_sha256, sha256)
 
 PASS, FAIL, UNKNOWN, NOT_RUN = "PASS", "FAIL", "UNKNOWN", "NOT_RUN"
-TERMS = ["tests", "real_render", "topology_gate", "event_lane_gate",
+TERMS = ["tests", "real_render", "candidate_arbitration_gate",
+         "topology_gate", "event_lane_gate",
          "absolute_event_shape_gate", "render_voicing_gate",
          "cross_extractor_gate", "provenance_gate",
          "artifact_consistency_gate"]
@@ -104,7 +105,19 @@ def _unresolved_fail_evidence(phrase_name):
         int(r["from_note"]) for r in rep.get("events", [])
         if r.get("verdict") == "EVIDENCE_ADJUDICATED_ARTIFACT"
         and r.get("from_note") is not None
-        and clean})
+        and clean
+        # Artifact adjudication must be supported by POSITIVE
+        # counter-evidence.  Third-family non-detection / low confidence
+        # is weak observability and may not launder UNKNOWN into PASS.
+        and (r.get("evidence") or {}).get("adjudication_basis")
+            == "positive_counterevidence"})
+    # Any legacy/unsupported artifact verdict is unresolved, not trusted.
+    unsupported_adj = {
+        int(r["from_note"]) for r in rep.get("events", [])
+        if r.get("verdict") == "EVIDENCE_ADJUDICATED_ARTIFACT"
+        and r.get("from_note") is not None
+        and int(r["from_note"]) not in set(adjudicated)}
+    unresolved = sorted(set(unresolved) | unsupported_adj)
     return unresolved, adjudicated, str(p), clean
 
 
@@ -173,16 +186,41 @@ def eval_phrase(pdir: Path) -> dict:
                 out["terms"]["real_render"] = _term(
                     FAIL, rr_ev, f"wav degenerate: {st}")
 
+    # ---- candidate_arbitration_gate -----------------------------------
+    # The deterministic production arbiter is itself a required gate.
+    # A later evaluator may add evidence, but it may not silently
+    # override a manifest that still says the candidate path is blocked.
+    sg = man.get("shape_gate") or {}
+    sg_ev = f"{ev_base}/run_manifest.json#shape_gate"
+    final = sg.get("final_candidate")
+    stages = sg.get("stages") or []
+    m = re.search(r"v\d+$", str(final or ""))
+    tag = m.group(0) if m else ("v1" if final == "C3" else None)
+    acc = next((s for s in stages if s.get("candidate") == tag), None)
+    if "blocked" not in sg or acc is None:
+        out["terms"]["candidate_arbitration_gate"] = _term(
+            NOT_RUN, sg_ev, "production arbitration verdict incomplete")
+    elif sg.get("blocked") is True:
+        out["terms"]["candidate_arbitration_gate"] = _term(
+            FAIL, sg_ev,
+            {"blocked": True, "final_candidate": final,
+             "final_stage_gate_passed": bool(acc.get("gate_passed")),
+             "violations": acc.get("violations") or []})
+    elif acc.get("gate_passed") is not True:
+        out["terms"]["candidate_arbitration_gate"] = _term(
+            FAIL, sg_ev,
+            {"blocked": False, "final_candidate": final,
+             "final_stage_gate_passed": acc.get("gate_passed")})
+    else:
+        out["terms"]["candidate_arbitration_gate"] = _term(
+            PASS, sg_ev,
+            {"blocked": False, "final_candidate": final,
+             "final_stage_gate_passed": True})
+
     # ---- topology_gate + event_lane_gate ------------------------------
     # The production gate verdict for the ACCEPTED candidate, read from
     # the committed manifest stage list (relative non-regression vs v1
     # already enforced there; the absolute event-shape term is separate).
-    final = man.get("shape_gate", {}).get("final_candidate")
-    stages = man.get("shape_gate", {}).get("stages") or []
-    m = re.search(r"v\d+$", str(final or ""))
-    tag = m.group(0) if m else ("v1" if final == "C3" else None)
-    acc = next((s for s in stages if s["candidate"] == tag), None)
-    sg_ev = f"{ev_base}/run_manifest.json#shape_gate"
     if acc is None:
         out["terms"]["topology_gate"] = _term(
             NOT_RUN, sg_ev, "accepted stage not recorded")
