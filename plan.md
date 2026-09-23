@@ -790,106 +790,113 @@ Therefore `full_note` vs `event` is too coarse a control variable.
 
 **Do not unlock Round C from this BLOCKED result.**
 
-#### Round B2 — ACTIVE: exhaustive per-lane ownership closure
+#### Round B2 — COMPLETE: exhaustive ownership selected FEF
 
-Executor bundle `febd8814 → c8ddf303 → 7e0b23e3` successfully established
-useful single-lane causal evidence, but its final claim
-“no admissible narrower ownership exists” is **not yet proven**.
+Reviewer accepts exhaustive executor bundle `92fe97f0 → 6d1356ce`.
 
-Accepted findings:
-- applied target-note lanes are exactly `{2,5,7}`;
-- lane 7 alone toggled to `event` reproduces the RMVPE
-  `from_note=9 distortion` blocker;
-- lane 2 / lane 5 single toggles do not improve the discrete SOURCE-event
-  state and introduce additional render-only/matching regressions;
-- all artifacts are bound to clean `febd8814` generation provenance.
-
-Reviewer blocker:
-- the renderer has already demonstrated non-local/context-dependent behavior;
-- testing only FFF + three one-lane toggles cannot prove that a two-lane
-  combination such as `EEF`, `EFE` or `FEE` is inadmissible;
-- the previous greedy hybrid therefore over-claims when it concludes that
-  FFF is the only valid vector.
-
-Because only three lanes are active, heuristic inference is unnecessary.
-The complete state-space has only eight vectors.
-
-Reviewer patch:
-- `2f4c52ed`: `l7_lane_isolation_perlane.py` now enumerates all
-  `2^N` ownership vectors and selects from measured real-render evidence
-  only.
-
-### Required exhaustive rerun
-
-Scope remains **only P2_slides**.
-
-From the latest committed clean HEAD render all eight vectors:
+All eight real-render ownership vectors over applied target-note lanes
+`[2,5,7]` were committed from clean `1e52db03` generation provenance:
 
 ```text
-FFF
-FFE
-FEF
-FEE
-EFF
-EFE
-EEF
-EEE
+FFF  admissible
+FFE  FAIL: RMVPE from_note=9 distortion
+FEF  admissible
+FEE  FAIL: RMVPE from_note=9 distortion
+EFF  FAIL: FCPE discrete unresolved worsens + topology missing worsens
+EFE  FAIL: RMVPE from_note=9 distortion
+EEF  FAIL: discrete extras/topology worsen
+EEE  FAIL: RMVPE from_note=9 distortion
 ```
 
-where the positions correspond to applied target-note lanes `[2,5,7]`.
+The only admissible vectors are FFF and FEF.
 
-For every vector record:
-- exact ownership map and owned spans;
-- USTX/WAV hashes;
-- FCPE blocker identities;
-- RMVPE blocker identities;
-- discrete non-portamento event identities/states on both families;
-- vibrato missing-event count;
-- in-lane / out-of-lane position;
-- out-of-lane topology;
-- committed Round-A source-edge evidence hash.
+Deterministic selection chooses **FEF** because it has the shorter total
+ownership span:
 
-A vector is admissible only if, relative to FFF:
+```text
+target note 2 -> full_note
+target note 5 -> event
+target note 7 -> full_note
+```
+
+Evidence for selected FEF:
 - FCPE blockers = 0;
 - RMVPE blockers = 0;
-- discrete non-portamento lanes are non-worse on both extractor families;
-- vibrato missing count is non-worse;
-- out-of-lane median |err| <= FFF + 5 c;
-- out-of-lane topology is non-worse in:
-  - sequence edit distance;
-  - missing turns;
-  - extra turns.
+- vibrato missing = 0;
+- FCPE discrete lanes improve from FFF `unresolved/extras 2/2 -> 1/1`;
+- RMVPE discrete lanes are non-worse `1/5 -> 1/5`;
+- out-of-lane median |err| = 8.2 c, within FFF 7.0 c + 5 c;
+- out-of-lane topology:
+  - missing 12 == FFF 12;
+  - extra 1 < FFF 2;
+  - sequence edit distance 11 == FFF 11;
+- total owned duration 1.24 s vs FFF 1.46 s;
+- Round-A P2 source-edge evidence SHA256 `34cb9585...` is bound;
+- selected USTX/WAV hashes are committed in the exhaustive report.
 
-Selection is deterministic:
-1. minimum total owned-span duration;
-2. then lower out-of-lane median |err|;
-3. then deterministic vector label.
+The earlier single-toggle conclusion that FFF was the only valid ownership
+was correctly superseded by the exhaustive search.
 
-Allowed final verdict:
+**Round B2 is CLOSED.  P2 production ownership is frozen as FEF unless new
+evidence invalidates the committed exhaustive packet.**
 
-```text
-preferred = full_note
-          | hybrid(<ownership map>)
-          | BLOCKED_PER_LANE
-```
+Reviewer production wiring:
+- `4485984f`: production phrase gate gains reviewer-approved ownership presets;
+- `fb1c660c`: presets are fixed as:
+  - P1_sustain = `event`;
+  - P2_slides = `{2:"full_note", 5:"event", 7:"full_note"}`;
+  - P3_vibrato = `event`.
+  Existing explicit experimental `full_note/event` CLI modes remain available.
 
-Only an exhaustive result may now justify the statement
-“no admissible narrower ownership exists.”
+#### Round C — ACTIVE: production regeneration only
 
-### Round B2 STOP condition
+Purpose: regenerate the affected production phrase artifacts under the now-frozen
+evidence/ownership policy.  Do **not** perform final acceptance in this round.
 
-Commit one clean exhaustive P2 evidence packet containing all eight vectors,
-their admissibility states, the selected vector, hashes/provenance and final
-verdict. Then STOP.
+Affected phrases:
+- **P2_slides** — production ownership changes from global `full_note` to reviewed FEF hybrid;
+- **P3_vibrato** — existing production manifest is still
+  `shape_gate.blocked=true` and predates final Round-A reliable-core production closure.
 
-**Forbidden in Round B2:**
-- do not reopen Round-A evidence;
-- do not modify portamento thresholds / settle duration / QA thresholds;
-- do not regenerate production P1/P2/P3 artifacts;
-- do not run final acceptance;
-- do not start Round C.
+P1_sustain is **not** regenerated in Round C:
+- its current clean manifest has `shape_gate.blocked=false`;
+- its reviewed ownership remains `event`;
+- it is unaffected by the P2 hybrid or P3 edge-core change.
 
-#### Round C — LOCKED: production regeneration
+From the latest committed clean HEAD:
+
+1. run focused production/QA tests needed by the modified ownership resolver and reliable-core path;
+2. run production phrase generation for **P2_slides and P3_vibrato only** using the default
+   reviewer-approved `--porta-ownership=accepted` path;
+3. each manifest must record:
+   - requested ownership = `accepted`;
+   - resolved ownership:
+     - P2 = `{2:"full_note",5:"event",7:"full_note"}`;
+     - P3 = `event`;
+   - per-lane resolved ownership in portamento provenance;
+   - clean-worktree generation proof;
+   - source-edge evidence path/hash where applicable;
+   - candidate USTX/WAV hashes;
+   - generator/QA code heads;
+4. production arbitration must finish with:
+   - `shape_gate.blocked=false`;
+   - final accepted stage explicitly `gate_passed=true`;
+   - absolute event-shape gate non-blocking on the committed reliable-core semantics;
+5. commit only regenerated P2/P3 production artifacts + manifests/QA/notes;
+6. **STOP**.
+
+If either P2 or P3 remains production-blocked, Round C still completes with that
+FAIL evidence.  Do not modify compiler logic, thresholds, edge evidence or final evaluator
+inside this round.
+
+**Forbidden in Round C:**
+- do not regenerate P1;
+- do not reopen Round A/B/B2;
+- do not alter accepted ownership;
+- do not run or modify `l7_acceptance_eval.py`;
+- do not start Round D.
+
+
 
 Unlock only after reviewer accepts Round B.
 
