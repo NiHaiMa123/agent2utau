@@ -628,6 +628,29 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
     assert any(v.startswith("event_shape_gate:distortion") for v in v2v)
     assert rep["stages"][1]["event_shape"]["status"] == "fail"
 
+    # A fallback baseline is not automatically an absolute-quality PASS.
+    # If v1 itself fails event-shape QA it may still be retained when
+    # candidates fail, but its stage verdict must stay failed.
+    es_bad_v1 = {
+        "v1": {"gate_passed": False, "n_blocking": 1,
+               "events": [{"class": "distortion", "blocking": True,
+                           "from_note": 0}]},
+        "v2": {"gate_passed": False, "n_blocking": 1,
+               "events": [{"class": "distortion", "blocking": True,
+                           "from_note": 0}]},
+        "v3": {"gate_passed": False, "n_blocking": 1,
+               "events": [{"class": "distortion", "blocking": True,
+                           "from_note": 0}]}}
+    calls, cand, qa = make_case(_topo(10, 3, 2, 4), _topo(10, 3, 2, 4))
+    final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
+                                candidate_fn=cand, qa_fn=qa,
+                                event_shape_fn=lambda s: es_bad_v1[s[1]])
+    assert rep["final_candidate"] == "v1" and rep["blocked"]
+    assert rep["stages"][0]["relative_baseline"]
+    assert not rep["stages"][0]["gate_passed"]
+    assert any(v.startswith("event_shape_gate:distortion")
+               for v in rep["stages"][0]["violations"])
+
     # fail-closed: the required event-shape gate NOT_RUN can never
     # produce an accepted candidate — and no rollback render is wasted.
     calls, cand, qa = make_case(_topo(10, 3, 2, 4), _topo(10, 3, 2, 4))
