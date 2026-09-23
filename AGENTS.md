@@ -34,11 +34,22 @@ acceptance evidence. See `docs/audition-repair-20260916.md` for the repair audit
 
 ## Environment
 
-- OpenUtau portable install: `E:\software\OpenUtau-win-x64 (6)` (v0.1.570.4,
-  commit 9699944, net10.0 self-contained). GUI may be running — the bridge is a
-  separate process and does not conflict.
-- Singer: `Singers\YousaV1.65b` (DiffSinger; speakers Bright/Cute/Normal/
-  Whisper/Classic).
+- OpenUtau portable install: `E:\software\OpenUtau-win-x64_dpV2\OpenUtau-win-x64`
+  (KakaruHayate fork dpV2 build, net10.0 self-contained).  GUI may be
+  running — the bridge is a separate process and does not conflict.
+  Previous install `E:\software\OpenUtau-win-x64 (6)` (v0.1.570.4,
+  commit 9699944) kept for provenance of pre-migration artifacts.
+- Singer: `Singers\YousaV1.65c` (DiffSinger dpv2 duration model
+  `0923_dpv2_nogru`; speakers Bright/Cute/Normal/Whisper/Classic).
+  `Singers\YousaV1.65b` is a directory junction -> YousaV1.65c so
+  legacy ustx singer references still resolve (renders use c models).
+  V1.65b does NOT load in this build ("Singer location is null").
+- Env migration notes (2026-09-23): bridge rebuilt against the fork's
+  OpenUtau.Core (no API breaks); `Cache/` dir must exist or the
+  phonemizer crashes on tensorcache save; DiffSingerRhythmizerPhonemizer
+  NREs — needs a `rhythmizer` package we don't ship (not required:
+  pipeline keeps score timing fixed; new dsdur `predict_dur` runs at
+  render time via the normal phonemizer path).
 - Tools on PATH: uv, python 3.14 (venv is 3.12), ffmpeg/ffprobe, dotnet 10.0.400.
 - Reference projects: `E:\data\project_opentuau` (5 ustx, old singer ids
   yousaV1.53/1.56, missing wave files — expected).

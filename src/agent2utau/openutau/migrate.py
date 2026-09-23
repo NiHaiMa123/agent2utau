@@ -1,5 +1,5 @@
 """Migrate a short Yousa lead-vocal phrase from a reference project to the
-current singer (YousaV1.65b), producing a minimal valid USTX.
+current singer (YousaV1.65c), producing a minimal valid USTX.
 
 Color semantics (verified against OpenUtau @9699944):
 - note-level {abbr: clr, value: i} -> VoiceColorExp.options[i]; options are
@@ -22,7 +22,7 @@ YOUSA_SUBBANK_ORDER = ["Yousa_Bright", "Yousa_Cute", "Yousa_Normal",
 # VoiceColorExp.options = colors sorted alphabetically
 YOUSA_CLR_OPTIONS = sorted(YOUSA_SUBBANK_ORDER)
 
-DEFAULT_SINGER = "YousaV1.65b"
+DEFAULT_SINGER = "YousaV1.65c"
 
 
 def _color_semantic(name: str) -> str:

@@ -29,7 +29,7 @@ def load_config(repo: Path | None = None) -> dict[str, Any]:
         if p.exists():
             cfg = _deep_merge(cfg, yaml.safe_load(p.read_text(encoding="utf-8")) or {})
     cfg.setdefault("openutau_dir", r"E:\software\OpenUtau-win-x64 (6)")
-    cfg.setdefault("default_singer", "YousaV1.65b")
+    cfg.setdefault("default_singer", "YousaV1.65c")
     cfg.setdefault("reference_dir", r"E:\data\project_opentuau")
     cfg.setdefault("runs_dir", str(repo / "runs"))
     cfg["openutau_dir"] = os.path.expandvars(cfg["openutau_dir"])

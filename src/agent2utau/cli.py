@@ -770,7 +770,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--project", required=True)
     p.add_argument("--track", type=int, default=0)
     p.add_argument("--out", required=True)
-    p.add_argument("--singer", default="YousaV1.65b")
+    p.add_argument("--singer", default="YousaV1.65c")
     p.add_argument("--min-notes", type=int, default=8)
     p.add_argument("--min-ms", type=float, default=4000)
     p.add_argument("--max-ms", type=float, default=12000)

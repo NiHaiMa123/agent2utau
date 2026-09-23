@@ -1,6 +1,6 @@
 # agent2utau defaults. Override locally in configs/local.yaml (git-ignored).
-openutau_dir: 'E:\software\OpenUtau-win-x64 (6)'
-default_singer: YousaV1.65b
+openutau_dir: 'E:\software\OpenUtau-win-x64_dpV2\OpenUtau-win-x64'
+default_singer: YousaV1.65c
 reference_dir: 'E:\data\project_opentuau'
 test_source: 'E:\data\music\年轮 - 张碧晨.flac'
 yousa_songs_dir: 'E:\data\music\泠鸢'

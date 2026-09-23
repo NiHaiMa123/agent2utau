@@ -8,7 +8,7 @@
     <RootNamespace>Agent2Utau.Bridge</RootNamespace>
     <Version>0.1.0</Version>
     <!-- OpenUtau install dir; override with /p:OuDir="..." -->
-    <OuDir Condition="'$(OuDir)' == ''">E:\software\OpenUtau-win-x64 (6)</OuDir>
+    <OuDir Condition="'$(OuDir)' == ''">E:\software\OpenUtau-win-x64_dpV2\OpenUtau-win-x64</OuDir>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenUtau.Core">

@@ -67,7 +67,7 @@ def probe(cfg: dict[str, Any]) -> dict[str, Any]:
             report["warnings"].append(f"deps.json parse: {e}")
     ff["openutau_version"] = ver
 
-    singer_id = cfg.get("default_singer", "YousaV1.65b")
+    singer_id = cfg.get("default_singer", "YousaV1.65c")
     singer_dir = ou_dir / "Singers" / singer_id
     ff["singer_dir"] = singer_dir.exists()
     ff["singer_character_yaml"] = (singer_dir / "character.yaml").exists()

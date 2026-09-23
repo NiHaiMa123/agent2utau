@@ -364,7 +364,7 @@ tempos:
 - position: 0
   bpm: 120
 tracks:
-- singer: YousaV1.65b
+- singer: YousaV1.65c
   phonemizer: OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer
   renderer_settings:
     renderer: DIFFSINGER

@@ -1,5 +1,5 @@
 # Singer profile example (this machine's actual install).
-id: YousaV1.65b
+id: YousaV1.65c
 singer_type: diffsinger
 phonemizer: OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer
 renderer: DIFFSINGER

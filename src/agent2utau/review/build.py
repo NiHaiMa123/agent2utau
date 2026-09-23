@@ -510,7 +510,7 @@ def assign_identity(item) -> str:
 
 # ------------------------------------------------------------------ manifest
 
-def render_profile(voicebank="YousaV1.65b", sr=44100, bpm=120,
+def render_profile(voicebank="YousaV1.65c", sr=44100, bpm=120,
                    resolution=480, template_sha=None):
     """Neutral render profile (§6.10): no Yousa styling, no PITD."""
     return {"singer": voicebank, "phonemizer": "zh",

@@ -461,7 +461,7 @@ def render_provenance(cfg):
     (acoustic/duration/pitch/variance/vocoder models, dsconfig, phonemes,
     speaker embeddings) — bytes, not logical names."""
     ou = Path(cfg["openutau_dir"])
-    singer = ou / "Singers" / cfg.get("default_singer", "YousaV1.65b")
+    singer = ou / "Singers" / cfg.get("default_singer", "YousaV1.65c")
     bins = {}
     for f in (ou / "OpenUtau.exe", ou / "OpenUtau.Core.dll",
               ou / "a2u-bridge.exe"):
