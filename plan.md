@@ -461,6 +461,66 @@ determine whether the candidate can pass
 → fix, measure, escalate or replan according to evidence
 ```
 
+### 11.6 Bounded execution rounds / context budget
+
+SWE2 has a large but finite context window. Do **not** use one execution round to diagnose,
+implement, regenerate all phrases, rerun every A/B, and perform final acceptance at once.
+
+Each executor round must have:
+- one primary blocker class;
+- at most one tightly-coupled verification step;
+- an explicit artifact/output contract;
+- an explicit **STOP** condition;
+- no authority to begin the next round without reviewer approval.
+
+Default orchestration:
+
+```text
+Round A — evidence adjudication
+→ STOP
+→ reviewer
+
+Round B — ownership / representation decision
+→ STOP
+→ reviewer
+
+Round C — production regeneration
+→ STOP
+→ reviewer
+
+Round D — final acceptance only
+→ STOP
+→ reviewer / human listening
+```
+
+Rules:
+
+1. **One round does not inherit permission to execute the next round.**
+   A future round may be described in this plan but remains LOCKED until reviewer marks it ACTIVE.
+
+2. **Final acceptance is read-only with respect to generation logic.**
+   Round D may run tests/evaluator and emit PASS/FAIL/UNKNOWN/NOT_RUN, but it must not modify:
+   - generator/compiler code;
+   - QA metric definitions;
+   - thresholds/masks;
+   - failure classifications;
+   - artifact semantics.
+   A FAIL in Round D starts a new reviewed repair round; it is not fixed in-place during acceptance.
+
+3. **Do not carry unnecessary history into the active task.**
+   The executor should use this active plan, current blocker artifacts, and directly relevant code.
+   Historical reasoning remains in Git history and should not be re-expanded unless needed to test a
+   specific hypothesis.
+
+4. **STOP means stop.**
+   When the round output contract is satisfied, commit the requested evidence and stop even if the
+   next action appears obvious. Do not opportunistically regenerate downstream artifacts.
+
+5. **A blocked/unknown result is a valid round completion.**
+   The goal is to resolve the assigned question or classify why it cannot yet be resolved, not to
+   force the project to the next milestone.
+
+
 ## 12. Current state — R2.1/L7
 
 Verified direction:
@@ -645,28 +705,77 @@ After evidence resolution, re-evaluate P2 A/B with the same evidence
 semantics as final acceptance.  A/B must report blocking events for both
 extractor families, not only aggregate counts / FCPE names.
 
-### Required next run
+### Current execution schedule
+
+#### Round A — ACTIVE: evidence adjudication only
+
+Scope is **only**:
+- P2 note8;
+- P3 note9.
 
 From the latest committed clean HEAD:
 
-1. run full pytest;
-2. rerun P2 note8 and P3 note9 evidence probe under the corrected rule;
-3. resolve each UNKNOWN with **positive** evidence:
-   - a reliable third-F0 contour that supports one extractor family;
-   - waveform/periodicity/harmonic evidence that positively identifies
-     voiced F0;
-   - or an explicit targeted human evidence adjudication artifact;
-   non-detection alone is insufficient;
-4. after evidence is resolved, rerun the P2 lane-isolation A/B using the
-   same adjudication-aware event set;
-5. regenerate affected P1/P2/P3 phrase artifacts as needed so production
-   `shape_gate.blocked=false` for any phrase proposed for listening;
-6. commit all artifacts;
-7. from a clean HEAD run `l7_acceptance_eval.py`.
+1. run only the tests needed to validate the evidence/adjudication code touched in this round
+   (full pytest is not required yet unless those tests expose a broader regression);
+2. rerun the two target evidence probes under the corrected rule;
+3. collect **positive** evidence where possible:
+   - a reliable third-F0 contour that supports FCPE or RMVPE;
+   - waveform periodicity / harmonic / subharmonic evidence that positively identifies voiced F0;
+   - another independent positive acoustic test with committed provenance;
+4. classify each target as exactly one of:
+   - `EVIDENCE_RESOLVED_FCPE`;
+   - `EVIDENCE_RESOLVED_RMVPE`;
+   - `EVIDENCE_ADJUDICATED_ARTIFACT` **only with explicit positive counter-evidence**;
+   - `FAIL_EVIDENCE` / UNKNOWN when evidence remains insufficient;
+5. commit the probe/evidence artifacts and any narrowly-required evidence-analysis code.
 
-The new evaluator has **10 required terms** including
-`candidate_arbitration_gate`.  Only its fresh output may authorize
-L7-E human listening.
+**Round A STOP condition:** both events have a committed verdict/evidence packet, even if one or
+both remain UNKNOWN.
+
+**Forbidden in Round A:**
+- do not rerun lane-isolation A/B;
+- do not change portamento ownership;
+- do not regenerate P1/P2/P3 production candidates;
+- do not run or modify the final acceptance evaluator;
+- do not change QA thresholds to make an event pass;
+- do not start Round B.
+
+#### Round B — LOCKED: ownership decision
+
+Unlock only after reviewer accepts Round A evidence semantics.
+
+Then:
+- rerun P2 lane-isolation A/B with the adjudicated event set;
+- report FCPE and RMVPE blocking identities separately;
+- choose the narrowest ownership that preserves verified in-event shape and does not regress
+  out-of-event behavior;
+- commit A/B evidence;
+- **STOP**.
+
+#### Round C — LOCKED: production regeneration
+
+Unlock only after reviewer accepts Round B.
+
+Then:
+- regenerate only affected phrase candidates with the accepted ownership/evidence policy;
+- require clean-worktree provenance;
+- require production `shape_gate.blocked=false` for any candidate proposed for listening;
+- bind hashes/manifests/QA;
+- do not run final acceptance;
+- **STOP**.
+
+#### Round D — LOCKED: final machine acceptance
+
+Unlock only after reviewer accepts Round C.
+
+Then:
+- run full pytest;
+- run the 10-term `l7_acceptance_eval.py` from a clean HEAD;
+- make **no code/threshold/gate changes in this round**;
+- emit only the final PASS/FAIL/UNKNOWN/NOT_RUN evidence bundle;
+- **STOP**.
+
+Only a fresh Round-D output with every required term PASS may authorize L7-E human listening.
 
 ## 13. Roadmap after L7
 
