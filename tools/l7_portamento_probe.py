@@ -39,7 +39,10 @@ confidence output is weak observability, not positive counter-evidence.
 It may keep a target UNKNOWN but cannot by itself prove that an FCPE
 gesture is an extraction artifact.  Automatic
 EVIDENCE_ADJUDICATED_ARTIFACT therefore requires a separate positive
-counter-evidence path; this probe does not synthesize that verdict from
+counter-evidence path — provided here by the direct waveform battery
+(expression.voicing_evidence): measured energy collapse plus a missing
+harmonic comb at the claimed f0 positively characterize the disputed
+span as a non-phonated remnant, which is a measurement, not a
 non-detection.
   dense probe clears the blocking shape             -> FAIL_FIXABLE
   materially different commands render to the same
@@ -72,10 +75,13 @@ import l7_phrase_gate as drv                      # noqa: E402
 
 from agent2utau.analysis.f0 import extract_f0     # noqa: E402
 from agent2utau.analysis.rmvpe import infer_rmvpe  # noqa: E402
-from agent2utau.diagnostic.adjudicate import third_f0_pyin  # noqa: E402
+from agent2utau.diagnostic.adjudicate import (  # noqa: E402
+    midi_to_hz, third_f0_pyin)
 from agent2utau.expression import contour_qa as cq  # noqa: E402
 from agent2utau.expression.contour import build_contour_signal  # noqa: E402
 from agent2utau.expression.pitch_residual import TICK_MS  # noqa: E402
+from agent2utau.expression.voicing_evidence import (  # noqa: E402
+    _longest_run, span_voicing_evidence)
 from agent2utau.openutau.ustx import (              # noqa: E402
     load_ustx, save_ustx, semantic_notes_sha256, sha256)
 from agent2utau.resources.config import load_config  # noqa: E402
@@ -392,6 +398,60 @@ def probe_event(phrase, from_note, ctx, cfg, head):
                 rescued = True
                 evidence_stable = True
 
+    # --- waveform voicing battery (positive evidence, plan §12 R-A) ---
+    # Runs only when the two F0 families still disagree after the pYIN
+    # rescue attempt.  It measures the disputed (fcpe-voiced /
+    # rmvpe-unvoiced) span directly: energy, periodicity and the
+    # harmonic comb at the claimed f0, calibrated against the window's
+    # own both-voiced and both-unvoiced spans.  A non-phonated remnant
+    # result is POSITIVE counter-evidence (measured, not absent data)
+    # and adjudicates the detected event as an extraction artifact.
+    waveform = None
+    waveform_resolved = None
+    if not evidence_stable and ctx.get("voc") is not None:
+        fs, fv = ctx["src_sig"].times, ctx["src_sig"].voiced
+        bs, bv = ctx["src_sig_b"].times, ctx["src_sig_b"].voiced
+        tg = np.arange(s, e + 1e-9, HOP_S)
+        f_v = np.interp(tg, fs, fv.astype(float)) > 0.5
+        b_v = np.interp(tg, bs, bv.astype(float)) > 0.5
+        disp_t = tg[f_v & ~b_v]
+        ref_v = _longest_run(f_v & b_v, tg)
+        tg_all = np.arange(ctx["t0"], ctx["t1"] + 1e-9, HOP_S)
+        f_all = np.interp(tg_all, fs, fv.astype(float)) > 0.5
+        b_all = np.interp(tg_all, bs, bv.astype(float)) > 0.5
+        ref_u = _longest_run(~f_all & ~b_all, tg_all)
+        if len(disp_t) >= 3 and ref_v is not None:
+            claimed_c = np.nanmedian(_src_at(ctx["src_sig"], disp_t))
+            claimed = midi_to_hz(claimed_c / 100.0) \
+                if np.isfinite(claimed_c) else None
+            alt_t = tg[b_v]
+            alt_c = np.nanmedian(_src_at(ctx["src_sig_b"], alt_t)) \
+                if len(alt_t) else np.nan
+            alt = midi_to_hz(alt_c / 100.0) if np.isfinite(alt_c) else None
+            rel = lambda ab: (ab[0] - ctx["t0"], ab[1] - ctx["t0"]) \
+                if ab else None
+            waveform = span_voicing_evidence(
+                ctx["voc"]["seg"], ctx["voc"]["sr"],
+                disputed=rel((float(disp_t[0]) - 0.005,
+                            float(disp_t[-1]) + 0.005)),
+                ref_voiced=rel(ref_v), ref_unvoiced=rel(ref_u),
+                claimed_f0_hz=claimed, alt_f0_hz=alt,
+                mix_seg=(ctx.get("mix") or {}).get("seg"),
+                mix_sr=(ctx.get("mix") or {}).get("sr"))
+            waveform["vocal_sha256"] = ctx["voc"]["sha256"]
+            if ctx.get("mix"):
+                waveform["mix_path"] = ctx["mix"]["path"]
+                waveform["mix_sha256"] = ctx["mix"]["sha256"]
+            if waveform["classification"] == "phonated":
+                if waveform["consistent_with"] == "claimed":
+                    evidence_stable = True
+                    waveform_resolved = "fcpe"
+                elif waveform["consistent_with"] == "alt":
+                    waveform_resolved = "rmvpe"
+            elif waveform["classification"] == "non_phonated_remnant":
+                adjudication = "artifact"
+                adjudication_basis = "positive_counterevidence"
+
     c0 = float(ctx["src_sig"].cents[ms][0]) if ms.sum() else 0.0
     span = float(ctx["src_sig"].cents[ms][-1] - c0) if ms.sum() else 1e-6
     if abs(span) < 1e-6:
@@ -416,6 +476,8 @@ def probe_event(phrase, from_note, ctx, cfg, head):
                                        if ext_rmse is not None else None),
                   "src_coverage_rmvpe": round(src_cov_b, 3),
                   "third_f0_pyin": pyin,
+                  "waveform": waveform,
+                  "waveform_resolved": waveform_resolved,
                   "adjudication": adjudication,
                   "adjudication_basis": adjudication_basis,
                   "third_family_non_detection": third_family_non_detection,
@@ -424,6 +486,25 @@ def probe_event(phrase, from_note, ctx, cfg, head):
               "candidates": {}}
 
     # --- fast paths that need no renders -------------------------------
+    if adjudication == "artifact":
+        report["verdict"] = "EVIDENCE_ADJUDICATED_ARTIFACT"
+        report["reasons"] = [
+            "positive waveform counter-evidence: the fcpe-voiced/"
+            "rmvpe-unvoiced span is a non-phonated remnant — rms %s dB "
+            "below the both-voiced reference and the claimed-f0 harmonic "
+            "band %s dB below it (floor-level); the detected gesture has "
+            "no sung-pitch source"
+            % ((waveform or {}).get("energy_drop_db"),
+               (waveform or {}).get("h2p_drop_db"))]
+        return report
+    if waveform_resolved == "rmvpe":
+        report["verdict"] = "EVIDENCE_RESOLVED_RMVPE"
+        report["reasons"] = [
+            "waveform battery: disputed span is phonated but its "
+            "measured period (%s Hz) follows the rmvpe contour, not the "
+            "fcpe event"
+            % (waveform or {}).get("measured_f0_med_hz")]
+        return report
     if from_note not in ctx["blocking_set"]:
         if not evidence_stable:
             report["verdict"] = "FAIL_EVIDENCE"
@@ -688,11 +769,27 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
           f"@ {pyin['provenance']['frame_period_s']*1000:.0f}ms",
           flush=True)
 
+    # Waveform-battery inputs: the separated vocal segment (above) plus
+    # the pre-separation mix for corroboration — a comb destroyed by the
+    # separator would still show on the mix, a remnant resonance does
+    # not change character.
+    voc = {"seg": seg, "sr": sr, "path": str(drv.SRC_VOCAL),
+           "sha256": sha256(drv.SRC_VOCAL)}
+    mix_path = drv.SRC_VOCAL.with_name("original.wav")
+    mix = None
+    if mix_path.is_file():
+        mw, msr = sf.read(str(mix_path), dtype="float32")
+        if mw.ndim > 1:
+            mw = mw.mean(axis=1)
+        mix = {"seg": mw[int(t0 * msr):int(t1 * msr)], "sr": msr,
+               "path": str(mix_path), "sha256": sha256(mix_path)}
+
     ctx = {"notes": notes, "part_pos": part_pos, "t0": t0, "t1": t1,
            "nuc": nuc,
            "src_sig": src_sig, "src_sig_b": src_sig_b,
            "neu_sig": neu_sig, "src_events": src_events,
            "pyin": pyin,
+           "voc": voc, "mix": mix,
            "blocking_set": blocking,
            "src_event_by_from": {
                e.params["from_note"]: e for e in src_events
