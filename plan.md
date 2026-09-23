@@ -741,52 +741,69 @@ committed packets.**
 
 #### Round B — ACTIVE: P2 ownership decision only
 
-Purpose: choose the narrowest portamento-lane ownership that preserves verified P2 shape now that
-note8 is evaluated with the committed reliable-core semantics.
+Executor bundle `ee1532ac → abddc238` is **directionally correct but not yet complete**.
 
-Scope is **only P2_slides**.
+What is already established from clean-head A/B evidence:
+- committed Round-A P2 note8 `EVIDENCE_EDGE_UNCERTAIN` packet was consumed and its SHA256 bound;
+- `full_note`:
+  - FCPE blockers = 0;
+  - RMVPE blockers = 0;
+  - in-lane median |err| = 7.5 c;
+  - out-of-lane median |err| = 7.0 c;
+- `event`:
+  - FCPE blockers = 0;
+  - RMVPE gains a blocking `from_note=9 distortion`;
+  - in-lane median |err| = 11.8 c;
+  - out-of-lane median |err| = 8.1 c;
+- therefore the narrow `event` ownership already fails the required “non-worse on both extractor
+  families” condition.  Existing evidence favors `full_note`.
+
+Reviewer found one missing acceptance item before Round B can close:
+- the A/B tool described the risk that full-note ownership may absorb onset / ornament content, but
+  it did **not explicitly measure those discrete non-portamento lanes**;
+- vibrato metrics were emitted but were not part of the ownership verdict.
+
+Reviewer patches:
+- `b651ef0f`: add explicit SOURCE→render matching summaries for
+  `scoop / undershoot / overshoot / ornament` on both FCPE and RMVPE families;
+- `d986d7ec`: include vibrato structural preservation (missing-event count) in the ownership
+  non-regression gate;
+- if one mode protects portamento while the other protects non-portamento events, the result is now
+  `BLOCKED` rather than hiding the trade-off behind a scalar preference.
+
+### Required Round-B rerun
+
+Scope remains **only P2_slides**.
 
 From the latest committed clean HEAD:
 
-1. run focused tests required by `l7_lane_isolation_ab.py` / reliable-core QA;
-2. run lane-isolation A/B for **P2 only**:
-   - `full_note`;
-   - `event` bounded ownership;
-3. both modes must consume the committed Round-A P2 note8
-   `EVIDENCE_EDGE_UNCERTAIN` packet and record its hash/provenance;
-4. compare:
-   - FCPE event-shape blocking count **and blocking identities**;
-   - RMVPE event-shape blocking count **and blocking identities**;
-   - in-lane position;
-   - out-of-lane position;
-   - out-of-lane topology;
-   - any overlap/regression in non-portamento event lanes;
-5. choose `event` only if it is non-worse on all required blocking gates and preserves out-of-lane
-   behavior within the existing tolerance; otherwise retain `full_note`;
-6. commit the A/B report, QA, USTX/WAV hashes and clean-worktree provenance.
+1. run focused tests / static checks required by `l7_lane_isolation_ab.py`;
+2. rerun P2 `full_note` vs `event` A/B once;
+3. retain the same committed Round-A source-edge evidence hash;
+4. report, for **both FCPE and RMVPE**:
+   - absolute portamento/event-shape blocker identities;
+   - `scoop / undershoot / overshoot / ornament`:
+     - matched_by_type;
+     - source_only_by_type;
+     - ambiguous_by_type;
+     - render_only_by_type;
+   - vibrato missing-event count;
+5. retain in-lane/out-of-lane position and out-of-lane topology;
+6. verdict rules:
+   - choose `event` only if portamento blocking, non-portamento lanes, vibrato structure and
+     out-of-lane behavior are all non-worse;
+   - otherwise choose `full_note` only if its non-portamento lanes/vibrato are also non-worse;
+   - if neither ownership dominates, output `BLOCKED`;
+7. commit only the refreshed P2 A/B evidence + notes.
 
-**Round B output contract:**
-
-```text
-preferred = event | full_note | BLOCKED
-reason
-both-family blocker identities
-source_edge_evidence hash
-per-mode artifact hashes
-out-of-lane regression summary
-```
-
-If evidence is insufficient or the two modes expose a new unresolved blocker, output `BLOCKED`
-rather than modifying the compiler or acceptance rule.
-
-**Round B STOP condition:** one committed P2 A/B evidence packet with an explicit preferred/BLOCKED
-verdict.
+**Round B STOP condition:** one clean committed P2 A/B packet with
+`preferred = event | full_note | BLOCKED` under the expanded lane-preservation check.
 
 **Forbidden in Round B:**
-- do not rerun/re-adjudicate Round-A evidence;
-- do not modify portamento compiler logic or QA thresholds;
-- do not regenerate production P1/P2/P3 phrase candidates;
-- do not run or modify the final acceptance evaluator;
+- do not reopen Round-A evidence;
+- do not modify compiler logic or QA thresholds;
+- do not regenerate production P1/P2/P3 candidates;
+- do not run or modify final acceptance;
 - do not start Round C.
 
 #### Round C — LOCKED: production regeneration
