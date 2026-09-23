@@ -1,19 +1,29 @@
 {
- "variant": "C3v3",
- "generator_code_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
- "qa_code_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
+ "variant": "C3",
+ "generator_code_head": "2e718ad38e4ba629cf63aff9b83bdda530d8c572",
+ "qa_code_head": "2e718ad38e4ba629cf63aff9b83bdda530d8c572",
+ "worktree_clean_at_generation": true,
  "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
  "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
- "candidate_ustx_sha256": "051ce1337dac51c3018b71260e1e7b53edd3b36008f950f83ebc7ab95bd23b67",
- "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v3.ustx",
- "render_wav_sha256": "1a75bd40c0fa21f94e11a28ce7401816cd68154f1cc20f1d221a351c81f5ac69",
- "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v3_vocal.wav",
+ "candidate_ustx_sha256": "f22c87c4a847c61d1b8535e6c5616ebc811b7bb04dfd568062c46c106267bdcf",
+ "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3.ustx",
+ "render_wav_sha256": "22533ca04e1646491f05a9defccf224b27616534c0d71617d4e6b7ad7f897d7c",
+ "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3_v1_vocal.wav",
  "shape_gate": {
-  "final_candidate": "C3v3",
-  "blocked": false,
+  "final_candidate": "C3",
+  "blocked": true,
   "stages": [
    {
     "candidate": "v1",
+    "gate_passed": true,
+    "violations": [],
+    "event_shape": {
+     "status": "pass",
+     "n_blocking": 0
+    }
+   },
+   {
+    "candidate": "v2",
     "gate_passed": false,
     "violations": [
      "event_shape_gate:distortion@note8"
@@ -24,23 +34,14 @@
     }
    },
    {
-    "candidate": "v2",
+    "candidate": "v3",
     "gate_passed": false,
     "violations": [
-     "extra_turns"
+     "event_shape_gate:distortion@note8"
     ],
     "event_shape": {
-     "status": "pass",
-     "n_blocking": 0
-    }
-   },
-   {
-    "candidate": "v3",
-    "gate_passed": true,
-    "violations": [],
-    "event_shape": {
-     "status": "pass",
-     "n_blocking": 0
+     "status": "fail",
+     "n_blocking": 1
     }
    }
   ]
@@ -64,6 +65,7 @@
   "closed_loop_max_err_c": 10,
   "closed_loop_guard_s": 0.15,
   "closed_loop_iterations": 1,
+  "portamento_lane_ownership": "full_note",
   "portamento_lane": {
    "1": {
     "window_s": [
@@ -86,9 +88,10 @@
     "stable": true,
     "applied": true,
     "n_anchors": 22,
+    "ownership": "full_note",
     "carrier_span_s": [
      51.87,
-     52.39
+     52.37
     ]
    },
    "3": {
@@ -112,9 +115,10 @@
     "stable": true,
     "applied": true,
     "n_anchors": 15,
+    "ownership": "full_note",
     "carrier_span_s": [
      52.88,
-     53.25
+     53.22
     ]
    },
    "7": {
@@ -127,9 +131,10 @@
     "stable": true,
     "applied": true,
     "n_anchors": 30,
+    "ownership": "full_note",
     "carrier_span_s": [
      53.34,
-     53.97
+     53.96
     ]
    },
    "9": {
