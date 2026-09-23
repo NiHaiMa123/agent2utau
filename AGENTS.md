@@ -1514,3 +1514,25 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   matched/missing/extra/timing/amplitude/prominence/edit_distance —
   a med-cents win with extra turns is a REGRESSION.
 - tests: `pytest tests/` (472 incl. 27 R2.1 synthetic regressions).
+
+## L7 Round A — evidence adjudication (probe @b5005a6, artifacts 77bdcd9)
+
+- `expression/voicing_evidence.py` — waveform battery for fcpe-voiced /
+  rmvpe-unvoiced disputed spans: per-frame normalized ACF (80-1000Hz),
+  frame-median RMS, and Parseval harmonic-band power at the claimed f0,
+  calibrated against the window's own both-voiced and both-unvoiced
+  spans; disputed span also measured on the pre-separation mix.
+  `non_phonated_remnant` needs BOTH energy collapse (>=15dB vs voiced
+  ref) AND claimed-f0 harmonics at the unvoiced floor / >=18dB below ref
+  — that is positive counter-evidence, not extractor absence.
+- P2 n8 (54.66-54.83s): disputed span is note8's release decay, -19dB,
+  h2+ 39dB below voiced ref / below unvoiced floor; measured best-lag
+  257.9Hz == fcpe's claim 257Hz but single-bin, no comb, also on the
+  mix. fcpe tracked a real decaying resonance — artifact.
+- P3 n9 (29.42-29.52s): -25.5dB remnant, measured ~394Hz vs fcpe's
+  claimed 421Hz (+105c), no comb; identical character pre-separation.
+  fcpe locked onto a formant ring — artifact.
+- Both events: EVIDENCE_ADJUDICATED_ARTIFACT,
+  adjudication_basis=positive_counterevidence. Round A STOP satisfied —
+  Round B (P2 lane-ownership A/B) remains reviewer-locked.
+- tests: 68 passed (8 new voicing_evidence + adjudicate/contour/events).
