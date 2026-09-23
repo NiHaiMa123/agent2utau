@@ -322,8 +322,10 @@ def main():
             s_p = t2s(part["position"] + n["position"])
             e_p = t2s(part["position"] + n["position"]
                       + n["duration"])
-            if s_p - WAVE_OFF >= a - 1e-3 \
-                    and e_p - WAVE_OFF <= b + 1e-3:
+            # same overlap rule j1 used when listing phrase notes, so
+            # the candidate and the J5 neutral baseline carry the
+            # identical note set for A/B listening
+            if e_p - WAVE_OFF > a and s_p - WAVE_OFF < b:
                 notes.append({"a": s_p, "b": e_p, "tone": n["tone"],
                               "lyric": lyr,
                               "_abs_tick": part["position"]
