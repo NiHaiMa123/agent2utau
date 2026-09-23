@@ -554,7 +554,7 @@ def j2_layers(doc, picked, t2s, wave_off, ms_tick, f0, acf, w, sr,
         u = crop_phrase_ustx(doc, ph["part"], a, b, wave_off, ms_tick,
                              "YousaV1.65c")
         ustx_path = pdir / f"{tag}.ustx"
-        save_ustx(ustx_path, u)
+        save_ustx(u, ustx_path)
         # ---- C: human render ----
         render_ok, err = True, None
         try:
