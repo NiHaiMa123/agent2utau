@@ -865,10 +865,10 @@
     "n_events": 4,
     "n_blocking": 0,
     "by_class": {
-     "source_edge_uncertain": 1,
      "source_irregular": 1,
      "label_mismatch": 1,
-     "boundary_shift": 1
+     "boundary_shift": 1,
+     "source_edge_uncertain": 1
     },
     "gate_passed": true,
     "status": "pass"
@@ -1674,8 +1674,8 @@
     "n_blocking": 0,
     "by_class": {
      "source_irregular": 1,
-     "source_edge_uncertain": 1,
-     "boundary_shift": 1
+     "boundary_shift": 1,
+     "source_edge_uncertain": 1
     },
     "gate_passed": true,
     "status": "pass"
@@ -2436,8 +2436,8 @@
     "n_blocking": 0,
     "by_class": {
      "source_irregular": 1,
-     "source_edge_uncertain": 1,
-     "boundary_shift": 1
+     "boundary_shift": 1,
+     "source_edge_uncertain": 1
     },
     "gate_passed": true,
     "status": "pass"
@@ -2550,6 +2550,6 @@
   ]
  },
  "final_candidate": "v1",
- "blocked": true,
- "block_reason": "shape gate still violated after 1 rollback"
+ "blocked": false,
+ "fallback_reason": "verified_v1_after_regressive_improvements"
 }

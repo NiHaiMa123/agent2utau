@@ -1,7 +1,7 @@
 {
  "variant": "C3",
- "generator_code_head": "0e95f40d0e5ddc4a3335a47b2988400e0556561e",
- "qa_code_head": "0e95f40d0e5ddc4a3335a47b2988400e0556561e",
+ "generator_code_head": "97da2b5c022b13cea56a022238e451e297afa5ae",
+ "qa_code_head": "97da2b5c022b13cea56a022238e451e297afa5ae",
  "worktree_clean_at_generation": true,
  "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
  "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
@@ -19,7 +19,9 @@
  "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav",
  "shape_gate": {
   "final_candidate": "C3",
-  "blocked": true,
+  "blocked": false,
+  "fallback_reason": "verified_v1_after_regressive_improvements",
+  "block_reason": null,
   "stages": [
    {
     "candidate": "v1",

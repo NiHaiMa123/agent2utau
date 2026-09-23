@@ -670,8 +670,8 @@
  "n_blocking": 0,
  "by_class": {
   "source_irregular": 2,
-  "match": 1,
-  "label_mismatch": 2
+  "label_mismatch": 2,
+  "match": 1
  },
  "gate_passed": true
 }

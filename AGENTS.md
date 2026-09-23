@@ -1649,3 +1649,17 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   regress turning-point topology vs v1 (matched/missing/extra_turns).
   Recorded as honest FAIL evidence; no compiler/threshold changes.
 - P1 untouched.  Round D final acceptance remains reviewer-locked.
+
+## L7 Round C2 — verified-v1 fallback arbitration (@3df654d, fix 97da2b5)
+
+- `run_shape_gate` no longer unconditionally blocks when retaining v1:
+  if v1 passes every required absolute gate (event_shape executed,
+  gate_passed, zero blocking issues), keeping it after v2/v3 regress
+  is `blocked=false` +
+  `fallback_reason=verified_v1_after_regressive_improvements`.
+  v1 stays blocked when its own absolute gate fails; NOT_RUN remains
+  fail-closed.  Manifest now records fallback_reason/block_reason.
+- P3_vibrato clean rerun (head 97da2b5): final=C3/v1, blocked=false,
+  fallback reason recorded; v2/v3 topology violations preserved as
+  stage evidence; ownership event; probe hash e1daca2a bound.
+- P2 untouched.  Round D remains reviewer-locked.

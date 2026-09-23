@@ -539,10 +539,10 @@
  "n_events": 4,
  "n_blocking": 0,
  "by_class": {
-  "source_edge_uncertain": 1,
   "source_irregular": 1,
   "label_mismatch": 1,
-  "boundary_shift": 1
+  "boundary_shift": 1,
+  "source_edge_uncertain": 1
  },
  "gate_passed": true
 }
