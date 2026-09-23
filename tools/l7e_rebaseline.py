@@ -97,7 +97,7 @@ def make_v165c_copy(old_path, new_path):
     allowed = {f"tracks[{i}].singer" for i in
                range(len(doc.get("tracks", [])))}
     unexpected = [d for d in diffs
-                  if d.split("(")[0] not in allowed]
+                  if d.split("(")[0].lstrip(".") not in allowed]
     return {"touched": touched, "unexpected_diffs": unexpected,
             "semantic_identity": not unexpected}
 
@@ -211,7 +211,7 @@ def main():
         print(f"   copy -> {new_ustx.name} "
               f"(identity={ident['semantic_identity']})", flush=True)
         new_wav = drv.render(cfg, new_ustx,
-                             out_dir / (old_ustx.stem + "_v165c_vocal"))
+                             out_dir / (old_ustx.stem + "_v165c"))
         print(f"   rendered {new_wav.name}", flush=True)
         src_wav = pdir / "SOURCE.wav"
         src_f0 = extract_f0(src_wav)
