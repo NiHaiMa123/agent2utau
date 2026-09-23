@@ -29,13 +29,18 @@ Each candidate is real-rendered through the bridge and judged by the
 SAME absolute event-shape gate as the phrase run, plus a
 command-vs-response record.  Verdict rules (deterministic):
 
-  source target unstable across extractors, third
-    family (librosa pYIN) agrees the span is not a
-    voiced gesture                                     -> EVIDENCE_ADJUDICATED_ARTIFACT
   source target unstable across extractors and the
-    third family cannot resolve it                     -> FAIL_EVIDENCE
-  third family confirms the FCPE gesture that RMVPE
-    rejected -> evidence rescued, candidates decide
+    third family is also unvoiced/low-confidence       -> FAIL_EVIDENCE
+  third family positively confirms the FCPE gesture
+    that RMVPE rejected -> evidence rescued, candidates decide
+
+Important evidence rule: a third extractor's missing/unvoiced/low-
+confidence output is weak observability, not positive counter-evidence.
+It may keep a target UNKNOWN but cannot by itself prove that an FCPE
+gesture is an extraction artifact.  Automatic
+EVIDENCE_ADJUDICATED_ARTIFACT therefore requires a separate positive
+counter-evidence path; this probe does not synthesize that verdict from
+non-detection.
   dense probe clears the blocking shape             -> FAIL_FIXABLE
   materially different commands render to the same
     smoothed/incorrect shape                        -> FAIL_CAPABILITY
@@ -85,9 +90,10 @@ DISTORTION_RMSE = 0.35        # contour_qa blocking threshold
 MATERIAL_GAIN = 0.60          # probe must reach <=60% of v1 rmse
 CMD_DIV_MIN = 0.30            # normalized rmse between the two commands
 RESP_RATIO = 0.35             # resp_div <= RESP_RATIO*cmd_div -> same out
-# third-family (librosa pYIN) adjudication thresholds
-PYIN_DISPUTED_VMAX = 0.30     # voiced rate on fcpe-voiced/rmvpe-unvoiced
-                              # frames below which pYIN rejects the gesture
+# third-family (librosa pYIN) evidence thresholds
+# Low/non-voiced pYIN is NOT negative evidence (diagnostic.adjudicate
+# contract); it can only leave the target unresolved.  pYIN can resolve
+# disagreement automatically only through positive voiced contour support.
 PYIN_RESCUE_COV = 0.80        # pYIN coverage needed to confirm a gesture
 PYIN_PROB_MIN = 0.5           # voicing-probability floor
 
@@ -355,22 +361,22 @@ def probe_event(phrase, from_note, ctx, cfg, head):
                        and ext_rmse <= EXTRACTOR_AGREE_RMSE
                        and src_cov >= MIN_SRC_COVERAGE)
 
-    # --- third-family adjudication (committed librosa pYIN) -----------
+    # --- third-family evidence (committed librosa pYIN) --------------
     pyin = _pyin_window(ctx, s, e)
     adjudication = None
+    adjudication_basis = None
     rescued = False
+    third_family_non_detection = False
     if not evidence_stable and pyin is not None:
         disp_n = pyin.get("disputed_frames", 0)
         disp_v = pyin.get("disputed_voiced_rate")
-        if disp_n >= 3 and disp_v is not None \
-                and disp_v < PYIN_DISPUTED_VMAX:
-            # pYIN independently rejects the gesture on exactly the
-            # frames where fcpe and rmvpe disagree — the detected event
-            # is a two-family-confirmed extraction artifact.
-            adjudication = "artifact"
-        elif pyin["coverage"] >= PYIN_RESCUE_COV:
-            # pYIN sees a voiced gesture where rmvpe does not — check
-            # whether its normalized profile agrees with fcpe's.
+        third_family_non_detection = (
+            disp_n >= 3 and disp_v is not None and disp_v < 0.30)
+        # Per diagnostic.adjudicate, non-detection / low confidence is
+        # weak reliability, never opposition.  pYIN may RESCUE FCPE by
+        # positively tracing the same voiced contour, but it may not
+        # turn UNKNOWN into "artifact" merely by being unvoiced.
+        if pyin["coverage"] >= PYIN_RESCUE_COV:
             cents = np.where(
                 np.isfinite(ctx["pyin"]["midi"])
                 & (ctx["pyin"]["voiced_prob"] >= PYIN_PROB_MIN),
@@ -411,19 +417,13 @@ def probe_event(phrase, from_note, ctx, cfg, head):
                   "src_coverage_rmvpe": round(src_cov_b, 3),
                   "third_f0_pyin": pyin,
                   "adjudication": adjudication,
+                  "adjudication_basis": adjudication_basis,
+                  "third_family_non_detection": third_family_non_detection,
                   "rescued_by_pyin": rescued,
                   "stable": bool(evidence_stable)},
               "candidates": {}}
 
     # --- fast paths that need no renders -------------------------------
-    if adjudication == "artifact":
-        report["verdict"] = "EVIDENCE_ADJUDICATED_ARTIFACT"
-        report["reasons"] = [
-            "fcpe-vs-rmvpe disagreement resolved by third family: pYIN "
-            "reports voiced on %.1f%% of the disputed frames — the "
-            "SOURCE event is an extraction artifact, not a real gesture"
-            % (100.0 * pyin["disputed_voiced_rate"])]
-        return report
     if from_note not in ctx["blocking_set"]:
         if not evidence_stable:
             report["verdict"] = "FAIL_EVIDENCE"
@@ -579,6 +579,11 @@ def probe_event(phrase, from_note, ctx, cfg, head):
         reasons.append("source target not extractor-consistent "
                        "(ext_rmse=%s, coverage=%.3f)"
                        % (ext_rmse, src_cov))
+        if third_family_non_detection:
+            reasons.append(
+                "pYIN is also unvoiced/low-confidence on the disputed "
+                "frames; under the evidence contract this confirms weak "
+                "observability, not that the FCPE gesture is false")
     elif _cleared(d_rmse, d_row):
         verdict = "FAIL_FIXABLE"
         reasons.append("dense written-coords candidate clears the "
