@@ -53,6 +53,7 @@ from agent2utau.resources.config import load_config
 
 RUN_DIR = Path("runs/expr-20260921")
 PHRASE_DIR = RUN_DIR / "phrases3"
+PROBE_DIR = RUN_DIR / "probe_portamento"
 BASE_USTX = RUN_DIR / "expression" / "base_score.ustx"
 SRC_VOCAL = Path("runs/_cache/082598c2b4b5/"
                  "original_(Vocals)_UVR-MDX-NET-Voc_FT.wav")
@@ -96,6 +97,41 @@ def _dump(obj, path):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(_jsonable(obj), ensure_ascii=False,
                                indent=1), encoding="utf-8")
+
+
+def load_source_core_bounds(phrase):
+    """Committed evidence-defined reliable event cores.
+
+    Only a clean Round-A EVIDENCE_EDGE_UNCERTAIN packet may narrow the
+    absolute shape target.  The uncertain edge is never called correct or
+    incorrect; it remains explicit metadata while QA scores the positively
+    observable core.
+    """
+    p = PROBE_DIR / f"{phrase}_probe_report.json"
+    if not p.is_file():
+        return {}, None
+    try:
+        rep = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return {}, None
+    if rep.get("worktree_clean_at_generation") is not True:
+        return {}, None
+    bounds = {}
+    for row in rep.get("events", []):
+        if row.get("verdict") != "EVIDENCE_EDGE_UNCERTAIN":
+            continue
+        fn = row.get("from_note")
+        edge = (row.get("evidence") or {}).get("edge_uncertainty") or {}
+        core = edge.get("reliable_core_s")
+        if fn is None or not isinstance(core, list) or len(core) != 2:
+            continue
+        bounds[int(fn)] = edge
+    meta = {
+        "path": str(p),
+        "sha256": sha256(p),
+        "probe_generator_code_head": rep.get("generator_code_head"),
+        "edge_events": sorted(bounds)}
+    return bounds, meta
 
 
 def _git_head():
@@ -243,6 +279,10 @@ def run_phrase(phrase, cfg, base_doc, caches, head,
     pdir = PHRASE_DIR / phrase
     pdir.mkdir(parents=True, exist_ok=True)
     print(f"== {phrase} window [{w0},{w1}]", flush=True)
+    source_core_bounds, source_edge_evidence = load_source_core_bounds(phrase)
+    if source_core_bounds:
+        print(f"   evidence-defined reliable cores: "
+              f"{sorted(source_core_bounds)}", flush=True)
 
     base_part, notes = phrase_notes(base_doc, w0, w1)
     part_pos = notes[0]["_abs_tick"] - 480
@@ -338,9 +378,10 @@ def run_phrase(phrase, cfg, base_doc, caches, head,
                 "vibrato": cq.vibrato_metrics(src_events, ev)}
 
     def event_shape_fn(sig):
-        return cq.event_shape_gate(src_events,
-                                   rec_by_sig[id(sig)]["events"],
-                                   neu_sig, src_sig, sig)
+        return cq.event_shape_gate(
+            src_events, rec_by_sig[id(sig)]["events"],
+            neu_sig, src_sig, sig,
+            source_core_bounds=source_core_bounds)
 
     def candidate_fn(curve, tag):
         # tags 'v2'/'v3' -> files {P}_C3v2.ustx / {P}_C3v3.ustx
@@ -404,13 +445,14 @@ def run_phrase(phrase, cfg, base_doc, caches, head,
         "portamento_metrics": cq.portamento_metrics(src_events,
                                                     final_events),
         "event_shape_metrics": cq.event_shape_gate(
-            src_events, final_events, neu_sig, src_sig, final_sig),
+            src_events, final_events, neu_sig, src_sig, final_sig,
+            source_core_bounds=source_core_bounds),
         # Cross-extractor lane (plan §7.4): the absolute event-shape
         # verdict re-measured entirely on the rmvpe family. Same
         # extractor self-scoring can never authorize PASS.
         "event_shape_metrics_rmvpe": cq.event_shape_gate(
             src_events_b, rec["events_b"], neu_sig_b, src_sig_b,
-            rec["sig_b"]),
+            rec["sig_b"], source_core_bounds=source_core_bounds),
         "shape_gate_report": gate,
     }
     state = dense["state"]
@@ -460,6 +502,7 @@ def run_phrase(phrase, cfg, base_doc, caches, head,
         "worktree_clean_at_generation": True,
         "base_file_sha256": sha256(BASE_USTX),
         "base_semantic_sha256": semantic_notes_sha256(base_doc),
+        "source_edge_evidence": source_edge_evidence,
         "candidate_ustx_sha256": sha256(rec["ustx"]),
         "ustx_path": str(rec["ustx"].resolve()),
         "render_wav_sha256": sha256(rec["wav"]),
