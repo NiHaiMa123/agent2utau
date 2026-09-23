@@ -659,6 +659,11 @@ def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
                    minimum tail needed to land the gesture, after which
                    PITD resumes ownership of the remainder of the note.
 
+    `ownership` may also be a per-target-note map {note_index: mode}
+    (Round-B2 lane isolation): each applied lane resolves its own mode
+    and records it in provenance; lanes absent from the map default to
+    "full_note".  String behavior is unchanged.
+
     The carrier then owns that whole span: the returned `owned_spans`
     must have PITD flattened to 0 inside (see flatten_pitd_spans) or the
     residual would be applied twice.
@@ -666,7 +671,16 @@ def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
     Returns (porta_marks {note_index: pitch_dict},
              owned_spans_s [(a,b)], provenance).
     """
-    if ownership not in PORTA_OWNERSHIP:
+    if isinstance(ownership, dict):
+        bad = {k: v for k, v in ownership.items()
+               if v not in PORTA_OWNERSHIP}
+        if bad:
+            raise ValueError(
+                f"ownership map values must be in {PORTA_OWNERSHIP}: {bad}")
+        ownership_map = {int(k): str(v) for k, v in ownership.items()}
+    elif ownership in PORTA_OWNERSHIP:
+        ownership_map = None
+    else:
         raise ValueError(f"ownership must be one of {PORTA_OWNERSHIP}")
     marks, spans, prov = {}, [], {}
     for ev in src_events:
@@ -702,7 +716,9 @@ def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
             continue
         pos_s = tgt["abs_start_s"]
         tone_c = tgt["tone"] * 100.0
-        if ownership == "event":
+        own_i = ownership_map.get(i_t, "full_note") \
+            if ownership_map is not None else ownership
+        if own_i == "event":
             lane_end = min(n_end - 0.005, e + PORTA_SETTLE_S)
         else:
             lane_end = n_end - 0.005
@@ -733,7 +749,7 @@ def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
         b_s = pos_s + pts[-1]["x"] / 1000.0
         spans.append((a_s, b_s))
         prov[i_t] = {**rec, "applied": True, "n_anchors": len(pts),
-                     "ownership": ownership,
+                     "ownership": own_i,
                      "carrier_span_s": [round(a_s, 3), round(b_s, 3)]}
     return marks, spans, prov
 
