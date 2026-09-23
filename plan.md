@@ -478,20 +478,43 @@ Reviewer patches after the latest executor run:
   - render + neutral shared dropout → `shared_voicing_gap` → non-blocking;
 - corresponding regression coverage was added.
 
+Executor run at `c4aab1df` (artifacts `96805d1`), via committed driver
+`tools/l7_phrase_gate.py` on fresh real renders:
+
+- `run_shape_gate` now takes `event_shape_fn` and enforces the absolute
+  event-shape verdict on v2/v3 alongside topology + event-lane QA.
+  The gate is fail-closed: a missing callback cannot produce an accepted
+  candidate (regression-tested in `test_vibrato_r21b.py`).
+- Full pytest: 500 tests pass.
+- **P1_sustain**: v2 topology regression → one bounded rollback → real v3
+  render → **C3v3 accepted**; all required gates PASS, 0 blocking
+  event-shape events. P1 is machine-closed for human listening.
+- **P2_slides**: v2 and v3 both carry blocking `distortion`
+  (note 4: 40 ms/124 c source linear rise rendered stepped with ~155 %
+  overshoot; note 8: 693 c dip-then-leap rendered as a smooth ramp).
+  v1 retained, run **blocked**.
+- **P3_vibrato**: v2 and v3 carry blocking `distortion` at note 9;
+  v1 retained, run **blocked**.
+- Manifests bind generator/QA head `c4aab1df` and current artifact SHA256s.
+
 ### Active blocker
 
-Human listening remains blocked until the latest HEAD proves, on fresh P1/P2/P3 real renders:
+P1 is cleared for L7-E human listening. P2/P3 fail the absolute
+event-shape gate on every candidate produced by the current
+representation:
 
-1. full pytest passes;
-2. topology gate passes;
-3. event-lane gate passes;
-4. **absolute event-shape verdict is wired into final candidate acceptance**, not merely emitted as
-   a JSON report;
-5. `event_shape_metrics.json` has zero blocking events under the corrected voicing logic;
-6. manifests bind the actual generator/QA code heads and current artifact hashes;
-7. all required evidence is present and internally consistent.
+- the portamento lane is protected from closed-loop correction
+  (`LANE_PROTECTED_TYPES`), so the compiled dense PITD is the only carrier
+  for those transitions;
+- the compiled curve does not reproduce the measured stepped/dip-leap
+  trajectories even where residual evidence exists (P2 note 4 window is
+  5/5 transition frames, all resid_consistent).
 
-Only after this machine closure may L7-E human listening begin.
+Failure class: **FAIL_CAPABILITY** — expressible-in-principle gestures are
+lost between measured residual and rendered output; candidate fix is a
+portamento-lane compile pass or Level-3 local gesture support (§6
+ladder), not metric relaxation (§10.4). Adjudication required before
+further attempts on the same blocker (§11.2).
 
 ## 13. Roadmap after L7
 
