@@ -420,8 +420,8 @@ def probe_event(phrase, from_note, ctx, cfg, head):
         report["verdict"] = "EVIDENCE_ADJUDICATED_ARTIFACT"
         report["reasons"] = [
             "fcpe-vs-rmvpe disagreement resolved by third family: pYIN "
-            "is unvoiced on %.1f%% of the disputed frames — the SOURCE "
-            "event is an extraction artifact, not a real gesture"
+            "reports voiced on %.1f%% of the disputed frames — the "
+            "SOURCE event is an extraction artifact, not a real gesture"
             % (100.0 * pyin["disputed_voiced_rate"])]
         return report
     if from_note not in ctx["blocking_set"]:
