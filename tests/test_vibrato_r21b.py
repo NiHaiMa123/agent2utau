@@ -516,7 +516,8 @@ def test_closed_loop_preserves_protected_portamento():
 def test_shape_gate_orchestrator_paths(monkeypatch):
     """The committed gate wiring: v2 pass -> accept; v2 fail -> one
     bounded rollback -> v3 real 'render' -> re-QA -> accept only if
-    non-worse; still failing -> keep v1 and stay blocked."""
+    non-worse; still failing -> retain v1 — blocked only when v1 itself
+    fails a required absolute gate, otherwise a verified fallback."""
     import agent2utau.expression.pitch_residual as PR
     from agent2utau.expression.pitch_residual import (
         run_shape_gate, topology_gate_verdict)
@@ -575,12 +576,15 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
     assert calls["render"] == ["v2", "v3"]
     assert "shape_rollback" in rep
 
-    # path 3: v2 fails, v3 still fails -> keep v1, blocked, no 2nd retry
+    # path 3 (Case A): v1 absolute PASS, v2 fails, v3 still fails ->
+    # retain the VERIFIED v1 as a clean fallback, not a block.
     calls, cand, qa = make_case(_topo(8, 5, 4, 6), _topo(9, 4, 3, 5))
     final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
                                 candidate_fn=cand, qa_fn=qa,
                                 event_shape_fn=es_ok)
-    assert rep["final_candidate"] == "v1" and rep["blocked"]
+    assert rep["final_candidate"] == "v1" and not rep["blocked"]
+    assert rep["fallback_reason"] == \
+        "verified_v1_after_regressive_improvements"
     assert calls["render"] == ["v2", "v3"]
 
     # path 4: topology passes but an event lane regresses -> gate fires
@@ -610,7 +614,8 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
 
     # absolute event-shape gate: a clean-topology candidate carrying a
     # blocking event-shape class must NOT be accepted; rollback renders
-    # v3 once, and a still-blocking v3 keeps v1 and stays blocked.
+    # v3 once, and a still-blocking v3 retains the verified v1 — a clean
+    # fallback now that v1 itself passed the absolute gate.
     es_block = {"v2": {"gate_passed": False, "n_blocking": 1,
                        "events": [{"class": "distortion", "blocking": True,
                                    "from_note": 0}]},
@@ -622,7 +627,9 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
     final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
                                 candidate_fn=cand, qa_fn=qa,
                                 event_shape_fn=lambda s: es_block[s[1]])
-    assert rep["final_candidate"] == "v1" and rep["blocked"]
+    assert rep["final_candidate"] == "v1" and not rep["blocked"]
+    assert rep["fallback_reason"] == \
+        "verified_v1_after_regressive_improvements"
     assert calls["render"] == ["v2", "v3"]
     v2v = rep["stages"][1]["violations"]
     assert any(v.startswith("event_shape_gate:distortion") for v in v2v)
@@ -645,7 +652,10 @@ def test_shape_gate_orchestrator_paths(monkeypatch):
     final, rep = run_shape_gate(p1, p2, src, ("sig", "v1"), [note], 0,
                                 candidate_fn=cand, qa_fn=qa,
                                 event_shape_fn=lambda s: es_bad_v1[s[1]])
+    # Case B: v1 itself fails a required absolute gate -> retention is
+    # not acceptance; stay blocked with no fallback acceptance reason.
     assert rep["final_candidate"] == "v1" and rep["blocked"]
+    assert "fallback_reason" not in rep
     assert rep["stages"][0]["relative_baseline"]
     assert not rep["stages"][0]["gate_passed"]
     assert any(v.startswith("event_shape_gate:distortion")

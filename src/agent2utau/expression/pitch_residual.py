@@ -1070,8 +1070,12 @@ def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
 
     v2 PASS -> accept v2.  v2 FAIL -> shape_rollback -> real render v3
     -> re-QA -> accept v3 only if the four-term gate is non-worse vs v1
-    AND the absolute event-shape verdict is clean; otherwise keep v1 and
-    mark blocked.  At most `max_rollbacks` rollbacks are attempted; a
+    AND the absolute event-shape verdict is clean; otherwise keep v1.
+    Retained v1 is only blocked when v1 itself fails a required absolute
+    gate — a verified v1 kept after two regressive optional improvements
+    is `blocked=false` with
+    `fallback_reason="verified_v1_after_regressive_improvements"`.
+    At most `max_rollbacks` rollbacks are attempted; a
     still-failing candidate is never iterated further.
 
     Returns (final_curve, report) where report carries per-stage topology,
@@ -1141,11 +1145,18 @@ def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
         # Rollback cannot remediate a gate whose evidence was never
         # collected; a missing required gate stays blocked (fail-closed).
         report["final_candidate"] = "v1"
-        report["blocked"] = True
-        report["block_reason"] = (
-            "event-shape gate not run (fail-closed)"
-            if event_shape_fn is None
-            else "shape gate violated; rollbacks disabled")
+        if event_shape_fn is None:
+            report["blocked"] = True
+            report["block_reason"] = \
+                "event-shape gate not run (fail-closed)"
+        elif es1["gate_passed"]:
+            report["blocked"] = False
+            report["fallback_reason"] = \
+                "verified_v1_after_regressive_improvements"
+        else:
+            report["blocked"] = True
+            report["block_reason"] = \
+                "shape gate violated; rollbacks disabled"
         return pitd_v1, report
 
     # v2 violated the gate -> bounded local rollback, at most once.
@@ -1172,12 +1183,19 @@ def run_shape_gate(pitd_v1, pitd_v2, src_sig, render_v1_sig, notes,
         report["blocked"] = False
         return curve_v3, report
 
-    # Rollback exhausted: keep the verified first render and stay blocked —
-    # never iterate further just to chase the metric.
+    # Rollback exhausted: retain v1 — never iterate further just to
+    # chase the metric.  Retention is only a failure when v1 itself
+    # fails a required absolute gate; a verified v1 kept after two
+    # regressive optional improvements is a clean fallback.
     report["final_candidate"] = "v1"
-    report["blocked"] = True
-    report["block_reason"] = "shape gate still violated after %d rollback" % (
-        max_rollbacks)
+    if es1["gate_passed"]:
+        report["blocked"] = False
+        report["fallback_reason"] = \
+            "verified_v1_after_regressive_improvements"
+    else:
+        report["blocked"] = True
+        report["block_reason"] = (
+            "shape gate still violated after %d rollback" % max_rollbacks)
     return pitd_v1, report
 
 

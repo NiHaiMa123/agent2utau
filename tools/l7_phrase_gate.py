@@ -539,6 +539,8 @@ def run_phrase(phrase, cfg, base_doc, caches, head,
         "shape_gate": {
             "final_candidate": variant,
             "blocked": gate["blocked"],
+            "fallback_reason": gate.get("fallback_reason"),
+            "block_reason": gate.get("block_reason"),
             "stages": [{"candidate": s["candidate"],
                         "gate_passed": s["gate_passed"],
                         "violations": s["violations"],
