@@ -532,6 +532,18 @@ def main():
                     encoding="utf-8")
     print("wrote", out5)
 
+    # ---------- J5 comparison: agent written/render vs A/B/C -------
+    cmp_rows = j5_compare(j5_layers, t2s, wave_off, ms_tick)
+    out5c = OUT / "j5_compare.json"
+    out5c.write_text(json.dumps(
+        {"evaluated_head": head,
+         "note": ("columns: src=+4 source F0, hum_w=human written "
+                  "controls, hum_r=human render, ag_w=agent written, "
+                  "ag_r=agent render; all on the jay-audio axis"),
+         "phrases": cmp_rows}, indent=1, ensure_ascii=False),
+        encoding="utf-8")
+    print("wrote", out5c)
+
 
 def crop_phrase_ustx(doc, part_index, a_s, b_s, wave_off, ms_tick,
                      singer):
@@ -1046,6 +1058,75 @@ def j5_agent_layer(doc, picked, t2s, wave_off, ms_tick, head):
         print(f"     agent render done: {cand_wav.name}",
               flush=True)
     return layers
+
+
+def j5_compare(j5_layers, t2s, wave_off, ms_tick):
+    """Per-note comparison of agent written/render layers, aligned to
+    the committed J3 table (source + human written/render)."""
+    j3 = json.loads((OUT / "j3_gap.json").read_text(
+        encoding="utf-8"))
+    j3_by_class = {p["class"]: p for p in j3["phrases"]}
+    out = []
+    for lay in j5_layers:
+        if "agent_ustx" not in lay:
+            continue
+        adoc = load_ustx(lay["agent_ustx"])
+        apart = adoc["voice_parts"][0]
+        # same written-layer metrics on the agent part (same tempo
+        # map; note_table's audio-axis conversion applies verbatim)
+        arows = note_table(apart, t2s, wave_off, ms_tick)
+        af0 = None
+        afp = Path(lay["agent_ustx"]).parent / "agent_render_f0.json"
+        if afp.exists():
+            rd = json.loads(afp.read_text(encoding="utf-8"))
+            af0 = (np.array(rd["times"]), np.array(rd["f0_hz"]),
+                   np.array(rd["voiced"], dtype=bool))
+        j3ph = j3_by_class.get(lay["class"], {})
+        j3ev = j3ph.get("events", [])
+        evs = []
+        for r in arows:
+            a0, b0 = r["a"], r["b"]   # already on the audio axis
+            m3 = min(j3ev, key=lambda e:
+                     abs(e["audio_span_s"][0] - a0)) if j3ev else None
+            ren = {"rng_c": None, "onset_med_c": None, "vib": None}
+            if af0 is not None:
+                rt, rh, rv = af0
+                rm_ = _midi(rh)
+                sel = rv & (rt >= a0 + 0.02) & (rt <= b0 - 0.02)
+                rc = rm_[sel] * 100 - r["tone"] * 100.0
+                if rc.size > 8:
+                    ren["rng_c"] = round(float(np.percentile(rc, 95)
+                                             - np.percentile(rc, 5)),
+                                         1)
+                    ro = rc[(rt[sel] - a0) < 0.15]
+                    if ro.size >= 3:
+                        ren["onset_med_c"] = round(
+                            float(np.median(ro)), 1)
+                    if rc.size > 30:
+                        rr = _osc_hz(rc / 100.0, 0.01)
+                        ren["vib"] = (round(rr[0], 2), round(rr[1], 1))
+            evs.append({
+                "audio_span_s": [round(a0, 2), round(b0, 2)],
+                "tone": r["tone"], "lyric": r["lyric"],
+                "src": (m3 or {}).get("source"),
+                "hum_w": (m3 or {}).get("written"),
+                "hum_r": (m3 or {}).get("render"),
+                "ag_w": {"pitd_rng_c": round(r["pitd_rng"], 1),
+                         "pitd_rev": r["pitd_rev"],
+                         "onset_rng_c":
+                             round(r["pitd_onset_rng"], 1),
+                         "portamento_y0": r["portamento_y0"],
+                         "native_vibrato": r["vibrato"]},
+                "ag_r": ren})
+        out.append({"class": lay["class"],
+                    "audio_span_s": lay["audio_span_s"],
+                    "events": evs,
+                    "compile": {"src_events": lay["src_events"],
+                                "neu_events": lay["neu_events"],
+                                "pitch_matched": lay["pitch_matched"],
+                                "porta_marks": lay["porta_marks"],
+                                "vib_marks": lay["vib_marks"]}})
+    return out
 
 
 if __name__ == "__main__":
