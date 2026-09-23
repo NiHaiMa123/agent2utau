@@ -1,0 +1,118 @@
+{
+ "phase": "J2 layers A/B/C",
+ "evaluated_head": "ec6c1417d6c56f241f714ddd3ce4ccd1812d74a0",
+ "worktree_clean_at_generation": true,
+ "normalization": "pitch comparisons in relative cents to written tone; +4 transposition removed by comparing motion, not absolute Hz",
+ "source_extraction": {
+  "fcpe": "torchfcpe on Kim_Vocal_2 separated stem",
+  "acf": "independent ACF track, 180Hz highpass, 150-600Hz lag band — second evidence family",
+  "caveat": "stems retain stable instrumental periodicity (~50-56 midi pedals); frames where the two families disagree are unreliable — recorded per-phrase"
+ },
+ "phrases": [
+  {
+   "class": "vibrato",
+   "part": 0,
+   "audio_span_s": [
+    27.11,
+    32.71
+   ],
+   "note_ids": [
+    1,
+    10
+   ],
+   "lyrics": "jingzhilesuoyoudehuakai",
+   "source_reliable": 1.0,
+   "slice_ustx": "runs\\huahai_benchmark\\j2_0_vibrato\\j2_0_vibrato.ustx",
+   "slice_ustx_sha256": "abafa69575f75fd86eb09a1defb5bc7e3147623f3f26f782b9aa9b74598e1735",
+   "human_render_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j2_0_vibrato\\j2_0_vibrato_main.wav",
+   "human_render_sha256": "0dfc485b60c6f15638ff613714e3f05122fa540f093334697537538d0728a5e2",
+   "render_ok": true,
+   "render_error": null,
+   "render_f0": "runs\\huahai_benchmark\\j2_0_vibrato\\render_f0.json"
+  },
+  {
+   "class": "portamento_or_scoop",
+   "part": 0,
+   "audio_span_s": [
+    33.51,
+    38.71
+   ],
+   "note_ids": [
+    13,
+    23
+   ],
+   "lyrics": "yaoyuanleqingxileGSai",
+   "source_reliable": 0.98,
+   "slice_ustx": "runs\\huahai_benchmark\\j2_1_portamento_or_scoop\\j2_1_portamento_or_scoop.ustx",
+   "slice_ustx_sha256": "0671d3b42818e685d0ec9cc1093335d9f175ba8faf8de6fe2959a469906b90c7",
+   "human_render_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j2_1_portamento_or_scoop\\j2_1_portamento_or_scoop_main.wav",
+   "human_render_sha256": "7a5cff535c89e738857854c7b7123695613bed0c5f3c1d8ae831bb42a4989f5b",
+   "render_ok": true,
+   "render_error": null,
+   "render_f0": "runs\\huahai_benchmark\\j2_1_portamento_or_scoop\\render_f0.json"
+  },
+  {
+   "class": "onset_over_undershoot",
+   "part": 0,
+   "audio_span_s": [
+    69.91,
+    74.71
+   ],
+   "note_ids": [
+    83,
+    94
+   ],
+   "lyrics": "kongbaiy eshiniliudelei",
+   "source_reliable": 0.976,
+   "slice_ustx": "runs\\huahai_benchmark\\j2_2_onset_over_undershoot\\j2_2_onset_over_undershoot.ustx",
+   "slice_ustx_sha256": "3cfc64c987098a19a1af57633300c64a23dd47d5a19b5820ad13d4d3359854b1",
+   "human_render_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j2_2_onset_over_undershoot\\j2_2_onset_over_undershoot_main.wav",
+   "human_render_sha256": "14c5a246865900dff665c6a03494f6666c0a5805b8dbc02a83855c36718d8f3f",
+   "render_ok": true,
+   "render_error": null,
+   "render_f0": "runs\\huahai_benchmark\\j2_2_onset_over_undershoot\\render_f0.json"
+  },
+  {
+   "class": "ornament",
+   "part": 1,
+   "audio_span_s": [
+    167.76,
+    172.31
+   ],
+   "note_ids": [
+    22,
+    31
+   ],
+   "lyrics": "ncaisedeshijianranshang",
+   "source_reliable": 0.964,
+   "slice_ustx": "runs\\huahai_benchmark\\j2_3_ornament\\j2_3_ornament.ustx",
+   "slice_ustx_sha256": "1df533c5b4b829bf359da37571563f405e8174a5efe21ab8aa406247c874c0dd",
+   "human_render_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j2_3_ornament\\j2_3_ornament_main.wav",
+   "human_render_sha256": "80f56bb6d4b45ff00332d9f2700f768c67dbd3826b7099ea8e6ffbf524f3c267",
+   "render_ok": true,
+   "render_error": null,
+   "render_f0": "runs\\huahai_benchmark\\j2_3_ornament\\render_f0.json"
+  },
+  {
+   "class": "sustained",
+   "part": 0,
+   "audio_span_s": [
+    52.71,
+    58.21
+   ],
+   "note_ids": [
+    52,
+    60
+   ],
+   "lyrics": "nixihuanzhanzainachuangt",
+   "source_reliable": 0.952,
+   "slice_ustx": "runs\\huahai_benchmark\\j2_4_sustained\\j2_4_sustained.ustx",
+   "slice_ustx_sha256": "79c048f857f393e8af3c814717e3c92d66e6e6a104c8552a5ba3131a54991ed7",
+   "human_render_wav": "E:\\project\\agent2utau\\runs\\huahai_benchmark\\j2_4_sustained\\j2_4_sustained_main.wav",
+   "human_render_sha256": "52b25048facda93793e644308053ea10726c7b638b2433a031e6221db4027b6e",
+   "render_ok": true,
+   "render_error": null,
+   "render_f0": "runs\\huahai_benchmark\\j2_4_sustained\\render_f0.json"
+  }
+ ]
+}
