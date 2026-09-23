@@ -1635,3 +1635,17 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   all gates pass.  The earlier all-full conclusion was wrong BECAUSE
   the greedy hybrid never tested lane5-alone.
 - Round C remains reviewer-locked.
+
+## L7 Round C — production regeneration (@0e95f40, artifacts d4d8fbc)
+
+- `l7_phrase_gate` default `--porta-ownership=accepted` resolves to the
+  reviewer-frozen presets: P1=event, P2={2:full,5:event,7:full} (FEF),
+  P3=event; manifest records requested/resolved + per-lane ownership.
+- P2_slides: arbitration UNBLOCKED — final=C3v2, all stages
+  gate_passed, blocked=false; note8 scored on Round-A core.
+- P3_vibrato: absolute event-shape gate now non-blocking on BOTH
+  families (note9 = source_edge_uncertain on core [29.25,29.415]) but
+  production arbitration still ends blocked=true at C3/v1 — v2/v3
+  regress turning-point topology vs v1 (matched/missing/extra_turns).
+  Recorded as honest FAIL evidence; no compiler/threshold changes.
+- P1 untouched.  Round D final acceptance remains reviewer-locked.
