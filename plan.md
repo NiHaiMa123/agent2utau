@@ -848,66 +848,162 @@ Reviewer production wiring:
   - P3_vibrato = `event`.
   Existing explicit experimental `full_note/event` CLI modes remain available.
 
-#### Round C — ACTIVE: production regeneration only
+#### Round C — COMPLETE: P2 accepted, P3 exposes fallback-arbitration defect
 
-Purpose: regenerate the affected production phrase artifacts under the now-frozen
-evidence/ownership policy.  Do **not** perform final acceptance in this round.
+Reviewer accepts executor bundle `d4d8fbc0 → 9066e755` as a valid Round-C result.
 
-Affected phrases:
-- **P2_slides** — production ownership changes from global `full_note` to reviewed FEF hybrid;
-- **P3_vibrato** — existing production manifest is still
-  `shape_gate.blocked=true` and predates final Round-A reliable-core production closure.
+### P2_slides — production closure PASS
 
-P1_sustain is **not** regenerated in Round C:
-- its current clean manifest has `shape_gate.blocked=false`;
-- its reviewed ownership remains `event`;
-- it is unaffected by the P2 hybrid or P3 edge-core change.
+Fresh clean-head production regeneration under reviewer-approved ownership:
 
-From the latest committed clean HEAD:
+```text
+requested ownership = accepted
+resolved ownership  = {2: full_note, 5: event, 7: full_note}
+final candidate     = C3v2
+shape_gate.blocked  = false
+```
 
-1. run focused production/QA tests needed by the modified ownership resolver and reliable-core path;
-2. run production phrase generation for **P2_slides and P3_vibrato only** using the default
-   reviewer-approved `--porta-ownership=accepted` path;
-3. each manifest must record:
-   - requested ownership = `accepted`;
-   - resolved ownership:
-     - P2 = `{2:"full_note",5:"event",7:"full_note"}`;
-     - P3 = `event`;
-   - per-lane resolved ownership in portamento provenance;
-   - clean-worktree generation proof;
-   - source-edge evidence path/hash where applicable;
-   - candidate USTX/WAV hashes;
-   - generator/QA code heads;
-4. production arbitration must finish with:
-   - `shape_gate.blocked=false`;
-   - final accepted stage explicitly `gate_passed=true`;
-   - absolute event-shape gate non-blocking on the committed reliable-core semantics;
-5. commit only regenerated P2/P3 production artifacts + manifests/QA/notes;
-6. **STOP**.
+Evidence:
+- v1 PASS;
+- v2 PASS and selected;
+- FCPE/RMVPE absolute event-shape blockers = 0;
+- Round-A P2 reliable-core evidence is bound;
+- per-lane FEF ownership is recorded in provenance;
+- generator/QA head = clean `0e95f40d`.
 
-If either P2 or P3 remains production-blocked, Round C still completes with that
-FAIL evidence.  Do not modify compiler logic, thresholds, edge evidence or final evaluator
-inside this round.
+P2 is CLOSED for this L7 cycle unless a later read-only acceptance check finds an independent
+artifact/provenance inconsistency.
 
-**Forbidden in Round C:**
-- do not regenerate P1;
+### P3_vibrato — expression/evidence issue resolved; arbitration semantics still wrong
+
+Fresh production regeneration under:
+
+```text
+requested ownership = accepted
+resolved ownership  = event
+```
+
+now shows:
+
+```text
+v1:
+  absolute event-shape = PASS
+  violations           = []
+  gate_passed          = true
+
+v2:
+  absolute event-shape = PASS
+  topology regression  = matched_turns / missing_turns / extra_turns
+
+v3:
+  absolute event-shape = PASS
+  topology regression  = matched_turns / missing_turns
+```
+
+The previous P3 note9 blocker is resolved correctly:
+- note9 = `source_edge_uncertain`;
+- reliable core = `[29.250, 29.415]`;
+- raw window remains auditable;
+- FCPE/RMVPE event-shape families are non-blocking.
+
+The remaining `shape_gate.blocked=true` is therefore **not evidence that v1 is bad**.
+It is caused by the current arbiter contract in `run_shape_gate`:
+
+```text
+v2 FAIL
+→ try bounded rollback v3
+→ v3 FAIL
+→ retain v1
+→ unconditionally blocked = true
+```
+
+That rule was necessary when v1 itself failed the required absolute event-shape gate.
+It is too strict once v1 is a verified clean baseline.
+
+A closed-loop correction is optional. If both correction attempts regress relative topology,
+the safe behavior is to retain a v1 that already satisfies all required absolute gates.
+
+#### Round C2 — ACTIVE: fallback-arbitration semantics only
+
+Purpose: distinguish a failed fallback from a verified v1 retained after regressive optional improvements.
+This round is **not** a new expression-tuning round.
+
+### Required code change
+
+Update `run_shape_gate` fail-closed semantics:
+
+1. v1 remains evaluated exactly as today.
+2. v1 is eligible as a successful fallback only when every required absolute v1 gate is PASS.
+   At minimum in the current architecture:
+   - `event_shape_fn` was executed;
+   - `event_shape.gate_passed=true`;
+   - no v1 absolute blocking issue exists.
+3. v2/v3 continue to require the existing relative topology/event-lane non-regression gates plus
+   absolute event-shape PASS.
+4. If v2 and v3 both fail only as attempted improvements, but v1 is eligible:
+   - `final_candidate = v1`;
+   - `blocked = false`;
+   - report an explicit state such as
+     `fallback_reason = "verified_v1_after_regressive_improvements"`.
+5. If v1 itself fails a required absolute gate, existing fail-closed behavior remains:
+   - retaining v1 is not acceptance;
+   - `blocked = true`.
+6. Missing required evidence / NOT_RUN must never become an accepted v1 fallback.
+
+### Required regression tests
+
+Add focused tests proving both branches:
+
+```text
+Case A
+v1 absolute PASS
+v2 topology FAIL
+v3 topology FAIL
+→ final=v1, blocked=false
+
+Case B
+v1 absolute FAIL
+v2 FAIL
+v3 FAIL
+→ final=v1, blocked=true
+```
+
+Also retain a PASS case where v2 or v3 legitimately wins.
+
+### Required P3 rerun
+
+After the code/tests are committed, from a clean HEAD:
+
+1. rerun **P3_vibrato only** through production;
+2. do not alter curves, ownership, thresholds, edge evidence or topology metrics;
+3. expected result if current measurements reproduce:
+
+```text
+final candidate    = C3 / v1
+shape_gate.blocked = false
+fallback_reason    = verified_v1_after_regressive_improvements
+```
+
+4. manifest must retain:
+   - v1 PASS;
+   - v2/v3 topology violations;
+   - P3 Round-A edge-evidence hash;
+   - accepted ownership = event;
+   - clean generation head;
+   - candidate USTX/WAV hashes.
+5. commit focused code/tests + P3 regenerated evidence;
+6. STOP.
+
+If v1 itself becomes non-PASS on the clean rerun, do not force fallback acceptance; keep P3 blocked
+and report the new evidence.
+
+**Forbidden in Round C2:**
+- do not change closed-loop curve generation;
+- do not change topology/event-shape thresholds;
 - do not reopen Round A/B/B2;
-- do not alter accepted ownership;
-- do not run or modify `l7_acceptance_eval.py`;
+- do not change P2;
+- do not run or modify final acceptance;
 - do not start Round D.
-
-
-
-Unlock only after reviewer accepts Round B.
-
-Then:
-- regenerate only affected phrase candidates with the accepted ownership/evidence policy;
-- require clean-worktree provenance;
-- require production `shape_gate.blocked=false` for any candidate proposed for listening;
-- bind hashes/manifests/QA;
-- do not run final acceptance;
-- **STOP**.
-
 #### Round D — LOCKED: final machine acceptance
 
 Unlock only after reviewer accepts Round C.
