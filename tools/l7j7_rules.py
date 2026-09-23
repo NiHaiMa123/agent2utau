@@ -302,7 +302,7 @@ def main():
     tempos = doc.get("tempos") or [{"bpm": 75}]
     ms_tick = 60000.0 / (tempos[0]["bpm"] * 480.0)
     picked = json.loads((hb.OUT / "j1_phrases.json")
-                        .read_text(encoding="utf-8"))["phrases"]
+                        .read_text(encoding="utf-8"))["selected"]
     f0s = _load_src()
     base_doc = copy.deepcopy(doc)
     for tr in base_doc["tracks"]:
