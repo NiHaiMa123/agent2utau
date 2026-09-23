@@ -18,6 +18,15 @@
     25.59,
     25.74
    ],
+   "raw_window_s": [
+    25.59,
+    25.74
+   ],
+   "reliable_core_s": null,
+   "edge_uncertain_side": null,
+   "trimmed_start_ms": 0.0,
+   "trimmed_end_ms": 0.0,
+   "raw_cn_rmse_clean": null,
    "overlay_src": [
     0.0,
     0.033,
@@ -142,6 +151,15 @@
     26.22,
     26.55
    ],
+   "raw_window_s": [
+    26.22,
+    26.55
+   ],
+   "reliable_core_s": null,
+   "edge_uncertain_side": null,
+   "trimmed_start_ms": 0.0,
+   "trimmed_end_ms": 0.0,
+   "raw_cn_rmse_clean": null,
    "overlay_src": [
     0.0,
     -0.158,
@@ -266,6 +284,15 @@
     27.35,
     27.81
    ],
+   "raw_window_s": [
+    27.35,
+    27.81
+   ],
+   "reliable_core_s": null,
+   "edge_uncertain_side": null,
+   "trimmed_start_ms": 0.0,
+   "trimmed_end_ms": 0.0,
+   "raw_cn_rmse_clean": null,
    "overlay_src": [
     0.0,
     0.103,
@@ -390,6 +417,15 @@
     28.98,
     29.15
    ],
+   "raw_window_s": [
+    28.98,
+    29.15
+   ],
+   "reliable_core_s": null,
+   "edge_uncertain_side": null,
+   "trimmed_start_ms": 0.0,
+   "trimmed_end_ms": 0.0,
+   "raw_cn_rmse_clean": null,
    "overlay_src": [
     0.0,
     -0.009,
@@ -514,6 +550,15 @@
     29.25,
     29.3
    ],
+   "raw_window_s": [
+    29.25,
+    29.3
+   ],
+   "reliable_core_s": null,
+   "edge_uncertain_side": null,
+   "trimmed_start_ms": 0.0,
+   "trimmed_end_ms": 0.0,
+   "raw_cn_rmse_clean": null,
    "overlay_src": [
     -0.0,
     0.027,
@@ -624,9 +669,9 @@
  "n_events": 5,
  "n_blocking": 0,
  "by_class": {
-  "label_mismatch": 2,
   "source_irregular": 2,
-  "match": 1
+  "match": 1,
+  "label_mismatch": 2
  },
  "gate_passed": true
 }

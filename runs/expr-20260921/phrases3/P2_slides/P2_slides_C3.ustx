@@ -741,30 +741,6 @@ voice_parts:
       - x: 69.8
         y: 4.97
         shape: io
-      - x: 89.8
-        y: 3.45
-        shape: io
-      - x: 109.8
-        y: 2.77
-        shape: io
-      - x: 129.8
-        y: 3.01
-        shape: io
-      - x: 149.8
-        y: 2.12
-        shape: io
-      - x: 169.8
-        y: -3.39
-        shape: io
-      - x: 209.8
-        y: 2.79
-        shape: io
-      - x: 269.8
-        y: 3.46
-        shape: io
-      - x: 289.8
-        y: 2.8
-        shape: io
       snap_first: false
     vibrato:
       length: 0
@@ -1218,8 +1194,10 @@ voice_parts:
     - 2119
     - 2121
     - 2131
-    - 2457
-    - 2469
+    - 2246
+    - 2258
+    - 2275
+    - 2304
     - 2486
     - 2524
     - 2561
@@ -1315,7 +1293,9 @@ voice_parts:
     - 24
     - 0
     - 0
-    - 31
+    - 39
+    - 30
+    - 45
     - 30
     - -13
     - -16

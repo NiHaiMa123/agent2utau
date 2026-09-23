@@ -1,10 +1,18 @@
 {
  "variant": "C3",
- "generator_code_head": "8a1b818f9a3f33e8040ca966daebb77606a11c75",
- "qa_code_head": "8a1b818f9a3f33e8040ca966daebb77606a11c75",
+ "generator_code_head": "0e95f40d0e5ddc4a3335a47b2988400e0556561e",
+ "qa_code_head": "0e95f40d0e5ddc4a3335a47b2988400e0556561e",
  "worktree_clean_at_generation": true,
  "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
  "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
+ "source_edge_evidence": {
+  "path": "runs\\expr-20260921\\probe_portamento\\P3_vibrato_probe_report.json",
+  "sha256": "e1daca2a5a7d9b7a198092c16afb35cd12a70f021b4300938143212617f1dd2a",
+  "probe_generator_code_head": "bba542eb10501c4eba902baf92d2586e5622d5a5",
+  "edge_events": [
+   9
+  ]
+ },
  "candidate_ustx_sha256": "a61af2acd58cfbadb952ee4ea5ffb92f7663318690bfe44fa3507c0cf1c3c37b",
  "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3.ustx",
  "render_wav_sha256": "e16455f87d88fca3c6a75688ace5803070e53ef885aa0fbda6d813d77e26f3f9",
@@ -15,13 +23,11 @@
   "stages": [
    {
     "candidate": "v1",
-    "gate_passed": false,
-    "violations": [
-     "event_shape_gate:distortion@note9"
-    ],
+    "gate_passed": true,
+    "violations": [],
     "event_shape": {
-     "status": "fail",
-     "n_blocking": 1
+     "status": "pass",
+     "n_blocking": 0
     }
    },
    {
@@ -30,12 +36,11 @@
     "violations": [
      "matched_turns",
      "missing_turns",
-     "extra_turns",
-     "event_shape_gate:distortion@note9"
+     "extra_turns"
     ],
     "event_shape": {
-     "status": "fail",
-     "n_blocking": 1
+     "status": "pass",
+     "n_blocking": 0
     }
    },
    {
@@ -43,12 +48,11 @@
     "gate_passed": false,
     "violations": [
      "matched_turns",
-     "missing_turns",
-     "event_shape_gate:distortion@note9"
+     "missing_turns"
     ],
     "event_shape": {
-     "status": "fail",
-     "n_blocking": 1
+     "status": "pass",
+     "n_blocking": 0
     }
    }
   ]
@@ -72,6 +76,7 @@
   "closed_loop_max_err_c": 10,
   "closed_loop_guard_s": 0.15,
   "closed_loop_iterations": 1,
+  "portamento_lane_ownership_requested": "accepted",
   "portamento_lane_ownership": "event",
   "portamento_lane": {
    "2": {

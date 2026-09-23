@@ -1,12 +1,12 @@
 {
- "matched_turns": 43,
- "missing_turns": 19,
- "extra_turns": 1,
+ "matched_turns": 44,
+ "missing_turns": 18,
+ "extra_turns": 0,
  "source_turns": 62,
  "render_turns": 44,
  "turn_timing_err_ms_med": 0.0,
- "turn_amplitude_err_c_med": 15.5,
- "turn_prominence_err_c_med": 19.1,
+ "turn_amplitude_err_c_med": 3.7,
+ "turn_prominence_err_c_med": 5.2,
  "sequence_edit_distance": 18,
  "missing_turn_details": [
   {
@@ -46,16 +46,16 @@
    "prominence_c": 29.0
   },
   {
+   "frame_idx": 130,
+   "kind": "trough",
+   "value_c": 6188.3,
+   "prominence_c": 16.8
+  },
+  {
    "frame_idx": 152,
    "kind": "peak",
    "value_c": 6297.1,
    "prominence_c": 51.0
-  },
-  {
-   "frame_idx": 217,
-   "kind": "trough",
-   "value_c": 6627.7,
-   "prominence_c": 128.1
   },
   {
    "frame_idx": 220,
@@ -112,26 +112,13 @@
    "prominence_c": 20.8
   },
   {
-   "frame_idx": 437,
-   "kind": "trough",
-   "value_c": 6584.5,
-   "prominence_c": 98.6
-  },
-  {
    "frame_idx": 455,
    "kind": "peak",
    "value_c": 6864.0,
    "prominence_c": 238.0
   }
  ],
- "extra_turn_details": [
-  {
-   "frame_idx": 442,
-   "kind": "peak",
-   "value_c": 6624.1,
-   "prominence_c": 25.1
-  }
- ],
+ "extra_turn_details": [],
  "edge_uncertain_turn_details": {
   "source": [
    {
@@ -146,12 +133,12 @@
    {
     "frame_idx": 259,
     "kind": "trough",
-    "value_c": 5869.4,
-    "prominence_c": 29.8,
+    "value_c": 5875.8,
+    "prominence_c": 23.0,
     "reason": "insufficient_two_sided_evidence"
    }
   ]
  },
- "valid_frames": 423,
- "coverage": 0.892
+ "valid_frames": 425,
+ "coverage": 0.897
 }
