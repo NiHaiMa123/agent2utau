@@ -709,15 +709,41 @@ extractor families, not only aggregate counts / FCPE names.
 
 #### Round A — ACTIVE: evidence adjudication only
 
+Reviewer result on executor bundle `b5005a6 → 77bdcd9 → 131df36`:
+- **task discipline PASS**: executor stayed inside Round A and STOPped; it did not enter ownership,
+  production regeneration or final acceptance;
+- **evidence implementation improved**: direct waveform RMS / ACF / harmonic measurements are useful
+  and clean-head provenance is valid;
+- **artifact adjudication NOT ACCEPTED yet**: `non_phonated_remnant` was allowed to PASS from
+  absolute energy collapse + absolute h2+ collapse even when the disputed span still contained
+  positive periodic evidence.
+
+Concrete contradiction in the committed artifacts:
+- P2 note8: 4 reliable ACF frames; measured median ≈257.9 Hz, matching FCPE's ≈257.1 Hz claim.
+  This may be a quiet/release periodic tail; energy loss alone cannot prove it is non-phonated.
+- P3 note9: 5/9 frames have ACF >=0.5 and the disputed `h2+/h1` ratio is not collapsed relative
+  to its voiced reference.  Calling this "no comb / no sung-pitch source" is therefore too strong.
+
+Reviewer patches:
+- `06ee92ff`: waveform classification now evaluates positive periodic evidence before artifact
+  classification; absolute h2+ dBFS loss is not sufficient by itself;
+- `e6ff44c7`: regression coverage now requires a low-energy but periodic voiced release to remain
+  voiced, and a periodic single-bin decay to stay inconclusive rather than being automatically
+  called artifact.
+
+The `77bdcd9` P2-note8/P3-note9
+`EVIDENCE_ADJUDICATED_ARTIFACT` verdicts are therefore **STALE**.
+Round B remains LOCKED.
+
 Scope is **only**:
 - P2 note8;
 - P3 note9.
 
 From the latest committed clean HEAD:
 
-1. run only the tests needed to validate the evidence/adjudication code touched in this round
-   (full pytest is not required yet unless those tests expose a broader regression);
-2. rerun the two target evidence probes under the corrected rule;
+1. from the latest committed clean HEAD, run the focused evidence/adjudication tests including
+   `test_voicing_evidence.py`;
+2. rerun the two target evidence probes under the corrected conservative waveform rule;
 3. collect **positive** evidence where possible:
    - a reliable third-F0 contour that supports FCPE or RMVPE;
    - waveform periodicity / harmonic / subharmonic evidence that positively identifies voiced F0;
@@ -728,6 +754,10 @@ From the latest committed clean HEAD:
    - `EVIDENCE_ADJUDICATED_ARTIFACT` **only with explicit positive counter-evidence**;
    - `FAIL_EVIDENCE` / UNKNOWN when evidence remains insufficient;
 5. commit the probe/evidence artifacts and any narrowly-required evidence-analysis code.
+
+For this rerun, **do not force an artifact decision**.  If the new classifier returns
+`inconclusive`, the correct project verdict is `FAIL_EVIDENCE / UNKNOWN`.  A periodic low-energy
+tail requires additional discriminating evidence before it may be excluded from the SOURCE target.
 
 **Round A STOP condition:** both events have a committed verdict/evidence packet, even if one or
 both remain UNKNOWN.
