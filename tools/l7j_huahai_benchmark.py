@@ -491,6 +491,15 @@ def main():
                     encoding="utf-8")
     print("wrote", out2)
 
+    # ---------- Phase J3: representation-gap analysis ----------
+    print("J3: representation-gap analysis ...", flush=True)
+    j3 = j3_gap_analysis(doc, picked, t2s, wave_off, ms_tick, f0, acf,
+                         w, sr, layers, head)
+    out3 = OUT / "j3_gap.json"
+    out3.write_text(json.dumps(j3, indent=1, ensure_ascii=False),
+                    encoding="utf-8")
+    print("wrote", out3)
+
 
 def crop_phrase_ustx(doc, part_index, a_s, b_s, wave_off, ms_tick,
                      singer):
@@ -591,6 +600,165 @@ def j2_layers(doc, picked, t2s, wave_off, ms_tick, f0, acf, w, sr,
         print(f"  {ph['class']:24s} render_ok={layer['render_ok']}",
               flush=True)
     return layers
+
+
+def j3_gap_analysis(doc, picked, t2s, wave_off, ms_tick, f0, acf,
+                    w, sr, layers, head):
+    """Per-note representation-gap table + normalized overlay data.
+
+    Coordinates: audio seconds for SOURCE; render wav t=0 == phrase a.
+    Relative cents = f0_midi - tone*100 for written/render layers, and
+    f0_midi - (tone-4)*100 for SOURCE (+4 normalized out)."""
+    tt, hz, vv = f0["times"], f0["f0_hz"], f0["voiced"]
+    mm = _midi(hz)
+    rms = np.array([np.sqrt(np.mean(
+        w[int(x * sr):int(x * sr) + 160] ** 2)) for x in tt])
+    gate = vv & (rms > 0.008)
+    acf_t = np.array([x[0] for x in acf]) if acf else np.array([])
+    acf_m = np.array([x[1] for x in acf]) if acf else np.array([])
+    acf_c = np.array([x[2] for x in acf]) if acf else np.array([])
+    phrases = []
+    for k, ph in enumerate(picked):
+        part = doc["voice_parts"][ph["part"]]
+        xs, ys = _pitd_for(part)
+        layer = layers[k]
+        rf0 = None
+        rfp = Path(layer["render_f0"])
+        if rfp.exists():
+            rd = json.loads(rfp.read_text(encoding="utf-8"))
+            rf0 = (np.array(rd["times"]), np.array(rd["f0_hz"]),
+                   np.array(rd["voiced"], dtype=bool))
+        rows = note_table(part, t2s, wave_off, ms_tick)
+        rows = [r for r in rows if r["b"] > ph["a"]
+                and r["a"] < ph["b"]]
+        events = []
+        for r in rows:
+            a0, b0 = r["a"], r["b"]
+            exp_src = (r["tone"] - 4) * 100.0
+            m = (tt >= a0 + 0.02) & (tt <= b0 - 0.02) & gate
+            n_fc = int(m.sum())
+            # reliable = fcpe voiced AND acf agrees within 1st
+            rel_idx = []
+            if n_fc and acf_t.size:
+                for ii in np.where(m)[0]:
+                    j = np.searchsorted(acf_t, tt[ii])
+                    for kk in (j - 1, j):
+                        if 0 <= kk < acf_m.size \
+                                and abs(acf_m[kk] - mm[ii]) < 1.0:
+                            rel_idx.append(ii)
+                            break
+            rel = len(rel_idx) / n_fc if n_fc else 0.0
+            src_rel = (mm[rel_idx] * 100 - exp_src) if rel_idx \
+                else np.array([])
+            src_rng = float(np.percentile(src_rel, 95)
+                            - np.percentile(src_rel, 5)) \
+                if src_rel.size > 8 else 0.0
+            rel_times = tt[rel_idx] if rel_idx else np.array([])
+            src_on = src_rel[(rel_times - a0) < 0.15] \
+                if rel_idx else np.array([])
+            src_onset = float(np.median(src_on)) if src_on.size >= 3 \
+                else None
+            if src_rel.size > 30:
+                # regrid reliable samples to uniform 10ms before FFT
+                ug = np.arange(rel_times.min(), rel_times.max(), 0.01)
+                uv = np.interp(ug, rel_times, src_rel)
+                src_vib = _osc_hz(uv / 100.0, 0.01)
+            else:
+                src_vib = (0.0, 0.0)
+            # render layer (wav t=0 == phrase a)
+            ren_rng = ren_onset = ren_vib = None
+            if rf0 is not None:
+                rt, rh, rv = rf0
+                rm_ = _midi(rh)
+                sel = rv & (rt >= a0 - ph["a"] + 0.02) \
+                    & (rt <= b0 - ph["a"] - 0.02)
+                rc = rm_[sel] * 100 - r["tone"] * 100.0
+                if rc.size > 8:
+                    ren_rng = float(np.percentile(rc, 95)
+                                    - np.percentile(rc, 5))
+                    ro = rc[(rt[sel] - (a0 - ph["a"])) < 0.15]
+                    ren_onset = float(np.median(ro)) \
+                        if ro.size >= 3 else None
+                    if rc.size > 30:
+                        rr = _osc_hz(rc / 100.0, 0.01)
+                        ren_vib = (round(rr[0], 2), round(rr[1], 1))
+            events.append({
+                "note_i": r["i"], "lyric": r["lyric"],
+                "audio_span_s": [round(a0, 2), round(b0, 2)],
+                "tone": r["tone"], "leap": r["leap"],
+                "source": {"reliable_frac": round(rel, 3),
+                           "rng_c": round(src_rng, 1),
+                           "onset_med_c": (round(src_onset, 1)
+                                          if src_onset is not None
+                                          else None),
+                           "vib": (round(src_vib[0], 2),
+                                   round(src_vib[1], 1))},
+                "written": {"pitd_rng_c": round(r["pitd_rng"], 1),
+                            "pitd_rev": r["pitd_rev"],
+                            "onset_rng_c":
+                                round(r["pitd_onset_rng"], 1),
+                            "portamento_y0": r["portamento_y0"],
+                            "native_vibrato": r["vibrato"]},
+                "render": {"rng_c": (round(ren_rng, 1)
+                                    if ren_rng is not None else None),
+                           "onset_med_c": (round(ren_onset, 1)
+                                           if ren_onset is not None
+                                           else None),
+                           "vib": ren_vib},
+            })
+        # per-phrase normalized overlay
+        ov = {"times_s": [], "source_rel_c": [], "source_reliable": [],
+              "written_pitd_c": [], "render_rel_c": []}
+        grid = np.arange(ph["a"], ph["b"], 0.01)
+        exp_step = np.full(grid.size, np.nan)
+        for r in rows:
+            sel = (grid >= r["a"]) & (grid < r["b"])
+            exp_step[sel] = r["tone"]
+        for gi, g in enumerate(grid):
+            fi = np.searchsorted(tt, g)
+            if fi < len(tt) and gate[fi] and np.isfinite(exp_step[gi]):
+                relok = False
+                if acf_t.size:
+                    j = np.searchsorted(acf_t, tt[fi])
+                    relok = any(0 <= kk < acf_m.size
+                                and abs(acf_m[kk] - mm[fi]) < 1.0
+                                for kk in (j - 1, j))
+                ov["times_s"].append(round(g, 3))
+                ov["source_rel_c"].append(
+                    round(mm[fi] * 100 - (exp_step[gi] - 4) * 100, 1))
+                ov["source_reliable"].append(int(relok))
+            else:
+                ov["times_s"].append(round(g, 3))
+                ov["source_rel_c"].append(None)
+                ov["source_reliable"].append(0)
+        # written pitd on grid (part-relative ticks)
+        pitd_grid = np.interp(grid + wave_off,
+                              (part["position"] + xs) * ms_tick / 1000.0,
+                              ys, left=np.nan, right=np.nan)
+        ov["written_pitd_c"] = [None if not np.isfinite(x)
+                                else round(float(x), 1)
+                                for x in pitd_grid]
+        if rf0 is not None:
+            rt, rh, rv = rf0
+            rm_ = _midi(rh)
+            for gi, g in enumerate(grid):
+                ri = np.searchsorted(rt, g - ph["a"])
+                if ri < len(rt) and rv[ri] \
+                        and np.isfinite(exp_step[gi]):
+                    ov["render_rel_c"].append(
+                        round(rm_[ri] * 100 - exp_step[gi] * 100, 1))
+                else:
+                    ov["render_rel_c"].append(None)
+        phrases.append({"class": ph["class"], "part": ph["part"],
+                        "audio_span_s": [round(ph["a"], 2),
+                                         round(ph["b"], 2)],
+                        "events": events, "overlay": ov})
+    return {"phase": "J3 representation-gap",
+            "evaluated_head": head,
+            "worktree_clean_at_generation": True,
+            "normalization": "relative cents to written tone "
+                             "(SOURCE vs tone-4; render vs tone)",
+            "phrases": phrases}
 
 
 if __name__ == "__main__":
