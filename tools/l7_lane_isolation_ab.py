@@ -78,6 +78,8 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
     pdir = AB_DIR / phrase
     pdir.mkdir(parents=True, exist_ok=True)
     print(f"== {phrase} window [{w0},{w1}]", flush=True)
+    source_core_bounds, source_edge_evidence = \
+        drv.load_source_core_bounds(phrase)
 
     base_part, notes = drv.phrase_notes(base_doc, w0, w1)
     part_pos = notes[0]["_abs_tick"] - 480
@@ -137,10 +139,11 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
             "topology": cq.turning_point_metrics(
                 src_sig.cents, rec["sig"].cents, qa_mask),
             "event_shape": cq.event_shape_gate(
-                src_events, rec["events"], neu_sig, src_sig, rec["sig"]),
+                src_events, rec["events"], neu_sig, src_sig, rec["sig"],
+                source_core_bounds=source_core_bounds),
             "event_shape_rmvpe": cq.event_shape_gate(
                 src_events_b, rec["events_b"], neu_sig_b, src_sig_b,
-                rec["sig_b"]),
+                rec["sig_b"], source_core_bounds=source_core_bounds),
             "in_lane_position": cq.contour_position_metrics(
                 src_sig.cents, rec["sig"].cents, qa_mask & ~out_mask),
             "out_of_lane_position": cq.contour_position_metrics(
@@ -188,6 +191,7 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
            "worktree_clean_at_generation": True,
            "base_file_sha256": sha256(drv.BASE_USTX),
            "base_semantic_sha256": semantic_notes_sha256(base_doc),
+           "source_edge_evidence": source_edge_evidence,
            "modes": results, "verdict": verdict}
     drv._dump(rep, pdir / "lane_ab_report.json")
     print(f"   preferred={verdict['preferred']}", flush=True)
