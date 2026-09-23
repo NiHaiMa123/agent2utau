@@ -333,6 +333,7 @@ Human listening is allowed only when all required terms are PASS:
 HUMAN_LISTENING_READY =
     tests
 AND real_render
+AND candidate_arbitration_gate
 AND topology_gate
 AND event_lane_gate
 AND absolute_event_shape_gate
@@ -581,55 +582,91 @@ Reviewer blockers discovered in the same run:
 
 ### Active blocker / next run
 
-**RESOLVED at `03e6c16`+ evidence bundle: all three phrases are
-machine-accepted; global `HUMAN_LISTENING_READY=PASS`.**
+The `92705269` bundle is **not yet authorized for human listening**.
+Its clean-worktree provenance is valid and the engineering work is useful,
+but reviewer recheck found two acceptance-semantics violations.
 
-Executed from clean committed HEADs (every generation tool now refuses
-a dirty worktree and records `worktree_clean_at_generation=true`):
+1. **pYIN non-detection was incorrectly promoted from weak evidence to
+   positive counter-evidence.**
 
-1. full pytest: 500 passed (re-run by the evaluator itself);
-2. lane-isolation A/B (`runs/expr-20260921/lane_ab/`): `event`-bounded
-   ownership preferred on P1/P3 (equal in-event shape, better in-lane
-   error, out-of-lane within +5c); `full_note` retained on P2 because
-   the narrower mode flips the marginal note-8 row into blocking on both
-   families;
-3. P1/P2/P3 regenerated through `l7_phrase_gate.py` with the preferred
-   per-phrase ownership; manifests record the executing code head;
-4. portamento probe re-run from clean HEAD with a committed third
-   extractor (librosa pYIN, `diagnostic/adjudicate.third_f0_pyin`):
-   - **P2 note4 — FAIL_FIXABLE**, resolved in production
-     (`label_mismatch`, cn_rmse 0.07, non-blocking);
-   - **P2 note8 — EVIDENCE_ADJUDICATED_ARTIFACT**: pYIN is voiced on
-     0.0% of the fcpe-voiced/rmvpe-unvoiced disputed frames — two
-     independent families reject the gesture;
-   - **P3 note9 — EVIDENCE_ADJUDICATED_ARTIFACT**: same finding;
-   - the evaluator excludes adjudicated-artifact events from
-     `blocking_issue_count` (listed as `adjudicated_artifact_events`);
-     a stale/dirty probe report would instead count them unresolved;
-5. `l7_acceptance_eval.py` from clean HEAD
-   (`runs/expr-20260921/acceptance_eval.json`):
+   `diagnostic/adjudicate.third_f0_pyin` already defines the project
+   evidence rule: missing / low-confidence third-F0 frames mean weak
+   reliability and are never opposition.  The L7 probe nevertheless used
+   `disputed_voiced_rate < 0.30` to emit
+   `EVIDENCE_ADJUDICATED_ARTIFACT`.
 
-```text
-P1_sustain: all 9 terms PASS  -> READY=PASS
-P2_slides:  all 9 terms PASS  -> READY=PASS
-P3_vibrato: all 9 terms PASS  -> READY=PASS
-GLOBAL:     all 9 terms PASS, blocking_issue_count=0,
-            unknown_required_gate_count=0
-            -> HUMAN_LISTENING_READY=PASS
-```
+   Therefore the old automatic adjudications for:
+   - P2 note8;
+   - P3 note9
 
-**Next gate is human listening** on the three committed candidate WAVs:
-- `phrases3/P1_sustain/P1_sustain_C3v2_vocal.wav`
-- `phrases3/P2_slides/P2_slides_C3_v1_vocal.wav`
-- `phrases3/P3_vibrato/P3_vibrato_C3_v1_vocal.wav`
+   are invalid as proof that the FCPE gestures are false.  They return to
+   **FAIL_EVIDENCE / UNKNOWN** until positive evidence resolves them.
+   pYIN may still *rescue* an FCPE gesture when it positively traces the
+   same voiced contour; simple non-detection may not reject one.
 
-Historical requirement (kept for the audit trail): SWE2 had to, from the
-latest committed clean HEAD — run pytest; rerun P1/P2/P3 through
-`l7_phrase_gate.py`; commit regenerated manifests; rerun the probe where
-required; resolve P2 note8/P3 note9 evidence via a third extractor or an
-explicit adjudication artifact; perform the lane-isolation A/B; commit
-all evidence; run `l7_acceptance_eval.py`.  All eight steps are done and
-committed in this bundle.
+   Reviewer patch `3d8bafd0` removes the automatic artifact verdict from
+   pYIN non-detection.  Any future automatic artifact adjudication must
+   provide an explicit `adjudication_basis=positive_counterevidence`
+   backed by committed evidence.
+
+2. **The final evaluator ignored the production arbitration block.**
+
+   Current P2 and P3 manifests still contain:
+
+   ```text
+   shape_gate.blocked = true
+   ```
+
+   but the `92705269` evaluator never consumed that field and could still
+   emit `HUMAN_LISTENING_READY=PASS`.  This violates §8: a later reporting
+   layer may not silently override a still-blocked production arbiter.
+
+   Reviewer patch `cea558a6` adds the required
+   `candidate_arbitration_gate`:
+   - manifest arbitration incomplete → NOT_RUN;
+   - `shape_gate.blocked=true` → FAIL;
+   - final stage not explicitly `gate_passed=true` → FAIL;
+   - only a non-blocked, positively accepted final stage → PASS.
+
+   The evaluator also treats legacy
+   `EVIDENCE_ADJUDICATED_ARTIFACT` reports without
+   `adjudication_basis=positive_counterevidence` as unresolved.
+
+### Lane-isolation note
+
+The A/B itself was executed correctly, but its P2 explanation is
+oversimplified.  The narrow `event` mode has a raw FCPE blocker at note8
+**and** an RMVPE blocker at note9; the committed prose saying note8 became
+blocking “on both families” is not accurate.
+
+Because note8 is now UNKNOWN again, P2 `full_note` ownership is only
+**provisional**.  Do not choose ownership based on a disputed target.
+After evidence resolution, re-evaluate P2 A/B with the same evidence
+semantics as final acceptance.  A/B must report blocking events for both
+extractor families, not only aggregate counts / FCPE names.
+
+### Required next run
+
+From the latest committed clean HEAD:
+
+1. run full pytest;
+2. rerun P2 note8 and P3 note9 evidence probe under the corrected rule;
+3. resolve each UNKNOWN with **positive** evidence:
+   - a reliable third-F0 contour that supports one extractor family;
+   - waveform/periodicity/harmonic evidence that positively identifies
+     voiced F0;
+   - or an explicit targeted human evidence adjudication artifact;
+   non-detection alone is insufficient;
+4. after evidence is resolved, rerun the P2 lane-isolation A/B using the
+   same adjudication-aware event set;
+5. regenerate affected P1/P2/P3 phrase artifacts as needed so production
+   `shape_gate.blocked=false` for any phrase proposed for listening;
+6. commit all artifacts;
+7. from a clean HEAD run `l7_acceptance_eval.py`.
+
+The new evaluator has **10 required terms** including
+`candidate_arbitration_gate`.  Only its fresh output may authorize
+L7-E human listening.
 
 ## 13. Roadmap after L7
 
