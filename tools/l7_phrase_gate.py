@@ -68,10 +68,12 @@ CHAR_NUCLEUS = Path("runs/hfa/char_nucleus.json")
 # targets: P1 sustained line, P2 slide-dense line, P3 vibrato tail.
 # Reviewer-approved production ownership presets.
 # P2 was selected by exhaustive 2^3 real-render enumeration in Round B2:
-# FEF over target-note lanes [2,5,7]. Other phrases retain the prior
-# full_note production behavior unless a reviewed experiment selects otherwise.
+# FEF over target-note lanes [2,5,7]. P1/P3 retain their previously
+# reviewed event-bounded ownership from committed lane-isolation A/B.
 ACCEPTED_PORTA_OWNERSHIP = {
+    "P1_sustain": "event",
     "P2_slides": {2: "full_note", 5: "event", 7: "full_note"},
+    "P3_vibrato": "event",
 }
 
 
