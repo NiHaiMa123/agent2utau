@@ -254,6 +254,8 @@ def eval_phrase(pdir: Path) -> dict:
     # ---- provenance_gate ----------------------------------------------
     prov_ev = f"{ev_base}/run_manifest.json"
     probs = []
+    if man.get("worktree_clean_at_generation") is not True:
+        probs.append("worktree_clean_at_generation missing/false")
     for k in ("generator_code_head", "qa_code_head"):
         if not re.fullmatch(r"[0-9a-f]{40}", str(man.get(k) or "")):
             probs.append(f"{k} missing/not a commit")
@@ -384,6 +386,7 @@ def main():
     report = {
         "evaluator": "tools/l7_acceptance_eval.py",
         "evaluator_head": evaluator_head,
+        "worktree_clean_at_evaluation": True,
         "run_dir": str(drv.RUN_DIR),
         "terms": TERMS,
         "phrases": phrases,
