@@ -13,8 +13,8 @@
    "delta_span_c": -9.6,
    "delta_start_ms": 50.0,
    "delta_end_ms": -10.0,
-   "slope_profile_rmse": 2.613,
-   "curv_profile_rmse": 40.49
+   "slope_profile_rmse": 2.614,
+   "curv_profile_rmse": 40.509
   },
   {
    "from_note": 2,
@@ -22,11 +22,11 @@
    "arrival_relaxed": false,
    "arrival_offset_c": 0.0,
    "traj_match": true,
-   "delta_span_c": 51.3,
+   "delta_span_c": 51.6,
    "delta_start_ms": 10.0,
    "delta_end_ms": 0.0,
-   "slope_profile_rmse": 2.169,
-   "curv_profile_rmse": 41.54
+   "slope_profile_rmse": 2.196,
+   "curv_profile_rmse": 42.134
   },
   {
    "from_note": 4,
@@ -42,7 +42,7 @@
    "delta_start_ms": 0.0,
    "delta_end_ms": 0.0,
    "slope_profile_rmse": 2.52,
-   "curv_profile_rmse": 92.215
+   "curv_profile_rmse": 92.212
   },
   {
    "from_note": 8,
@@ -89,13 +89,13 @@
     "ornament": 0,
     "overshoot": 1,
     "scoop": 4,
-    "undershoot": 1
+    "undershoot": 2
    },
    "source_only_by_type": {
     "ornament": 0,
     "overshoot": 0,
     "scoop": 1,
-    "undershoot": 1
+    "undershoot": 0
    },
    "ambiguous_by_type": {
     "ornament": 0,
@@ -106,11 +106,11 @@
    "render_only_by_type": {
     "ornament": 0,
     "overshoot": 0,
-    "scoop": 1,
+    "scoop": 0,
     "undershoot": 1
    },
-   "source_unresolved_total": 2,
-   "render_only_total": 2,
+   "source_unresolved_total": 1,
+   "render_only_total": 1,
    "events": [
     {
      "src_index": 0,
@@ -154,7 +154,7 @@
     },
     {
      "src_index": 4,
-     "state": "source_only",
+     "state": "matched",
      "type": "undershoot",
      "note_indices": [
       6
@@ -194,14 +194,6 @@
     }
    ],
    "render_only_events": [
-    {
-     "type": "scoop",
-     "note_indices": [
-      6
-     ],
-     "start_s": 53.23,
-     "end_s": 53.61
-    },
     {
      "type": "undershoot",
      "note_indices": [
@@ -489,8 +481,8 @@
     {
      "frame_idx": 259,
      "kind": "trough",
-     "value_c": 5869.4,
-     "prominence_c": 27.0,
+     "value_c": 5869.3,
+     "prominence_c": 27.1,
      "reason": "insufficient_two_sided_evidence"
     }
    ]
@@ -605,7 +597,7 @@
      0.48,
      0.693,
      0.872,
-     1.014,
+     1.015,
      1.121,
      1.193,
      1.216,
@@ -613,7 +605,7 @@
      1.202,
      1.156,
      1.081,
-     0.981,
+     0.982,
      0.897,
      0.835,
      0.797,
@@ -625,8 +617,8 @@
      1.129,
      1.196,
      1.243,
-     1.27,
-     1.27,
+     1.269,
+     1.269,
      1.249,
      1.205,
      1.14,
@@ -731,23 +723,23 @@
      1.032
     ],
     "overlay_render": [
-     -0.29,
-     -0.372,
-     -0.377,
-     -0.33,
-     -0.282,
-     -0.235,
-     -0.187,
-     -0.14,
+     -0.291,
+     -0.373,
+     -0.378,
+     -0.331,
+     -0.283,
+     -0.236,
+     -0.188,
+     -0.141,
      -0.093,
-     -0.045,
+     -0.046,
      0.002,
-     0.05,
+     0.049,
      0.097,
      0.144,
      0.192,
      0.239,
-     0.287,
+     0.286,
      0.269,
      0.157,
      0.054,
@@ -755,14 +747,14 @@
      0.018,
      0.054,
      0.095,
-     0.131,
+     0.132,
      0.16,
      0.187,
      0.23,
      0.312,
      0.439,
      0.611,
-     0.801,
+     0.8,
      0.979
     ]
    },
@@ -878,8 +870,8 @@
      0.371,
      0.457,
      0.543,
-     0.629,
-     0.715,
+     0.628,
+     0.714,
      0.669,
      0.637,
      0.645,
@@ -1172,8 +1164,8 @@
   "n_events": 5,
   "n_blocking": 0,
   "by_class": {
-   "source_edge_uncertain": 1,
    "label_mismatch": 1,
+   "source_edge_uncertain": 1,
    "match": 2,
    "source_irregular": 1
   },
@@ -1286,7 +1278,7 @@
      0.473,
      0.676,
      0.85,
-     0.991,
+     0.99,
      1.099,
      1.181,
      1.201,
@@ -1295,7 +1287,7 @@
      1.132,
      1.056,
      0.969,
-     0.889,
+     0.89,
      0.83,
      0.802,
      0.802,
@@ -1309,7 +1301,7 @@
      1.245,
      1.245,
      1.226,
-     1.181,
+     1.182,
      1.114,
      1.03
     ]
@@ -1424,8 +1416,8 @@
      0.009,
      0.093,
      0.177,
-     0.204,
-     0.239,
+     0.205,
+     0.24,
      0.335,
      0.431,
      0.526,
@@ -1720,8 +1712,8 @@
   "n_events": 4,
   "n_blocking": 0,
   "by_class": {
-   "source_edge_uncertain": 1,
    "label_mismatch": 1,
+   "source_edge_uncertain": 1,
    "match": 1,
    "source_irregular": 1
   },
@@ -1731,7 +1723,7 @@
   "valid_frames": 105,
   "coverage": 0.897,
   "n": 105,
-  "med_c": 8.5,
+  "med_c": 8.6,
   "p90_c": 36.8,
   "p95_c": 53.1
  },
