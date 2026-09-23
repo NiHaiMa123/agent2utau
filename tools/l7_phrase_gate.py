@@ -44,10 +44,11 @@ from agent2utau.expression.events import (
     detect_portamento_events, detect_stable_trend, detect_vibrato_events,
     event_to_json, match_pitch_events, match_vibrato_events)
 from agent2utau.expression.pitch_residual import (
-    compile_C3, closed_loop_update, compute_dense, run_shape_gate)
+    compile_C3, compile_portamento_lane, closed_loop_update,
+    compute_dense, flatten_pitd_spans, run_shape_gate)
 from agent2utau.openutau.bridge import run_bridge
 from agent2utau.openutau.ustx import TempoMap, is_sung, load_ustx, \
-    save_ustx, sha256
+    save_ustx, semantic_notes_sha256, sha256
 from agent2utau.resources.config import load_config
 
 RUN_DIR = Path("runs/expr-20260921")
@@ -164,22 +165,28 @@ def _matches_to_json(m):
 
 
 def build_phrase_doc(base_doc, base_part, notes, part_pos, pitd,
-                     vib_marks, name):
+                     vib_marks, name, porta_marks=None):
     """Phrase USTX: base doc minus wave parts, one voice part holding the
     window's notes.  Written note pitch-bend data is flattened — the PITD
-    curve is the sole expression carrier for the candidate."""
+    curve is the sole expression carrier for the candidate, except where
+    the portamento lane (compile_portamento_lane) owns a verified
+    cross-note slide on the target note's pitch.data."""
     part = {k: copy.deepcopy(v) for k, v in base_part.items()
             if k not in ("notes", "curves", "Duration")}
     part["name"] = name
     part["position"] = part_pos
+    porta_marks = porta_marks or {}
     new_notes = []
     for i, nd in enumerate(notes):
         n = copy.deepcopy(nd["_note"])
         n["position"] = nd["_abs_tick"] - part_pos
-        n["pitch"] = {"data": [{"x": -40, "y": 0, "shape": "io"},
-                               {"x": 0, "y": 0, "shape": "io"}],
-                      "snap_first": bool(
-                          n.get("pitch", {}).get("snap_first", False))}
+        if i in porta_marks:
+            n["pitch"] = copy.deepcopy(porta_marks[i])
+        else:
+            n["pitch"] = {"data": [{"x": -40, "y": 0, "shape": "io"},
+                                   {"x": 0, "y": 0, "shape": "io"}],
+                          "snap_first": bool(
+                              n.get("pitch", {}).get("snap_first", False))}
         vib = {"length": 0, "period": 175, "depth": 25, "in": 10,
                "out": 10, "shift": 0, "drift": 0, "volLink": 0}
         vib.update(vib_marks.get(i, {}))
@@ -243,6 +250,10 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
     neu_sig = build_contour_signal(caches["neu_fcpe"], caches["neu_rmvpe"],
                                    notes, t0_s=t0, t1_s=t1,
                                    extractor="fcpe", source="neutral")
+    neu_sig_b = build_contour_signal(caches["neu_rmvpe"],
+                                     caches["neu_fcpe"], notes,
+                                     t0_s=t0, t1_s=t1,
+                                     extractor="rmvpe", source="neutral")
     dense = compute_dense(caches["src_fcpe"], caches["neu_fcpe"],
                           caches["src_rmvpe"], caches["neu_rmvpe"],
                           notes, t0, t1)
@@ -250,6 +261,11 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
 
     src_events = detect_all(src_sig, notes, nuc)
     neu_events = detect_all(neu_sig, notes, nuc)
+    # Independent F0 family for the cross-extractor gate: the same
+    # detector battery runs on the rmvpe-family signals so the absolute
+    # event-shape verdict can be re-measured off the fcpe family.
+    src_events_b = detect_all(src_sig_b, notes, nuc)
+    neu_events_b = detect_all(neu_sig_b, notes, nuc)
     vib_match = match_vibrato_events(src_events, neu_events, notes)
     pitch_match = match_pitch_events(src_events, neu_events, notes, nuc)
     print(f"   events src {len(src_events)} neu {len(neu_events)} "
@@ -260,6 +276,19 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
         max_err_c=10.0,
         base_vibrato={i: n["_note"].get("vibrato")
                       for i, n in enumerate(notes)})
+
+    # Native portamento lane (L7-R3): extractor-stable cross-note slides
+    # are carried by the TARGET note's pitch.data instead of PITD —
+    # the acoustic transition smoothing breaks written-coords PITD on
+    # ~40ms gestures (probe_portamento/ evidence).  The lane owns its
+    # span absolutely, so PITD is flattened there to avoid a double
+    # residual.
+    porta_marks, porta_spans, porta_prov = compile_portamento_lane(
+        src_sig, src_sig_b, notes, src_events, vib_marks=vib_marks)
+    if porta_spans:
+        pitd_v1 = flatten_pitd_spans(pitd_v1, porta_spans, part_pos)
+        print(f"   portamento lane: {len(porta_marks)} notes, "
+              f"{len(porta_spans)} owned spans", flush=True)
 
     # QA mask: all SOURCE-voiced frames inside written notes (uniform
     # across stages and across both extractor families, each on its own
@@ -278,7 +307,8 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
         sig_b = build_contour_signal(r, f, notes, t0_s=t0, t1_s=t1,
                                      extractor="rmvpe", source="render")
         rec = {"wav": Path(wav), "sig": sig, "sig_b": sig_b,
-               "events": detect_all(sig, notes, nuc)}
+               "events": detect_all(sig, notes, nuc),
+               "events_b": detect_all(sig_b, notes, nuc)}
         rec_by_sig[id(sig)] = rec
         return rec
 
@@ -296,9 +326,14 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
 
     def candidate_fn(curve, tag):
         # tags 'v2'/'v3' -> files {P}_C3v2.ustx / {P}_C3v3.ustx
+        # Lane-owned spans stay flattened even if the closed-loop update
+        # or rollback wrote into them (owned span extends to note end,
+        # beyond the protected event window).
+        curve = flatten_pitd_spans(curve, porta_spans, part_pos)
         ustx = pdir / f"{phrase}_C3{tag}.ustx"
         save_ustx(build_phrase_doc(base_doc, base_part, notes, part_pos,
-                                   curve, vib_marks, f"{phrase}_C3"),
+                                   curve, vib_marks, f"{phrase}_C3",
+                                   porta_marks=porta_marks),
                   ustx)
         rec = load_render(render(cfg, ustx, pdir / f"{phrase}_C3{tag}"))
         rec["ustx"] = ustx
@@ -309,17 +344,20 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
     # ---- v1: compile -> real render -> signal ------------------------
     ustx_v1 = pdir / f"{phrase}_C3.ustx"
     save_ustx(build_phrase_doc(base_doc, base_part, notes, part_pos,
-                               pitd_v1, vib_marks, f"{phrase}_C3"),
+                               pitd_v1, vib_marks, f"{phrase}_C3",
+                               porta_marks=porta_marks),
               ustx_v1)
     rec_v1 = load_render(render(cfg, ustx_v1, pdir / f"{phrase}_C3_v1"))
     rec_v1["ustx"] = ustx_v1
     recs["v1"] = rec_v1
     print(f"   rendered v1: {rec_v1['wav'].name}", flush=True)
 
-    pitd_v2 = closed_loop_update(
-        pitd_v1, src_sig, rec_v1["sig"], notes, part_pos,
-        protected_events=src_events, clip_c=300.0, max_err_c=10.0,
-        guard_s=0.15)
+    pitd_v2 = flatten_pitd_spans(
+        closed_loop_update(
+            pitd_v1, src_sig, rec_v1["sig"], notes, part_pos,
+            protected_events=src_events, clip_c=300.0, max_err_c=10.0,
+            guard_s=0.15),
+        porta_spans, part_pos)
 
     final_curve, gate = run_shape_gate(
         pitd_v1, pitd_v2, src_sig, rec_v1["sig"], notes, part_pos,
@@ -349,6 +387,13 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
                                                     final_events),
         "event_shape_metrics": cq.event_shape_gate(
             src_events, final_events, neu_sig, src_sig, final_sig),
+        # Cross-extractor lane (plan §7.4): the absolute event-shape
+        # verdict re-measured entirely on the rmvpe family. Same
+        # extractor self-scoring can never authorize PASS.
+        "event_shape_metrics_rmvpe": cq.event_shape_gate(
+            src_events_b, rec["events_b"], neu_sig_b, src_sig_b,
+            rec["sig_b"]),
+        "shape_gate_report": gate,
     }
     state = dense["state"]
     st_names = ["both_voiced", "src_only", "neu_only", "unvoiced",
@@ -394,7 +439,8 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
         "variant": variant,
         "generator_code_head": head,
         "qa_code_head": _git_head(),
-        "base_semantic_sha256": sha256(BASE_USTX),
+        "base_file_sha256": sha256(BASE_USTX),
+        "base_semantic_sha256": semantic_notes_sha256(base_doc),
         "candidate_ustx_sha256": sha256(rec["ustx"]),
         "ustx_path": str(rec["ustx"].resolve()),
         "render_wav_sha256": sha256(rec["wav"]),
@@ -417,7 +463,8 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
             "module": "agent2utau.expression.pitch_residual",
             "candidate": "C3", "vibrato_depth_gain": 0.69,
             "closed_loop_clip_c": 300, "closed_loop_max_err_c": 10,
-            "closed_loop_guard_s": 0.15, "closed_loop_iterations": 1},
+            "closed_loop_guard_s": 0.15, "closed_loop_iterations": 1,
+            "portamento_lane": porta_prov},
         "phrase_window_s": [w0, w1],
         "qa_files": sorted(f"{n}.json" for n in qa),
         "event_files": ["source_events.json", "neutral_events.json",

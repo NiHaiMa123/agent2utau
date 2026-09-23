@@ -1,13 +1,13 @@
 {
- "matched_turns": 44,
- "missing_turns": 18,
- "extra_turns": 2,
+ "matched_turns": 43,
+ "missing_turns": 19,
+ "extra_turns": 1,
  "source_turns": 62,
- "render_turns": 46,
+ "render_turns": 44,
  "turn_timing_err_ms_med": 0.0,
- "turn_amplitude_err_c_med": 6.3,
- "turn_prominence_err_c_med": 21.0,
- "sequence_edit_distance": 16,
+ "turn_amplitude_err_c_med": 4.3,
+ "turn_prominence_err_c_med": 5.8,
+ "sequence_edit_distance": 18,
  "missing_turn_details": [
   {
    "frame_idx": 35,
@@ -46,6 +46,12 @@
    "prominence_c": 29.0
   },
   {
+   "frame_idx": 130,
+   "kind": "trough",
+   "value_c": 6188.3,
+   "prominence_c": 16.8
+  },
+  {
    "frame_idx": 152,
    "kind": "peak",
    "value_c": 6297.1,
@@ -58,16 +64,16 @@
    "prominence_c": 17.0
   },
   {
+   "frame_idx": 217,
+   "kind": "trough",
+   "value_c": 6627.7,
+   "prominence_c": 128.1
+  },
+  {
    "frame_idx": 220,
    "kind": "peak",
    "value_c": 6630.1,
    "prominence_c": 79.5
-  },
-  {
-   "frame_idx": 258,
-   "kind": "trough",
-   "value_c": 5875.7,
-   "prominence_c": 20.0
   },
   {
    "frame_idx": 269,
@@ -120,16 +126,10 @@
  ],
  "extra_turn_details": [
   {
-   "frame_idx": 134,
-   "kind": "peak",
-   "value_c": 6228.8,
-   "prominence_c": 20.8
-  },
-  {
    "frame_idx": 246,
    "kind": "trough",
-   "value_c": 5880.6,
-   "prominence_c": 16.2
+   "value_c": 5883.8,
+   "prominence_c": 16.3
   }
  ],
  "edge_uncertain_turn_details": {
@@ -142,16 +142,8 @@
     "reason": "insufficient_two_sided_evidence"
    }
   ],
-  "render": [
-   {
-    "frame_idx": 259,
-    "kind": "trough",
-    "value_c": 5881.3,
-    "prominence_c": 15.5,
-    "reason": "insufficient_two_sided_evidence"
-   }
-  ]
+  "render": []
  },
- "valid_frames": 421,
- "coverage": 0.888
+ "valid_frames": 425,
+ "coverage": 0.897
 }

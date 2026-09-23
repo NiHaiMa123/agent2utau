@@ -1,11 +1,12 @@
 {
  "variant": "C3",
- "generator_code_head": "c4aab1df7cf9515ec0eef63ed4fca2dc02c93ebd",
- "qa_code_head": "c4aab1df7cf9515ec0eef63ed4fca2dc02c93ebd",
- "base_semantic_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
- "candidate_ustx_sha256": "75682c63c1c43607b3f8d3ea45d30cff75bcade10775f9e833cbf3f05e7ab8b5",
+ "generator_code_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
+ "qa_code_head": "20c3cc695890eac64ab90753f268868a5df43b1f",
+ "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
+ "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
+ "candidate_ustx_sha256": "4b40ac2387efbb6d55a59c44d4598d93eedc8615be55aab8b53a7a9abfaad82e",
  "ustx_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3.ustx",
- "render_wav_sha256": "3db9e776e444bf50b7b3cc4971dc995014a18f96ee9f12e098934138e26b012b",
+ "render_wav_sha256": "d7e25058e11ebb22e1141e709637aabcef72415443a2c736986778cf5448833c",
  "render_wav_path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav",
  "shape_gate": {
   "final_candidate": "C3",
@@ -13,8 +14,10 @@
   "stages": [
    {
     "candidate": "v1",
-    "gate_passed": true,
-    "violations": [],
+    "gate_passed": false,
+    "violations": [
+     "event_shape_gate:distortion@note9"
+    ],
     "event_shape": {
      "status": "fail",
      "n_blocking": 1
@@ -41,7 +44,7 @@
     "violations": [
      "matched_turns",
      "missing_turns",
-     "extra_turns",
+     "sequence_edit_distance",
      "event_shape_gate:distortion@note9"
     ],
     "event_shape": {
@@ -69,7 +72,68 @@
   "closed_loop_clip_c": 300,
   "closed_loop_max_err_c": 10,
   "closed_loop_guard_s": 0.15,
-  "closed_loop_iterations": 1
+  "closed_loop_iterations": 1,
+  "portamento_lane": {
+   "2": {
+    "window_s": [
+     25.89,
+     26.08
+    ],
+    "src_coverage": 0.55,
+    "extractor_cn_rmse": 0.157,
+    "stable": false,
+    "applied": false,
+    "reason": "evidence not extractor-stable"
+   },
+   "3": {
+    "window_s": [
+     26.37,
+     26.55
+    ],
+    "src_coverage": 1.0,
+    "extractor_cn_rmse": 1.054,
+    "stable": false,
+    "applied": false,
+    "reason": "evidence not extractor-stable"
+   },
+   "6": {
+    "window_s": [
+     27.35,
+     27.77
+    ],
+    "src_coverage": 0.698,
+    "extractor_cn_rmse": 0.007,
+    "stable": false,
+    "applied": false,
+    "reason": "evidence not extractor-stable"
+   },
+   "9": {
+    "window_s": [
+     28.99,
+     29.14
+    ],
+    "src_coverage": 1.0,
+    "extractor_cn_rmse": 0.028,
+    "stable": true,
+    "applied": true,
+    "n_anchors": 16,
+    "carrier_span_s": [
+     28.96,
+     29.28
+    ]
+   },
+   "10": {
+    "window_s": [
+     29.25,
+     29.52
+    ],
+    "src_coverage": 0.821,
+    "extractor_cn_rmse": 0.371,
+    "stable": false,
+    "applied": false,
+    "reason": "evidence not extractor-stable"
+   }
+  }
  },
  "phrase_window_s": [
   25.23,
@@ -80,9 +144,11 @@
   "cross_extractor_metrics.json",
   "curvature_metrics.json",
   "event_shape_metrics.json",
+  "event_shape_metrics_rmvpe.json",
   "modulation_metrics.json",
   "portamento_metrics.json",
   "position_metrics.json",
+  "shape_gate_report.json",
   "slope_metrics.json",
   "topology_metrics.json",
   "vibrato_metrics.json"

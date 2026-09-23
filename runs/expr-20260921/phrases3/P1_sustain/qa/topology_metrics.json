@@ -1,13 +1,13 @@
 {
- "matched_turns": 20,
- "missing_turns": 4,
- "extra_turns": 1,
+ "matched_turns": 19,
+ "missing_turns": 5,
+ "extra_turns": 2,
  "source_turns": 24,
  "render_turns": 21,
  "turn_timing_err_ms_med": 0.0,
- "turn_amplitude_err_c_med": 2.5,
- "turn_prominence_err_c_med": 15.7,
- "sequence_edit_distance": 4,
+ "turn_amplitude_err_c_med": 4.5,
+ "turn_prominence_err_c_med": 11.3,
+ "sequence_edit_distance": 5,
  "missing_turn_details": [
   {
    "frame_idx": 50,
@@ -16,16 +16,22 @@
    "prominence_c": 28.7
   },
   {
-   "frame_idx": 106,
+   "frame_idx": 68,
    "kind": "trough",
-   "value_c": 5775.7,
-   "prominence_c": 141.4
+   "value_c": 5702.6,
+   "prominence_c": 44.1
   },
   {
-   "frame_idx": 306,
+   "frame_idx": 142,
    "kind": "trough",
-   "value_c": 6336.2,
-   "prominence_c": 44.2
+   "value_c": 6182.6,
+   "prominence_c": 21.2
+  },
+  {
+   "frame_idx": 294,
+   "kind": "trough",
+   "value_c": 6367.8,
+   "prominence_c": 29.6
   },
   {
    "frame_idx": 308,
@@ -36,24 +42,30 @@
  ],
  "extra_turn_details": [
   {
-   "frame_idx": 143,
+   "frame_idx": 74,
    "kind": "peak",
-   "value_c": 6300.1,
-   "prominence_c": 94.0
+   "value_c": 5743.3,
+   "prominence_c": 77.5
+  },
+  {
+   "frame_idx": 135,
+   "kind": "peak",
+   "value_c": 6201.8,
+   "prominence_c": 26.2
   }
  ],
  "edge_uncertain_turn_details": {
   "source": [],
   "render": [
    {
-    "frame_idx": 51,
+    "frame_idx": 72,
     "kind": "trough",
-    "value_c": 5672.7,
-    "prominence_c": 30.8,
+    "value_c": 5740.3,
+    "prominence_c": 41.5,
     "reason": "insufficient_two_sided_evidence"
    }
   ]
  },
- "valid_frames": 230,
- "coverage": 0.95
+ "valid_frames": 234,
+ "coverage": 0.967
 }

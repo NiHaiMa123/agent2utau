@@ -12,8 +12,8 @@
   "delta_span_c": -32.1,
   "delta_start_ms": 140.0,
   "delta_end_ms": 0.0,
-  "slope_profile_rmse": 2.563,
-  "curv_profile_rmse": 29.702
+  "slope_profile_rmse": 2.564,
+  "curv_profile_rmse": 29.725
  },
  {
   "from_note": 5,
@@ -21,11 +21,11 @@
   "arrival_relaxed": false,
   "arrival_offset_c": 0.0,
   "traj_match": true,
-  "delta_span_c": -5.0,
+  "delta_span_c": -4.8,
   "delta_start_ms": 0.0,
   "delta_end_ms": -110.0,
-  "slope_profile_rmse": 2.254,
-  "curv_profile_rmse": 41.6
+  "slope_profile_rmse": 2.255,
+  "curv_profile_rmse": 41.597
  },
  {
   "from_note": 8,
@@ -33,11 +33,11 @@
   "arrival_relaxed": false,
   "arrival_offset_c": 0.0,
   "traj_match": true,
-  "delta_span_c": 5.2,
+  "delta_span_c": 0.7,
   "delta_start_ms": 0.0,
   "delta_end_ms": 0.0,
-  "slope_profile_rmse": 1.061,
-  "curv_profile_rmse": 11.726
+  "slope_profile_rmse": 0.14,
+  "curv_profile_rmse": 1.521
  },
  {
   "from_note": 9,
@@ -45,10 +45,10 @@
   "arrival_relaxed": false,
   "arrival_offset_c": 0.0,
   "traj_match": false,
-  "delta_span_c": 20.6,
+  "delta_span_c": 13.9,
   "delta_start_ms": 10.0,
-  "delta_end_ms": 230.0,
-  "slope_profile_rmse": 3.79,
-  "curv_profile_rmse": 52.04
+  "delta_end_ms": 220.0,
+  "slope_profile_rmse": 4.171,
+  "curv_profile_rmse": 53.032
  }
 ]

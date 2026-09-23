@@ -8,6 +8,7 @@ diffability.
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
@@ -35,6 +36,28 @@ def sha256(path: str | Path) -> str:
         for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def semantic_notes_sha256(doc: dict[str, Any],
+                          part_name: str = "vocal_pipeline") -> str:
+    """Semantic-score hash: canonical (position, duration, tone, lyric)
+    per note plus the part anchor — file-format independent.
+
+    This is the upstream written-score identity bound by manifests; it
+    ignores expression content (pitch data, vibrato, curves) and YAML
+    serialization details, so it changes exactly when the semantic
+    score changes.
+    """
+    part = next(p for p in doc["voice_parts"] if p["name"] == part_name)
+    sem = {"part": part_name, "part_position": int(part["position"]),
+           "notes": [{"position": int(n["position"]),
+                      "duration": int(n["duration"]),
+                      "tone": int(n["tone"]),
+                      "lyric": str(n["lyric"])}
+                     for n in part["notes"]]}
+    blob = json.dumps(sem, sort_keys=True, ensure_ascii=False,
+                      separators=(",", ":"))
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
 class TempoMap:

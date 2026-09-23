@@ -2,13 +2,13 @@
  {
   "note": 11,
   "state": "matched",
-  "delta_rate_hz": 0.06,
-  "delta_depth_c": -29.3,
-  "delta_period_cv": 0.044,
-  "delta_depth_cv": 0.055,
-  "delta_stable_cycle_count": 0.5,
-  "delta_phase_rad": 0.334,
+  "delta_rate_hz": -0.07,
+  "delta_depth_c": -27.3,
+  "delta_period_cv": 0.05,
+  "delta_depth_cv": 0.028,
+  "delta_stable_cycle_count": 0.0,
+  "delta_phase_rad": 0.082,
   "delta_start_ms": -20.0,
-  "delta_end_ms": 10.0
+  "delta_end_ms": -30.0
  }
 ]

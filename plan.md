@@ -511,75 +511,79 @@ Reviewer recheck after that run:
   hash. Next manifest schema must distinguish `base_file_sha256` from the
   upstream semantic score hash.
 
+Executor run at `df3fb95`-era head, via committed driver
+`tools/l7_phrase_gate.py` plus `tools/l7_portamento_probe.py` and
+`tools/l7_acceptance_eval.py` on fresh real renders:
+
+- Discriminating portamento probe executed on exactly the required events
+  (`runs/expr-20260921/probe_portamento/`):
+  - **P2 note 4 — FAIL_FIXABLE.** PITD dense/step candidates moved the
+    render but produced a delayed steep jump (acoustic-model transition
+    smoothing eats ~40 ms written-coords commands); inverse-response
+    calibration destabilized voicing. The native note-level `pitch.data`
+    carrier (negative-x io anchors on the target note, `snap_first=false`)
+    cleared the blocking shape: normalized RMSE 0.586 → 0.098
+    (`label_mismatch`, non-blocking) in the committed probe artifact.
+  - **P2 note 8 — FAIL_EVIDENCE.** FCPE reads a −236 c dip while RMVPE
+    and librosa-pYIN both call the span unvoiced (extractor cn_rmse
+    ≈ 0.503); the apparent gesture is an extraction artifact, not a
+    verified target.
+  - **P3 note 9 — FAIL_EVIDENCE.** Same structure: RMVPE/pYIN unvoiced,
+    FCPE dip not reliable evidence.
+- Minimal production portamento lane implemented and verified:
+  `compile_portamento_lane` + `flatten_pitd_spans` in
+  `pitch_residual.py` emit `pitch.data` anchors on the target note for
+  extractor-stable cross-note slides only (fail-closed on
+  `extractor_cn_rmse <= 0.25` and coverage >= 0.80; skipped when the
+  target carries a vibrato mark), and pin PITD to 0 inside lane-owned
+  spans on every candidate so the residual is never applied twice.
+- `base_semantic_sha256` is now a real canonical semantic-notes hash
+  (`ustx.semantic_notes_sha256`) distinct from `base_file_sha256`.
+- The committed evaluator `tools/l7_acceptance_eval.py` emits every
+  §10.3 term as PASS/FAIL/UNKNOWN/NOT_RUN per phrase and globally with
+  evidence references, re-running pytest itself for the `tests` term.
+  Output: `runs/expr-20260921/acceptance_eval.json`.
+- Fresh manifests regenerated for all three phrases under corrected gate
+  semantics; every artifact hash re-bound.
+
+Evaluator verdict on the fresh manifests:
+
+- **P1_sustain**: all 9 terms PASS, `blocking_issue_count=0`,
+  `HUMAN_LISTENING_READY=PASS`.
+- **P2_slides**: all 9 terms PASS — the production lane carried note 4
+  (cn_rmse 0.106, `label_mismatch` non-blocking) and honestly refused
+  note 8 (evidence not extractor-stable); fcpe + rmvpe event-shape
+  families both `n_blocking=0`. `HUMAN_LISTENING_READY=PASS`.
+- **P3_vibrato**: `absolute_event_shape_gate=FAIL` — note 9 remains a
+  blocking `distortion` on the fcpe family while the rmvpe family is
+  clean; FAIL_EVIDENCE stands. `HUMAN_LISTENING_READY=FAIL`.
+- **Global**: `HUMAN_LISTENING_READY=FAIL`, `blocking_issue_count=1`,
+  `unknown_required_gate_count=0`.
+
 ### Active blocker
 
-**Global L7-E human listening remains BLOCKED.** P1 has passed the current
-shape sub-gates, but `HUMAN_LISTENING_READY` itself is still NOT_RUN until
-a committed acceptance evaluator proves every required §10.3 term.
+**Global L7-E human listening remains BLOCKED by P3 note 9 only.**
+P1 and P2 are machine-accepted; P3's sole blocking event is classified
+FAIL_EVIDENCE — fcpe reports a pitch dip inside a span that RMVPE and
+pYIN both call unvoiced, so there is no verified SOURCE target to
+transfer. The honest next actions are evidence-level, not compiler-level:
 
-P2/P3 expose a separate ordering problem:
+- adjudicate the P3 note-9 span (listening or a stronger extractor) to
+  either confirm a real gesture — which would re-enter the probe/lane
+  path — or confirm the dip is an extraction artifact, which reclassifies
+  the event non-blocking through the committed gate unchanged;
+- until then `absolute_event_shape_gate` stays FAIL for P3 and the
+  global expression cannot be PASS.
 
-- `compile_C3` is only truly event-aware for vibrato;
-- portamento/scoop/ornament are detected and protected from generic
-  closed-loop correction, but there is no dedicated portamento-lane compiler;
-- the roadmap currently puts that compiler in R3 *after* L7 acceptance,
-  while L7 already requires absolute portamento shape to pass.
+Resolved since the last state entry:
 
-This is a **FAIL_STRATEGY milestone dependency**, not sufficient evidence for
-`FAIL_CAPABILITY`. Candidate-level capability remains UNKNOWN until a
-discriminating real-render experiment separates compiler loss from renderer
-response limits.
-
-#### Required discriminating portamento probe
-
-Use exactly the current blocking events:
-- P2 note 4;
-- P2 note 8;
-- P3 note 9.
-
-For each event:
-1. verify the target SOURCE trajectory is observable and extractor-consistent;
-2. construct a local event candidate directly in written-pitch coordinates,
-   preserving the measured normalized trajectory with dense 10 ms points or a
-   low-DOF local spline; bypass generic simplification inside the event;
-3. keep the surrounding candidate identical to the current v1 so the experiment
-   changes only this event;
-4. real-render through OpenUtau and run the same absolute event-shape QA;
-5. record control-curve target vs rendered response.
-
-Interpretation:
-- if the local event candidate materially improves the blocking shape, classify
-  **FAIL_FIXABLE** and implement the minimal portamento-lane compiler inside L7
-  before the full R3 expansion;
-- if materially different local control curves repeatedly render to the same
-  smoothed/incorrect shape, classify **FAIL_CAPABILITY** (renderer/representation
-  response) and then test inverse-response calibration / Level-3 support;
-- if target evidence is unstable across extractors, classify **FAIL_EVIDENCE**.
-
-Do not relax `event_shape_gate` and do not jump directly to Level 3 before this
-probe establishes which failure class is real.
-
-#### Required machine-acceptance closure
-
-Implement one committed evaluator that emits, per phrase and globally:
-
-```text
-tests
-real_render
-topology_gate
-event_lane_gate
-absolute_event_shape_gate
-render_voicing_gate
-cross_extractor_gate
-provenance_gate
-artifact_consistency_gate
-blocking_issue_count
-unknown_required_gate_count
-HUMAN_LISTENING_READY
-```
-
-Every term must be PASS/FAIL/UNKNOWN/NOT_RUN with evidence references.
-Only this evaluator may authorize L7-E.
+- the portamento probe has run and classified all three events
+  (FAIL_FIXABLE / FAIL_EVIDENCE / FAIL_EVIDENCE) — the ordering problem
+  is closed, `FAIL_CAPABILITY` was not established for any event;
+- the minimal portamento-lane compiler was pulled forward into L7 and is
+  verified on real renders;
+- the single committed §10.3 evaluator exists and is the only authority
+  for `HUMAN_LISTENING_READY`.
 
 ## 13. Roadmap after L7
 

@@ -609,6 +609,145 @@ LANE_PROTECTED_TYPES = {"portamento", "scoop", "overshoot", "undershoot",
                         "ornament", "artifact"}
 
 
+# ------------------------------------------- R4.1 native portamento lane
+PORTA_AGREE_RMSE = 0.25     # fcpe-vs-rmvpe normalized trajectory agreement
+PORTA_MIN_COVERAGE = 0.80   # source voiced coverage inside the event
+PORTA_ANCHOR_S = 0.020      # pitch.data anchor spacing on the target note
+
+
+def _cn_profile_own(sig, s, e, n=33):
+    """Normalized 0..1 trajectory of one signal in its own frame."""
+    from agent2utau.expression.contour_qa import _traj_profile
+    p = _traj_profile(sig.times,
+                      np.where(sig.voiced, sig.cents, np.nan), s, e)
+    if p is None:
+        return None
+    return np.interp(np.linspace(0.0, 1.0, n),
+                     np.linspace(0.0, 1.0, len(p["cn"])), p["cn"])
+
+
+def compile_portamento_lane(src_sig, src_sig_b, notes, src_events,
+                            vib_marks=None, agree_rmse=PORTA_AGREE_RMSE,
+                            min_coverage=PORTA_MIN_COVERAGE,
+                            anchor_s=PORTA_ANCHOR_S):
+    """Native pitch.data portamento lane (L7-R3; probe verdict
+    FAIL_FIXABLE on P2 from_note=4).
+
+    A cross-note slide written as PITD in written-pitch coordinates is
+    smoothed by the DiffSinger acoustic transition (~40-80ms) into a
+    delayed steep jump; the native note-level pitch.data carrier —
+    negative-x anchors on the TARGET note, snap_first=false so
+    UNote.Validate cannot rewrite the first point to the previous tone —
+    rides the engine's own transition timing and reproduces the verified
+    slide.
+
+    Eligibility is fail-closed on evidence: the SOURCE event must be
+    extractor-consistent (both F0 families agree on the normalized
+    trajectory within `agree_rmse`, coverage >= `min_coverage`) and the
+    target note must not carry a compiled vibrato mark.
+
+    Anchors are absolute measured-source pitch sampled every `anchor_s`
+    from departure-30ms through target-note end-5ms, expressed as y in
+    0.1-semitone units relative to the target tone.  The carrier then
+    owns that whole span: the returned `owned_spans` must have PITD
+    flattened to 0 inside (see flatten_pitd_spans) or the residual would
+    be applied twice.
+
+    Returns (porta_marks {note_index: pitch_dict},
+             owned_spans_s [(a,b)], provenance).
+    """
+    marks, spans, prov = {}, [], {}
+    for ev in src_events:
+        if ev.type != "portamento":
+            continue
+        fn = ev.params.get("from_note")
+        if fn is None or fn + 1 >= len(notes):
+            continue
+        i_t = fn + 1
+        tgt = notes[i_t]
+        s, e = ev.start_s, ev.end_s
+        n_end = tgt["abs_start_s"] + tgt["dur_s"]
+        in_win = (src_sig.times >= s) & (src_sig.times <= e)
+        cov = float(src_sig.voiced[in_win].mean()) if in_win.sum() else 0.0
+        pa = _cn_profile_own(src_sig, s, e)
+        pb = _cn_profile_own(src_sig_b, s, e)
+        ext = float(np.sqrt(np.mean((pa - pb) ** 2))) \
+            if pa is not None and pb is not None else None
+        stable = (ext is not None and ext <= agree_rmse
+                  and cov >= min_coverage)
+        rec = {"window_s": [round(s, 3), round(e, 3)],
+               "src_coverage": round(cov, 3),
+               "extractor_cn_rmse": round(ext, 3)
+               if ext is not None else None,
+               "stable": bool(stable)}
+        if not stable:
+            prov[i_t] = {**rec, "applied": False,
+                         "reason": "evidence not extractor-stable"}
+            continue
+        if vib_marks and i_t in vib_marks:
+            prov[i_t] = {**rec, "applied": False,
+                         "reason": "target note carries vibrato mark"}
+            continue
+        pos_s = tgt["abs_start_s"]
+        tone_c = tgt["tone"] * 100.0
+        g = np.arange(s - 0.030, n_end - 0.005 + 1e-9, anchor_s)
+        vv = src_sig.voiced & ~np.isnan(src_sig.cents)
+        sc = np.interp(g, src_sig.times[vv], src_sig.cents[vv],
+                       left=np.nan, right=np.nan)
+        sv = np.interp(g, src_sig.times, src_sig.voiced.astype(float),
+                       left=0.0, right=0.0) > 0.5
+        sc = np.where(sv & ~np.isnan(sc), sc, np.nan)
+        pts, last_x = [], None
+        for t, cc in zip(g, sc):
+            if np.isnan(cc):
+                continue
+            x_ms = (t - pos_s) * 1000.0
+            if last_x is not None and x_ms - last_x < 5.0:
+                continue
+            pts.append({"x": round(float(x_ms), 1),
+                        "y": round(float((cc - tone_c) / 10.0), 2),
+                        "shape": "io"})
+            last_x = x_ms
+        if len(pts) < 2:
+            prov[i_t] = {**rec, "applied": False,
+                         "reason": "insufficient voiced source anchors"}
+            continue
+        marks[i_t] = {"data": pts, "snap_first": False}
+        a_s = pos_s + pts[0]["x"] / 1000.0
+        spans.append((a_s, n_end))
+        prov[i_t] = {**rec, "applied": True, "n_anchors": len(pts),
+                     "carrier_span_s": [round(a_s, 3), round(n_end, 3)]}
+    return marks, spans, prov
+
+
+def flatten_pitd_spans(pitd, spans_s, part_pos_tick, edge_s=0.012):
+    """Pin PITD to 0 inside each [a,b] span (absolute seconds), keeping
+    the outside curve and a short edge ramp so no discontinuity is
+    introduced at the hand-off."""
+    if not spans_s:
+        return pitd
+    xs = np.asarray(pitd["xs"], dtype=float) * TICK_MS / 1000.0 \
+        + part_pos_tick * TICK_MS / 1000.0
+    ys = np.asarray(pitd["ys"], dtype=float)
+    keep = np.ones(len(xs), dtype=bool)
+    for a, b in spans_s:
+        keep &= (xs < a - 1e-9) | (xs > b + 1e-9)
+    xo, yo = list(xs[keep]), list(ys[keep])
+    for a, b in spans_s:
+        for t, y in [(a - edge_s, float(np.interp(a - edge_s, xs, ys))),
+                     (a, 0.0), (b, 0.0),
+                     (b + edge_s, float(np.interp(b + edge_s, xs, ys)))]:
+            xo.append(t); yo.append(y)
+    xn = np.round(np.asarray(xo) * 1000.0 / TICK_MS
+                  - part_pos_tick).astype(int)
+    yn = np.clip(np.round(np.asarray(yo)), -1150, 1150).astype(int)
+    o = np.argsort(xn, kind="stable")
+    xn, yn = xn[o], yn[o]
+    keep = np.concatenate([[True], np.diff(xn) > 0])
+    return {"abbr": "pitd", "xs": xn[keep].tolist(),
+            "ys": yn[keep].tolist()}
+
+
 def closed_loop_update(pitd, src_sig, render_sig, notes, part_pos_tick,
                        protected_events=None, clip_c=300.0,
                        max_err_c=10.0, hop_s=0.010, guard_s=0.15):

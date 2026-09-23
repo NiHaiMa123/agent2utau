@@ -1,0 +1,66 @@
+{
+ "times_s": [
+  52.91,
+  52.92,
+  52.93,
+  52.94,
+  52.95
+ ],
+ "written_cents": [
+  6400.0,
+  6400.0,
+  6400.0,
+  6600.0,
+  6600.0
+ ],
+ "pitd_cmd_cents": [
+  16.2,
+  46.1,
+  -44.1,
+  -180.5,
+  -120.0
+ ],
+ "command_target_cents": [
+  6416.2,
+  6446.1,
+  6355.9,
+  6419.5,
+  6480.0
+ ],
+ "render_cents": [
+  6402.1,
+  6402.0,
+  NaN,
+  NaN,
+  NaN
+ ],
+ "render_voiced": [
+  true,
+  true,
+  false,
+  false,
+  false
+ ],
+ "src_cents": [
+  6426.5,
+  6445.8,
+  6481.5,
+  6517.7,
+  6550.6
+ ],
+ "command_norm_srcframe": [
+  -0.084,
+  0.158,
+  -0.57,
+  -0.057,
+  0.431
+ ],
+ "response_norm_srcframe": [
+  -0.197,
+  -0.198,
+  NaN,
+  NaN,
+  NaN
+ ],
+ "cmd_resp_rmse_c": null
+}
