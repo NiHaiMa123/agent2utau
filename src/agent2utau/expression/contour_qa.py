@@ -396,7 +396,7 @@ def _cn_profile(sig, s, e, c0, span, n=33, glitch_c=None):
 
 
 def event_shape_gate(source_events, render_events, neutral_sig,
-                     source_sig, render_sig):
+                     source_sig, render_sig, source_core_bounds=None):
     """Absolute event-shape gate (plan R3/L7): for every matched
     portamento event, overlay the normalized SOURCE/NEUTRAL/RENDER
     trajectories in the source frame and classify the mismatch BEFORE
@@ -425,6 +425,7 @@ def event_shape_gate(source_events, render_events, neutral_sig,
       match                label and shape both consistent.
     """
     rows = []
+    source_core_bounds = source_core_bounds or {}
     for se in source_events:
         if se.type != "portamento":
             continue
@@ -434,7 +435,45 @@ def event_shape_gate(source_events, render_events, neutral_sig,
         if not cand:
             continue                      # missing handled elsewhere
         re_ = cand[0]
-        s, e = se.start_s, se.end_s
+        raw_s, raw_e = se.start_s, se.end_s
+        core_spec = source_core_bounds.get(fn)
+        if core_spec is None:
+            core_spec = source_core_bounds.get(str(fn))
+        core_meta = core_spec if isinstance(core_spec, dict) else {}
+        core = (core_meta.get("reliable_core_s")
+                if isinstance(core_spec, dict) else core_spec)
+        core_applied = False
+        s, e = raw_s, raw_e
+        if core is not None and len(core) == 2:
+            cs, ce = float(core[0]), float(core[1])
+            ns, ne = max(raw_s, cs), min(raw_e, ce)
+            # Never let an external evidence packet collapse the event
+            # to a trivial sliver.  Edge uncertainty is useful only when
+            # a substantive observable core remains.
+            if ne - ns >= 0.04:
+                s, e = ns, ne
+                core_applied = (s > raw_s + 1e-6 or e < raw_e - 1e-6)
+
+        # Keep the full-window clean mismatch for audit.  The core window
+        # may be used for acceptance only when a committed evidence packet
+        # explicitly marks a low-salience uncertain edge.
+        raw_cn_rmse_clean = None
+        if core_applied:
+            raw_ms = ((source_sig.times >= raw_s)
+                      & (source_sig.times <= raw_e)
+                      & ~np.isnan(source_sig.cents) & source_sig.voiced)
+            if raw_ms.sum() >= 4:
+                raw_c0 = float(source_sig.cents[raw_ms][0])
+                raw_span = float(source_sig.cents[raw_ms][-1] - raw_c0)
+                raw_span = raw_span if abs(raw_span) > 1e-6 else 1e-6
+                raw_ps_c = _cn_profile(source_sig, raw_s, raw_e,
+                                       raw_c0, raw_span, glitch_c=150.0)
+                raw_pr_c = _cn_profile(render_sig, raw_s, raw_e,
+                                       raw_c0, raw_span, glitch_c=150.0)
+                if raw_ps_c is not None and raw_pr_c is not None:
+                    raw_cn_rmse_clean = float(np.sqrt(
+                        np.mean((raw_ps_c - raw_pr_c) ** 2)))
+
         ms_all = (source_sig.times >= s) & (source_sig.times <= e)
         ms = ms_all & ~np.isnan(source_sig.cents) & source_sig.voiced
         me = (render_sig.times >= s - 0.05) & (render_sig.times <= e)
@@ -474,6 +513,12 @@ def event_shape_gate(source_events, render_events, neutral_sig,
             cls = "distortion"
         elif cn_rmse is not None and cn_rmse > 0.35:
             cls = "extraction_artifact"
+        elif core_applied:
+            # The source event is real, but one low-salience edge is not
+            # reliably observable across extractors.  The reliable core
+            # itself passed absolute-shape QA, so retain the uncertainty
+            # explicitly without turning it into a false distortion.
+            cls = "source_edge_uncertain"
         elif label_src != label_rend:
             cls = "label_mismatch"
         elif abs(d_start) > 80.0 or abs(d_end) > 80.0:
@@ -494,6 +539,18 @@ def event_shape_gate(source_events, render_events, neutral_sig,
             "delta_start_ms": round(d_start, 1),
             "delta_end_ms": round(d_end, 1),
             "window_s": [round(s, 3), round(e, 3)],
+            "raw_window_s": [round(raw_s, 3), round(raw_e, 3)],
+            "reliable_core_s": ([round(s, 3), round(e, 3)]
+                                if core_applied else None),
+            "edge_uncertain_side": (core_meta.get("side")
+                                    if core_applied else None),
+            "trimmed_start_ms": (round((s - raw_s) * 1000.0, 1)
+                                 if core_applied else 0.0),
+            "trimmed_end_ms": (round((raw_e - e) * 1000.0, 1)
+                               if core_applied else 0.0),
+            "raw_cn_rmse_clean": (
+                round(raw_cn_rmse_clean, 3)
+                if raw_cn_rmse_clean is not None else None),
             "overlay_src": np.round(ps, 3).tolist() if ps is not None else None,
             "overlay_neu": np.round(pn_, 3).tolist() if pn_ is not None else None,
             "overlay_render": np.round(pr_, 3).tolist() if pr_ is not None else None})
