@@ -1712,3 +1712,33 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
 - Frozen gates never measured: render stability (dips/glitch),
   gesture range fidelity, phonation continuity, render energy.  These
   are the concrete blind-spot terms for a future repair round.
+
+## L7 Round E — 1.65c/dpV2 renderer re-baseline (@ac08257, artifacts in runs/expr-20260921/rebaseline/)
+
+- Frozen accepted candidates copied with ONLY tracks[0].singer migrated
+  YousaV1.65b -> YousaV1.65c (explicit id; the b junction is NOT used
+  for formal evidence).  Recursive structural diff proves semantic
+  identity: zero diffs outside tracks[*].singer for all three phrases.
+- All three rendered through the dpV2 bridge; measured with the same
+  blind-spot metrics as l7e_listening_evidence (imported, not redefined).
+- Combined listening project: rebaseline/agent2utau_L7E_v165c_P1_P3_P2.ustx
+  (same parts/positions, singer = YousaV1.65c).
+- P3 glitch = RENDERER-ATTRIBUTABLE: the 29.26-29.28s >300c dip cluster
+  is GONE under 1.65c/dpV2 (3 -> 0 dips; detrRMS 62.5c -> 12.0c, equal
+  to rejected v2/v3 levels).  The identical v1 PITD renders cleanly —
+  do NOT patch the compiler for that old failure.
+- P2 persists as compiler/expression defects: note0/note10 gesture
+  compression unchanged (ratio 0.14/0.17); notes 5/6 opposing offsets
+  persist (+56/-24c).  The critical 54.70-54.83s dropout (source fully
+  voiced) disappeared, but 2 new energy collapses appeared (51.36,
+  54.16s) — residual defects need a later repair round on the NEW
+  baseline.
+- P1 control: materially unchanged (detrRMS 16.5->15.8, no new
+  defects) — renderer migration itself is not a blocker.
+- Report binds: head ac08257, clean worktree, OpenUtau.exe/Core.dll/
+  a2u-bridge.exe hashes, 46 voicebank material hashes incl
+  dsdur/0923_dpv2_nogru.dur.onnx, old+new ustx/wav hashes, semantic
+  identity results.  Fork commit not recoverable from install —
+  binary hashes are the identity.
+- Round E ends here per contract; reviewer/human listening of the new
+  project decides next routing.  No expression semantics were changed.

@@ -1,0 +1,1447 @@
+{
+ "tool": "tools/l7e_rebaseline.py",
+ "round": "L7 Round E \u2014 1.65c/dpV2 renderer re-baseline",
+ "purpose": "attribute L7-E P2/P3 listening failures to renderer vs expression compiler; frozen candidates unchanged",
+ "evaluated_head": "ac0825777e5d57e5d0f8b408eef50e2f6e48fe1a",
+ "worktree_clean_at_generation": true,
+ "environment": {
+  "openutau_dir": "E:\\software\\OpenUtau-win-x64_dpV2\\OpenUtau-win-x64",
+  "singer": "YousaV1.65c",
+  "bridge_doctor": {
+   "data_path": "E:\\software\\OpenUtau-win-x64_dpV2\\OpenUtau-win-x64",
+   "cache_path": "E:\\software\\OpenUtau-win-x64_dpV2\\OpenUtau-win-x64\\Cache",
+   "singers_path": "E:\\software\\OpenUtau-win-x64_dpV2\\OpenUtau-win-x64\\Singers",
+   "singers_paths": [
+    {
+     "path": "E:\\software\\OpenUtau-win-x64_dpV2\\OpenUtau-win-x64\\Singers",
+     "exists": true,
+     "voicebanks": 2,
+     "error": null
+    }
+   ],
+   "load_deep": true,
+   "singers_found": [
+    "YousaV1.65b",
+    "YousaV1.65c"
+   ],
+   "phonemizer_factories": [
+    "OpenUtau.Core.DefaultPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiDiffSingerGermanMarzipanPhonemizerr",
+    "OpenUtau.Core.DiffSinger.DiffSingerARPAPlusEnglishPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerEnglishPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerFilipinoPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerFrenchMillfeuillePhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerGermanPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerItalianPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerJapanesePhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerJyutpingPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerKoreanG2PPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerKoreanPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerPortuguesePhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerRhythmizerPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerRuleBasedFilipinoPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerRussianPhonemizer",
+    "OpenUtau.Core.DiffSinger.DiffSingerSpanishPhonemizer",
+    "OpenUtau.Core.Enunu.EnunuEnglishPhonemizer",
+    "OpenUtau.Core.Enunu.EnunuKoreanPhonemizer",
+    "OpenUtau.Core.Enunu.EnunuPhonemizer",
+    "OpenUtau.Core.Vogen.VogenMandarinPhonemizer",
+    "OpenUtau.Core.Vogen.VogenYuePhonemizer",
+    "OpenUtau.Core.Voicevox.SimpleVoicevoxENtoJAPhonemizer",
+    "OpenUtau.Core.Voicevox.VoicevoxPhonemizer",
+    "OpenUtau.Plugin.Builtin.ArpasingPhonemizer",
+    "OpenUtau.Plugin.Builtin.ArpasingPlusPhonemizer",
+    "OpenUtau.Plugin.Builtin.BrazilianPortugueseCVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.CantoneseCVVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.CantoneseSyoPhonemizer",
+    "OpenUtau.Plugin.Builtin.ChineseCVVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.ChineseCVVMonophonePhonemizer",
+    "OpenUtau.Plugin.Builtin.ChineseCVVPlusPhonemizer",
+    "OpenUtau.Plugin.Builtin.ChineseVCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.EnglishCpVPhonemizer",
+    "OpenUtau.Plugin.Builtin.EnglishVCCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.ENtoJAPhonemizer",
+    "OpenUtau.Plugin.Builtin.EnunuOnnxEnglishPhonemizer",
+    "OpenUtau.Plugin.Builtin.EnunuOnnxPhonemizer",
+    "OpenUtau.Plugin.Builtin.EnXSampaPhonemizer",
+    "OpenUtau.Plugin.Builtin.EStoJAPhonemizer",
+    "OpenUtau.Plugin.Builtin.FilipinoPhonemizer",
+    "OpenUtau.Plugin.Builtin.FILtoJAPhonemizer",
+    "OpenUtau.Plugin.Builtin.FrenchCMUSphinxPhonemizer",
+    "OpenUtau.Plugin.Builtin.FrenchCVVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.FrenchVCCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.GermanDiphonePhonemizer",
+    "OpenUtau.Plugin.Builtin.GermanVCCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.ItalianCVVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.ItalianSyllableBasedPhonemizer",
+    "OpenUtau.Plugin.Builtin.JapaneseCVVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.JapanesePresampPhonemizer",
+    "OpenUtau.Plugin.Builtin.JapaneseVCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.KoreanCBNNPhonemizer",
+    "OpenUtau.Plugin.Builtin.KoreanCVCCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.KoreanCVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.KoreanCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.KoreanCVVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.KoreanVCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.KOtoJAPhonemizer",
+    "OpenUtau.Plugin.Builtin.PolishCVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.RussianCVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.RussianVCCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.SpanishMakkusanPhonemizer",
+    "OpenUtau.Plugin.Builtin.SpanishSyllableBasedPhonemizer",
+    "OpenUtau.Plugin.Builtin.SpanishVCCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.ThaiVCCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.TurkishCVVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.VietnameseCVVCPhonemizer",
+    "OpenUtau.Plugin.Builtin.VietnameseVCVPhonemizer",
+    "OpenUtau.Plugin.Builtin.VietnameseVINAPhonemizer",
+    "Voicevox.SimpleVoicevoxPhonemizer"
+   ],
+   "errors": [],
+   "warnings": [],
+   "ok": true,
+   "exit_code": 0
+  },
+  "provenance": {
+   "openutau_dir": "E:\\software\\OpenUtau-win-x64_dpV2\\OpenUtau-win-x64",
+   "binaries": {
+    "OpenUtau.exe": {
+     "sha256": "c732ec79379bd8bb5f4352dae09f6505a17aee1a7ee7ddc1d64369004953bcf3",
+     "size": 283136
+    },
+    "OpenUtau.Core.dll": {
+     "sha256": "855a4cc7ef730c68b2853903b0dbadc24e5cfb0ba9d02a9d6a4d16688fb8f8d7",
+     "size": 32956416
+    },
+    "a2u-bridge.exe": {
+     "sha256": "b9798e4127f916f810666dece2bd28247f4032493e4a454d442b8cb5ab914c51",
+     "size": 162304
+    }
+   },
+   "voicebank": {
+    "singer": "YousaV1.65c",
+    "materials": {
+     "0818_no_shuffle.onnx": "a8fdc96710113a5faefef9cc8d418d786ff8b7a4b36ebfc10cf30f7c6b87fe74",
+     "character.txt": "cf7a49e6bd70d2e680125f1bf057c22a6b14dda417f9be3f7a876a23ac1a1679",
+     "character.yaml": "fc3335a4c5f6304cad20f1b03bb7db18e280e881a5e049478811433aaca4ca99",
+     "dsconfig.yaml": "72d5197ba188ad24596b7d9b6652b6e65a0a919e4841f45e598946c37ef53d06",
+     "dsdur\\0923_dpv2_nogru.dur.onnx": "b66ebbdb96d4464bd854470d08be2fe97c6821d5ed16fe411163ae588f41ccb0",
+     "dsdur\\0923_dpv2_nogru.linguistic.onnx": "3492f41e9f3fcb6e2446498aadf0c11d1e5144055e5614517de75f656a6151cc",
+     "dsdur\\dsconfig.yaml": "cd7de0034887aaef1ad15082884be18e6bdbd88a2312f5ab0e5672172511c46c",
+     "dsdur\\dsdict-ja.yaml": "193612e18ef3503b85d5c86e93008f98cad11cb0b244e34f92acba65767d80d4",
+     "dsdur\\dsdict-ko.yaml": "7e47ab6fa66cba553d6b3c26ab352f9c7f227e489239042c15506316bda640cc",
+     "dsdur\\dsdict-zh.yaml": "04734af1885f075da4d379f9dcd11d629ae46350dd83f36f1ca5c9adcc8fcbc4",
+     "dsdur\\dsdict.yaml": "fa61e140c0953f95b1b08f733a41e11444be51323d94257491531b7ea2afb328",
+     "dsdur\\phonemes.json": "3a4cbf6cd901fe526bae27f0109155697a80f55017f4fb5145219c9168d0a563",
+     "dsdur\\Yousa_Bright.emb": "3d4c831298aecf634fbc4e8990ecb606bd21f4a337adda003a5df20cc27b877c",
+     "dsdur\\Yousa_Classic.emb": "fa13bb4294606510cdaa15d87b7004d1737c8d122420b2b06c6d44d061409456",
+     "dsdur\\Yousa_Cute.emb": "5249e2244503a56f905f332f03e7df27ea3301662feabc07cc725bef6ecbf414",
+     "dsdur\\Yousa_Normal.emb": "330535583ea3369de0dbd38eafdf3d8075f4df50eeaddadff76cfd9d1324d46c",
+     "dsdur\\Yousa_Whisper.emb": "095cf47f4d02378f5b01a807a476c68158e10a62e54daeebfa85cbc6411b0e7f",
+     "dspitch\\0801_variance.linguistic.onnx": "4892ff20d9728b51c235d0912abae0473077de7043d4bff3684caf79fb0773e9",
+     "dspitch\\0801_variance.pitch.onnx": "eaf9c8ce9270701fb7563b2dac43d475769f3fe69d5ea83000dedeab81f79656",
+     "dspitch\\dsconfig.yaml": "7626b1b0d2799b4cb89067a9458c19963a55a7100ccdf68709e0f650b526bc65",
+     "dspitch\\dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+     "dspitch\\Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+     "dspitch\\Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+     "dspitch\\Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+     "dspitch\\Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+     "dspitch\\Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+     "dsvariance\\0801_variance.variance.onnx": "d68eb67d23be30f5ab7aba245f55a674413b120d25848bffd8bf67c5edb5c457",
+     "dsvariance\\dsconfig.yaml": "5f3a02f3b3a580c6b5600880ca6ea0bde77ddd2be2b81e863b7ed98772c8551b",
+     "dsvariance\\dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+     "dsvariance\\Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+     "dsvariance\\Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+     "dsvariance\\Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+     "dsvariance\\Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+     "dsvariance\\Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+     "dsvocoder\\TIPS.txt": "71d47eb3bf8cf21e6b4e9defc3dd8a80e7c0accac0071fb625343b04ee735258",
+     "dsvocoder\\vocoder.yaml": "a9dde1db7ed047c74247df89cb3676f0210ac60cd0776afad71d4bcf7b77ab2e",
+     "dsvocoder\\yousa_vocoder_FT_1002_pc_nsf_wm.onnx": "00ce253d8f616bb9ed8d219648aa8d37ff29b46888c99db6046b733e8f1fc16c",
+     "languages.json": "770e6713543dabffb0c122ef09c927bd5d4b89ef8db4299a8935a43e01a3e8c9",
+     "phonemes.json": "b69927aa2031a1b6c88fd309f48498cfe9b0bbe6e29a414932ea8fb88a5f848a",
+     "readme.txt": "9c59f112561a64883957e4a1401d0c4730e0f8d6b1967e289bd04e6f7cc66c5d",
+     "Yousa_Bright.emb": "dc40eeebd34a18b0d44d9ee887052d7d37d472eec6cbd13dd3acde30951f7832",
+     "Yousa_Classic.emb": "dde42450f7d38653aa520c9883e74473abe5105ea069cddcbe6ebadd2abbecb4",
+     "Yousa_Cute.emb": "5ffaef1e7d0366c70511eb493695afc992ab277b26f1145ac5fb929ec8e62a04",
+     "Yousa_Normal.emb": "9fa01d6ab16c67d52a520ab1a0c5cf9f293d093ef5c1be8c08ba94d926cd61e6",
+     "Yousa_Whisper.emb": "124ecc4622f34dc909810853a05a0bc9726b45e34aa56057b5cf97294ac5100a",
+     "\u07bb\u00ec\u00d5\u00e0\u00a9\u00de\u00ed\u00d1\u00d5\u00e0\u00e0\u07bb\u00a6\u00b5\u00c4.txt": "3d63067ebad603db19e8e7425d382f90d91b8ea7d68b78961ec381ef954edbeb"
+    }
+   },
+   "phonemizer": "OpenUtau.Core.DiffSinger.DiffSingerChinesePhonemizer",
+   "impl": "d3"
+  },
+  "fork": "KakaruHayate/OpenUtau dpV2 actions build",
+  "fork_commit": "not recoverable from install; binary hashes above are the binding identity"
+ },
+ "phrases": {
+  "P1_sustain": {
+   "old_ustx": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2.ustx",
+    "sha256": "315c7d5477e0047f6c94bbc59e9ef0629334e90e09504db895a4d764a75364df"
+   },
+   "new_ustx": {
+    "path": "runs\\expr-20260921\\rebaseline\\P1_sustain\\P1_sustain_C3v2_v165c.ustx",
+    "sha256": "f06ee3713fb614d60d7d6770be9bc7b0a08e8856d486cf9ee404a0646a39db03"
+   },
+   "old_wav": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P1_sustain\\P1_sustain_C3v2_vocal.wav",
+    "sha256": "93557c8b48d513ead109552f86c142bc1560a30aa359da29c443c38711ed0659"
+   },
+   "new_wav": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P1_sustain\\P1_sustain_C3v2_v165c_vocal.wav",
+    "sha256": "4f0e2c2ec4260bbd0f4b62960c6037e640e2f86398b73e0795aa60b07a2cd65c"
+   },
+   "semantic_identity": {
+    "touched": [
+     "tracks[0].singer"
+    ],
+    "unexpected_diffs": [],
+    "semantic_identity": true
+   },
+   "new_render": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P1_sustain\\P1_sustain_C3v2_v165c_vocal.wav",
+    "sha256": "4f0e2c2ec4260bbd",
+    "jitter": {
+     "n_frames": 282,
+     "voiced_frac": 0.872,
+     "dcent_med": 7.5,
+     "dcent_p90": 37.1,
+     "dcent_gt30_frac": 0.137,
+     "detrended_rms_c": 15.8,
+     "n_voiced_frames": 246
+    },
+    "quality": {
+     "n_frames_used": 246,
+     "acf_peak_med": 0.952,
+     "spec_flat_2_8k_med": 0.484
+    },
+    "defects": {
+     "pitch_dips_gt300c": [],
+     "unvoiced_dropouts": [
+      {
+       "t": [
+        19.12,
+        19.23
+       ],
+       "dur_ms": 120.0,
+       "src_voiced_frac": 0.8
+      },
+      {
+       "t": [
+        20.28,
+        20.43
+       ],
+       "dur_ms": 160.0,
+       "src_voiced_frac": 0.07
+      }
+     ],
+     "energy_collapses": []
+    },
+    "note_gesture_table": [
+     {
+      "note": 0,
+      "t_s": 18.8,
+      "offset_c": -2.0,
+      "src_range_c": 54.0,
+      "render_range_c": 53.0,
+      "range_ratio": 0.98
+     },
+     {
+      "note": 1,
+      "t_s": 19.22,
+      "offset_c": 18.0,
+      "src_range_c": 200.0,
+      "render_range_c": 228.0,
+      "range_ratio": 1.14
+     },
+     {
+      "note": 2,
+      "t_s": 19.59,
+      "offset_c": -13.0,
+      "src_range_c": 63.0,
+      "render_range_c": 73.0,
+      "range_ratio": 1.16
+     },
+     {
+      "note": 3,
+      "t_s": 19.95,
+      "offset_c": -17.0,
+      "src_range_c": 284.0,
+      "render_range_c": 285.0,
+      "range_ratio": 1.0
+     },
+     {
+      "note": 4,
+      "t_s": 20.44,
+      "offset_c": -56.0,
+      "src_range_c": 272.0,
+      "render_range_c": 528.0,
+      "range_ratio": 1.94
+     },
+     {
+      "note": 5,
+      "t_s": 20.9,
+      "offset_c": -4.0,
+      "src_range_c": 127.0,
+      "render_range_c": 127.0,
+      "range_ratio": 1.0
+     },
+     {
+      "note": 6,
+      "t_s": 21.18,
+      "offset_c": 71.0,
+      "src_range_c": 252.0,
+      "render_range_c": 288.0,
+      "range_ratio": 1.14
+     }
+    ]
+   },
+   "deltas_old_vs_new": {
+    "jitter.dcent_med": {
+     "old": 7.5,
+     "new": 7.5
+    },
+    "jitter.dcent_p90": {
+     "old": 40.9,
+     "new": 37.1
+    },
+    "jitter.dcent_gt30_frac": {
+     "old": 0.155,
+     "new": 0.137
+    },
+    "jitter.detrended_rms_c": {
+     "old": 16.5,
+     "new": 15.8
+    },
+    "jitter.voiced_frac": {
+     "old": 0.883,
+     "new": 0.872
+    },
+    "quality.acf_peak_med": {
+     "old": 0.952,
+     "new": 0.952
+    },
+    "quality.spec_flat_2_8k_med": {
+     "old": 0.491,
+     "new": 0.484
+    },
+    "defects.pitch_dips_gt300c": {
+     "old": [],
+     "new": [],
+     "old_count": 0,
+     "new_count": 0
+    },
+    "defects.unvoiced_dropouts": {
+     "old": [
+      {
+       "t": [
+        19.1,
+        19.19
+       ],
+       "dur_ms": 100.0,
+       "src_voiced_frac": 0.56
+      },
+      {
+       "t": [
+        20.3,
+        20.42
+       ],
+       "dur_ms": 130.0,
+       "src_voiced_frac": 0.0
+      },
+      {
+       "t": [
+        20.8,
+        20.89
+       ],
+       "dur_ms": 100.0,
+       "src_voiced_frac": 0.0
+      }
+     ],
+     "new": [
+      {
+       "t": [
+        19.12,
+        19.23
+       ],
+       "dur_ms": 120.0,
+       "src_voiced_frac": 0.8
+      },
+      {
+       "t": [
+        20.28,
+        20.43
+       ],
+       "dur_ms": 160.0,
+       "src_voiced_frac": 0.07
+      }
+     ],
+     "old_count": 3,
+     "new_count": 2
+    },
+    "defects.energy_collapses": {
+     "old": [],
+     "new": [],
+     "old_count": 0,
+     "new_count": 0
+    },
+    "note_gesture_table": [
+     {
+      "note": 0,
+      "t_s": 18.8,
+      "offset_c": {
+       "old": -5.0,
+       "new": -2.0
+      },
+      "range_ratio": {
+       "old": 0.99,
+       "new": 0.98
+      }
+     },
+     {
+      "note": 1,
+      "t_s": 19.22,
+      "offset_c": {
+       "old": 15.0,
+       "new": 18.0
+      },
+      "range_ratio": {
+       "old": 1.05,
+       "new": 1.14
+      }
+     },
+     {
+      "note": 2,
+      "t_s": 19.59,
+      "offset_c": {
+       "old": -12.0,
+       "new": -13.0
+      },
+      "range_ratio": {
+       "old": 1.25,
+       "new": 1.16
+      }
+     },
+     {
+      "note": 3,
+      "t_s": 19.95,
+      "offset_c": {
+       "old": -49.0,
+       "new": -17.0
+      },
+      "range_ratio": {
+       "old": 1.02,
+       "new": 1.0
+      }
+     },
+     {
+      "note": 4,
+      "t_s": 20.44,
+      "offset_c": {
+       "old": -25.0,
+       "new": -56.0
+      },
+      "range_ratio": {
+       "old": 1.3,
+       "new": 1.94
+      }
+     },
+     {
+      "note": 5,
+      "t_s": 20.9,
+      "offset_c": {
+       "old": -0.0,
+       "new": -4.0
+      },
+      "range_ratio": {
+       "old": 1.05,
+       "new": 1.0
+      }
+     },
+     {
+      "note": 6,
+      "t_s": 21.18,
+      "offset_c": {
+       "old": 68.0,
+       "new": 71.0
+      },
+      "range_ratio": {
+       "old": 1.16,
+       "new": 1.14
+      }
+     }
+    ]
+   }
+  },
+  "P2_slides": {
+   "old_ustx": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v2.ustx",
+    "sha256": "fa33a56b164b4eb6fc0487d18d83b5f099ac038c1cfaba6aeae42b45ed4aeff2"
+   },
+   "new_ustx": {
+    "path": "runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c.ustx",
+    "sha256": "d3a812f2e7f9da563d75b43063979dd46a1a8b34ea83f397ed8cdaf5470560d7"
+   },
+   "old_wav": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P2_slides\\P2_slides_C3v2_vocal.wav",
+    "sha256": "4c12360d29896d2fa8b8cdd774be04e7319891d2f6cd679e182b2c0aabed5dcd"
+   },
+   "new_wav": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c_vocal.wav",
+    "sha256": "0ade6097ee6f5ce95023742691da010582c25946c53d0636741c6e4310bd9ff1"
+   },
+   "semantic_identity": {
+    "touched": [
+     "tracks[0].singer"
+    ],
+    "unexpected_diffs": [],
+    "semantic_identity": true
+   },
+   "new_render": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P2_slides\\P2_slides_C3v2_v165c_vocal.wav",
+    "sha256": "0ade6097ee6f5ce9",
+    "jitter": {
+     "n_frames": 556,
+     "voiced_frac": 0.826,
+     "dcent_med": 11.2,
+     "dcent_p90": 37.5,
+     "dcent_gt30_frac": 0.155,
+     "detrended_rms_c": 12.6,
+     "n_voiced_frames": 459
+    },
+    "quality": {
+     "n_frames_used": 459,
+     "acf_peak_med": 0.961,
+     "spec_flat_2_8k_med": 0.458
+    },
+    "defects": {
+     "pitch_dips_gt300c": [],
+     "unvoiced_dropouts": [
+      {
+       "t": [
+        51.42,
+        51.57
+       ],
+       "dur_ms": 160.0,
+       "src_voiced_frac": 0.67
+      },
+      {
+       "t": [
+        52.24,
+        52.37
+       ],
+       "dur_ms": 140.0,
+       "src_voiced_frac": 0.42
+      },
+      {
+       "t": [
+        53.1,
+        53.23
+       ],
+       "dur_ms": 140.0,
+       "src_voiced_frac": 0.46
+      },
+      {
+       "t": [
+        53.98,
+        54.32
+       ],
+       "dur_ms": 350.0,
+       "src_voiced_frac": 0.26
+      }
+     ],
+     "energy_collapses": [
+      {
+       "t": 51.36,
+       "render_dbfs": -38.1,
+       "source_dbfs": -25.0
+      },
+      {
+       "t": 54.16,
+       "render_dbfs": -40.3,
+       "source_dbfs": -22.2
+      }
+     ]
+    },
+    "note_gesture_table": [
+     {
+      "note": 0,
+      "t_s": 51.16,
+      "offset_c": -6.0,
+      "src_range_c": 560.0,
+      "render_range_c": 79.0,
+      "range_ratio": 0.14
+     },
+     {
+      "note": 1,
+      "t_s": 51.58,
+      "offset_c": -2.0,
+      "src_range_c": 221.0,
+      "render_range_c": 234.0,
+      "range_ratio": 1.06
+     },
+     {
+      "note": 2,
+      "t_s": 51.94,
+      "offset_c": 13.0,
+      "src_range_c": 188.0,
+      "render_range_c": 174.0,
+      "range_ratio": 0.92
+     },
+     {
+      "note": 3,
+      "t_s": 52.39,
+      "offset_c": 1.0,
+      "src_range_c": 242.0,
+      "render_range_c": 233.0,
+      "range_ratio": 0.97
+     },
+     {
+      "note": 4,
+      "t_s": 52.76,
+      "offset_c": 3.0,
+      "src_range_c": 24.0,
+      "render_range_c": 24.0,
+      "range_ratio": 1.02
+     },
+     {
+      "note": 5,
+      "t_s": 52.93,
+      "offset_c": 56.0,
+      "src_range_c": 116.0,
+      "render_range_c": 66.0,
+      "range_ratio": 0.57
+     },
+     {
+      "note": 6,
+      "t_s": 53.25,
+      "offset_c": -24.0,
+      "src_range_c": 285.0,
+      "render_range_c": 171.0,
+      "range_ratio": 0.6
+     },
+     {
+      "note": 7,
+      "t_s": 53.61,
+      "offset_c": -6.0,
+      "src_range_c": 236.0,
+      "render_range_c": 238.0,
+      "range_ratio": 1.01
+     },
+     {
+      "note": 8,
+      "t_s": 54.35,
+      "offset_c": -1.0,
+      "src_range_c": 493.0,
+      "render_range_c": 745.0,
+      "range_ratio": 1.51
+     },
+     {
+      "note": 9,
+      "t_s": 54.85,
+      "offset_c": -12.0,
+      "src_range_c": 285.0,
+      "render_range_c": 286.0,
+      "range_ratio": 1.0
+     },
+     {
+      "note": 10,
+      "t_s": 55.2,
+      "offset_c": -19.0,
+      "src_range_c": 287.0,
+      "render_range_c": 48.0,
+      "range_ratio": 0.17
+     },
+     {
+      "note": 11,
+      "t_s": 55.53,
+      "offset_c": -2.0,
+      "src_range_c": 122.0,
+      "render_range_c": 130.0,
+      "range_ratio": 1.07
+     }
+    ]
+   },
+   "deltas_old_vs_new": {
+    "jitter.dcent_med": {
+     "old": 9.7,
+     "new": 11.2
+    },
+    "jitter.dcent_p90": {
+     "old": 35.2,
+     "new": 37.5
+    },
+    "jitter.dcent_gt30_frac": {
+     "old": 0.123,
+     "new": 0.155
+    },
+    "jitter.detrended_rms_c": {
+     "old": 9.6,
+     "new": 12.6
+    },
+    "jitter.voiced_frac": {
+     "old": 0.806,
+     "new": 0.826
+    },
+    "quality.acf_peak_med": {
+     "old": 0.961,
+     "new": 0.961
+    },
+    "quality.spec_flat_2_8k_med": {
+     "old": 0.52,
+     "new": 0.458
+    },
+    "defects.pitch_dips_gt300c": {
+     "old": [],
+     "new": [],
+     "old_count": 0,
+     "new_count": 0
+    },
+    "defects.unvoiced_dropouts": {
+     "old": [
+      {
+       "t": [
+        51.44,
+        51.58
+       ],
+       "dur_ms": 150.0,
+       "src_voiced_frac": 0.73
+      },
+      {
+       "t": [
+        52.26,
+        52.38
+       ],
+       "dur_ms": 130.0,
+       "src_voiced_frac": 0.46
+      },
+      {
+       "t": [
+        53.07,
+        53.24
+       ],
+       "dur_ms": 180.0,
+       "src_voiced_frac": 0.5
+      },
+      {
+       "t": [
+        53.99,
+        54.32
+       ],
+       "dur_ms": 340.0,
+       "src_voiced_frac": 0.22
+      },
+      {
+       "t": [
+        54.7,
+        54.83
+       ],
+       "dur_ms": 140.0,
+       "src_voiced_frac": 1.0
+      }
+     ],
+     "new": [
+      {
+       "t": [
+        51.42,
+        51.57
+       ],
+       "dur_ms": 160.0,
+       "src_voiced_frac": 0.67
+      },
+      {
+       "t": [
+        52.24,
+        52.37
+       ],
+       "dur_ms": 140.0,
+       "src_voiced_frac": 0.42
+      },
+      {
+       "t": [
+        53.1,
+        53.23
+       ],
+       "dur_ms": 140.0,
+       "src_voiced_frac": 0.46
+      },
+      {
+       "t": [
+        53.98,
+        54.32
+       ],
+       "dur_ms": 350.0,
+       "src_voiced_frac": 0.26
+      }
+     ],
+     "old_count": 5,
+     "new_count": 4
+    },
+    "defects.energy_collapses": {
+     "old": [],
+     "new": [
+      {
+       "t": 51.36,
+       "render_dbfs": -38.1,
+       "source_dbfs": -25.0
+      },
+      {
+       "t": 54.16,
+       "render_dbfs": -40.3,
+       "source_dbfs": -22.2
+      }
+     ],
+     "old_count": 0,
+     "new_count": 2
+    },
+    "note_gesture_table": [
+     {
+      "note": 0,
+      "t_s": 51.16,
+      "offset_c": {
+       "old": -9.0,
+       "new": -6.0
+      },
+      "range_ratio": {
+       "old": 0.16,
+       "new": 0.14
+      }
+     },
+     {
+      "note": 1,
+      "t_s": 51.58,
+      "offset_c": {
+       "old": -2.0,
+       "new": -2.0
+      },
+      "range_ratio": {
+       "old": 1.05,
+       "new": 1.06
+      }
+     },
+     {
+      "note": 2,
+      "t_s": 51.94,
+      "offset_c": {
+       "old": 10.0,
+       "new": 13.0
+      },
+      "range_ratio": {
+       "old": 0.95,
+       "new": 0.92
+      }
+     },
+     {
+      "note": 3,
+      "t_s": 52.39,
+      "offset_c": {
+       "old": -0.0,
+       "new": 1.0
+      },
+      "range_ratio": {
+       "old": 0.96,
+       "new": 0.97
+      }
+     },
+     {
+      "note": 4,
+      "t_s": 52.76,
+      "offset_c": {
+       "old": -1.0,
+       "new": 3.0
+      },
+      "range_ratio": {
+       "old": 1.02,
+       "new": 1.02
+      }
+     },
+     {
+      "note": 5,
+      "t_s": 52.93,
+      "offset_c": {
+       "old": 45.0,
+       "new": 56.0
+      },
+      "range_ratio": {
+       "old": 0.47,
+       "new": 0.57
+      }
+     },
+     {
+      "note": 6,
+      "t_s": 53.25,
+      "offset_c": {
+       "old": -38.0,
+       "new": -24.0
+      },
+      "range_ratio": {
+       "old": 0.51,
+       "new": 0.6
+      }
+     },
+     {
+      "note": 7,
+      "t_s": 53.61,
+      "offset_c": {
+       "old": -6.0,
+       "new": -6.0
+      },
+      "range_ratio": {
+       "old": 1.02,
+       "new": 1.01
+      }
+     },
+     {
+      "note": 8,
+      "t_s": 54.35,
+      "offset_c": {
+       "old": -5.0,
+       "new": -1.0
+      },
+      "range_ratio": {
+       "old": 0.91,
+       "new": 1.51
+      }
+     },
+     {
+      "note": 9,
+      "t_s": 54.85,
+      "offset_c": {
+       "old": -9.0,
+       "new": -12.0
+      },
+      "range_ratio": {
+       "old": 0.99,
+       "new": 1.0
+      }
+     },
+     {
+      "note": 10,
+      "t_s": 55.2,
+      "offset_c": {
+       "old": -12.0,
+       "new": -19.0
+      },
+      "range_ratio": {
+       "old": 0.14,
+       "new": 0.17
+      }
+     },
+     {
+      "note": 11,
+      "t_s": 55.53,
+      "offset_c": {
+       "old": -0.0,
+       "new": -2.0
+      },
+      "range_ratio": {
+       "old": 0.96,
+       "new": 1.07
+      }
+     }
+    ]
+   }
+  },
+  "P3_vibrato": {
+   "old_ustx": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3.ustx",
+    "sha256": "a61af2acd58cfbadb952ee4ea5ffb92f7663318690bfe44fa3507c0cf1c3c37b"
+   },
+   "new_ustx": {
+    "path": "runs\\expr-20260921\\rebaseline\\P3_vibrato\\P3_vibrato_C3_v165c.ustx",
+    "sha256": "ed354a57e5243bfd1b1fdbf73214e95bf68d99968c7c1c17a39259c3ce07ee2b"
+   },
+   "old_wav": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\phrases3\\P3_vibrato\\P3_vibrato_C3_v1_vocal.wav",
+    "sha256": "e16455f87d88fca3c6a75688ace5803070e53ef885aa0fbda6d813d77e26f3f9"
+   },
+   "new_wav": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P3_vibrato\\P3_vibrato_C3_v165c_vocal.wav",
+    "sha256": "69b7902be271d0a06b8c701ef540f439a8d7d8c200513023fe68ca2963f090b7"
+   },
+   "semantic_identity": {
+    "touched": [
+     "tracks[0].singer"
+    ],
+    "unexpected_diffs": [],
+    "semantic_identity": true
+   },
+   "new_render": {
+    "path": "E:\\project\\agent2utau\\runs\\expr-20260921\\rebaseline\\P3_vibrato\\P3_vibrato_C3_v165c_vocal.wav",
+    "sha256": "69b7902be271d0a0",
+    "jitter": {
+     "n_frames": 555,
+     "voiced_frac": 0.78,
+     "dcent_med": 8.5,
+     "dcent_p90": 33.7,
+     "dcent_gt30_frac": 0.132,
+     "detrended_rms_c": 12.0,
+     "n_voiced_frames": 433
+    },
+    "quality": {
+     "n_frames_used": 433,
+     "acf_peak_med": 0.961,
+     "spec_flat_2_8k_med": 0.464
+    },
+    "defects": {
+     "pitch_dips_gt300c": [],
+     "unvoiced_dropouts": [
+      {
+       "t": [
+        25.92,
+        26.05
+       ],
+       "dur_ms": 140.0,
+       "src_voiced_frac": 0.31
+      },
+      {
+       "t": [
+        26.22,
+        26.38
+       ],
+       "dur_ms": 170.0,
+       "src_voiced_frac": 1.0
+      },
+      {
+       "t": [
+        27.98,
+        28.44
+       ],
+       "dur_ms": 470.0,
+       "src_voiced_frac": 0.0
+      },
+      {
+       "t": [
+        28.7,
+        28.87
+       ],
+       "dur_ms": 180.0,
+       "src_voiced_frac": 0.18
+      },
+      {
+       "t": [
+        29.47,
+        29.62
+       ],
+       "dur_ms": 160.0,
+       "src_voiced_frac": 0.81
+      }
+     ],
+     "energy_collapses": [
+      {
+       "t": 28.13,
+       "render_dbfs": -39.1,
+       "source_dbfs": -29.8
+      }
+     ]
+    },
+    "note_gesture_table": [
+     {
+      "note": 0,
+      "t_s": 25.23,
+      "offset_c": -3.0,
+      "src_range_c": 98.0,
+      "render_range_c": 86.0,
+      "range_ratio": 0.88
+     },
+     {
+      "note": 1,
+      "t_s": 25.73,
+      "offset_c": 1.0,
+      "src_range_c": 98.0,
+      "render_range_c": 65.0,
+      "range_ratio": 0.67
+     },
+     {
+      "note": 2,
+      "t_s": 26.07,
+      "offset_c": -2.0,
+      "src_range_c": 96.0,
+      "render_range_c": 28.0,
+      "range_ratio": 0.29
+     },
+     {
+      "note": 3,
+      "t_s": 26.4,
+      "offset_c": 10.0,
+      "src_range_c": 373.0,
+      "render_range_c": 216.0,
+      "range_ratio": 0.58
+     },
+     {
+      "note": 4,
+      "t_s": 26.81,
+      "offset_c": -8.0,
+      "src_range_c": 649.0,
+      "render_range_c": 613.0,
+      "range_ratio": 0.94
+     },
+     {
+      "note": 5,
+      "t_s": 27.2,
+      "offset_c": 65.0,
+      "src_range_c": 299.0,
+      "render_range_c": 376.0,
+      "range_ratio": 1.26
+     },
+     {
+      "note": 6,
+      "t_s": 27.58,
+      "offset_c": 6.0,
+      "src_range_c": 252.0,
+      "render_range_c": 246.0,
+      "range_ratio": 0.98
+     },
+     {
+      "note": 7,
+      "t_s": 28.45,
+      "offset_c": -5.0,
+      "src_range_c": 163.0,
+      "render_range_c": 157.0,
+      "range_ratio": 0.97
+     },
+     {
+      "note": 8,
+      "t_s": 28.89,
+      "offset_c": 2.0,
+      "src_range_c": 49.0,
+      "render_range_c": 45.0,
+      "range_ratio": 0.92
+     },
+     {
+      "note": 9,
+      "t_s": 29.07,
+      "offset_c": 5.0,
+      "src_range_c": 65.0,
+      "render_range_c": 100.0,
+      "range_ratio": 1.54
+     },
+     {
+      "note": 10,
+      "t_s": 29.28,
+      "offset_c": -15.0,
+      "src_range_c": 239.0,
+      "render_range_c": 28.0,
+      "range_ratio": 0.12
+     },
+     {
+      "note": 11,
+      "t_s": 29.64,
+      "offset_c": 3.0,
+      "src_range_c": 122.0,
+      "render_range_c": 170.0,
+      "range_ratio": 1.39
+     }
+    ]
+   },
+   "deltas_old_vs_new": {
+    "jitter.dcent_med": {
+     "old": 8.4,
+     "new": 8.5
+    },
+    "jitter.dcent_p90": {
+     "old": 32.6,
+     "new": 33.7
+    },
+    "jitter.dcent_gt30_frac": {
+     "old": 0.12,
+     "new": 0.132
+    },
+    "jitter.detrended_rms_c": {
+     "old": 62.5,
+     "new": 12.0
+    },
+    "jitter.voiced_frac": {
+     "old": 0.798,
+     "new": 0.78
+    },
+    "quality.acf_peak_med": {
+     "old": 0.96,
+     "new": 0.961
+    },
+    "quality.spec_flat_2_8k_med": {
+     "old": 0.436,
+     "new": 0.464
+    },
+    "defects.pitch_dips_gt300c": {
+     "old": [
+      {
+       "t": 29.26,
+       "dev_c": 423.0
+      },
+      {
+       "t": 29.27,
+       "dev_c": -1210.0
+      },
+      {
+       "t": 29.28,
+       "dev_c": 611.0
+      }
+     ],
+     "new": [],
+     "old_count": 3,
+     "new_count": 0
+    },
+    "defects.unvoiced_dropouts": {
+     "old": [
+      {
+       "t": [
+        25.92,
+        26.05
+       ],
+       "dur_ms": 140.0,
+       "src_voiced_frac": 0.31
+      },
+      {
+       "t": [
+        26.24,
+        26.38
+       ],
+       "dur_ms": 150.0,
+       "src_voiced_frac": 1.0
+      },
+      {
+       "t": [
+        27.99,
+        28.44
+       ],
+       "dur_ms": 460.0,
+       "src_voiced_frac": 0.0
+      },
+      {
+       "t": [
+        28.76,
+        28.88
+       ],
+       "dur_ms": 130.0,
+       "src_voiced_frac": 0.0
+      },
+      {
+       "t": [
+        29.5,
+        29.62
+       ],
+       "dur_ms": 130.0,
+       "src_voiced_frac": 0.92
+      }
+     ],
+     "new": [
+      {
+       "t": [
+        25.92,
+        26.05
+       ],
+       "dur_ms": 140.0,
+       "src_voiced_frac": 0.31
+      },
+      {
+       "t": [
+        26.22,
+        26.38
+       ],
+       "dur_ms": 170.0,
+       "src_voiced_frac": 1.0
+      },
+      {
+       "t": [
+        27.98,
+        28.44
+       ],
+       "dur_ms": 470.0,
+       "src_voiced_frac": 0.0
+      },
+      {
+       "t": [
+        28.7,
+        28.87
+       ],
+       "dur_ms": 180.0,
+       "src_voiced_frac": 0.18
+      },
+      {
+       "t": [
+        29.47,
+        29.62
+       ],
+       "dur_ms": 160.0,
+       "src_voiced_frac": 0.81
+      }
+     ],
+     "old_count": 5,
+     "new_count": 5
+    },
+    "defects.energy_collapses": {
+     "old": [],
+     "new": [
+      {
+       "t": 28.13,
+       "render_dbfs": -39.1,
+       "source_dbfs": -29.8
+      }
+     ],
+     "old_count": 0,
+     "new_count": 1
+    },
+    "note_gesture_table": [
+     {
+      "note": 0,
+      "t_s": 25.23,
+      "offset_c": {
+       "old": -3.0,
+       "new": -3.0
+      },
+      "range_ratio": {
+       "old": 1.78,
+       "new": 0.88
+      }
+     },
+     {
+      "note": 1,
+      "t_s": 25.73,
+      "offset_c": {
+       "old": 1.0,
+       "new": 1.0
+      },
+      "range_ratio": {
+       "old": 0.38,
+       "new": 0.67
+      }
+     },
+     {
+      "note": 2,
+      "t_s": 26.07,
+      "offset_c": {
+       "old": -2.0,
+       "new": -2.0
+      },
+      "range_ratio": {
+       "old": 0.39,
+       "new": 0.29
+      }
+     },
+     {
+      "note": 3,
+      "t_s": 26.4,
+      "offset_c": {
+       "old": 5.0,
+       "new": 10.0
+      },
+      "range_ratio": {
+       "old": 0.66,
+       "new": 0.58
+      }
+     },
+     {
+      "note": 4,
+      "t_s": 26.81,
+      "offset_c": {
+       "old": 5.0,
+       "new": -8.0
+      },
+      "range_ratio": {
+       "old": 0.74,
+       "new": 0.94
+      }
+     },
+     {
+      "note": 5,
+      "t_s": 27.2,
+      "offset_c": {
+       "old": 50.0,
+       "new": 65.0
+      },
+      "range_ratio": {
+       "old": 1.19,
+       "new": 1.26
+      }
+     },
+     {
+      "note": 6,
+      "t_s": 27.58,
+      "offset_c": {
+       "old": 0.0,
+       "new": 6.0
+      },
+      "range_ratio": {
+       "old": 0.99,
+       "new": 0.98
+      }
+     },
+     {
+      "note": 7,
+      "t_s": 28.45,
+      "offset_c": {
+       "old": 3.0,
+       "new": -5.0
+      },
+      "range_ratio": {
+       "old": 2.04,
+       "new": 0.97
+      }
+     },
+     {
+      "note": 8,
+      "t_s": 28.89,
+      "offset_c": {
+       "old": 1.0,
+       "new": 2.0
+      },
+      "range_ratio": {
+       "old": 0.88,
+       "new": 0.92
+      }
+     },
+     {
+      "note": 9,
+      "t_s": 29.07,
+      "offset_c": {
+       "old": 9.0,
+       "new": 5.0
+      },
+      "range_ratio": {
+       "old": 0.59,
+       "new": 1.54
+      }
+     },
+     {
+      "note": 10,
+      "t_s": 29.28,
+      "offset_c": {
+       "old": -16.0,
+       "new": -15.0
+      },
+      "range_ratio": {
+       "old": 0.11,
+       "new": 0.12
+      }
+     },
+     {
+      "note": 11,
+      "t_s": 29.64,
+      "offset_c": {
+       "old": 2.0,
+       "new": 3.0
+      },
+      "range_ratio": {
+       "old": 1.38,
+       "new": 1.39
+      }
+     }
+    ]
+   }
+  }
+ },
+ "listening_project": {
+  "path": "runs\\expr-20260921\\rebaseline\\agent2utau_L7E_v165c_P1_P3_P2.ustx",
+  "sha256": "b1898e2123fdfa471f118361d162a9ce6a323e346ae3d9f8282b96b2c3dc2b70",
+  "parts": [
+   "P1_sustain_C3",
+   "P2_slides_C3",
+   "P3_vibrato_C3"
+  ]
+ }
+}
