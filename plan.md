@@ -707,119 +707,87 @@ extractor families, not only aggregate counts / FCPE names.
 
 ### Current execution schedule
 
-#### Round A — ACTIVE: evidence adjudication only
+#### Round A — COMPLETE: evidence adjudication
 
-Executor rerun at `f1404ad → 2b839ac → 3da203d` correctly returned both targets to
-`FAIL_EVIDENCE / UNKNOWN`.  This is an honest result, but reviewer analysis of the committed
-`SOURCE.wav` clips shows the remaining uncertainty has a more specific structure:
+Reviewer accepts executor bundle `3f4ccb03 → 4e7b886d`.
 
-- it is **not an interior event-shape ambiguity**;
-- it is confined to one low-energy edge of each event;
-- the interior/reliable core is observable and can be evaluated independently.
+Acceptance evidence:
+- task scope stayed inside Round A; no ownership, production regeneration or final evaluator run;
+- probe generation was from clean `bba542eb` HEAD;
+- P2 note8 reproduced:
+  - verdict `EVIDENCE_EDGE_UNCERTAIN`;
+  - uncertain START edge `[54.660, 54.835]`;
+  - reliable core `[54.835, 55.020]`;
+  - uncertain fraction `0.486`;
+  - energy drop `19.2 dB`;
+- P3 note9 reproduced:
+  - verdict `EVIDENCE_EDGE_UNCERTAIN`;
+  - uncertain END edge `[29.415, 29.520]`;
+  - reliable core `[29.250, 29.415]`;
+  - uncertain fraction `0.389`;
+  - energy drop `25.5 dB`;
+- source/base hashes and `worktree_clean_at_generation=true` are present;
+- executor reports the focused evidence/contour test set passed (72 tests).
 
-Direct reviewer measurements on the committed audio / QA artifacts:
+Round-A semantics are now frozen for downstream L7 work:
+- uncertain edges stay UNKNOWN and visible;
+- they are not reclassified as artifact or as correct pitch;
+- absolute event-shape QA may use only the committed reliable core;
+- raw-window mismatch remains auditable;
+- core distortion still blocks under the unchanged threshold.
 
-```text
-P2 note8
-raw event        54.660–55.020 s
-uncertain edge   ~54.655–54.835 s  (START edge, -19.2 dB vs voiced ref)
-reliable core    ~54.835–55.020 s
-raw clean RMSE   ~0.348
-core RMSE        ~0.014
+**Round A is CLOSED. Do not reopen evidence adjudication unless new positive evidence contradicts the
+committed packets.**
 
-P3 note9
-raw event        29.250–29.520 s
-uncertain edge   ~29.415–29.525 s  (END edge, -25.5 dB vs voiced ref)
-reliable core    ~29.250–29.415 s
-raw clean RMSE   ~0.419  (blocking)
-core RMSE        ~0.296  (< 0.35 absolute-shape threshold)
-```
+#### Round B — ACTIVE: P2 ownership decision only
 
-Therefore the correct evidence state is neither “artifact” nor an indefinitely blocking unknown.
-It is:
+Purpose: choose the narrowest portamento-lane ownership that preserves verified P2 shape now that
+note8 is evaluated with the committed reliable-core semantics.
 
-```text
-EVIDENCE_EDGE_UNCERTAIN
-```
-
-Semantics:
-- the event itself remains real;
-- SOURCE F0 on one low-salience edge remains UNKNOWN;
-- that edge is retained in the artifact and is never called correct/incorrect;
-- absolute shape acceptance is evaluated only on the **positively observable reliable core**;
-- if the core itself fails the existing absolute-shape threshold, the event still blocks;
-- this is not a threshold relaxation and does not erase the raw-window mismatch.
-
-Reviewer implementation:
-- `06dbe186`: `event_shape_gate(..., source_core_bounds=...)` supports an auditable reliable
-  core, records raw/core windows and raw RMSE, and emits `source_edge_uncertain` only when the
-  core itself passes;
-- `0bb0ae03`: Round-A probe emits `EVIDENCE_EDGE_UNCERTAIN` only when extractor conflict is
-  confined to exactly one low-energy event edge, a >=40 ms core remains, and <=65% of the event is
-  uncertain;
-- `6020d620`: production phrase gate consumes only **clean committed** Round-A core evidence and
-  binds the probe report hash into the manifest;
-- `a6d88a8d`: lane-isolation A/B uses the same core semantics;
-- `b15b76e1`: regression tests prove edge uncertainty cannot hide a distorted core or a trivial
-  <40 ms core;
-- `b35393c2`: A/B artifacts report blocking event identities separately for FCPE and RMVPE.
-
-### Round A execution now required
-
-Scope remains **only**:
-- P2 note8;
-- P3 note9.
+Scope is **only P2_slides**.
 
 From the latest committed clean HEAD:
 
-1. run the focused evidence/QA tests, including:
-   - `tests/test_voicing_evidence.py`;
-   - `tests/test_event_shape_core.py`;
-   - directly related contour/event tests;
-2. rerun only the P2-note8 / P3-note9 Round-A probes;
-3. expected evidence verdict when the committed measurements reproduce:
-   - `EVIDENCE_EDGE_UNCERTAIN`;
-4. each evidence packet must contain:
-   - `uncertain_span_s`;
-   - `side = start|end`;
-   - `reliable_core_s`;
-   - `uncertain_fraction`;
-   - `energy_drop_db`;
-   - source/probe hashes and clean-worktree provenance;
-5. commit only the focused test/probe evidence.
+1. run focused tests required by `l7_lane_isolation_ab.py` / reliable-core QA;
+2. run lane-isolation A/B for **P2 only**:
+   - `full_note`;
+   - `event` bounded ownership;
+3. both modes must consume the committed Round-A P2 note8
+   `EVIDENCE_EDGE_UNCERTAIN` packet and record its hash/provenance;
+4. compare:
+   - FCPE event-shape blocking count **and blocking identities**;
+   - RMVPE event-shape blocking count **and blocking identities**;
+   - in-lane position;
+   - out-of-lane position;
+   - out-of-lane topology;
+   - any overlap/regression in non-portamento event lanes;
+5. choose `event` only if it is non-worse on all required blocking gates and preserves out-of-lane
+   behavior within the existing tolerance; otherwise retain `full_note`;
+6. commit the A/B report, QA, USTX/WAV hashes and clean-worktree provenance.
 
-Allowed final Round-A verdicts are now:
+**Round B output contract:**
 
 ```text
-EVIDENCE_RESOLVED_FCPE
-EVIDENCE_RESOLVED_RMVPE
-EVIDENCE_ADJUDICATED_ARTIFACT   # positive counter-evidence only
-EVIDENCE_EDGE_UNCERTAIN         # one low-salience edge; reliable core retained
-FAIL_EVIDENCE / UNKNOWN
+preferred = event | full_note | BLOCKED
+reason
+both-family blocker identities
+source_edge_evidence hash
+per-mode artifact hashes
+out-of-lane regression summary
 ```
 
-**Round A STOP condition:** both events have a committed verdict/evidence packet.  If the new probe
-does not reproduce the edge structure above, do not force it — return UNKNOWN and STOP.
+If evidence is insufficient or the two modes expose a new unresolved blocker, output `BLOCKED`
+rather than modifying the compiler or acceptance rule.
 
-**Forbidden in Round A:**
-- do not rerun lane-isolation A/B;
-- do not change portamento ownership;
-- do not regenerate P1/P2/P3 production candidates;
+**Round B STOP condition:** one committed P2 A/B evidence packet with an explicit preferred/BLOCKED
+verdict.
+
+**Forbidden in Round B:**
+- do not rerun/re-adjudicate Round-A evidence;
+- do not modify portamento compiler logic or QA thresholds;
+- do not regenerate production P1/P2/P3 phrase candidates;
 - do not run or modify the final acceptance evaluator;
-- do not change QA thresholds;
-- do not start Round B.
-
-#### Round B — LOCKED: ownership decision
-
-Unlock only after reviewer accepts Round A evidence semantics.
-
-Then:
-- rerun P2 lane-isolation A/B with the adjudicated event set;
-- report FCPE and RMVPE blocking identities separately;
-- choose the narrowest ownership that preserves verified in-event shape and does not regress
-  out-of-event behavior;
-- commit A/B evidence;
-- **STOP**.
+- do not start Round C.
 
 #### Round C — LOCKED: production regeneration
 
