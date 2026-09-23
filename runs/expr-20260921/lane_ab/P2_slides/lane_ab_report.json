@@ -1,7 +1,7 @@
 {
  "phrase": "P2_slides",
- "generator_code_head": "7a49114e8cad51eae0303f9710ad0477f7ceafc5",
- "qa_code_head": "7a49114e8cad51eae0303f9710ad0477f7ceafc5",
+ "generator_code_head": "e27a314706f36a370a852acdfac5b6715efcf909",
+ "qa_code_head": "e27a314706f36a370a852acdfac5b6715efcf909",
  "worktree_clean_at_generation": true,
  "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
  "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
@@ -224,6 +224,64 @@
       "delta_end_ms": 90.0
      }
     ],
+    "non_portamento_event_lanes": {
+     "fcpe": {
+      "matched_by_type": {
+       "ornament": 0,
+       "overshoot": 1,
+       "scoop": 4,
+       "undershoot": 1
+      },
+      "source_only_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 1,
+       "undershoot": 1
+      },
+      "ambiguous_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 0,
+       "undershoot": 0
+      },
+      "render_only_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 1,
+       "undershoot": 1
+      },
+      "source_unresolved_total": 2,
+      "render_only_total": 2
+     },
+     "rmvpe": {
+      "matched_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 3,
+       "undershoot": 1
+      },
+      "source_only_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 1,
+       "undershoot": 0
+      },
+      "ambiguous_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 0,
+       "undershoot": 0
+      },
+      "render_only_by_type": {
+       "ornament": 1,
+       "overshoot": 1,
+       "scoop": 2,
+       "undershoot": 1
+      },
+      "source_unresolved_total": 1,
+      "render_only_total": 5
+     }
+    },
     "topology": {
      "matched_turns": 43,
      "missing_turns": 19,
@@ -1189,9 +1247,9 @@
      "n_blocking": 0,
      "by_class": {
       "source_irregular": 1,
-      "source_edge_uncertain": 1,
+      "label_mismatch": 3,
       "match": 1,
-      "label_mismatch": 3
+      "source_edge_uncertain": 1
      },
      "gate_passed": true
     },
@@ -2003,9 +2061,9 @@
      "n_blocking": 0,
      "by_class": {
       "source_irregular": 2,
-      "source_edge_uncertain": 1,
       "match": 1,
-      "label_mismatch": 2
+      "label_mismatch": 2,
+      "source_edge_uncertain": 1
      },
      "gate_passed": true
     },
@@ -2347,6 +2405,64 @@
       "delta_end_ms": 90.0
      }
     ],
+    "non_portamento_event_lanes": {
+     "fcpe": {
+      "matched_by_type": {
+       "ornament": 0,
+       "overshoot": 1,
+       "scoop": 5,
+       "undershoot": 1
+      },
+      "source_only_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 0,
+       "undershoot": 1
+      },
+      "ambiguous_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 0,
+       "undershoot": 0
+      },
+      "render_only_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 1,
+       "undershoot": 0
+      },
+      "source_unresolved_total": 1,
+      "render_only_total": 1
+     },
+     "rmvpe": {
+      "matched_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 3,
+       "undershoot": 1
+      },
+      "source_only_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 1,
+       "undershoot": 0
+      },
+      "ambiguous_by_type": {
+       "ornament": 0,
+       "overshoot": 0,
+       "scoop": 0,
+       "undershoot": 0
+      },
+      "render_only_by_type": {
+       "ornament": 0,
+       "overshoot": 1,
+       "scoop": 2,
+       "undershoot": 1
+      },
+      "source_unresolved_total": 1,
+      "render_only_total": 4
+     }
+    },
     "topology": {
      "matched_turns": 42,
      "missing_turns": 20,
@@ -3044,9 +3160,9 @@
      "n_events": 4,
      "n_blocking": 0,
      "by_class": {
-      "source_edge_uncertain": 1,
       "label_mismatch": 2,
-      "extraction_artifact": 1
+      "extraction_artifact": 1,
+      "source_edge_uncertain": 1
      },
      "gate_passed": true
     },
@@ -3592,9 +3708,9 @@
      "n_blocking": 1,
      "by_class": {
       "source_irregular": 1,
-      "source_edge_uncertain": 1,
       "match": 1,
-      "distortion": 1
+      "distortion": 1,
+      "source_edge_uncertain": 1
      },
      "gate_passed": false
     },
@@ -3723,7 +3839,131 @@
    "full_note": 7.0,
    "event": 8.1
   },
-  "preferred": "full_note",
-  "rule": "prefer event-bounded ownership when in-event blocking is non-worse on both extractor families and out-of-lane median |err| is non-worse (+5c tolerance)"
+  "preferred": "BLOCKED",
+  "non_portamento_event_lanes": {
+   "full_note": {
+    "fcpe": {
+     "matched_by_type": {
+      "ornament": 0,
+      "overshoot": 1,
+      "scoop": 4,
+      "undershoot": 1
+     },
+     "source_only_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 1,
+      "undershoot": 1
+     },
+     "ambiguous_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 0,
+      "undershoot": 0
+     },
+     "render_only_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 1,
+      "undershoot": 1
+     },
+     "source_unresolved_total": 2,
+     "render_only_total": 2
+    },
+    "rmvpe": {
+     "matched_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 3,
+      "undershoot": 1
+     },
+     "source_only_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 1,
+      "undershoot": 0
+     },
+     "ambiguous_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 0,
+      "undershoot": 0
+     },
+     "render_only_by_type": {
+      "ornament": 1,
+      "overshoot": 1,
+      "scoop": 2,
+      "undershoot": 1
+     },
+     "source_unresolved_total": 1,
+     "render_only_total": 5
+    }
+   },
+   "event": {
+    "fcpe": {
+     "matched_by_type": {
+      "ornament": 0,
+      "overshoot": 1,
+      "scoop": 5,
+      "undershoot": 1
+     },
+     "source_only_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 0,
+      "undershoot": 1
+     },
+     "ambiguous_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 0,
+      "undershoot": 0
+     },
+     "render_only_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 1,
+      "undershoot": 0
+     },
+     "source_unresolved_total": 1,
+     "render_only_total": 1
+    },
+    "rmvpe": {
+     "matched_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 3,
+      "undershoot": 1
+     },
+     "source_only_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 1,
+      "undershoot": 0
+     },
+     "ambiguous_by_type": {
+      "ornament": 0,
+      "overshoot": 0,
+      "scoop": 0,
+      "undershoot": 0
+     },
+     "render_only_by_type": {
+      "ornament": 0,
+      "overshoot": 1,
+      "scoop": 2,
+      "undershoot": 1
+     },
+     "source_unresolved_total": 1,
+     "render_only_total": 4
+    }
+   },
+   "vibrato_missing": {
+    "full_note": 0,
+    "event": 0
+   },
+   "event_nonworse": true,
+   "full_note_nonworse": false
+  },
+  "rule": "prefer event-bounded ownership only when absolute event-shape blocking is non-worse on both extractor families, discrete non-portamento event lanes are non-worse, and out-of-lane median |err| is non-worse (+5c tolerance); otherwise retain full_note only if its discrete non-portamento lanes are also non-worse; if neither mode dominates, verdict=BLOCKED"
  }
 }

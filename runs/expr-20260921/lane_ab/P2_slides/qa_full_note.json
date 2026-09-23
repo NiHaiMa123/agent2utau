@@ -91,6 +91,64 @@
    "delta_end_ms": 90.0
   }
  ],
+ "non_portamento_event_lanes": {
+  "fcpe": {
+   "matched_by_type": {
+    "ornament": 0,
+    "overshoot": 1,
+    "scoop": 4,
+    "undershoot": 1
+   },
+   "source_only_by_type": {
+    "ornament": 0,
+    "overshoot": 0,
+    "scoop": 1,
+    "undershoot": 1
+   },
+   "ambiguous_by_type": {
+    "ornament": 0,
+    "overshoot": 0,
+    "scoop": 0,
+    "undershoot": 0
+   },
+   "render_only_by_type": {
+    "ornament": 0,
+    "overshoot": 0,
+    "scoop": 1,
+    "undershoot": 1
+   },
+   "source_unresolved_total": 2,
+   "render_only_total": 2
+  },
+  "rmvpe": {
+   "matched_by_type": {
+    "ornament": 0,
+    "overshoot": 0,
+    "scoop": 3,
+    "undershoot": 1
+   },
+   "source_only_by_type": {
+    "ornament": 0,
+    "overshoot": 0,
+    "scoop": 1,
+    "undershoot": 0
+   },
+   "ambiguous_by_type": {
+    "ornament": 0,
+    "overshoot": 0,
+    "scoop": 0,
+    "undershoot": 0
+   },
+   "render_only_by_type": {
+    "ornament": 1,
+    "overshoot": 1,
+    "scoop": 2,
+    "undershoot": 1
+   },
+   "source_unresolved_total": 1,
+   "render_only_total": 5
+  }
+ },
  "topology": {
   "matched_turns": 43,
   "missing_turns": 19,
@@ -1056,9 +1114,9 @@
   "n_blocking": 0,
   "by_class": {
    "source_irregular": 1,
-   "source_edge_uncertain": 1,
+   "label_mismatch": 3,
    "match": 1,
-   "label_mismatch": 3
+   "source_edge_uncertain": 1
   },
   "gate_passed": true
  },
@@ -1870,9 +1928,9 @@
   "n_blocking": 0,
   "by_class": {
    "source_irregular": 2,
-   "source_edge_uncertain": 1,
    "match": 1,
-   "label_mismatch": 2
+   "label_mismatch": 2,
+   "source_edge_uncertain": 1
   },
   "gate_passed": true
  },
