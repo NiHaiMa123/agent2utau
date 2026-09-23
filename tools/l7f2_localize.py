@@ -243,14 +243,14 @@ def main():
 
     # controls: whole-window diagnostics on other phrases
     controls = {}
-    for name, (pw, pdir_wav, phr) in [
-            ("P1_base_control", None,
+    for name, pdir_wav, phr in [
+            ("P1_base_control",
              RB / "P1_sustain" / "P1_sustain_C3v2_v165c_vocal.wav",
              "P1_sustain"),
-            ("P3_new_control", None,
+            ("P3_new_control",
              RB / "P3_vibrato" / "P3_vibrato_C3_v165c_vocal.wav",
              "P3_vibrato"),
-            ("P3_old_glitch_abnormal", None,
+            ("P3_old_glitch_abnormal",
              drv.PHRASE_DIR / "P3_vibrato" / "P3_vibrato_C3_v1_vocal.wav",
              "P3_vibrato")]:
         cw0, cw1 = drv.PHRASES[phr]
