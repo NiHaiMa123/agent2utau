@@ -81,7 +81,7 @@ from agent2utau.expression import contour_qa as cq  # noqa: E402
 from agent2utau.expression.contour import build_contour_signal  # noqa: E402
 from agent2utau.expression.pitch_residual import TICK_MS  # noqa: E402
 from agent2utau.expression.voicing_evidence import (  # noqa: E402
-    _longest_run, span_voicing_evidence)
+    REMNANT_DROP_DB, _longest_run, span_voicing_evidence)
 from agent2utau.openutau.ustx import (              # noqa: E402
     load_ustx, save_ustx, semantic_notes_sha256, sha256)
 from agent2utau.resources.config import load_config  # noqa: E402
@@ -408,6 +408,7 @@ def probe_event(phrase, from_note, ctx, cfg, head):
     # and adjudicates the detected event as an extraction artifact.
     waveform = None
     waveform_resolved = None
+    edge_uncertainty = None
     if not evidence_stable and ctx.get("voc") is not None:
         fs, fv = ctx["src_sig"].times, ctx["src_sig"].voiced
         bs, bv = ctx["src_sig_b"].times, ctx["src_sig_b"].voiced
@@ -452,6 +453,45 @@ def probe_event(phrase, from_note, ctx, cfg, head):
                 adjudication = "artifact"
                 adjudication_basis = "positive_counterevidence"
 
+            # A third legitimate outcome: the conflict is confined to a
+            # low-salience SINGLE EVENT EDGE.  We do not decide whether
+            # that tail/attack is phonation or resonance.  Instead we
+            # preserve it as UNKNOWN while defining the interior/core
+            # interval that is positively observable.  This resolves
+            # event acceptance without fabricating an F0 truth.
+            if (waveform["classification"] == "inconclusive"
+                    and waveform.get("energy_drop_db") is not None
+                    and waveform["energy_drop_db"] >= REMNANT_DROP_DB):
+                ds = float(disp_t[0]) - 0.005
+                de = float(disp_t[-1]) + 0.005
+                touch_start = ds <= s + 0.020
+                touch_end = de >= e - 0.020
+                if touch_start ^ touch_end:
+                    if touch_start:
+                        core_s, core_e, side = max(s, de), e, "start"
+                    else:
+                        core_s, core_e, side = s, min(e, ds), "end"
+                    edge_dur = max(0.0, (min(e, de) - max(s, ds)))
+                    event_dur = max(e - s, 1e-6)
+                    if (core_e - core_s >= 0.040
+                            and edge_dur / event_dur <= 0.65):
+                        edge_uncertainty = {
+                            "side": side,
+                            "uncertain_span_s": [
+                                round(max(s, ds), 3),
+                                round(min(e, de), 3)],
+                            "reliable_core_s": [
+                                round(core_s, 3), round(core_e, 3)],
+                            "uncertain_fraction": round(
+                                edge_dur / event_dur, 3),
+                            "energy_drop_db": waveform["energy_drop_db"],
+                            "classification": "edge_low_salience_unknown",
+                            "reason": (
+                                "extractor conflict is confined to one "
+                                "low-energy event edge; preserve the edge "
+                                "as unknown and score only the observable "
+                                "event core")}
+
     c0 = float(ctx["src_sig"].cents[ms][0]) if ms.sum() else 0.0
     span = float(ctx["src_sig"].cents[ms][-1] - c0) if ms.sum() else 1e-6
     if abs(span) < 1e-6:
@@ -478,6 +518,7 @@ def probe_event(phrase, from_note, ctx, cfg, head):
                   "third_f0_pyin": pyin,
                   "waveform": waveform,
                   "waveform_resolved": waveform_resolved,
+                  "edge_uncertainty": edge_uncertainty,
                   "adjudication": adjudication,
                   "adjudication_basis": adjudication_basis,
                   "third_family_non_detection": third_family_non_detection,
@@ -496,6 +537,23 @@ def probe_event(phrase, from_note, ctx, cfg, head):
             "no sung-pitch source"
             % ((waveform or {}).get("energy_drop_db"),
                (waveform or {}).get("h2p_drop_db"))]
+        return report
+    if edge_uncertainty is not None:
+        report["verdict"] = "EVIDENCE_EDGE_UNCERTAIN"
+        report["reasons"] = [
+            "source F0 remains ambiguous only on the %s edge %s; "
+            "reliable observable core is %s and the edge is %.1f dB "
+            "below the local voiced reference"
+            % (edge_uncertainty["side"],
+               edge_uncertainty["uncertain_span_s"],
+               edge_uncertainty["reliable_core_s"],
+               edge_uncertainty["energy_drop_db"])]
+        return report
+    if waveform_resolved == "fcpe":
+        report["verdict"] = "EVIDENCE_RESOLVED_FCPE"
+        report["reasons"] = [
+            "waveform battery positively traces the FCPE hypothesis "
+            "through the disputed span"]
         return report
     if waveform_resolved == "rmvpe":
         report["verdict"] = "EVIDENCE_RESOLVED_RMVPE"
