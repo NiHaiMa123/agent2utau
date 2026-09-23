@@ -283,7 +283,181 @@ gate verdicts
 `generator_code_head` must name code capable of producing the committed candidate bytes. Reusing an
 older code head merely because the run lineage began there is invalid provenance.
 
-## 10. Current state — R2.1/L7
+## 10. Machine acceptance contract
+
+The executor does not have authority to declare itself done from prose. It produces code, artifacts
+and evidence; a fixed acceptance evaluation decides state.
+
+### 10.1 Gate states
+
+Every required gate must be exactly one of:
+
+```text
+PASS      positive evidence proves the rule
+FAIL      evidence proves the rule is violated
+UNKNOWN   required evidence exists but is insufficient/ambiguous
+NOT_RUN   required verification was not executed
+```
+
+For required gates:
+
+```text
+PASS is the only non-blocking state.
+FAIL / UNKNOWN / NOT_RUN all block.
+```
+
+Absence of detected failure is **not** evidence of success.
+
+### 10.2 Implementation maturity
+
+Do not equate code existence with completion. A feature progresses through:
+
+```text
+IMPLEMENTED  code/helper exists
+WIRED        production path can reach it
+EXECUTED     the current real run actually exercised the path
+VERIFIED     execution produced evidence satisfying acceptance
+```
+
+Only `VERIFIED` may close a blocker.
+
+For example, rollback is not VERIFIED merely because `shape_rollback()` and a unit test exist.
+Verification requires production reachability, an exercised failure path, a real post-rollback
+OpenUtau render, recomputed QA and a bound manifest.
+
+### 10.3 Final machine-ready expression
+
+Human listening is allowed only when all required terms are PASS:
+
+```text
+HUMAN_LISTENING_READY =
+    tests
+AND real_render
+AND topology_gate
+AND event_lane_gate
+AND absolute_event_shape_gate
+AND render_voicing_gate
+AND cross_extractor_gate
+AND provenance_gate
+AND artifact_consistency_gate
+AND blocking_issue_count == 0
+AND unknown_required_gate_count == 0
+```
+
+This expression must be evaluated from committed evidence, not reconstructed from a plan summary.
+
+Relative and absolute quality are separate:
+
+```text
+relative gate: candidate is not worse than verified baseline
+absolute gate: candidate is actually good enough for the defined target
+```
+
+Both are required. “No regression from v1” alone is never an absolute quality PASS.
+
+### 10.4 Gate-change rule
+
+A failing candidate must not be made to pass by relaxing its judge.
+
+Changing a metric, threshold, mask, label mapping or blocking classification is allowed only when a
+separate experiment demonstrates a measurement/definition defect independent of the candidate
+failure. The old and new evaluations must both remain auditable.
+
+## 11. Failure classification and escape policy
+
+Strict gates must not create an infinite “keep fixing until green” loop. Every failed attempt must be
+classified before another attempt on the same blocker.
+
+### 11.1 Failure classes
+
+```text
+FAIL_FIXABLE
+  implementation/wiring/provenance/parameter bug while the current architecture remains supported
+  by evidence
+  → bounded fix on the same route
+
+FAIL_EVIDENCE
+  observability is insufficient or extractors disagree materially
+  → collect/repair evidence; do not tune the candidate against unknown truth
+
+FAIL_CAPABILITY
+  the current representation/model cannot express the verified target even when correctly wired
+  → escalate representation/model capability
+
+FAIL_STRATEGY
+  a core assumption/architecture is contradicted by evidence
+  → stop local patching; replan or roll back to the previous milestone
+```
+
+The executor is allowed and expected to return a blocked failure class. It is **not** required to
+make every gate pass.
+
+### 11.2 Bounded attempts / no-progress gate
+
+For one blocker and one repair strategy, default maximum is **3 material attempts**.
+
+An attempt counts only when it changes a causal hypothesis, implementation or representation and is
+followed by the required verification. Cosmetic commits do not reset the budget.
+
+Before a fourth same-strategy attempt, escalation review is mandatory.
+
+```text
+NO_PROGRESS =
+    same_blocker_attempts >= 3
+AND no_new_causal_evidence
+AND no_material_improvement_on_blocking_gate
+```
+
+When `NO_PROGRESS` is true:
+- stop the current repair strategy;
+- classify as FAIL_EVIDENCE / FAIL_CAPABILITY / FAIL_STRATEGY;
+- run a discriminating experiment or replan;
+- do not continue parameter sweeps of the same idea.
+
+### 11.3 Every failure must buy information
+
+A repeated failed run is useful only if it adds at least one of:
+
+- new root-cause evidence;
+- a test that distinguishes competing hypotheses;
+- new observability;
+- a justified representation escalation;
+- an architecture correction.
+
+Changing `depth_gain`, `max_err_c`, tolerance or another scalar and rerunning without a stated,
+testable hypothesis is not acceptable progress.
+
+### 11.4 Representation escalation
+
+Escalate Level 1 → Level 2 → Level 3 only after:
+1. implementation/wiring gates are VERIFIED;
+2. evidence is sufficiently observable;
+3. the simpler representation repeatedly fails an absolute shape gate for the same causal reason;
+4. a controlled A/B real render shows the richer representation addresses that reason.
+
+If richer representation does not improve real-render shape, roll back instead of adding more
+degrees of freedom.
+
+### 11.5 Strategy review triggers
+
+Immediate strategy review, without consuming all three attempts, is required when:
+- fixes improve one gate only by repeatedly breaking another;
+- the same control curve produces materially context-dependent renderer behavior that invalidates
+  the assumed response model;
+- the target is not observable reliably enough for the current objective;
+- success would require changing the acceptance rule rather than the candidate;
+- a new result contradicts a core architecture assumption.
+
+The goal is **legitimate determination**, not forced success:
+
+```text
+determine whether the candidate can pass
+→ if yes, prove PASS
+→ if no, classify why
+→ fix, measure, escalate or replan according to evidence
+```
+
+## 12. Current state — R2.1/L7
 
 Verified direction:
 - native phase→`shift`;
@@ -319,7 +493,7 @@ Human listening remains blocked until the latest HEAD proves, on fresh P1/P2/P3 
 
 Only after this machine closure may L7-E human listening begin.
 
-## 11. Roadmap after L7
+## 13. Roadmap after L7
 
 ### R2.5 — detector dataset/training
 Blocked until deterministic detector/QA semantics are accepted. Then:
@@ -356,7 +530,7 @@ After L7 acceptance:
 Run the complete song with immutable score, auditable event pipeline, machine QA and targeted human
 listening.
 
-## 12. Definition of Done
+## 14. Definition of Done
 
 The project is done only when it can take a verified base score and reproducibly:
 
