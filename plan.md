@@ -546,6 +546,7 @@ Rules:
 ## 12. Current state — R2.1/L7
 
 Verified direction:
+- Round J now prioritizes full-corpus ingestion: all Huahai human projects + complete raw F0 + GAME F0 before deriving general rules;
 - current validation focus is moving from Rain Love local repairs to a Huahai three-way benchmark (Jay original / human +4-key project / agent2utau) to avoid overfitting local failures;
 - Round F disproved simple additive duplicate-periodic ownership; secondary periodic PITD may act as anti-phase renderer compensation and must be judged from real render;
 - active renderer baseline is now YousaV1.65c + matching OpenUtau dpV2;
@@ -1173,12 +1174,19 @@ The A/C listening project remains diagnostic evidence only. No zigfix candidate 
 
 **Round F2 is CLOSED. Pause Rain Love P2/P3 local repair as the main development route.**
 
-#### Round J — ACTIVE: Huahai three-way benchmark / representation study
+#### Round J — ACTIVE: Huahai benchmark → full reference corpus ingestion
 
 **Primary goal:** establish a generalizable benchmark for how real human singing motion is represented
 by a successful human-tuned OpenUtau project, before continuing local repair of Rain Love.
 
 Benchmark song: **《花海》**.
+
+The initial J0–J5 five-phrase study is now treated as an exploratory pilot only. It established that
+the current agent tends to copy SOURCE motion much more literally than the human-authored project,
+but 3–5 phrases from one tuner are insufficient for general rules.
+
+The next active task is therefore **data completeness, not more local tuning**.
+
 
 Required evidence sources:
 1. Jay Chou original vocal/audio — real human singing SOURCE;
@@ -1350,6 +1358,202 @@ Only after J0–J4 evidence is committed:
 
 This phase is evaluation only. Do not repair the generator in the same round.
 
+### Phase J6 — ACTIVE: commit the complete human-project / GAME F0 corpus
+
+The five selected phrases are no longer the data boundary. Build a **full-song, all-project reference
+corpus** so reviewer analysis can operate directly on raw F0 instead of executor summaries.
+
+#### J6.1 Inventory every available human-authored project
+
+Search the executor's existing Huahai/OpenUtau working directories and enumerate **all available
+human-authored 《花海》 singing-synthesis projects**, not only
+`花海+4-有参by白烁.ustx`.
+
+For every discovered project:
+- preserve and commit the original project file bytes unchanged;
+- record SHA256, original filename, format, author/attribution if present;
+- record tempo map, key/transposition, singer, phonemizer, renderer and voice-part metadata;
+- record whether referenced audio/singer dependencies are available;
+- never silently discard a project because its mapping is inconvenient.
+
+Create a machine-readable inventory with exactly one state per discovered project:
+
+```text
+COMMITTED
+UNREADABLE
+DUPLICATE_BYTES
+UNSUPPORTED_FORMAT
+MISSING_REQUIRED_DEPENDENCY_FOR_RENDER
+```
+
+A project may still be `COMMITTED` even when it cannot be rendered. Missing render dependencies do
+not authorize omitting the project or its written controls.
+
+If two files are byte-identical, commit one canonical copy and list every duplicate path/hash alias in
+the manifest.
+
+#### J6.2 Full raw F0 for every human project
+
+For **every committed human project**, retain complete-song raw F0 evidence wherever a render is
+available.
+
+Prefer these layers separately:
+
+```text
+human_project_written
+human_project_original_render_f0      # if an original render/audio exists
+human_project_standardized_render_f0  # optional controlled re-render on current 1.65c+dpV2
+```
+
+Do not conflate original and substituted renders.
+
+Each F0 artifact must retain raw arrays at extractor resolution, not only summary statistics:
+
+```text
+times[]
+f0_hz[]
+voiced[]
+confidence[]          # when the extractor exposes it
+extractor
+hop_ms / frame_period
+audio_sha256
+audio_axis / project_axis
+wave_offset_s
+project_sha256
+render_environment
+```
+
+At minimum retain FCPE plus the independent F0 family already used by the project where practical.
+If only one extractor succeeds, preserve that fact explicitly rather than fabricating consensus.
+
+Store complete-song raw arrays in a compact lossless representation such as `.npz`; JSON summaries
+may coexist but are not a substitute.
+
+#### J6.3 Commit the complete Huahai GAME evidence
+
+Locate the existing **《花海》 GAME-produced / GAME-derived F0** and commit its complete-song evidence,
+not selected excerpts.
+
+Required:
+- raw `times[] / f0_hz[] / voiced[] / confidence[]` when available;
+- extractor/generator identity and version or code head;
+- source audio/project binding and SHA256;
+- note/lyric/time-axis correspondence needed to align it with the human projects;
+- key/transposition and tempo metadata;
+- any GAME written pitch representation/project file that produced or corresponds to that F0, if it
+  already exists locally.
+
+Do not regenerate GAME using a newer algorithm merely to fill this corpus. J6 must capture the
+existing artifact first. If multiple GAME variants exist, commit all of them with distinct provenance.
+
+#### J6.4 Commit the complete Jay SOURCE F0 used by the benchmark
+
+Retain complete-song SOURCE raw F0 for 《花海》 from the current vocal separation, including both
+extractor families already available.
+
+The commercial master audio itself does not need to be duplicated merely for this corpus when the
+local source is already bound by path + SHA256. The derived vocal/F0 evidence and provenance are the
+required analysis artifacts.
+
+If multiple vocal separations already exist (for example UVR-MDX-NET-Voc_FT and Kim_Vocal_2), retain
+their identities separately; do not average them into one hidden SOURCE.
+
+#### J6.5 No pre-aggregation / no cherry-picking
+
+The purpose of J6 is to let the reviewer independently search for cross-tuner and cross-representation
+regularities.
+
+Therefore do **not** upload only:
+- event ranges;
+- reversal counts;
+- J4 rule summaries;
+- selected 3–5 phrases;
+- “good examples” chosen by the executor.
+
+Keep the raw full-song sequences and complete written projects.
+
+The executor may emit an index for convenience, but the raw evidence is authoritative.
+
+#### J6.6 Alignment metadata only — no forced normalization
+
+For each project, provide enough metadata to later transform into a common comparison frame:
+
+```text
+song/project time axis
+wave offset
+tempo map
+written note tones
+declared or measured transposition
+part / track identity
+lyric sequence
+```
+
+Do not destructively transpose or time-warp the committed raw F0.
+
+Derived relative-cents / note-normalized views may be generated later from the immutable raw corpus.
+
+If a part does not follow the advertised +4 key relation, preserve it exactly and mark the mapping
+`UNKNOWN_OR_NONUNIFORM`; do not force it to +4.
+
+#### J6.7 Repository layout
+
+Use one auditable corpus root, for example:
+
+```text
+runs/huahai_corpus/
+  manifest.json
+  source/
+    ...
+  game/
+    ...
+  human_projects/
+    <stable_project_id>/
+      original_project.<ext>
+      metadata.json
+      original_render_f0_*.npz
+      standardized_render_f0_*.npz
+      ...
+```
+
+Project IDs must be stable and derived from filename + content hash or another deterministic rule.
+
+Do not overwrite the existing `runs/huahai_benchmark/` pilot evidence; keep it as historical
+J0–J5 evidence.
+
+#### J6.8 Scope / STOP contract
+
+J6 is **ingestion only**.
+
+Allowed:
+- inventory;
+- copy immutable project files into the corpus;
+- extract/serialize full raw F0 from existing renders/audio;
+- standardized re-render only when clearly labelled and needed to obtain a comparable render layer;
+- metadata/provenance generation;
+- tests/fixes required solely to make corpus extraction faithful.
+
+Not allowed:
+- change pitch-generation strategy;
+- implement the J4 hypotheses;
+- tune agent2utau against the new corpus;
+- choose a preferred tuner;
+- invent universal thresholds;
+- delete extreme/ugly F0 because it looks anomalous;
+- resume Rain Love P2/P3 repair.
+
+Before finishing, verify:
+- every discovered human project appears in the inventory;
+- every available raw F0 layer is committed;
+- Huahai GAME full F0 is committed;
+- Jay SOURCE full F0/provenance is committed;
+- hashes and time-axis metadata are present;
+- no file is represented only by a prose claim when raw bytes/data were available.
+
+Then commit and **STOP**.
+
+Round-J next reviewer step will be direct corpus analysis across tuners and GAME. The executor must
+not perform that interpretation in the same J6 round.
+
 ### Human singing plausibility connection
 
 Round J is the calibration precursor for the planned human-singing plausibility gate.
@@ -1386,12 +1590,16 @@ Do **not**:
 - assume every SOURCE F0 detail should be reproduced;
 - assume the human +4-key project is always correct;
 - compare raw absolute pitch across the +4-key transposition;
-- process the whole song before the benchmark phrase method is validated;
+- run full-song candidate tuning/regeneration before the corpus study is reviewed; full-song raw F0/project ingestion in J6 is explicitly required;
 - let J5 agent output influence J1 phrase selection.
 
 ### Round-J output contract
 
 Commit:
+- complete `runs/huahai_corpus/` inventory containing all discovered human-authored project files;
+- full-song raw F0 for every available human-project render layer;
+- complete Huahai GAME raw F0 / corresponding existing project evidence;
+- complete Jay SOURCE raw F0 + separation/extractor provenance;
 - benchmark input manifest + hashes;
 - note/key correspondence evidence;
 - 3–5 phrase-selection manifest;
