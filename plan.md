@@ -484,37 +484,102 @@ Executor run at `c4aab1df` (artifacts `96805d1`), via committed driver
 - `run_shape_gate` now takes `event_shape_fn` and enforces the absolute
   event-shape verdict on v2/v3 alongside topology + event-lane QA.
   The gate is fail-closed: a missing callback cannot produce an accepted
-  candidate (regression-tested in `test_vibrato_r21b.py`).
-- Full pytest: 500 tests pass.
+  candidate.
+- Executor reported 500 pytest passes, but the repository currently has no
+  CI/status artifact bound to that run; under §10 this is not yet sufficient
+  to mark the global `tests` readiness term PASS by prose alone.
 - **P1_sustain**: v2 topology regression → one bounded rollback → real v3
-  render → **C3v3 accepted**; all required gates PASS, 0 blocking
-  event-shape events. P1 is machine-closed for human listening.
-- **P2_slides**: v2 and v3 both carry blocking `distortion`
-  (note 4: 40 ms/124 c source linear rise rendered stepped with ~155 %
-  overshoot; note 8: 693 c dip-then-leap rendered as a smooth ramp).
-  v1 retained, run **blocked**.
-- **P3_vibrato**: v2 and v3 carry blocking `distortion` at note 9;
-  v1 retained, run **blocked**.
+  render → C3v3 has clean topology/event-lane/event-shape evidence and
+  0 blocking event-shape events.
+- **P2_slides**: v2/v3 carry blocking `distortion` at note 4 / note 8;
+  v1 is retained only as fallback and the phrase remains blocked.
+- **P3_vibrato**: v2/v3 carry blocking `distortion` at note 9;
+  v1 is retained only as fallback and the phrase remains blocked.
 - Manifests bind generator/QA head `c4aab1df` and current artifact SHA256s.
+
+Reviewer recheck after that run:
+- fixed `run_shape_gate` so a fallback v1 whose absolute event-shape QA fails
+  is no longer reported as `gate_passed=true`; retention is not acceptance;
+- therefore P2/P3 manifests from `96805d1` are stale with respect to current
+  gate-state semantics and must be regenerated;
+- current `run_manifest.json` has no single machine evaluator for the full
+  §10.3 `HUMAN_LISTENING_READY` expression. Cross-extractor metrics,
+  provenance fields and artifact coverage exist, but they are not yet
+  converted into PASS/FAIL/UNKNOWN/NOT_RUN verdicts;
+- `base_semantic_sha256` in the phrase driver is currently populated by the
+  raw file `sha256(BASE_USTX)`. That is a file hash, not a semantic-notes
+  hash. Next manifest schema must distinguish `base_file_sha256` from the
+  upstream semantic score hash.
 
 ### Active blocker
 
-P1 is cleared for L7-E human listening. P2/P3 fail the absolute
-event-shape gate on every candidate produced by the current
-representation:
+**Global L7-E human listening remains BLOCKED.** P1 has passed the current
+shape sub-gates, but `HUMAN_LISTENING_READY` itself is still NOT_RUN until
+a committed acceptance evaluator proves every required §10.3 term.
 
-- the portamento lane is protected from closed-loop correction
-  (`LANE_PROTECTED_TYPES`), so the compiled dense PITD is the only carrier
-  for those transitions;
-- the compiled curve does not reproduce the measured stepped/dip-leap
-  trajectories even where residual evidence exists (P2 note 4 window is
-  5/5 transition frames, all resid_consistent).
+P2/P3 expose a separate ordering problem:
 
-Failure class: **FAIL_CAPABILITY** — expressible-in-principle gestures are
-lost between measured residual and rendered output; candidate fix is a
-portamento-lane compile pass or Level-3 local gesture support (§6
-ladder), not metric relaxation (§10.4). Adjudication required before
-further attempts on the same blocker (§11.2).
+- `compile_C3` is only truly event-aware for vibrato;
+- portamento/scoop/ornament are detected and protected from generic
+  closed-loop correction, but there is no dedicated portamento-lane compiler;
+- the roadmap currently puts that compiler in R3 *after* L7 acceptance,
+  while L7 already requires absolute portamento shape to pass.
+
+This is a **FAIL_STRATEGY milestone dependency**, not sufficient evidence for
+`FAIL_CAPABILITY`. Candidate-level capability remains UNKNOWN until a
+discriminating real-render experiment separates compiler loss from renderer
+response limits.
+
+#### Required discriminating portamento probe
+
+Use exactly the current blocking events:
+- P2 note 4;
+- P2 note 8;
+- P3 note 9.
+
+For each event:
+1. verify the target SOURCE trajectory is observable and extractor-consistent;
+2. construct a local event candidate directly in written-pitch coordinates,
+   preserving the measured normalized trajectory with dense 10 ms points or a
+   low-DOF local spline; bypass generic simplification inside the event;
+3. keep the surrounding candidate identical to the current v1 so the experiment
+   changes only this event;
+4. real-render through OpenUtau and run the same absolute event-shape QA;
+5. record control-curve target vs rendered response.
+
+Interpretation:
+- if the local event candidate materially improves the blocking shape, classify
+  **FAIL_FIXABLE** and implement the minimal portamento-lane compiler inside L7
+  before the full R3 expansion;
+- if materially different local control curves repeatedly render to the same
+  smoothed/incorrect shape, classify **FAIL_CAPABILITY** (renderer/representation
+  response) and then test inverse-response calibration / Level-3 support;
+- if target evidence is unstable across extractors, classify **FAIL_EVIDENCE**.
+
+Do not relax `event_shape_gate` and do not jump directly to Level 3 before this
+probe establishes which failure class is real.
+
+#### Required machine-acceptance closure
+
+Implement one committed evaluator that emits, per phrase and globally:
+
+```text
+tests
+real_render
+topology_gate
+event_lane_gate
+absolute_event_shape_gate
+render_voicing_gate
+cross_extractor_gate
+provenance_gate
+artifact_consistency_gate
+blocking_issue_count
+unknown_required_gate_count
+HUMAN_LISTENING_READY
+```
+
+Every term must be PASS/FAIL/UNKNOWN/NOT_RUN with evidence references.
+Only this evaluator may authorize L7-E.
 
 ## 13. Roadmap after L7
 
@@ -527,8 +592,10 @@ Blocked until deterministic detector/QA semantics are accepted. Then:
 
 ### R3 — event-aware compiler
 After L7 acceptance:
-- compile verified event deltas;
-- extend parameterized support for portamento/onset/ornament;
+- continue the full event-aware compiler expansion;
+- portamento support required specifically to close the current L7 blocker is
+  pulled forward as the minimal discriminating/repair implementation above;
+- extend parameterized support for onset/ornament and richer portamento forms;
 - use representation ladder event-by-event;
 - synthetic test first, then real-song validation.
 
