@@ -66,6 +66,15 @@ CHAR_NUCLEUS = Path("runs/hfa/char_nucleus.json")
 
 # Phrase windows on the absolute source axis, seconds.  Fixed review
 # targets: P1 sustained line, P2 slide-dense line, P3 vibrato tail.
+# Reviewer-approved production ownership presets.
+# P2 was selected by exhaustive 2^3 real-render enumeration in Round B2:
+# FEF over target-note lanes [2,5,7]. Other phrases retain the prior
+# full_note production behavior unless a reviewed experiment selects otherwise.
+ACCEPTED_PORTA_OWNERSHIP = {
+    "P2_slides": {2: "full_note", 5: "event", 7: "full_note"},
+}
+
+
 PHRASES = {
     "P1_sustain": (18.8, 21.61),
     "P2_slides": (51.16, 56.71),
@@ -272,8 +281,26 @@ def render(cfg, ustx_path, out_stem, timeout=600):
     return Path(files[0]["path"])
 
 
+def resolve_porta_ownership(phrase, requested):
+    """Resolve production ownership without silently broadening scope.
+
+    "accepted" is the reviewer-approved phrase-specific preset. Explicit
+    full_note/event strings preserve the old behavior for experiments.
+    """
+    if requested == "accepted":
+        preset = ACCEPTED_PORTA_OWNERSHIP.get(phrase, "full_note")
+        return dict(preset) if isinstance(preset, dict) else preset
+    if requested in ("full_note", "event"):
+        return requested
+    raise ValueError(
+        "porta ownership must be accepted, full_note, or event")
+
+
 def run_phrase(phrase, cfg, base_doc, caches, head,
                porta_ownership="full_note"):
+    requested_porta_ownership = porta_ownership
+    porta_ownership = resolve_porta_ownership(
+        phrase, requested_porta_ownership)
     w0, w1 = PHRASES[phrase]
     t0, t1 = w0 - PAD_S, w1 + PAD_S
     pdir = PHRASE_DIR / phrase
@@ -526,6 +553,8 @@ def run_phrase(phrase, cfg, base_doc, caches, head,
             "candidate": "C3", "vibrato_depth_gain": 0.69,
             "closed_loop_clip_c": 300, "closed_loop_max_err_c": 10,
             "closed_loop_guard_s": 0.15, "closed_loop_iterations": 1,
+            "portamento_lane_ownership_requested":
+                requested_porta_ownership,
             "portamento_lane_ownership": porta_ownership,
             "portamento_lane": porta_prov},
         "phrase_window_s": [w0, w1],
@@ -544,7 +573,7 @@ def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     opts = {a.split("=", 1)[0]: a.split("=", 1)[1]
             for a in sys.argv[1:] if "=" in a}
-    porta_ownership = opts.get("--porta-ownership", "full_note")
+    porta_ownership = opts.get("--porta-ownership", "accepted")
     which = args or list(PHRASES)
     base_doc = load_ustx(BASE_USTX)
     caches = {"src_fcpe": _npz_f0(SRC_FCPE), "src_rmvpe": _npz_f0(SRC_RMVPE),
