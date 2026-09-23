@@ -1825,3 +1825,30 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   current compiler routed all expression through PITD; native vibrato
   and structural portamento stayed unused (matches J4-R5 human-side
   observation but for a different reason — diagnostic, not a rule).
+
+## L7 Round J J7A — low-DOF rule-based pitch trial (tool: tools/l7j7_rules.py)
+
+- Single bounded experiment per plan J7.14: GAME/base note scaffold
+  (human +4 phrase notes, identical sets to J5 neutral baseline) +
+  consensus SOURCE evidence (corpus Kim2 FCPE+RMVPE, +4st, project
+  axis, |fcpe-rmvpe|<=50c) -> low-DOF PITD + Baishuo pitch.data init.
+- Rules applied: core offset clamp +-50c; constant->linear body only
+  on sustained trend (|span|>=60c); onset/tail gestures >=80c; vibrato
+  only >=700ms with >=3 measured cycles -> extrema-knot PITD with
+  per-cycle depth; pitch.data[0].y=-10*interval for contiguous leaps.
+- DOF: 2-7 knots/note (vs J5's ~72 dense pitd points). Render
+  cross-extractor p95 delta 6-18c; rng ratios vs source ~0.4-1.3
+  (gestures present, simplified by design).
+- Fixes during the single run: j1 key 'selected'; note selection
+  overlap rule matching j1/neutral sets (right edge -10ms); body
+  knots clamped to consensus support — killed a -4211c/s slope
+  extrapolation that had rendered de at 2133c rng vs 666c source
+  (post-fix 578c, ratio 0.87).
+- Residual flags for review: 1-4 >300c frame spikes per phrase at
+  structural gesture boundaries; ornament 'jian' rng_ratio 0.17
+  (large source gesture under-encoded); short pickup notes n/cai
+  render unvoiced.
+- Artifacts: runs/huahai_j7/j7_<i>_<class>/{rules.json,cand.ustx,
+  cand wav,render_f0_{fcpe,rmvpe}.npz,diag.json,AB listening ustx};
+  A baseline = committed J5 neutral renders. Listening is the
+  decision point per J7.13.

@@ -1,0 +1,240 @@
+{
+ "phrase": "ornament",
+ "evaluated_head": "17d4bffb5cbfdc9fb8b319e9312e64cca2a7c315",
+ "evidence": [
+  {
+   "reliable": false,
+   "n_consensus": 14,
+   "core_coverage": 0.0,
+   "src_rng_c": 46.4
+  },
+  {
+   "reliable": false,
+   "n_consensus": 20,
+   "core_coverage": 0.0,
+   "src_rng_c": 59.9
+  },
+  {
+   "reliable": true,
+   "n_consensus": 41,
+   "core_coverage": 0.3902439024390244,
+   "core_off_c": -36.1,
+   "trend_slope_c_s": 228.3,
+   "trend_span_c": 34.2,
+   "core_support_s": [
+    169.53,
+    169.68
+   ],
+   "onset_extremum_c": 15.7,
+   "onset_n": 15,
+   "tail_extremum_c": 0.0,
+   "tail_n": 14,
+   "src_rng_c": 53.2
+  },
+  {
+   "reliable": true,
+   "n_consensus": 46,
+   "core_coverage": 0.43478260869565216,
+   "core_off_c": -92.1,
+   "trend_slope_c_s": -4211.7,
+   "trend_span_c": -800.2,
+   "core_support_s": [
+    170.05,
+    170.24
+   ],
+   "onset_extremum_c": 50.9,
+   "onset_n": 14,
+   "src_rng_c": 665.9
+  },
+  {
+   "reliable": true,
+   "n_consensus": 39,
+   "core_coverage": 0.41025641025641024,
+   "core_off_c": -517.4,
+   "trend_slope_c_s": -2087.3,
+   "trend_span_c": -313.1,
+   "core_support_s": [
+    171.73,
+    171.88
+   ],
+   "onset_extremum_c": 406.2,
+   "onset_n": 14,
+   "tail_extremum_c": -1.8,
+   "tail_n": 14,
+   "src_rng_c": 463.1
+  },
+  {
+   "reliable": true,
+   "n_consensus": 21,
+   "core_coverage": 0.2857142857142857,
+   "core_off_c": 206.5,
+   "trend_slope_c_s": -2410.6,
+   "trend_span_c": -120.5,
+   "core_support_s": [
+    172.22,
+    172.27
+   ],
+   "tail_extremum_c": -41.3,
+   "tail_n": 14,
+   "src_rng_c": 745.0
+  },
+  {
+   "reliable": true,
+   "n_consensus": 41,
+   "core_coverage": 0.3902439024390244,
+   "core_off_c": 886.0,
+   "trend_slope_c_s": 244.6,
+   "trend_span_c": 36.7,
+   "core_support_s": [
+    172.53,
+    172.68
+   ],
+   "onset_extremum_c": -202.1,
+   "onset_n": 15,
+   "tail_extremum_c": -202.1,
+   "tail_n": 14,
+   "src_rng_c": 327.0
+  },
+  {
+   "reliable": true,
+   "n_consensus": 70,
+   "core_coverage": 0.6142857142857143,
+   "core_off_c": -332.7,
+   "trend_slope_c_s": 614.9,
+   "trend_span_c": 258.3,
+   "core_support_s": [
+    173.02,
+    173.44
+   ],
+   "onset_extremum_c": 322.8,
+   "onset_n": 11,
+   "tail_extremum_c": -1.5,
+   "tail_n": 16,
+   "src_rng_c": 550.5
+  }
+ ],
+ "notes": [
+  {
+   "note": "n",
+   "span_s": [
+    169.05,
+    169.2
+   ],
+   "tone": 61,
+   "dof": 2,
+   "classes": []
+  },
+  {
+   "note": "cai",
+   "span_s": [
+    169.2,
+    169.4
+   ],
+   "tone": 61,
+   "dof": 2,
+   "classes": []
+  },
+  {
+   "note": "se",
+   "span_s": [
+    169.4,
+    169.8
+   ],
+   "tone": 66,
+   "dof": 4,
+   "classes": [
+    "core_offset",
+    "pitch_data_entry_init"
+   ],
+   "core_off_c": -36.1,
+   "entry_y0": -50
+  },
+  {
+   "note": "de",
+   "span_s": [
+    169.8,
+    171.0
+   ],
+   "tone": 66,
+   "dof": 2,
+   "classes": [
+    "core_offset",
+    "linear_body"
+   ],
+   "core_off_c": -50.0,
+   "body_slope_c_s": -4211.7
+  },
+  {
+   "note": "shi",
+   "span_s": [
+    171.6,
+    172.0
+   ],
+   "tone": 66,
+   "dof": 4,
+   "classes": [
+    "core_offset",
+    "linear_body",
+    "onset_gesture"
+   ],
+   "core_off_c": -50.0,
+   "body_slope_c_s": -2087.3,
+   "onset_c": 356.2
+  },
+  {
+   "note": "jian",
+   "span_s": [
+    172.0,
+    172.4
+   ],
+   "tone": 65,
+   "dof": 4,
+   "classes": [
+    "core_offset",
+    "linear_body",
+    "pitch_data_entry_init"
+   ],
+   "core_off_c": 50.0,
+   "body_slope_c_s": -2410.6,
+   "entry_y0": 10
+  },
+  {
+   "note": "ran",
+   "span_s": [
+    172.4,
+    172.8
+   ],
+   "tone": 61,
+   "dof": 7,
+   "classes": [
+    "core_offset",
+    "onset_gesture",
+    "tail_gesture",
+    "pitch_data_entry_init"
+   ],
+   "core_off_c": 50.0,
+   "onset_c": -152.1,
+   "tail_c": -152.1,
+   "entry_y0": 40
+  },
+  {
+   "note": "shang",
+   "span_s": [
+    172.8,
+    173.6
+   ],
+   "tone": 68,
+   "dof": 6,
+   "classes": [
+    "core_offset",
+    "linear_body",
+    "onset_gesture",
+    "pitch_data_entry_init"
+   ],
+   "core_off_c": -50.0,
+   "body_slope_c_s": 614.9,
+   "onset_c": 272.8,
+   "entry_y0": -70
+  }
+ ]
+}

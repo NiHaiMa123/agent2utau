@@ -1,0 +1,121 @@
+{
+ "evaluated_head": "17d4bffb5cbfdc9fb8b319e9312e64cca2a7c315",
+ "worktree_clean_at_generation": true,
+ "phrases": [
+  {
+   "class": "vibrato",
+   "dir": "runs\\huahai_j7\\j7_0_vibrato",
+   "dof_per_note": [
+    2,
+    4,
+    2,
+    4,
+    5,
+    4,
+    5,
+    4
+   ],
+   "flags": {
+    "f0_spikes_gt300c": 1,
+    "voiced_frac": 0.129
+   },
+   "cross_extractor": {
+    "med_abs_delta_c": 1.0,
+    "p95_abs_delta_c": 6.3
+   },
+   "ab_listening_ustx": "runs\\huahai_j7\\j7_0_vibrato\\agent2utau_J7_vibrato_AB.ustx"
+  },
+  {
+   "class": "portamento_or_scoop",
+   "dir": "runs\\huahai_j7\\j7_1_portamento_or_scoop",
+   "dof_per_note": [
+    2,
+    4,
+    4,
+    3,
+    4,
+    4,
+    2,
+    2
+   ],
+   "flags": {
+    "f0_spikes_gt300c": 2,
+    "voiced_frac": 0.103
+   },
+   "cross_extractor": {
+    "med_abs_delta_c": 1.3,
+    "p95_abs_delta_c": 10.3
+   },
+   "ab_listening_ustx": "runs\\huahai_j7\\j7_1_portamento_or_scoop\\agent2utau_J7_portamento_or_scoop_AB.ustx"
+  },
+  {
+   "class": "onset_over_undershoot",
+   "dir": "runs\\huahai_j7\\j7_2_onset_over_undershoot",
+   "dof_per_note": [
+    2,
+    4,
+    4,
+    2,
+    6,
+    2,
+    4,
+    4
+   ],
+   "flags": {
+    "f0_spikes_gt300c": 4,
+    "voiced_frac": 0.043
+   },
+   "cross_extractor": {
+    "med_abs_delta_c": 1.7,
+    "p95_abs_delta_c": 18.2
+   },
+   "ab_listening_ustx": "runs\\huahai_j7\\j7_2_onset_over_undershoot\\agent2utau_J7_onset_over_undershoot_AB.ustx"
+  },
+  {
+   "class": "ornament",
+   "dir": "runs\\huahai_j7\\j7_3_ornament",
+   "dof_per_note": [
+    2,
+    2,
+    4,
+    2,
+    4,
+    4,
+    7,
+    6
+   ],
+   "flags": {
+    "f0_spikes_gt300c": 3,
+    "voiced_frac": 0.021
+   },
+   "cross_extractor": {
+    "med_abs_delta_c": 1.4,
+    "p95_abs_delta_c": 14.0
+   },
+   "ab_listening_ustx": "runs\\huahai_j7\\j7_3_ornament\\agent2utau_J7_ornament_AB.ustx"
+  },
+  {
+   "class": "sustained",
+   "dir": "runs\\huahai_j7\\j7_4_sustained",
+   "dof_per_note": [
+    2,
+    4,
+    2,
+    4,
+    6,
+    4,
+    6,
+    6
+   ],
+   "flags": {
+    "f0_spikes_gt300c": 2,
+    "voiced_frac": 0.073
+   },
+   "cross_extractor": {
+    "med_abs_delta_c": 1.1,
+    "p95_abs_delta_c": 7.3
+   },
+   "ab_listening_ustx": "runs\\huahai_j7\\j7_4_sustained\\agent2utau_J7_sustained_AB.ustx"
+  }
+ ]
+}

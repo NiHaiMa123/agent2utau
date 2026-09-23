@@ -1,0 +1,66 @@
+{
+ "phrase": "sustained",
+ "candidate_wav": "E:\\project\\agent2utau\\runs\\huahai_j7\\j7_4_sustained\\j7_4_sustained_cand_main.wav",
+ "candidate_wav_sha256": "29dac67399c241d964540a066467c9dc6952423b42e04f82bfdbf61932b90713",
+ "candidate_ustx_sha256": "a6abceb91ff3803ad8f24b98a5ae84410fcd24751e4782fcca64d71baaa261d1",
+ "baseline_wav": "runs\\huahai_benchmark\\j5_4_sustained\\j5_4_sustained_neutral_main.wav",
+ "baseline_ustx": "runs\\huahai_benchmark\\j5_4_sustained\\j5_4_sustained_neutral.ustx",
+ "notes": [
+  {
+   "note": "ni",
+   "render_rng_c": null,
+   "src_rng_c": 98.3,
+   "rng_ratio": null
+  },
+  {
+   "note": "xi",
+   "render_rng_c": 65.6,
+   "src_rng_c": 32.4,
+   "rng_ratio": 2.02
+  },
+  {
+   "note": "huan",
+   "render_rng_c": 33.0,
+   "src_rng_c": 61.9,
+   "rng_ratio": 0.53
+  },
+  {
+   "note": "zhan",
+   "render_rng_c": 340.8,
+   "src_rng_c": 252.9,
+   "rng_ratio": 1.35
+  },
+  {
+   "note": "zai",
+   "render_rng_c": 257.6,
+   "src_rng_c": 376.6,
+   "rng_ratio": 0.68
+  },
+  {
+   "note": "na",
+   "render_rng_c": 30.4,
+   "src_rng_c": 20.4,
+   "rng_ratio": 1.49
+  },
+  {
+   "note": "chuang",
+   "render_rng_c": 542.2,
+   "src_rng_c": 542.9,
+   "rng_ratio": 1.0
+  },
+  {
+   "note": "tai",
+   "render_rng_c": 367.8,
+   "src_rng_c": 298.2,
+   "rng_ratio": 1.23
+  }
+ ],
+ "cross_extractor": {
+  "med_abs_delta_c": 1.1,
+  "p95_abs_delta_c": 7.3
+ },
+ "flags": {
+  "f0_spikes_gt300c": 2,
+  "voiced_frac": 0.073
+ }
+}

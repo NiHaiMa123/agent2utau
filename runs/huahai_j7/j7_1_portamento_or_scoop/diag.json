@@ -1,0 +1,66 @@
+{
+ "phrase": "portamento_or_scoop",
+ "candidate_wav": "E:\\project\\agent2utau\\runs\\huahai_j7\\j7_1_portamento_or_scoop\\j7_1_portamento_or_scoop_cand_main.wav",
+ "candidate_wav_sha256": "b038eb8045373828738f8d90883b1500d7d37d089c2aaf9636cd76c2eac85cf5",
+ "candidate_ustx_sha256": "c7937ecd674c7a2fdfc1a6bd9091d159a277259712d6e3a2d3fa9bb1cbb03845",
+ "baseline_wav": "runs\\huahai_benchmark\\j5_1_portamento_or_scoop\\j5_1_portamento_or_scoop_neutral_main.wav",
+ "baseline_ustx": "runs\\huahai_benchmark\\j5_1_portamento_or_scoop\\j5_1_portamento_or_scoop_neutral.ustx",
+ "notes": [
+  {
+   "note": "yao",
+   "render_rng_c": 51.3,
+   "src_rng_c": 49.0,
+   "rng_ratio": 1.05
+  },
+  {
+   "note": "yuan",
+   "render_rng_c": 127.7,
+   "src_rng_c": 86.5,
+   "rng_ratio": 1.48
+  },
+  {
+   "note": "le",
+   "render_rng_c": 47.5,
+   "src_rng_c": 204.2,
+   "rng_ratio": 0.23
+  },
+  {
+   "note": "qing",
+   "render_rng_c": 52.0,
+   "src_rng_c": 322.6,
+   "rng_ratio": 0.16
+  },
+  {
+   "note": "xi",
+   "render_rng_c": 235.0,
+   "src_rng_c": 991.4,
+   "rng_ratio": 0.24
+  },
+  {
+   "note": "le",
+   "render_rng_c": 64.6,
+   "src_rng_c": 85.9,
+   "rng_ratio": 0.75
+  },
+  {
+   "note": "GS",
+   "render_rng_c": null,
+   "src_rng_c": 110.2,
+   "rng_ratio": null
+  },
+  {
+   "note": "ai",
+   "render_rng_c": 198.2,
+   "src_rng_c": 365.2,
+   "rng_ratio": 0.54
+  }
+ ],
+ "cross_extractor": {
+  "med_abs_delta_c": 1.3,
+  "p95_abs_delta_c": 10.3
+ },
+ "flags": {
+  "f0_spikes_gt300c": 2,
+  "voiced_frac": 0.103
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "phrase": "onset_over_undershoot",
+ "candidate_wav": "E:\\project\\agent2utau\\runs\\huahai_j7\\j7_2_onset_over_undershoot\\j7_2_onset_over_undershoot_cand_main.wav",
+ "candidate_wav_sha256": "3dd0e705dd15b4fada486a641f662724e3a63b4a0eae50bf2ab2cd91d0c207cf",
+ "candidate_ustx_sha256": "f2211ab99fbd8e3c4b3703ae2a491c240506210edb1af0991cdf246255f4e531",
+ "baseline_wav": "runs\\huahai_benchmark\\j5_2_onset_over_undershoot\\j5_2_onset_over_undershoot_neutral_main.wav",
+ "baseline_ustx": "runs\\huahai_benchmark\\j5_2_onset_over_undershoot\\j5_2_onset_over_undershoot_neutral.ustx",
+ "notes": [
+  {
+   "note": "kong",
+   "render_rng_c": 18.0,
+   "src_rng_c": 697.1,
+   "rng_ratio": 0.03
+  },
+  {
+   "note": "bai",
+   "render_rng_c": 573.1,
+   "src_rng_c": 311.7,
+   "rng_ratio": 1.84
+  },
+  {
+   "note": "y e",
+   "render_rng_c": null,
+   "src_rng_c": null,
+   "rng_ratio": null
+  },
+  {
+   "note": "shi",
+   "render_rng_c": 339.9,
+   "src_rng_c": 30.7,
+   "rng_ratio": 11.07
+  },
+  {
+   "note": "ni",
+   "render_rng_c": 462.8,
+   "src_rng_c": 544.6,
+   "rng_ratio": 0.85
+  },
+  {
+   "note": "liu",
+   "render_rng_c": 36.7,
+   "src_rng_c": 37.8,
+   "rng_ratio": 0.97
+  },
+  {
+   "note": "de",
+   "render_rng_c": 69.9,
+   "src_rng_c": 111.5,
+   "rng_ratio": 0.63
+  },
+  {
+   "note": "lei",
+   "render_rng_c": 101.2,
+   "src_rng_c": 110.9,
+   "rng_ratio": 0.91
+  }
+ ],
+ "cross_extractor": {
+  "med_abs_delta_c": 1.7,
+  "p95_abs_delta_c": 18.2
+ },
+ "flags": {
+  "f0_spikes_gt300c": 4,
+  "voiced_frac": 0.043
+ }
+}
