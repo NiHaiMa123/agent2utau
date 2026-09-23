@@ -1794,3 +1794,34 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   54.55-55.5 (dual-extractor evidence), not blindly smooth.
 - Tool bug fixes this round: YamlDotNet rejects float ys (List<int>),
   voiced_frac window denominator, np scalar JSON default.
+
+## L7 Round J — Huahai three-way benchmark (tool: tools/l7j_huahai_benchmark.py)
+
+- Benchmark: 周杰伦《花海》 original + human +4-key project
+  (花海+4-有参by白烁.ustx, 75 BPM, wave_off=1.29s) + agent layer D.
+  Phases J0 inputs -> J1 five phrases -> J2 A/B/C layers -> J3
+  representation gap -> J4 diagnostic rules -> J5 agent compile.
+- J5 method: current compile path (neutral render -> dense residual ->
+  compile_C3 -> portamento lane, ownership=full_note) on each phrase;
+  SOURCE F0 (Kim_Vocal_2 stem) transposed +4st; everything on the
+  project axis. Production arbitration (v2/v3 closed loop) NOT
+  replicated — compiled representation is the benchmark layer.
+- BUG FIXED (c40af35): compile_C3/flatten_pitd_spans hardcoded TICK_MS
+  (120bpm); xs now take tick_ms param. First run wrote a real pitd
+  curve but at wrong tick coordinates -> notes read ~0 -> near-neutral
+  render. Latent bug for any non-120bpm project.
+- Headline comparison (j5_compare.json, per-note):
+  agent written pitd_rng tracks SOURCE rng at ~1.0x (ni 545->546c,
+  chuang 566->719c, shi 438->451c) while the human writes a
+  SIMPLIFIED/reshaped curve (272c, 373c, 297c resp.) — confirms the
+  J4 diagnostic: the human project is not a source-F0 trace; the
+  current agent copies source motion nearly pointwise.
+- Human vs agent render agreement is similar in magnitude on big
+  gestures but diverges where the human suppressed/added motion the
+  source lacks (e.g. ornament 'ran': human wrote 806c on a 328c
+  source; agent wrote 117c). 'xi' portamento_or_scoop render shows a
+  real 349->430Hz+ rising tail (889c rng), not a glitch.
+- No vib_marks/porta_marks emitted on any of the 5 phrases — the
+  current compiler routed all expression through PITD; native vibrato
+  and structural portamento stayed unused (matches J4-R5 human-side
+  observation but for a different reason — diagnostic, not a rule).
