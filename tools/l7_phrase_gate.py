@@ -100,8 +100,24 @@ def _dump(obj, path):
 
 def _git_head():
     p = subprocess.run(["git", "rev-parse", "HEAD"],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, check=True)
     return p.stdout.strip()
+
+
+def _require_clean_worktree(context="L7 artifact generation"):
+    """Artifacts may bind a commit SHA only when that SHA actually
+    contains the code being executed.  Running with uncommitted source
+    changes produces false provenance (HEAD names code that cannot
+    reproduce the bytes), so fail before any render/evaluation work."""
+    p = subprocess.run(["git", "status", "--porcelain", "--untracked-files=all"],
+                       capture_output=True, text=True, check=True)
+    dirty = [line for line in p.stdout.splitlines() if line.strip()]
+    if dirty:
+        sample = "; ".join(dirty[:8])
+        raise RuntimeError(
+            f"{context} requires a clean git worktree before execution; "
+            f"commit/stash changes first. Dirty entries: {sample}")
+    return _git_head()
 
 
 def phrase_notes(doc, w0, w1):
@@ -476,12 +492,12 @@ def run_phrase(phrase, cfg, base_doc, caches, head):
 
 
 def main():
+    head = _require_clean_worktree("l7_phrase_gate")
     cfg = load_config()
     which = sys.argv[1:] or list(PHRASES)
     base_doc = load_ustx(BASE_USTX)
     caches = {"src_fcpe": _npz_f0(SRC_FCPE), "src_rmvpe": _npz_f0(SRC_RMVPE),
               "neu_fcpe": _npz_f0(NEU_FCPE), "neu_rmvpe": _npz_f0(NEU_RMVPE)}
-    head = _git_head()
     for phrase in which:
         run_phrase(phrase, cfg, base_doc, caches, head)
 
