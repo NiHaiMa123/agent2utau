@@ -1599,3 +1599,22 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
 - The trade-off is real and committed, not hidden.  Any future P2
   ownership change must address BOTH the note-9 RMVPE distortion and
   the discrete-lane absorption; Round C remains reviewer-locked.
+
+## L7 Round B2 — per-lane ownership isolation (@febd881, artifacts c8ddf30)
+
+- `compile_portamento_lane` accepts a per-target-note ownership map
+  `{2:"event",5:"full_note",7:"event"}`; strings unchanged; resolved
+  per-lane ownership recorded in provenance.
+- `tools/l7_lane_isolation_perlane.py`: FFF + one single-lane event
+  toggle per applied lane {2,5,7}, per-event (not per-count) lane
+  diffs vs baseline, hybrid composition + validation.
+- Attribution result: lane 7 -> event ALONE reproduces the RMVPE
+  note9 `distortion` blocker although its incremental tail is only
+  20 ms at 53.94-53.96s — a downstream renderer-context effect.
+  Lanes 2/5 toggles add render-only extras (1/3) and resolve nothing;
+  the global-A/B discrete-lane advantage is NOT attributable to any
+  single lane tail (tail_overlap=0 on all state changes).
+- Hybrid = all-full identity -> verdict `full_note`: no admissible
+  narrower ownership vector exists.  P2 ownership decided on causal
+  evidence, not aggregate counts.
+- Round B2 STOP satisfied; Round C remains reviewer-locked.
