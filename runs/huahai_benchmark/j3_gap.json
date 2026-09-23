@@ -1,6 +1,6 @@
 {
  "phase": "J3 representation-gap",
- "evaluated_head": "ec6c1417d6c56f241f714ddd3ce4ccd1812d74a0",
+ "evaluated_head": "2768f18ef7b0e278dadf44fb0fcc675d337c8ac9",
  "worktree_clean_at_generation": true,
  "normalization": "relative cents to written tone (SOURCE vs tone-4; render vs tone)",
  "phrases": [
