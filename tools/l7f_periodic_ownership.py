@@ -241,7 +241,8 @@ def main():
     b_doc = copy.deepcopy(doc)
     bpart = b_doc["voice_parts"][0]
     bcur = next(c for c in bpart["curves"] if c["abbr"] == "pitd")
-    bcur["ys"] = [float(v) for v in new_ys]
+    # USTX pitd ys are ints — YamlDotNet rejects "-40.0" for List<int>.
+    bcur["ys"] = [int(round(v)) for v in new_ys]
     bpart["name"] = part["name"] + "_ownfix"
     b_ustx = OUT_DIR / "P2_slides_C3v2_v165c_ownfix.ustx"
     save_ustx(b_doc, b_ustx)
