@@ -14,7 +14,7 @@
 Input:
 - SOURCE vocal/reference;
 - the verified GAME + HubertFA base USTX from `pipeline.md`;
-- YousaV1.65b / DIFFSINGER.
+- YousaV1.65c / DIFFSINGER rendered with the matching KakaruHayate OpenUtau `dpv2` build.
 
 Output:
 - an editable USTX whose written score / lyrics / timing remain unchanged;
@@ -524,6 +524,7 @@ Rules:
 ## 12. Current state — R2.1/L7
 
 Verified direction:
+- active renderer baseline is now YousaV1.65c + matching OpenUtau dpV2;
 - native phase→`shift`;
 - neutral-only suppression no longer depends on closed-loop;
 - closed-loop event-lane protection exists;
@@ -945,79 +946,176 @@ Interpretation:
 
 Round C2 is now immutable for purposes of L7 final acceptance.
 
-#### Round D — ACTIVE: final machine acceptance only
+#### Round D — COMPLETE: frozen machine acceptance passed
 
-**Single goal:** determine whether the current L7 state satisfies the complete frozen acceptance contract.
+Round D executed from clean `4e83c57` and is closed.
 
-This is an **evaluation-only round**. Do not repair, tune, regenerate, or reinterpret the system while running it.
+Committed evidence:
+- full pytest: **512 passed**;
+- frozen 10-term `l7_acceptance_eval.py`: all required terms PASS;
+- `blocking_issue_count=0`;
+- `unknown_required_gate_count=0`;
+- machine verdict: `HUMAN_LISTENING_READY=PASS`;
+- evaluation-only scope was respected: no generation, QA, threshold, gate, ownership, or candidate semantics changed.
+
+This machine PASS authorized human listening only. It did **not** prove perceptual quality.
+
+#### L7-E human listening — COMPLETE: P1 PASS / P2 FAIL / P3 FAIL
+
+Human listening over the assembled accepted-candidate OpenUtau project produced:
+
+```text
+P1_sustain  = PASS
+P2_slides   = FAIL
+P3_vibrato  = FAIL
+```
+
+Committed post-listening evidence (`724ffc4`) demonstrates metric blind spots rather than a reason to override the human verdict.
+
+Observed evidence:
+- **P3** accepted C3/v1 has a ~30 ms render pitch-glitch cluster near 29.26–29.28 s,
+  including >300 c local deviations and detrended F0 RMS 62.5 c; rejected v2/v3 are materially
+  smoother at 12.7 / 15.7 c. Existing topology/event-shape arbitration did not measure final-render
+  stability strongly enough.
+- **P2** accepted C3v2 has major gesture-range compression on specific notes
+  (e.g. 560 c → 89 c and 287 c → 41 c), opposing note-centre offsets, and a ~140 ms render
+  phonation dropout where SOURCE is voiced. Existing gates did not directly measure gesture-range
+  fidelity / phonation continuity.
+- **P1** remains the positive listening control.
+
+The human FAIL is authoritative for this L7 listening round. Do not make P2/P3 PASS by reinterpreting
+the old machine metrics.
+
+#### Environment migration — COMPLETE: YousaV1.65c + OpenUtau dpV2
+
+Environment commit `8176ceb` migrates execution to:
+- singer: `YousaV1.65c`;
+- matching KakaruHayate OpenUtau `dpv2` build containing group-aware duration-model support;
+- rebuilt bridge against that OpenUtau.Core;
+- full pytest remains 512 PASS.
+
+The new duration model/editor pair changes the renderer under test. Therefore pre-migration P1/P2/P3
+renders are no longer sufficient evidence for deciding which remaining defects belong to the
+expression compiler versus the duration/render stack.
+
+Legacy `YousaV1.65b -> YousaV1.65c` junction compatibility is allowed only for migration smoke tests.
+New acceptance/re-baseline artifacts must identify `YousaV1.65c` explicitly in USTX and provenance.
+
+Before producing new renderer evidence, configuration must resolve unambiguously to the dpV2 install.
+If any fallback path still points to the old OpenUtau install, classify that as an environment
+precondition defect and fix only that path before the re-baseline; do not change expression logic.
+
+#### Round E — ACTIVE: 1.65c / dpV2 renderer re-baseline only
+
+**Question to resolve:** with the accepted expression candidates held byte-semantically fixed, which
+P2/P3 listening failures persist after changing only the singer/editor renderer environment from
+1.65b + old OpenUtau to 1.65c + matching dpV2 OpenUtau?
+
+This is a controlled renderer A/B / variable-isolation round. It is **not** a candidate-repair round.
+
+### Frozen candidate inputs
+
+Use the previously accepted expression states:
+
+```text
+P1_sustain = C3v2
+P2_slides  = C3v2
+P3_vibrato = C3/v1 fallback
+```
+
+For the new 1.65c copies:
+- preserve written note identities, lyrics, positions and durations;
+- preserve PITD curve samples;
+- preserve note pitch.data / portamento ownership;
+- preserve vibrato parameters;
+- preserve every other expression field relevant to the accepted candidate;
+- change only renderer-environment identity required for 1.65c/dpV2 compatibility;
+- set singer explicitly to `YousaV1.65c`; do not rely on the 1.65b junction for formal evidence.
+
+Old 1.65b artifacts remain immutable comparison evidence.
 
 ### Required execution
 
-From a clean current HEAD:
+From a clean HEAD:
 
-1. verify the worktree is clean and record the evaluated HEAD;
-2. run the **full pytest suite**;
-3. if full pytest is not PASS:
-   - record the failing tests and evidence;
-   - classify Round D = FAIL;
-   - **STOP**;
-4. if pytest passes, run the frozen **10-term `l7_acceptance_eval.py`**;
-5. emit one final evidence bundle containing, for every required term:
-   - term name;
-   - PASS / FAIL / UNKNOWN / NOT_RUN;
-   - direct artifact/metric reference sufficient to audit the verdict;
-6. record the overall Round-D verdict;
-7. **STOP immediately after the evidence bundle is committed.**
+1. verify all runtime configuration resolves to the intended dpV2 OpenUtau build and
+   `YousaV1.65c`; record exact environment provenance;
+2. create explicit 1.65c copies of the accepted P1/P2/P3 USTX candidates without changing expression
+   semantics;
+3. prove candidate semantic identity apart from allowed environment fields
+   (notes/lyrics/timing/PITD/pitch.data/vibrato must match);
+4. render all three through the 1.65c + dpV2 bridge;
+5. measure the new renders with the same post-listening evidence definitions used to expose the old
+   blind spots;
+6. compare old-render vs new-render deltas at minimum for:
+   - render pitch stability / >300 c glitch events / detrended F0 RMS;
+   - per-note gesture range and centre offset;
+   - phonation continuity / voiced dropout;
+   - render energy collapse;
+7. produce one combined OpenUtau listening project containing the **new 1.65c renders' source USTX
+   candidates** at their original song positions so the reviewer can listen directly in OpenUtau;
+8. commit the re-baseline evidence bundle;
+9. **STOP.**
 
-### Frozen acceptance semantics
+### Required provenance
 
-During Round D, do **not** modify:
-- generator/compiler code;
-- pitch/expression generation logic;
-- P2 or P3 candidates;
-- topology/event-shape metric definitions;
-- thresholds, masks, tolerances, or failure classifications;
-- ownership/representation decisions;
-- QA gate semantics;
-- acceptance evaluator semantics;
-- existing Round A/B/B2/C/C2 evidence.
+The re-baseline report must bind:
+- evaluated repository HEAD;
+- worktree-clean state;
+- OpenUtau fork/branch/commit when recoverable;
+- hashes for OpenUtau executable/Core/bridge used by the run;
+- `YousaV1.65c` model/config hashes, including the duration-model bytes used;
+- old accepted USTX hashes;
+- new explicit-1.65c USTX hashes;
+- old and new render WAV hashes;
+- semantic-identity comparison result for every phrase.
 
-Do not:
-- rerun candidate optimization to seek a better result;
-- change a threshold because one term nearly passes;
-- replace the verified P3 v1 fallback with v2/v3;
-- convert FAIL/UNKNOWN/NOT_RUN into PASS through relabeling;
-- start a repair while the acceptance run is still in progress;
-- repeatedly rerun acceptance until a favorable result appears.
+### Forbidden during Round E
 
-A reproducibility rerun is allowed only when needed to classify an execution failure, and it must not include code/config/threshold changes. Preserve both attempts in the evidence.
+Do **not**:
+- regenerate PITD from SOURCE;
+- run closed-loop correction;
+- alter portamento ownership;
+- alter vibrato parameters;
+- tune any candidate;
+- change topology/event-shape/render-stability metric definitions or thresholds;
+- change machine acceptance semantics;
+- choose v2/v3 for P3 because they happen to render smoother;
+- repair a newly observed P2/P3 defect;
+- declare the project perceptually fixed from metrics alone.
 
-### Verdict rules
+If a render or evidence step fails, classify the execution/environment failure and STOP rather than
+changing expression content.
 
-- **PASS**: full pytest PASS **and** all 10 frozen acceptance terms PASS.
-- **FAIL**: any required test/term produces a genuine failing result.
-- **UNKNOWN**: required evidence is insufficient or contradictory.
-- **NOT_RUN**: a required check could not execute.
+### Round-E interpretation / routing
 
-Only overall **PASS** authorizes L7-E human listening.
+Round E answers attribution, not final acceptance.
 
-If the overall result is FAIL / UNKNOWN / NOT_RUN:
-- do not reopen Round C2 automatically;
-- do not patch the failure in Round D;
-- identify the smallest concrete failing acceptance term and its evidence;
-- close Round D and wait for reviewer assignment of a new bounded repair round.
+Use the resulting evidence to separate:
 
-### Round-D output contract
+```text
+renderer-attributable change
+vs
+expression/compiler defect that persists under the new renderer
+```
 
-The executor's final Round-D report must contain only:
-- evaluated clean HEAD;
-- full pytest result;
-- the 10 acceptance-term verdicts and direct evidence;
-- overall PASS / FAIL / UNKNOWN / NOT_RUN;
-- if non-PASS, the smallest concrete blocker(s);
-- confirmation that no generation/QA/threshold/gate semantics were changed.
+Expected routing after reviewer inspection:
 
-No new implementation work is authorized in this round.
+- **P1 materially regresses under 1.65c/dpV2**:
+  treat renderer migration itself as a blocker; do not proceed to expression repair.
+- **P2 phonation/dropout or gesture behaviour materially improves while the candidate is unchanged**:
+  record that portion as renderer/duration-model attributable; only persistent residual defects may
+  enter a later repair round.
+- **P3 29.26–29.28 s glitch / high instability persists**:
+  retain it as evidence for a later render-stability / expression-repair round.
+- **P3 glitch disappears solely from renderer migration**:
+  do not patch the compiler for that old failure; re-evaluate the remaining perceptual defects first.
+- **P2/P3 both improve strongly**:
+  old 1.65b machine/listening evidence remains historical, but downstream repair scope must be
+  rebuilt from the new 1.65c baseline.
+
+No matter how favorable the metrics look, Round E ends with reviewer/human listening of the new
+OpenUtau project. It does not authorize full-song acceptance or downstream implementation work.
 
 ## 13. Roadmap after L7
 
