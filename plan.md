@@ -546,7 +546,7 @@ Rules:
 ## 12. Current state — R2.1/L7
 
 Verified direction:
-- Round J now prioritizes full-corpus ingestion: all Huahai human projects + complete raw F0 + GAME F0 before deriving general rules;
+- Round J6 corpus ingestion is complete at `b244932`; Round J7 now tests a low-DOF rule-based pitch-drawing strategy against the GAME baseline without pointwise SOURCE copying;
 - current validation focus is moving from Rain Love local repairs to a Huahai three-way benchmark (Jay original / human +4-key project / agent2utau) to avoid overfitting local failures;
 - Round F disproved simple additive duplicate-periodic ownership; secondary periodic PITD may act as anti-phase renderer compensation and must be judged from real render;
 - active renderer baseline is now YousaV1.65c + matching OpenUtau dpV2;
@@ -1174,7 +1174,7 @@ The A/C listening project remains diagnostic evidence only. No zigfix candidate 
 
 **Round F2 is CLOSED. Pause Rain Love P2/P3 local repair as the main development route.**
 
-#### Round J — ACTIVE: Huahai benchmark → full reference corpus ingestion
+#### Round J — ACTIVE: Huahai benchmark → rule-based pitch drawing trial
 
 **Primary goal:** establish a generalizable benchmark for how real human singing motion is represented
 by a successful human-tuned OpenUtau project, before continuing local repair of Rain Love.
@@ -1358,7 +1358,7 @@ Only after J0–J4 evidence is committed:
 
 This phase is evaluation only. Do not repair the generator in the same round.
 
-### Phase J6 — ACTIVE: commit the complete human-project / GAME F0 corpus
+### Phase J6 — CLOSED: commit the complete human-project / GAME F0 corpus
 
 The five selected phrases are no longer the data boundary. Build a **full-song, all-project reference
 corpus** so reviewer analysis can operate directly on raw F0 instead of executor summaries.
@@ -1553,6 +1553,402 @@ Then commit and **STOP**.
 
 Round-J next reviewer step will be direct corpus analysis across tuners and GAME. The executor must
 not perform that interpretation in the same J6 round.
+
+### Phase J7 — ACTIVE: low-DOF rule-based pitch drawing trial
+
+#### J7.0 Why this experiment exists
+
+Previous attempts to "learn Baishuo" directly from the human-authored project performed worse than the
+GAME-derived baseline. Do not treat the human project as a trajectory target to imitate.
+
+The J6 full-song evidence instead supports a narrower interpretation:
+
+- GAME is a strong carrier for note segmentation / pitch centre;
+- SOURCE provides event identity, direction, approximate magnitude and timing;
+- the human project is evidence for practical synthesizer representation grammar;
+- SOURCE 10 ms micro-motion is **not** a target to copy pointwise.
+
+Reviewer analysis of the committed J6 corpus found:
+
+```text
+GAME voiced-segment tone vs SOURCE:
+  median absolute error ≈ 9.4 cents
+  ~91.2% within ±50 cents
+
+SOURCE ↔ human-project render:
+  absolute-pitch correlation ≈ 0.71
+  ~310 ms low-pass correlation ≈ 0.74
+  micro-residual correlation ≈ 0
+  10 ms frame-delta correlation ≈ 0
+
+human written PITD ↔ its standardized render:
+  note-normalized contour correlation is very high (median ≈ 0.97 on reliable notes)
+
+Baishuo contiguous-note pitch.data entry convention:
+  pitch.data[0].y = -10 * interval_semitones
+  observed exactly on 164 / 164 eligible non-zero contiguous transitions
+  (stored OpenUtau y units; treat as a representation convention, not a human-physiology law)
+```
+
+The experiment therefore asks:
+
+> Can a deterministic low-DOF event compiler keep GAME's strong note scaffold, preserve only
+> perceptually meaningful SOURCE motion, and sound better than both the GAME-only baseline and the
+> previous dense/imitation-style expression path?
+
+This is a **single bounded strategy trial**. It is not permission for iterative parameter hunting.
+
+#### J7.1 Fixed input and comparison baseline
+
+Use the existing verified GAME/lyric/base-score authority. Do not retranscribe lyrics, notes or timing.
+
+For the first execution, use the already committed Huahai benchmark phrases from J1/J2 so that the
+same material has SOURCE, human-project and historical agent evidence.
+
+Required comparison set:
+
+```text
+A = GAME/base score with no new J7 expression
+B = new J7 rule-based expression
+C = existing human-project render, reference only
+D = previous agent/J5 result, diagnostic only
+```
+
+A is the primary baseline. J7 succeeds only if B is audibly/usefully better than A without introducing
+new pitch-path defects. C and D are not optimization targets.
+
+Do not run the whole song in J7A. Produce the benchmark phrase set first and STOP.
+
+#### J7.2 SOURCE evidence: consensus and event extraction only
+
+Build SOURCE evidence from FCPE + RMVPE. A frame may influence expression only when the two extractor
+families agree sufficiently for the intended measurement.
+
+Never compile the raw SOURCE residual at 10 ms resolution.
+
+For every note, derive only low-dimensional observations:
+
+```text
+robust body pitch centre
+slow body trend
+transition departure / arrival
+onset scoop / overshoot / undershoot, if coherent
+local ornament extrema, if coherent
+vibrato onset / release
+cycle periods
+cycle depths / depth envelope
+```
+
+Short isolated extractor excursions, consonant-region spikes, octave slips and unsupported rapid
+zig-zags remain evidence defects/unknowns; they do not become PITD points.
+
+The source evidence layer remains immutable and auditable.
+
+#### J7.3 Pitch centre rule
+
+GAME note tone is the structural centre.
+
+Where SOURCE core evidence is reliable:
+
+```text
+source_core_offset =
+    robust_median(SOURCE relative cents in the stable/core region)
+
+candidate_core_offset =
+    bounded low-DOF intonation offset derived from source_core_offset
+```
+
+For this trial, do not chase offsets beyond the empirically observed GAME/SOURCE uncertainty scale.
+The J6 GAME analysis showed ~90% of reliable segments inside about ±50 cents; therefore ±50 cents is a
+**J7 experimental guardrail**, not a universal singing law.
+
+If reliable core evidence is absent, use 0-cent GAME centre rather than guessing.
+
+Do not create a dense "intonation curve" from frame residuals.
+
+#### J7.4 Body-curve rule
+
+The note body defaults to simple.
+
+Use this hierarchy:
+
+```text
+constant centre
+→ one linear slow trend
+→ one low-curvature 3-knot trend
+```
+
+Escalate only when reliable SOURCE evidence demonstrates a sustained trend that the simpler form
+cannot represent.
+
+Do not fit high-order polynomials.
+Do not add knots merely to improve frame RMSE.
+Do not copy SOURCE micro-jitter.
+
+The J6 real-singing segments show that the middle/core of most notes is much narrower than the total
+note excursion. Large motion therefore belongs primarily to transitions, ornaments or modulation, not
+to arbitrary whole-note wandering.
+
+#### J7.5 Duration-conditioned complexity
+
+Use note duration to restrict allowed motion complexity.
+
+**Short note: duration < 300 ms**
+- no regular vibrato;
+- body is constant or one simple trend;
+- normally at most one intentional local bend / transition gesture;
+- no dense reversal sequence;
+- preserve a clear ornament only when cross-extractor SOURCE evidence proves it.
+
+**Medium note: 300–700 ms**
+- constant/linear/3-knot body trend;
+- at most one ordinary onset/transition gesture plus one independently supported local ornament;
+- regular vibrato is normally omitted unless several reliable cycles are genuinely observable.
+
+**Long note: >= 700 ms**
+- body trend remains low-DOF;
+- periodic modulation is allowed only when SOURCE cycles are measurable;
+- irregular ornament remains separate from periodic modulation;
+- no single fixed-rate/fixed-depth sine is allowed to run mechanically to the note boundary when
+  SOURCE shows changing rate/depth or release.
+
+These categories constrain representation complexity; they are not hard acoustic classifiers.
+
+#### J7.6 Ordinary cross-note transition
+
+For contiguous pitched notes, build the boundary structurally instead of tracing SOURCE samples.
+
+Default sequence:
+
+```text
+previous stable target
+→ departure
+→ monotonic/low-curvature transition
+→ arrival
+→ current stable target
+```
+
+Use a cubic Hermite / equivalent low-DOF curve with continuous slope where practical.
+
+Baishuo's exact observed entry convention may be used as an **initialization/reference**:
+
+```text
+pitch.data[0].y = -10 * interval_semitones
+```
+
+but J7 must not blindly transplant the entire Baishuo PITD trajectory. The renderer result decides
+whether the initialized transition is usable.
+
+If SOURCE proves a later departure, early arrival, scoop or overshoot, modify the event timing/shape
+with a small number of control points. Do not add a dense residual curve around it.
+
+#### J7.7 Onset scoop / overshoot / undershoot
+
+Do not apply a universal onset shape to every note.
+
+Create an onset gesture only when:
+- it is coherent in both F0 families or otherwise strongly evidenced;
+- it persists long enough to be a real gesture rather than one/two frame noise;
+- its direction relative to the body target is stable.
+
+Represent it with the minimum geometry needed:
+
+```text
+entry
+→ one extremum
+→ settle
+```
+
+or, when needed:
+
+```text
+entry
+→ extremum 1
+→ extremum 2
+→ settle
+```
+
+No arbitrary zig-zag chain.
+
+#### J7.8 Ornament rule
+
+An ornament is defined by a small number of perceptually meaningful extrema, not by the number of
+SOURCE samples.
+
+Procedure:
+1. smooth only for event detection, without modifying stored raw evidence;
+2. require cross-extractor support for the extrema/order;
+3. retain the ordered extrema and approximate timing/amplitude;
+4. fit a local Hermite/Bézier-like curve through those extrema;
+5. use no more extrema than the evidence justifies.
+
+The candidate should match **topology** first:
+- direction sequence;
+- number/order of important turns;
+- approximate turn timing;
+- approximate prominence.
+
+Pointwise cents similarity is secondary.
+
+#### J7.9 Vibrato rule
+
+Never synthesize vibrato from one constant frequency/depth pair merely because the note is long.
+
+If no reliable periodic SOURCE evidence exists:
+- do not invent vibrato.
+
+If reliable vibrato exists:
+- estimate cycle periods individually;
+- estimate cycle depths individually;
+- infer a low-DOF rate envelope;
+- infer a low-DOF depth envelope;
+- preserve onset and release behavior;
+- preserve phase only to the extent required for the audible gesture.
+
+Preferred representation:
+
+```text
+A(t): 3–6 knots maximum
+f(t): 2–5 knots maximum
+phase: integrated from f(t)
+```
+
+For a vibrato that continues toward note end:
+- if SOURCE depth falls over the final cycles, candidate depth must decay;
+- if SOURCE rate changes, do not force constant period;
+- if the evidence does not resolve the final cycles, use a conservative release rather than a
+  constant-amplitude oscillation abruptly cut at the boundary.
+
+The J6 standardized human render showed periodic motion centred roughly around the ordinary singing
+range rather than requiring large-amplitude oscillation; use SOURCE measurement for the actual target,
+not the Baishuo project as a numeric template.
+
+#### J7.10 Representation ownership
+
+Each audible motion has one primary owner:
+
+```text
+pitch centre / slow trend     → low-DOF PITD / structural pitch
+ordinary transition          → note pitch geometry / structural PITD
+regular modulation           → adaptive vibrato OR periodic PITD
+irregular local ornament     → local PITD gesture
+renderer correction          → separate correction term only after a real-render A/B proves need
+```
+
+Do not encode the same periodic motion in native vibrato and PITD simultaneously by default.
+
+#### J7.11 Complexity guard
+
+J7 must prefer a slightly imperfect simple curve over a numerically excellent dense curve when the
+simple curve preserves the verified audible topology.
+
+Forbidden:
+- free PITD point every 10–20 ms;
+- spline knots selected directly from every SOURCE reversal;
+- optimization whose main objective is F0 RMSE/correlation;
+- copying Baishuo PITD arrays;
+- training/fitting a model on this one project;
+- per-phrase hand-coded exceptions;
+- unlimited reruns.
+
+Every generated event must record:
+- event class;
+- evidence;
+- selected representation;
+- number of degrees of freedom / control points;
+- reason a simpler representation was insufficient.
+
+#### J7.12 J7A implementation scope
+
+Implement the smallest isolated rule compiler needed for the Huahai benchmark phrases.
+
+Prefer a new experimental path/module rather than rewriting the existing production expression
+compiler in-place.
+
+The implementation must:
+1. consume the trusted GAME/base notes;
+2. read SOURCE FCPE/RMVPE evidence;
+3. extract low-DOF event parameters;
+4. compile the rules above;
+5. emit an editable candidate USTX;
+6. real-render with YousaV1.65c + matching dpV2;
+7. extract render F0 with FCPE + RMVPE;
+8. create aligned SOURCE / GAME / candidate / human-reference diagnostics;
+9. emit listening WAV snippets for the same benchmark phrases.
+
+Do not modify lyrics, note count or trusted base timing.
+
+#### J7.13 Evaluation
+
+Machine evaluation is diagnostic; human listening remains the decision point for this trial.
+
+Required machine checks:
+
+```text
+score_identity
+render_success
+cross_extractor_render_consistency
+no isolated extreme spikes
+no unsupported rapid zig-zag
+event topology retained where SOURCE evidence is strong
+vibrato envelope does not become constant-to-hard-cut when SOURCE shows release
+representation complexity report
+```
+
+Report pointwise/source error, but it is **not** a pass criterion.
+
+Primary comparison questions:
+
+1. Does B sound more natural than GAME-only A?
+2. Does B preserve important SOURCE gestures without copying SOURCE noise?
+3. Does B avoid the previous agent's over-complicated/unnatural pitch motion?
+4. On long notes, does modulation breathe/change rather than sounding mechanically periodic?
+5. Do transitions sound intentional instead of front-pushed or over-corrected?
+
+Do not declare B successful from metrics alone.
+
+#### J7.14 Attempt budget / STOP
+
+J7A authorizes exactly:
+
+```text
+one implementation
+→ one benchmark generation
+→ one real render
+→ one diagnostic evaluation
+→ commit artifacts
+→ STOP
+```
+
+A wiring/runtime bug may be fixed if it prevents the authorized run from executing; such a fix does
+not authorize a second tuning strategy.
+
+Do not tune thresholds after hearing/seeing the first result.
+Do not start parameter search.
+Do not regenerate repeatedly until metrics improve.
+Do not resume Rain Love P2/P3.
+
+Commit at minimum:
+
+```text
+J7 implementation
+rule/event JSON for each benchmark phrase
+candidate USTX
+real-render WAV
+FCPE/RMVPE render F0
+A/B listening snippets: GAME baseline vs J7 candidate
+diagnostic report
+run manifest / hashes / code head
+```
+
+Then STOP with exactly one of:
+
+```text
+J7A_READY_FOR_LISTENING
+J7A_FAIL_IMPLEMENTATION
+J7A_FAIL_EVIDENCE
+J7A_FAIL_STRATEGY
+```
 
 ### Human singing plausibility connection
 
