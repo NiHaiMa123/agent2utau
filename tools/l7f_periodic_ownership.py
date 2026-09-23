@@ -136,9 +136,12 @@ def _periodic_estimate(t, r, f_vib):
 def _modulation(f0, t0, t1, f_vib, src_off=0.0):
     """Detrended modulation stats of an F0 track inside [t0,t1]."""
     times, hz, vv = f0["times"], f0["f0_hz"], f0["voiced"]
-    m = (times >= t0 + src_off) & (times <= t1 + src_off) & vv
+    wm = (times >= t0 + src_off) & (times <= t1 + src_off)
+    m = wm & vv
     if m.sum() < 16:
-        return {"n_voiced": int(m.sum())}
+        return {"n_voiced": int(m.sum()),
+                "window_frames": int(wm.sum()),
+                "voiced_frac": round(float(m.sum() / max(1, wm.sum())), 2)}
     tt = times[m]
     cc = 1200.0 * np.log2(np.maximum(hz[m], 1e-6) / 440.0) - 6900.0
     # resample to uniform 5 ms for a consistent LS/detrend basis
@@ -150,7 +153,8 @@ def _modulation(f0, t0, t1, f_vib, src_off=0.0):
     depth = float(2.0 * np.sqrt(2.0) * np.std(p))
     resid_depth = float(2.0 * np.sqrt(2.0) * np.std(r - p))
     return {"n_voiced": int(m.sum()),
-            "voiced_frac": round(float(m.mean()), 2),
+            "window_frames": int(wm.sum()),
+            "voiced_frac": round(float(m.sum() / max(1, wm.sum())), 2),
             "mod_rate_hz": round(rate, 2) if rate else None,
             "periodic_depth_c": round(depth, 1),
             "nonperiodic_rms_c": round(
@@ -322,6 +326,21 @@ def main():
         "pitd_points_changed": int(changed.sum()),
         "pitd_unchanged_before_first_edit": outside_same,
         "measurements": meas,
+        "ab_effect": {
+            "a_periodic_depth_c": a_mod.get("periodic_depth_c"),
+            "b_periodic_depth_c": b_mod.get("periodic_depth_c"),
+            "src_periodic_depth_c": src_mod.get("periodic_depth_c"),
+            "direction": ("removal_increased_depth — PITD periodic "
+                          "component was ANTI-PHASE to native vibrato "
+                          "(partial cancellation), not additive"
+                          if (b_mod.get("periodic_depth_c") or 0)
+                          > (a_mod.get("periodic_depth_c") or 0)
+                          else "removal_reduced_depth"),
+            "src_depth_envelope_decays": bool(
+                src_mod.get("depth_env_c") and
+                src_mod["depth_env_c"][0]["p2p_c"] >
+                1.2 * src_mod["depth_env_c"][-1]["p2p_c"]),
+        },
         "verdict": verdict,
         "verdict_reason": why,
     }
