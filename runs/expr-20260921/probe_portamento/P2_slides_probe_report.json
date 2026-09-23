@@ -1,7 +1,7 @@
 {
  "phrase": "P2_slides",
- "generator_code_head": "b5005a6d9ba16e20ee4c810f8f37a8bc521f3767",
- "qa_code_head": "b5005a6d9ba16e20ee4c810f8f37a8bc521f3767",
+ "generator_code_head": "f1404adb436bd08f00b8656e1582b1ea41e9ea54",
+ "qa_code_head": "f1404adb436bd08f00b8656e1582b1ea41e9ea54",
  "worktree_clean_at_generation": true,
  "base_file_sha256": "5101267f7c63c2e5e51c1321c51096aee1dc63cde583b57ee302a9e5babefe79",
  "base_semantic_sha256": "0978eac6439b1abe2fab54cf70c34b127954d7e86be3a680ef8e2f0006ba414a",
@@ -605,25 +605,29 @@
      "energy_drop_db": 19.2,
      "h2p_drop_db": 39.1,
      "h2p_vs_unvoiced_floor_db": -17.2,
-     "classification": "non_phonated_remnant",
+     "periodic_fraction": 0.25,
+     "claim_support_fraction": 0.188,
+     "alt_support_fraction": 0.0,
      "measured_f0_med_hz": 257.9,
      "measured_f0_n_reliable": 4,
      "consistent_with": "claimed",
+     "comb_ratio_relative_db": -8.5,
+     "classification": "inconclusive",
      "vocal_sha256": "80e97c28c2142400cb686ea1901d1e90fb0e312251041536c2af3f66e534d881",
      "mix_path": "runs\\_cache\\082598c2b4b5\\original.wav",
      "mix_sha256": "fd8c3960858d4ff4db3f82438051119564b2fd9d38a2f0d6d1b3894d8d886816"
     },
     "waveform_resolved": null,
-    "adjudication": "artifact",
-    "adjudication_basis": "positive_counterevidence",
+    "adjudication": null,
+    "adjudication_basis": null,
     "third_family_non_detection": true,
     "rescued_by_pyin": false,
     "stable": false
    },
    "candidates": {},
-   "verdict": "EVIDENCE_ADJUDICATED_ARTIFACT",
+   "verdict": "FAIL_EVIDENCE",
    "reasons": [
-    "positive waveform counter-evidence: the fcpe-voiced/rmvpe-unvoiced span is a non-phonated remnant — rms 19.2 dB below the both-voiced reference and the claimed-f0 harmonic band 39.1 dB below it (floor-level); the detected gesture has no sung-pitch source"
+    "source target not extractor-consistent (ext_rmse=0.5031180787289337, coverage=0.892)"
    ]
   }
  ]
