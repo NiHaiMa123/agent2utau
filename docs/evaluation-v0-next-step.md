@@ -1,5 +1,7 @@
 # 下一步：3:04 TENC单因素响应检验
 
+> 用户确认研究通用规律而非继续单点修复后，完成318当前字跨条件只读研究：5个原版标签+接受抱C变体，313字听感unknown保留。接受抱voicing更低、tension更高，否定统一提高VOIC/降低TENC；同元音配对breathiness降低方向一致但未隔离。冻结6条件同剂量BREC单因素检验方案（2问题+4偏实/可用），尚未渲染，不拟合阈值或扫参数。停止先前果VOIC提案；不更新Skill或改音频，接受抱保留。见 docs/lastpage-cross-condition-study-20261008.md。
+
 > 用户对三处果原PCM对照回报“中间这个可以”：word247约3:17局部可用，1:27原反馈保留、3:44仍unknown。实际新成声state比较：主体音高相近，通过处voicing略高、breathiness略低，入口差更明显；仅线索，非因果。缓存导出不等于新成声的草稿被拒绝保留，567当前run文件哈希保持。无新合成/参数/Skill修改，已接受抱保留；下一项候选有限VOIC单因素支撑，尚未执行。见 docs/lastpage-guo-positive-comparison-20261008.md。
 
 > 当前步骤已完成：[果音素映射与时钟核查](lastpage-guo-phoneme-audit-20261008.md)。未发现明显token/语言/元音时序错误，不直接改g→uo；已裁三处同MIDI64的当前生成版原PCM片段，下一步取得听感定位标签。无新合成/参数或Skill修改，后两处样本不预设正常/异常。以下为历史步骤。

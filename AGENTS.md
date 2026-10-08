@@ -36,6 +36,8 @@
 
 - 用户对三处果原PCM对照回报“中间这个可以”：word247约3:17局部可用，1:27原反馈保留、3:44仍unknown。实际新成声state比较：主体音高相近，通过处voicing略高、breathiness略低，入口差更明显；仅线索，非因果。缓存导出不等于新成声的草稿被拒绝保留，567当前run文件哈希保持。无新合成/参数/Skill修改，已接受抱保留；下一项候选有限VOIC单因素支撑，尚未执行。见 docs/lastpage-guo-positive-comparison-20261008.md。
 
+- 用户确认研究通用规律而非继续单点修复后，完成318当前字跨条件只读研究：5个原版标签+接受抱C变体，313字听感unknown保留。接受抱voicing更低、tension更高，否定统一提高VOIC/降低TENC；同元音配对breathiness降低方向一致但未隔离。冻结6条件同剂量BREC单因素检验方案（2问题+4偏实/可用），尚未渲染，不拟合阈值或扫参数。停止先前果VOIC提案；不更新Skill或改音频，接受抱保留。见 docs/lastpage-cross-condition-study-20261008.md。
+
 ## Git
 
 - 不提交音频、模型、缓存、run输出、本机归档或绝对路径配置 `configs/local.yaml`。
