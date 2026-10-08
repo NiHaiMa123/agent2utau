@@ -10,6 +10,7 @@
 - [执行流程](docs/workflow.md)：环境、命令、计划格式和验证边界。
 - `src/agent2utau/workflow.py`：原曲观测和独立函数的原生编译，不替 Agent 决定画法。
 - `bridge/OuBridge`：使用实际 OpenUtau Core 导出音高、音素、模型输入及渲染。
+- [独立评价 v0](docs/evaluation-v0.md)：显式工程/原生输入的只读形态测量、风险候选及反馈定位；不替Agent自评自然度。
 - `tools/lastpage_fresh_*` / `lastpage_loudness_skill_v02_20261007.py`：最近完成歌曲的实现记录；不是通用生产入口，不能直接换曲名或常量运行。
 
 ## 使用
