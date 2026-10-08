@@ -80,6 +80,24 @@ def test_shfc_allows_verified_derived_prediction_not_output_pitch():
     assert result['changed_frames']==2
 
 
+def test_shfc_native_fractional_shift_rounding_is_exact():
+    # Cache-verified native fixture: d=-233.4c, unshifted F0=493.8833Hz.
+    # Float32 division followed by double pow yields 431.5925903Hz;
+    # premature promotion of the division yields 431.5926208Hz.
+    a,b,v,w=shifted_pair()
+    for r in (a,b):
+        r['vocoder_f0'][1]=493.88330078125
+    a['tensors'][-1]['values'][1]=493.88330078125
+    b['tone_shift_cents'][1]=-233.4
+    w['tone_shift_semitones'][1]=-2.334
+    w['tensors'][0]['values'][1]=float(np.float32(71)+np.float32(-2.334))
+    b['tensors'][-1]['values'][1]=431.59259033203125
+    assert require_shift_isolation(a,b,v,w,[1.01,1.02],-400)['vocoder_F0_exact']
+    b['tensors'][-1]['values'][1]=431.5926208496094
+    with pytest.raises(ValueError,match='Acoustic F0'):
+        require_shift_isolation(a,b,v,w,[1.01,1.02],-400)
+
+
 @pytest.mark.parametrize('confound',['vocoder_pitch','phones','speaker','manual_control',
                                    'pitch_dependency','acoustic_dependency','units','support'])
 def test_shfc_confound_or_wrong_unit_refused(confound):

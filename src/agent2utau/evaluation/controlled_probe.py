@@ -140,7 +140,11 @@ def require_shift_isolation(a, b, va, vb, support_s, peak_cents):
     if not np.array_equal(bv['pitch'],av['pitch']+sb[None,:]):
         raise ValueError('Variance pitch did not receive declared SHFC')
     unshifted = np.asarray(a['vocoder_f0'],np.float32)[None,:]
-    factor = np.asarray([math.pow(2,float(c)/1200) for c in cb],np.float32)[None,:]
+    # Native float d / integer 1200 divides in float32 before Math.Pow
+    # promotes the quotient to double. Changing that order can move the
+    # final F0 by one ULP, even with the same sampled curve.
+    exponent = cb / np.float32(1200)
+    factor = np.asarray([math.pow(2,float(e)) for e in exponent],np.float32)[None,:]
     if not np.array_equal(aa['f0'],unshifted) or not np.array_equal(bb['f0'],unshifted*factor):
         raise ValueError('Acoustic F0 did not receive native SHFC transform')
     for k in CHANNELS:
