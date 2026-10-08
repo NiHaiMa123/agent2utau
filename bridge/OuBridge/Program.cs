@@ -99,7 +99,7 @@ namespace Agent2Utau.Bridge {
             var result = new Dictionary<string, object>();
             try {
                 if (args.Length < 1) {
-                    return Fail("usage: a2u-bridge <doctor|inspect|roundtrip|render> [options]", 2);
+                    return Fail("usage: a2u-bridge <doctor|inspect|export-pitch|export-phonemes|export-variance|roundtrip|render> [options]", 2);
                 }
                 var cmd = args[0];
                 var opt = ParseOpts(args.Skip(1).ToArray());
@@ -107,6 +107,12 @@ namespace Agent2Utau.Bridge {
                 switch (cmd) {
                     case "doctor": result = Doctor(); break;
                     case "inspect": result = Inspect(Req(opt, "project")); break;
+                    case "export-pitch": result = ExportPitch(Req(opt, "project"), Req(opt, "out")); break;
+                    case "export-phonemes": result = ExportPhonemes(Req(opt, "project"), Req(opt, "out")); break;
+                    case "export-variance": result = ExportVariance(Req(opt, "project"), Req(opt, "out")); break;
+                    case "export-render-probe":
+                        result = RenderProbe.Export(LoadProject(Req(opt, "project")), Req(opt, "out"), Req(opt, "indices"));
+                        break;
                     case "roundtrip": result = Roundtrip(Req(opt, "project"), Req(opt, "out")); break;
                     case "render": result = Render(opt); break;
                     default: return Fail($"unknown command {cmd}", 2);
@@ -192,6 +198,165 @@ namespace Agent2Utau.Bridge {
                 ["phonemizer_factories"] = OpenUtau.Api.PhonemizerFactory.GetAll()
                     .Select(f => f.type.FullName).OrderBy(n => n).ToArray(),
             };
+        }
+
+        static Dictionary<string, object> ExportPitch(string path, string output) {
+            var project = LoadProject(path);
+            var parts = project.parts.OfType<UVoicePart>().ToArray();
+            if (parts.Length == 0 || parts.Any(p => !p.PhonemesUpToDate ||
+                    p.renderPhrases.Count == 0 || p.notes.Any(n => n.Error) ||
+                    p.phonemes.Any(ph => ph.Error))) {
+                throw new InvalidOperationException("Cannot export pitch from empty, stale or invalid parts.");
+            }
+            // RenderPhrase builds its arrays at five-tick intervals, starting
+            // at position-leading. Export the actual runtime arrays, not a
+            // Python approximation of note bends or vibrato.
+            var phrases = parts.SelectMany(p => p.renderPhrases.Select(ph => new {
+                part_position = p.position,
+                track_no = p.trackNo,
+                ph.position,
+                ph.leading,
+                pitch_start_tick = ph.position - ph.leading,
+                pitch_interval_ticks = 5,
+                times_ms = Enumerable.Range(0, ph.pitches.Length)
+                    .Select(i => project.timeAxis.TickPosToMsPos(ph.position - ph.leading + i * 5)).ToArray(),
+                before_pitd_cents = ph.pitchesBeforeDeviation,
+                final_cents = ph.pitches,
+            })).ToArray();
+            foreach (var phrase in phrases) {
+                if (phrase.before_pitd_cents.Length != phrase.final_cents.Length ||
+                    phrase.final_cents.Length == 0 ||
+                    phrase.final_cents.Any(x => !float.IsFinite(x)) ||
+                    phrase.before_pitd_cents.Any(x => !float.IsFinite(x))) {
+                    throw new InvalidOperationException("Invalid runtime pitch arrays.");
+                }
+            }
+            var payload = new {
+                schema_version = 1,
+                project = Path.GetFullPath(path),
+                units = "absolute MIDI times 100 cents; absolute project milliseconds",
+                stage = "RenderPhrase before renderer frame resampling; not measured audio F0",
+                phrases,
+            };
+            var dest = Path.GetFullPath(output);
+            Directory.CreateDirectory(Path.GetDirectoryName(dest));
+            File.WriteAllText(dest, JsonSerializer.Serialize(payload));
+            return new Dictionary<string, object> {
+                ["output"] = dest, ["phrase_count"] = phrases.Length,
+                ["frame_count"] = phrases.Sum(p => p.final_cents.Length),
+            };
+        }
+
+        static Dictionary<string, object> ExportPhonemes(string path, string output) {
+            var project = LoadProject(path);
+            var parts = project.parts.OfType<UVoicePart>().ToArray();
+            if (parts.Length == 0 || parts.Any(p => !p.PhonemesUpToDate ||
+                    p.renderPhrases.Count == 0 || p.notes.Any(n => n.Error) ||
+                    p.phonemes.Any(ph => ph.Error))) {
+                throw new InvalidOperationException("Cannot export phonemes from invalid parts.");
+            }
+            var payloadParts = new List<object>();
+            foreach (var part in parts) {
+                var notes = part.notes.ToArray();
+                int NoteIndex(UNote n) => n == null ? -1 : Array.IndexOf(notes, n);
+                var phrases = new List<object>();
+                foreach (var phrase in part.renderPhrases) {
+                    // Bind identities by source position/symbol, not RenderPhone's
+                    // noteIndex: that field is not assigned in some fork builds.
+                    var phones = phrase.phones.Select((phone, i) => {
+                        if (!double.IsFinite(phone.positionMs) || !double.IsFinite(phone.endMs)
+                                || phone.durationMs <= 0) {
+                            throw new InvalidOperationException("Invalid runtime phone span.");
+                        }
+                        var owners = part.phonemes.Where(u =>
+                            Math.Abs(u.PositionMs - phone.positionMs) < 1e-6 &&
+                            (u.phonemeMapped ?? u.phoneme) == phone.phoneme).ToArray();
+                        return new {
+                            phone_index = i, phone.phoneme, start_ms = phone.positionMs,
+                            end_ms = phone.endMs, phone.tone,
+                            owner_note_indices = owners.Select(u => NoteIndex(u.Parent)).ToArray(),
+                            owner_primary_indices = owners.Select(u => NoteIndex(u.Parent.Extends ?? u.Parent)).ToArray(),
+                            ownership_status = owners.Length == 1 ? "matched" : "ambiguous_or_absent",
+                        };
+                    }).ToArray();
+                    phrases.Add(new {
+                        phrase.position, phrase.end, phones,
+                        pitch_start_tick = phrase.position - phrase.leading,
+                        pitch_interval_ticks = 5,
+                        pitch_times_ms = Enumerable.Range(0, phrase.pitches.Length)
+                            .Select(i => project.timeAxis.TickPosToMsPos(phrase.position - phrase.leading + i * 5)).ToArray(),
+                        final_cents = phrase.pitches,
+                    });
+                }
+                payloadParts.Add(new {
+                    part_position = part.position, track_no = part.trackNo,
+                    notes = notes.Select((n, i) => new {
+                        note_index = i, n.lyric, n.tone,
+                        start_ms = project.timeAxis.TickPosToMsPos(part.position + n.position),
+                        end_ms = project.timeAxis.TickPosToMsPos(part.position + n.End),
+                        primary_index = NoteIndex(n.Extends ?? n),
+                    }).ToArray(), phrases,
+                });
+            }
+            var dest = Path.GetFullPath(output);
+            Directory.CreateDirectory(Path.GetDirectoryName(dest));
+            File.WriteAllText(dest, JsonSerializer.Serialize(new {
+                schema_version = 1, project = Path.GetFullPath(path),
+                units = "absolute project milliseconds; pitch absolute MIDI times 100 cents",
+                stage = "validated phonemizer/RenderPhrase intended phone clock; not measured acoustic alignment",
+                historical_acoustic_reproduction = false, parts = payloadParts,
+            }));
+            return new Dictionary<string, object> {
+                ["output"] = dest, ["part_count"] = parts.Length,
+                ["phone_count"] = parts.Sum(p => p.renderPhrases.Sum(ph => ph.phones.Length)),
+            };
+        }
+
+        static Dictionary<string, object> ExportVariance(string path, string output) {
+            var project = LoadProject(path);
+            var parts = project.parts.OfType<UVoicePart>().ToArray();
+            if (parts.Length == 0 || parts.Any(p => !p.PhonemesUpToDate ||
+                    p.renderPhrases.Count == 0 || p.notes.Any(n => n.Error) ||
+                    p.phonemes.Any(ph => ph.Error))) {
+                throw new InvalidOperationException("Cannot export variance from invalid parts.");
+            }
+            var phrases = new List<object>();
+            foreach (var part in parts) foreach (var ph in part.renderPhrases) {
+                // The fork exposes methods on an internal singer type. Keep the
+                // reflection adapter isolated and fail explicitly on API changes.
+                var singer = ph.singer;
+                var method = singer.GetType().GetMethod("getVariancePredictor");
+                var predictor = method?.Invoke(singer, null)
+                    ?? throw new InvalidOperationException("Variance predictor unavailable.");
+                lock (singer.GetType().GetProperty("SessionLock")?.GetValue(singer)
+                    ?? throw new InvalidOperationException("Singer session lock unavailable.")) {
+                    var r = predictor.GetType().GetMethod("Process", new[] { ph.GetType() })?.Invoke(predictor, new object[] { ph })
+                        ?? throw new InvalidOperationException("Variance Process API unavailable.");
+                    object Field(string name) => r.GetType().GetField(name)?.GetValue(r)
+                        ?? throw new InvalidOperationException("Variance field unavailable: " + name);
+                    int totalFrames = (int)Field("totalFrames"), headFrames = (int)Field("headFrames");
+                    double frameMs = Convert.ToDouble(Field("frameMs"));
+                    var breathiness = (float[])Field("breathiness");
+                    var voicing = (float[])Field("voicing");
+                    var tension = (float[])Field("tension");
+                    var channels = new[] { breathiness, voicing, tension };
+                    if (channels.Any(c => c.Length != totalFrames || c.Any(x => !float.IsFinite(x))))
+                        throw new InvalidOperationException("Invalid variance arrays.");
+                    phrases.Add(new {
+                        part_position = part.position, track_no = part.trackNo, ph.position,
+                        times_ms = Enumerable.Range(0, totalFrames)
+                            .Select(i => ph.positionMs + (i-headFrames)*frameMs).ToArray(),
+                        breathiness, voicing, tension,
+                    });
+                }
+            }
+            var dest = Path.GetFullPath(output);
+            Directory.CreateDirectory(Path.GetDirectoryName(dest));
+            File.WriteAllText(dest, JsonSerializer.Serialize(new {
+                schema_version = 1, project = Path.GetFullPath(path),
+                stage = "raw variance predictor before user expression deltas; not measured audio", phrases,
+            }));
+            return new Dictionary<string, object> { ["output"] = dest, ["phrase_count"] = phrases.Count };
         }
 
         static Dictionary<string, object> Inspect(string path) {

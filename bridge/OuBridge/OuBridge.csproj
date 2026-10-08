@@ -11,6 +11,9 @@
     <OuDir Condition="'$(OuDir)' == ''">E:\software\OpenUtau-win-x64_dpV2\OpenUtau-win-x64</OuDir>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ML.OnnxRuntime">
+      <HintPath>$(OuDir)\Microsoft.ML.OnnxRuntime.dll</HintPath>
+    </Reference>
     <Reference Include="OpenUtau.Core">
       <HintPath>$(OuDir)\OpenUtau.Core.dll</HintPath>
     </Reference>

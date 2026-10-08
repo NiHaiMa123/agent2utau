@@ -1,8 +1,8 @@
 """Lyric transcription via faster-whisper (CPU, int8).
 
 Returns segments with per-char timing. Multi-character ASR words are split
-evenly as an explicitly approximate fallback; supplied lyrics use acoustic
-attention/DTW through force_align instead of onset-count heuristics.
+evenly as an approximate observation, not an accepted word/phonetic clock.
+Use explicit lyric preparation and the current HFA model for alignment.
 """
 
 from __future__ import annotations
@@ -17,36 +17,6 @@ import soundfile as sf
 DEFAULT_MODEL = "large-v3-turbo"  # distilled; much faster than large-v3 on CPU
 _HANZI = re.compile(r"[一-鿿]")
 _MODEL = None
-_REPO_LYRICS = Path(__file__).resolve().parents[3] / "data" / "lyrics"
-
-
-def find_lyrics(src_path: str | Path) -> tuple[Path, str] | None:
-    """Discover reference lyrics for a source audio without --lyrics.
-
-    Order: explicit sidecar, then an exact source SHA256 binding. A song
-    title does not identify a recording/arrangement/timeline.
-    """
-    src = Path(src_path)
-    sidecar = src.with_suffix(".lrc")
-    if sidecar.exists():
-        return sidecar, "sidecar"
-    index = _REPO_LYRICS / "index.yaml"
-    if index.exists():
-        import yaml
-        idx = yaml.safe_load(index.read_text(encoding="utf-8")) or {}
-        import hashlib
-        digest = None
-        for entry in idx.get("recordings", []):
-            if not isinstance(entry, dict) or not entry.get("sha256"):
-                continue
-            if digest is None:
-                with src.open("rb") as f:
-                    digest = hashlib.file_digest(f, "sha256").hexdigest()
-            if entry["sha256"] == digest:
-                p = _REPO_LYRICS / entry["file"]
-                if p.exists():
-                    return p, "source-sha256"
-    return None
 
 
 def _model(name: str):
@@ -112,47 +82,3 @@ def transcribe(wav_path: str | Path, model: str = DEFAULT_MODEL,
         "n_segments": len(out),
         "segments": out,
     }
-
-
-def force_align(wav_path: str | Path, text: str, t0: float, t1: float,
-                model: str = DEFAULT_MODEL) -> list[dict]:
-    """Align supplied text using Whisper's acoustic attention + DTW.
-
-    This is a constrained alignment, NOT evidence that the supplied lyrics
-    match this recording. Callers must bind references to the source audio.
-    Probabilities and zero-duration tokens are retained for quality checks.
-    The adapter targets the installed faster-whisper 1.x find_alignment API.
-    """
-    from faster_whisper.tokenizer import Tokenizer
-    from faster_whisper.audio import pad_or_trim
-    import librosa
-
-    if not 0 < t1 - t0 <= 29:
-        raise ValueError("Alignment windows must be in (0, 29] seconds")
-    with sf.SoundFile(str(wav_path)) as audio:
-        sr = audio.samplerate
-        audio.seek(max(0, int(t0 * sr)))
-        clip = audio.read(int((t1 - t0) * sr), dtype="float32")
-    if clip.ndim > 1:
-        clip = clip.mean(axis=1)
-    recognizer = _model(model)
-    target_sr = recognizer.feature_extractor.sampling_rate
-    if sr != target_sr:
-        clip = librosa.resample(clip, orig_sr=sr, target_sr=target_sr)
-    features = recognizer.feature_extractor(clip)
-    frames = min(features.shape[-1] - 1,
-                 int(len(clip) / recognizer.feature_extractor.hop_length))
-    encoded = recognizer.encode(pad_or_trim(features))
-    tokenizer = Tokenizer(recognizer.hf_tokenizer,
-                          recognizer.model.is_multilingual,
-                          task="transcribe", language="zh")
-    words = recognizer.find_alignment(
-        tokenizer, [tokenizer.encode(text)], encoded, frames)[0]
-    chars = []
-    for word in words:
-        for char in _char_spans(word["word"], word["start"], word["end"]):
-            chars.append({**char, "start": round(t0 + char["start"], 4),
-                          "end": round(t0 + char["end"], 4),
-                          "probability": float(word["probability"]),
-                          "method": "whisper-attention-dtw"})
-    return chars

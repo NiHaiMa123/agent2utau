@@ -1,9 +1,0 @@
-{
-  "schema": "m25-cal-2",
-  "verdict": "FAIL",
-  "contract_sha256": null,
-  "auditor": "devin",
-  "notes": "G5M eligibility inventory: 0/21 honest candidates — 13 lyric-evidence fail, 8 unresolved B2 (2 phrase-level systematic). No pilot roster possible; hard cases routed to diagnosis lanes. review_ready stays false.",
-  "sample_ids": [],
-  "recorded_at": 1789788662.7460434
-}

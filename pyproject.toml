@@ -1,11 +1,14 @@
 [project]
 name = "agent2utau"
 version = "0.1.0"
-description = "One-shot DiffSinger cover pipeline driving local OpenUtau (Yousa voicebank)"
+description = "Source observations and explicit Agent-designed singing functions for OpenUtau"
 requires-python = ">=3.11"
 dependencies = [
     "pyyaml>=6.0.2",
     "numpy>=2.1",
+    "scipy>=1.14",
+    "onnxruntime>=1.20",
+    "matplotlib>=3.9",
     "soundfile>=0.13",
     "librosa>=0.10",
     "audio-separator>=0.40",
@@ -31,3 +34,7 @@ packages = ["src/agent2utau"]
 
 [tool.uv]
 package = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = [".local-archive", "runs", "external", ".venv"]

@@ -1,0 +1,3 @@
+# Preserve authorized author originals and their archive byte for byte.
+research/baishuo/projects/*.ustx -text whitespace=cr-at-eol
+*.zip -text

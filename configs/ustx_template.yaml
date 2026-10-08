@@ -1,5 +1,5 @@
 name: __NAME__
-comment: migrated from 雨爱-有参by白烁.ustx track 0 ticks 21120-28440
+comment: Agent-owned score scaffold; all musical choices must be supplied
 output_dir: Vocal
 cache_dir: UCache
 ustx_version: '0.9'

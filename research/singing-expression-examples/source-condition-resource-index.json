@@ -1,0 +1,29 @@
+{
+  "schema": 2,
+  "role": "authorized original projects, research only",
+  "resources": {
+    "huahai": {
+      "author_project": "research/baishuo/projects/花海+4-有参by白烁.ustx",
+      "sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377",
+      "role": "research only; never generation profiles",
+      "source_recording_in_repository": false,
+      "historical_author_audio_available": false
+    },
+    "yuai": {
+      "author_project": "research/baishuo/projects/雨爱-有参by白烁.ustx",
+      "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce",
+      "role": "research only; never generation profiles",
+      "source_recording_in_repository": false,
+      "historical_author_audio_available": false
+    },
+    "lastpage": {
+      "author_project": "research/baishuo/projects/最后一页-有参by白烁.ustx",
+      "sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b",
+      "role": "research only; never generation profiles",
+      "source_recording_in_repository": false,
+      "historical_author_audio_available": false
+    }
+  },
+  "manifest": "research/baishuo/manifest.json",
+  "numeric_author_route_transfer_allowed": false
+}

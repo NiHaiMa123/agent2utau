@@ -1,62 +1,34 @@
 # agent2utau
 
-One-shot DiffSinger cover pipeline driving the local OpenUtau install with
-the Yousa (泠鸢) voicebank. See `plan.md` for the full implementation plan and
-`docs/agent-contract.md` for the CLI/JSON contract.
+根据原曲观测和 singing-expression-editor Skill，由 Agent 选择函数、独立设计整曲音高及发声控制，再编译 OpenUtau 工程和试听。
 
-## Status
+原曲 → 分离 / ASR / GAME / 双 F0 / HFA 观测 → Agent判断与显式计划 → 函数采样 → 原生编译及读回 → 当前条件渲染 → 固定增益混音 / 试听。
 
-M0 + M1 minimal pass-through: **working**.
+## 当前入口
 
-- `doctor` — environment probe (files_found / singer_loaded / render_passed /
-  automation_passed split).
-- `inspect-reference` — parses the 5 reference USTX projects.
-- `migrate-phrase` — migrates a short vocal phrase from an old-format project
-  to `YousaV1.65b` (singer id, `clr` color indices remapped by name, `clNN`
-  curve semantics preserved, missing audio refs dropped).
-- `render-smoke` — headless render through `a2u-bridge` (a small exe deployed
-  into the OpenUtau install dir that reuses `OpenUtau.Core` to load, phonemize
-  and render via `PlaybackManager.RenderToFiles`). Verified: 3 different
-  phrases render non-silent mono 44.1k WAV in seconds; load/save roundtrip
-  preserves notes/lyrics; runs are repeatable.
+- [Skill](skills/singing-expression-editor/SKILL.md)：表达判断和完整检查要求。
+- [执行流程](docs/workflow.md)：环境、命令、计划格式和验证边界。
+- `src/agent2utau/workflow.py`：原曲观测和独立函数的原生编译，不替 Agent 决定画法。
+- `bridge/OuBridge`：使用实际 OpenUtau Core 导出音高、音素、模型输入及渲染。
+- `tools/lastpage_fresh_*` / `lastpage_loudness_skill_v02_20261007.py`：最近完成歌曲的实现记录；不是通用生产入口，不能直接换曲名或常量运行。
 
-Not yet implemented: audio separation/ASR/F0 (M2), full-song `cover` (M3),
-style transfer (M4).
+## 使用
 
-## Layout
-
-```
-src/agent2utau/     Python pipeline + CLI
-bridge/OuBridge/    .NET headless render driver (deployed into OpenUtau dir)
-configs/            defaults + local overrides (local.yaml git-ignored)
-docs/               agent contract
-schemas/            JSON schemas (state/analysis/score/evaluation)
-tests/fixtures/     self-made small projects & structured test data
-runs/               per-run outputs (git-ignored)
-```
-
-## Usage
+安装 Python 3.11+ 依赖：`pip install -e .`。OpenUtau / 声库 / 模型、ffmpeg、HubertFA 是本机依赖，按 [执行流程](docs/workflow.md) 配置。
 
 ```powershell
-uv pip install -e .
 agent2utau doctor
-agent2utau inspect-reference "E:\data\project_opentuau"
-agent2utau migrate-phrase --project "<ref>.ustx" --track 0 --out runs/x/phrase.ustx
-agent2utau render-smoke --project runs/x/phrase.ustx
+agent2utau observe-source "<原曲路径>" --out runs/new-source
+agent2utau export-phonemes --project runs/new-score.ustx --out runs/phones.json
+agent2utau export-pitch --project runs/new-score.ustx --out runs/pitch.json
+agent2utau compile-functions --plan runs/functions.json --out runs/compiled
+agent2utau render-project --project runs/compiled/project.ustx --out runs/native.wav --mixdown
 ```
 
-Bridge deploy (only needed once or after bridge code changes):
+观测命令不会自动生成歌词谱面或音高线。Agent 先审阅观测、选择音乐身份、整理歌词/HFA及原生音素，再明确设计函数。编译通过只证明数字与原生读回，不等于自然度通过。
 
-```powershell
-agent2utau deploy-bridge
-```
+## 白烁研究资料
 
-## Render path decision (plan §6.2)
+[三份原始工程](research/baishuo/projects)及 [ZIP包](research/baishuo/baishuo-projects.zip)包括《花海+4》《雨爱》《最后一页》，SHA256见 [清单](research/baishuo/manifest.json)。仅用于授权研究；独立制作不加载作者曲线、profile或参数路线。
 
-Option 1 (CLI) does not exist: `Program.Main` only forwards a project path to
-the GUI. Option 3 was taken: `a2u-bridge` is a self-contained exe placed in the
-install dir (no OpenUtau files modified; `a2u-bridge.deps.json` cloned from
-`OpenUtau.deps.json` so assembly resolution is identical). It reuses the app's
-own `Formats`/`DocManager`/`PhonemizerRunner`/`RenderEngine` — no reimplemented
-inference. UI automation (option 2) remains a fallback if the bridge breaks on
-an app update.
+仓库当前版本不包含音频、模型权重、缓存或 runs 产物。旧路线已移到本机 `.local-archive/cleanup-20261008/`；Git历史中的旧音频未重写删除。清理范围见 [记录](docs/repository-cleanup.md)。

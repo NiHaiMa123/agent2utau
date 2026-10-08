@@ -17,3 +17,5 @@ jobs:
           pip install torch --index-url https://download.pytorch.org/whl/cpu
       - name: Core regression suite
         run: pytest -q
+      - name: No-media and research-package gate
+        run: python tools/check_repository.py

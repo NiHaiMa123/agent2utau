@@ -1,7 +1,7 @@
 """`doctor` command: probe local resources.
 
 Reports are deliberately split into files_found / singer_loaded /
-render_passed / automation_passed per plan section 2.3.
+render_passed / automation_passed without implying an audio quality check.
 """
 
 from __future__ import annotations
@@ -115,6 +115,6 @@ def probe(cfg: dict[str, Any]) -> dict[str, Any]:
     else:
         report["warnings"].append("a2u-bridge not deployed; singer_loaded/render_passed unverified")
 
-    report["render_passed"] = False   # only render-smoke sets this true
+    report["render_passed"] = None   # resource probing does not render audio
     report["automation_passed"] = bp is not None
     return report
