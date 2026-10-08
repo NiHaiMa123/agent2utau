@@ -46,3 +46,9 @@ python -m agent2utau.evaluation --project projects/latest/lastpage_loudness_v02.
 - 单份原生线不是实测F0；多相位、实际模型输入、声学对齐、共振峰和音频感知均单列unknown/skipped。raw候选不是整曲假阳性，未标注歌曲无真实误报率/漏报率。
 
 P0实际结果见evaluation-v0-findings.md；后续只推荐evaluation-v0-next-step.md中的一个受控工作项。
+
+## 显式单因素响应探针（P1）
+
+`python -m agent2utau.evaluation.controlled_probe --a <native-A.json> --b <native-B.json> --variance-a <variance-A.json> --variance-b <variance-B.json> --channel tension --support <start-s> <end-s> --analysis <vowel-start-s> <vowel-end-s> --out <new-directory>`
+
+只消费缓存验证后的原生输入，不编辑工程。要求 A/B 的完整音素、pitch、模型、variance 条件和所有非选通道精确相同，实际干预必须落在声明支撑内。当前适配布局限定 variance/acoustic 同网格、Normal75/Classic25、variance11/acoustic101，拒绝其他布局；这是诊断条件，不是通用音乐参数建议。输出新合成 A、无变化重复、B、输入/预测、权重不变的随机适配证明及去电平 log-mel 谱形代理。原生 DYN、邻接拼接、交付 PCM、实测 F0 与反馈音频绑定需由实验记录另行核查。该命令不宣称自然度、共振峰真值或用户反馈原因。

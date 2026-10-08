@@ -94,9 +94,14 @@ namespace Agent2Utau.Bridge {
                     var vc=ph.curves.FirstOrDefault(c => c.Item1==DiffSingerUtils.VELC);
                     feeds.Add(Float("velocity",vc==null ? Enumerable.Repeat(1f,frames).ToArray() : Sample(vc.Item2,1,x => Math.Pow(2,(x-100)/100)),1,frames));
                 }
+                var expressionDeltas = new Dictionary<string, float[]>();
+                var variancePredictions = new Dictionary<string, float[]>();
                 void Variance(string name,float[] values,float[] curve,string abbr,float min,float max) {
                     var predicted=DiffSingerUtils.ResamplePaddedCurve(values,frames,raw.headFrames,raw.tailFrames,head,tail,raw.frameMs,frameMs);
-                    var input=predicted.Zip(Sample(curve,0,x=>x),DiffSingerUtils.VarianceDeltaFunctions[abbr]).Select(x=>Math.Clamp(x,min,max)).ToArray();
+                    var sampled=Sample(curve,0,x=>x);
+                    expressionDeltas[name]=sampled.Select(x=>DiffSingerUtils.VarianceDeltaFunctions[abbr](0,x)).ToArray();
+                    variancePredictions[name]=predicted;
+                    var input=predicted.Zip(sampled,DiffSingerUtils.VarianceDeltaFunctions[abbr]).Select(x=>Math.Clamp(x,min,max)).ToArray();
                     feeds.Add(Float(name,input,1,frames));
                 }
                 if(cfg.useBreathinessEmbed) Variance("breathiness",raw.breathiness,ph.breathiness,"brec",-96,0);
@@ -118,6 +123,7 @@ namespace Agent2Utau.Bridge {
                     vocoder_model=Path.Combine(vocoder.Location,vocoder.config.model),
                     native_acoustic_cache=cachePath,native_acoustic_cache_verified=true,
                     tensors=feeds.Select(Data),vocoder_f0=f0,
+                    expression_deltas=expressionDeltas,native_variance_predictions=variancePredictions,
                     phones=ph.phones.Select(p=>new {p.phoneme,p.suffix,p.positionMs,p.endMs,p.tone}),
                 }));
                 ExportVarianceInputs(predictor,ph,raw,root,index);
