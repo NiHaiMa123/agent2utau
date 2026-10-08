@@ -30,6 +30,35 @@ def test_single_channel_guard_and_time_scope():
         require_isolation(a,b,v,w,'tension',[1.015,1.02])
 
 
+def test_manual_delta_preserves_existing_offset_and_strict_cancel_mode():
+    a,b,v,w=native_pair()
+    b['expression_deltas']['tension']=[0,.5,.5,0]
+    b['tensors'][0]['values']=[-2,-1.5,-1.5,-2]
+    assert require_isolation(a,b,v,w,'tension',[1.01,1.02],cancel_selected=False)['changed_frames']==2
+    with pytest.raises(ValueError,match='cancel'):
+        require_isolation(a,b,v,w,'tension',[1.01,1.02])
+
+
+def test_manual_delta_retains_nonzero_conditioning_shift():
+    a,b,v,w=native_pair()
+    for r in (a,b):r['tone_shift_cents']=[-400]*4
+    assert require_isolation(a,b,v,w,'tension',[1.01,1.02],cancel_selected=False)['changed_frames']==2
+    # A shared SHFC condition never grants permission to change output F0.
+    b['vocoder_f0'][1]=499
+    with pytest.raises(ValueError,match='vocoder_f0'):
+        require_isolation(a,b,v,w,'tension',[1.01,1.02],cancel_selected=False)
+
+
+def test_clipped_outside_support_manual_delta_is_not_hidden():
+    a,b,v,w=native_pair()
+    for r in (a,b):
+        r['native_variance_predictions']['tension'][0]=10
+        r['tensors'][0]['values'][0]=10
+    b['expression_deltas']['tension'][0]=1  # Hidden by feature clipping.
+    with pytest.raises(ValueError,match='Manual control escapes'):
+        require_isolation(a,b,v,w,'tension',[1.01,1.02],cancel_selected=False)
+
+
 @pytest.mark.parametrize('confound',['phones','pitch','voicing','prediction','variance','cache'])
 def test_confounder_refused(confound):
     a,b,v,w=native_pair()

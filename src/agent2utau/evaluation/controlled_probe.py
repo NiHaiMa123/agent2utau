@@ -28,7 +28,7 @@ def tensors(items):
             for q in items}
 
 
-def require_isolation(a, b, va, vb, channel, support_s):
+def require_isolation(a, b, va, vb, channel, support_s, *, cancel_selected=True):
     if channel not in CHANNELS:
         raise ValueError('Unsupported intervention channel')
     for r, v in ((a, va), (b, vb)):
@@ -58,7 +58,11 @@ def require_isolation(a, b, va, vb, channel, support_s):
         db = np.asarray(b['expression_deltas'][k], np.float32)
         if k != channel and not np.array_equal(da, db):
             raise ValueError(f'Changed nonselected control: {k}')
-        if k == channel and np.any(db[selected] != 0):
+        control_changed = np.flatnonzero(da != db)
+        if k == channel and (not len(control_changed) or
+                np.any((t[control_changed] < support_s[0]) | (t[control_changed] > support_s[1]))):
+            raise ValueError('Manual control escapes declared finite support')
+        if k == channel and cancel_selected and np.any(db[selected] != 0):
             raise ValueError('B must cancel the selected manual offset')
         for r, inputs in ((a, aa), (b, bb)):
             pred = np.asarray(r['native_variance_predictions'][k], np.float32)[None, :]
@@ -189,7 +193,8 @@ def run(args):
     a, b, va, vb = [json.loads(p.read_text(encoding='utf8')) for p in paths]
     mode = getattr(args,'mode','manual_cancel')
     isolation = (require_shift_isolation(a,b,va,vb,args.support,args.shift_peak_cents)
-                 if mode=='shfc' else require_isolation(a,b,va,vb,args.channel,args.support))
+                 if mode=='shfc' else require_isolation(a,b,va,vb,args.channel,args.support,
+                     cancel_selected=mode=='manual_cancel'))
     if a['frame_ms'] != va['frame_ms'] or a['head_frames'] != va['head_frames']:
         raise ValueError('Resampled variance layout requires a separate verified adapter')
     models = out / 'models'
@@ -254,10 +259,10 @@ def run(args):
     allowed = {'f0',*CHANNELS} if mode=='shfc' else {args.channel}
     if repeated_inputs or repeated_prediction or set(final_changed)-allowed:
         raise ValueError('Fresh synthesis input isolation failed')
-    if mode=='manual_cancel' and final_changed != [args.channel]:
+    if mode!='shfc' and final_changed != [args.channel]:
         raise ValueError('Expected only selected manual channel')
     prediction_changed=changed_dict(baseline['pred'], altered['pred'])
-    if mode=='manual_cancel' and prediction_changed:
+    if mode!='shfc' and prediction_changed:
         raise ValueError('Fresh variance prediction changed')
     if mode=='shfc' and 'f0' not in final_changed:
         raise ValueError('Fresh acoustic F0 did not change')
@@ -282,14 +287,14 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     for name in ('a','b','variance-a','variance-b','out'):
         p.add_argument('--'+name, required=True)
-    p.add_argument('--mode',choices=['manual_cancel','shfc'],default='manual_cancel')
+    p.add_argument('--mode',choices=['manual_cancel','manual_delta','shfc'],default='manual_cancel')
     p.add_argument('--channel', choices=CHANNELS)
     p.add_argument('--shift-peak-cents',type=float)
     p.add_argument('--support', type=float, nargs=2, required=True)
     p.add_argument('--analysis', type=float, nargs=2, required=True)
     args=p.parse_args()
-    if args.mode=='manual_cancel' and args.channel is None:
-        p.error('--channel is required for manual_cancel')
+    if args.mode!='shfc' and args.channel is None:
+        p.error('--channel is required for manual control experiments')
     if args.mode=='shfc' and args.shift_peak_cents is None:
         p.error('--shift-peak-cents is required for shfc')
     run(args)
