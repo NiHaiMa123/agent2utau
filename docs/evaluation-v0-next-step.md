@@ -1,5 +1,7 @@
 # 下一步：3:04 TENC单因素响应检验
 
+> 六组分开试听后用户回报“全部没区别”：本轮BREC -10在两个问题及四个偏实/可用条件均未获得可感知差别，不采纳B，不把数值响应当改善或写入Skill，也不自动增大剂量。限于当前剂量/条件的否定证据，不宣布整个气声通道无效；原标签/接受抱C/源unknown保持。独立反馈run绑定12份A/B人声SHA，原537封存文件精确。无新合成/参数/Skill修改。见 docs/lastpage-brec-cohort-probe-20261008.md#最新试听反馈。
+
 > 执行冻结六条件BREC -10单因素对照，18套新variance11/acoustic101/vocoder、Normal75/Classic25；仅fresh breathiness改变，预测/其他输入/原SHFC保持，6原A与此前波形和6重复精确。原生DYN/固定1.5/.7/PCM通过，特征裁剪0；元音RMS变化约±0.03dB，双F0中位差0.03～0.16c、最大3.20/2.44c，技术响应不是口型改善。1tick编码被独立检查拒绝后改原5tick网格，原生初始化崩溃普通同输入重试成功，草稿/失败保留；88测试通过。六组同增益A/B已交付待听感，不扫参数/改Skill/发布工程，接受抱C保持。见 docs/lastpage-brec-cohort-probe-20261008.md。
 
 > 用户确认研究通用规律而非继续单点修复后，完成318当前字跨条件只读研究：5个原版标签+接受抱C变体，313字听感unknown保留。接受抱voicing更低、tension更高，否定统一提高VOIC/降低TENC；同元音配对breathiness降低方向一致但未隔离。冻结6条件同剂量BREC单因素检验方案（2问题+4偏实/可用），尚未渲染，不拟合阈值或扫参数。停止先前果VOIC提案；不更新Skill或改音频，接受抱保留。见 docs/lastpage-cross-condition-study-20261008.md。
