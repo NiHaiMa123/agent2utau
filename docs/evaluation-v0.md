@@ -52,3 +52,5 @@ P0实际结果见evaluation-v0-findings.md；后续只推荐evaluation-v0-next-s
 `python -m agent2utau.evaluation.controlled_probe --a <native-A.json> --b <native-B.json> --variance-a <variance-A.json> --variance-b <variance-B.json> --channel tension --support <start-s> <end-s> --analysis <vowel-start-s> <vowel-end-s> --out <new-directory>`
 
 只消费缓存验证后的原生输入，不编辑工程。要求 A/B 的完整音素、pitch、模型、variance 条件和所有非选通道精确相同，实际干预必须落在声明支撑内。当前适配布局限定 variance/acoustic 同网格、Normal75/Classic25、variance11/acoustic101，拒绝其他布局；这是诊断条件，不是通用音乐参数建议。输出新合成 A、无变化重复、B、输入/预测、权重不变的随机适配证明及去电平 log-mel 谱形代理。原生 DYN、邻接拼接、交付 PCM、实测 F0 与反馈音频绑定需由实验记录另行核查。该命令不宣称自然度、共振峰真值或用户反馈原因。
+
+上述默认`--mode manual_cancel`用于撤销某个人工通道偏移，要求variance条件和预测相同。上游SHFC实验另用`--mode shfc --shift-peak-cents <native-cents>`，省略`--channel`；其余四份导出、支撑/分析范围及输出参数相同。需要新桥提供`tone_shift_cents`、`vocoder_pitch_controllable`、`tone_shift_semitones`；校验两个条件音高路径、仅variance pitch改变、vocoder原F0和人工控制不变，允许重新预测造成的三个下游通道变化。A须零SHFC，B须达到声明的单一峰值及方向；当前同网格适配不能用于其它布局。工程表达的合法范围和存储单位必须原生读回确认，不能将存储-4自行当-400c。此模式不保证实测输出F0完全相同，必须另做双F0分析及听感评价。响应schema更新为2，记录实际预测变化和模式，旧手工取消校验保持。

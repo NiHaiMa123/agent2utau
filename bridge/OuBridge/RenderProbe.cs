@@ -70,7 +70,8 @@ namespace Agent2Utau.Bridge {
                 float[] Sample(float[] c, double def, Func<double,double> conv) =>
                     DiffSingerUtils.SampleCurve(ph, c, def, frameMs, frames, head, tail, conv).Select(x => (float)x).ToArray();
                 var f0 = Sample(ph.pitches, 0, x => MusicMath.ToneToFreq(x * .01));
-                var shifted = f0.Zip(Sample(ph.toneShift, 0, x => x), (x,d) => x*(float)Math.Pow(2,d/1200)).ToArray();
+                var toneShiftCents = Sample(ph.toneShift, 0, x => x);
+                var shifted = f0.Zip(toneShiftCents, (x,d) => x*(float)Math.Pow(2,d/1200)).ToArray();
                 var feeds = new List<NamedOnnxValue> {
                     Long("tokens", segments.Select(s => Convert.ToInt64(Call(singer,"PhonemeTokenize",s.Phoneme))).ToArray(),1,segments.Count),
                     Long("durations",dur.Select(x => (long)x).ToArray(),1,dur.Length),
@@ -124,6 +125,7 @@ namespace Agent2Utau.Bridge {
                     native_acoustic_cache=cachePath,native_acoustic_cache_verified=true,
                     tensors=feeds.Select(Data),vocoder_f0=f0,
                     expression_deltas=expressionDeltas,native_variance_predictions=variancePredictions,
+                    tone_shift_cents=toneShiftCents,vocoder_pitch_controllable=vocoder.pitch_controllable,
                     phones=ph.phones.Select(p=>new {p.phoneme,p.suffix,p.positionMs,p.endMs,p.tone}),
                 }));
                 ExportVarianceInputs(predictor,ph,raw,root,index);
@@ -153,7 +155,8 @@ namespace Agent2Utau.Bridge {
             var linguisticCache=new DiffSingerCache((ulong)Field(predictor,"linguisticHash"),ling);
             var encoded=linguisticCache.Load() ?? throw new InvalidOperationException("Native linguistic probe cache not found");
             float[] Sample(float[] c) => DiffSingerUtils.SampleCurve(ph,c,0,frameMs,frames,head,tail,x=>x*.01).Select(x=>(float)x).ToArray();
-            var pitch=Sample(ph.pitches).Zip(Sample(ph.toneShift),(x,y)=>x+y).ToArray();
+            var toneShiftSemitones=Sample(ph.toneShift);
+            var pitch=Sample(ph.pitches).Zip(toneShiftSemitones,(x,y)=>x+y).ToArray();
             var variance=new List<NamedOnnxValue>{
                 NamedOnnxValue.CreateFromTensor("encoder_out",encoded.First(v=>v.Name=="encoder_out").AsTensor<float>()),
                 Long("ph_dur",dur.Select(x=>(long)x).ToArray(),1,dur.Length),
@@ -179,6 +182,7 @@ namespace Agent2Utau.Bridge {
                 variance_model=Path.Combine(predictorRoot,cfg.variance),variance_speaker_root=predictorRoot,
                 native_variance_cache=Path.Combine(PathManager.Inst.CachePath,cache.Filename),native_variance_cache_verified=true,
                 native_linguistic_cache=Path.Combine(PathManager.Inst.CachePath,linguisticCache.Filename),
+                tone_shift_semitones=toneShiftSemitones,
                 tensors=variance.Select(Data),linguistic_tensors=ling.Select(Data),cached_result=cached.Select(Data),
             }));
         }
