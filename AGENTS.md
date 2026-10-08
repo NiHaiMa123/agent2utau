@@ -34,6 +34,8 @@
 
 - 用户授权下一步后完成果音素只读核查：实际g/uo词表及语言ID4匹配，uo整体token；HFA观测对原生元音起点差0.303ms、时长差约14ms，无明确大错位/吞元音证据。五处自己同字时钟保留，当前生成版1:27/3:17/3:44同MIDI64原PCM三段用于标签定位，不是因果对照，另两处标签unknown。无新合成/参数/Skill/unknown改动，已接受抱保留；不直接拆uo或缩g。见docs/lastpage-guo-phoneme-audit-20261008.md。
 
+- 用户对三处果原PCM对照回报“中间这个可以”：word247约3:17局部可用，1:27原反馈保留、3:44仍unknown。实际新成声state比较：主体音高相近，通过处voicing略高、breathiness略低，入口差更明显；仅线索，非因果。缓存导出不等于新成声的草稿被拒绝保留，567当前run文件哈希保持。无新合成/参数/Skill修改，已接受抱保留；下一项候选有限VOIC单因素支撑，尚未执行。见 docs/lastpage-guo-positive-comparison-20261008.md。
+
 ## Git
 
 - 不提交音频、模型、缓存、run输出、本机归档或绝对路径配置 `configs/local.yaml`。
