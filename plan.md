@@ -2,6 +2,8 @@
 
 > P1 更新（2026-10-08，用户授权“下一步”）：单个 3:04 TENC A/A-repeat/B 实验完成。新基线与 v02 PCM 相同，重复差为零，B 输入仅 tension 改变并产生小幅谱响应；口型改善和唯一病因仍 unknown。75 项测试通过，未改发布工程/Skill，未开始 P2。见 `docs/lastpage-tenc-controlled-probe-20261008.md`；下文保留原 P0 范围记录。
 
+> P1 试听反馈：“没啥区别”。本次取消TENC没有可感知改善支持，不用于整曲修复。下一步只核实三个同字/同音区原版“抱”的听感标签；原版PCM对照已生成，不重新合成或自动开展下一次参数干预。
+
 > 状态：P0 COMPLETED WITH LIMITATIONS（2026-10-08）。独立只读评价、六份分角色报告、67项测试、合成保留验证及四处反馈语境定位完成；声学异常识别、病因、多相位检查仍unknown。结果见 `docs/evaluation-v0-findings.md`，唯一后续提案见 `docs/evaluation-v0-next-step.md`。不自动推进P1/P2，不修歌或训练模型。
 
 ## 0. 首先阅读与约束
