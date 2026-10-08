@@ -17,7 +17,7 @@ B 仅将该事件的 52 个非零存储节点归零，保留原零端点和全�
 
 新建独立命名诊断桥，避免覆盖现有桥。桥导出原生采样控制增量及重采样后的 variance 预测，并以真实 acoustic/variance/linguistic cache key 验证输入。当前 A 导出与 v02 原输入逐项相同。B 先以相同绝对时钟的单上下文副本建立正常缓存，再从完整 B 工程导出；完整工程中所有非 tension 输入、音素、时钟及 variance 条件和预测逐项相同。
 
-固定 YousaV1.65c、两阶段 Normal75/Classic25、variance seed11、acoustic seed101、native steps20/depth1、原权重、CPU 单线程执行。随机节点通过独立输入适配，所有 initializer 序列化字节不变；没有换种子、挑结果或改模型权重。每个 A、A-repeat、B 都实际重新执行 variance、acoustic 和 vocoder。linguistic encoder 输入及缓存哈希固定并显式复用。
+固定 YousaV1.65c、两阶段 Normal75/Classic25、variance seed11、acoustic seed101、native steps20/实际depth0.6、原权重、CPU 单线程执行。随机节点通过独立输入适配，所有 initializer 序列化字节不变；没有换种子、挑结果或改模型权重。每个 A、A-repeat、B 都实际重新执行 variance、acoustic 和 vocoder。linguistic encoder 输入及缓存哈希固定并显式复用。
 
 原生 float32 预测加控制增量及裁剪精确还原当前输入。新合成中 B 也只改变 tension，variance 预测和所有其他 acoustic 输入精确相同。A 新波形与当前 v02 的 phrase22 原始波形逐样本相同；A-repeat 的输入、预测、mel、波形都与 A 相同，波形最大差 0。
 
@@ -59,3 +59,15 @@ B 仅将该事件的 52 个非零存储节点归零，保留原零端点和全�
 找到三个可供进一步定位的原版“抱”：约1:14、3:04、3:31，均 zh/b→zh/ao，模型 F0 中位数约495 Hz，同为约71 MIDI。其预测 tension 中位数约1.23、1.13、1.18，breathiness 约-45.90、-45.65、-45.74；语境、完整轨迹、时长、voicing 及控制仍有差别，不冒称完全同条件。只有3:04已有异常标签，其余两处听感 unknown。
 
 下一项收敛为**这三处同字、同音区的原版听感定位**。本机 `runs/lastpage_tenc_feedback_20261008/same_bao_original_vocal.wav` 按1:14、3:04、3:31顺序拼接，每段3.5秒、间隔0.6秒；源于当前已交付人声，PCM精确裁切，原vocal1.5增益不变，不归一化、不改参数、不重新合成。相同音素/音区若仍听出差别，再针对语境/预测/音素衔接设计单因素实验；若三处都同样偏假，则优先检查这类条件的共同模型响应。两种结果目前都未证实，不开始下一次声学干预。
+
+## 同字试听反馈与条件路径复核
+
+用户对上述三段回报：“我听着都一样”。比较文件SHA256：`fed09deada282f08f183fbc755f920bcfaec14be37fbc630c53d97feedd80477`。这只确认用户未感知三段的区别，没有明确三段均异常或均正常，不能自动给另两段补“偏假”标签。该组不能充当正常/异常对照；没有建立独属于3:04的局部漂移证据。
+
+随后只读核查声库配置和当前交付绑定的 part8/22/28 原生导出：GENC 对应的 acoustic `gender` 全部0，`velocity` 全部1，声线两阶段固定Normal75/Classic25；当前 acoustic/variance 配置均未启用独立falsetto特征，实际输入也没有该字段。它们不能解释为这些控制在三处间突然切换，但这不排除模型隐含音色条件的作用。实际 depth 均为float32的0.6；此前报告误写了偏好设置1，现已纠正。三份实际输入和A/B都一直是0.6，未改变实验或重算结果。
+
+路径依据分两层：本机已编译桥的采样代码、当前实际输入/模型配置；以及 [OpenUtau官方renderer源码](https://github.com/openutau/OpenUtau/blob/master/OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs)、[variance源码](https://github.com/openutau/OpenUtau/blob/master/OpenUtau.Core/DiffSinger/DiffSingerVariance.cs)、[音素器源码](https://github.com/openutau/OpenUtau/blob/master/OpenUtau.Core/DiffSinger/DiffSingerBasePhonemizer.cs)。上游master只作机制核对，不冒称和当前Core DLL逐字相同或证明本机音素时长模型故障。
+
+已核查机制：音素器将符号、时长和音符条件送入模型；variance读取pitch条件，acoustic读取tokens/durations、F0、speaker及发声特征。当前vocoder为pitch_controllable，SHFC/toneShift会影响variance的条件pitch和acoustic的条件F0，vocoder仍接收未偏移的F0。当前三处acoustic F0与vocoder F0逐帧相同，说明现有输入没有用这条偏移路径。GENC是另一路声学条件，不能将其等同于音素纠正。
+
+下一项候选因此收敛为**隔离模型的音区条件与最终F0**：保持当前note/pitch/phone时钟、speaker、人工发声事件、噪声和混音，原生SHFC只改变一个有限元音支撑的条件pitch，重建variance/acoustic并保持vocoder F0不变。一个预先选定的有限候选和无变化重复即可；不扫描音区或偷用旧预测。所有下游预测通道的变化应视为所选上游因素的作用路径，不能冒称只改tension；现有`controlled_probe`会拒绝这样的输入，需要在执行前扩展明确的因果路径校验。此处仅完成源码/输入核查和试验设计，未生成新的改参音频；还不能归因音区、音素或声库模型。原版对照复听完成，通用Skill和发布工程保持。
