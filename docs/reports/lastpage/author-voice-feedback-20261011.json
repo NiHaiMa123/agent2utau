@@ -1,0 +1,53 @@
+{
+  "record_id": "RESP:LASTPAGE-AUTHOR-VOICE-SWAP-01",
+  "append_only_feedback": true,
+  "feedback": {
+    "verbatim": "B比原版好点，但还是不如A",
+    "submissions": 1,
+    "response_record": "RESP:LASTPAGE-AUTHOR-VOICE-SWAP-01",
+    "audio": {
+      "A": {
+        "path": "runs/experiments/lastpage-author-voice-swap-20261011/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "B": {
+        "path": "runs/experiments/lastpage-author-voice-swap-20261011/delivery/B_two_phrases.wav",
+        "sha256": "4d805db44415f5ebe7ee1eaa5578fba108fefdc3a849885171be3d0fd1f354f5"
+      },
+      "own_original_comparator": {
+        "path": "runs/experiments/lastpage-author-voice-swap-20261011/delivery/own_original_comparator.wav",
+        "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+      }
+    },
+    "interpretation": "A preferred to speaker-swap B; B slightly better than own original comparator",
+    "original_referent": "own_original_comparator: contextual inference from three labeled delivered files, not explicitly renamed by user",
+    "perceived_axis": "overall better in ongoing solidity comparison; explicit separate solidity/articulation/level dimensions unknown",
+    "relative_order": [
+      "A",
+      "B",
+      "own_original_comparator"
+    ],
+    "unique_physiological_cause": "unknown",
+    "new_word_labels": 0,
+    "side_effects_and_absolute_acceptance": "unknown",
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "prior_report": {
+    "path": "docs/reports/lastpage/author-voice-swap-20261011.json",
+    "sha256": "22ef1c976dd5fb3d10882fb9e299aef064056990db4fc2cb1002fee637503242"
+  },
+  "table1_refs": [
+    "PER:S1",
+    "PARAM:C20.01",
+    "PARAM:C20.02",
+    "PARAM:C20.03",
+    "PARAM:C20.04",
+    "PARAM:C20.05"
+  ],
+  "inference": "speaker composition changes perceived preference under author conditions; own composition alone does not fully reproduce inferior own result; output level also changed, no matched-loudness phonation claim",
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

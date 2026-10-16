@@ -1,0 +1,79 @@
+{
+  "record_id": "RESP:YUAI-V02-TWO-PASS-NEGATIVE-20261015",
+  "record_type": "user_negative_feedback_and_two_pass_process_audit",
+  "status": "yuai_v02_two_pass_failure_analysis_complete",
+  "report": {
+    "path": "docs/reports/yuai/v02-two-pass-failure-analysis-20261015.md",
+    "sha256": "29ca6278bcabaed571db70ad4cb56a9c7a0a795dd8de3fca2f3a000d259f7fd0"
+  },
+  "phase1": {
+    "path": "docs/reports/yuai/v02-two-pass-phase1-before-reference-20261015.md",
+    "sha256": "5859079f8f2068029408d507ae007465f2a584702455176d5764abc0767ee92a"
+  },
+  "frozen_sequence": {
+    "path": "runs/review/yuai-v02-two-pass-audit-20261015/phase1-frozen.json",
+    "sha256": "a0a5113f3d84513addc165119f0682e81bec8e88b64ee03351034cdc1ab30d1c"
+  },
+  "second_reference_access": {
+    "path": "runs/review/yuai-v02-two-pass-audit-20261015/phase2-first-reference-read.json",
+    "sha256": "c7e103e66cbbf90984dc495b42ec9dcae0d58390ba73f0d38ca18c387409df9e"
+  },
+  "own_measurements": {
+    "path": "runs/review/yuai-v02-two-pass-audit-20261015/phase1-own-measurements.json",
+    "sha256": "c626443348d4276f08c1dfd205bf36c21ff6b0967a33f334a91f6d9003e9d3d4"
+  },
+  "reference_measurements": {
+    "path": "runs/review/yuai-v02-two-pass-audit-20261015/phase2-reference-measurements-v2.json",
+    "sha256": "ae4e8bb2d7c17e3c7c1b2cb50a9b8be8932760737209448a921373d0f0675961"
+  },
+  "matched_diagnostic_windows": {
+    "path": "runs/review/yuai-v02-two-pass-audit-20261015/matched-diagnostic-windows.json",
+    "sha256": "7ab654de3e5a5a603101fd903f33d165eba140ae6f3e770a709c052255c44109"
+  },
+  "reference_structure": {
+    "path": "runs/review/yuai-v02-two-pass-audit-20261015/reference-structure.json",
+    "sha256": "4255c54b362894f154a9bc7b2a56f144695831fc203ddf2cc8e776dc17649bc2"
+  },
+  "source_reexamination": {
+    "path": "runs/review/yuai-v02-two-pass-audit-20261015/source-reexamination-v3.json",
+    "sha256": "3e0f5fe13a381006e794b5fecdce638ae8c8588bafeddefdd8075c601b5bd1cc"
+  },
+  "final_protection": {
+    "path": "runs/review/yuai-v02-two-pass-audit-20261015/final-protection.json",
+    "sha256": "f1433a1186a746b370ce4e64e15a09e0ab9ea641131687806fcc475273b6be28"
+  },
+  "project": {
+    "path": "projects/latest/yuai_newskill_source_only_v02.ustx",
+    "sha256": "4e8270d9ee0695a6c77a6a5c8bdb52932d7194a10198cc321b69aeafab48863a"
+  },
+  "audio_candidates": [
+    {
+      "path": "runs/production/yuai-skill-source-only-20261015/delivery/雨爱_新Skill_v02_纯人声.wav",
+      "sha256": "6d6bc2059c78401bd1985a0f4bb8580ad8e40e94227fe17e6fd4466987ebdfe8"
+    },
+    {
+      "path": "runs/production/yuai-skill-source-only-20261015/delivery/雨爱_新Skill_v02_伴奏试听.wav",
+      "sha256": "14385dde8319c46e792c15b72ce2271d4ba26c983c0834473fe754fcf5b92019"
+    }
+  ],
+  "user_feedback": {
+    "quote": "两个问题，一个是太虚了，一个是还是没变，还是平的。",
+    "context": "Immediately following v02 delivery",
+    "audio_variant": "unspecified: pure vocal or accompanied audition",
+    "project_visible_in_screenshot": "File name/SHA not visible; cannot certify opened file identity",
+    "screenshot": {
+      "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\codex-clipboard-50ef3bd3-c6d4-4f0f-8d24-bde99fde62a8.png",
+      "sha256": "2a149f873b978fd645bf713e302c73ae485ce33db6ad142c68e9c108e7612c17"
+    }
+  },
+  "auditory_goals_met": false,
+  "measurement_validated": false,
+  "agent_listening": "not performed",
+  "single_acoustic_cause": "unknown",
+  "transfer": "unverified",
+  "skill_updated": false,
+  "project_updated": false,
+  "author_data_usage": "Research in second analysis only, no target/curve/profile migration or new generation",
+  "production_use_limit": "Negative feedback and process finding only; author geometry/statistics/old controls are not a production recipe or default calibration",
+  "generalized_response_rules": []
+}

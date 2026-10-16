@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-09",
+  "source_files": [
+    {
+      "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "path": "docs/lastpage-cross-condition-study-20261008.md",
+      "sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb"
+    },
+    {
+      "path": "docs/lastpage-guo-phoneme-audit-20261008.md",
+      "sha256": "cbd27a56a6a577bdbe8794fe50fa834c1fd8a73023720863819bbae218ecb1f1"
+    },
+    {
+      "path": "docs/lastpage-guo-positive-comparison-20261008.md",
+      "sha256": "a04e9719723a433a0ccbbd14c615b394ead2e02d3c3e938913f40856075f13a0"
+    },
+    {
+      "path": "docs/lastpage-guo-register-probe-20261008.md",
+      "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98"
+    },
+    {
+      "path": "docs/lastpage-shfc-controlled-probe-20261008.md",
+      "sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2"
+    },
+    {
+      "path": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493"
+    },
+    {
+      "path": "docs/lastpage-tenc-controlled-probe-20261008.md",
+      "sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+      "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/cohort.json",
+      "sha256": "52f0006f56a6b4687f1b6efcd57aa0200053caa72cdd2aacbd8e211bbcd9d454"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/completion_manifest.json",
+      "sha256": "4a7a4d944d0a4ed6fd284e178f1006dce7cf14f280467a175d9dddab4d89be39"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/delivery_check.json",
+      "sha256": "20685d98822748dc0129ce7496b78845b6f43522f65471a7b1d37b37c6ef25ac"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/frozen_runtime.json",
+      "sha256": "0cca2eb80929edfbf42fdfd2330c66b0581b3151ae7e511ba2109670f5039bc0"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+      "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7"
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+      "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+    },
+    {
+      "path": "runs/lastpage_guo_feedback_20261008/feedback.json",
+      "sha256": "b785f9256619d54a990a6680bbaaba77a2c603ca12bab2c7c770d8cca2f2bb39"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/completion_manifest.json",
+      "sha256": "1982fd6fdb42f74bce2872a3c236aa74e23dfd4be58d9fede784d45fc755dfa5"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/delivery_check.json",
+      "sha256": "8cb48f1def08a3dc9c7913db42cb3607f8e5f0f9d68513a9fe0f6888ad78974e"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/intervention.json",
+      "sha256": "19fc65294428fca874d07bdd050500b4886c79687bada2a32cf1926253e3dd9b"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/phone_response.json",
+      "sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_feedback_20261008/feedback.json",
+      "sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/completion_manifest.json",
+      "sha256": "f58be01cadca64f1bb6ad9a426aca40664c1c0a69dac42e361a0308e8dd737f0"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/delivery_check.json",
+      "sha256": "c46a77be1b16f41c225061eb450f554a4496d8a84ae343032655e3229ac2cbf2"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/intervention.json",
+      "sha256": "db97c991b3afb2a43ccf8f4eb7d2d0aaa4bdb6bd6e149752e831fe198a4637f3"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/neighbor_response.json",
+      "sha256": "ae84a3d4b803900433042859d491dc60cb06b81676939e19aaf1af1d06dbd164"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/onset_response.json",
+      "sha256": "09446d594b135dcd9770b9a20ddc4e1a6e7a4bb1eb8f31cfaeff4ef9f2fcfe1c"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/completion_manifest.json",
+      "sha256": "b41c6d456b04bc2e42e98f44296d0ef9452ca979d9aca60542d32d2c2825c5a7"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/delivery_check.json",
+      "sha256": "59fc09d461e4fe75b0d07808f5fe00024aa801c38a2d73aec83a29a29882c5f1"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/intervention.json",
+      "sha256": "349532fdb206f0f35a86a99e275d07efb811010fcbab87e0d34369c894c2da25"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/prediction_response.json",
+      "sha256": "9da5d71a3fdff615f0123b3e7b94b1d54d3f928d8b1a301e0f180c4d288e8af3"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/verification.json",
+      "sha256": "98a06ab85501f4d17123eefffd04123c2c635d8ba12ef0016c5e5dd39b056c5d"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/actual_dual_f0.json",
+      "sha256": "005fcbb06e20893c096202af764cf7e88a2c712b55efd5c74009d092cc26cdfe"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/completion_manifest.json",
+      "sha256": "5c8c765b6a00bbd417ad139970affe508fdce8416947c25081ad866136451950"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/delivery_check.json",
+      "sha256": "e4893137db651fc64c6e98fc49d716f2e4a2953630d371a3cc8daf4563355e3e"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/intervention.json",
+      "sha256": "7e7ef05dde1c872117c4f87d2b063be4f6fd6b1c66fd4ba0c2eb6f48d133284d"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/verification.json",
+      "sha256": "42d3c498bf80bc86d74ac4784b83127f55360d02b6fdd15cb4ced5fb1b429e39"
+    }
+  ],
+  "source_rehashed_before_and_after_exact": true,
+  "audio_remeasured_this_run": false,
+  "runtime_revalidated_this_run": false,
+  "counts": {
+    "controlled_condition_records": 10,
+    "experiment_groups": 5,
+    "observational_pairs": 2,
+    "technical_audits": 2,
+    "control_families": 48
+  },
+  "no_new_synthesis": true,
+  "no_skill_or_project_change": true,
+  "feedback_priority": "Human feedback after each experiment; historical machine pending flags are not final listener truth."
+}

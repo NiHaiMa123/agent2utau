@@ -1,0 +1,138 @@
+{
+  "stage": "2D",
+  "date": "2026-10-10",
+  "status": "passed_with_explicit_gaps",
+  "baseline": {
+    "stage": "2D",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/snapshot-manifest.json",
+    "sha256": "99adb576270a41b7bbf635c584dcfabf332e7c547ecbdf46e06bc8b0b291ea32",
+    "run": "runs/research/table2-2d-protocol-freeze-20261010"
+  },
+  "parameter_rows": 352,
+  "manifestation_rows": 50,
+  "directly_referenced_parameters": 10,
+  "intervention_referenced_parameters": 3,
+  "frozen_protocols": 1,
+  "planned_waveforms": 16,
+  "planned_listener_pairs": 10,
+  "independent_holdout_conditions": 0,
+  "independent_effect_replications": 0,
+  "research_adapter_validated": false,
+  "snapshots": 23,
+  "protected_inputs": 67,
+  "design_sources_SHA_verified": 4,
+  "old_2C_artifacts_unchanged": true,
+  "measurement_validated_upgrade": false,
+  "new_audio_arrays_or_model_execution": false,
+  "new_feedback": 0,
+  "generic_rules_validated": 0,
+  "protocol_confounds_rejected": [
+    "unlimited_budget",
+    "false_holdout",
+    "native_counterfactual"
+  ],
+  "history_write_guards": [
+    "build_stage_2c.py",
+    "verify_stage_2c.py"
+  ],
+  "protocol_sealed": true,
+  "document_links_checked": 167,
+  "local_verification": {
+    "status": "passed",
+    "pytest_tests": 88,
+    "worktree_gate": {
+      "audio_payloads": 0,
+      "author_projects": 3,
+      "zip_members": 5,
+      "skill_links": 102,
+      "checks": "passed",
+      "worktree_files": 399
+    },
+    "deterministic_generated_outputs": 6
+  },
+  "next_stage": "2E_research_adapter_and_independent_checks_before_rendering_and_listening",
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-validation-gaps.json",
+      "sha256": "e2670794d6442b11dbf51b120c50e745ced9c69d7adaf085b612c7ba455bbf76"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-validation-gaps.csv",
+      "sha256": "fd0fbb907b7f18d794bad2d6d63483c393cff621c151066f3142e34bf9c06627"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-manifestation-gaps.csv",
+      "sha256": "4b8447782c0dae998ba4b7e8b657aba3be152512004d710fc6da129d66fdac80"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-protocol-review.md",
+      "sha256": "026c9ac6b1f40d3ecc7db3a8a2172366069fac17d72d4830424eedebd1f70deb"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+      "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.md",
+      "sha256": "fac5ed0c9be88d584e14a99d7263776cc93d596a4137e31d61ceaaca96bd9afa"
+    }
+  ],
+  "current_entry_and_code_bindings": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "86b83da8c63604145f00013f6e85fdb5fcfec2b6332f2101c1748b365a77f471"
+    },
+    {
+      "path": "README.md",
+      "sha256": "d94f41dd129f0e83749c44915a5842f6884485bf510af5522f422234953e8679"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "1da4a2e2c785825bf1481ef488c84da9a74118774a9ab356cf8d3da54ff0b28c"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "6d4da1ff657336a78faae48372984a2c72de96cda1e489bb374b03c875b76b9b"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "7088ce0adb2262da30c2253341e3c67d7259885b6f97ec25b3c0c6b58f12c08a"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "59421a13e7e5c30f924e37903fcf62c2302dc4231ab0b63e25e271ce532bcf9e"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-protocol-review.md",
+      "sha256": "026c9ac6b1f40d3ecc7db3a8a2172366069fac17d72d4830424eedebd1f70deb"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.md",
+      "sha256": "fac5ed0c9be88d584e14a99d7263776cc93d596a4137e31d61ceaaca96bd9afa"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2d.py",
+      "sha256": "2e210741f7d6b286f5a9cff2b9e8359f81f31709ab029652e3366b707e53639f"
+    },
+    {
+      "path": "research/table2-confirmation/freeze_stage_2d.py",
+      "sha256": "a88dcdae4b296a3e53c64e6d9dfea20647673c81be3c10511970e1996e83253d"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2d_design.py",
+      "sha256": "75e0409af767ecb26e0c12216d601aac62541580bbe9364e49c893e5c7ce4f78"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2d.py",
+      "sha256": "0285f4a5a13864ecae06809c4caa34fed3e1a6669874247465e99e33cc4d1c18"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2d_baseline_binding.json",
+      "sha256": "ac90af01bc26dd91ccdde9fcee3f0a3dbc3ce653022992cff50fdcd469204014"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2d_protocol_binding.json",
+      "sha256": "d7109e962223bb3261651b2c38c1e60d2e74c02aa0f3d04a15f6d3c08d989bc5"
+    }
+  ]
+}

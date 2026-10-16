@@ -1,0 +1,51 @@
+{
+  "status": "passed_with_explicit_TENC_phonation_perception_gaps",
+  "scripts": [
+    {
+      "path": "research/table2-confirmation/lastpage_own_li_tenc_stages_20261012.py",
+      "sha256": "fef6e8f8b5ef2848afdbab7386efbfbbc9ed1b6ba2b198f3051d7c8c6614c4f1"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_li_tenc_stages_20261012.py",
+      "sha256": "e9ef6424f97eed5c2d99e32978dca226741ada91e4f37ace0e376fd162ea7082"
+    },
+    {
+      "path": "research/table2-confirmation/package_lastpage_own_li_tenc_stages_20261012.py",
+      "sha256": "11463643ace527c5723d7f6c5761b9faadbfbad4c3af88f19ee784e17db49d4e"
+    },
+    {
+      "path": "research/table2-confirmation/observe_lastpage_own_li_tenc_stages_20261012.py",
+      "sha256": "febe13bd540fbd6456d1503bbc32e23f15c5553bbb622dad17379dac0bce3ed5"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_li_tenc_delivery_20261012.py",
+      "sha256": "bd95c279ee402292d92bb59b120863ff6eaab7597918d19861b1857225bad07f"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_own_li_tenc_stages_20261012.py",
+      "sha256": "51663250e2408f642e696b86b4b3a254ee0132e54fcb98ab007d5b8a8f83c276"
+    }
+  ],
+  "contracts_passed": 20,
+  "contract_report": {
+    "path": "runs/test-results/lastpage-own-li-tenc-stages-20261012/junit.xml",
+    "sha256": "4c6cf088fec138c1c38a6b7ed34f7182ec72b3a49c69637c1918cc6ebd71c202"
+  },
+  "protected_references": 2200,
+  "runtime_original_resources": 47,
+  "new_variance_calls": 2,
+  "new_acoustic_vocoder_waveforms": 2,
+  "native_cached_technical_contexts": 2,
+  "new_F0_calls": 2,
+  "reused_F_F0_bindings": 6,
+  "actual_new_feedback": 0,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 746}",
+  "current_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-TENC-delivery-index-20261012.json",
+    "sha256": "bfceb93f85a76b0ceca8ce72f15929d31ebcf00ab3bc99a7642dde3a30c132ac"
+  },
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

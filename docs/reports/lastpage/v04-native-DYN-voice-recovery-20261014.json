@@ -1,0 +1,936 @@
+{
+  "status": "v03_volume_feedback_recorded_native_DYN_v04_delivered_pending_listening",
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-V03-DYN-RECOVERY-01",
+    "status": "native_DYN_only_delivered_pending_human_listening",
+    "date": "2026-10-14",
+    "type": "controlled_post_vocoder_amplitude_revision",
+    "table1_refs": [
+      "ACO:L1",
+      "EVT:L2",
+      "PER:S1",
+      "PARAM:C10.01"
+    ],
+    "user_feedback_source": {
+      "path": "docs/reports/lastpage/v03-voice-volume-feedback-20261014.json",
+      "sha256": "467a01ffe7ee6ca28970a9c94a0a1d255f0eebfaada95c9a1c0aa6a38cf326f8"
+    },
+    "feedback_submissions": 1,
+    "feedback_intervals": 3,
+    "protocol": {
+      "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/design/protocol.json",
+      "sha256": "6974b2ed614afbe89cf2789453d73bdc2e385790005ac0505003fd52e3d59b43"
+    },
+    "knowledge_receipt": {
+      "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/evaluation/execution-knowledge-receipt.json",
+      "sha256": "d32dddad7bda4666cc7c33756f38557231789b273fbfda32889c17a61eff18a0"
+    },
+    "intervention": "Only native DYN4 independently designed phrase envelopes; no note/pitch/voice/phonation/model changes",
+    "changed_contexts": [
+      11,
+      22,
+      23,
+      25
+    ],
+    "new_variance_calls": 0,
+    "new_acoustic_vocoder_waveforms": 0,
+    "new_F0_calls": 0,
+    "raw34_current_v03_SHA_bound_reused": true,
+    "processed_primary": 34,
+    "unity_probes": 34,
+    "repeated_processed": 4,
+    "repeat_exact": true,
+    "all318_vowels_early_middle_late_and30_50ms_reviewed": true,
+    "changed_vowel_records": 25,
+    "unchanged_vowel_records": 293,
+    "original_J_context28_29_PCM_exact": true,
+    "accepted_bao_C_raw_phonation_exact": true,
+    "bao_final_amplitude_changed": true,
+    "AP_SP_core_protection": {
+      "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/evaluation/AP-SP-protection.json",
+      "sha256": "dec5586b9b6f4a5e014d5d46997fe08800a040e935bb9446cfe447dadda90ff0"
+    },
+    "outside_native_sample_support_PCM_exact": true,
+    "native_sample_change_support": [
+      {
+        "context": 0,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 1,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 2,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 3,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 4,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 5,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 6,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 7,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 8,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.4125375747680664,
+        "repeat_exact": false
+      },
+      {
+        "context": 9,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 10,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 11,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 88199,
+        "actual_change_span_s": [
+          86.35312782906122,
+          88.35310515332426
+        ],
+        "gain_min": 1.0,
+        "gain_max": 1.4125375747680664,
+        "repeat_exact": true
+      },
+      {
+        "context": 12,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 13,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 14,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 15,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 16,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 17,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 18,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 19,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 20,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 21,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 22,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 180304,
+        "actual_change_span_s": [
+          182.70417374742857,
+          186.79269982452607
+        ],
+        "gain_min": 1.0,
+        "gain_max": 1.5848932266235352,
+        "repeat_exact": true
+      },
+      {
+        "context": 23,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 118747,
+        "actual_change_span_s": [
+          187.5437613324626,
+          190.23643706942406
+        ],
+        "gain_min": 1.0,
+        "gain_max": 1.4454398155212402,
+        "repeat_exact": true
+      },
+      {
+        "context": 24,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 25,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 103588,
+        "actual_change_span_s": [
+          196.22605158189572,
+          198.57498582225853
+        ],
+        "gain_min": 1.0,
+        "gain_max": 1.4125375747680664,
+        "repeat_exact": true
+      },
+      {
+        "context": 26,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 27,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 28,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 29,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 30,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 31,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 32,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      },
+      {
+        "context": 33,
+        "raw_current_reused_exact": true,
+        "gain_Core_independent_exact": true,
+        "changed_samples": 0,
+        "actual_change_span_s": null,
+        "gain_min": 1.0,
+        "gain_max": 1.0,
+        "repeat_exact": false
+      }
+    ],
+    "maximum_requested_DYN_dB": 4,
+    "per_target_word_level_changes": [
+      {
+        "word": 111,
+        "char": "如",
+        "context": 11,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.655579715664537,
+        "B_rms_dbfs": -17.107918173452937,
+        "delta_db": 1.5476615422115998,
+        "A_30ms_p10": -21.105398718745263,
+        "B_30ms_p10": -18.50553603373527,
+        "A_50ms_p10": -20.807943955681473,
+        "B_50ms_p10": -18.241606150868144,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 112,
+        "char": "果",
+        "context": 11,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -19.720750407056173,
+        "B_rms_dbfs": -16.72075026451781,
+        "delta_db": 3.0000001425383616,
+        "A_30ms_p10": -20.00005986805403,
+        "B_30ms_p10": -17.000059623262608,
+        "A_50ms_p10": -19.975716460554487,
+        "B_50ms_p10": -16.97571627260344,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 113,
+        "char": "这",
+        "context": 11,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.71794419672028,
+        "B_rms_dbfs": -15.968111441190997,
+        "delta_db": 2.7498327555292814,
+        "A_30ms_p10": -21.161836838742254,
+        "B_30ms_p10": -18.767196122382575,
+        "A_50ms_p10": -20.71519776844205,
+        "B_50ms_p10": -18.295149417913127,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 114,
+        "char": "是",
+        "context": 11,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.61499644238997,
+        "B_rms_dbfs": -16.544056049408667,
+        "delta_db": 2.070940392981303,
+        "A_30ms_p10": -19.370705230001906,
+        "B_30ms_p10": -17.27070536484923,
+        "A_50ms_p10": -19.33437449622331,
+        "B_50ms_p10": -17.238046092567018,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 223,
+        "char": "把",
+        "context": 22,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.6752118088141,
+        "B_rms_dbfs": -16.712995713433592,
+        "delta_db": 1.9622160953805086,
+        "A_30ms_p10": -20.544293091725578,
+        "B_30ms_p10": -18.959831347381588,
+        "A_50ms_p10": -20.515482148275392,
+        "B_50ms_p10": -18.9336362760774,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 224,
+        "char": "你",
+        "context": 22,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -25.40721621150055,
+        "B_rms_dbfs": -21.407216069043727,
+        "delta_db": 4.000000142456823,
+        "A_30ms_p10": -30.072494633420384,
+        "B_30ms_p10": -26.072494306410288,
+        "A_50ms_p10": -29.076788021491634,
+        "B_50ms_p10": -25.07678787003111,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 225,
+        "char": "抱",
+        "context": 22,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.92438527840039,
+        "B_rms_dbfs": -16.383689099549194,
+        "delta_db": 2.5406961788511957,
+        "A_30ms_p10": -19.730873979611925,
+        "B_30ms_p10": -17.23087360670564,
+        "A_50ms_p10": -19.722398030996267,
+        "B_50ms_p10": -17.22239759490735,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 226,
+        "char": "进",
+        "context": 22,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -20.00260796189622,
+        "B_rms_dbfs": -17.15356160656312,
+        "delta_db": 2.849046355333101,
+        "A_30ms_p10": -22.31886744911666,
+        "B_30ms_p10": -19.418867435580992,
+        "A_50ms_p10": -22.02359973471897,
+        "B_50ms_p10": -19.12359966607402,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 227,
+        "char": "身",
+        "context": 22,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.560532937693385,
+        "B_rms_dbfs": -15.66107886736226,
+        "delta_db": 2.8994540703311245,
+        "A_30ms_p10": -21.144977570415712,
+        "B_30ms_p10": -18.48447729463851,
+        "A_50ms_p10": -20.54218620633231,
+        "B_50ms_p10": -17.863720672999158,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 228,
+        "char": "体",
+        "context": 22,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -15.58806617139438,
+        "B_rms_dbfs": -13.497923541004011,
+        "delta_db": 2.0901426303903694,
+        "A_30ms_p10": -17.09323665824376,
+        "B_30ms_p10": -14.477573506942294,
+        "A_50ms_p10": -16.74951857150395,
+        "B_50ms_p10": -14.278918959625754,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 229,
+        "char": "里",
+        "context": 22,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -19.149327348346553,
+        "B_rms_dbfs": -15.982759539193058,
+        "delta_db": 3.166567809153495,
+        "A_30ms_p10": -21.17390810828166,
+        "B_30ms_p10": -17.67390842312783,
+        "A_50ms_p10": -21.082559050152824,
+        "B_50ms_p10": -17.587633654383044,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 230,
+        "char": "面",
+        "context": 22,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -21.329707300956755,
+        "B_rms_dbfs": -19.165718698800255,
+        "delta_db": 2.1639886021565005,
+        "A_30ms_p10": -21.905101799026806,
+        "B_30ms_p10": -20.827352315830787,
+        "A_50ms_p10": -21.8339660091391,
+        "B_50ms_p10": -20.459957214369187,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 231,
+        "char": "不",
+        "context": 23,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -15.000686135681311,
+        "B_rms_dbfs": -15.000686135681311,
+        "delta_db": 0.0,
+        "A_30ms_p10": -15.926980209507672,
+        "B_30ms_p10": -15.926980209507672,
+        "A_50ms_p10": -15.858773239624199,
+        "B_50ms_p10": -15.858773239624199,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 232,
+        "char": "敢",
+        "context": 23,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -19.348914990317454,
+        "B_rms_dbfs": -17.595201055964512,
+        "delta_db": 1.753713934352941,
+        "A_30ms_p10": -25.612207478472648,
+        "B_30ms_p10": -23.81220807363825,
+        "A_50ms_p10": -25.22203159520909,
+        "B_50ms_p10": -23.422028668342964,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 233,
+        "char": "让",
+        "context": 23,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.511562278354866,
+        "B_rms_dbfs": -16.44956450348671,
+        "delta_db": 2.061997774868157,
+        "A_30ms_p10": -20.630783834430666,
+        "B_30ms_p10": -18.22240313039816,
+        "A_50ms_p10": -20.499340495034815,
+        "B_50ms_p10": -18.146394686695242,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 234,
+        "char": "你",
+        "context": 23,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -22.57335151194158,
+        "B_rms_dbfs": -19.376511625766675,
+        "delta_db": 3.1968398861749066,
+        "A_30ms_p10": -24.454653958665485,
+        "B_30ms_p10": -21.25465364660974,
+        "A_50ms_p10": -24.0168772495054,
+        "B_50ms_p10": -20.816876972632667,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 235,
+        "char": "看",
+        "context": 23,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.9820373728883,
+        "B_rms_dbfs": -16.79244413795608,
+        "delta_db": 2.1895932349322216,
+        "A_30ms_p10": -24.634953245812056,
+        "B_30ms_p10": -22.634953333127207,
+        "A_50ms_p10": -24.280781280671082,
+        "B_50ms_p10": -22.28078128164553,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 236,
+        "char": "见",
+        "context": 23,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -19.521413623306632,
+        "B_rms_dbfs": -17.922703933390018,
+        "delta_db": 1.598709689916614,
+        "A_30ms_p10": -24.24930241495764,
+        "B_30ms_p10": -23.764692942549107,
+        "A_50ms_p10": -23.77993502959878,
+        "B_50ms_p10": -23.147320019480247,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 246,
+        "char": "如",
+        "context": 25,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.751563314352264,
+        "B_rms_dbfs": -17.211431601493825,
+        "delta_db": 1.5401317128584395,
+        "A_30ms_p10": -20.36028999227213,
+        "B_30ms_p10": -17.868683830430463,
+        "A_50ms_p10": -20.13308904227667,
+        "B_50ms_p10": -17.801481873261654,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 247,
+        "char": "果",
+        "context": 25,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -19.290261696036875,
+        "B_rms_dbfs": -16.401747316204695,
+        "delta_db": 2.8885143798321806,
+        "A_30ms_p10": -20.032680923228636,
+        "B_30ms_p10": -17.339814343626106,
+        "A_50ms_p10": -19.931401755442007,
+        "B_50ms_p10": -17.24001611169865,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 248,
+        "char": "这",
+        "context": 25,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -17.052001237591377,
+        "B_rms_dbfs": -15.097734626422772,
+        "delta_db": 1.9542666111686042,
+        "A_30ms_p10": -18.7263839586737,
+        "B_30ms_p10": -17.22638422138284,
+        "A_50ms_p10": -17.67354259373219,
+        "B_50ms_p10": -16.146010727966605,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 249,
+        "char": "是",
+        "context": 25,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -17.39032330787112,
+        "B_rms_dbfs": -16.184185632190882,
+        "delta_db": 1.2061376756802389,
+        "A_30ms_p10": -17.95279978011067,
+        "B_30ms_p10": -16.75279944940437,
+        "A_50ms_p10": -17.95222782481903,
+        "B_50ms_p10": -16.752227402139454,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 250,
+        "char": "最",
+        "context": 25,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -18.60418402904453,
+        "B_rms_dbfs": -17.40418363961599,
+        "delta_db": 1.2000003894285385,
+        "A_30ms_p10": -19.67768485120746,
+        "B_30ms_p10": -18.477684559495483,
+        "A_50ms_p10": -19.661330637745646,
+        "B_50ms_p10": -18.461330281164106,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 251,
+        "char": "后",
+        "context": 25,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -16.602270832973595,
+        "B_rms_dbfs": -15.930151254692792,
+        "delta_db": 0.6721195782808032,
+        "A_30ms_p10": -18.483317677560816,
+        "B_30ms_p10": -17.756971647354003,
+        "A_50ms_p10": -17.74791283101241,
+        "B_50ms_p10": -16.894633008657635,
+        "listening": "pending; no new per-word labels"
+      },
+      {
+        "word": 252,
+        "char": "的",
+        "context": 25,
+        "source_unknown": false,
+        "in_user_interval": true,
+        "A_rms_dbfs": -16.794831092249936,
+        "B_rms_dbfs": -16.794831092249936,
+        "delta_db": 0.0,
+        "A_30ms_p10": -20.38198071831486,
+        "B_30ms_p10": -20.38198071831486,
+        "A_50ms_p10": -19.626655154032694,
+        "B_50ms_p10": -19.626655154032694,
+        "listening": "pending; no new per-word labels"
+      }
+    ],
+    "fixed_vocal_gain": 1.5,
+    "common_mix_margin": 0.9,
+    "original_backing_bytes_exact": true,
+    "BGM_relation_research": false,
+    "new_vocal_peak": 0.8357118666172028,
+    "new_mix_peak": 0.9490580320358277,
+    "outputs": {
+      "vocal": {
+        "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/lastpage_J_method_volume_v04_vocal.wav",
+        "sha256": "fe6ee9894a6eed9fa025fa6a7420b76c61a5449b983bf61240d713bae5400fd8"
+      },
+      "project": {
+        "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/lastpage_J_method_volume_v04.ustx",
+        "sha256": "c7f2ea4864907f03b11a147413e869d4456ce5854ed071ac530b94d747f6afa9"
+      },
+      "published": {
+        "path": "projects/latest/lastpage_J_method_volume_v04.ustx",
+        "sha256": "c7f2ea4864907f03b11a147413e869d4456ce5854ed071ac530b94d747f6afa9"
+      },
+      "mix": {
+        "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/lastpage_J_method_volume_v04_mix.wav",
+        "sha256": "7a5fcafe8c623437e1ea472c979ddde93640541dc91ab9fbbe4801eafb956e2e"
+      },
+      "backing": {
+        "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/lastpage_loudness_v02_backing.wav",
+        "sha256": "06f93f76c1f516e3c80f486b9635f2c978493890c2a2040578f88a7e978e3da7"
+      }
+    },
+    "AB_clips": [
+      {
+        "label": "01_ru_guo",
+        "interval_s": [
+          85.6,
+          89.4
+        ],
+        "A": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/01_ru_guo_A_v03.wav",
+          "sha256": "d143aba111c7b15d0c7cb79f3420c0982f4e13d1c71571802069b044f996ea43"
+        },
+        "B": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/01_ru_guo_B_v04.wav",
+          "sha256": "58c34e4c740e9940aaa8b6f25292f1e1855ffc1b4cf60132eb81457afa1f37c1"
+        },
+        "AB": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/01_ru_guo_A_then_B.wav",
+          "sha256": "0084edff8969e5c9bfe4e2905ceac25899f3d00e5920cce6ee420249ef83f61f"
+        },
+        "order": "A v03,0.5s silence,B v04",
+        "gain": 1.5,
+        "normalization": false
+      },
+      {
+        "label": "02_emotional_chorus",
+        "interval_s": [
+          181.9,
+          190.9
+        ],
+        "A": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/02_emotional_chorus_A_v03.wav",
+          "sha256": "aa857f0ac8bb057c0178e4d2ded68eaa82d6f3718c7e80b3d3450ea2921bdb13"
+        },
+        "B": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/02_emotional_chorus_B_v04.wav",
+          "sha256": "e019bf1c98aeb23b5c0b6cbec0abb9d33ac2e2989180052492f94497729ac902"
+        },
+        "AB": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/02_emotional_chorus_A_then_B.wav",
+          "sha256": "c3be303819f907a33cc4582631a01a27160ddb82ad969e3835c36a2a87f559a4"
+        },
+        "order": "A v03,0.5s silence,B v04",
+        "gain": 1.5,
+        "normalization": false
+      },
+      {
+        "label": "03_ru_guo",
+        "interval_s": [
+          195.6,
+          199.8
+        ],
+        "A": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/03_ru_guo_A_v03.wav",
+          "sha256": "c70d4fd436e6ccbcae9b452e0e4479de5cd776f19b536c6b5005ed641c238710"
+        },
+        "B": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/03_ru_guo_B_v04.wav",
+          "sha256": "90b84b5978c79bb2e8ad846c5e014c592e26eddadaa8fe7e919558d78a7accea"
+        },
+        "AB": {
+          "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/03_ru_guo_A_then_B.wav",
+          "sha256": "c5e59cfe6fdd3179c82145db527da7081c67d1cc4cc6b3cc447b458a92bea792"
+        },
+        "order": "A v03,0.5s silence,B v04",
+        "gain": 1.5,
+        "normalization": false
+      }
+    ],
+    "response_limit": "Positive output-envelope support, not regenerated force/solidity/texture. Weak ni224 retains lower amplitude even after4dB; no uniform vowel loudness target.",
+    "old_H_negative": "Do not repeat early -4dB weakening; old negative does not prove all DYN envelopes ineffective",
+    "old_G_I_negatives_retained": true,
+    "source_unknown_words": [
+      106
+    ],
+    "new_listening_feedback": 0,
+    "adoption": false,
+    "agent_heard": false,
+    "full_song_accepted": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "native_check": {
+    "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/evaluation/native-independent-check.json",
+    "sha256": "5cd15787c3c729253ec4e8759c1b635aa1d828e6a69d86473ac1c0ed46fa6726"
+  },
+  "processed_check": {
+    "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/evaluation/processed-independent-check.json",
+    "sha256": "b3e3b404927cc418879f805b2140aa6ebebee96263c617ab8bcfe9b136bd6ce6"
+  },
+  "delivery_check": {
+    "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/evaluation/delivery-independent-check.json",
+    "sha256": "1518dce5e0058ada15d448c61a5574834a3f2f6542c8a06d6dd9ab406483143d"
+  },
+  "all_word_review": {
+    "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/observations/envelope-review.json",
+    "sha256": "6537bd28c629db14ba763c36c36ff90a214ab7c77d9c0b6165efa588d8c1bd4d"
+  },
+  "all_word_comparison": {
+    "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/observations/v04-volume-comparison.json",
+    "sha256": "8b940170b6ac292031666b7bd0cfbb9660ca1510571accfccd44f6964a74ff3c"
+  },
+  "tests": {
+    "passed": 164,
+    "junit": {
+      "path": "runs/test-results/lastpage-v04-dynamic-envelope-20261014/junit-complete.xml",
+      "sha256": "85114d0c20c471780c1d389d9365b0ec934dc0b59986dad17253ae25033c0f84"
+    }
+  },
+  "skill_changed": false,
+  "model_inputs_changed": false,
+  "checker_versions": {
+    "early_native": {
+      "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/logs/native-check-before-layout-fields.json",
+      "sha256": "ee1d6bb2e4560f36f9584314b34d55a2e224be55be2fc7e36ebad254c1117044"
+    },
+    "early_checker": {
+      "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/logs/checker-before-layout-fields.py.txt",
+      "sha256": "c40009b9145222e806f3e9ea0c438ebaad44124ee5dd744033b05e50ea141405"
+    },
+    "reason": "Added explicit process-layout clock fields before process execution; reran native check with final file; all active checks bind final SHA"
+  },
+  "initial_test_selection_error": "Requested non-existing tests/contracts/test_knowledge.py and tests/unit/test_controlled_probe.py; no tests ran. Actual full suite164 passed; no test weakening."
+}

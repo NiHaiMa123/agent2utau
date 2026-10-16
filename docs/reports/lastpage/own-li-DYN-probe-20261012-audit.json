@@ -1,0 +1,54 @@
+{
+  "status": "passed_with_explicit_DYN_phonation_perception_gaps",
+  "scripts": [
+    {
+      "path": "research/table2-confirmation/lastpage_own_li_dyn_20261012.py",
+      "sha256": "8c3c4b3ae10dfe7028c4cd00b24514b31acee837027eae79b0820bab056cfa16"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_li_dyn_20261012.py",
+      "sha256": "c6829b4fa618c00c72cbe52f9e4a8bd32e981f9725817e98d0ed6c583562347f"
+    },
+    {
+      "path": "research/table2-confirmation/package_lastpage_own_li_dyn_20261012.py",
+      "sha256": "12ee28382b49ce01e1520e47756d5fa937d70ff5b2c0d669701e6e6a2118fbca"
+    },
+    {
+      "path": "research/table2-confirmation/observe_lastpage_own_li_dyn_20261012.py",
+      "sha256": "1675690e6af7d1c28656aaedc396403f658079442beca0c245d9ccd0c6d16b23"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_li_dyn_delivery_20261012.py",
+      "sha256": "dc1f524872b07144c2dd23224270c153e1d43b035d0cfbde040f39e47b17ec0d"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_own_li_dyn_20261012.py",
+      "sha256": "da661eb79de22932186434fdab70ed429653f61ea8ea608596a380dbf5a4c2cf"
+    }
+  ],
+  "contracts_passed": 11,
+  "contract_report": {
+    "path": "runs/test-results/lastpage-own-li-dyn-20261012/junit.xml",
+    "sha256": "888cee17d9840a6c7d0fcc396a3fc5686c0c6bdd89bfe17a708f111370c0ee63"
+  },
+  "protected_references": 2088,
+  "runtime_original_resources": 47,
+  "additional_DYN_tools": 4,
+  "new_fixed_seeded_variance_calls": 0,
+  "new_fixed_seeded_synthesis_waveforms": 0,
+  "processed_contribution_repeats": 2,
+  "gain_probe": 1,
+  "native_cached_technical_contexts": 2,
+  "new_F0_calls": 2,
+  "reused_F_F0_bindings": 6,
+  "actual_new_feedback": 0,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 724}",
+  "current_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-DYN-delivery-index-20261012.json",
+    "sha256": "c161e5555cdf6875a4d974ef501eba5c267e16a7eba36d0a2d6c5f7fb6a5b028"
+  },
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

@@ -1,0 +1,184 @@
+{
+  "status": "J_direction_supported_transition_texture_gaps_recorded",
+  "feedback": {
+    "verbatim": "方向对了，实了。就是衔接缺失有点不够，身体的体字就有点虚。不过这个虚是和白烁的一样。但其他都是很实的，所以感觉有点奇怪。还有就是整体缺失太实了一点，但不是之前那种前顶，声音变成一条缝的实。是缺少那种唱歌时带点磨砂的填充的感觉",
+    "date": "2026-10-13",
+    "listening_submissions": 1,
+    "response_record": "RESP:LASTPAGE-OWN-LI-ENTRY-PITCH-01",
+    "candidate": {
+      "path": "runs/experiments/lastpage-own-li-entry-pitch-20261013/delivery/J_two_phrases.wav",
+      "sha256": "431b3aa5b0b53d390890f20faac97dc72251c8081230c81907634cb5344fb08a"
+    },
+    "baseline": {
+      "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+      "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+    },
+    "author_reference": {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+      "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+    },
+    "referent": "J inferred from immediately preceding labelled J/F/author delivery",
+    "direction_supported": true,
+    "solidity_improvement_supported": true,
+    "target_li_solidity_scope": "li is the intervention target; main reply does not repeat its name",
+    "transition": {
+      "verbatim": "衔接缺失有点不够",
+      "precise_boundary_time": "unknown; ti→li is a contextual candidate, not explicit user localization"
+    },
+    "named_word_labels": [
+      {
+        "word": 276,
+        "char": "体",
+        "label": "有点虚",
+        "comparison": "这个虚是和白烁的一样",
+        "limit": "same reported virtual quality, not waveform equality or all other properties equal; no F comparison stated"
+      }
+    ],
+    "other_words_aggregate": {
+      "verbatim": "但其他都是很实的，所以感觉有点奇怪",
+      "scope": "preceding two-phrase preview inferred; not14 individual word acceptances",
+      "individual_labels_added": 0
+    },
+    "overall_solidity": "too solid a little",
+    "difference_from_previous_adverse": "Explicitly distinct from prior forward/slit-like solidity; not a universal absence of any squeezing/sharpness",
+    "missing_texture_verbatim": "缺少那种唱歌时带点磨砂的填充的感觉",
+    "texture_mechanism": "unknown: not automatically breathiness/roughness/subharmonics or a single control",
+    "strength_crescendo_acceptance": "unknown: not separately restated",
+    "break_pitch_correctness_loudness_articulation_acceptance": "unknown: not individually assessed",
+    "new_named_word_labels": 1,
+    "new_other_individual_word_labels": 0,
+    "working_comparator": "Retain J as a provisionally useful direction for refinement, F original comparison also preserved",
+    "complete_phrase_or_song_accepted": false,
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "texture_reference_clarification": {
+    "date": "2026-10-13",
+    "submissions": 1,
+    "type": "reference_selection_not_new_listening_trial",
+    "question": "你说的“磨砂填充”质感，主要以哪个已有版本为参照？这能帮助下一轮区分颗粒质感和气声，而不是仅把声音调虚。",
+    "answer": "白烁这两句的质感",
+    "reference": {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+      "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+    },
+    "reference_boundary": "Already delivered current1.65c fixed-seeded author A, not unavailable historical1.56 audio",
+    "target": "Desired singing texture/filling reference only; no author curves/arrays transferred",
+    "new_candidate_or_new_auditory_acceptance": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-OWN-LI-ENTRY-PITCH-01",
+    "append_only_feedback": true,
+    "feedback": {
+      "verbatim": "方向对了，实了。就是衔接缺失有点不够，身体的体字就有点虚。不过这个虚是和白烁的一样。但其他都是很实的，所以感觉有点奇怪。还有就是整体缺失太实了一点，但不是之前那种前顶，声音变成一条缝的实。是缺少那种唱歌时带点磨砂的填充的感觉",
+      "date": "2026-10-13",
+      "listening_submissions": 1,
+      "response_record": "RESP:LASTPAGE-OWN-LI-ENTRY-PITCH-01",
+      "candidate": {
+        "path": "runs/experiments/lastpage-own-li-entry-pitch-20261013/delivery/J_two_phrases.wav",
+        "sha256": "431b3aa5b0b53d390890f20faac97dc72251c8081230c81907634cb5344fb08a"
+      },
+      "baseline": {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+        "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "referent": "J inferred from immediately preceding labelled J/F/author delivery",
+      "direction_supported": true,
+      "solidity_improvement_supported": true,
+      "target_li_solidity_scope": "li is the intervention target; main reply does not repeat its name",
+      "transition": {
+        "verbatim": "衔接缺失有点不够",
+        "precise_boundary_time": "unknown; ti→li is a contextual candidate, not explicit user localization"
+      },
+      "named_word_labels": [
+        {
+          "word": 276,
+          "char": "体",
+          "label": "有点虚",
+          "comparison": "这个虚是和白烁的一样",
+          "limit": "same reported virtual quality, not waveform equality or all other properties equal; no F comparison stated"
+        }
+      ],
+      "other_words_aggregate": {
+        "verbatim": "但其他都是很实的，所以感觉有点奇怪",
+        "scope": "preceding two-phrase preview inferred; not14 individual word acceptances",
+        "individual_labels_added": 0
+      },
+      "overall_solidity": "too solid a little",
+      "difference_from_previous_adverse": "Explicitly distinct from prior forward/slit-like solidity; not a universal absence of any squeezing/sharpness",
+      "missing_texture_verbatim": "缺少那种唱歌时带点磨砂的填充的感觉",
+      "texture_mechanism": "unknown: not automatically breathiness/roughness/subharmonics or a single control",
+      "strength_crescendo_acceptance": "unknown: not separately restated",
+      "break_pitch_correctness_loudness_articulation_acceptance": "unknown: not individually assessed",
+      "new_named_word_labels": 1,
+      "new_other_individual_word_labels": 0,
+      "working_comparator": "Retain J as a provisionally useful direction for refinement, F original comparison also preserved",
+      "complete_phrase_or_song_accepted": false,
+      "adoption": false,
+      "agent_heard": false,
+      "measurement_validated": false,
+      "general_rule_validated": false
+    },
+    "texture_reference_clarification": {
+      "date": "2026-10-13",
+      "submissions": 1,
+      "type": "reference_selection_not_new_listening_trial",
+      "question": "你说的“磨砂填充”质感，主要以哪个已有版本为参照？这能帮助下一轮区分颗粒质感和气声，而不是仅把声音调虚。",
+      "answer": "白烁这两句的质感",
+      "reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "reference_boundary": "Already delivered current1.65c fixed-seeded author A, not unavailable historical1.56 audio",
+      "target": "Desired singing texture/filling reference only; no author curves/arrays transferred",
+      "new_candidate_or_new_auditory_acceptance": false
+    },
+    "prior_report": {
+      "path": "docs/reports/lastpage/own-li-entry-pitch-probe-20261013.json",
+      "sha256": "40a30d3c370f62244215485e121290312f2e7c704b7b1ac83a97fa2b59a17f63"
+    },
+    "table1_refs": [
+      "PER:S1",
+      "EVT:T5",
+      "ACO:L1",
+      "ACO:S3",
+      "ACO:S4",
+      "EVT:S4",
+      "PARAM:C03.01",
+      "PARAM:C11.01",
+      "PARAM:C12.01",
+      "PARAM:C13.01",
+      "DESC:02"
+    ],
+    "texture_descriptor_mapping": "candidate only, no new measured definition",
+    "direction_supported": true,
+    "complete_phrase_accepted": false,
+    "causal_mechanism": "unknown",
+    "adoption": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "residual_review": {
+    "path": "runs/research/lastpage-li-entry-pitch-feedback-20261013/evaluation/residual-review.json",
+    "sha256": "43e25d5924e2fdffe226168a051a264a87ce38eabe0c99fbfbea1ee089800719"
+  },
+  "next_boundary": "Retain J direction/provisional research comparator; prioritize transition and separately define author-anchored texture; K not frozen or executed",
+  "new_listening_feedback": 1,
+  "new_reference_clarification": 1,
+  "new_native_calls": 0,
+  "new_models": 0,
+  "new_waveforms": 0,
+  "new_PCM_NPZ_reads": 0,
+  "new_acoustic_measurements": 0,
+  "old_J_receipt_exact": true,
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

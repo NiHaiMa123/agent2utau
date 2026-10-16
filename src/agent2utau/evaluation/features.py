@@ -111,7 +111,7 @@ def polyline_complexity(xs,ys,tolerance=1.):
     return dict(status='evaluated',points=len(x),retained=len(keep),tolerance_units=tolerance,interpretation='vertical-error polyline proxy, not Core reconstruction or sound quality')
 
 
-VOWELS=set('a o e i u v ai ei ao ou an en ang eng ong er ir in ing ie ia iao ian iang iong ua uo uai uan uang ue un vn van ueng ve ng'.split())
+VOWELS=set('a o e i u v ai ei ao ou an en ang eng ong er ir in ing ie ia iao ian iang iong iu ua uo uai uan uang ue ui un vn van ueng ve ng'.split())
 EN_VOWELS=set('AA AE AH AO AW AY EH ER EY IH IY OW OY UH UW AX'.split())
 CONSONANTS=set('b p m f d t n l g k h j q x zh ch sh r z c s w y'.split())|set('B CH D DH F G HH JH K L M N NG P R S SH T TH V W Y Z ZH'.split())
 
@@ -119,8 +119,16 @@ CONSONANTS=set('b p m f d t n l g k h j q x zh ch sh r z c s w y'.split())|set('
 def phone_kind(symbol):
     suffix=symbol.split('/')[-1]
     if suffix.upper() in {'AP','SP','SIL','PAU'}:return 'non_singing'
-    if suffix in VOWELS or suffix.rstrip('012') in EN_VOWELS:return 'vowel'
-    if suffix in CONSONANTS:return 'consonant'
+    language=symbol.split('/')[0] if '/' in symbol else None
+    if language=='en':
+        token=suffix.upper().rstrip('012')
+        if token in EN_VOWELS:return 'vowel'
+        if token in CONSONANTS:return 'consonant'
+        return 'unknown'
+    if language not in {None,'zh'}:return 'unknown'
+    token=suffix.lower().rstrip('012')
+    if token in VOWELS or suffix.rstrip('012') in EN_VOWELS:return 'vowel'
+    if token in CONSONANTS or suffix in CONSONANTS:return 'consonant'
     return 'unknown'
 
 

@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-11",
+  "run_name": "table2-word225-pa-feedback-20261011",
+  "document_name": "table2-stage-2e-word225-pa-feedback-20261011",
+  "previous_feedback_runs": ["table2-word225-feedback-20261011", "table2-word214-feedback-20261011", "table2-word225-sa-feedback-20261011", "table2-word225-da-feedback-20261011"],
+  "presented_pairs": [
+    {"condition_id": "current-word-225", "order": 5, "direction": "P-A", "codes": ["K4", "K1"]},
+    {"condition_id": "current-word-225", "order": 6, "direction": "A-P", "codes": ["K1", "K4"]}
+  ],
+  "record": {
+    "feedback_id": "T2E-W225-PA-20261011",
+    "user_message_verbatim": "k4力量感大于k1，没有破音",
+    "message_source": "human user replying to 05 K4→K1 and 06 K1→K4 paired mono vocals in current chat",
+    "condition_id": "current-word-225",
+    "lyric": "抱",
+    "comparison": "P-A",
+    "feedback_scope": "aggregate report on the current P/A focal vocal presentation; not mixed-audio, full-song or all-pair acceptance",
+    "per_order_results": "not separately stated",
+    "actual_listened_set": "not separately enumerated",
+    "current_comparative_result": {"stronger_power_code": "K4", "reference_code": "K1", "stronger_power_path": "P", "reference_path": "A"},
+    "current_break_result": {"code": "K4", "research_path": "P", "audible_break_user_report": "none_in_current_presentation"},
+    "current_K1_break_result": "not separately repeated; prior S/A feedback reported none for K1",
+    "preserved_power_relations": [{"greater": "K3=S", "lesser": "K2=D", "basis": "explicit prior cross-presentation feedback"}, {"greater": "K2=D", "lesser": "K1=A", "basis": "prior D/A paired feedback"}],
+    "new_power_relation": {"greater": "K4=P", "lesser": "K1=A", "basis": "current P/A paired feedback"},
+    "unknown_power_relations": [["K4=P", "K2=D"], ["K4=P", "K3=S"]],
+    "power_order_scope": "local partial ordinal relations; no complete four-version power ranking or numerical strength scale",
+    "preferred_version": "original four-version K3 preference preserved; not used to infer S>P in power",
+    "inference_boundary": "P-A supports a local perceptible power response in this joint-prediction-group research counterfactual with unchanged direct acoustic F0 input; not a single VOIC/BREC/TENC effect, physiological mechanism, universal rule, quantitative contribution or interaction proof",
+    "unreported_auditory_dimensions": ["subjective_loudness", "objective_loudness", "diction", "body", "naturalness", "absolute_usability"],
+    "listening_metadata": {"device": "unknown", "player": "unknown", "volume": "unknown", "actual_order": "unknown", "repetitions": "unknown", "both_order_completion": "unknown", "blinding": "unknown"},
+    "paired_comparison_groups_with_explicit_feedback": 3,
+    "frozen_main_comparison_groups": 10,
+    "cross_presentation_comparisons_do_not_complete_fixed_pairs": true,
+    "remaining_gaps": ["fixed S-D paired presentation", "S-P", "mixed-audio feedback", "unreported dimensions and order-specific results"],
+    "word214_status": "no perceptible difference reported; no expanded validation",
+    "cumulative_new_feedback": 5
+  },
+  "current_status": "2E当前状态partial_human_feedback_recorded：2026-10-11累计5条本批反馈；抱S/A：K3更有力量、K1更柔、均无破音；D/A：K2比K1更有力量且无破音，追加跨呈现K3力量感>K2。新增P/A原话“k4力量感大于k1，没有破音”：K4=P力量感>K1=A，K4未听到破音。局部力量感关系S>D>A及P>A；P与D/S关系unknown，不从原K3偏好补造完整力量感排序。3组主对照获明确成对反馈；固定S-D、S-P、混音及未报细项/两个顺序分别评价/设备仍缺。只214“没区别”与不扩大验证保持；2E整体未完成，measurement_validated仍false，通用规律0。下一步已有K3/K2对照，不加新波形/候选，原歌曲/既有音频/Skill不改，单Agent、CI仅手动，2F–2H未执行。",
+  "entry_replacements": [
+    ["抱S/A与D/A力量感/破音反馈及只未感知差别已绑定", "抱S/A、D/A、P/A力量感/破音反馈及只未感知差别已绑定"],
+    ["抱S/A与D/A细分反馈及只未感知差别已绑定", "抱S/A、D/A、P/A细分反馈及只未感知差别已绑定"],
+    ["已绑定抱S/A细分反馈及只未感知差别", "已绑定抱S/A、D/A、P/A细分反馈及只未感知差别"],
+    ["抱局部偏好及S/A、D/A细分反馈、只未感知差别已绑定", "抱局部偏好及S/A、D/A、P/A细分反馈、只未感知差别已绑定"],
+    ["抱S/A与D/A细分反馈、跨呈现S>D力量感、只214未感知差别已记录；下一组已有P-A，固定S-D/S-P及混音/未报细项待反馈，只不扩大验证", "抱S/A、D/A、P/A细分反馈、跨呈现S>D力量感、只214未感知差别已记录；下一组已有固定S-D，S-P及混音/未报细项待反馈，只不扩大验证"]
+  ],
+  "report_text": "# 2E抱225 P/A成对反馈与当前局部关系\n\n2026-10-11。partial_human_feedback_recorded，2E整体未完成。\n\n用户在05 K4→K1、06 K1→K4焦点成对人声交付后回报：**k4力量感大于k1，没有破音**。本条明确K4=P力量感大于K1=A，K4未听到破音；K1未单独重复评价破音，原S/A“都没有破音”保留。两个顺序未分别评价，实际听过集合/设备/播放器/音量/重复/盲听程度unknown。\n\n结合旧反馈，当前力量感关系为 **K3(S)>K2(D)>K1(A)，K4(P)>K1(A)**。K4与K2、K3关系仍unknown；原“k3最好”是偏好，不能补造成S>P力量感或完整四版排序。原各版本在其已报焦点对照中无破音的反馈保留，不扩大为全曲、混音或历史旧B验收。\n\nP/A技术差异是新预测组三最终条件，而直接声学F0输入和人工增量保持。该研究反事实在当前条件/剂量下获得力量感响应线索；不能归因单一VOIC/BREC/TENC或生理机制，也不保证实测F0精确固定。D/A与P/A各自出现同向力量感不量化贡献，不证明交互、相加或通用调参规律。力量感不是响度数值；咬字、字腹、自然度、主客观响度及绝对可用性未报。\n\n累计5条新反馈，10组冻结主对照中3组获明确成对描述；固定07/08 S-D仍待反馈，先前跨呈现S>D另列；09/10 S-P、混音和未报细项仍有缺口。只214“没区别”及停止扩大验证保持，2E整体未完成，measurement_validated仍false，2F–2H未执行。下一步既有K3/K2对照，不增加剂量、条件、seed或新候选。\n\n本轮新模型调用/波形0，原歌曲/既有音频/Skill/安装不改。实验484文件/4报告、四份旧反馈run/12报告、79生产/Skill/工程及67保护输入SHA重查；6入口与12份旧反馈报告更新前原字节另存，本轮不改写旧记录。"
+}

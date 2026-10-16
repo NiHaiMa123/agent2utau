@@ -1,0 +1,74 @@
+{
+  "status": "passed_cycle_closed_with_explicit_gaps",
+  "new_feedback_count": 1,
+  "linked_comparisons": 5,
+  "comparison_rows": 10,
+  "source_audio_SHA_checked": 5,
+  "preserved_bindings": 773,
+  "protected_bindings": 146,
+  "additional_source_bindings": 13,
+  "snapshots": 9,
+  "markdown_links_checked": 207,
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-listening-cycle-closure-20261011.json",
+      "sha256": "fc6067bb90b3ca616833ab87000550fe0bd8ecfe08eb49c2553931492c4aff00"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-listening-cycle-closure-20261011.md",
+      "sha256": "a56c1d3a3807f05374ae3c6a598533193e9cb260e73697d25e7e52451c425fd0"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-listening-cycle-closure-20261011-comparisons.csv",
+      "sha256": "ed17d937f04415c725fd50a193781fd7658a893bba93f314380051c56b2f06f7"
+    }
+  ],
+  "entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "7305d83723580ce1cc14f28365a1fcf63b78792d4ba2036c62761681e5ca09bb"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f1cd4b6f629b17af19df15606f5979cd67c26cdfc815e709a21c5edad83c61fd"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "ac4a015ca7168cde6da15f391fb0c46b5acaed4f1b5ede98aa224a4c5ce15efb"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "dcf67fc595b14a93c736a4d082a77b6cfc9426c0cb7d56d52b585cd5aa5f1dc1"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "373d8bd25890000745b6b29690bab0dee60f171bcd7eea414c74e0db6c6df262"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "2d1eae1db6fe5711fdb1cc179509052c233596a65738602ee982448a1df5289f"
+    }
+  ],
+  "feedback": {
+    "path": "runs/research/table2-listening-cycle-closure-20261011/feedback.json",
+    "sha256": "d6f391813d4b8f3f6e705804416e97006a9b3eb0f85d487edec85804d00b47e7"
+  },
+  "worktree_gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 571
+  },
+  "first_song_baseline_SHA_matched": true,
+  "new_audio": 0,
+  "new_project": 0,
+  "new_model_calls": 0,
+  "loop_complete": true,
+  "measurement_validated": false,
+  "generator": {
+    "path": "research/table2-confirmation/close_existing_vocal_listening_cycle.py",
+    "sha256": "2e2b0698cea2b4c11f47fcf78fd3c093c302d91521d4388cbff09a1d64d76c7a"
+  }
+}

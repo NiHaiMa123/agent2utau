@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "upstream_commit": "5c3c83bbeced96718e85e4a96d127de3287cd14b",
+  "role": "additional_fixed_source_bindings_for_stage_C_output_graph_review",
+  "files": [
+    {
+      "path": "OpenUtau/App.axaml.cs",
+      "sha256": "79972bc228d0f54266d53b4821353b0d529a144e542b28156e33e24dbd774c74"
+    },
+    {
+      "path": "OpenUtau/FilePicker.cs",
+      "sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f"
+    },
+    {
+      "path": "OpenUtau/NAudioOutput.cs",
+      "sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b"
+    },
+    {
+      "path": "OpenUtau/ViewModels/MainWindowViewModel.cs",
+      "sha256": "0e5c6670e048e7ec5f0a3d4cc960b1064e512942799da60a2a657490ad3c3777"
+    },
+    {
+      "path": "OpenUtau/ViewModels/PlaybackViewModel.cs",
+      "sha256": "f02624e7733eaa217ce8f184fe05b8275cfdaeae2fc515ca318d89da0a41297b"
+    },
+    {
+      "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+      "sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f"
+    },
+    {
+      "path": "OpenUtau/ViewModels/TracksViewModel.cs",
+      "sha256": "53edc8cfc801db110ff73ec7e5d51432424dc13957a31e4b9e3b0862916159a0"
+    },
+    {
+      "path": "OpenUtau/Views/MainWindow.axaml.cs",
+      "sha256": "96b45698da0e71325804e524eccf8f60193f5cad842dcdd8d6b8f4d1dc57b66d"
+    },
+    {
+      "path": "OpenUtau.Core/Commands/TrackCommands.cs",
+      "sha256": "33fc4451a057258633e770809f987e3b58b8ea129ca575e8d52089e4c84bdf01"
+    },
+    {
+      "path": "OpenUtau.Core/DocManager.cs",
+      "sha256": "498a191a317d8276d01bd30b6f32b5a54fe1fbd0755e9147affc0e3274d7de66"
+    },
+    {
+      "path": "OpenUtau.Core/ExpressionGraph/ExpressionGraphProgram.cs",
+      "sha256": "3492e32b5385fcddf0f8a91e8e5c68b030880e0dd0411f7a25365401c903f0cf"
+    },
+    {
+      "path": "OpenUtau.Core/ExpressionGraph/PhonemeAnchors.cs",
+      "sha256": "58ba5cd149294f6023bd66825e1ff4bf3dfa036b15bd46ae581aef294733a7e3"
+    },
+    {
+      "path": "OpenUtau.Core/ExpressionGraph/PhrasePitch.cs",
+      "sha256": "6941e4c2e75c920166dc4d53c9bda31b7c4b693544e2824595c7626079964cd9"
+    },
+    {
+      "path": "OpenUtau.Core/Format/Wave.cs",
+      "sha256": "8007c8023e73c1a4b230b519395a85e0c2c5cdde4fe52d13f16d2f826a6cb038"
+    },
+    {
+      "path": "OpenUtau.Core/Pipeline/PhraseSource.cs",
+      "sha256": "6f0fefa514ad924329f8aad924e98973b2f4c7bf09ff0f7e6ddca90317e24c90"
+    },
+    {
+      "path": "OpenUtau.Core/Pipeline/PhraseSourceBuilder.cs",
+      "sha256": "9ce222285000bb4293173beac40bdfc6898ffc7639adfda90145a8f194f3da31"
+    },
+    {
+      "path": "OpenUtau.Core/PlaybackManager.cs",
+      "sha256": "2e10b1de9b5c17cb294ce3a3ad7e5497d0d031a14824bf02df4a492447174811"
+    },
+    {
+      "path": "OpenUtau.Core/Render/RenderEngine.cs",
+      "sha256": "cd78a297c7f26beeba50c8b7fce93a7bbced48b231c74761c91259ef7b0260fa"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/ExportAdapter.cs",
+      "sha256": "d05a1b4953d871e5ed5144b05195a6a051b41bd9da651a2d26da5cf81e00a6c3"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/Fader.cs",
+      "sha256": "ac1cb1f0773e366867bb20f3d4e5971cd7777f41d7a21687b5aea762105b29f3"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/MasterAdapter.cs",
+      "sha256": "d21739eb566ad1f0fbf6df40468d255579f7c69c5426990fa4f92d46c090e795"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/MixPlanner.cs",
+      "sha256": "5ac95f068045e9166beb0fcf7b484fff2e93254df0df1426a4b121dca40cd5bd"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/SampleSlot.cs",
+      "sha256": "276ce9e5459a2acd96d3b9b833e1eed34238dd3c48709a84ea223c9cd9ec7e22"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/WaveMix.cs",
+      "sha256": "508eedf701a89e52f2cb1122b9ac50ea4219957b24c7a1844bc903d4441d3d51"
+    },
+    {
+      "path": "OpenUtau.Core/Util/MusicMath.cs",
+      "sha256": "d6a904bd3a6f73c290d32625180116ceb9ca195e3c4c443984741c11727456eb"
+    }
+  ]
+}

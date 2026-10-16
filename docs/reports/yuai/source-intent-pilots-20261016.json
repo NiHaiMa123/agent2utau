@@ -1,0 +1,55 @@
+{
+  "record_id": "RESP:YUAI-SOURCE-INTENT-G-RELATIVE-20261016",
+  "record_type": "current_song_relative_preference_and_process_correction",
+  "report": {
+    "path": "docs/reports/yuai/source-intent-pilots-20261016.md",
+    "sha256": "58952691ed01c1c7ff1caae5c4547ce15f21a4dda034b7b54e09f98f7746c583"
+  },
+  "feedback": {
+    "path": "runs/production/yuai-intent-source-only-20261015/delivery/feedback-002-G-relative.json",
+    "sha256": "433b697237915a554de01d7484178a89cfffc0d422ea0db6de1b24b25568c532"
+  },
+  "delivery": {
+    "path": "runs/production/yuai-intent-source-only-20261015/delivery/pilot2-manifest.json",
+    "sha256": "2f3a61897666eab90d889a597b29d30936996478356b0eb77ca25b8a0aa123b6"
+  },
+  "review": {
+    "path": "runs/production/yuai-intent-source-only-20261015/evaluation/pilot2-review-final/review.json",
+    "sha256": "c2b208524e7768989361429eca36d6f51c7ad3ba5eb068f6e7fc24853d94ada1"
+  },
+  "actual_inputs": {
+    "path": "runs/production/yuai-intent-source-only-20261015/evaluation/pilot2-native-input-audit.json",
+    "sha256": "40e8bd98978256350c21792be269f5f5a8cf1e383720113a136494f838264673"
+  },
+  "source_clock": {
+    "path": "runs/production/yuai-intent-source-only-20261015/pilot2-legato/source-clock-check.json",
+    "sha256": "749864e73687ffb4050e0eb7d35c4e4a020680cafd6b8737bb41c4479364cd75"
+  },
+  "status": "G_relatively_best_whole_song_pending",
+  "user_quote": "g相对最好，还有之前不是研究过虚实吗？研究了很久的",
+  "accepted_scope": "Relative combination preference across current three-context presentation only",
+  "independent_pitch_effect": "unknown",
+  "independent_phonation_effect": "unknown",
+  "whole_song_accepted": false,
+  "musical_quality": "unverified",
+  "agent_audio_perception": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "technical_execution_complete": true,
+  "workflow_review_complete": false,
+  "generalized_response_rules": [],
+  "production_use_limit": "Current G direction may inform a new whole-song candidate, not a universal +40 VOIC recipe; retain source timing, condition boundaries and local unknowns",
+  "learned_conditions": {
+    "summary_source": {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "sha256": "606fba0e23cca6f24076b31f6c75d05485b556b69891ac4fd92d75d0797961f0"
+    },
+    "use": [
+      "Separate solidness, strength, grain, loudness and pitch actions",
+      "Check onset/context and adverse sharp or squeezed voice; local stronger sound is not full acceptance",
+      "Retain negative breathiness cohort evidence; do not blindly repeat or increase a rejected dose",
+      "Recheck predicted baseline and weak/linked syllables after whole-song condition changes"
+    ],
+    "forbidden_transfer": "No historical authored curves, controls, audio, or numeric recipe loaded as target"
+  }
+}

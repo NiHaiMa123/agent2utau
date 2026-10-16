@@ -1,0 +1,16 @@
+﻿word,char,context,own_tones,author_tones,source_GAME_tones,F_first80ms_MIDI_median,interpretation
+270,想,28,[59.0],[59],[59.02090835571289],58.87717,context/counterexample; no intervention selected
+271,把,28,[64.0],"[62, 64]",[64.05108642578125],63.2403815,context/counterexample; no intervention selected
+272,你,28,[71.0],"[69, 71]",[71.05426788330078],69.42236750000001,context/counterexample; no intervention selected
+273,抱,28,[71.0],"[70, 71]",[70.99178314208984],71.0,context/counterexample; no intervention selected
+274,进,28,[68.0],[68],[67.99864196777344],68.0117,context/counterexample; no intervention selected
+275,身,28,[71.0],[71],[71.05484008789062],70.69035,context/counterexample; no intervention selected
+276,体,28,[73.0],"[71, 73]","[71.46268463134766, 73.0194320678711]",71.50767,context/counterexample; no intervention selected
+277,里,28,"[68.0, 66.0]","[66, 68, 66]","[65.9585189819336, 67.96519470214844, 66.00711822509766]",68.7596185,low-entry66 candidate missing from F absolute line
+278,面,28,[66.0],[66],[65.95372772216797],66.0,context/counterexample; no intervention selected
+279,不,29,[71.0],"[69, 71]",[71.05060577392578],69.35360399999999,context/counterexample; no intervention selected
+280,敢,29,[68.0],[68],[68.08281707763672],68.172134,context/counterexample; no intervention selected
+281,让,29,[71.0],[71],[71.03851318359375],70.633125,context/counterexample; no intervention selected
+282,你,29,[73.0],"[71, 73]","[71.14346313476562, 73.0538330078125]",71.50728,context/counterexample; no intervention selected
+283,看,29,"[66.0, 64.0]","[64, 66, 64]","[65.97948455810547, 64.04694366455078]",66.752715,source GAME has no author64 entry; preserve existing positive reference
+284,见,29,[64.0],[64],[63.9577751159668],64.0,context/counterexample; no intervention selected

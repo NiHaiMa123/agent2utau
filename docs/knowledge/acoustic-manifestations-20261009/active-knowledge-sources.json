@@ -1,0 +1,20 @@
+{
+  "table1": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+  "parameters": "docs/knowledge/acoustic-manifestations-20261009/control-details.csv",
+  "response_indices": [
+    "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+    "docs/reports/yuai/learned-conditions-carryover-20261016-index.json"
+  ],
+  "response_packets": [
+    "docs/reports/yuai/from-source-production-record-20261015.json",
+    "docs/reports/yuai/design-process-feedback-20261015.json",
+    "docs/reports/production/execution-review-20261015.json",
+    "docs/reports/yuai/new-skill-source-only-v02-20261015.json",
+    "docs/reports/yuai/v02-two-pass-failure-record-20261015.json",
+    "docs/reports/production/musical-sequence-review-20261015.json",
+    "docs/reports/yuai/source-intent-pilots-20261016.json",
+    "docs/reports/production/skill-knowledge-entry-20261016.json",
+    "docs/reports/yuai/source-intent-G-whole-candidate-20261016.json",
+    "docs/reports/production/skill-phrase-workflow-20261016.json"
+  ]
+}

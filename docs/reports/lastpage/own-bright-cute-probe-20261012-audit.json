@@ -1,0 +1,58 @@
+{
+  "status": "passed_with_explicit_auditory_gaps",
+  "scripts": [
+    {
+      "path": "research/table2-confirmation/lastpage_own_bright_cute_20261012.py",
+      "sha256": "921ecd7e73e7e93e4a492040f341dea54e5ecb8a3a587abf90d8d4ce90871bb8"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_bright_cute_20261012.py",
+      "sha256": "8ab4ed526badec64ab6f2aabd5c39ccb97cb955639fde6c251d588462d753427"
+    },
+    {
+      "path": "research/table2-confirmation/package_lastpage_own_bright_cute_20261012.py",
+      "sha256": "3f8a0848de64b8d00ab140d294d8901ddf62d6f0cd62dd09358817b765bddbda"
+    },
+    {
+      "path": "research/table2-confirmation/observe_lastpage_own_bright_cute_20261012.py",
+      "sha256": "a7675b2b40b4172f7d4781986003cb8853a2dbbcb305c16f3b8646c2aa85e8c7"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_bright_cute_delivery_20261012.py",
+      "sha256": "3c7c7115f16546591c177fd9804b67db99ef1b85b28e836d59d4d5cfe1d1ed32"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_own_bright_cute_20261012.py",
+      "sha256": "0a4b5bb0d540889e9a73b8e51501817df712a0ea7cc0028b1b492ecfab5fc47c"
+    }
+  ],
+  "native_percent_IL": {
+    "path": "runs/experiments/lastpage-own-bright-cute-20261012/evaluation/speaker-selected-IL.json",
+    "sha256": "15505c016c96c90cd82db788c5d39b855f9c0f09aaacf7065e00f527c9e42a9a"
+  },
+  "rejected_preflight": [
+    {
+      "path": "runs/experiments/lastpage-own-bright-cute-20261012/logs/rejected-speaker-preflight/checker-before-native-percent-fix.py",
+      "sha256": "0e838f560d71d91d96b7acd84a297d66f969c511f3f6c9e86aaba1cb9a6e9d80"
+    },
+    {
+      "path": "runs/experiments/lastpage-own-bright-cute-20261012/logs/rejected-speaker-preflight/failure.txt",
+      "sha256": "9f64331cb5ffceb6cd9c83493639ed553a1e550dc2b2d736a72de8ecc02f761c"
+    }
+  ],
+  "protected_references": 1695,
+  "runtime_resources": 44,
+  "actual_new_variance_calls": 8,
+  "actual_new_waveforms": 8,
+  "native_cached_contexts": 4,
+  "actual_F0_calls": 8,
+  "independent_contexts": 2,
+  "CSV_JSON_exact": true,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 660}",
+  "new_feedback_count": 0,
+  "agent_heard": false,
+  "adoption": false,
+  "original_song_audio_Skill_author_unchanged": true,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

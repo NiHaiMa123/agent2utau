@@ -1,0 +1,684 @@
+{
+  "schema_version": 1,
+  "id": "T2D-SHFC-PATHS-01",
+  "version": 1,
+  "stage": "2D",
+  "date": "2026-10-10",
+  "status": "frozen_design_with_execution_dependencies",
+  "execution_status": "not_executed",
+  "task": "区分有限SHFC条件的直接声学F0路径与三通道预测依赖，检查异元音偏实条件的回退",
+  "hypothesis": "局部SHFC响应可能来自直接条件、预测依赖或二者组合；不预设唯一机制或改善方向",
+  "historical_evidence": [
+    "RESP-002",
+    "RESP-003",
+    "RESP-004",
+    "RESP-005",
+    "RESP-006",
+    "RESP-007",
+    "RESP-008",
+    "RESP-009",
+    "RESP-010",
+    "OBS-002"
+  ],
+  "counterexamples": [
+    "果SHFC未改善且响度下降；不恢复该路线",
+    "六条件BREC -10均无可感知差别；不加量",
+    "抱C的VOIC降低/TENC升高反驳统一VOIC升高/TENC降低",
+    "抱C标签来自C-B；未独立试听C-A"
+  ],
+  "table1_refs": {
+    "main_parameter": "PARAM:C14.01",
+    "mediated_parameters": [
+      "PARAM:C11.01",
+      "PARAM:C12.01",
+      "PARAM:C13.01"
+    ],
+    "driver": "PARAM:C47.06",
+    "entity_ids": [
+      "ACO:P1",
+      "ACO:L1",
+      "EVT:L4",
+      "EVT:R3",
+      "EVT:S6",
+      "EVT:T4",
+      "PER:S1",
+      "PER:T3",
+      "PER:L1",
+      "PER:X1"
+    ],
+    "measurement_ids": [
+      "MEAS:D01",
+      "MEAS:D06",
+      "MEAS:D09",
+      "MEAS:D30",
+      "MEAS:D29",
+      "MEAS:D33",
+      "MEAS:D42",
+      "MEAS:D43",
+      "MEAS:D40",
+      "MEAS:D44"
+    ]
+  },
+  "cases": [
+    {
+      "condition": {
+        "id": "current-word-225",
+        "word": 225,
+        "context": 22,
+        "phoneme": "zh/ao",
+        "tone": 71,
+        "vowel_s": [
+          183.81145833333335,
+          184.125
+        ],
+        "label": "reported_false_forward",
+        "vowel_duration_ms": 313.5416666666515,
+        "native_phones": [
+          {
+            "phoneme": "zh/b",
+            "start_ms": 183602.08333333334,
+            "end_ms": 183811.45833333334,
+            "tone": 71
+          },
+          {
+            "phoneme": "zh/ao",
+            "start_ms": 183811.45833333334,
+            "end_ms": 184125,
+            "tone": 71
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 27,
+              "min": -48.26377868652344,
+              "median": -46.006961822509766,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 27,
+              "min": -50.55093002319336,
+              "median": -43.3055419921875,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 27,
+              "min": -0.6327570080757141,
+              "median": 1.7553541660308838,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 16,
+              "min": -47.588382720947266,
+              "median": -44.805870056152344,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 16,
+              "min": -43.38410949707031,
+              "median": -43.313751220703125,
+              "max": -41.82840347290039
+            },
+            "final_tension": {
+              "n": 16,
+              "min": 1.5273346900939941,
+              "median": 1.8506109714508057,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -48.26377868652344,
+              "median": -46.776145935058594,
+              "max": -44.996402740478516
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -49.57579040527344,
+              "median": -42.05855178833008,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 1.221807837486267,
+              "median": 1.7000912427902222,
+              "max": 2.196211576461792
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 6,
+              "min": -48.12172317504883,
+              "median": -48.06998825073242,
+              "max": -47.63417053222656
+            },
+            "final_voicing": {
+              "n": 6,
+              "min": -50.55093002319336,
+              "median": -43.609649658203125,
+              "max": -42.97685623168945
+            },
+            "final_tension": {
+              "n": 6,
+              "min": -0.6327570080757141,
+              "median": 0.26376205682754517,
+              "max": 1.2622413635253906
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-225",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown",
+        "tested_variant": "同一word225：对照为旧SHFC B，干预为新C；基底状态字段是原v02的描述，不能冒充B状态。"
+      },
+      "source_record_id": "RESP-003",
+      "role": "mechanism_discrimination_known_problem",
+      "independent_holdout": false,
+      "baseline_project": {
+        "path": "projects/latest/lastpage_loudness_v02.ustx",
+        "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+      },
+      "nominal_Q5_anchors_s": [
+        183.73145833333334,
+        183.87645833333335,
+        184.058,
+        184.113
+      ],
+      "shifted_support_s": [
+        183.73145833333334,
+        184.113
+      ],
+      "listener_focus_s": [
+        182.80208333333334,
+        184.925
+      ],
+      "peak_cents": -400,
+      "attack_ms": 145,
+      "release_ms": 55,
+      "design_reason": "重建抱C的完整路径再分离中介；原可用反馈是C-B，不能当此次S-A已通过",
+      "baseline_listening_truth": "historical_partial_label; new A/S/D/P listening pending"
+    },
+    {
+      "condition": {
+        "id": "current-word-214",
+        "word": 214,
+        "context": 21,
+        "phoneme": "zh/ir",
+        "tone": 69,
+        "vowel_s": [
+          176.04166666666669,
+          176.35833333333335
+        ],
+        "label": "reported_solid",
+        "vowel_duration_ms": 316.6666666666629,
+        "native_phones": [
+          {
+            "phoneme": "zh/zh",
+            "start_ms": 175898.95833333334,
+            "end_ms": 176041.6666666667,
+            "tone": 69
+          },
+          {
+            "phoneme": "zh/ir",
+            "start_ms": 176041.6666666667,
+            "end_ms": 176358.33333333334,
+            "tone": 69
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 27,
+              "min": -56.51520919799805,
+              "median": -54.11952590942383,
+              "max": -30.238195419311523
+            },
+            "final_voicing": {
+              "n": 27,
+              "min": -48.364559173583984,
+              "median": -42.27656555175781,
+              "max": -35.45612716674805
+            },
+            "final_tension": {
+              "n": 27,
+              "min": -0.5503722429275513,
+              "median": 1.0087323188781738,
+              "max": 1.1216484308242798
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 27,
+              "min": 67.20221710205078,
+              "median": 68.6435775756836,
+              "max": 69.31400299072266
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 27,
+              "min": 67.20221710205078,
+              "median": 68.6435775756836,
+              "max": 69.31400299072266
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 17,
+              "min": -56.159698486328125,
+              "median": -54.11952590942383,
+              "max": -52.4548225402832
+            },
+            "final_voicing": {
+              "n": 17,
+              "min": -43.1911735534668,
+              "median": -42.27656555175781,
+              "max": -39.44200134277344
+            },
+            "final_tension": {
+              "n": 17,
+              "min": 0.9877492189407349,
+              "median": 1.0173444747924805,
+              "max": 1.1216484308242798
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 17,
+              "min": 67.27215576171875,
+              "median": 68.6435775756836,
+              "max": 69.31400299072266
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 17,
+              "min": 67.27215576171875,
+              "median": 68.6435775756836,
+              "max": 69.31400299072266
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -51.4910774230957,
+              "median": -41.01613998413086,
+              "max": -30.238195419311523
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -41.21831130981445,
+              "median": -36.987483978271484,
+              "max": -35.45612716674805
+            },
+            "final_tension": {
+              "n": 5,
+              "min": -0.5503722429275513,
+              "median": -0.12186262011528015,
+              "max": 0.6718220710754395
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 67.20221710205078,
+              "median": 67.22357940673828,
+              "max": 67.25614929199219
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 67.20221710205078,
+              "median": 67.22357940673828,
+              "max": 67.25614929199219
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -56.51520919799805,
+              "median": -55.651397705078125,
+              "max": -54.690704345703125
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -48.364559173583984,
+              "median": -46.48006820678711,
+              "max": -44.00175857543945
+            },
+            "final_tension": {
+              "n": 5,
+              "min": -0.1694573014974594,
+              "median": 0.3982381522655487,
+              "max": 0.8614562749862671
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 69.0,
+              "median": 69.00399780273438,
+              "max": 69.21800231933594
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 69.0,
+              "median": 69.00399780273438,
+              "max": 69.21800231933594
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-214",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "source_record_id": "RESP-007",
+      "role": "cross_vowel_regression_check_reported_solid",
+      "independent_holdout": false,
+      "baseline_project": {
+        "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-214_grid5/A.ustx",
+        "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+      },
+      "nominal_Q5_anchors_s": [
+        175.96166666666667,
+        176.10666666666668,
+        176.29133333333334,
+        176.34633333333335
+      ],
+      "shifted_support_s": [
+        175.96166666666667,
+        176.34633333333335
+      ],
+      "listener_focus_s": [
+        175.09895833333334,
+        177.15833333333336
+      ],
+      "peak_cents": -400,
+      "attack_ms": 145,
+      "release_ms": 55,
+      "design_reason": "同为高音区且时长近似、不同元音/声母；检查偏实条件回退，不把偏实视作全面正常",
+      "baseline_listening_truth": "historical_partial_label; new A/S/D/P listening pending"
+    }
+  ],
+  "variant_matrix": [
+    {
+      "id": "A",
+      "acoustic_F0": "unshifted",
+      "prediction": "fresh_unshifted_same_phrase",
+      "native_equivalent": true
+    },
+    {
+      "id": "S",
+      "acoustic_F0": "SHFC_shifted",
+      "prediction": "fresh_SHFC_shifted_same_phrase",
+      "native_equivalent": true
+    },
+    {
+      "id": "D",
+      "acoustic_F0": "SHFC_shifted",
+      "prediction": "fresh_unshifted_same_phrase",
+      "native_equivalent": false
+    },
+    {
+      "id": "P",
+      "acoustic_F0": "unshifted",
+      "prediction": "fresh_SHFC_shifted_same_phrase",
+      "native_equivalent": false
+    }
+  ],
+  "intervention_scope": "一个主干预SHFC；2×2研究路径拆分。D/P是反事实研究输入，不是可直接编码的USTX或新艺术旋钮",
+  "prediction_exchange_rule": "只用同一条件、同一新批次的A/S新variance预测；不读旧预测作为合成输入，不跨字复制或拟合作者数组。三通道整组交换后加该条件不变人工增量并按原生float32裁剪",
+  "geometry": {
+    "function": "Q5 smoothstep: q(u)=6u^5-15u^4+10u^3; rise peak*q, exit peak*(1-q), else 0/plateau",
+    "grid_ticks": 5,
+    "storage_units": "cents, not semitones",
+    "explicit_diagnostic_range_cents": [
+      -1200,
+      1200
+    ],
+    "value_quantization": "在原工程part-local的整数5tick点按timeAxis换秒评估Q5，四舍六入五成双取整为整数cents；名义支撑外0。原生5tick/模型帧线性采样另核查，不以模板名字保证抱S与旧C输入/波形精确",
+    "native_sampling": "按原timeAxis/5tick点编译；独立核查实采样、float32 /100与/1200顺序、峰值与支撑；不得用1tick或宽容差掩盖失败",
+    "fallback": "若实采样峰值/支撑/非重叠失败，停止；不自动缩时长、换条件或重定剂量"
+  },
+  "fixed": {
+    "common_context": {
+      "song": "最后一页",
+      "singer": "YousaV1.65c",
+      "speaker_both_stages": {
+        "Normal": 0.75,
+        "Classic": 0.25
+      },
+      "sample_rate_Hz": 44100,
+      "hop_samples": 512,
+      "frame_ms": 11.609977324263038,
+      "seed_variance": 11,
+      "seed_acoustic": 101,
+      "fixed_gain": {
+        "vocal": 1.5,
+        "backing": 0.7
+      },
+      "normalization": false,
+      "compressor": false,
+      "agent_audio_perception": false,
+      "runtime_binding_scope": "Existing frozen cohort runtime hashes; not a new runtime or waveform verification"
+    },
+    "acoustic_steps": 20,
+    "acoustic_depth": 0.6,
+    "runtime_expected_hashes": {
+      "external-resource/OpenUtau/OpenUtau.Core.dll": "855a4cc7ef730c68b2853903b0dbadc24e5cfb0ba9d02a9d6a4d16688fb8f8d7",
+      "external-resource/OpenUtau/Microsoft.ML.OnnxRuntime.dll": "7db3d45ad570da12c05c1d1460fb85e3b4b680a71bdea65af5dd7e972d59ddbb",
+      "external-resource/OpenUtau/onnxruntime.dll": "e7eedec6a6f26dc39dc948276a75ef6d2bee3fff944d874ceed0bbd3b97bff40",
+      "external-resource/OpenUtau/prefs.json": "37151abdb5a724e3fac154fc1804bfacbfc6bc2281fd4db09ff26a83300b22bc",
+      "external-resource/OpenUtau/a2u-shfcprobe-20261008.dll": "6df11ccfe4b1fd4b3aabd5fd2c76f54f2ddd3405d92fc1bc528cda8fbb8797f1",
+      "external-resource/OpenUtau/a2u-shfcprobe-20261008.deps.json": "eb83cd25126036bb5ed2c5c28e298ffa9c97b2c5776990f82732057ac1a999de",
+      "external-resource/OpenUtau/a2u-shfcprobe-20261008.runtimeconfig.json": "d44456e801512388fbfee409aeb60e9021a568881d941bdec4038ef9045e5bc1",
+      "external-resource/OpenUtau/a2u-levelprobe-v15.dll": "7a2a10f7d9b10029ed3420869376f9459bde1c213a0fb3c857deabf04475ce40",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/character.yaml": "fc3335a4c5f6304cad20f1b03bb7db18e280e881a5e049478811433aaca4ca99",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsconfig.yaml": "72d5197ba188ad24596b7d9b6652b6e65a0a919e4841f45e598946c37ef53d06",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsconfig.yaml": "cd7de0034887aaef1ad15082884be18e6bdbd88a2312f5ab0e5672172511c46c",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsdict-ja.yaml": "193612e18ef3503b85d5c86e93008f98cad11cb0b244e34f92acba65767d80d4",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsdict-ko.yaml": "7e47ab6fa66cba553d6b3c26ab352f9c7f227e489239042c15506316bda640cc",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsdict-zh.yaml": "04734af1885f075da4d379f9dcd11d629ae46350dd83f36f1ca5c9adcc8fcbc4",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsdict.yaml": "fa61e140c0953f95b1b08f733a41e11444be51323d94257491531b7ea2afb328",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/dsconfig.yaml": "7626b1b0d2799b4cb89067a9458c19963a55a7100ccdf68709e0f650b526bc65",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/dsconfig.yaml": "5f3a02f3b3a580c6b5600880ca6ea0bde77ddd2be2b81e863b7ed98772c8551b",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvocoder/vocoder.yaml": "a9dde1db7ed047c74247df89cb3676f0210ac60cd0776afad71d4bcf7b77ab2e",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Bright.emb": "dc40eeebd34a18b0d44d9ee887052d7d37d472eec6cbd13dd3acde30951f7832",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Classic.emb": "dde42450f7d38653aa520c9883e74473abe5105ea069cddcbe6ebadd2abbecb4",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Cute.emb": "5ffaef1e7d0366c70511eb493695afc992ab277b26f1145ac5fb929ec8e62a04",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Normal.emb": "9fa01d6ab16c67d52a520ab1a0c5cf9f293d093ef5c1be8c08ba94d926cd61e6",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Whisper.emb": "124ecc4622f34dc909810853a05a0bc9726b45e34aa56057b5cf97294ac5100a",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Bright.emb": "3d4c831298aecf634fbc4e8990ecb606bd21f4a337adda003a5df20cc27b877c",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Classic.emb": "fa13bb4294606510cdaa15d87b7004d1737c8d122420b2b06c6d44d061409456",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Cute.emb": "5249e2244503a56f905f332f03e7df27ea3301662feabc07cc725bef6ecbf414",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Normal.emb": "330535583ea3369de0dbd38eafdf3d8075f4df50eeaddadff76cfd9d1324d46c",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Whisper.emb": "095cf47f4d02378f5b01a807a476c68158e10a62e54daeebfa85cbc6411b0e7f",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/0818_no_shuffle.onnx": "a8fdc96710113a5faefef9cc8d418d786ff8b7a4b36ebfc10cf30f7c6b87fe74",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/0923_dpv2_nogru.dur.onnx": "b66ebbdb96d4464bd854470d08be2fe97c6821d5ed16fe411163ae588f41ccb0",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/0923_dpv2_nogru.linguistic.onnx": "3492f41e9f3fcb6e2446498aadf0c11d1e5144055e5614517de75f656a6151cc",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/0801_variance.linguistic.onnx": "4892ff20d9728b51c235d0912abae0473077de7043d4bff3684caf79fb0773e9",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/0801_variance.pitch.onnx": "eaf9c8ce9270701fb7563b2dac43d475769f3fe69d5ea83000dedeab81f79656",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/0801_variance.variance.onnx": "d68eb67d23be30f5ab7aba245f55a674413b120d25848bffd8bf67c5edb5c457",
+      "external-resource/OpenUtau/Singers/YousaV1.65c/dsvocoder/yousa_vocoder_FT_1002_pc_nsf_wm.onnx": "00ce253d8f616bb9ed8d219648aa8d37ff29b46888c99db6046b733e8f1fc16c"
+    },
+    "model_adapter": "仅新run中的显式噪声适配器；权重initializer精确，绑定来源/适配器SHA。模型安装不改",
+    "score": "原v02完整短语；note identity/pitch/clock/phones/languages/AP-SP/source unknown不变",
+    "speaker": "两阶段Normal75/Classic25；绑定实际embedding并验证tensor，不只写名字",
+    "controls": "TENC/VOIC/BREC/GENC/VELC及所有非SHFC人工控制、DYN不变；不归零基底",
+    "downstream": "每条件完整短语，保留padding及上下文；不在目标窗外强制抹除预测/声学响应",
+    "presentation": "原生DYN，固定vocal1.5/backing0.7；FLOAT诊断/同编码交付；无归一化/响度匹配/压缩；绑定裁切样本与增益",
+    "preservation": "已接受抱C及完整制作方案保持；word214原v02仅诊断基底，不发布替换整曲"
+  },
+  "budget": {
+    "conditions": 2,
+    "logical_variants_per_condition": 4,
+    "identical_repetitions_per_variant": 2,
+    "variance_predictions_per_condition": 4,
+    "total_variance_inferences": 8,
+    "total_acoustic_vocoder_waveforms": 16,
+    "independent_effect_replications": 0,
+    "listener_pairs_per_condition": 5,
+    "total_listener_pairs": 10,
+    "parameter_sweeps": 0,
+    "infrastructure_retry_limit_per_failed_operation": 1,
+    "retry_policy": "仅同输入初始化/IO失败重试一次；所有失败保留。技术隔离/重复不精确不得重试选好结果，禁止换seed"
+  },
+  "comparisons": [
+    {
+      "id": "S_A",
+      "direction": "S-A"
+    },
+    {
+      "id": "D_A",
+      "direction": "D-A"
+    },
+    {
+      "id": "P_A",
+      "direction": "P-A"
+    },
+    {
+      "id": "S_D",
+      "direction": "S-D"
+    },
+    {
+      "id": "S_P",
+      "direction": "S-P"
+    }
+  ],
+  "gates": [
+    "2E首先实现独立研究runner与验证器；现controlled_probe只支持A/A-repeat/B，没有D/P接口，不直接调用为路径分离",
+    "重新SHA核查当前runtime47项及依赖、原baseline工程、fresh模型和noise适配器；不一致停止，不升级安装",
+    "先用有限合成数组/故意错误检查器验证D-A仅f0、P-A仅三最终条件、S-D仅预测组、S-P仅f0，非选条件及vocoder F0精确；这些数组不算真实检测器验证",
+    "A/S使用现SHFC native隔离检查；新原生输出是桥接获取条件的缓存，不算本预算的seeded诊断波形",
+    "每变体两次输入/预测/波形精确；所有weights/noise/speaker/manual/phone时钟与clip计数保存；任何非有限/新裁剪/峰值>=1停止交付",
+    "独立数值/PCM窗检查通过后方交付试听；F0估计可unknown，不能拿未经验证检测器作自然度门禁"
+  ],
+  "observations": {
+    "input_layer": "保存native/fresh actual input/prediction/manual/final/two F0 paths，独立归因允许变化及完整短语响应",
+    "PCM_windows": "完整目标声母/元音、元音前后60ms、核心20%-80%、前后各一个完整phone、整句；原生→PCM→delivery时钟映射绑定，超界/交叉窗标unknown",
+    "level": "完整窗RMS/peak；30/50ms中心矩形窗，hop5ms，半开窗样本索引ceil(t*sr)，不补零；零能量null/zero。dB比不等于感知响度",
+    "spectral": "原生mel与去逐帧均值的谱形差；只能叫代理，不认定formant/生理寄存器/破音病因",
+    "F0": "FCPE/RMVPE模型/时钟/SHA另绑定；有效voiced有限>0才比较，不跨无声插值；冲突/覆盖不足unknown并报有效率；不预设校准阈值或宣称输出F0固定",
+    "method_status": "Table1相关测量仍未完整验证；2E只可提升实际验证的数值/组件范围，听觉/真值单列"
+  },
+  "listening": {
+    "phase": "2E生成新对照且技术gate通过后，必须人工试听；没有反馈只记录pending",
+    "schedule": "先完整上下文A/S/D/P独立文件，再固定五组人声对照；混音作为同增益复查，每组两顺序各保留，编码表先固定且不按得分选顺序",
+    "presentation_order": [
+      "S-A",
+      "A-S",
+      "D-A",
+      "A-D",
+      "P-A",
+      "A-P",
+      "S-D",
+      "D-S",
+      "S-P",
+      "P-S"
+    ],
+    "anonymous_code_map": {
+      "word225": {
+        "K1": "A",
+        "K2": "D",
+        "K3": "S",
+        "K4": "P"
+      },
+      "word214": {
+        "K1": "P",
+        "K2": "S",
+        "K3": "A",
+        "K4": "D"
+      }
+    },
+    "clip_samples": "各listener_focus_s半开裁切ceil(t*44100)；同condition所有版本与两顺序同长度；完整phone不足则保留整句并标focus未完整，不补0伪造边界",
+    "blinding": "可用固定匿名编码；是否盲测/是否看标签如实记录，不冒称双盲",
+    "labels": [
+      "差别是否可感知/不确定/无差别",
+      "偏假/往上顶或偏实方向及是否更可用",
+      "字头/咬字/破音位置",
+      "感知响度与邻字/上下文回退"
+    ],
+    "timestamps_device": "回报时间与设备/播放器/OS设置能取得则记录，缺失unknown；不要求人工补造精确位置",
+    "statistics": "2条件、同曲已见标签，不做显著性/群体统计；同seed重复只是复现，不能计作独立效应重复"
+  },
+  "interpretation": [
+    "S-A若本轮无可感知差别，保留既往C-B局部接受；本轮不支持新的S-A效果解释，停止扩大验证",
+    "D-A有同向可用响应可支持此研究反事实中的直接路径作用，P-A同理预测组；不能归给单一VOIC/BREC/TENC或生理机制",
+    "S可感知而D/P均未感知，只记录联合路径/剂量下的结果，不以未感知宣布分量为零或证明交互",
+    "数值interaction=metric(S)-metric(D)-metric(P)+metric(A)仅用于同定义连续代理，不用于主观词/未知/检测冲突，也不代表自然度",
+    "word214任一新副作用限定适用范围；2个条件均已参与设计，不能称留出/跨曲迁移或通用规律"
+  ],
+  "stop_rules": [
+    "不加剂量、不扫时间/元音/seed、不补第三条件、不恢复果SHFC或BREC/VOIC提案",
+    "缺可靠接口/原生隔离失败/runtime差异/数值重复不精确→技术停止并记录依赖缺口，不转自动搜索",
+    "新破音/响度下降/咬字或邻字回退→该条件不可用，保留失败；不加增益掩盖",
+    "无区别/不确定→本协议限定阴性/unknown；不等待总会成功的候选",
+    "最多本批16套seeded新波形、10组主对照；结束后收集结论，2F留出/2G整句全曲/2H Skill需另明确范围"
+  ],
+  "exclusions": [
+    "不修改歌曲工程/发布USTX/Skill/模型安装",
+    "不将D/P写回制作",
+    "不将本批通过当通用规律",
+    "不自动启用CI"
+  ],
+  "result": {
+    "new_audio": 0,
+    "new_feedback": 0,
+    "generic_rule_validated": false,
+    "causal_mechanism_validated": false,
+    "execution_adapter_validated": false,
+    "all_measurement_methods_validated": false
+  }
+}

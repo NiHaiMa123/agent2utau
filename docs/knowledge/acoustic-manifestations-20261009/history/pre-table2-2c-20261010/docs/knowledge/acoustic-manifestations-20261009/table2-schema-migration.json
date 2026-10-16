@@ -1,0 +1,51 @@
+{
+  "stage": "2B",
+  "from_schema_version": 2,
+  "to_schema_version": 3,
+  "source": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2b-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+    "sha256": "5a7b436fbdb5bd39d52dd7b26990d16598b491d408d50ed19e17f4c975cb7e85"
+  },
+  "restore_operation": "Remove table2_schema_revision and every record_v3; set schema_version=2. Deep JSON equality with frozen source required. CSV remove four new columns; all old cells identical. Markdown original body retained verbatim after explicit current prefix.",
+  "baseline": {
+    "manifest_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2b-20261010/snapshot-manifest.json",
+    "manifest_sha256": "4d7acafade71403fab9f09900b26c9d40c54ffe09f14a99d0e0890d5cfb2d5a2"
+  },
+  "record_ids": [
+    "RESP-001",
+    "RESP-002",
+    "RESP-003",
+    "RESP-004",
+    "RESP-005",
+    "RESP-006",
+    "RESP-007",
+    "RESP-008",
+    "RESP-009",
+    "RESP-010",
+    "OBS-001",
+    "OBS-002",
+    "AUD-001",
+    "AUD-002"
+  ],
+  "legacy_fields_not_overwritten": true,
+  "onset_file_label_mapping": {
+    "logical_C": "ONSET/fresh/B_*",
+    "logical_B": "SHFC/fresh/B_* reused",
+    "proof": [
+      {
+        "path": "runs/lastpage_shfc_onset_probe_20261008/package.py",
+        "sha256": "31eb1ba0b522e592a566b291c176e85629aa4eee153e4b523a68eecd559847e5",
+        "binding_role": "historical_sealed_manifest_checked_in_2A; not reexecuted_in_2B"
+      },
+      {
+        "path": "runs/lastpage_shfc_onset_probe_20261008/analyze.py",
+        "sha256": "b7abb2950b603a8ff0742ee07cee37cc07725be886c2d828794b759810075702",
+        "binding_role": "historical_sealed_manifest_checked_in_2A; not reexecuted_in_2B"
+      }
+    ]
+  },
+  "historical_audits": "F and 2A apply to frozen versions; not overwritten to claim current schema3 approval",
+  "original_source_index": "response-source-audit.json remains historical36; comparison-bindings.json indexes verified52 and preserves misnamed optional candidate",
+  "newly_validated_measurements": 0,
+  "new_listener_feedback": 0
+}

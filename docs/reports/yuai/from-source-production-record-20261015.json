@@ -1,0 +1,184 @@
+{
+  "record_id": "RESP:YUAI-SOURCE-ONLY-PRODUCTION-20261015",
+  "record_type": "combined_source_only_whole_song_production",
+  "scope": "One independent Yuai production with new source observations; not a one-factor intervention or general rule",
+  "condition": {
+    "source_allowlist": {
+      "path": "runs/production/yuai-from-source-20261014/inputs/allowed-source-manifest.json",
+      "sha256": "f85299f448291664f6ef9fbe6a1fea1cf101a48733642fdc0c9e91dee0c6a7c9"
+    },
+    "source_duration_s": 260.48,
+    "source_key_retained": true,
+    "singer": "YousaV1.65c",
+    "speaker_candidate": {
+      "Normal": 70,
+      "Bright": 30
+    },
+    "source_or_author_curve_inherited": false,
+    "author_or_historical_production_data_used": false,
+    "history_free_registry": {
+      "path": "docs/reports/yuai/from-source-20261014-knowledge-scope.json",
+      "sha256": "afdca8ced7159bcdc8e2104b4e72a2f9d0fdb04085aa4855b3c1a666467574be"
+    }
+  },
+  "table1_entity_ids": [
+    "ACO:L1",
+    "EVT:L2",
+    "PER:S1"
+  ],
+  "parameter_ids": [
+    "PARAM:C01.01",
+    "PARAM:C02.02",
+    "PARAM:C03.01",
+    "PARAM:C10.01",
+    "PARAM:C11.01",
+    "PARAM:C12.01",
+    "PARAM:C13.01",
+    "PARAM:C14.01",
+    "PARAM:C19.01",
+    "PARAM:C20.01",
+    "PARAM:C20.03"
+  ],
+  "knowledge_context": {
+    "path": "runs/production/yuai-from-source-20261014/final-stage/design/knowledge_context-v2.json",
+    "sha256": "70b807808b771d077a53590d00efa96f619be468813610d8f60b8b3ecac1115d"
+  },
+  "report": {
+    "path": "docs/reports/yuai/from-source-completed-20261015.md",
+    "sha256": "145464caaea35a1f11ab123eca373a080bd9ea8283c2461bb3b66e129324b320"
+  },
+  "outputs": {
+    "yuai_source_only_v01_vocal.wav": {
+      "file": {
+        "path": "runs/production/yuai-from-source-20261014/delivery/yuai_source_only_v01_vocal.wav",
+        "sha256": "34a5e18fe72be575225ce4fa03252e29ed6163e8f1360dbf455138d1201b59e4"
+      },
+      "sample_rate": 44100,
+      "samples": 11487168,
+      "channels": 1,
+      "duration_s": 260.48,
+      "subtype": "PCM_24",
+      "peak": 0.8394775390625,
+      "full_scale_samples": 0
+    },
+    "yuai_source_only_v01_mix.wav": {
+      "file": {
+        "path": "runs/production/yuai-from-source-20261014/delivery/yuai_source_only_v01_mix.wav",
+        "sha256": "74b06a7358d468c9d2ff10f31880788ee923f79948aaa60cf5f5c9f72e77d352"
+      },
+      "sample_rate": 44100,
+      "samples": 11487168,
+      "channels": 2,
+      "duration_s": 260.48,
+      "subtype": "PCM_24",
+      "peak": 0.9300000667572021,
+      "full_scale_samples": 0
+    },
+    "backing.wav": {
+      "file": {
+        "path": "runs/production/yuai-from-source-20261014/delivery/backing.wav",
+        "sha256": "34e9d7dfc9f7f06edb55ecb58a34f41407308a9ad880ee80445b64291e071f91"
+      },
+      "sample_rate": 44100,
+      "samples": 11487168,
+      "channels": 2,
+      "duration_s": 260.48,
+      "subtype": "PCM_24",
+      "peak": 0.89996337890625,
+      "full_scale_samples": 0
+    },
+    "backing_playback.wav": {
+      "file": {
+        "path": "runs/production/yuai-from-source-20261014/delivery/backing_playback.wav",
+        "sha256": "b19b6837d6c3035baaa8ec910fb67650936d9f7c73f9b95a03585da530beb9a8"
+      },
+      "sample_rate": 44100,
+      "samples": 11487168,
+      "channels": 2,
+      "duration_s": 260.48,
+      "subtype": "PCM_24",
+      "peak": 0.89996337890625,
+      "full_scale_samples": 0
+    }
+  },
+  "projects": [
+    {
+      "path": "runs/production/yuai-from-source-20261014/delivery/yuai_source_only_v01.ustx",
+      "sha256": "4f24438635226fec67339f5ba748d255d84afcb36ee72d3649b05d1442131421"
+    },
+    {
+      "path": "runs/production/yuai-from-source-20261014/delivery/yuai_source_only_v01_playback.ustx",
+      "sha256": "2a4d46c24222207a15945857d88e6ca18b61eae7d8845571c5a0c89472addc71"
+    },
+    {
+      "path": "projects/latest/yuai_source_only_v01.ustx",
+      "sha256": "d33223015985cc1e0973587f8452a0f7965a5302805209b01217a371ccc577ae"
+    },
+    {
+      "path": "projects/latest/yuai_source_only_v01_playback.ustx",
+      "sha256": "782df877f421fa83653c3479da6221517c3d5dabf95dd732d300b4d4336cb15e"
+    }
+  ],
+  "observations": {
+    "words": 371,
+    "melodic_extensions": 27,
+    "AP": 21,
+    "SP": 21,
+    "native_notes": 440,
+    "native_phones": 771,
+    "native_contexts": 61,
+    "native_frames": 16571,
+    "components": 299,
+    "TENC_events": 33,
+    "DYN_lines": 42,
+    "feature_clips": 0,
+    "native_pitch_encoding_max_error_c": 0.4999676710294807,
+    "final_dual_F0_observed_nuclei": 312,
+    "final_dual_F0_short_unknown_nuclei": 59,
+    "relevant_tests_passed": 77
+  },
+  "evidence": [
+    {
+      "path": "runs/production/yuai-from-source-20261014/evaluation/native-dependency-audit-final.json",
+      "sha256": "0c389d4a1bd42ccc16c0c5eed919ce3fc69498b5a4ef5138ed9f961e7befe410"
+    },
+    {
+      "path": "runs/production/yuai-from-source-20261014/evaluation/final-DYN-nonsinging-audit.json",
+      "sha256": "1c035d0b3834e9ca4f3facd44a3726a8a1b900db55cf7a06f84a487142b85d96"
+    },
+    {
+      "path": "runs/production/yuai-from-source-20261014/evaluation/whole-vowel-energy-raw-final.json",
+      "sha256": "05791e86f2210f2ebe2605896cabe9d3eaa867531d5854c2082dfdf12b0945ea"
+    },
+    {
+      "path": "runs/production/yuai-from-source-20261014/evaluation/whole-vowel-energy-level-final.json",
+      "sha256": "3cb777a4fbdeaa14d99797392585f1049a0920d5c14a04b07dc3e29438435d86"
+    },
+    {
+      "path": "runs/production/yuai-from-source-20261014/evaluation/final-F0/audit.json",
+      "sha256": "2a898107af9e66f764c6f6dc9404083f4ff142722fd5cd5650e8ba55fa0dbbac"
+    },
+    {
+      "path": "runs/production/yuai-from-source-20261014/evaluation/playback-path-equivalence.json",
+      "sha256": "5674d01463a921e756118da42b086bd76c940fc883a1733e1ee8ce447d60a266"
+    },
+    {
+      "path": "runs/production/yuai-from-source-20261014/delivery/delivery-manifest.json",
+      "sha256": "2428d4ad6b5b534e3faec1441f2a2760abe60088ea5268761900a0cd1e583371"
+    }
+  ],
+  "feedback": [],
+  "human_feedback_count": 0,
+  "listening_pending": true,
+  "Agent_listened": false,
+  "measurement_validated": false,
+  "naturalness_accepted": false,
+  "general_rule_validated": false,
+  "limits": [
+    "Native model randomness not externally seeded; current outputs frozen, not independently repeated model inference",
+    "Current native intermediate export PCM16; delivered PCM24 does not undo quantization",
+    "One-factor causal attribution unknown",
+    "English lexical/perceptual correctness pending hearing",
+    "Current source timing and short-kernel unknowns retained"
+  ]
+}

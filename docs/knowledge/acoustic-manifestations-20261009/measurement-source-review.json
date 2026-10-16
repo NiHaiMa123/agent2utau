@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "stage": "D",
+  "sources": [
+    {
+      "id": "DSRC:01",
+      "title": "Praat jitter(local) algorithm",
+      "url": "https://praat.org/manual/PointProcess__Get_jitter__local____.html",
+      "locator": "Algorithm/period筛选",
+      "scope_limit": "定义与筛选；未运行Praat或转移临床阈值",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:02",
+      "title": "Praat shimmer",
+      "url": "https://praat.org/manual/Voice_3__Shimmer.html",
+      "locator": "local/local dB",
+      "scope_limit": "相邻周期幅度，持续元音；实现筛选尚待核查",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:03",
+      "title": "Praat Harmonicity(ac/cc)",
+      "url": "https://praat.org/manual/Sound__To_Harmonicity__ac____.html",
+      "locator": "settings及算法；cc页面交叉读",
+      "scope_limit": "floor/period窗/静音参数；非通用歌唱噪声真值",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:04",
+      "title": "Praat CPPS",
+      "url": "https://praat.org/manual/PowerCepstrogram__Get_CPPS___.html",
+      "locator": "Settings",
+      "scope_limit": "平滑、趋势、回归/peak参数影响值；无现有实现",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:05",
+      "title": "Praat RMS",
+      "url": "https://praat.org/manual/Sound__Get_root-mean-square___.html",
+      "locator": "Mathematical definition",
+      "scope_limit": "源码数字FS与文档声压Pa不能混用",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:06",
+      "title": "Praat Burg formants",
+      "url": "https://praat.org/manual/Sound__To_Formant__burg____.html",
+      "locator": "Settings/Algorithm",
+      "scope_limit": "effective/actual窗与ceiling/poles；高F0准确性未验证",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:07",
+      "title": "UNSW formant/resonance distinction",
+      "url": "https://www.phys.unsw.edu.au/jw/formant.html",
+      "locator": "声学峰/共振/pole及高F0例",
+      "scope_limit": "作者实验室解释，只支持对象可辨识性边界",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:08",
+      "title": "Praat voice breaks",
+      "url": "https://praat.org/manual/Voice_1__Voice_breaks.html",
+      "locator": "locally unvoiced/voice breaks",
+      "scope_limit": "持续元音算法；不套病理/歌唱破音阈值",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:09",
+      "title": "SciPy find_peaks",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html",
+      "locator": "prominence/NaN/flat peaks",
+      "scope_limit": "文档1.18.0、本机1.18.1另记；不是颤音检测正确性证明",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    },
+    {
+      "id": "DSRC:10",
+      "title": "ITU-R BS.1770-5",
+      "url": "https://www.itu.int/dms_pubrec/itu-r/rec/bs/R-REC-BS.1770-5-202311-I!!PDF-E.pdf",
+      "locator": "Annex1 printed pp2–7/Annex2 pp18–19",
+      "scope_limit": "读组件流程/公式，未实现/符合性测试；不是个人感知真值",
+      "read_status": "component_method_or_scope_read_not_executed",
+      "checked_date": "2026-10-09",
+      "measurement_validated": false
+    }
+  ],
+  "role": "component_methods_read_no_new_literature_claims_or_fulltext_upgrades_to_stage_B",
+  "supplementary_pages_read": [
+    "https://praat.org/manual/Sound__To_Harmonicity__cc____.html",
+    "https://praat.org/manual/Voice_4__Additive_noise.html"
+  ]
+}

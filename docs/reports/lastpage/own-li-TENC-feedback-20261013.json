@@ -1,0 +1,169 @@
+{
+  "status": "I_feedback_closed_no_meaningful_difference",
+  "feedback": {
+    "verbatim": "和f没什么区别",
+    "date": "2026-10-13",
+    "submissions": 1,
+    "response_record": "RESP:LASTPAGE-OWN-LI-TENC-STAGES-01",
+    "candidate": {
+      "path": "runs/experiments/lastpage-own-li-tenc-stages-20261012/delivery/I_two_phrases.wav",
+      "sha256": "b2f4bf96755a763d2a939b7c2f491f86f41aa28858815784448d8cbdce70277e"
+    },
+    "baseline": {
+      "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+      "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+    },
+    "author_reference": {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+      "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+    },
+    "referent": "I inferred from preceding labelled I/F/author delivery; F comparator explicitly named",
+    "comparison": "I-F",
+    "finding": "No meaningful perceived difference reported at the current finite TENC gesture",
+    "target_word": 277,
+    "target_word_is_experiment_scope_not_new_user_named_label": true,
+    "precise_word_subword_location_dimension_magnitude": "unknown: no word, time or dimension specified",
+    "new_individual_word_labels": 0,
+    "solidity_strength_squeezing_sharpness_break_articulation": "unknown: not individually assessed in this reply",
+    "improvement_supported": false,
+    "adoption": false,
+    "baseline_status": "F retained as improved working comparator, not full-song acceptance",
+    "numerical_or_waveform_equality_claim": false,
+    "all_TENC_ineffective": false,
+    "dose_escalation": false,
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-OWN-LI-TENC-STAGES-01",
+    "append_only_feedback": true,
+    "feedback": {
+      "verbatim": "和f没什么区别",
+      "date": "2026-10-13",
+      "submissions": 1,
+      "response_record": "RESP:LASTPAGE-OWN-LI-TENC-STAGES-01",
+      "candidate": {
+        "path": "runs/experiments/lastpage-own-li-tenc-stages-20261012/delivery/I_two_phrases.wav",
+        "sha256": "b2f4bf96755a763d2a939b7c2f491f86f41aa28858815784448d8cbdce70277e"
+      },
+      "baseline": {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+        "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "referent": "I inferred from preceding labelled I/F/author delivery; F comparator explicitly named",
+      "comparison": "I-F",
+      "finding": "No meaningful perceived difference reported at the current finite TENC gesture",
+      "target_word": 277,
+      "target_word_is_experiment_scope_not_new_user_named_label": true,
+      "precise_word_subword_location_dimension_magnitude": "unknown: no word, time or dimension specified",
+      "new_individual_word_labels": 0,
+      "solidity_strength_squeezing_sharpness_break_articulation": "unknown: not individually assessed in this reply",
+      "improvement_supported": false,
+      "adoption": false,
+      "baseline_status": "F retained as improved working comparator, not full-song acceptance",
+      "numerical_or_waveform_equality_claim": false,
+      "all_TENC_ineffective": false,
+      "dose_escalation": false,
+      "agent_heard": false,
+      "measurement_validated": false,
+      "general_rule_validated": false
+    },
+    "prior_report": {
+      "path": "docs/reports/lastpage/own-li-TENC-stages-probe-20261012.json",
+      "sha256": "4918b540af4ca681ad91dbd0a2e0a339a6dbf3bcfbc648f915de44c6ccaec111"
+    },
+    "table1_refs": [
+      "PER:S1",
+      "EVT:L2",
+      "ACO:L1",
+      "PARAM:C13.01"
+    ],
+    "measured_failure_cause": "unknown",
+    "adoption": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "prior_phase_rows": [
+    {
+      "phase": "li_entry",
+      "start_s": 212.9572916666667,
+      "end_s": 213.06229166666665,
+      "F_RMS_dbfs": -16.22161886202639,
+      "I_RMS_dbfs": -16.235324961115808,
+      "I_minus_F_db": -0.013706099089416352,
+      "F_tension_median": -0.882376492023468,
+      "I_tension_median": -0.882376492023468,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_build",
+      "start_s": 213.06229166666665,
+      "end_s": 213.22429499999998,
+      "F_RMS_dbfs": -18.71278479136983,
+      "I_RMS_dbfs": -18.83852951639429,
+      "I_minus_F_db": -0.12574472502445697,
+      "F_tension_median": -0.8420004546642303,
+      "I_tension_median": -0.5931097269058228,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_recover",
+      "start_s": 213.22429499999998,
+      "end_s": 213.4152083333333,
+      "F_RMS_dbfs": -20.277354875058762,
+      "I_RMS_dbfs": -20.473907428722782,
+      "I_minus_F_db": -0.19655255366402433,
+      "F_tension_median": -1.02353036403656,
+      "I_tension_median": -0.7012985050678253,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_release",
+      "start_s": 213.4152083333333,
+      "end_s": 213.53020833333332,
+      "F_RMS_dbfs": -20.424917524951162,
+      "I_RMS_dbfs": -20.470380055834774,
+      "I_minus_F_db": -0.045462530883611685,
+      "F_tension_median": -0.9812315106391907,
+      "I_tension_median": -0.7812315225601196,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_descending",
+      "start_s": 213.53020833333332,
+      "end_s": 213.58541666666667,
+      "F_RMS_dbfs": -22.86582425648385,
+      "I_RMS_dbfs": -22.9624710977046,
+      "I_minus_F_db": -0.09664684122074826,
+      "F_tension_median": -0.011283094994723797,
+      "I_tension_median": 0.04867200553417206,
+      "auditory_force": "unknown"
+    }
+  ],
+  "prior_li_word_row": {
+    "word": 277,
+    "char": "里",
+    "context": 28,
+    "action": "TENC0→10→4→0",
+    "vowel_RMS_change_db": -0.09364160585404223,
+    "FCPE_abs_cents_p50": 0.24422199894549732,
+    "RMVPE_abs_cents_p50": 0.1499803636201807,
+    "auditory_status": "pending"
+  },
+  "old_receipt_exact": true,
+  "next_boundary": "No automatic TENC escalation, new combined controls or new synthesis; review existing conditional evidence before any next frozen candidate",
+  "unresolved_goal": "Desired li solidity and strength development remain unconfirmed; F is a working comparator only",
+  "new_models": 0,
+  "new_waveforms": 0,
+  "new_PCM_NPZ_reads": 0,
+  "new_measurements": 0,
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

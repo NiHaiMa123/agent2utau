@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "status": "proposed_not_applied",
+  "old_id_semantics_preserved": true,
+  "baseline_sha256": {
+    "atomic-manifestations.csv": "6a243754bc4d7f1c0aeca0a87486dc86b7cd88cbd5ea518c52f35b38f9c3d9d4",
+    "composite-descriptors.csv": "202c7c56d3c50013906305b3c9b448dfbda42bd38ed15ea1d5707ffc09d01fc9",
+    "openutau-controls.csv": "63cdc16fa0e2bd55719a48e58ed292bd2e6b16761055eb376f95e4ddf57e03e3",
+    "knowledge-table.json": "c998b5ea4b39648a5703c5818455140d7dc932cbb40095199b5a7ca9739d0962",
+    "conditional-responses.csv": "9ef9970a072490c7df4517a0a1355fae668c957361b98a753692ce5cde9abd69",
+    "conditional-responses.json": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821"
+  },
+  "namespaces": {
+    "dimension": {
+      "P1": {
+        "legacy": "legacy_dimension:P1",
+        "candidates": [
+          "ACO:P1"
+        ]
+      },
+      "P2": {
+        "legacy": "legacy_dimension:P2",
+        "candidates": [
+          "EVT:P2"
+        ]
+      },
+      "P3": {
+        "legacy": "legacy_dimension:P3",
+        "candidates": [
+          "EVT:P3"
+        ]
+      },
+      "P4": {
+        "legacy": "legacy_dimension:P4",
+        "candidates": [
+          "ACO:P4"
+        ]
+      },
+      "P5": {
+        "legacy": "legacy_dimension:P5",
+        "candidates": [
+          "ACO:P5",
+          "ACO:S7"
+        ]
+      },
+      "L1": {
+        "legacy": "legacy_dimension:L1",
+        "candidates": [
+          "ACO:L1",
+          "PER:L1"
+        ]
+      },
+      "L2": {
+        "legacy": "legacy_dimension:L2",
+        "candidates": [
+          "EVT:L2"
+        ]
+      },
+      "L3": {
+        "legacy": "legacy_dimension:L3",
+        "candidates": [
+          "ACO:L3"
+        ]
+      },
+      "L4": {
+        "legacy": "legacy_dimension:L4",
+        "candidates": [
+          "EVT:L4"
+        ]
+      },
+      "S1": {
+        "legacy": "legacy_dimension:S1",
+        "candidates": [
+          "ACO:S1",
+          "PER:S1"
+        ]
+      },
+      "S2": {
+        "legacy": "legacy_dimension:S2",
+        "candidates": [
+          "ACO:S2"
+        ]
+      },
+      "S3": {
+        "legacy": "legacy_dimension:S3",
+        "candidates": [
+          "ACO:S3"
+        ]
+      },
+      "S4": {
+        "legacy": "legacy_dimension:S4",
+        "candidates": [
+          "ACO:S4",
+          "EVT:S4"
+        ]
+      },
+      "S5": {
+        "legacy": "legacy_dimension:S5",
+        "candidates": [
+          "ACO:S5"
+        ]
+      },
+      "S6": {
+        "legacy": "legacy_dimension:S6",
+        "candidates": [
+          "EVT:S6"
+        ]
+      },
+      "R1": {
+        "legacy": "legacy_dimension:R1",
+        "candidates": [
+          "ACO:R1"
+        ]
+      },
+      "R2": {
+        "legacy": "legacy_dimension:R2",
+        "candidates": [
+          "ACO:R2",
+          "ACO:R6",
+          "ACO:R5"
+        ]
+      },
+      "R3": {
+        "legacy": "legacy_dimension:R3",
+        "candidates": [
+          "EVT:R3"
+        ]
+      },
+      "R4": {
+        "legacy": "legacy_dimension:R4",
+        "candidates": [
+          "ACO:R4",
+          "PER:R4"
+        ]
+      },
+      "T1": {
+        "legacy": "legacy_dimension:T1",
+        "candidates": [
+          "EVT:T1"
+        ]
+      },
+      "T2": {
+        "legacy": "legacy_dimension:T2",
+        "candidates": [
+          "ACO:T2"
+        ]
+      },
+      "T3": {
+        "legacy": "legacy_dimension:T3",
+        "candidates": [
+          "EVT:T3",
+          "PER:T3"
+        ]
+      },
+      "T4": {
+        "legacy": "legacy_dimension:T4",
+        "candidates": [
+          "EVT:T4"
+        ]
+      },
+      "T5": {
+        "legacy": "legacy_dimension:T5",
+        "candidates": [
+          "EVT:T5"
+        ]
+      },
+      "T6": {
+        "legacy": "legacy_dimension:T6",
+        "candidates": [
+          "EVT:T6",
+          "EVT:T8"
+        ]
+      },
+      "T7": {
+        "legacy": "legacy_dimension:T7",
+        "candidates": [
+          "EVT:T7",
+          "EVT:T9"
+        ]
+      },
+      "X1": {
+        "legacy": "legacy_dimension:X1",
+        "candidates": [
+          "ACO:X1",
+          "PER:X1"
+        ]
+      },
+      "X2": {
+        "legacy": "legacy_dimension:X2",
+        "candidates": [
+          "ACO:X2",
+          "ACO:X6",
+          "PER:X2"
+        ]
+      },
+      "X3": {
+        "legacy": "legacy_dimension:X3",
+        "candidates": [
+          "ACO:X3",
+          "PER:X3"
+        ]
+      },
+      "X4": {
+        "legacy": "legacy_dimension:X4",
+        "candidates": [
+          "ACO:X4",
+          "ACO:X7",
+          "PER:X4"
+        ]
+      },
+      "X5": {
+        "legacy": "legacy_dimension:X5",
+        "candidates": [
+          "ACO:R5",
+          "ACO:S3",
+          "ACO:S4",
+          "META:X5"
+        ]
+      }
+    },
+    "source": {
+      "S1": "SRC:01",
+      "S2": "SRC:02",
+      "S3": "SRC:03",
+      "S4": "SRC:04",
+      "S5": "SRC:05",
+      "S6": "SRC:06",
+      "S7": "SRC:07",
+      "S8": "SRC:08",
+      "S9": "SRC:09",
+      "S10": "SRC:10",
+      "S11": "SRC:11"
+    },
+    "code_mechanism": {
+      "M1": "CODE:01",
+      "M2": "CODE:02",
+      "M3": "CODE:03",
+      "M4": "CODE:04",
+      "M5": "CODE:05",
+      "M6": "CODE:06",
+      "M7": "CODE:07",
+      "M8": "CODE:08",
+      "M9": "CODE:09",
+      "M10": "CODE:10",
+      "M11": "CODE:11",
+      "M12": "CODE:12",
+      "M13": "CODE:13"
+    },
+    "project_evidence": {
+      "E1": "EVID:01",
+      "E2": "EVID:02",
+      "E3": "EVID:03",
+      "E4": "EVID:04",
+      "E5": "EVID:05",
+      "E6": "EVID:06",
+      "E7": "EVID:07",
+      "E8": "EVID:08",
+      "E9": "EVID:09"
+    },
+    "control_family": {
+      "C01": "CTRL:C01",
+      "C02": "CTRL:C02",
+      "C03": "CTRL:C03",
+      "C04": "CTRL:C04",
+      "C05": "CTRL:C05",
+      "C06": "CTRL:C06",
+      "C07": "CTRL:C07",
+      "C08": "CTRL:C08",
+      "C09": "CTRL:C09",
+      "C10": "CTRL:C10",
+      "C11": "CTRL:C11",
+      "C12": "CTRL:C12",
+      "C13": "CTRL:C13",
+      "C14": "CTRL:C14",
+      "C15": "CTRL:C15",
+      "C16": "CTRL:C16",
+      "C17": "CTRL:C17",
+      "C18": "CTRL:C18",
+      "C19": "CTRL:C19",
+      "C20": "CTRL:C20",
+      "C21": "CTRL:C21",
+      "C22": "CTRL:C22",
+      "C23": "CTRL:C23",
+      "C24": "CTRL:C24",
+      "C25": "CTRL:C25",
+      "C26": "CTRL:C26",
+      "C27": "CTRL:C27",
+      "C28": "CTRL:C28",
+      "C29": "CTRL:C29",
+      "C30": "CTRL:C30",
+      "C31": "CTRL:C31",
+      "C32": "CTRL:C32",
+      "C33": "CTRL:C33",
+      "C34": "CTRL:C34",
+      "C35": "CTRL:C35",
+      "C36": "CTRL:C36",
+      "C37": "CTRL:C37",
+      "C38": "CTRL:C38",
+      "C39": "CTRL:C39",
+      "C40": "CTRL:C40",
+      "C41": "CTRL:C41",
+      "C42": "CTRL:C42",
+      "C43": "CTRL:C43",
+      "C44": "CTRL:C44",
+      "C45": "CTRL:C45",
+      "C46": "CTRL:C46",
+      "C47": "CTRL:C47",
+      "C48": "CTRL:C48"
+    }
+  },
+  "second_layer_candidate_links": [
+    {
+      "record_id": "RESP-001",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-002",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-003",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-004",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-005",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-006",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-007",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-008",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-009",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "RESP-010",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "OBS-001",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "OBS-002",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "AUD-001",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    },
+    {
+      "record_id": "AUD-002",
+      "legacy_atoms": [],
+      "proposed_candidates": {},
+      "status": "candidate_links_not_new_observations"
+    }
+  ],
+  "rule": "Splits are candidates, not automatic assertions that every new entity occurred in each old experiment."
+}

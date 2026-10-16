@@ -1,0 +1,46 @@
+{
+  "status": "passed_with_explicit_auditory_gaps",
+  "new_feedback_submissions": 1,
+  "new_per_word_labels": 0,
+  "new_waveforms": 8,
+  "new_native_cached_contexts": 3,
+  "new_F0_calls": 4,
+  "reused_A_F0_arrays": 4,
+  "protected_references": 1343,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 622}",
+  "checks": [
+    {
+      "path": "runs/experiments/lastpage-author-voice-swap-20261011/evaluation/native-independent-check.json",
+      "sha256": "b9f06e83621c22697c987d753482b07d712ef62c32309ccba73a60737e6923ea"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-voice-swap-20261011/evaluation/fresh-independent-check.json",
+      "sha256": "d4775c09879c45da0fef6fd2eacc2da0bb63defdf153df20dc84d9dd5819098e"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-voice-swap-20261011/evaluation/delivery-independent-check.json",
+      "sha256": "4e6a641a710fb6865dc0f363198a7c4ad0eecb286e3dccd6249d64f32848060a"
+    }
+  ],
+  "sources": [
+    {
+      "path": "research/table2-confirmation/lastpage_author_voice_swap_20261011.py",
+      "sha256": "00977ee101d99e6ed95ac54306e7320b4bcc9c080d98cf98690dbfcfdc2ac2f3"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_author_voice_swap_20261011.py",
+      "sha256": "f9cf3895a9c8e6523618dca5b5176b2f44633922b31ea30344c2548bbfbc888c"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_author_voice_swap_20261011.py",
+      "sha256": "27adb052797d7deb2714e29afc18d759ae99243d8a17c60a29ef3d32443ada9e"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_author_voice_delivery_20261011.py",
+      "sha256": "c441d7740b9e034c081dd6afafbd4d5d8793d3b09d4b3a12f8961d2839250aff"
+    }
+  ],
+  "originals_preserved": true,
+  "agent_heard": false,
+  "measurement_validated": false
+}

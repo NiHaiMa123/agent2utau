@@ -1,0 +1,213 @@
+{
+  "stage": "2E-native",
+  "date": "2026-10-10",
+  "status": "historical_native_and_static_backend_checked_with_execution_gaps",
+  "baseline": {
+    "stage": "2E-native",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-native-20261010/snapshot-manifest.json",
+    "sha256": "e179643f83a15aa35167757af08002db9cfb7d9689f84f6ba9712e4ecd6222ac",
+    "run": "runs/research/table2-2e-native-check-20261010",
+    "test_run": "runs/test-results/table2-2e-native-20261010"
+  },
+  "stage_2E_complete": false,
+  "protocol_id": "T2D-SHFC-PATHS-01",
+  "protocol_version": 1,
+  "proof": {
+    "path": "runs/research/table2-2e-native-check-20261010/native-static-check.json",
+    "sha256": "504b132e7af10ffbb4719efa1aa5c8de4ddb30bc62f2f89c3636bf7f6f97acdb"
+  },
+  "protocol_bindings": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+      "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.md",
+      "sha256": "fac5ed0c9be88d584e14a99d7263776cc93d596a4137e31d61ceaaca96bd9afa"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2d_design.py",
+      "sha256": "75e0409af767ecb26e0c12216d601aac62541580bbe9364e49c893e5c7ce4f78"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2d.py",
+      "sha256": "2e210741f7d6b286f5a9cff2b9e8359f81f31709ab029652e3366b707e53639f"
+    }
+  ],
+  "implementation_bindings": [
+    {
+      "path": "research/table2-confirmation/freeze_stage_2e_native.py",
+      "sha256": "4879ee40b2bb6cd42e9f15d64a5d7856b57e07dc3169205459cc1b65e66191e4"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_native_preflight.py",
+      "sha256": "2993ba62bcde0bd2793c7d8aeaa9e03af83e19a79d99a9606caf485aba3239cc"
+    },
+    {
+      "path": "research/table2-confirmation/check_stage_2e_native.py",
+      "sha256": "84579e84a89223a0fe91a31b6569b95bfa18c2c98638014243e7065088f68f8c"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_adapter.py",
+      "sha256": "691bce20d735a6a76522916ccf709b25fbbae15daf3557df395b138b536241a5"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_runner.py",
+      "sha256": "cb5da1169671a2d36890eee0bfe3c81a2a1206aa28b2e0cafd971a278023411c"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_backend.py",
+      "sha256": "dcbe61e217c1c8338268d1e04438a27a92cb6eee1290ccb1d0049049bbaf6fd9"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2e_native.py",
+      "sha256": "6de999f289eeaa6250fbd811af4de176a0fc718a9eb4a20f06e70c0b3c4a839b"
+    },
+    {
+      "path": "tests/contracts/test_shfc_path_research.py",
+      "sha256": "7f1a80c7976586b462b5bbbaea918f543f32a391f8b46e467fb4f38614e601ab"
+    },
+    {
+      "path": "tests/contracts/test_shfc_native_preflight.py",
+      "sha256": "1835b52ceab11a9af493a0bc2bb25a8b026280e2f6971db0b0aad644c5b3ce79"
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/native_A/phrase_022.json",
+      "sha256": "1abaeec937f3cec32962c0cfc3c1bb290405a82291139d4bce6f4e816ddb144e"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/native_A/variance_022.json",
+      "sha256": "2886000f98ac7139adbcb7a8ada09c58893b5ffe025fbb78ea0dc91c0fa0b913"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-214_grid5/native_A/phrase_021.json",
+      "sha256": "442ffc52640b3422ba0e6809d84c30f95277d4dc2a17917f48e8c4c03ec5ea93"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-214_grid5/native_A/variance_021.json",
+      "sha256": "2043d3b114af85af4592073182bf57f6fb4f43dcaa6460c0c75281c757c7b79f"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/native_C/phrase_022.json",
+      "sha256": "9cfc8ee56284892c2270b431a247b003238c7a7bfd75e93a3bb882a6f497a49e"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/native_C/variance_022.json",
+      "sha256": "14e607ae45c97ad68effc8c324090dc765d3895f9ff0ad217901375a0d79b439"
+    },
+    {
+      "path": "projects/latest/lastpage_loudness_v02.ustx",
+      "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-214_grid5/A.ustx",
+      "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/C.ustx",
+      "sha256": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/frozen_runtime.json",
+      "sha256": "0cca2eb80929edfbf42fdfd2330c66b0581b3151ae7e511ba2109670f5039bc0"
+    }
+  ],
+  "conditions": [
+    {
+      "condition_id": "current-word-225",
+      "historical_identity": {
+        "real_phones": 20,
+        "padded_segments": 22,
+        "total_frames": 421,
+        "target_phone_indices": [
+          8,
+          9
+        ],
+        "complete_phone_clock_exact": true,
+        "native_float32_frame_ms": 11.609977722167969,
+        "sample_period_ms": 11.609977324263038,
+        "vocabulary_token_semantics_revalidated": false,
+        "current_native_execution": false
+      },
+      "sampling": {
+        "changed_frames": 32,
+        "sampled_peak_cents": -400.0,
+        "sampled_support_s": [
+          183.74102192,
+          184.100931238
+        ],
+        "scope": "local IL mathematical reconstruction, not new installed export"
+      },
+      "new_native_export_matches": false,
+      "historical_C_sample_exact": true
+    },
+    {
+      "condition_id": "current-word-214",
+      "historical_identity": {
+        "real_phones": 21,
+        "padded_segments": 23,
+        "total_frames": 594,
+        "target_phone_indices": [
+          3,
+          4
+        ],
+        "complete_phone_clock_exact": true,
+        "native_float32_frame_ms": 11.609977722167969,
+        "sample_period_ms": 11.609977324263038,
+        "vocabulary_token_semantics_revalidated": false,
+        "current_native_execution": false
+      },
+      "sampling": {
+        "changed_frames": 33,
+        "sampled_peak_cents": -400.0,
+        "sampled_support_s": [
+          175.96832203533336,
+          176.33984133133333
+        ],
+        "scope": "local IL mathematical reconstruction, not new installed export"
+      },
+      "new_native_export_matches": false,
+      "historical_C_sample_exact": null
+    }
+  ],
+  "confirmed_scope": {
+    "historical_A_complete_real_phones": 41,
+    "historical_A_frame_counts": [
+      421,
+      594
+    ],
+    "historical_C_integer_curve_and_acoustic_and_variance_SHFC_samples_exact": true,
+    "actual_speaker_layout_checks": 6,
+    "current_runtime_SHA": 47,
+    "current_ONNX_graph_declarations": 3,
+    "actual_record_identity_negative_controls": 6,
+    "synthetic_research_contract_tests": 55
+  },
+  "corrected": [
+    "Boolean retake tensor binding accepted with dtype/content SHA",
+    "Exact native float32 frame representation, not double period equality",
+    "Model scalar steps/depth feed reshape only; no value/dtype casts",
+    "Local variance interpolation double*0.01 before float32; 3 old-C samples differ from float32 cents/100"
+  ],
+  "correction_scope": "Code representation corrections only; sealed dose/anchors/grid/support/budget unchanged; no tolerance widening",
+  "execution": {
+    "new_native_exports": 0,
+    "variance_inferences": 0,
+    "acoustic_vocoder_waveforms": 0,
+    "delivered_PCM": 0,
+    "new_feedback": 0,
+    "generic_rules": 0,
+    "measurement_validated_upgrades": false
+  },
+  "remaining": [
+    "Fresh A/S export and installed sampling for both conditions (zhi S has never been exported)",
+    "Current linguistic encoder/new variance, acoustic and vocoder execution; no old prediction feed",
+    "Token vocabulary contents/encoder provenance and source unknown remain explicit",
+    "Real seeded waveform repeat, nonfinite/clipping and dual-F0 coverage checks",
+    "Native DYN, fixed gains1.5/.7, PCM encoding, phrase/focus/neighbor boundaries",
+    "Human listening and feedback; no new sensory conclusion or generalization"
+  ],
+  "next": "2E finite execution prerequisites and explicitly authorized new batch; 2F–2H not executed"
+}

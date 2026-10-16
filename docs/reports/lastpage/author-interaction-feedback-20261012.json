@@ -1,0 +1,182 @@
+{
+  "status": "author_interaction_feedback_closed_reverse_voice_design_frozen",
+  "feedback": {
+    "verbatim": "D比B好一点点，很细微，比c差很多",
+    "submissions": 1,
+    "date": "2026-10-12",
+    "response_record": "RESP:LASTPAGE-AUTHOR-INTERACTION-01",
+    "audio": {
+      "D": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/D_two_phrases.wav",
+        "sha256": "973036745dc3cd0bdb39f2c5aea9dce863e84a2f3ee9c8e2de450b0e17ec8967"
+      },
+      "B": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/B_two_phrases.wav",
+        "sha256": "4d805db44415f5ebe7ee1eaa5578fba108fefdc3a849885171be3d0fd1f354f5"
+      },
+      "C": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/C_two_phrases.wav",
+        "sha256": "994737dd7cbadd1942ce66bd5667efb2b6629ed522e3a2081da0f8584bba2886"
+      }
+    },
+    "relations": [
+      {
+        "comparison": "D-B",
+        "direction": "D better",
+        "magnitude_verbatim": "好一点点，很细微",
+        "magnitude": "very small"
+      },
+      {
+        "comparison": "D-C",
+        "direction": "D worse",
+        "magnitude_verbatim": "差很多",
+        "magnitude": "large"
+      }
+    ],
+    "perceived_axis": "comparative quality in ongoing solidity task; separate solidity/articulation/level dimensions not restated",
+    "reply_is_not_two_independent_feedback_submissions": true,
+    "individual_word_labels_added": 0,
+    "D_vs_own_original": "not directly stated in latest reply",
+    "A_vs_C_direction": "unknown; previous close statement retained",
+    "side_effects_and_absolute_acceptance": "unknown",
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "relationships": [
+    {
+      "comparison": "A/P/N/PN vs own",
+      "factor": "PITD/note.pitch offsets and snap",
+      "finding": "all four author variants more solid than own",
+      "magnitude": "no inter-version ranking",
+      "source": {
+        "path": "docs/reports/lastpage/author-pitch-feedback-20261011.json",
+        "sha256": "f93be06fc57ff20b9fb1784f1133c4170a56dedc8392fdf1834406250c28493f"
+      }
+    },
+    {
+      "comparison": "B-A",
+      "factor": "speaker under authored controls",
+      "finding": "B worse than A; B slightly better than own by contextual referent",
+      "magnitude": "not numerically graded",
+      "source": {
+        "path": "docs/reports/lastpage/author-voice-feedback-20261011.json",
+        "sha256": "c8a7839ecb61872631685ebe0851043c74b444be1ce253fd30da31470f45fd19"
+      }
+    },
+    {
+      "comparison": "C-A",
+      "factor": "manual three-channel group under authored speaker",
+      "finding": "C very close to A",
+      "magnitude": "close, not identical or graded interval",
+      "source": {
+        "path": "docs/reports/lastpage/author-controls-feedback-20261012.json",
+        "sha256": "253088e263f580b599ad72b0998c9531081c083ee7fe810295294bc9ad80caae"
+      }
+    },
+    {
+      "comparison": "D-C",
+      "factor": "speaker under zero manual group",
+      "finding": "D much worse than C",
+      "magnitude": "large",
+      "source": {
+        "path": "runs/research/lastpage-author-interaction-feedback-20261012/feedback/feedback.json",
+        "sha256": "17ee0c7b25ed191c0a482d7628dd781271e7efcbffe2c370c7ebafaf30aa42eb"
+      }
+    },
+    {
+      "comparison": "D-B",
+      "factor": "manual three-channel group under own speaker",
+      "finding": "D slightly better than B",
+      "magnitude": "very small",
+      "source": {
+        "path": "runs/research/lastpage-author-interaction-feedback-20261012/feedback/feedback.json",
+        "sha256": "17ee0c7b25ed191c0a482d7628dd781271e7efcbffe2c370c7ebafaf30aa42eb"
+      }
+    }
+  ],
+  "findings": [
+    "Latest reply contains two explicitly unequal comparison magnitudes; preserve very small improvement vs B and large degradation vs C.",
+    "Under zero manual group, changing only speaker composition and its predictions/output causes a substantial reported preference gap.",
+    "Under own speaker, removing the three manual deltas yields a very small reported improvement; it does not restore author-speaker quality.",
+    "Earlier B-A preference and current D-C gap show speaker contribution in both tested control settings. This is local, not proof of a universal dominant factor.",
+    "No exact perceptual interaction magnitude or absence can be computed from ordinal close/slight/large replies; numerical RMS interaction remains a proxy.",
+    "Speaker contrasts include altered output levels and all three predictions; no matched-loudness physiological or unique-cause claim.",
+    "Own-context Bright40/Cute60 has not been tested: earlier own Normal75/Bright25 rejection is a different composition.",
+    "Musical first tones/stages and phone clocks differ across author/own, as already reviewed; preserve them while first testing speaker contribution under own conditions."
+  ],
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-AUTHOR-INTERACTION-01",
+    "append_only_feedback": true,
+    "feedback": {
+      "verbatim": "D比B好一点点，很细微，比c差很多",
+      "submissions": 1,
+      "date": "2026-10-12",
+      "response_record": "RESP:LASTPAGE-AUTHOR-INTERACTION-01",
+      "audio": {
+        "D": {
+          "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/D_two_phrases.wav",
+          "sha256": "973036745dc3cd0bdb39f2c5aea9dce863e84a2f3ee9c8e2de450b0e17ec8967"
+        },
+        "B": {
+          "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/B_two_phrases.wav",
+          "sha256": "4d805db44415f5ebe7ee1eaa5578fba108fefdc3a849885171be3d0fd1f354f5"
+        },
+        "C": {
+          "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/C_two_phrases.wav",
+          "sha256": "994737dd7cbadd1942ce66bd5667efb2b6629ed522e3a2081da0f8584bba2886"
+        }
+      },
+      "relations": [
+        {
+          "comparison": "D-B",
+          "direction": "D better",
+          "magnitude_verbatim": "好一点点，很细微",
+          "magnitude": "very small"
+        },
+        {
+          "comparison": "D-C",
+          "direction": "D worse",
+          "magnitude_verbatim": "差很多",
+          "magnitude": "large"
+        }
+      ],
+      "perceived_axis": "comparative quality in ongoing solidity task; separate solidity/articulation/level dimensions not restated",
+      "reply_is_not_two_independent_feedback_submissions": true,
+      "individual_word_labels_added": 0,
+      "D_vs_own_original": "not directly stated in latest reply",
+      "A_vs_C_direction": "unknown; previous close statement retained",
+      "side_effects_and_absolute_acceptance": "unknown",
+      "adoption": false,
+      "agent_heard": false,
+      "measurement_validated": false
+    },
+    "prior_report": {
+      "path": "docs/reports/lastpage/author-interaction-20261012.json",
+      "sha256": "276a14ec50e742b7c030422449bbc8abeb8eda8346d9c17bd854c408a9e5fbb2"
+    },
+    "table1_refs": [
+      "PER:S1",
+      "PARAM:C20.01",
+      "PARAM:C20.02",
+      "PARAM:C20.03",
+      "PARAM:C20.04",
+      "PARAM:C20.05",
+      "PARAM:C11.01",
+      "PARAM:C12.01",
+      "PARAM:C13.01"
+    ],
+    "general_rule_validated": false,
+    "measurement_validated": false,
+    "adoption": false
+  },
+  "next_protocol": {
+    "path": "runs/research/lastpage-author-interaction-feedback-20261012/design/next-own-voice-protocol.json",
+    "sha256": "c9813bc05a9b97793412283fbec312e23018e1e10f47e00d788b7fc62b254cc1"
+  },
+  "new_native_calls": 0,
+  "new_models": 0,
+  "new_PCM_NPZ_reads": 0,
+  "new_waveforms": 0,
+  "agent_heard": false
+}

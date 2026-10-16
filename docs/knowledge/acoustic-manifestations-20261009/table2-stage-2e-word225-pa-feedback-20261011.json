@@ -1,0 +1,210 @@
+{
+  "feedback_id": "T2E-W225-PA-20261011",
+  "user_message_verbatim": "k4力量感大于k1，没有破音",
+  "message_source": "human user replying to 05 K4→K1 and 06 K1→K4 paired mono vocals in current chat",
+  "condition_id": "current-word-225",
+  "lyric": "抱",
+  "comparison": "P-A",
+  "feedback_scope": "aggregate report on the current P/A focal vocal presentation; not mixed-audio, full-song or all-pair acceptance",
+  "per_order_results": "not separately stated",
+  "actual_listened_set": "not separately enumerated",
+  "current_comparative_result": {
+    "stronger_power_code": "K4",
+    "reference_code": "K1",
+    "stronger_power_path": "P",
+    "reference_path": "A"
+  },
+  "current_break_result": {
+    "code": "K4",
+    "research_path": "P",
+    "audible_break_user_report": "none_in_current_presentation"
+  },
+  "current_K1_break_result": "not separately repeated; prior S/A feedback reported none for K1",
+  "preserved_power_relations": [
+    {
+      "greater": "K3=S",
+      "lesser": "K2=D",
+      "basis": "explicit prior cross-presentation feedback"
+    },
+    {
+      "greater": "K2=D",
+      "lesser": "K1=A",
+      "basis": "prior D/A paired feedback"
+    }
+  ],
+  "new_power_relation": {
+    "greater": "K4=P",
+    "lesser": "K1=A",
+    "basis": "current P/A paired feedback"
+  },
+  "unknown_power_relations": [
+    [
+      "K4=P",
+      "K2=D"
+    ],
+    [
+      "K4=P",
+      "K3=S"
+    ]
+  ],
+  "power_order_scope": "local partial ordinal relations; no complete four-version power ranking or numerical strength scale",
+  "preferred_version": "original four-version K3 preference preserved; not used to infer S>P in power",
+  "inference_boundary": "P-A supports a local perceptible power response in this joint-prediction-group research counterfactual with unchanged direct acoustic F0 input; not a single VOIC/BREC/TENC effect, physiological mechanism, universal rule, quantitative contribution or interaction proof",
+  "unreported_auditory_dimensions": [
+    "subjective_loudness",
+    "objective_loudness",
+    "diction",
+    "body",
+    "naturalness",
+    "absolute_usability"
+  ],
+  "listening_metadata": {
+    "device": "unknown",
+    "player": "unknown",
+    "volume": "unknown",
+    "actual_order": "unknown",
+    "repetitions": "unknown",
+    "both_order_completion": "unknown",
+    "blinding": "unknown"
+  },
+  "paired_comparison_groups_with_explicit_feedback": 3,
+  "frozen_main_comparison_groups": 10,
+  "cross_presentation_comparisons_do_not_complete_fixed_pairs": true,
+  "remaining_gaps": [
+    "fixed S-D paired presentation",
+    "S-P",
+    "mixed-audio feedback",
+    "unreported dimensions and order-specific results"
+  ],
+  "word214_status": "no perceptible difference reported; no expanded validation",
+  "cumulative_new_feedback": 5,
+  "schema_version": 1,
+  "status": "partial_human_feedback_recorded",
+  "stage_2E_complete": false,
+  "record_created_utc": "2026-10-11T07:35:40.544431+00:00",
+  "user_message_timestamp": "unknown",
+  "presented_audio": [
+    {
+      "presentation": {
+        "condition_id": "current-word-225",
+        "order": 5,
+        "direction": "P-A",
+        "codes": [
+          "K4",
+          "K1"
+        ],
+        "segment_samples": 93621,
+        "gap_samples": 26460,
+        "second_start_s": 2.7229251700680273,
+        "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-05-K4-K1.wav",
+        "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-05-K4-K1.wav"
+      },
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-05-K4-K1.wav",
+      "sha256": "731f6d04092f9493070b9822ee2aa0089bf35ff052877894c060068c17e3cc12",
+      "samples": 213702,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6629869937896729,
+      "max_encoding_error": 1.1897282092832029e-07
+    },
+    {
+      "presentation": {
+        "condition_id": "current-word-225",
+        "order": 6,
+        "direction": "A-P",
+        "codes": [
+          "K1",
+          "K4"
+        ],
+        "segment_samples": 93621,
+        "gap_samples": 26460,
+        "second_start_s": 2.7229251700680273,
+        "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-06-K1-K4.wav",
+        "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-06-K1-K4.wav"
+      },
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-06-K1-K4.wav",
+      "sha256": "edd87c45b1a50344f31cb0872c20011d2c7dde2d10e44743f3338e6ffe45dd2b",
+      "samples": 213702,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6629869937896729,
+      "max_encoding_error": 1.1897282092832029e-07
+    }
+  ],
+  "preserved_feedback": [
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/feedback.json",
+      "sha256": "1274aafa16b423052d7f52884b0caf8dcfda4ba69e5bb78a792a114d2a864ca3"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/feedback.json",
+      "sha256": "f252123e5a0a206dfd2ea39c01044b2ff8ccb5722617f9c7c228731581d09564"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/feedback.json",
+      "sha256": "4ca0c92a7f3e9ebdb20ceab1c98905d5c2fec60c00fe8461a1c115f55aaff0e5"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/feedback.json",
+      "sha256": "8f187db5054205fba4ea85f794976d21bfc3f952e1d3f9811d421c536abb4148"
+    }
+  ],
+  "source_seals": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+      "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+    },
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/completion-manifest.json",
+      "sha256": "4800a9b8270d2da1edfbeb629834d0b5841cae9f7dd041d2344a15215046d25c"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/completion-manifest.json",
+      "sha256": "4e20e662350519ecb5103b6a36079ea2b06706f8083648ec7993cc14c01dbafc"
+    }
+  ],
+  "packaging": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/pcm-packaging.json",
+    "sha256": "6517c3a8d5dfbf975de42240dc8ee5b45eb305fb1527cf8cdac6a68c90e1c7b5"
+  },
+  "protocol": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+    "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+  },
+  "pre_update_snapshot": {
+    "path": "runs/research/table2-word225-pa-feedback-20261011/before/snapshot-manifest.json",
+    "sha256": "10eba58a3944c996f6c630a19c053d037f62e40587ec55579b5f72d99bc06734"
+  },
+  "protected_baseline": {
+    "stage": "2E-execution",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/snapshot-manifest.json",
+    "sha256": "01dffada2ee989a45e6e48f79dbd5ada8dd67d0bc8c475dd54f2a14945e47c46",
+    "run": "runs/experiments/table2-shfc-paths-20261011",
+    "test_run": "runs/test-results/table2-2e-execution-20261011"
+  },
+  "this_record_new_feedback": 1,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "production_song_changed": false,
+  "skill_changed": false,
+  "automatic_expansion": false,
+  "recorder": {
+    "path": "research/table2-confirmation/record_stage_2e_feedback_supplement.py",
+    "sha256": "0f799dcb03fc51821f821cbfc8c37df4f83888802d0eba9f018b46e5dce4ba21"
+  },
+  "explicit_feedback_specification": {
+    "path": "research/table2-confirmation/stage_2e_word225_pa_feedback_20261011.json",
+    "sha256": "6768f91839e6cf7119d48f4c1569cf9b7efcb238b173de16a23231eb3b897b44"
+  }
+}

@@ -1,0 +1,414 @@
+{
+  "date": "2026-10-10",
+  "stage": "2A",
+  "status": "frozen_before_record_audit",
+  "files": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "sha256": "c2cbd6b3a3c14fe144412074cff644111c3b76cbf49cbaf2bbd48742767ccc54"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "5a7b436fbdb5bd39d52dd7b26990d16598b491d408d50ed19e17f4c975cb7e85"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "sha256": "f30555954cd8d96d0d388e599f91611a2c70556667d48efb282e77168bd3e525"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/response-coverage.csv",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/response-coverage.csv",
+      "sha256": "09c20f2debca16e9d66fe836ef4a92cf02618c0f7a01959381915d2814674278"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/response-source-audit.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/response-source-audit.json",
+      "sha256": "9775cdee10562db59b85c0b2947ebaec5319206a44329daec8628ab75ed600d2"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/id-migration.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/id-migration.json",
+      "sha256": "5b66fd18559684ef40834931082d44998aba6ecd6779a8e30fe98de8e4529ee2"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "sha256": "459f8f8264f13f8a115dc60fcf205cd89405bfa35cc222670614847b4d7cb8c3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/control-details.json",
+      "sha256": "43f9295a9926f866ce3af0cba890891d64a68e5d7f8b4b3619e2f69d96e87a6d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "sha256": "1d6b243a8b3a8407e06332454961b74d33480d719ba36eb7c314b683747250e5"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/context-schema.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/context-schema.json",
+      "sha256": "db86c999f68804dcd430623b6d94df515f60f4974272fecd5ae84b6506ff6407"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-consolidation.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/table1-consolidation.json",
+      "sha256": "2bb13553d6ab089bf9385bcdbbf5993e54f3e0a104501845ab6167bb0aaaf40d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-execution-audit.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/table1-execution-audit.json",
+      "sha256": "c260d24d6aa5d1723f03644f5aa0f7b50a6959262e051896fa67833a1ab4ea03"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "7f2489be00ad0091b10d1aa03f084bb1044bfa3523ab048126989960ab90bffd"
+    },
+    {
+      "path": "AGENTS.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/AGENTS.md",
+      "sha256": "9f48ef3f7c29a47abc8d7455efa57cb9580ea369ad0bee2b19a8a71708362669"
+    },
+    {
+      "path": "README.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/README.md",
+      "sha256": "8cc04397e65ab107b78b218bdf2224a780bbe3363931879e2e6e20cc3c255646"
+    },
+    {
+      "path": "plan.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/plan.md",
+      "sha256": "b4bbc50fc633fbbb518d0040a6be6f14febb1a269e67978d71fba8a9335eb751"
+    },
+    {
+      "path": "plan-table2.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2a-20261010/plan-table2.md",
+      "sha256": "f01da48b82b47e596ac2bfa27dc8c5a169cfbd181bfd6e441cab9c69facee973"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "docs/lastpage-cross-condition-study-20261008.md",
+      "sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "docs/lastpage-guo-phoneme-audit-20261008.md",
+      "sha256": "cbd27a56a6a577bdbe8794fe50fa834c1fd8a73023720863819bbae218ecb1f1",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "docs/lastpage-guo-positive-comparison-20261008.md",
+      "sha256": "a04e9719723a433a0ccbbd14c615b394ead2e02d3c3e938913f40856075f13a0",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "docs/lastpage-guo-register-probe-20261008.md",
+      "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "docs/lastpage-shfc-controlled-probe-20261008.md",
+      "sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "docs/lastpage-tenc-controlled-probe-20261008.md",
+      "sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+      "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/cohort.json",
+      "sha256": "52f0006f56a6b4687f1b6efcd57aa0200053caa72cdd2aacbd8e211bbcd9d454",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/completion_manifest.json",
+      "sha256": "4a7a4d944d0a4ed6fd284e178f1006dce7cf14f280467a175d9dddab4d89be39",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/delivery_check.json",
+      "sha256": "20685d98822748dc0129ce7496b78845b6f43522f65471a7b1d37b37c6ef25ac",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/frozen_runtime.json",
+      "sha256": "0cca2eb80929edfbf42fdfd2330c66b0581b3151ae7e511ba2109670f5039bc0",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+      "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+      "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_guo_feedback_20261008/feedback.json",
+      "sha256": "b785f9256619d54a990a6680bbaaba77a2c603ca12bab2c7c770d8cca2f2bb39",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/completion_manifest.json",
+      "sha256": "1982fd6fdb42f74bce2872a3c236aa74e23dfd4be58d9fede784d45fc755dfa5",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/delivery_check.json",
+      "sha256": "8cb48f1def08a3dc9c7913db42cb3607f8e5f0f9d68513a9fe0f6888ad78974e",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/intervention.json",
+      "sha256": "19fc65294428fca874d07bdd050500b4886c79687bada2a32cf1926253e3dd9b",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/phone_response.json",
+      "sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_feedback_20261008/feedback.json",
+      "sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/completion_manifest.json",
+      "sha256": "f58be01cadca64f1bb6ad9a426aca40664c1c0a69dac42e361a0308e8dd737f0",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/delivery_check.json",
+      "sha256": "c46a77be1b16f41c225061eb450f554a4496d8a84ae343032655e3229ac2cbf2",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/intervention.json",
+      "sha256": "db97c991b3afb2a43ccf8f4eb7d2d0aaa4bdb6bd6e149752e831fe198a4637f3",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/neighbor_response.json",
+      "sha256": "ae84a3d4b803900433042859d491dc60cb06b81676939e19aaf1af1d06dbd164",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/onset_response.json",
+      "sha256": "09446d594b135dcd9770b9a20ddc4e1a6e7a4bb1eb8f31cfaeff4ef9f2fcfe1c",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/completion_manifest.json",
+      "sha256": "b41c6d456b04bc2e42e98f44296d0ef9452ca979d9aca60542d32d2c2825c5a7",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/delivery_check.json",
+      "sha256": "59fc09d461e4fe75b0d07808f5fe00024aa801c38a2d73aec83a29a29882c5f1",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/intervention.json",
+      "sha256": "349532fdb206f0f35a86a99e275d07efb811010fcbab87e0d34369c894c2da25",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/prediction_response.json",
+      "sha256": "9da5d71a3fdff615f0123b3e7b94b1d54d3f928d8b1a301e0f180c4d288e8af3",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/verification.json",
+      "sha256": "98a06ab85501f4d17123eefffd04123c2c635d8ba12ef0016c5e5dd39b056c5d",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/actual_dual_f0.json",
+      "sha256": "005fcbb06e20893c096202af764cf7e88a2c712b55efd5c74009d092cc26cdfe",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/completion_manifest.json",
+      "sha256": "5c8c765b6a00bbd417ad139970affe508fdce8416947c25081ad866136451950",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/delivery_check.json",
+      "sha256": "e4893137db651fc64c6e98fc49d716f2e4a2953630d371a3cc8daf4563355e3e",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/intervention.json",
+      "sha256": "7e7ef05dde1c872117c4f87d2b063be4f6fd6b1c66fd4ba0c2eb6f48d133284d",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/verification.json",
+      "sha256": "42d3c498bf80bc86d74ac4784b83127f55360d02b6fdd15cb4ced5fb1b429e39",
+      "available_at_freeze": true,
+      "origin": "original_table2_source_audit"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/frozen_dependencies.json",
+      "sha256": "b9d4ec103a9b458d7a6b2e4e1222c67a315175290a13497d5846faf1e2eaee79",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_tenc_feedback_20261008/user_feedback.json",
+      "sha256": "77e143f1a0491779544945a2e39a9a637c8e3aac7a9c60fc592c6b60d88a59ef",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/frozen_runtime.json",
+      "sha256": "cc8e4911fc50c67a31132d63c7506ad59ce37c934e4b78b230c1ae0248ab7ef2",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_shfc_artifact_audit_20261008/feedback.json",
+      "sha256": "9d61b4534731c7af025812b27064fbcbe95f5276aa5e58e2832ac877088b3dea",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_shfc_artifact_audit_20261008/audit.json",
+      "sha256": "ee46e76a71826122f27a93899adb399ec69f2bbaa53052f2e9295bacc4692a8e",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_shfc_artifact_audit_20261008/completion_manifest.json",
+      "sha256": "e2a923461043e2d40014c4a76193d87067501fe463c30c464e84cb2e39b07c18",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/frozen_runtime.json",
+      "sha256": "cc8e4911fc50c67a31132d63c7506ad59ce37c934e4b78b230c1ae0248ab7ef2",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/native_isolation.json",
+      "sha256": "23f6796841243949b85f1e7d381a80ede70c6bf02ba2fc063e17dc6f10da1ba0",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/frozen_runtime.json",
+      "sha256": "cc8e4911fc50c67a31132d63c7506ad59ce37c934e4b78b230c1ae0248ab7ef2",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/native_isolation.json",
+      "sha256": null,
+      "available_at_freeze": false,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_guo_positive_comparison_20261008/comparison.json",
+      "sha256": "3c3c31ba4e764f83fb05c19bd4bdfc20f1a6be33b48636be4fcf02311fb374e4",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+      "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_guo_positive_comparison_20261008/completion_manifest.json",
+      "sha256": "5577ac79dbd0121b842a39ca035e757259b4c65e9900bed306a92ed6fccc4ccb",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_guo_phoneme_audit_20261008/audit.json",
+      "sha256": "cc8e32fc455c12de8a5b123014c40a5d10ca65a2ada19d5d19e7195510b119f8",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_guo_phoneme_audit_20261008/comparison.json",
+      "sha256": "3c64e7edad5206daf55891397dd9799606f346581ab71c4aff10179e7bd61e07",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    },
+    {
+      "path": "runs/lastpage_guo_phoneme_audit_20261008/completion_manifest.json",
+      "sha256": "702e46e7e566d939c4fa6ebefecd0d181357f3c753bdf194e622ffd6694e55aa",
+      "available_at_freeze": true,
+      "origin": "existing_source_newly_bound_by_2A_not_new_execution"
+    }
+  ],
+  "record_counts": {
+    "responses": 10,
+    "observations": 2,
+    "audits": 2
+  },
+  "no_audio_model_array_copies": true,
+  "old_runs_and_original_reports_unchanged": true,
+  "snapshot_link_resolution": "Interpret archived document links at their original path; exact archived bytes not rewritten."
+}

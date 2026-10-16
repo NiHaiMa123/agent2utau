@@ -1,0 +1,58 @@
+{
+  "record_id": "RESP:EXECUTION-REVIEW-20261015",
+  "record_type": "technical_process_implementation_not_auditory_response",
+  "report": {
+    "path": "docs/skill-execution-review-results.md",
+    "sha256": "3f14fd09eec1b47e1b40e1e6aa589c43518c78422a8e3be4e5f010a537592271"
+  },
+  "requirement": {
+    "path": "docs/skill-execution-review-requirements.md",
+    "sha256": "011716ca71ba0efda3f2805cb9e5898318f2be4e9ef1132a2869526ef323a212"
+  },
+  "status": "execution_review_implemented_transfer_unverified",
+  "tests": {
+    "passed": 194,
+    "failed": 0,
+    "receipt": {
+      "path": "runs/review/skill-execution-20261015/tests-delivery.xml",
+      "sha256": "48f374ba234063dee72e37c184d7d2b6318eaff74a87ab7d76ded80382c06d39"
+    }
+  },
+  "existing_project": {
+    "vowel_groups": 371,
+    "generated_views": 374,
+    "diagnostic_opened": 3,
+    "formal_completed": 0,
+    "forward_ledger": "missing",
+    "execution_complete": false,
+    "receipt": {
+      "path": "runs/review/skill-execution-20261015/actual-project-v3/review-final/review.json",
+      "sha256": "9b622890fe4752246b9a02e36c7d89723fa810522ab9d61fd2cbc921866163ee"
+    }
+  },
+  "synthetic_native_probe": {
+    "vowel_groups": 3,
+    "actual_image_reviews": 3,
+    "execution_complete": true,
+    "native_max_error_c": 0.49901097459769517,
+    "receipt": {
+      "path": "runs/review/skill-execution-20261015/native-probe-v3/review-final/review.json",
+      "sha256": "fd936dc76208870143324a605154daaca1608459bec5f4e23942fbf0ea6f3e45"
+    }
+  },
+  "skill": {
+    "path": "runs/review/skill-execution-20261015/R0-final-skill.json",
+    "sha256": "ebe895b4266f11d614ac0ca6de505ddc1a8ed6849a255aca1dc2ece07075e32d"
+  },
+  "version": {
+    "path": "runs/review/skill-execution-20261015/final-version.json",
+    "sha256": "4e764bf8a6e8e7334e79b57654a8cc6d3f4e49a2f9fcdc2d7449b7b9eaf94878"
+  },
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "musical_quality": "unverified",
+  "transfer": "unverified",
+  "listening": "unknown",
+  "new_singing_audio": 0,
+  "reference_audit": "registered roles/files and literal reads only; dynamic sources and prior exposure unknown"
+}

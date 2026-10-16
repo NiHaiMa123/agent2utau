@@ -1,0 +1,1547 @@
+{
+  "status": "author_controls_feedback_closed_music_timing_reviewed",
+  "feedback": {
+    "verbatim": "很接近a了",
+    "submissions": 1,
+    "date": "2026-10-12",
+    "response_record": "RESP:LASTPAGE-AUTHOR-CONTROL-NEUTRAL-01",
+    "candidate": {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/C_two_phrases.wav",
+      "sha256": "994737dd7cbadd1942ce66bd5667efb2b6629ed522e3a2081da0f8584bba2886"
+    },
+    "baseline": {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/A_two_phrases.wav",
+      "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+    },
+    "finding": "C perceived very close to author A",
+    "scope": "one aggregate two-phrase comparison; contextual referent C from preceding labeled delivery",
+    "identical_or_no_difference": "unknown: close is not identical",
+    "explicit_solidity_dimension": "inferred from ongoing solidity comparison; not separately restated",
+    "exact_C_vs_own_rank": "unknown: not directly stated in this reply",
+    "break_articulation_level_side_effects": "unknown",
+    "individual_word_labels_added": 0,
+    "absolute_acceptance": "unknown",
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-AUTHOR-CONTROL-NEUTRAL-01",
+    "append_only_feedback": true,
+    "feedback": {
+      "verbatim": "很接近a了",
+      "submissions": 1,
+      "date": "2026-10-12",
+      "response_record": "RESP:LASTPAGE-AUTHOR-CONTROL-NEUTRAL-01",
+      "candidate": {
+        "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/C_two_phrases.wav",
+        "sha256": "994737dd7cbadd1942ce66bd5667efb2b6629ed522e3a2081da0f8584bba2886"
+      },
+      "baseline": {
+        "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "finding": "C perceived very close to author A",
+      "scope": "one aggregate two-phrase comparison; contextual referent C from preceding labeled delivery",
+      "identical_or_no_difference": "unknown: close is not identical",
+      "explicit_solidity_dimension": "inferred from ongoing solidity comparison; not separately restated",
+      "exact_C_vs_own_rank": "unknown: not directly stated in this reply",
+      "break_articulation_level_side_effects": "unknown",
+      "individual_word_labels_added": 0,
+      "absolute_acceptance": "unknown",
+      "adoption": false,
+      "agent_heard": false,
+      "measurement_validated": false
+    },
+    "prior_report": {
+      "path": "docs/reports/lastpage/author-control-neutral-20261011.json",
+      "sha256": "a481ed9395c3c5098ab15065d4e67b42bd9a0562d038f0ec94faea25dff8f5db"
+    },
+    "table1_refs": [
+      "PER:S1",
+      "PARAM:C11.01",
+      "PARAM:C12.01",
+      "PARAM:C13.01"
+    ],
+    "SHFC_actual_intervention_frames": 0,
+    "measurement_validated": false,
+    "general_rule_validated": false,
+    "adoption": false
+  },
+  "conditions": [
+    {
+      "word": 270,
+      "char": "想",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 0,
+      "own_music_stages": [
+        {
+          "note_index": 350,
+          "part_index": 28,
+          "word": 270,
+          "kind": "sung",
+          "start": 209.93958333333333,
+          "end": 210.321875,
+          "tone": 59,
+          "lyric": "xiang"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 0,
+          "tone": 59,
+          "tuning": 0,
+          "lyric": "想",
+          "start_s": 212.57142857142858,
+          "end_s": 213.0,
+          "duration_ticks": 240
+        }
+      ],
+      "own_music_tones": [
+        59.0
+      ],
+      "author_music_tones": [
+        59
+      ],
+      "first_tone_author_minus_own": 0.0,
+      "own_entry_family": "short_direct",
+      "own_native_phone_symbols": [
+        "zh/x",
+        "zh/iang"
+      ],
+      "author_native_phone_symbols": [
+        "zh/x",
+        "zh/iang"
+      ],
+      "own_native_phone_tones": [
+        59,
+        59
+      ],
+      "author_native_phone_tones": [
+        59,
+        59
+      ],
+      "own_vowel_s": [
+        209.93958333333333,
+        210.22916666666669
+      ],
+      "author_vowel_s": [
+        212.57142857142858,
+        212.95357142857145
+      ],
+      "own_vowel_ms": 289.5833333333542,
+      "author_vowel_ms": 382.1428571428669,
+      "source_vowel_observed_s": [
+        209.93912069515306,
+        210.24337505902835
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 31,
+          "median": 59.10026550292969,
+          "range": [
+            58.90217590332031,
+            59.207008361816406
+          ]
+        },
+        "rmvpe": {
+          "n": 31,
+          "median": 59.07959747314453,
+          "range": [
+            58.8211784362793,
+            59.263607025146484
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 271,
+      "char": "把",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 1,
+      "own_music_stages": [
+        {
+          "note_index": 351,
+          "part_index": 28,
+          "word": 271,
+          "kind": "sung",
+          "start": 210.321875,
+          "end": 210.81145833333332,
+          "tone": 64,
+          "lyric": "ba"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 1,
+          "tone": 62,
+          "tuning": 0,
+          "lyric": "把",
+          "start_s": 213.0,
+          "end_s": 213.10714285714286,
+          "duration_ticks": 60
+        },
+        {
+          "note_index": 2,
+          "tone": 64,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 213.10714285714286,
+          "end_s": 213.42857142857142,
+          "duration_ticks": 180
+        }
+      ],
+      "own_music_tones": [
+        64.0
+      ],
+      "author_music_tones": [
+        62,
+        64
+      ],
+      "first_tone_author_minus_own": -2.0,
+      "own_entry_family": "short_direct",
+      "own_native_phone_symbols": [
+        "zh/b",
+        "zh/a"
+      ],
+      "author_native_phone_symbols": [
+        "zh/b",
+        "zh/a"
+      ],
+      "own_native_phone_tones": [
+        64,
+        64
+      ],
+      "author_native_phone_tones": [
+        62,
+        62
+      ],
+      "own_vowel_s": [
+        210.32187500000003,
+        210.73020833333334
+      ],
+      "author_vowel_s": [
+        213.0,
+        213.35892857142858
+      ],
+      "own_vowel_ms": 408.333333333303,
+      "author_vowel_ms": 358.9285714285779,
+      "source_vowel_observed_s": [
+        210.32213537445415,
+        210.6957647910951
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 37,
+          "median": 64.14588928222656,
+          "range": [
+            59.43401412963867,
+            64.20888977050781
+          ]
+        },
+        "rmvpe": {
+          "n": 36,
+          "median": 64.11543273925781,
+          "range": [
+            59.64287185668945,
+            64.21780395507812
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 272,
+      "char": "你",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 3,
+      "own_music_stages": [
+        {
+          "note_index": 352,
+          "part_index": 28,
+          "word": 272,
+          "kind": "sung",
+          "start": 210.81145833333332,
+          "end": 211.21458333333334,
+          "tone": 71,
+          "lyric": "ni"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 3,
+          "tone": 69,
+          "tuning": 0,
+          "lyric": "你",
+          "start_s": 213.42857142857142,
+          "end_s": 213.53571428571428,
+          "duration_ticks": 60
+        },
+        {
+          "note_index": 4,
+          "tone": 71,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 213.53571428571428,
+          "end_s": 213.85714285714286,
+          "duration_ticks": 180
+        }
+      ],
+      "own_music_tones": [
+        71.0
+      ],
+      "author_music_tones": [
+        69,
+        71
+      ],
+      "first_tone_author_minus_own": -2.0,
+      "own_entry_family": "bearing_then_push",
+      "own_native_phone_symbols": [
+        "zh/n",
+        "zh/i"
+      ],
+      "author_native_phone_symbols": [
+        "zh/n",
+        "zh/i"
+      ],
+      "own_native_phone_tones": [
+        71,
+        71
+      ],
+      "author_native_phone_tones": [
+        69,
+        69
+      ],
+      "own_vowel_s": [
+        210.81145833333335,
+        211.01875000000004
+      ],
+      "author_vowel_s": [
+        213.42857142857144,
+        213.65535714285716
+      ],
+      "own_vowel_ms": 207.2916666666913,
+      "author_vowel_ms": 226.78571428571104,
+      "source_vowel_observed_s": [
+        210.81105360381457,
+        211.11539538152095
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 30,
+          "median": 70.51406860351562,
+          "range": [
+            69.21733322143555,
+            71.14512786865234
+          ]
+        },
+        "rmvpe": {
+          "n": 30,
+          "median": 70.5262222290039,
+          "range": [
+            69.25809326171876,
+            71.17968978881837
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 273,
+      "char": "抱",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 5,
+      "own_music_stages": [
+        {
+          "note_index": 353,
+          "part_index": 28,
+          "word": 273,
+          "kind": "sung",
+          "start": 211.21458333333334,
+          "end": 211.65625,
+          "tone": 71,
+          "lyric": "bao"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 5,
+          "tone": 70,
+          "tuning": 0,
+          "lyric": "抱",
+          "start_s": 213.85714285714286,
+          "end_s": 214.01785714285714,
+          "duration_ticks": 90
+        },
+        {
+          "note_index": 6,
+          "tone": 71,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 214.01785714285714,
+          "end_s": 214.28571428571428,
+          "duration_ticks": 150
+        }
+      ],
+      "own_music_tones": [
+        71.0
+      ],
+      "author_music_tones": [
+        70,
+        71
+      ],
+      "first_tone_author_minus_own": -1.0,
+      "own_entry_family": "short_direct",
+      "own_native_phone_symbols": [
+        "zh/b",
+        "zh/ao"
+      ],
+      "author_native_phone_symbols": [
+        "zh/b",
+        "zh/ao"
+      ],
+      "own_native_phone_tones": [
+        71,
+        71
+      ],
+      "author_native_phone_tones": [
+        70,
+        70
+      ],
+      "own_vowel_s": [
+        211.21458333333334,
+        211.56354166666668
+      ],
+      "author_vowel_s": [
+        213.85714285714286,
+        214.19285714285715
+      ],
+      "own_vowel_ms": 348.9583333333428,
+      "author_vowel_ms": 335.71428571428896,
+      "source_vowel_observed_s": [
+        211.21509844825383,
+        211.54456576237064
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 33,
+          "median": 70.68657684326172,
+          "range": [
+            70.11165771484374,
+            71.13341674804687
+          ]
+        },
+        "rmvpe": {
+          "n": 33,
+          "median": 70.66386413574219,
+          "range": [
+            70.05886688232422,
+            71.1670425415039
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 274,
+      "char": "进",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 7,
+      "own_music_stages": [
+        {
+          "note_index": 354,
+          "part_index": 28,
+          "word": 274,
+          "kind": "sung",
+          "start": 211.65625,
+          "end": 211.94791666666666,
+          "tone": 68,
+          "lyric": "jin"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 7,
+          "tone": 68,
+          "tuning": 0,
+          "lyric": "进",
+          "start_s": 214.28571428571428,
+          "end_s": 214.5,
+          "duration_ticks": 120
+        }
+      ],
+      "own_music_tones": [
+        68.0
+      ],
+      "author_music_tones": [
+        68
+      ],
+      "first_tone_author_minus_own": 0.0,
+      "own_entry_family": "continuous_velocity",
+      "own_native_phone_symbols": [
+        "zh/j",
+        "zh/in"
+      ],
+      "author_native_phone_symbols": [
+        "zh/j",
+        "zh/in"
+      ],
+      "own_native_phone_tones": [
+        68,
+        68
+      ],
+      "author_native_phone_tones": [
+        68,
+        68
+      ],
+      "own_vowel_s": [
+        211.65625000000003,
+        211.79583333333335
+      ],
+      "author_vowel_s": [
+        214.28571428571428,
+        214.38035714285715
+      ],
+      "own_vowel_ms": 139.58333333332007,
+      "author_vowel_ms": 94.64285714287257,
+      "source_vowel_observed_s": [
+        211.65657360881366,
+        211.76210659347154
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 11,
+          "median": 67.9287109375,
+          "range": [
+            67.59101104736328,
+            68.11373138427734
+          ]
+        },
+        "rmvpe": {
+          "n": 11,
+          "median": 67.94087219238281,
+          "range": [
+            67.4935073852539,
+            68.0982894897461
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 275,
+      "char": "身",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 8,
+      "own_music_stages": [
+        {
+          "note_index": 355,
+          "part_index": 28,
+          "word": 275,
+          "kind": "sung",
+          "start": 211.94791666666666,
+          "end": 212.36458333333334,
+          "tone": 71,
+          "lyric": "shen"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 8,
+          "tone": 71,
+          "tuning": 0,
+          "lyric": "身",
+          "start_s": 214.5,
+          "end_s": 214.92857142857142,
+          "duration_ticks": 240
+        }
+      ],
+      "own_music_tones": [
+        71.0
+      ],
+      "author_music_tones": [
+        71
+      ],
+      "first_tone_author_minus_own": 0.0,
+      "own_entry_family": "continuous_velocity",
+      "own_native_phone_symbols": [
+        "zh/sh",
+        "zh/en"
+      ],
+      "author_native_phone_symbols": [
+        "zh/sh",
+        "zh/en"
+      ],
+      "own_native_phone_tones": [
+        71,
+        71
+      ],
+      "author_native_phone_tones": [
+        71,
+        71
+      ],
+      "own_vowel_s": [
+        211.94791666666669,
+        212.23750000000004
+      ],
+      "author_vowel_s": [
+        214.5,
+        214.81964285714287
+      ],
+      "own_vowel_ms": 289.5833333333542,
+      "author_vowel_ms": 319.6428571428669,
+      "source_vowel_observed_s": [
+        211.947488052818,
+        212.21613431831068
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 27,
+          "median": 71.061279296875,
+          "range": [
+            70.93202667236328,
+            71.1080551147461
+          ]
+        },
+        "rmvpe": {
+          "n": 27,
+          "median": 71.06509399414062,
+          "range": [
+            70.90519104003906,
+            71.1275146484375
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 276,
+      "char": "体",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 9,
+      "own_music_stages": [
+        {
+          "note_index": 356,
+          "part_index": 28,
+          "word": 276,
+          "kind": "sung",
+          "start": 212.36458333333334,
+          "end": 212.95729166666666,
+          "tone": 73,
+          "lyric": "ti"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 9,
+          "tone": 71,
+          "tuning": 0,
+          "lyric": "体",
+          "start_s": 214.92857142857142,
+          "end_s": 215.14285714285714,
+          "duration_ticks": 120
+        },
+        {
+          "note_index": 10,
+          "tone": 73,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 215.14285714285714,
+          "end_s": 215.57142857142858,
+          "duration_ticks": 240
+        }
+      ],
+      "own_music_tones": [
+        73.0
+      ],
+      "author_music_tones": [
+        71,
+        73
+      ],
+      "first_tone_author_minus_own": -2.0,
+      "own_entry_family": "bearing_then_push",
+      "own_native_phone_symbols": [
+        "zh/t",
+        "zh/i"
+      ],
+      "author_native_phone_symbols": [
+        "zh/t",
+        "zh/i"
+      ],
+      "own_native_phone_tones": [
+        73,
+        73
+      ],
+      "author_native_phone_tones": [
+        71,
+        71
+      ],
+      "own_vowel_s": [
+        212.36458333333334,
+        212.87604166666668
+      ],
+      "author_vowel_s": [
+        214.94285714285715,
+        215.48214285714286
+      ],
+      "own_vowel_ms": 511.4583333333371,
+      "author_vowel_ms": 539.285714285711,
+      "source_vowel_observed_s": [
+        212.36509546431284,
+        212.85576597027767
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 49,
+          "median": 72.43157958984375,
+          "range": [
+            71.20082244873046,
+            73.05010375976562
+          ]
+        },
+        "rmvpe": {
+          "n": 49,
+          "median": 72.4502182006836,
+          "range": [
+            71.1895767211914,
+            73.10549926757812
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 277,
+      "char": "里",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 11,
+      "own_music_stages": [
+        {
+          "note_index": 357,
+          "part_index": 28,
+          "word": 277,
+          "kind": "sung",
+          "start": 212.95729166666666,
+          "end": 213.53020833333332,
+          "tone": 68,
+          "lyric": "li"
+        },
+        {
+          "note_index": 358,
+          "part_index": 28,
+          "word": 277,
+          "kind": "sung",
+          "start": 213.53020833333332,
+          "end": 213.79479166666667,
+          "tone": 66,
+          "lyric": "+"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 11,
+          "tone": 66,
+          "tuning": 0,
+          "lyric": "里",
+          "start_s": 215.57142857142858,
+          "end_s": 215.78571428571428,
+          "duration_ticks": 120
+        },
+        {
+          "note_index": 12,
+          "tone": 68,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 215.78571428571428,
+          "end_s": 216.21428571428572,
+          "duration_ticks": 240
+        },
+        {
+          "note_index": 13,
+          "tone": 66,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 216.21428571428572,
+          "end_s": 216.42857142857142,
+          "duration_ticks": 120
+        }
+      ],
+      "own_music_tones": [
+        68.0,
+        66.0
+      ],
+      "author_music_tones": [
+        66,
+        68,
+        66
+      ],
+      "first_tone_author_minus_own": -2.0,
+      "own_entry_family": "short_direct",
+      "own_native_phone_symbols": [
+        "zh/l",
+        "zh/i"
+      ],
+      "author_native_phone_symbols": [
+        "zh/l",
+        "zh/i"
+      ],
+      "own_native_phone_tones": [
+        68,
+        68
+      ],
+      "author_native_phone_tones": [
+        66,
+        66
+      ],
+      "own_vowel_s": [
+        212.9572916666667,
+        213.58541666666667
+      ],
+      "author_vowel_s": [
+        215.57142857142858,
+        216.24285714285716
+      ],
+      "own_vowel_ms": 628.124999999983,
+      "author_vowel_ms": 671.4285714285779,
+      "source_vowel_observed_s": [
+        212.9573193013371,
+        213.72565775224683
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 77,
+          "median": 67.12080383300781,
+          "range": [
+            65.87061462402343,
+            68.00962829589844
+          ]
+        },
+        "rmvpe": {
+          "n": 77,
+          "median": 67.046875,
+          "range": [
+            65.8461196899414,
+            68.01022644042969
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 278,
+      "char": "面",
+      "own_context": 28,
+      "author_context": 0,
+      "author_primary_note": 14,
+      "own_music_stages": [
+        {
+          "note_index": 359,
+          "part_index": 28,
+          "word": 278,
+          "kind": "sung",
+          "start": 213.79479166666667,
+          "end": 214.215625,
+          "tone": 66,
+          "lyric": "mian"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 14,
+          "tone": 66,
+          "tuning": 0,
+          "lyric": "面",
+          "start_s": 216.42857142857142,
+          "end_s": 216.85714285714286,
+          "duration_ticks": 240
+        }
+      ],
+      "own_music_tones": [
+        66.0
+      ],
+      "author_music_tones": [
+        66
+      ],
+      "first_tone_author_minus_own": 0.0,
+      "own_entry_family": "short_direct",
+      "own_native_phone_symbols": [
+        "zh/m",
+        "zh/ian"
+      ],
+      "author_native_phone_symbols": [
+        "zh/m",
+        "zh/ian"
+      ],
+      "own_native_phone_tones": [
+        66,
+        66
+      ],
+      "author_native_phone_tones": [
+        66,
+        66
+      ],
+      "own_vowel_s": [
+        213.7947916666667,
+        214.21562500000002
+      ],
+      "author_vowel_s": [
+        216.42857142857144,
+        216.85714285714286
+      ],
+      "own_vowel_ms": 420.83333333332007,
+      "author_vowel_ms": 428.5714285714164,
+      "source_vowel_observed_s": [
+        213.79519353196196,
+        214.21526077097508
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 42,
+          "median": 65.95228576660156,
+          "range": [
+            65.4485481262207,
+            66.36208953857422
+          ]
+        },
+        "rmvpe": {
+          "n": 42,
+          "median": 65.95841979980469,
+          "range": [
+            65.41977233886719,
+            66.37428741455078
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 279,
+      "char": "不",
+      "own_context": 29,
+      "author_context": 1,
+      "author_primary_note": 16,
+      "own_music_stages": [
+        {
+          "note_index": 362,
+          "part_index": 29,
+          "word": 279,
+          "kind": "sung",
+          "start": 214.65520833333332,
+          "end": 215.059375,
+          "tone": 71,
+          "lyric": "bu"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 16,
+          "tone": 69,
+          "tuning": 0,
+          "lyric": "不",
+          "start_s": 217.28571428571428,
+          "end_s": 217.39285714285714,
+          "duration_ticks": 60
+        },
+        {
+          "note_index": 17,
+          "tone": 71,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 217.39285714285714,
+          "end_s": 217.71428571428572,
+          "duration_ticks": 180
+        }
+      ],
+      "own_music_tones": [
+        71.0
+      ],
+      "author_music_tones": [
+        69,
+        71
+      ],
+      "first_tone_author_minus_own": -2.0,
+      "own_entry_family": "bearing_then_push",
+      "own_native_phone_symbols": [
+        "zh/b",
+        "zh/u"
+      ],
+      "author_native_phone_symbols": [
+        "zh/b",
+        "zh/u"
+      ],
+      "own_native_phone_tones": [
+        71,
+        71
+      ],
+      "author_native_phone_tones": [
+        69,
+        69
+      ],
+      "own_vowel_s": [
+        214.65520833333335,
+        214.9666666666667
+      ],
+      "author_vowel_s": [
+        217.28571428571428,
+        217.63392857142858
+      ],
+      "own_vowel_ms": 311.4583333333485,
+      "author_vowel_ms": 348.214285714306,
+      "source_vowel_observed_s": [
+        214.65480303619455,
+        214.9687576259345
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 31,
+          "median": 70.87654113769531,
+          "range": [
+            69.48804473876953,
+            71.14958953857422
+          ]
+        },
+        "rmvpe": {
+          "n": 31,
+          "median": 70.91439819335938,
+          "range": [
+            69.48776245117188,
+            71.1755142211914
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 280,
+      "char": "敢",
+      "own_context": 29,
+      "author_context": 1,
+      "author_primary_note": 18,
+      "own_music_stages": [
+        {
+          "note_index": 363,
+          "part_index": 29,
+          "word": 280,
+          "kind": "sung",
+          "start": 215.059375,
+          "end": 215.33958333333334,
+          "tone": 68,
+          "lyric": "gan"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 18,
+          "tone": 68,
+          "tuning": 0,
+          "lyric": "敢",
+          "start_s": 217.71428571428572,
+          "end_s": 217.92857142857142,
+          "duration_ticks": 120
+        }
+      ],
+      "own_music_tones": [
+        68.0
+      ],
+      "author_music_tones": [
+        68
+      ],
+      "first_tone_author_minus_own": 0.0,
+      "own_entry_family": "continuous_velocity",
+      "own_native_phone_symbols": [
+        "zh/g",
+        "zh/an"
+      ],
+      "author_native_phone_symbols": [
+        "zh/g",
+        "zh/an"
+      ],
+      "own_native_phone_tones": [
+        68,
+        68
+      ],
+      "author_native_phone_tones": [
+        68,
+        68
+      ],
+      "own_vowel_s": [
+        215.05937500000002,
+        215.2697916666667
+      ],
+      "author_vowel_s": [
+        217.71428571428575,
+        217.88035714285715
+      ],
+      "own_vowel_ms": 210.41666666667425,
+      "author_vowel_ms": 166.07142857139934,
+      "source_vowel_observed_s": [
+        215.05971548413476,
+        215.23624005151174
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 18,
+          "median": 68.16300201416016,
+          "range": [
+            68.07273864746094,
+            68.21342086791992
+          ]
+        },
+        "rmvpe": {
+          "n": 18,
+          "median": 68.14997863769531,
+          "range": [
+            68.01916275024413,
+            68.20107574462891
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 281,
+      "char": "让",
+      "own_context": 29,
+      "author_context": 1,
+      "author_primary_note": 19,
+      "own_music_stages": [
+        {
+          "note_index": 364,
+          "part_index": 29,
+          "word": 281,
+          "kind": "sung",
+          "start": 215.33958333333334,
+          "end": 215.72083333333333,
+          "tone": 71,
+          "lyric": "rang"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 19,
+          "tone": 71,
+          "tuning": 0,
+          "lyric": "让",
+          "start_s": 217.92857142857142,
+          "end_s": 218.35714285714286,
+          "duration_ticks": 240
+        }
+      ],
+      "own_music_tones": [
+        71.0
+      ],
+      "author_music_tones": [
+        71
+      ],
+      "first_tone_author_minus_own": 0.0,
+      "own_entry_family": "continuous_velocity",
+      "own_native_phone_symbols": [
+        "zh/r",
+        "zh/ang"
+      ],
+      "author_native_phone_symbols": [
+        "zh/r",
+        "zh/ang"
+      ],
+      "own_native_phone_tones": [
+        71,
+        71
+      ],
+      "author_native_phone_tones": [
+        71,
+        71
+      ],
+      "own_vowel_s": [
+        215.33958333333334,
+        215.66354166666667
+      ],
+      "author_vowel_s": [
+        217.92857142857144,
+        218.3
+      ],
+      "own_vowel_ms": 323.9583333333371,
+      "author_vowel_ms": 371.42857142856656,
+      "source_vowel_observed_s": [
+        215.33988655765043,
+        215.6434828398828
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 31,
+          "median": 70.91838836669922,
+          "range": [
+            70.78235626220703,
+            71.11872863769531
+          ]
+        },
+        "rmvpe": {
+          "n": 31,
+          "median": 70.95821380615234,
+          "range": [
+            70.73004150390625,
+            71.14457702636719
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 282,
+      "char": "你",
+      "own_context": 29,
+      "author_context": 1,
+      "author_primary_note": 20,
+      "own_music_stages": [
+        {
+          "note_index": 365,
+          "part_index": 29,
+          "word": 282,
+          "kind": "sung",
+          "start": 215.72083333333333,
+          "end": 216.32604166666667,
+          "tone": 73,
+          "lyric": "ni"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 20,
+          "tone": 71,
+          "tuning": 0,
+          "lyric": "你",
+          "start_s": 218.35714285714286,
+          "end_s": 218.57142857142858,
+          "duration_ticks": 120
+        },
+        {
+          "note_index": 21,
+          "tone": 73,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 218.57142857142858,
+          "end_s": 219.0,
+          "duration_ticks": 240
+        }
+      ],
+      "own_music_tones": [
+        73.0
+      ],
+      "author_music_tones": [
+        71,
+        73
+      ],
+      "first_tone_author_minus_own": -2.0,
+      "own_entry_family": "bearing_then_push",
+      "own_native_phone_symbols": [
+        "zh/n",
+        "zh/i"
+      ],
+      "author_native_phone_symbols": [
+        "zh/n",
+        "zh/i"
+      ],
+      "own_native_phone_tones": [
+        73,
+        73
+      ],
+      "author_native_phone_tones": [
+        71,
+        71
+      ],
+      "own_vowel_s": [
+        215.72083333333333,
+        216.13958333333335
+      ],
+      "author_vowel_s": [
+        218.35714285714286,
+        218.84821428571428
+      ],
+      "own_vowel_ms": 418.75000000001705,
+      "author_vowel_ms": 491.0714285714164,
+      "source_vowel_observed_s": [
+        215.72101694154634,
+        216.17630001751476
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 45,
+          "median": 71.88795471191406,
+          "range": [
+            71.10546417236328,
+            73.06100463867188
+          ]
+        },
+        "rmvpe": {
+          "n": 45,
+          "median": 71.9151840209961,
+          "range": [
+            71.09797058105468,
+            73.08597106933594
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 283,
+      "char": "看",
+      "own_context": 29,
+      "author_context": 1,
+      "author_primary_note": 22,
+      "own_music_stages": [
+        {
+          "note_index": 366,
+          "part_index": 29,
+          "word": 283,
+          "kind": "sung",
+          "start": 216.32604166666667,
+          "end": 216.95,
+          "tone": 66,
+          "lyric": "kan"
+        },
+        {
+          "note_index": 367,
+          "part_index": 29,
+          "word": 283,
+          "kind": "sung",
+          "start": 216.95,
+          "end": 217.22083333333333,
+          "tone": 64,
+          "lyric": "+"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 22,
+          "tone": 64,
+          "tuning": 0,
+          "lyric": "看",
+          "start_s": 219.0,
+          "end_s": 219.21428571428572,
+          "duration_ticks": 120
+        },
+        {
+          "note_index": 23,
+          "tone": 66,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 219.21428571428572,
+          "end_s": 219.64285714285714,
+          "duration_ticks": 240
+        },
+        {
+          "note_index": 24,
+          "tone": 64,
+          "tuning": 0,
+          "lyric": "+",
+          "start_s": 219.64285714285714,
+          "end_s": 219.85714285714286,
+          "duration_ticks": 120
+        }
+      ],
+      "own_music_tones": [
+        66.0,
+        64.0
+      ],
+      "author_music_tones": [
+        64,
+        66,
+        64
+      ],
+      "first_tone_author_minus_own": -2.0,
+      "own_entry_family": "short_direct",
+      "own_native_phone_symbols": [
+        "zh/k",
+        "zh/an"
+      ],
+      "author_native_phone_symbols": [
+        "zh/k",
+        "zh/an"
+      ],
+      "own_native_phone_tones": [
+        66,
+        66
+      ],
+      "author_native_phone_tones": [
+        64,
+        64
+      ],
+      "own_vowel_s": [
+        216.3260416666667,
+        217.08125000000004
+      ],
+      "author_vowel_s": [
+        219.0125,
+        219.72857142857146
+      ],
+      "own_vowel_ms": 755.2083333333428,
+      "author_vowel_ms": 716.0714285714675,
+      "source_vowel_observed_s": [
+        216.32568064198745,
+        217.1258272623421
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 80,
+          "median": 65.9933853149414,
+          "range": [
+            64.15645446777344,
+            66.12808151245117
+          ]
+        },
+        "rmvpe": {
+          "n": 80,
+          "median": 65.98025512695312,
+          "range": [
+            64.09957504272461,
+            66.12783813476562
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    },
+    {
+      "word": 284,
+      "char": "见",
+      "own_context": 29,
+      "author_context": 1,
+      "author_primary_note": 25,
+      "own_music_stages": [
+        {
+          "note_index": 368,
+          "part_index": 29,
+          "word": 284,
+          "kind": "sung",
+          "start": 217.22083333333333,
+          "end": 217.66354166666667,
+          "tone": 64,
+          "lyric": "jian"
+        }
+      ],
+      "author_music_stages": [
+        {
+          "note_index": 25,
+          "tone": 64,
+          "tuning": 0,
+          "lyric": "见",
+          "start_s": 219.85714285714286,
+          "end_s": 220.28571428571428,
+          "duration_ticks": 240
+        }
+      ],
+      "own_music_tones": [
+        64.0
+      ],
+      "author_music_tones": [
+        64
+      ],
+      "first_tone_author_minus_own": 0.0,
+      "own_entry_family": "short_direct",
+      "own_native_phone_symbols": [
+        "zh/j",
+        "zh/ian"
+      ],
+      "author_native_phone_symbols": [
+        "zh/j",
+        "zh/ian"
+      ],
+      "own_native_phone_tones": [
+        64,
+        64
+      ],
+      "author_native_phone_tones": [
+        64,
+        64
+      ],
+      "own_vowel_s": [
+        217.22083333333333,
+        217.66354166666667
+      ],
+      "author_vowel_s": [
+        219.85714285714286,
+        220.28571428571428
+      ],
+      "own_vowel_ms": 442.7083333333428,
+      "author_vowel_ms": 428.5714285714164,
+      "source_vowel_observed_s": [
+        217.22055040320572,
+        217.6638321995465
+      ],
+      "source_dual_F0_MIDI_stats": {
+        "fcpe": {
+          "n": 44,
+          "median": 63.92405700683594,
+          "range": [
+            63.63636474609375,
+            64.31764678955078
+          ]
+        },
+        "rmvpe": {
+          "n": 44,
+          "median": 63.88832092285156,
+          "range": [
+            63.60250816345215,
+            64.32337112426758
+          ]
+        }
+      },
+      "source_unknown": false,
+      "matched_by": "ordered 15 lyric primaries, explicit + grouping and native owner_primary_indices; repeated 你 kept separate",
+      "individual_auditory_label": "unknown: latest reply is aggregate C-A closeness"
+    }
+  ],
+  "findings": [
+    "C remains perceived very close to A after cancelling three manual deltas; this group is not necessary for reported closeness under these author conditions.",
+    "No proof of complete equivalence, no-effect, individual-channel irrelevance, no side effects, or exact C-vs-own ranking.",
+    "Speaker swap preference and group-neutral closeness were measured in separate contrasts; speaker×manual-control interaction has not been executed.",
+    "Eight of 15 matched words have a lower author first note than own (seven -2 semitones, 抱 -1); they also retain additional onset-stage notes.",
+    "Own li/kan each have two stages; author has three, with a lower onset then ascent/descent. Symbolic stage order is not actual F0 or a causal result.",
+    "Vowel durations and absolute clocks differ and must be kept separate from pitch/phonation; source dual-F0 statistics are reused observations, not new measurements."
+  ],
+  "next_protocol": {
+    "path": "runs/research/lastpage-author-controls-feedback-20261012/design/next-interaction-protocol.json",
+    "sha256": "a473cd985282e4a66e6c1c27c51601de65c0f0e83a187e293401715bf4c2c851"
+  },
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "new_PCM_NPZ_reads": 0,
+  "agent_heard": false,
+  "measurement_validated": false
+}

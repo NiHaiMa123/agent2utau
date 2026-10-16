@@ -1,0 +1,49 @@
+﻿control_id,control,current_support,response_ids,observation_ids,audit_ids,evidence_status,remaining_gap,automatic_recipe_allowed,legacy_control_id
+CTRL:C01,音符中心 tone、tuning、全曲移调,通用音符；实际读取依引擎,,OBS-001,,有关联，没有该参数独立听觉因果验证,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C01
+CTRL:C02,音符 pitch 点X/Y、插值形状、snap_first,通用音高基底,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C02
+CTRL:C03,PITD,当前DiffSinger支持,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C03
+CTRL:C04,vibrato length,当前结构存在；生产函数可另实现,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C04
+CTRL:C05,vibrato period,当前结构存在,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C05
+CTRL:C06,vibrato depth,当前结构存在,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C06
+CTRL:C07,vibrato in/out,当前结构存在,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C07
+CTRL:C08,vibrato shift/drift,当前结构存在,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C08
+CTRL:C09,vibrato vol_link,新上游明确支持；本机功能未审定,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C09
+CTRL:C10,DYN,当前支持，已核对原生乘法,,,,机制/支持边界已列；当前无第二层受控听觉数据,纯增益数学响应明确；仍缺强弱意图、感知响度/频谱及掩蔽条件的听觉验收,否,C10
+CTRL:C11,VOIC,Yousa启用；本曲合法范围自定义0～200,,OBS-001;OBS-002,,有关联，没有该参数独立听觉因果验证,抱/果方向相反；缺独立VOIC实验，不统一提高或降低,否,C11
+CTRL:C12,BREC,Yousa启用,RESP-005;RESP-006;RESP-007;RESP-008;RESP-009;RESP-010,OBS-001;OBS-002,,有局部受控听觉结果，未泛化,仅-10/单函数族/本声库曲目六条件，尚无可感知正例及剂量响应边界,否,C12
+CTRL:C13,TENC,Yousa启用,RESP-001,OBS-001;OBS-002,,有局部受控听觉结果，未泛化,只有抱取消+14的无差别结果；其它剂量/时序/元音未知,否,C13
+CTRL:C14,SHFC,当前pitch-controllable vocoder支持,RESP-002;RESP-003;RESP-004,OBS-002,,有局部受控听觉结果，未泛化,抱可用且果失败；时序、音程剂量及跨元音/跨音区/跨曲迁移边界未知,否,C14
+CTRL:C15,GENC,Yousa use_key_shift_embed=true；当前基底0,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C15
+CTRL:C16,VELC,Yousa use_speed_embed=true；当前实际1,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C16
+CTRL:C17,ENE,引擎建议项；本机use_energy_embed/predict_energy=false,,,,机制/支持边界已列；当前无第二层受控听觉数据,当前声库禁用，先确认模型支持；不能把UI曲线当有效干预,否,C17
+CTRL:C18,falsetto embedding / prediction,本机use_falsetto_embed/predict_falsetto=false,,,,机制/支持边界已列；当前无第二层受控听觉数据,当前声库禁用，先确认模型支持；不能把UI曲线当有效干预,否,C18
+CTRL:C19,CLR、speaker/subbank,当前支持；按音素index与名称映射,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C19
+CTRL:C20,cl01…clNN声线曲线,当前五色Bright/Cute/Normal/Whisper/Classic,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C20
+CTRL:C21,PEXP、生成/重生成pitch、retake,本机pitch模型use_expr=true，人工画线流程不依赖它,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C21
+CTRL:C22,音符/part position、duration、tempos,当前支持,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C22
+CTRL:C23,歌词、语言、多音字、phonetic hint、phoneme override,当前Chinese phonemizer、字典/词表支持,,,AUD-001,有技术审计，没有受控听觉响应,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C23
+CTRL:C24,音素offset/时长、延音+、AP/SP、分组/分句,当前支持；部分符号需phonemizer验证,,,AUD-001,有技术审计，没有受控听觉响应,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C24
+CTRL:C25,VEL声母速度,通用默认项；本次核对的DiffSingerBase未读consonantStretchRatio,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C25
+CTRL:C26,VOL/ATK/DEC,Classic支持；DiffSinger不支持音素包络,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C26
+CTRL:C27,preutterDelta、overlapDelta、attackTimeDelta、releaseTimeDelta,主要采样声库；DiffSinger supportsPhonemeEnvelope=false,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C27
+CTRL:C28,oto Offset/Consonant/Cutoff/Preutter/Overlap、alias、frq,采样声库编辑与配置,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C28
+CTRL:C29,ALT、SHFT,Classic及对应音素器；VOICEVOX/ENUNU也有自己的路径,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C29
+CTRL:C30,ENG、renderer、resampler、wavtool,各引擎/采样库,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C30
+CTRL:C31,GEN(g)、BRE(B)、LPF(H)、NORM(P),取决于resampler；DiffSinger不读取这些flags,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C31
+CTRL:C32,MOD、MOD+,Classic/Worldline读取路径,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C32
+CTRL:C33,DIR,Classic/Worldline及VOICEVOX的不同分支,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C33
+CTRL:C34,CLRY、XSY,新上游Classic/Worldline支持；本机未审定,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C34
+CTRL:C35,GRWC、Hifisampler粗糙效果,新上游Hifisampler；当前DiffSinger不支持,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C35
+CTRL:C36,自定义flags与表达声明、默认值、范围、类型、track覆盖,开放扩展，需引擎实现,,,AUD-002,有技术审计，没有受控听觉响应,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C36
+CTRL:C37,VOICEVOX VOLC、SMOC、REPM、style,官方VOICEVOX renderer，当前不使用,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C37
+CTRL:C38,ENUNU styles/custom expressions、Vogen/Worldline声学控制,非当前路线,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C38
+CTRL:C39,声库、speaker embeddings、duration/pitch/variance/acoustic模型、vocoder、字典/subbank配置,本机已哈希绑定；换资源需验证匹配,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C39
+CTRL:C40,DiffSinger steps/depth、pitch/variance步骤、speedup、随机输入/seed,当前模型连续加速/variable-depth；seed在诊断接口控制,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C40
+CTRL:C41,完整短语上下文、AP/SP、合并/拆分、padding、渲染缓存,通用依赖；新上游有merge/local-patch偏好,,OBS-001,,有关联，没有该参数独立听觉因果验证,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C41
+CTRL:C42,track volume、pan、mute/solo、导入伴奏位置/音量、多轨,当前支持，具体pan law依实现,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C42
+CTRL:C43,MixFx EQ总/模块开关、lowDb/midFreq/midDb/highDb、preset,新上游实现；当前安装未确认有该UI/路径,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C43
+CTRL:C44,MixFx压缩 threshold/ratio/makeup、preset、开关,新上游实现；本机未确认,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C44
+CTRL:C45,MixFx混响 size/damp/wet/pre-delay、preset、开关,新上游实现；本机未确认,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C45
+CTRL:C46,导出格式/采样率/位深、声道、重采样、播放/监听增益,依版本/导出接口/外部监听,,,,机制/支持边界已列；当前无第二层受控听觉数据,需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方,否,C46
+CTRL:C47,表达图、RPIT/PITO、曲线插值/函数时间形状/量化,新上游有graph/masked curves；本机本流程用显式Agent函数,RESP-002;RESP-003;RESP-004;RESP-005;RESP-006;RESP-007;RESP-008;RESP-009;RESP-010,,AUD-002,仅SHFC进入几何与BREC编码/时序；其余功能未验证,145ms和前80ms同时变化；缺各自分离作用，不能成为全局默认,否,C47
+CTRL:C48,key/拍号、snap/grid、预设、显示、轨名/颜色、UI偏好,通用及版本差异,,,,显示/编辑入口，排除为独立声学原因,无需假设可听效果；若操作改变音符等实际输入，归入对应控制,否,C48

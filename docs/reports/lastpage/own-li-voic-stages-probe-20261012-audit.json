@@ -1,0 +1,111 @@
+{
+  "status": "passed_with_explicit_stage_response_and_auditory_gaps",
+  "scripts": [
+    {
+      "path": "research/table2-confirmation/lastpage_own_li_voic_stages_20261012.py",
+      "sha256": "1c1f87724491a203daaa75f3011e7e3d47fa20e2a854350a4bec00143ce2856c"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_li_voic_stages_20261012.py",
+      "sha256": "f0da5d267874d59a6e4c9b0641fe9e5d57839cefc1e0ba4db3cf9d10db619583"
+    },
+    {
+      "path": "research/table2-confirmation/package_lastpage_own_li_voic_stages_20261012.py",
+      "sha256": "64d4a40761ab02bfa36eeacb23dd2a1b7ee82ebf8b887b14271adecff965d9b1"
+    },
+    {
+      "path": "research/table2-confirmation/observe_lastpage_own_li_voic_stages_20261012.py",
+      "sha256": "6828e14e357b684eab8bcc731119efc5af33ed342e3c18aff46360f71c688fab"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_li_voic_delivery_20261012.py",
+      "sha256": "6aa66c0b7b3ba5b86321fddc4e994e0c764f8416a64faf05ed528f003b7ae817"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_own_li_voic_stages_20261012.py",
+      "sha256": "101dc2602740dcd601f367dcd9bf643c6b15bc99a446b5bd9092f16fc025e171"
+    }
+  ],
+  "production_integration": {
+    "status": "explicit_knowledge_context_and_compile_gate_implemented",
+    "CLI": "knowledge-context",
+    "production_entry": "compile-functions schema2",
+    "requirements": [
+      "source SHA and exact record content",
+      "one use/reject/extrapolate/unknown decision per retrieved ID",
+      "condition-match/rationale/limitations"
+    ],
+    "validation_limit": "presence, provenance and decision coverage only; Agent still judges relevance and musical choices",
+    "schema1": "rejected before native/filesystem output; explicit migration needed; sealed legacy inputs unchanged",
+    "registry_snapshot": "context freezes catalogue selection; future active catalogue updates do not rewrite old receipts",
+    "no_automatic_recipe_selection": true,
+    "Skill_unchanged": true,
+    "tests_passed": 164,
+    "test_report": {
+      "path": "runs/test-results/knowledge-integration-20261012/full-suite.xml",
+      "sha256": "69f930d15c86e5c66a2a15a5116433224be6c1f451af6ad442713a0943c9e934"
+    },
+    "CLI_context_exact_research_context": true,
+    "this_run_retrieved_ID_count": 8,
+    "receipt": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/evaluation/knowledge_receipt.json",
+      "sha256": "fddf389886290195b6237b8e7f64c8e27ed3541afd268fe25a632147c5c72101"
+    },
+    "sources": [
+      {
+        "path": "src/agent2utau/knowledge.py",
+        "sha256": "fcab80dce552c0017de23fcfb0a06a3c997b85eb512dd31d56eb8f253302be9f"
+      },
+      {
+        "path": "src/agent2utau/workflow.py",
+        "sha256": "cc29ab198a3a2b40e8bc34ed7a16cfbd1703f66cbec49883e35e971014eca212"
+      },
+      {
+        "path": "src/agent2utau/cli.py",
+        "sha256": "9d02fcbcc989d811f26fbf1593d751d03339feb5ef1d9a053eeca326e31a5b3e"
+      },
+      {
+        "path": "tests/contracts/test_knowledge_context.py",
+        "sha256": "f02ea37996e252a3c4e855a77a9995e18a6170a6e0e6292450287438995a9296"
+      },
+      {
+        "path": "tests/contracts/test_workflow.py",
+        "sha256": "0f9972820927388a21e88fe1d76e0ff06f341d26a62180b7c8d35a00bc0afbc0"
+      },
+      {
+        "path": "docs/workflow.md",
+        "sha256": "460ee137886ea84c5f6e7fa5d1c563992ab4f4e76816666c4251c109f8c8ad42"
+      },
+      {
+        "path": "docs/guides/knowledge-use-in-production.md",
+        "sha256": "763455688ee0937c03fa6f29c0516a1e200c524f65d5bd93d6fcd84870762a11"
+      }
+    ],
+    "authorized_before_snapshots": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/design/authorized-integration-change.json",
+      "sha256": "f241d285a9b2e3a6d3ffa9d2c631800b59e06f161f1d760d327cb6fa3cb8c2b7"
+    }
+  },
+  "authorized_existing_path_changes": {
+    "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/design/authorized-integration-change.json",
+    "sha256": "f241d285a9b2e3a6d3ffa9d2c631800b59e06f161f1d760d327cb6fa3cb8c2b7"
+  },
+  "protected_references": 1977,
+  "runtime_resources": 44,
+  "actual_new_variance_calls": 2,
+  "actual_new_waveforms": 2,
+  "native_cached_contexts": 2,
+  "actual_new_F0_calls": 2,
+  "reused_F_F0_bindings": 6,
+  "tests_passed": 164,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 702}",
+  "active_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-layering-delivery-index-20261012.json",
+    "sha256": "69a0006bfae1fac349c2b85761027e5595965879ac91fa54f6c6f5de3c7c9254"
+  },
+  "actual_new_feedback": 0,
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

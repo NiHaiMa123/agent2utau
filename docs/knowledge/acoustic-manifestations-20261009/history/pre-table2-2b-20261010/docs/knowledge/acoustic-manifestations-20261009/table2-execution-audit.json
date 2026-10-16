@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-10",
+  "stage": "2A",
+  "status": "passed",
+  "records": 14,
+  "frozen_documents": 17,
+  "source_bindings_verified": 52,
+  "sealed_manifest_files_verified": 896,
+  "unique_repository_paths_rehashed": 1079,
+  "protected_inputs_verified": 67,
+  "document_links_checked": 96,
+  "csv_json_exact": true,
+  "current_post_F_originals_unchanged": true,
+  "no_original_experiment_report_project_skill_change": true,
+  "no_audio_decoding_measurement_listening_or_model_execution": true,
+  "CI_manual_only": true,
+  "verification_run": "runs/research/table2-2a-record-audit-20261010",
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/comparison-bindings.json",
+      "sha256": "d3b576294085a9399bd2d59c5ce2637d2a8c61dafbb0f38d88faa5800d4fc2f7"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/comparison-bindings.csv",
+      "sha256": "c2375bbac3e908e6b3f237a535ae21afbcb95d10c94e5be23ed45e4102ae9b60"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-differences.json",
+      "sha256": "108bde1448e38cdbe3f37a6b3d5e63b0b9dcf8a65876b950242b9a4c244c3cac"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-differences.csv",
+      "sha256": "659f2f3772955dab5c25a0ddc882e87ca5e04ecf12aac8751f002495171fb395"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-review.md",
+      "sha256": "c7bbaa797eecfd38beafb676a6eb330904ae3213945357698bfd7e6a6dd2edce"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2a.py",
+      "sha256": "f81621e09f2f5b465976bdbbd85ca8e120e9ee8d77b71c488c673031f73c66d9"
+    },
+    {
+      "path": "research/table2-confirmation/freeze_stage_2a.py",
+      "sha256": "88e3d833ae571159fd2e3da8a7d9644b7504e7ff219b4103e99558c1f1b493b3"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2a_review_data.py",
+      "sha256": "e99e091311fbc15801086bf9620a77ba966ea08c441c5f50a2bb365d3bae9d36"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2a.py",
+      "sha256": "ff6f4f740b2ef435d0708474ba33d4febda70aa1439d42aeef5bdbdbaa8de542"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "0583c2bea0103cc07672b10b23d5f4577b27866b773d3feef7b5e2060a4f179d"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2a_baseline_binding.json",
+      "sha256": "99e58001ca1e57316e0fc4ec240ec5ca8365d1de154dae34372de9a9d1b74f95"
+    },
+    {
+      "path": "runs/research/table2-2a-record-audit-20261010/observations/artifact-checks.json",
+      "sha256": "5c37181b3c47b6097d4a529b522d08a97c052bbd54886fbf6da2aaabc93c5741"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "01779fd2e56ab6b951902ea2350dd4d708655077d755ef0b731c8f0ee0371c98"
+    },
+    {
+      "path": "README.md",
+      "sha256": "5776a2ae2d292a0fc1777203d9ecef4a536f2e233249d18906d865f1214babd4"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "e7799a8b3bce7bf210653956f75aa16aa170ffefa8683374121983d326392596"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "3569398d96287acbb6678b1339617621b878d2569e9516c37e82b140da6f344f"
+    }
+  ],
+  "local_verification": {
+    "pytest": "88 passed",
+    "worktree_gate": {
+      "audio_payloads": 0,
+      "author_projects": 3,
+      "zip_members": 5,
+      "skill_links": 102,
+      "checks": "passed",
+      "worktree_files": 288
+    },
+    "new_TEMP_TMP_and_pytest_directory": true,
+    "logs": [
+      {
+        "path": "runs/research/table2-2a-record-audit-20261010/logs/pytest.txt",
+        "sha256": "c36515efcc32345bfb27c1388575ec31ec3b9cf92f15754abe303389c30dea54"
+      },
+      {
+        "path": "runs/research/table2-2a-record-audit-20261010/logs/worktree-check.txt",
+        "sha256": "07b7a37351f7fd585c627dc7f7042dfe982da4c238a58365551a8799f7719178"
+      }
+    ],
+    "exact_rebuild": {
+      "files": 5,
+      "path": "runs/research/table2-2a-record-audit-20261010/observations/exact-rebuild.json",
+      "sha256": "d85abd843274bbf9c5af4bbe95d4d58a367159d3d77b7573fb4e7388a6c9c2ff"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "status": "passed_with_explicit_auditory_gaps",
+  "contracts_passed": 47,
+  "contract_report": {
+    "path": "runs/test-results/lastpage-conditioned-voicing-20261011/junit.xml",
+    "sha256": "2ee45964f92b647865a4187fb14beae553c32d8a79e6a0422796cef523e60601"
+  },
+  "protected_files": 946,
+  "protected_unique_paths": 946,
+  "runtime_resources": 44,
+  "scripts": [
+    {
+      "path": "research/table2-confirmation/lastpage_conditioned_voicing_20261011.py",
+      "sha256": "641a0f05f65f1bee15c8816e89d0957c879dda7df201d6bddb04494eacbac9b0"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_conditioned_voicing_20261011.py",
+      "sha256": "ab3ef750f3cd03cd079cbd860cf5653a340bd323138a4fbe3c7f38eea6738d5d"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_conditioned_voicing_delivery_20261011.py",
+      "sha256": "7c4b8809f913af8e4d3179cb720d4fc34ddbf3503c67ead85550720903d68e0e"
+    },
+    {
+      "path": "research/table2-confirmation/observe_lastpage_conditioned_voicing_20261011.py",
+      "sha256": "870f5aaf15c237e54bc81ba4fc834a059ed1a357cedd69f21b246b813f743ef4"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_conditioned_voicing_20261011.py",
+      "sha256": "ee6743662267201cb169882b5f13b8c60d4fb7e66aa9c0e5c43bc7a04559e9b0"
+    }
+  ],
+  "rejected_preparation": [
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/before/AGENTS.md",
+      "sha256": "247d612eeec850ec2b0e340b1ac4de321ce31864cf273e9cb8d913dd3266d544"
+    },
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/before/docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "080ba699b3e22d61aa3b6d8c7695e259a4374493700d0a29b3cf6497fdfe7edf"
+    },
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/before/plan-table2.md",
+      "sha256": "a39c2d5e3d42e6f8e343da79a54bdfe1d4c6227cd24bf64d72d37bbf170ca594"
+    },
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/before/plan.md",
+      "sha256": "2f3dc1acd477f105bd32283f79a207301c570846c11932ea3772afe336e8396b"
+    },
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/before/README.md",
+      "sha256": "dc5ada7e6fe36d93fde68b381e1694d9d8b915f21c7f4691abadd1657bc7722c"
+    },
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/before/research/table2-confirmation/README.md",
+      "sha256": "00c5707369d0aaa7e376981d833433ec4287b63e29bb55a73a63fb8692805fcf"
+    },
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/failure.txt",
+      "sha256": "85ae3117898d69279848dda635473f4ee1207c3e227ae87f9bef9a8439f0c920"
+    },
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/protected-before.json",
+      "sha256": "263d04771c4895a2503885d3c250e55f48d8de334e17dbde6b083328e1fa77dc"
+    },
+    {
+      "path": "runs/research/lastpage-conditioned-voicing-rejected-compile-20261011/rejected-compiler.py",
+      "sha256": "f66858ff4ad440ef25e4e26f066011988b4085c5b9b2881166a83c74c2309236"
+    }
+  ],
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 599}",
+  "actual_seeded_variance_calls": 8,
+  "actual_seeded_waveforms": 8,
+  "native_cache_reference_waveforms": 4,
+  "F0_calls": 8,
+  "independent_changed_contexts": 1,
+  "candidates": 1,
+  "actual_new_feedback": 0,
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "public_csv_json_exact": true,
+  "old_song_audio_Skill_unchanged": true,
+  "source_unknown106_retained": true
+}

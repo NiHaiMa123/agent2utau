@@ -1,0 +1,54 @@
+{
+  "stage": "D",
+  "scope": "Selected local implementations/contracts and finite research verifier, not every detector or native model",
+  "files": [
+    {
+      "path": "src/agent2utau/evaluation/features.py",
+      "sha256": "c8a4b4bdfb6d1aa28f859676ccc013721e0c0f3d1abe414250d8974a2542a652"
+    },
+    {
+      "path": "src/agent2utau/evaluation/independent.py",
+      "sha256": "4dd3bc8e701d7c6d6d31479417ba15c642823359927b97c1cc615109c16d61f4"
+    },
+    {
+      "path": "src/agent2utau/evaluation/controlled_probe.py",
+      "sha256": "9175f52ad706ca42b35fafe4ca11334b4fbffbeaff2ba9bcf061c055b4740910"
+    },
+    {
+      "path": "src/agent2utau/evaluation/wavcheck.py",
+      "sha256": "39698dbacf9d53fa1896d159b3dcd86231fc3f0f04af07150eec162485731df7"
+    },
+    {
+      "path": "src/agent2utau/analysis/f0.py",
+      "sha256": "b46b741e17030fc439799dc5a450fa1bf136954792063253f5a6a7dcd18eed21"
+    },
+    {
+      "path": "src/agent2utau/analysis/rmvpe.py",
+      "sha256": "ec5e21061beaedce0552d31828b4dc2514afa26b5b95fd5c0946b8cfd99643fe"
+    },
+    {
+      "path": "src/agent2utau/analysis/onsets.py",
+      "sha256": "815b746508c5e3a7a881806a280328ee6267b54ac2ba82619dc9f1b98b94ea13"
+    },
+    {
+      "path": "src/agent2utau/openutau/ustx.py",
+      "sha256": "b172ccbfa353da4154ffd406c0d07a4082988a9eb959385bdf649e7833f2306a"
+    },
+    {
+      "path": "src/agent2utau/audio/mix.py",
+      "sha256": "313d1d905aa12523dc3614d0b0ff839e5726426e8dd59d5d8b1862d52b0eb8af"
+    },
+    {
+      "path": "tests/contracts/test_independent_evaluation.py",
+      "sha256": "73240fa9655a787e1634e028e3b2bbf2c7a5b009c4bf9389c0b58d8a8876050c"
+    },
+    {
+      "path": "tests/contracts/test_controlled_probe.py",
+      "sha256": "66110e994c9668bc3f6eeb60a7190756d3b170134b87905ca2d321e068d07e1d"
+    },
+    {
+      "path": "research/table1-confirmation/verify_stage_d_arrays.py",
+      "sha256": "ba3112290a9d167344c86f512f1a3066f68a64eb1d854a959498c669d3848213"
+    }
+  ]
+}

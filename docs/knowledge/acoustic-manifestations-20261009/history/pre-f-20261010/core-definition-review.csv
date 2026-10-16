@@ -1,0 +1,32 @@
+﻿legacy_id,working_definition,boundary,claim_refs,source_review_status,remaining_gap,definition_reviewed,measurement_validated,current_engine_effect,status
+P1,周期信号的基频及相对音乐目标的差；另存感知音高,无周期不补F0；感知音高不等于物理基频,CLAIM:018,partial_component_support,估计器质量掩码、音乐目标身份及PER:P1需D/E确认,True,False,not_established,reviewed_with_explicit_gaps
+P2,在明确时间尺度分离的F0中心走势,趋势与颤音分离依滤波/模型选择，不是天然唯一分解,CLAIM:018,engineering_definition_proposal,截止频率、边界与未知段方法待D,True,False,not_established,reviewed_with_explicit_gaps
+P3,两个有身份音乐目标之间的F0连接及到达时序,转音、换音、八度误检与音符基底跳变分开,CLAIM:018,engineering_definition_proposal,音乐身份与允许连接范围需人工上下文；D/E待验,True,False,not_established,reviewed_with_explicit_gaps
+P4,可定位周期/准周期的F0调制，记录速率、深度、相位和包络,快慢调制不是好坏；F0颤音不包办AM及谱形颤动,CLAIM:015;CLAIM:025,research_scope_checked,速率/深度算法、非平稳周期及跨通道时序待D,True,False,not_established,reviewed_with_explicit_gaps
+P5,扣除声明中心/调制模型后的帧级F0残差；周期jitter独立记录,残差不是jitter；octave error不是生理不规则,CLAIM:001;CLAIM:003,partial_component_support,循环定位及残差分解两套协议待D,True,False,not_established,reviewed_with_explicit_gaps
+L1,数字电平、校准声压级、响度模型输出与主观强弱分别记录,RMS/dBFS、dB SPL、LKFS、phon/sone不可互换,CLAIM:009;CLAIM:010;CLAIM:022;CLAIM:023;CLAIM:029,source_distinctions_checked,回放校准、局部窗口和本机实现合规待D,True,False,not_established,reviewed_with_explicit_gaps
+L2,明确频带/窗/参考的幅度或电平包络随时间变化,元音发声包络不等于混音总包络；渐强意图另记,CLAIM:009;CLAIM:025,partial_component_support,归一、窗长、相位延迟及乐句事件定义待D,True,False,not_established,reviewed_with_explicit_gaps
+L3,包络的周期/准周期调制；记录频率、幅度及跨F0关系,AM不等于周期shimmer；FM经源滤波也可能出现AM,CLAIM:002;CLAIM:025,source_distinctions_checked,AM去趋势/倍频、shimmer周期方法待D；ACO:L5为新增候选,True,False,not_established,reviewed_with_explicit_gaps
+L4,局部短时幅度/频带能量突变及发生阶段,自然爆破、瞬态噪声、增益跳变、削波均可能，但原因另判,CLAIM:009;CLAIM:026;CLAIM:030,partial_component_support,瞬态窗、变化阈值及候选原因排除待D/E,True,False,not_established,reviewed_with_explicit_gaps
+S1,周期成分/噪声的可定义声学指标；支撑感另存感知,模型VOIC、HNR、接触商和实感不同,CLAIM:004;CLAIM:008;CLAIM:016,source_distinctions_checked,HNR/CPP算法和有效域待D；支撑感不能给单阈值,True,False,not_established,reviewed_with_explicit_gaps
+S2,声明取样/校正条件的谐波幅度或分段声源谱形,原始输出谱受声道/噪声影响，不直接等于声门源谱,CLAIM:011;CLAIM:012,source_distinctions_checked,逆滤波可靠性、高F0与跨元音校正待D,True,False,not_established,reviewed_with_explicit_gaps
+S3,明确分离模型下周期与非周期成分的相对量,神经breathiness feature不是输出NHR；辅音噪声不算元音漏气真值,CLAIM:004;CLAIM:013,source_distinctions_checked,噪声提取与有效段验证待D,True,False,not_established,reviewed_with_explicit_gaps
+S4,非周期部分的频谱与时间结构，保留来源未明,气声、摩擦音和分离残留不能只靠高频能量区分,CLAIM:013;CLAIM:019,partial_component_support,非周期分解、频带和类型归属待D/E,True,False,not_established,reviewed_with_explicit_gaps
+S5,与主周期关系明确的次谐波/多周期组织,多个歌手或伴奏的独立F0不是同源次谐波；粗糙感另存,CLAIM:014;CLAIM:017,research_scope_checked,检测器、复音排除及subharmonic比例协议待D,True,False,not_established,reviewed_with_explicit_gaps
+S6,声学周期支撑中断/再起事件；破音词另存候选,清辅音/停顿、检测失败和主动不规则不自动异常,CLAIM:021;CLAIM:017,source_distinctions_checked,官方voice breaks测量不等于本曲有效检测器,True,False,not_established,reviewed_with_explicit_gaps
+R1,分别记录实际声道共振、输出谱包络峰和模型极点的频率,三种对象可能偏离；不能用LPC直接证实舌根/喉位,CLAIM:005;CLAIM:006;CLAIM:020,source_distinctions_checked,高F0可识别性、峰/极点跟踪及无生理真值限制待D,True,False,not_established,reviewed_with_explicit_gaps
+R2,共振/模型极点带宽与谱谷/反共振分别记录,峰宽不等于谷深；原始谱变化也可能来自声源,CLAIM:005;CLAIM:011;CLAIM:020,partial_component_support,带宽与零点估计独立定义，鼻通道证据待D,True,False,not_established,reviewed_with_explicit_gaps
+R3,同身份元音/过渡阶段内的谱包络、峰或极点时间连续性,自然双元音/协同发音不等于漂移；峰跳也可能估计失败,CLAIM:006;CLAIM:007;CLAIM:020,engineering_relation_with_source_limits,对象追踪、匹配及同声线条件待D/E；无自动异常阈值,True,False,not_established,reviewed_with_explicit_gaps
+R4,鼻化候选谱结构与鼻/堵感知分栏,口鼻耦合可有共振及反共振；单个鼻峰不唯一诊断,CLAIM:019;CLAIM:020,partial_component_support,鼻声知觉与生理推断需独立证据；本模型暂无验证,True,False,not_established,reviewed_with_explicit_gaps
+T1,声学事件相对于显式音乐/词/音素参考的时差,ASR/HFA/谱面不是彼此真值；发声起点与note onset不同,CLAIM:026,engineering_clock_definition,参考身份、offset、时钟转换与误差需D/C,True,False,not_established,reviewed_with_explicit_gaps
+T2,明确边界之间的音符/音素/元音核持续时间,音符长不保证元音核长；模型时长不等于实际声学边界,CLAIM:026,engineering_clock_definition,边界检测及延音/跨note计数待D,True,False,not_established,reviewed_with_explicit_gaps
+T3,声母爆破/摩擦/有声段及对比线索；咬字清晰度另存,辅音能量大不一定更清楚；声学时序不等于识字率,CLAIM:019;CLAIM:026;CLAIM:027,partial_component_support,中文音素条件与感知识别任务待D/E,True,False,not_established,reviewed_with_explicit_gaps
+T4,声母释放、周期声/噪声与元音包络建立的先后及间隔,VOT适用塞音的特定事件；不能统称所有起声协调,CLAIM:026;CLAIM:019,source_distinctions_checked,中文声母与非塞音入口协议待D；无通用理想ms,True,False,not_established,reviewed_with_explicit_gaps
+T5,相邻音素声学特征的过渡时间及连续/重叠关系,断连感可来自音高、周期、包络或剪辑；不是只看音素边界,CLAIM:019;CLAIM:020;CLAIM:026,engineering_relation_with_source_limits,自然协同发音与异常漂移的对照待D/E,True,False,not_established,reviewed_with_explicit_gaps
+T6,持续发声结束/再起及包络释放；词尾音素独立,自然收声、辅音尾与拼接突然截断不同,CLAIM:019;CLAIM:009,engineering_relation_with_source_limits,释放事件时刻及尾音身份待D/E,True,False,not_established,reviewed_with_explicit_gaps
+T7,非唱呼吸噪声与静音/低能量间隔分别记录,AP/SP工程符号不证明真实呼吸；无波形也不证明无准备动作,CLAIM:019,engineering_event_definition,呼吸来源/边界与休止定义待D/E,True,False,not_established,reviewed_with_explicit_gaps
+X1,数字样本过载/非线性与其他失真分栏，查sample peak及true peak,没有满幅样本不排除间采样峰、前级失真或字头破音感,CLAIM:030,partial_component_support,true-peak实现/滤波验证及非线性归因待D/C,True,False,not_established,reviewed_with_explicit_gaps
+X2,波形边界不连续、重复结构、谱异常等现象分开记录,听感电子/金属感不自动证明缓存、拼接或模型故障,CLAIM:008;CLAIM:030,engineering_artifact_candidates,伪影类型定义/来源归因与重现证据待D/E,True,False,not_established,reviewed_with_explicit_gaps
+X3,声部电平比例与目标识别受遮蔽的感知结果分栏,同RMS不等于同可懂度；多说话者实验不直接给伴奏阈值,CLAIM:027;CLAIM:029,partial_component_support,当前歌曲混音的频带/时间/听者协议待D/E,True,False,not_established,reviewed_with_explicit_gaps
+X4,通道相位/相关、混响响应与远近/宽度感知分栏,单声道电平不够解释空间；房间RT方法不自动适用未知合成混音,CLAIM:028;CLAIM:029,scope_only_partial,已知IR与盲估计分开，空间听觉/算法资料仍缺,True,False,not_established,reviewed_with_explicit_gaps
+X5,采样率、位深、编码/带限是格式/处理上下文；声学后果另记,格式标签不是听感好坏维度；缺频也可能来自源/滤波,CLAIM:030;CLAIM:011,engineering_metadata_definition,量化/混叠/编解码方法资料仍缺；需C/D核对,True,False,not_established,reviewed_with_explicit_gaps

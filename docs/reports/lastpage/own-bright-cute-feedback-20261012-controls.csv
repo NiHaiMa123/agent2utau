@@ -1,0 +1,7 @@
+﻿context,channel,abbr,UI_min,UI_max,delta_min,delta_max,nonzero_native_frames,total_native_frames
+28,breathiness,brec,-3,6,-0.36,0.72,101,421
+28,voicing,voic,100,190,0,10.8,80,421
+28,tension,tenc,-5,18,-0.25,0.9,105,421
+29,breathiness,brec,-3,9,-0.36,1.08,56,305
+29,voicing,voic,100,122,0,2.64,50,305
+29,tension,tenc,-7,17,-0.35,0.85,59,305

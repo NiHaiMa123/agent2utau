@@ -1,0 +1,29 @@
+{
+  "id": "T2D-SHFC-PATHS-01",
+  "version": 1,
+  "baseline": {
+    "stage": "2D",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/snapshot-manifest.json",
+    "sha256": "99adb576270a41b7bbf635c584dcfabf332e7c547ecbdf46e06bc8b0b291ea32",
+    "run": "runs/research/table2-2d-protocol-freeze-20261010"
+  },
+  "execution_status": "not_executed",
+  "bindings": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+      "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.md",
+      "sha256": "fac5ed0c9be88d584e14a99d7263776cc93d596a4137e31d61ceaaca96bd9afa"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2d_design.py",
+      "sha256": "75e0409af767ecb26e0c12216d601aac62541580bbe9364e49c893e5c7ce4f78"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2d.py",
+      "sha256": "2e210741f7d6b286f5a9cff2b9e8359f81f31709ab029652e3366b707e53639f"
+    }
+  ]
+}

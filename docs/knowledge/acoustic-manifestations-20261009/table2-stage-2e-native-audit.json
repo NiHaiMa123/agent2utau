@@ -1,0 +1,95 @@
+{
+  "stage": "2E-native",
+  "date": "2026-10-10",
+  "status": "passed_with_explicit_execution_gaps",
+  "baseline": {
+    "stage": "2E-native",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-native-20261010/snapshot-manifest.json",
+    "sha256": "e179643f83a15aa35167757af08002db9cfb7d9689f84f6ba9712e4ecd6222ac",
+    "run": "runs/research/table2-2e-native-check-20261010",
+    "test_run": "runs/test-results/table2-2e-native-20261010"
+  },
+  "stage_2E_complete": false,
+  "snapshots": 20,
+  "production_skill_project_SHA": 79,
+  "protected_inputs_SHA": 67,
+  "protocol_and_old_audits_unchanged": true,
+  "runtime_rehashed": 47,
+  "local_tests": 143,
+  "research_contract_tests": 55,
+  "gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 468
+  },
+  "links_checked": 184,
+  "execution": {
+    "new_native_exports": 0,
+    "variance_inferences": 0,
+    "acoustic_vocoder_waveforms": 0,
+    "delivered_PCM": 0,
+    "new_feedback": 0,
+    "generic_rules": 0,
+    "measurement_validated_upgrades": false
+  },
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.json",
+      "sha256": "fcf6354f6405ae71c5ba06b0d05bb4dac2e6499943a9e8cae383f306aa01c202"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.md",
+      "sha256": "4dd44973e96559cd2d9da48bc21fff2bbe597b9714f247c0976ef98085d06dd5"
+    }
+  ],
+  "entry_and_code_bindings": [
+    {
+      "path": "README.md",
+      "sha256": "ec8bdad6ca27d7de7774793722455a3ff4a0dba34e622f5d9aeba3bee6e8102c"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "65b8a5e4a7d5adecd1ce2f4d0d13de2ffa18fb3b126916517917cb838a215694"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "0b0b03678b6ab4ef1c55f51f9212f6fb43a6f5e179e282de64ccb404b51acdda"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "a089cf9abc4cda9701d4c062db493939c132ddc6fa6951d071143ce1e978dab6"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "c3a39270d20bd936e5f9f6e070e4a1dd0e5c5533b424f35be987d65c4a967d21"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "7c6b1c8f43731624911d17fc99dc65d901040a8d5c8f145865f742c983d1a577"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.md",
+      "sha256": "4dd44973e96559cd2d9da48bc21fff2bbe597b9714f247c0976ef98085d06dd5"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2e_native.py",
+      "sha256": "1637721c8e19d7e6d256b89fba1e05cacd763e2dfa1102f3c88da16ff4bc98f8"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2e_native_baseline_binding.json",
+      "sha256": "9fac752c65a3aa40bd057c6d1d5d7bd647217fa341f0e0c2f8efb1e768bb882c"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2e_prep.py",
+      "sha256": "fd0065669e83db4f2edc19a5ca0e897e34694ff2271ebd390c4e91318997c38c"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2e_prep.py",
+      "sha256": "9cf91d9eead5be8db2900d74aefc687f1bc504e02819bb37407ecda3ebf1754e"
+    }
+  ],
+  "next": "2E finite execution prerequisites and explicitly authorized new batch; human listening after technical gates"
+}

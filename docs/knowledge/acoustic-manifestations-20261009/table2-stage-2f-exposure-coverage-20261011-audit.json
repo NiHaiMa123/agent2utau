@@ -1,0 +1,91 @@
+{
+  "status": "passed_metadata_and_design_preparation_only",
+  "counts": {
+    "words": 318,
+    "phrase_groups": 34,
+    "raw_vowel_tokens": 33,
+    "documented_direct_target_words": 14,
+    "delivered_clip_overlap_words": 40,
+    "documented_word_union": 48,
+    "scoped_exposed_phrase_groups": 14,
+    "word_history_unknown": 270,
+    "clean_holdout_words": 0,
+    "coverage_cells": 297,
+    "occupied_cells": 95,
+    "empty_cells": 202,
+    "one_phrase_cells": 11,
+    "raw_owned_onset_patterns": 24
+  },
+  "protected_bindings": 146,
+  "immutable_bindings_checked": 735,
+  "source_bindings": 16,
+  "snapshots": 10,
+  "markdown_links_checked": 210,
+  "worktree_gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 562
+  },
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2f-exposure-coverage-20261011.json",
+      "sha256": "12b217e808e72d490cca784b97c631f6516be5e029d89671a97b0c03b6fa815d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2f-exposure-coverage-20261011.md",
+      "sha256": "520bf97ba17bcee0854a48a79262f0ae66e171994dff8fc334483e2919d5f0c2"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2f-exposure-coverage-20261011-candidates.csv",
+      "sha256": "ac05e68583976e9d5bbd4e90f9edfc83b00021a799193a43e3ded794eddbc77a"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2f-exposure-coverage-20261011-coverage.csv",
+      "sha256": "b15143ebe4ed0d6edb8320e557334ebd7b85fb97dba6e3b6337420d853514332"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2f-exposure-coverage-20261011-precision.csv",
+      "sha256": "b5627d418bb1afa4ee6851cad2610c957011eb6f01eab1136ce63c9f8f2ba3fc"
+    }
+  ],
+  "entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "ed4ecc180b3be0e5441ef2e281490153636881016b8e07e601172c1a951a787f"
+    },
+    {
+      "path": "README.md",
+      "sha256": "ffd222f72d8365ffaa3d1e1f434380d6f6d12429609f801bcfb07228d489af32"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "bc196141fc54e3bdcb641a119252302187431f43b42ac62a8cbe64ccafade5db"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "935d69c2a3bfddd9d296afb7bace2c65b08185bc85f2c19768d4db4b344aaec7"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "d25a5ef91dd12f486b1c818e10e3bbd328001743e439df362f91494ded51d58a"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "e13ae152b4ae4478e7f16d31775a3a401a4d46dfd1916fcd2c3eca6afde98dfe"
+    }
+  ],
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "audio_or_array_decodes": 0,
+  "new_listening_feedback": 0,
+  "holdout_assigned": 0,
+  "final_sample_size_justified": false,
+  "exposure_audit_exhaustive": false,
+  "generator": {
+    "path": "research/table2-confirmation/prepare_stage_2f_exposure_coverage.py",
+    "sha256": "cdf53fe0cc1e9e00db8c9229d13b73be67a1c1f29ab9c3931d41036d83efcfe1"
+  }
+}

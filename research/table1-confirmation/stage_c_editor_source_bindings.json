@@ -1,0 +1,90 @@
+{
+  "upstream_commit": "5c3c83bbeced96718e85e4a96d127de3287cd14b",
+  "role": "frozen_editor_and_selected_extension_sources",
+  "files": [
+    {
+      "path": "OpenUtau/ViewModels/LyricBoxViewModel.cs",
+      "sha256": "ce879e74fd83e4cbee7962998f6e5eca5a3662ffd65d633508057dea0a285f22"
+    },
+    {
+      "path": "OpenUtau/ViewModels/MixFxViewModel.cs",
+      "sha256": "dab0273bf488ea3cae4077304ff88cb99080f612ee7935d5be97818a24a80738"
+    },
+    {
+      "path": "OpenUtau/ViewModels/NoteDefaultsViewModel.cs",
+      "sha256": "3d1589f3df10651b73551fe0d5d325a6a8d5e6e14abf694d215252a43a6248a5"
+    },
+    {
+      "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+      "sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477"
+    },
+    {
+      "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+      "sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1"
+    },
+    {
+      "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+      "sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054"
+    },
+    {
+      "path": "OpenUtau/Views/NoteEditStates.cs",
+      "sha256": "7ede4b25ed202c5380789f08d0ef78e11dee26e34b289e046be03bf9577569eb"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/ExeResampler.cs",
+      "sha256": "69e4b62bac55ea65c34dfd3e61369b568a8cdebdda1a25beb3f354c3f5a8ac74"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/Hifisampler/HifiSampler.cs",
+      "sha256": "b1e92211bcd5e4d0a95b0f4910f7cdff9da7a5fef4afdef222a5567ab67b9662"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/Hifisampler/HifiSamplerConfig.cs",
+      "sha256": "e9b25e90b369db5e00318e0d6d5babecf6140857fa44d9ff16ba8359309d8fe5"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/HifisamplerResampler.cs",
+      "sha256": "87a065131f3242fca232502bb779466cd5b2a1986e2640351209ba5cd14a7bfa"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/ResamplerManifest.cs",
+      "sha256": "a21f6b44d639782e0f92e382d45a72ecc19dcf7a4793879f134ebb9950d6709f"
+    },
+    {
+      "path": "OpenUtau.Core/Commands/ExpCommands.cs",
+      "sha256": "c0971d24afe5ff15e0e5e76611c1d3a544c6b524e935e0d9bf696c06fe2aebb8"
+    },
+    {
+      "path": "OpenUtau.Core/Commands/NoteCommands.cs",
+      "sha256": "953649138aaf92cd5b26e62d7ae14bdc6f8eb7e3e8a5bade8f6c33c575bdcf66"
+    },
+    {
+      "path": "OpenUtau.Core/Editing/NoteBatchEdits.cs",
+      "sha256": "b195a2996e1ead8884ec1cd7a27a2ab17d35399be719f797ee1654bb01212432"
+    },
+    {
+      "path": "OpenUtau.Core/Editing/ResetBatchEdits.cs",
+      "sha256": "89d9c2e3ed4052f12f3253b24b144c6ff16b02af5ce9dc67aacf30107239d940"
+    },
+    {
+      "path": "OpenUtau.Core/Enunu/EnunuConfig.cs",
+      "sha256": "cdde6c85bd40a654ce7b99a0d6e944edced4fa71ba1120ddf8f71fe270dd460b"
+    },
+    {
+      "path": "OpenUtau.Core/Util/EditTool.cs",
+      "sha256": "db3bf860a455eea69ad622b3705a78414b019be4411e0247d92f13bb838f8481"
+    },
+    {
+      "path": "OpenUtau.Core/Util/LivePitchMode.cs",
+      "sha256": "3899e5eeb09f37587afc3b4af006a2726fc312e2da7775c549c410316b659f27"
+    },
+    {
+      "path": "OpenUtau.Core/Util/NotePresets.cs",
+      "sha256": "68aad3076a031bb34e47e1b0bd8df4315da50a5326b3859803788f547774635b"
+    },
+    {
+      "path": "OpenUtau.Core/Util/WindowSize.cs",
+      "sha256": "23a9f94a3cd666177cb8a352a293a269e55b177ee8c3cf70ad25fe3e6338f2c1"
+    }
+  ]
+}

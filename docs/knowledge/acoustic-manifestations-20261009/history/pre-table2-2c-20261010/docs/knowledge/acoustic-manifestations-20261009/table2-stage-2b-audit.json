@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-10",
+  "stage": "2B",
+  "status": "passed_with_explicit_gaps",
+  "records": 14,
+  "comparisons": 17,
+  "feedback_groups": 6,
+  "original_CSV_rows": 10,
+  "full_structure_CSV_rows": 14,
+  "snapshot_files": 26,
+  "source_metadata_SHA_checked": 52,
+  "protected_input_SHA_checked": 67,
+  "deep_restore_equal": true,
+  "old_CSV_cells_equal": true,
+  "original_Markdown_body_preserved": true,
+  "schema_validation_scope": "declared type/required/const/enum/minItems/minLength/items/properties subset; three invalid specimens rejected; no external schema engine installed",
+  "historical_stage_audit_outputs_unchanged": true,
+  "historical_entry_guards": [
+    {
+      "script": "research/table1-confirmation/build_stage_f.py",
+      "refused": true
+    },
+    {
+      "script": "research/table1-confirmation/build_audit.py",
+      "refused": true
+    },
+    {
+      "script": "research/table2-confirmation/build_stage_2a.py",
+      "refused": true
+    },
+    {
+      "script": "research/table2-confirmation/verify_stage_2a.py",
+      "refused": true
+    }
+  ],
+  "document_links_checked": 166,
+  "new_measurement_count": 0,
+  "new_audio_or_array_reads": false,
+  "current_external_runtime_revalidated": false,
+  "new_user_feedback": 0,
+  "stage_2C": "not_executed",
+  "local_verification": {
+    "status": "passed",
+    "pytest_tests": 88,
+    "worktree_gate": {
+      "audio_payloads": 0,
+      "author_projects": 3,
+      "zip_members": 5,
+      "skill_links": 102,
+      "checks": "passed",
+      "worktree_files": 325
+    },
+    "deterministic_generated_outputs": 6,
+    "bound_knowledge_outputs": 8
+  },
+  "baseline": {
+    "manifest_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2b-20261010/snapshot-manifest.json",
+    "manifest_sha256": "4d7acafade71403fab9f09900b26c9d40c54ffe09f14a99d0e0890d5cfb2d5a2"
+  },
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "4a3b2872e50885501d7044b81a11fce46ce52ff18aaa8101110491aac685f527"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "sha256": "f38b8c9ebdfc98f9135a436d2fe40c850df37b5809b6517e62345068299b5729"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "sha256": "0bdf3e0062e8de6dd24bdf49b217f9f8da1bc98b6b48143ff7c5ff2afb4e1f01"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-schema.json",
+      "sha256": "8ffab37b243b413a031750900c65e8713fc0f7a16f1bc367b8251f2f99f4dc2a"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-schema-migration.json",
+      "sha256": "fac90e967e5960566f570a842a453fb220bc1137037415e0f98bbb2c42abd9ea"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-structure.csv",
+      "sha256": "45bb85de1d107e953ebca7167c8889e7e33fb752bdb02ef1cdeeb42b062735f5"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-fields.md",
+      "sha256": "f8eb887efa6c02a46fac19e3e722a007e6ddcf5def52fbadfe85dc601147c014"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-schema-review.md",
+      "sha256": "a384d032deb9f58479b0dcfcb1e4bdbe82aed3f3a3dafcf90abbc53f3224f227"
+    }
+  ],
+  "research_and_current_entry_bindings": [
+    {
+      "path": "research/table2-confirmation/build_stage_2a.py",
+      "sha256": "5e8f9aafeaa710bb511c6321a2d26878759d0fc01bc5445b011152acf13fbe35"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2b.py",
+      "sha256": "f9d94981c84df91ecb2430767ddf151419fd0a5cb998d1ab1008a05cdc60bdc1"
+    },
+    {
+      "path": "research/table2-confirmation/freeze_stage_2a.py",
+      "sha256": "88e3d833ae571159fd2e3da8a7d9644b7504e7ff219b4103e99558c1f1b493b3"
+    },
+    {
+      "path": "research/table2-confirmation/freeze_stage_2b.py",
+      "sha256": "e44ba0f4eb174d528e8508fa761a284e60b7fcedaa6aeb1123c5f77032153ca6"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2a_review_data.py",
+      "sha256": "e99e091311fbc15801086bf9620a77ba966ea08c441c5f50a2bb365d3bae9d36"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2a.py",
+      "sha256": "a35acae81b54a46dc41e9edbb230add1d1040b614dd8435b24a11028bf00f6b7"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2b.py",
+      "sha256": "72190ffb14313aeba209089e53f3189d56930f47237d982159c588115668cda2"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "a03172655252c344a334a4bfb788781f9aeb0041a00fd36584aec87004137911"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2b_baseline_binding.json",
+      "sha256": "eb8c9eca4fa17156fc0efc05bf71b6dd1e036cea66c492d03a25a539a7394be9"
+    },
+    {
+      "path": "README.md",
+      "sha256": "7f4faa8f784da087583defc54710e4dd7cc3d459a82f6469f3d5e7cf71db7127"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "8e003a20aa01c9c496ba7056189cdaaf8f7a744dab4fca47ac67743b6837b88d"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "2453d3bac5f4ab81e933e2d939f34f6097a7ef453bd6e76be3c96acd5b669ff2"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "cd4fee1fd0bc7a2ca275163c5493d6ce567d6924c19e02246c40bee5af08c674"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "83cdf42eab8044741125232168f05c7828b707b978d5ff9cb13ab82107fe4233"
+    }
+  ]
+}

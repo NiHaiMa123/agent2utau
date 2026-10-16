@@ -1,0 +1,74 @@
+{
+  "status": "passed_sampling_preparation_not_executed",
+  "source": {
+    "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+    "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+  },
+  "sealed_files_SHA": 686,
+  "sealed_documents_SHA": 31,
+  "production_skill_project_SHA": 79,
+  "protected_inputs_SHA": 67,
+  "snapshot_files_SHA": 9,
+  "candidate_rows": 318,
+  "phrase_groups": 34,
+  "all_roles_unassigned": true,
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2f-sampling-review-20261011.json",
+      "sha256": "17358338afe82bd080afb492479704420b393e676a0d76d06755d39f050d998d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2f-sampling-review-20261011.md",
+      "sha256": "78ce09ac40d3090109b0772281f77a9d089dd6d787b850c1aab9aa01d1364b22"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2f-sampling-review-20261011-candidates.csv",
+      "sha256": "515ede96798b1c25f310b54697e5163bc62529e5a5107a4b63d29dd04df3b26f"
+    }
+  ],
+  "entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "6d6fa1f91bf54a1f6b9b5c7ffbd43e1a3a0923e760c07480e0ace45ebe9c4afd"
+    },
+    {
+      "path": "README.md",
+      "sha256": "e40cc8b32b97c68fb2420f90c0e77c1621718dd5d31e076ebb532e9997cd14df"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "ee0bbc4e74d93886d82ce25c84ad4f921ad8eb5c7ae71a80674399e01d590502"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "ad499528cc1bd23698b0479f64cba63f9dd9881a08ea9646c3d454c846fbfc58"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "4c67b837aaa31040bbd2b8af302c90e4652e420dbc6a54a2d9ca56b0e1dc454d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "b5720e8106081adc1ee70bb037538572f439d5e85e427840695083d872db668a"
+    }
+  ],
+  "markdown_links_checked": 208,
+  "worktree_gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 555
+  },
+  "model_calls": 0,
+  "new_waveforms": 0,
+  "audio_or_array_decodes": 0,
+  "stage_2F_validation_executed": false,
+  "final_sample_size_justified": false,
+  "CI_manual_only": true,
+  "generator": {
+    "path": "research/table2-confirmation/prepare_stage_2f_sampling_review.py",
+    "sha256": "f7251357268d09c7e3ce6e96c0e22c701ddab580396b98dea1d6b81e14e65bcb"
+  }
+}

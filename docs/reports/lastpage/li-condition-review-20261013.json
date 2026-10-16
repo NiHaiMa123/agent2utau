@@ -1,0 +1,826 @@
+{
+  "status": "li_conditions_reviewed_entry_pitch_J_design_frozen",
+  "table2_supplement": {
+    "record_id": "OBS:LASTPAGE-LI-ENTRY-REVIEW-01",
+    "kind": "condition_review_not_response",
+    "response_series_added": 0,
+    "table1_refs": [
+      "PER:S1",
+      "EVT:L2",
+      "ACO:L1",
+      "PARAM:C01.01",
+      "PARAM:C02.02",
+      "PARAM:C03.01",
+      "PARAM:C13.01"
+    ],
+    "source_bindings": [
+      {
+        "path": "runs/lastpage_loudness_skill_v02_20261007/source_and_own_design_reuse.json",
+        "sha256": "e997f68554066bb1d3d87b30a79c8f74e455500b1bfa7d9e4f7912bfba5b550c"
+      },
+      {
+        "path": "runs/lastpage_loudness_skill_v02_20261007/source_observations.json",
+        "sha256": "d03fa8ccb49c3733783e51faf20ffbfbe20bc75f1b6b5aa0fa9ab46d976c4078"
+      },
+      {
+        "path": "runs/lastpage_loudness_skill_v02_20261007/fcpe.npz",
+        "sha256": "0d20181b14116eda6f1f5730584049ee07d738ed0d74c4098744d36fe6475199"
+      },
+      {
+        "path": "runs/lastpage_loudness_skill_v02_20261007/rmvpe.npz",
+        "sha256": "bc46ccf666e93dec7b5509acd1fc80e7c786237781b8d6d9d98580229cb24df7"
+      },
+      {
+        "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+        "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+      },
+      {
+        "path": "runs/lastpage_loudness_skill_v02_20261007/agent_word_decisions.json",
+        "sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+      },
+      {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/native-inputs/F-pitch.json",
+        "sha256": "5836fce08561f8934c5c0648fdb6a3e5d2f2d7df52ab8a4eadff78939731237c"
+      },
+      {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/score/lastpage_own_control_neutral_F.ustx",
+        "sha256": "7050e7f3a89f211157d803dd281b82a8fc9c6d9acc46ee050d3f4358d2769e59"
+      },
+      {
+        "path": "docs/reports/lastpage/author-controls-feedback-20261012.json",
+        "sha256": "253088e263f580b599ad72b0998c9531081c083ee7fe810295294bc9ad80caae"
+      }
+    ],
+    "evidence_rows": [
+      {
+        "id": "RESP:LASTPAGE-VOICE-BASELINE-01",
+        "short_label": "voice-baseline",
+        "factor": "normal75/bright25 only",
+        "verbatim": "还是虚，没有退化",
+        "limited_reading": "this own candidate remained virtual; no regression reported",
+        "remaining_boundary": "does not exclude all other speaker mixtures",
+        "source": {
+          "path": "docs/reports/lastpage/voice-baseline-probe-20261011.json",
+          "sha256": "c0f6dc34ce0b468aadbc096fcc064d0c0f8adddc632ee9080e809d40a0215d1e"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/voice-baseline-feedback-20261011.json",
+            "sha256": "e68b7b3c0c279baf8ff7095bc8343dd58dfa8e5796016e203d331329f366eec9"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-CONDITIONED-VOIC-01",
+        "short_label": "conditioned-VOIC",
+        "factor": "own five-word VOIC increases",
+        "verbatim": "还是不行",
+        "limited_reading": "not accepted",
+        "remaining_boundary": "not evidence for more VOIC or universal channel inefficacy",
+        "source": {
+          "path": "docs/reports/lastpage/conditioned-voicing-probe-20261011.json",
+          "sha256": "7f4ed106d4a2aea46eda59f0a80bd69bf8aaca65b950eaaefcce38dc87498096"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/conditioned-voicing-feedback-20261011.json",
+            "sha256": "0e5a56359afc6d1c08f7ca29d5aa19b6dab393d71ee6cdb9b564aefd4b9a644c"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-AUTHOR-PITCH-ABLATION-01",
+        "short_label": "author-pitch",
+        "factor": "author PITD and relative note.pitch neutralization",
+        "verbatim": "都比我们的实",
+        "limited_reading": "A/P/N/PN all more solid than old own",
+        "remaining_boundary": "notes.tone/music stages/clocks retained; absolute music trajectory not excluded",
+        "source": {
+          "path": "docs/reports/lastpage/author-pitch-ablation-20261011.json",
+          "sha256": "dff1306571635e157703988026e5977a130b66dfeb2b392fd46cf622c53c19fc"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/author-pitch-feedback-20261011.json",
+            "sha256": "f93be06fc57ff20b9fb1784f1133c4170a56dedc8392fdf1834406250c28493f"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-AUTHOR-VOICE-SWAP-01",
+        "short_label": "author-voice",
+        "factor": "own speaker on author conditions",
+        "verbatim": "B比原版好点，但还是不如A",
+        "limited_reading": "B somewhat better than old own, below A",
+        "remaining_boundary": "voice contribution supported; no unique cause",
+        "source": {
+          "path": "docs/reports/lastpage/author-voice-swap-20261011.json",
+          "sha256": "22ef1c976dd5fb3d10882fb9e299aef064056990db4fc2cb1002fee637503242"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/author-voice-feedback-20261011.json",
+            "sha256": "c8a7839ecb61872631685ebe0851043c74b444be1ce253fd30da31470f45fd19"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-AUTHOR-CONTROL-NEUTRAL-01",
+        "short_label": "author-neutral",
+        "factor": "author grouped manual controls removed",
+        "verbatim": "很接近a了",
+        "limited_reading": "C very close to A",
+        "remaining_boundary": "no isolated TENC/BREC/VOIC verdict; C-F direct rank absent",
+        "source": {
+          "path": "docs/reports/lastpage/author-control-neutral-20261011.json",
+          "sha256": "a481ed9395c3c5098ab15065d4e67b42bd9a0562d038f0ec94faea25dff8f5db"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/author-controls-feedback-20261012.json",
+            "sha256": "253088e263f580b599ad72b0998c9531081c083ee7fe810295294bc9ad80caae"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-AUTHOR-INTERACTION-01",
+        "short_label": "author-interaction",
+        "factor": "fourth speaker/control corner",
+        "verbatim": "D比B好一点点，很细微，比c差很多",
+        "limited_reading": "D slightly above B, far below C",
+        "remaining_boundary": "speaker/control interaction conditional; no transitive F rank",
+        "source": {
+          "path": "docs/reports/lastpage/author-interaction-20261012.json",
+          "sha256": "276a14ec50e742b7c030422449bbc8abeb8eda8346d9c17bd854c408a9e5fbb2"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/author-interaction-feedback-20261012.json",
+            "sha256": "b187d762597cc98ea7fb599296eb03178e1782fea4c41389f5dfc8e906729602"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-OWN-BRIGHT-CUTE-01",
+        "short_label": "own-E",
+        "factor": "bright40/cute60 on own conditions",
+        "verbatim": "比白烁的更实，但是就有那种前顶的感觉，声音挤得很细很尖",
+        "limited_reading": "more solid than author but forward/squeezed/thin/sharp",
+        "remaining_boundary": "adverse example; cannot map to one tension cause",
+        "source": {
+          "path": "docs/reports/lastpage/own-bright-cute-probe-20261012.json",
+          "sha256": "e570733f4c56860e13b9297540cfbf4b021f6fb82400d367648f4ecf5a2ed7ac"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/own-bright-cute-feedback-20261012.json",
+            "sha256": "595bf6d35f498d1482a03043ee63b2ba641cc573327e69fd0a009952e2cf0295"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-OWN-CONTROL-NEUTRAL-01",
+        "short_label": "own-F",
+        "factor": "grouped manual controls neutralized under E voice",
+        "verbatim": "还有每轮的记录到表里了吗？以及更好了，但是比如像里字，白烁的是有发力强度区分的，渐强到减弱。就是发声的强弱安排也需要有层次",
+        "limited_reading": "better and author li staged strength requested",
+        "remaining_boundary": "working comparator, not all adverse traits resolved or fully solid",
+        "source": {
+          "path": "docs/reports/lastpage/own-control-neutral-probe-20261012.json",
+          "sha256": "3c1ea874907db758d7974320bd1b56453230ab5ac91076673e12fb2edf1d57ea"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/own-layering-feedback-20261012.json",
+            "sha256": "83e7a96011e674b14ee6b7eca3fee8be5875b6b8521492e4cc069dc67990e55f"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-OWN-LI-VOIC-STAGES-01",
+        "short_label": "G",
+        "factor": "one VOIC stage gesture on F",
+        "verbatim": "不行",
+        "limited_reading": "not acceptable",
+        "remaining_boundary": "rejection dimensions unspecified; no escalation",
+        "source": {
+          "path": "docs/reports/lastpage/own-li-voic-stages-probe-20261012.json",
+          "sha256": "cce735b7779cf63e4d9b4371e241bae40a60b9ee26f44625c8744e549aa0c244"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/own-li-voic-feedback-20261012.json",
+            "sha256": "08f23739c3911a01b54c0477f23bd5192b39aebcaca0fb9043d5c83ddacea36b"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-OWN-LI-DYN-LAYERS-01",
+        "short_label": "H",
+        "factor": "DYN stage gesture on F raw",
+        "verbatim": "里字不够实，强度也不够大",
+        "limited_reading": "li insufficient solidity/strength",
+        "remaining_boundary": "output envelope failed current target; not an all-DYN verdict",
+        "source": {
+          "path": "docs/reports/lastpage/own-li-DYN-probe-20261012.json",
+          "sha256": "1ca98f143084b883d1ff6b7bba4b64c27c9b996c25ed2b7c534fdd2e3b2f92a2"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/own-li-DYN-feedback-20261012.json",
+            "sha256": "fdfbf77da0eb4045cd1ec4600586a787aacccd2a07e52797382f03b3aea90dc3"
+          }
+        ]
+      },
+      {
+        "id": "RESP:LASTPAGE-OWN-LI-TENC-STAGES-01",
+        "short_label": "I",
+        "factor": "TENC stage gesture on F",
+        "verbatim": "和f没什么区别",
+        "limited_reading": "no meaningful perceived difference from F",
+        "remaining_boundary": "finite dose negative; no escalation or universal verdict",
+        "source": {
+          "path": "docs/reports/lastpage/own-li-TENC-stages-probe-20261012.json",
+          "sha256": "4918b540af4ca681ad91dbd0a2e0a339a6dbf3bcfbc648f915de44c6ccaec111"
+        },
+        "feedback_sources": [
+          {
+            "path": "docs/reports/lastpage/own-li-TENC-feedback-20261013.json",
+            "sha256": "b24f0ed747333d879d8a99f19f89d8451cec876f23ab56b0d7b87328d92ab35b"
+          }
+        ]
+      }
+    ],
+    "condition_rows": [
+      {
+        "word": 270,
+        "char": "想",
+        "context": 28,
+        "own_tones": [
+          59.0
+        ],
+        "author_tones": [
+          59
+        ],
+        "source_GAME": [
+          {
+            "index": 355,
+            "start": 209.93999894231558,
+            "end": 210.24337505902835,
+            "tone": 59.02090835571289,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 58.87717,
+        "native_vowel_s": [
+          209.93958333333333,
+          210.22916666666669
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 271,
+        "char": "把",
+        "context": 28,
+        "own_tones": [
+          64.0
+        ],
+        "author_tones": [
+          62,
+          64
+        ],
+        "source_GAME": [
+          {
+            "index": 356,
+            "start": 210.32999892801047,
+            "end": 210.6957647910951,
+            "tone": 64.05108642578125,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 63.2403815,
+        "native_vowel_s": [
+          210.32187500000003,
+          210.73020833333334
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 272,
+        "char": "你",
+        "context": 28,
+        "own_tones": [
+          71.0
+        ],
+        "author_tones": [
+          69,
+          71
+        ],
+        "source_GAME": [
+          {
+            "index": 357,
+            "start": 210.8199989077449,
+            "end": 211.11539538152095,
+            "tone": 71.05426788330078,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 69.42236750000001,
+        "native_vowel_s": [
+          210.81145833333335,
+          211.01875000000004
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 273,
+        "char": "抱",
+        "context": 28,
+        "own_tones": [
+          71.0
+        ],
+        "author_tones": [
+          70,
+          71
+        ],
+        "source_GAME": [
+          {
+            "index": 358,
+            "start": 211.21999888390303,
+            "end": 211.54456576237064,
+            "tone": 70.99178314208984,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 71.0,
+        "native_vowel_s": [
+          211.21458333333334,
+          211.56354166666668
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 274,
+        "char": "进",
+        "context": 28,
+        "own_tones": [
+          68.0
+        ],
+        "author_tones": [
+          68
+        ],
+        "source_GAME": [
+          {
+            "index": 359,
+            "start": 211.6699988719821,
+            "end": 211.76210659347154,
+            "tone": 67.99864196777344,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 68.0117,
+        "native_vowel_s": [
+          211.65625000000003,
+          211.79583333333335
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 275,
+        "char": "身",
+        "context": 28,
+        "own_tones": [
+          71.0
+        ],
+        "author_tones": [
+          71
+        ],
+        "source_GAME": [
+          {
+            "index": 360,
+            "start": 211.9499988731742,
+            "end": 212.21613431831068,
+            "tone": 71.05484008789062,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 70.69035,
+        "native_vowel_s": [
+          211.94791666666669,
+          212.23750000000004
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 276,
+        "char": "体",
+        "context": 28,
+        "own_tones": [
+          73.0
+        ],
+        "author_tones": [
+          71,
+          73
+        ],
+        "source_GAME": [
+          {
+            "index": 361,
+            "start": 212.36999886006117,
+            "end": 212.5399988618493,
+            "tone": 71.46268463134766,
+            "voiced": true
+          },
+          {
+            "index": 362,
+            "start": 212.5399988618493,
+            "end": 212.85576597027767,
+            "tone": 73.0194320678711,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 71.50767,
+        "native_vowel_s": [
+          212.36458333333334,
+          212.87604166666668
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 277,
+        "char": "里",
+        "context": 28,
+        "own_tones": [
+          68.0,
+          66.0
+        ],
+        "author_tones": [
+          66,
+          68,
+          66
+        ],
+        "source_GAME": [
+          {
+            "index": 363,
+            "start": 212.96999883919955,
+            "end": 213.1399988409877,
+            "tone": 65.9585189819336,
+            "voiced": true
+          },
+          {
+            "index": 364,
+            "start": 213.1399988409877,
+            "end": 213.52999882668257,
+            "tone": 67.96519470214844,
+            "voiced": true
+          },
+          {
+            "index": 365,
+            "start": 213.52999882668257,
+            "end": 213.72565775224683,
+            "tone": 66.00711822509766,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 68.7596185,
+        "native_vowel_s": [
+          212.9572916666667,
+          213.58541666666667
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "low-entry66 candidate missing from F absolute line"
+      },
+      {
+        "word": 278,
+        "char": "面",
+        "context": 28,
+        "own_tones": [
+          66.0
+        ],
+        "author_tones": [
+          66
+        ],
+        "source_GAME": [
+          {
+            "index": 366,
+            "start": 213.7999988076091,
+            "end": 214.2099988040328,
+            "tone": 65.95372772216797,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 66.0,
+        "native_vowel_s": [
+          213.7947916666667,
+          214.21562500000002
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 279,
+        "char": "不",
+        "context": 29,
+        "own_tones": [
+          71.0
+        ],
+        "author_tones": [
+          69,
+          71
+        ],
+        "source_GAME": [
+          {
+            "index": 368,
+            "start": 214.65999879211188,
+            "end": 214.9687576259345,
+            "tone": 71.05060577392578,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 69.35360399999999,
+        "native_vowel_s": [
+          214.65520833333335,
+          214.9666666666667
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 280,
+        "char": "敢",
+        "context": 29,
+        "own_tones": [
+          68.0
+        ],
+        "author_tones": [
+          68
+        ],
+        "source_GAME": [
+          {
+            "index": 369,
+            "start": 215.05999876827002,
+            "end": 215.23624005151174,
+            "tone": 68.08281707763672,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 68.172134,
+        "native_vowel_s": [
+          215.05937500000002,
+          215.2697916666667
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 281,
+        "char": "让",
+        "context": 29,
+        "own_tones": [
+          71.0
+        ],
+        "author_tones": [
+          71
+        ],
+        "source_GAME": [
+          {
+            "index": 370,
+            "start": 215.3399987694621,
+            "end": 215.6434828398828,
+            "tone": 71.03851318359375,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 70.633125,
+        "native_vowel_s": [
+          215.33958333333334,
+          215.66354166666667
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 282,
+        "char": "你",
+        "context": 29,
+        "own_tones": [
+          73.0
+        ],
+        "author_tones": [
+          71,
+          73
+        ],
+        "source_GAME": [
+          {
+            "index": 371,
+            "start": 215.729998755157,
+            "end": 215.9499987539649,
+            "tone": 71.14346313476562,
+            "voiced": true
+          },
+          {
+            "index": 372,
+            "start": 215.9499987539649,
+            "end": 216.17630001751476,
+            "tone": 73.0538330078125,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 71.50728,
+        "native_vowel_s": [
+          215.72083333333333,
+          216.13958333333335
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      },
+      {
+        "word": 283,
+        "char": "看",
+        "context": 29,
+        "own_tones": [
+          66.0,
+          64.0
+        ],
+        "author_tones": [
+          64,
+          66,
+          64
+        ],
+        "source_GAME": [
+          {
+            "index": 373,
+            "start": 216.32568064198745,
+            "end": 216.9499987539649,
+            "tone": 65.97948455810547,
+            "voiced": true
+          },
+          {
+            "index": 374,
+            "start": 216.9499987539649,
+            "end": 217.1258272623421,
+            "tone": 64.04694366455078,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 66.752715,
+        "native_vowel_s": [
+          216.3260416666667,
+          217.08125000000004
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "source GAME has no author64 entry; preserve existing positive reference"
+      },
+      {
+        "word": 284,
+        "char": "见",
+        "context": 29,
+        "own_tones": [
+          64.0
+        ],
+        "author_tones": [
+          64
+        ],
+        "source_GAME": [
+          {
+            "index": 375,
+            "start": 217.22055040320572,
+            "end": 217.65999873250723,
+            "tone": 63.9577751159668,
+            "voiced": true
+          }
+        ],
+        "F_first80ms_MIDI_median": 64.0,
+        "native_vowel_s": [
+          217.22083333333333,
+          217.66354166666667
+        ],
+        "source_unknown": false,
+        "individual_new_label": "none",
+        "interpretation": "context/counterexample; no intervention selected"
+      }
+    ],
+    "source_F0_stages": [
+      {
+        "detector": "fcpe",
+        "source_stage": 0,
+        "start_s": 212.96999883919955,
+        "end_s": 213.1399988409877,
+        "GAME_tone": 65.9585189819336,
+        "voiced_frames": 17,
+        "MIDI_median": 65.91694438725644,
+        "MIDI_min": 65.71518115314184,
+        "MIDI_max": 67.04121852149791,
+        "scope": "sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+      },
+      {
+        "detector": "fcpe",
+        "source_stage": 1,
+        "start_s": 213.1399988409877,
+        "end_s": 213.52999882668257,
+        "GAME_tone": 67.96519470214844,
+        "voiced_frames": 40,
+        "MIDI_median": 67.89893020817772,
+        "MIDI_min": 66.38480829051655,
+        "MIDI_max": 68.13390487433946,
+        "scope": "sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+      },
+      {
+        "detector": "fcpe",
+        "source_stage": 2,
+        "start_s": 213.52999882668257,
+        "end_s": 213.72565775224683,
+        "GAME_tone": 66.00711822509766,
+        "voiced_frames": 19,
+        "MIDI_median": 66.05480577095025,
+        "MIDI_min": 65.83290483058362,
+        "MIDI_max": 66.27011576189274,
+        "scope": "sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+      },
+      {
+        "detector": "rmvpe",
+        "source_stage": 0,
+        "start_s": 212.96999883919955,
+        "end_s": 213.1399988409877,
+        "GAME_tone": 65.9585189819336,
+        "voiced_frames": 17,
+        "MIDI_median": 65.88807061140842,
+        "MIDI_min": 65.73414355353702,
+        "MIDI_max": 66.97998651117051,
+        "scope": "sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+      },
+      {
+        "detector": "rmvpe",
+        "source_stage": 1,
+        "start_s": 213.1399988409877,
+        "end_s": 213.52999882668257,
+        "GAME_tone": 67.96519470214844,
+        "voiced_frames": 40,
+        "MIDI_median": 67.8747597217624,
+        "MIDI_min": 66.3756249155592,
+        "MIDI_max": 68.14967580530845,
+        "scope": "sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+      },
+      {
+        "detector": "rmvpe",
+        "source_stage": 2,
+        "start_s": 213.52999882668257,
+        "end_s": 213.72565775224683,
+        "GAME_tone": 66.00711822509766,
+        "voiced_frames": 19,
+        "MIDI_median": 66.06615389747856,
+        "MIDI_min": 65.79865293739698,
+        "MIDI_max": 66.25206244987848,
+        "scope": "sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+      }
+    ],
+    "finding": "Own F omits source-supported low66 entry trajectory; author micro-pitch ablation did not test this own trajectory.",
+    "counterexamples": "Own ti276/ni282 already show low bearing; source kan283 has66→64 without author64 onset. No all-word low-entry recipe.",
+    "causal_solidity_or_strength": "unknown",
+    "next_candidate": "J finite own entry pitch only; not yet generated",
+    "new_feedback_count": 0,
+    "new_source_F0_array_reads": 2,
+    "new_F0_detector_calls": 0,
+    "new_audio_decodes": 0,
+    "new_native_calls": 0,
+    "new_models": 0,
+    "new_waveforms": 0,
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "decision_version_binding": {
+    "path": "runs/research/lastpage-li-condition-review-20261013/evaluation/decision-version-binding.json",
+    "sha256": "8e44db975f980d6da4c3d9f7a72e208e1fdaa5c6e55acd9e6f96169ce0d7d82b"
+  },
+  "next_protocol_path": "runs/research/lastpage-li-condition-review-20261013/design/next-li-entry-pitch-protocol.json",
+  "planned_function": {
+    "path": "runs/research/lastpage-li-condition-review-20261013/evaluation/planned-pitch-function.json",
+    "sha256": "f8d8145d7b010c951f3ec002eb38b7f528c42d5ee7f1433647f8508aa8fc9a88"
+  },
+  "knowledge_review_receipt": {
+    "path": "runs/research/lastpage-li-condition-review-20261013/evaluation/review-knowledge-receipt.json",
+    "sha256": "5e13cefa16769191b0b45402cfc5983e3515193f50f7a36ef5e976c86fe5709c"
+  }
+}

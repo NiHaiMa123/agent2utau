@@ -1,0 +1,51 @@
+{
+  "status": "passed_with_explicit_entry_pitch_phonation_perception_gaps",
+  "scripts": [
+    {
+      "path": "research/table2-confirmation/lastpage_own_li_entry_pitch_20261013.py",
+      "sha256": "a206ffa3fb76ec32bc484ab739b8907a25030de6975937ae589d7772c3271065"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_li_entry_pitch_20261013.py",
+      "sha256": "dd1e7f76df8e3004dbdc6063f8ebeffb26c630c4009fc8e62659601aa2e5d4b6"
+    },
+    {
+      "path": "research/table2-confirmation/package_lastpage_own_li_entry_pitch_20261013.py",
+      "sha256": "bafba43d14bc86f246cf444cfcdc37119b1ab0746d6ff3a72c61fd88b3823f2d"
+    },
+    {
+      "path": "research/table2-confirmation/observe_lastpage_own_li_entry_pitch_20261013.py",
+      "sha256": "d8b567bb1d2d4bc8cdc731455cddcb0c603f87dc9d28aa74bfe039ba958fdc1e"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_li_entry_pitch_delivery_20261013.py",
+      "sha256": "2b58bf01350e95bb23f1b3680a9039af201795aeaff436e174ca272b986391fd"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_own_li_entry_pitch_20261013.py",
+      "sha256": "342aa55a815818cb1ceac79344d31f38907d2d931e6dbe68ba1e0da445f65ee3"
+    }
+  ],
+  "contracts_passed": 20,
+  "contract_report": {
+    "path": "runs/test-results/lastpage-own-li-entry-pitch-20261013/junit.xml",
+    "sha256": "367f5ce7c5d7daf63e9f64a3a8e3761317a8671acfcd103d12707f94409c2a55"
+  },
+  "protected_references": 2333,
+  "runtime_original_resources": 47,
+  "new_variance_calls": 2,
+  "new_acoustic_vocoder_waveforms": 2,
+  "native_cached_technical_contexts": 2,
+  "new_F0_calls": 2,
+  "reused_F_F0_bindings": 6,
+  "actual_new_feedback": 0,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 778}",
+  "current_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-entry-pitch-delivery-index-20261013.json",
+    "sha256": "570332c55390d3402486d6cce2d9f47f7b2ca10d3335efa39396dca9aaf3fcad"
+  },
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

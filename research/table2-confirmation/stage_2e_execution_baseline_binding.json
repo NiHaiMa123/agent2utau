@@ -1,0 +1,7 @@
+{
+  "stage": "2E-execution",
+  "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/snapshot-manifest.json",
+  "sha256": "01dffada2ee989a45e6e48f79dbd5ada8dd67d0bc8c475dd54f2a14945e47c46",
+  "run": "runs/experiments/table2-shfc-paths-20261011",
+  "test_run": "runs/test-results/table2-2e-execution-20261011"
+}

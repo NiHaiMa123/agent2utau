@@ -1,0 +1,799 @@
+{
+  "status": "conditioned_voicing_feedback_closed_joint_conditions_reviewed",
+  "feedback": {
+    "original_text": "还是不行",
+    "reply_count": 1,
+    "response_record": "RESP:LASTPAGE-CONDITIONED-VOIC-01",
+    "comparison": "B-A",
+    "candidate": {
+      "path": "runs/experiments/lastpage-conditioned-voicing-20261011/delivery/B_same_lyrics_vocal.wav",
+      "sha256": "87f047b687fb8a9e2e10960bae7644a091e65d4b9a8e42bd4a998b2151b40dc3"
+    },
+    "original_A": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/agent_acceptedC_same_lyrics_vocal.wav",
+      "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+    },
+    "author_reference": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/baishuo_current165c_reference_vocal.wav",
+      "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+    },
+    "result": "candidate not accepted; target not met",
+    "scope": "one aggregate reply after displayed two-phrase comparison; full carrier audition unknown",
+    "perceptible_difference": "unknown: no explicit no-difference statement",
+    "solidity_detail": "no more specific wording in this reply",
+    "break_articulation_loudness_deterioration": "unknown; do not inherit prior speaker no-deterioration reply",
+    "labels_added_per_word": 0,
+    "adoption": false,
+    "agent_heard": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-CONDITIONED-VOIC-01",
+    "append_only_feedback": true,
+    "sealed_delivery_report": {
+      "path": "docs/reports/lastpage/conditioned-voicing-probe-20261011.json",
+      "sha256": "7f4ed106d4a2aea46eda59f0a80bd69bf8aaca65b950eaaefcce38dc87498096"
+    },
+    "feedback": {
+      "original_text": "还是不行",
+      "reply_count": 1,
+      "response_record": "RESP:LASTPAGE-CONDITIONED-VOIC-01",
+      "comparison": "B-A",
+      "candidate": {
+        "path": "runs/experiments/lastpage-conditioned-voicing-20261011/delivery/B_same_lyrics_vocal.wav",
+        "sha256": "87f047b687fb8a9e2e10960bae7644a091e65d4b9a8e42bd4a998b2151b40dc3"
+      },
+      "original_A": {
+        "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/agent_acceptedC_same_lyrics_vocal.wav",
+        "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+      },
+      "author_reference": {
+        "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/baishuo_current165c_reference_vocal.wav",
+        "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+      },
+      "result": "candidate not accepted; target not met",
+      "scope": "one aggregate reply after displayed two-phrase comparison; full carrier audition unknown",
+      "perceptible_difference": "unknown: no explicit no-difference statement",
+      "solidity_detail": "no more specific wording in this reply",
+      "break_articulation_loudness_deterioration": "unknown; do not inherit prior speaker no-deterioration reply",
+      "labels_added_per_word": 0,
+      "adoption": false,
+      "agent_heard": false
+    },
+    "status": "rejected_for_target_unmet",
+    "adoption": false,
+    "scope_words": [
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284
+    ],
+    "changed_words": [
+      271,
+      272,
+      274,
+      277,
+      278
+    ],
+    "independent_contexts": 2,
+    "affected_contexts": 1,
+    "new_word_labels": 0,
+    "stop": "close current finite VOIC route; no dose escalation, gain compensation or automatic new candidate",
+    "prior_bright25_not_adopted": true,
+    "original_Normal75_Classic25_and_accepted_bao_C_preserved": true,
+    "table1_refs": [
+      "PER:S1",
+      "PARAM:C11.01"
+    ],
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "condition_rows": [
+    {
+      "word": 270,
+      "char": "想",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        59.0
+      ],
+      "first_entry_family": "short_direct",
+      "native_phone_symbols": [
+        "zh/x",
+        "zh/iang"
+      ],
+      "native_phone_tones": [
+        59,
+        59
+      ],
+      "native_vowel_s": [
+        209.93958333333333,
+        210.22916666666669
+      ],
+      "original_manual_controls": [],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -43.126895904541016,
+      "rejected_B_core_voicing": -43.126895904541016,
+      "rejected_B_vowel_RMS_delta_db": -8.580577414871022e-05,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 271,
+      "char": "把",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        64.0
+      ],
+      "first_entry_family": "short_direct",
+      "native_phone_symbols": [
+        "zh/b",
+        "zh/a"
+      ],
+      "native_phone_tones": [
+        64,
+        64
+      ],
+      "native_vowel_s": [
+        210.32187500000003,
+        210.73020833333334
+      ],
+      "original_manual_controls": [],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 10,
+      "A_core_voicing": -46.383670806884766,
+      "rejected_B_core_voicing": -45.18367004394531,
+      "rejected_B_vowel_RMS_delta_db": 0.5188728895219995,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 272,
+      "char": "你",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        71.0
+      ],
+      "first_entry_family": "bearing_then_push",
+      "native_phone_symbols": [
+        "zh/n",
+        "zh/i"
+      ],
+      "native_phone_tones": [
+        71,
+        71
+      ],
+      "native_vowel_s": [
+        210.81145833333335,
+        211.01875000000004
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "tenc",
+          "parameters": [
+            210.82145833333334,
+            210.86592833333336,
+            210.96042708333337,
+            211.00675000000004,
+            16
+          ]
+        },
+        {
+          "abbreviation": "brec",
+          "parameters": [
+            210.82145833333334,
+            210.86592833333336,
+            210.96042708333337,
+            211.00675000000004,
+            -3
+          ]
+        },
+        {
+          "abbreviation": "voic",
+          "parameters": [
+            210.81545833333334,
+            210.85886250000001,
+            210.97723750000003,
+            211.01275000000004,
+            90
+          ]
+        }
+      ],
+      "original_VOIC_choice": 190,
+      "rejected_candidate_additive_VOIC": 25,
+      "A_core_voicing": -53.64760780334473,
+      "rejected_B_core_voicing": -50.64760780334473,
+      "rejected_B_vowel_RMS_delta_db": 1.5040109330963016,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 273,
+      "char": "抱",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        71.0
+      ],
+      "first_entry_family": "short_direct",
+      "native_phone_symbols": [
+        "zh/b",
+        "zh/ao"
+      ],
+      "native_phone_tones": [
+        71,
+        71
+      ],
+      "native_vowel_s": [
+        211.21458333333334,
+        211.56354166666668
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "tenc",
+          "parameters": [
+            211.22458333333333,
+            211.30305333333334,
+            211.46980208333335,
+            211.55154166666668,
+            12
+          ]
+        },
+        {
+          "abbreviation": "brec",
+          "parameters": [
+            211.22458333333333,
+            211.30305333333334,
+            211.46980208333335,
+            211.55154166666668,
+            -3
+          ]
+        }
+      ],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -42.869327545166016,
+      "rejected_B_core_voicing": -42.869327545166016,
+      "rejected_B_vowel_RMS_delta_db": 0.0017937569292692727,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 274,
+      "char": "进",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        68.0
+      ],
+      "first_entry_family": "continuous_velocity",
+      "native_phone_symbols": [
+        "zh/j",
+        "zh/in"
+      ],
+      "native_phone_tones": [
+        68,
+        68
+      ],
+      "native_vowel_s": [
+        211.65625000000003,
+        211.79583333333335
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "voic",
+          "parameters": [
+            211.66025000000002,
+            211.68875833333334,
+            211.76650833333335,
+            211.78983333333335,
+            40
+          ]
+        }
+      ],
+      "original_VOIC_choice": 140,
+      "rejected_candidate_additive_VOIC": 25,
+      "A_core_voicing": -51.542280197143555,
+      "rejected_B_core_voicing": -48.542280197143555,
+      "rejected_B_vowel_RMS_delta_db": 1.4600999984741274,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 275,
+      "char": "身",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        71.0
+      ],
+      "first_entry_family": "continuous_velocity",
+      "native_phone_symbols": [
+        "zh/sh",
+        "zh/en"
+      ],
+      "native_phone_tones": [
+        71,
+        71
+      ],
+      "native_vowel_s": [
+        211.94791666666669,
+        212.23750000000004
+      ],
+      "original_manual_controls": [],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -43.098846435546875,
+      "rejected_B_core_voicing": -43.098846435546875,
+      "rejected_B_vowel_RMS_delta_db": 0.0001478264793490402,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 276,
+      "char": "体",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        73.0
+      ],
+      "first_entry_family": "bearing_then_push",
+      "native_phone_symbols": [
+        "zh/t",
+        "zh/i"
+      ],
+      "native_phone_tones": [
+        73,
+        73
+      ],
+      "native_vowel_s": [
+        212.36458333333334,
+        212.87604166666668
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "tenc",
+          "parameters": [
+            212.37458333333333,
+            212.45958333333334,
+            212.77404166666668,
+            212.86404166666668,
+            18
+          ]
+        },
+        {
+          "abbreviation": "brec",
+          "parameters": [
+            212.37458333333333,
+            212.45958333333334,
+            212.77404166666668,
+            212.86404166666668,
+            -3
+          ]
+        }
+      ],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -36.127058029174805,
+      "rejected_B_core_voicing": -36.127058029174805,
+      "rejected_B_vowel_RMS_delta_db": -0.0004991069929654699,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 277,
+      "char": "里",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        68.0,
+        66.0
+      ],
+      "first_entry_family": "short_direct",
+      "native_phone_symbols": [
+        "zh/l",
+        "zh/i"
+      ],
+      "native_phone_tones": [
+        68,
+        68
+      ],
+      "native_vowel_s": [
+        212.9572916666667,
+        213.58541666666667
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "voic",
+          "parameters": [
+            212.96129166666668,
+            213.0162916666667,
+            213.5344166666667,
+            213.57941666666667,
+            15
+          ]
+        }
+      ],
+      "original_VOIC_choice": 115,
+      "rejected_candidate_additive_VOIC": 11,
+      "A_core_voicing": -46.543331146240234,
+      "rejected_B_core_voicing": -45.223331451416016,
+      "rejected_B_vowel_RMS_delta_db": 0.642025589590399,
+      "prior_label": "airy near approximate time, not a named isolated word",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": [
+        66,
+        68,
+        66
+      ],
+      "author_native_phone_tones": [
+        66,
+        66
+      ]
+    },
+    {
+      "word": 278,
+      "char": "面",
+      "context": 28,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        66.0
+      ],
+      "first_entry_family": "short_direct",
+      "native_phone_symbols": [
+        "zh/m",
+        "zh/ian"
+      ],
+      "native_phone_tones": [
+        66,
+        66
+      ],
+      "native_vowel_s": [
+        213.7947916666667,
+        214.21562500000002
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "tenc",
+          "parameters": [
+            213.8947916666667,
+            213.97612833333335,
+            214.12941666666669,
+            214.207625,
+            -5
+          ]
+        },
+        {
+          "abbreviation": "brec",
+          "parameters": [
+            213.8947916666667,
+            213.97612833333335,
+            214.12941666666669,
+            214.207625,
+            6
+          ]
+        }
+      ],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 12,
+      "A_core_voicing": -46.9466552734375,
+      "rejected_B_core_voicing": -45.506656646728516,
+      "rejected_B_vowel_RMS_delta_db": 0.702094453972947,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 279,
+      "char": "不",
+      "context": 29,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        71.0
+      ],
+      "first_entry_family": "bearing_then_push",
+      "native_phone_symbols": [
+        "zh/b",
+        "zh/u"
+      ],
+      "native_phone_tones": [
+        71,
+        71
+      ],
+      "native_vowel_s": [
+        214.65520833333335,
+        214.9666666666667
+      ],
+      "original_manual_controls": [],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -38.06191635131836,
+      "rejected_B_core_voicing": -38.06191635131836,
+      "rejected_B_vowel_RMS_delta_db": 0.0,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 280,
+      "char": "敢",
+      "context": 29,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        68.0
+      ],
+      "first_entry_family": "continuous_velocity",
+      "native_phone_symbols": [
+        "zh/g",
+        "zh/an"
+      ],
+      "native_phone_tones": [
+        68,
+        68
+      ],
+      "native_vowel_s": [
+        215.05937500000002,
+        215.2697916666667
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "voic",
+          "parameters": [
+            215.063375,
+            215.10746666666668,
+            215.22771666666668,
+            215.2637916666667,
+            15
+          ]
+        }
+      ],
+      "original_VOIC_choice": 115,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -47.25720977783203,
+      "rejected_B_core_voicing": -47.25720977783203,
+      "rejected_B_vowel_RMS_delta_db": 0.0,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 281,
+      "char": "让",
+      "context": 29,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        71.0
+      ],
+      "first_entry_family": "continuous_velocity",
+      "native_phone_symbols": [
+        "zh/r",
+        "zh/ang"
+      ],
+      "native_phone_tones": [
+        71,
+        71
+      ],
+      "native_vowel_s": [
+        215.33958333333334,
+        215.66354166666667
+      ],
+      "original_manual_controls": [],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -43.99856376647949,
+      "rejected_B_core_voicing": -43.99856376647949,
+      "rejected_B_vowel_RMS_delta_db": 0.0,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 282,
+      "char": "你",
+      "context": 29,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        73.0
+      ],
+      "first_entry_family": "bearing_then_push",
+      "native_phone_symbols": [
+        "zh/n",
+        "zh/i"
+      ],
+      "native_phone_tones": [
+        73,
+        73
+      ],
+      "native_vowel_s": [
+        215.72083333333333,
+        216.13958333333335
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "tenc",
+          "parameters": [
+            215.73083333333332,
+            215.81583333333333,
+            216.03758333333334,
+            216.12758333333335,
+            17
+          ]
+        },
+        {
+          "abbreviation": "brec",
+          "parameters": [
+            215.73083333333332,
+            215.81583333333333,
+            216.03758333333334,
+            216.12758333333335,
+            -3
+          ]
+        },
+        {
+          "abbreviation": "voic",
+          "parameters": [
+            215.72483333333332,
+            215.77983333333333,
+            216.08858333333336,
+            216.13358333333335,
+            22
+          ]
+        }
+      ],
+      "original_VOIC_choice": 122,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -49.95433044433594,
+      "rejected_B_core_voicing": -49.95433044433594,
+      "rejected_B_vowel_RMS_delta_db": 0.0,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    },
+    {
+      "word": 283,
+      "char": "看",
+      "context": 29,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        66.0,
+        64.0
+      ],
+      "first_entry_family": "short_direct",
+      "native_phone_symbols": [
+        "zh/k",
+        "zh/an"
+      ],
+      "native_phone_tones": [
+        66,
+        66
+      ],
+      "native_vowel_s": [
+        216.3260416666667,
+        217.08125000000004
+      ],
+      "original_manual_controls": [],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -42.7763671875,
+      "rejected_B_core_voicing": -42.7763671875,
+      "rejected_B_vowel_RMS_delta_db": 0.0,
+      "prior_label": "original kan283 locally solid",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": [
+        64,
+        66,
+        64
+      ],
+      "author_native_phone_tones": [
+        64,
+        64
+      ]
+    },
+    {
+      "word": 284,
+      "char": "见",
+      "context": 29,
+      "source_unknown": false,
+      "own_music_stages_MIDI": [
+        64.0
+      ],
+      "first_entry_family": "short_direct",
+      "native_phone_symbols": [
+        "zh/j",
+        "zh/ian"
+      ],
+      "native_phone_tones": [
+        64,
+        64
+      ],
+      "native_vowel_s": [
+        217.22083333333333,
+        217.66354166666667
+      ],
+      "original_manual_controls": [
+        {
+          "abbreviation": "tenc",
+          "parameters": [
+            217.32083333333333,
+            217.4078575,
+            217.57186458333334,
+            217.65554166666666,
+            -7
+          ]
+        },
+        {
+          "abbreviation": "brec",
+          "parameters": [
+            217.32083333333333,
+            217.4078575,
+            217.57186458333334,
+            217.65554166666666,
+            9
+          ]
+        }
+      ],
+      "original_VOIC_choice": 100,
+      "rejected_candidate_additive_VOIC": 0,
+      "A_core_voicing": -44.9264030456543,
+      "rejected_B_core_voicing": -44.9264030456543,
+      "rejected_B_vowel_RMS_delta_db": 0.0,
+      "prior_label": "individual label unknown",
+      "new_individual_label": "unknown: aggregate candidate rejection is not 15 individual labels",
+      "author_stages_MIDI": null,
+      "author_native_phone_tones": null
+    }
+  ],
+  "findings": [
+    "Finite positive VOIC changes actual input and increases five vowel RMS proxies by0.519..1.504dB, but aggregate target remains unaccepted; not sufficient evidence of solidity improvement.",
+    "Original li277 has positive VOIC support while kan283 has none; original kan is locally solid. Written larger VOIC is not a demonstrated solidity rule.",
+    "Both li277 and kan283 use short_direct first entry and descending two-stage musical shapes; an entry-family name alone does not distinguish their perceived solidity.",
+    "Phonemes differ li:l/i vs kan:k/an; own native primary tones68 vs66. Author same symbolic words have lower primary tones66 vs64 and three-stage shapes66/68/66 and64/66/64.",
+    "Author-vs-own comparison changes speaker, duration, musical phases, controls, context and prediction noise provenance; it is descriptive, not a causal isolation or transferable author target.",
+    "The latest VOIC contrast held pitch/phones/speaker/three predictions fixed. Its rejection does not test a new phoneme or pitch-condition hypothesis.",
+    "New candidate scopes are only two already-seen phrases, one affected VOIC phrase; repeats and successive feedback do not create independent holdout coverage."
+  ],
+  "new_native_exports": 0,
+  "new_model_calls": 0,
+  "new_waveforms": 0,
+  "new_candidate_designs": 0,
+  "agent_heard": false,
+  "original_baseline": {
+    "path": "runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline.ustx",
+    "sha256": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816"
+  },
+  "further_auditory_or_unique_cause_status": "unknown",
+  "general_rule_validated": false,
+  "measurement_validated": false
+}

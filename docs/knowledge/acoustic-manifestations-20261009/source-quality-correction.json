@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-10",
+  "status": "E_mojibake_claim_corrected; no_file_text_corruption_found",
+  "inspected_original_sha256": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821",
+  "utf8_strict": true,
+  "string_values_inspected": 1174,
+  "replacement_character_count": 0,
+  "latin1_nonascii_string_count": 0,
+  "feedback_report_csv_checks": [
+    {
+      "record_id": "RESP-001",
+      "verbatim": "没啥区别",
+      "report": "docs/lastpage-tenc-controlled-probe-20261008.md",
+      "sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f"
+    },
+    {
+      "record_id": "RESP-002",
+      "verbatim": "更实了，但是有破音的情况；抱的字头",
+      "report": "docs/lastpage-shfc-controlled-probe-20261008.md",
+      "sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2"
+    },
+    {
+      "record_id": "RESP-003",
+      "verbatim": "可以",
+      "report": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493"
+    },
+    {
+      "record_id": "RESP-004",
+      "verbatim": "果字没啥区别，这的咬字好像也没啥区别，而且引入新的问题，响度下降",
+      "report": "docs/lastpage-guo-register-probe-20261008.md",
+      "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98"
+    },
+    {
+      "record_id": "RESP-005",
+      "verbatim": "全部没区别。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "record_id": "RESP-006",
+      "verbatim": "全部没区别。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "record_id": "RESP-007",
+      "verbatim": "全部没区别。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "record_id": "RESP-008",
+      "verbatim": "全部没区别。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "record_id": "RESP-009",
+      "verbatim": "全部没区别。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "record_id": "RESP-010",
+      "verbatim": "全部没区别。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    }
+  ],
+  "reason": "E tool-output encoding displayed correct Chinese incorrectly; earlier file-corruption claim was not supported by the actual UTF-8 bytes.",
+  "original_feedback_text_changed": false,
+  "E_frozen_claim_retained_in_history": true,
+  "word295_identity_erratum_still_valid": [
+    {
+      "case_id": "CASE:EU17",
+      "frozen_evidence_key": "word-282-at-224.132s",
+      "corrected_identity": "word295",
+      "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+      "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e",
+      "anchor": "word295_unknown_retained=true",
+      "label_remains": "unknown",
+      "frozen_checklist_rewritten": false
+    }
+  ]
+}

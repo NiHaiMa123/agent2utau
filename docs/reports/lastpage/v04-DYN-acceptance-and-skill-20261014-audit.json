@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "feedback": {
+    "path": "runs/research/lastpage-v04-acceptance-skill-20261014/feedback/accepted.json",
+    "sha256": "b20e95c2afcb619957e22ae186e522e4fabcd91d190e80a3f6da9461d89a4b62"
+  },
+  "source_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+    "sha256": "382b47d28630cd478f3d24d0e55209aeaa33ad9e75ed83a898ebaaf28c2331df"
+  },
+  "knowledge_roundtrip": {
+    "path": "runs/research/lastpage-v04-acceptance-skill-20261014/evaluation/knowledge-roundtrip.json",
+    "sha256": "18f4d2e0624566aee8efbd145f2287912b9435ee9c97e34af08733fc91cb21d0"
+  },
+  "skill_sync": {
+    "path": "runs/research/lastpage-v04-acceptance-skill-20261014/evaluation/skill-sync.json",
+    "sha256": "999e5477677f82b86a9a7778f6a3c8ac4c77f13f965c6d83d92184b64e85fdf4"
+  },
+  "validation": {
+    "path": "runs/research/lastpage-v04-acceptance-skill-20261014/evaluation/validation.json",
+    "sha256": "b50ddd4305ba52a026ef756ff0b9937a3e8feb587876a9bda31f5dfbd2219a2b"
+  },
+  "previous_seal": {
+    "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/completion-manifest.json",
+    "sha256": "5f47b657ba572960a491fba17867d2136a05ed416b2fdec57aeb48d8adbad5d4"
+  },
+  "originals_SHA_exact": true,
+  "old_source_records_exact": true,
+  "updated_skill_files": [
+    {
+      "repository": {
+        "path": "skills/singing-expression-editor/SKILL.md",
+        "sha256": "b46f0d72c41bdd3e42851a450a2f61aa73712d320eac02198fa5e91c0c683abc"
+      },
+      "installed": {
+        "path": "C:\\Users\\Administrator\\.codex\\skills\\singing-expression-editor\\SKILL.md",
+        "sha256": "b46f0d72c41bdd3e42851a450a2f61aa73712d320eac02198fa5e91c0c683abc"
+      },
+      "old_snapshot": {
+        "path": "runs/research/lastpage-v04-acceptance-skill-20261014/before/skills/singing-expression-editor/SKILL.md",
+        "sha256": "2839ad40ed659672c232cef453ceb751e5cb1d61e5753b8a8ae742134cd4d4bf"
+      }
+    },
+    {
+      "repository": {
+        "path": "skills/singing-expression-editor/references/loudness-and-high-note-comfort.md",
+        "sha256": "cf4ec93494bf308212585c20c8b625bd3a1c7920de888f4c7aca58be6dde69c2"
+      },
+      "installed": {
+        "path": "C:\\Users\\Administrator\\.codex\\skills\\singing-expression-editor\\references\\loudness-and-high-note-comfort.md",
+        "sha256": "cf4ec93494bf308212585c20c8b625bd3a1c7920de888f4c7aca58be6dde69c2"
+      },
+      "old_snapshot": {
+        "path": "runs/research/lastpage-v04-acceptance-skill-20261014/before/skills/singing-expression-editor/references/loudness-and-high-note-comfort.md",
+        "sha256": "e27f10297a11613fd8fac8ebad052afc221441730ab4d7dce5a9b01935314bc2"
+      }
+    },
+    {
+      "repository": {
+        "path": "skills/singing-expression-editor/references/local-acceptance-to-whole-song-phonation.md",
+        "sha256": "9a8431df6722b5748f430010362da009da62273e8c7af7bba0bcc90c078988cd"
+      },
+      "installed": {
+        "path": "C:\\Users\\Administrator\\.codex\\skills\\singing-expression-editor\\references\\local-acceptance-to-whole-song-phonation.md",
+        "sha256": "9a8431df6722b5748f430010362da009da62273e8c7af7bba0bcc90c078988cd"
+      },
+      "old_snapshot": {
+        "path": "runs/research/lastpage-v04-acceptance-skill-20261014/before/skills/singing-expression-editor/references/local-acceptance-to-whole-song-phonation.md",
+        "sha256": "a4c9c2bcf32a13c0064e7fef156591b1b345e7423377bcc7ba92381dc1ec8910"
+      }
+    }
+  ],
+  "scope": "append acceptance and method only",
+  "new_audio": 0,
+  "new_models": 0,
+  "new_measurements": 0,
+  "new_user_submissions": 1,
+  "general_rule_validated": false
+}

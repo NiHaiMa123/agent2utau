@@ -1,0 +1,25 @@
+{
+  "status": "passed_with_execution_and_auditory_gaps",
+  "protected_count": 929,
+  "sealed_probe_refs_checked": 81,
+  "reply_count": 1,
+  "individual_labels_added": 0,
+  "reviewed_words": 15,
+  "review_rows": 90,
+  "selected_next_words": [
+    271,
+    272,
+    274,
+    277,
+    278
+  ],
+  "next_plan_only": true,
+  "new_waveforms": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "script": {
+    "path": "research/table2-confirmation/lastpage_voice_baseline_feedback_20261011.py",
+    "sha256": "fb54a2f33829cc3b4e5e43a9ac7ff63b1400e8dd5df97db8cddfe1be69af49c1"
+  },
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 590}"
+}

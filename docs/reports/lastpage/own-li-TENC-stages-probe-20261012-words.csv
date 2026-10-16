@@ -1,0 +1,16 @@
+﻿word,char,context,action,vowel_RMS_change_db,FCPE_abs_cents_p50,RMVPE_abs_cents_p50,auditory_status
+270,想,28,no manual change,-8.253711901876876e-08,0.004026963619434801,0.0005290032096794483,pending
+271,把,28,no manual change,-3.199434295358925e-08,0.0009598123911488878,0.00039684178171012566,pending
+272,你,28,no manual change,-7.88045265534657e-08,0.0011714335054292205,0.0,pending
+273,抱,28,no manual change,-4.763393883747687e-09,0.0010709771632660694,0.0005325537697952895,pending
+274,进,28,no manual change,1.2908433315793338e-06,0.0012097466757622435,0.00038111697101019817,pending
+275,身,28,no manual change,-2.5480259011607497e-06,0.0017069754737124522,0.0005301313023849872,pending
+276,体,28,no manual change,0.0005223368591954356,0.007534768349548311,0.0034094313627473106,pending
+277,里,28,TENC0→10→4→0,-0.09364160585404223,0.24422199894549732,0.1499803636201807,pending
+278,面,28,no manual change,-0.0006000478693476801,0.004252054787824739,0.003535453523149621,pending
+279,不,29,no manual change,0.0,0.0,0.0,real phone PCM held; no new acceptance
+280,敢,29,no manual change,0.0,0.0,0.0,real phone PCM held; no new acceptance
+281,让,29,no manual change,0.0,0.0,0.0,real phone PCM held; no new acceptance
+282,你,29,no manual change,0.0,0.0,0.0,real phone PCM held; no new acceptance
+283,看,29,no manual change,0.0,0.0,0.0,real phone PCM held; no new acceptance
+284,见,29,no manual change,0.0,0.0,0.0,real phone PCM held; no new acceptance

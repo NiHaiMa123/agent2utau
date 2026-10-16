@@ -36,4 +36,5 @@ bridge/OuBridge/bin/
 bridge/OuBridge/obj/
 configs/local.yaml
 external/
-models/separation/
+models/
+data/

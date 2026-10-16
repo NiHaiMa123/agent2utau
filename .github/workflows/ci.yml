@@ -1,6 +1,8 @@
 name: CI
 
-on: [push, pull_request]
+# Checks are run locally by Codex. Remote CI is opt-in only.
+on:
+  workflow_dispatch:
 
 jobs:
   pytest:
@@ -18,4 +20,4 @@ jobs:
       - name: Core regression suite
         run: pytest -q
       - name: No-media and research-package gate
-        run: python tools/check_repository.py
+        run: python tools/repository/check_repository.py

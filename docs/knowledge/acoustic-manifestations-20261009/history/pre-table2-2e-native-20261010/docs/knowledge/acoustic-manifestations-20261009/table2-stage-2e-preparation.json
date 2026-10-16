@@ -1,0 +1,126 @@
+{
+  "stage": "2E-prep",
+  "date": "2026-10-10",
+  "status": "research_interface_prepared_with_explicit_execution_gaps",
+  "stage_2E_complete": false,
+  "baseline": {
+    "stage": "2E-prep",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-prep-20261010/snapshot-manifest.json",
+    "sha256": "d91c1534929913c95e3cc61eeb40593ec5a664284c87e6221616d58dee7d858a",
+    "run": "runs/research/table2-2e-interface-prep-20261010",
+    "test_run": "runs/test-results/table2-2e-prep-20261010"
+  },
+  "protocol_id": "T2D-SHFC-PATHS-01",
+  "protocol_version": 1,
+  "protocol_bindings": {
+    "id": "T2D-SHFC-PATHS-01",
+    "version": 1,
+    "baseline": {
+      "stage": "2D",
+      "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/snapshot-manifest.json",
+      "sha256": "99adb576270a41b7bbf635c584dcfabf332e7c547ecbdf46e06bc8b0b291ea32",
+      "run": "runs/research/table2-2d-protocol-freeze-20261010"
+    },
+    "execution_status": "not_executed",
+    "bindings": [
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+        "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.md",
+        "sha256": "fac5ed0c9be88d584e14a99d7263776cc93d596a4137e31d61ceaaca96bd9afa"
+      },
+      {
+        "path": "research/table2-confirmation/stage_2d_design.py",
+        "sha256": "75e0409af767ecb26e0c12216d601aac62541580bbe9364e49c893e5c7ce4f78"
+      },
+      {
+        "path": "research/table2-confirmation/build_stage_2d.py",
+        "sha256": "2e210741f7d6b286f5a9cff2b9e8359f81f31709ab029652e3366b707e53639f"
+      }
+    ]
+  },
+  "implementation_bindings": [
+    {
+      "path": "research/table2-confirmation/shfc_path_adapter.py",
+      "sha256": "0fba04388db9ed17ba353b12d6ce122622d4e178e8e7ab26eea8a9e3a95a0ccc"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_checks.py",
+      "sha256": "4d8c32cf141c3e5a4daa39bf22291a57d470926de13e968751b0876a7647c0b5"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_runner.py",
+      "sha256": "b048ee7a63dbe2bf0bf374b502890028ab13cdb6104f1a00ae266cfae727fd9c"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_backend.py",
+      "sha256": "d7ede785540b885a2611a6238f3c5f87d9db3da5d041e295111b1f838afd3b91"
+    },
+    {
+      "path": "research/table2-confirmation/check_stage_2e_runtime.py",
+      "sha256": "5b2052b0198f8aef030185027576e6a6f5646d847aa37ba4c6b0d77af1af387d"
+    },
+    {
+      "path": "tests/contracts/test_shfc_path_research.py",
+      "sha256": "307cdeba5434e5c0b5bb4f6ec6ff15b10cb676df35207fe61d794756428fc51d"
+    }
+  ],
+  "implemented": [
+    "sealed protocol/case gate",
+    "fresh predictor callback -> 2x2 same-condition tensor assembly",
+    "independent minimum/maximum reconstruction and new-clipping guard",
+    "native SHFC isolation reused with unchanged production code",
+    "shared deterministic noise and same-input bounded repeat",
+    "vocoder target separated from acoustic conditioning F0",
+    "two conditions/8 variance calls/16 raw render slots; no cache prediction argument",
+    "lazy CPU ONNX backend, source runtime/weight SHA and two-stage speaker guard",
+    "raw in-memory render callback and repeat gate, rechecks both prepared repetitions before callbacks"
+  ],
+  "validation_scope": {
+    "contract_tests": 40,
+    "synthetic_conditions": 2,
+    "prepared_mock_acoustic_inputs": 16,
+    "mock_raw_renderer_callback_budget": 16,
+    "actual_current_native_inputs_or_Q5_sampling_validated": false,
+    "actual_ONNX_predictor_or_acoustic_or_vocoder_executed": false,
+    "real_embeddings_loaded": false,
+    "actual_output_PCM_or_DYN_or_gain_validated": false,
+    "real_waveforms_created": 0,
+    "new_auditory_feedback": 0,
+    "installed_resource_bytes_rehashed": 47,
+    "installed_resource_bytes_identical": 47
+  },
+  "runtime_binding": {
+    "path": "runs/research/table2-2e-interface-prep-20261010/runtime-byte-check.json",
+    "sha256": "243c58776dad2665c57e2b6580ac903ed934a9777671578ece14946202d4878b",
+    "scope": "current installed bytes only; not branch execution/model response or device proof"
+  },
+  "independent_checker": "shfc_path_checks.py imports only numpy; never calls assembler or trusts its claimed checks",
+  "unknown": [
+    "actual fresh native export identity/phones/context and SHFC 5tick Q5 sampling",
+    "actual current speaker tensor/embedding mixture and ONNX adapter/model execution",
+    "actual fresh prediction/source provenance under complete runtime/file bindings",
+    "real acoustic/vocoder repetition, DYN/fixed gain/delivery PCM and listener comparisons",
+    "real F0 estimator truth, formants/break classification and perceptual outcomes",
+    "holdout/cross-song/full-phrase acceptance and generic rule validity"
+  ],
+  "semantic_boundaries": [
+    "D/P remain research counterfactuals, never encoded as production USTX controls",
+    "synthetic fixtures and mocked sessions are contract evidence, not independent audio experiments",
+    "predictor-return provenance tags prove API scope, not that a caller actually executed ONNX",
+    "raw renderer function has no delivery/DYN/gain encoder or auto CLI; remains separate from listening",
+    "backend constructors not called on real models; no automatic retry/parameter search"
+  ],
+  "preservation": {
+    "production_skill_project_files": 79,
+    "protected_inputs": 67,
+    "old_2D_protocol_and_outputs_unchanged": true,
+    "old_2C_records_unchanged": true,
+    "auto_CI_enabled": false,
+    "new_generic_rules": 0,
+    "measurement_validated_upgrades": 0
+  },
+  "next": "2E native-input/Q5 identity and real backend integration checks before explicitly scoped rendering/listening"
+}

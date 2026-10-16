@@ -1,0 +1,350 @@
+{
+  "status": "exposure_and_coverage_audited_with_sampling_gaps",
+  "date": "2026-10-11",
+  "counts": {
+    "words": 318,
+    "phrase_groups": 34,
+    "raw_vowel_tokens": 33,
+    "documented_direct_target_words": 14,
+    "delivered_clip_overlap_words": 40,
+    "documented_word_union": 48,
+    "scoped_exposed_phrase_groups": 14,
+    "word_history_unknown": 270,
+    "clean_holdout_words": 0,
+    "coverage_cells": 297,
+    "occupied_cells": 95,
+    "empty_cells": 202,
+    "one_phrase_cells": 11,
+    "raw_owned_onset_patterns": 24
+  },
+  "sources": [
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+      "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    {
+      "path": "runs/lastpage_tenc_feedback_20261008/current_four_contexts.json",
+      "sha256": "52b5bc6350e0331eee5f7f23f6847e5b3a7a32c5f77726bc641b1b686ebc8d44"
+    },
+    {
+      "path": "runs/lastpage_tenc_feedback_20261008/repeated_bao.json",
+      "sha256": "901c4c47df4eb3c61669dc2738854d33cf975ded1096fb1ef300d22f832b4fc1"
+    },
+    {
+      "path": "runs/lastpage_tenc_feedback_20261008/same_bao_excerpts_binding.json",
+      "sha256": "c89a47e15f5cb8e2b187a7d2cef9d87b86a69399e0e7dfa9c3ad3a726b3773ce"
+    },
+    {
+      "path": "runs/lastpage_tenc_feedback_20261008/same_bao_user_feedback.json",
+      "sha256": "7af1a042856a033df74f2c1189b0799653a2663cde0daa316b0b2358cfbfbf6b"
+    },
+    {
+      "path": "runs/lastpage_guo_phoneme_audit_20261008/audit.json",
+      "sha256": "cc8e32fc455c12de8a5b123014c40a5d10ca65a2ada19d5d19e7195510b119f8"
+    },
+    {
+      "path": "runs/lastpage_guo_phoneme_audit_20261008/comparison.json",
+      "sha256": "3c64e7edad5206daf55891397dd9799606f346581ab71c4aff10179e7bd61e07"
+    },
+    {
+      "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+      "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e"
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/validation_protocol.json",
+      "sha256": "470665bda56719c8b5d191b8a6e98161a11031031898f48cfc109919105f7b0f"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+      "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+      "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+    },
+    {
+      "path": "projects/README.md",
+      "sha256": "1bec0d40a489e2e9bc73f213734442d47d869d47e5b3d884c490b6394b838d91"
+    },
+    {
+      "path": "projects/latest/lastpage_loudness_v02.ustx",
+      "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+    },
+    {
+      "path": "projects/latest/yuai_skill_v17.ustx",
+      "sha256": "415b5b3f568d7868e792dc4e5b625257208d8c4859a87ec2c2aedf0bf3aab1ad"
+    },
+    {
+      "path": "projects/latest/huahai_plus4_smooth.ustx",
+      "sha256": "a9e87402a4ee2c8c6d3de109563415e1a9787a407d819fa86e94d55974a7afc8"
+    }
+  ],
+  "previous_seal": {
+    "path": "runs/research/table2-sampling-review-20261011/completion-manifest.json",
+    "sha256": "d1258f514d1617da333e66cd4f668cd74d2daab6b1f6665fc99c04eae6715cf6"
+  },
+  "events": [
+    {
+      "id": "EX01",
+      "kind": "historical_explicit_labels",
+      "target_words": [
+        112,
+        124,
+        214,
+        225
+      ],
+      "delivered_clip_overlap_words": [],
+      "source": {
+        "path": "runs/lastpage_tenc_feedback_20261008/current_four_contexts.json",
+        "sha256": "52b5bc6350e0331eee5f7f23f6847e5b3a7a32c5f77726bc641b1b686ebc8d44"
+      },
+      "clip_overlap_definition": "word native phone span intersects delivered source interval; not a new auditory label"
+    },
+    {
+      "id": "EX02",
+      "kind": "same_bao_metadata_and_prediction_analysis",
+      "target_words": [
+        39,
+        70,
+        90,
+        174,
+        205,
+        225,
+        273
+      ],
+      "delivered_clip_overlap_words": [],
+      "source": {
+        "path": "runs/lastpage_tenc_feedback_20261008/repeated_bao.json",
+        "sha256": "901c4c47df4eb3c61669dc2738854d33cf975ded1096fb1ef300d22f832b4fc1"
+      },
+      "clip_overlap_definition": "word native phone span intersects delivered source interval; not a new auditory label"
+    },
+    {
+      "id": "EX03",
+      "kind": "same_bao_delivered_clips_and_aggregate_feedback",
+      "target_words": [
+        90,
+        225,
+        273
+      ],
+      "delivered_clip_overlap_words": [
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278
+      ],
+      "source": {
+        "path": "runs/lastpage_tenc_feedback_20261008/same_bao_excerpts_binding.json",
+        "sha256": "c89a47e15f5cb8e2b187a7d2cef9d87b86a69399e0e7dfa9c3ad3a726b3773ce"
+      },
+      "clip_overlap_definition": "word native phone span intersects delivered source interval; not a new auditory label"
+    },
+    {
+      "id": "EX04",
+      "kind": "same_guo_mapping_clock_analysis",
+      "target_words": [
+        27,
+        112,
+        162,
+        247,
+        295
+      ],
+      "delivered_clip_overlap_words": [],
+      "source": {
+        "path": "runs/lastpage_guo_phoneme_audit_20261008/audit.json",
+        "sha256": "cc8e32fc455c12de8a5b123014c40a5d10ca65a2ada19d5d19e7195510b119f8"
+      },
+      "clip_overlap_definition": "word native phone span intersects delivered source interval; not a new auditory label"
+    },
+    {
+      "id": "EX05",
+      "kind": "same_guo_delivered_clips_and_partial_feedback",
+      "target_words": [
+        112,
+        247,
+        295
+      ],
+      "delivered_clip_overlap_words": [
+        111,
+        112,
+        113,
+        114,
+        115,
+        246,
+        247,
+        248,
+        249,
+        250,
+        294,
+        295,
+        296,
+        297
+      ],
+      "source": {
+        "path": "runs/lastpage_guo_phoneme_audit_20261008/comparison.json",
+        "sha256": "3c64e7edad5206daf55891397dd9799606f346581ab71c4aff10179e7bd61e07"
+      },
+      "clip_overlap_definition": "word native phone span intersects delivered source interval; not a new auditory label"
+    },
+    {
+      "id": "EX06",
+      "kind": "BREC_intervention_and_no_difference_feedback",
+      "target_words": [
+        112,
+        124,
+        214,
+        225,
+        247
+      ],
+      "delivered_clip_overlap_words": [],
+      "source": {
+        "path": "runs/lastpage_cross_condition_study_20261008/validation_protocol.json",
+        "sha256": "470665bda56719c8b5d191b8a6e98161a11031031898f48cfc109919105f7b0f"
+      },
+      "clip_overlap_definition": "word native phone span intersects delivered source interval; not a new auditory label"
+    },
+    {
+      "id": "EX07",
+      "kind": "SHFC_path_design_execution_and_feedback",
+      "target_words": [
+        214,
+        225
+      ],
+      "delivered_clip_overlap_words": [],
+      "source": {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+        "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+      },
+      "clip_overlap_definition": "word native phone span intersects delivered source interval; not a new auditory label"
+    }
+  ],
+  "source_registry": [
+    {
+      "corpus_id": "lastpage",
+      "project": {
+        "path": "projects/latest/lastpage_loudness_v02.ustx",
+        "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+      },
+      "role": "previously_used_song_not_clean_holdout",
+      "native_metadata_scope": "318 frozen rows",
+      "voice_chain_compatibility": "bound_current_chain",
+      "new_batch_execution_authorized": false
+    },
+    {
+      "corpus_id": "yuai",
+      "project": {
+        "path": "projects/latest/yuai_skill_v17.ustx",
+        "sha256": "415b5b3f568d7868e792dc4e5b625257208d8c4859a87ec2c2aedf0bf3aab1ad"
+      },
+      "role": "previously_used_song_not_clean_holdout",
+      "native_metadata_scope": "not_audited_for_this_protocol",
+      "voice_chain_compatibility": "unknown",
+      "new_batch_execution_authorized": false
+    },
+    {
+      "corpus_id": "huahai",
+      "project": {
+        "path": "projects/latest/huahai_plus4_smooth.ustx",
+        "sha256": "a9e87402a4ee2c8c6d3de109563415e1a9787a407d819fa86e94d55974a7afc8"
+      },
+      "role": "previously_used_song_not_clean_holdout",
+      "native_metadata_scope": "not_audited_for_this_protocol",
+      "voice_chain_compatibility": "unknown",
+      "new_batch_execution_authorized": false
+    }
+  ],
+  "exposure_scope": "7 documented metadata/delivery/intervention families, not an exhaustive history of every prior listening; absence of an event is unknown",
+  "preparation_validator_note": "First preflight rejected lyric line == native context at word7 (line1/context0), before file or entry mutations. Corrected by recording lyric_line separately and retaining bound study context for native phrase grouping; exact phone/clock checks unchanged.",
+  "holdout_rule": "current legacy song has no certified prospective holdout; new sources selected before feedback, grouped by song and phrase, no tuning from holdout",
+  "descriptive_buckets_not_physiological_thresholds": true,
+  "endpoint_draft": {
+    "status": "prepared_not_frozen",
+    "primary": "S/A perceived power direction at each preselected context",
+    "response_options": [
+      "left_much_stronger",
+      "left_stronger",
+      "no_perceptible_difference",
+      "right_stronger",
+      "right_much_stronger",
+      "uncertain"
+    ],
+    "primary_reporting": "report S stronger / A stronger / tie / uncertain / missing / technical failure separately over all preselected targets; report denominators; no silent complete-case filtering",
+    "side_effects": [
+      "voice_break_or_artifact",
+      "articulation",
+      "perceived_pitch",
+      "perceived_level",
+      "neighbor_regression"
+    ],
+    "side_effect_state": "left_only/right_only/both/neither/uncertain; distinct from power; improvement and naturalness require separate judgements",
+    "unit": "one word context nested in phrase/song, not each order, waveform, same-input repeat or rating",
+    "context_integrity": "one target intervention per independently rendered full phrase; multiple targets in a phrase never combined in the same variant; shared phrase counts as one cluster",
+    "presentation": "anonymous balanced S/A orders, fixed gain and duration, full phrase retained and focus time marked; no BGM or per-item normalization",
+    "batching": "draft 8 primary contexts per session plus 1 hidden no-change and 1 hidden retest; reassess burden before freeze",
+    "controls": "hidden no-change/retest excluded from condition N; inconsistent retests reported, no post-hoc filtering of inconvenient cases",
+    "repeated_orders": "same context, record separately and summarize by a frozen rule; not new independent observations",
+    "listener": "one current user, conditional personal judgement; no population listener inference",
+    "main_comparison": "S/A in both phases; D/P mechanism comparisons development only, separate endpoints and multiplicity plan"
+  },
+  "sample_size_review": {
+    "status": "sensitivity_prepared_final_N_not_justified",
+    "old_24_plus_48_scenario": "24 development cannot be added to 48 holdout for independent confirmatory N",
+    "assumptions": "hypothetical equal two-target phrase groups and ICC 0/.3/.6, variance .25, normal 1.96 halfwidth; not empirical estimates",
+    "formula": "DEFF=1+(m-1)*rho; N_eff=N/DEFF; h=1.96*sqrt(.25/N_eff)",
+    "precision_targets_not_selected": {
+      "0.1": 97,
+      "0.15": 43,
+      "0.2": 25
+    },
+    "precision_assumptions": "iid worst-case single response-category proportion only; not clustered actual CI, power, subgroup or multi-song adequacy",
+    "unresolved": [
+      "minimum useful perceptual effect or desired precision",
+      "song-level variability and weighted sampling estimand",
+      "listener/session uncertainty",
+      "source availability and legal task scope",
+      "fixed-dose support and grid feasibility",
+      "final sample IDs, exclusions and stopping rule"
+    ],
+    "fixed_dose": "new batch rule not chosen; do not silently copy the two historical distinct anchor constructions into all words"
+  },
+  "new_contexts_assigned": 0,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "audio_or_array_decodes": 0,
+  "new_listening_feedback": 0,
+  "stage_2F_validation_executed": false,
+  "measurement_validated": false,
+  "song_skill_changes": false,
+  "single_agent": true,
+  "CI_manual_only": true,
+  "generator": {
+    "path": "research/table2-confirmation/prepare_stage_2f_exposure_coverage.py",
+    "sha256": "cdf53fe0cc1e9e00db8c9229d13b73be67a1c1f29ab9c3931d41036d83efcfe1"
+  }
+}

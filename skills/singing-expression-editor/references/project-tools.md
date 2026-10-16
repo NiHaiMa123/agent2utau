@@ -1,12 +1,15 @@
 # 当前工具接入
 
-从工作区解析项目根，先读AGENTS.md与docs/workflow.md。仅保留原曲观测、Agent显式计划、函数数学、原生编译和验证；歌曲实现记录不是通用入口。
+从工作区解析项目根，先读AGENTS.md与docs/workflow.md，制作按[逐句工作循环](phrase-by-phrase-workflow.md)执行。仅保留原曲观测、Agent显式计划、函数数学、原生编译和验证；歌曲实现记录不是通用入口。
 
 | 接口 | 作用和边界 |
 |---|---|
+| CLI `knowledge-context` / `knowledge.collect_context` | 设计前按问题显式检索表1/表2并绑定逐ID决策；编译门禁不证明相关经验检全或应用正确，见[知识接入](knowledge-before-design.md) |
 | CLI `observe-source` / `workflow.observe_source` | 新目录解码、分离、ASR、GAME、双F0；只产观测，不生成音乐/歌词身份或音高线 |
+| CLI `freeze-musical-intent` | 数值计划创建前绑定乐句源观察、演唱过程/备选、独立判据与发声校准状态；只记录工具观察到的顺序，不证明音乐判断正确 |
 | Skill `scripts/design_functions.py` | Agent独立中心、有限回收、变深变速周期及局部期待；不读取原曲/作者数组，不自选动作 |
-| CLI `compile-functions` / `workflow.compile_functions` | 执行完整函数计划，编码到原生PITD并检查实际读回/音素几何；保留Agent自己的note.pitch衔接 |
+| CLI `compile-functions` / `workflow.compile_functions` | 要求当前输入工程完整覆盖和scope=whole_song；逐句用保留绝对时钟/必要上下文的工作副本，回写完整工程后验区域等价。编码PITD并查实际读回/音素几何，保留note.pitch；尚无phrase范围或逐句进度自动门禁 |
+| CLI `review-inventory` / `review-execution` / `review-delivery` | 独立原生身份/实际动作/图像覆盖、事前意图对照及分层状态；见[执行契约](production-execution-review.md)。compile-functions contract v2接同一API；v1/无契约只交技术候选 |
 | `expression/context_actions.py` / `curve_components.py` / `enveloped_landmarks.py` | 显式schema3音素锚点和分层有限/周期动作；与helper包络定义不同，不静默换参数 |
 | Skill `scripts/compile_control_overlay.py` | 按当前音素锚点叠加Agent所选TENC/BREC/VOIC/DYN并恢复基底，不自动设计发声 |
 | Skill `scripts/sparse_contour.py` | Agent自有节点的note.pitch转换；研究线重建只用于研究，不接入独立生成 |

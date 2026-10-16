@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "feedback_id": "T2E-W225-K3-20261011",
+  "status": "partial_human_feedback_recorded",
+  "stage_2E_complete": false,
+  "record_created_utc": "2026-10-11T07:18:13.237094+00:00",
+  "user_message_verbatim": "k3最好",
+  "user_message_timestamp": "unknown",
+  "message_source": "human user in current chat, replying to four embedded 抱 full-context mono vocal files",
+  "condition_id": "current-word-225",
+  "lyric": "抱",
+  "presented_audio": [
+    {
+      "code": "K1",
+      "research_path": "A",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/full/vocal/current-word-225-K1.wav",
+      "sha256": "fb2f4519aaae02fabe3a7b7b77251a5919af7025d6b2fd067056fdf63c5dcf85",
+      "samples": 215552,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6629869937896729,
+      "max_encoding_error": 1.1897282092832029e-07
+    },
+    {
+      "code": "K2",
+      "research_path": "D",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/full/vocal/current-word-225-K2.wav",
+      "sha256": "ede3375f8e69606eaf0aecb0f612e8c2fe6b6218488ac6bff6565ae07e3367cc",
+      "samples": 215552,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6629836559295654,
+      "max_encoding_error": 1.1897282092832029e-07
+    },
+    {
+      "code": "K3",
+      "research_path": "S",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/full/vocal/current-word-225-K3.wav",
+      "sha256": "db489746e56ed3f7e48a8dd5cd6ed2a7089e4c81ad327fbc358676c7dde426cc",
+      "samples": 215552,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6613756418228149,
+      "max_encoding_error": 1.1897509466507472e-07
+    },
+    {
+      "code": "K4",
+      "research_path": "P",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/full/vocal/current-word-225-K4.wav",
+      "sha256": "5edf0f6cb46a258e4df3175125b7ab1cb3ccb546889396e2386d245ff5f4d7b5",
+      "samples": 215552,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6613739728927612,
+      "max_encoding_error": 1.1896872820216231e-07
+    }
+  ],
+  "preferred_code": "K3",
+  "preferred_research_path": "S",
+  "preference_scope": "ordinal preference within the four presented versions; actual listened set not separately enumerated",
+  "other_versions_order": "unknown",
+  "pairwise_discrimination_results": "unknown",
+  "auditory_details": {
+    "onset": "unknown",
+    "break_or_crack": "unknown",
+    "loudness": "unknown",
+    "diction": "unknown",
+    "body": "unknown",
+    "naturalness": "unknown",
+    "absolute_usability": "unknown"
+  },
+  "listening_metadata": {
+    "device": "unknown",
+    "player": "unknown",
+    "volume": "unknown",
+    "actual_order": "unknown",
+    "repetitions": "unknown",
+    "complete_four_file_listening": "unknown",
+    "blinding": "unknown"
+  },
+  "still_pending": [
+    "current-word-214",
+    "explicit fixed-pair feedback",
+    "mixed-audio feedback",
+    "specific auditory dimensions"
+  ],
+  "inference_boundary": "Local preference for S; no unique causal mechanism, universal rule, held-out validation or whole-song acceptance",
+  "historical_relation": "Technical audit found new 抱 S fresh input/prediction/raw PCM identical to old 抱 C; old C-B 可以 remains a separate feedback event",
+  "experiment_seal": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+    "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+  },
+  "packaging": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/pcm-packaging.json",
+    "sha256": "6517c3a8d5dfbf975de42240dc8ee5b45eb305fb1527cf8cdac6a68c90e1c7b5"
+  },
+  "protocol": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+    "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+  },
+  "pre_update_snapshot": {
+    "path": "runs/research/table2-word225-feedback-20261011/before/snapshot-manifest.json",
+    "sha256": "11bbd33ee1a546e3028b96ef79887aa658871d3553eceddbdc3bf3a4a82ac7b0"
+  },
+  "protected_baseline": {
+    "stage": "2E-execution",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/snapshot-manifest.json",
+    "sha256": "01dffada2ee989a45e6e48f79dbd5ada8dd67d0bc8c475dd54f2a14945e47c46",
+    "run": "runs/experiments/table2-shfc-paths-20261011",
+    "test_run": "runs/test-results/table2-2e-execution-20261011"
+  },
+  "new_feedback": 1,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "production_song_changed": false,
+  "skill_changed": false,
+  "automatic_expansion": false,
+  "recorder": {
+    "path": "research/table2-confirmation/record_stage_2e_word225_feedback.py",
+    "sha256": "3dfa90c8f361310a76dd9e54697ed83d0f834d7f2bad74581d04b2953487063b"
+  }
+}

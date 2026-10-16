@@ -1,0 +1,31 @@
+{
+  "record_id": "RESP:SKILL-KNOWLEDGE-ENTRY-20261016",
+  "record_type": "technical_method_entry_update_not_audio_response",
+  "report": {
+    "path": "docs/reports/production/skill-knowledge-entry-20261016.md",
+    "sha256": "7650d49f5db93c54227cfec455b79d99ccd04f1f69011116baab75fe0c4399cf"
+  },
+  "before": {
+    "path": "runs/review/skill-knowledge-entry-20261016/before.json",
+    "sha256": "e00ecae7589157ff6006a64a8be1cd4d0c21d92fae82bdeebb6eeefa68da1f6e"
+  },
+  "sync": {
+    "path": "runs/review/skill-knowledge-entry-20261016/sync-and-links.json",
+    "sha256": "135f00c8d8e3b8ec36f39a661e04418766cb86e33ad0aaabcb3066645b558a78"
+  },
+  "tests": {
+    "path": "runs/review/skill-knowledge-entry-20261016/pytest.xml",
+    "sha256": "3137c734a3ced58e1809d580e22af86bf672bb552019764255ec2460bedbc12d"
+  },
+  "test_count": 9,
+  "installed_files": 39,
+  "skill_links": 117,
+  "skill_updated": true,
+  "installed_synced": true,
+  "automatic_omission_detection": false,
+  "musical_quality": "unverified",
+  "transfer": "unverified",
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "generalized_response_rules": []
+}

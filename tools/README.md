@@ -1,7 +1,10 @@
-# 工具范围
+# 仓库维护工具
 
-`package_research_projects.py`只打包三份用户授权的白烁USTX原件及说明/哈希，不包含音频。
+本目录只放跨任务的仓库维护工具。歌曲制作使用`src/agent2utau`的CLI与Skill；测试使用`tests`；固定歌曲实现记录放在[research/implementation-records](../research/implementation-records/lastpage-20261007/README.md)。
 
-`lastpage_fresh_*_20261007.py`和`lastpage_loudness_skill_v02_20261007.py`是最近完成歌曲的实现记录，保留其实际Agent参数、检查和局限。固定歌曲选择及旧目录哈希不可作为新曲生产入口。新任务使用README/Skill/workflow中的通用接口及新函数计划。
+| 工具 | 使用与边界 |
+|---|---|
+| [repository/check_repository.py](repository/check_repository.py) | 默认检查Git索引所列文件、媒体/模型排除、作者包及Skill；整理后尚未暂存时用`--worktree`检查当前跟踪及未忽略的新文件 |
+| [repository/package_research_projects.py](repository/package_research_projects.py) | 仅在明确指定原件目录与新输出目录时打包三份授权白烁USTX、说明和SHA；不包含音频，不覆盖原包 |
 
-其它历史路线在本机未跟踪归档中，已移出活动工具目录。
+从仓库根运行`python tools/repository/check_repository.py --worktree`。正式发布/CI使用不带该选项的索引检查。维护工具不决定唱法、不运行旧曲方案、不扫描历史产物来补新任务。

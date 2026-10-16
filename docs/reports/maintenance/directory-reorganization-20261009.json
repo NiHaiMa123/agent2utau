@@ -1,0 +1,922 @@
+{
+  "date": "2026-10-09",
+  "role": "directory_migration_not_synthesis_or_table_validation",
+  "moves": [
+    {
+      "from": "tests/test_context_actions.py",
+      "to": "tests/unit/test_context_actions.py",
+      "sha256": "c58fd60d6a3d54e1336388005008dfaf31d68701c61cf335a8426fcd6902c439",
+      "kind": "test",
+      "after_sha256": "c58fd60d6a3d54e1336388005008dfaf31d68701c61cf335a8426fcd6902c439",
+      "content_unchanged": true
+    },
+    {
+      "from": "tests/test_contour_viewports.py",
+      "to": "tests/skills/test_contour_viewports.py",
+      "sha256": "79943246d7b94fac09adb51fdaaf67c42a8201ac41affec70e1022e07e0d22e9",
+      "kind": "test",
+      "after_sha256": "715b75f810585f37a9411d8a4ad9a8ed62ab7f49eec27a97688a244464f6fbe2",
+      "content_unchanged": false
+    },
+    {
+      "from": "tests/test_control_overlay_skill.py",
+      "to": "tests/skills/test_control_overlay_skill.py",
+      "sha256": "bf4f1963b642ce7f1d29c533216bd60593da7ed74d060d625053055095f74343",
+      "kind": "test",
+      "after_sha256": "618aae48cb8ab71eddb6e9bc24ea47193d125bfbea60bd1260847d7eff91ef5f",
+      "content_unchanged": false
+    },
+    {
+      "from": "tests/test_controlled_probe.py",
+      "to": "tests/contracts/test_controlled_probe.py",
+      "sha256": "66110e994c9668bc3f6eeb60a7190756d3b170134b87905ca2d321e068d07e1d",
+      "kind": "test",
+      "after_sha256": "66110e994c9668bc3f6eeb60a7190756d3b170134b87905ca2d321e068d07e1d",
+      "content_unchanged": true
+    },
+    {
+      "from": "tests/test_curve_components.py",
+      "to": "tests/unit/test_curve_components.py",
+      "sha256": "73e998d40f7c01e364be8cde39c340b1ef9cfa7c2040b3efbe0e69a7ca2c3699",
+      "kind": "test",
+      "after_sha256": "73e998d40f7c01e364be8cde39c340b1ef9cfa7c2040b3efbe0e69a7ca2c3699",
+      "content_unchanged": true
+    },
+    {
+      "from": "tests/test_design_functions_skill.py",
+      "to": "tests/skills/test_design_functions_skill.py",
+      "sha256": "0b8cce851872b1244ee2ed3353ccff195b58847f03ab244f041a659fe55c25f4",
+      "kind": "test",
+      "after_sha256": "4819d4a52a277abf95dfb982feee7d59a1265bf6100e6f5b79a8bc81d8ccd1d2",
+      "content_unchanged": false
+    },
+    {
+      "from": "tests/test_enveloped_landmarks.py",
+      "to": "tests/unit/test_enveloped_landmarks.py",
+      "sha256": "6a9479f92c7d2060575480208fa8eb2692aecb3114383c9d591862bbee7c535b",
+      "kind": "test",
+      "after_sha256": "6a9479f92c7d2060575480208fa8eb2692aecb3114383c9d591862bbee7c535b",
+      "content_unchanged": true
+    },
+    {
+      "from": "tests/test_expression_rhythm.py",
+      "to": "tests/unit/test_expression_rhythm.py",
+      "sha256": "310878324849cd2597a77da3d1c732c0c61cdf798f63a796bba348f49498bdbc",
+      "kind": "test",
+      "after_sha256": "310878324849cd2597a77da3d1c732c0c61cdf798f63a796bba348f49498bdbc",
+      "content_unchanged": true
+    },
+    {
+      "from": "tests/test_independent_evaluation.py",
+      "to": "tests/contracts/test_independent_evaluation.py",
+      "sha256": "73240fa9655a787e1634e028e3b2bbf2c7a5b009c4bf9389c0b58d8a8876050c",
+      "kind": "test",
+      "after_sha256": "73240fa9655a787e1634e028e3b2bbf2c7a5b009c4bf9389c0b58d8a8876050c",
+      "content_unchanged": true
+    },
+    {
+      "from": "tests/test_separator_selection.py",
+      "to": "tests/unit/test_separator_selection.py",
+      "sha256": "1b6a15324bc760a518951efe44989613d8bd5e89d3c1cc2286ebe86b8ba96823",
+      "kind": "test",
+      "after_sha256": "1b6a15324bc760a518951efe44989613d8bd5e89d3c1cc2286ebe86b8ba96823",
+      "content_unchanged": true
+    },
+    {
+      "from": "tests/test_sparse_contour_skill.py",
+      "to": "tests/skills/test_sparse_contour_skill.py",
+      "sha256": "14d83a20b6e05547548fe302b05766cffb01e0517732313295b404151e6c2ff7",
+      "kind": "test",
+      "after_sha256": "547c3333d70e93d42c1a08608cfa4a01df3c848697f46f2e509fe3a8560bddeb",
+      "content_unchanged": false
+    },
+    {
+      "from": "tests/test_variance_expectation.py",
+      "to": "tests/unit/test_variance_expectation.py",
+      "sha256": "b1ee0ce64f0028ed51e29fc1de586d33a3db1703759346761aacc82d7216b1bc",
+      "kind": "test",
+      "after_sha256": "b1ee0ce64f0028ed51e29fc1de586d33a3db1703759346761aacc82d7216b1bc",
+      "content_unchanged": true
+    },
+    {
+      "from": "tests/test_workflow.py",
+      "to": "tests/contracts/test_workflow.py",
+      "sha256": "f0ea40e136ee1dd68868e403a97ea375f2bdbd748d7f72f8c0974f6aa9aceecd",
+      "kind": "test",
+      "after_sha256": "f0ea40e136ee1dd68868e403a97ea375f2bdbd748d7f72f8c0974f6aa9aceecd",
+      "content_unchanged": true
+    },
+    {
+      "from": "tools/check_repository.py",
+      "to": "tools/repository/check_repository.py",
+      "sha256": "8494569b021b2f8824da3d05ca58bb056145a3d5b5ec16a4d63fd8789ac63983",
+      "kind": "repository_tool",
+      "after_sha256": "e9aeb8d6db0ee007500ea532f2ea4dc2fb1e86c5bb1bd69bab01c772d4b53b90",
+      "content_unchanged": false
+    },
+    {
+      "from": "tools/lastpage_fresh_design_20261007.py",
+      "to": "research/implementation-records/lastpage-20261007/lastpage_fresh_design_20261007.py",
+      "sha256": "c243c6fb92c7d1a5466ed7414ceb3c7a33b0482e4d0e59e43beafc190d39a347",
+      "kind": "historical_record",
+      "after_sha256": "c243c6fb92c7d1a5466ed7414ceb3c7a33b0482e4d0e59e43beafc190d39a347",
+      "content_unchanged": true
+    },
+    {
+      "from": "tools/lastpage_fresh_expression_20261007.py",
+      "to": "research/implementation-records/lastpage-20261007/lastpage_fresh_expression_20261007.py",
+      "sha256": "ba181402aafa01d3773e3fc92537601e291a3e180b0e1d0cfd3af5d00e699445",
+      "kind": "historical_record",
+      "after_sha256": "ba181402aafa01d3773e3fc92537601e291a3e180b0e1d0cfd3af5d00e699445",
+      "content_unchanged": true
+    },
+    {
+      "from": "tools/lastpage_fresh_finish_20261007.py",
+      "to": "research/implementation-records/lastpage-20261007/lastpage_fresh_finish_20261007.py",
+      "sha256": "c7ee86a260144f073ef033509123e52c71178de06906c51c94b85f0fe6d41203",
+      "kind": "historical_record",
+      "after_sha256": "c7ee86a260144f073ef033509123e52c71178de06906c51c94b85f0fe6d41203",
+      "content_unchanged": true
+    },
+    {
+      "from": "tools/lastpage_fresh_review_20261007.py",
+      "to": "research/implementation-records/lastpage-20261007/lastpage_fresh_review_20261007.py",
+      "sha256": "d45f6cf4a248e901e239413c61b655250b9451beddd6e49ff9743d7084ff538f",
+      "kind": "historical_record",
+      "after_sha256": "d45f6cf4a248e901e239413c61b655250b9451beddd6e49ff9743d7084ff538f",
+      "content_unchanged": true
+    },
+    {
+      "from": "tools/lastpage_fresh_source_20261007.py",
+      "to": "research/implementation-records/lastpage-20261007/lastpage_fresh_source_20261007.py",
+      "sha256": "7e6accea025cc524bf0129010a130f5d4f2245dbc0b815a2e55328422c8032a9",
+      "kind": "historical_record",
+      "after_sha256": "7e6accea025cc524bf0129010a130f5d4f2245dbc0b815a2e55328422c8032a9",
+      "content_unchanged": true
+    },
+    {
+      "from": "tools/lastpage_fresh_synthesis_20261007.py",
+      "to": "research/implementation-records/lastpage-20261007/lastpage_fresh_synthesis_20261007.py",
+      "sha256": "f118d1071f8359b55503434f7090345a0e8b87ebfe66ffd664c524a2afecb681",
+      "kind": "historical_record",
+      "after_sha256": "f118d1071f8359b55503434f7090345a0e8b87ebfe66ffd664c524a2afecb681",
+      "content_unchanged": true
+    },
+    {
+      "from": "tools/lastpage_loudness_skill_v02_20261007.py",
+      "to": "research/implementation-records/lastpage-20261007/lastpage_loudness_skill_v02_20261007.py",
+      "sha256": "48bfa5c81241532ebdbf869ca3251d4a1ba2394a79937eb2db464985c9826b62",
+      "kind": "historical_record",
+      "after_sha256": "48bfa5c81241532ebdbf869ca3251d4a1ba2394a79937eb2db464985c9826b62",
+      "content_unchanged": true
+    },
+    {
+      "from": "tools/package_research_projects.py",
+      "to": "tools/repository/package_research_projects.py",
+      "sha256": "2bd745f09c2cfa68b8c926e61dbeb2a44a9c3fe769e227c3a3d4a14845cd81be",
+      "kind": "repository_tool",
+      "after_sha256": "2bd745f09c2cfa68b8c926e61dbeb2a44a9c3fe769e227c3a3d4a14845cd81be",
+      "content_unchanged": true
+    },
+    {
+      "from": "docs/acoustic-manifestations-20261009",
+      "to": "docs/knowledge/acoustic-manifestations-20261009",
+      "kind": "knowledge_bundle",
+      "files": [
+        {
+          "path": "atomic-manifestations.csv",
+          "before_sha256": "6a243754bc4d7f1c0aeca0a87486dc86b7cd88cbd5ea518c52f35b38f9c3d9d4",
+          "after_sha256": "6a243754bc4d7f1c0aeca0a87486dc86b7cd88cbd5ea518c52f35b38f9c3d9d4",
+          "content_unchanged": true
+        },
+        {
+          "path": "composite-descriptors.csv",
+          "before_sha256": "202c7c56d3c50013906305b3c9b448dfbda42bd38ed15ea1d5707ffc09d01fc9",
+          "after_sha256": "202c7c56d3c50013906305b3c9b448dfbda42bd38ed15ea1d5707ffc09d01fc9",
+          "content_unchanged": true
+        },
+        {
+          "path": "conditional-responses.csv",
+          "before_sha256": "9ef9970a072490c7df4517a0a1355fae668c957361b98a753692ce5cde9abd69",
+          "after_sha256": "9ef9970a072490c7df4517a0a1355fae668c957361b98a753692ce5cde9abd69",
+          "content_unchanged": true
+        },
+        {
+          "path": "conditional-responses.json",
+          "before_sha256": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821",
+          "after_sha256": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821",
+          "content_unchanged": true
+        },
+        {
+          "path": "conditional-responses.md",
+          "before_sha256": "401e4e1c0064f6c8995df2f313375406860dad2ee495afb79baffafe4f12aaad",
+          "after_sha256": "401e4e1c0064f6c8995df2f313375406860dad2ee495afb79baffafe4f12aaad",
+          "content_unchanged": true
+        },
+        {
+          "path": "control-inventory-audit.json",
+          "before_sha256": "fb18de406f82ab5a2503b2b3352feb292006f4fbc8a2ef5fa2b66c1e36296aec",
+          "after_sha256": "61a0262334f6cd9cc5c9a03cd61385f3ed8df72fda1bedbe160179aeecab85bd",
+          "content_unchanged": false
+        },
+        {
+          "path": "current-evidence.csv",
+          "before_sha256": "0bddd99999f4fea6c08ec07d78ee9cfeef3b3cc4b158b384a153c2499cf912ba",
+          "after_sha256": "0bddd99999f4fea6c08ec07d78ee9cfeef3b3cc4b158b384a153c2499cf912ba",
+          "content_unchanged": true
+        },
+        {
+          "path": "knowledge-table.json",
+          "before_sha256": "c998b5ea4b39648a5703c5818455140d7dc932cbb40095199b5a7ca9739d0962",
+          "after_sha256": "c998b5ea4b39648a5703c5818455140d7dc932cbb40095199b5a7ca9739d0962",
+          "content_unchanged": true
+        },
+        {
+          "path": "openutau-controls.csv",
+          "before_sha256": "63cdc16fa0e2bd55719a48e58ed292bd2e6b16761055eb376f95e4ddf57e03e3",
+          "after_sha256": "63cdc16fa0e2bd55719a48e58ed292bd2e6b16761055eb376f95e4ddf57e03e3",
+          "content_unchanged": true
+        },
+        {
+          "path": "README.md",
+          "before_sha256": "7bbdcbb49277f8489e1faef8ec20ca758ac776c4b977e2ca7ba282e740d7b40c",
+          "after_sha256": "d4ce0d030eab31dc30f7e0464b42f0e0373f283a4f878a7df2b931c57ff1f6e3",
+          "content_unchanged": false
+        },
+        {
+          "path": "response-coverage.csv",
+          "before_sha256": "d81f3b8be26d31e1d62b4f67e20fa3227461eb3750f76effcc7e0c16fb384b29",
+          "after_sha256": "d81f3b8be26d31e1d62b4f67e20fa3227461eb3750f76effcc7e0c16fb384b29",
+          "content_unchanged": true
+        },
+        {
+          "path": "response-source-audit.json",
+          "before_sha256": "9775cdee10562db59b85c0b2947ebaec5319206a44329daec8628ab75ed600d2",
+          "after_sha256": "9775cdee10562db59b85c0b2947ebaec5319206a44329daec8628ab75ed600d2",
+          "content_unchanged": true
+        }
+      ]
+    }
+  ],
+  "protected_files": [
+    {
+      "path": "skills/singing-expression-editor/agents/openai.yaml",
+      "sha256": "0825f76073d314ccedb0cfa6a4b4be59152cf8d306c9838909329aff35df3f47",
+      "after_sha256": "0825f76073d314ccedb0cfa6a4b4be59152cf8d306c9838909329aff35df3f47",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/accent-selection.md",
+      "sha256": "ff08ae3b324129b295a76ac29f2fa3be8fc5cad46659e10bb7b6e1d7ec3163b9",
+      "after_sha256": "ff08ae3b324129b295a76ac29f2fa3be8fc5cad46659e10bb7b6e1d7ec3163b9",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/ap-sp-placement.md",
+      "sha256": "caa3f8e18edeca18050545f9614af807445dd694189b9cc15299edc72fb6cc42",
+      "after_sha256": "caa3f8e18edeca18050545f9614af807445dd694189b9cc15299edc72fb6cc42",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/baishuo-drawing-method.md",
+      "sha256": "06eccecd675e2819898b9eb0e75ed99bf1f076a5fff258ec3e4e404711a20fed",
+      "after_sha256": "06eccecd675e2819898b9eb0e75ed99bf1f076a5fff258ec3e4e404711a20fed",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/breath-budget-and-carried-nucleus.md",
+      "sha256": "328979b4d23766d810bf95d3425d279c6a71f136caed5656bed997a638b2892c",
+      "after_sha256": "328979b4d23766d810bf95d3425d279c6a71f136caed5656bed997a638b2892c",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/conditional-drawing-recipes.md",
+      "sha256": "dd258d24647eb9f9043c96b3c9d721a95a2f3249372180e8d038ba396304c98e",
+      "after_sha256": "dd258d24647eb9f9043c96b3c9d721a95a2f3249372180e8d038ba396304c98e",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/context-execution.md",
+      "sha256": "5b66e1b24f49528ddf84b89ba5b8a17d2296f6d0446b0e58355fe5998dfa690e",
+      "after_sha256": "5b66e1b24f49528ddf84b89ba5b8a17d2296f6d0446b0e58355fe5998dfa690e",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/continuous-contour-and-scale.md",
+      "sha256": "0b28bfc7649fd50d9694eae5a15f8c9176424f7bb129ca70a5296d230e30d73d",
+      "after_sha256": "0b28bfc7649fd50d9694eae5a15f8c9176424f7bb129ca70a5296d230e30d73d",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/expressive-turn-and-support.md",
+      "sha256": "f85ee0a9a2493877be8b20c14241697f48a8741c0557ab22d4b6a7b7772d7de2",
+      "after_sha256": "f85ee0a9a2493877be8b20c14241697f48a8741c0557ab22d4b6a7b7772d7de2",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/grounding-and-competence.md",
+      "sha256": "4611fc465cbf2ef84948343060a8ee9355269d87c934ae8fcaea3896851edbb8",
+      "after_sha256": "4611fc465cbf2ef84948343060a8ee9355269d87c934ae8fcaea3896851edbb8",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/joint-phonation-and-sustain.md",
+      "sha256": "a9ca7e3c4f56f6495eff71019c0f8825cca9587927a7c4779e8891f747c4ecab",
+      "after_sha256": "a9ca7e3c4f56f6495eff71019c0f8825cca9587927a7c4779e8891f747c4ecab",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/local-cycle-design.md",
+      "sha256": "af34a0e4fa6f0fcebc270cbb4578f3723c4e3e27256edf06636b0aeb91c46fa5",
+      "after_sha256": "af34a0e4fa6f0fcebc270cbb4578f3723c4e3e27256edf06636b0aeb91c46fa5",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/loudness-and-high-note-comfort.md",
+      "sha256": "e27f10297a11613fd8fac8ebad052afc221441730ab4d7dce5a9b01935314bc2",
+      "after_sha256": "e27f10297a11613fd8fac8ebad052afc221441730ab4d7dce5a9b01935314bc2",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/microexpression-and-acoustics.md",
+      "sha256": "49c47e03525f23c673e72784b3a0dcfbb73ad38a773cfa061b5128a61477ffde",
+      "after_sha256": "49c47e03525f23c673e72784b3a0dcfbb73ad38a773cfa061b5128a61477ffde",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/new-song-action-selection.md",
+      "sha256": "3a0f0de9c323ab0becafac84c7abffa234a5d8f0501b16f59223bd5ef3935235",
+      "after_sha256": "3a0f0de9c323ab0becafac84c7abffa234a5d8f0501b16f59223bd5ef3935235",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/nucleus-envelope-and-release.md",
+      "sha256": "be88272b501de65f06322f0f4df36dea6ba63fe7fb111259aabf1681a9f0775f",
+      "after_sha256": "be88272b501de65f06322f0f4df36dea6ba63fe7fb111259aabf1681a9f0775f",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/parameters.md",
+      "sha256": "af36da823e830fa817d1d6ab96af1ed89e3d424e38fc905272872eff469e97b8",
+      "after_sha256": "af36da823e830fa817d1d6ab96af1ed89e3d424e38fc905272872eff469e97b8",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/phonation-continuity.md",
+      "sha256": "a8fb08463ac8de4357bf70f4330c5581f502b6a97986f03058d2cd1ad36a17e4",
+      "after_sha256": "a8fb08463ac8de4357bf70f4330c5581f502b6a97986f03058d2cd1ad36a17e4",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/phrase-scale-contour-study.md",
+      "sha256": "c78898fd20bfbeb2e73f4e39c558d4146fc193accd686d103c2275c6244f28f5",
+      "after_sha256": "c78898fd20bfbeb2e73f4e39c558d4146fc193accd686d103c2275c6244f28f5",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/pilot-execution.md",
+      "sha256": "d75de5bf1b6ebf7d229a2a118f6f102858202bdfaf088a328d43079f52a9d0a9",
+      "after_sha256": "d75de5bf1b6ebf7d229a2a118f6f102858202bdfaf088a328d43079f52a9d0a9",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/pitch-phonation-and-loudness.md",
+      "sha256": "fa422dff11a26779c71cf885e25077bdf384814d9097dbdf57074561d6890103",
+      "after_sha256": "fa422dff11a26779c71cf885e25077bdf384814d9097dbdf57074561d6890103",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/planning-and-evaluation.md",
+      "sha256": "0adf446583f8f485e2d3e60b668fcccb533cffa7e0dfc3fd6308979a617adbcf",
+      "after_sha256": "0adf446583f8f485e2d3e60b668fcccb533cffa7e0dfc3fd6308979a617adbcf",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/project-tools.md",
+      "sha256": "8f736c5760296a1f18213745cb411aa78d77322a3fa511cd0c2d55a52ab9bf27",
+      "after_sha256": "8f736c5760296a1f18213745cb411aa78d77322a3fa511cd0c2d55a52ab9bf27",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/reference-imitation-calibration.md",
+      "sha256": "c605baa92de3a501bc1039ee82a342eef667482539464054d2c23963e9d7529f",
+      "after_sha256": "c605baa92de3a501bc1039ee82a342eef667482539464054d2c23963e9d7529f",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/rhythm-and-syllable-duration.md",
+      "sha256": "6966eb4751d9f4186aef7ecfbe6b12a7ab1dfd5d4edc728969b17122687a4abf",
+      "after_sha256": "6966eb4751d9f4186aef7ecfbe6b12a7ab1dfd5d4edc728969b17122687a4abf",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/source-condition-to-function.md",
+      "sha256": "d56b51e955cd79c8e041d52fd19be95f4a13d64a0347588f2d3a4ea3bed34cb0",
+      "after_sha256": "d56b51e955cd79c8e041d52fd19be95f4a13d64a0347588f2d3a4ea3bed34cb0",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/source-separation.md",
+      "sha256": "bee5f11f6fbe9459195e555e778c9092cfabdb881f71270a3614a46f36c3aca1",
+      "after_sha256": "bee5f11f6fbe9459195e555e778c9092cfabdb881f71270a3614a46f36c3aca1",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/upward-interval-connections.md",
+      "sha256": "d84581e18d229d1d2d98ce5d94467a23890ea44489328e94b9eee436169f6282",
+      "after_sha256": "d84581e18d229d1d2d98ce5d94467a23890ea44489328e94b9eee436169f6282",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/voice-baseline-and-stability.md",
+      "sha256": "5ea9fae465f4026bd0bb826dd4e84fd07629ab25eb5eccccf0b15341bf4e367b",
+      "after_sha256": "5ea9fae465f4026bd0bb826dd4e84fd07629ab25eb5eccccf0b15341bf4e367b",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/vowel-support-and-language.md",
+      "sha256": "c5466e9bf19bb17a6876b374e372533ca72642147efbe3e6fc7692cb8e098992",
+      "after_sha256": "c5466e9bf19bb17a6876b374e372533ca72642147efbe3e6fc7692cb8e098992",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/references/whole-song-redraw.md",
+      "sha256": "65bf507ee9afc68a60c613b2dc4b26f884f55fb6a1de9f76a53745ff75ff8dd4",
+      "after_sha256": "65bf507ee9afc68a60c613b2dc4b26f884f55fb6a1de9f76a53745ff75ff8dd4",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/compile_control_overlay.py",
+      "sha256": "0eeb38c42acc45e713f4ebc40043a594b6ead748e88380a99b179a3c8961aef0",
+      "after_sha256": "0eeb38c42acc45e713f4ebc40043a594b6ead748e88380a99b179a3c8961aef0",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/contour_viewports.py",
+      "sha256": "460bfdf00be0b2f0cc232498acf9f653b839dd1ebb342923b45ded1d62e178c0",
+      "after_sha256": "460bfdf00be0b2f0cc232498acf9f653b839dd1ebb342923b45ded1d62e178c0",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/design_functions.py",
+      "sha256": "a205b25ccff78f3b3617a254c53145b09c95fcd82824de9a1fbc23a73b0d26c6",
+      "after_sha256": "a205b25ccff78f3b3617a254c53145b09c95fcd82824de9a1fbc23a73b0d26c6",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/sparse_contour.py",
+      "sha256": "6a82466973a3494e17e69ed49415bd02f8a9a6b0c9a58fdf10c16548258f0df8",
+      "after_sha256": "6a82466973a3494e17e69ed49415bd02f8a9a6b0c9a58fdf10c16548258f0df8",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "skills/singing-expression-editor/SKILL.md",
+      "sha256": "fb72264306e2bcb3ff4388f57db4e887329be8ef355728a691059c598ccfa53d",
+      "after_sha256": "fb72264306e2bcb3ff4388f57db4e887329be8ef355728a691059c598ccfa53d",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "research/baishuo/baishuo-projects.zip",
+      "sha256": "5bb41fcd67aa4cb9491fd2fe83186427215c3452c82168ef6070d31d0875484a",
+      "after_sha256": "5bb41fcd67aa4cb9491fd2fe83186427215c3452c82168ef6070d31d0875484a",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "research/baishuo/manifest.json",
+      "sha256": "00bd1cca28fd7babb99d906980e6a4382228c185515fb68b433cc55abfebc12c",
+      "after_sha256": "00bd1cca28fd7babb99d906980e6a4382228c185515fb68b433cc55abfebc12c",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "research/baishuo/projects/最后一页-有参by白烁.ustx",
+      "sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b",
+      "after_sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "research/baishuo/projects/花海+4-有参by白烁.ustx",
+      "sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377",
+      "after_sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "research/baishuo/projects/雨爱-有参by白烁.ustx",
+      "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce",
+      "after_sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "research/baishuo/README.md",
+      "sha256": "042bcc64a788802d73a0ae7b148f9e7fd5691b627f4733c186cf484ca60ef8d2",
+      "after_sha256": "042bcc64a788802d73a0ae7b148f9e7fd5691b627f4733c186cf484ca60ef8d2",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "projects/latest/huahai_plus4_smooth.ustx",
+      "sha256": "a9e87402a4ee2c8c6d3de109563415e1a9787a407d819fa86e94d55974a7afc8",
+      "after_sha256": "a9e87402a4ee2c8c6d3de109563415e1a9787a407d819fa86e94d55974a7afc8",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "projects/latest/lastpage_loudness_v02.ustx",
+      "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+      "after_sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "projects/latest/yuai_skill_v17.ustx",
+      "sha256": "415b5b3f568d7868e792dc4e5b625257208d8c4859a87ec2c2aedf0bf3aab1ad",
+      "after_sha256": "415b5b3f568d7868e792dc4e5b625257208d8c4859a87ec2c2aedf0bf3aab1ad",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/evaluation-v0-findings.md",
+      "sha256": "773ea0d25e5b452e85285ee1d1ac01c6154b3acbf96e2a9349c9c31b0ec05a91",
+      "after_sha256": "773ea0d25e5b452e85285ee1d1ac01c6154b3acbf96e2a9349c9c31b0ec05a91",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/evaluation-v0-next-step.md",
+      "sha256": "ab4aff40c6cb93d66d7ed2054578411159f8bcde9a4878312b23863e7a435ff5",
+      "after_sha256": "ab4aff40c6cb93d66d7ed2054578411159f8bcde9a4878312b23863e7a435ff5",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/evaluation-v0.md",
+      "sha256": "c4f4167ed42407b2d7ae13cb0c7b585eee3a7067aca4e275a53635743dbc1c39",
+      "after_sha256": "c4f4167ed42407b2d7ae13cb0c7b585eee3a7067aca4e275a53635743dbc1c39",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22",
+      "after_sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/lastpage-cross-condition-study-20261008.md",
+      "sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb",
+      "after_sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/lastpage-guo-phoneme-audit-20261008.md",
+      "sha256": "cbd27a56a6a577bdbe8794fe50fa834c1fd8a73023720863819bbae218ecb1f1",
+      "after_sha256": "cbd27a56a6a577bdbe8794fe50fa834c1fd8a73023720863819bbae218ecb1f1",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/lastpage-guo-positive-comparison-20261008.md",
+      "sha256": "a04e9719723a433a0ccbbd14c615b394ead2e02d3c3e938913f40856075f13a0",
+      "after_sha256": "a04e9719723a433a0ccbbd14c615b394ead2e02d3c3e938913f40856075f13a0",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/lastpage-guo-register-probe-20261008.md",
+      "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98",
+      "after_sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/lastpage-shfc-controlled-probe-20261008.md",
+      "sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2",
+      "after_sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493",
+      "after_sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/lastpage-tenc-controlled-probe-20261008.md",
+      "sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f",
+      "after_sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/plan-feasibility-review-20261008.md",
+      "sha256": "86bf168311b0b0352aba6d87137d6010c5c270ce2e5143a3f8a34ef80197dacb",
+      "after_sha256": "86bf168311b0b0352aba6d87137d6010c5c270ce2e5143a3f8a34ef80197dacb",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/repository-cleanup.md",
+      "sha256": "7e5897ae426ab77cc252b5981c6b194818c55271a19e138a2407cef30969021a",
+      "after_sha256": "7e5897ae426ab77cc252b5981c6b194818c55271a19e138a2407cef30969021a",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "docs/workflow.md",
+      "sha256": "f7de7726e7afda1243efb4bc52a07391e4ca2cc7695ff22d252868d1ae51f18f",
+      "after_sha256": "13c47bc31e390710afc4c9c4551b2855efc4af085c460bd00c90f864455d50d5",
+      "unchanged": false,
+      "allowed_guide_update": true
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+      "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd",
+      "after_sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/cohort.json",
+      "sha256": "52f0006f56a6b4687f1b6efcd57aa0200053caa72cdd2aacbd8e211bbcd9d454",
+      "after_sha256": "52f0006f56a6b4687f1b6efcd57aa0200053caa72cdd2aacbd8e211bbcd9d454",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/completion_manifest.json",
+      "sha256": "4a7a4d944d0a4ed6fd284e178f1006dce7cf14f280467a175d9dddab4d89be39",
+      "after_sha256": "4a7a4d944d0a4ed6fd284e178f1006dce7cf14f280467a175d9dddab4d89be39",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/delivery_check.json",
+      "sha256": "20685d98822748dc0129ce7496b78845b6f43522f65471a7b1d37b37c6ef25ac",
+      "after_sha256": "20685d98822748dc0129ce7496b78845b6f43522f65471a7b1d37b37c6ef25ac",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/frozen_runtime.json",
+      "sha256": "0cca2eb80929edfbf42fdfd2330c66b0581b3151ae7e511ba2109670f5039bc0",
+      "after_sha256": "0cca2eb80929edfbf42fdfd2330c66b0581b3151ae7e511ba2109670f5039bc0",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+      "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+      "after_sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+      "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0",
+      "after_sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_guo_feedback_20261008/feedback.json",
+      "sha256": "b785f9256619d54a990a6680bbaaba77a2c603ca12bab2c7c770d8cca2f2bb39",
+      "after_sha256": "b785f9256619d54a990a6680bbaaba77a2c603ca12bab2c7c770d8cca2f2bb39",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/completion_manifest.json",
+      "sha256": "1982fd6fdb42f74bce2872a3c236aa74e23dfd4be58d9fede784d45fc755dfa5",
+      "after_sha256": "1982fd6fdb42f74bce2872a3c236aa74e23dfd4be58d9fede784d45fc755dfa5",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/delivery_check.json",
+      "sha256": "8cb48f1def08a3dc9c7913db42cb3607f8e5f0f9d68513a9fe0f6888ad78974e",
+      "after_sha256": "8cb48f1def08a3dc9c7913db42cb3607f8e5f0f9d68513a9fe0f6888ad78974e",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/intervention.json",
+      "sha256": "19fc65294428fca874d07bdd050500b4886c79687bada2a32cf1926253e3dd9b",
+      "after_sha256": "19fc65294428fca874d07bdd050500b4886c79687bada2a32cf1926253e3dd9b",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/phone_response.json",
+      "sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909",
+      "after_sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_feedback_20261008/feedback.json",
+      "sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78",
+      "after_sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/completion_manifest.json",
+      "sha256": "f58be01cadca64f1bb6ad9a426aca40664c1c0a69dac42e361a0308e8dd737f0",
+      "after_sha256": "f58be01cadca64f1bb6ad9a426aca40664c1c0a69dac42e361a0308e8dd737f0",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/delivery_check.json",
+      "sha256": "c46a77be1b16f41c225061eb450f554a4496d8a84ae343032655e3229ac2cbf2",
+      "after_sha256": "c46a77be1b16f41c225061eb450f554a4496d8a84ae343032655e3229ac2cbf2",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/intervention.json",
+      "sha256": "db97c991b3afb2a43ccf8f4eb7d2d0aaa4bdb6bd6e149752e831fe198a4637f3",
+      "after_sha256": "db97c991b3afb2a43ccf8f4eb7d2d0aaa4bdb6bd6e149752e831fe198a4637f3",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/neighbor_response.json",
+      "sha256": "ae84a3d4b803900433042859d491dc60cb06b81676939e19aaf1af1d06dbd164",
+      "after_sha256": "ae84a3d4b803900433042859d491dc60cb06b81676939e19aaf1af1d06dbd164",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/onset_response.json",
+      "sha256": "09446d594b135dcd9770b9a20ddc4e1a6e7a4bb1eb8f31cfaeff4ef9f2fcfe1c",
+      "after_sha256": "09446d594b135dcd9770b9a20ddc4e1a6e7a4bb1eb8f31cfaeff4ef9f2fcfe1c",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/completion_manifest.json",
+      "sha256": "b41c6d456b04bc2e42e98f44296d0ef9452ca979d9aca60542d32d2c2825c5a7",
+      "after_sha256": "b41c6d456b04bc2e42e98f44296d0ef9452ca979d9aca60542d32d2c2825c5a7",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/delivery_check.json",
+      "sha256": "59fc09d461e4fe75b0d07808f5fe00024aa801c38a2d73aec83a29a29882c5f1",
+      "after_sha256": "59fc09d461e4fe75b0d07808f5fe00024aa801c38a2d73aec83a29a29882c5f1",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/intervention.json",
+      "sha256": "349532fdb206f0f35a86a99e275d07efb811010fcbab87e0d34369c894c2da25",
+      "after_sha256": "349532fdb206f0f35a86a99e275d07efb811010fcbab87e0d34369c894c2da25",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/prediction_response.json",
+      "sha256": "9da5d71a3fdff615f0123b3e7b94b1d54d3f928d8b1a301e0f180c4d288e8af3",
+      "after_sha256": "9da5d71a3fdff615f0123b3e7b94b1d54d3f928d8b1a301e0f180c4d288e8af3",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/verification.json",
+      "sha256": "98a06ab85501f4d17123eefffd04123c2c635d8ba12ef0016c5e5dd39b056c5d",
+      "after_sha256": "98a06ab85501f4d17123eefffd04123c2c635d8ba12ef0016c5e5dd39b056c5d",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/actual_dual_f0.json",
+      "sha256": "005fcbb06e20893c096202af764cf7e88a2c712b55efd5c74009d092cc26cdfe",
+      "after_sha256": "005fcbb06e20893c096202af764cf7e88a2c712b55efd5c74009d092cc26cdfe",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/completion_manifest.json",
+      "sha256": "5c8c765b6a00bbd417ad139970affe508fdce8416947c25081ad866136451950",
+      "after_sha256": "5c8c765b6a00bbd417ad139970affe508fdce8416947c25081ad866136451950",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/delivery_check.json",
+      "sha256": "e4893137db651fc64c6e98fc49d716f2e4a2953630d371a3cc8daf4563355e3e",
+      "after_sha256": "e4893137db651fc64c6e98fc49d716f2e4a2953630d371a3cc8daf4563355e3e",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/intervention.json",
+      "sha256": "7e7ef05dde1c872117c4f87d2b063be4f6fd6b1c66fd4ba0c2eb6f48d133284d",
+      "after_sha256": "7e7ef05dde1c872117c4f87d2b063be4f6fd6b1c66fd4ba0c2eb6f48d133284d",
+      "unchanged": true,
+      "allowed_guide_update": false
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/verification.json",
+      "sha256": "42d3c498bf80bc86d74ac4784b83127f55360d02b6fdd15cb4ced5fb1b429e39",
+      "after_sha256": "42d3c498bf80bc86d74ac4784b83127f55360d02b6fdd15cb4ced5fb1b429e39",
+      "unchanged": true,
+      "allowed_guide_update": false
+    }
+  ],
+  "counts": {
+    "test_files": 13,
+    "unit_files": 6,
+    "contract_files": 3,
+    "skill_test_files": 4,
+    "historical_scripts": 7,
+    "repository_tools": 2,
+    "knowledge_files": 12
+  },
+  "production_source_unchanged": true,
+  "skill_and_published_projects_unchanged": true,
+  "historical_script_bytes_preserved": true,
+  "sealed_run_sources_unchanged": true,
+  "old_manifests_unchanged": true,
+  "pytest": {
+    "first_run": {
+      "passed": 71,
+      "failed": 1,
+      "errors": 16,
+      "reason": "Windows sandbox TEMP access/cleanup denied"
+    },
+    "retry": {
+      "passed": 88,
+      "failed": 0,
+      "errors": 0,
+      "runtime_s": 2.08,
+      "temporary_root": "runs/test-results/directory-reorganization-20261009-retry",
+      "mode": "fresh workspace TEMP/TMP and pytest basetemp"
+    }
+  },
+  "git_commit_or_push_performed": false,
+  "relocation_usage": "Explicit mapping for audit of moved record bytes; not an automatic production path substitution or historical rerun permission",
+  "verification": {
+    "active_document_links": 81,
+    "core_csv_json_baselines_unchanged": 8,
+    "worktree_gate": {
+      "files": 155,
+      "audio_payloads": 0,
+      "author_projects": 3,
+      "zip_members": 5,
+      "skill_links": 102,
+      "checks": "passed"
+    },
+    "cli_help": "passed",
+    "packaging_help": "passed",
+    "git_diff_check": "passed",
+    "raw_byte_gitattributes": "verified_for_records_knowledge_and_bound_reports",
+    "index_release_audit": "not_run_for_unstaged_migration",
+    "native_render_or_deploy": "not_run"
+  }
+}

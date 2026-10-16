@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "feedback_id": "T2E-W225-SA-20261011",
+  "status": "partial_human_feedback_recorded",
+  "stage_2E_complete": false,
+  "record_created_utc": "2026-10-11T07:29:54.107978+00:00",
+  "user_message_timestamp": "unknown",
+  "user_message_verbatim": "就是k3更有力量，k1更柔，都没有破音",
+  "message_source": "human user replying to paired mono vocals 01 K3→K1 and 02 K1→K3 in current chat",
+  "condition_id": "current-word-225",
+  "lyric": "抱",
+  "comparison": "S-A",
+  "presented_audio": [
+    {
+      "presentation": {
+        "condition_id": "current-word-225",
+        "order": 1,
+        "direction": "S-A",
+        "codes": [
+          "K3",
+          "K1"
+        ],
+        "segment_samples": 93621,
+        "gap_samples": 26460,
+        "second_start_s": 2.7229251700680273,
+        "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-01-K3-K1.wav",
+        "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-01-K3-K1.wav"
+      },
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-01-K3-K1.wav",
+      "sha256": "a81b660689b79ce348959a838b434a1f123409e91e4b78079ca9b41d07f68572",
+      "samples": 213702,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6629869937896729,
+      "max_encoding_error": 1.1897509466507472e-07
+    },
+    {
+      "presentation": {
+        "condition_id": "current-word-225",
+        "order": 2,
+        "direction": "A-S",
+        "codes": [
+          "K1",
+          "K3"
+        ],
+        "segment_samples": 93621,
+        "gap_samples": 26460,
+        "second_start_s": 2.7229251700680273,
+        "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-02-K1-K3.wav",
+        "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-02-K1-K3.wav"
+      },
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-02-K1-K3.wav",
+      "sha256": "c7e8d7d67feeaf7166ea48bb9beee4a14562f53ff3843c29fb551488f4e6422a",
+      "samples": 213702,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6629869937896729,
+      "max_encoding_error": 1.1897509466507472e-07
+    }
+  ],
+  "feedback_scope": "aggregate report for the two presented focus-vocal orders; not full-context/mix/whole-song acceptance",
+  "per_order_results": "not separately stated",
+  "actual_listened_set": "not separately enumerated",
+  "version_results": [
+    {
+      "code": "K3",
+      "research_path": "S",
+      "relative_description_verbatim": "更有力量",
+      "audible_break_user_report": "none_in_current_presentation"
+    },
+    {
+      "code": "K1",
+      "research_path": "A",
+      "relative_description_verbatim": "更柔",
+      "audible_break_user_report": "none_in_current_presentation"
+    }
+  ],
+  "prior_preference": "word225 K3 preferred within four-version presentation remains unchanged",
+  "new_preference_statement": "not repeated in this message; comparative qualities supplied",
+  "audible_break_scope": "two current paired focal versions only; not objective detector confirmation or all prior variants",
+  "auditory_details": {
+    "objective_loudness": "unknown",
+    "subjective_loudness": "unknown",
+    "diction": "unknown",
+    "body": "unknown",
+    "naturalness": "unknown",
+    "absolute_usability": "unknown"
+  },
+  "listening_metadata": {
+    "device": "unknown",
+    "player": "unknown",
+    "volume": "unknown",
+    "actual_order": "unknown",
+    "repetitions": "unknown",
+    "both_order_completion": "unknown",
+    "blinding": "unknown"
+  },
+  "inference_boundary": "Perceptible local power/softness distinction in complete S versus A; not single-channel attribution, physiology or universal rule",
+  "preserved_feedback": [
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/feedback.json",
+      "sha256": "1274aafa16b423052d7f52884b0caf8dcfda4ba69e5bb78a792a114d2a864ca3"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/feedback.json",
+      "sha256": "f252123e5a0a206dfd2ea39c01044b2ff8ccb5722617f9c7c228731581d09564"
+    }
+  ],
+  "paired_comparison_groups_with_explicit_feedback": 1,
+  "frozen_main_comparison_groups": 10,
+  "cumulative_new_feedback": 3,
+  "this_record_new_feedback": 1,
+  "remaining_gaps": [
+    "other word225 D/P paired comparisons",
+    "mixed-audio feedback",
+    "unreported auditory dimensions",
+    "order-specific results"
+  ],
+  "experiment_seal": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+    "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+  },
+  "previous_feedback_seals": [
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    }
+  ],
+  "packaging": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/pcm-packaging.json",
+    "sha256": "6517c3a8d5dfbf975de42240dc8ee5b45eb305fb1527cf8cdac6a68c90e1c7b5"
+  },
+  "protocol": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+    "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+  },
+  "pre_update_snapshot": {
+    "path": "runs/research/table2-word225-sa-feedback-20261011/before/snapshot-manifest.json",
+    "sha256": "03ebc9fce3a8c6fb93b7426f3757e5b49a7afe8721b427f7048a517a4d5c85e0"
+  },
+  "protected_baseline": {
+    "stage": "2E-execution",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/snapshot-manifest.json",
+    "sha256": "01dffada2ee989a45e6e48f79dbd5ada8dd67d0bc8c475dd54f2a14945e47c46",
+    "run": "runs/experiments/table2-shfc-paths-20261011",
+    "test_run": "runs/test-results/table2-2e-execution-20261011"
+  },
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "production_song_changed": false,
+  "skill_changed": false,
+  "automatic_expansion": false,
+  "recorder": {
+    "path": "research/table2-confirmation/record_stage_2e_word225_sa_feedback.py",
+    "sha256": "7275502fb1a00193f2880efbeff45c63b67f1a10a5bdf46b7c3bb7cdc9dd4be5"
+  }
+}

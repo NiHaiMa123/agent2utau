@@ -1,0 +1,921 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-09",
+  "mode": "offline_PE_metadata_and_IL_no_target_execution",
+  "bindings": [
+    {
+      "role": "OpenUtau.Core.dll",
+      "sha256": "855a4cc7ef730c68b2853903b0dbadc24e5cfb0ba9d02a9d6a4d16688fb8f8d7",
+      "assembly_version": "1.0.0.0",
+      "mvid": "cab378a4-162f-4a0e-aa7e-2b5101109a7f",
+      "metadata_sha256": "8ffd021471ec504b3955deea7140735822208586dfcb390690247190bfb12a9b",
+      "type_count": 1463
+    },
+    {
+      "role": "OpenUtau.dll",
+      "sha256": "4cdea127b96f738101e64af978a06d3a47f1425b8fd485e8e72cbce45e34080c",
+      "assembly_version": "0.1.570.9011",
+      "mvid": "f4b6166d-4a95-4e21-bf1d-08b2975f18a8",
+      "metadata_sha256": "1bac549e83ce8bcd19a25a7a392e00b695a609404941ee37f5da69ccec70c0eb",
+      "type_count": 648
+    }
+  ],
+  "rows": [
+    {
+      "id": "LOCAL:01",
+      "capability": "expression graph / masked curves",
+      "status": "absent_in_bound_core",
+      "conclusion": "Core完整TypeDefinition无graph命名空间及UMaskedCurve；本机当前没有所绑定上游图驱动类型",
+      "evidence": {
+        "queried_types": [
+          "OpenUtau.Core.ExpressionGraph.UExpressionGraph",
+          "OpenUtau.Core.ExpressionGraph.GraphNodeTypes",
+          "OpenUtau.Core.ExpressionGraph.ExpressionGraphProgram",
+          "OpenUtau.Core.Ustx.UMaskedCurve"
+        ],
+        "complete_type_inventory": true
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:02",
+      "capability": "project/track graph references",
+      "status": "absent_in_bound_core",
+      "conclusion": "项目图库/default及track图属性缺失；不能借现有USTX默认加载宣称graph生效",
+      "evidence": {
+        "types": [
+          "OpenUtau.Core.Ustx.UProject",
+          "OpenUtau.Core.Ustx.UTrack"
+        ],
+        "queried_members": [
+          "expressionGraphs",
+          "defaultExpressionGraphs",
+          "get_ExpressionGraph"
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:03",
+      "capability": "PitchPointShape.sp",
+      "status": "enum_and_helper_branch_present",
+      "conclusion": "sp=4存在；通用InterpolateShape分支与io同SinEasingInOut；非默认整曲执行未测，不宣称新的样条算法",
+      "evidence": {
+        "enum_field": {
+          "name": "sp",
+          "attributes": "Public, Static, Literal, HasDefault",
+          "constant_type": "Int32",
+          "constant_bytes": "04000000"
+        },
+        "method_token": "06000516",
+        "switch": {
+          "offset": 2,
+          "opcode": "switch",
+          "operand": [
+            29,
+            77,
+            53,
+            65,
+            41
+          ]
+        },
+        "arm": [
+          {
+            "offset": 41,
+            "opcode": "ldarg.0",
+            "operand": null
+          },
+          {
+            "offset": 42,
+            "opcode": "ldarg.1",
+            "operand": null
+          },
+          {
+            "offset": 43,
+            "opcode": "ldarg.2",
+            "operand": null
+          },
+          {
+            "offset": 44,
+            "opcode": "ldarg.3",
+            "operand": null
+          },
+          {
+            "offset": 45,
+            "opcode": "ldarg.s",
+            "operand": 4
+          },
+          {
+            "offset": 47,
+            "opcode": "call",
+            "operand": "OpenUtau.Core.MusicMath::SinEasingInOut"
+          },
+          {
+            "offset": 52,
+            "opcode": "ret",
+            "operand": null
+          }
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:04",
+      "capability": "MixFx independent module switches",
+      "status": "absent_in_bound_core",
+      "conclusion": "Enabled整体存在；EqEnabled/CompEnabled/ReverbEnabled缺失，不可照搬新上游独立开关",
+      "evidence": {
+        "type": "OpenUtau.Core.Ustx.UMixFx",
+        "absent_getters": [
+          "get_EqEnabled",
+          "get_CompEnabled",
+          "get_ReverbEnabled"
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:05",
+      "capability": "MixFx Enabled / parameter read path",
+      "status": "IL_read_path_present",
+      "conclusion": "WrapWith读整体启用、EQ值及压缩/混响preset与值后Configure；null/disabled旁路；不证明副作用/自然度",
+      "evidence": {
+        "type": "OpenUtau.Core.SignalChain.MixFxSource",
+        "method": "WrapWith",
+        "method_token": "060008F6",
+        "il_sha256": "24ca1b1d2fd9644706097091d62e53db1f1a64c318cd83ab9b427c10ccaedd7c",
+        "selected_instructions": [
+          {
+            "offset": 4,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.Ustx.UMixFx::get_Enabled"
+          },
+          {
+            "offset": 27,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.Ustx.UMixFx::get_EqLowDb"
+          },
+          {
+            "offset": 59,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.SignalChain.Effects.BiquadEQ::Configure"
+          },
+          {
+            "offset": 82,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.Ustx.UMixFx::get_CompPreset"
+          },
+          {
+            "offset": 164,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.SignalChain.Effects.SimpleCompressor::Configure"
+          },
+          {
+            "offset": 188,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.Ustx.UMixFx::get_ReverbPreset"
+          },
+          {
+            "offset": 307,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.SignalChain.Effects.Freeverb::Configure"
+          }
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:06",
+      "capability": "MixFx WrapLive",
+      "status": "absent_in_bound_core",
+      "conclusion": "本机只有WrapWith静态组装；上游播放跟随MixFx live的路径不存在",
+      "evidence": {
+        "type": "OpenUtau.Core.SignalChain.MixFxSource",
+        "absent_method": "WrapLive"
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:07",
+      "capability": "track fader / pan law",
+      "status": "IL_read_path_present",
+      "conclusion": "RenderMixdown读Muted/Volume/Pan→Fader→WrapWith→WaveMix；PanToChannelVolumes公式与固定上游一致",
+      "evidence": [
+        {
+          "type": "OpenUtau.Core.Render.RenderEngine",
+          "method": "RenderMixdown",
+          "method_token": "06000947",
+          "il_sha256": "9ce190c99f4a146e3de77d92c4a2dce8b2bd1460a92e30e91e05faf30180426e",
+          "selected_instructions": [
+            {
+              "offset": 699,
+              "opcode": "callvirt",
+              "operand": "OpenUtau.Core.Ustx.UTrack::get_Muted"
+            },
+            {
+              "offset": 708,
+              "opcode": "callvirt",
+              "operand": "OpenUtau.Core.Ustx.UTrack::get_Volume"
+            },
+            {
+              "offset": 738,
+              "opcode": "callvirt",
+              "operand": "OpenUtau.Core.Ustx.UTrack::get_Pan"
+            },
+            {
+              "offset": 751,
+              "opcode": "callvirt",
+              "operand": "OpenUtau.Core.SignalChain.Fader::SetScaleToTarget"
+            },
+            {
+              "offset": 785,
+              "opcode": "call",
+              "operand": "OpenUtau.Core.SignalChain.MixFxSource::WrapWith"
+            },
+            {
+              "offset": 895,
+              "opcode": "newobj",
+              "operand": "OpenUtau.Core.SignalChain.WaveMix::.ctor"
+            }
+          ]
+        },
+        {
+          "type": "OpenUtau.Core.MusicMath",
+          "method": "PanToChannelVolumes",
+          "method_token": "06000521",
+          "il_sha256": "69c49e133ff93b682eecda9b2cd7709ccf0bc704ab83ee66040e5b1575d7b778",
+          "selected_instructions": [
+            {
+              "offset": 1,
+              "opcode": "ldc.r4",
+              "operand": -100
+            },
+            {
+              "offset": 6,
+              "opcode": "ldc.r4",
+              "operand": 100
+            },
+            {
+              "offset": 11,
+              "opcode": "call",
+              "operand": "System.Math::Clamp"
+            },
+            {
+              "offset": 16,
+              "opcode": "ldc.r4",
+              "operand": 100
+            },
+            {
+              "offset": 22,
+              "opcode": "ldc.r4",
+              "operand": 200
+            },
+            {
+              "offset": 28,
+              "opcode": "ldc.r4",
+              "operand": 1.5707964
+            },
+            {
+              "offset": 37,
+              "opcode": "call",
+              "operand": "System.Math::Cos"
+            },
+            {
+              "offset": 45,
+              "opcode": "call",
+              "operand": "System.Math::Sin"
+            }
+          ]
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:08",
+      "capability": "volume nonlinear low range / smoothing",
+      "status": "IL_read_path_present",
+      "conclusion": "db<=-24为0；db<-16先2db+16；Fader每交错sample追target最大0.0005；初始SetScaleToTarget",
+      "evidence": [
+        {
+          "type": "OpenUtau.Core.PlaybackManager",
+          "method": "DecibelToVolume",
+          "method_token": "060004D9",
+          "il_sha256": "c092ba42586ca83d52ddbfabde71a3a400c63461ae72f952b567f6b4d31aa012",
+          "selected_instructions": [
+            {
+              "offset": 1,
+              "opcode": "ldc.r8",
+              "operand": -24
+            },
+            {
+              "offset": 13,
+              "opcode": "ldc.r8",
+              "operand": -16
+            },
+            {
+              "offset": 28,
+              "opcode": "ldc.r8",
+              "operand": 2
+            },
+            {
+              "offset": 38,
+              "opcode": "ldc.r8",
+              "operand": 16
+            },
+            {
+              "offset": 48,
+              "opcode": "call",
+              "operand": "OpenUtau.Core.MusicMath::DecibelToLinear"
+            }
+          ]
+        },
+        {
+          "type": "OpenUtau.Core.SignalChain.Fader",
+          "method": "Mix",
+          "method_token": "060008C7",
+          "il_sha256": "dad6618cbd376de6aeaecdeb4ea4e72199019b4963e44860d0fbdadbb03964d7",
+          "selected_instructions": [
+            {
+              "offset": 65,
+              "opcode": "call",
+              "operand": "OpenUtau.Core.MusicMath::PanToChannelVolumes"
+            },
+            {
+              "offset": 140,
+              "opcode": "ldc.r4",
+              "operand": 0.0005
+            },
+            {
+              "offset": 185,
+              "opcode": "ldc.r4",
+              "operand": 0.0005
+            }
+          ]
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:09",
+      "capability": "UI/bridge mixdown WAV path",
+      "status": "IL_read_path_present",
+      "conclusion": "正常mixdown调用wait=true/applyMixFx=true；ExportAdapter 44100/2 float transport，CreateWaveFile16最终编码",
+      "evidence": [
+        {
+          "type": "OpenUtau.Core.PlaybackManager+<>c__DisplayClass61_0",
+          "method": "<RenderMixdown>b__0",
+          "method_token": "06002998",
+          "il_sha256": "a3c37c2815fcd0a098b561efdb6178ff5e9e5e12a34408529a6a58cc985c2ded",
+          "selected_instructions": [
+            {
+              "offset": 46,
+              "opcode": "callvirt",
+              "operand": "OpenUtau.Core.Render.RenderEngine::RenderMixdown"
+            },
+            {
+              "offset": 131,
+              "opcode": "call",
+              "operand": "NAudio.Wave.WaveFileWriter::CreateWaveFile16"
+            }
+          ]
+        },
+        {
+          "argument_instructions": [
+            {
+              "offset": 43,
+              "opcode": "ldc.i4.1",
+              "operand": null
+            },
+            {
+              "offset": 44,
+              "opcode": "ldc.i4.1",
+              "operand": null
+            },
+            {
+              "offset": 45,
+              "opcode": "ldloc.0",
+              "operand": null
+            },
+            {
+              "offset": 46,
+              "opcode": "callvirt",
+              "operand": "OpenUtau.Core.Render.RenderEngine::RenderMixdown"
+            }
+          ]
+        },
+        {
+          "type": "OpenUtau.Core.SignalChain.ExportAdapter",
+          "method": ".ctor",
+          "method_token": "060008BE",
+          "il_sha256": "00f3b66e626911ace0ec11e4909922ec92d885f25c5609546c19052ec4f805bc",
+          "selected_instructions": [
+            {
+              "offset": 7,
+              "opcode": "ldc.i4",
+              "operand": 44100
+            },
+            {
+              "offset": 13,
+              "opcode": "call",
+              "operand": "NAudio.Wave.WaveFormat::CreateIeeeFloatWaveFormat"
+            }
+          ]
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:10",
+      "capability": "MixFxApplyOnExportMixdown preference",
+      "status": "declared_but_not_read_in_export_path",
+      "conclusion": "偏好字段存在，所核查mixdown闭包不读，直接固定applyMixFx=true；不标可用效果器导出开关",
+      "evidence": {
+        "type": "OpenUtau.Core.PlaybackManager+<>c__DisplayClass61_0",
+        "method_token": "06002998",
+        "field_not_read": "MixFxApplyOnExportMixdown"
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:11",
+      "capability": "track export dry mono path",
+      "status": "IL_read_path_present",
+      "conclusion": "RenderTracks无fader/FX/wave输入；RenderToFiles跳过Muted并ToMono(1,0)→CreateWaveFile16；DYN属renderer仍保留",
+      "evidence": [
+        {
+          "type": "OpenUtau.Core.PlaybackManager+<>c__DisplayClass62_0",
+          "method": "<RenderToFiles>b__0",
+          "method_token": "0600299A",
+          "il_sha256": "614019e8580b72096235eb8f44cc7c6d7ee005c78d19370167dc7c9182440af1",
+          "selected_instructions": [
+            {
+              "offset": 50,
+              "opcode": "callvirt",
+              "operand": "OpenUtau.Core.Render.RenderEngine::RenderTracks"
+            },
+            {
+              "offset": 114,
+              "opcode": "callvirt",
+              "operand": "OpenUtau.Core.Ustx.UTrack::get_Muted"
+            },
+            {
+              "offset": 233,
+              "opcode": "call",
+              "operand": "NAudio.Wave.WaveExtensionMethods::ToMono"
+            },
+            {
+              "offset": 238,
+              "opcode": "call",
+              "operand": "NAudio.Wave.WaveFileWriter::CreateWaveFile16"
+            }
+          ]
+        },
+        {
+          "mono_argument_instructions": [
+            {
+              "offset": 223,
+              "opcode": "ldc.r4",
+              "operand": 1
+            },
+            {
+              "offset": 228,
+              "opcode": "ldc.r4",
+              "operand": 0
+            },
+            {
+              "offset": 233,
+              "opcode": "call",
+              "operand": "NAudio.Wave.WaveExtensionMethods::ToMono"
+            }
+          ]
+        },
+        {
+          "type": "OpenUtau.Core.Render.RenderEngine",
+          "method": "RenderTracks",
+          "method_token": "06000948",
+          "absent_reads": [
+            "Fader",
+            "MixFx",
+            "UWavePart"
+          ]
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:12",
+      "capability": "UI solo/mute aggregation",
+      "status": "IL_read_path_present_UI_scope",
+      "conclusion": "App JudgeMuted按Solo→false、Mute→true、其它Solo→true，否则false；桥接无UI实例不能假定加载同样聚合",
+      "evidence": {
+        "type": "OpenUtau.App.ViewModels.TrackHeaderViewModel",
+        "method": "JudgeMuted",
+        "method_token": "06000CFC",
+        "il_sha256": "65109600929e6f5e092a0237e690dbaaad12a50b0c294c8cbcfd71ddbdceff1a",
+        "selected_instructions": [
+          {
+            "offset": 1,
+            "opcode": "call",
+            "operand": "OpenUtau.App.ViewModels.TrackHeaderViewModel::get_Solo"
+          },
+          {
+            "offset": 18,
+            "opcode": "call",
+            "operand": "OpenUtau.App.ViewModels.TrackHeaderViewModel::get_Mute"
+          },
+          {
+            "offset": 44,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.Ustx.UProject::get_SoloTrackExist"
+          }
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:13",
+      "capability": "MasterAdapter playback edge/readiness",
+      "status": "IL_read_path_present",
+      "conclusion": "本机HoldWhenUnready/3ms边沿fade存在；仅播放adapter，export不用；真实设备未播放",
+      "evidence": {
+        "type": "OpenUtau.Core.SignalChain.MasterAdapter",
+        "method": "Read",
+        "method_token": "060008D2",
+        "il_sha256": "da15acf997f5d6177cc48b526115ed04e5c4dfd001bcd633ccd9d70173ff9a8e",
+        "selected_instructions": [
+          {
+            "offset": 59,
+            "opcode": "call",
+            "operand": "OpenUtau.Core.SignalChain.MasterAdapter::get_HoldWhenUnready"
+          },
+          {
+            "offset": 95,
+            "opcode": "call",
+            "operand": "OpenUtau.Core.SignalChain.MasterAdapter::set_Waited"
+          },
+          {
+            "offset": 197,
+            "opcode": "ldc.r4",
+            "operand": 131
+          },
+          {
+            "offset": 242,
+            "opcode": "ldc.i4",
+            "operand": 132
+          },
+          {
+            "offset": 260,
+            "opcode": "ldc.r4",
+            "operand": 131
+          }
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:14",
+      "capability": "Windows NAudio device branch",
+      "status": "IL_read_path_present_device_unknown",
+      "conclusion": "App.Init含WASAPI Shared(0)/50ms和WaveOut/50ms/两buffers；live选用后端/设备/OS音量unknown",
+      "evidence": {
+        "type": "OpenUtau.App.NAudioOutput",
+        "method": "Init",
+        "method_token": "06000108",
+        "il_sha256": "6ecb97e5677a9828bcda364147e9670d93823507065bd3d0dcd01f50b11403ba",
+        "selected_instructions": [
+          {
+            "offset": 163,
+            "opcode": "ldc.i4.s",
+            "operand": 50
+          },
+          {
+            "offset": 165,
+            "opcode": "newobj",
+            "operand": "NAudio.Wave.WasapiOut::.ctor"
+          },
+          {
+            "offset": 244,
+            "opcode": "newobj",
+            "operand": "NAudio.Wave.WaveOutEvent::.ctor"
+          },
+          {
+            "offset": 262,
+            "opcode": "ldc.i4.s",
+            "operand": 50
+          },
+          {
+            "offset": 264,
+            "opcode": "callvirt",
+            "operand": "NAudio.Wave.WaveOutEvent::set_DesiredLatency"
+          },
+          {
+            "offset": 271,
+            "opcode": "callvirt",
+            "operand": "NAudio.Wave.WaveOutEvent::set_NumberOfBuffers"
+          }
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:15",
+      "capability": "import sample rate conversion",
+      "status": "IL_read_path_present",
+      "conclusion": "GetStereoSamples/GetSamples含44100目标Wdl重采样；未进行新的文件解码",
+      "evidence": {
+        "type": "OpenUtau.Core.Format.Wave",
+        "method": "GetStereoSamples",
+        "method_token": "06000A4D",
+        "il_sha256": "068a3de6ce53f75c88f397d8cd12822454431d4cfc18b4321fc44d0c7ef9ae65",
+        "selected_instructions": [
+          {
+            "offset": 18,
+            "opcode": "ldc.i4",
+            "operand": 44100
+          },
+          {
+            "offset": 26,
+            "opcode": "ldc.i4",
+            "operand": 44100
+          },
+          {
+            "offset": 31,
+            "opcode": "newobj",
+            "operand": "NAudio.Wave.SampleProviders.WdlResamplingSampleProvider::.ctor"
+          }
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:16",
+      "capability": "DiffSingerVarianceLocalPitchPatch",
+      "status": "member_and_IL_read_present_execution_unknown",
+      "conclusion": "偏好成员及选中读取者存在；不等于当前启用、所有模型兼容或旧实验使用该路径",
+      "evidence": [
+        {
+          "type": "OpenUtau.Core.DiffSinger.DsVariance",
+          "method": "Process",
+          "method_token": "060025F7",
+          "instruction": {
+            "offset": 2241,
+            "opcode": "ldfld",
+            "operand": "OpenUtau.Core.Util.Preferences+SerializablePreferences::DiffSingerVarianceLocalPitchPatch"
+          }
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:17",
+      "capability": "DiffSingerMergeNearbyPhrases",
+      "status": "member_and_IL_read_present_execution_unknown",
+      "conclusion": "偏好成员及选中读取者存在；不等于当前启用、所有模型兼容或旧实验使用该路径",
+      "evidence": [
+        {
+          "type": "OpenUtau.Core.DiffSinger.DiffSingerRenderer",
+          "method": "ShouldMergePhrases",
+          "method_token": "06002593",
+          "instruction": {
+            "offset": 5,
+            "opcode": "ldfld",
+            "operand": "OpenUtau.Core.Util.Preferences+SerializablePreferences::DiffSingerMergeNearbyPhrases"
+          }
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:18",
+      "capability": "pitch sampling new branch",
+      "status": "member_and_IL_present_execution_unknown",
+      "conclusion": "AddPitchSamplingInputs/ComputePitchSpeedup成员存在；低于1步请求和非默认模型响应本轮未执行",
+      "evidence": {
+        "type": "OpenUtau.Core.DiffSinger.DsPitch",
+        "method": "AddPitchSamplingInputs",
+        "method_token": "06002580"
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:19",
+      "capability": "wave trim/fade ticks",
+      "status": "IL_read_path_present",
+      "conclusion": "GetTrimmedSamples读skip/trim/fadein/fadeout并timeAxis换ms；PCM拷贝及逐帧增益路径存在，未解码新文件",
+      "evidence": {
+        "type": "OpenUtau.Core.Ustx.UWavePart",
+        "method": "GetTrimmedSamples",
+        "method_token": "0600077E",
+        "il_sha256": "43ab11734150819b15c8f74e6c2f97a17c0218245a203ca780da760256451bf0",
+        "selected_instructions": [
+          {
+            "offset": 42,
+            "opcode": "call",
+            "operand": "OpenUtau.Core.Ustx.UWavePart::GetSkipMs"
+          },
+          {
+            "offset": 76,
+            "opcode": "call",
+            "operand": "OpenUtau.Core.Ustx.UWavePart::GetTrimMs"
+          },
+          {
+            "offset": 193,
+            "opcode": "ldfld",
+            "operand": "OpenUtau.Core.Ustx.UWavePart::fadein"
+          },
+          {
+            "offset": 324,
+            "opcode": "ldfld",
+            "operand": "OpenUtau.Core.Ustx.UWavePart::fadeout"
+          }
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:20",
+      "capability": "playback range/loop/metronome",
+      "status": "selected_IL_read_paths_present",
+      "conclusion": "PlayOrPause/Render及嵌套闭包含范围/loop、PlaybackMix overlay、节拍音量/频率读取；实际会话未知",
+      "evidence": [
+        {
+          "type": "OpenUtau.Core.PlaybackManager",
+          "method": "PlayMetronomeClick",
+          "method_token": "060004C9",
+          "instruction": {
+            "offset": 55,
+            "opcode": "ldfld",
+            "operand": "OpenUtau.Core.Util.Preferences+SerializablePreferences::MetronomeHighFrequency"
+          }
+        },
+        {
+          "type": "OpenUtau.Core.PlaybackManager",
+          "method": "PlayMetronomeClick",
+          "method_token": "060004C9",
+          "instruction": {
+            "offset": 79,
+            "opcode": "ldfld",
+            "operand": "OpenUtau.Core.Util.Preferences+SerializablePreferences::MetronomeLowFrequency"
+          }
+        },
+        {
+          "type": "OpenUtau.Core.PlaybackManager",
+          "method": "GetMetronomePreviewGain",
+          "method_token": "060004CB",
+          "instruction": {
+            "offset": 5,
+            "opcode": "ldfld",
+            "operand": "OpenUtau.Core.Util.Preferences+SerializablePreferences::MetronomeVolume"
+          }
+        },
+        {
+          "type": "OpenUtau.Core.PlaybackManager",
+          "method": "HandlePlaybackBoundary",
+          "method_token": "060004D8",
+          "instruction": {
+            "offset": 1,
+            "opcode": "call",
+            "operand": "OpenUtau.Core.PlaybackManager::get_LoopPlayback"
+          }
+        },
+        {
+          "type": "OpenUtau.Core.PlaybackManager+<>c__DisplayClass57_0",
+          "method": "<Render>b__0",
+          "method_token": "06002994",
+          "instruction": {
+            "offset": 152,
+            "opcode": "newobj",
+            "operand": "OpenUtau.Core.PlaybackMix::.ctor"
+          }
+        },
+        {
+          "type": "OpenUtau.Core.PlaybackManager+<>c__DisplayClass57_0",
+          "method": "<Render>b__0",
+          "method_token": "06002994",
+          "instruction": {
+            "offset": 195,
+            "opcode": "call",
+            "operand": "OpenUtau.Core.PlaybackManager::get_LoopPlayback"
+          }
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:21",
+      "capability": "UI WAV export command route",
+      "status": "IL_call_paths_present",
+      "conclusion": "App主窗口音频导出命令分别调用mixdown与分轨；未打开导出对话框或写音频",
+      "evidence": [
+        {
+          "type": "OpenUtau.App.Views.MainWindow+<OnMenuExportMixdown>d__45",
+          "method": "MoveNext",
+          "method_token": "060002CD",
+          "instruction": {
+            "offset": 171,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.PlaybackManager::RenderMixdown"
+          }
+        },
+        {
+          "type": "OpenUtau.App.Views.MainWindow+<OnMenuExportWav>d__46",
+          "method": "MoveNext",
+          "method_token": "060002D3",
+          "instruction": {
+            "offset": 215,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.PlaybackManager::RenderToFiles"
+          }
+        },
+        {
+          "type": "OpenUtau.App.Views.MainWindow+<OnMenuExportWavTo>d__47",
+          "method": "MoveNext",
+          "method_token": "060002D5",
+          "instruction": {
+            "offset": 171,
+            "opcode": "callvirt",
+            "operand": "OpenUtau.Core.PlaybackManager::RenderToFiles"
+          }
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:22",
+      "capability": "cache mono16 writer",
+      "status": "IL_path_present_not_all_renderer_routes",
+      "conclusion": "WriteMono16Wav成员及44100/16/1 WaveFormat构造路径存在；仅此helper，不代表fresh诊断编码",
+      "evidence": {
+        "type": "OpenUtau.Core.Format.Wave",
+        "method": "WriteMono16Wav",
+        "method_token": "06000A4E",
+        "il_sha256": "7b72f54a33b295898235da68c2280406ee2b061df0f102a13a6f82892c9bdc7e",
+        "selected_instructions": [
+          {
+            "offset": 1,
+            "opcode": "ldc.i4",
+            "operand": 44100
+          },
+          {
+            "offset": 6,
+            "opcode": "ldc.i4.s",
+            "operand": 16
+          },
+          {
+            "offset": 9,
+            "opcode": "newobj",
+            "operand": "NAudio.Wave.WaveFormat::.ctor"
+          }
+        ]
+      },
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "LOCAL:23",
+      "capability": "SkipRenderingMutedTracks",
+      "status": "IL_read_path_present",
+      "conclusion": "PrepareRequests筛选闭包读取该偏好；影响是否发起voice请求，输出Muted门仍另存在",
+      "evidence": [
+        {
+          "type": "OpenUtau.Core.Render.RenderEngine",
+          "method": "<PrepareRequests>b__11_1",
+          "method_token": "06000956",
+          "instruction": {
+            "offset": 5,
+            "opcode": "ldfld",
+            "operand": "OpenUtau.Core.Util.Preferences+SerializablePreferences::SkipRenderingMutedTracks"
+          }
+        }
+      ],
+      "nondefault_execution_tested": false,
+      "auditory_effect_validated": false
+    }
+  ],
+  "all_local_paths_confirmed": false,
+  "live_preferences_read": false,
+  "models_executed": false,
+  "audio_read_or_written": false,
+  "scope": "完整Core/App类型成员清单；仅所列方法IL静态核查。未证明所有分支/版本等价或任何听觉效果。"
+}

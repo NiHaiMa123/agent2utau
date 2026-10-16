@@ -1,0 +1,45 @@
+{
+  "status": "passed_with_explicit_auditory_gaps",
+  "scripts": [
+    {
+      "path": "research/table2-confirmation/lastpage_own_control_neutral_20261012.py",
+      "sha256": "c2b3cecd656dd2dc253e170c215af99646b3646dc6582f7b601d3ddcd979966d"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_control_neutral_20261012.py",
+      "sha256": "e91ef028e8fbcab6966d79729dfd0683c2f6d3e700cae8e2860d8477c03b1f56"
+    },
+    {
+      "path": "research/table2-confirmation/package_lastpage_own_control_neutral_20261012.py",
+      "sha256": "1e1d56e8c5006fbc33712afbeeaf4aacda7ef51c5b947cc9a56b49331b78216d"
+    },
+    {
+      "path": "research/table2-confirmation/observe_lastpage_own_control_neutral_20261012.py",
+      "sha256": "05a08807bba9ac1f298c0b8b4e9051478df334dbfb3cda839b6df375df7cf2be"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_own_control_neutral_delivery_20261012.py",
+      "sha256": "9362def4c21de97c019646cb50757da10afe3359a7bd68e7b08bab4bce8ba310"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_own_control_neutral_20261012.py",
+      "sha256": "69dfed588be41d400cc4c844c1ee5efe6d6bdf64febfafe23ea06b8fddf86c87"
+    }
+  ],
+  "protected_references": 1875,
+  "runtime_resources": 44,
+  "actual_new_variance_calls": 4,
+  "actual_new_waveforms": 4,
+  "native_cached_contexts": 2,
+  "actual_new_F0_calls": 4,
+  "reused_E_F0_arrays": 4,
+  "independent_contexts": 2,
+  "CSV_JSON_exact": true,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 675}",
+  "actual_new_feedback": 0,
+  "agent_heard": false,
+  "adoption": false,
+  "original_song_audio_Skill_author_unchanged": true,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

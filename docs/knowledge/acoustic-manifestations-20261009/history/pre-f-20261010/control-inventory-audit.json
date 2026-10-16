@@ -1,0 +1,760 @@
+{
+  "date": "2026-10-09",
+  "scope": "read_only_research_no_synthesis",
+  "installed_files": [
+    {
+      "role": "OpenUtau.Core.dll",
+      "sha256": "855a4cc7ef730c68b2853903b0dbadc24e5cfb0ba9d02a9d6a4d16688fb8f8d7",
+      "bytes": 32956416
+    },
+    {
+      "role": "dsconfig.yaml",
+      "sha256": "72d5197ba188ad24596b7d9b6652b6e65a0a919e4841f45e598946c37ef53d06",
+      "bytes": 752
+    },
+    {
+      "role": "dsvariance\\dsconfig.yaml",
+      "sha256": "5f3a02f3b3a580c6b5600880ca6ea0bde77ddd2be2b81e863b7ed98772c8551b",
+      "bytes": 506
+    },
+    {
+      "role": "dspitch\\dsconfig.yaml",
+      "sha256": "7626b1b0d2799b4cb89067a9458c19963a55a7100ccdf68709e0f650b526bc65",
+      "bytes": 405
+    },
+    {
+      "role": "dsvocoder\\vocoder.yaml",
+      "sha256": "a9dde1db7ed047c74247df89cb3676f0210ac60cd0776afad71d4bcf7b77ab2e",
+      "bytes": 278
+    },
+    {
+      "role": "projects/latest/lastpage_loudness_v02.ustx",
+      "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+      "bytes": 3378458
+    }
+  ],
+  "singer_configs": {
+    "dsconfig.yaml": {
+      "phonemes": "phonemes.json",
+      "languages": "languages.json",
+      "use_lang_id": true,
+      "acoustic": "0818_no_shuffle.onnx",
+      "hidden_size": 384,
+      "vocoder": "yousa_vocoder_FT_1002_pc_nsf_wm",
+      "speakers": [
+        "Yousa_Bright",
+        "Yousa_Cute",
+        "Yousa_Normal",
+        "Yousa_Whisper",
+        "Yousa_Classic"
+      ],
+      "augmentation_args": {
+        "random_pitch_shifting": {
+          "range": [
+            -5.0,
+            5.0
+          ]
+        }
+      },
+      "use_key_shift_embed": true,
+      "use_speed_embed": true,
+      "use_energy_embed": false,
+      "use_breathiness_embed": true,
+      "use_voicing_embed": true,
+      "use_tension_embed": true,
+      "use_falsetto_embed": false,
+      "use_continuous_acceleration": true,
+      "use_variable_depth": true,
+      "max_depth": 0.6,
+      "sample_rate": 44100,
+      "hop_size": 512,
+      "win_size": 2048,
+      "fft_size": 2048,
+      "num_mel_bins": 128,
+      "mel_fmin": 40,
+      "mel_fmax": 16000,
+      "mel_base": "e",
+      "mel_scale": "slaney"
+    },
+    "dsvariance/dsconfig.yaml": {
+      "phonemes": "../dsdur/phonemes.json",
+      "languages": "../languages.json",
+      "use_lang_id": true,
+      "linguistic": "../dspitch/0801_variance.linguistic.onnx",
+      "hidden_size": 384,
+      "predict_dur": false,
+      "speakers": [
+        "Yousa_Bright",
+        "Yousa_Cute",
+        "Yousa_Normal",
+        "Yousa_Whisper",
+        "Yousa_Classic"
+      ],
+      "variance": "0801_variance.variance.onnx",
+      "predict_energy": false,
+      "predict_breathiness": true,
+      "predict_voicing": true,
+      "predict_tension": true,
+      "predict_falsetto": false,
+      "use_continuous_acceleration": true,
+      "sample_rate": 44100,
+      "hop_size": 512
+    },
+    "dspitch/dsconfig.yaml": {
+      "phonemes": "../dsdur/phonemes.json",
+      "languages": "../languages.json",
+      "use_lang_id": true,
+      "linguistic": "0801_variance.linguistic.onnx",
+      "hidden_size": 384,
+      "predict_dur": false,
+      "speakers": [
+        "Yousa_Bright",
+        "Yousa_Cute",
+        "Yousa_Normal",
+        "Yousa_Whisper",
+        "Yousa_Classic"
+      ],
+      "pitch": "0801_variance.pitch.onnx",
+      "use_expr": true,
+      "use_note_rest": true,
+      "use_continuous_acceleration": true,
+      "sample_rate": 44100,
+      "hop_size": 512
+    },
+    "dsvocoder/vocoder.yaml": {
+      "name": "yousa_vocoder_FT_1002_pc_nsf_wm",
+      "model": "yousa_vocoder_FT_1002_pc_nsf_wm.onnx",
+      "sample_rate": 44100,
+      "hop_size": 512,
+      "win_size": 2048,
+      "fft_size": 2048,
+      "num_mel_bins": 128,
+      "mel_fmin": 40,
+      "mel_fmax": 16000,
+      "mel_base": "e",
+      "mel_scale": "slaney",
+      "pitch_controllable": true,
+      "force_on_cpu": false
+    }
+  },
+  "published_expressions": {
+    "pitd": {
+      "name": "pitd",
+      "abbr": "pitd",
+      "type": "Curve",
+      "min": -1200,
+      "max": 1200,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "dyn": {
+      "name": "dyn",
+      "abbr": "dyn",
+      "type": "Curve",
+      "min": -240,
+      "max": 120,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "tenc": {
+      "name": "tenc",
+      "abbr": "tenc",
+      "type": "Curve",
+      "min": -100,
+      "max": 100,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "brec": {
+      "name": "brec",
+      "abbr": "brec",
+      "type": "Curve",
+      "min": -100,
+      "max": 100,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "voic": {
+      "name": "voic",
+      "abbr": "voic",
+      "type": "Curve",
+      "min": 0,
+      "max": 200,
+      "default_value": 100,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "shfc": {
+      "name": "shfc",
+      "abbr": "shfc",
+      "type": "Curve",
+      "min": -12,
+      "max": 12,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "clr": {
+      "name": "clr",
+      "abbr": "clr",
+      "type": "Options",
+      "min": 0,
+      "max": 5,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false,
+      "options": [
+        "",
+        "Yousa_Bright",
+        "Yousa_Cute",
+        "Yousa_Normal",
+        "Yousa_Whisper",
+        "Yousa_Classic"
+      ]
+    },
+    "cl01": {
+      "name": "cl01",
+      "abbr": "cl01",
+      "type": "Curve",
+      "min": 0,
+      "max": 100,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "cl02": {
+      "name": "cl02",
+      "abbr": "cl02",
+      "type": "Curve",
+      "min": 0,
+      "max": 100,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "cl03": {
+      "name": "cl03",
+      "abbr": "cl03",
+      "type": "Curve",
+      "min": 0,
+      "max": 100,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "cl04": {
+      "name": "cl04",
+      "abbr": "cl04",
+      "type": "Curve",
+      "min": 0,
+      "max": 100,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    },
+    "cl05": {
+      "name": "cl05",
+      "abbr": "cl05",
+      "type": "Curve",
+      "min": 0,
+      "max": 100,
+      "default_value": 0,
+      "is_flag": false,
+      "flag": "",
+      "skip_output_if_default": false
+    }
+  },
+  "upstream_commit": "5c3c83bbeced96718e85e4a96d127de3287cd14b",
+  "upstream_files": [
+    {
+      "path": "OpenUtau/ViewModels/MixFxViewModel.cs",
+      "sha256": "dab0273bf488ea3cae4077304ff88cb99080f612ee7935d5be97818a24a80738"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/ClassicRenderer.cs",
+      "sha256": "78dcd928448b09b9721fe06e376c8ad898fa0b3600f194a15eb3447a02712d24"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/Hifisampler/HifiFeatures.cs",
+      "sha256": "11ee0a1458610199bff029ff30ab4af8174a5b2470e25be4425dd4b68a5cb532"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/Hifisampler/HifiGrowl.cs",
+      "sha256": "4d025bcedeef8343df1ebab38870b348050f05d75085fbaf54b2cbd011467a65"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/Hifisampler/HifiRdTension.cs",
+      "sha256": "2264e3aab5495b339f79f2943a3f61f9ab5ab2152239f2d9c5d695e03484fa12"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/Hifisampler/HifiSampler.cs",
+      "sha256": "b1e92211bcd5e4d0a95b0f4910f7cdff9da7a5fef4afdef222a5567ab67b9662"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/Hifisampler/HifiSamplerConfig.cs",
+      "sha256": "e9b25e90b369db5e00318e0d6d5babecf6140857fa44d9ff16ba8359309d8fe5"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/HifisamplerResampler.cs",
+      "sha256": "87a065131f3242fca232502bb779466cd5b2a1986e2640351209ba5cd14a7bfa"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/ResamplerItem.cs",
+      "sha256": "df703b5cd7d408431157a6a1af7ee386c2ebfc39d3327dfe6bf232fe1a69607a"
+    },
+    {
+      "path": "OpenUtau.Core/Classic/WorldlineRenderer.cs",
+      "sha256": "6ca51d7669c5f6b91526a276ba86d01ec18088105a606dcc59f63fbfb2e7ba2b"
+    },
+    {
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerBasePhonemizer.cs",
+      "sha256": "e512fcc680b3ef5781189329c8da4e3be8c6d6859e70867d2efdc766bff568ed"
+    },
+    {
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerConfig.cs",
+      "sha256": "a74055c43dde9dd954c76410c74a9d8598f97394b077268253985637f0a229c2"
+    },
+    {
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerPitch.cs",
+      "sha256": "0f09e907d04a8cff9b2379afcfd2a90dc730a48bdbcb5ffce64dbcebd71319e7"
+    },
+    {
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs",
+      "sha256": "f9a5509d922ee71e670e8be04994132923773b4fbf0de97d8b30432d47d26119"
+    },
+    {
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerSpeakerEmbedManager.cs",
+      "sha256": "ca6cdeda1b3d01564cba1940f635549b4dd7503ff8b30d826b4a1a3759447cde"
+    },
+    {
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerUtils.cs",
+      "sha256": "078854bea9f073eccfc2c81d79268f2249040cb43c27f4bca886f497ece86419"
+    },
+    {
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerVariance.cs",
+      "sha256": "b90a90a3cb3c3ecf6972d1b232d5a2b0ff6057655407a820ced440c0fa7cea22"
+    },
+    {
+      "path": "OpenUtau.Core/Enunu/EnunuRenderer.cs",
+      "sha256": "649d0176c09367f93b017604dd9761ecbff45b55f3e7bc77a5add6d4bcfd783d"
+    },
+    {
+      "path": "OpenUtau.Core/ExpressionGraph/GraphNodeTypes.cs",
+      "sha256": "18aa927276ac30d6b96765310c085aa748d9cae1994f5262bca738b01241280d"
+    },
+    {
+      "path": "OpenUtau.Core/ExpressionGraph/UExpressionGraph.cs",
+      "sha256": "1180e8a89a250197655fc690333f5b62b4d4db2c294cb4398f52f9089cecdc4f"
+    },
+    {
+      "path": "OpenUtau.Core/Format/USTx.cs",
+      "sha256": "f3faf48f35723c37c1c45efb0fc55dec83c8460a61789c8a05696ce3098cb33d"
+    },
+    {
+      "path": "OpenUtau.Core/Render/IRenderer.cs",
+      "sha256": "c85a780aee2dc9f184d8b3594cd9bb130173ef2c2f5aa457b67cf92fd61b0b4c"
+    },
+    {
+      "path": "OpenUtau.Core/Render/Renderers.cs",
+      "sha256": "88f2ea694ae65a39303a8c23864b0bd2a3a54a76a349a4980121597733aa2573"
+    },
+    {
+      "path": "OpenUtau.Core/Render/RenderPhrase.cs",
+      "sha256": "bc47eaa547e7a4c2a3ad7981fd8bc736019d38905e081518984de3b31996450d"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/Effects/BiquadEQ.cs",
+      "sha256": "6bbfe6c13a82686ada5a6a0275cf85c53f0c4d54b707d4c44bb57898ff577428"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/Effects/Freeverb.cs",
+      "sha256": "31a5ce8b6d831f4eadb824fd8892a7617c18018dece28467e5707939beacf09a"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/Effects/FxPresets.cs",
+      "sha256": "c56f08800049708f05b140ff9c77a7f88aeaf8ad9242a31999562345a6178048"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/Effects/IEffect.cs",
+      "sha256": "2c5eef3c1eecde8ddd834caf2a37dcd1b5f3b3c2def38f041cd3b278ae86191d"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/Effects/SimpleCompressor.cs",
+      "sha256": "b10afb214fa3ec2636e28018831ca85e762edda225e6d554947e20ef8d7dee8d"
+    },
+    {
+      "path": "OpenUtau.Core/SignalChain/MixFxSource.cs",
+      "sha256": "deea34c759791857b50f68269a5d22c1155d2df2824cf501acaa200ec315c4dd"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UCurve.cs",
+      "sha256": "3daea89219f6c7a60999c780b0c04dcbe84e8e93630dfa19fac180ee00b8e453"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UExpression.cs",
+      "sha256": "9290ca7604eb28c2ea93d2b61579b40331575f7abc90f30c050bb0547f5c0ae7"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UMaskedCurve.cs",
+      "sha256": "0484303d710106c90bdc10d840ff876348cfdad61cd0549719c0bbe2dede324b"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UMixFx.cs",
+      "sha256": "b2016b642cfa8f11b71b20bd94c2b00dde3dcb799008521fbab7ab940d137adc"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UNote.cs",
+      "sha256": "146a6aeee4d7fa53257aa46b72c81025fea4342b678a9a05c05ab21709e43af9"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UPart.cs",
+      "sha256": "d47e8f346105a5d344937aeb26ab72087a816816d2d15569685e140b64d0f1ed"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UPhoneme.cs",
+      "sha256": "b617278b7b4ea290b9f626f7f6f1d2d0bfe5f57d20527139df92cb9a2ee2340e"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UProject.cs",
+      "sha256": "a410b6a80ec1ad09fc4628cb42ba0d984d788dc2d114515652bf265e4673a776"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/USinger.cs",
+      "sha256": "71c9c9b8aabd6a23cf364c6b17001eed69dc9e948deff3cdec8129fbd0ecdb54"
+    },
+    {
+      "path": "OpenUtau.Core/Ustx/UTrack.cs",
+      "sha256": "8348af566126103dd90a6395aac162e8f63b24eac6d3480eead4ac1533f953b9"
+    },
+    {
+      "path": "OpenUtau.Core/Util/Preferences.cs",
+      "sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5"
+    },
+    {
+      "path": "OpenUtau.Core/Vogen/VogenRenderer.cs",
+      "sha256": "0e0beacb628e4c2a268e8fea6b523853474f20dc8eddff5f939c563df3728d04"
+    },
+    {
+      "path": "OpenUtau.Core/Voicevox/VoicevoxRenderer.cs",
+      "sha256": "91e7daa4cd386c9c64c063d3deadf21f2d04336e242793d5e268893db77cc8fd"
+    },
+    {
+      "path": "OpenUtau.Core/Voicevox/VoicevoxUtils.cs",
+      "sha256": "562f2e0d40a8ac97b571f233e4376cdf87e42f6aa48e82b220f4f8142490bee9"
+    }
+  ],
+  "upstream_default_expression_abbreviations": [
+    "dyn",
+    "pitd",
+    "clr",
+    "eng",
+    "vel",
+    "vol",
+    "atk",
+    "dec",
+    "gen",
+    "genc",
+    "bre",
+    "brec",
+    "lpf",
+    "norm",
+    "mod",
+    "mod+",
+    "alt",
+    "dir",
+    "shft",
+    "shfc",
+    "tenc",
+    "voic",
+    "clry",
+    "xsy",
+    "grwc",
+    "rpit",
+    "pito"
+  ],
+  "default_expression_coverage": {
+    "dyn": true,
+    "pitd": true,
+    "clr": true,
+    "eng": true,
+    "vel": true,
+    "vol": true,
+    "atk": true,
+    "dec": true,
+    "gen": true,
+    "genc": true,
+    "bre": true,
+    "brec": true,
+    "lpf": true,
+    "norm": true,
+    "mod": true,
+    "mod+": true,
+    "alt": true,
+    "dir": true,
+    "shft": true,
+    "shfc": true,
+    "tenc": true,
+    "voic": true,
+    "clry": true,
+    "xsy": true,
+    "grwc": true,
+    "rpit": true,
+    "pito": true
+  },
+  "upstream_renderer_supported_sets": {
+    "OpenUtau.Core/Classic/ClassicRenderer.cs": [
+      "dyn",
+      "pitd",
+      "clr",
+      "clry",
+      "xsy",
+      "eng",
+      "vel",
+      "vol",
+      "atk",
+      "dec",
+      "mod",
+      "mod+",
+      "alt",
+      "dir",
+      "shft",
+      "genc",
+      "tenc",
+      "brec",
+      "voic",
+      "grwc"
+    ],
+    "OpenUtau.Core/Classic/WorldlineRenderer.cs": [
+      "dyn",
+      "pitd",
+      "clr",
+      "clry",
+      "xsy",
+      "shft",
+      "vel",
+      "vol",
+      "mod",
+      "mod+",
+      "alt",
+      "genc",
+      "brec",
+      "tenc",
+      "voic",
+      "dir"
+    ],
+    "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs": [
+      "dyn",
+      "pitd",
+      "genc",
+      "clr",
+      "brec",
+      "voic",
+      "tenc",
+      "velc",
+      "ene",
+      "pexp",
+      "shfc"
+    ],
+    "OpenUtau.Core/Enunu/EnunuRenderer.cs": [
+      "dyn",
+      "clr",
+      "pitd",
+      "genc",
+      "brec",
+      "tenc",
+      "voic",
+      "vel",
+      "shft"
+    ],
+    "OpenUtau.Core/Vogen/VogenRenderer.cs": [
+      "dyn",
+      "pitd",
+      "genc",
+      "brec",
+      "shfc",
+      "tenc",
+      "voic"
+    ],
+    "OpenUtau.Core/Voicevox/VoicevoxRenderer.cs": [
+      "dyn",
+      "pitd",
+      "clr",
+      "vol",
+      "dir",
+      "shft",
+      "volc",
+      "smoc",
+      "repm"
+    ]
+  },
+  "prior_evidence_sha256": [
+    {
+      "path": "docs/lastpage-tenc-controlled-probe-20261008.md",
+      "sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f"
+    },
+    {
+      "path": "docs/lastpage-shfc-controlled-probe-20261008.md",
+      "sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2"
+    },
+    {
+      "path": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493"
+    },
+    {
+      "path": "docs/lastpage-guo-register-probe-20261008.md",
+      "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98"
+    },
+    {
+      "path": "docs/lastpage-guo-positive-comparison-20261008.md",
+      "sha256": "a04e9719723a433a0ccbbd14c615b394ead2e02d3c3e938913f40856075f13a0"
+    },
+    {
+      "path": "docs/lastpage-cross-condition-study-20261008.md",
+      "sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb"
+    },
+    {
+      "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "path": "docs/lastpage-guo-phoneme-audit-20261008.md",
+      "sha256": "cbd27a56a6a577bdbe8794fe50fa834c1fd8a73023720863819bbae218ecb1f1"
+    },
+    {
+      "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/completion_manifest.json",
+      "sha256": "5c8c765b6a00bbd417ad139970affe508fdce8416947c25081ad866136451950"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/completion_manifest.json",
+      "sha256": "b41c6d456b04bc2e42e98f44296d0ef9452ca979d9aca60542d32d2c2825c5a7"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/completion_manifest.json",
+      "sha256": "f58be01cadca64f1bb6ad9a426aca40664c1c0a69dac42e361a0308e8dd737f0"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/completion_manifest.json",
+      "sha256": "1982fd6fdb42f74bce2872a3c236aa74e23dfd4be58d9fede784d45fc755dfa5"
+    },
+    {
+      "path": "runs/lastpage_guo_positive_comparison_20261008/completion_manifest.json",
+      "sha256": "5577ac79dbd0121b842a39ca035e757259b4c65e9900bed306a92ed6fccc4ccb"
+    },
+    {
+      "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+      "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e"
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/completion_manifest.json",
+      "sha256": "e71505a90f6fd04c568f76e31343e1ef2f6615a04e340cb6b6f30d5922bd0f86"
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+      "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/completion_manifest.json",
+      "sha256": "4a7a4d944d0a4ed6fd284e178f1006dce7cf14f280467a175d9dddab4d89be39"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+      "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_feedback_20261008/completion_manifest.json",
+      "sha256": "73a90603644820836c47f14f6c62a9c6843592894fb3141afb1122c149632b8d"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_feedback_20261008/feedback.json",
+      "sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_feedback_20261008/completion_manifest.json",
+      "sha256": "08945a909559a5d826ba0bcdee6533b074df3732a64a2271a89f3b44ee2df85c"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+      "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+    }
+  ],
+  "counts": {
+    "atomic_dimensions": 31,
+    "composite_descriptors": 30,
+    "control_families": 48,
+    "current_evidence_items": 9,
+    "fixed_source_files": 44
+  },
+  "artifact_sha256": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/atomic-manifestations.csv",
+      "sha256": "6a243754bc4d7f1c0aeca0a87486dc86b7cd88cbd5ea518c52f35b38f9c3d9d4"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/composite-descriptors.csv",
+      "sha256": "202c7c56d3c50013906305b3c9b448dfbda42bd38ed15ea1d5707ffc09d01fc9"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "sha256": "9ef9970a072490c7df4517a0a1355fae668c957361b98a753692ce5cde9abd69"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "sha256": "401e4e1c0064f6c8995df2f313375406860dad2ee495afb79baffafe4f12aaad"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/current-evidence.csv",
+      "sha256": "0bddd99999f4fea6c08ec07d78ee9cfeef3b3cc4b158b384a153c2499cf912ba"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "sha256": "c998b5ea4b39648a5703c5818455140d7dc932cbb40095199b5a7ca9739d0962"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/openutau-controls.csv",
+      "sha256": "63cdc16fa0e2bd55719a48e58ed292bd2e6b16761055eb376f95e4ddf57e03e3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "3b56795fcd89e5bbcac24137d4af245b152a5ddf7b59f054a670d4f25a73892f"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/response-coverage.csv",
+      "sha256": "d81f3b8be26d31e1d62b4f67e20fa3227461eb3750f76effcc7e0c16fb384b29"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/response-source-audit.json",
+      "sha256": "9775cdee10562db59b85c0b2947ebaec5319206a44329daec8628ab75ed600d2"
+    }
+  ],
+  "acoustic_or_naturalness_claims_validated_this_run": false,
+  "second_layer_counts": {
+    "controlled_condition_records": 10,
+    "experiment_groups": 5,
+    "observational_pairs": 2,
+    "technical_audits": 2,
+    "control_families": 48
+  }
+}

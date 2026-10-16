@@ -1,0 +1,2870 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "stage": "E",
+  "status": "coverage_review_complete_with_explicit_gaps",
+  "checklist_binding": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/coverage-checklist.json",
+    "sha256": "d465dd3fdb9f9b7bc52e3e376a38ef4fe0a4c66eae39d600cebf35301de1bbcd",
+    "checkpoint_path": "runs/research/table1-e-coverage-20261010/observations/coverage-checklist-frozen.json",
+    "checkpoint_sha256": "d465dd3fdb9f9b7bc52e3e376a38ef4fe0a4c66eae39d600cebf35301de1bbcd",
+    "case_count": 42,
+    "main_count": 36,
+    "deferred_recheck_count": 6,
+    "frozen_before_mapping": true,
+    "definition_baseline": {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "sha256": "1d6b243a8b3a8407e06332454961b74d33480d719ba36eb7c314b683747250e5"
+    },
+    "checklist_authoring_source": {
+      "path": "research/table1-confirmation/stage_e_checklist_data.py",
+      "sha256": "73b1738bdf6aac8e70ce2d85cc4cdded9c96fccafb680de11c27ab27c3f89e55"
+    }
+  },
+  "main_mapping_checkpoint": {
+    "path": "runs/research/table1-e-coverage-20261010/observations/main-mapping-checkpoint.json",
+    "sha256": "4ab650f7ec0a1f8aeab12e2d6b37e63eecb055ac3a3e3b4096ac80f31ca3b08e"
+  },
+  "rows": [
+    {
+      "id": "CASE:EU01",
+      "description": "1:27果原版，uo/E4，同字问题侧",
+      "origin": "existing_user_evidence",
+      "role": "baseline_problem",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "current-word-112",
+      "label_text": "偏假/往上顶",
+      "label_kind": "reported_summary",
+      "shared_evidence_group": "initial-position-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU01",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "ACO:R5",
+        "EVT:T4"
+      ],
+      "temporal_or_context_relation": "g→uo入口/核；与U05跨上下文",
+      "mapping_reason": "保留偏假/前顶原话，音区/元音相近不消除上下文混杂",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D01",
+        "MEAS:D20",
+        "MEAS:D33"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "R2",
+        "S1",
+        "T4",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU02",
+      "description": "3:04抱原版，ao/B4，同字问题侧",
+      "origin": "existing_user_evidence",
+      "role": "baseline_problem",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "current-word-225",
+      "label_text": "偏假/往上顶",
+      "label_kind": "reported_summary",
+      "shared_evidence_group": "initial-position-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU02",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "ACO:R5",
+        "EVT:T4"
+      ],
+      "temporal_or_context_relation": "b→ao入口/核；与U06同上下文干预",
+      "mapping_reason": "问题词与SHFC模型条件/生理声区分开",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D01",
+        "MEAS:D20",
+        "MEAS:D33"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "R2",
+        "S1",
+        "T4",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU03",
+      "description": "1:33之原版，ir/F#4，相对偏实侧",
+      "origin": "existing_user_evidence",
+      "role": "relative_reference",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "current-word-124",
+      "label_text": "偏实",
+      "label_kind": "reported_summary",
+      "shared_evidence_group": "initial-position-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU03",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:T2",
+        "EVT:T3"
+      ],
+      "temporal_or_context_relation": "ir/F#4，字内阶段",
+      "mapping_reason": "偏实是相对听感，不能填所有指标正常",
+      "gap_code": "LABEL_SCOPE",
+      "unexpressed_or_unknown": "仅原标签范围明确，其它阶段/自然度/病因均unknown；不需新声学原子来制造正常标签。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D16",
+        "MEAS:D32"
+      ],
+      "legacy_dimension_refs": [
+        "S1",
+        "T2",
+        "T3"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU04",
+      "description": "2:56只原版，ir/A4，相对偏实侧",
+      "origin": "existing_user_evidence",
+      "role": "relative_reference",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "current-word-214",
+      "label_text": "偏实",
+      "label_kind": "reported_summary",
+      "shared_evidence_group": "initial-position-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU04",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:T2",
+        "EVT:T3"
+      ],
+      "temporal_or_context_relation": "ir/A4；与U03跨音区",
+      "mapping_reason": "不同音区的偏实标签不建立统一阈值",
+      "gap_code": "LABEL_SCOPE",
+      "unexpressed_or_unknown": "仅原标签范围明确，其它阶段/自然度/病因均unknown；不需新声学原子来制造正常标签。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D16",
+        "MEAS:D32"
+      ],
+      "legacy_dimension_refs": [
+        "S1",
+        "T2",
+        "T3"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU05",
+      "description": "约3:17果原版，相同MIDI64跨上下文",
+      "origin": "existing_user_evidence",
+      "role": "local_usable",
+      "source_refs": [
+        "docs/lastpage-guo-positive-comparison-20261008.md"
+      ],
+      "evidence_key": "OBS-001",
+      "label_text": "中间这个可以",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "guo-three-comparison",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU05",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "EVT:T5",
+        "ACO:P1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "同字果，1:27/3:17/3:44三段",
+      "mapping_reason": "中间局部可用不是声学因果或邻字验收",
+      "gap_code": "LABEL_SCOPE",
+      "unexpressed_or_unknown": "仅原标签范围明确，其它阶段/自然度/病因均unknown；不需新声学原子来制造正常标签。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D34",
+        "MEAS:D01",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "R2",
+        "S1",
+        "T5",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "OBS-001",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU06",
+      "description": "3:04抱C，145ms进入的局部可用变体",
+      "origin": "existing_user_evidence",
+      "role": "local_usable",
+      "source_refs": [
+        "docs/lastpage-shfc-onset-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-003",
+      "label_text": "可以",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "bao-onset-acceptance",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU06",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "PER:X1",
+        "EVT:T4",
+        "EVT:T5",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "55→145ms条件进入；核平台/退出保留",
+      "mapping_reason": "只记录可以，字头/字腹/完全无破音均未细标",
+      "gap_code": "LABEL_SCOPE",
+      "unexpressed_or_unknown": "仅原标签范围明确，其它阶段/自然度/病因均unknown；不需新声学原子来制造正常标签。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D44",
+        "MEAS:D33",
+        "MEAS:D34",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "T4",
+        "T5",
+        "X1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-003",
+      "historical_audio_hash_refs": {
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/A_C_mix.wav": "dab76f465a5df6db477eb504252f74c3794225534caf0c7c0fd96d80922360a8",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/A_C_vocal.wav": "369954d1f8cdd70c71d95b5e2488ba4ab07327eede298febf8f31f1f450be4dc",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/A_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/A_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/B_C_mix.wav": "053e2469b6bd5870fe885f349c42a7fae29f92b6f401956ed1ee46e972ae1600",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/B_C_vocal.wav": "f5a393d43d8d3bcc11fc388015bfa6e1ddd3282c6612109585b1ad6292d7e35a",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/B_mix.wav": "a8ecbfadab264664dce5966542b67bd55d3569ed62cc34362dcefb8c2cfd327e",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/B_vocal.wav": "e6095f707c59e9b12c9e7998cef6d8750d8c0284600d2e398d789eceb6139541",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/C_mix.wav": "3e743b367d0fe19258e5d60b08135a8f30554d71bc58deceed5b54bee0565535",
+        "runs/lastpage_shfc_onset_probe_20261008/delivery/C_vocal.wav": "22cfa70255761240e98087a9779d6df9511de7c4a92b287f3f751c920e9ec229"
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU07",
+      "description": "抱TENC取消，数值响应但未感知区别",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-tenc-controlled-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-001",
+      "label_text": "没啥区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "tenc-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU07",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "同上下文TENC取消A/B",
+      "mapping_reason": "数值谱响应与没区别允许同时记录",
+      "gap_code": "PROXY",
+      "unexpressed_or_unknown": "历史原生输入隔离与谱代理已记；可感知响应仅原剂量/条件，不能把代理数值当改善或统计等价。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-001",
+      "historical_audio_hash_refs": {
+        "runs/lastpage_tenc_probe_20261008/delivery/A_B_mix.wav": "4e0c8cd5219e9517b073c4fccc2ebcc5485348c259a7366b3af34943a6f485bb",
+        "runs/lastpage_tenc_probe_20261008/delivery/A_B_vocal.wav": "1ae835f2e0f75414a377f7f2d833313f8d79bed80e23394c00a0512475689cfb",
+        "runs/lastpage_tenc_probe_20261008/delivery/A_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+        "runs/lastpage_tenc_probe_20261008/delivery/A_repeat_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+        "runs/lastpage_tenc_probe_20261008/delivery/A_repeat_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+        "runs/lastpage_tenc_probe_20261008/delivery/A_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+        "runs/lastpage_tenc_probe_20261008/delivery/B_mix.wav": "e5f3fc5b5db6cf966165b5df9ca12f4fe324660b4b62556094af3f92c6172a90",
+        "runs/lastpage_tenc_probe_20261008/delivery/B_vocal.wav": "beb989a5816f52718ebb5537e1339794df90c6b19cb399b0e034422b906544d2"
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU08",
+      "description": "抱SHFC初B，更实且字头破音",
+      "origin": "existing_user_evidence",
+      "role": "benefit_with_side_effect",
+      "source_refs": [
+        "docs/lastpage-shfc-controlled-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-002",
+      "label_text": "更实了，但是有破音的情况；抱的字头",
+      "label_kind": "joined_two_user_messages",
+      "shared_evidence_group": "shfc-b-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU08",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "PER:X1",
+        "EVT:T4",
+        "EVT:S6",
+        "ACO:X1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "抱字头与字腹分开，B/A比较",
+      "mapping_reason": "更实与破音可并存，满幅阴性不能反驳标签",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D44",
+        "MEAS:D33",
+        "MEAS:D29",
+        "MEAS:D22",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "S6",
+        "T4",
+        "X1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-002",
+      "historical_audio_hash_refs": {
+        "runs/lastpage_shfc_probe_20261008/delivery/A_B_mix.wav": "7d5c768a6bd42fb6ec88e1b218a856c6028e1f1186db429cf20d01fe093b7aee",
+        "runs/lastpage_shfc_probe_20261008/delivery/A_B_vocal.wav": "87bc398f61d0ce6d60e2d8e325bf83f4dd8bd9055993fb596f15adf5a60bad96",
+        "runs/lastpage_shfc_probe_20261008/delivery/A_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+        "runs/lastpage_shfc_probe_20261008/delivery/A_repeat_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+        "runs/lastpage_shfc_probe_20261008/delivery/A_repeat_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+        "runs/lastpage_shfc_probe_20261008/delivery/A_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+        "runs/lastpage_shfc_probe_20261008/delivery/B_mix.wav": "a8ecbfadab264664dce5966542b67bd55d3569ed62cc34362dcefb8c2cfd327e",
+        "runs/lastpage_shfc_probe_20261008/delivery/B_vocal.wav": "e6095f707c59e9b12c9e7998cef6d8750d8c0284600d2e398d789eceb6139541"
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU09",
+      "description": "约1:14/3:04/3:31原抱的相似性定位",
+      "origin": "existing_user_evidence",
+      "role": "similarity_only",
+      "source_refs": [
+        "docs/lastpage-tenc-controlled-probe-20261008.md"
+      ],
+      "evidence_key": "same_bao_original_vocal",
+      "label_text": "我听着都一样",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "bao-three-comparison",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU09",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "EVT:T5",
+        "ACO:P1"
+      ],
+      "temporal_or_context_relation": "三处原抱相似性，非正常/异常对照",
+      "mapping_reason": "都一样只为关系标签，不给另外两处正常/异常",
+      "gap_code": "LABEL_SCOPE",
+      "unexpressed_or_unknown": "仅原标签范围明确，其它阶段/自然度/病因均unknown；不需新声学原子来制造正常标签。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D34",
+        "MEAS:D01"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "S1",
+        "T5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU10",
+      "description": "果SHFC B与邻字这：无改善且响度下降",
+      "origin": "existing_user_evidence",
+      "role": "no_benefit_with_side_effect",
+      "source_refs": [
+        "docs/lastpage-guo-register-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-004",
+      "label_text": "果字没啥区别，这的咬字好像也没啥区别，而且引入新的问题，响度下降",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "guo-shfc-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU10",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "PER:T3",
+        "PER:L1",
+        "EVT:T3",
+        "EVT:L4",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "果及后这、比较对象明确而响度位置未定",
+      "mapping_reason": "整元音RMS近似不能否认听感下降；好像不删去",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D43",
+        "MEAS:D40",
+        "MEAS:D32",
+        "MEAS:D09",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "L1",
+        "L4",
+        "R2",
+        "S1",
+        "T3",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-004",
+      "historical_audio_hash_refs": {
+        "runs/lastpage_guo_register_probe_20261008/delivery/A_B_mix.wav": "2d940c24b7675802b47fb1220b8707f19c686daf31198eae57b7172a87a08a5a",
+        "runs/lastpage_guo_register_probe_20261008/delivery/A_B_vocal.wav": "ef61337e87d1a6bbe961ad7a0f92b10ab1536560330c47369185e730735a14d4",
+        "runs/lastpage_guo_register_probe_20261008/delivery/A_mix.wav": "dc8c8865af4cefb56ea305bfe60cac7377e24801a32b5fc3ec47dddd6b0a1726",
+        "runs/lastpage_guo_register_probe_20261008/delivery/A_repeat_mix.wav": "dc8c8865af4cefb56ea305bfe60cac7377e24801a32b5fc3ec47dddd6b0a1726",
+        "runs/lastpage_guo_register_probe_20261008/delivery/A_repeat_vocal.wav": "5926316820eb4b8c6ccd0f601122dd05396c9dd75effbcf9c73938ce33f97759",
+        "runs/lastpage_guo_register_probe_20261008/delivery/A_vocal.wav": "5926316820eb4b8c6ccd0f601122dd05396c9dd75effbcf9c73938ce33f97759",
+        "runs/lastpage_guo_register_probe_20261008/delivery/B_mix.wav": "7f2e3a3ba298053c9356485d4464fd4a91fabbd5ca7560780fbde692c0e0cf87",
+        "runs/lastpage_guo_register_probe_20261008/delivery/B_vocal.wav": "efeef65adf5827b219c7707142e16df026182d8bbc29b3138b78064b83a4f01c"
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU11",
+      "description": "BREC -10：1:27问题果",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-005",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU11",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "问题果BREC A/B，同组剂量",
+      "mapping_reason": "一个共同反馈关联六条件；本剂量无感知区别",
+      "gap_code": "PROXY",
+      "unexpressed_or_unknown": "历史原生输入隔离与谱代理已记；可感知响应仅原剂量/条件，不能把代理数值当改善或统计等价。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-005",
+      "historical_audio_hash_refs": {
+        "A": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+          "sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e"
+        },
+        "B": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+          "sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63"
+        }
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU12",
+      "description": "BREC -10：1:33偏实之",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-006",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU12",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "偏实之BREC A/B，同组剂量",
+      "mapping_reason": "既有偏实与新无区别是不同标签任务",
+      "gap_code": "PROXY",
+      "unexpressed_or_unknown": "历史原生输入隔离与谱代理已记；可感知响应仅原剂量/条件，不能把代理数值当改善或统计等价。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-006",
+      "historical_audio_hash_refs": {
+        "A": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+          "sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec"
+        },
+        "B": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+          "sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35"
+        }
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU13",
+      "description": "BREC -10：2:56偏实只",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-007",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU13",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "偏实只BREC A/B，同组剂量",
+      "mapping_reason": "不把无区别改成全部自然或绝无副作用",
+      "gap_code": "PROXY",
+      "unexpressed_or_unknown": "历史原生输入隔离与谱代理已记；可感知响应仅原剂量/条件，不能把代理数值当改善或统计等价。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-007",
+      "historical_audio_hash_refs": {
+        "A": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+          "sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f"
+        },
+        "B": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+          "sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70"
+        }
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU14",
+      "description": "BREC -10：3:04问题抱",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-008",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU14",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "问题抱BREC A/B，同组剂量",
+      "mapping_reason": "问题原标签未因新无区别被抹掉",
+      "gap_code": "PROXY",
+      "unexpressed_or_unknown": "历史原生输入隔离与谱代理已记；可感知响应仅原剂量/条件，不能把代理数值当改善或统计等价。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-008",
+      "historical_audio_hash_refs": {
+        "A": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+          "sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c"
+        },
+        "B": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+          "sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72"
+        }
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU15",
+      "description": "BREC -10：3:17可用果",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-009",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU15",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "可用果BREC A/B，同组剂量",
+      "mapping_reason": "原局部可用保留，不推广BREC方向",
+      "gap_code": "PROXY",
+      "unexpressed_or_unknown": "历史原生输入隔离与谱代理已记；可感知响应仅原剂量/条件，不能把代理数值当改善或统计等价。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-009",
+      "historical_audio_hash_refs": {
+        "A": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+          "sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d"
+        },
+        "B": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+          "sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808"
+        }
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU16",
+      "description": "BREC -10：已接受抱C",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-010",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU16",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:R5"
+      ],
+      "temporal_or_context_relation": "接受抱C再加BREC，与原抱分开",
+      "mapping_reason": "变体身份及交付SHA区别于原版对照",
+      "gap_code": "PROXY",
+      "unexpressed_or_unknown": "历史原生输入隔离与谱代理已记；可感知响应仅原剂量/条件，不能把代理数值当改善或统计等价。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D20"
+      ],
+      "legacy_dimension_refs": [
+        "R2",
+        "S1",
+        "X5"
+      ],
+      "user_label_available": true,
+      "auditory_label_status": "existing_label_scope_only",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "RESP-010",
+      "historical_audio_hash_refs": {
+        "A": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+          "sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f"
+        },
+        "B": {
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+          "sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2"
+        }
+      },
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EU17",
+      "description": "约3:44果，MIDI64；第三段未获标签",
+      "origin": "existing_user_evidence",
+      "role": "unknown_control",
+      "source_refs": [
+        "docs/lastpage-guo-positive-comparison-20261008.md"
+      ],
+      "evidence_key": "word-282-at-224.132s",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "guo-three-comparison",
+      "tags": [
+        "unknown",
+        "existing_material"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU17",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "EVT:T5"
+      ],
+      "temporal_or_context_relation": "3:44果第三段，无用户质量标签",
+      "mapping_reason": "预测接近不补正常；冻结word号需核对，暂只用绑定报告时位",
+      "gap_code": "IDENTITY",
+      "unexpressed_or_unknown": "冻结U17误写word-282；既有原始feedback.json的word295_unknown_retained=true确认应为word295。新增勘误绑定，保留冻结文本/42项分母，听感仍unknown。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D01",
+        "MEAS:D34"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "S1",
+        "T5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps",
+      "identity_erratum": {
+        "case_id": "CASE:EU17",
+        "frozen_evidence_key": "word-282-at-224.132s",
+        "corrected_identity": "word295",
+        "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+        "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e",
+        "anchor": "word295_unknown_retained=true",
+        "label_remains": "unknown",
+        "frozen_checklist_rewritten": false
+      }
+    },
+    {
+      "id": "CASE:EU18",
+      "description": "318字中313字未获原版听感标签的集合",
+      "origin": "existing_user_evidence",
+      "role": "unknown_population",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "313-unlabeled-words",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "cross-condition-study",
+      "tags": [
+        "unknown",
+        "existing_material"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EU18",
+      "candidate_entity_refs": [
+        "PER:S1",
+        "ACO:T2"
+      ],
+      "temporal_or_context_relation": "313未知字集合，尚未逐字入覆盖",
+      "mapping_reason": "未知集合可记但不能代表313个独立映射或正常样本",
+      "gap_code": "POPULATION",
+      "unexpressed_or_unknown": "本项是未知总体边界，不是逐字覆盖；尚需显式case身份/取样规则，不能计313例。",
+      "structure_status": "partial_structure",
+      "new_dimension_decision": "no_new_atomic_ID; extend specific context/task fields in F",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D42",
+        "MEAS:D16"
+      ],
+      "legacy_dimension_refs": [
+        "S1",
+        "T2"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "prior_input_or_proxy_records_only",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM01",
+      "description": "长音保持直音，稳定可为有意；是否错误需音乐目标",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "stable",
+        "intended",
+        "body",
+        "long"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM01",
+      "candidate_entity_refs": [
+        "ACO:P1",
+        "EVT:P2",
+        "ACO:P4"
+      ],
+      "temporal_or_context_relation": "长稳态核、音乐目标为直音",
+      "mapping_reason": "缺颤音不等于异常；意图在上下文而非声学值",
+      "gap_code": "INTENT",
+      "unexpressed_or_unknown": "通用上下文能保存动作目的/参照，但尚无各动作操作阈值或听感标签；曲线无自动好坏。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D01",
+        "MEAS:D02",
+        "MEAS:D04"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "P2",
+        "P4"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM02",
+      "description": "一整句渐强至重音，再回落；单字平均无法保存组织",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "phrase",
+        "level"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM02",
+      "candidate_entity_refs": [
+        "EVT:L2",
+        "EVT:T1",
+        "ACO:L1",
+        "PER:L1"
+      ],
+      "temporal_or_context_relation": "乐句级重音/强弱及回落",
+      "mapping_reason": "电平轨迹可记，句层重音/语义身份需具体关系字段",
+      "gap_code": "PHRASE",
+      "unexpressed_or_unknown": "缺重音、动机/句层级的具体关系/参照schema；已有字段只部分表达，F应补操作字段而非无限新增原子。",
+      "structure_status": "partial_structure",
+      "new_dimension_decision": "no_new_atomic_ID; extend specific context/task fields in F",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D07",
+        "MEAS:D31",
+        "MEAS:D06",
+        "MEAS:D40"
+      ],
+      "legacy_dimension_refs": [
+        "L1",
+        "L2",
+        "T1"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM03",
+      "description": "弱收尾、硬切与尾混响三种候选；可听收声关系",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "tail",
+        "release"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM03",
+      "candidate_entity_refs": [
+        "EVT:T6",
+        "ACO:X2",
+        "ACO:X7"
+      ],
+      "temporal_or_context_relation": "周期/电平收束、拼接和尾混响分别计时",
+      "mapping_reason": "弱尾、硬切和reverb代理不能互相替换",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D35",
+        "MEAS:D23",
+        "MEAS:D27"
+      ],
+      "legacy_dimension_refs": [
+        "T6",
+        "X2",
+        "X4"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM04",
+      "description": "上行滑音到目标，保留到达身份/参照，不把全部弯曲叫异常",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "transition",
+        "pitch"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM04",
+      "candidate_entity_refs": [
+        "EVT:P3",
+        "ACO:P1",
+        "EVT:T1"
+      ],
+      "temporal_or_context_relation": "起始/目标音、到达/保持",
+      "mapping_reason": "参考明确才能描述上滑与过冲，不默认异常",
+      "gap_code": "INTENT",
+      "unexpressed_or_unknown": "通用上下文能保存动作目的/参照，但尚无各动作操作阈值或听感标签；曲线无自动好坏。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D03",
+        "MEAS:D01",
+        "MEAS:D31"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "P3",
+        "T1"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM05",
+      "description": "下行滑音/尾滑，源音与目的音、字尾和后字关系",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "tail",
+        "pitch"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM05",
+      "candidate_entity_refs": [
+        "EVT:P3",
+        "EVT:T6",
+        "EVT:T5"
+      ],
+      "temporal_or_context_relation": "尾滑源/目的及后字时钟",
+      "mapping_reason": "下滑与收尾组织可组合，目标可能不唯一",
+      "gap_code": "INTENT",
+      "unexpressed_or_unknown": "通用上下文能保存动作目的/参照，但尚无各动作操作阈值或听感标签；曲线无自动好坏。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D03",
+        "MEAS:D35",
+        "MEAS:D34"
+      ],
+      "legacy_dimension_refs": [
+        "P3",
+        "T5",
+        "T6"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM06",
+      "description": "字头倚音/上挑后到正音，迟到可能有意",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "onset",
+        "intended",
+        "reference"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM06",
+      "candidate_entity_refs": [
+        "EVT:P3",
+        "EVT:T4",
+        "EVT:T1"
+      ],
+      "temporal_or_context_relation": "入口倚音后到正音",
+      "mapping_reason": "迟到是否错误需锚点/目的，不从F0独判",
+      "gap_code": "INTENT",
+      "unexpressed_or_unknown": "通用上下文能保存动作目的/参照，但尚无各动作操作阈值或听感标签；曲线无自动好坏。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D03",
+        "MEAS:D33",
+        "MEAS:D31"
+      ],
+      "legacy_dimension_refs": [
+        "P3",
+        "T1",
+        "T4"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM07",
+      "description": "一字跨多音melisma；多note不能多算歌词核",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "same_vowel",
+        "body",
+        "multi_note"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM07",
+      "candidate_entity_refs": [
+        "ACO:T2",
+        "EVT:P3",
+        "EVT:T5"
+      ],
+      "temporal_or_context_relation": "一音节/元音核对应多note",
+      "mapping_reason": "输入note数量不能变成多段词识别真值",
+      "gap_code": "LANGUAGE",
+      "unexpressed_or_unknown": "实际辅音/双元音/韵尾内部身份和边界需要语言专项；token/续音输入不是声学真值。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D16",
+        "MEAS:D03",
+        "MEAS:D34"
+      ],
+      "legacy_dimension_refs": [
+        "P3",
+        "T2",
+        "T5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM08",
+      "description": "跨辅音/元音的连唱；正常换型与声线断层分开",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "consonant",
+        "vowel",
+        "phrase",
+        "legato"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM08",
+      "candidate_entity_refs": [
+        "EVT:T3",
+        "EVT:T5",
+        "EVT:R3"
+      ],
+      "temporal_or_context_relation": "元音/辅音跨界与句内承接",
+      "mapping_reason": "正常协同发音与异常断层的区分需标签",
+      "gap_code": "LANGUAGE",
+      "unexpressed_or_unknown": "实际辅音/双元音/韵尾内部身份和边界需要语言专项；token/续音输入不是声学真值。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D32",
+        "MEAS:D34",
+        "MEAS:D30"
+      ],
+      "legacy_dimension_refs": [
+        "R3",
+        "T3",
+        "T5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM09",
+      "description": "断唱与合法休止；中断并非必定破音",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "staccato",
+        "gap"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM09",
+      "candidate_entity_refs": [
+        "EVT:T9",
+        "EVT:S6",
+        "EVT:T6"
+      ],
+      "temporal_or_context_relation": "合法休止/断唱意图和周期中断",
+      "mapping_reason": "不能把所有gap当破音",
+      "gap_code": "INTENT",
+      "unexpressed_or_unknown": "通用上下文能保存动作目的/参照，但尚无各动作操作阈值或听感标签；曲线无自动好坏。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D38",
+        "MEAS:D29",
+        "MEAS:D35"
+      ],
+      "legacy_dimension_refs": [
+        "S6",
+        "T6",
+        "T7"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM10",
+      "description": "短时快速转音/颤音两目标交替，不能把所有周期当vibrato",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "short",
+        "ornament"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM10",
+      "candidate_entity_refs": [
+        "EVT:P3",
+        "ACO:P4",
+        "EVT:T1"
+      ],
+      "temporal_or_context_relation": "快速两目标交替，局部note身份及极短支持",
+      "mapping_reason": "周期候选只表示运动；缺转音目标序列/尺度规则，不能自动叫vibrato",
+      "gap_code": "ORNAMENT",
+      "unexpressed_or_unknown": "需要显式目标音序列/音乐身份、时长尺度和短段拒绝规则；不是把EVT:P3多次复制就证明完整表达。",
+      "structure_status": "partial_structure",
+      "new_dimension_decision": "no_new_atomic_ID; extend explicit target/reference/task relation in F",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D03",
+        "MEAS:D04",
+        "MEAS:D31"
+      ],
+      "legacy_dimension_refs": [
+        "P3",
+        "P4",
+        "T1"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM11",
+      "description": "颤音晚进入/退出且速率深度变化；与AM/谱变化分开",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "body",
+        "entry",
+        "exit"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM11",
+      "candidate_entity_refs": [
+        "ACO:P4",
+        "ACO:L3",
+        "EVT:P2",
+        "EVT:T4",
+        "EVT:T6"
+      ],
+      "temporal_or_context_relation": "周期入口/核/退出与AM/谱关系",
+      "mapping_reason": "动态调制能分量记录，检测短支持/变速未验证",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D04",
+        "MEAS:D08",
+        "MEAS:D02",
+        "MEAS:D33",
+        "MEAS:D35"
+      ],
+      "legacy_dimension_refs": [
+        "L3",
+        "P2",
+        "P4",
+        "T4",
+        "T6"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EM12",
+      "description": "同一频率在不同调式/和声/参照下的音准意义",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "stable",
+        "reference",
+        "harmony",
+        "phrase"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EM12",
+      "candidate_entity_refs": [
+        "ACO:P1",
+        "PER:P1",
+        "EVT:T1"
+      ],
+      "temporal_or_context_relation": "同Hz与不同调式/和声/调律参照",
+      "mapping_reason": "Hz能记录但音乐身份/调律误差需显式参照，固定12TET不能包办",
+      "gap_code": "REFERENCE",
+      "unexpressed_or_unknown": "调式/和声/调律参照与音乐身份需独立schema；同一F0不代表相同音准意义，尚无标签/验证。",
+      "structure_status": "partial_structure",
+      "new_dimension_decision": "no_new_atomic_ID; extend explicit target/reference/task relation in F",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D01",
+        "MEAS:D48",
+        "MEAS:D31"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "T1"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EL01",
+      "description": "连/断与快/慢三和弦任务；短音的测量支持区别",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:01"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:01",
+      "tags": [
+        "task",
+        "short",
+        "long",
+        "legato",
+        "staccato"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EL01",
+      "candidate_entity_refs": [
+        "ACO:P1",
+        "EVT:P3",
+        "ACO:T2",
+        "EVT:T9"
+      ],
+      "temporal_or_context_relation": "三和弦、连/断、快/慢任务身份",
+      "mapping_reason": "外部人体任务提供取样条件，不充当本机成功样本",
+      "gap_code": "EXTERNAL",
+      "unexpressed_or_unknown": "仅外部研究任务的描述覆盖；未导入音频/样本级数据，不能声明本机观测或跨曲验证通过。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D01",
+        "MEAS:D03",
+        "MEAS:D16",
+        "MEAS:D38"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "P3",
+        "T2",
+        "T7"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EL02",
+      "description": "演唱者听觉反馈被遮蔽；与听者混音清晰度区分",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:01"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:01",
+      "tags": [
+        "masking",
+        "performer_feedback",
+        "mix"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EL02",
+      "candidate_entity_refs": [
+        "ACO:X3",
+        "PER:X3",
+        "ACO:P1"
+      ],
+      "temporal_or_context_relation": "演唱者反馈遮蔽与听者呈现任务分栏",
+      "mapping_reason": "掩蔽源/对象/任务的角色缺具体元数据，不套神经模型",
+      "gap_code": "TASK_ROLE",
+      "unexpressed_or_unknown": "应显式区分performer feedback与listener presentation；缺任务角色操作字段，信号比值不能补齐。",
+      "structure_status": "partial_structure",
+      "new_dimension_decision": "no_new_atomic_ID; extend specific context/task fields in F",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D24",
+        "MEAS:D46",
+        "MEAS:D01"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "X3"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EL03",
+      "description": "同一乐句中性/怒/喜/惧/悲的多标签感知任务",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:02"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:02",
+      "tags": [
+        "intended",
+        "emotion",
+        "phrase"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EL03",
+      "candidate_entity_refs": [
+        "ACO:P4",
+        "EVT:L2",
+        "ACO:R5",
+        "ACO:T2"
+      ],
+      "temporal_or_context_relation": "同乐句不同情绪、听者评价与动作目的",
+      "mapping_reason": "情绪原话可存；无正式情绪任务字段或可靠声学逆映射",
+      "gap_code": "EMOTION",
+      "unexpressed_or_unknown": "应保留多标签情绪、听者评分和任务语境；已有声学指标不充分。仅通用PER/上下文字段部分记录，暂不创正式情绪维度。",
+      "structure_status": "partial_structure",
+      "new_dimension_decision": "no_new_atomic_ID; extend specific context/task fields in F",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D04",
+        "MEAS:D07",
+        "MEAS:D20",
+        "MEAS:D16"
+      ],
+      "legacy_dimension_refs": [
+        "L2",
+        "P4",
+        "R2",
+        "T2",
+        "X5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EL04",
+      "description": "相同呈现的听者评分差异/多情绪并存",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:02"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:02",
+      "tags": [
+        "listener",
+        "uncertainty",
+        "emotion"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EL04",
+      "candidate_entity_refs": [
+        "PER:L1",
+        "PER:S1"
+      ],
+      "temporal_or_context_relation": "同一呈现、多听者/多情绪评分，不混成共识",
+      "mapping_reason": "现有PER可存原话但缺评分者/任务/多标签schema；不能把评分差视为检测失败",
+      "gap_code": "EMOTION",
+      "unexpressed_or_unknown": "应保留多标签情绪、听者评分和任务语境；已有声学指标不充分。仅通用PER/上下文字段部分记录，暂不创正式情绪维度。",
+      "structure_status": "partial_structure",
+      "new_dimension_decision": "no_new_atomic_ID; extend explicit target/reference/task relation in F",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D40",
+        "MEAS:D42"
+      ],
+      "legacy_dimension_refs": [
+        "L1",
+        "S1"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EL05",
+      "description": "sygyt低持续音与被增强谐波旋律；双音听感未必双独立源",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:03"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:03",
+      "tags": [
+        "low",
+        "high",
+        "intended",
+        "overtone"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EL05",
+      "candidate_entity_refs": [
+        "ACO:R5",
+        "ACO:P1",
+        "PER:P1",
+        "CAND:MULTI_F0"
+      ],
+      "temporal_or_context_relation": "低持续音和被增强谐波的旋律关系",
+      "mapping_reason": "独立多F0仅是排除候选；感知多个音高与单周期源谐波旋律关系缺具体协议",
+      "gap_code": "OVERTONE",
+      "unexpressed_or_unknown": "需表达谐波序号与被听到旋律的关系；CAND:MULTI_F0不适合作默认声源分类，单基频多听觉音高协议尚缺。",
+      "structure_status": "partial_structure",
+      "new_dimension_decision": "no_new_atomic_ID; extend explicit target/reference/task relation in F",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D20",
+        "MEAS:D01",
+        "MEAS:D48",
+        "MEAS:D50"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "R2",
+        "X5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EL06",
+      "description": "高F0谐波稀疏时共振不可辨识的例",
+      "origin": "method_failure_condition",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:04"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:04",
+      "tags": [
+        "high",
+        "vowel",
+        "unknown",
+        "resonance"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EL06",
+      "candidate_entity_refs": [
+        "ACO:R1",
+        "ACO:R5",
+        "ACO:P1"
+      ],
+      "temporal_or_context_relation": "高F0元音，共振解释与输出谱区别",
+      "mapping_reason": "能表达共振unknown，不用谱峰补造F1",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D17",
+        "MEAS:D20",
+        "MEAS:D01"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "R1",
+        "R2",
+        "X5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EL07",
+      "description": "持续元音声断检测条件，正常清辅音/休止/失败的反查",
+      "origin": "method_failure_condition",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:05"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:05",
+      "tags": [
+        "consonant",
+        "body",
+        "gap",
+        "unknown"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EL07",
+      "candidate_entity_refs": [
+        "EVT:S6",
+        "EVT:T3",
+        "EVT:T9"
+      ],
+      "temporal_or_context_relation": "持续元音内部gap、清辅音/休止与检测冲突",
+      "mapping_reason": "结构能保存原因unknown；pulse方法未在歌唱上验证",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; retain measurement/audio unknown",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D29",
+        "MEAS:D32",
+        "MEAS:D38"
+      ],
+      "legacy_dimension_refs": [
+        "S6",
+        "T3",
+        "T7"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EL08",
+      "description": "滑音/强AM与pulse jitter/shimmer的尺度混淆",
+      "origin": "method_failure_condition",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:06"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:06",
+      "tags": [
+        "changing",
+        "cycle",
+        "unknown"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EL08",
+      "candidate_entity_refs": [
+        "ACO:S7",
+        "ACO:L5",
+        "ACO:P4",
+        "ACO:L3"
+      ],
+      "temporal_or_context_relation": "周期级与帧/包络级，稳态/运动分层",
+      "mapping_reason": "尺度拆分避免残差冒称jitter；pulse未测",
+      "gap_code": "MEASUREMENT",
+      "unexpressed_or_unknown": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D15",
+        "MEAS:D49",
+        "MEAS:D04",
+        "MEAS:D08"
+      ],
+      "legacy_dimension_refs": [
+        "L3",
+        "L4",
+        "P4",
+        "P5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EA01",
+      "description": "花海作者note21的+续音：输入延展结构，不推听感",
+      "origin": "author_input_structure",
+      "role": "read_only_structure_not_audio_label",
+      "source_refs": [
+        "research/baishuo/manifest.json"
+      ],
+      "evidence_key": "huahai",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "author-originals",
+      "tags": [
+        "same_vowel",
+        "multi_note",
+        "structure"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EA01",
+      "candidate_entity_refs": [
+        "ACO:T2",
+        "EVT:P3",
+        "EVT:T5"
+      ],
+      "temporal_or_context_relation": "作者note21+及前后note输入连接",
+      "mapping_reason": "只读字段支持一字多音输入结构，不证明实际连贯",
+      "gap_code": "AUTHOR",
+      "unexpressed_or_unknown": "作者结构例仅输入事实；没有作者波形或听觉标签，不能视为完整测量或自然度覆盖。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D16",
+        "MEAS:D03",
+        "MEAS:D34"
+      ],
+      "legacy_dimension_refs": [
+        "P3",
+        "T2",
+        "T5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EA02",
+      "description": "雨爱作者重复de，在不同tone/duration的输入上下文",
+      "origin": "author_input_structure",
+      "role": "read_only_structure_not_audio_label",
+      "source_refs": [
+        "research/baishuo/manifest.json"
+      ],
+      "evidence_key": "yuai",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "author-originals",
+      "tags": [
+        "same_syllable",
+        "context",
+        "structure"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EA02",
+      "candidate_entity_refs": [
+        "ACO:T2",
+        "EVT:T1",
+        "EVT:T5"
+      ],
+      "temporal_or_context_relation": "雨爱de跨tone/duration，保留note身份",
+      "mapping_reason": "同syllable不同条件可记录，未听不能叫可用/问题",
+      "gap_code": "AUTHOR",
+      "unexpressed_or_unknown": "作者结构例仅输入事实；没有作者波形或听觉标签，不能视为完整测量或自然度覆盖。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D16",
+        "MEAS:D31",
+        "MEAS:D34"
+      ],
+      "legacy_dimension_refs": [
+        "T1",
+        "T2",
+        "T5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EA03",
+      "description": "作者最后一页AP/SP、note间隙及多part；结构不证明实际呼吸",
+      "origin": "author_input_structure",
+      "role": "read_only_structure_not_audio_label",
+      "source_refs": [
+        "research/baishuo/manifest.json"
+      ],
+      "evidence_key": "lastpage",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "author-originals",
+      "tags": [
+        "phrase",
+        "gap",
+        "structure"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EA03",
+      "candidate_entity_refs": [
+        "EVT:T7",
+        "EVT:T9",
+        "META:X5"
+      ],
+      "temporal_or_context_relation": "作者AP/SP、part与note空隙",
+      "mapping_reason": "元数据只能证符号/间隙，不推实际呼吸与静音",
+      "gap_code": "AUTHOR",
+      "unexpressed_or_unknown": "作者结构例仅输入事实；没有作者波形或听觉标签，不能视为完整测量或自然度覆盖。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; no new atomic ID required for the stated scope",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D36",
+        "MEAS:D38",
+        "MEAS:D39"
+      ],
+      "legacy_dimension_refs": [
+        "T7",
+        "X5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    },
+    {
+      "id": "CASE:EA04",
+      "description": "三作者工程不同谱面音区；不是实测F0或高音质量标签",
+      "origin": "author_input_structure",
+      "role": "read_only_structure_not_audio_label",
+      "source_refs": [
+        "research/baishuo/manifest.json"
+      ],
+      "evidence_key": "all",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "author-originals",
+      "tags": [
+        "low",
+        "high",
+        "structure",
+        "unknown"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true,
+      "case_id": "CASE:EA04",
+      "candidate_entity_refs": [
+        "ACO:P1",
+        "ACO:T2",
+        "META:X5"
+      ],
+      "temporal_or_context_relation": "三作者不同谱面tone范围，AP/SP/续音另标",
+      "mapping_reason": "input tone统计非实际F0；低/高以各工程范围记，不推人体声区/质量",
+      "gap_code": "AUTHOR",
+      "unexpressed_or_unknown": "作者结构例仅输入事实；没有作者波形或听觉标签，不能视为完整测量或自然度覆盖。",
+      "structure_status": "representable_with_scope",
+      "new_dimension_decision": "reuse candidate entities; retain measurement/audio unknown",
+      "reliable_measurement_for_case_conclusion": false,
+      "auditory_label_added": false,
+      "protocol_refs": [
+        "MEAS:D01",
+        "MEAS:D16",
+        "MEAS:D39"
+      ],
+      "legacy_dimension_refs": [
+        "P1",
+        "T2",
+        "X5"
+      ],
+      "user_label_available": false,
+      "auditory_label_status": "unknown",
+      "independent_audio_holdout": false,
+      "existing_numeric_evidence": "none_imported",
+      "historical_record_id": "",
+      "historical_audio_hash_refs": {},
+      "audio_hash_check_scope": "prior stored bindings copied; no waveform rehash or playback in E",
+      "pending_audio_needs": "existing feedback retained; new causal listening requires later frozen table2 design; no audio generation in E",
+      "formal_entity_migration": false,
+      "description_coverage_checked": "reviewed_with_explicit_gaps"
+    }
+  ],
+  "counts": {
+    "case_count": 42,
+    "main_mapping": 36,
+    "deferred_recheck": 6,
+    "by_origin": {
+      "existing_user_evidence": 18,
+      "authored_music_task_question": 12,
+      "original_research_task": 5,
+      "method_failure_condition": 3,
+      "author_input_structure": 4
+    },
+    "by_role": {
+      "baseline_problem": 2,
+      "relative_reference": 2,
+      "local_usable": 2,
+      "no_difference": 7,
+      "benefit_with_side_effect": 1,
+      "similarity_only": 1,
+      "no_benefit_with_side_effect": 1,
+      "unknown_control": 1,
+      "unknown_population": 1,
+      "unrecorded_task_question": 12,
+      "external_task_scope_no_local_audio": 8,
+      "read_only_structure_not_audio_label": 4
+    },
+    "by_structure_status": {
+      "representable_with_scope": 34,
+      "partial_structure": 8
+    },
+    "existing_user_label_rows": 16,
+    "reliable_measurement_for_case_conclusion": 0,
+    "independently_held_out_audio_cases": 0,
+    "new_auditory_labels": 0,
+    "distinct_candidate_entities_linked": 34
+  },
+  "gaps": [
+    {
+      "code": "AUTHOR",
+      "case_refs": [
+        "CASE:EA01",
+        "CASE:EA02",
+        "CASE:EA03",
+        "CASE:EA04"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "作者结构例仅输入事实；没有作者波形或听觉标签，不能视为完整测量或自然度覆盖。"
+    },
+    {
+      "code": "EMOTION",
+      "case_refs": [
+        "CASE:EL03",
+        "CASE:EL04"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "应保留多标签情绪、听者评分和任务语境；已有声学指标不充分。仅通用PER/上下文字段部分记录，暂不创正式情绪维度。"
+    },
+    {
+      "code": "EXTERNAL",
+      "case_refs": [
+        "CASE:EL01"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "仅外部研究任务的描述覆盖；未导入音频/样本级数据，不能声明本机观测或跨曲验证通过。"
+    },
+    {
+      "code": "IDENTITY",
+      "case_refs": [
+        "CASE:EU17"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "冻结U17误写word-282；既有原始feedback.json的word295_unknown_retained=true确认应为word295。新增勘误绑定，保留冻结文本/42项分母，听感仍unknown。"
+    },
+    {
+      "code": "INTENT",
+      "case_refs": [
+        "CASE:EM01",
+        "CASE:EM04",
+        "CASE:EM05",
+        "CASE:EM06",
+        "CASE:EM09"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "通用上下文能保存动作目的/参照，但尚无各动作操作阈值或听感标签；曲线无自动好坏。"
+    },
+    {
+      "code": "LABEL_SCOPE",
+      "case_refs": [
+        "CASE:EU03",
+        "CASE:EU04",
+        "CASE:EU05",
+        "CASE:EU06",
+        "CASE:EU09"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "仅原标签范围明确，其它阶段/自然度/病因均unknown；不需新声学原子来制造正常标签。"
+    },
+    {
+      "code": "LANGUAGE",
+      "case_refs": [
+        "CASE:EM07",
+        "CASE:EM08"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "实际辅音/双元音/韵尾内部身份和边界需要语言专项；token/续音输入不是声学真值。"
+    },
+    {
+      "code": "MEASUREMENT",
+      "case_refs": [
+        "CASE:EU01",
+        "CASE:EU02",
+        "CASE:EU08",
+        "CASE:EU10",
+        "CASE:EM03",
+        "CASE:EM11",
+        "CASE:EL06",
+        "CASE:EL07",
+        "CASE:EL08"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "真实PCM估计/边界/源分解缺独立真值；只可定义候选，不验证质量/病因。"
+    },
+    {
+      "code": "ORNAMENT",
+      "case_refs": [
+        "CASE:EM10"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "需要显式目标音序列/音乐身份、时长尺度和短段拒绝规则；不是把EVT:P3多次复制就证明完整表达。"
+    },
+    {
+      "code": "OVERTONE",
+      "case_refs": [
+        "CASE:EL05"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "需表达谐波序号与被听到旋律的关系；CAND:MULTI_F0不适合作默认声源分类，单基频多听觉音高协议尚缺。"
+    },
+    {
+      "code": "PHRASE",
+      "case_refs": [
+        "CASE:EM02"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "缺重音、动机/句层级的具体关系/参照schema；已有字段只部分表达，F应补操作字段而非无限新增原子。"
+    },
+    {
+      "code": "POPULATION",
+      "case_refs": [
+        "CASE:EU18"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "本项是未知总体边界，不是逐字覆盖；尚需显式case身份/取样规则，不能计313例。"
+    },
+    {
+      "code": "PROXY",
+      "case_refs": [
+        "CASE:EU07",
+        "CASE:EU11",
+        "CASE:EU12",
+        "CASE:EU13",
+        "CASE:EU14",
+        "CASE:EU15",
+        "CASE:EU16"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "历史原生输入隔离与谱代理已记；可感知响应仅原剂量/条件，不能把代理数值当改善或统计等价。"
+    },
+    {
+      "code": "REFERENCE",
+      "case_refs": [
+        "CASE:EM12"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "调式/和声/调律参照与音乐身份需独立schema；同一F0不代表相同音准意义，尚无标签/验证。"
+    },
+    {
+      "code": "TASK_ROLE",
+      "case_refs": [
+        "CASE:EL02"
+      ],
+      "status": "explicit_gap_or_scope_limit",
+      "text": "应显式区分performer feedback与listener presentation；缺任务角色操作字段，信号比值不能补齐。"
+    }
+  ],
+  "identity_errata": [
+    {
+      "case_id": "CASE:EU17",
+      "frozen_evidence_key": "word-282-at-224.132s",
+      "corrected_identity": "word295",
+      "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+      "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e",
+      "anchor": "word295_unknown_retained=true",
+      "label_remains": "unknown",
+      "frozen_checklist_rewritten": false
+    }
+  ],
+  "uncovered_candidate_entities": [
+    {
+      "candidate_entity_id": "ACO:P5",
+      "name": "帧级非周期F0残差",
+      "protocol_ref": "MEAS:D05",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:S1",
+      "name": "周期性声学支撑代理",
+      "protocol_ref": "MEAS:D10",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:S2",
+      "name": "输出谐波谱形",
+      "protocol_ref": "MEAS:D11",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:S3",
+      "name": "非周期噪声估计",
+      "protocol_ref": "MEAS:D12",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:S4",
+      "name": "噪声谱形",
+      "protocol_ref": "MEAS:D13",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:S5",
+      "name": "多周期/次谐波结构",
+      "protocol_ref": "MEAS:D14",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:R2",
+      "name": "共振带宽候选",
+      "protocol_ref": "MEAS:D18",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:R4",
+      "name": "鼻耦合相关谱线索",
+      "protocol_ref": "MEAS:D19",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:R6",
+      "name": "反共振候选",
+      "protocol_ref": "MEAS:D21",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:X4",
+      "name": "左右通道关系",
+      "protocol_ref": "MEAS:D25",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "ACO:X6",
+      "name": "重复纹理观测",
+      "protocol_ref": "MEAS:D26",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "EVT:S4",
+      "name": "噪声出现阶段",
+      "protocol_ref": "MEAS:D28",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "EVT:T8",
+      "name": "韵尾身份事件",
+      "protocol_ref": "MEAS:D37",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "PER:R4",
+      "name": "鼻感",
+      "protocol_ref": "MEAS:D41",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "PER:X2",
+      "name": "数码/拼接质地听感",
+      "protocol_ref": "MEAS:D45",
+      "coverage_status": "no_case_in_frozen_checklist"
+    },
+    {
+      "candidate_entity_id": "PER:X4",
+      "name": "空间/距离听感",
+      "protocol_ref": "MEAS:D47",
+      "coverage_status": "no_case_in_frozen_checklist"
+    }
+  ],
+  "sampling_axes": [
+    {
+      "axis": "稳定/变化",
+      "case_refs": [
+        "CASE:EM01",
+        "CASE:EM04",
+        "CASE:EM11"
+      ],
+      "scope": "unrecorded_music_questions; no new audio truth"
+    },
+    {
+      "axis": "有意/异常",
+      "case_refs": [
+        "CASE:EM09",
+        "CASE:EU08"
+      ],
+      "scope": "intentional question versus existing reported side effect; not acoustically matched"
+    },
+    {
+      "axis": "字头/腹/尾",
+      "case_refs": [
+        "CASE:EU08",
+        "CASE:EM01",
+        "CASE:EM03"
+      ],
+      "scope": "onset label plus body/tail questions; tail labels still unknown"
+    },
+    {
+      "axis": "低/高音",
+      "case_refs": [
+        "CASE:EL05",
+        "CASE:EA04"
+      ],
+      "scope": "published task/input-score range only; no local low/high audio validation"
+    },
+    {
+      "axis": "不同元音/辅音",
+      "case_refs": [
+        "CASE:EU01",
+        "CASE:EU02",
+        "CASE:EU03",
+        "CASE:EM08"
+      ],
+      "scope": "uo/ao/ir and g/b/zh classes; no full Mandarin inventory validation"
+    },
+    {
+      "axis": "同字跨上下文",
+      "case_refs": [
+        "CASE:EU05",
+        "CASE:EU09",
+        "CASE:EA02"
+      ],
+      "scope": "existing relational feedback and author structure; not isolated causes"
+    },
+    {
+      "axis": "同电平异谱",
+      "case_refs": [
+        "CASE:EU10"
+      ],
+      "scope": "near whole-vowel RMS with spectral/local-level differences; exact equal-level isolated waveform case absent"
+    },
+    {
+      "axis": "纯人声/混音",
+      "case_refs": [
+        "CASE:EU07",
+        "CASE:EU10",
+        "CASE:EU11"
+      ],
+      "scope": "stored delivery bindings/context; no paired vocal/mix-specific listening labels or new file checks"
+    },
+    {
+      "axis": "单点/乐句衔接",
+      "case_refs": [
+        "CASE:EU08",
+        "CASE:EM02",
+        "CASE:EM08"
+      ],
+      "scope": "single-point existing label plus phrase questions; phrase quality still unknown"
+    }
+  ],
+  "source_quality_gap": "Some existing conditional-responses.json prose is mojibake; retained unchanged. Feedback wording comes from bound readable reports, numeric identities/record IDs and stored hashes only from JSON. F must expose this gap before formal consolidation.",
+  "sources": [
+    {
+      "id": "ESRC:01",
+      "title": "Mürbe et al. 2003, Auditory and kinesthetic feedback in singing",
+      "url": "https://www.isca-archive.org/maveba_2003/murbe03_maveba.pdf",
+      "locator": "printed pp183–186; methods/limitations",
+      "read_status": "full_paper_text_read",
+      "scope": "28起始学生/22复查；三和弦、连/断、快/慢和反馈遮蔽；不是听者混音掩蔽模型，也不迁移人体训练因果到模型"
+    },
+    {
+      "id": "ESRC:02",
+      "title": "Jansens, Bloothooft & de Krom 1997, Perception and acoustics of emotions in singing",
+      "url": "https://www.isca-archive.org/eurospeech_1997/jansens97_eurospeech.pdf",
+      "locator": "printed pp2155–2158; material, perception, regression cautions",
+      "read_status": "full_paper_text_read",
+      "scope": "同一德语乐句/14专业歌手/25听者；多情绪及评分差异，只用于任务/标签边界，不套系数或中文情绪公式"
+    },
+    {
+      "id": "ESRC:03",
+      "title": "Kob & Neuschaefer-Rube 2003, Acoustic analysis of overtone singing",
+      "url": "https://www.isca-archive.org/maveba_2003/kob03_maveba.pdf",
+      "locator": "printed pp187–190; introduction/methods",
+      "read_status": "selected_fulltext_sections_read",
+      "scope": "一个sygyt演唱者的谱/超声/阻抗观察；不是独立双F0或所有撕裂唱法真值"
+    },
+    {
+      "id": "ESRC:04",
+      "title": "UNSW formant/resonance/pole distinction",
+      "url": "https://www.phys.unsw.edu.au/jw/formant.html",
+      "locator": "high-F0 example and object distinction",
+      "read_status": "component_explanation_read",
+      "scope": "作者实验室对象与可辨识性解释；非新歌唱样本"
+    },
+    {
+      "id": "ESRC:05",
+      "title": "Praat Voice breaks",
+      "url": "https://praat.org/manual/Voice_1__Voice_breaks.html",
+      "locator": "continuous sustained vowel and locally unvoiced distinctions",
+      "read_status": "component_method_conditions_read",
+      "scope": "持续元音方法，不把正常辅音/休止或检测失败都叫破音"
+    },
+    {
+      "id": "ESRC:06",
+      "title": "Praat jitter/shimmer conditions",
+      "url": "https://praat.org/manual/PointProcess__Get_jitter__local____.html",
+      "locator": "period and pair selection; D source for shimmer separately retained",
+      "read_status": "inherited_D_component_read_not_reexecuted",
+      "scope": "周期级测量条件提问，无新的录音、pulse或临床阈值"
+    }
+  ],
+  "sampling_limit": "Purposive finite checklist, not all singing phenomena. U18 aggregates313 unknown words into1 case; 6BREC rows share1 utterance; repeated papers do not create independent experiments",
+  "recheck_scope": "Deferred mapping process check only. Agent already saw A–D; no statistical blindness, unseen-audio holdout or generalization validation",
+  "statistical_or_universal_completeness_validated": false,
+  "all_descriptions_fully_expressible": false,
+  "all_measurement_methods_validated": false,
+  "no_new_audio_or_synthesis": true,
+  "no_new_auditory_labels": true,
+  "no_project_skill_or_production_change": true,
+  "formal_ids_migrated": false,
+  "stage_F": "not_executed"
+}

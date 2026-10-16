@@ -1,0 +1,89 @@
+{
+  "status": "G_feedback_closed_DYN_layer_design_frozen",
+  "feedback": {
+    "verbatim": "不行",
+    "submissions": 1,
+    "date": "2026-10-12",
+    "response_record": "RESP:LASTPAGE-OWN-LI-VOIC-STAGES-01",
+    "candidate": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/delivery/G_two_phrases.wav",
+      "sha256": "a0feb1cdece0f0ca97b82c4fc2e7ff9504acd8a9e37238881107d322582a9a06"
+    },
+    "baseline": {
+      "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+      "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+    },
+    "author_reference": {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+      "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+    },
+    "referent": "G candidate inferred from immediately preceding labelled G/F/author delivery",
+    "finding": "current G not acceptable for requested staged strength development; not adopted",
+    "precise_failure_dimension_location_magnitude": "unknown: not specified in reply",
+    "no_difference_vs_worse_or_force_or_solidity_or_squeezing_or_break": "unknown: rejection does not select these descriptions",
+    "new_individual_word_labels": 0,
+    "dose_specific_rejection": true,
+    "all_VOIC_ineffective": false,
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-OWN-LI-VOIC-STAGES-01",
+    "append_only_feedback": true,
+    "feedback": {
+      "verbatim": "不行",
+      "submissions": 1,
+      "date": "2026-10-12",
+      "response_record": "RESP:LASTPAGE-OWN-LI-VOIC-STAGES-01",
+      "candidate": {
+        "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/delivery/G_two_phrases.wav",
+        "sha256": "a0feb1cdece0f0ca97b82c4fc2e7ff9504acd8a9e37238881107d322582a9a06"
+      },
+      "baseline": {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+        "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "referent": "G candidate inferred from immediately preceding labelled G/F/author delivery",
+      "finding": "current G not acceptable for requested staged strength development; not adopted",
+      "precise_failure_dimension_location_magnitude": "unknown: not specified in reply",
+      "no_difference_vs_worse_or_force_or_solidity_or_squeezing_or_break": "unknown: rejection does not select these descriptions",
+      "new_individual_word_labels": 0,
+      "dose_specific_rejection": true,
+      "all_VOIC_ineffective": false,
+      "adoption": false,
+      "agent_heard": false,
+      "measurement_validated": false
+    },
+    "prior_report": {
+      "path": "docs/reports/lastpage/own-li-voic-stages-probe-20261012.json",
+      "sha256": "cce735b7779cf63e4d9b4371e241bae40a60b9ee26f44625c8744e549aa0c244"
+    },
+    "table1_refs": [
+      "PER:S1",
+      "EVT:L2",
+      "ACO:L1",
+      "PARAM:C11.01"
+    ],
+    "measured_failure_cause": "unknown",
+    "adoption": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "strength_review": {
+    "path": "runs/research/lastpage-own-li-voic-feedback-20261012/evaluation/strength-review.json",
+    "sha256": "c8560a516be1f0ab3be1c1b4fc1542c65e36621b56c8eaf8cb87a6852d39f578"
+  },
+  "next_protocol_path": "runs/research/lastpage-own-li-voic-feedback-20261012/design/next-li-DYN-protocol.json",
+  "new_models": 0,
+  "new_waveforms": 0,
+  "new_PCM_NPZ_reads": 0,
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

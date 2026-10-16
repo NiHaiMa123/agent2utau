@@ -1,0 +1,32 @@
+{
+  "record_id": "RESP:SKILL-PHRASE-WORKFLOW-20261016",
+  "record_type": "technical_method_workflow_update_not_audio_response",
+  "report": {
+    "path": "docs/reports/production/skill-phrase-workflow-20261016.md",
+    "sha256": "1af6fc15db5ac10403a5c029e19a09fdb4f46a9d2e907692a8a4d7cc4084df20"
+  },
+  "before": {
+    "path": "runs/review/skill-phrase-workflow-20261016/before.json",
+    "sha256": "e9f28a6ce0dd18cf13d00d5580bbdeef15722a27c963d406e74e5c1e94eaa034"
+  },
+  "validation": {
+    "path": "runs/review/skill-phrase-workflow-20261016/validation.json",
+    "sha256": "17f8f4a468cf9262ebe7d54f664878f0c5d721383a94a0f846a3afde98a8fb76"
+  },
+  "status": "phrase_by_phrase_skill_workflow_updated",
+  "skill_updated": true,
+  "installed_synced": true,
+  "installed_files": 40,
+  "skill_links": 124,
+  "automatic_sequence_gate": false,
+  "production_code_modified": false,
+  "song_or_audio_modified": false,
+  "new_audio_count": 0,
+  "agent_audio_perception": false,
+  "musical_quality": "unverified",
+  "forward_song_validation": "not_performed",
+  "transfer": "unverified",
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "generalized_response_rules": []
+}

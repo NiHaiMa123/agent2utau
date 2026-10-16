@@ -1,0 +1,84 @@
+{
+  "status": "passed_with_explicit_texture_group_and_current_focus_gaps",
+  "source": {
+    "path": "research/table2-confirmation/prepare_lastpage_texture_listening_20261013.py",
+    "sha256": "c50847e77417715fc3886936b3fa01d3f1e497fe593c8d5a2b22edb183789a68"
+  },
+  "protected_references": 2440,
+  "old_J_source_feedback_and_reference_exact": true,
+  "latest_correction_retrieved": true,
+  "author_A_reference_SHA_exact": true,
+  "author_C_group_gates_reused": true,
+  "historical_A_feature_clipping_retained": true,
+  "new_correction_reply": 1,
+  "new_listening_feedback": 0,
+  "new_response_series": 0,
+  "new_waveforms": 0,
+  "new_audio_decodes": 0,
+  "new_arrays_read": 0,
+  "new_native_calls": 0,
+  "new_model_calls": 0,
+  "runtime_resources": {
+    "J_runtime_entries": 44,
+    "original_installation_entries": 47,
+    "unique_paths": 48,
+    "J_registry": {
+      "path": "runs/experiments/lastpage-own-li-entry-pitch-20261013/native-inputs/runtime.json",
+      "sha256": "5d0e74d7e4ee4bb60f55270a16c84add10b4a0e13e9d11c06d1afe5159f95a13"
+    },
+    "installation_registry": {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/frozen_runtime.json",
+      "sha256": "cc8e4911fc50c67a31132d63c7506ad59ce37c934e4b78b230c1ae0248ab7ef2"
+    },
+    "all_SHA_exact": true,
+    "branch_execution_verified": false,
+    "repair": "Separated two different registries; initial44-versus47 assertion failed, no resource files changed",
+    "initial_checker": {
+      "path": "runs/research/lastpage-texture-listening-preparation-20261013/logs/initial-runtime-count-script.py.txt",
+      "sha256": "56e5a9b9760c2bc0faf8b49681db890565273037780bd075a81587eb2f0d6d49"
+    },
+    "failure": {
+      "path": "runs/research/lastpage-texture-listening-preparation-20261013/logs/initial-runtime-count-failure.txt",
+      "sha256": "6ebd7dd6385b3409fbdd9313448e573d620673f46eb4b10692475b223d475b1e"
+    },
+    "locator_rejection": {
+      "path": "runs/research/lastpage-texture-listening-preparation-20261013/logs/runtime-registry-locator-failure.txt",
+      "sha256": "574f0b30426466d3538858ea958358b00fe8bd49aaaa37945d165767f89be4fd"
+    },
+    "locator_checker": {
+      "path": "runs/research/lastpage-texture-listening-preparation-20261013/logs/runtime-registry-locator-script.py.txt",
+      "sha256": "4f5c2a46d80e50966cbaf434cd20b886a4039aacfc4e399a0096aafed621c5f4"
+    }
+  },
+  "runtime_byte_check": {
+    "path": "runs/research/lastpage-texture-listening-preparation-20261013/evaluation/runtime-byte-check.json",
+    "sha256": "4c0d5e6c72bdf82ad829c51cc7782d71b3d5c593e7e8ddf22d702c1940ddef8a"
+  },
+  "media": {
+    "A": {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/A_two_phrases.wav",
+      "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+    },
+    "C": {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/C_two_phrases.wav",
+      "sha256": "994737dd7cbadd1942ce66bd5667efb2b6629ed522e3a2081da0f8584bba2886"
+    },
+    "J": {
+      "path": "runs/experiments/lastpage-own-li-entry-pitch-20261013/delivery/J_two_phrases.wav",
+      "sha256": "431b3aa5b0b53d390890f20faac97dc72251c8081230c81907634cb5344fb08a"
+    }
+  },
+  "listening_protocol": {
+    "path": "runs/research/lastpage-texture-listening-preparation-20261013/design/listening-protocol.json",
+    "sha256": "6c3c38bb46743b58d138d51b996111f220247c7f41696455cb19a1d379ecbfbb"
+  },
+  "current_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-texture-listening-index-20261013.json",
+    "sha256": "d492b1a538abcf65a4d6373baa66b359a66e79a68d318aadc21b15ecbb65b01e"
+  },
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 793}",
+  "adoption": false,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

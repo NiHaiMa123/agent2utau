@@ -1,3 +1,7 @@
 # Preserve authorized author originals and their archive byte for byte.
 research/baishuo/projects/*.ustx -text whitespace=cr-at-eol
 *.zip -text
+# Relocated historical records and SHA-bound knowledge/evidence keep raw bytes.
+research/implementation-records/**/*.py -text whitespace=cr-at-eol
+docs/knowledge/** -text whitespace=cr-at-eol
+docs/lastpage-*-20261008.md -text whitespace=cr-at-eol

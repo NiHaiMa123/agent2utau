@@ -1,0 +1,445 @@
+{
+  "status": "closed_with_explicit_gaps",
+  "date": "2026-10-11",
+  "cycle_complete": true,
+  "original_protocol": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+    "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+  },
+  "source_queue": {
+    "path": "runs/research/table2-existing-listening-queue-20261011/queue.json",
+    "sha256": "2a33041c16ca9b3882daa8740773083ac80a59064f108fc360b98ac8b0000071"
+  },
+  "source_seals": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+      "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+    },
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/completion-manifest.json",
+      "sha256": "4800a9b8270d2da1edfbeb629834d0b5841cae9f7dd041d2344a15215046d25c"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/completion-manifest.json",
+      "sha256": "4e20e662350519ecb5103b6a36079ea2b06706f8083648ec7993cc14c01dbafc"
+    },
+    {
+      "path": "runs/research/table2-word225-pa-feedback-20261011/completion-manifest.json",
+      "sha256": "0f45f5fc8690cb771faaed562741b50edbf25e958ee09767828348eb1bdad4fc"
+    },
+    {
+      "path": "runs/research/table2-word225-sd-feedback-20261011/completion-manifest.json",
+      "sha256": "f6ddc9ae692fabe7f01adc5ffbfdbf4f67a16d3add7531f80fc1ea7a795b2714"
+    },
+    {
+      "path": "runs/research/table2-word225-sp-feedback-20261011/completion-manifest.json",
+      "sha256": "860719f2d97111bef140fe230e382c89f7ad72f218e754b5338b55a1972a3134"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-mix-feedback-20261011/completion-manifest.json",
+      "sha256": "df12cde46a0a0ddeffeea414c3a6e35ff693005ac97773e70ecfc90b144a83e2"
+    },
+    {
+      "path": "runs/research/table2-vocal-scope-review-20261011/completion-manifest.json",
+      "sha256": "87ef085b6c16982660b3df4cd4b4912de81101b9a9eadc6d2671bb92a73ff2bb"
+    },
+    {
+      "path": "runs/research/table2-exposure-coverage-20261011/completion-manifest.json",
+      "sha256": "dea20d1c8d034210a233a8a9d89cada814aaf0ecc410cd1bd61d85f7aa2c5bbe"
+    },
+    {
+      "path": "runs/research/table2-existing-listening-queue-20261011/completion-manifest.json",
+      "sha256": "3f5977725de1d2b76af484ea63bc85a7a5929d8c4c05a1ab6178010167f8ded5"
+    },
+    {
+      "path": "runs/research/table2-sampling-review-20261011/completion-manifest.json",
+      "sha256": "d1258f514d1617da333e66cd4f668cd74d2daab6b1f6665fc99c04eae6715cf6"
+    }
+  ],
+  "new_feedback": {
+    "schema_version": 1,
+    "status": "aggregate_no_difference_feedback_recorded",
+    "condition_id": "current-word-214",
+    "user_message_verbatim": "没区别",
+    "context_interpretation": "one aggregate reply to the five just-presented vocal pairs; preceding instruction explicitly allowed one aggregate reply",
+    "presented_queue": {
+      "path": "runs/research/table2-existing-listening-queue-20261011/queue.json",
+      "sha256": "2a33041c16ca9b3882daa8740773083ac80a59064f108fc360b98ac8b0000071"
+    },
+    "presented_audio": [
+      {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-01-K2-K3.wav",
+        "sha256": "5b822ff0a2d88a05b3e86f2e9da1db27297f361440d6a8f36c9dd0839d82137d",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.4923917055130005,
+        "max_encoding_error": 1.1897463991772383e-07
+      },
+      {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-04-K3-K4.wav",
+        "sha256": "b49bad8b88b005793781b7a6a8cfd646981201ad7bd74fd9d5b2ecc99bf8cda3",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.5146839618682861,
+        "max_encoding_error": 1.1897463991772383e-07
+      },
+      {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-05-K1-K3.wav",
+        "sha256": "ac75b243380e54e82acf8472acfa02b6b00e8929d6e876e0f435dff166451562",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.4923917055130005,
+        "max_encoding_error": 1.1897463991772383e-07
+      },
+      {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-08-K4-K2.wav",
+        "sha256": "1236fb73b91b8253fd291256b29ce13044f92cb3e6c346e7bb411175dfe628df",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.5146839618682861,
+        "max_encoding_error": 1.1897418517037295e-07
+      },
+      {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-09-K2-K1.wav",
+        "sha256": "be96ade816ef85f8dfa3aeee41a5de02a0bbefedce9e89e1fba5ebf17f6dc653",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.4658299684524536,
+        "max_encoding_error": 1.1897418517037295e-07
+      }
+    ],
+    "group_id": "FB:word214-five-pairs-20261011",
+    "comparison_ids": [
+      "VOCAL-CYCLE:word214:S-A",
+      "VOCAL-CYCLE:word214:D-A",
+      "VOCAL-CYCLE:word214:P-A",
+      "VOCAL-CYCLE:word214:S-D",
+      "VOCAL-CYCLE:word214:S-P"
+    ],
+    "source_pair_orders": [
+      1,
+      4,
+      5,
+      8,
+      9
+    ],
+    "response_count": 1,
+    "comparisons_linked": 5,
+    "cumulative_this_batch_responses": 10,
+    "actual_playback_each_file": "unknown",
+    "individual_order_ratings": "not_separately_reported",
+    "no_difference_scope": "current condition, fixed dose/time shape and presentations only; not equivalence, exact waveform equality or engine-wide ineffectiveness",
+    "break_articulation_level_neighbor_naturalness": "unknown_not_separately_reported",
+    "prior_four_version_reply_preserved": {
+      "path": "runs/research/table2-word214-feedback-20261011/feedback.json",
+      "sha256": "f252123e5a0a206dfd2ea39c01044b2ff8ccb5722617f9c7c228731581d09564"
+    },
+    "user_message_timestamp": "unknown",
+    "record_created_utc": "2026-10-11T12:04:51.768054+00:00",
+    "device_and_volume": "unknown",
+    "new_waveforms": 0,
+    "new_model_calls": 0,
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "new_feedback_count": 1,
+  "cumulative_batch_responses": 10,
+  "compared_conditions": 2,
+  "primary_vocal_groups_with_feedback": 10,
+  "independent_contexts_not_increased": true,
+  "repeated_versions_not_counted_as_samples": true,
+  "word225_power_partial_order": [
+    "S>D>A",
+    "S>P>A"
+  ],
+  "word225_D_vs_P": "unknown_not_added",
+  "word214": "original_four_version_and_new_five_pair_aggregate_no_difference",
+  "cancelled_BGM_and_mix_listening": "remaining cancelled by user; not marked passed",
+  "closure_scope": "finite currently active existing-vocal auditory cycle; not all historical audio or all table1 entities validated",
+  "open_gaps": [
+    "specific unreported perceptual fields",
+    "actual order/device/session metadata",
+    "calibrated measurement performance",
+    "new heldout/cross-song evidence",
+    "whole-song acceptance"
+  ],
+  "table1_attachment": {
+    "entities": [
+      "PER:S1",
+      "PER:X1",
+      "PER:T3",
+      "PER:L1"
+    ],
+    "relation": "local listener evidence and descriptive candidates only; power distinct from loudness, naturalness or physiology",
+    "definitions_and_measurement_validation_unchanged": true
+  },
+  "table2_attachment": {
+    "comparisons": [
+      {
+        "comparison_id": "VOCAL-CYCLE:word225:S-A",
+        "condition_id": "current-word-225",
+        "canonical_direction": "S-A",
+        "presented_direction": "see_bound_original_feedback",
+        "finding": "S more powerful; A softer",
+        "feedback_verbatim": "就是k3更有力量，k1更柔，都没有破音",
+        "feedback_group_id": "historical:sa",
+        "feedback_source": "runs/research/table2-word225-sa-feedback-20261011/feedback.json",
+        "feedback_source_sha256": "4ca0c92a7f3e9ebdb20ceab1c98905d5c2fec60c00fe8461a1c115f55aaff0e5",
+        "shared_feedback": false,
+        "break_or_artifact": "original_reported_no_break_scope_preserved",
+        "other_specific_side_effects": "unknown_unless_original_feedback",
+        "table1_power_relation": "PER:S1 descriptive candidate; perceived power not equal physiological support",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word225:D-A",
+        "condition_id": "current-word-225",
+        "canonical_direction": "D-A",
+        "presented_direction": "see_bound_original_feedback",
+        "finding": "D more powerful than A",
+        "feedback_verbatim": "k2比k1更有力量也没破音。k3力量感大于k2",
+        "feedback_group_id": "historical:da",
+        "feedback_source": "runs/research/table2-word225-da-feedback-20261011/feedback.json",
+        "feedback_source_sha256": "8f187db5054205fba4ea85f794976d21bfc3f952e1d3f9811d421c536abb4148",
+        "shared_feedback": false,
+        "break_or_artifact": "original_reported_no_break_scope_preserved",
+        "other_specific_side_effects": "unknown_unless_original_feedback",
+        "table1_power_relation": "PER:S1 descriptive candidate; perceived power not equal physiological support",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word225:P-A",
+        "condition_id": "current-word-225",
+        "canonical_direction": "P-A",
+        "presented_direction": "see_bound_original_feedback",
+        "finding": "P more powerful than A",
+        "feedback_verbatim": "k4力量感大于k1，没有破音",
+        "feedback_group_id": "historical:pa",
+        "feedback_source": "runs/research/table2-word225-pa-feedback-20261011/feedback.json",
+        "feedback_source_sha256": "0f2eade4f27e5af00b28e0e3639dc62ad1d2cc8fdab91f81727a735e5067955f",
+        "shared_feedback": false,
+        "break_or_artifact": "original_reported_no_break_scope_preserved",
+        "other_specific_side_effects": "unknown_unless_original_feedback",
+        "table1_power_relation": "PER:S1 descriptive candidate; perceived power not equal physiological support",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word225:S-D",
+        "condition_id": "current-word-225",
+        "canonical_direction": "S-D",
+        "presented_direction": "see_bound_original_feedback",
+        "finding": "S more powerful than D",
+        "feedback_verbatim": "k3力量感大于k2，没有破音",
+        "feedback_group_id": "historical:sd",
+        "feedback_source": "runs/research/table2-word225-sd-feedback-20261011/feedback.json",
+        "feedback_source_sha256": "50638fb0d240a718342c5e528cf0f7cbcabb4559db15cda31a4b9f16e4e996a4",
+        "shared_feedback": false,
+        "break_or_artifact": "original_reported_no_break_scope_preserved",
+        "other_specific_side_effects": "unknown_unless_original_feedback",
+        "table1_power_relation": "PER:S1 descriptive candidate; perceived power not equal physiological support",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word225:S-P",
+        "condition_id": "current-word-225",
+        "canonical_direction": "S-P",
+        "presented_direction": "see_bound_original_feedback",
+        "finding": "S more powerful than P",
+        "feedback_verbatim": "k3力量感大于k4，没有破音",
+        "feedback_group_id": "historical:sp",
+        "feedback_source": "runs/research/table2-word225-sp-feedback-20261011/feedback.json",
+        "feedback_source_sha256": "30f0b3fa9d90c36e0e36232e940da7413f5815ec691c61bd36ad6784ca608cf0",
+        "shared_feedback": false,
+        "break_or_artifact": "original_reported_no_break_scope_preserved",
+        "other_specific_side_effects": "unknown_unless_original_feedback",
+        "table1_power_relation": "PER:S1 descriptive candidate; perceived power not equal physiological support",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word214:S-A",
+        "condition_id": "current-word-214",
+        "canonical_direction": "S-A",
+        "presented_direction": "S-A",
+        "finding": "no_perceived_difference_reported",
+        "feedback_verbatim": "没区别",
+        "feedback_group_id": "FB:word214-five-pairs-20261011",
+        "feedback_source": "runs/research/table2-listening-cycle-closure-20261011/feedback.json",
+        "feedback_source_sha256": "d6f391813d4b8f3f6e705804416e97006a9b3eb0f85d487edec85804d00b47e7",
+        "shared_feedback": true,
+        "break_or_artifact": "unknown_no_separate_label",
+        "other_specific_side_effects": "unknown_no_separate_label",
+        "table1_power_relation": "no perceptible difference in this presentation; no normality or equivalence claim",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word214:D-A",
+        "condition_id": "current-word-214",
+        "canonical_direction": "D-A",
+        "presented_direction": "A-D",
+        "finding": "no_perceived_difference_reported",
+        "feedback_verbatim": "没区别",
+        "feedback_group_id": "FB:word214-five-pairs-20261011",
+        "feedback_source": "runs/research/table2-listening-cycle-closure-20261011/feedback.json",
+        "feedback_source_sha256": "d6f391813d4b8f3f6e705804416e97006a9b3eb0f85d487edec85804d00b47e7",
+        "shared_feedback": true,
+        "break_or_artifact": "unknown_no_separate_label",
+        "other_specific_side_effects": "unknown_no_separate_label",
+        "table1_power_relation": "no perceptible difference in this presentation; no normality or equivalence claim",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word214:P-A",
+        "condition_id": "current-word-214",
+        "canonical_direction": "P-A",
+        "presented_direction": "P-A",
+        "finding": "no_perceived_difference_reported",
+        "feedback_verbatim": "没区别",
+        "feedback_group_id": "FB:word214-five-pairs-20261011",
+        "feedback_source": "runs/research/table2-listening-cycle-closure-20261011/feedback.json",
+        "feedback_source_sha256": "d6f391813d4b8f3f6e705804416e97006a9b3eb0f85d487edec85804d00b47e7",
+        "shared_feedback": true,
+        "break_or_artifact": "unknown_no_separate_label",
+        "other_specific_side_effects": "unknown_no_separate_label",
+        "table1_power_relation": "no perceptible difference in this presentation; no normality or equivalence claim",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word214:S-D",
+        "condition_id": "current-word-214",
+        "canonical_direction": "S-D",
+        "presented_direction": "D-S",
+        "finding": "no_perceived_difference_reported",
+        "feedback_verbatim": "没区别",
+        "feedback_group_id": "FB:word214-five-pairs-20261011",
+        "feedback_source": "runs/research/table2-listening-cycle-closure-20261011/feedback.json",
+        "feedback_source_sha256": "d6f391813d4b8f3f6e705804416e97006a9b3eb0f85d487edec85804d00b47e7",
+        "shared_feedback": true,
+        "break_or_artifact": "unknown_no_separate_label",
+        "other_specific_side_effects": "unknown_no_separate_label",
+        "table1_power_relation": "no perceptible difference in this presentation; no normality or equivalence claim",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      },
+      {
+        "comparison_id": "VOCAL-CYCLE:word214:S-P",
+        "condition_id": "current-word-214",
+        "canonical_direction": "S-P",
+        "presented_direction": "S-P",
+        "finding": "no_perceived_difference_reported",
+        "feedback_verbatim": "没区别",
+        "feedback_group_id": "FB:word214-five-pairs-20261011",
+        "feedback_source": "runs/research/table2-listening-cycle-closure-20261011/feedback.json",
+        "feedback_source_sha256": "d6f391813d4b8f3f6e705804416e97006a9b3eb0f85d487edec85804d00b47e7",
+        "shared_feedback": true,
+        "break_or_artifact": "unknown_no_separate_label",
+        "other_specific_side_effects": "unknown_no_separate_label",
+        "table1_power_relation": "no perceptible difference in this presentation; no normality or equivalence claim",
+        "main_parameter": "PARAM:C14.01",
+        "measurement_validated": false,
+        "general_rule_validated": false
+      }
+    ],
+    "source_original_14_records_unchanged": true,
+    "mediators_not_independently_identified": [
+      "VOIC",
+      "BREC",
+      "TENC"
+    ],
+    "new_general_rule": false
+  },
+  "first_song": {
+    "song": "最后一页",
+    "status": "baseline_identity_bound_preparation_only",
+    "selection_reason": "current complete material and native clock inventory available, accepted bao protection and negative examples already bound",
+    "working_baseline_project": {
+      "path": "runs/lastpage_guo_register_probe_20261008/A.ustx",
+      "sha256": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816"
+    },
+    "same_accepted_C_project": {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/C.ustx",
+      "sha256": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816"
+    },
+    "published_baseline": {
+      "path": "projects/latest/lastpage_loudness_v02.ustx",
+      "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+    },
+    "baseline_manifest": {
+      "path": "runs/lastpage_guo_register_probe_20261008/completion_manifest.json",
+      "sha256": "1982fd6fdb42f74bce2872a3c236aa74e23dfd4be58d9fede784d45fc755dfa5"
+    },
+    "native_word_geometry": {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    "metadata_inventory": {
+      "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+      "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+    },
+    "words": 318,
+    "phrase_groups": 34,
+    "baseline_labels": "old 5 original positions/313 unknown remain as at original study; accepted C and newer comparisons separate",
+    "purpose": "whole-song vocal articulation and continuity; collect manifestations and protect accepted/usable contexts, rather than chase one syllable or maximize power",
+    "protection": [
+      "accepted word225 bao C retained as baseline",
+      "word247 local usable retained within original scope",
+      "word124/214 reported solid not whole-song normality",
+      "guo SHFC/BREC dose escalation stopped",
+      "source unknown preserved"
+    ],
+    "next_action": "read current singing-expression-editor Skill and workflow; audit full-song baseline/observations/explicit function decisions and coverage; write first version purposes and controlled changes in root plan before compilation",
+    "evidence_collection": "bind full-song/phrase/word identity, all changed inputs, pre/post versions, actual technical reconstruction, user labels and neighbors; multi-control corrections recorded as joint intervention",
+    "plan_entry": "plan.md",
+    "new_plan_file_created": false,
+    "new_project_written": false,
+    "new_rendering_executed": false,
+    "no_old_script_replay": true,
+    "Skill_update_authorized": false,
+    "BGM_research": false
+  },
+  "generator": {
+    "path": "research/table2-confirmation/close_existing_vocal_listening_cycle.py",
+    "sha256": "2e2b0698cea2b4c11f47fcf78fd3c093c302d91521d4388cbff09a1d64d76c7a"
+  },
+  "preparation_note": "Initial read-only preflight rejected BOM-prefixed CSV header id before writing files; parser changed to utf-8-sig, original CSV bytes untouched.",
+  "original_stage_2E_complete": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "new_audio_files": 0,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "audio_or_array_decodes": 0,
+  "song_or_skill_changed": false,
+  "single_agent": true,
+  "CI_manual_only": true
+}

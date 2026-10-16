@@ -1,0 +1,12 @@
+{
+  "stage": "2C",
+  "schema_version_retained": 3,
+  "baseline": {
+    "manifest_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/snapshot-manifest.json",
+    "manifest_sha256": "341b12f40a9883cc7af654a45c0984f535f26294920cbf1d7246120611d6d4fe"
+  },
+  "source_ledger_sha256": "4a3b2872e50885501d7044b81a11fce46ce52ff18aaa8101110491aac685f527",
+  "restore_operation": "Remove table2_record_confirmation; remove every record_v3.confirmation_ref; restore record_v3.record_confirmation to schema_revised_with_explicit_gaps; 2C_not_executed. Deep equality to pre2C JSON required. CSV restore these extensions; all other cells equal. Markdown remove current prefix.",
+  "older_record_fields_changed": false,
+  "prior_stage_audit_outputs_changed": false
+}

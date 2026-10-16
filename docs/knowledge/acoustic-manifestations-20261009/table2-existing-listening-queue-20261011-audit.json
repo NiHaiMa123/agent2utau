@@ -1,0 +1,62 @@
+{
+  "status": "passed_existing_audio_queue_feedback_pending",
+  "selected_pairs": 5,
+  "source_audio_SHA_checked": 10,
+  "preserved_bindings": 756,
+  "protected_bindings": 146,
+  "snapshots": 12,
+  "markdown_links_checked": 211,
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-existing-listening-queue-20261011.json",
+      "sha256": "2a33041c16ca9b3882daa8740773083ac80a59064f108fc360b98ac8b0000071"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-existing-listening-queue-20261011.md",
+      "sha256": "c74d98cd97521e53fa3b09f6d5b786e2e15f289bd904d3388d5a8c8e141c0397"
+    }
+  ],
+  "entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "80d567d2adb5ee70b98b0fc641b84b3d56b11df822002f6c54dc4ba7e5e7558e"
+    },
+    {
+      "path": "README.md",
+      "sha256": "a2f9ab3d7d76ada711f3dad50bdc4859bf47b2155380ba6ea246ef40e169d69d"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "cc9137386f311a1177ee19c55325ec0a0ab4cbef099e1ba87a6be407a46e6981"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "2caf9a466aa20b21e212032026208f8dc63eb4128f48be82cd4b897f619e7ace"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "54c81a0e302c00efae16091af5df3160df848ec254f3ef7137a74dbe4b63f499"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "f1e58cab3d15463d369e3b1d74cb743ec824b59fd2c31b4b6057fb41597d34b1"
+    }
+  ],
+  "worktree_gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 566
+  },
+  "new_audio_files": 0,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "new_feedback": 0,
+  "loop_complete": false,
+  "generator": {
+    "path": "research/table2-confirmation/prepare_existing_vocal_listening_queue.py",
+    "sha256": "1ac39da1001a2304f5d28c8cae5e5ec765381aee6f9d1e48730b069120d8eda2"
+  }
+}

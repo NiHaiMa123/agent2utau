@@ -1,0 +1,29 @@
+{
+  "status": "passed_with_explicit_conditional_negative_and_causal_gaps",
+  "source": {
+    "path": "research/table2-confirmation/close_lastpage_own_li_tenc_20261013.py",
+    "sha256": "6efa7c7d0b4f028dd205728379b6061d67d2918413521026ff22e863598bc587"
+  },
+  "feedback_submissions": 1,
+  "new_individual_word_labels": 0,
+  "new_models": 0,
+  "new_waveforms": 0,
+  "new_PCM_NPZ_reads": 0,
+  "protected_references": 2279,
+  "original_I_receipt_exact": true,
+  "I_H_G_feedbacks_retrieved": true,
+  "current_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-TENC-feedback-index-20261013.json",
+    "sha256": "43c0e4d5a7b7e2f4a7969a48c6e21a0988340fa6ef54b8e5ce7637f3ba4aab05"
+  },
+  "current_registry": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/active-knowledge-sources.json",
+    "sha256": "5f9dcedbeed7c9834586e1ebf3ef267676bbe73cfb2ff14d5e77450cba46133b"
+  },
+  "CSV_and_prior_index_fields_exact": true,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 754}",
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}
