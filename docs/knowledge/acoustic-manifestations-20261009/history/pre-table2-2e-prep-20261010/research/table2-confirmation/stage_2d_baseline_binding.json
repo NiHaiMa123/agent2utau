@@ -1,0 +1,6 @@
+{
+  "stage": "2D",
+  "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/snapshot-manifest.json",
+  "sha256": "99adb576270a41b7bbf635c584dcfabf332e7c547ecbdf46e06bc8b0b291ea32",
+  "run": "runs/research/table2-2d-protocol-freeze-20261010"
+}

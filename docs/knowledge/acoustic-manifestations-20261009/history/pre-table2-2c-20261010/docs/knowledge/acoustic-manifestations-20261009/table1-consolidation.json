@@ -1,0 +1,293 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "stage": "F",
+  "status": "consolidated_with_explicit_gaps",
+  "formal_entities": 49,
+  "entity_types": {
+    "ACO": 24,
+    "EVT": 15,
+    "META": 1,
+    "PER": 9
+  },
+  "open_candidates": 1,
+  "descriptors": 30,
+  "control_groups": 48,
+  "parameters": 352,
+  "context_groups": 8,
+  "migrated_records": 14,
+  "all_historical_values_and_feedback_preserved": true,
+  "baseline_manifest": {
+    "schema_version": 1,
+    "manifest_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/snapshot-manifest.json",
+    "manifest_sha256": "0ee647f8fda520200cdbf56089435b50dd166707f56ba104b546daf291a736e5",
+    "files": [
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/atomic-manifestations.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/atomic-manifestations.csv",
+        "sha256": "6a243754bc4d7f1c0aeca0a87486dc86b7cd88cbd5ea518c52f35b38f9c3d9d4"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/claim-evidence.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/claim-evidence.csv",
+        "sha256": "3900bba2eb5aeb373a5564b38537b9b8eaa11b9e217c8bc74bef8db9088254dc"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/claim-evidence.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/claim-evidence.json",
+        "sha256": "7b309da51fde928dfe324535a395dc9a3ca8fc2785a8d6421f311daf15592d57"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/composite-descriptors.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/composite-descriptors.csv",
+        "sha256": "202c7c56d3c50013906305b3c9b448dfbda42bd38ed15ea1d5707ffc09d01fc9"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/composite-review.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/composite-review.csv",
+        "sha256": "73c3627d3d96eb62ba77493fc67b42ebd9cd155c137a6d5cf6e1939563095ddc"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/composite-review.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/composite-review.json",
+        "sha256": "74820ecbc2dc6ecbf59ca9fe8eb2c9b59597a53d01cf59ecb7b3a17c3c1aa04a"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/conditional-responses.csv",
+        "sha256": "9ef9970a072490c7df4517a0a1355fae668c957361b98a753692ce5cde9abd69"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/conditional-responses.json",
+        "sha256": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/conditional-responses.md",
+        "sha256": "401e4e1c0064f6c8995df2f313375406860dad2ee495afb79baffafe4f12aaad"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/control-details.csv",
+        "sha256": "3e58bf397ed323c09210b76595d81acaeed67c7483695cb9ebb515446f04d678"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/control-details.json",
+        "sha256": "43f9295a9926f866ce3af0cba890891d64a68e5d7f8b4b3619e2f69d96e87a6d"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/control-inventory-audit.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/control-inventory-audit.json",
+        "sha256": "ddf596cd42022aaeb8cc6963fba81c63cee7a2da55b7769e2ec7040e348da2cb"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/core-definition-review.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/core-definition-review.csv",
+        "sha256": "a51d53830ca8f9feae44e0e8625d168022cb4e1372d0f5c698a90bc606627515"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/core-definition-review.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/core-definition-review.json",
+        "sha256": "07da160b4c3c1de1251e4443870ea1623fdec72d53248740dc5e78efd9455990"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/coverage-checklist.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/coverage-checklist.json",
+        "sha256": "d465dd3fdb9f9b7bc52e3e376a38ef4fe0a4c66eae39d600cebf35301de1bbcd"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/current-evidence.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/current-evidence.csv",
+        "sha256": "0bddd99999f4fea6c08ec07d78ee9cfeef3b3cc4b158b384a153c2499cf912ba"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/description-coverage.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/description-coverage.csv",
+        "sha256": "577fcd3931c25df5fa01624b42296db5efb406442223fb3786dbc65fe675f796"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/description-coverage.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/description-coverage.json",
+        "sha256": "ee83e9f24bf0a342bd2d4078e99e2051dd15a4ec9f14cf9a385c2558e0e0fd74"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/editor-preferences-review.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/editor-preferences-review.csv",
+        "sha256": "982991af02f2227604f3788510784b35b884eb4b0137d063746dddd52303eacf"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/editor-preferences-review.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/editor-preferences-review.json",
+        "sha256": "997535dfc521f93bca24f78464ae7eabb5d2c0558f09fbfb1a35431fa7bd0b02"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/graph-node-review.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/graph-node-review.json",
+        "sha256": "cd89dadfe2cf2e2924045b300cb904d571f11607485f29e7b3c5ff959b05b1a4"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/id-migration.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/id-migration.json",
+        "sha256": "d37942e28014a3b0f0d299c1c2f2852f90c05224e9195209af39529bc975c982"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/knowledge-table.json",
+        "sha256": "c998b5ea4b39648a5703c5818455140d7dc932cbb40095199b5a7ca9739d0962"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/local-capability-review.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/local-capability-review.json",
+        "sha256": "d7b55fb4abc6048ed8f71caf752e3cb08950b05313d3c07163514071925627dd"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/measurement-protocols.csv",
+        "sha256": "155c01376680928fc0cbc7ca66a7a11b2b2a5756eb49e04c292f0ee1c744f474"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/measurement-protocols.json",
+        "sha256": "1d6b243a8b3a8407e06332454961b74d33480d719ba36eb7c314b683747250e5"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-source-review.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/measurement-source-review.json",
+        "sha256": "894b2e719a966f748459d4f1b12a32a2612c9f3712a1aaada07b07f1fae942ec"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/openutau-controls.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/openutau-controls.csv",
+        "sha256": "63cdc16fa0e2bd55719a48e58ed292bd2e6b16761055eb376f95e4ddf57e03e3"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/README.md",
+        "sha256": "3b56795fcd89e5bbcac24137d4af245b152a5ddf7b59f054a670d4f25a73892f"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/response-coverage.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/response-coverage.csv",
+        "sha256": "d81f3b8be26d31e1d62b4f67e20fa3227461eb3750f76effcc7e0c16fb384b29"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/response-source-audit.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/response-source-audit.json",
+        "sha256": "9775cdee10562db59b85c0b2947ebaec5319206a44329daec8628ab75ed600d2"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-control-review.md",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-control-review.md",
+        "sha256": "4ce777ad1c196fdba6d5162485ccc18f795243900689d9986a2d5d0ee0d0f7d7"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-coverage-review.md",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-coverage-review.md",
+        "sha256": "42d631f95828ed93914f239f2f0ac016004a6c1a4d3c28af14fa00d26047f264"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-execution-audit.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-execution-audit.json",
+        "sha256": "a7a14bd8142eadb34f630dbef3117237e0b5e08a853c1ddfceec2be9a5643621"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-measurement-review.md",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-measurement-review.md",
+        "sha256": "69d18e823f897a539cf192759271152e839aa12de86822a9e26c342e6abc1072"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-review.md",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-review.md",
+        "sha256": "844e9078c94f144225dafc4792c331dfb8956b8a1f64668fac344849af5d83bb"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-row-review.csv",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-row-review.csv",
+        "sha256": "e6fbdadf85a3f4dcded2d83552c10ec3428fdd78b18425e355f1640c3442a8d8"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-row-review.json",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-row-review.json",
+        "sha256": "f8187b81ae6fcdb03b74ba6ea756a0ef7718a4ccaece62a22fe23eab36777253"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-schema.md",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-schema.md",
+        "sha256": "95e6a834c6af4f8c74bae5e4b1f434d8f28b598058c49c5bed413d59d2b20384"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/table1-source-review.md",
+        "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-f-20261010/table1-source-review.md",
+        "sha256": "fdca363531f5030300dc287ea6bd12d64d0d21c1f503158cd3e978e8b4440879"
+      }
+    ]
+  },
+  "A_empty_mapping_issue_corrected": true,
+  "E_encoding_claim_corrected": true,
+  "all_measurement_validated": false,
+  "universal_completeness_validated": false,
+  "no_new_auditory_labels": true,
+  "no_new_synthesis": true,
+  "no_project_skill_audio_production_or_installation_change": true,
+  "table2_special_plan_status": "not_executed",
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/atomic-manifestations.csv",
+      "sha256": "c400fb512772ec23f452b5765af37cabca92f262e0243a43541d661fbcdb3ba7"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/composite-descriptors.csv",
+      "sha256": "3249e876b9714f368aa3f7a33f0e366305f5841cd05bfaf303fa12fbc5fed67e"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/openutau-controls.csv",
+      "sha256": "978d8ade3927d0d0f722730daca2ac1b85f8007ba288f234e3506e004cfcf4e1"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/current-evidence.csv",
+      "sha256": "0bc1cdcd34ebf79d4f5bae63b92f2fc6e6ed4cafc3c712e00fd90e87196c9dea"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "sha256": "459f8f8264f13f8a115dc60fcf205cd89405bfa35cc222670614847b4d7cb8c3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/id-migration.json",
+      "sha256": "5b66fd18559684ef40834931082d44998aba6ecd6779a8e30fe98de8e4529ee2"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "5a7b436fbdb5bd39d52dd7b26990d16598b491d408d50ed19e17f4c975cb7e85"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "sha256": "c2cbd6b3a3c14fe144412074cff644111c3b76cbf49cbaf2bbd48742767ccc54"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "sha256": "f30555954cd8d96d0d388e599f91611a2c70556667d48efb282e77168bd3e525"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/response-coverage.csv",
+      "sha256": "09c20f2debca16e9d66fe836ef4a92cf02618c0f7a01959381915d2814674278"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/context-schema.json",
+      "sha256": "db86c999f68804dcd430623b6d94df515f60f4974272fecd5ae84b6506ff6407"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/source-quality-correction.json",
+      "sha256": "8f654fe7c276bb29bfd2d09387f02c6c2b82641e6901e92bc7507ed80c233278"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-consolidation-review.md",
+      "sha256": "c88439f6569f2fa737bcb5eef1566777641cbe37a850d313123684bd1d50a6dd"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "7f2489be00ad0091b10d1aa03f084bb1044bfa3523ab048126989960ab90bffd"
+    }
+  ]
+}

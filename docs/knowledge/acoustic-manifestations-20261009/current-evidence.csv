@@ -1,0 +1,10 @@
+﻿id,intervention,condition,data,listening,conclusion,report,legacy_id
+EVID:01,取消抱的TENC+14,3:04 ao/B4，固定同噪声、其他人工控制与增益,24模型帧，峰值张力差-0.7；A/重复PCM精确,用户“没啥区别”,该次取消未获可感知改善；不证明TENC所有剂量无效,lastpage-tenc-controlled-probe-20261008.md,E1
+EVID:02,抱SHFC -400c，55ms进入,3:04 ao/B4，vocoder目标F0保持，允许完整新预测,条件音高-4st；三个预测同时响应；无满幅/特征裁剪；ao局部双F0检测差约40～45c,“更实了，但是有破音”，明确抱字头,有局部实感响应和副作用；不能归因单个预测通道、不能断定真实声区/formant,lastpage-shfc-controlled-probe-20261008.md,E2
+EVID:03,抱SHFC入口55→145ms，起点提前到元音前80ms,同字腹-400c平台/退出精确保留；起点相对旧B前移90ms；时间几何一次干预,最快条件变化12644→5082c/s；ao前65ms谱形相邻差RMS .666→.589；b RMS -5.326dB，ao -0.296dB,用户“可以”,C局部可用；不是字头完全无破音/咬字全通过的标签；时长与提前准备不能分开归因,lastpage-shfc-onset-probe-20261008.md,E3
+EVID:04,果SHFC -200c,1:27 uo/E4；160ms进入70ms退出、固定原音符/人工控制/增益,uo RMS+0.0901dB；0～500Hz+1.296、500～2k -1.959、2～5k -4.032、>5k -2.955dB；30ms接口最低-4.200dB,果没区别；这咬字好像没区别；响度下降,该B否决；总RMS不能代替听觉响度；分带/短窗为线索非精确感知真值,lastpage-guo-register-probe-20261008.md,E4
+EVID:05,同字果1:27 vs3:17,uo/E4，但时值/邻字/上下文不同；元音中央20～80%,通过侧voicing+1.6140、breathiness-.9680、tension+.3527、目标F0差-.8003c；前60ms差异更大,1:27偏假/顶；3:17“中间这个可以”,条件相关性，不是因果；不能拟合通用阈值,lastpage-guo-positive-comparison-20261008.md,E5
+EVID:06,接受抱C vs原抱A的实际发声特征,SHFC整路径干预；元音核20～80%,voicing-.9145、breathiness-5.8843、tension+1.0628；vocoder目标F0差0,C局部可用，原偏假/顶,否定普遍“更实必须voicing更高/张力更低”；不证明降低VOIC是修法,lastpage-cross-condition-study-20261008.md,E6
+EVID:07,BREC额外-10六条件,2问题+4偏实/可用，Q5 80ms进入70ms退出；18套A/Arepeat/B；variance种子11/acoustic种子101（不是步数）,"只breathiness人工增量峰约-1.2；元音RMS[-.0232,+.0273]dB；双F0绝对差p50 .03～.16c，max3.20/2.44c；重复差0",全部分开试听“全部没区别”,六组均不采纳；否定该剂量听觉改善，不能升格整个气声通道无效或其余维度全验收,lastpage-brec-cohort-probe-20261008.md,E7
+EVID:08,果g→uo词表/时序只读核查,当前g/uo及语言ID4；uo整体token,HFA vs native元音起点+.303ms；元音361.582→347.917ms，差-13.665ms,1:27问题反馈仍保留,无明显大错位/错误词表证据；HFA不是音乐身份/实际生成发音真值,lastpage-guo-phoneme-audit-20261008.md,E8
+EVID:09,1tick→5tick原生控制编码核查,本次六条件BREC；原生先5tick再模型帧,1tick草稿被独立采样检查拒绝，最大特征差.072；5tick最终精确，原18套波形生成有效,没有为编码更正单独声称改善,写入曲线≠实际采样；检验原生输入再谈参数作用，不把数值精确当自然,lastpage-brec-cohort-probe-20261008.md,E9

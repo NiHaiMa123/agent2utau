@@ -1,0 +1,62 @@
+{
+  "record_id": "RESP:LASTPAGE-AUTHOR-PITCH-ABLATION-01",
+  "append_only_feedback": true,
+  "feedback": {
+    "verbatim": "都比我们的实",
+    "submissions": 1,
+    "response_record": "RESP:LASTPAGE-AUTHOR-PITCH-ABLATION-01",
+    "versions": {
+      "A": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "P": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/P_two_phrases.wav",
+        "sha256": "65ef3a0a1dca80176acf4425d496f58a7188f5922192f63326bad0a6cd09d569"
+      },
+      "N": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/N_two_phrases.wav",
+        "sha256": "9757196dcb76ebd2cb99ef054a0f30f56a4969b196cecc23390f44cd80e28905"
+      },
+      "PN": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/PN_two_phrases.wav",
+        "sha256": "85b79ad8cb5a7ee820a3b65d28ca92e9967a2f413d81a052e879056c6c34666e"
+      }
+    },
+    "own_comparator": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/agent_acceptedC_same_lyrics_vocal.wav",
+      "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+    },
+    "scope": "aggregate two-phrase relative solidity judgment; four displayed author-copy versions vs earlier own comparator",
+    "finding": "A/P/N/PN each perceived more solid than own comparison",
+    "new_A_relative_solidity_supported": true,
+    "ranking_between_four": "unknown",
+    "equality_with_old_author_reference": "unknown",
+    "individual_word_labels_added": 0,
+    "absolute_naturalness": "unknown",
+    "break_articulation_level_side_effects": "unknown",
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "findings": [
+    "All four versions, including new fixed-seed A and PN, retain a perceived relative solidity advantage vs own comparison.",
+    "Under these author conditions PITD and note.pitch offsets/snap are not necessary for that advantage; neither removal reproduced the own predominantly airy baseline.",
+    "This does not establish equality/ranking among A/P/N/PN or no articulation/break/level side effects.",
+    "Tone/tuning, musical stages, phonetic durations, speakers and non-pitch controls remained authored; cannot rule out pitch register or interactions.",
+    "Two seen author contexts and repeated waves are not independent holdout evidence or a universal tuning rule."
+  ],
+  "prior_frozen_report": {
+    "path": "docs/reports/lastpage/author-pitch-ablation-20261011.json",
+    "sha256": "dff1306571635e157703988026e5977a130b66dfeb2b392fd46cf622c53c19fc"
+  },
+  "perception": "PER:S1",
+  "parameter_refs": [
+    "PARAM:C03.01",
+    "PARAM:C02.02",
+    "PARAM:C02.04"
+  ],
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

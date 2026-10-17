@@ -1,0 +1,633 @@
+{
+  "schema_version": 1,
+  "stage": "B",
+  "status": "reviewed_with_explicit_gaps",
+  "no_new_synthesis": true,
+  "scientific_completeness_validated": false,
+  "rows": [
+    {
+      "legacy_row": 1,
+      "ambiguity": "撕裂与嘶吼不完全同义；强度和粗糙形态分开",
+      "candidate_path_A": "S5多周期/次谐波与S3噪声组合",
+      "candidate_path_B": "S6中断或X1失真伴L4突变",
+      "counterexample": "大声清亮可无粗糙；有意粗糙也可低电平",
+      "needed_observations": "周期组织、噪声、峰/过载、阶段及意图标签",
+      "claim_refs": [
+        "CLAIM:014",
+        "CLAIM:017",
+        "CLAIM:030"
+      ],
+      "id": "DESC:01",
+      "descriptor": "撕裂、嘶吼",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 2,
+      "ambiguity": "沙哑、颗粒、毛糙的尺度及噪声/脉冲感可能不同",
+      "candidate_path_A": "S3/S4非周期噪声",
+      "candidate_path_B": "S5次谐波或P5周期扰动，另排X2",
+      "counterexample": "jitter/shimmer正常仍可粗糙；摩擦辅音不等于元音沙哑",
+      "needed_observations": "持续元音、周期可靠性、次谐波、阶段试听",
+      "claim_refs": [
+        "CLAIM:001",
+        "CLAIM:002",
+        "CLAIM:014",
+        "CLAIM:019"
+      ],
+      "id": "DESC:02",
+      "descriptor": "沙哑、颗粒、毛糙",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 3,
+      "ambiguity": "破音/炸一下是事件标签，不能预判类型",
+      "candidate_path_A": "S6失声/再起或P1/P3骤变",
+      "candidate_path_B": "L4瞬态、X1过载或X2边界伪影",
+      "counterexample": "元音后自然爆破可能有突峰但不破音；无削波也未排除破音",
+      "needed_observations": "字头/腹/尾、F0有效域、波形、true peak、用户标签",
+      "claim_refs": [
+        "CLAIM:021",
+        "CLAIM:026",
+        "CLAIM:030"
+      ],
+      "id": "DESC:03",
+      "descriptor": "破音、炸一下",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 4,
+      "ambiguity": "颤抖、摇晃、颤音分开意图与可闻维度",
+      "candidate_path_A": "P4/P5频率调制",
+      "candidate_path_B": "L3或R3/S2谱形调制及相互作用",
+      "counterexample": "F0相同调制也可能有不同摇晃感；规律颤音可为所需",
+      "needed_observations": "F0/AM/分带调制率深度、相位与听者判断",
+      "claim_refs": [
+        "CLAIM:015",
+        "CLAIM:025"
+      ],
+      "id": "DESC:04",
+      "descriptor": "颤抖、摇晃",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 5,
+      "ambiguity": "饱满、厚实、有芯分别可能指低频量感/集中/稳态",
+      "candidate_path_A": "S1/S2周期与谐波组织，R1/R2谱包络",
+      "candidate_path_B": "L1/L2或X3/X4呈现变化",
+      "counterexample": "提高整体增益未必更实；低音多也未必有芯",
+      "needed_observations": "同增益人声、分带/谱、同元音条件与独立标签",
+      "claim_refs": [
+        "CLAIM:008",
+        "CLAIM:011",
+        "CLAIM:016",
+        "CLAIM:022"
+      ],
+      "id": "DESC:05",
+      "descriptor": "饱满、有芯、厚实",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 6,
+      "ambiguity": "薄、虚、空、飘不强制互为同义",
+      "candidate_path_A": "S2/S3谱及噪声比例候选",
+      "candidate_path_B": "L2主体短缺或X3掩蔽/X4空间",
+      "counterexample": "轻薄可有意而稳定；气声不必空或小声",
+      "needed_observations": "主体/入口/尾部分开、谱/包络、纯声与混音试听",
+      "claim_refs": [
+        "CLAIM:013",
+        "CLAIM:022",
+        "CLAIM:027"
+      ],
+      "id": "DESC:06",
+      "descriptor": "薄、虚、空、飘",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 7,
+      "ambiguity": "假音感、头声感是听感/唱法词，不直接标M2",
+      "candidate_path_A": "S1/S2/S3联合声质变化",
+      "candidate_path_B": "R1/R3谱包络与音区/上下文变化",
+      "counterexample": "高音或气声单独都不证明假声；同F0可有声质差",
+      "needed_observations": "同pitch/元音对照、周期/谱、标签；生理机制unknown",
+      "claim_refs": [
+        "CLAIM:016",
+        "CLAIM:008",
+        "CLAIM:020"
+      ],
+      "id": "DESC:07",
+      "descriptor": "假音感、头声感",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 8,
+      "ambiguity": "实声感、胸声感不是接触商或VOIC名称的别名",
+      "candidate_path_A": "S1/S2周期谐波组织",
+      "candidate_path_B": "R1/R2与L2主体/X3突出感",
+      "counterexample": "增大VOIC数值不保证胸声感；更响不必胸声",
+      "needed_observations": "实际输入、同增益输出谱/包络及局部用户反馈",
+      "claim_refs": [
+        "CLAIM:008",
+        "CLAIM:016",
+        "CLAIM:022"
+      ],
+      "id": "DESC:08",
+      "descriptor": "实声感、胸声感",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 9,
+      "ambiguity": "混声是唱法解释；顺畅是关系判断",
+      "candidate_path_A": "P3/T5平滑目标与时序",
+      "candidate_path_B": "S1/S2/R3/L2在过渡中保持或有意改变",
+      "counterexample": "F0连续仍可换声色；声色变化也可有意顺畅",
+      "needed_observations": "过渡两侧身份、F0/谱/包络连续性、音乐意图",
+      "claim_refs": [
+        "CLAIM:016",
+        "CLAIM:019",
+        "CLAIM:020"
+      ],
+      "id": "DESC:09",
+      "descriptor": "混声、换声顺畅",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 10,
+      "ambiguity": "挤、紧、顶、喊可指声质/用力感/音区或响度",
+      "candidate_path_A": "S2/R1/R3谱形及P1音区组合",
+      "candidate_path_B": "L1/L4强弱或T4入口带来的感受",
+      "counterexample": "响不等于挤；同音高局部顶感不能证明舌根后缩",
+      "needed_observations": "元音、音区、谱与入口阶段、原话；人体解释unknown",
+      "claim_refs": [
+        "CLAIM:007",
+        "CLAIM:011",
+        "CLAIM:015",
+        "CLAIM:022"
+      ],
+      "id": "DESC:10",
+      "descriptor": "挤、紧、顶、喊",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 11,
+      "ambiguity": "气声与耳语不同，漏气是生理措辞需保留假设",
+      "candidate_path_A": "S3/S4元音非周期量及频谱",
+      "candidate_path_B": "S1周期下降/消失与T4噪声先行",
+      "counterexample": "清辅音高频噪声不是漏气；BREC减小未必可闻",
+      "needed_observations": "持续元音、噪声/谐波、源滤波条件与同增益标签",
+      "claim_refs": [
+        "CLAIM:004",
+        "CLAIM:013",
+        "CLAIM:019"
+      ],
+      "id": "DESC:11",
+      "descriptor": "气声、耳语、漏气",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 12,
+      "ambiguity": "明亮、尖、刺的喜好/刺激感不同",
+      "candidate_path_A": "S2/R1/R2高频与包络变化",
+      "candidate_path_B": "L1强度、X3遮蔽或X1瞬态失真",
+      "counterexample": "谱重心高的低音量声不必刺；明亮可柔和",
+      "needed_observations": "频带、增益/回放、瞬态与分开听感标签",
+      "claim_refs": [
+        "CLAIM:011",
+        "CLAIM:020",
+        "CLAIM:022",
+        "CLAIM:030"
+      ],
+      "id": "DESC:12",
+      "descriptor": "明亮、尖、刺",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 13,
+      "ambiguity": "暗、柔、闷、蒙含音色与清晰度不同轴",
+      "candidate_path_A": "S2/R1/R2谱形变化",
+      "candidate_path_B": "T3线索受损或X3掩蔽/X4混响",
+      "counterexample": "暗可清楚；柔可明亮；低通不是唯一暗色原因",
+      "needed_observations": "同元音谱、辅音/混音对照及分词标签",
+      "claim_refs": [
+        "CLAIM:007",
+        "CLAIM:011",
+        "CLAIM:027"
+      ],
+      "id": "DESC:13",
+      "descriptor": "暗、柔、闷、蒙",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 14,
+      "ambiguity": "鼻色与鼻堵感分开；堵还可能是闷或挤",
+      "candidate_path_A": "R4口鼻耦合候选峰/谷结构",
+      "candidate_path_B": "R1/R2/S2普通谱色变化或T3线索弱",
+      "counterexample": "某频带突出不唯一证明鼻化；鼻音辅音可完全正常",
+      "needed_observations": "音素身份、谱峰谷、元音对照；生理原因unknown",
+      "claim_refs": [
+        "CLAIM:019",
+        "CLAIM:020"
+      ],
+      "id": "DESC:14",
+      "descriptor": "鼻、堵、鼻腔色彩",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 15,
+      "ambiguity": "口型不稳/舌根后缩是知觉比喻与原因假设分开",
+      "candidate_path_A": "R3同元音谱包络/峰变化",
+      "candidate_path_B": "S2/S3发声变化或T5过渡/估计失败",
+      "counterexample": "高F0的LPC跳峰可能无真实口型变化；双元音本有运动",
+      "needed_observations": "同元音/声线/音区、输出谱、边界及用户时间点",
+      "claim_refs": [
+        "CLAIM:006",
+        "CLAIM:007",
+        "CLAIM:020"
+      ],
+      "id": "DESC:15",
+      "descriptor": "口型不稳、舌根后缩感",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 16,
+      "ambiguity": "像换了人是身份连续性标签，不能直接认speaker改动",
+      "candidate_path_A": "S2/R1/R3跨字谱及音区变化",
+      "candidate_path_B": "X4空间或T5切换/模型speaker条件候选",
+      "counterexample": "speaker字段相同也可能色变；字段改变未必可闻换人",
+      "needed_observations": "两阶段输入及上下文、同增益谱、听者身份判断",
+      "claim_refs": [
+        "CLAIM:008",
+        "CLAIM:016",
+        "CLAIM:020"
+      ],
+      "id": "DESC:16",
+      "descriptor": "突然像换了人",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 17,
+      "ambiguity": "硬起与爆字头可能是有意发音/重音或异常突峰",
+      "candidate_path_A": "T4有声/噪声/辅音事件关系",
+      "candidate_path_B": "L4突峰、X1过载/X2拼接",
+      "counterexample": "爆破辅音强不必硬声门起音；硬起不必过载",
+      "needed_observations": "释放/周期起点、包络、峰值、相位及词身份",
+      "claim_refs": [
+        "CLAIM:026",
+        "CLAIM:030"
+      ],
+      "id": "DESC:17",
+      "descriptor": "硬起、爆字头",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 18,
+      "ambiguity": "软起、气起、虚起不是同一个时间参数",
+      "candidate_path_A": "L2缓起与T4起点组织",
+      "candidate_path_B": "S3/S4噪声领先或S1弱周期",
+      "counterexample": "包络缓起也能实；气声入口可很短很明确",
+      "needed_observations": "周期/噪声入口、元音起点、包络和听感",
+      "claim_refs": [
+        "CLAIM:013",
+        "CLAIM:019",
+        "CLAIM:026"
+      ],
+      "id": "DESC:18",
+      "descriptor": "软起、虚起、气起",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 19,
+      "ambiguity": "含糊、吞字、咬字弱可能是不同识别失误",
+      "candidate_path_A": "T3/T2声母或元音线索/核不足",
+      "candidate_path_B": "X3掩蔽或T5过渡影响可懂度",
+      "counterexample": "辅音能量更多不保证识别更准；原生音素正确也不保证清晰",
+      "needed_observations": "词身份、实际边界、线索、纯声/混音及识别任务",
+      "claim_refs": [
+        "CLAIM:019",
+        "CLAIM:026",
+        "CLAIM:027"
+      ],
+      "id": "DESC:19",
+      "descriptor": "咬字清楚、含糊、吞字",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 20,
+      "ambiguity": "连贯、粘、断、磕绊区分有意连断与异常",
+      "candidate_path_A": "T5/T1间隔、重叠及边界事件",
+      "candidate_path_B": "P3/R3/L2连续性或X2拼接",
+      "counterexample": "句末有意断开不等于磕绊；过分连可糊词",
+      "needed_observations": "跨字时钟、F0/包络/谱与乐句目的",
+      "claim_refs": [
+        "CLAIM:019",
+        "CLAIM:026",
+        "CLAIM:020"
+      ],
+      "id": "DESC:20",
+      "descriptor": "连贯、粘、断、磕绊",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 21,
+      "ambiguity": "滑、拐、跳跃是动作；太高是相对目标判断",
+      "candidate_path_A": "P3/P1音乐身份及连接路径",
+      "candidate_path_B": "T1/T2过快到达或声质过渡引起跳感",
+      "counterexample": "大音程可以自然；浅滑音也可能拖错拍",
+      "needed_observations": "原曲身份/unknown、目标F0、到达时刻及上下文",
+      "claim_refs": [
+        "CLAIM:018",
+        "CLAIM:026"
+      ],
+      "id": "DESC:21",
+      "descriptor": "滑、拐、跳得太高",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 22,
+      "ambiguity": "直、平是形状，机械/僵硬是音乐判断",
+      "candidate_path_A": "P2/P4较少变化与L2稳定",
+      "candidate_path_B": "T1/T5阶段重复或S2/R3过度一致候选",
+      "counterexample": "稳定直音可符合音乐目的；加入颤音不保证自然",
+      "needed_observations": "阶段/乐句与重复动作、声学变化和意图评价",
+      "claim_refs": [
+        "CLAIM:015",
+        "CLAIM:008"
+      ],
+      "id": "DESC:22",
+      "descriptor": "直、平、机械、僵硬",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 23,
+      "ambiguity": "稳、松弛、自然属于不同条件的评价词",
+      "candidate_path_A": "P1/T1符合目标且S/R连续候选",
+      "candidate_path_B": "有意变化的P4/L2/T5也可获自然感",
+      "counterexample": "低残差不保证自然；有意粗糙/抖动也可能合适",
+      "needed_observations": "目标、来源unknown、听者判断与多维描述；不能单阈值",
+      "claim_refs": [
+        "CLAIM:008",
+        "CLAIM:015",
+        "CLAIM:017"
+      ],
+      "id": "DESC:23",
+      "descriptor": "稳、松弛、自然",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 24,
+      "ambiguity": "无力、漏底、支撑不住不直接等于气声多",
+      "candidate_path_A": "L2元音主体包络不足候选",
+      "candidate_path_B": "S1/S2/R3变化或X3掩蔽",
+      "counterexample": "降低气声未必更有力；弱声可以完整稳定",
+      "needed_observations": "入口/核/尾能量、谱、承载时长及上下文标签",
+      "claim_refs": [
+        "CLAIM:013",
+        "CLAIM:022",
+        "CLAIM:027"
+      ],
+      "id": "DESC:24",
+      "descriptor": "无力、漏底、支撑不住",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 25,
+      "ambiguity": "渐强、蓄力、爆发、回收区分强弱轨迹与意图",
+      "candidate_path_A": "L2/L4振幅阶段组织",
+      "candidate_path_B": "S2/S3/P2/R3联合变化候选",
+      "counterexample": "电平不变也可有推进感；增益上升未必蓄力",
+      "needed_observations": "包络/分带、阶段时序、乐句目的与听觉结果",
+      "claim_refs": [
+        "CLAIM:009",
+        "CLAIM:025",
+        "CLAIM:022"
+      ],
+      "id": "DESC:25",
+      "descriptor": "渐强、蓄力、爆发、回收",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 26,
+      "ambiguity": "抢、赶、拖是相对节奏/歌词身份；松紧可含感觉",
+      "candidate_path_A": "T1音乐/词边界时差及T2核分配",
+      "candidate_path_B": "P3到达或T4/T5线索建立造成时间感",
+      "counterexample": "所有note落拍也可能字腹太快；提前音节可为有意切分",
+      "needed_observations": "音乐目标、元音事件与源观察，不拿HFA作裁判",
+      "claim_refs": [
+        "CLAIM:026",
+        "CLAIM:019"
+      ],
+      "id": "DESC:26",
+      "descriptor": "抢、赶、拖、松紧不对",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 27,
+      "ambiguity": "哭腔、哽咽、泣音的具体声学指向待标签",
+      "candidate_path_A": "P3/P4/S6断续或调制候选",
+      "candidate_path_B": "S3/T4/R3声质/入口变化候选",
+      "counterexample": "下滑或断声单独不保证哭感；哭感不必破音",
+      "needed_observations": "原话、音频身份、情境与阶段；专门知觉资料仍缺",
+      "claim_refs": [
+        "CLAIM:015",
+        "CLAIM:019"
+      ],
+      "id": "DESC:27",
+      "descriptor": "哭腔、哽咽、泣音",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 28,
+      "ambiguity": "笑、甜、冷、温暖、情绪足分别存标签",
+      "candidate_path_A": "R1/S2/T3音色/发音候选",
+      "candidate_path_B": "P2/P4/L2/T1表达组织候选",
+      "counterexample": "亮声不必甜；暗声不必温暖；同声学可因歌词变感受",
+      "needed_observations": "情境/词义、回放、听者及独立情绪研究缺口",
+      "claim_refs": [
+        "CLAIM:008",
+        "CLAIM:022"
+      ],
+      "id": "DESC:28",
+      "descriptor": "笑感、甜、冷、温暖、情绪充足",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 29,
+      "ambiguity": "近、贴耳、远、空灵区分空间与声质",
+      "candidate_path_A": "X4直达/反射、通道关系候选",
+      "candidate_path_B": "S3/R1/L1气声/谱/呈现强度候选",
+      "counterexample": "纯干声也可空灵；加混响不保证远或好听",
+      "needed_observations": "干/湿身份、IR/通道、回放与空间知觉标签",
+      "claim_refs": [
+        "CLAIM:028",
+        "CLAIM:022"
+      ],
+      "id": "DESC:29",
+      "descriptor": "近、贴耳、远、空灵",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_row": 30,
+      "ambiguity": "好听、难听、像原唱是审美/身份/目标不同任务",
+      "candidate_path_A": "多维声学与音乐组织的描述",
+      "candidate_path_B": "听者、原唱、歌词和风格情境评价",
+      "counterexample": "技术完全跟随也未必好听；偏离原唱可有意且好听",
+      "needed_observations": "明确比较目标、听者及标签，不能用总体分数补缺",
+      "claim_refs": [
+        "CLAIM:008",
+        "CLAIM:022"
+      ],
+      "id": "DESC:30",
+      "descriptor": "好听、难听、像不像原唱",
+      "mapping_role": "authored_hypothesis_component_sources_only",
+      "counterexample_role": "hypothetical_not_new_audio_or_coverage_test",
+      "synonym_equivalence_validated": false,
+      "measurement_validated": false,
+      "auditory_label_status": "no_new_labels",
+      "status": "reviewed_with_explicit_gaps"
+    }
+  ]
+}

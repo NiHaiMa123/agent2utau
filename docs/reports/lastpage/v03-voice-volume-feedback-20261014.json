@@ -1,0 +1,54 @@
+{
+  "status": "v03_vocal_volume_issues_recorded",
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-J-METHOD-WHOLE-SONG-01",
+    "append_only_feedback": true,
+    "latest_voice_volume_feedback": {
+      "date": "2026-10-14",
+      "submissions": 1,
+      "verbatim": "1:26-1:28，声音突然变小。3:03-3:10，副歌强度没顶上去，声音相对变小，这里应该是最有情绪的时候。3:16-3:19，也是声音变小。也就是现在音量控制还是有不到位的地方",
+      "clarification_verbatim": "就是人声小了，和bgm，混音这些没关系",
+      "problem_scope": "Voice itself; volume/prominence and emotional chorus intensity. BGM is not a diagnosis or adjustment target.",
+      "heard_exact_player": "not specified; user identifies the vocal problem rather than choosing mix/vocal player",
+      "preceding_v03_vocal": {
+        "path": "runs/production/lastpage-skill-whole-song-20261013/delivery/lastpage_J_method_whole_song_v03_vocal.wav",
+        "sha256": "0208840898ec08020d4e1d95c61cd5fb8de0aadc986c3d61c7dc80f55b259609"
+      },
+      "preceding_v03_mix": {
+        "path": "runs/production/lastpage-skill-whole-song-20261013/delivery/lastpage_J_method_whole_song_v03_mix.wav",
+        "sha256": "c102e1bbbf4153382d3c688f8ff307971eff2671b1f2618e7d44c0a6e2dd3577"
+      },
+      "intervals": [
+        {
+          "seconds": [
+            86,
+            88
+          ],
+          "label": "声音突然变小"
+        },
+        {
+          "seconds": [
+            183,
+            190
+          ],
+          "label": "副歌强度没顶上去，声音相对变小；这里应该是最有情绪的时候"
+        },
+        {
+          "seconds": [
+            196,
+            199
+          ],
+          "label": "声音变小"
+        }
+      ],
+      "newly_named_word_labels": 0,
+      "full_song_accepted": false,
+      "prior_J_local_acceptance_retained": true,
+      "prior_bao_C_local_acceptance_retained": true,
+      "force_vs_level_mechanism": "unknown pending current observations and new listening",
+      "agent_heard": false,
+      "measurement_validated": false,
+      "general_rule_validated": false
+    }
+  }
+}

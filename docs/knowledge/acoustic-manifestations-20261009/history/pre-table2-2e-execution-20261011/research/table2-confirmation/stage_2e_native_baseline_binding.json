@@ -1,0 +1,7 @@
+{
+  "stage": "2E-native",
+  "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-native-20261010/snapshot-manifest.json",
+  "sha256": "e179643f83a15aa35167757af08002db9cfb7d9689f84f6ba9712e4ecd6222ac",
+  "run": "runs/research/table2-2e-native-check-20261010",
+  "test_run": "runs/test-results/table2-2e-native-20261010"
+}

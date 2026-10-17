@@ -1,0 +1,352 @@
+{
+  "status": "one_voice_baseline_candidate_delivered_pending_listening",
+  "protocol": {
+    "path": "runs/experiments/lastpage-voice-baseline-20261011/design/protocol.json",
+    "sha256": "643f7d18929a1f3b5c2815979d4676dcd331e8859cc95574672f74a857958b75"
+  },
+  "feedback": {
+    "path": "runs/experiments/lastpage-voice-baseline-20261011/feedback/feedback.json",
+    "sha256": "4e5b29ef9b0de432e3005c2f889e9923e20cc32c88634c92947fb351a58706ef"
+  },
+  "execution": {
+    "rows": [
+      {
+        "context": 28,
+        "frames": 421,
+        "samples": 215552,
+        "baseline_raw_exact": true,
+        "baseline_prediction_and_final_channels_exact": true,
+        "both_variant_repeats_exact": true,
+        "changed_final_inputs": [
+          "spk_embed",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "manual_deltas_exact": true,
+        "vocoder_F0_exact": true,
+        "native_phone_clock_exact": true,
+        "feature_clipping": 0,
+        "variance_speaker_A": "Normal75/Classic25",
+        "variance_speaker_B": "Normal75/Bright25",
+        "acoustic_speaker_A": "Normal75/Classic25",
+        "acoustic_speaker_B": "Normal75/Bright25",
+        "wave_start_s": 209.42170350933333,
+        "seed11_101": true
+      },
+      {
+        "context": 29,
+        "frames": 305,
+        "samples": 156160,
+        "baseline_raw_exact": true,
+        "baseline_prediction_and_final_channels_exact": true,
+        "both_variant_repeats_exact": true,
+        "changed_final_inputs": [
+          "spk_embed",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "manual_deltas_exact": true,
+        "vocoder_F0_exact": true,
+        "native_phone_clock_exact": true,
+        "feature_clipping": 0,
+        "variance_speaker_A": "Normal75/Classic25",
+        "variance_speaker_B": "Normal75/Bright25",
+        "acoustic_speaker_A": "Normal75/Classic25",
+        "acoustic_speaker_B": "Normal75/Bright25",
+        "wave_start_s": 214.2206618426667,
+        "seed11_101": true
+      }
+    ],
+    "seeded_variance_calls": 8,
+    "seeded_acoustic_vocoder_waveforms": 8,
+    "baseline_and_repeats_exact": true,
+    "one_candidate_only": true,
+    "measurement_validated": false
+  },
+  "deliveries": {
+    "candidate_full": {
+      "path": "runs/experiments/lastpage-voice-baseline-20261011/delivery/lastpage_voice_baseline_B_vocal.wav",
+      "sha256": "ed69b469c40461a425388c7175bd1bea17a1919245c9731d02a7814ce8dcfd1c"
+    },
+    "candidate_preview": {
+      "path": "runs/experiments/lastpage-voice-baseline-20261011/delivery/B_same_lyrics_vocal.wav",
+      "sha256": "5c86e09704ac83fd2d91159282fb40e227ddcd8e713371829019626ee55593ef"
+    },
+    "candidate_project": {
+      "path": "runs/experiments/lastpage-voice-baseline-20261011/delivery/lastpage_voice_baseline_B.ustx",
+      "sha256": "380bd4dca54ef867dda7355b91949b1b2abc18edd333b8290f52678716761a92"
+    },
+    "original_preview": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/agent_acceptedC_same_lyrics_vocal.wav",
+      "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+    },
+    "author_reference": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/baishuo_current165c_reference_vocal.wav",
+      "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+    }
+  },
+  "assembly": {
+    "whole_duration_s": 245.57714285714286,
+    "fixed_vocal_gain": 1.5,
+    "peak": 0.677108108997345,
+    "native_DYN_preserved": true,
+    "PCM_outside_selected_contexts_exact": true,
+    "accepted_bao_C_PCM_exact": true,
+    "reverse_assembly_exact": true,
+    "source_unknown106_retained": true,
+    "kan283": "candidate changes voice condition; solidity protection awaiting feedback",
+    "no_normalization_compression_or_BGM": true,
+    "agent_heard": false
+  },
+  "word_responses": [
+    {
+      "word": 270,
+      "char": "想",
+      "vowel_s": [
+        209.93958333333333,
+        210.22916666666669
+      ],
+      "rms_change_db": 1.1098694590532234,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 271,
+      "char": "把",
+      "vowel_s": [
+        210.32187500000003,
+        210.73020833333334
+      ],
+      "rms_change_db": 0.589736475304176,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 272,
+      "char": "你",
+      "vowel_s": [
+        210.81145833333335,
+        211.01875000000004
+      ],
+      "rms_change_db": -0.166064300524193,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 273,
+      "char": "抱",
+      "vowel_s": [
+        211.21458333333334,
+        211.56354166666668
+      ],
+      "rms_change_db": 1.1496465059862797,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 274,
+      "char": "进",
+      "vowel_s": [
+        211.65625000000003,
+        211.79583333333335
+      ],
+      "rms_change_db": -0.7039687816873773,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 275,
+      "char": "身",
+      "vowel_s": [
+        211.94791666666669,
+        212.23750000000004
+      ],
+      "rms_change_db": 0.17396186706150588,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 276,
+      "char": "体",
+      "vowel_s": [
+        212.36458333333334,
+        212.87604166666668
+      ],
+      "rms_change_db": 1.000223999345887,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 277,
+      "char": "里",
+      "vowel_s": [
+        212.9572916666667,
+        213.58541666666667
+      ],
+      "rms_change_db": 0.1119740214580934,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 278,
+      "char": "面",
+      "vowel_s": [
+        213.7947916666667,
+        214.21562500000002
+      ],
+      "rms_change_db": -0.36074732596748504,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 279,
+      "char": "不",
+      "vowel_s": [
+        214.65520833333335,
+        214.9666666666667
+      ],
+      "rms_change_db": 0.9149904926171051,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 280,
+      "char": "敢",
+      "vowel_s": [
+        215.05937500000002,
+        215.2697916666667
+      ],
+      "rms_change_db": 0.19267615584248332,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 281,
+      "char": "让",
+      "vowel_s": [
+        215.33958333333334,
+        215.66354166666667
+      ],
+      "rms_change_db": 0.5607278622277789,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 282,
+      "char": "你",
+      "vowel_s": [
+        215.72083333333333,
+        216.13958333333335
+      ],
+      "rms_change_db": -0.22718757687916538,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 283,
+      "char": "看",
+      "vowel_s": [
+        216.3260416666667,
+        217.08125000000004
+      ],
+      "rms_change_db": 0.3453336740561831,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    },
+    {
+      "word": 284,
+      "char": "见",
+      "vowel_s": [
+        217.22083333333333,
+        217.66354166666667
+      ],
+      "rms_change_db": 0.1258252681352132,
+      "intensity_proxy_only": true,
+      "new_solidity_label": "pending",
+      "new_articulation_break_or_other_side_effects": "unknown"
+    }
+  ],
+  "candidate_preferred": false,
+  "general_rule_validated": false,
+  "measurement_validated": false,
+  "limitations": [
+    "two complete own contexts from an already seen song; no held-out/general claim",
+    "speaker intervention changes three predictions and output timbre/level; not isolated voicing physiology",
+    "fixed vocoder input F0, output detected F0 not newly measured; Agent has not heard",
+    "author reference is current165c, original156 historical audio unavailable"
+  ],
+  "next": "Receive whole two-phrase B response, including solidity/articulation/kan; accept/reject this one route before expanding whole-song scope",
+  "table1_refs": {
+    "perception": "PER:S1",
+    "changed": [
+      "PARAM:C20.01",
+      "PARAM:C20.05"
+    ],
+    "retained": [
+      "PARAM:C20.03"
+    ],
+    "case_scope": "aggregate two-phrase comparative judgment; no word-by-word normality",
+    "table_sources": [
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.csv",
+        "sha256": "3e58bf397ed323c09210b76595d81acaeed67c7483695cb9ebb515446f04d678"
+      },
+      {
+        "path": "docs/knowledge/acoustic-manifestations-20261009/atomic-manifestations.csv",
+        "sha256": "c400fb512772ec23f452b5765af37cabca92f262e0243a43541d661fbcdb3ba7"
+      }
+    ]
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-VOICE-BASELINE-01",
+    "comparison": "B-A",
+    "intervention": "speaker compositional swap Classic25->Bright25 with Normal75 fixed",
+    "contexts": [
+      28,
+      29
+    ],
+    "words": [
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284
+    ],
+    "independent_contexts": 2,
+    "seeded_same_input_repeats": 4,
+    "waveforms": 8,
+    "prior_user_comparison_feedback": "author-reference vs original-A predominantly solid vs airy",
+    "candidate_user_feedback": "pending",
+    "source_feedback_is_not_candidate_feedback": true,
+    "adoption": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "preparation_repair": "Absent cl01 is declared default0; added candidate cl01 explicitly on unchanged cl03 grid. Rejected preparation snapshot preserved; no old file edit."
+}

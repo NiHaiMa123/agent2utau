@@ -1,0 +1,85 @@
+{
+  "status": "passed_partial_human_feedback",
+  "date": "2026-10-11",
+  "source_seals": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+      "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+    },
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/completion-manifest.json",
+      "sha256": "4800a9b8270d2da1edfbeb629834d0b5841cae9f7dd041d2344a15215046d25c"
+    }
+  ],
+  "sealed_experiment_files_SHA": 484,
+  "sealed_experiment_documents_SHA": 4,
+  "previous_feedback_files_SHA": 43,
+  "previous_feedback_documents_SHA": 9,
+  "production_skill_project_SHA": 79,
+  "protected_inputs_SHA": 67,
+  "presented_pair_audio_SHA": 2,
+  "snapshot_files_SHA": 15,
+  "current_markdown_links_checked": 207,
+  "feedback": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-word225-da-feedback-20261011.json",
+    "sha256": "8f187db5054205fba4ea85f794976d21bfc3f952e1d3f9811d421c536abb4148"
+  },
+  "report": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-word225-da-feedback-20261011.md",
+    "sha256": "29f965230252aa5fda27043aa30fb9a21ff30638726d110028fa6d4ae78582d9"
+  },
+  "current_entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "f50807e0ae85d4a5ffa4d3d445bcfa26ef8f7b577b0be3327990a5e9fc297061"
+    },
+    {
+      "path": "README.md",
+      "sha256": "4ab22fd929f4472c71880a16131313d90366bf4ffe4513248c38256156f31480"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "8a3541d0cf00be7935a6112fe4bcaf7b4d82926965f6cedc80794e12003fbe73"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "91f73e9f82d5974e0ddd3f21dbc09d3e0caa4e62fd4b039fc9838643ded62f74"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "56d420213dbb28ed6bc480430d1b603e22d12f5e8f82e7001d4af2a05e4954c7"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "7c61b694a0d8f5d4e1fff5053d21839159e7e09297baf0fc38cb43ab9c973264"
+    }
+  ],
+  "worktree_gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 529
+  },
+  "worktree_gate_log": {
+    "path": "runs/research/table2-word225-da-feedback-20261011/worktree-gate.txt",
+    "sha256": "7684cd06219a34e373bcd245dff2c8c60a5e26f0e3ff7b25ad7da9048d65f677"
+  },
+  "this_record_new_feedback": 1,
+  "cumulative_new_feedback": 4,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "stage_2E_complete": false,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "CI_manual_only": true
+}

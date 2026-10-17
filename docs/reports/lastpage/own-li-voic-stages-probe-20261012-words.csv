@@ -1,0 +1,16 @@
+﻿word,char,context,manual_action,vowel_RMS_change_db,FCPE_abs_cents_p50,RMVPE_abs_cents_p50,auditory_status
+270,想,28,keep F,1.7665389317579393e-07,0.0011750455290438792,0.0,pending
+271,把,28,keep F,-3.260902473477591e-07,0.0006709684909006514,0.0005010354131207034,pending
+272,你,28,keep F,-5.08050179847728e-08,0.0009388376792037584,0.0005283275272790405,pending
+273,抱,28,keep F,4.825974415771467e-07,0.0005345846818297583,0.0005271989343137972,pending
+274,进,28,keep F,-5.843107007331461e-08,0.00019095420576527262,0.0,pending
+275,身,28,keep F,9.43629618849154e-08,0.0010662612724782227,0.0005359390988812826,pending
+276,体,28,keep F,-5.75173217313052e-06,0.0006079310224351448,0.0005660166978506467,pending
+277,里,28,VOIC-staged+6peak,0.11620098765013077,0.0262086928698816,0.010435923447893427,pending
+278,面,28,keep F,0.00012594907969163416,0.0009916136749573588,0.0005722195067930777,pending
+279,不,29,keep F,0.0,0.0,0.0,"real phones PCM retained, no new acceptance"
+280,敢,29,keep F,0.0,0.0,0.0,"real phones PCM retained, no new acceptance"
+281,让,29,keep F,0.0,0.0,0.0,"real phones PCM retained, no new acceptance"
+282,你,29,keep F,0.0,0.0,0.0,"real phones PCM retained, no new acceptance"
+283,看,29,keep F,0.0,0.0,0.0,"real phones PCM retained, no new acceptance"
+284,见,29,keep F,0.0,0.0,0.0,"real phones PCM retained, no new acceptance"

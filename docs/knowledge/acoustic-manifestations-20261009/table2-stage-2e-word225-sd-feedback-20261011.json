@@ -1,0 +1,220 @@
+{
+  "feedback_id": "T2E-W225-SD-20261011",
+  "user_message_verbatim": "k3力量感大于k2，没有破音",
+  "message_source": "human user replying to 07 K3→K2 and 08 K2→K3 paired mono vocals in current chat",
+  "condition_id": "current-word-225",
+  "lyric": "抱",
+  "comparison": "S-D",
+  "feedback_scope": "aggregate report on the current fixed S/D focal vocal presentation, distinct from the earlier cross-presentation S>D statement",
+  "per_order_results": "not separately stated",
+  "actual_listened_set": "not separately enumerated",
+  "current_comparative_result": {
+    "stronger_power_code": "K3",
+    "reference_code": "K2",
+    "stronger_power_path": "S",
+    "reference_path": "D"
+  },
+  "current_break_result": {
+    "code": "K3",
+    "research_path": "S",
+    "audible_break_user_report": "none_in_current_presentation"
+  },
+  "current_K2_break_result": "not separately repeated; prior D/A feedback reported none for K2",
+  "relation_to_prior_cross_presentation_feedback": "same stated S>D power direction now supplied on fixed 07/08 pairs; no independent experiment or objective replication claimed",
+  "preserved_power_relations": [
+    {
+      "greater": "K3=S",
+      "lesser": "K2=D",
+      "basis": "current fixed S/D paired feedback and earlier separately preserved cross-presentation feedback"
+    },
+    {
+      "greater": "K2=D",
+      "lesser": "K1=A",
+      "basis": "prior D/A paired feedback"
+    },
+    {
+      "greater": "K4=P",
+      "lesser": "K1=A",
+      "basis": "prior P/A paired feedback"
+    }
+  ],
+  "unknown_power_relations": [
+    [
+      "K4=P",
+      "K2=D"
+    ],
+    [
+      "K4=P",
+      "K3=S"
+    ]
+  ],
+  "power_order_scope": "local partial ordinal relations S>D>A and P>A; no complete four-version power ranking or numerical scale",
+  "preferred_version": "original four-version K3 preference preserved, not used to infer S>P power",
+  "inference_boundary": "S and D share shifted direct acoustic F0 input, differing in the fresh joint prediction group; current local power difference is limited evidence of prediction-group response under this shifted input, not single-channel or physiological attribution, quantified contribution, universal rule or interaction proof",
+  "unreported_auditory_dimensions": [
+    "subjective_loudness",
+    "objective_loudness",
+    "diction",
+    "body",
+    "naturalness",
+    "absolute_usability"
+  ],
+  "listening_metadata": {
+    "device": "unknown",
+    "player": "unknown",
+    "volume": "unknown",
+    "actual_order": "unknown",
+    "repetitions": "unknown",
+    "both_order_completion": "unknown",
+    "blinding": "unknown"
+  },
+  "paired_comparison_groups_with_explicit_feedback": 4,
+  "word225_paired_comparison_groups_with_explicit_feedback": 4,
+  "word214_paired_comparison_groups_with_explicit_feedback": 0,
+  "frozen_main_comparison_groups": 10,
+  "remaining_gaps": [
+    "word225 S-P",
+    "mixed-audio feedback",
+    "unreported dimensions and order-specific results",
+    "word214 fixed pairs/mix not explicitly rated; independent four-version negative preserved without expanded validation"
+  ],
+  "word214_status": "no perceptible difference reported; no expanded validation",
+  "cumulative_new_feedback": 6,
+  "schema_version": 1,
+  "status": "partial_human_feedback_recorded",
+  "stage_2E_complete": false,
+  "record_created_utc": "2026-10-11T07:38:09.885244+00:00",
+  "user_message_timestamp": "unknown",
+  "presented_audio": [
+    {
+      "presentation": {
+        "condition_id": "current-word-225",
+        "order": 7,
+        "direction": "S-D",
+        "codes": [
+          "K3",
+          "K2"
+        ],
+        "segment_samples": 93621,
+        "gap_samples": 26460,
+        "second_start_s": 2.7229251700680273,
+        "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-07-K3-K2.wav",
+        "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-07-K3-K2.wav"
+      },
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-07-K3-K2.wav",
+      "sha256": "92b9452db2ea5599ad594fd8869418cad263dfc70e559dd3cc373598198017c8",
+      "samples": 213702,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6629836559295654,
+      "max_encoding_error": 1.1897509466507472e-07
+    },
+    {
+      "presentation": {
+        "condition_id": "current-word-225",
+        "order": 8,
+        "direction": "D-S",
+        "codes": [
+          "K2",
+          "K3"
+        ],
+        "segment_samples": 93621,
+        "gap_samples": 26460,
+        "second_start_s": 2.7229251700680273,
+        "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-08-K2-K3.wav",
+        "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-08-K2-K3.wav"
+      },
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-08-K2-K3.wav",
+      "sha256": "2630ddaab9476e026542dd28e8a838a52f1c687e40bbae77bb2046655919c0ad",
+      "samples": 213702,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.6629836559295654,
+      "max_encoding_error": 1.1897509466507472e-07
+    }
+  ],
+  "preserved_feedback": [
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/feedback.json",
+      "sha256": "1274aafa16b423052d7f52884b0caf8dcfda4ba69e5bb78a792a114d2a864ca3"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/feedback.json",
+      "sha256": "f252123e5a0a206dfd2ea39c01044b2ff8ccb5722617f9c7c228731581d09564"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/feedback.json",
+      "sha256": "4ca0c92a7f3e9ebdb20ceab1c98905d5c2fec60c00fe8461a1c115f55aaff0e5"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/feedback.json",
+      "sha256": "8f187db5054205fba4ea85f794976d21bfc3f952e1d3f9811d421c536abb4148"
+    },
+    {
+      "path": "runs/research/table2-word225-pa-feedback-20261011/feedback.json",
+      "sha256": "0f2eade4f27e5af00b28e0e3639dc62ad1d2cc8fdab91f81727a735e5067955f"
+    }
+  ],
+  "source_seals": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+      "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+    },
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/completion-manifest.json",
+      "sha256": "4800a9b8270d2da1edfbeb629834d0b5841cae9f7dd041d2344a15215046d25c"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/completion-manifest.json",
+      "sha256": "4e20e662350519ecb5103b6a36079ea2b06706f8083648ec7993cc14c01dbafc"
+    },
+    {
+      "path": "runs/research/table2-word225-pa-feedback-20261011/completion-manifest.json",
+      "sha256": "0f45f5fc8690cb771faaed562741b50edbf25e958ee09767828348eb1bdad4fc"
+    }
+  ],
+  "packaging": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/pcm-packaging.json",
+    "sha256": "6517c3a8d5dfbf975de42240dc8ee5b45eb305fb1527cf8cdac6a68c90e1c7b5"
+  },
+  "protocol": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+    "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+  },
+  "pre_update_snapshot": {
+    "path": "runs/research/table2-word225-sd-feedback-20261011/before/snapshot-manifest.json",
+    "sha256": "42d3aeb1f41697d2e8356adda91a263c6079f81184ab343a34f02500347fb023"
+  },
+  "protected_baseline": {
+    "stage": "2E-execution",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/snapshot-manifest.json",
+    "sha256": "01dffada2ee989a45e6e48f79dbd5ada8dd67d0bc8c475dd54f2a14945e47c46",
+    "run": "runs/experiments/table2-shfc-paths-20261011",
+    "test_run": "runs/test-results/table2-2e-execution-20261011"
+  },
+  "this_record_new_feedback": 1,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "production_song_changed": false,
+  "skill_changed": false,
+  "automatic_expansion": false,
+  "recorder": {
+    "path": "research/table2-confirmation/record_stage_2e_feedback_supplement.py",
+    "sha256": "0f799dcb03fc51821f821cbfc8c37df4f83888802d0eba9f018b46e5dce4ba21"
+  },
+  "explicit_feedback_specification": {
+    "path": "research/table2-confirmation/stage_2e_word225_sd_feedback_20261011.json",
+    "sha256": "d2e4be9a676389e5b5556905415c5cd1f5935dca6df6ca354c6690edf0654ec1"
+  }
+}

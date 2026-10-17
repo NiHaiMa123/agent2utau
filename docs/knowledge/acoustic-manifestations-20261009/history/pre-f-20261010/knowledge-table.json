@@ -1,0 +1,1496 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-09",
+  "status": "research_inventory_not_validated_complete_detector_or_skill_rule",
+  "agent_audio_perception": false,
+  "no_new_synthesis": true,
+  "atoms": [
+    {
+      "id": "P1",
+      "dimension": "音高中心",
+      "manifestations": "准、偏高、偏低、八度错误",
+      "measurement": "可靠有声段F0相对音乐目标的cents误差；保留无声/估计冲突",
+      "controls": "note tone、tuning、pitch点、PITD；条件pitch与输出pitch分开",
+      "mechanism": "PITD增加100c使目标线升1半音；实际PCM需复测，不能修口型冒充修音准",
+      "evidence": "M1；没有全曲听觉验收"
+    },
+    {
+      "id": "P2",
+      "dimension": "音高慢趋势",
+      "manifestations": "平直、推进、回落、越唱越高/低",
+      "measurement": "元音内非周期中心走势、c/s及持续时间",
+      "controls": "pitch点/PITD的锚点、斜率、支撑",
+      "mechanism": "慢趋势不是颤音；改变F0也会改变预测发声与谱，响度方向未定",
+      "evidence": "M1、M8；源观测unknown保留"
+    },
+    {
+      "id": "P3",
+      "dimension": "换音轨迹",
+      "manifestations": "滑音、倚音、上挑、下滑、连贯/突跳",
+      "measurement": "起止音程、到达时刻、过冲、斜率、加速度、与元音起点关系",
+      "controls": "note衔接、pitch插值形状/PITD、音素时钟",
+      "mechanism": "同一音程可以快/慢到达；数学连续不保证音色和发声连续",
+      "evidence": "M1、M8；未有统一自然斜率"
+    },
+    {
+      "id": "P4",
+      "dimension": "音高周期调制",
+      "manifestations": "直音、颤音、摇晃、音高颤抖",
+      "measurement": "调制频率Hz、深度c、规则性、相位、进入/退出",
+      "controls": "vibrato length/period/depth/in/out/shift/drift，或函数PITD",
+      "mechanism": "周期200ms=5Hz；depth25c为正弦峰幅，峰峰50c；越深不等于越好",
+      "evidence": "M2；文献S4；未验证本曲颤抖病因"
+    },
+    {
+      "id": "P5",
+      "dimension": "音高非周期扰动",
+      "manifestations": "抖动、游移、短促音高裂点",
+      "measurement": "去趋势/周期后的短时F0残差；稳定周期段才考虑jitter",
+      "controls": "局部pitch/PITD、音素与模型条件；无独立真实jitter旋钮",
+      "mechanism": "无声段、颤音、倍频误检不可算生理jitter；随机加噪不能自动得到自然",
+      "evidence": "S1、S3；当前未测可靠jitter"
+    },
+    {
+      "id": "L1",
+      "dimension": "总电平与感知响度",
+      "manifestations": "大、小、压过/被伴奏盖住",
+      "measurement": "RMS/dBFS、短时响度、频谱、同播放条件；二者不可混用",
+      "controls": "DYN、track volume、VOL(支持引擎)、发声条件、伴奏平衡",
+      "mechanism": "DYN纯乘法可确定电平；模型参数同时改谱，RMS相近仍可能听弱",
+      "evidence": "M3、E4"
+    },
+    {
+      "id": "L2",
+      "dimension": "非周期强弱包络",
+      "manifestations": "渐强、渐弱、长音漏底、忽大忽小",
+      "measurement": "30/50ms RMS包络、低谷深度/长度、字头/腹/尾分区",
+      "controls": "DYN函数/控制时间、ATK/DEC/包络(采样引擎)、VOIC等间接路径",
+      "mechanism": "保留有目的的强弱；整字平均掩盖接口低谷，不能逐字归一",
+      "evidence": "M3、E4、E5"
+    },
+    {
+      "id": "L3",
+      "dimension": "音量周期调制",
+      "manifestations": "音量颤抖、脉冲、呼吸感、抽动",
+      "measurement": "振幅调制频率/深度、与F0调制相位、频带包络",
+      "controls": "DYN、vibrato vol_link(版本支持)、模型发声曲线间接影响",
+      "mechanism": "音高颤音经过谱/共振变化也会形成AM；不是看到抖就加减PITD",
+      "evidence": "M2、S4；当前没有单因素听觉规律"
+    },
+    {
+      "id": "L4",
+      "dimension": "瞬态电平不连续",
+      "manifestations": "突然爆一下、塌一下、字头/尾断层",
+      "measurement": "增益跳变、峰值、接口短窗、crest factor",
+      "controls": "DYN节点与坡度、拼接、ATK/DEC、混音、模型上下文",
+      "mechanism": "缓变增益可避开人工跳变；模型谱/源突变不能只靠DYN解决",
+      "evidence": "M3、E3、E4"
+    },
+    {
+      "id": "S1",
+      "dimension": "周期声源与有声支撑",
+      "manifestations": "有芯、漏声、无芯、清声/弱周期声",
+      "measurement": "周期/噪声分解、CPP、HNR、谐波幅度；依赖元音与音区",
+      "controls": "VOIC、BREC、音高/SHFC、speaker、模型；ENE仅启用时",
+      "mechanism": "VOIC正增量提高模型voicing条件，不保证更响/更实；假音仍可以有明确周期",
+      "evidence": "M4、E6、S1、S5"
+    },
+    {
+      "id": "S2",
+      "dimension": "谐波谱形",
+      "manifestations": "明亮/暗、厚/薄、锐/柔、金属感",
+      "measurement": "经共振影响校正的H1-H2、分段谱斜率、谐波分布",
+      "controls": "TENC、GENC、SHFC、speaker、F0、模型；EQ后处理改输出谱",
+      "mechanism": "高频增加常使更亮，也可能尖；不存在TENC数值直接等于饱满度",
+      "evidence": "M4、M5、E1-E4、S2"
+    },
+    {
+      "id": "S3",
+      "dimension": "非周期噪声比例",
+      "manifestations": "气声、沙声、漏气、干净/浑浊",
+      "measurement": "分频带噪声/谐波关系、CPP/HNR；区分辅音摩擦和元音气声",
+      "controls": "BREC、VOIC、speaker、模型/声码器；BRE旗标仅对应引擎",
+      "mechanism": "BREC负增量降低模型breathiness输入；本轮-10六组无可感知改变",
+      "evidence": "M4、E7、S3"
+    },
+    {
+      "id": "S4",
+      "dimension": "噪声频谱与位置",
+      "manifestations": "气流、嘶、刺耳齿音、低频风噪",
+      "measurement": "噪声频带/持续区、谱质心、辅音/元音分类",
+      "controls": "音素选择/长度、BREC、声库、LPF/旗标(采样引擎)、EQ",
+      "mechanism": "摩擦音不是气声异常；提高/降低总气声未必改变目标频带",
+      "evidence": "S1、S3；无本曲已验收修法"
+    },
+    {
+      "id": "S5",
+      "dimension": "次谐波与多周期结构",
+      "manifestations": "粗糙、颗粒、嘶吼、双音、撕裂的一类",
+      "measurement": "F0/2、F0/3等结构、侧带、多周期、谱与听感联合",
+      "controls": "声库/模型可表达能力、GRWC/Hifisampler仅对应引擎、发声条件候选",
+      "mechanism": "TENC不是可靠growl开关；粗糙也可为有意唱法；当前未证实次谐波",
+      "evidence": "S6、S7；当前引擎无已验证独立粗糙度控制"
+    },
+    {
+      "id": "S6",
+      "dimension": "发声中断与恢复",
+      "manifestations": "破音、断声、失声、声区突然翻转的一类",
+      "measurement": "有声连续性、短时F0/谱/电平突变及恢复时钟",
+      "controls": "F0与条件进入、SHFC、音素边界、speaker、模型",
+      "mechanism": "输出不满幅仍可听到破音；SHFC抱B有字头破音反馈，C只获局部可用",
+      "evidence": "E2、E3；破音具体声学种类unknown"
+    },
+    {
+      "id": "R1",
+      "dimension": "元音共振位置",
+      "manifestations": "开/闭、前/后、圆唇、口型变窄、元音偏移",
+      "measurement": "F1/F2/F3及带宽与谱包络；高F0需防LPC锁谐波",
+      "controls": "音素/语言/字典、GENC、SHFC、speaker、模型、F0间接",
+      "mechanism": "正常元音变更应变化；GENC非独立F1/F2/舌位控制；不能由主观口型倒推生理位置",
+      "evidence": "M5、E8、S8、S9"
+    },
+    {
+      "id": "R2",
+      "dimension": "共振宽度与峰谷形状",
+      "manifestations": "集中/散、尖/闷、某频带凹陷",
+      "measurement": "共振带宽、谱峰/谷、分带能量，避免把谐波峰当共振峰",
+      "controls": "音素、声线/模型、GENC、发声状态；EQ只改输出",
+      "mechanism": "能量谱形与声道滤波不完全可分；单个频带下降不证明formant漂移",
+      "evidence": "E4、S1、S8"
+    },
+    {
+      "id": "R3",
+      "dimension": "共振过渡与字内稳定",
+      "manifestations": "口型漂移、共鸣断层、变嘴型、元音渐变",
+      "measurement": "同元音核的谱包络运动；CV/VC、双元音轨迹/持续时间",
+      "controls": "音素时钟/序列、上下文、speaker变化、SHFC/GENC时间形状",
+      "mechanism": "ao/uo等自带运动不能强求静止；控制平台相同也可能因上下文预测变声",
+      "evidence": "E3、E8、M8；未独立测F1/F2漂移"
+    },
+    {
+      "id": "R4",
+      "dimension": "鼻腔耦合相关谱形",
+      "manifestations": "鼻音、鼻腔色彩、闭塞/闷的一类",
+      "measurement": "鼻化峰/反共振、带宽、口/鼻音上下文；避免单峰判鼻化",
+      "controls": "鼻音音素与时序、speaker、TENC/模型候选；无鼻腔独立旋钮",
+      "mechanism": "n/m/ng需要正常鼻音；TENC改变不等于确定降低鼻化",
+      "evidence": "S8、官方DiffSinger说明；本曲因果unknown"
+    },
+    {
+      "id": "T1",
+      "dimension": "整体发声落点",
+      "manifestations": "抢拍、拖拍、字头太早/晚",
+      "measurement": "音符、辅音、元音开始与节拍/原曲各自偏差",
+      "controls": "note/part position、tempos、音素offset、字头提前量",
+      "mechanism": "移音符改变时钟和上下文；小对齐误差不等于可听问题或歌唱身份错误",
+      "evidence": "M7、E8"
+    },
+    {
+      "id": "T2",
+      "dimension": "音素承载时长",
+      "manifestations": "吞字、拖字、元音不够、声母过长",
+      "measurement": "辅音/元音/韵尾时长ms、比例；保留双元音内部运动",
+      "controls": "note duration、延音+、音素边界、duration模型、VEL仅有读取路径时",
+      "mechanism": "延长元音改变模型帧数/相邻承接；当前g→uo无大错位证据，不盲拆uo",
+      "evidence": "M7、E8"
+    },
+    {
+      "id": "T3",
+      "dimension": "辅音动作与清晰度",
+      "manifestations": "咬字清晰/含糊、硬/软、齿音重、爆破弱",
+      "measurement": "爆破/摩擦瞬态、VOT/送气、频谱和辅音相对元音电平",
+      "controls": "phonetic hint/override、字典/phonemizer、音素时长、声库、包络/VEL支持路径",
+      "mechanism": "模型条件可间接改字头；抱C b电平约降5.326dB，但不等于用户判咬字坏",
+      "evidence": "E3、E8、S8"
+    },
+    {
+      "id": "T4",
+      "dimension": "起声协调",
+      "manifestations": "气起、硬起、柔起、卡字头",
+      "measurement": "辅音/呼气/周期声建立顺序、起声时间和谱电平运动",
+      "controls": "AP/音素、pitch到达、发声/SHFC函数进入、采样包络",
+      "mechanism": "音量attack、辅音长度与发声条件进入是不同路径；145ms不推广成通用值",
+      "evidence": "E2、E3、M7"
+    },
+    {
+      "id": "T5",
+      "dimension": "跨音素衔接",
+      "manifestations": "连唱、断唱、粘字、换元音突变",
+      "measurement": "音素间gap/overlap、谱/F0/电平连续性、上下文一致",
+      "controls": "phonemes/offset/延音、分句、声线、各曲线时间；oto overlap仅采样库",
+      "mechanism": "词表正确不能保证过渡自然；模型完整句重算可能影响邻字",
+      "evidence": "E4、E8、M7、M8"
+    },
+    {
+      "id": "T6",
+      "dimension": "收声与韵尾",
+      "manifestations": "自然收束、硬切、拖尾、尾字漏声、韵尾丢失",
+      "measurement": "元音→韵尾→静音时钟、能量与周期声释放",
+      "controls": "note/phoneme末端、SP/AP、pitch/发声/DYN退出、DEC/释放时间支持路径",
+      "mechanism": "只拉低增益可丢韵尾；持续有声和气尾需分别描述",
+      "evidence": "M3、M7；本曲未有因果验收"
+    },
+    {
+      "id": "T7",
+      "dimension": "呼吸与静音组织",
+      "manifestations": "换气、喘、气口短/长、断句不对",
+      "measurement": "AP/SP/空隙长度、呼气噪声电平、与下一元音位置",
+      "controls": "AP/SP、note/part间距、词/句划分、DYN、模型上下文",
+      "mechanism": "AP不等于静音；SP不是任意漏声标签；呼吸位置属于音乐意图",
+      "evidence": "M7、M8；按当前原曲独立判断"
+    },
+    {
+      "id": "X1",
+      "dimension": "非线性失真",
+      "manifestations": "削波、炸、过载、破音的一类",
+      "measurement": "满幅平台/削波比例、谐波扩展、true peak、失真残差",
+      "controls": "DYN/track/VOL增益、叠加、压缩/限制路径、PCM格式",
+      "mechanism": "降低增益可防后级过载；不能修合成前声源异常；当前破音无文件满幅削波",
+      "evidence": "E2、E3；未检验全部播放设备"
+    },
+    {
+      "id": "X2",
+      "dimension": "数码/拼接伪影",
+      "manifestations": "咔哒、毛刺、金属颗粒、重复纹理、边界接缝",
+      "measurement": "波形/导数不连续、异常时频结构、重复/相位、边界残差",
+      "controls": "分句/重叠组装、声码器/重采样、steps/depth、缓存/导出完整性",
+      "mechanism": "变化可能来自模型或组装；steps增多不保证更自然；不能把画线检查当听音",
+      "evidence": "M8；未有通用伪影阈值"
+    },
+    {
+      "id": "X3",
+      "dimension": "遮蔽与声部平衡",
+      "manifestations": "埋在人群/伴奏、突出、字被盖住",
+      "measurement": "人声/伴奏分带与时序关系、混音/纯人声两种试听",
+      "controls": "track volume、伴奏音量/位置、pan、EQ、编配/导入轨道",
+      "mechanism": "同人声在不同伴奏可清楚/不清楚；固定增益比较仍保留真实遮蔽",
+      "evidence": "M9；本轮固定1.5/.7"
+    },
+    {
+      "id": "X4",
+      "dimension": "空间与相位关系",
+      "manifestations": "近/远、干/湿、空/贴、宽/窄、重影",
+      "measurement": "直达/混响比例、尾长、pre-delay、声道互相关/相位",
+      "controls": "pan、多轨叠加、混响(版本支持)、导入音频、声道/导出",
+      "mechanism": "空间能改变清晰/饱满感觉但不直接改合成音素；本轮未用效果器",
+      "evidence": "M9；当前安装效果器能力未验证"
+    },
+    {
+      "id": "X5",
+      "dimension": "频带与录制/导出质地",
+      "manifestations": "闷、亮、低保真、底噪、失去空气感",
+      "measurement": "频带范围、噪声底、采样率/位深/编码、EQ响应",
+      "controls": "声库/声码器匹配、LPF/引擎旗标、EQ、导出格式、导入音频",
+      "mechanism": "本模型mel 40-16000Hz与输出44100Hz不是同一种频带声明；格式不能恢复缺失发音信息",
+      "evidence": "M8、M9；未听验收"
+    }
+  ],
+  "composite_descriptors": [
+    {
+      "descriptor": "撕裂、嘶吼",
+      "decomposition": "S5+S3+S2，或S6/X1",
+      "boundary": "先区分有意粗糙唱法、发声失稳、数码过载；TENC不是通用撕裂度"
+    },
+    {
+      "descriptor": "沙哑、颗粒、毛糙",
+      "decomposition": "S3+S5+P5，可能X2",
+      "boundary": "非周期噪声、多周期可分别或共同出现；不能用jitter单指标包办"
+    },
+    {
+      "descriptor": "破音、炸一下",
+      "decomposition": "S6/P1/P3、L4、X1/X2的不同组合",
+      "boundary": "当前抱B只有字头破音反馈，具体类型尚未归类"
+    },
+    {
+      "descriptor": "颤抖、摇晃",
+      "decomposition": "P4/P5、L3、R3、S1变化",
+      "boundary": "记录是哪条维度、频率/深度/规则性；颤音与抖动质量依上下文"
+    },
+    {
+      "descriptor": "饱满、有芯、厚实",
+      "decomposition": "S1+S2+R1/R2+L1/L2；混音还有X3/X4",
+      "boundary": "可在不增大RMS时变实，也可变响却仍薄；不设统一能量阈值"
+    },
+    {
+      "descriptor": "薄、虚、空、飘",
+      "decomposition": "S1/S2/S3+R1/R2+L2，可能X3/X4",
+      "boundary": "薄可能是有意声色，也可能支撑缺失或被伴奏遮蔽"
+    },
+    {
+      "descriptor": "假音感、头声感",
+      "decomposition": "S1/S2/S3+R1/R3的联合听感与音区上下文",
+      "boundary": "音频和模型输入不能证明人体M1/M2；假音不等于气声或小声"
+    },
+    {
+      "descriptor": "实声感、胸声感",
+      "decomposition": "S1/S2+R1/R2+起声/承载方式",
+      "boundary": "当前抱C更实并获局部可用；没有统一提高VOIC规则"
+    },
+    {
+      "descriptor": "混声、换声顺畅",
+      "decomposition": "跨P/S/R维度的协调变化+T5",
+      "boundary": "混声不是单个声学原子或确定模型开关"
+    },
+    {
+      "descriptor": "挤、紧、顶、喊",
+      "decomposition": "S2+R1/R2/R4+L1+T4，可伴S6",
+      "boundary": "主观顶不等于喉位真实上升；TENC升降与听感方向依条件"
+    },
+    {
+      "descriptor": "气声、耳语、漏气",
+      "decomposition": "S3/S4+S1+T4/T6",
+      "boundary": "耳语缺乏周期声，气声可保留周期；BREC模型条件不能代替声源分析"
+    },
+    {
+      "descriptor": "明亮、尖、刺",
+      "decomposition": "S2+R2/S4+X5",
+      "boundary": "区分谐波亮度与噪声齿音；亮度不自带好坏"
+    },
+    {
+      "descriptor": "暗、柔、闷、蒙",
+      "decomposition": "S2+R1/R2+X5/X3",
+      "boundary": "暗柔可有意；闷也可为混音遮蔽；GENC并非统一亮度旋钮"
+    },
+    {
+      "descriptor": "鼻、堵、鼻腔色彩",
+      "decomposition": "R4+R1/R2+音素上下文",
+      "boundary": "正常鼻辅音与不需要的元音鼻化分开"
+    },
+    {
+      "descriptor": "口型不稳、舌根后缩感",
+      "decomposition": "R1/R3+S2+T5+声线条件变化",
+      "boundary": "当前为听感描述，无独立声道/formant漂移测量或生理结论"
+    },
+    {
+      "descriptor": "突然像换了人",
+      "decomposition": "P/S/R的跨字一致性+speaker条件+X4",
+      "boundary": "先看实际两阶段embedding，不用suffix或单字CLR推断整句"
+    },
+    {
+      "descriptor": "硬起、爆字头",
+      "decomposition": "T4+T3+L4+S2/S6",
+      "boundary": "可有意重音，也可出现突变；不同控制attack不混同"
+    },
+    {
+      "descriptor": "软起、虚起、气起",
+      "decomposition": "T4+S1/S3+L2",
+      "boundary": "有目的的起声与元音到位不足分开"
+    },
+    {
+      "descriptor": "咬字清楚、含糊、吞字",
+      "decomposition": "T2/T3/T5+R1+X3",
+      "boundary": "词表正确和ASR可懂度不能单独宣布自然"
+    },
+    {
+      "descriptor": "连贯、粘、断、磕绊",
+      "decomposition": "T5+P3+R3+L4+S6",
+      "boundary": "时间/F0连续只是部分条件，不能直接判声线连续"
+    },
+    {
+      "descriptor": "滑、拐、跳得太高",
+      "decomposition": "P3+T1/T2+R3/S6",
+      "boundary": "先判断音乐音程与动作；不靠统一平滑掩盖错音"
+    },
+    {
+      "descriptor": "直、平、机械、僵硬",
+      "decomposition": "P2/P4+L2+R3+T1/T4/T6与跨句组织",
+      "boundary": "所有字重复同动作可能机械；添加随机波浪不等于自然"
+    },
+    {
+      "descriptor": "稳、松弛、自然",
+      "decomposition": "P/L/S/R/T的情境一致与合理变化",
+      "boundary": "不是方差越小越好；本模型尚无全曲自然度自动判定"
+    },
+    {
+      "descriptor": "无力、漏底、支撑不住",
+      "decomposition": "S1+L2+S2+T2/T6+X3",
+      "boundary": "先分声源与输出包络；不能小声就加VOIC"
+    },
+    {
+      "descriptor": "渐强、蓄力、爆发、回收",
+      "decomposition": "P2+L2+S2/S3+T4/T6的阶段组织",
+      "boundary": "强弱、音高、张力不必同步增大"
+    },
+    {
+      "descriptor": "抢、赶、拖、松紧不对",
+      "decomposition": "T1/T2/T7加乐句节奏组织",
+      "boundary": "对齐原曲、节拍及演唱意图三者关系；不是看单字起点"
+    },
+    {
+      "descriptor": "哭腔、哽咽、泣音",
+      "decomposition": "P2/P3+S6/S3+T4/T6及语义组织",
+      "boundary": "可作组合标签，不能伪造一个哭腔数值开关"
+    },
+    {
+      "descriptor": "笑感、甜、冷、温暖、情绪充足",
+      "decomposition": "P/L/S/R/T+歌词/音乐与听者解释",
+      "boundary": "语义与风格标签需上下文和听觉评价；没有声学一对一逆映射"
+    },
+    {
+      "descriptor": "近、贴耳、远、空灵",
+      "decomposition": "X4+S3+L1+X3",
+      "boundary": "空间与发声可共同造成；不要将混响效果说成口型修复"
+    },
+    {
+      "descriptor": "好听、难听、像不像原唱",
+      "decomposition": "全部原子时序+旋律/歌词/风格/混音/听者偏好",
+      "boundary": "是整合评价，不能作为一个原子或由单个特征阈值决定"
+    }
+  ],
+  "controls": [
+    {
+      "id": "C01",
+      "control": "音符中心 tone、tuning、全曲移调",
+      "targets": "音高/音乐内容",
+      "support": "通用音符；实际读取依引擎",
+      "units": "tone半音，tuning cents；+4key通常需明确为+4半音",
+      "how": "改变中心/模型音区和部分音素条件；不是仅改变PITD",
+      "evidence": "M1、M8",
+      "limits": "当前流程保留Agent选择note衔接；暂无统一移调自然阈值",
+      "second_layer": {
+        "responses": [],
+        "observations": [
+          "OBS-001"
+        ],
+        "audits": [],
+        "evidence_status": "有关联，没有该参数独立听觉因果验证"
+      }
+    },
+    {
+      "id": "C02",
+      "control": "音符 pitch 点X/Y、插值形状、snap_first",
+      "targets": "P2/P3",
+      "support": "通用音高基底",
+      "units": "X相对音符ms，Y为0.1半音；l/i/o/io，sp见新上游",
+      "how": "锚点与插值改变到达、斜率、过冲；snap_first接前音，PITD还会叠加",
+      "evidence": "M1、M2",
+      "limits": "旧基底不能当最终目标；未验证本机sp新功能",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C03",
+      "control": "PITD",
+      "targets": "P1-P5；间接S/L/R",
+      "support": "当前DiffSinger支持",
+      "units": "cents；当前声明±1200",
+      "how": "叠加在before-PITD，+100目标升半音；进入variance/acoustic/vocoder",
+      "evidence": "M1、M8",
+      "limits": "目标F0保持不代表输出F0、谱、电平精确保持",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C04",
+      "control": "vibrato length",
+      "targets": "P4",
+      "support": "当前结构存在；生产函数可另实现",
+      "units": "音符时长百分比",
+      "how": "决定周期段从何处开始；更大值覆盖更早",
+      "evidence": "M2",
+      "limits": "不是深度参数；当前发布许多length=0",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C05",
+      "control": "vibrato period",
+      "targets": "P4",
+      "support": "当前结构存在",
+      "units": "ms；公式Hz=1000/period",
+      "how": "更短周期更快；200ms=5Hz、125ms=8Hz为算术例子",
+      "evidence": "M2",
+      "limits": "不把示例当推荐范围",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C06",
+      "control": "vibrato depth",
+      "targets": "P4",
+      "support": "当前结构存在",
+      "units": "cents峰幅",
+      "how": "25c为±25c，峰峰50c；更大范围不保证动听",
+      "evidence": "M2",
+      "limits": "需扣除与人工PITD的重复周期",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C07",
+      "control": "vibrato in/out",
+      "targets": "P4进入/退出",
+      "support": "当前结构存在",
+      "units": "颤音区时长百分比",
+      "how": "调整周期幅度包络；不是移动整字时钟",
+      "evidence": "M2",
+      "limits": "过短/过长的听觉效果依音素/乐句",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C08",
+      "control": "vibrato shift/drift",
+      "targets": "P4相位/中心",
+      "support": "当前结构存在",
+      "units": "shift周期%；drift深度相关偏移",
+      "how": "shift移动相位；drift移动周期中心，不能代替慢走势计划",
+      "evidence": "M2",
+      "limits": "无当前听觉单因素验证",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C09",
+      "control": "vibrato vol_link",
+      "targets": "L3与P4耦合",
+      "support": "新上游明确支持；本机功能未审定",
+      "units": "±100",
+      "how": "0不联动，正负改变AM相位；上游100可到0.2～1.2倍振幅",
+      "evidence": "M2",
+      "limits": "不是每个版本都可用；不应用于当前探针",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C10",
+      "control": "DYN",
+      "targets": "L1-L4、T6/X1",
+      "support": "当前支持，已核对原生乘法",
+      "units": "节点×0.1dB；当前-240～120，默认0",
+      "how": "10→+1dB×1.1220；30→+3dB×1.4125；最低声明值特殊为0振幅；5tick后振幅插值",
+      "evidence": "M3",
+      "limits": "这是输出增益，不直接修有声/元音；比较保持原生DYN",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C11",
+      "control": "VOIC",
+      "targets": "S1，联动谱/电平",
+      "support": "Yousa启用；本曲合法范围自定义0～200",
+      "units": "零增量100；Δ=(值-100)×12/100；最终clip[-96,0]",
+      "how": "110→预测上加1.2模型特征；不是+1.2dB；改变声学voicing输入",
+      "evidence": "M4、E6",
+      "limits": "统一更高更实有反例；当前未做独立VOIC声学改善验收",
+      "second_layer": {
+        "responses": [],
+        "observations": [
+          "OBS-001",
+          "OBS-002"
+        ],
+        "audits": [],
+        "evidence_status": "有关联，没有该参数独立听觉因果验证"
+      }
+    },
+    {
+      "id": "C12",
+      "control": "BREC",
+      "targets": "S3/S4；间接S/R/L",
+      "support": "Yousa启用",
+      "units": "默认0；Δ=值×12/100；clip[-96,0]",
+      "how": "-10→约-1.2模型特征；改变声学breathiness输入，不改变variance预测条件",
+      "evidence": "M4、E7",
+      "limits": "六条件均无可感知差别，不采纳该剂量；不证明整个通道无效",
+      "second_layer": {
+        "responses": [
+          "RESP-005",
+          "RESP-006",
+          "RESP-007",
+          "RESP-008",
+          "RESP-009",
+          "RESP-010"
+        ],
+        "observations": [
+          "OBS-001",
+          "OBS-002"
+        ],
+        "audits": [],
+        "evidence_status": "有局部受控听觉结果，未泛化"
+      }
+    },
+    {
+      "id": "C13",
+      "control": "TENC",
+      "targets": "S2及发声质地",
+      "support": "Yousa启用",
+      "units": "默认0；Δ=值/20；clip[-10,10]",
+      "how": "+20→+1模型特征；改变声学tension输入；亮/紧/鼻等响应依模型",
+      "evidence": "M4、E1、E6",
+      "limits": "取消+14即-0.7特征，抱无感知改善；非挤压/撕裂度一对一旋钮",
+      "second_layer": {
+        "responses": [
+          "RESP-001"
+        ],
+        "observations": [
+          "OBS-001",
+          "OBS-002"
+        ],
+        "audits": [],
+        "evidence_status": "有局部受控听觉结果，未泛化"
+      }
+    },
+    {
+      "id": "C14",
+      "control": "SHFC",
+      "targets": "模型音区条件及预测、S/R/L/T",
+      "support": "当前pitch-controllable vocoder支持",
+      "units": "cents；原发布声明±12，诊断明确±1200",
+      "how": "-400c使variance pitch-4st、acoustic F0×0.7937005；vocoder目标F0保持；下游三预测会改变",
+      "evidence": "M5、E2-E4",
+      "limits": "抱局部正向但字头风险；果-200c无改善且响度下降；不作整曲规则",
+      "second_layer": {
+        "responses": [
+          "RESP-002",
+          "RESP-003",
+          "RESP-004"
+        ],
+        "observations": [
+          "OBS-002"
+        ],
+        "audits": [],
+        "evidence_status": "有局部受控听觉结果，未泛化"
+      }
+    },
+    {
+      "id": "C15",
+      "control": "GENC",
+      "targets": "谱/共振相关条件R/S",
+      "support": "Yousa use_key_shift_embed=true；当前基底0",
+      "units": "曲线±100；本机augmentation range[-5,+5]",
+      "how": "本机gender输入由范围换算，-100→+2.4，+100→-2.4模型输入；不是F1/F2直接Hz设定",
+      "evidence": "M5",
+      "limits": "官方通用描述的±12半音不能冒称本机实际共振峰位移；尚无本机试听因果数据",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C16",
+      "control": "VELC",
+      "targets": "元音动作速度条件T/R",
+      "support": "Yousa use_speed_embed=true；当前实际1",
+      "units": "默认100；2^((值-100)/100)",
+      "how": "0→0.5、100→1、200→2的speed输入；与VEL声母伸缩分开",
+      "evidence": "M6",
+      "limits": "这是声学速度条件，不保证音素边界按比例改；本曲未受控验证",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C17",
+      "control": "ENE",
+      "targets": "能量/发声条件",
+      "support": "引擎建议项；本机use_energy_embed/predict_energy=false",
+      "units": "默认0；Δ=值×12/100（启用路径）",
+      "how": "需要模型和预测共同支持才进声学输入",
+      "evidence": "M4",
+      "limits": "当前不生效，不是本曲响度修法",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C18",
+      "control": "falsetto embedding / prediction",
+      "targets": "潜在发声条件",
+      "support": "本机use_falsetto_embed/predict_falsetto=false",
+      "units": "无已确认当前可用独立假音表达缩写/控制路径",
+      "how": "配置字段存在不等于可直接打开已训练能力或界面有旋钮",
+      "evidence": "本机配置审计",
+      "limits": "当前没有假音开关；不得把SHFC效果当开启falsetto",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C19",
+      "control": "CLR、speaker/subbank",
+      "targets": "声线/音区/音素基底",
+      "support": "当前支持；按音素index与名称映射",
+      "units": "CLR options含空默认；索引与clNN不同",
+      "how": "改变音素suffix/默认声线，影响duration及模型speaker；只设index0不保证后续同色",
+      "evidence": "M7、M8",
+      "limits": "不能从Bright suffix推断实际两阶段embedding",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C20",
+      "control": "cl01…clNN声线曲线",
+      "targets": "声线渐变与多阶段条件",
+      "support": "当前五色Bright/Cute/Normal/Whisper/Classic",
+      "units": "0～100，名称/索引绑定实际库",
+      "how": "权重总和>100%归一；不足部分回填该帧默认声线；全零不静音",
+      "evidence": "M7、M8",
+      "limits": "本轮两阶段Normal75/Classic25固定；无统一混合自然比例",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C21",
+      "control": "PEXP、生成/重生成pitch、retake",
+      "targets": "预测音高表达P",
+      "support": "本机pitch模型use_expr=true，人工画线流程不依赖它",
+      "units": "默认100；模型expr=clip(值/100,0,1)",
+      "how": "只在pitch预测路径调表达，人工完整目标不因改PEXP自动更新",
+      "evidence": "M6",
+      "limits": "算法预测是模型建议，不恢复自动修复/候选搜索制作路线",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C22",
+      "control": "音符/part position、duration、tempos",
+      "targets": "T1/T2/T7和音乐组织",
+      "support": "当前支持",
+      "units": "ticks→TempoMap ms；BPM改变换算",
+      "how": "移动/拉伸影响音素时钟与完整预测；480PPQ下5tick在120BPM约5.208ms",
+      "evidence": "M7、M8",
+      "limits": "拍号、key标记与网格本身不等于自动移调或改声",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C23",
+      "control": "歌词、语言、多音字、phonetic hint、phoneme override",
+      "targets": "T3/R1/可懂度",
+      "support": "当前Chinese phonemizer、字典/词表支持",
+      "units": "phoneme字符串、language id、按index改写",
+      "how": "改变元音/辅音身份及条件；语言ID不能随便换；uo为整体token仍可输出内部运动",
+      "evidence": "M7、E8",
+      "limits": "g/uo映射正确不证明咬字自然；不可盲拆uo",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [
+          "AUD-001"
+        ],
+        "evidence_status": "有技术审计，没有受控听觉响应"
+      }
+    },
+    {
+      "id": "C24",
+      "control": "音素offset/时长、延音+、AP/SP、分组/分句",
+      "targets": "T1-T7及上下文",
+      "support": "当前支持；部分符号需phonemizer验证",
+      "units": "offset ticks；持续音组/原生ms时钟",
+      "how": "改变CV/VC承接、元音承载、呼吸/静音与整句预测；+避免重复声母",
+      "evidence": "M7、M8",
+      "limits": "时钟等于意图输入，非实际声学对齐真值；current未知保留",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [
+          "AUD-001"
+        ],
+        "evidence_status": "有技术审计，没有受控听觉响应"
+      }
+    },
+    {
+      "id": "C25",
+      "control": "VEL声母速度",
+      "targets": "采样伸缩/音素器属性",
+      "support": "通用默认项；本次核对的DiffSingerBase未读consonantStretchRatio",
+      "units": "0～200默认100；属性比2^(1-VEL/100)",
+      "how": "VEL200提示0.5倍固定区、VEL0提示2倍；生效须音素器/采样器读取",
+      "evidence": "UNote源码、M7",
+      "limits": "不能当当前Yousa已验证g/uo时长旋钮；与VELC不同",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C26",
+      "control": "VOL/ATK/DEC",
+      "targets": "采样音量与包络L/T",
+      "support": "Classic支持；DiffSinger不支持音素包络",
+      "units": "VOL0～200/100，ATK0～200/100，DEC0～100/0",
+      "how": "调整采样phoneme整体/开始/结束包络；不进入本机DiffSinger声学feed",
+      "evidence": "M10",
+      "limits": "有同名工程字段不等于当前响度生效",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C27",
+      "control": "preutterDelta、overlapDelta、attackTimeDelta、releaseTimeDelta",
+      "targets": "采样提前/交叉淡化/包络时间",
+      "support": "主要采样声库；DiffSinger supportsPhonemeEnvelope=false",
+      "units": "相对oto/包络时间，ms字段",
+      "how": "改变采样固定区与相邻淡化/起落；不等于直接改本机模型音素时长",
+      "evidence": "M10",
+      "limits": "本机音素offset另行处理；不得混用oto与HFA时钟",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C28",
+      "control": "oto Offset/Consonant/Cutoff/Preutter/Overlap、alias、frq",
+      "targets": "样本选择/伸缩/拼接/源F0",
+      "support": "采样声库编辑与配置",
+      "units": "ms、别名、原始音频频率分析",
+      "how": "切选录音区、固定/拉伸区、提前与交叉淡化、源pitch；可影响咬字/接缝/粗糙",
+      "evidence": "M10",
+      "limits": "改库可影响多曲；不用于当前DiffSinger模型phonemes作为oto修复",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C29",
+      "control": "ALT、SHFT",
+      "targets": "替代alias/音区样本条件",
+      "support": "Classic及对应音素器；VOICEVOX/ENUNU也有自己的路径",
+      "units": "ALT0～16；SHFT默认±36半音",
+      "how": "ALT选替代录音；SHFT选音区/查询条件，不等于SHFC连续cents或全曲移调",
+      "evidence": "M10、M11",
+      "limits": "不同引擎同名意义不同，当前DiffSinger renderer未列SHFT",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C30",
+      "control": "ENG、renderer、resampler、wavtool",
+      "targets": "整条声学实现路径",
+      "support": "各引擎/采样库",
+      "units": "枚举/文件/引擎版本",
+      "how": "更换算法/模型/拼接器改变支持项、谱、F0、噪声、缓存；ENG主要Classic逐音素选择",
+      "evidence": "M10、M11",
+      "limits": "不是新引擎调过的值可照搬DiffSinger",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C31",
+      "control": "GEN(g)、BRE(B)、LPF(H)、NORM(P)",
+      "targets": "采样flag谱/噪声/滤波/自动增益",
+      "support": "取决于resampler；DiffSinger不读取这些flags",
+      "units": "默认GEN±100、BRE/LPF/NORM0～100；NORM86",
+      "how": "g/B/H/P是协议名，具体换算和方向由resampler实现；P会破坏固定增益可比性",
+      "evidence": "M10",
+      "limits": "本曲不用NORM归一；GEN≠GENC，BRE≠BREC",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C32",
+      "control": "MOD、MOD+",
+      "targets": "保留采样原始音高起伏P",
+      "support": "Classic/Worldline读取路径",
+      "units": "0～100默认0",
+      "how": "MOD传给采样器；MOD+从frq保留伸缩后的录音音高细节并叠入目标",
+      "evidence": "M10",
+      "limits": "不是颤音深度；当前DiffSinger没这些源录音通道",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C33",
+      "control": "DIR",
+      "targets": "绕过某些采样处理/使用引擎原pitch",
+      "support": "Classic/Worldline及VOICEVOX的不同分支",
+      "units": "off/on",
+      "how": "Classic取直接录音分支；VOICEVOX的首phone direct切换原引擎F0与人工F0",
+      "evidence": "M10、M11",
+      "limits": "不能作跨引擎统一“自然开关”",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C34",
+      "control": "CLRY、XSY",
+      "targets": "第二样本声线与交叉合成",
+      "support": "新上游Classic/Worldline支持；本机未审定",
+      "units": "第二声色枚举，XSY0～100",
+      "how": "准备两种oto/声线后混合，具体实现可能波形/特征层；可生相位/声色过渡",
+      "evidence": "M10",
+      "limits": "不是当前DiffSinger clNN；未做当前因果验收",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C35",
+      "control": "GRWC、Hifisampler粗糙效果",
+      "targets": "S5、S2/X2",
+      "support": "新上游Hifisampler；当前DiffSinger不支持",
+      "units": "GRWC0～100",
+      "how": "此实现对默认400Hz以上频段做80Hz方波音高调制、强度映射最大100c并能量匹配",
+      "evidence": "M12",
+      "limits": "人工粗糙效果不等于生理吼腔，也不是抱字头破音已知病因",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C36",
+      "control": "自定义flags与表达声明、默认值、范围、类型、track覆盖",
+      "targets": "控制通道的可用性/剂量",
+      "support": "开放扩展，需引擎实现",
+      "units": "Numerical/Options/Curve/MaskedCurve；min/max/default、flag",
+      "how": "声明只定义合法输入；实际支持/范围裁剪/模型clip需分别核查；新增任意名字不会自动进模型",
+      "evidence": "M13",
+      "limits": "OPE在本地模板存在但当前DiffSinger无读取证据；其它扩展按能力清单登记",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [
+          "AUD-002"
+        ],
+        "evidence_status": "有技术审计，没有受控听觉响应"
+      }
+    },
+    {
+      "id": "C37",
+      "control": "VOICEVOX VOLC、SMOC、REPM、style",
+      "targets": "引擎专用电平/预测pitch/音素替换",
+      "support": "官方VOICEVOX renderer，当前不使用",
+      "units": "VOLC0～200/100；SMOC0～10；REPM建议项被注释",
+      "how": "VOLC乘引擎volume；SMOC用于LoadRenderedPitch平滑宽度；REPM路径须读版本/配置，不能当完整可用滑块",
+      "evidence": "M11",
+      "limits": "不移植给Yousa；同名CLR选VOICEVOX style",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C38",
+      "control": "ENUNU styles/custom expressions、Vogen/Worldline声学控制",
+      "targets": "引擎专用发声/模型风格",
+      "support": "非当前路线",
+      "units": "ENUNU由config extensions.styles定义；Worldline归一条件",
+      "how": "Worldline当前将TENC/BREC/GENC映射0.5+0.005x、VOIC0.01x，和DiffSinger预测增量不同",
+      "evidence": "M11",
+      "limits": "支持列表只说明可接收，不证明所有声库响应/听觉方向",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C39",
+      "control": "声库、speaker embeddings、duration/pitch/variance/acoustic模型、vocoder、字典/subbank配置",
+      "targets": "所有声学能力与条件依赖",
+      "support": "本机已哈希绑定；换资源需验证匹配",
+      "units": "模型/词表/语言/频率/ mel/hop/augmentation/enable字段",
+      "how": "这些限定可实现声色/音区/发音、预测与声码器；配置开关不能创造未训练能力",
+      "evidence": "M8",
+      "limits": "当前有声/气声/张力启用，energy/falsetto关闭",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C40",
+      "control": "DiffSinger steps/depth、pitch/variance步骤、speedup、随机输入/seed",
+      "targets": "推理轨迹/质量/重复性",
+      "support": "当前模型连续加速/variable-depth；seed在诊断接口控制",
+      "units": "当前acoustic20/depth0.6，variance/acoustic种子11/101",
+      "how": "不同采样设置可能改谱/细节/电平；更多步骤不是更好听保证；种子不是常规演唱旋钮",
+      "evidence": "M8",
+      "limits": "冻结用于公平对比，不能挑更响seed伪装规律",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C41",
+      "control": "完整短语上下文、AP/SP、合并/拆分、padding、渲染缓存",
+      "targets": "边界与完整新预测",
+      "support": "通用依赖；新上游有merge/local-patch偏好",
+      "units": "本机head/tail各8帧、hop512/44100约11.610ms",
+      "how": "改pitch/phones/speaker/分句需重建对应预测；旧cached export≠新成声state；有padding overlap还需组装",
+      "evidence": "M8、E9",
+      "limits": "缓存是执行状态不是艺术强弱旋钮；不清空封存或恢复旧路线",
+      "second_layer": {
+        "responses": [],
+        "observations": [
+          "OBS-001"
+        ],
+        "audits": [],
+        "evidence_status": "有关联，没有该参数独立听觉因果验证"
+      }
+    },
+    {
+      "id": "C42",
+      "control": "track volume、pan、mute/solo、导入伴奏位置/音量、多轨",
+      "targets": "L/X与可听内容",
+      "support": "当前支持，具体pan law依实现",
+      "units": "track gain dB、pan位置、开关、time",
+      "how": "正gain放大电平，声像/多轨改变平衡遮蔽/相位；静音只影响呈现",
+      "evidence": "M9",
+      "limits": "本次试验固定vocal1.5(+3.522dB)/backing.7(-3.098dB)",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C43",
+      "control": "MixFx EQ总/模块开关、lowDb/midFreq/midDb/highDb、preset",
+      "targets": "X5及组合亮/厚/闷",
+      "support": "新上游实现；当前安装未确认有该UI/路径",
+      "units": "dB/Hz，mid Q代码固定0.707",
+      "how": "增益提高对应滤波频带；改变输出谱而非指定元音F1/F2；preset应用slider值",
+      "evidence": "M9",
+      "limits": "本轮没有EQ，不将其当发声修复证据",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C44",
+      "control": "MixFx压缩 threshold/ratio/makeup、preset、开关",
+      "targets": "L1/L2、瞬态与抽动",
+      "support": "新上游实现；本机未确认",
+      "units": "阈值dB、比例、补偿dB；attack/release/knee代码与preset提供",
+      "how": "高于阈值受比例压缩，makeup补电平；改变包络，可损失重音；attack等不都是独立UI滑块",
+      "evidence": "M9",
+      "limits": "本曲比较不压缩；不能直接声称能修元音共鸣",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C45",
+      "control": "MixFx混响 size/damp/wet/pre-delay、preset、开关",
+      "targets": "X4及可懂度/距离感",
+      "support": "新上游实现；本机未确认",
+      "units": "size/damp/wet标量、pre-delay ms；width/dry有preset内部设置",
+      "how": "size影响尾/空间、damp高频衰减、wet混入、pre-delay推迟湿声，dry仍按时",
+      "evidence": "M9",
+      "limits": "不能通过混响证明口型变自然；代码参数/界面参数分开",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C46",
+      "control": "导出格式/采样率/位深、声道、重采样、播放/监听增益",
+      "targets": "X1/X4/X5与听觉比较",
+      "support": "依版本/导出接口/外部监听",
+      "units": "PCM格式、编码、声道与播放电平",
+      "how": "量化/有损编码/转换可引入纹理或改变峰值；设备也改变响度谱",
+      "evidence": "M8、M9",
+      "limits": "本轮44.1k PCM同增益；不是OpenUtau全部播放设备能力声明",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据"
+      }
+    },
+    {
+      "id": "C47",
+      "control": "表达图、RPIT/PITO、曲线插值/函数时间形状/量化",
+      "targets": "已列P/L/S/R/T条件的组合/驱动",
+      "support": "新上游有graph/masked curves；本机本流程用显式Agent函数",
+      "units": "RPIT/PITO绝对MIDI×100，graph算术/LFO/smooth/slew/随机/锚点",
+      "how": "图是驱动已有参数的工具，不是新增生理变量；必须核对最终pitch/控制与合法范围",
+      "evidence": "M13、E3、E9",
+      "limits": "不恢复自动修复；新上游图能力与当前函数编译流程分开",
+      "second_layer": {
+        "responses": [
+          "RESP-002",
+          "RESP-003",
+          "RESP-004",
+          "RESP-005",
+          "RESP-006",
+          "RESP-007",
+          "RESP-008",
+          "RESP-009",
+          "RESP-010"
+        ],
+        "observations": [],
+        "audits": [
+          "AUD-002"
+        ],
+        "evidence_status": "仅SHFC进入几何与BREC编码/时序；其余功能未验证"
+      }
+    },
+    {
+      "id": "C48",
+      "control": "key/拍号、snap/grid、预设、显示、轨名/颜色、UI偏好",
+      "targets": "编辑/组织与工作可靠性",
+      "support": "通用及版本差异",
+      "units": "标签/网格/预设/开关",
+      "how": "key标记本身不移调；网格影响后续编辑落点，预设填控制值；颜色/缩放等无直接DSP因果",
+      "evidence": "UProject/UNote/Preferences源码",
+      "limits": "纯显示项纳入排除清单，不假称声学因素",
+      "second_layer": {
+        "responses": [],
+        "observations": [],
+        "audits": [],
+        "evidence_status": "显示/编辑入口，排除为独立声学原因"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E1",
+      "intervention": "取消抱的TENC+14",
+      "condition": "3:04 ao/B4，固定同噪声、其他人工控制与增益",
+      "data": "24模型帧，峰值张力差-0.7；A/重复PCM精确",
+      "listening": "用户“没啥区别”",
+      "conclusion": "该次取消未获可感知改善；不证明TENC所有剂量无效",
+      "report": "lastpage-tenc-controlled-probe-20261008.md"
+    },
+    {
+      "id": "E2",
+      "intervention": "抱SHFC -400c，55ms进入",
+      "condition": "3:04 ao/B4，vocoder目标F0保持，允许完整新预测",
+      "data": "条件音高-4st；三个预测同时响应；无满幅/特征裁剪；ao局部双F0检测差约40～45c",
+      "listening": "“更实了，但是有破音”，明确抱字头",
+      "conclusion": "有局部实感响应和副作用；不能归因单个预测通道、不能断定真实声区/formant",
+      "report": "lastpage-shfc-controlled-probe-20261008.md"
+    },
+    {
+      "id": "E3",
+      "intervention": "抱SHFC入口55→145ms，起点提前到元音前80ms",
+      "condition": "同字腹-400c平台/退出精确保留；起点相对旧B前移90ms；时间几何一次干预",
+      "data": "最快条件变化12644→5082c/s；ao前65ms谱形相邻差RMS .666→.589；b RMS -5.326dB，ao -0.296dB",
+      "listening": "用户“可以”",
+      "conclusion": "C局部可用；不是字头完全无破音/咬字全通过的标签；时长与提前准备不能分开归因",
+      "report": "lastpage-shfc-onset-probe-20261008.md"
+    },
+    {
+      "id": "E4",
+      "intervention": "果SHFC -200c",
+      "condition": "1:27 uo/E4；160ms进入70ms退出、固定原音符/人工控制/增益",
+      "data": "uo RMS+0.0901dB；0～500Hz+1.296、500～2k -1.959、2～5k -4.032、>5k -2.955dB；30ms接口最低-4.200dB",
+      "listening": "果没区别；这咬字好像没区别；响度下降",
+      "conclusion": "该B否决；总RMS不能代替听觉响度；分带/短窗为线索非精确感知真值",
+      "report": "lastpage-guo-register-probe-20261008.md"
+    },
+    {
+      "id": "E5",
+      "intervention": "同字果1:27 vs3:17",
+      "condition": "uo/E4，但时值/邻字/上下文不同；元音中央20～80%",
+      "data": "通过侧voicing+1.6140、breathiness-.9680、tension+.3527、目标F0差-.8003c；前60ms差异更大",
+      "listening": "1:27偏假/顶；3:17“中间这个可以”",
+      "conclusion": "条件相关性，不是因果；不能拟合通用阈值",
+      "report": "lastpage-guo-positive-comparison-20261008.md"
+    },
+    {
+      "id": "E6",
+      "intervention": "接受抱C vs原抱A的实际发声特征",
+      "condition": "SHFC整路径干预；元音核20～80%",
+      "data": "voicing-.9145、breathiness-5.8843、tension+1.0628；vocoder目标F0差0",
+      "listening": "C局部可用，原偏假/顶",
+      "conclusion": "否定普遍“更实必须voicing更高/张力更低”；不证明降低VOIC是修法",
+      "report": "lastpage-cross-condition-study-20261008.md"
+    },
+    {
+      "id": "E7",
+      "intervention": "BREC额外-10六条件",
+      "condition": "2问题+4偏实/可用，Q5 80ms进入70ms退出；18套A/Arepeat/B；variance种子11/acoustic种子101（不是步数）",
+      "data": "只breathiness人工增量峰约-1.2；元音RMS[-.0232,+.0273]dB；双F0绝对差p50 .03～.16c，max3.20/2.44c；重复差0",
+      "listening": "全部分开试听“全部没区别”",
+      "conclusion": "六组均不采纳；否定该剂量听觉改善，不能升格整个气声通道无效或其余维度全验收",
+      "report": "lastpage-brec-cohort-probe-20261008.md"
+    },
+    {
+      "id": "E8",
+      "intervention": "果g→uo词表/时序只读核查",
+      "condition": "当前g/uo及语言ID4；uo整体token",
+      "data": "HFA vs native元音起点+.303ms；元音361.582→347.917ms，差-13.665ms",
+      "listening": "1:27问题反馈仍保留",
+      "conclusion": "无明显大错位/错误词表证据；HFA不是音乐身份/实际生成发音真值",
+      "report": "lastpage-guo-phoneme-audit-20261008.md"
+    },
+    {
+      "id": "E9",
+      "intervention": "1tick→5tick原生控制编码核查",
+      "condition": "本次六条件BREC；原生先5tick再模型帧",
+      "data": "1tick草稿被独立采样检查拒绝，最大特征差.072；5tick最终精确，原18套波形生成有效",
+      "listening": "没有为编码更正单独声称改善",
+      "conclusion": "写入曲线≠实际采样；检验原生输入再谈参数作用，不把数值精确当自然",
+      "report": "lastpage-brec-cohort-probe-20261008.md"
+    }
+  ],
+  "mechanisms": [
+    {
+      "id": "M1",
+      "name": "目标音高与相对编码",
+      "mechanism": "最终目标=原生before-PITD+PITD；before包含note/pitch/vibrato等路径，实际按版本验证。SHFC不是该目标的普通加项。音高同时进入预测与声学，vocoder路径须独立核对。",
+      "path": "OpenUtau.Core/Render/RenderPhrase.cs"
+    },
+    {
+      "id": "M2",
+      "name": "音高动作与颤音结构",
+      "mechanism": "音符点X/Y单位、UVibrato周期/深度/包络/相位/中心偏移定义；新上游还有vol_link与sp。周期、幅度、时机和规则性分开。",
+      "path": "OpenUtau.Core/Ustx/UNote.cs"
+    },
+    {
+      "id": "M3",
+      "name": "DYN输出增益",
+      "mechanism": "5tick节点转换值×0.1dB到振幅，最低声明值为0；ApplyDynamics逐样本在振幅域插值并相乘。+6dB≈1.9953倍振幅，不等于感知响两倍。",
+      "path": "OpenUtau.Core/Render/Renderers.cs"
+    },
+    {
+      "id": "M4",
+      "name": "预测发声+人工增量",
+      "mechanism": "VOIC/BREC/TENC的增量先相加再裁剪。特征单位不是PCM dB或人体量。预测变更可以使相同人工控制得到不同实际输入。",
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerUtils.cs"
+    },
+    {
+      "id": "M5",
+      "name": "SHFC/GENC不同路径",
+      "mechanism": "SHFC转variance semitones与acoustic条件F0；pitch-controllable vocoder可保留目标F0。GENC由augmentation range映射gender条件，不提供独立F1/F2。",
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs"
+    },
+    {
+      "id": "M6",
+      "name": "速度与预测pitch表达",
+      "mechanism": "VELC是指数speed条件；PEXP是pitch模型expr，不是当前人工线的后处理强度。",
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerPitch.cs"
+    },
+    {
+      "id": "M7",
+      "name": "音素身份/时序/声线",
+      "mechanism": "phonetic hint/override、音素分组与预测时长，CLR按音素索引；clNN帧权重归一/默认回填，duration与帧阶段的speaker路径不同。",
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerSpeakerEmbedManager.cs"
+    },
+    {
+      "id": "M8",
+      "name": "完整上下文与模型能力",
+      "mechanism": "variance条件含pitch/phones/durations/speaker等，声学输入加发声条件，声码器由mel+F0输出。句内新预测/缓存/随机推理不能混同；本机feed由已核对bridge及封存输入支持。",
+      "path": "OpenUtau.Core/DiffSinger/DiffSingerVariance.cs"
+    },
+    {
+      "id": "M9",
+      "name": "呈现与后处理",
+      "mechanism": "轨道平衡、EQ、压缩、混响改变最终呈现；新上游UMixFx为可选，null/disabled旁路，当前实验未启用。",
+      "path": "OpenUtau.Core/Ustx/UMixFx.cs"
+    },
+    {
+      "id": "M10",
+      "name": "Classic控制",
+      "mechanism": "采样alias、oto、frq、volume/velocity/flags/envelope；同名表达的算法意义由resampler决定。",
+      "path": "OpenUtau.Core/Classic/ResamplerItem.cs"
+    },
+    {
+      "id": "M11",
+      "name": "不同renderer支持集合",
+      "mechanism": "DiffSinger、Classic、Worldline、ENUNU、Vogen、VOICEVOX控制集合及建议项不同，存在任意扩展。",
+      "path": "OpenUtau.Core/Render/Renderers.cs"
+    },
+    {
+      "id": "M12",
+      "name": "人工粗糙效果实现",
+      "mechanism": "新上游Hifisampler的高频方波调制粗糙效果；区别于声带生理机制和当前DiffSinger能力。",
+      "path": "OpenUtau.Core/Classic/Hifisampler/HifiGrowl.cs"
+    },
+    {
+      "id": "M13",
+      "name": "参数声明与驱动",
+      "mechanism": "表达min/max/default/type及track覆盖、MaskedCurve和图驱动定义输入能力；有名称不等于renderer/model读取。",
+      "path": "OpenUtau.Core/Ustx/UExpression.cs"
+    }
+  ],
+  "primary_sources": [
+    {
+      "id": "S1",
+      "title": "声质心理声学模型验证（2021）",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33514179/",
+      "use": "200份voice token的分析合成研究支持联合描述谐波源、非谐波源、声道滤波、F0与振幅；实验是voice token，不能直接证明整首歌审美完全可判定。"
+    },
+    {
+      "id": "S2",
+      "title": "分段声源谱斜率模型（2016）",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4818273/",
+      "use": "研究用H1-H2/H2-H4/H4-2k/2k-5k描述源谱；这些不是跨元音直接用原始FFT峰值相减的通用真值。"
+    },
+    {
+      "id": "S3",
+      "title": "谐波源与噪声的感知交互（2012）",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3283904/",
+      "use": "噪声的感知依赖谐波谱形/相对能量，反之亦然；不能假设BREC/UI变化对应固定可闻气声量。"
+    },
+    {
+      "id": "S4",
+      "title": "颤音作为颤抖模型的知觉研究（2016）",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27908094/",
+      "use": "20位听者研究显示声质/元音等改变调制感受，频带振幅调制也与听觉判断相关；不能只用F0摇摆定义所有颤抖。"
+    },
+    {
+      "id": "S5",
+      "title": "相同音符/元音的实声与假声共振研究（2014）",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24437789/",
+      "use": "7位男歌手同音高/元音对比中M2接触商通常少.27，R1约低65Hz/R2低90Hz；个体共振策略差异大。人体实验不等于神经歌声发生人体声区转换。"
+    },
+    {
+      "id": "S6",
+      "title": "粗糙声与次谐波（1997）",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9075175/",
+      "use": "389份样本中20份有次谐波且均听觉粗糙，8份jitter和/或shimmer正常；粗糙不能只靠jitter/shimmer判。"
+    },
+    {
+      "id": "S7",
+      "title": "32位歌手极端声效声学/EGG研究（2024发表）",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34972633/",
+      "use": "多种粗糙声效呈不同频带/噪声指标响应，多数条件F0/接触商未显著改变；有意粗糙不自动等于难听或错误。"
+    },
+    {
+      "id": "S8",
+      "title": "UNSW研究实验室声学介绍",
+      "url": "https://www.phys.unsw.edu.au/jw/voice.html",
+      "use": "有声源、无声辅音噪声、元音声道滤波、鼻通道及源滤波交互；用于维度解释，不作为本模型生理检测。"
+    },
+    {
+      "id": "S9",
+      "title": "高F0歌唱中的LPC共振估计限制（2021）",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8273971/",
+      "use": "高F0下LPC可偏向邻近谐波；当前约330～495Hz元音不能从未验证自动F1/F2线宣称舌位漂移。"
+    },
+    {
+      "id": "S10",
+      "title": "官方DiffSinger支持",
+      "url": "https://github.com/openutau/OpenUtau/wiki/DiffSinger-support",
+      "use": "区分renderer提供表达与voicebank/vocoder支持；通用说明不代替本机特定配置/实际输入。"
+    },
+    {
+      "id": "S11",
+      "title": "官方Expressions (Flags)",
+      "url": "https://github.com/openutau/OpenUtau/wiki/Expressions-%28Flags%29",
+      "use": "默认表达和采样旗标用途，实际实现/范围仍需固定版本核对。"
+    }
+  ],
+  "upstream_commit": "5c3c83bbeced96718e85e4a96d127de3287cd14b",
+  "quality_requires_context_and_listening": true,
+  "unknown_preserved": true,
+  "second_layer": {
+    "report": "conditional-responses.md",
+    "ledger": "conditional-responses.json",
+    "coverage": "response-coverage.csv",
+    "no_new_synthesis": true
+  }
+}

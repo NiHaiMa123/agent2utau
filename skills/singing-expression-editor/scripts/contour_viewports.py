@@ -12,7 +12,13 @@ def checked(curve):
  t=curve['times_s'];y=curve['cents']
  if len(t)!=len(y) or len(t)<2:raise ValueError('Equal nonempty time/pitch arrays required')
  if any(not math.isfinite(v) for v in t+y):raise ValueError('Nonfinite contour')
- if any(b<=a for a,b in zip(t,t[1:])):raise ValueError('Strict physical sample order required')
+ segments=curve.get('segment_ids')
+ if segments is not None:
+  if len(segments)!=len(t):raise ValueError('Segment identity length differs')
+  for ident in set(segments):
+   clock=[v for v,s in zip(t,segments) if s==ident]
+   if any(b<=a for a,b in zip(clock,clock[1:])):raise ValueError('Strict per-segment physical sample order required')
+ elif any(b<=a for a,b in zip(t,t[1:])):raise ValueError('Strict physical sample order required')
  if 'before_cents' in curve and len(curve['before_cents'])!=len(t):raise ValueError('Before-curve length differs')
  if any(not math.isfinite(v) for v in curve.get('before_cents',[])):raise ValueError('Nonfinite before-curve')
  return t,y
@@ -43,8 +49,9 @@ def viewport(curve,a,b,px_s,px_semitone):
   if a<=r['start_s']<=b:
    xx,_=xy(r['start_s'],hi);ss.append(f'<path d="M{xx:.4f},44 V{height-38:.4f}" stroke="#ae7380" stroke-dasharray="3,3"/><text x="{xx+2:.4f}" y="35" font-size="10">{esc(r.get("label",""))}</text>')
  def line(values,color):
-  pts=' '.join(f'{xy(t[i],values[i])[0]:.4f},{xy(t[i],values[i])[1]:.4f}' for i in ids)
-  return f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="1.15"/>'
+  groups={}
+  for i in ids:groups.setdefault(curve.get('segment_ids',[0]*len(t))[i],[]).append(i)
+  return ''.join('<polyline points="'+' '.join(f'{xy(t[i],values[i])[0]:.4f},{xy(t[i],values[i])[1]:.4f}' for i in group)+f'" fill="none" stroke="{color}" stroke-width="1.15"/>' for group in groups.values())
  if 'before_cents' in curve:ss.append(line(curve['before_cents'],'#aaa'))
  ss.append(line(y,'#145da0'));ss.append('</svg>')
  meta=dict(curve_id=curve['id'],start_s=a,end_s=b,sample_indices=ids,px_per_s=px_s,px_per_semitone=px_semitone,

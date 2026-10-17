@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "kind": "technical_checker_version_archive_and_readonly_recheck",
+  "original_completion_manifest": {
+    "path": "runs/production/lastpage-skill-whole-song-20261013/completion-manifest.json",
+    "sha256": "77ffcb10a709e5619289b2b5fbc46dd3eb3bdb66072c7bb790fc02ff22a409aa"
+  },
+  "old_native_fresh_binding": {
+    "path": "research/implementation-records/lastpage-skill-20261013/check_whole_song.py",
+    "sha256": "72487d33f239bd9f0cc6167da7bfdcf9c6508a390bf0d2d33728db456a791247",
+    "exact_historical_bytes": {
+      "path": "runs/research/lastpage-whole-song-v03-delivery-audit-20261014/checker-versions/native-fresh-checker.py.txt",
+      "sha256": "72487d33f239bd9f0cc6167da7bfdcf9c6508a390bf0d2d33728db456a791247"
+    },
+    "reason": "Delivery function later appended to same file; original two checks bound earlier file version"
+  },
+  "final_checker": {
+    "path": "research/implementation-records/lastpage-skill-20261013/check_whole_song.py",
+    "sha256": "41dfc6d77479ba43d1c760754fe422782743991466559f8408f0a68d51b818de"
+  },
+  "final_checker_archive": {
+    "path": "runs/research/lastpage-whole-song-v03-delivery-audit-20261014/checker-versions/final-checker.py.txt",
+    "sha256": "41dfc6d77479ba43d1c760754fe422782743991466559f8408f0a68d51b818de"
+  },
+  "recheck_outputs": [
+    {
+      "path": "runs/research/lastpage-whole-song-v03-delivery-audit-20261014/evaluation/native-independent-check.json",
+      "sha256": "ae864e7c3808091aab4cde29f63b6bcb406213f9e4547d8ec7bdf3b8a88bad5b"
+    },
+    {
+      "path": "runs/research/lastpage-whole-song-v03-delivery-audit-20261014/evaluation/fresh-independent-check.json",
+      "sha256": "548bc05a99c2fcef1bfcebce6be7eedad18448d8f95792b923d6eb61bbbd1092"
+    },
+    {
+      "path": "runs/research/lastpage-whole-song-v03-delivery-audit-20261014/evaluation/delivery-independent-check.json",
+      "sha256": "957d5544a4a8b2522bb0f425be8d6993496299174dba360ecda96f66e3576902"
+    }
+  ],
+  "results_except_checker_identity_exact": true,
+  "original_sealed_outputs_SHA_exact": true,
+  "actual_audio_or_model_executions": 0,
+  "audio_values_changed": false,
+  "new_listening_feedback": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

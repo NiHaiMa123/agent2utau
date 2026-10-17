@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-10",
+  "rows": [
+    {
+      "id": "CTX:IDENTITY",
+      "name": "对象与层级身份",
+      "fields": [
+        "asset_sha256",
+        "version",
+        "score_note_ids",
+        "syllable_id",
+        "phone_id",
+        "language",
+        "token",
+        "source_status"
+      ],
+      "unknown_rule": "音符/歌词/音素/实际声学对象不能默认一一对应",
+      "applicable_scope": "all_records_when_applicable",
+      "coverage_case_refs": [
+        "CASE:EU17"
+      ],
+      "status": "formal_record_schema_defined_not_measurement_or_label_validation"
+    },
+    {
+      "id": "CTX:PHRASE",
+      "name": "乐句与重音关系",
+      "fields": [
+        "parent_id",
+        "child_ids",
+        "beat_reference",
+        "stress_span",
+        "motif_id",
+        "gesture_goal",
+        "goal_source"
+      ],
+      "unknown_rule": "重音/动机/动作目的未给出时unknown，不从峰值反推音乐身份",
+      "applicable_scope": "all_records_when_applicable",
+      "coverage_case_refs": [
+        "CASE:EM02"
+      ],
+      "status": "formal_record_schema_defined_not_measurement_or_label_validation"
+    },
+    {
+      "id": "CTX:REFERENCE",
+      "name": "音乐与调律参照",
+      "fields": [
+        "tonic",
+        "mode",
+        "harmonic_context",
+        "tuning_system",
+        "reference_frequency",
+        "reference_event",
+        "clock_mapping",
+        "reference_uncertainty"
+      ],
+      "unknown_rule": "没有明确调律/音乐目标，不能用12TET默认判所有音准好坏",
+      "applicable_scope": "all_records_when_applicable",
+      "coverage_case_refs": [
+        "CASE:EM12"
+      ],
+      "status": "formal_record_schema_defined_not_measurement_or_label_validation"
+    },
+    {
+      "id": "CTX:ORNAMENT",
+      "name": "快速目标序列与调制",
+      "fields": [
+        "target_sequence",
+        "target_identity_source",
+        "arrival_support",
+        "cycle_role",
+        "intended_or_unknown"
+      ],
+      "unknown_rule": "两个音乐目标交替与一个中心周围FM分开；短支持拒绝精确周期判断",
+      "applicable_scope": "all_records_when_applicable",
+      "coverage_case_refs": [
+        "CASE:EM10"
+      ],
+      "status": "formal_record_schema_defined_not_measurement_or_label_validation"
+    },
+    {
+      "id": "CTX:TASK",
+      "name": "感知任务与参与角色",
+      "fields": [
+        "task_id",
+        "observer_id",
+        "observer_role",
+        "target_role",
+        "presentation_asset_sha",
+        "order",
+        "question",
+        "scale",
+        "playback_conditions",
+        "shared_feedback_group"
+      ],
+      "unknown_rule": "performer_feedback、listener_presentation与Agent观测分开；历史未记录设备/盲法等保持unknown",
+      "applicable_scope": "all_records_when_applicable",
+      "coverage_case_refs": [
+        "CASE:EL02",
+        "CASE:EL04"
+      ],
+      "status": "formal_record_schema_defined_not_measurement_or_label_validation"
+    },
+    {
+      "id": "CTX:EMOTION",
+      "name": "多标签情绪与音乐目的",
+      "fields": [
+        "reported_terms",
+        "intended_terms",
+        "term_source",
+        "rating_by_observer",
+        "scale",
+        "semantic_context"
+      ],
+      "unknown_rule": "声学特征不自动编码喜怒悲惧；未知/多情绪不强压唯一标签",
+      "applicable_scope": "all_records_when_applicable",
+      "coverage_case_refs": [
+        "CASE:EL03",
+        "CASE:EL04"
+      ],
+      "status": "formal_record_schema_defined_not_measurement_or_label_validation"
+    },
+    {
+      "id": "CTX:SOURCE_RELATION",
+      "name": "周期源与感知音高关系",
+      "fields": [
+        "periodic_source_hypotheses",
+        "F0_tracks",
+        "harmonic_index",
+        "perceived_pitch_tracks",
+        "relationship_evidence",
+        "alternatives"
+      ],
+      "unknown_rule": "被增强谐波的旋律不默认是独立第二F0；源数/生理机制可unknown",
+      "applicable_scope": "all_records_when_applicable",
+      "coverage_case_refs": [
+        "CASE:EL05"
+      ],
+      "status": "formal_record_schema_defined_not_measurement_or_label_validation"
+    },
+    {
+      "id": "CTX:SAMPLING",
+      "name": "案例总体与反馈范围",
+      "fields": [
+        "sampling_frame",
+        "case_members",
+        "aggregate_or_individual",
+        "selection_rule",
+        "partition",
+        "feedback_scope",
+        "identity_errata"
+      ],
+      "unknown_rule": "313未知字集合不是313个覆盖案例；共一原话不增加独立试验数",
+      "applicable_scope": "all_records_when_applicable",
+      "coverage_case_refs": [
+        "CASE:EU18"
+      ],
+      "status": "formal_record_schema_defined_not_measurement_or_label_validation"
+    }
+  ],
+  "measurement_or_causal_rules": false,
+  "unfilled_historical_fields_remain_unknown": true
+}

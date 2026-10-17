@@ -1,0 +1,613 @@
+{
+  "status": "H_DYN_delivered_pending_listening",
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-OWN-LI-DYN-LAYERS-01",
+    "status": "processed_checked_pending_human_listening",
+    "comparison": "H-F",
+    "table1_refs": [
+      "PER:S1",
+      "EVT:L2",
+      "ACO:L1",
+      "PARAM:C10.01"
+    ],
+    "protocol": {
+      "path": "runs/experiments/lastpage-own-li-dyn-20261012/design/protocol.json",
+      "sha256": "a8d7b2cea4e0e0c942c068dc9620ea47510f85c29e4aec57b6a811c21aaceec4"
+    },
+    "knowledge_receipt": {
+      "path": "runs/experiments/lastpage-own-li-dyn-20261012/evaluation/knowledge_receipt.json",
+      "sha256": "b2dd8a6e9b4be9d5bc84529c7670d391ea243e6cc75285e032de5f914b269a8f"
+    },
+    "intervention": "only native DYN finite envelope0→−4→+1.5→0→−1.5→0dB, last40ms l preparation and i277",
+    "affected_context": 28,
+    "control_context": 29,
+    "target_word": 277,
+    "independent_affected_contexts": 1,
+    "review_words": [
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284
+    ],
+    "two_stage_speaker_and_all_model_conditions_exact_F": true,
+    "model_phonation_features_changed": false,
+    "new_fixed_seeded_variance_calls": 0,
+    "new_fixed_seeded_synthesis_waveforms": 0,
+    "native_cached_technical_contexts": 2,
+    "native_Core_processed_contribution_repeats": 2,
+    "native_gain_probe": 1,
+    "sealed_F_raw_and_predictions_reused": true,
+    "processed_repeat_exact": true,
+    "actual_gain_span_s": [
+      212.91562641182765,
+      213.58227040275736
+    ],
+    "gain_min": 0.6309573650360107,
+    "gain_max": 1.1885021924972534,
+    "digital_stage_RMS_rise_and_recovery": true,
+    "perceived_force_or_voicebank_force_changed": "unknown: DYN only output gain",
+    "new_F0_calls": 2,
+    "reused_F_F0_bindings": 6,
+    "word_rows": [
+      {
+        "word": 270,
+        "char": "想",
+        "context": 28,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.003952422700484204,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 271,
+        "char": "把",
+        "context": 28,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0006439228775789299,
+        "RMVPE_abs_cents_p50": 0.0003967565124142546,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 272,
+        "char": "你",
+        "context": 28,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.00514245490101099,
+        "RMVPE_abs_cents_p50": 0.0005283275272790405,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 273,
+        "char": "抱",
+        "context": 28,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.001818947945422451,
+        "RMVPE_abs_cents_p50": 0.0005271989343137972,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 274,
+        "char": "进",
+        "context": 28,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.003436985356100486,
+        "RMVPE_abs_cents_p50": 0.0006289007687222251,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 275,
+        "char": "身",
+        "context": 28,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0024188562900798547,
+        "RMVPE_abs_cents_p50": 0.0006351180306269533,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 276,
+        "char": "体",
+        "context": 28,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0038088326769872135,
+        "RMVPE_abs_cents_p50": 0.006315384822109281,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 277,
+        "char": "里",
+        "context": 28,
+        "action": "DYN envelope and l preparation",
+        "vowel_RMS_change_db": -1.2304237982370876,
+        "FCPE_abs_cents_p50": 0.09274227985969373,
+        "RMVPE_abs_cents_p50": 0.059463233258253055,
+        "auditory_force": "pending"
+      },
+      {
+        "word": 278,
+        "char": "面",
+        "context": 28,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0011328993698876031,
+        "RMVPE_abs_cents_p50": 0.002857673046245412,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 279,
+        "char": "不",
+        "context": 29,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 280,
+        "char": "敢",
+        "context": 29,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 281,
+        "char": "让",
+        "context": 29,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 282,
+        "char": "你",
+        "context": 29,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 283,
+        "char": "看",
+        "context": 29,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_force": "no new individual label"
+      },
+      {
+        "word": 284,
+        "char": "见",
+        "context": 29,
+        "action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_force": "no new individual label"
+      }
+    ],
+    "phase_rows": [
+      {
+        "phase": "li_preparation",
+        "start_s": 212.9172916666667,
+        "end_s": 212.9572916666667,
+        "F_RMS_dbfs": -24.04603532923708,
+        "H_RMS_dbfs": -26.403337810014982,
+        "H_minus_F_db": -2.3573024807779057,
+        "native_gain_median": 0.7933822274208069,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_entry",
+        "start_s": 212.9572916666667,
+        "end_s": 213.06229166666665,
+        "F_RMS_dbfs": -16.22161886202639,
+        "H_RMS_dbfs": -20.221618556149338,
+        "H_minus_F_db": -3.999999694122944,
+        "native_gain_median": 0.6309573650360107,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_build",
+        "start_s": 213.06229166666665,
+        "end_s": 213.22429499999998,
+        "F_RMS_dbfs": -18.71278479136983,
+        "H_RMS_dbfs": -20.02468991253855,
+        "H_minus_F_db": -1.311905121168719,
+        "native_gain_median": 0.8652744889259338,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_recover",
+        "start_s": 213.22429499999998,
+        "end_s": 213.4152083333333,
+        "F_RMS_dbfs": -20.277354875058762,
+        "H_RMS_dbfs": -19.479357145182234,
+        "H_minus_F_db": 0.7979977298765273,
+        "native_gain_median": 1.089002013206482,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_release",
+        "start_s": 213.4152083333333,
+        "end_s": 213.53020833333332,
+        "F_RMS_dbfs": -20.424917524951162,
+        "H_RMS_dbfs": -21.14922191296822,
+        "H_minus_F_db": -0.7243043880170561,
+        "native_gain_median": 0.9124011397361755,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_descending",
+        "start_s": 213.53020833333332,
+        "end_s": 213.58541666666667,
+        "F_RMS_dbfs": -22.86582425648385,
+        "H_RMS_dbfs": -23.70319000721098,
+        "H_minus_F_db": -0.8373657507271305,
+        "native_gain_median": 0.9184300601482391,
+        "auditory_force": "unknown"
+      }
+    ],
+    "outputs": {
+      "candidate_preview": {
+        "path": "runs/experiments/lastpage-own-li-dyn-20261012/delivery/H_two_phrases.wav",
+        "sha256": "40fb1cdd8e24b9d42ee0be05e918d6cbe88b80ea1683ca4368f24a1c828738d1"
+      },
+      "original_preview": {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+        "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "candidate_full": {
+        "path": "runs/experiments/lastpage-own-li-dyn-20261012/delivery/lastpage_own_li_dyn_H_vocal.wav",
+        "sha256": "a7e93cbaf575815a5acbf9349a33b1f59dd2eedbbfb46d7e5a7977a3191c9ee1"
+      },
+      "candidate_project": {
+        "path": "runs/experiments/lastpage-own-li-dyn-20261012/delivery/lastpage_own_li_dyn_H.ustx",
+        "sha256": "5860b301891d24ebfad0ec1747ca3aa6bf9e6d613c96558348efdf54971358cf"
+      }
+    },
+    "new_feedback_count": 0,
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "table1_refs": [
+    "PER:S1",
+    "EVT:L2",
+    "ACO:L1",
+    "PARAM:C10.01"
+  ],
+  "execution": {
+    "new_fixed_seeded_variance_calls": 0,
+    "new_fixed_seeded_synthesis_waveforms": 0,
+    "processed_contribution_repeats": 2,
+    "gain_probe": 1,
+    "sealed_F_reused": true,
+    "new_F0_calls_pending": 2
+  },
+  "delivery": {
+    "outputs": {
+      "candidate_preview": {
+        "path": "runs/experiments/lastpage-own-li-dyn-20261012/delivery/H_two_phrases.wav",
+        "sha256": "40fb1cdd8e24b9d42ee0be05e918d6cbe88b80ea1683ca4368f24a1c828738d1"
+      },
+      "original_preview": {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+        "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "candidate_full": {
+        "path": "runs/experiments/lastpage-own-li-dyn-20261012/delivery/lastpage_own_li_dyn_H_vocal.wav",
+        "sha256": "a7e93cbaf575815a5acbf9349a33b1f59dd2eedbbfb46d7e5a7977a3191c9ee1"
+      },
+      "candidate_project": {
+        "path": "runs/experiments/lastpage-own-li-dyn-20261012/delivery/lastpage_own_li_dyn_H.ustx",
+        "sha256": "5860b301891d24ebfad0ec1747ca3aa6bf9e6d613c96558348efdf54971358cf"
+      }
+    },
+    "peak": 0.6807056218385696,
+    "fixed_gain": 1.5,
+    "subtype": "PCM_24",
+    "rate": 44100,
+    "samples": 10829952,
+    "duration_s": 245.57714285714286,
+    "outside_context28_contribution_exact": true,
+    "accepted_bao_C_PCM_exact": true,
+    "native_DYN_preserved": true,
+    "F_reconstruction_and_reverse_H_assembly_exact": true,
+    "preview_exact": true,
+    "overlap": {
+      "context29_isolated_inputs_wave_exact": true,
+      "context29_all_real_phones_and_kan_PCM_exact": true,
+      "shared_padding_changed_samples": 0,
+      "first_real_phone_s": 214.31354166666668,
+      "shared_change_s": null,
+      "cause_scope": "DYN has finite earlier support; original overlap and all context29 mixed PCM retained"
+    },
+    "F_and_author_sealed_reused": true,
+    "no_normalization_compression_or_BGM": true,
+    "agent_heard": false
+  },
+  "phase_rows": [
+    {
+      "phase": "li_preparation",
+      "start_s": 212.9172916666667,
+      "end_s": 212.9572916666667,
+      "F_RMS_dbfs": -24.04603532923708,
+      "H_RMS_dbfs": -26.403337810014982,
+      "H_minus_F_db": -2.3573024807779057,
+      "native_gain_median": 0.7933822274208069,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_entry",
+      "start_s": 212.9572916666667,
+      "end_s": 213.06229166666665,
+      "F_RMS_dbfs": -16.22161886202639,
+      "H_RMS_dbfs": -20.221618556149338,
+      "H_minus_F_db": -3.999999694122944,
+      "native_gain_median": 0.6309573650360107,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_build",
+      "start_s": 213.06229166666665,
+      "end_s": 213.22429499999998,
+      "F_RMS_dbfs": -18.71278479136983,
+      "H_RMS_dbfs": -20.02468991253855,
+      "H_minus_F_db": -1.311905121168719,
+      "native_gain_median": 0.8652744889259338,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_recover",
+      "start_s": 213.22429499999998,
+      "end_s": 213.4152083333333,
+      "F_RMS_dbfs": -20.277354875058762,
+      "H_RMS_dbfs": -19.479357145182234,
+      "H_minus_F_db": 0.7979977298765273,
+      "native_gain_median": 1.089002013206482,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_release",
+      "start_s": 213.4152083333333,
+      "end_s": 213.53020833333332,
+      "F_RMS_dbfs": -20.424917524951162,
+      "H_RMS_dbfs": -21.14922191296822,
+      "H_minus_F_db": -0.7243043880170561,
+      "native_gain_median": 0.9124011397361755,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_descending",
+      "start_s": 213.53020833333332,
+      "end_s": 213.58541666666667,
+      "F_RMS_dbfs": -22.86582425648385,
+      "H_RMS_dbfs": -23.70319000721098,
+      "H_minus_F_db": -0.8373657507271305,
+      "native_gain_median": 0.9184300601482391,
+      "auditory_force": "unknown"
+    }
+  ],
+  "word_rows": [
+    {
+      "word": 270,
+      "char": "想",
+      "context": 28,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.003952422700484204,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 271,
+      "char": "把",
+      "context": 28,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0006439228775789299,
+      "RMVPE_abs_cents_p50": 0.0003967565124142546,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 272,
+      "char": "你",
+      "context": 28,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.00514245490101099,
+      "RMVPE_abs_cents_p50": 0.0005283275272790405,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 273,
+      "char": "抱",
+      "context": 28,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.001818947945422451,
+      "RMVPE_abs_cents_p50": 0.0005271989343137972,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 274,
+      "char": "进",
+      "context": 28,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.003436985356100486,
+      "RMVPE_abs_cents_p50": 0.0006289007687222251,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 275,
+      "char": "身",
+      "context": 28,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0024188562900798547,
+      "RMVPE_abs_cents_p50": 0.0006351180306269533,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 276,
+      "char": "体",
+      "context": 28,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0038088326769872135,
+      "RMVPE_abs_cents_p50": 0.006315384822109281,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 277,
+      "char": "里",
+      "context": 28,
+      "action": "DYN envelope and l preparation",
+      "vowel_RMS_change_db": -1.2304237982370876,
+      "FCPE_abs_cents_p50": 0.09274227985969373,
+      "RMVPE_abs_cents_p50": 0.059463233258253055,
+      "auditory_force": "pending"
+    },
+    {
+      "word": 278,
+      "char": "面",
+      "context": 28,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0011328993698876031,
+      "RMVPE_abs_cents_p50": 0.002857673046245412,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 279,
+      "char": "不",
+      "context": 29,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 280,
+      "char": "敢",
+      "context": 29,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 281,
+      "char": "让",
+      "context": 29,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 282,
+      "char": "你",
+      "context": 29,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 283,
+      "char": "看",
+      "context": 29,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_force": "no new individual label"
+    },
+    {
+      "word": 284,
+      "char": "见",
+      "context": 29,
+      "action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_force": "no new individual label"
+    }
+  ],
+  "checks": {
+    "native": {
+      "path": "runs/experiments/lastpage-own-li-dyn-20261012/evaluation/native-independent-check.json",
+      "sha256": "57a7d404ec774d4c7f65345ccd9febb984090e186ff231f4dccd18c244240e77"
+    },
+    "processed": {
+      "path": "runs/experiments/lastpage-own-li-dyn-20261012/evaluation/processed-independent-check.json",
+      "sha256": "101fed2fc9758088cefefa3f2ec5c04481c3a7d5e1d7ecf1fb5cf0b4f1b68154"
+    },
+    "delivery": {
+      "path": "runs/experiments/lastpage-own-li-dyn-20261012/evaluation/delivery-independent-check.json",
+      "sha256": "99aa86b05eca71ad94514ec8480ad86066a65ca129694a5e7c925ab3bb715835"
+    }
+  },
+  "observations": {
+    "path": "runs/experiments/lastpage-own-li-dyn-20261012/observations/results.json",
+    "sha256": "5be525b154c6be38c367faac2eef3f3c2209ec0c7e2cdd80ac3b485d8774be30"
+  },
+  "native_gain_tool": {
+    "path": "runs/experiments/lastpage-own-li-dyn-20261012/native-inputs/dyn-tool-source.json",
+    "sha256": "ad109833185e75b9710bfaf9934d5742db1723d375887924f434c765c1714132"
+  },
+  "runtime_context": "prior47 resources unchanged plus4 bound existing levelprobe files; no install/source/Skill modification",
+  "new_native_neural_inference_count": "not instrumented; native cached technical export separate from fixed-seeded reuse",
+  "F0_boundary": "Outside-gain PCM exact even if whole-context detector estimates differ slightly; detector context response is not measured pitch intervention.",
+  "support_boundary": "actual change starts~1.665ms earlier than design prep, ends~3.146ms before vowel end; native5tick interpolation, no hidden crop",
+  "contracts_passed": 11,
+  "test_report": {
+    "path": "runs/test-results/lastpage-own-li-dyn-20261012/junit.xml",
+    "sha256": "888cee17d9840a6c7d0fcc396a3fc5686c0c6bdd89bfe17a708f111370c0ee63"
+  },
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

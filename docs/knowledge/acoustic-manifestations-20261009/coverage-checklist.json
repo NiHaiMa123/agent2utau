@@ -1,0 +1,1196 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "stage": "E",
+  "status": "checklist_frozen_before_mapping",
+  "case_count": 42,
+  "main_count": 36,
+  "deferred_recheck_count": 6,
+  "rows": [
+    {
+      "id": "CASE:EU01",
+      "description": "1:27果原版，uo/E4，同字问题侧",
+      "origin": "existing_user_evidence",
+      "role": "baseline_problem",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "current-word-112",
+      "label_text": "偏假/往上顶",
+      "label_kind": "reported_summary",
+      "shared_evidence_group": "initial-position-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU02",
+      "description": "3:04抱原版，ao/B4，同字问题侧",
+      "origin": "existing_user_evidence",
+      "role": "baseline_problem",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "current-word-225",
+      "label_text": "偏假/往上顶",
+      "label_kind": "reported_summary",
+      "shared_evidence_group": "initial-position-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU03",
+      "description": "1:33之原版，ir/F#4，相对偏实侧",
+      "origin": "existing_user_evidence",
+      "role": "relative_reference",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "current-word-124",
+      "label_text": "偏实",
+      "label_kind": "reported_summary",
+      "shared_evidence_group": "initial-position-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU04",
+      "description": "2:56只原版，ir/A4，相对偏实侧",
+      "origin": "existing_user_evidence",
+      "role": "relative_reference",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "current-word-214",
+      "label_text": "偏实",
+      "label_kind": "reported_summary",
+      "shared_evidence_group": "initial-position-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU05",
+      "description": "约3:17果原版，相同MIDI64跨上下文",
+      "origin": "existing_user_evidence",
+      "role": "local_usable",
+      "source_refs": [
+        "docs/lastpage-guo-positive-comparison-20261008.md"
+      ],
+      "evidence_key": "OBS-001",
+      "label_text": "中间这个可以",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "guo-three-comparison",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU06",
+      "description": "3:04抱C，145ms进入的局部可用变体",
+      "origin": "existing_user_evidence",
+      "role": "local_usable",
+      "source_refs": [
+        "docs/lastpage-shfc-onset-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-003",
+      "label_text": "可以",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "bao-onset-acceptance",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU07",
+      "description": "抱TENC取消，数值响应但未感知区别",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-tenc-controlled-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-001",
+      "label_text": "没啥区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "tenc-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU08",
+      "description": "抱SHFC初B，更实且字头破音",
+      "origin": "existing_user_evidence",
+      "role": "benefit_with_side_effect",
+      "source_refs": [
+        "docs/lastpage-shfc-controlled-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-002",
+      "label_text": "更实了，但是有破音的情况；抱的字头",
+      "label_kind": "joined_two_user_messages",
+      "shared_evidence_group": "shfc-b-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU09",
+      "description": "约1:14/3:04/3:31原抱的相似性定位",
+      "origin": "existing_user_evidence",
+      "role": "similarity_only",
+      "source_refs": [
+        "docs/lastpage-tenc-controlled-probe-20261008.md"
+      ],
+      "evidence_key": "same_bao_original_vocal",
+      "label_text": "我听着都一样",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "bao-three-comparison",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU10",
+      "description": "果SHFC B与邻字这：无改善且响度下降",
+      "origin": "existing_user_evidence",
+      "role": "no_benefit_with_side_effect",
+      "source_refs": [
+        "docs/lastpage-guo-register-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-004",
+      "label_text": "果字没啥区别，这的咬字好像也没啥区别，而且引入新的问题，响度下降",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "guo-shfc-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU11",
+      "description": "BREC -10：1:27问题果",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-005",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU12",
+      "description": "BREC -10：1:33偏实之",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-006",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU13",
+      "description": "BREC -10：2:56偏实只",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-007",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU14",
+      "description": "BREC -10：3:04问题抱",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-008",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU15",
+      "description": "BREC -10：3:17可用果",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-009",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU16",
+      "description": "BREC -10：已接受抱C",
+      "origin": "existing_user_evidence",
+      "role": "no_difference",
+      "source_refs": [
+        "docs/lastpage-brec-cohort-probe-20261008.md"
+      ],
+      "evidence_key": "RESP-010",
+      "label_text": "全部没区别",
+      "label_kind": "verbatim",
+      "shared_evidence_group": "brec-six-shared-feedback",
+      "tags": [
+        "regression",
+        "existing_feedback"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU17",
+      "description": "约3:44果，MIDI64；第三段未获标签",
+      "origin": "existing_user_evidence",
+      "role": "unknown_control",
+      "source_refs": [
+        "docs/lastpage-guo-positive-comparison-20261008.md"
+      ],
+      "evidence_key": "word-282-at-224.132s",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "guo-three-comparison",
+      "tags": [
+        "unknown",
+        "existing_material"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EU18",
+      "description": "318字中313字未获原版听感标签的集合",
+      "origin": "existing_user_evidence",
+      "role": "unknown_population",
+      "source_refs": [
+        "docs/lastpage-cross-condition-study-20261008.md"
+      ],
+      "evidence_key": "313-unlabeled-words",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "cross-condition-study",
+      "tags": [
+        "unknown",
+        "existing_material"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM01",
+      "description": "长音保持直音，稳定可为有意；是否错误需音乐目标",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "stable",
+        "intended",
+        "body",
+        "long"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM02",
+      "description": "一整句渐强至重音，再回落；单字平均无法保存组织",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "phrase",
+        "level"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM03",
+      "description": "弱收尾、硬切与尾混响三种候选；可听收声关系",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "tail",
+        "release"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM04",
+      "description": "上行滑音到目标，保留到达身份/参照，不把全部弯曲叫异常",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "transition",
+        "pitch"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM05",
+      "description": "下行滑音/尾滑，源音与目的音、字尾和后字关系",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "tail",
+        "pitch"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM06",
+      "description": "字头倚音/上挑后到正音，迟到可能有意",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "onset",
+        "intended",
+        "reference"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM07",
+      "description": "一字跨多音melisma；多note不能多算歌词核",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "same_vowel",
+        "body",
+        "multi_note"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM08",
+      "description": "跨辅音/元音的连唱；正常换型与声线断层分开",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "consonant",
+        "vowel",
+        "phrase",
+        "legato"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM09",
+      "description": "断唱与合法休止；中断并非必定破音",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "staccato",
+        "gap"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM10",
+      "description": "短时快速转音/颤音两目标交替，不能把所有周期当vibrato",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "intended",
+        "short",
+        "ornament"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM11",
+      "description": "颤音晚进入/退出且速率深度变化；与AM/谱变化分开",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "changing",
+        "body",
+        "entry",
+        "exit"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EM12",
+      "description": "同一频率在不同调式/和声/参照下的音准意义",
+      "origin": "authored_music_task_question",
+      "role": "unrecorded_task_question",
+      "source_refs": [
+        "plan.md#E"
+      ],
+      "evidence_key": "no_recording",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "music-task-design",
+      "tags": [
+        "stable",
+        "reference",
+        "harmony",
+        "phrase"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EL01",
+      "description": "连/断与快/慢三和弦任务；短音的测量支持区别",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:01"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:01",
+      "tags": [
+        "task",
+        "short",
+        "long",
+        "legato",
+        "staccato"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EL02",
+      "description": "演唱者听觉反馈被遮蔽；与听者混音清晰度区分",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:01"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:01",
+      "tags": [
+        "masking",
+        "performer_feedback",
+        "mix"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EL03",
+      "description": "同一乐句中性/怒/喜/惧/悲的多标签感知任务",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:02"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:02",
+      "tags": [
+        "intended",
+        "emotion",
+        "phrase"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EL04",
+      "description": "相同呈现的听者评分差异/多情绪并存",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:02"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:02",
+      "tags": [
+        "listener",
+        "uncertainty",
+        "emotion"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EL05",
+      "description": "sygyt低持续音与被增强谐波旋律；双音听感未必双独立源",
+      "origin": "original_research_task",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:03"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:03",
+      "tags": [
+        "low",
+        "high",
+        "intended",
+        "overtone"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EL06",
+      "description": "高F0谐波稀疏时共振不可辨识的例",
+      "origin": "method_failure_condition",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:04"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:04",
+      "tags": [
+        "high",
+        "vowel",
+        "unknown",
+        "resonance"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EL07",
+      "description": "持续元音声断检测条件，正常清辅音/休止/失败的反查",
+      "origin": "method_failure_condition",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:05"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:05",
+      "tags": [
+        "consonant",
+        "body",
+        "gap",
+        "unknown"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EL08",
+      "description": "滑音/强AM与pulse jitter/shimmer的尺度混淆",
+      "origin": "method_failure_condition",
+      "role": "external_task_scope_no_local_audio",
+      "source_refs": [
+        "ESRC:06"
+      ],
+      "evidence_key": "published_task_not_imported_audio",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "ESRC:06",
+      "tags": [
+        "changing",
+        "cycle",
+        "unknown"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EA01",
+      "description": "花海作者note21的+续音：输入延展结构，不推听感",
+      "origin": "author_input_structure",
+      "role": "read_only_structure_not_audio_label",
+      "source_refs": [
+        "research/baishuo/manifest.json"
+      ],
+      "evidence_key": "huahai",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "author-originals",
+      "tags": [
+        "same_vowel",
+        "multi_note",
+        "structure"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EA02",
+      "description": "雨爱作者重复de，在不同tone/duration的输入上下文",
+      "origin": "author_input_structure",
+      "role": "read_only_structure_not_audio_label",
+      "source_refs": [
+        "research/baishuo/manifest.json"
+      ],
+      "evidence_key": "yuai",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "author-originals",
+      "tags": [
+        "same_syllable",
+        "context",
+        "structure"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EA03",
+      "description": "作者最后一页AP/SP、note间隙及多part；结构不证明实际呼吸",
+      "origin": "author_input_structure",
+      "role": "read_only_structure_not_audio_label",
+      "source_refs": [
+        "research/baishuo/manifest.json"
+      ],
+      "evidence_key": "lastpage",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "author-originals",
+      "tags": [
+        "phrase",
+        "gap",
+        "structure"
+      ],
+      "review_partition": "main_mapping",
+      "no_new_audio_or_labels": true
+    },
+    {
+      "id": "CASE:EA04",
+      "description": "三作者工程不同谱面音区；不是实测F0或高音质量标签",
+      "origin": "author_input_structure",
+      "role": "read_only_structure_not_audio_label",
+      "source_refs": [
+        "research/baishuo/manifest.json"
+      ],
+      "evidence_key": "all",
+      "label_text": "unknown",
+      "label_kind": "unknown",
+      "shared_evidence_group": "author-originals",
+      "tags": [
+        "low",
+        "high",
+        "structure",
+        "unknown"
+      ],
+      "review_partition": "deferred_mapping_recheck",
+      "no_new_audio_or_labels": true
+    }
+  ],
+  "counts_by_origin": {
+    "existing_user_evidence": 18,
+    "authored_music_task_question": 12,
+    "original_research_task": 5,
+    "method_failure_condition": 3,
+    "author_input_structure": 4
+  },
+  "sources": [
+    {
+      "id": "ESRC:01",
+      "title": "Mürbe et al. 2003, Auditory and kinesthetic feedback in singing",
+      "url": "https://www.isca-archive.org/maveba_2003/murbe03_maveba.pdf",
+      "locator": "printed pp183–186; methods/limitations",
+      "read_status": "full_paper_text_read",
+      "scope": "28起始学生/22复查；三和弦、连/断、快/慢和反馈遮蔽；不是听者混音掩蔽模型，也不迁移人体训练因果到模型"
+    },
+    {
+      "id": "ESRC:02",
+      "title": "Jansens, Bloothooft & de Krom 1997, Perception and acoustics of emotions in singing",
+      "url": "https://www.isca-archive.org/eurospeech_1997/jansens97_eurospeech.pdf",
+      "locator": "printed pp2155–2158; material, perception, regression cautions",
+      "read_status": "full_paper_text_read",
+      "scope": "同一德语乐句/14专业歌手/25听者；多情绪及评分差异，只用于任务/标签边界，不套系数或中文情绪公式"
+    },
+    {
+      "id": "ESRC:03",
+      "title": "Kob & Neuschaefer-Rube 2003, Acoustic analysis of overtone singing",
+      "url": "https://www.isca-archive.org/maveba_2003/kob03_maveba.pdf",
+      "locator": "printed pp187–190; introduction/methods",
+      "read_status": "selected_fulltext_sections_read",
+      "scope": "一个sygyt演唱者的谱/超声/阻抗观察；不是独立双F0或所有撕裂唱法真值"
+    },
+    {
+      "id": "ESRC:04",
+      "title": "UNSW formant/resonance/pole distinction",
+      "url": "https://www.phys.unsw.edu.au/jw/formant.html",
+      "locator": "high-F0 example and object distinction",
+      "read_status": "component_explanation_read",
+      "scope": "作者实验室对象与可辨识性解释；非新歌唱样本"
+    },
+    {
+      "id": "ESRC:05",
+      "title": "Praat Voice breaks",
+      "url": "https://praat.org/manual/Voice_1__Voice_breaks.html",
+      "locator": "continuous sustained vowel and locally unvoiced distinctions",
+      "read_status": "component_method_conditions_read",
+      "scope": "持续元音方法，不把正常辅音/休止或检测失败都叫破音"
+    },
+    {
+      "id": "ESRC:06",
+      "title": "Praat jitter/shimmer conditions",
+      "url": "https://praat.org/manual/PointProcess__Get_jitter__local____.html",
+      "locator": "period and pair selection; D source for shimmer separately retained",
+      "read_status": "inherited_D_component_read_not_reexecuted",
+      "scope": "周期级测量条件提问，无新的录音、pulse或临床阈值"
+    }
+  ],
+  "input_bindings": [
+    {
+      "path": "docs/lastpage-cross-condition-study-20261008.md",
+      "sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb"
+    },
+    {
+      "path": "docs/lastpage-tenc-controlled-probe-20261008.md",
+      "sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f"
+    },
+    {
+      "path": "docs/lastpage-shfc-controlled-probe-20261008.md",
+      "sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2"
+    },
+    {
+      "path": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493"
+    },
+    {
+      "path": "docs/lastpage-guo-register-probe-20261008.md",
+      "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98"
+    },
+    {
+      "path": "docs/lastpage-guo-positive-comparison-20261008.md",
+      "sha256": "a04e9719723a433a0ccbbd14c615b394ead2e02d3c3e938913f40856075f13a0"
+    },
+    {
+      "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "path": "docs/lastpage-guo-phoneme-audit-20261008.md",
+      "sha256": "cbd27a56a6a577bdbe8794fe50fa834c1fd8a73023720863819bbae218ecb1f1"
+    },
+    {
+      "path": "research/baishuo/manifest.json",
+      "sha256": "00bd1cca28fd7babb99d906980e6a4382228c185515fb68b433cc55abfebc12c"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821"
+    },
+    {
+      "path": "research/baishuo/projects/花海+4-有参by白烁.ustx",
+      "sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377"
+    },
+    {
+      "path": "research/baishuo/projects/雨爱-有参by白烁.ustx",
+      "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce"
+    },
+    {
+      "path": "research/baishuo/projects/最后一页-有参by白烁.ustx",
+      "sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b"
+    },
+    {
+      "path": "runs/research/table1-e-coverage-20261010/observations/plan-at-freeze.md",
+      "sha256": "146d32e7418fec2332441df8581b0d4fa4dd106cf6dd8a8bfa8e668b2e18034c"
+    }
+  ],
+  "author_structures": [
+    {
+      "project": "huahai",
+      "path": "research/baishuo/projects/花海+4-有参by白烁.ustx",
+      "sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377",
+      "note_count": 564,
+      "voice_part_count": 3,
+      "tempos": [
+        {
+          "position": 0,
+          "bpm": 75
+        }
+      ],
+      "continuation_examples": [
+        {
+          "index": 21,
+          "position": 23040,
+          "duration": 90,
+          "tone": 61,
+          "lyric": "+"
+        },
+        {
+          "index": 24,
+          "position": 24000,
+          "duration": 120,
+          "tone": 58,
+          "lyric": "+"
+        }
+      ],
+      "repeated_de_examples": [
+        {
+          "index": 8,
+          "position": 18960,
+          "duration": 240,
+          "tone": 61,
+          "lyric": "de"
+        },
+        {
+          "index": 76,
+          "position": 40440,
+          "duration": 720,
+          "tone": 66,
+          "lyric": "de"
+        },
+        {
+          "index": 93,
+          "position": 45120,
+          "duration": 240,
+          "tone": 61,
+          "lyric": "de"
+        }
+      ],
+      "gap_examples": [
+        {
+          "part": 0,
+          "index": 25,
+          "gap_ticks": 180
+        },
+        {
+          "part": 0,
+          "index": 37,
+          "gap_ticks": 60
+        },
+        {
+          "part": 0,
+          "index": 61,
+          "gap_ticks": 120
+        }
+      ],
+      "AP_count": 48,
+      "SP_count": 37,
+      "all_note_tone_range": [
+        55,
+        77
+      ],
+      "lyric_note_tone_range": [
+        56,
+        75
+      ],
+      "curve_arrays_exported_or_reused": false,
+      "auditory_label": "unknown"
+    },
+    {
+      "project": "yuai",
+      "path": "research/baishuo/projects/雨爱-有参by白烁.ustx",
+      "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce",
+      "note_count": 638,
+      "voice_part_count": 2,
+      "tempos": [
+        {
+          "position": 0,
+          "bpm": 80
+        }
+      ],
+      "continuation_examples": [
+        {
+          "index": 115,
+          "position": 40320,
+          "duration": 240,
+          "tone": 64,
+          "lyric": "+"
+        },
+        {
+          "index": 122,
+          "position": 42240,
+          "duration": 240,
+          "tone": 64,
+          "lyric": "+"
+        }
+      ],
+      "repeated_de_examples": [
+        {
+          "index": 3,
+          "position": 10080,
+          "duration": 480,
+          "tone": 63,
+          "lyric": "de"
+        },
+        {
+          "index": 17,
+          "position": 14160,
+          "duration": 240,
+          "tone": 64,
+          "lyric": "de"
+        },
+        {
+          "index": 50,
+          "position": 25200,
+          "duration": 120,
+          "tone": 59,
+          "lyric": "de"
+        }
+      ],
+      "gap_examples": [
+        {
+          "part": 0,
+          "index": 19,
+          "gap_ticks": 180
+        },
+        {
+          "part": 0,
+          "index": 35,
+          "gap_ticks": 270
+        },
+        {
+          "part": 0,
+          "index": 53,
+          "gap_ticks": 30
+        }
+      ],
+      "AP_count": 79,
+      "SP_count": 14,
+      "all_note_tone_range": [
+        56,
+        76
+      ],
+      "lyric_note_tone_range": [
+        56,
+        76
+      ],
+      "curve_arrays_exported_or_reused": false,
+      "auditory_label": "unknown"
+    },
+    {
+      "project": "lastpage",
+      "path": "research/baishuo/projects/最后一页-有参by白烁.ustx",
+      "sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b",
+      "note_count": 1208,
+      "voice_part_count": 8,
+      "tempos": [
+        {
+          "position": 0,
+          "bpm": 70
+        }
+      ],
+      "continuation_examples": [
+        {
+          "index": 3,
+          "position": 9750,
+          "duration": 180,
+          "tone": 64,
+          "lyric": "+"
+        },
+        {
+          "index": 7,
+          "position": 10470,
+          "duration": 180,
+          "tone": 68,
+          "lyric": "+"
+        }
+      ],
+      "repeated_de_examples": [],
+      "gap_examples": [
+        {
+          "part": 0,
+          "index": 37,
+          "gap_ticks": 420
+        },
+        {
+          "part": 0,
+          "index": 61,
+          "gap_ticks": 210
+        },
+        {
+          "part": 0,
+          "index": 76,
+          "gap_ticks": 450
+        }
+      ],
+      "AP_count": 59,
+      "SP_count": 7,
+      "all_note_tone_range": [
+        49,
+        73
+      ],
+      "lyric_note_tone_range": [
+        49,
+        73
+      ],
+      "curve_arrays_exported_or_reused": false,
+      "auditory_label": "unknown"
+    }
+  ],
+  "independence_scope": "Question selection from user evidence, original studies, music-task requirements and author structures; no enumeration of the 31 descriptors, no B hypothetical counterexamples",
+  "recheck_scope": "Deferred mapping process check only. Agent already saw A–D; no statistical blindness, unseen-audio holdout or generalization validation",
+  "sampling_limit": "Purposive finite checklist, not all singing phenomena. U18 aggregates313 unknown words into1 case; 6BREC rows share1 utterance; repeated papers do not create independent experiments",
+  "table2_text_quality": "Some existing conditional-responses.json prose is mojibake; retained unchanged. Feedback wording comes from bound readable reports, numeric identities/record IDs and stored hashes only from JSON. F must expose this gap before formal consolidation.",
+  "no_new_audio_or_synthesis": true,
+  "no_new_auditory_labels": true,
+  "formal_ids_migrated": false
+}

@@ -1,0 +1,63 @@
+{
+  "status": "passed_partial_human_feedback",
+  "date": "2026-10-11",
+  "execution_seal": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+    "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+  },
+  "sealed_run_files_SHA": 484,
+  "sealed_documents_SHA": 4,
+  "production_skill_project_SHA": 79,
+  "protected_inputs_SHA": 67,
+  "presented_full_vocal_SHA": 4,
+  "snapshot_files_SHA": 10,
+  "feedback": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-word225-feedback-20261011.json",
+    "sha256": "1274aafa16b423052d7f52884b0caf8dcfda4ba69e5bb78a792a114d2a864ca3"
+  },
+  "report": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-word225-feedback-20261011.md",
+    "sha256": "7b8a6743827e5f56754e68c42e823c83c5bf4964083780846effed6412cda4a8"
+  },
+  "current_entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "9c495e3826d683cecabdf7bcd250cd43bd75d1d843f6022b5b42d01ce40f150b"
+    },
+    {
+      "path": "README.md",
+      "sha256": "5ff80ca4af905e0e8d9b6b4929b8ddb6b538c27df31014823675ee48cd1e52c8"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "4f8ee6f664541cc4400ab8ba6ea926e84d0714a89d328e713a99b8dd67b845bd"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "b1a26962cbd9aa37c176273b7bc88556716b4509c8a9f8fc3a90ca3c1fdfd0c9"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "44850829986d14ff5a49bf4d8b63b4da96c83391189a7fbcf1f252f53b73107c"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "26ed439975e9b3203ced06ea7bd8d10585b734c1608e0888d741685d40e64f00"
+    }
+  ],
+  "worktree_gate": {
+    "passed": true,
+    "log": {
+      "path": "runs/research/table2-word225-feedback-20261011/worktree-gate.txt",
+      "sha256": "196c1a0f232dfd750ba6e9fec84f4c3b7f047a2843ea1426f244d5a69b402558"
+    }
+  },
+  "current_markdown_links_checked": 208,
+  "new_feedback": 1,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "agent_heard": false,
+  "stage_2E_complete": false,
+  "measurement_validated": false,
+  "CI_manual_only": true
+}

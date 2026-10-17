@@ -1,0 +1,235 @@
+{
+  "status": "sampling_design_preparation_with_explicit_gaps",
+  "date": "2026-10-11",
+  "user_design_steering_verbatim": "我感觉有点不对，就是不应该验证的样本量很大的吗？怎么感觉你还是在点对点的操作。",
+  "auditory_feedback_count_unchanged": 9,
+  "completed_batch": {
+    "design": "T2D-SHFC-PATHS-01 v1",
+    "independent_context_candidates": 2,
+    "phrase_groups": 2,
+    "songs": 1,
+    "voice_models": 1,
+    "seeded_waveforms": 16,
+    "paths_per_context": 4,
+    "same_input_repetitions": 2,
+    "derived_delivery_files": 72,
+    "heldout_contexts": 0,
+    "word225_vocal_comparisons_with_feedback": 5,
+    "word214_independent_version_aggregate": "no perceptible difference reported",
+    "role": "engineering_and_local_mechanism_pilot_not_generalization_validation"
+  },
+  "sampling_frame": {
+    "candidate_contexts": 318,
+    "phrase_groups": 34,
+    "songs": 1,
+    "voice_models": 1,
+    "raw_vowel_tokens": 33,
+    "old_labels": {
+      "local_usable": 1,
+      "reported_false_forward": 2,
+      "reported_solid": 2,
+      "unknown": 313
+    },
+    "vowel_counts": {
+      "zh/a": 9,
+      "zh/ai": 20,
+      "zh/an": 8,
+      "zh/ang": 6,
+      "zh/ao": 11,
+      "zh/e": 28,
+      "zh/ei": 5,
+      "zh/en": 3,
+      "zh/eng": 11,
+      "zh/i": 35,
+      "zh/i0": 2,
+      "zh/ia": 7,
+      "zh/ian": 27,
+      "zh/iang": 5,
+      "zh/iao": 9,
+      "zh/ie": 10,
+      "zh/in": 3,
+      "zh/ing": 8,
+      "zh/iong": 4,
+      "zh/ir": 21,
+      "zh/iu": 2,
+      "zh/ong": 11,
+      "zh/ou": 8,
+      "zh/u": 15,
+      "zh/uai": 2,
+      "zh/uan": 2,
+      "zh/uang": 4,
+      "zh/ui": 10,
+      "zh/un": 8,
+      "zh/uo": 16,
+      "zh/v": 4,
+      "zh/van": 2,
+      "zh/ve": 2
+    },
+    "pitch_bucket_counts": {
+      "56-63": 75,
+      "64-68": 176,
+      "69-73": 67
+    },
+    "duration_bucket_counts": {
+      "250-500ms": 198,
+      "<250ms": 57,
+      ">=500ms": 63
+    },
+    "phrase_counts": {
+      "0": 14,
+      "1": 10,
+      "2": 14,
+      "3": 8,
+      "4": 12,
+      "5": 8,
+      "6": 12,
+      "7": 9,
+      "8": 9,
+      "9": 6,
+      "10": 9,
+      "11": 9,
+      "12": 6,
+      "13": 9,
+      "14": 14,
+      "15": 10,
+      "16": 14,
+      "17": 8,
+      "18": 12,
+      "19": 8,
+      "20": 12,
+      "21": 9,
+      "22": 9,
+      "23": 6,
+      "24": 9,
+      "25": 9,
+      "26": 6,
+      "27": 9,
+      "28": 9,
+      "29": 6,
+      "30": 9,
+      "31": 9,
+      "32": 6,
+      "33": 9
+    },
+    "pitch_range": [
+      56,
+      73
+    ],
+    "duration_ms_range": [
+      115.62499999999432,
+      2082.291666666663
+    ]
+  },
+  "source": {
+    "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+    "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+  },
+  "source_manifest": {
+    "path": "runs/lastpage_cross_condition_study_20261008/completion_manifest.json",
+    "sha256": "e71505a90f6fd04c568f76e31343e1ef2f6615a04e340cb6b6f30d5922bd0f86"
+  },
+  "sampled_or_assigned_new_contexts": 0,
+  "source_arrays_decoded": 0,
+  "audio_decoded": 0,
+  "inventory_scope": "frozen word/phone/clock/pitch metadata only; stored prediction metrics not reanalysed",
+  "old_labels_not_current_auditory_truth": true,
+  "descriptive_buckets_not_physiological_thresholds": true,
+  "design_proposal": {
+    "status": "not_frozen_not_authorized_for_execution",
+    "target": "first validate SHFC conditional power response in the bound DiffSinger/voice chain; other controls/engines need separate studies",
+    "provisional_development_contexts": 24,
+    "provisional_holdout_contexts": 48,
+    "provisional_total_contexts": 72,
+    "provisional_minimum_phrase_groups": 36,
+    "provisional_minimum_corpus_sources": 3,
+    "role": "coverage/resource planning scenario, not a statistically justified final sample size",
+    "development_paths": [
+      "A",
+      "S",
+      "D",
+      "P"
+    ],
+    "holdout_paths": [
+      "A",
+      "S"
+    ],
+    "technical_repetitions": 2,
+    "provisional_seeded_waveforms": 384,
+    "allocation_rule": "at most two targets per phrase; disjoint phrase/song groups between development and holdout; audit prior exposure before assignment",
+    "primary_vocal_comparison": "S-A at every selected context; D/P mechanism pairs in development only",
+    "dose_shape": "one predeclared legal dose and time-shape rule per batch, no per-word tuning; too-short cases explicitly excluded or separately designed, not silently compressed",
+    "final_sample_size": "pending primary endpoint, meaningful effect/precision target, cluster variability and listener budget; sensitivity analysis before freeze",
+    "sound_bank_scope": "same bound voice first; other voices/models explicitly outside current inference",
+    "listener_scope": "current single user; condition generalization does not establish population-wide listener preference",
+    "prospective_holdout": "not used to choose the new dose/shape/hypothesis; metadata access not misrepresented as never-seen baseline",
+    "human_workflow": "batch anonymous balanced vocal comparisons, short sessions, null/retest controls; no response-dependent parameter changes",
+    "missing_material": "only one 34-phrase source currently inventoried; new source permissions, historical exposure and cluster coverage must be resolved",
+    "no_statistical_significance_or_adequate_power_claim": true
+  },
+  "methodology_sources": [
+    {
+      "title": "Lakens (2022), Sample Size Justification",
+      "url": "https://doi.org/10.1525/collabra.33267",
+      "use": "Sample size justification must match inferential goals, effect sizes, precision, resource constraints and sensitivity; 24/48 here remain an unfrozen scenario"
+    }
+  ],
+  "stage_2F_validation_executed": false,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "BGM_research": false,
+  "song_or_skill_changed": false,
+  "single_agent": true,
+  "CI_manual_only": true,
+  "source_seals": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+      "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+    },
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/completion-manifest.json",
+      "sha256": "4800a9b8270d2da1edfbeb629834d0b5841cae9f7dd041d2344a15215046d25c"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/completion-manifest.json",
+      "sha256": "4e20e662350519ecb5103b6a36079ea2b06706f8083648ec7993cc14c01dbafc"
+    },
+    {
+      "path": "runs/research/table2-word225-pa-feedback-20261011/completion-manifest.json",
+      "sha256": "0f45f5fc8690cb771faaed562741b50edbf25e958ee09767828348eb1bdad4fc"
+    },
+    {
+      "path": "runs/research/table2-word225-sd-feedback-20261011/completion-manifest.json",
+      "sha256": "f6ddc9ae692fabe7f01adc5ffbfdbf4f67a16d3add7531f80fc1ea7a795b2714"
+    },
+    {
+      "path": "runs/research/table2-word225-sp-feedback-20261011/completion-manifest.json",
+      "sha256": "860719f2d97111bef140fe230e382c89f7ad72f218e754b5338b55a1972a3134"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-mix-feedback-20261011/completion-manifest.json",
+      "sha256": "df12cde46a0a0ddeffeea414c3a6e35ff693005ac97773e70ecfc90b144a83e2"
+    },
+    {
+      "path": "runs/research/table2-vocal-scope-review-20261011/completion-manifest.json",
+      "sha256": "87ef085b6c16982660b3df4cd4b4912de81101b9a9eadc6d2671bb92a73ff2bb"
+    }
+  ],
+  "recorder": {
+    "path": "research/table2-confirmation/prepare_stage_2f_sampling_review.py",
+    "sha256": "f7251357268d09c7e3ce6e96c0e22c701ddab580396b98dea1d6b81e14e65bcb"
+  },
+  "pre_update_snapshot": {
+    "path": "runs/research/table2-sampling-review-20261011/before/snapshot-manifest.json",
+    "sha256": "089b05dad407379cf3d2cb9c250f3d4f6bf49605533f649abc9628dfb7cac7c6"
+  }
+}

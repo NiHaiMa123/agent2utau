@@ -1,0 +1,428 @@
+{
+  "status": "target_unresolved_no_deterioration_reported",
+  "feedback": {
+    "original_text": "还是虚，没有退化",
+    "reply_count": 1,
+    "target_record": "RESP:LASTPAGE-VOICE-BASELINE-01",
+    "comparison": "B-A",
+    "scope": "delivered two-phrase preview, aggregate reply; full song not confirmed heard",
+    "candidate": {
+      "path": "runs/experiments/lastpage-voice-baseline-20261011/delivery/B_same_lyrics_vocal.wav",
+      "sha256": "5c86e09704ac83fd2d91159282fb40e227ddcd8e713371829019626ee55593ef"
+    },
+    "original_A": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/agent_acceptedC_same_lyrics_vocal.wav",
+      "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+    },
+    "author_reference": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/baishuo_current165c_reference_vocal.wav",
+      "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+    },
+    "target_solidity": "still airy; target unresolved",
+    "deterioration": "none reported, aggregate",
+    "kan_specific_deterioration": "unknown: not separately named in this reply",
+    "break_articulation_loudness_separate_labels": "unknown",
+    "no_perceptible_difference": "not explicitly stated",
+    "adoption": false,
+    "independent_word_labels_added": 0,
+    "agent_heard": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-VOICE-BASELINE-01",
+    "append_only_feedback": true,
+    "prior_report": {
+      "path": "docs/reports/lastpage/voice-baseline-probe-20261011.json",
+      "sha256": "c0f6dc34ce0b468aadbc096fcc064d0c0f8adddc632ee9080e809d40a0215d1e"
+    },
+    "feedback": {
+      "original_text": "还是虚，没有退化",
+      "reply_count": 1,
+      "target_record": "RESP:LASTPAGE-VOICE-BASELINE-01",
+      "comparison": "B-A",
+      "scope": "delivered two-phrase preview, aggregate reply; full song not confirmed heard",
+      "candidate": {
+        "path": "runs/experiments/lastpage-voice-baseline-20261011/delivery/B_same_lyrics_vocal.wav",
+        "sha256": "5c86e09704ac83fd2d91159282fb40e227ddcd8e713371829019626ee55593ef"
+      },
+      "original_A": {
+        "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/agent_acceptedC_same_lyrics_vocal.wav",
+        "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+      },
+      "author_reference": {
+        "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/baishuo_current165c_reference_vocal.wav",
+        "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+      },
+      "target_solidity": "still airy; target unresolved",
+      "deterioration": "none reported, aggregate",
+      "kan_specific_deterioration": "unknown: not separately named in this reply",
+      "break_articulation_loudness_separate_labels": "unknown",
+      "no_perceptible_difference": "not explicitly stated",
+      "adoption": false,
+      "independent_word_labels_added": 0,
+      "agent_heard": false
+    },
+    "status": "target_unresolved_no_deterioration_reported",
+    "adoption": false,
+    "independent_contexts": 2,
+    "candidate_feedback_count": 1,
+    "new_waveforms": 0,
+    "table1_refs": [
+      "PER:S1",
+      "PARAM:C20.01",
+      "PARAM:C20.03",
+      "PARAM:C20.05"
+    ],
+    "new_voicing_plan_is_not_a_response_record": true,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "direction_counts": {
+    "breathiness": {
+      "positive": 15,
+      "negative": 0
+    },
+    "voicing": {
+      "positive": 10,
+      "negative": 5
+    },
+    "tension": {
+      "positive": 9,
+      "negative": 6
+    }
+  },
+  "word_review": {
+    "path": "runs/research/lastpage-voice-baseline-feedback-20261011/evaluation/word-feature-review.json",
+    "sha256": "165d85f244c56fb5b7716d1bef023b216df78b1d1387b4b25b2511603318dfc1"
+  },
+  "next_plan": {
+    "protocol_id": "LASTPAGE-CONDITIONED-VOIC-01",
+    "state": "planned_not_compiled_or_executed",
+    "baseline": {
+      "path": "runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline.ustx",
+      "sha256": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816"
+    },
+    "speaker": "Normal75/Classic25 both stages",
+    "phrase_intent": "first sentence sustained support across linking words; preserve stronger bodies and release; second sentence unchanged",
+    "design_reference": -44.0,
+    "partial_fraction": 0.5,
+    "feature_cap": 3.0,
+    "reference_status": "Agent design choice; not an auditory threshold, universal target, author fit or physiological scale",
+    "actions": [
+      {
+        "word": 270,
+        "char": "想",
+        "context": 28,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -43.126895904541016,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 271,
+        "char": "把",
+        "context": 28,
+        "action": "finite_voicing_overlay",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -46.383670806884766,
+        "additive_UI": 10,
+        "nominal_feature_increment": 1.2,
+        "support_s": [
+          210.32187500000003,
+          210.73020833333334
+        ],
+        "attack_s": 0.05,
+        "release_s": 0.045,
+        "shape": "continuous linear attack/hold/release, zero outside vowel; no reattack at extension notes",
+        "execution_state": "planned"
+      },
+      {
+        "word": 272,
+        "char": "你",
+        "context": 28,
+        "action": "finite_voicing_overlay",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -53.647605895996094,
+        "additive_UI": 25,
+        "nominal_feature_increment": 3.0,
+        "support_s": [
+          210.81145833333335,
+          211.01875000000004
+        ],
+        "attack_s": 0.04145833333333826,
+        "release_s": 0.04145833333333826,
+        "shape": "continuous linear attack/hold/release, zero outside vowel; no reattack at extension notes",
+        "execution_state": "planned"
+      },
+      {
+        "word": 273,
+        "char": "抱",
+        "context": 28,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -42.869327545166016,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 274,
+        "char": "进",
+        "context": 28,
+        "action": "finite_voicing_overlay",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -51.54228210449219,
+        "additive_UI": 25,
+        "nominal_feature_increment": 3.0,
+        "support_s": [
+          211.65625000000003,
+          211.79583333333335
+        ],
+        "attack_s": 0.027916666666664015,
+        "release_s": 0.027916666666664015,
+        "shape": "continuous linear attack/hold/release, zero outside vowel; no reattack at extension notes",
+        "execution_state": "planned"
+      },
+      {
+        "word": 275,
+        "char": "身",
+        "context": 28,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -43.098846435546875,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 276,
+        "char": "体",
+        "context": 28,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -36.12705993652344,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 277,
+        "char": "里",
+        "context": 28,
+        "action": "finite_voicing_overlay",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -46.543331146240234,
+        "additive_UI": 11,
+        "nominal_feature_increment": 1.3199999999999998,
+        "support_s": [
+          212.9572916666667,
+          213.58541666666667
+        ],
+        "attack_s": 0.05,
+        "release_s": 0.045,
+        "shape": "continuous linear attack/hold/release, zero outside vowel; no reattack at extension notes",
+        "execution_state": "planned"
+      },
+      {
+        "word": 278,
+        "char": "面",
+        "context": 28,
+        "action": "finite_voicing_overlay",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -46.9466552734375,
+        "additive_UI": 12,
+        "nominal_feature_increment": 1.44,
+        "support_s": [
+          213.7947916666667,
+          214.21562500000002
+        ],
+        "attack_s": 0.05,
+        "release_s": 0.045,
+        "shape": "continuous linear attack/hold/release, zero outside vowel; no reattack at extension notes",
+        "execution_state": "planned"
+      },
+      {
+        "word": 279,
+        "char": "不",
+        "context": 29,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -38.06191635131836,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 280,
+        "char": "敢",
+        "context": 29,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -47.25720977783203,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 281,
+        "char": "让",
+        "context": 29,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -43.998565673828125,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 282,
+        "char": "你",
+        "context": 29,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -49.95433044433594,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 283,
+        "char": "看",
+        "context": 29,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -42.7763671875,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      },
+      {
+        "word": 284,
+        "char": "见",
+        "context": 29,
+        "action": "keep_baseline",
+        "evidence_status": "aggregate airy feedback plus current model descriptor; no individual airy label",
+        "baseline_core_voicing": -44.9264030456543,
+        "additive_UI": 0,
+        "nominal_feature_increment": 0.0,
+        "support_s": null,
+        "attack_s": null,
+        "release_s": null,
+        "shape": null,
+        "execution_state": "planned"
+      }
+    ],
+    "selected_words": [
+      271,
+      272,
+      274,
+      277,
+      278
+    ],
+    "scope_words": [
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284
+    ],
+    "original_declared_VOIC_range": [
+      0,
+      200
+    ],
+    "native_loading_quantization_and_overlay_range": "must verify before any render",
+    "condition_changes": [
+      "manual voicing only"
+    ],
+    "retained": [
+      "pitch",
+      "phones",
+      "speaker",
+      "manual breathiness",
+      "manual tension",
+      "SHFC",
+      "native DYN",
+      "fixed gain1.5"
+    ],
+    "expected": "test additional finite voicing support on first phrase without discarding baseline contours",
+    "possible_side_effects": [
+      "hardness",
+      "break",
+      "articulation change",
+      "level change",
+      "unintended neighboring response"
+    ],
+    "budget": {
+      "candidates": 1,
+      "contexts": 2,
+      "variants": [
+        "A",
+        "A_repeat",
+        "B",
+        "B_repeat"
+      ],
+      "seeded_waveforms": 8
+    },
+    "required_checks": [
+      "5tick native readback; baseline plus overlay without saturation; no AP/SP or consonant edits",
+      "two-stage speaker, pitch/phones/predictions and other input channels exact",
+      "fresh A equals sealed A; all same-input repeats exact; changed input only voicing on declared support",
+      "context29 input and PCM exact; all 32 other contexts including accepted bao C exact",
+      "DYN/fixed gain/PCM assembly and output F0/limited acoustic response separately checked",
+      "deliver full carrier and same-gain phrases plus separate unchanged author reference; human solidity and side effects required"
+    ],
+    "stop": "one candidate then accept or close; no automatic dose increase, parameter sweep or universal conclusion",
+    "new_waveforms": 0,
+    "author_arrays_used": false,
+    "measurement_validated": false
+  },
+  "sealed_probe_unchanged": true,
+  "agent_heard": false
+}

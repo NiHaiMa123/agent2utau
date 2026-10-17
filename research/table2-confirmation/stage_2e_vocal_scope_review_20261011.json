@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-11",
+  "run_name": "table2-vocal-scope-review-20261011",
+  "document_name": "table2-stage-2e-vocal-scope-review-20261011",
+  "previous_feedback_runs": ["table2-word225-feedback-20261011", "table2-word214-feedback-20261011", "table2-word225-sa-feedback-20261011", "table2-word225-da-feedback-20261011", "table2-word225-pa-feedback-20261011", "table2-word225-sd-feedback-20261011", "table2-word225-sp-feedback-20261011", "table2-word225-sa-mix-feedback-20261011"],
+  "presented_pairs": [
+    {"condition_id": "current-word-225", "order": 3, "direction": "D-A", "codes": ["K2", "K1"], "role": "mix"},
+    {"condition_id": "current-word-225", "order": 4, "direction": "A-D", "codes": ["K1", "K2"], "role": "mix"}
+  ],
+  "record": {
+    "feedback_id": "T2E-VOCAL-SCOPE-20261011",
+    "user_message_verbatim": "听不出区别，但是不用探索bgm和人声的关系吧？现在研究的是opentuau，这个不调bgm",
+    "message_source": "human user replying to mixed 03 K2→K1 and 04 K1→K2 and narrowing the current research scope",
+    "condition_id": "current-word-225",
+    "lyric": "抱",
+    "comparison": "D-A",
+    "delivery_role": "mix",
+    "feedback_scope": "current mixed presentation received a no-difference reply plus explicit instruction to stop studying BGM/vocal relationship",
+    "current_listening_excerpt_verbatim": "听不出区别",
+    "difference_relation": "not separately specified; preceding prompt asked whether the impression matched pure vocals, but this record does not override the explicit vocal D>A result",
+    "current_mixed_feedback_status": "recorded_with_explicit_comparison_relation_gap; no new mixed power ordering or break label inferred",
+    "per_order_results": "not separately stated",
+    "actual_listened_set": "not separately enumerated",
+    "scope_change": {
+      "authority": "direct current human user instruction",
+      "user_scope_excerpt_verbatim": "不用探索bgm和人声的关系吧？现在研究的是opentuau，这个不调bgm",
+      "active_research": "OpenUtau vocal control paths and their conditional vocal responses",
+      "stop": ["further BGM/vocal relationship listening", "remaining paired mixed-audio review as a current progression requirement", "BGM adjustment"],
+      "protocol_deviation": "Auditory presentation scope narrowed by the user after rendering; immutable T2D-SHFC-PATHS-01 v1 remains as the original design, and unreviewed mixes are out of current scope rather than passed",
+      "no_new_audio_or_skill_authorization": true,
+      "no_automatic_stage_2F_2G_2H": true
+    },
+    "vocal_summary": {
+      "word225_explicit_comparisons": ["S>A", "D>A", "P>A", "S>D", "S>P"],
+      "word225_local_power_relations": ["K3(S)>K2(D)>K1(A)", "K3(S)>K4(P)>K1(A)"],
+      "D_vs_P_power": "unknown; no extra comparison added",
+      "K1_softness": "more soft relative to K3 in vocal S/A user feedback",
+      "audible_break": "none reported for each variant in its previously evaluated focal vocal presentation; reports remain separately scoped",
+      "word214": "no perceptible difference reported among four independent full-context vocal versions; five fixed paired comparisons not separately evaluated",
+      "study_conclusion": "Under the bound word225/dose/presentation, direct acoustic F0 and joint fresh prediction-group counterfactual paths each had local perceived power responses, with S stronger than either alone; word214 did not receive perceptible difference support",
+      "not_established": ["single VOIC/BREC/TENC attribution", "physiological mechanism", "numerical power or loudness scale", "D/P ordering", "quantitative contributions", "additivity or interaction", "held-out/generalized rule", "complete naturalness or whole-song acceptance"]
+    },
+    "unreported_auditory_dimensions": ["subjective_loudness", "objective_loudness", "body", "naturalness", "absolute_usability"],
+    "listening_metadata": {"device": "unknown", "player": "unknown", "volume": "unknown", "actual_order": "unknown", "repetitions": "unknown", "both_order_completion": "unknown", "blinding": "unknown"},
+    "word225_vocal_comparison_groups_with_explicit_feedback": 5,
+    "word225_mixed_groups_with_explicit_before_after_description": 1,
+    "word225_additional_mixed_groups_with_limited_reply": 1,
+    "word214_vocal_paired_groups_with_explicit_feedback": 0,
+    "current_batch_vocal_summary_status": "summarized_with_explicit_gaps",
+    "mixed_audio_review_status": "stopped_by_user_scope_change_not_a_required_next_step",
+    "remaining_in_scope_gaps": ["unreported vocal dimensions and order/device metadata", "word214 five fixed vocal pairs not individually assessed; preserve four-version negative without expanding experiments", "method calibration and out-of-condition validation not established"],
+    "removed_from_active_requirements": ["remaining mixed-audio reviews", "BGM/vocal relationship research"],
+    "word214_status": "no perceptible difference reported; no expanded validation",
+    "cumulative_new_feedback": 9
+  },
+  "current_status": "2E当前状态partial_human_feedback_recorded：2026-10-11累计9条本批回复/反馈，现有人声结果已归档。用户明确“现在研究的是opentuau，这个不调bgm”，当前范围收回OpenUtau人声控制路径；停止后续伴奏/人声关系及混音试听，不再将剩余混音作为推进门槛，未评混音不标通过。当前混音环节“听不出区别”原话保留，比较关系未另明确，不覆盖纯人声D>A。抱五组成对人声：S>A、D>A、P>A、S>D、S>P，局部力量感S>D>A及S>P>A，D/P未知；各自原对照无破音反馈与K3偏好保持。只四版“没区别”保留，固定五组未单独评价，不扩大验证。2E原协议完整验收不宣称，未报人声细项/顺序/设备及方法性能/泛化仍有缺口；measurement_validated仍false，通用规律0。下一工作为OpenUtau有限路径结论与保留缺口的知识整理，不再推送混音，不加新波形/候选，不改歌曲/既有音频/Skill，单Agent、CI仅手动，2F–2H未执行。",
+  "entry_replacements": [
+    ["抱五组成对人声及首组S/A混音反馈、只未感知差别已绑定，其余听觉缺口保留", "本批OpenUtau人声路径结果已整理并保留缺口；用户停止BGM关系复核，原反馈保持"],
+    ["抱五组成对人声及首组S/A混音反馈、只未感知差别已绑定，其余听觉待评价", "本批OpenUtau人声路径结果已整理并保留缺口；后续BGM关系复核由用户取消"],
+    ["已绑定抱五组成对人声细分反馈及只未感知差别，其余本批听觉缺口保留", "已整理抱五组成对人声与只四版阴性结果并保留缺口；用户已停止后续伴奏关系复核"],
+    ["抱局部偏好及五组人声/首组混音反馈、只未感知差别已绑定，其余听觉缺口保留", "本批人声控制路径结果与原反馈已整理并保留缺口；用户已停止后续BGM关系复核"],
+    ["下一工作为本批2E证据收拢及已有对照的剩余反馈（抱五组成对人声及S/A混音前后不变/字头不受影响、只214未感知差别已记录；下一组已有抱K2/K1混音，其余混音及未报细项与顺序/设备仍缺，只不扩大验证）；已完成冻结16套成声与技术门禁，不自动加剂量、加入条件或进入2F–2H。", "本批现有人声结果已归档；下一工作只整理OpenUtau直接声学F0/新预测组路径的有限条件证据及缺口。遵从用户最新范围，停止后续BGM关系研究与混音试听，未评混音不标通过且不再作为推进门槛；未报人声细项/顺序/设备、只五组未逐对评价及方法/泛化缺口保留，不追加条件、剂量或新波形，不自动进入2F–2H。"],
+    ["下一步人工试听/绑定反馈，不自动追加成声或整曲修改", "现有人声反馈已整理；后续只整理OpenUtau控制路径知识，停止BGM关系/混音复核，不自动追加成声或整曲修改"],
+    ["从局部到完整乐句检查收益、邻字保护、音乐目的与混音；必要时另做全曲验收", "从局部到完整乐句检查人声收益、邻字保护与音乐目的；必要时另做全曲验收（当前不研究或调整BGM及其与人声关系）"],
+    ["遵守用户已提出的分开试听要求：**每个条件、每个版本提供独立音频**，清楚标焦点和时间。用于版本比较的固定增益一致，不偷偷归一化/压缩；纯人声与混音分开。同电平控制或感知等响比较若有必要，应另设实验并说明其目的，不能覆盖原固定增益对照。", "遵守用户已提出的分开试听要求：**每个条件、每个版本提供独立人声音频**，清楚标焦点和时间。固定增益一致，不偷偷归一化/压缩。2026-10-11用户明确当前研究OpenUtau、不调BGM：停止后续BGM/人声关系及混音试听，不将未评混音作为继续研究的门槛；原冻结协议与已交付混音保留历史角色，未评不标通过。同电平控制或感知等响比较若以后明确需要，仍须另说明目的，不能覆盖原固定增益证据。"]
+  ],
+  "report_text": "# 2E当前OpenUtau人声路径结果与范围收缩\n\n2026-10-11。现有本批人声结果summarized_with_explicit_gaps；原协议完整验收未宣称，2F–2H未执行。\n\n本次用户原话：**听不出区别，但是不用探索bgm和人声的关系吧？现在研究的是opentuau，这个不调bgm**。第一句来自当前K2/K1混音环节，比较关系未另明确；前一问题询问混音是否与纯人声一致，但本条不将该句覆盖为纯人声K2/K1无差别。范围指令明确：当前研究OpenUtau控制路径，不研究/调整BGM及其与人声关系。\n\n据此停止后续混音推送及BGM关系复核；原协议T2D-SHFC-PATHS-01 v1、音频和旧反馈原字节保留，本次按用户指令收缩的是当前听觉呈现/验收范围，未评混音不标通过，也不再是继续整理知识的门槛。新混音与模型调用均0，不调整任何BGM。\n\n## 本批人声结果\n\n| 研究版本 | 直接声学F0条件 | 同批新预测组 | 抱225的局部听觉证据 |\n|---|---|---|---|\n| K1=A | 未偏移 | A基底 | 与K3比较更柔 |\n| K2=D研究反事实 | SHFC偏移 | A基底 | 力量感>K1，低于K3 |\n| K4=P研究反事实 | 未偏移 | S偏移组 | 力量感>K1，低于K3 |\n| K3=S完整路径 | SHFC偏移 | S偏移组 | 力量感>K1/K2/K4；原四版偏好K3保持 |\n\n五组固定人声主对照各获一条合并回复；各版本在其已报焦点对照中未听到破音，来源分别保持。当前力量感关系S>D>A及S>P>A，D/P相对力量感unknown，不补做协议外对照。只214独立四版回报“没区别”，固定五组未逐对评价，限定阴性与不扩大验证保持。\n\n当前SHFC实现同时改变直接声学F0条件和新预测的发声条件组；本批通过研究D/P拆开两条路径。在抱225固定−400c、145ms进入/55ms退出下，两条路径分别在相应基底有局部力量感响应，完整S力量感高于各单独路径；另一条件只214未获得可感知差别支持。这些是有限条件响应，不能变成单一VOIC/BREC/TENC、生理机制、量化贡献、线性相加/交互或通用剂量规则。vocoder F0输入保持不保证实测F0精确固定。两个条件均已用于设计，不是留出。\n\n力量感不等于响度、自然度或全曲验收；咬字、字腹、主客观响度、绝对可用性、设备/音量/顺序等未报信息保留unknown。原声学指标、F0/方法性能和measurement_validated状态不随用户反馈自动升级。原协议完整验收未宣称；当前人声结果可先整理，不能因删去BGM复核而补造只五组的评价或全面测量结论。\n\n累计9条本批用户回复/反馈，当前S/A混音原记录与D/A混音有限回复只作历史呈现记录；不会继续用伴奏关系占用人工试听。下一工作为OpenUtau路径的有限条件知识与缺口整理，不加新音频、剂量、seed、第三条件，不自动进入2F留出、2G整句全曲或2H Skill更新。\n\n本轮新模型调用/波形0，原歌曲/既有音频/Skill/安装不改。实验484文件/4报告、八份旧反馈run/24报告、79生产/Skill/工程与67保护输入SHA重查；6入口与24份旧反馈报告更新前原字节保存，原协议与旧反馈不改写。"
+}

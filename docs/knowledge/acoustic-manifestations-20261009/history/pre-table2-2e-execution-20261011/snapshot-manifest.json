@@ -1,0 +1,698 @@
+{
+  "stage": "2E-execution",
+  "date": "2026-10-11",
+  "files": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.json",
+      "sha256": "fcf6354f6405ae71c5ba06b0d05bb4dac2e6499943a9e8cae383f306aa01c202"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.md",
+      "sha256": "4dd44973e96559cd2d9da48bc21fff2bbe597b9714f247c0976ef98085d06dd5"
+    },
+    {
+      "path": "README.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/README.md",
+      "sha256": "ec8bdad6ca27d7de7774793722455a3ff4a0dba34e622f5d9aeba3bee6e8102c"
+    },
+    {
+      "path": "AGENTS.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/AGENTS.md",
+      "sha256": "65b8a5e4a7d5adecd1ce2f4d0d13de2ffa18fb3b126916517917cb838a215694"
+    },
+    {
+      "path": "plan.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/plan.md",
+      "sha256": "0b0b03678b6ab4ef1c55f51f9212f6fb43a6f5e179e282de64ccb404b51acdda"
+    },
+    {
+      "path": "plan-table2.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/plan-table2.md",
+      "sha256": "a089cf9abc4cda9701d4c062db493939c132ddc6fa6951d071143ce1e978dab6"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/README.md",
+      "sha256": "c3a39270d20bd936e5f9f6e070e4a1dd0e5c5533b424f35be987d65c4a967d21"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "7c6b1c8f43731624911d17fc99dc65d901040a8d5c8f145865f742c983d1a577"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2e_native.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/verify_stage_2e_native.py",
+      "sha256": "1637721c8e19d7e6d256b89fba1e05cacd763e2dfa1102f3c88da16ff4bc98f8"
+    },
+    {
+      "path": "research/table2-confirmation/stage_2e_native_baseline_binding.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/stage_2e_native_baseline_binding.json",
+      "sha256": "9fac752c65a3aa40bd057c6d1d5d7bd647217fa341f0e0c2f8efb1e768bb882c"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2e_prep.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/build_stage_2e_prep.py",
+      "sha256": "fd0065669e83db4f2edc19a5ca0e897e34694ff2271ebd390c4e91318997c38c"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2e_prep.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/verify_stage_2e_prep.py",
+      "sha256": "9cf91d9eead5be8db2900d74aefc687f1bc504e02819bb37407ecda3ebf1754e"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-audit.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-audit.json",
+      "sha256": "abe8ebfb833ce59096f851fa57404333a9d3c38716142a6f4624621d21759d0d"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_native_preflight.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/shfc_native_preflight.py",
+      "sha256": "2993ba62bcde0bd2793c7d8aeaa9e03af83e19a79d99a9606caf485aba3239cc"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_adapter.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/shfc_path_adapter.py",
+      "sha256": "691bce20d735a6a76522916ccf709b25fbbae15daf3557df395b138b536241a5"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_backend.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/shfc_path_backend.py",
+      "sha256": "dcbe61e217c1c8338268d1e04438a27a92cb6eee1290ccb1d0049049bbaf6fd9"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_checks.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/shfc_path_checks.py",
+      "sha256": "4d8c32cf141c3e5a4daa39bf22291a57d470926de13e968751b0876a7647c0b5"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_path_runner.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/shfc_path_runner.py",
+      "sha256": "cb5da1169671a2d36890eee0bfe3c81a2a1206aa28b2e0cafd971a278023411c"
+    },
+    {
+      "path": "research/table2-confirmation/check_stage_2e_native.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/check_stage_2e_native.py",
+      "sha256": "84579e84a89223a0fe91a31b6569b95bfa18c2c98638014243e7065088f68f8c"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2e_native.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/research/table2-confirmation/build_stage_2e_native.py",
+      "sha256": "6de999f289eeaa6250fbd811af4de176a0fc718a9eb4a20f06e70c0b3c4a839b"
+    }
+  ],
+  "authorization": {
+    "user_text": "可以，继续下一步",
+    "approved_scope": "冻结协议16套实验对照，技术检查后人工试听；原歌曲、既有音频及Skill保持"
+  },
+  "production_skill_project_bindings": [
+    {
+      "path": "src/agent2utau/__init__.py",
+      "sha256": "9e3a20750338124bffde15fdbb4fc5daadd7f3e1c64ed04b9ca08c069a577b4a"
+    },
+    {
+      "path": "src/agent2utau/analysis/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/agent2utau/analysis/f0.py",
+      "sha256": "b46b741e17030fc439799dc5a450fa1bf136954792063253f5a6a7dcd18eed21"
+    },
+    {
+      "path": "src/agent2utau/analysis/lyrics.py",
+      "sha256": "9f085307c6c7e988f83875f20a3d7e8bc0ff616dc988c2c527e574837418c77a"
+    },
+    {
+      "path": "src/agent2utau/analysis/onsets.py",
+      "sha256": "815b746508c5e3a7a881806a280328ee6267b54ac2ba82619dc9f1b98b94ea13"
+    },
+    {
+      "path": "src/agent2utau/analysis/rmvpe.py",
+      "sha256": "ec5e21061beaedce0552d31828b4dc2514afa26b5b95fd5c0946b8cfd99643fe"
+    },
+    {
+      "path": "src/agent2utau/audio/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/agent2utau/audio/decode.py",
+      "sha256": "504c8d2b54f66d746946e638cf3468c3ddacabddff7e8b51c3fdf9c96422262b"
+    },
+    {
+      "path": "src/agent2utau/audio/mix.py",
+      "sha256": "313d1d905aa12523dc3614d0b0ff839e5726426e8dd59d5d8b1862d52b0eb8af"
+    },
+    {
+      "path": "src/agent2utau/audio/separate.py",
+      "sha256": "8165e87b8d2bbd0fe93bf46b828c432bb97318b36c9668d603ec0d04422468d7"
+    },
+    {
+      "path": "src/agent2utau/cli.py",
+      "sha256": "175e8f373b1ee017ebd5dc264d51807f5823710db7985e8948a29e003c6677bf"
+    },
+    {
+      "path": "src/agent2utau/evaluation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/agent2utau/evaluation/__main__.py",
+      "sha256": "65abfe70e2e18d4a5ee8462f8b195ba4ce842d72578f729cacf02e640ad3fe1a"
+    },
+    {
+      "path": "src/agent2utau/evaluation/controlled_probe.py",
+      "sha256": "9175f52ad706ca42b35fafe4ca11334b4fbffbeaff2ba9bcf061c055b4740910"
+    },
+    {
+      "path": "src/agent2utau/evaluation/features.py",
+      "sha256": "c8a4b4bdfb6d1aa28f859676ccc013721e0c0f3d1abe414250d8974a2542a652"
+    },
+    {
+      "path": "src/agent2utau/evaluation/independent.py",
+      "sha256": "4dd3bc8e701d7c6d6d31479417ba15c642823359927b97c1cc615109c16d61f4"
+    },
+    {
+      "path": "src/agent2utau/evaluation/wavcheck.py",
+      "sha256": "39698dbacf9d53fa1896d159b3dcd86231fc3f0f04af07150eec162485731df7"
+    },
+    {
+      "path": "src/agent2utau/expression/__init__.py",
+      "sha256": "c28e0de5166a541f7f4f6641ebb0bac400885f6f9ac61e201a934764c85b7031"
+    },
+    {
+      "path": "src/agent2utau/expression/context_actions.py",
+      "sha256": "abb7493f13fcb3d4bc865248f2f53f49958b8002d7f8f394873d6436afec3ce8"
+    },
+    {
+      "path": "src/agent2utau/expression/curve_components.py",
+      "sha256": "d9658723e0fc19fde4b917df105e288b5c38ba65b7748ff034deb429079e758b"
+    },
+    {
+      "path": "src/agent2utau/expression/enveloped_landmarks.py",
+      "sha256": "684a34ab8722f9287f8b808a72222eb446a714cb67213a9c3d392b7624d89c5d"
+    },
+    {
+      "path": "src/agent2utau/expression/rhythm.py",
+      "sha256": "9616dea11bf0a9262ad835cf18d307b2a2df053d02d9cfbc1791b3688af61ef4"
+    },
+    {
+      "path": "src/agent2utau/expression/variance_expectation.py",
+      "sha256": "aac9bb8a0753a299ead023214eda673d7b6c0a5f454c8fca18afd12e4e46981c"
+    },
+    {
+      "path": "src/agent2utau/openutau/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/agent2utau/openutau/bridge.py",
+      "sha256": "a3482611d9ad045a82a951e2db80c0616f691cec6b28e2bd8b161717f7e99764"
+    },
+    {
+      "path": "src/agent2utau/openutau/build.py",
+      "sha256": "bb9a1f6a4840e9cd82c9de53eabe47fa5192b062c7cd9d11f83708c49f7f7c24"
+    },
+    {
+      "path": "src/agent2utau/openutau/ustx.py",
+      "sha256": "b172ccbfa353da4154ffd406c0d07a4082988a9eb959385bdf649e7833f2306a"
+    },
+    {
+      "path": "src/agent2utau/resources/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/agent2utau/resources/config.py",
+      "sha256": "0f6df855d1d2e7cc38ee196b1a03e5e41009fa12384d6d465039ba211bef8b83"
+    },
+    {
+      "path": "src/agent2utau/resources/doctor.py",
+      "sha256": "57a3b5a8704991541b268b1e2e7c4a7319d754738441be4411f38154673a6e33"
+    },
+    {
+      "path": "src/agent2utau/state.py",
+      "sha256": "663eab787f958f760b9c2ffb704ff214c7b9bc0f882d30df911b48b9e987f6c2"
+    },
+    {
+      "path": "src/agent2utau/transcription/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/agent2utau/transcription/game_onnx.py",
+      "sha256": "12d67bc2a04971aef148dd5d13de2c5c25b48c230c6be176c884b350d6699cf3"
+    },
+    {
+      "path": "src/agent2utau/transcription/slicer.py",
+      "sha256": "958ca3ca07f72dc8beb5ae944809924fd0c00bde672f59e59f8fec059a52e4fc"
+    },
+    {
+      "path": "src/agent2utau/util/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/agent2utau/util/jsonio.py",
+      "sha256": "7febf01cac5623edd7d8c7e71656e4109e13e33a48533cae7dc6cfbcd6c93725"
+    },
+    {
+      "path": "src/agent2utau/workflow.py",
+      "sha256": "9234738eab8eb09a6589f8051f07a34efd1d3ad8f06d0ebc895d7cf1c909e777"
+    },
+    {
+      "path": "bridge/OuBridge/OuBridge.csproj",
+      "sha256": "8f38db048a0ea82b8ce8c7663202a1595657d988ee16efad80e76a5cf93cdbd6"
+    },
+    {
+      "path": "bridge/OuBridge/Program.cs",
+      "sha256": "b9dd5b9dd20689f4ece2fa1dc25827c1a266e94dee29f3029062ce4b4104134b"
+    },
+    {
+      "path": "bridge/OuBridge/RenderProbe.cs",
+      "sha256": "12d04ca2c4f148a51eaf0c7170a1bd81659d5fd5d3a0b4a7bc27925029e71789"
+    },
+    {
+      "path": "skills/singing-expression-editor/agents/openai.yaml",
+      "sha256": "0825f76073d314ccedb0cfa6a4b4be59152cf8d306c9838909329aff35df3f47"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/accent-selection.md",
+      "sha256": "ff08ae3b324129b295a76ac29f2fa3be8fc5cad46659e10bb7b6e1d7ec3163b9"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/ap-sp-placement.md",
+      "sha256": "caa3f8e18edeca18050545f9614af807445dd694189b9cc15299edc72fb6cc42"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/baishuo-drawing-method.md",
+      "sha256": "06eccecd675e2819898b9eb0e75ed99bf1f076a5fff258ec3e4e404711a20fed"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/breath-budget-and-carried-nucleus.md",
+      "sha256": "328979b4d23766d810bf95d3425d279c6a71f136caed5656bed997a638b2892c"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/conditional-drawing-recipes.md",
+      "sha256": "dd258d24647eb9f9043c96b3c9d721a95a2f3249372180e8d038ba396304c98e"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/context-execution.md",
+      "sha256": "5b66e1b24f49528ddf84b89ba5b8a17d2296f6d0446b0e58355fe5998dfa690e"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/continuous-contour-and-scale.md",
+      "sha256": "0b28bfc7649fd50d9694eae5a15f8c9176424f7bb129ca70a5296d230e30d73d"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/expressive-turn-and-support.md",
+      "sha256": "f85ee0a9a2493877be8b20c14241697f48a8741c0557ab22d4b6a7b7772d7de2"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/grounding-and-competence.md",
+      "sha256": "4611fc465cbf2ef84948343060a8ee9355269d87c934ae8fcaea3896851edbb8"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/joint-phonation-and-sustain.md",
+      "sha256": "a9ca7e3c4f56f6495eff71019c0f8825cca9587927a7c4779e8891f747c4ecab"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/local-cycle-design.md",
+      "sha256": "af34a0e4fa6f0fcebc270cbb4578f3723c4e3e27256edf06636b0aeb91c46fa5"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/loudness-and-high-note-comfort.md",
+      "sha256": "e27f10297a11613fd8fac8ebad052afc221441730ab4d7dce5a9b01935314bc2"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/microexpression-and-acoustics.md",
+      "sha256": "49c47e03525f23c673e72784b3a0dcfbb73ad38a773cfa061b5128a61477ffde"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/new-song-action-selection.md",
+      "sha256": "3a0f0de9c323ab0becafac84c7abffa234a5d8f0501b16f59223bd5ef3935235"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/nucleus-envelope-and-release.md",
+      "sha256": "be88272b501de65f06322f0f4df36dea6ba63fe7fb111259aabf1681a9f0775f"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/parameters.md",
+      "sha256": "af36da823e830fa817d1d6ab96af1ed89e3d424e38fc905272872eff469e97b8"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/phonation-continuity.md",
+      "sha256": "a8fb08463ac8de4357bf70f4330c5581f502b6a97986f03058d2cd1ad36a17e4"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/phrase-scale-contour-study.md",
+      "sha256": "c78898fd20bfbeb2e73f4e39c558d4146fc193accd686d103c2275c6244f28f5"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/pilot-execution.md",
+      "sha256": "d75de5bf1b6ebf7d229a2a118f6f102858202bdfaf088a328d43079f52a9d0a9"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/pitch-phonation-and-loudness.md",
+      "sha256": "fa422dff11a26779c71cf885e25077bdf384814d9097dbdf57074561d6890103"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/planning-and-evaluation.md",
+      "sha256": "0adf446583f8f485e2d3e60b668fcccb533cffa7e0dfc3fd6308979a617adbcf"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/project-tools.md",
+      "sha256": "8f736c5760296a1f18213745cb411aa78d77322a3fa511cd0c2d55a52ab9bf27"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/reference-imitation-calibration.md",
+      "sha256": "c605baa92de3a501bc1039ee82a342eef667482539464054d2c23963e9d7529f"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/rhythm-and-syllable-duration.md",
+      "sha256": "6966eb4751d9f4186aef7ecfbe6b12a7ab1dfd5d4edc728969b17122687a4abf"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/source-condition-to-function.md",
+      "sha256": "d56b51e955cd79c8e041d52fd19be95f4a13d64a0347588f2d3a4ea3bed34cb0"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/source-separation.md",
+      "sha256": "bee5f11f6fbe9459195e555e778c9092cfabdb881f71270a3614a46f36c3aca1"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/upward-interval-connections.md",
+      "sha256": "d84581e18d229d1d2d98ce5d94467a23890ea44489328e94b9eee436169f6282"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/voice-baseline-and-stability.md",
+      "sha256": "5ea9fae465f4026bd0bb826dd4e84fd07629ab25eb5eccccf0b15341bf4e367b"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/vowel-support-and-language.md",
+      "sha256": "c5466e9bf19bb17a6876b374e372533ca72642147efbe3e6fc7692cb8e098992"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/whole-song-redraw.md",
+      "sha256": "65bf507ee9afc68a60c613b2dc4b26f884f55fb6a1de9f76a53745ff75ff8dd4"
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/compile_control_overlay.py",
+      "sha256": "0eeb38c42acc45e713f4ebc40043a594b6ead748e88380a99b179a3c8961aef0"
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/contour_viewports.py",
+      "sha256": "460bfdf00be0b2f0cc232498acf9f653b839dd1ebb342923b45ded1d62e178c0"
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/design_functions.py",
+      "sha256": "a205b25ccff78f3b3617a254c53145b09c95fcd82824de9a1fbc23a73b0d26c6"
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/sparse_contour.py",
+      "sha256": "6a82466973a3494e17e69ed49415bd02f8a9a6b0c9a58fdf10c16548258f0df8"
+    },
+    {
+      "path": "skills/singing-expression-editor/SKILL.md",
+      "sha256": "fb72264306e2bcb3ff4388f57db4e887329be8ef355728a691059c598ccfa53d"
+    },
+    {
+      "path": "projects/latest/huahai_plus4_smooth.ustx",
+      "sha256": "a9e87402a4ee2c8c6d3de109563415e1a9787a407d819fa86e94d55974a7afc8"
+    },
+    {
+      "path": "projects/latest/lastpage_loudness_v02.ustx",
+      "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+    },
+    {
+      "path": "projects/latest/yuai_skill_v17.ustx",
+      "sha256": "415b5b3f568d7868e792dc4e5b625257208d8c4859a87ec2c2aedf0bf3aab1ad"
+    }
+  ],
+  "protected_inputs": [
+    {
+      "path": "skills/singing-expression-editor/agents/openai.yaml",
+      "sha256": "0825f76073d314ccedb0cfa6a4b4be59152cf8d306c9838909329aff35df3f47"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/accent-selection.md",
+      "sha256": "ff08ae3b324129b295a76ac29f2fa3be8fc5cad46659e10bb7b6e1d7ec3163b9"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/ap-sp-placement.md",
+      "sha256": "caa3f8e18edeca18050545f9614af807445dd694189b9cc15299edc72fb6cc42"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/baishuo-drawing-method.md",
+      "sha256": "06eccecd675e2819898b9eb0e75ed99bf1f076a5fff258ec3e4e404711a20fed"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/breath-budget-and-carried-nucleus.md",
+      "sha256": "328979b4d23766d810bf95d3425d279c6a71f136caed5656bed997a638b2892c"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/conditional-drawing-recipes.md",
+      "sha256": "dd258d24647eb9f9043c96b3c9d721a95a2f3249372180e8d038ba396304c98e"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/context-execution.md",
+      "sha256": "5b66e1b24f49528ddf84b89ba5b8a17d2296f6d0446b0e58355fe5998dfa690e"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/continuous-contour-and-scale.md",
+      "sha256": "0b28bfc7649fd50d9694eae5a15f8c9176424f7bb129ca70a5296d230e30d73d"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/expressive-turn-and-support.md",
+      "sha256": "f85ee0a9a2493877be8b20c14241697f48a8741c0557ab22d4b6a7b7772d7de2"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/grounding-and-competence.md",
+      "sha256": "4611fc465cbf2ef84948343060a8ee9355269d87c934ae8fcaea3896851edbb8"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/joint-phonation-and-sustain.md",
+      "sha256": "a9ca7e3c4f56f6495eff71019c0f8825cca9587927a7c4779e8891f747c4ecab"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/local-cycle-design.md",
+      "sha256": "af34a0e4fa6f0fcebc270cbb4578f3723c4e3e27256edf06636b0aeb91c46fa5"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/loudness-and-high-note-comfort.md",
+      "sha256": "e27f10297a11613fd8fac8ebad052afc221441730ab4d7dce5a9b01935314bc2"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/microexpression-and-acoustics.md",
+      "sha256": "49c47e03525f23c673e72784b3a0dcfbb73ad38a773cfa061b5128a61477ffde"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/new-song-action-selection.md",
+      "sha256": "3a0f0de9c323ab0becafac84c7abffa234a5d8f0501b16f59223bd5ef3935235"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/nucleus-envelope-and-release.md",
+      "sha256": "be88272b501de65f06322f0f4df36dea6ba63fe7fb111259aabf1681a9f0775f"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/parameters.md",
+      "sha256": "af36da823e830fa817d1d6ab96af1ed89e3d424e38fc905272872eff469e97b8"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/phonation-continuity.md",
+      "sha256": "a8fb08463ac8de4357bf70f4330c5581f502b6a97986f03058d2cd1ad36a17e4"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/phrase-scale-contour-study.md",
+      "sha256": "c78898fd20bfbeb2e73f4e39c558d4146fc193accd686d103c2275c6244f28f5"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/pilot-execution.md",
+      "sha256": "d75de5bf1b6ebf7d229a2a118f6f102858202bdfaf088a328d43079f52a9d0a9"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/pitch-phonation-and-loudness.md",
+      "sha256": "fa422dff11a26779c71cf885e25077bdf384814d9097dbdf57074561d6890103"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/planning-and-evaluation.md",
+      "sha256": "0adf446583f8f485e2d3e60b668fcccb533cffa7e0dfc3fd6308979a617adbcf"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/project-tools.md",
+      "sha256": "8f736c5760296a1f18213745cb411aa78d77322a3fa511cd0c2d55a52ab9bf27"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/reference-imitation-calibration.md",
+      "sha256": "c605baa92de3a501bc1039ee82a342eef667482539464054d2c23963e9d7529f"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/rhythm-and-syllable-duration.md",
+      "sha256": "6966eb4751d9f4186aef7ecfbe6b12a7ab1dfd5d4edc728969b17122687a4abf"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/source-condition-to-function.md",
+      "sha256": "d56b51e955cd79c8e041d52fd19be95f4a13d64a0347588f2d3a4ea3bed34cb0"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/source-separation.md",
+      "sha256": "bee5f11f6fbe9459195e555e778c9092cfabdb881f71270a3614a46f36c3aca1"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/upward-interval-connections.md",
+      "sha256": "d84581e18d229d1d2d98ce5d94467a23890ea44489328e94b9eee436169f6282"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/voice-baseline-and-stability.md",
+      "sha256": "5ea9fae465f4026bd0bb826dd4e84fd07629ab25eb5eccccf0b15341bf4e367b"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/vowel-support-and-language.md",
+      "sha256": "c5466e9bf19bb17a6876b374e372533ca72642147efbe3e6fc7692cb8e098992"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/whole-song-redraw.md",
+      "sha256": "65bf507ee9afc68a60c613b2dc4b26f884f55fb6a1de9f76a53745ff75ff8dd4"
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/compile_control_overlay.py",
+      "sha256": "0eeb38c42acc45e713f4ebc40043a594b6ead748e88380a99b179a3c8961aef0"
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/contour_viewports.py",
+      "sha256": "460bfdf00be0b2f0cc232498acf9f653b839dd1ebb342923b45ded1d62e178c0"
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/design_functions.py",
+      "sha256": "a205b25ccff78f3b3617a254c53145b09c95fcd82824de9a1fbc23a73b0d26c6"
+    },
+    {
+      "path": "skills/singing-expression-editor/scripts/sparse_contour.py",
+      "sha256": "6a82466973a3494e17e69ed49415bd02f8a9a6b0c9a58fdf10c16548258f0df8"
+    },
+    {
+      "path": "skills/singing-expression-editor/SKILL.md",
+      "sha256": "fb72264306e2bcb3ff4388f57db4e887329be8ef355728a691059c598ccfa53d"
+    },
+    {
+      "path": "research/baishuo/baishuo-projects.zip",
+      "sha256": "5bb41fcd67aa4cb9491fd2fe83186427215c3452c82168ef6070d31d0875484a"
+    },
+    {
+      "path": "research/baishuo/manifest.json",
+      "sha256": "00bd1cca28fd7babb99d906980e6a4382228c185515fb68b433cc55abfebc12c"
+    },
+    {
+      "path": "research/baishuo/projects/最后一页-有参by白烁.ustx",
+      "sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b"
+    },
+    {
+      "path": "research/baishuo/projects/花海+4-有参by白烁.ustx",
+      "sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377"
+    },
+    {
+      "path": "research/baishuo/projects/雨爱-有参by白烁.ustx",
+      "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce"
+    },
+    {
+      "path": "research/baishuo/README.md",
+      "sha256": "042bcc64a788802d73a0ae7b148f9e7fd5691b627f4733c186cf484ca60ef8d2"
+    },
+    {
+      "path": "projects/latest/huahai_plus4_smooth.ustx",
+      "sha256": "a9e87402a4ee2c8c6d3de109563415e1a9787a407d819fa86e94d55974a7afc8"
+    },
+    {
+      "path": "projects/latest/lastpage_loudness_v02.ustx",
+      "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+    },
+    {
+      "path": "projects/latest/yuai_skill_v17.ustx",
+      "sha256": "415b5b3f568d7868e792dc4e5b625257208d8c4859a87ec2c2aedf0bf3aab1ad"
+    },
+    {
+      "path": "docs/lastpage-tenc-controlled-probe-20261008.md",
+      "sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f"
+    },
+    {
+      "path": "docs/lastpage-shfc-controlled-probe-20261008.md",
+      "sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2"
+    },
+    {
+      "path": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493"
+    },
+    {
+      "path": "docs/lastpage-guo-register-probe-20261008.md",
+      "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98"
+    },
+    {
+      "path": "docs/lastpage-guo-positive-comparison-20261008.md",
+      "sha256": "a04e9719723a433a0ccbbd14c615b394ead2e02d3c3e938913f40856075f13a0"
+    },
+    {
+      "path": "docs/lastpage-cross-condition-study-20261008.md",
+      "sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb"
+    },
+    {
+      "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "path": "docs/lastpage-guo-phoneme-audit-20261008.md",
+      "sha256": "cbd27a56a6a577bdbe8794fe50fa834c1fd8a73023720863819bbae218ecb1f1"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/completion_manifest.json",
+      "sha256": "5c8c765b6a00bbd417ad139970affe508fdce8416947c25081ad866136451950"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/completion_manifest.json",
+      "sha256": "b41c6d456b04bc2e42e98f44296d0ef9452ca979d9aca60542d32d2c2825c5a7"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/completion_manifest.json",
+      "sha256": "f58be01cadca64f1bb6ad9a426aca40664c1c0a69dac42e361a0308e8dd737f0"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/completion_manifest.json",
+      "sha256": "1982fd6fdb42f74bce2872a3c236aa74e23dfd4be58d9fede784d45fc755dfa5"
+    },
+    {
+      "path": "runs/lastpage_guo_positive_comparison_20261008/completion_manifest.json",
+      "sha256": "5577ac79dbd0121b842a39ca035e757259b4c65e9900bed306a92ed6fccc4ccb"
+    },
+    {
+      "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+      "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e"
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/completion_manifest.json",
+      "sha256": "e71505a90f6fd04c568f76e31343e1ef2f6615a04e340cb6b6f30d5922bd0f86"
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+      "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/completion_manifest.json",
+      "sha256": "4a7a4d944d0a4ed6fd284e178f1006dce7cf14f280467a175d9dddab4d89be39"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+      "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_feedback_20261008/completion_manifest.json",
+      "sha256": "73a90603644820836c47f14f6c62a9c6843592894fb3141afb1122c149632b8d"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_feedback_20261008/feedback.json",
+      "sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_feedback_20261008/completion_manifest.json",
+      "sha256": "08945a909559a5d826ba0bcdee6533b074df3732a64a2271a89f3b44ee2df85c"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+      "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+    }
+  ]
+}

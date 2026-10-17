@@ -1,0 +1,115 @@
+{
+  "stage": "2E-execution",
+  "date": "2026-10-11",
+  "status": "passed_pending_human_listening",
+  "stage_2E_complete": false,
+  "local_tests": 154,
+  "worktree_gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 512
+  },
+  "CI_manual_only": true,
+  "production_skill_project_SHA": 79,
+  "protected_inputs_SHA": 67,
+  "execution_snapshots": 20,
+  "old_2A_unique_paths_SHA": 1079,
+  "current_song_run_SHA": 567,
+  "current_runtime_SHA": 47,
+  "original_52_sources_SHA": 52,
+  "original_unavailable_locator_preserved": [
+    "runs/lastpage_guo_register_probe_20261008/native_isolation.json"
+  ],
+  "model_adapters_independently_rechecked": [
+    {
+      "source_sha256": "d68eb67d23be30f5ab7aba245f55a674413b120d25848bffd8bf67c5edb5c457",
+      "adapter_sha256": "66907055efe5570e56be7271c023d844b805954485922e89ddd448f8fdd13622",
+      "weights_and_nonrandom_graph_exact": true
+    },
+    {
+      "source_sha256": "a8fdc96710113a5faefef9cc8d418d786ff8b7a4b36ebfc10cf30f7c6b87fe74",
+      "adapter_sha256": "7ff8bbc72177aa4386eaba7a86f24579e3c4a0c8d78d826a20c347aac3fe891c",
+      "weights_and_nonrandom_graph_exact": true
+    }
+  ],
+  "new_native_records": 4,
+  "technical_native_cache_waveforms": 4,
+  "seeded_variance_calls": 8,
+  "seeded_acoustic_vocoder_waveforms": 16,
+  "F0_detector_inferences": 16,
+  "delivery_PCM_files": 72,
+  "raw_repeats_exact": true,
+  "old_A_PCM_exact": true,
+  "old_C_new_S_raw_PCM_exact": true,
+  "DYN_independently_rebuilt_exact": true,
+  "encoded_pair_files_checked": 40,
+  "exact_report_rebuild": true,
+  "links_checked": 269,
+  "auditory_status": "pending",
+  "agent_heard": false,
+  "new_feedback": 0,
+  "generic_rules": 0,
+  "measurement_validated_upgrades": false,
+  "independent_effect_replications": 0,
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-execution.json",
+      "sha256": "34f14a1478863f6d371a904d8b40b5b194e943d74877e626987bfe4396f5966a"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-execution.md",
+      "sha256": "4cbae0fbd485c69dc7c80e6daf227ba3803135f312f12f6e60f5dbc3be4d85d3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-execution-comparisons.csv",
+      "sha256": "68b964c0688e90f0d384e3c10dabb848a431b2d120d5b53392dee76830f413f5"
+    }
+  ],
+  "technical_gate": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/technical-delivery-check.json",
+    "sha256": "95bcabf39255e274b8dbc5912846dd9c2cc9138a001c35c68bf306695bde9301"
+  },
+  "current_entries": [
+    {
+      "path": "README.md",
+      "sha256": "c3c0055a591a38f29ed456bf5af4066b5717d875db6013f39350d7bb70ee43fa"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ad328660e77ea66db0d361ebbe62ab2ddd7257aa679b5a3bd3c1512161bd6e97"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "6828edebdad7ca9f287a222ce67d7611b71bc44f8658d342f1ffa8517177a080"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "4e048680ddb791a6c84299b0664e72ade2877a44cde33e7ee6b410d9a2851d22"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "07217dc9ce5db6579af3c85f483b91fb7765240526b53fc0c2c4187285b4e965"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "30abed2dbf178094337e73df6b3a4b1ea2dc1149e38bf3044491a6f2c19d605d"
+    }
+  ],
+  "implementation": [
+    {
+      "path": "research/table2-confirmation/verify_stage_2e_execution.py",
+      "sha256": "897a273a8de9033a34529731276efb62791eb935b96a68a324d33e1e9519e249"
+    },
+    {
+      "path": "research/table2-confirmation/update_stage_2e_entries.py",
+      "sha256": "d694d648cfcac240aecba12e61548ef256931995b68e0d93fd48ddfce510babe"
+    },
+    {
+      "path": "tests/contracts/test_shfc_pcm_research.py",
+      "sha256": "da89a7cded9580851cc0f01814323c96c6e9036cfc2d21f8b79e7f16de86830a"
+    }
+  ]
+}

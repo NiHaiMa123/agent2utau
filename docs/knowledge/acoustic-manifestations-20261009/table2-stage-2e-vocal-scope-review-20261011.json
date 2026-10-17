@@ -1,0 +1,256 @@
+{
+  "feedback_id": "T2E-VOCAL-SCOPE-20261011",
+  "user_message_verbatim": "听不出区别，但是不用探索bgm和人声的关系吧？现在研究的是opentuau，这个不调bgm",
+  "message_source": "human user replying to mixed 03 K2→K1 and 04 K1→K2 and narrowing the current research scope",
+  "condition_id": "current-word-225",
+  "lyric": "抱",
+  "comparison": "D-A",
+  "delivery_role": "mix",
+  "feedback_scope": "current mixed presentation received a no-difference reply plus explicit instruction to stop studying BGM/vocal relationship",
+  "current_listening_excerpt_verbatim": "听不出区别",
+  "difference_relation": "not separately specified; preceding prompt asked whether the impression matched pure vocals, but this record does not override the explicit vocal D>A result",
+  "current_mixed_feedback_status": "recorded_with_explicit_comparison_relation_gap; no new mixed power ordering or break label inferred",
+  "per_order_results": "not separately stated",
+  "actual_listened_set": "not separately enumerated",
+  "scope_change": {
+    "authority": "direct current human user instruction",
+    "user_scope_excerpt_verbatim": "不用探索bgm和人声的关系吧？现在研究的是opentuau，这个不调bgm",
+    "active_research": "OpenUtau vocal control paths and their conditional vocal responses",
+    "stop": [
+      "further BGM/vocal relationship listening",
+      "remaining paired mixed-audio review as a current progression requirement",
+      "BGM adjustment"
+    ],
+    "protocol_deviation": "Auditory presentation scope narrowed by the user after rendering; immutable T2D-SHFC-PATHS-01 v1 remains as the original design, and unreviewed mixes are out of current scope rather than passed",
+    "no_new_audio_or_skill_authorization": true,
+    "no_automatic_stage_2F_2G_2H": true
+  },
+  "vocal_summary": {
+    "word225_explicit_comparisons": [
+      "S>A",
+      "D>A",
+      "P>A",
+      "S>D",
+      "S>P"
+    ],
+    "word225_local_power_relations": [
+      "K3(S)>K2(D)>K1(A)",
+      "K3(S)>K4(P)>K1(A)"
+    ],
+    "D_vs_P_power": "unknown; no extra comparison added",
+    "K1_softness": "more soft relative to K3 in vocal S/A user feedback",
+    "audible_break": "none reported for each variant in its previously evaluated focal vocal presentation; reports remain separately scoped",
+    "word214": "no perceptible difference reported among four independent full-context vocal versions; five fixed paired comparisons not separately evaluated",
+    "study_conclusion": "Under the bound word225/dose/presentation, direct acoustic F0 and joint fresh prediction-group counterfactual paths each had local perceived power responses, with S stronger than either alone; word214 did not receive perceptible difference support",
+    "not_established": [
+      "single VOIC/BREC/TENC attribution",
+      "physiological mechanism",
+      "numerical power or loudness scale",
+      "D/P ordering",
+      "quantitative contributions",
+      "additivity or interaction",
+      "held-out/generalized rule",
+      "complete naturalness or whole-song acceptance"
+    ]
+  },
+  "unreported_auditory_dimensions": [
+    "subjective_loudness",
+    "objective_loudness",
+    "body",
+    "naturalness",
+    "absolute_usability"
+  ],
+  "listening_metadata": {
+    "device": "unknown",
+    "player": "unknown",
+    "volume": "unknown",
+    "actual_order": "unknown",
+    "repetitions": "unknown",
+    "both_order_completion": "unknown",
+    "blinding": "unknown"
+  },
+  "word225_vocal_comparison_groups_with_explicit_feedback": 5,
+  "word225_mixed_groups_with_explicit_before_after_description": 1,
+  "word225_additional_mixed_groups_with_limited_reply": 1,
+  "word214_vocal_paired_groups_with_explicit_feedback": 0,
+  "current_batch_vocal_summary_status": "summarized_with_explicit_gaps",
+  "mixed_audio_review_status": "stopped_by_user_scope_change_not_a_required_next_step",
+  "remaining_in_scope_gaps": [
+    "unreported vocal dimensions and order/device metadata",
+    "word214 five fixed vocal pairs not individually assessed; preserve four-version negative without expanding experiments",
+    "method calibration and out-of-condition validation not established"
+  ],
+  "removed_from_active_requirements": [
+    "remaining mixed-audio reviews",
+    "BGM/vocal relationship research"
+  ],
+  "word214_status": "no perceptible difference reported; no expanded validation",
+  "cumulative_new_feedback": 9,
+  "schema_version": 1,
+  "status": "partial_human_feedback_recorded",
+  "stage_2E_complete": false,
+  "record_created_utc": "2026-10-11T09:38:12.898862+00:00",
+  "user_message_timestamp": "unknown",
+  "presented_audio": [
+    {
+      "presentation": {
+        "condition_id": "current-word-225",
+        "order": 3,
+        "direction": "D-A",
+        "codes": [
+          "K2",
+          "K1"
+        ],
+        "segment_samples": 93621,
+        "gap_samples": 26460,
+        "second_start_s": 2.7229251700680273,
+        "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-03-K2-K1.wav",
+        "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-03-K2-K1.wav"
+      },
+      "delivery_role": "mix",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-03-K2-K1.wav",
+      "sha256": "bb10d857b9a2e015a694e97d4d9ff630c544067df184202a87256298c45970ac",
+      "samples": 213702,
+      "channels": 2,
+      "subtype": "PCM_24",
+      "peak": 0.7373644113540649,
+      "max_encoding_error": 1.1896772775764342e-07
+    },
+    {
+      "presentation": {
+        "condition_id": "current-word-225",
+        "order": 4,
+        "direction": "A-D",
+        "codes": [
+          "K1",
+          "K2"
+        ],
+        "segment_samples": 93621,
+        "gap_samples": 26460,
+        "second_start_s": 2.7229251700680273,
+        "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-04-K1-K2.wav",
+        "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-04-K1-K2.wav"
+      },
+      "delivery_role": "mix",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-04-K1-K2.wav",
+      "sha256": "acb13494820b77eae5f6e2546bc9b3a76a2c42cef5479772c9954a1c06e0f7ad",
+      "samples": 213702,
+      "channels": 2,
+      "subtype": "PCM_24",
+      "peak": 0.7373644113540649,
+      "max_encoding_error": 1.1896772775764342e-07
+    }
+  ],
+  "preserved_feedback": [
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/feedback.json",
+      "sha256": "1274aafa16b423052d7f52884b0caf8dcfda4ba69e5bb78a792a114d2a864ca3"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/feedback.json",
+      "sha256": "f252123e5a0a206dfd2ea39c01044b2ff8ccb5722617f9c7c228731581d09564"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/feedback.json",
+      "sha256": "4ca0c92a7f3e9ebdb20ceab1c98905d5c2fec60c00fe8461a1c115f55aaff0e5"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/feedback.json",
+      "sha256": "8f187db5054205fba4ea85f794976d21bfc3f952e1d3f9811d421c536abb4148"
+    },
+    {
+      "path": "runs/research/table2-word225-pa-feedback-20261011/feedback.json",
+      "sha256": "0f2eade4f27e5af00b28e0e3639dc62ad1d2cc8fdab91f81727a735e5067955f"
+    },
+    {
+      "path": "runs/research/table2-word225-sd-feedback-20261011/feedback.json",
+      "sha256": "50638fb0d240a718342c5e528cf0f7cbcabb4559db15cda31a4b9f16e4e996a4"
+    },
+    {
+      "path": "runs/research/table2-word225-sp-feedback-20261011/feedback.json",
+      "sha256": "30f0b3fa9d90c36e0e36232e940da7413f5815ec691c61bd36ad6784ca608cf0"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-mix-feedback-20261011/feedback.json",
+      "sha256": "4637bd0b74ea8d7aed8cd9b487057896481cf823517d3b02397904f7e8067e12"
+    }
+  ],
+  "source_seals": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+      "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+    },
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/completion-manifest.json",
+      "sha256": "4800a9b8270d2da1edfbeb629834d0b5841cae9f7dd041d2344a15215046d25c"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/completion-manifest.json",
+      "sha256": "4e20e662350519ecb5103b6a36079ea2b06706f8083648ec7993cc14c01dbafc"
+    },
+    {
+      "path": "runs/research/table2-word225-pa-feedback-20261011/completion-manifest.json",
+      "sha256": "0f45f5fc8690cb771faaed562741b50edbf25e958ee09767828348eb1bdad4fc"
+    },
+    {
+      "path": "runs/research/table2-word225-sd-feedback-20261011/completion-manifest.json",
+      "sha256": "f6ddc9ae692fabe7f01adc5ffbfdbf4f67a16d3add7531f80fc1ea7a795b2714"
+    },
+    {
+      "path": "runs/research/table2-word225-sp-feedback-20261011/completion-manifest.json",
+      "sha256": "860719f2d97111bef140fe230e382c89f7ad72f218e754b5338b55a1972a3134"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-mix-feedback-20261011/completion-manifest.json",
+      "sha256": "df12cde46a0a0ddeffeea414c3a6e35ff693005ac97773e70ecfc90b144a83e2"
+    }
+  ],
+  "packaging": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/pcm-packaging.json",
+    "sha256": "6517c3a8d5dfbf975de42240dc8ee5b45eb305fb1527cf8cdac6a68c90e1c7b5"
+  },
+  "protocol": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+    "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+  },
+  "pre_update_snapshot": {
+    "path": "runs/research/table2-vocal-scope-review-20261011/before/snapshot-manifest.json",
+    "sha256": "b232304ef3d06370b72e183941d1499c16b34ff7babbdd1d3ffa4956238f4732"
+  },
+  "protected_baseline": {
+    "stage": "2E-execution",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/snapshot-manifest.json",
+    "sha256": "01dffada2ee989a45e6e48f79dbd5ada8dd67d0bc8c475dd54f2a14945e47c46",
+    "run": "runs/experiments/table2-shfc-paths-20261011",
+    "test_run": "runs/test-results/table2-2e-execution-20261011"
+  },
+  "this_record_new_feedback": 1,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "production_song_changed": false,
+  "skill_changed": false,
+  "automatic_expansion": false,
+  "recorder": {
+    "path": "research/table2-confirmation/record_stage_2e_feedback_supplement_v2.py",
+    "sha256": "d4fea198df1cde0fd64dda48740709287d7e1496c694d414652193ba5505c8ee"
+  },
+  "explicit_feedback_specification": {
+    "path": "research/table2-confirmation/stage_2e_vocal_scope_review_20261011.json",
+    "sha256": "9fbf5544d98e92010b8fd285903e1397bc46d79343a23be4d405e73f3bb784fe"
+  },
+  "preserved_v1_recorder": {
+    "path": "research/table2-confirmation/record_stage_2e_feedback_supplement.py",
+    "sha256": "0f799dcb03fc51821f821cbfc8c37df4f83888802d0eba9f018b46e5dce4ba21"
+  }
+}

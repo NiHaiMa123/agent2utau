@@ -1,148 +1,243 @@
-# PLAN — P0 独立演唱异常评价与已知问题定位（2026-10-08）
+# 表1完善与确认计划
 
-> 六组分开试听后用户回报“全部没区别”：本轮BREC -10在两个问题及四个偏实/可用条件均未获得可感知差别，不采纳B，不把数值响应当改善或写入Skill，也不自动增大剂量。限于当前剂量/条件的否定证据，不宣布整个气声通道无效；原标签/接受抱C/源unknown保持。独立反馈run绑定12份A/B人声SHA，原537封存文件精确。无新合成/参数/Skill修改。见 docs/lastpage-brec-cohort-probe-20261008.md#最新试听反馈。
+2026-10-17当前制作 `yuai_phrase_handdraw_source_only_paused_by_user_after_s14`：使用新Skill逐句重制雨爱，按用户“做完这句先暂停，我看下效果”完成s14后暂停。s01–s14共133元音的画线/实际图审/成声及输入核验完成，s15及后续未启动，整曲53句尚未完成。现按用户澄清补交[从第一句开始的前十四句连续试听及预览工程](docs/reports/yuai/phrase-handdraw-first14-preview-20261017.md)，制作继续暂停；严格缺口、失败修订、时钟不确定与试听入口见[本轮制作记录](docs/reports/yuai/phrase-handdraw-source-only-20261017.md)。禁止作者/历史制作载荷，仅沿用原曲侧观测及公开条件经验；Skill40资源与既有v03工程SHA保持。单Agent、CI未运行，听感均待确认；等待用户反馈/恢复指示。
 
-> 执行冻结六条件BREC -10单因素对照，18套新variance11/acoustic101/vocoder、Normal75/Classic25；仅fresh breathiness改变，预测/其他输入/原SHFC保持，6原A与此前波形和6重复精确。原生DYN/固定1.5/.7/PCM通过，特征裁剪0；元音RMS变化约±0.03dB，双F0中位差0.03～0.16c、最大3.20/2.44c，技术响应不是口型改善。1tick编码被独立检查拒绝后改原5tick网格，原生初始化崩溃普通同输入重试成功，草稿/失败保留；88测试通过。六组同增益A/B已交付待听感，不扫参数/改Skill/发布工程，接受抱C保持。见 docs/lastpage-brec-cohort-probe-20261008.md。
+2026-10-16 雨爱 source-only 最新 Skill 重制 `yuai_source_only_latest_skill_delivered_pending_listening`：按用户边界只用源 FLAC、分离人声、GAME 音符事件与双 F0 观测（不读历史 run/白烁），按最新逐句流程重制整曲。54 段/137 原生乐句/405 音符/361 元音；逐句冻结意图（计划前）→ bodymodel 源驱动设计 → schema2 计划 → 编译读回 ≤0.49996c → 361 元音逐字图审（357/361）。前向账本 361 决策（hold185/center109/oscillation40/finite_return27）；知识接入取表1机制+OpenUtau 参数并逐 ID 决策，未取歌相关响应包（记录 absence）。新 260.5s 人声+伴奏候选交付。4 个 10ms 微元音单元未通过（源于声母提前，不改源时钟），technical_execution_complete=false，musical_quality=unverified，听感 unknown。见[runs/production/yuai-latest-skill-20261016/REPORT.md](runs/production/yuai-latest-skill-20261016/REPORT.md)与[docs 报告](docs/reports/yuai/source-only-latest-skill-20261016.md)。单Agent、CI仅手动。下一步接本版试听反馈，不自动扫参。
 
-> 用户确认研究通用规律而非继续单点修复后，完成318当前字跨条件只读研究：5个原版标签+接受抱C变体，313字听感unknown保留。接受抱voicing更低、tension更高，否定统一提高VOIC/降低TENC；同元音配对breathiness降低方向一致但未隔离。冻结6条件同剂量BREC单因素检验方案（2问题+4偏实/可用），尚未渲染，不拟合阈值或扫参数。停止先前果VOIC提案；不更新Skill或改音频，接受抱保留。见 docs/lastpage-cross-condition-study-20261008.md。
+2026-10-16当前流程更新 `phrase_by_phrase_skill_workflow_updated`：按用户要求改为一个完整音乐句观察/逐字构思/前置意图/画线/原生与主体及跨字图审/成声检查做完，再推进下一句；保存逐句进度，试听状态独立，不逐句等人工批准。整曲最终只组装已审阅目标；独立入口/主体/退出主张拆检，不让一个入口代表全句。7份Skill资源更新并同步安装，40文件一致/124引用/结构核查通过；当前工具仍无逐句先后自动门禁。雨爱工程、音频、旧锁与receipt保持，本轮不继续歌曲。见[逐句流程更新](docs/reports/production/skill-phrase-workflow-20261016.md)。单Agent、CI仅手动。下一制作任务按新流程逐句执行，旧通过不倒填。
 
-> 用户对三处果原PCM对照回报“中间这个可以”：word247约3:17局部可用，1:27原反馈保留、3:44仍unknown。实际新成声state比较：主体音高相近，通过处voicing略高、breathiness略低，入口差更明显；仅线索，非因果。缓存导出不等于新成声的草稿被拒绝保留，567当前run文件哈希保持。无新合成/参数/Skill修改，已接受抱保留；下一项候选有限VOIC单因素支撑，尚未执行。见 docs/lastpage-guo-positive-comparison-20261008.md。
+2026-10-16续项完成：状态 `yuai_G_whole_candidate_delivered_pending_listening_with_process_gap`。Skill已补直接检索表1/表2与后续阴性/反馈、词/核映射，39份安装一致、117链接及9本机测试通过。当前源独立G方向全曲53句/371元音/382阶段，61组原生成声与两阶段实际输入核对、371/371实际图审完成，新260.48秒纯人声及v03候选工程已交付。技术完成；s13冻结到达检查失败保留，严格流程false，末将/虹深回探及2:46短吸偏低电平列试听重点，整曲听感unknown。只取公开经验，无作者/历史制作载荷，未启用CI，单Agent。见[整曲候选报告](docs/reports/yuai/source-intent-G-whole-candidate-20261016.md)。下一步接本版整曲反馈，不自动扫参。
 
-> 最新执行：用户授权后完成果g→uo只读核查。字典及实际token/语言正确，uo单token；元音起点与原曲HFA观测差0.303ms、长度差约14ms，没有足以直接改时值/拆韵母的明确错误。五处同字时钟比较保留；裁出当前生成版1:27/3:17/3:44三个同MIDI64的原PCM语境，等待偏假/前顶标签，不当作因果对照。本轮无新合成/参数/Skill修改，已接受抱保留。见 `docs/lastpage-guo-phoneme-audit-20261008.md`。
+2026-10-16本轮续项：已把表1/表2检索直接写入Skill主入口，补检索覆盖/后续反馈/阴性和副作用、知识与历史制作载荷边界，以及源词/辅音/元音核映射检查；39份Skill文件安装一致、117引用与9项本机知识契约测试通过。门禁仍不自动证明检全/应用正确；见[Skill更新](docs/reports/production/skill-knowledge-entry-20261016.md)。当前继续雨爱G方向的整曲候选：53句新意图已前置冻结、371元音/382音乐阶段的当前谱面与原生核对已完成，完整成声/整曲听感尚未通过。保留原锁与失败记录，禁止作者/历史制作载荷，单Agent、CI仅手动。
 
-> 最新试听否决：“果”没啥区别、“这”的咬字好像也没啥区别，还引入响度下降。果-200c B不采用，保留已接受“抱”的A完整工程。只读核查发现uo平均RMS接近但2–5kHz能量约-4.03dB、字头接口30ms能量约-4.20dB；是反馈的候选解释，不是感知响度真值。停止继续调果SHFC/补增益；下一项建议先核查g→uo音素时序与过渡，尚未执行。本轮不生成新候选或改Skill。见报告“试听否决与局部能量复核”。
+2026-10-16当前状态 `yuai_source_intent_G_relative_preference_whole_song_pending`：原曲独立重制首代表组B/C被否定（发声与音乐均有问题）；本轮发现并修正词起点误作元音起点，第二代表组39字核起点最大差0.520ms。新D/E/F/G完成原生输入隔离和39/39实际图审，技术通过；用户原话“g相对最好，还有之前不是研究过虚实吗？研究了很久的”。G仅相对组合偏好，独立因素与整曲未通过。已纠正知识接入过窄：沿用Skill/表2的条件经验和阴性证据，继续禁读作者/历史制作曲线、工程、音频，不搬旧参数。新当前反馈公开入表，整曲知识包单独生成；原意图锁/知识包不刷新，旧Skill/歌曲不改。下一步按新源元音时钟、逐句前置意图展开整曲候选，其他条件标外推；见[本轮记录](docs/reports/yuai/source-intent-pilots-20261016.md)。单Agent、CI仅手动。
 
-> 最新执行：用户授权下一步后，针对1:27“果”约330Hz/uo、人工TENC/BREC/VOIC增量0的语境，独立设计单个-200c SHFC（160ms进入/70ms退出），已接受“抱”在完整A/B精确保留。新两阶段预测、原生隔离、原A/重复/当前PCM精确，双F0主体相近，85项测试通过。A/B试听待评价，邻“这”声母约-1.990dB的响应已声明；不自动继续参数或改Skill。见 `docs/lastpage-guo-register-probe-20261008.md`。
+后续知识接入已补齐J系列：单通道阴性、入口音乐阶段的局部接受、虚实/发力/磨砂/增益分离及整曲输出包络复核。仅取公开反馈/方法元数据，不读旧工程/音频/数组，不搬旧剂量；新整曲上下文逐ID绑定，旧上下文保持。见[经验接入纠正](docs/reports/yuai/learned-conditions-carryover-20261016.md)。
 
-> 最新反馈：用户对145ms进入的B/C对照回报“可以”。C保留为3:04“抱”的局部可用方案；反馈与音频/工程SHA独立绑定，原实验输出保持。局部接受不覆盖1:27或整曲，也不证明通用SHFC参数有效。本轮仅记录反馈，没有新合成、发布工程/Skill变更。下列待评价状态为历史执行记录。
+2026-10-15最新执行：状态 `musical_sequence_review_implemented_quality_unverified`。按用户“执行顺序和评价的区分能力以及skill都需要更改”完成实现：先冻结原曲/乐句意图和发声证据，再创建数值计划；评价用同一事前标准比较实际线和快速连接/浅偏差消融，按结构而非ID/文字发现重复，音乐critique独立于技术账本。contract v2贯通编译/交付，旧true收据只保留历史技术含义，不升级音乐流程。7份Skill方法文档修改并同步安装38文件核对，VOIC100零增量与当前声明上限分开；208本机测试通过。当前雨爱v02只读回归保持技术通过与371/371图审，但新流程false、音乐质量unverified，并提示1425节点全零斜率和6组结构重复。11初始保护项及13项此前公开v02引用SHA均保持，未改歌曲/音频、未执行新模型。实现、限制和后续见[整改报告](docs/reports/production/musical-sequence-review-20261015.md)。本次整改实现完成，真实新设计/听觉改善与迁移尚未验证；下一制作步骤先做有限代表组的源动作与发声判断并早期试听，不自动生成v03或复跑旧脚本。单Agent，CI仅手动。以下段落保留此前各轮时态，旧“下一步/不改Skill”不覆盖本次授权与状态。
 
-> 最新执行：用户授权后完成单个SHFC字头时间几何C，进入55→145ms，平台/退出采样不变；完整新预测及原A/重复精确，B/C同增益试听已生成。元音入口响应减小，但b声母RMS约-5.326dB且谱变化更急，不能据此宣布破音解决。修正检查器float32除法顺序，精确等式不变，85项测试通过。见 `docs/lastpage-shfc-onset-probe-20261008.md`；当前停止继续候选，等待字头/咬字/字腹评价。
+2026-10-15最新反馈与只读审计：状态 `yuai_v02_two_pass_failure_analysis_complete`。用户指出v02“太虚”“还是平”，本版实感/起伏目标未达成。按用户顺序先不读白烁，保存并SHA冻结第一轮分析；随后只读白烁雨爱原件，再比较当前动作语法、跨字过程、到达路线、声线/声部和控制边界。已形成[两轮分析及Skill整改提案](docs/reports/yuai/v02-two-pass-failure-analysis-20261015.md)；第一轮保留原文。主要问题是浅小归中动作、统一快速到达、循环论证及未经校准的发声基底；不是PITD丢失。发现Skill已有禁令未落实及VOIC说明冲突，提案要求先作源动作/发声判断、再编码并区分技术和音乐验收，不复制作者数值。当前42工程/音频/Skill保护文件与作者原件SHA保持，新推理/新音频0；本轮未实施Skill或歌曲修改。太虚的单一声学病因unknown，迁移仍unverified。下一步仅讨论/另行实施整改，不自动制作v03；以下v02交付段保持交付时态。
 
-> 最新试听：SHFC B“更实了”，同时“抱的字头”破音，当前B不采用。只读复核未见文件满幅削波/特征裁剪；字头谱变化变急且上下文预测影响先于直接SHFC支撑，病因仍待检验。下一项候选仅检验进入时间形状，保留-400c字腹平台和退出；本轮未生成候选、不改Skill/整曲。详见受控报告“最新用户反馈与字头复核”。下列待评价状态是历史执行记录。
+2026-10-15当前状态 `yuai_newskill_v02_delivered_pending_listening`：用户授权按新Skill重制雨爱并禁止白烁/历史制作数据。本轮 `runs/production/yuai-skill-source-only-20261015` 仅沿用源录音/分离/GAME和原曲侧观测，重新校词、新HFA、谱面、声线及逐元音函数；无旧谱面/曲线/控制/渲染作为输入。首次实际图审发现跨音符元音前段遗漏后完成第1轮音乐修订（最多2轮），29段补入选择/检查、12长段新增动作；最终446音符/49乐句/371元音/771必要阶段执行复检通过。126物理图页中26张本轮首版图像/数据精确复用、100最终页实际打开，371/371完整审阅。新完整工程及260.48秒纯人声/伴奏试听已交付，196本机测试通过，Skill不改；49组实际两阶段输入、三通道和输出双F0等核查与边界见[重制报告](docs/reports/yuai/new-skill-source-only-v02-20261015.md)。禁止数据未打开，完整作者包门禁因本轮访问边界未运行，任务范围门禁另列。下一步接本v02整曲试听反馈，不自动扩曲或恢复旧参数；旧负面反馈、未听觉验收和未见曲迁移unverified保持。单Agent、CI仅手动。
 
-> 最新执行：用户授权后完成单个有限SHFC -400c条件隔离实验；variance pitch及acoustic F0响应，vocoder F0输入/人工控制保持，新依赖和无变化重复通过，A与v02 PCM精确。双F0主体近似保持，局部40–45c检测差阻止“实测F0完全固定”的声明。84项测试通过；听感待验收，停止继续扫参数。见 `docs/lastpage-shfc-controlled-probe-20261008.md`。
+当前执行 `execution_review_implemented_transfer_unverified`（2026-10-15）：用户授权执行 [Skill制作执行复检要求](docs/skill-execution-review-requirements.md)，本轮完成代码、风险测试、Skill/安装接入及已有工程回归，见[结果](docs/skill-execution-review-results.md)。新歌迁移与听感未验证；下列雨爱否决/表1表2阶段记录保留原结论，不自动恢复。
 
-> P1 更新（2026-10-08，用户授权“下一步”）：单个 3:04 TENC A/A-repeat/B 实验完成。新基线与 v02 PCM 相同，重复差为零，B 输入仅 tension 改变并产生小幅谱响应；口型改善和唯一病因仍 unknown。75 项测试通过，未改发布工程/Skill，未开始 P2。见 `docs/lastpage-tenc-controlled-probe-20261008.md`；下文保留原 P0 范围记录。
+| 本轮要求 | 实际状态 |
+|---|---|
+| R0版本/入口/保护工作树 | 已记录分支、HEAD、前改快照；安装副本核验，隐藏会话缓存unknown |
+| R1–R4身份/前向选择/独立测量/共享执行复检 | 已接入compile-functions和render-project；旧schema2候选明确不算完成 |
+| R4.1逐字图册和实际审阅覆盖 | 已实现完整支撑/邻接/重叠页/固定尺度/SHA失效；生成与实际打开分开，缺口不通过 |
+| 风险测试/实际原生函数探针 | 194项测试通过；三元音新构造探针读回误差≤0.499011c，3/3实际看图，无声音验收 |
+| 旧工程接入回归 | 雨爱371组、374图、缺前向账本，不倒填；3图仅诊断打开，正式覆盖0/371 |
+| 新歌迁移 | unverified：已见曲目是开发资料，无已确认授权的未见曲；不自动扩曲 |
 
-> P1 试听反馈：“没啥区别”。本次取消TENC没有可感知改善支持，不用于整曲修复。下一步只核实三个同字/同音区原版“抱”的听感标签；原版PCM对照已生成，不重新合成或自动开展下一次参数干预。
+后续制作使用冻结的本轮Skill与共享契约，从当前原曲证据逐元音作决定。真实新歌须保存首版及最多两轮策略修订，完整工程与全部局部审阅另验；不能把本次合成函数探针当新歌成功。
 
-> 同字试听用户回报“我听着都一样”。无明确正常/异常标签，三处不能作为异类对照。已只读核查本机实际输入及上游源码；候选下一步为有限SHFC隔离模型音区条件/最终F0，需重建并核验声明的下游依赖。尚未执行，不加大TENC或继续盲扫参数。报告中的实际depth纠正为0.6，输入/实验未变。
+当前状态yuai_musical_design_rejected_process_audit_complete：2026-10-15用户整体否定独立雨爱v01质量并指出音高主体近乎平直；代码审计确认311非句尾单元被4/9c固定分派（carry实际2.2c）、280有限回收/19周期及75无组件，0–1600c主体期待允许平直通过。“逐字记录”不构成逐字音乐设计充分的证明。原技术核验保留，音乐设计未通过；冻结本轮脚本作为失败实现记录，下一步先整改源动作判断与主体局部验收/有限代表组试听，不直接批量重渲染。原工程/音频/Skill保持，本轮新模型/音频0；单Agent/CI仅手动。 见[反馈与流程审计](docs/reports/yuai/design-process-rejection-20261015.md)。
 
-> 状态：P0 COMPLETED WITH LIMITATIONS（2026-10-08）。独立只读评价、六份分角色报告、67项测试、合成保留验证及四处反馈语境定位完成；声学异常识别、病因、多相位检查仍unknown。结果见 `docs/evaluation-v0-findings.md`，唯一后续提案见 `docs/evaluation-v0-next-step.md`。不自动推进P1/P2，不修歌或训练模型。
+更新：2026-10-11。状态：A–F在固定范围内完成并保留确认缺口。F正式登记49个分层记录实体、30组组合词、48导航组/352具体项，另留复音/拍频开放候选；14条第二层引用已迁移，40份迁移前文件原字节保留。全部measurement_validated仍false，不宣称检测性能、通用调参规律或自然度通过。
 
-## 0. 首先阅读与约束
+当前续项：关联表2专项2A来源/版本绑定审计已完成，状态source_binding_audit_complete_with_explicit_gaps；2B记录schema修订已完成，状态schema_revised_with_explicit_gaps，2C记录复核已完成，2D缺口与有限协议冻结已完成，2E有限实际执行及技术门禁完成，已整理抱五组成对人声与只四版阴性结果并保留缺口；用户已停止后续伴奏关系复核。现行表2schema 3新增结构，原字段保持；F和2A冻结版本及原审计输出保留，不改写旧审查时态。
 
-阅读 `AGENTS.md`、`README.md`、`docs/workflow.md`、`docs/repository-cleanup.md`、`skills/singing-expression-editor/SKILL.md`、`references/planning-and-evaluation.md`、`references/grounding-and-competence.md`、`references/local-cycle-design.md`（后三个路径均相对 Skill 目录）。
+用户目标：优先完善并确认表1，为后续Codex判断演唱表现和选择控制建立可靠的描述基础。表1指[第一层总表](docs/knowledge/acoustic-manifestations-20261009/README.md)及其原子维度、组合听感、OpenUtau控制三份清单；[第二层](docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md)提供已有实验的交叉核对，本轮不继续扩大调参实验。
 
-**2026-10-08 仓库刚清理旧流水线。** 禁止恢复 `.local-archive`、旧 cover/repair、自动模板修歌、参考复制/profile/候选搜索，不重构制作 pipeline、不改写旧 Git 历史。保留 Agent 负责音乐决策的架构。作者三份 USTX 只读、仅研究；绝不加载作者曲线生成新歌。严禁提交音频、权重、缓存、runs、个人路径或作者资料派生大数组。
+本文件是根目录唯一当前执行计划，由Codex维护阶段状态和结论。旧独立评价计划已由本计划替换，其实现及实验结果以`docs`中的报告为历史证据；旧报告中的“下一步”不作为当前任务入口。
 
-本次工作不得改 `SKILL.md` 主规范或扩大 skill 文档：优先**写代码、测试和报告**。已有原则与工具边界已足够明确。
+关联专项计划：[表2完善与确认](plan-table2.md)。该计划区分现有记录审计与条件响应知识验证，当前完成2A–2C记录确认及2D有限协议冻结，2E有限渲染/技术交付完成、2E两字机制预实验保留，当前2F采样设计准备、实际留出验证0，后续BGM关系复核取消，2F及以后未执行；新的因果验证仍依赖相关表1定义、控制路径、观测方法与冻结协议，不因记录绑定通过而自动开展。
 
-## 1. 首轮问题 / 成功定义
+2B状态schema_revised_with_explicit_gaps：26份现行文档/脚本先冻结；14记录新增17比较/6反馈组，schema 3分清逻辑版本、文件槽位、预测/人工增量/最终输入/PCM及历史状态/后续反馈。旧JSON恢复等式、CSV旧列/14行结构CSV及Markdown原主体、52来源元数据/67保护输入SHA通过。见[2B报告](docs/knowledge/acoustic-manifestations-20261009/table2-schema-review.md)、[字段说明](docs/knowledge/acoustic-manifestations-20261009/table2-fields.md)与[本轮审计](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2b-audit.json)。2B完成时2C–2H未执行；现行2C收口结果另列，新因果试听仍在2D冻结设计后的2E阶段。
 
-假设 H1：当前系统可验证“编译及写回正确”，但缺少基于**最终原生音高及实际元音/非唱分区**的独立形态异常检测。
-假设 H2：同样的整体 RMSE/中位数可能掩盖“平直与波浪”、“稳定颤音与机械重复”、“音符边界尖峰”之间的差异。
-假设 H3：《最后一页》四个反馈位置包含两处偏假／前顶和两处偏实对照；不能仅凭 USTX 曲线推断病因，需要输出有来源的定位与受控检验建议。
+2B本地验证：88项pytest及工作树门禁通过（音频载荷0、三作者工程/五ZIP成员、102处Skill链接）；旧记录精确恢复与4历史写入口拒绝覆盖通过。6份生成产物重复构建精确，连同2份字段/报告文档共8产物SHA绑定；既有冻结拒绝覆盖。日志与测试临时目录在本批新ignored run，旧run不改。
 
-**首轮成功不是自动判出自然度**，而是：
-1. 检测程序不读取待测计划的 `expectations`／自报幅度作为真值，能确定性解析真实工程与可用原生导出；
-2. 三首 USTX 都生成有证据的逐句/元音风险清单和机器可读结果，缺失音素/渲染/模型输入时标 `unknown`，不伪造；
-3. 人工构造的正反例及边界反例能通过单测，非唱区误报可被正确排除；
-4. 能在《最后一页》四个时间点建立**准确绑定音频版本的反馈定位**，区分“反馈记录已知”与“声学成因未知”；
-5. 交付一份可据此判断下一轮做哪个因果实验的报告；绝不自称“四处原因已证实”。
+2C状态record_review_complete_with_explicit_gaps：14记录复核完成，60份输入/预测NPZ只读、129实际读取绑定文件保持，823指标标量字段与原JSON/报告匹配。原生/fresh输入算术、支撑、通道、SHFC路径及重复输入/预测重查；20版本最终三通道由独立验证器重建检查。36项限定确认/24部分/56unknown逐项列明，不是新实验或普遍规律；旧2B与更旧记录可精确恢复。新模型/原生执行、PCM/mel/检测器数组读取、声学复测/试听均0，全部measurement_validated仍false。见[2C逐行报告](docs/knowledge/acoustic-manifestations-20261009/table2-record-confirmation.md)、[JSON](docs/knowledge/acoustic-manifestations-20261009/table2-record-confirmation.json)与[审计](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2c-audit.json)。此为2C完成时状态；后续2D进度另列，新因果试听在2E。
 
-## 2. 范围与数据
+2C本地验证：88项pytest及工作树门禁通过（音频载荷0、三作者工程/五ZIP成员、102处Skill链接），26快照/52来源/67保护输入SHA、CSV/JSON/Markdown及旧2B精确恢复通过；9份生成产物重复构建精确，既有冻结与2B写入口拒绝覆盖。日志/TEMP/TMP在本批新ignored run，旧运行及审计不改。
 
-主评测集是三份当前 Agent 最终工程：
-- 花海+4 `projects/latest/huahai_plus4_smooth.ustx`
-- 最后一页响度v02 `projects/latest/lastpage_loudness_v02.ustx`
-- 雨爱v17 `projects/latest/yuai_skill_v17.ustx`
+2D状态gap_review_and_protocol_frozen_with_explicit_gaps：352 PARAM/48导航组与49正式表现实体/1开放候选逐项覆盖；14旧记录直接引用10个PARAM，其中3个有干预记录。冻结一个SHFC直接声学条件/预测组三通道分离协议：抱225与偏实只214，A/S/D/P四路径、各同输入两次，共计划16套波形/10组主对照，实际0套。D/P为研究反事实，现接口不支持，需先实现研究runner/独立检查器；不作USTX新旋钮或单通道病因。两个条件不是留出，相关测量仍未完整验证；果SHFC/BREC加量停止、接受抱C与旧阴性/unknown保留。23份更新前文档/脚本原字节冻结，现行2C产物及原审计不变。见[2D报告](docs/knowledge/acoustic-manifestations-20261009/table2-protocol-review.md)、[覆盖矩阵](docs/knowledge/acoustic-manifestations-20261009/table2-validation-gaps.json)、[有限协议](docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.md)与[审计](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2d-audit.json)。下一步2E先实现研究路径接口及独立检查器，绑定当前runtime/实际采样与隔离；本轮不渲染、不改歌曲/音频/Skill。新音频执行须按明确授权范围，人工试听在新对照技术核查通过后；2F留出/2G整句全曲/2H尚未执行。
 
-分别标记 `current_agent_generated`，绑定实际文件SHA。下面三份作者原件是独立的辅助研究集，标记 `author_research_only`。两组报告分开；全工程、主唱轨、音符、决策支撑、曲线与点数不能混用。
+2D本地验证：88项pytest、工作树门禁（399文件、音频载荷0、三作者工程/五ZIP成员、102处Skill链接）通过；352/50条JSON与CSV、表1引用、路径矩阵及有限预算独立核对。三种错误设计（扩大预算/伪称留出/把D当原生）拒绝；6产物重复构建精确，既有基线/协议封存及改剂量写入拒绝，23快照/67保护输入SHA保持。测试/TEMP/TMP和失败草稿在本批新ignored run。
 
-研究原件 `research/baishuo/manifest.json`：
-- 花海+4 `research/baishuo/projects/花海+4-有参by白烁.ustx`
-- 雨爱 `research/baishuo/projects/雨爱-有参by白烁.ustx`
-- 最后一页 `research/baishuo/projects/最后一页-有参by白烁.ustx`
+2E准备完成时状态research_interface_prepared_with_explicit_execution_gaps（当前续项见下方输入/静态核查）：冻结协议下的A/S/D/P研究组装、独立重建/裁剪/重复检查器、有限批接口及惰性ONNX后端已实现，40项合成契约测试通过。当前47项安装资源按已绑定登记表/配置实际路径重哈希均精确；不将字节一致当模型/分支/两阶段speaker执行通过。24份更新前文档/源码冻结，79生产/桥接/Skill/发布工程与67保护输入保持。真实native身份/5tick Q5采样、模型/声码器执行、PCM/DYN/增益及人工试听未执行；2E整体未完成，实际新波形/新反馈/通用规律均0。见[2E准备报告](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-preparation.md)、[JSON](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-preparation.json)与[审计](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-prep-audit.json)。下一步仍为2E：核查实际native身份/完整音素时钟/5tick Q5采样和后端接入依赖；新音频仅在明确执行范围内生成，并在技术门槛通过后人工试听。当前不改歌曲/音频/Skill，不启用自动CI；2F–2H未执行。
 
-读取并验证 manifest SHA256；不要修改原件。作者工程是**研究基线**，不可当最近 Agent 生成工程。当前生成工程使用上列显式路径；真实导出和反馈音频从显式参数及经校验的绑定清单接入（`tools/lastpage_fresh_*` 仅为实现记录），区分Git资料与本机文件。若缺乏音频／原生模型环境，用 `missing_data` 标记，仍完成静态分析与程序测试。记录每个输入SHA、来源、版本、角色、tick/秒映射及证据级别，不伪称试听或运行。
+2E准备本地验证：128项pytest通过（88既有+40研究接口契约），本机工作树门禁通过（437文件、音频载荷0、三作者工程/五ZIP成员、102处Skill链接）。24快照、79生产/桥接/Skill/工程及67保护输入SHA保持，47安装资源当前字节一致；2产物重复构建精确、既有冻结及旧2D审计写入拒绝。测试/TEMP/TMP在独立新runs/test-results；原音频/旧run不写入，真实模型/原生/新音频/新试听均未执行。
 
-既有用户反馈仅用于诊断集、不是从工程测出的事实：
-- 《最后一页》响度 v02，1:27、3:04：偏假／声音前顶；1:33、2:56：偏实。
-- 此处时刻属于**反馈音频的物理时间**，不保证对应原工程时间轴（有前奏、裁剪、混音差异）；未确认音频哈希和时基前，不能把某个字/元音直接标为已验证病灶。
-- 《花海+4》TENC/BREC高度负相关、《雨爱》过密与PITD尖跳，来自前轮观察，均是**待复核的诊断假设**，不是验收真值。
+2E输入/静态接入状态historical_native_and_static_backend_checked_with_execution_gaps：更新前20份文档/接口/测试冻结；两条件历史A的41实际音素/421与594帧完整时钟及语言ID4核对，六组历史A/C两阶段speaker张量与当前75/25 embedding精确，47当前资源SHA及三ONNX声明核查。5tick冻结设计的抱32帧/只33帧均−400c且支撑不越界；抱整数点/acoustic cents/variance半音与旧C精确，只的新S导出仍未核查。修正研究接口bool retake、native float32帧表示及模型scalar feed；variance按本机double插值*0.01再float32重建，首轮3帧顺序误差失败保留，未放宽容差或改冻结剂量/锚点/预算。55项研究契约测试通过，新原生导出/推理/波形/反馈/通用规律均0，2E整体未完成。见[2E输入与静态核查](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.md)及[JSON](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-native-check.json)。下一步2E有限执行前置项及明确授权的新批次；技术检查通过后人工试听。歌曲/音频/Skill不改、单Agent/CI仅手动继续保持；2F–2H未执行。
 
-## 3. 实现：最小独立 evaluation v0
+2E输入核查本地验证：143项pytest通过（88既有+55研究契约），工作树门禁通过（468文件、音频载荷0、三作者工程/五ZIP成员、102处Skill链接）；20快照/79生产及67保护输入SHA、47当前资源、两产物重复构建精确、冻结覆盖及原2E准备写入口拒绝均核查。首轮浮点顺序失败与测试夹具纠正日志保留；真实模型/新音频/新试听均未执行。
 
-代码位于 `src/agent2utau/evaluation/`，测试位于现有测试布局中（先检查当前项目结构和依赖）。添加可直接运行的命令入口（复用现有 CLI 或清晰独立 `python -m ...`，不要破坏现有命令），例：
-`python -m agent2utau.evaluation --project <ustx> --out <directory> [--native-pitch <export> --phonemes <export> --provenance <json>] [--feedback <json>] [--role author_research_only] [--config <json>]`
-具体参数可按真实接口调整并写进 README/简短文档。只以参数显式给出的输入为依据，禁止扫描旧歌缓存自动补齐。
 
-### 3.1 数据抽取 / 对齐
-- 从 USTX 提取 part、note、位置/持续、PITD、note.pitch、TENC/BREC/VOIC/DYN（若存在）；识别 tick→秒的 tempo map、曲线坐标系及单位；保留原始点数与有效非默认点数。
-- 有实际 OpenUtau Core 导出时，优先使用**原生最终绝对 pitch**、原生音素时钟、当前before-PITD及真实分句；不使用线性插值臆造Core结果。缺失 Core 时只做能从工程严格推出的静态结论，`native_absolute_pitch=unavailable`，禁止对最终实际声学线下结论。
-- 原生JSON的路径字段不是版本证明。显式provenance绑定工程SHA、导出SHA、Core/bridge与声库身份；校验单位、身份、音符几何、数组长度及单调时间。错绑定应拒绝；缺绑定降为unknown。原生意图线、渲染帧输入、实测F0和声学对齐分层报告。
-- 连续音符、同元音跨音符、SP/AP/静音、多 part、tempo 变化与转换边界均要显式标注；越界、空区、单位不明一律 `unknown`。
-- 按时间窗输出 phrase / note / vowel / phone / non_singing 的证据锚点；若仅有音符，输出 `note_only`，不伪造逐元音划分。
+2E技术交付封存时状态technical_execution_complete_pending_human_listening：用户明确授权冻结批次，两条件新A/S原生4组导出及抱32帧/只33帧5tick采样通过；8次新variance、16套固定种子acoustic/vocoder波形，另4套原生缓存技术波形单列。四路径/重复/两阶段speaker/原生DYN/固定1.5与0.7/PCM24独立检查通过，两个新A及新抱S分别与历史A/C的fresh输入、预测、raw PCM精确。53窗口与16次双F0观测只作有限代理，只的焦点早于波形起点，按协议保留整句并标未完整。72份分开上下文/焦点/两顺序对照衍生PCM待人工试听，154项本机测试通过；20快照/79生产与Skill及工程/67保护输入/1079旧封存路径/567当前歌曲run/47安装SHA保持。新反馈0、通用规律0，全部measurement_validated仍false；2E整体待听觉确认，2F–2H未执行。原歌曲、既有音频和Skill不改，单Agent、CI仅手动，下一步只接本批试听反馈，不自动扩展。见[实际执行报告](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-execution.md)、[JSON](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-execution.json)与[审计](docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-execution-audit.json)。
 
-### 3.2 独立特征与风险候选（不是自然度判决）
-- 局部中心趋势（抗趋势项拟合后的剩余线）、斜率与变化点；分辨平台、缓慢单向漂移、连续往复。保留每个检测窗口的长度、有效采样数和掩码覆盖。
-- 有序极值序列：峰→谷→峰的幅度、周期长度/Hz、相邻振幅比、相邻速率变化、进入和退出包络、最后部分波、不对称，区分微量噪声和可信周期；不要以 RMSE、中位数或“越像人工越好”代替。
-- 边界：真正演唱区内的跳变/尖角，唱前SP/AP与唱字转换、音符连接、native-before与note.pitch的组合，检查多个采样相位的风险（若只有USTX无Core只能列 `requires_native_probe`）；特别不要把SP内部跳变自动当成可听错误。
-- v0的单份Core导出固定5-tick网格；有Core仍不得宣称多相位无尖峰。多相位接口未核实时标 `requires_native_probe`；不通过改变唱字/tempo/音素几何冒充相同条件探针。
-- 多通道：量化张力/气声共同激活、相关性及支撑重合；相关性只产生 `coupling_risk`，不是因果关系或“必须解绑”的结论；VOIC与DYN分开检查、只描述数值支持与覆盖。
-- 采样密度/冗余：列总点、默认点、有效点及相同波形近似所需复杂度的**可复算指示量**；先只报告，不自动简化曲线或写回工程。
-- 每条风险附 `code`, `severity`（技术风险，不等于听觉坏）, `confidence`, `source`, `time_range`, `region_type`, `evidence`, `limitations`, `next_probe`；技术风险和音乐表达偏好分别表示。缺证据时输出 unknown，不做“自然度通过”。
+以下阶段明细保留各自完成时范围；当前步骤以上述2026-10-11实际批次为准。
 
-### 3.3 数据格式及可复现性
-输出 `summary.json`、`regions.jsonl`、`findings.jsonl`、`report.md`，可选小体积诊断图（不提交生成图）。JSON schema/version、运行命令、输入 SHA256、代码 commit、时间轴和模型/声线状态绑定。输出全部候选，不靠手工挑好看的点例；排序和阈值配置可复现、只以开发集选择。若真实原生导出缺失，统计 `evaluated / skipped / unknown`，不将跳过计为通过。
+## 当前执行进度
 
-## 4. 独立正反例测试（P0 必需）
+由当前Codex单个Agent执行。2026-10-11当前状态（A–F保持；表2实际批次见上方）：
 
-至少构造可复现的合成单位测试，不需要生成歌：
-1. 平台 vs 相同均值/接近RMSE的有序周期；
-2. 规则固定频率/固定深度 vs 逐周期变化和渐隐；**两者不直接赋好坏标签**，只要求检出特征差异；
-3. 纯 SP 内急跳不误判为 singing-boundary-failure，SP→唱音有异常时提示过渡风险；
-4. 同元音跨音符继续振荡不会因 note 边界被错误拆成多个起音；
-5. tempo 变化、tick/sec 单位、缺少原生基底、非有限值/缺采样/空窗；
-6. TENC/BREC强相关 vs 独立包络，VOIC与DYN不混为一种“响度控制”；
-7. 对同一输入重复执行 JSON 内容确定性一致（忽略显式生成时间/路径）；
-8. 随机/噪声与短支撑不会硬凑成多个真实周期。
+| 阶段 | 实际状态 | 结果与边界 |
+|---|---|---|
+| A | 结构审查完成 | 原31行逐项记录对象、混合问题、去向/理由、范围、单位/时钟、unknown和后续核查；提出47个分层实体引用，不是47个已验证检测器。见[逐行报告](docs/knowledge/acoustic-manifestations-20261009/table1-review.md)、[字段规范](docs/knowledge/acoustic-manifestations-20261009/table1-schema.md)、[CSV](docs/knowledge/acoustic-manifestations-20261009/table1-row-review.csv)。 |
+| B | 逐项审查完成，确认有缺口 | 31行定义和30组组合词均有范围、候选分解/反例、证据状态或具体缺口；累计核对30条说法/25个来源页面。来源只支持组件事实，不证明中文词唯一病因或全部测量可用。摘要/范围级别、工程定义、待补资料与未验证映射明确保留。见[来源与逐项报告](docs/knowledge/acoustic-manifestations-20261009/table1-source-review.md)、[定义审查](docs/knowledge/acoustic-manifestations-20261009/core-definition-review.csv)、[听感词审查](docs/knowledge/acoustic-manifestations-20261009/composite-review.csv)与[逐说法记录](docs/knowledge/acoustic-manifestations-20261009/claim-evidence.json)。 |
+| C | 固定范围审查完成，确认有缺口 | 48导航组已有352条字段/执行项（184+136+32，前320个ID保持），当前路线130、其它引擎39、上游/本机版本差异146、编辑元数据37，均非有效艺术旋钮计数。原44+25源码重查，编辑续审21份含4重复/17新来源，共86份唯一冻结来源；六资源与Core/App绑定不变。31节点、导出/播放/pan law及23项本机静态能力另列；新增103偏好字段/8嵌套属性分类及预设/网格实际写入、扩展接口范围。本机graph/masked、FX独立开关/WrapLive缺失，MergePhrasesSec/ReduceAnimations声明字段本机缺失；未读消费者/非默认执行/设备呈现保留unknown。见[控制报告](docs/knowledge/acoustic-manifestations-20261009/table1-control-review.md)、[CSV](docs/knowledge/acoustic-manifestations-20261009/control-details.csv)、[偏好审查](docs/knowledge/acoustic-manifestations-20261009/editor-preferences-review.json)、[节点](docs/knowledge/acoustic-manifestations-20261009/graph-node-review.json)和[本机矩阵](docs/knowledge/acoustic-manifestations-20261009/local-capability-review.json)。 |
+| D | 协议审查完成，验证有缺口 | 原31行/A的47候选实体全部关联协议，另列B的shimmer、感知音高与复音/拍频，共50条。对象、输入、时钟/窗口、方法、单位、质量掩码、拒绝条件与来源/实现/验证分栏；11份生产/契约源码加1份研究验证器SHA绑定，10项组件来源另读。10组已知数组检查通过仅限明列数学/组件范围；全部measurement_validated仍false，真实音频估计性能及复杂方法未验证。见[协议报告](docs/knowledge/acoustic-manifestations-20261009/table1-measurement-review.md)、[CSV](docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.csv)、[JSON](docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json)与[组件来源](docs/knowledge/acoustic-manifestations-20261009/measurement-source-review.json)。 |
+| E | 覆盖审查完成，确认有缺口 | 42项清单在映射前冻结：18已有反馈/未知边界、12未录制音乐任务、8研究/方法条件、4作者结构；36主映射后复查6项，仅过程分区，非独立音频留出。34项限定结构可记录、8项部分表达；有已有用户标签16行（六BREC共一条原话），完整可靠测量结论0，链接34/50候选、16未覆盖。乐句/重音、转音/和声参照、情绪/听者任务及谐波旋律关系等缺口明确。冻结U17的word282误写由既有反馈纠正为word295，冻结原字节/分母/unknown保留；E关于派生文字乱码的判断由F纠正为工具显示编码误判，原记录不改。见[覆盖报告](docs/knowledge/acoustic-manifestations-20261009/table1-coverage-review.md)、[冻结清单](docs/knowledge/acoustic-manifestations-20261009/coverage-checklist.json)、[CSV](docs/knowledge/acoustic-manifestations-20261009/description-coverage.csv)与[JSON](docs/knowledge/acoustic-manifestations-20261009/description-coverage.json)。 |
+| F | 正式整合完成，确认有缺口 | 49个分层记录实体（24 ACO、15 EVT、9 PER、1 META），1开放候选；31旧描述ID去向、30 DESC、48 CTRL/352 PARAM、来源/项目证据命名空间明确，14条RESP/OBS/AUD引用同步，原数值/状态/反馈及证据SHA保持。8组上下文/任务字段已定义，E的8部分项仍未补齐；16实体未覆盖、全部measurement_validated仍false。40份迁移前原字节/SHA保留，现行构建器与审计分开核对历史和当前版本。见[正式整合报告](docs/knowledge/acoustic-manifestations-20261009/table1-consolidation-review.md)、[ID迁移](docs/knowledge/acoustic-manifestations-20261009/id-migration.json)、[上下文字段](docs/knowledge/acoustic-manifestations-20261009/context-schema.json)与[纠错记录](docs/knowledge/acoustic-manifestations-20261009/source-quality-correction.json)。 |
 
-每项测试明确预期特征、风险/unknown行为及反例；增加错版本导出、错单位、时间非单调、ownership歧义和数组长度反例。冻结合成程序真值的开发/保留样例，分别统计程序误判和漏检。无编辑真实歌曲区域只是重复对照，未标注时只报候选数，不称假阳性。四个反馈点仅报局部定位/对照响应，不能估计整曲误报率或漏报率。阈值固定可见，不按曲名特判，也不迎合四个反馈点调阈值。
+六份原表/第二层历史基线SHA通过迁移前快照核对；F时文件另按F产物SHA核对；现行表2schema 3按2B产物SHA核对，F/2A旧版本从显式快照追溯。A旧提案读错atoms字段，实际字段为atomic_ids，14条空关联原先被误判有效；F已补齐真实引用并公开纠错。展开后的实体链接是结构候选，不表示这些对象均被测到。第二层去除新增迁移字段并还原legacy引用后，与迁移前JSON精确相等；原数值、状态、原话、工程/音频SHA保持。阶段记录见[执行审计](docs/knowledge/acoustic-manifestations-20261009/table1-execution-audit.json)。
 
-## 5. 三首回归与《最后一页》定位
+D本地验证记录见执行审计：本批88项pytest与工作树门禁通过（音频载荷0、三作者工程/五ZIP成员、102处Skill链接），使用新workspace TEMP/TMP及pytest目录并绑定日志；旧失败/重试记录保留。新增协议CSV/JSON一致、源码/观测SHA及10组数组记录核对；67份保护输入SHA保持。反相数组相关首次精确-1断言因浮点误差拒绝，研究检查改用1e-12容差后通过；失败/重试保留，不修改生产算法。CI仅workflow_dispatch；未改歌曲、音频、Skill或安装。
 
-三份当前生成工程分别跑v0，原生环境可用时获取绑定导出；三份作者原件分别跑只读辅助研究报告，缺原声库时static_only。按输入SHA和角色区分结果，不提交巨大数组。
+E本地验证见执行审计：88项pytest、工作树门禁及67保护输入SHA通过；冻结清单/两阶段checkpoint/作者原件/历史报告与身份勘误均绑定，CSV/JSON一致。未读写音频、加载模型或改歌曲/Skill；CI仅手动。历史输入/PCM代理继续有效，但0项完整测量结论指本轮不能确认破音/实感等真值，不否定已核查数学量。
 
-回归问题：
-- 花海+4：TENC/BREC重叠、相关性是否真实；按时间区域呈现同启/单启/都不启；仅提出发声耦合风险，不断言“音色异常”。
-- 最后一页：识别真实工程版本和此前反馈音频是否同源。104是当前v02历史决策账本中非零VOIC选择数，不是作者工程、曲线或控制点计数；评价器独立测实际曲线支撑，决策数只作来源说明。为87s/93s/176s/184s建立带标签的feedback_cases.json，每处列前后唱字/音素语境、控制来源、疑点、欠缺证据和最多两个可证伪假设。粗时间点不自动成为精确元音病灶，声学原因仍unknown。
-- 雨爱：查有效点密度、SP内高斜率、唱前转换、真实最终线；分别报告SP误报排除与唱区尚需原生相位采样的风险。
+F本地验证：88项pytest与工作树门禁通过（音频载荷0、三作者工程/五ZIP成员、102处Skill链接），67份保护输入及40份迁移前SHA保持；176处文档链接、当前CSV/JSON、ID/来源与第二层原记录等式通过。6个A–E构建入口均拒绝覆盖、知识文件字节保持；现行15文件重复构建字节精确一致。验证日志在新ignored runs/research/table1-f-consolidation-20261010，使用新TEMP/TMP及pytest目录。首次guard核查子进程输出按Windows默认编码导致捕获解码失败；显式UTF-8捕获后通过，失败说明保留，未绕过guard或改生产代码。
 
-评分仅限已验证的程序真值与用户明确反馈标签；不要以这三首作者工程证明“检测器会听”。作者工程可作为结构正反例/未知条件，不自动标“好”。
+F已完成正式整合。原JSON严格UTF-8解析且SHA与基线一致，1174字符串无替换字符/Latin1异常，10条反馈逐项与可读报告/CSV对应；E所称乱码是工具输出显示误判，没有对正确原文转码。E冻结原字节与U17 word295勘误保留。C未确认本机能力、D复杂测量、E历史上下文缺口继续unknown。
 
-## 6. 因果诊断提案（仅设计，不自动修歌）
+关联[表2专项计划](plan-table2.md)的2A已完成：先冻结17份F后现行文档，逐条核对10干预/2关联/2技术记录的原报告/输入/工程/反馈及交付SHA。原36来源保持，补列既有反馈/审计来源后52份来源文件核对通过；五设计896条封存文件声明、1079个唯一仓库路径与67保护输入SHA通过。音频/数组只流式计算字节SHA，未解码、复测F0、加载模型或试听。见[2A报告](docs/knowledge/acoustic-manifestations-20261009/table2-review.md)、[比较绑定](docs/knowledge/acoustic-manifestations-20261009/comparison-bindings.json)、[差异](docs/knowledge/acoustic-manifestations-20261009/table2-record-differences.json)与[2A执行审计](docs/knowledge/acoustic-manifestations-20261009/table2-execution-audit.json)。
 
-为四处问题分别列候选原因，不允许根据控制相关性认定因果：
-- A 只变 Pitch，重建其影响的 variance/acoustic，保持歌词、时钟、speaker、其它控制、混音与可控随机条件；
-- B 只变 TENC/BREC/VOIC，重建相关依赖；
-- C 只变 DYN，明确原生包络来源；
-- D 只变音素/元音时值，时钟改变后重建所有依赖。
+2A公开7项差异/缺口：C-B与A-C比较角色、BREC有效_grid5版本、逐设计runtime范围、旧36来源索引缺列、BREC原话末尾句号、反馈时间/监听条件unknown及本次附加候选文件名纠正。TENC是58项混合依赖，只有6项与共享47项同名同SHA，另41项未在TENC该清单列出；其余四设计的历史47项相同。没有把当前外部模型/安装或新执行补成已验证。一个附加预设native_isolation.json不存在，实际guo相关来源按封存manifest绑定preservation_check.json，冻结原误写保留，不视为原实验丢失。
 
-**本轮为其中一处选一个最有辨别力的A/B实验设计，不执行改歌或声学干预；因果验证留P1。** 不能用不同种子、声线、模型权重、增益混杂对比。需包含无变化重复参照；无法冻结的因素列confounders。无音频感知工具不声称听觉改善；相同音素/音区与不同音素/音区对照分开，唯一病因仍可unknown。
+2A本地验证：新TEMP/TMP与pytest目录下88项测试通过，工作树门禁通过（音频载荷0、三作者工程/五ZIP成员、102处Skill链接），当前CSV/JSON一致、引用及快照/来源/67保护输入SHA检查通过；5份新审计产物重复构建字节精确相同。日志与逐文件字节检查在新ignored runs/research/table2-2a-record-audit-20261010，未改旧日志或完成清单。
 
-## 7. 交付与停止条件
+下一工作：整改本次独立制作的音乐判断与验收流程：从源观测逐阶段说明动作，拆开换音连接与字核内部运动，建立能拒绝平直/错位的局部期待并审查跨条件代表组，再接人工试听；不直接沿用v01生成脚本或再次批量渲染，不读取作者/历史制作数据。当前整改未实现/通过。
 
-提交代码、测试、简短运行文档、`docs/evaluation-v0-findings.md`（使用脱敏、少量汇总数据，不提交大量run结果），以及 `docs/evaluation-v0-next-step.md`：
-- 三首各自输入、支持级别、有效/未知/跳过数、风险Top项与误报审核；
-- 四个反馈点逐点标 `located / timebase_unverified / insufficient_data`，有证据才能填真实phone/note ID；
-- 测试命令及真实结果；与原有52项测试回归，不假称一定仍是52；
-- 区分 `implemented`、`static_only`、`native_verified`、`audio_perception_verified`；
-- 下一轮最多推荐**一个**能力工作项，并写清为什么选它、目前哪个证据阻止更进一步。
+试听衔接：C确认输入机制，不能确认可感知差别、改善或自然度；D定义测量也不能代替听觉结论。E回到已有问题/可用/无差别反馈核查描述覆盖，未听案例保留unknown。新的因果对照与人工试听按后续plan-table2.md的2E–2G冻结设计推进，不在本轮擅自生成音频。
 
-**停止规则**：P0最多一次实现 + 一次定向修订；时间/依赖受阻时交付可运行的静态子集、失败日志及缺失项，不循环调阈值迎合三首；不修改歌曲工程、不训练模型、不加第四首、不创建大规模Skill规则。单测未过不得声称完成，若三首不能运行应显式失败并报告原因。发布前按AGENTS约定审计Git索引：无音频/模型/缓存/本机归档，三份原件SHA不变。
+B遗留确认项继续保留：摘要级全文及完整ISO算法未读、中文/非塞音入口、哭笑情绪、空间知觉、数字编码/伪影类型资料不足；趋势/连续性等工程定义待操作验证。30组映射和反例是显式假设，不是新音频标签或E独立覆盖样本。A47及B的shimmer/感知音高已正式登记，复音/拍频仍开放；旧ID含义由legacy字段与迁移前快照追溯。B“逐项审查完成”与“所有定义已证实”独立，后者未通过。
 
-## 8. 后续工作（不属于本轮）
+## 1. 要确认什么
 
-P1：以《最后一页》真实**用户反馈音频哈希+冻结条件**做一个单因素因果实验，再验证定位与归因的有效性。P2：有可信失败/正常/受控扰动标签后才做检索案例库与前向决策测试；最后考虑 PerformancePlan 统一接口与未见曲泛化。不要因P0完成而自动开展这些。
+最终交付应能回答：
+
+1. 一段歌声发生了什么变化，应该用哪些维度、时间关系和听感词描述？
+2. 每个维度具体指什么，和相邻维度有什么区别，什么情况下无法可靠观测？
+3. OpenUtau的哪个具体入口有实际读取路径，改变的是音高、时钟、模型条件、波形增益还是后处理？
+4. 相关说法来自声学研究、源码、实际输入检查还是用户试听？能确认到哪一层？
+5. 当前框架还遗漏什么、哪些项需要拆分或合并、哪些机制不能用本机声库实现？
+
+“表1确认”分为**定义与结构确认、软件机制确认、观测方法确认、样本描述覆盖检查**。它不自动包含调节方向/剂量有效、自然度改善或跨曲泛化；这些属于第二层及后续音乐决策、制作和验收。
+
+不以“31项不增不减”作为目标，也不承诺有限简化指标能够无损描述所有波形或包办审美。目标是：明确研究范围，在范围内形成可追溯、可扩展的记录方法，并公开发现的遗漏和不确定项。
+
+## 2. 当前基线与重点风险
+
+计划编写时基线有31项描述维度、30组组合词、48类控制入口、9项项目证据、44份固定上游源码文件；默认表达名27个已被入口分组覆盖。F现行结构为49个分层记录实体、1开放候选，30组组合词、48导航组/352具体项及86份固定源码来源。这些数字**不是完整性或声学有效性的验收结果**；下列风险和基线保留计划编写时语境，现行状态以上方进度表为准。
+
+| 当前待审问题 | 为什么需要处理 | 本轮处理方式 |
+|---|---|---|
+| “原子”未有统一拆分标准 | 维度可耦合，部分行同时包含测量、听感、成因或动作关系 | 先制定字段与拆分规则，再逐行保留/拆分/合并/移入组合层 |
+| L1同时列电平和感知响度 | 两者单位、观测与解释不同；已有果实验说明平均电平不能代替听感 | 优先审查是否拆成独立字段或维度，明确各自成立范围 |
+| 有声支撑、共鸣位置、起声协调等含多义描述 | 模型voicing、听感“实”与生理机制不能等同；动作时序也不等同单帧特征 | 区分声学观察、感知标签、模型条件、时序关系和生理解释 |
+| 48类入口仍是汇总分组 | 一类可能包含多个参数、旗标、上下文或多个引擎；表达名覆盖不足以证明全部入口完整 | 新建可逐项追溯的具体参数清单，保留48类作为导航 |
+| 上游支持与本机支持不同 | 已检查的官方提交不能自动代表本机Core或声库模型 | 本机版本/配置/读取路径与上游功能分栏，差异项保留unknown |
+| 测量建议不等于有效检测器 | LPC、jitter、HNR等有条件限制；当前没有可靠嘴型/真假声/破音自动真值 | 每项写适用条件、失败条件和当前验证状态 |
+| 来源ID与维度ID可同名 | 例如S1既可能指声源维度，也可能指文献；字符串检索会混淆 | 来源和维度使用独立命名空间/类型字段；记录旧ID迁移关系 |
+| 总览混入具体剂量结果 | 来源层级不清时，会将局部实验误读成通用控制关系 | 表1保留机制和证据索引，完整条件响应留在第二层 |
+
+### 基线绑定
+
+计划编写时四个核心文件SHA256如下，原字节由F迁移前快照保留。现行版本已因正式结构迁移变更，SHA见table1-consolidation.json与执行审计；不得拿旧SHA覆盖现行文件，也不改写此历史基线。
+
+| 文件 | SHA256 |
+|---|---|
+| atomic-manifestations.csv | `6a243754bc4d7f1c0aeca0a87486dc86b7cd88cbd5ea518c52f35b38f9c3d9d4` |
+| composite-descriptors.csv | `202c7c56d3c50013906305b3c9b448dfbda42bd38ed15ea1d5707ffc09d01fc9` |
+| openutau-controls.csv | `63cdc16fa0e2bd55719a48e58ed292bd2e6b16761055eb376f95e4ddf57e03e3` |
+| knowledge-table.json | `c998b5ea4b39648a5703c5818455140d7dc932cbb40095199b5a7ca9739d0962` |
+
+## 3. 执行顺序与每阶段验收
+
+| 阶段 | 工作 | 产出 | 阶段验收 |
+|---|---|---|---|
+| A／P0 | 明确表1范围、实体类型、拆分标准和证据等级；审计原31行的混合/重叠/空缺 | 字段定义、逐行审查单、拟议拆并清单 | 原31行全部有去向与理由；不能为满足原子数而保留模糊项 |
+| B／P0 | 逐项复核声学定义、组合听感词和实际测量限制；核对原始研究与适用范围 | 修订表现表、听感映射、逐说法来源记录 | 每个核心定义/机制主张有准确来源或标为工程提案；每个组合词允许多条解释与unknown |
+| C／P0 | 从UI/USTX/表达/音符/音素/声线/配置/渲染/组装/混音/导出逐层枚举具体参数，核对实际读取路径 | 具体控制清单、引擎支持矩阵、路径/单位审计 | 每个入口分组有具体项；每个具体项有支持状态、类型、单位/范围、读取路径或明确未确认原因 |
+| D／P1 | 为修订维度补齐观测定义、窗口/单位、边界情况；按需要用已知信号核查数学指标 | 观测协议、指标验证记录、限制清单 | 可测项有可复算定义；不支持可靠检测的项明确待验证，不能伪称已经实现 |
+| E／P1 | 用独立准备的表现清单和现有绑定案例检查描述覆盖，检查漏项、多义词和跨字关系 | 覆盖矩阵、未覆盖/歧义案例、修订理由 | 每个审查案例能给出描述或明确缺口；不能把所有新现象随意塞进宽泛维度后宣布覆盖 |
+| F／P0发布门槛 | 汇总A–E结论，更新第一层文件、关联第二层并审计引用/数值/哈希/ID | 表1新版、确认报告、迁移记录、待验证清单 | 无悬空引用、无未经证实的调节配方、来源层级清晰；所有未完成确认项单列 |
+
+执行从A开始；A的定义和字段决定后再推进B/C，D/E根据修订表检查，最后F。P1不表示可以省略，只表示应在定义/入口清楚后开展。不要先采大量数据再决定每列究竟是什么。
+
+### A：统一结构与拆分标准
+
+每条表现维度至少包含：`ID；名称；实体类型；操作定义；包含/排除例；观测量；单位/时间尺度；相关但不同的维度；可能控制入口；证据类型与引用；确认状态；unknown规则`。
+
+实体类型区分：
+
+- 可测声学维度，例如F0、振幅包络、噪声/谐波、谱包络。
+- 时间事件与关系，例如入口先后、转换、释放、跨音素承接。
+- 感知描述，例如“假音感”“饱满”“顶”，可以由多个维度共同解释。
+- 模型/编辑控制，例如VOIC、SHFC、DYN；它们是输入，不是声学表现。
+- 生理或音乐解释；没有直接证据时保持假设，不能冒充测量事实。
+
+若两项有不同观测对象、单位或时间作用，应考虑拆分；若是同一对象的不同程度/方向/时间值，优先作为同一维度的属性；若是多维组合、因果猜测或审美词，放入组合/解释层。耦合不等于重复；“不正交”本身也不构成删除理由。
+
+原ID不静默改义。拆分/合并新增ID，旧ID标注迁移关系；第二层现有RESP/OBS/AUD关联同步校验，旧实验记录的原始内容和SHA保持。
+
+### B：逐说法核对文献和听感词
+
+优先复核：撕裂/粗糙/破音的区别、周期颤音与非周期抖动、饱满/实/假音感、气声与辅音摩擦、元音共振与谐波谱、响度与平均电平、发音/起声/跨音素衔接。
+
+技术事实使用原始论文或官方资料，记录标题、作者/年份、DOI/URL、支持的具体说法、研究对象和限制。不能用“某论文讨论声质”支持整张表的完备性，也不能从人体唱法论文直接推出Yousa模型的调参方向。不确定或可能更新的事实需重新查证；确认本机机制以当前代码/配置/实际输入为主。
+
+组合听感表补同义词、易混词、可能分解路径与反例。例如“颤抖”先区分F0、振幅、谱包络变化；“破音”保留声源中断、失真、数字伪影等候选；“假音感”不直接判人体M1/M2。无法由现有证据分解的词可保存原话并列出需要的观测，不能强行确定病因。
+
+### C：把控制分组展开为具体参数
+
+每个具体项至少记录：`参数ID；所属C分组；UI/USTX字段；引擎/声库/版本；有效条件；默认值/声明范围/合法范围；存储单位；原生变换公式；采样/插值/裁剪；读取者；variance/acoustic/vocoder/后处理作用阶段；需重算依赖；确认来源；状态`。
+
+“所有可调项”拆成三种范围逐一统计：本机当前选用引擎/声库的可调项、其它已调查引擎的可调项、仅上游存在或本机尚未确认的项。显示/编辑辅助单列；若操作真正改变音符或其它输入，归入相应实际控制。48个分组数和27个默认表达名都不能代替这份具体项枚举。
+
+优先排查：
+
+1. PITD/音符基底/移调/颤音各字段及作用时钟；条件音高和输出目标音高分开。
+2. DYN与轨道/混音增益；VOL、VEL与VELC各自引擎支持；时间包络与发声条件进入分开。
+3. VOIC/BREC/TENC/SHFC/GENC/CLR及speaker，energy/falsetto启用条件，两阶段实际路径。
+4. note/part/tempo、音素offset/覆盖/延音/AP/SP、phonemizer/语言/词表、上下文与分句。
+5. 重采样器/旗标/oto包络、模型/声码器/步数/depth/种子、组装/导出、效果器及自定义表达。
+
+关键单位与路径用现有原生检查记录交叉核对；必要时对显式绑定工程做最小读取/导出核查。没有读路径的UI项标“当前未生效/未确认”。不改发布USTX、不重新推理音频来填满支持矩阵。自定义旗标按已调查引擎及配置来源列出，不声称穷尽未来插件和任意第三方实现。
+
+### D：确认“怎样观测”，不提前实现全部检测器
+
+每项写清测量对象、输入要求、阶段/窗口、公式/估计方法、单位、质量掩码与不可判定条件。若存在实现，记录版本与实际完成的验证；只有建议时明确标“方法候选”。
+
+对可精确控制的数学量，按需要使用少量临时已知信号验证：F0偏移、慢趋势、周期调制、振幅调制、瞬态增益变化、已知边界、削波与拼接。区分输入真值和估计误差，不将这些信号说成真实歌唱自然度正/反例；验证用音频不进入Git。
+
+对高F0元音共振、气声/声源分解、次谐波、真实起声和听感响度等复杂项，优先核对方法成立条件及失败案例。方法不够可靠时明确保留unknown和验证缺口，不以简单阈值补齐“已确认”。已有双F0/短窗/谱数据只能确认它们实际测到的量。
+
+### E：检查描述覆盖，避免自证完整
+
+先从原始研究、用户已有描述及不同类型音乐动作独立编制审查清单，再映射修订表；不能只用表内31个词各举一例。案例至少包含稳定与变化、有意与异常、字头/腹/尾、低/高音、不同元音/辅音、同一字跨上下文、同电平异谱、纯人声/混音、单点与乐句衔接。
+
+已有问题/可用/无差别案例均入表，并显式标角色。已有调参样本用于回归，不冒充留出验证。只有已绑定、已授权的材料进入研究；作者工程只作只读结构/条件例，不能凭工程文件推断未听过的声学标签。
+
+每个案例记录：已知标签与来源、尚未知的事实、所需原子及时间关系、为何该映射有意义、是否需新增维度、无法表达之处。覆盖统计分别报告“可以用结构记录”“有可靠测量”“有用户标签”，不能混成一个通过率。设计新描述体系时保留一部分未参与修订的清单项作复查，报告其来源和角色；数量与取样范围在执行A/B后明确冻结。
+
+检查合并/拆分是否真的解决遗漏；出现新现象时优先解释已有维度的适用性，不能靠“其它/残差”一栏将覆盖率推到100%。若确实需开放字段，保留案例、原因和待建定义。
+
+## 4. 状态、交付与停止条件
+
+确认状态按独立列填写，建议：`definition_checked；source_checked；current_engine_support；code_path_checked；measurement_defined；measurement_validated；description_coverage_checked；auditory_label_status`。每列允许已确认、部分确认、未验证、不适用；“全部字段已填写”与“全部事实已验证”分开。
+
+最终文件在现有第一层目录更新，新增：
+
+- `table1-review.md`：逐行问题、修订、结论与未完成项。
+- `control-details.csv/json`：具体控制项及读取/作用阶段。
+- `claim-evidence.csv/json`：逐说法的来源与证据层级。
+- `measurement-protocols.csv/json`：观测定义、适用范围与验证状态。
+- `description-coverage.csv/json`：独立案例映射、遗漏/歧义与unknown。
+- `id-migration.json`：拆并映射；同步第一层/第二层引用，保留实验绑定。
+- 更新README、原三份清单、knowledge-table及审计哈希；生成脚本同步，避免重建覆盖修订。
+
+停止本轮并交付确认报告的条件：
+
+1. 原31行、30组组合词、48类入口全部审查完毕，每项有确认状态、证据或具体缺口。
+2. 修订后概念层级清楚，具体参数清单与分组关联可追溯；未生效/未支持项不混入当前有效控制。
+3. 单位/范围/公式/时钟等确定性说法已核对，不能确定的项标明原因。
+4. 覆盖审查公开案例角色、漏项与限制；无“所有好听难听已由有限指标证明穷尽”的承诺。
+5. CSV/JSON/Markdown一致，引用与ID完整，原证据/工程/Skill绑定保持，相关仓库检查通过。
+
+遇到资料不足，只暂停依赖该证据的具体确认项并继续其它项，最终列出需要什么资料或验证。该状态不升级为已通过，也不迫使本轮开展新合成。
+
+执行遵循[Codex项目约定](AGENTS.md)、[当前Skill](skills/singing-expression-editor/SKILL.md)和[工作流程](docs/workflow.md)的来源、unknown与独立验证约定。本计划不恢复候选搜索、自动修歌或作者曲线复制；不修改通用Skill、歌曲工程或音频，不追加第二层因果实验。执行状态以上方进度表为准；后续由当前Codex单个Agent更新进度并关联具体审查报告，不启动多Agent。

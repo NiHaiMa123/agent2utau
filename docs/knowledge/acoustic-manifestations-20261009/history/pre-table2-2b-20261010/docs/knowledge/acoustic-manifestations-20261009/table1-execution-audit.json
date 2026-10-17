@@ -1,0 +1,1027 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "stage_A": "structural_review_complete",
+  "stage_B": "reviewed_with_explicit_gaps",
+  "stage_C": "reviewed_with_explicit_gaps",
+  "stage_D": "protocol_review_complete_with_explicit_gaps",
+  "stage_E": "coverage_review_complete_with_explicit_gaps",
+  "stage_F": "consolidated_with_explicit_gaps",
+  "checks": {
+    "row_review_count": 31,
+    "proposed_entities": 47,
+    "linked_second_layer_records": 14,
+    "literature_claims": 30,
+    "source_pages": 25,
+    "core_definitions_reviewed": 31,
+    "composite_groups_reviewed": 30,
+    "all_scientific_definitions_verified": false,
+    "all_composite_mappings_validated": false,
+    "concrete_control_rows": 352,
+    "control_groups_with_rows": 48,
+    "all_concrete_controls_enumerated": false,
+    "all_local_control_paths_confirmed": false,
+    "local_resource_bindings_rechecked": 6,
+    "original_184_control_ids_preserved": true,
+    "graph_types_enumerated": 31,
+    "original_320_control_ids_preserved": true,
+    "frozen_scope_review_complete_with_gaps": true,
+    "editor_preference_declarations": 103,
+    "nested_preference_properties": 8,
+    "fixed_upstream_sources": 86,
+    "offline_local_capability_entries": 23,
+    "offline_DLL_bindings": 2,
+    "observation_protocols": 50,
+    "measurement_A_entities": 47,
+    "measurement_extra_candidates": 3,
+    "measurement_component_sources": 10,
+    "measurement_bound_local_sources": 12,
+    "finite_array_checks": 10,
+    "all_measurement_methods_validated": false,
+    "coverage_cases": 42,
+    "coverage_main": 36,
+    "coverage_process_recheck": 6,
+    "structure_representable_with_scope": 34,
+    "structure_partial": 8,
+    "coverage_existing_label_rows": 16,
+    "coverage_reliable_measurement_conclusions": 0,
+    "coverage_linked_candidates": 34,
+    "coverage_unlinked_candidates": 16,
+    "independent_audio_holdout": false,
+    "universal_description_completeness": false,
+    "formal_entities": 49,
+    "formal_open_candidates": 1,
+    "formal_context_groups": 8,
+    "second_layer_actual_ID_migrations": 14,
+    "legacy_empty_mapping_issue_corrected": true,
+    "historical_ledger_restored_exact": true,
+    "E_file_corruption_claim_corrected": true,
+    "csv_json_identical": true,
+    "csv_utf8_bom": true,
+    "document_links_checked": 176,
+    "builder_syntax_checked": true,
+    "CI_manual_only": true
+  },
+  "original_baseline_matches": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/atomic-manifestations.csv",
+      "sha256": "6a243754bc4d7f1c0aeca0a87486dc86b7cd88cbd5ea518c52f35b38f9c3d9d4"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/composite-descriptors.csv",
+      "sha256": "202c7c56d3c50013906305b3c9b448dfbda42bd38ed15ea1d5707ffc09d01fc9"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/openutau-controls.csv",
+      "sha256": "63cdc16fa0e2bd55719a48e58ed292bd2e6b16761055eb376f95e4ddf57e03e3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "sha256": "c998b5ea4b39648a5703c5818455140d7dc932cbb40095199b5a7ca9739d0962"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "sha256": "9ef9970a072490c7df4517a0a1355fae668c957361b98a753692ce5cde9abd69"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821"
+    }
+  ],
+  "protected_inputs": {
+    "verified": [
+      {
+        "path": "skills/singing-expression-editor/agents/openai.yaml",
+        "sha256": "0825f76073d314ccedb0cfa6a4b4be59152cf8d306c9838909329aff35df3f47"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/accent-selection.md",
+        "sha256": "ff08ae3b324129b295a76ac29f2fa3be8fc5cad46659e10bb7b6e1d7ec3163b9"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/ap-sp-placement.md",
+        "sha256": "caa3f8e18edeca18050545f9614af807445dd694189b9cc15299edc72fb6cc42"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/baishuo-drawing-method.md",
+        "sha256": "06eccecd675e2819898b9eb0e75ed99bf1f076a5fff258ec3e4e404711a20fed"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/breath-budget-and-carried-nucleus.md",
+        "sha256": "328979b4d23766d810bf95d3425d279c6a71f136caed5656bed997a638b2892c"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/conditional-drawing-recipes.md",
+        "sha256": "dd258d24647eb9f9043c96b3c9d721a95a2f3249372180e8d038ba396304c98e"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/context-execution.md",
+        "sha256": "5b66e1b24f49528ddf84b89ba5b8a17d2296f6d0446b0e58355fe5998dfa690e"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/continuous-contour-and-scale.md",
+        "sha256": "0b28bfc7649fd50d9694eae5a15f8c9176424f7bb129ca70a5296d230e30d73d"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/expressive-turn-and-support.md",
+        "sha256": "f85ee0a9a2493877be8b20c14241697f48a8741c0557ab22d4b6a7b7772d7de2"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/grounding-and-competence.md",
+        "sha256": "4611fc465cbf2ef84948343060a8ee9355269d87c934ae8fcaea3896851edbb8"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/joint-phonation-and-sustain.md",
+        "sha256": "a9ca7e3c4f56f6495eff71019c0f8825cca9587927a7c4779e8891f747c4ecab"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/local-cycle-design.md",
+        "sha256": "af34a0e4fa6f0fcebc270cbb4578f3723c4e3e27256edf06636b0aeb91c46fa5"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/loudness-and-high-note-comfort.md",
+        "sha256": "e27f10297a11613fd8fac8ebad052afc221441730ab4d7dce5a9b01935314bc2"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/microexpression-and-acoustics.md",
+        "sha256": "49c47e03525f23c673e72784b3a0dcfbb73ad38a773cfa061b5128a61477ffde"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/new-song-action-selection.md",
+        "sha256": "3a0f0de9c323ab0becafac84c7abffa234a5d8f0501b16f59223bd5ef3935235"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/nucleus-envelope-and-release.md",
+        "sha256": "be88272b501de65f06322f0f4df36dea6ba63fe7fb111259aabf1681a9f0775f"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/parameters.md",
+        "sha256": "af36da823e830fa817d1d6ab96af1ed89e3d424e38fc905272872eff469e97b8"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/phonation-continuity.md",
+        "sha256": "a8fb08463ac8de4357bf70f4330c5581f502b6a97986f03058d2cd1ad36a17e4"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/phrase-scale-contour-study.md",
+        "sha256": "c78898fd20bfbeb2e73f4e39c558d4146fc193accd686d103c2275c6244f28f5"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/pilot-execution.md",
+        "sha256": "d75de5bf1b6ebf7d229a2a118f6f102858202bdfaf088a328d43079f52a9d0a9"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/pitch-phonation-and-loudness.md",
+        "sha256": "fa422dff11a26779c71cf885e25077bdf384814d9097dbdf57074561d6890103"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/planning-and-evaluation.md",
+        "sha256": "0adf446583f8f485e2d3e60b668fcccb533cffa7e0dfc3fd6308979a617adbcf"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/project-tools.md",
+        "sha256": "8f736c5760296a1f18213745cb411aa78d77322a3fa511cd0c2d55a52ab9bf27"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/reference-imitation-calibration.md",
+        "sha256": "c605baa92de3a501bc1039ee82a342eef667482539464054d2c23963e9d7529f"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/rhythm-and-syllable-duration.md",
+        "sha256": "6966eb4751d9f4186aef7ecfbe6b12a7ab1dfd5d4edc728969b17122687a4abf"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/source-condition-to-function.md",
+        "sha256": "d56b51e955cd79c8e041d52fd19be95f4a13d64a0347588f2d3a4ea3bed34cb0"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/source-separation.md",
+        "sha256": "bee5f11f6fbe9459195e555e778c9092cfabdb881f71270a3614a46f36c3aca1"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/upward-interval-connections.md",
+        "sha256": "d84581e18d229d1d2d98ce5d94467a23890ea44489328e94b9eee436169f6282"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/voice-baseline-and-stability.md",
+        "sha256": "5ea9fae465f4026bd0bb826dd4e84fd07629ab25eb5eccccf0b15341bf4e367b"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/vowel-support-and-language.md",
+        "sha256": "c5466e9bf19bb17a6876b374e372533ca72642147efbe3e6fc7692cb8e098992"
+      },
+      {
+        "path": "skills/singing-expression-editor/references/whole-song-redraw.md",
+        "sha256": "65bf507ee9afc68a60c613b2dc4b26f884f55fb6a1de9f76a53745ff75ff8dd4"
+      },
+      {
+        "path": "skills/singing-expression-editor/scripts/compile_control_overlay.py",
+        "sha256": "0eeb38c42acc45e713f4ebc40043a594b6ead748e88380a99b179a3c8961aef0"
+      },
+      {
+        "path": "skills/singing-expression-editor/scripts/contour_viewports.py",
+        "sha256": "460bfdf00be0b2f0cc232498acf9f653b839dd1ebb342923b45ded1d62e178c0"
+      },
+      {
+        "path": "skills/singing-expression-editor/scripts/design_functions.py",
+        "sha256": "a205b25ccff78f3b3617a254c53145b09c95fcd82824de9a1fbc23a73b0d26c6"
+      },
+      {
+        "path": "skills/singing-expression-editor/scripts/sparse_contour.py",
+        "sha256": "6a82466973a3494e17e69ed49415bd02f8a9a6b0c9a58fdf10c16548258f0df8"
+      },
+      {
+        "path": "skills/singing-expression-editor/SKILL.md",
+        "sha256": "fb72264306e2bcb3ff4388f57db4e887329be8ef355728a691059c598ccfa53d"
+      },
+      {
+        "path": "research/baishuo/baishuo-projects.zip",
+        "sha256": "5bb41fcd67aa4cb9491fd2fe83186427215c3452c82168ef6070d31d0875484a"
+      },
+      {
+        "path": "research/baishuo/manifest.json",
+        "sha256": "00bd1cca28fd7babb99d906980e6a4382228c185515fb68b433cc55abfebc12c"
+      },
+      {
+        "path": "research/baishuo/projects/最后一页-有参by白烁.ustx",
+        "sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b"
+      },
+      {
+        "path": "research/baishuo/projects/花海+4-有参by白烁.ustx",
+        "sha256": "710dbc6ba98a3c2062bc61dde68c86d1a61f120f81587821eb22407dba73c377"
+      },
+      {
+        "path": "research/baishuo/projects/雨爱-有参by白烁.ustx",
+        "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce"
+      },
+      {
+        "path": "research/baishuo/README.md",
+        "sha256": "042bcc64a788802d73a0ae7b148f9e7fd5691b627f4733c186cf484ca60ef8d2"
+      },
+      {
+        "path": "projects/latest/huahai_plus4_smooth.ustx",
+        "sha256": "a9e87402a4ee2c8c6d3de109563415e1a9787a407d819fa86e94d55974a7afc8"
+      },
+      {
+        "path": "projects/latest/lastpage_loudness_v02.ustx",
+        "sha256": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af"
+      },
+      {
+        "path": "projects/latest/yuai_skill_v17.ustx",
+        "sha256": "415b5b3f568d7868e792dc4e5b625257208d8c4859a87ec2c2aedf0bf3aab1ad"
+      },
+      {
+        "path": "docs/lastpage-tenc-controlled-probe-20261008.md",
+        "sha256": "11d92b331a2b22b90ef8b952045451adc5cdcbcfa595ab305d8d7279dbd3d08f"
+      },
+      {
+        "path": "docs/lastpage-shfc-controlled-probe-20261008.md",
+        "sha256": "5a5112da9a01231888c2fc45b8f50230273369bafc8ec75655e8cca36ebd74e2"
+      },
+      {
+        "path": "docs/lastpage-shfc-onset-probe-20261008.md",
+        "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493"
+      },
+      {
+        "path": "docs/lastpage-guo-register-probe-20261008.md",
+        "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98"
+      },
+      {
+        "path": "docs/lastpage-guo-positive-comparison-20261008.md",
+        "sha256": "a04e9719723a433a0ccbbd14c615b394ead2e02d3c3e938913f40856075f13a0"
+      },
+      {
+        "path": "docs/lastpage-cross-condition-study-20261008.md",
+        "sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb"
+      },
+      {
+        "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+        "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+      },
+      {
+        "path": "docs/lastpage-guo-phoneme-audit-20261008.md",
+        "sha256": "cbd27a56a6a577bdbe8794fe50fa834c1fd8a73023720863819bbae218ecb1f1"
+      },
+      {
+        "path": "runs/lastpage_tenc_probe_20261008/completion_manifest.json",
+        "sha256": "5c8c765b6a00bbd417ad139970affe508fdce8416947c25081ad866136451950"
+      },
+      {
+        "path": "runs/lastpage_shfc_probe_20261008/completion_manifest.json",
+        "sha256": "b41c6d456b04bc2e42e98f44296d0ef9452ca979d9aca60542d32d2c2825c5a7"
+      },
+      {
+        "path": "runs/lastpage_shfc_onset_probe_20261008/completion_manifest.json",
+        "sha256": "f58be01cadca64f1bb6ad9a426aca40664c1c0a69dac42e361a0308e8dd737f0"
+      },
+      {
+        "path": "runs/lastpage_guo_register_probe_20261008/completion_manifest.json",
+        "sha256": "1982fd6fdb42f74bce2872a3c236aa74e23dfd4be58d9fede784d45fc755dfa5"
+      },
+      {
+        "path": "runs/lastpage_guo_positive_comparison_20261008/completion_manifest.json",
+        "sha256": "5577ac79dbd0121b842a39ca035e757259b4c65e9900bed306a92ed6fccc4ccb"
+      },
+      {
+        "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+        "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e"
+      },
+      {
+        "path": "runs/lastpage_cross_condition_study_20261008/completion_manifest.json",
+        "sha256": "e71505a90f6fd04c568f76e31343e1ef2f6615a04e340cb6b6f30d5922bd0f86"
+      },
+      {
+        "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+        "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+      },
+      {
+        "path": "runs/lastpage_brec_cohort_probe_20261008/completion_manifest.json",
+        "sha256": "4a7a4d944d0a4ed6fd284e178f1006dce7cf14f280467a175d9dddab4d89be39"
+      },
+      {
+        "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+        "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7"
+      },
+      {
+        "path": "runs/lastpage_shfc_onset_feedback_20261008/completion_manifest.json",
+        "sha256": "73a90603644820836c47f14f6c62a9c6843592894fb3141afb1122c149632b8d"
+      },
+      {
+        "path": "runs/lastpage_shfc_onset_feedback_20261008/feedback.json",
+        "sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78"
+      },
+      {
+        "path": "runs/lastpage_brec_cohort_feedback_20261008/completion_manifest.json",
+        "sha256": "08945a909559a5d826ba0bcdee6533b074df3732a64a2271a89f3b44ee2df85c"
+      },
+      {
+        "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+        "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+      }
+    ],
+    "unavailable": [],
+    "scope": "Explicit repository originals, Skill, published projects and prior evidence bindings; not a rehash of every audio/cache file."
+  },
+  "inventory_bookkeeping_update": "Only declared F artifact hashes refreshed; pre-F counts and original source/runtime/evidence claims retained; formal counts listed separately.",
+  "artifacts": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-schema.md",
+      "sha256": "95e6a834c6af4f8c74bae5e4b1f434d8f28b598058c49c5bed413d59d2b20384"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-review.md",
+      "sha256": "844e9078c94f144225dafc4792c331dfb8956b8a1f64668fac344849af5d83bb"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-row-review.csv",
+      "sha256": "e6fbdadf85a3f4dcded2d83552c10ec3428fdd78b18425e355f1640c3442a8d8"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-row-review.json",
+      "sha256": "f8187b81ae6fcdb03b74ba6ea756a0ef7718a4ccaece62a22fe23eab36777253"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/id-migration.json",
+      "sha256": "5b66fd18559684ef40834931082d44998aba6ecd6779a8e30fe98de8e4529ee2"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-source-review.md",
+      "sha256": "fdca363531f5030300dc287ea6bd12d64d0d21c1f503158cd3e978e8b4440879"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/claim-evidence.csv",
+      "sha256": "3900bba2eb5aeb373a5564b38537b9b8eaa11b9e217c8bc74bef8db9088254dc"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/claim-evidence.json",
+      "sha256": "7b309da51fde928dfe324535a395dc9a3ca8fc2785a8d6421f311daf15592d57"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/core-definition-review.csv",
+      "sha256": "a51d53830ca8f9feae44e0e8625d168022cb4e1372d0f5c698a90bc606627515"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/core-definition-review.json",
+      "sha256": "07da160b4c3c1de1251e4443870ea1623fdec72d53248740dc5e78efd9455990"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/composite-review.csv",
+      "sha256": "73c3627d3d96eb62ba77493fc67b42ebd9cd155c137a6d5cf6e1939563095ddc"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/composite-review.json",
+      "sha256": "74820ecbc2dc6ecbf59ca9fe8eb2c9b59597a53d01cf59ecb7b3a17c3c1aa04a"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.csv",
+      "sha256": "3e58bf397ed323c09210b76595d81acaeed67c7483695cb9ebb515446f04d678"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.json",
+      "sha256": "43f9295a9926f866ce3af0cba890891d64a68e5d7f8b4b3619e2f69d96e87a6d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-control-review.md",
+      "sha256": "4ce777ad1c196fdba6d5162485ccc18f795243900689d9986a2d5d0ee0d0f7d7"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/graph-node-review.json",
+      "sha256": "cd89dadfe2cf2e2924045b300cb904d571f11607485f29e7b3c5ff959b05b1a4"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/local-capability-review.json",
+      "sha256": "d7b55fb4abc6048ed8f71caf752e3cb08950b05313d3c07163514071925627dd"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/editor-preferences-review.csv",
+      "sha256": "982991af02f2227604f3788510784b35b884eb4b0137d063746dddd52303eacf"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/editor-preferences-review.json",
+      "sha256": "997535dfc521f93bca24f78464ae7eabb5d2c0558f09fbfb1a35431fa7bd0b02"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.csv",
+      "sha256": "155c01376680928fc0cbc7ca66a7a11b2b2a5756eb49e04c292f0ee1c744f474"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "sha256": "1d6b243a8b3a8407e06332454961b74d33480d719ba36eb7c314b683747250e5"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-source-review.json",
+      "sha256": "894b2e719a966f748459d4f1b12a32a2612c9f3712a1aaada07b07f1fae942ec"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-measurement-review.md",
+      "sha256": "69d18e823f897a539cf192759271152e839aa12de86822a9e26c342e6abc1072"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/coverage-checklist.json",
+      "sha256": "d465dd3fdb9f9b7bc52e3e376a38ef4fe0a4c66eae39d600cebf35301de1bbcd"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/description-coverage.csv",
+      "sha256": "577fcd3931c25df5fa01624b42296db5efb406442223fb3786dbc65fe675f796"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/description-coverage.json",
+      "sha256": "ee83e9f24bf0a342bd2d4078e99e2051dd15a4ec9f14cf9a385c2558e0e0fd74"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-coverage-review.md",
+      "sha256": "42d631f95828ed93914f239f2f0ac016004a6c1a4d3c28af14fa00d26047f264"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/atomic-manifestations.csv",
+      "sha256": "c400fb512772ec23f452b5765af37cabca92f262e0243a43541d661fbcdb3ba7"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/composite-descriptors.csv",
+      "sha256": "3249e876b9714f368aa3f7a33f0e366305f5841cd05bfaf303fa12fbc5fed67e"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/openutau-controls.csv",
+      "sha256": "978d8ade3927d0d0f722730daca2ac1b85f8007ba288f234e3506e004cfcf4e1"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "sha256": "459f8f8264f13f8a115dc60fcf205cd89405bfa35cc222670614847b4d7cb8c3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/current-evidence.csv",
+      "sha256": "0bc1cdcd34ebf79d4f5bae63b92f2fc6e6ed4cafc3c712e00fd90e87196c9dea"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "sha256": "c2cbd6b3a3c14fe144412074cff644111c3b76cbf49cbaf2bbd48742767ccc54"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "5a7b436fbdb5bd39d52dd7b26990d16598b491d408d50ed19e17f4c975cb7e85"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "sha256": "f30555954cd8d96d0d388e599f91611a2c70556667d48efb282e77168bd3e525"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/response-coverage.csv",
+      "sha256": "09c20f2debca16e9d66fe836ef4a92cf02618c0f7a01959381915d2814674278"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/context-schema.json",
+      "sha256": "db86c999f68804dcd430623b6d94df515f60f4974272fecd5ae84b6506ff6407"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/source-quality-correction.json",
+      "sha256": "8f654fe7c276bb29bfd2d09387f02c6c2b82641e6901e92bc7507ed80c233278"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-consolidation.json",
+      "sha256": "2bb13553d6ab089bf9385bcdbbf5993e54f3e0a104501845ab6167bb0aaaf40d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-consolidation-review.md",
+      "sha256": "c88439f6569f2fa737bcb5eef1566777641cbe37a850d313123684bd1d50a6dd"
+    },
+    {
+      "path": "research/table1-confirmation/build_audit.py",
+      "sha256": "057b50e3e0b80547b01f40051db86f6cea736bc664f3badea959a9a295f84c13"
+    },
+    {
+      "path": "research/table1-confirmation/build_stage_a.py",
+      "sha256": "233b768bc1bb044359b5513d4743a206abc72fb6607f144e022b819d5812a448"
+    },
+    {
+      "path": "research/table1-confirmation/build_stage_b.py",
+      "sha256": "d01dbf9702e517b5c4bb06a08406c8ae9c744ee3f418dd8f431749366187265e"
+    },
+    {
+      "path": "research/table1-confirmation/build_stage_c.py",
+      "sha256": "6fdb0c00f4c57fc3060e8700b8b94d1a638039b3f0d79dc5468f19ab410ee9d9"
+    },
+    {
+      "path": "research/table1-confirmation/build_stage_d.py",
+      "sha256": "a7a9ef10f168f1459b26227f06c4e8f407a89202ce2c2b9460f1be2db12bcd44"
+    },
+    {
+      "path": "research/table1-confirmation/build_stage_e.py",
+      "sha256": "915496265bcedcce43810d2e0a297cbae157c2656a771f8e17b4edc29064ab3d"
+    },
+    {
+      "path": "research/table1-confirmation/build_stage_f.py",
+      "sha256": "f5a1622618d04f78b1574c6a14ea55fa4b2072804d712fe0b232dd8207e7a1de"
+    },
+    {
+      "path": "research/table1-confirmation/freeze_stage_e.py",
+      "sha256": "ae3d6d6f495f05600d089b14dc3d8ca3b234296daa2d6bc655ced1873b6d2235"
+    },
+    {
+      "path": "research/table1-confirmation/freeze_stage_f.py",
+      "sha256": "f9058c3efa34bd71ee1189aca2d0422ec5f33a8f1613c4e6328f945845f8c7fb"
+    },
+    {
+      "path": "research/table1-confirmation/frozen_inputs.py",
+      "sha256": "bc36a6039944ac84a7d2fc82a50e0d024a17380e29a8274752c6542fafab19e3"
+    },
+    {
+      "path": "research/table1-confirmation/stage_b_review_data.py",
+      "sha256": "dd4c832168707721f011a44d62bf99827e49a9b373693fc76a7c0807e2fb3bd1"
+    },
+    {
+      "path": "research/table1-confirmation/stage_c_control_data.py",
+      "sha256": "350cbd03c9aecfadae66c2aaf1bfa2fe27b2af8d27ff3439f0dce7afc97c4f72"
+    },
+    {
+      "path": "research/table1-confirmation/stage_c_editor_review.py",
+      "sha256": "2622a0f1193ccdbdaaef4b12c9136575bfdf6f16db6212c5f4abea862a4f4042"
+    },
+    {
+      "path": "research/table1-confirmation/stage_c_local_review.py",
+      "sha256": "e533a01705e69185fa5609218016d88e1e0b8b9d6310f5485dd6a0b06e338e91"
+    },
+    {
+      "path": "research/table1-confirmation/stage_c_remaining_data.py",
+      "sha256": "014e5f50e8b90dec6dbf06dd725fa1496254eb74b8c83836c6b91e4bc826ff52"
+    },
+    {
+      "path": "research/table1-confirmation/stage_d_protocol_data.py",
+      "sha256": "320b6d11456f9ec81c9d1f7f4e1293177e3917ee2c7bd5bd1b12aed4856c50de"
+    },
+    {
+      "path": "research/table1-confirmation/stage_e_checklist_data.py",
+      "sha256": "73b1738bdf6aac8e70ce2d85cc4cdded9c96fccafb680de11c27ab27c3f89e55"
+    },
+    {
+      "path": "research/table1-confirmation/stage_e_mapping_data.py",
+      "sha256": "07951b3bad50a7cd519e446130762c8e07e0e8d5a3fb74f542dbcdb88ae7a33c"
+    },
+    {
+      "path": "research/table1-confirmation/stage_e_recheck_data.py",
+      "sha256": "2d74f8aff7bb167ef52000c027bcc6e1bf122844ec5ffebed2f4b1a3987bcbf5"
+    },
+    {
+      "path": "research/table1-confirmation/stage_f_context_data.py",
+      "sha256": "859166b799dec43d2020b5b976c319e8903e5a2348e96ad56ef6e9d54b65fba8"
+    },
+    {
+      "path": "research/table1-confirmation/verify_stage_d_arrays.py",
+      "sha256": "ba3112290a9d167344c86f512f1a3066f68a64eb1d854a959498c669d3848213"
+    },
+    {
+      "path": "research/table1-confirmation/protected-inputs.json",
+      "sha256": "51bad52e0c06b829a65af2e620d03efe6b89e15b72d2d815af46f2b05abd7965"
+    },
+    {
+      "path": "research/table1-confirmation/stage_c_source_bindings.json",
+      "sha256": "8d4d021bb05f2320d0ee0c9cb7a14cf516e4a3a18ce3fbf613a4f8e8553c250b"
+    },
+    {
+      "path": "research/table1-confirmation/stage_c_editor_source_bindings.json",
+      "sha256": "9136ccdc5697ebb438482c671bc4975fe8cd114845f48256974a7e85da9e6be9"
+    },
+    {
+      "path": "research/table1-confirmation/metadata-reader/Program.cs",
+      "sha256": "fd6482e0791bf733f94801aef5fbbfcbb115feb608e45a43d186c513b2aa3405"
+    },
+    {
+      "path": "research/table1-confirmation/metadata-reader/MetadataReader.csproj",
+      "sha256": "09ed33201bc36fb661a78f6c31361bf5ea5991018a6976b09093100e2422adbe"
+    },
+    {
+      "path": "research/table1-confirmation/stage_d_source_bindings.json",
+      "sha256": "42d1899ce2ad9553b7df0b0defc9ff8e3f87fbd3dc779d4bbb26c9b278615474"
+    },
+    {
+      "path": "research/table1-confirmation/stage_e_freeze_binding.json",
+      "sha256": "fd8b7876775fe5f90b9afa7da51e6b6f79df2cb41f5fa01e86b4234d166c56f3"
+    },
+    {
+      "path": "research/table1-confirmation/stage_f_baseline_binding.json",
+      "sha256": "1be2528c60dcfa51b1734e138c84bd55cd6df6eb811be66a24ff1d89d043b722"
+    }
+  ],
+  "no_new_audio_or_synthesis": true,
+  "no_new_auditory_labels": true,
+  "no_production_code_project_skill_change": true,
+  "scientific_completeness_or_naturalness_validated": false,
+  "D_numerical_verification": {
+    "path": "runs/research/table1-d-measurements-20261009/observations/array-checks.json",
+    "sha256": "6a1148fcc8ea25bfe3b26f0f1a38736507762e4793a17d43ebbd485291312a8f",
+    "status": "finite_array_checks_passed",
+    "cases": [
+      {
+        "id": "DVAL:01",
+        "candidate_entities": [
+          "ACO:P1"
+        ],
+        "input_spec": "Hz=[440,880]; positive finite values only",
+        "truth": {
+          "midi": [
+            69,
+            81
+          ],
+          "difference_cents": 1200
+        },
+        "observed": {
+          "midi": [
+            69.0,
+            81.0
+          ],
+          "difference_cents": 1200.0
+        },
+        "technical_check": "passed",
+        "validation_scope": "Unit conversion only; no FCPE/RMVPE execution, voiced mask accuracy or reference identity truth",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:02",
+        "candidate_entities": [
+          "EVT:P2",
+          "ACO:P5"
+        ],
+        "input_spec": "t=arange(0,2,0.005); y=6000 or 6000+20*t",
+        "truth": {
+          "linear_slope_c_per_s": 20,
+          "residual": 0
+        },
+        "observed": {
+          "platform": "platform",
+          "drift": {
+            "samples": 400,
+            "duration_s": 1.995,
+            "status": "evaluated",
+            "morphology": "drift",
+            "trend_c_per_s": 19.999999999998362,
+            "residual_range_c": 3.637978807091713e-12,
+            "raw_range_c": 39.899999999999636,
+            "extrema": [],
+            "cycles": [],
+            "amplitude_ratios": [],
+            "rate_changes_hz": [],
+            "entry_range_c": 9.094947017729282e-13,
+            "exit_range_c": 9.094947017729282e-13,
+            "leading_partial_s": null,
+            "trailing_partial_s": null,
+            "limitations": [
+              "linear detrend is descriptive",
+              "extrema are candidates, not perceived vibrato",
+              "no naturalness label"
+            ]
+          }
+        },
+        "technical_check": "passed",
+        "validation_scope": "OLS straight-line primitive only; frame residual not cycle jitter or a validated nonperiodic decomposition",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:03",
+        "candidate_entities": [
+          "ACO:P4"
+        ],
+        "input_spec": "y=6000+20*sin(2*pi*5*t); same values sorted as negative control",
+        "truth": {
+          "rate_hz": 5,
+          "half_depth_cents": 20,
+          "peak_to_trough_cents": 40
+        },
+        "observed": {
+          "median_rate_hz": 5.0,
+          "median_peak_to_trough_cents": 40.0,
+          "cycles": 9,
+          "sorted_cycles": 0
+        },
+        "technical_check": "passed",
+        "validation_scope": "Known F0 curve values only; no extractor accuracy, fast-changing vibrato performance or perceived vibrato truth",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:04",
+        "candidate_entities": [
+          "ACO:P4",
+          "EVT:T5"
+        ],
+        "input_spec": "short/NaN/100ms-gap curves; declared SP then vowel with known jumps",
+        "truth": {
+          "invalid_cases_unknown": 3,
+          "SP_internal_excluded": 2
+        },
+        "observed": {
+          "invalid_reasons": [
+            "short_support",
+            "invalid_samples",
+            "nonmonotonic_or_missing_samples"
+          ],
+          "boundary": {
+            "status": "evaluated",
+            "findings": [
+              {
+                "index": 2,
+                "time_range": [
+                  0.005,
+                  0.015
+                ],
+                "code": "non_singing_transition_risk",
+                "jump_c": 500.0,
+                "slope_change_c_per_s": 160000.0
+              },
+              {
+                "index": 3,
+                "time_range": [
+                  0.01,
+                  0.02
+                ],
+                "code": "non_singing_transition_risk",
+                "jump_c": 0.0,
+                "slope_change_c_per_s": 100000.00000000001
+              }
+            ],
+            "excluded_non_singing": 2,
+            "unknown_region": 0
+          }
+        },
+        "technical_check": "passed",
+        "validation_scope": "Input validation and explicitly supplied region masks; no real phone classification or audible boundary truth",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:05",
+        "candidate_entities": [
+          "ACO:R5"
+        ],
+        "input_spec": "native log-mel constant +2 vs bins +[0,1,2]",
+        "truth": {
+          "common_log_offset_shape_rms": 0,
+          "nonuniform_shape_rms": 0.816496580927726
+        },
+        "observed": {
+          "level": {
+            "frames": 4,
+            "log_mel_rms": 2.0,
+            "level_removed_log_mel_rms": 0.0,
+            "mean_log_mel_change": 2.0,
+            "formant_truth": false,
+            "perceived_improvement": false
+          },
+          "shape": {
+            "frames": 4,
+            "log_mel_rms": 1.2909944487358056,
+            "level_removed_log_mel_rms": 0.816496580927726,
+            "mean_log_mel_change": 1.0,
+            "formant_truth": false,
+            "perceived_improvement": false
+          }
+        },
+        "technical_check": "passed",
+        "validation_scope": "Arithmetic of bound log-mel proxy only; not dBFS, formant truth, acoustic waveform level removal or improvement",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:06",
+        "candidate_entities": [
+          "EVT:T1",
+          "ACO:T2"
+        ],
+        "input_spec": "480PPQ; 120BPM to tick480, then60BPM",
+        "truth": {
+          "milliseconds": [
+            0,
+            500,
+            1500
+          ]
+        },
+        "observed": {
+          "milliseconds": [
+            0.0,
+            500.0,
+            1500.0
+          ]
+        },
+        "technical_check": "passed",
+        "validation_scope": "Score tempo conversion only; no PCM offset, model latency, HFA boundary or perceived timing truth",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:07",
+        "candidate_entities": [
+          "ACO:L1",
+          "EVT:L2",
+          "EVT:L4"
+        ],
+        "input_spec": "numeric level array .1 first500 then .2 next500; sr clock1000; forward30/50sample windows",
+        "truth": {
+          "steady_change_db": 6.020599913279624,
+          "boundary_window30": 0.14142135623730953,
+          "boundary_window50": 0.16733200530681513
+        },
+        "observed": {
+          "rms30": [
+            0.09999999999999894,
+            0.14142135623730903,
+            0.19999999999999787
+          ],
+          "rms50": [
+            0.09999999999999894,
+            0.1673320053068149,
+            0.19999999999999787
+          ],
+          "steady_change_db": 6.020599913279624
+        },
+        "technical_check": "passed",
+        "validation_scope": "Existing frame_rms uses forward window at frame time, not centered window. Numerical levels only, no new audio; no loudness or phonation test",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:08",
+        "candidate_entities": [
+          "ACO:L3"
+        ],
+        "input_spec": "numeric envelope 1+.2*sin(2*pi*5*t)",
+        "truth": {
+          "linear_modulation_index": 0.2
+        },
+        "observed": {
+          "linear_modulation_index": 0.19999999999999996
+        },
+        "technical_check": "passed",
+        "validation_scope": "Definition algebra only; no PCM envelope extraction or general AM detector validation",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:09",
+        "candidate_entities": [
+          "ACO:X1",
+          "ACO:X2"
+        ],
+        "input_spec": "known clip before/after and .1→.3 sample-array seam",
+        "truth": {
+          "changed_clip_samples": 2,
+          "seam_delta": 0.2
+        },
+        "observed": {
+          "clipped": [
+            -0.5,
+            -1.0,
+            0.0,
+            1.0,
+            0.5
+          ],
+          "seam_delta": 0.19999999999999998
+        },
+        "technical_check": "passed",
+        "validation_scope": "Known algebraic clip/seam only; does not execute wavcheck, prove true peak, or establish click/破音 thresholds",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:10",
+        "candidate_entities": [
+          "ACO:X4"
+        ],
+        "input_spec": "numeric LR arrays [1,-1] repeated; R=-L",
+        "truth": {
+          "correlation": -1,
+          "channel_RMS": 1,
+          "arithmetic_mono_RMS": 0
+        },
+        "observed": {
+          "correlation": -0.9999999999999998,
+          "mono_rms": 0.0
+        },
+        "technical_check": "passed",
+        "validation_scope": "Channel/downmix identity only; no perceived spatial quality or playback device validation",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      }
+    ],
+    "versions": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "soundfile": "0.14.0"
+    }
+  },
+  "E_checklist_binding": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/coverage-checklist.json",
+    "sha256": "d465dd3fdb9f9b7bc52e3e376a38ef4fe0a4c66eae39d600cebf35301de1bbcd",
+    "checkpoint_path": "runs/research/table1-e-coverage-20261010/observations/coverage-checklist-frozen.json",
+    "checkpoint_sha256": "d465dd3fdb9f9b7bc52e3e376a38ef4fe0a4c66eae39d600cebf35301de1bbcd",
+    "case_count": 42,
+    "main_count": 36,
+    "deferred_recheck_count": 6,
+    "frozen_before_mapping": true,
+    "definition_baseline": {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "sha256": "1d6b243a8b3a8407e06332454961b74d33480d719ba36eb7c314b683747250e5"
+    },
+    "checklist_authoring_source": {
+      "path": "research/table1-confirmation/stage_e_checklist_data.py",
+      "sha256": "73b1738bdf6aac8e70ce2d85cc4cdded9c96fccafb680de11c27ab27c3f89e55"
+    }
+  },
+  "E_main_mapping_checkpoint": {
+    "path": "runs/research/table1-e-coverage-20261010/observations/main-mapping-checkpoint.json",
+    "sha256": "4ab650f7ec0a1f8aeab12e2d6b37e63eecb055ac3a3e3b4096ac80f31ca3b08e"
+  },
+  "E_identity_errata": [
+    {
+      "case_id": "CASE:EU17",
+      "frozen_evidence_key": "word-282-at-224.132s",
+      "corrected_identity": "word295",
+      "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+      "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e",
+      "anchor": "word295_unknown_retained=true",
+      "label_remains": "unknown",
+      "frozen_checklist_rewritten": false
+    }
+  ],
+  "local_verification": {
+    "pytest": "88 passed",
+    "worktree_gate": {
+      "audio_payloads": 0,
+      "author_projects": 3,
+      "zip_members": 5,
+      "skill_links": 102,
+      "checks": "passed",
+      "worktree_files": 258
+    },
+    "test_environment": "workspace TEMP/TMP and fresh pytest basetemp",
+    "retry_used": false,
+    "logs": [
+      {
+        "path": "runs/research/table1-f-consolidation-20261010/logs/pytest.txt",
+        "sha256": "9b242019918dc6c4e3b7a6e874c36794792ddfe43754f3aaf065491657a17b1e"
+      },
+      {
+        "path": "runs/research/table1-f-consolidation-20261010/logs/worktree-check.txt",
+        "sha256": "49e484a84e790aa0560cd621a5041a07362e22947f849b71dd5b445ce4932cdc"
+      }
+    ],
+    "F_builder_guards_and_exact_rebuild": {
+      "guarded_builders": 6,
+      "exact_rebuild_files": 15,
+      "first_capture_failure_preserved": true,
+      "bindings": [
+        {
+          "path": "runs/research/table1-f-consolidation-20261010/observations/frozen-builder-guards.json",
+          "sha256": "2fd31fb63052b5cd429ba1d1c52d07e4278738485fcedb9c0c61657b7256c44a"
+        },
+        {
+          "path": "runs/research/table1-f-consolidation-20261010/observations/deterministic-rebuild.json",
+          "sha256": "701712e7a00a6b04256cc2e53ac42d1b6947c3c4c7adb102ca63a7ec01b36602"
+        },
+        {
+          "path": "runs/research/table1-f-consolidation-20261010/observations/guard-first-failure.json",
+          "sha256": "c162615cfa5c820b7271990b17154429a409d91d955afff0759f5f0b039763f4"
+        }
+      ]
+    }
+  }
+}

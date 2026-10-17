@@ -1,0 +1,55 @@
+{
+  "status": "passed_with_explicit_transition_texture_mechanism_gaps",
+  "source": {
+    "path": "research/table2-confirmation/close_lastpage_li_entry_pitch_20261013.py",
+    "sha256": "77a64ecb00c2ecb0f2e06e7ecab6354193a6c60ecd543c36e5000a3819326c03"
+  },
+  "protected_references": 2412,
+  "source_bindings": [
+    {
+      "path": "runs/experiments/lastpage-own-li-entry-pitch-20261013/observations/results.json",
+      "sha256": "2b7f395cbb52619b8762b925309506a6a4dc2b2b701b1bf486d785b4325a50c6"
+    },
+    {
+      "path": "runs/experiments/lastpage-own-li-entry-pitch-20261013/evaluation/native-independent-check.json",
+      "sha256": "782fd821b432454331cd8cd498463a07217234481a0c989445d6e16b121bee04"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/composite-descriptors.csv",
+      "sha256": "3249e876b9714f368aa3f7a33f0e366305f5841cd05bfaf303fa12fbc5fed67e"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "sha256": "459f8f8264f13f8a115dc60fcf205cd89405bfa35cc222670614847b4d7cb8c3"
+    }
+  ],
+  "listening_feedback": 1,
+  "reference_clarification": 1,
+  "new_named_word_labels": 1,
+  "other_individual_labels": 0,
+  "old_J_receipt_exact": true,
+  "current_J_feedback_and_author_reference_retrieved": true,
+  "old_index_fields_exact": true,
+  "new_PCM_NPZ_reads": 0,
+  "new_acoustic_measurements": 0,
+  "new_native_calls": 0,
+  "new_models": 0,
+  "new_waveforms": 0,
+  "current_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-entry-pitch-feedback-index-20261013.json",
+    "sha256": "ec45401a2eb91e491436f15d356d9ba40934941f876aecf2502a9c0299b28557"
+  },
+  "current_registry": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/active-knowledge-sources.json",
+    "sha256": "14d69b096e21986c8ee24f7becde4dc6eb7f5df49ef4c0e4a81355a78f217783"
+  },
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 786}",
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

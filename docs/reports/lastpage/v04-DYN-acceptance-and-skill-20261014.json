@@ -1,0 +1,142 @@
+{
+  "status": "v04_three_region_voice_envelope_accepted_skill_update_authorized",
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-V03-DYN-RECOVERY-01",
+    "append_only_feedback": true,
+    "latest_acceptance": {
+      "date": "2026-10-14",
+      "verbatim": "可以，然后把这个经验记录到表中，以及更新skill",
+      "submissions": 1,
+      "referent": "v04 B in the immediately preceding three A→B voice comparisons, inferred from presentation and acceptance request",
+      "accepted_scope": "Collective acceptance of presented voice-envelope revision at the three reported ranges",
+      "original_feedback_intervals_s": [
+        [
+          86,
+          88
+        ],
+        [
+          183,
+          190
+        ],
+        [
+          196,
+          199
+        ]
+      ],
+      "presented_voice_pairs": [
+        {
+          "label": "01_ru_guo",
+          "interval_s": [
+            85.6,
+            89.4
+          ],
+          "A": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/01_ru_guo_A_v03.wav",
+            "sha256": "d143aba111c7b15d0c7cb79f3420c0982f4e13d1c71571802069b044f996ea43"
+          },
+          "B": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/01_ru_guo_B_v04.wav",
+            "sha256": "58c34e4c740e9940aaa8b6f25292f1e1855ffc1b4cf60132eb81457afa1f37c1"
+          },
+          "AB": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/01_ru_guo_A_then_B.wav",
+            "sha256": "0084edff8969e5c9bfe4e2905ceac25899f3d00e5920cce6ee420249ef83f61f"
+          },
+          "order": "A v03,0.5s silence,B v04",
+          "gain": 1.5,
+          "normalization": false
+        },
+        {
+          "label": "02_emotional_chorus",
+          "interval_s": [
+            181.9,
+            190.9
+          ],
+          "A": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/02_emotional_chorus_A_v03.wav",
+            "sha256": "aa857f0ac8bb057c0178e4d2ded68eaa82d6f3718c7e80b3d3450ea2921bdb13"
+          },
+          "B": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/02_emotional_chorus_B_v04.wav",
+            "sha256": "e019bf1c98aeb23b5c0b6cbec0abb9d33ac2e2989180052492f94497729ac902"
+          },
+          "AB": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/02_emotional_chorus_A_then_B.wav",
+            "sha256": "c3be303819f907a33cc4582631a01a27160ddb82ad969e3835c36a2a87f559a4"
+          },
+          "order": "A v03,0.5s silence,B v04",
+          "gain": 1.5,
+          "normalization": false
+        },
+        {
+          "label": "03_ru_guo",
+          "interval_s": [
+            195.6,
+            199.8
+          ],
+          "A": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/03_ru_guo_A_v03.wav",
+            "sha256": "c70d4fd436e6ccbcae9b452e0e4479de5cd776f19b536c6b5005ed641c238710"
+          },
+          "B": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/03_ru_guo_B_v04.wav",
+            "sha256": "90b84b5978c79bb2e8ad846c5e014c592e26eddadaa8fe7e919558d78a7accea"
+          },
+          "AB": {
+            "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/03_ru_guo_A_then_B.wav",
+            "sha256": "c5e59cfe6fdd3179c82145db527da7081c67d1cc4cc6b3cc447b458a92bea792"
+          },
+          "order": "A v03,0.5s silence,B v04",
+          "gain": 1.5,
+          "normalization": false
+        }
+      ],
+      "actual_changed_contexts": [
+        11,
+        22,
+        23,
+        25
+      ],
+      "accepted_project": {
+        "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/lastpage_J_method_volume_v04.ustx",
+        "sha256": "c7f2ea4864907f03b11a147413e869d4456ce5854ed071ac530b94d747f6afa9"
+      },
+      "full_vocal_artifact": {
+        "path": "runs/production/lastpage-v04-dynamic-envelope-20261014/delivery/lastpage_J_method_volume_v04_vocal.wav",
+        "sha256": "fe6ee9894a6eed9fa025fa6a7420b76c61a5449b983bf61240d713bae5400fd8"
+      },
+      "full_song_listening_or_acceptance": "not explicitly stated; do not add a full-song verdict",
+      "new_individual_word_labels": 0,
+      "force_naturalness_texture_pitch_break_dimensions": "not separately rated by this reply",
+      "model_phonation_regenerated": false,
+      "post_vocoder_output_envelope_locally_accepted": true,
+      "prior_H_G_I_negative_conditions_retained": true,
+      "remaining_ni224_lower_energy_observation_retained": true,
+      "source_unknown106_held": true,
+      "agent_heard": false,
+      "measurement_validated": false,
+      "general_rule_validated": false,
+      "skill_update_authorization": "User explicitly requests updating Skill in this message",
+      "additional_generation_authorized_or_executed": false
+    },
+    "local_adoption": true,
+    "full_song_adoption": false,
+    "mechanism_claim": "Finite native output-envelope acceptance; not a universal DYN force/texture rule",
+    "table1_refs": [
+      "ACO:L1",
+      "EVT:L2",
+      "PER:S1",
+      "PARAM:C10.01"
+    ],
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "original_execution": {
+    "path": "docs/reports/lastpage/v04-native-DYN-voice-recovery-20261014.json",
+    "sha256": "0a4cb9b1bea30139dc4b1ca7a4982a90f696622d208684553b89e9fdc2e2ef3c"
+  },
+  "new_models": 0,
+  "new_waveforms": 0,
+  "new_metrics": 0,
+  "agent_heard": false
+}

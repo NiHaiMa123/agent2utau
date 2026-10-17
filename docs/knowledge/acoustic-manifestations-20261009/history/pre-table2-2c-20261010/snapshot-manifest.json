@@ -1,0 +1,301 @@
+{
+  "stage": "2C",
+  "date": "2026-10-10",
+  "files": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "4a3b2872e50885501d7044b81a11fce46ce52ff18aaa8101110491aac685f527"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "sha256": "f38b8c9ebdfc98f9135a436d2fe40c850df37b5809b6517e62345068299b5729"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "sha256": "0bdf3e0062e8de6dd24bdf49b217f9f8da1bc98b6b48143ff7c5ff2afb4e1f01"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-schema.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-record-schema.json",
+      "sha256": "8ffab37b243b413a031750900c65e8713fc0f7a16f1bc367b8251f2f99f4dc2a"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-schema-migration.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-schema-migration.json",
+      "sha256": "fac90e967e5960566f570a842a453fb220bc1137037415e0f98bbb2c42abd9ea"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-structure.csv",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-record-structure.csv",
+      "sha256": "45bb85de1d107e953ebca7167c8889e7e33fb752bdb02ef1cdeeb42b062735f5"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-fields.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-fields.md",
+      "sha256": "f8eb887efa6c02a46fac19e3e722a007e6ddcf5def52fbadfe85dc601147c014"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-schema-review.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-schema-review.md",
+      "sha256": "a384d032deb9f58479b0dcfcb1e4bdbe82aed3f3a3dafcf90abbc53f3224f227"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2b-audit.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-stage-2b-audit.json",
+      "sha256": "965fd99e1470b4c1b3efcb4c14704dc9d7319473c5236c76f2139bd0b50f3f06"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/comparison-bindings.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/comparison-bindings.json",
+      "sha256": "d3b576294085a9399bd2d59c5ce2637d2a8c61dafbb0f38d88faa5800d4fc2f7"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/response-source-audit.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/response-source-audit.json",
+      "sha256": "9775cdee10562db59b85c0b2947ebaec5319206a44329daec8628ab75ed600d2"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/control-details.json",
+      "sha256": "43f9295a9926f866ce3af0cba890891d64a68e5d7f8b4b3619e2f69d96e87a6d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "sha256": "459f8f8264f13f8a115dc60fcf205cd89405bfa35cc222670614847b4d7cb8c3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "sha256": "1d6b243a8b3a8407e06332454961b74d33480d719ba36eb7c314b683747250e5"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-consolidation.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table1-consolidation.json",
+      "sha256": "2bb13553d6ab089bf9385bcdbbf5993e54f3e0a104501845ab6167bb0aaaf40d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table1-execution-audit.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table1-execution-audit.json",
+      "sha256": "c260d24d6aa5d1723f03644f5aa0f7b50a6959262e051896fa67833a1ab4ea03"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "83cdf42eab8044741125232168f05c7828b707b978d5ff9cb13ab82107fe4233"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-review.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-review.md",
+      "sha256": "c7bbaa797eecfd38beafb676a6eb330904ae3213945357698bfd7e6a6dd2edce"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-execution-audit.json",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-execution-audit.json",
+      "sha256": "bfbd1dac7c88c09a4b26598218587605d01a04b229c740193cf105def5f050ca"
+    },
+    {
+      "path": "README.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/README.md",
+      "sha256": "7f4faa8f784da087583defc54710e4dd7cc3d459a82f6469f3d5e7cf71db7127"
+    },
+    {
+      "path": "AGENTS.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/AGENTS.md",
+      "sha256": "8e003a20aa01c9c496ba7056189cdaaf8f7a744dab4fca47ac67743b6837b88d"
+    },
+    {
+      "path": "plan.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/plan.md",
+      "sha256": "2453d3bac5f4ab81e933e2d939f34f6097a7ef453bd6e76be3c96acd5b669ff2"
+    },
+    {
+      "path": "plan-table2.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/plan-table2.md",
+      "sha256": "cd4fee1fd0bc7a2ca275163c5493d6ce567d6924c19e02246c40bee5af08c674"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2b.py",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/research/table2-confirmation/build_stage_2b.py",
+      "sha256": "f9d94981c84df91ecb2430767ddf151419fd0a5cb998d1ab1008a05cdc60bdc1"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2b.py",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/research/table2-confirmation/verify_stage_2b.py",
+      "sha256": "72190ffb14313aeba209089e53f3189d56930f47237d982159c588115668cda2"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "snapshot_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/research/table2-confirmation/README.md",
+      "sha256": "a03172655252c344a334a4bfb788781f9aeb0041a00fd36584aec87004137911"
+    }
+  ],
+  "array_inputs": [
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/accepted-bao-C_grid5/fresh/A_inputs.npz",
+      "sha256": "36ba255cfb706ab939a7df27557c6aaa3eb377e655221923ebe77491ff408b54"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/accepted-bao-C_grid5/fresh/A_prediction.npz",
+      "sha256": "437bbfc54a00063768e283808e8f9a20511d5e6afe457bc6abb479b64545cc3e"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/accepted-bao-C_grid5/fresh/B_inputs.npz",
+      "sha256": "f775117f71b9df2b6f74462477395e5f7bbc4007c54de75bf545e358d48ac6d3"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/accepted-bao-C_grid5/fresh/B_prediction.npz",
+      "sha256": "437bbfc54a00063768e283808e8f9a20511d5e6afe457bc6abb479b64545cc3e"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-112_grid5/fresh/A_inputs.npz",
+      "sha256": "24c15d04a479f849745279f97b263fabd0e06ea2cedc9901d9a15ae270891179"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-112_grid5/fresh/A_prediction.npz",
+      "sha256": "d34e143de6f68f49bc3e1c78caf3bf9b6e37459a52e9816c7dbfdbc1b23a178a"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-112_grid5/fresh/B_inputs.npz",
+      "sha256": "c9251a9755849c739ea1525c87504c52636d91d1c8f6efb51fe93448096ffe9b"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-112_grid5/fresh/B_prediction.npz",
+      "sha256": "d34e143de6f68f49bc3e1c78caf3bf9b6e37459a52e9816c7dbfdbc1b23a178a"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-124_grid5/fresh/A_inputs.npz",
+      "sha256": "e9fb8795982348150765ac784469536b5f3f0d39c0f5501337ed7b5fb8588c91"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-124_grid5/fresh/A_prediction.npz",
+      "sha256": "6fff584a54505c34d3dc4671416b8a700990d697246fecf59b20d0021d5f1510"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-124_grid5/fresh/B_inputs.npz",
+      "sha256": "f61ae0c29946d18d1083bbdf8ae124cd5c29a55f9fac1bc886e9675dae5e1f91"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-124_grid5/fresh/B_prediction.npz",
+      "sha256": "6fff584a54505c34d3dc4671416b8a700990d697246fecf59b20d0021d5f1510"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-214_grid5/fresh/A_inputs.npz",
+      "sha256": "9b14d530ef6feeb23d67160ad31cf286b46732b088f5cfca7ddaa68a0264b19f"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-214_grid5/fresh/A_prediction.npz",
+      "sha256": "abfbfb3200888253244c46258cd869998d56cf9fd26ca617baf879a7f7d2938a"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-214_grid5/fresh/B_inputs.npz",
+      "sha256": "ed0ac68bba1fb66e9d1cc51e617c58fa4044cb3aa87c3a9c3151dcfc0097f031"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-214_grid5/fresh/B_prediction.npz",
+      "sha256": "abfbfb3200888253244c46258cd869998d56cf9fd26ca617baf879a7f7d2938a"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-225_grid5/fresh/A_inputs.npz",
+      "sha256": "ff9646f56579bf9dbf713ca523651fd12c7bafb411eab3e76bcd4acf152c0b5f"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-225_grid5/fresh/A_prediction.npz",
+      "sha256": "5e9419bd90e702b78a8964a73ecc3126a242540311a0fe48d762b8b24943205f"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-225_grid5/fresh/B_inputs.npz",
+      "sha256": "165b74db5fb4bcb2d836b76d4c838781adb41d73c8fdd22a136969b77a58faea"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-225_grid5/fresh/B_prediction.npz",
+      "sha256": "5e9419bd90e702b78a8964a73ecc3126a242540311a0fe48d762b8b24943205f"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-247_grid5/fresh/A_inputs.npz",
+      "sha256": "74e43c6fc812e9eb1f260f3367d8d0958ba90a18f39552b8632a7a0569cbb2d8"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-247_grid5/fresh/A_prediction.npz",
+      "sha256": "ac0c42d1330c8c0c5d5852c48292028c24e746334834503e6c37c2b84ce4235b"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-247_grid5/fresh/B_inputs.npz",
+      "sha256": "c232568d33cd1bae2e4861d76f514a4730bda64ea01b7d3929446f168df1f9e3"
+    },
+    {
+      "path": "runs/lastpage_brec_cohort_probe_20261008/current-word-247_grid5/fresh/B_prediction.npz",
+      "sha256": "ac0c42d1330c8c0c5d5852c48292028c24e746334834503e6c37c2b84ce4235b"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/fresh/A_inputs.npz",
+      "sha256": "24c15d04a479f849745279f97b263fabd0e06ea2cedc9901d9a15ae270891179"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/fresh/A_prediction.npz",
+      "sha256": "d34e143de6f68f49bc3e1c78caf3bf9b6e37459a52e9816c7dbfdbc1b23a178a"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/fresh/B_inputs.npz",
+      "sha256": "0e73d63208d168d71d749655c66cc496e556618b8178c753878b0c177ae09509"
+    },
+    {
+      "path": "runs/lastpage_guo_register_probe_20261008/fresh/B_prediction.npz",
+      "sha256": "bb3db8f716ef63f96d7c75cd4162140e156356b369518c136977f9453032cc70"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/fresh/A_inputs.npz",
+      "sha256": "ff9646f56579bf9dbf713ca523651fd12c7bafb411eab3e76bcd4acf152c0b5f"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/fresh/A_prediction.npz",
+      "sha256": "5e9419bd90e702b78a8964a73ecc3126a242540311a0fe48d762b8b24943205f"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/fresh/B_inputs.npz",
+      "sha256": "36ba255cfb706ab939a7df27557c6aaa3eb377e655221923ebe77491ff408b54"
+    },
+    {
+      "path": "runs/lastpage_shfc_onset_probe_20261008/fresh/B_prediction.npz",
+      "sha256": "437bbfc54a00063768e283808e8f9a20511d5e6afe457bc6abb479b64545cc3e"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/fresh/A_inputs.npz",
+      "sha256": "ff9646f56579bf9dbf713ca523651fd12c7bafb411eab3e76bcd4acf152c0b5f"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/fresh/A_prediction.npz",
+      "sha256": "5e9419bd90e702b78a8964a73ecc3126a242540311a0fe48d762b8b24943205f"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/fresh/B_inputs.npz",
+      "sha256": "82937a2751c46f7033a168e720f49cffb03110dbe7ef18dbc10ee113a4eaa524"
+    },
+    {
+      "path": "runs/lastpage_shfc_probe_20261008/fresh/B_prediction.npz",
+      "sha256": "eb2bd6fa2cf346d940254a9d651ffa2f6eb8f3af2789d5eb3c7ed6f7c2aff6d6"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/fresh/A_inputs.npz",
+      "sha256": "ff9646f56579bf9dbf713ca523651fd12c7bafb411eab3e76bcd4acf152c0b5f"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/fresh/A_prediction.npz",
+      "sha256": "5e9419bd90e702b78a8964a73ecc3126a242540311a0fe48d762b8b24943205f"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/fresh/B_inputs.npz",
+      "sha256": "927b6edc8f2bd9f951f9c6548fe888d66e36680d8ea703b91aadedfabe478073"
+    },
+    {
+      "path": "runs/lastpage_tenc_probe_20261008/fresh/B_prediction.npz",
+      "sha256": "5e9419bd90e702b78a8964a73ecc3126a242540311a0fe48d762b8b24943205f"
+    }
+  ],
+  "array_read_scope": "Read-only native/fresh input/prediction isolation; no PCM, mel, detector rerun or model execution",
+  "no_audio_array_model_copies": true,
+  "archived_link_resolution": "Use original repository path for archived document links"
+}

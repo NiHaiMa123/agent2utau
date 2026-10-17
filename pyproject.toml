@@ -37,4 +37,4 @@ package = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-norecursedirs = [".local-archive", "runs", "external", ".venv"]
+norecursedirs = [".local-archive", "runs", "external", ".venv", "research", "data", "models", "demo", "bridge"]

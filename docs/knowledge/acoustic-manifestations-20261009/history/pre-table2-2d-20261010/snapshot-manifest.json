@@ -1,0 +1,140 @@
+{
+  "stage": "2D",
+  "date": "2026-10-10",
+  "files": [
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.json",
+      "sha256": "f16eb44d67266b10b8720e2a92ee45594609598578d6db7f02131cee28ec4f2d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.csv",
+      "sha256": "769f6461b0928d84a2dabb6db733300e10645a51ee64f968b9253bb8db458f85"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/conditional-responses.md",
+      "sha256": "606fba0e23cca6f24076b31f6c75d05485b556b69891ac4fd92d75d0797961f0"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-structure.csv",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-record-structure.csv",
+      "sha256": "3c76f4ed6fc4e7baa4d60b6787b0d5e4de2c0f13c1df4a1f79d8d2c5cb6f9544"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-schema.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-record-schema.json",
+      "sha256": "045cd3fdf8c9428ed7793f9885fd74b2decb09ac1bef8209ca3f37b479a92cb2"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-confirmation.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-record-confirmation.json",
+      "sha256": "495f6d857bb5d2a049f5e6b52e61115d953d6d7ddaebd8c4b43e53aae1641650"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-confirmation.csv",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-record-confirmation.csv",
+      "sha256": "221dfa8465396de59c456fe8d698f7f04afbebb03566267ab0610cecd8b6bc02"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-record-confirmation.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-record-confirmation.md",
+      "sha256": "e64ec752267485cbc8dccc01adebbd8a60458b9bc5dadb0e61c0b0a8e3ceddff"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-confirmation-migration.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-confirmation-migration.json",
+      "sha256": "0cb01799c9433e12a0f131ab4aa92068c6eb320590ea51f29f7ed7f161ae90cf"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2c-audit.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/table2-stage-2c-audit.json",
+      "sha256": "c544e17c4d82981b0685d61e685a764b0b732d1215e6618832c88fd97708e85c"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/control-details.json",
+      "sha256": "43f9295a9926f866ce3af0cba890891d64a68e5d7f8b4b3619e2f69d96e87a6d"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/knowledge-table.json",
+      "sha256": "459f8f8264f13f8a115dc60fcf205cd89405bfa35cc222670614847b4d7cb8c3"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+      "sha256": "1d6b243a8b3a8407e06332454961b74d33480d719ba36eb7c314b683747250e5"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/comparison-bindings.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/comparison-bindings.json",
+      "sha256": "d3b576294085a9399bd2d59c5ce2637d2a8c61dafbb0f38d88faa5800d4fc2f7"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/response-source-audit.json",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/response-source-audit.json",
+      "sha256": "9775cdee10562db59b85c0b2947ebaec5319206a44329daec8628ab75ed600d2"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "beb251a54954b90f7461b30b379b9703f4bc405013f82a46f535f2616ada48fa"
+    },
+    {
+      "path": "AGENTS.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/AGENTS.md",
+      "sha256": "1898f610e77438b0d4b3d97682e280bb267c31d9e220f91ee4e0ac3e9d77a3d7"
+    },
+    {
+      "path": "README.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/README.md",
+      "sha256": "990c82fe587500ef7ec3e4dc52a433ce338ba6b25362e232901858eb3ba24714"
+    },
+    {
+      "path": "plan.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/plan.md",
+      "sha256": "82a9f91f6d13521a5c64cfaadb8c09620803b749ff7a85dc142fc663f8759a27"
+    },
+    {
+      "path": "plan-table2.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/plan-table2.md",
+      "sha256": "a494af49f85a1e4237584c6724717ed4ab08c6aedfb7f63b4e4b802c35a1a52a"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2c.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/research/table2-confirmation/build_stage_2c.py",
+      "sha256": "2527ab507d030c48cd28ed4d4c7ea8f994553ec797893d187ef931df2d9cda3b"
+    },
+    {
+      "path": "research/table2-confirmation/verify_stage_2c.py",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/research/table2-confirmation/verify_stage_2c.py",
+      "sha256": "07be45c48904f2066c9d454f041e9f6675370decbc14e1196425c57d284622e9"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "snapshot": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2d-20261010/research/table2-confirmation/README.md",
+      "sha256": "2b2924ebd754bcfa0b0f1b8fb19d958c33a0b80e54bd2e98032fe306c41afcca"
+    }
+  ],
+  "design_source_bindings": [
+    {
+      "path": "src/agent2utau/evaluation/controlled_probe.py",
+      "sha256": "9175f52ad706ca42b35fafe4ca11334b4fbffbeaff2ba9bcf061c055b4740910"
+    },
+    {
+      "path": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "sha256": "7634a83ccd14b50b849860bc0c30e6da6b248dd7c3ec31736f1042a96d64bf22"
+    },
+    {
+      "path": "docs/lastpage-cross-condition-study-20261008.md",
+      "sha256": "15aea69c12d00daad5a2fe58ba8f61fd16f91e2b916af4dc8a570f632b4857fb"
+    },
+    {
+      "path": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "sha256": "961a3eace252c1b6e65e9b85687ba00c3359cc63ede11760968e85c702d9b493"
+    }
+  ],
+  "role": "pre-design documents; no new audio, model, native execution or feedback"
+}

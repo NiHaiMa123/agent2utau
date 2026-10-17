@@ -1,0 +1,58 @@
+{
+  "record_id": "RESP:YUAI-G-WHOLE-CANDIDATE-20261016",
+  "record_type": "current_source_only_whole_candidate_technical_record",
+  "report": {
+    "path": "docs/reports/yuai/source-intent-G-whole-candidate-20261016.md",
+    "sha256": "bb2a71c45ead754bd4ff81d0c8d1f5121f1711c78bce7f480896108f65febdb8"
+  },
+  "delivery": {
+    "path": "runs/production/yuai-intent-source-only-20261015/whole/delivery/manifest.json",
+    "sha256": "801bcd09a7613080aa75f308a90ffd8d8c102aafc07c156b1b9da7a6b97fdd96"
+  },
+  "review": {
+    "path": "runs/production/yuai-intent-source-only-20261015/whole/candidate-final-review/review.json",
+    "sha256": "753f0b93fd5db81b82bae73fae1fffdb59af3f4624705d65d21a25e976283032"
+  },
+  "actual_inputs": {
+    "path": "runs/production/yuai-intent-source-only-20261015/whole/candidate-v2/native-input-audit.json",
+    "sha256": "400c316ce8c8e569b804b8cf23c02766cc91826349958010f0f92a0f54ace071"
+  },
+  "output_proxies": {
+    "path": "runs/production/yuai-intent-source-only-20261015/whole/candidate-v2/output-comparison.json",
+    "sha256": "1f9e5412bddadefdf080d7937ab6154bbbeea20de2a16899941ea8594761a2c6"
+  },
+  "knowledge_coverage": {
+    "path": "runs/production/yuai-intent-source-only-20261015/whole/knowledge_coverage-closeout.json",
+    "sha256": "147b03204e9e1a8a0879aa2c07d0f6bff74732a036b8ab514bed60c134745439"
+  },
+  "intent": {
+    "path": "runs/production/yuai-intent-source-only-20261015/whole/intent-hold-lock.json",
+    "sha256": "64b2da4c61b8c69bfa61ecef5e69cae01d98fb79698fd37b324ba6f59e726e8b"
+  },
+  "revision": {
+    "path": "runs/production/yuai-intent-source-only-20261015/whole/revision-01.json",
+    "sha256": "271e56b2b5e62b685a3516af4b2e2f9fac5da908f31008b63d1f8fa69dfd8639"
+  },
+  "phonation": {
+    "path": "runs/production/yuai-intent-source-only-20261015/whole/phonation-plan-grid.json",
+    "sha256": "3d44913f4b0d87a67600fa44f980d5295d44e534647f024ea747512e4e2689b6"
+  },
+  "skill_update": {
+    "path": "docs/reports/production/skill-knowledge-entry-20261016.json",
+    "sha256": "d22dbd4681fe557872539eb032d59cfa3e1ce7cce9d8b348d06d4c617e1023a4"
+  },
+  "status": "whole_candidate_delivered_pending_listening_with_explicit_process_gap",
+  "technical_execution_complete": true,
+  "workflow_review_complete": false,
+  "musical_quality": "unverified",
+  "whole_song_accepted": false,
+  "new_user_feedback_count": 0,
+  "agent_audio_perception": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "generalized_response_rules": [],
+  "scope": "Current G relative combination direction extended to whole song; 332 nonpilot vowels extrapolated; retain unknown and negative evidence",
+  "forbidden_payloads_opened": false,
+  "automatic_ci": false,
+  "single_agent": true
+}

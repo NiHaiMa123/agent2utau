@@ -32,6 +32,9 @@ def validate_native(project,doc,tm,pitch_path,phones_path,provenance):
     environment=bind.get('environment',{})
     if bind.get('schema_version')!=SCHEMA or not all(environment.get(k) for k in ['core_sha256','bridge_sha256','singer_id','singer_config_sha256']):
         return None,'missing_native_environment_binding'
+    singers={doc.get('tracks',[])[p['track_no']].get('singer') for p in doc['voice_parts']}
+    if singers!={environment['singer_id']}:
+        raise ValueError('Native singer/environment identity mismatch; per-track multi-singer binding unsupported')
     pitch,phones=read(pitch_path),read(phones_path)
     if pitch.get('schema_version')!=1 or phones.get('schema_version')!=1:
         raise ValueError('Unsupported native schema')

@@ -1,0 +1,45 @@
+{
+  "status": "passed_with_explicit_auditory_interaction_gaps",
+  "new_waveforms": 4,
+  "new_variance_calls": 4,
+  "new_native_cached_contexts": 3,
+  "new_F0_calls": 4,
+  "reused_A_B_C_F0_arrays": 12,
+  "new_feedback": 0,
+  "protected_references": 1593,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 645}",
+  "checks": [
+    {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/evaluation/native-independent-check.json",
+      "sha256": "9e9045ecb6401cb4f7bdfd7a1b0123dcb26af614aebd0257512d8528fb7295f3"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/evaluation/fresh-independent-check.json",
+      "sha256": "e2d8bfedb1078c208b204556814177c2639716267bb8b1dc725369f5f16da9eb"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/evaluation/delivery-independent-check.json",
+      "sha256": "a20ab8f920fdfa7355b5c8bde530d4411953db272ac77cf1aee0dc9c16fad632"
+    }
+  ],
+  "sources": [
+    {
+      "path": "research/table2-confirmation/lastpage_author_interaction_20261012.py",
+      "sha256": "869b3fb862c0b7328991f2040d5335a0558c2e285d6acdf7c2aa420ef1ac7129"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_author_interaction_20261012.py",
+      "sha256": "cce7d93792af29a4e154c0d351284bb031109147743aa383b79cd102feccbb1f"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_author_interaction_20261012.py",
+      "sha256": "c372f9808d607c1d6b1c023fe13230b84e32d852899b2ffa5d1286cf2f53a644"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_author_interaction_delivery_20261012.py",
+      "sha256": "70aee7247acb0d42563fbcf5a6f236b6ab473c29e62f284cb7b77097a351c6e3"
+    }
+  ],
+  "agent_heard": false,
+  "measurement_validated": false
+}

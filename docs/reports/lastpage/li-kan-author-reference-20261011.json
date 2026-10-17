@@ -1,0 +1,912 @@
+{
+  "status": "feedback_bound_author_reference_compared_and_separately_delivered",
+  "feedback": {
+    "path": "runs/research/lastpage-li-kan-author-reference-20261011/feedback/feedback.json",
+    "sha256": "2b9b10f9308d6b16a9d658ddd2ac266d655b5b502c08d642a6eef87939ff62b6"
+  },
+  "cases": [
+    {
+      "word": 277,
+      "char": "里",
+      "native_context": 28,
+      "user_label": "reported_airy_near_time",
+      "localization": "approximate-time",
+      "matching": "same lyric/neighbor phrase and phoneme sequence; not by uniform offset",
+      "author": {
+        "author_original_part": 2,
+        "author_primary_note": 11,
+        "lyric": "里",
+        "preceding_lyrics": [
+          "身",
+          "体"
+        ],
+        "following_lyrics": [
+          "面",
+          "AP",
+          "不"
+        ],
+        "authored_stages": [
+          {
+            "tone": 66,
+            "start_s": 215.57142857142858,
+            "end_s": 215.78571428571428
+          },
+          {
+            "tone": 68,
+            "start_s": 215.78571428571428,
+            "end_s": 216.21428571428572
+          },
+          {
+            "tone": 66,
+            "start_s": 216.21428571428572,
+            "end_s": 216.42857142857142
+          }
+        ]
+      },
+      "author_vowel_s": [
+        215.57142857142858,
+        216.24285714285716
+      ],
+      "own_vowel_s": [
+        212.9572916666667,
+        213.58541666666667
+      ],
+      "phones_author": [
+        {
+          "phone_index": 14,
+          "phoneme": "zh/l",
+          "start_ms": 215482.14285714287,
+          "end_ms": 215571.42857142858,
+          "tone": 66,
+          "owner_note_indices": [
+            11
+          ],
+          "owner_primary_indices": [
+            11
+          ],
+          "ownership_status": "matched"
+        },
+        {
+          "phone_index": 15,
+          "phoneme": "zh/i",
+          "start_ms": 215571.42857142858,
+          "end_ms": 216242.85714285716,
+          "tone": 66,
+          "owner_note_indices": [
+            11
+          ],
+          "owner_primary_indices": [
+            11
+          ],
+          "ownership_status": "matched"
+        }
+      ],
+      "phones_own": [
+        {
+          "phone_index": 16,
+          "phoneme": "zh/l",
+          "start_ms": 212876.0416666667,
+          "end_ms": 212957.2916666667,
+          "tone": 68,
+          "owner_note_indices": [
+            357
+          ],
+          "owner_primary_indices": [
+            357
+          ],
+          "ownership_status": "matched"
+        },
+        {
+          "phone_index": 17,
+          "phoneme": "zh/i",
+          "start_ms": 212957.2916666667,
+          "end_ms": 213585.4166666667,
+          "tone": 68,
+          "owner_note_indices": [
+            357
+          ],
+          "owner_primary_indices": [
+            357
+          ],
+          "ownership_status": "matched"
+        }
+      ],
+      "own_music_stages": [
+        {
+          "cents": 6800,
+          "onset_s": 212.95729166666666,
+          "body_end_s": 213.4152083333333
+        },
+        {
+          "cents": 6600,
+          "onset_s": 213.53020833333332,
+          "body_end_s": 213.55341666666666
+        }
+      ],
+      "author_written_controls": {
+        "voic": {
+          "min": 88.0,
+          "median": 88.0,
+          "max": 88.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "brec": {
+          "min": 8.0,
+          "median": 8.0,
+          "max": 8.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "tenc": {
+          "min": -28.0,
+          "median": -19.0,
+          "max": 9.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "shfc": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "cl01": {
+          "min": 40.0,
+          "median": 40.0,
+          "max": 40.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "cl02": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "cl03": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": true
+        },
+        "cl04": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": true
+        },
+        "cl05": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": true
+        }
+      },
+      "own_control_events": [
+        {
+          "word": 277,
+          "abbr": "voic",
+          "parameters": [
+            212.96129166666668,
+            213.0162916666667,
+            213.5344166666667,
+            213.57941666666667,
+            15
+          ],
+          "purpose": "Finite harmonic-energy support for an independently selected weak nucleus; preserve pitch, prediction detail, consonants and phrase release"
+        }
+      ],
+      "speaker_author_acoustic": {
+        "weights": {
+          "Bright": 0.3999999723472833,
+          "Classic": 2.310149127294727e-09,
+          "Cute": 0.6000000137065127,
+          "Normal": 6.775442143254718e-09,
+          "Whisper": 9.989264083700645e-10
+        },
+        "reconstruction_max_abs": 1.3206988724867585e-08,
+        "observed": "actual tensor decomposition; not inferred from curve labels"
+      },
+      "speaker_author_variance": {
+        "weights": {
+          "Bright": 0.3999999742420804,
+          "Classic": -4.306158847595533e-11,
+          "Cute": 0.6000000260627387,
+          "Normal": 3.769594540779205e-09,
+          "Whisper": 1.6852695782248467e-09
+        },
+        "reconstruction_max_abs": 1.1028880836372323e-08,
+        "observed": "actual tensor decomposition; not inferred from curve labels"
+      },
+      "speaker_own_acoustic": {
+        "weights": {
+          "Bright": -4.879782602833513e-10,
+          "Classic": 0.2500000007284652,
+          "Cute": -4.676969995773457e-09,
+          "Normal": 0.7500000087258871,
+          "Whisper": -2.7873322259599277e-10
+        },
+        "reconstruction_max_abs": 1.1895692181296269e-08,
+        "observed": "actual tensor decomposition; not inferred from curve labels"
+      },
+      "features": {
+        "breathiness": {
+          "author_prediction": {
+            "min": -52.75419998168945,
+            "median": -50.208702087402344,
+            "max": -42.66502380371094
+          },
+          "author_final": {
+            "min": -51.7942008972168,
+            "median": -49.24870300292969,
+            "max": -41.70502471923828
+          },
+          "author_delta": {
+            "min": 0.9599999785423279,
+            "median": 0.9599999785423279,
+            "max": 0.9599999785423279
+          },
+          "author_core_final": {
+            "min": -51.573490142822266,
+            "median": -49.24870300292969,
+            "max": -41.70502471923828
+          },
+          "own_prediction": {
+            "min": -48.705936431884766,
+            "median": -45.5466194152832,
+            "max": -44.42207717895508
+          },
+          "own_final": {
+            "min": -48.705936431884766,
+            "median": -45.5466194152832,
+            "max": -44.42207717895508
+          },
+          "own_delta": {
+            "min": 0.0,
+            "median": 0.0,
+            "max": 0.0
+          },
+          "own_core_final": {
+            "min": -46.5707893371582,
+            "median": -45.65656280517578,
+            "max": -44.42207717895508
+          },
+          "units": "native model feature; not PCM dB or physiological measure",
+          "author_clipped_frames": 0
+        },
+        "voicing": {
+          "author_prediction": {
+            "min": -53.16556930541992,
+            "median": -45.01744842529297,
+            "max": -39.311344146728516
+          },
+          "author_final": {
+            "min": -54.605567932128906,
+            "median": -46.45744705200195,
+            "max": -40.7513427734375
+          },
+          "author_delta": {
+            "min": -1.440000057220459,
+            "median": -1.440000057220459,
+            "max": -1.440000057220459
+          },
+          "author_core_final": {
+            "min": -50.00629806518555,
+            "median": -42.819480895996094,
+            "max": -40.7513427734375
+          },
+          "own_prediction": {
+            "min": -54.71966552734375,
+            "median": -48.112510681152344,
+            "max": -38.55524444580078
+          },
+          "own_final": {
+            "min": -54.71966552734375,
+            "median": -46.3125114440918,
+            "max": -36.755245208740234
+          },
+          "own_delta": {
+            "min": 0.0,
+            "median": 1.7999999523162842,
+            "max": 1.7999999523162842
+          },
+          "own_core_final": {
+            "min": -47.37193298339844,
+            "median": -46.543331146240234,
+            "max": -37.59365463256836
+          },
+          "units": "native model feature; not PCM dB or physiological measure",
+          "author_clipped_frames": 36
+        },
+        "tension": {
+          "author_prediction": {
+            "min": -0.12425210326910019,
+            "median": 1.6010613441467285,
+            "max": 2.1215665340423584
+          },
+          "author_final": {
+            "min": -1.434252142906189,
+            "median": 0.9363223314285278,
+            "max": 1.8810398578643799
+          },
+          "author_delta": {
+            "min": -1.399999976158142,
+            "median": -0.9550000429153442,
+            "max": 0.44999998807907104
+          },
+          "author_core_final": {
+            "min": 0.04751765727996826,
+            "median": 1.2423040866851807,
+            "max": 1.8810398578643799
+          },
+          "own_prediction": {
+            "min": -2.045215129852295,
+            "median": -1.8228511810302734,
+            "max": -1.4981622695922852
+          },
+          "own_final": {
+            "min": -2.045215129852295,
+            "median": -1.8228511810302734,
+            "max": -1.4981622695922852
+          },
+          "own_delta": {
+            "min": 0.0,
+            "median": 0.0,
+            "max": 0.0
+          },
+          "own_core_final": {
+            "min": -1.9894911050796509,
+            "median": -1.8713326454162598,
+            "max": -1.6713203191757202
+          },
+          "units": "native model feature; not PCM dB or physiological measure",
+          "author_clipped_frames": 0
+        }
+      },
+      "frames_author": 58,
+      "frames_own": 54,
+      "own_state_source": "seed11/101 delivered state NPZ; native feed used for common clock/F0/deltas/speaker only",
+      "SHFC_author_input": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "F0_vocoder_author": {
+        "min": 368.71432,
+        "median": 400.78447,
+        "max": 418.91867
+      },
+      "F0_vocoder_own": {
+        "min": 369.99442,
+        "median": 416.722465,
+        "max": 442.3637
+      },
+      "causal_isolation": false,
+      "historical_author_audio": false,
+      "agent_heard": false,
+      "measurement_validated": false
+    },
+    {
+      "word": 283,
+      "char": "看",
+      "native_context": 29,
+      "user_label": "reported_locally_solid",
+      "localization": "explicit-lyric",
+      "matching": "same lyric/neighbor phrase and phoneme sequence; not by uniform offset",
+      "author": {
+        "author_original_part": 2,
+        "author_primary_note": 22,
+        "lyric": "看",
+        "preceding_lyrics": [
+          "让",
+          "你"
+        ],
+        "following_lyrics": [
+          "见",
+          "AP",
+          "嘴"
+        ],
+        "authored_stages": [
+          {
+            "tone": 64,
+            "start_s": 219.0,
+            "end_s": 219.21428571428572
+          },
+          {
+            "tone": 66,
+            "start_s": 219.21428571428572,
+            "end_s": 219.64285714285714
+          },
+          {
+            "tone": 64,
+            "start_s": 219.64285714285714,
+            "end_s": 219.85714285714286
+          }
+        ]
+      },
+      "author_vowel_s": [
+        219.0125,
+        219.72857142857146
+      ],
+      "own_vowel_s": [
+        216.3260416666667,
+        217.08125000000004
+      ],
+      "phones_author": [
+        {
+          "phone_index": 9,
+          "phoneme": "zh/k",
+          "start_ms": 218848.2142857143,
+          "end_ms": 219012.5,
+          "tone": 64,
+          "owner_note_indices": [
+            22
+          ],
+          "owner_primary_indices": [
+            22
+          ],
+          "ownership_status": "matched"
+        },
+        {
+          "phone_index": 10,
+          "phoneme": "zh/an",
+          "start_ms": 219012.5,
+          "end_ms": 219728.57142857145,
+          "tone": 64,
+          "owner_note_indices": [
+            22
+          ],
+          "owner_primary_indices": [
+            22
+          ],
+          "ownership_status": "matched"
+        }
+      ],
+      "phones_own": [
+        {
+          "phone_index": 10,
+          "phoneme": "zh/k",
+          "start_ms": 216139.58333333334,
+          "end_ms": 216326.0416666667,
+          "tone": 66,
+          "owner_note_indices": [
+            366
+          ],
+          "owner_primary_indices": [
+            366
+          ],
+          "ownership_status": "matched"
+        },
+        {
+          "phone_index": 11,
+          "phoneme": "zh/an",
+          "start_ms": 216326.0416666667,
+          "end_ms": 217081.25000000003,
+          "tone": 66,
+          "owner_note_indices": [
+            366
+          ],
+          "owner_primary_indices": [
+            366
+          ],
+          "ownership_status": "matched"
+        }
+      ],
+      "own_music_stages": [
+        {
+          "cents": 6600,
+          "onset_s": 216.32604166666667,
+          "body_end_s": 216.83499999999998
+        },
+        {
+          "cents": 6400,
+          "onset_s": 216.95,
+          "body_end_s": 217.04925000000003
+        }
+      ],
+      "author_written_controls": {
+        "voic": {
+          "min": 96.0,
+          "median": 96.0,
+          "max": 96.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "brec": {
+          "min": 8.0,
+          "median": 8.0,
+          "max": 8.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "tenc": {
+          "min": -25.0,
+          "median": -25.0,
+          "max": 2.2666666666666666,
+          "empty_curve_uses_declared_default": false
+        },
+        "shfc": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "cl01": {
+          "min": 40.0,
+          "median": 40.0,
+          "max": 40.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "cl02": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": false
+        },
+        "cl03": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": true
+        },
+        "cl04": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": true
+        },
+        "cl05": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "empty_curve_uses_declared_default": true
+        }
+      },
+      "own_control_events": [],
+      "speaker_author_acoustic": {
+        "weights": {
+          "Bright": 0.3999999723472833,
+          "Classic": 2.310149127294727e-09,
+          "Cute": 0.6000000137065127,
+          "Normal": 6.775442143254718e-09,
+          "Whisper": 9.989264083700645e-10
+        },
+        "reconstruction_max_abs": 1.3206988724867585e-08,
+        "observed": "actual tensor decomposition; not inferred from curve labels"
+      },
+      "speaker_author_variance": {
+        "weights": {
+          "Bright": 0.3999999742420804,
+          "Classic": -4.306158847595533e-11,
+          "Cute": 0.6000000260627387,
+          "Normal": 3.769594540779205e-09,
+          "Whisper": 1.6852695782248467e-09
+        },
+        "reconstruction_max_abs": 1.1028880836372323e-08,
+        "observed": "actual tensor decomposition; not inferred from curve labels"
+      },
+      "speaker_own_acoustic": {
+        "weights": {
+          "Bright": -4.879782602833513e-10,
+          "Classic": 0.2500000007284652,
+          "Cute": -4.676969995773457e-09,
+          "Normal": 0.7500000087258871,
+          "Whisper": -2.7873322259599277e-10
+        },
+        "reconstruction_max_abs": 1.1895692181296269e-08,
+        "observed": "actual tensor decomposition; not inferred from curve labels"
+      },
+      "features": {
+        "breathiness": {
+          "author_prediction": {
+            "min": -62.7891845703125,
+            "median": -53.12721252441406,
+            "max": -38.271976470947266
+          },
+          "author_final": {
+            "min": -61.829185485839844,
+            "median": -52.167213439941406,
+            "max": -37.31197738647461
+          },
+          "author_delta": {
+            "min": 0.9599999785423279,
+            "median": 0.9599999785423279,
+            "max": 0.9599999785423279
+          },
+          "author_core_final": {
+            "min": -61.76470184326172,
+            "median": -52.26305389404297,
+            "max": -48.130252838134766
+          },
+          "own_prediction": {
+            "min": -69.88442993164062,
+            "median": -50.226837158203125,
+            "max": -37.525997161865234
+          },
+          "own_final": {
+            "min": -69.88442993164062,
+            "median": -50.226837158203125,
+            "max": -37.525997161865234
+          },
+          "own_delta": {
+            "min": 0.0,
+            "median": 0.0,
+            "max": 0.0
+          },
+          "own_core_final": {
+            "min": -67.79161071777344,
+            "median": -50.22233963012695,
+            "max": -48.92701721191406
+          },
+          "units": "native model feature; not PCM dB or physiological measure",
+          "author_clipped_frames": 0
+        },
+        "voicing": {
+          "author_prediction": {
+            "min": -50.4016227722168,
+            "median": -43.28053283691406,
+            "max": -39.6840705871582
+          },
+          "author_final": {
+            "min": -50.881622314453125,
+            "median": -43.760528564453125,
+            "max": -40.16407012939453
+          },
+          "author_delta": {
+            "min": -0.47999998927116394,
+            "median": -0.47999998927116394,
+            "max": -0.47999998927116394
+          },
+          "author_core_final": {
+            "min": -50.46992874145508,
+            "median": -43.61386489868164,
+            "max": -40.44010543823242
+          },
+          "own_prediction": {
+            "min": -66.876953125,
+            "median": -42.81184005737305,
+            "max": -39.975040435791016
+          },
+          "own_final": {
+            "min": -66.876953125,
+            "median": -42.81184005737305,
+            "max": -39.975040435791016
+          },
+          "own_delta": {
+            "min": 0.0,
+            "median": 0.0,
+            "max": 0.0
+          },
+          "own_core_final": {
+            "min": -51.9530143737793,
+            "median": -42.7763671875,
+            "max": -42.231056213378906
+          },
+          "units": "native model feature; not PCM dB or physiological measure",
+          "author_clipped_frames": 42
+        },
+        "tension": {
+          "author_prediction": {
+            "min": -3.418116331100464,
+            "median": 2.3383641242980957,
+            "max": 3.09246563911438
+          },
+          "author_final": {
+            "min": -4.668116569519043,
+            "median": 1.0883640050888062,
+            "max": 2.7545738220214844
+          },
+          "author_delta": {
+            "min": -1.25,
+            "median": -1.25,
+            "max": -0.05000000074505806
+          },
+          "author_core_final": {
+            "min": -4.471902847290039,
+            "median": 1.5757930278778076,
+            "max": 2.7545738220214844
+          },
+          "own_prediction": {
+            "min": -7.273355484008789,
+            "median": 2.193453073501587,
+            "max": 2.647071599960327
+          },
+          "own_final": {
+            "min": -7.273355484008789,
+            "median": 2.193453073501587,
+            "max": 2.647071599960327
+          },
+          "own_delta": {
+            "min": 0.0,
+            "median": 0.0,
+            "max": 0.0
+          },
+          "own_core_final": {
+            "min": -3.083738327026367,
+            "median": 2.208817481994629,
+            "max": 2.613416910171509
+          },
+          "units": "native model feature; not PCM dB or physiological measure",
+          "author_clipped_frames": 0
+        }
+      },
+      "frames_author": 62,
+      "frames_own": 65,
+      "own_state_source": "seed11/101 delivered state NPZ; native feed used for common clock/F0/deltas/speaker only",
+      "SHFC_author_input": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "F0_vocoder_author": {
+        "min": 302.89902,
+        "median": 335.77704,
+        "max": 374.63962
+      },
+      "F0_vocoder_own": {
+        "min": 329.62756,
+        "median": 370.72177,
+        "max": 393.88742
+      },
+      "causal_isolation": false,
+      "historical_author_audio": false,
+      "agent_heard": false,
+      "measurement_validated": false
+    }
+  ],
+  "broader_inventory": [
+    {
+      "vowel": "zh/i",
+      "nominal_midi": "68",
+      "words": [
+        34,
+        83,
+        94,
+        118,
+        121,
+        169,
+        218,
+        229,
+        253,
+        256,
+        277,
+        301,
+        304
+      ],
+      "predicted_voicing_medians": [
+        -60.87752151489258,
+        -41.485347747802734,
+        -49.82780456542969,
+        -47.220733642578125,
+        -50.738773345947266,
+        -62.50475311279297,
+        -39.47880554199219,
+        -46.3973388671875,
+        -44.89204025268555,
+        -47.93717956542969,
+        -48.112510681152344,
+        -43.42612075805664,
+        -47.60387420654297
+      ],
+      "note": "same nominal vowel/tone still varies in context/pitch/duration/controls; other quality labels remain unknown"
+    },
+    {
+      "vowel": "zh/an",
+      "nominal_midi": "66",
+      "words": [
+        100,
+        235,
+        283
+      ],
+      "predicted_voicing_medians": [
+        -42.90666961669922,
+        -43.41739273071289,
+        -42.7763671875
+      ],
+      "note": "same nominal vowel/tone still varies in context/pitch/duration/controls; other quality labels remain unknown"
+    }
+  ],
+  "deliveries": {
+    "author": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/baishuo_current165c_reference_vocal.wav",
+      "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+    },
+    "own": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/agent_acceptedC_same_lyrics_vocal.wav",
+      "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+    },
+    "author_window_s": [
+      212.0,
+      220.35
+    ],
+    "own_window_s": [
+      209.4,
+      218.0
+    ],
+    "author_word_offsets": {
+      "277": [
+        3.5714285714285836,
+        4.2428571428571615
+      ],
+      "283": [
+        7.012499999999989,
+        7.728571428571456
+      ]
+    },
+    "own_word_offsets": {
+      "277": [
+        3.5572916666666856,
+        4.185416666666669
+      ],
+      "283": [
+        6.926041666666691,
+        7.681250000000034
+      ]
+    },
+    "independent_files": true,
+    "own_PCM_exact_extraction": true,
+    "reference_fixed_gain": 1.5,
+    "author_track_gain_removed_for_reference_only": true,
+    "reference_peak": 0.5423126220703125,
+    "source_native_reference_subtype": "PCM_16; PCM_24 packaging does not restore lost precision",
+    "fullscale_samples": 0,
+    "no_normalization_or_compression": true,
+    "retiming_or_transposition": false,
+    "historical_author_recording": false,
+    "agent_heard": false
+  },
+  "input_bindings": [
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/agent_word_decisions.json",
+      "sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/all_word_current_prediction_and_final_inputs.json",
+      "sha256": "a87baff2d7f3a64fe75f194ae56974adaa21bc1249a67964f023748cc5db6e4d"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis_check.json",
+      "sha256": "ad4fecb77d5612984a364a2bd9c97fc62068248ce976e04abdd4a20316424e7d"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis/state_028.npz",
+      "sha256": "4b3684f13f00d72b33765844dd7398ebfac4e26fe2a527b808539a4fc4d8371d"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/feeds/phrase_028.json",
+      "sha256": "b1182fb492cc0a7b914333b577b57aee61be8856d398d01e2d6fc552cf3b2a65"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis/phrase_028.json",
+      "sha256": "0a9684f413221537c5fe3c765ff62e8547f270a65d46c6800d44f7615edd26ab"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis/state_029.npz",
+      "sha256": "2f9a85765129e9034e0fa8b0c824d6abc29ea6ed5204c4c55fef2a1a09d5c6f0"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/feeds/phrase_029.json",
+      "sha256": "c7b1c9a6534a786bddb71b9c37e905a01169d3667ac1c7ef40ecffc02b11016b"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis/phrase_029.json",
+      "sha256": "9ceeb492cf04e30271dfe2100265a5dbf3d47709e4269d4e62878aec21dfac9b"
+    }
+  ],
+  "plan": {
+    "path": "runs/research/lastpage-li-kan-author-reference-20261011/design/reference-plan.json",
+    "sha256": "0c7bcd98088a446d9d8a2f529d23deab1fcba0b57391a34a36823278820f7d09"
+  },
+  "findings": [
+    "Current li and kan differ in prediction and final model inputs despite positive li VOIC overlay",
+    "Author reference actual speaker is Bright40/Cute60 at variance and acoustic stages, unlike own Normal75/Classic25",
+    "Author retains lower entry stages and within-word turns, and varying negative/positive tension; not simple larger VOIC",
+    "Authored BREC+8/VOIC88(li),96(kan)/SHFC0 cannot alone establish perceived solidity",
+    "Phones match at symbolic level; native durations and music stages differ; no phoneme misidentification proved"
+  ],
+  "input_slot_audit": "Initial check caught native cached feed features vs seed11/101 delivered state mismatch; states are independently reconstructed from their own predicted base and identical native manual deltas, no tolerance relaxation",
+  "next_direction": "Design a finite own phrase-scale phonation baseline correction conditioned on current vowel/core and prediction; protect kan283 and accepted bao225; no author curve copying or uniform global offset",
+  "own_new_candidate_count": 0,
+  "new_human_feedback": 1,
+  "general_rule_validated": false,
+  "measurement_validated": false
+}

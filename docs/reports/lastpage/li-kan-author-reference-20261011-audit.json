@@ -1,0 +1,118 @@
+{
+  "status": "passed_with_explicit_causal_and_historical_audio_gaps",
+  "source_audio": {
+    "path": "runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline_vocal.wav",
+    "sha256": "99b82a0c2a0d7a5489602328b4f2bc8b573a0c35a3362d1bc2fb8ebb50cb23e4"
+  },
+  "inputs": [
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/agent_word_decisions.json",
+      "sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/all_word_current_prediction_and_final_inputs.json",
+      "sha256": "a87baff2d7f3a64fe75f194ae56974adaa21bc1249a67964f023748cc5db6e4d"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis_check.json",
+      "sha256": "ad4fecb77d5612984a364a2bd9c97fc62068248ce976e04abdd4a20316424e7d"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis/state_028.npz",
+      "sha256": "4b3684f13f00d72b33765844dd7398ebfac4e26fe2a527b808539a4fc4d8371d"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/feeds/phrase_028.json",
+      "sha256": "b1182fb492cc0a7b914333b577b57aee61be8856d398d01e2d6fc552cf3b2a65"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis/phrase_028.json",
+      "sha256": "0a9684f413221537c5fe3c765ff62e8547f270a65d46c6800d44f7615edd26ab"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis/state_029.npz",
+      "sha256": "2f9a85765129e9034e0fa8b0c824d6abc29ea6ed5204c4c55fef2a1a09d5c6f0"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/feeds/phrase_029.json",
+      "sha256": "c7b1c9a6534a786bddb71b9c37e905a01169d3667ac1c7ef40ecffc02b11016b"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/synthesis/phrase_029.json",
+      "sha256": "9ceeb492cf04e30271dfe2100265a5dbf3d47709e4269d4e62878aec21dfac9b"
+    }
+  ],
+  "protected_files": 814,
+  "new_feedback": 1,
+  "own_model_execution": 0,
+  "author_current_reference_part_renders": 1,
+  "author_native_phrases": 3,
+  "same_symbolic_phones": true,
+  "native_actual_speakers_both_stages": true,
+  "actual_control_arithmetic": true,
+  "old_PCM_exact_extraction": true,
+  "no_author_transfer_to_production": true,
+  "author_original_bytes_exact": true,
+  "original_Skill_and_song_unchanged": true,
+  "source_unknowns_unchanged": true,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 581}",
+  "script": {
+    "path": "research/table2-confirmation/review_lastpage_li_kan_reference_20261011.py",
+    "sha256": "f3118237a3ccf14a08ea92083fa72bb0e869ff7ecac8f59ac537774f729b5987"
+  },
+  "delivery": {
+    "author": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/baishuo_current165c_reference_vocal.wav",
+      "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+    },
+    "own": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/agent_acceptedC_same_lyrics_vocal.wav",
+      "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+    },
+    "author_window_s": [
+      212.0,
+      220.35
+    ],
+    "own_window_s": [
+      209.4,
+      218.0
+    ],
+    "author_word_offsets": {
+      "277": [
+        3.5714285714285836,
+        4.2428571428571615
+      ],
+      "283": [
+        7.012499999999989,
+        7.728571428571456
+      ]
+    },
+    "own_word_offsets": {
+      "277": [
+        3.5572916666666856,
+        4.185416666666669
+      ],
+      "283": [
+        6.926041666666691,
+        7.681250000000034
+      ]
+    },
+    "independent_files": true,
+    "own_PCM_exact_extraction": true,
+    "reference_fixed_gain": 1.5,
+    "author_track_gain_removed_for_reference_only": true,
+    "reference_peak": 0.5423126220703125,
+    "source_native_reference_subtype": "PCM_16; PCM_24 packaging does not restore lost precision",
+    "fullscale_samples": 0,
+    "no_normalization_or_compression": true,
+    "retiming_or_transposition": false,
+    "historical_author_recording": false,
+    "agent_heard": false
+  }
+}

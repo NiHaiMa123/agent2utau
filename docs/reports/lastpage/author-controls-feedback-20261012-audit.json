@@ -1,0 +1,71 @@
+{
+  "status": "passed_with_explicit_closeness_and_cause_gaps",
+  "feedback_submissions": 1,
+  "individual_labels": 0,
+  "existing_condition_rows": 15,
+  "differing_first_tone_words": [
+    271,
+    272,
+    273,
+    276,
+    277,
+    279,
+    282,
+    283
+  ],
+  "new_native_calls": 0,
+  "new_model_calls": 0,
+  "new_waveforms": 0,
+  "new_PCM_NPZ_reads": 0,
+  "next_protocol": {
+    "path": "runs/research/lastpage-author-controls-feedback-20261012/design/next-interaction-protocol.json",
+    "sha256": "a473cd985282e4a66e6c1c27c51601de65c0f0e83a187e293401715bf4c2c851"
+  },
+  "source_bindings": [
+    {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/score/A.ustx",
+      "sha256": "810f60e5c2b909df1e34477e41add35e224cbdcf1f605c60abca0b7f5e5592c8"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/native-inputs/A-phones.json",
+      "sha256": "b1c687ed84a10a29f34c84bb8826817b4fd204e69d42d58e10a772599536dfa2"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/agent_word_decisions.json",
+      "sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/source_observations.json",
+      "sha256": "d03fa8ccb49c3733783e51faf20ffbfbe20bc75f1b6b5aa0fa9ab46d976c4078"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.csv",
+      "sha256": "3e58bf397ed323c09210b76595d81acaeed67c7483695cb9ebb515446f04d678"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-voice-swap-20261011/score/B.ustx",
+      "sha256": "bdb7dff2bbcdb8db17bf84b801de87cc3f3db9a90a37cf8407eb23fc9c75ed76"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-voice-swap-20261011/evaluation/delivery-check.json",
+      "sha256": "15e293577336e8234930e4351079e721c9ce5f83e4fcf3360c91537209e0d366"
+    },
+    {
+      "path": "src/agent2utau/openutau/ustx.py",
+      "sha256": "b172ccbfa353da4154ffd406c0d07a4082988a9eb959385bdf649e7833f2306a"
+    }
+  ],
+  "source": {
+    "path": "research/table2-confirmation/close_lastpage_author_controls_20261012.py",
+    "sha256": "376111d722009fbd7a8ee248773a84f2a229fdccd17bc5268b92976f1522fb84"
+  },
+  "protected_references": 1575,
+  "CSV_JSON_rows_exact": true,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 637}",
+  "agent_heard": false,
+  "measurement_validated": false
+}

@@ -1,0 +1,18 @@
+{
+  "path": "docs/knowledge/acoustic-manifestations-20261009/coverage-checklist.json",
+  "sha256": "d465dd3fdb9f9b7bc52e3e376a38ef4fe0a4c66eae39d600cebf35301de1bbcd",
+  "checkpoint_path": "runs/research/table1-e-coverage-20261010/observations/coverage-checklist-frozen.json",
+  "checkpoint_sha256": "d465dd3fdb9f9b7bc52e3e376a38ef4fe0a4c66eae39d600cebf35301de1bbcd",
+  "case_count": 42,
+  "main_count": 36,
+  "deferred_recheck_count": 6,
+  "frozen_before_mapping": true,
+  "definition_baseline": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/measurement-protocols.json",
+    "sha256": "1d6b243a8b3a8407e06332454961b74d33480d719ba36eb7c314b683747250e5"
+  },
+  "checklist_authoring_source": {
+    "path": "research/table1-confirmation/stage_e_checklist_data.py",
+    "sha256": "73b1738bdf6aac8e70ce2d85cc4cdded9c96fccafb680de11c27ab27c3f89e55"
+  }
+}

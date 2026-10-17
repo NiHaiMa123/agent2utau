@@ -1,0 +1,458 @@
+{
+  "status": "whole_song_v03_rendered_checked_pending_listening",
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-J-METHOD-WHOLE-SONG-01",
+    "kind": "bundled_whole_song_production_revision",
+    "status": "rendered_checked_pending_whole_song_listening",
+    "started_date": "2026-10-13",
+    "completed_date": "2026-10-14",
+    "acceptance_authorization": {
+      "path": "docs/reports/lastpage/own-J-acceptance-and-whole-song-authorization-20261013.json",
+      "sha256": "27617ce5d4c5f46e983212d42fb4b353e5c8b28af157f17f9d20ade1925fbf0f"
+    },
+    "table1_refs": [
+      "PER:S1",
+      "EVT:L2",
+      "ACO:L1",
+      "PARAM:C03.01",
+      "PARAM:C13.01"
+    ],
+    "protocol": {
+      "path": "runs/production/lastpage-skill-whole-song-20261013/design/protocol.json",
+      "sha256": "ca8b917c8ad1ba94af150ba344043b055bb916f0aaee0ac5ec0379a0e1458c21"
+    },
+    "knowledge_receipt": {
+      "path": "runs/production/lastpage-skill-whole-song-20261013/evaluation/knowledge_receipt.json",
+      "sha256": "958f04c01fbf033c922a8b8bf4190aaa7fed7766306298b808b636fa6781d8fc"
+    },
+    "words_reviewed": 318,
+    "contexts": 34,
+    "changed_contexts": 31,
+    "new_pitch_gestures": 15,
+    "new_pitch_word_ids": [
+      13,
+      30,
+      94,
+      100,
+      118,
+      124,
+      148,
+      165,
+      174,
+      179,
+      221,
+      235,
+      253,
+      259,
+      307
+    ],
+    "changed_pitch_grid_points": 948,
+    "native_target_max_error_cents": 0.4989608740061158,
+    "new_fixed_seeded_waveforms": 37,
+    "new_variance_calls": 37,
+    "repeat_contexts": [
+      0,
+      22,
+      28
+    ],
+    "repeat_exact": true,
+    "native_cached_technical_render": "one full34-context PCM16 technical mix; internal neural call counts uninstrumented",
+    "speaker_candidate": "Bright40/Cute60 except retained accepted bao context22 Normal75/Classic25",
+    "manual_controls": "neutral TENC/BREC/VOIC/SHFC except exact accepted bao context22; old DYN retained",
+    "feature_clipping_by_context": [
+      {
+        "context": 0,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 1,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 2,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 3,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 4,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 5,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 6,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 7,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 8,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 9,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 10,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 11,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 12,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 13,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 14,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 15,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 16,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 17,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 18,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 19,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 20,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 21,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 22,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 23,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 24,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 25,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 26,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 27,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 28,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 29,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 30,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 31,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 32,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      },
+      {
+        "context": 33,
+        "counts": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        }
+      }
+    ],
+    "all_feature_clipping_zero": true,
+    "old_originals_and_runs_preserved": true,
+    "source_unknown_words": [
+      106
+    ],
+    "accepted_J_raw_contributions_exact": true,
+    "accepted_bao_raw_contribution_exact": true,
+    "overlap_limits": {
+      "new_J_crop_changed_samples": 25898,
+      "new_J_crop_change_span_s": [
+        209.4,
+        217.99997732426303
+      ],
+      "real_word_windows_changed": [
+        {
+          "context": 22,
+          "word": 230,
+          "char": "面",
+          "actual_phone_PCM_exact": false
+        },
+        {
+          "context": 29,
+          "word": 284,
+          "char": "见",
+          "actual_phone_PCM_exact": false
+        }
+      ],
+      "reason": "Only changed adjacent context contributions; independent accepted J/bao waves held. New full mix still needs listening."
+    },
+    "original_vocal_gain": 1.5,
+    "original_backing_bytes_exact": true,
+    "common_mix_margin": 0.9,
+    "post_margin_mix_peak": 0.9490580320358277,
+    "vocal_peak": 0.7551714777946472,
+    "duration_s": 245.57714285714286,
+    "new_F0_calls": 2,
+    "F0_vowel_median_error_summary_cents": {
+      "FCPE": {
+        "p50": 1.550000000000182,
+        "p95": 3.4202649523930617,
+        "max": 5.2041015625
+      },
+      "RMVPE": {
+        "p50": 1.4791748046950488,
+        "p95": 2.671364140625019,
+        "max": 4.673452558671215
+      }
+    },
+    "F0_proxy_not_pitch_naturalness_truth": true,
+    "response_limit": "Joint production update, not single-factor causal study. J local acceptance is preserved; remaining contexts are explicit same-song extrapolations.",
+    "outputs": {
+      "vocal": {
+        "path": "runs/production/lastpage-skill-whole-song-20261013/delivery/lastpage_J_method_whole_song_v03_vocal.wav",
+        "sha256": "0208840898ec08020d4e1d95c61cd5fb8de0aadc986c3d61c7dc80f55b259609"
+      },
+      "mix": {
+        "path": "runs/production/lastpage-skill-whole-song-20261013/delivery/lastpage_J_method_whole_song_v03_mix.wav",
+        "sha256": "c102e1bbbf4153382d3c688f8ff307971eff2671b1f2618e7d44c0a6e2dd3577"
+      },
+      "project": {
+        "path": "runs/production/lastpage-skill-whole-song-20261013/delivery/lastpage_J_method_whole_song_v03_playback.ustx",
+        "sha256": "4cf9c65fa34ab7335b08a260a78b2770edda7766cf178e64c7597d71df2a8fe7"
+      },
+      "published_project": {
+        "path": "projects/latest/lastpage_J_method_whole_song_v03_playback.ustx",
+        "sha256": "4cf9c65fa34ab7335b08a260a78b2770edda7766cf178e64c7597d71df2a8fe7"
+      }
+    },
+    "original_J_reference": {
+      "path": "runs/production/lastpage-skill-whole-song-20261013/delivery/accepted_J_reference.wav",
+      "sha256": "431b3aa5b0b53d390890f20faac97dc72251c8081230c81907634cb5344fb08a"
+    },
+    "word_metrics": {
+      "path": "runs/production/lastpage-skill-whole-song-20261013/observations/word-metrics.json",
+      "sha256": "9b084cf7bb874e859c816ab311bfd3ca1f23762e1b9f27e80f2fb529ea2496be"
+    },
+    "new_listening_feedback_count": 0,
+    "full_song_accepted": false,
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "skill_files": [
+    {
+      "path": "skills/singing-expression-editor/SKILL.md",
+      "sha256": "2839ad40ed659672c232cef453ceb751e5cb1d61e5753b8a8ae742134cd4d4bf"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/local-acceptance-to-whole-song-phonation.md",
+      "sha256": "a4c9c2bcf32a13c0064e7fef156591b1b345e7423377bcc7ba92381dc1ec8910"
+    }
+  ],
+  "gates": {
+    "native": {
+      "path": "runs/production/lastpage-skill-whole-song-20261013/evaluation/native-independent-check.json",
+      "sha256": "9d2477c4b91b083583f976d4e07bab7ebca69194061c0ee6534404fd3e767bc9"
+    },
+    "fresh": {
+      "path": "runs/production/lastpage-skill-whole-song-20261013/evaluation/fresh-independent-check.json",
+      "sha256": "a1e6b3ded8f9e33b3bc3e40359fde7640e55147b6b5c1fc88fa43604f65783dc"
+    },
+    "delivery": {
+      "path": "runs/production/lastpage-skill-whole-song-20261013/evaluation/delivery-independent-check.json",
+      "sha256": "957d5544a4a8b2522bb0f425be8d6993496299174dba360ecda96f66e3576902"
+    }
+  },
+  "local_tests": {
+    "passed": 164,
+    "junit": {
+      "path": "runs/test-results/lastpage-skill-whole-song-20261013/junit.xml",
+      "sha256": "56d1d774120ebcfd7df26c4520091f2395941e0940d8b3678567f82269ead835"
+    }
+  },
+  "stage_corrections": {
+    "path": "runs/production/lastpage-skill-whole-song-20261013/logs/validation-corrections.txt",
+    "sha256": "b0059283fdd4d3cf5b844f40fcbdfc06d791b6748153c9023c76cd17bd533966"
+  },
+  "prior_own_functions_retained_not_redrawn": true,
+  "all_current_word_decisions": {
+    "path": "runs/production/lastpage-skill-whole-song-20261013/design/word-decisions.json",
+    "sha256": "d11f9ce7a69da42183ddf14cc628c1d0ca87c3f4c44d6fa4195bee7cdd76d616"
+  }
+}

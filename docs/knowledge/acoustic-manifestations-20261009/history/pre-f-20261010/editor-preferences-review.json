@@ -1,0 +1,3804 @@
+{
+  "schema_version": 1,
+  "status": "reviewed_with_explicit_gaps",
+  "upstream_commit": "5c3c83bbeced96718e85e4a96d127de3287cd14b",
+  "scope": "All SerializablePreferences public fields at fixed commit plus WindowSize/EditTool serialized properties; reference search only in explicit frozen sources",
+  "declaration_count": 103,
+  "all_scoped_declarations_classified": true,
+  "rows": [
+    {
+      "id": "PREF:001",
+      "field": "MainWindowSize",
+      "type": "WindowSize",
+      "upstream_initializer_or_language_default": "new WindowSize()",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 167,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L167",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/MainWindowViewModel.cs",
+          "line": 51,
+          "source_sha256": "0e5c6670e048e7ec5f0a3d4cc960b1064e512942799da60a2a657490ad3c3777",
+          "snippet": "public double Width => Preferences.Default.MainWindowSize.Width;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/MainWindowViewModel.cs",
+          "line": 52,
+          "source_sha256": "0e5c6670e048e7ec5f0a3d4cc960b1064e512942799da60a2a657490ad3c3777",
+          "snippet": "public double Height => Preferences.Default.MainWindowSize.Height;"
+        },
+        {
+          "path": "OpenUtau/Views/MainWindow.axaml.cs",
+          "line": 129,
+          "source_sha256": "96b45698da0e71325804e524eccf8f60193f5cad842dcdd8d6b8f4d1dc57b66d",
+          "snippet": "if (Preferences.Default.MainWindowSize.TryGetPosition(out int x, out int y)) {"
+        },
+        {
+          "path": "OpenUtau/Views/MainWindow.axaml.cs",
+          "line": 132,
+          "source_sha256": "96b45698da0e71325804e524eccf8f60193f5cad842dcdd8d6b8f4d1dc57b66d",
+          "snippet": "WindowState = (WindowState)Preferences.Default.MainWindowSize.State;"
+        },
+        {
+          "path": "OpenUtau/Views/MainWindow.axaml.cs",
+          "line": 2085,
+          "source_sha256": "96b45698da0e71325804e524eccf8f60193f5cad842dcdd8d6b8f4d1dc57b66d",
+          "snippet": "Preferences.Default.MainWindowSize.Set(Width, Height, Position.X, Position.Y, (int)WindowState);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:002",
+      "field": "PianorollWindowSize",
+      "type": "WindowSize",
+      "upstream_initializer_or_language_default": "new WindowSize()",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 168,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L168",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 51,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public double Width => Preferences.Default.PianorollWindowSize.Width;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 52,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public double Height => Preferences.Default.PianorollWindowSize.Height;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:003",
+      "field": "UndoLimit",
+      "type": "int",
+      "upstream_initializer_or_language_default": "100",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 169,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L169",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/DocManager.cs",
+          "line": 468,
+          "source_sha256": "498a191a317d8276d01bd30b6f32b5a54fe1fbd0755e9147affc0e3274d7de66",
+          "snippet": "while (undoQueue.Count > Util.Preferences.Default.UndoLimit) {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:004",
+      "field": "SingerSearchPaths",
+      "type": "List<string>",
+      "upstream_initializer_or_language_default": "new List<string>()",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 170,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L170",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:005",
+      "field": "PlaybackDevice",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 171,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L171",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 38,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Guid.TryParse(Preferences.Default.PlaybackDevice, out var guid)) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 153,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "Preferences.Default.PlaybackDevice = guid.ToString();"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C46.28"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:006",
+      "field": "PlaybackDeviceNumber",
+      "type": "int",
+      "upstream_initializer_or_language_default": "0",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 172,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L172",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 39,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "SelectDevice(guid, Preferences.Default.PlaybackDeviceNumber);"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 154,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "Preferences.Default.PlaybackDeviceNumber = deviceNumber;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C46.28"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:007",
+      "field": "PlaybackDeviceIndex",
+      "type": "int?",
+      "upstream_initializer_or_language_default": "null",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 173,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L173",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:008",
+      "field": "ShowPrefs",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 174,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L174",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:009",
+      "field": "ShowTips",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 175,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L175",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 224,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowTips = Preferences.Default.ShowTips;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 326,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "if (Preferences.Default.ShowTips) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 327,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.ShowTips = false;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:010",
+      "field": "ThemeName",
+      "type": "string",
+      "upstream_initializer_or_language_default": "\"Light\"",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 176,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L176",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/App.axaml.cs",
+          "line": 145,
+          "source_sha256": "79972bc228d0f54266d53b4821353b0d529a144e542b28156e33e24dbd774c74",
+          "snippet": "switch (Core.Util.Preferences.Default.ThemeName) {"
+        },
+        {
+          "path": "OpenUtau/App.axaml.cs",
+          "line": 156,
+          "source_sha256": "79972bc228d0f54266d53b4821353b0d529a144e542b28156e33e24dbd774c74",
+          "snippet": "CustomTheme.ApplyTheme(Core.Util.Preferences.Default.ThemeName);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 231,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "ThemeName = Preferences.Default.ThemeName;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 336,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.ThemeName = themeName;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:011",
+      "field": "DegreeStyle",
+      "type": "int",
+      "upstream_initializer_or_language_default": "0",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 177,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L177",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 61,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool DegreeStyle0 { get => Preferences.Default.DegreeStyle == 0 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 62,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool DegreeStyle1 { get => Preferences.Default.DegreeStyle == 1 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 63,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool DegreeStyle2 { get => Preferences.Default.DegreeStyle == 2 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 232,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DegreeStyle = Preferences.Default.DegreeStyle;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 344,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.DegreeStyle = degreeStyle;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:012",
+      "field": "UseTrackColor",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 178,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L178",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 628,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "string name = Preferences.Default.UseTrackColor"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 60,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool UseTrackColor { get => Preferences.Default.UseTrackColor; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 233,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "UseTrackColor = Preferences.Default.UseTrackColor;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 351,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.UseTrackColor = trackColor;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 119,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "TrackColor = Preferences.Default.UseTrackColor"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 368,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "TrackColor = Preferences.Default.UseTrackColor"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 438,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "TrackColor = Preferences.Default.UseTrackColor"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:013",
+      "field": "ClearCacheOnQuit",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 179,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L179",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 254,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "ClearCacheOnQuit = Preferences.Default.ClearCacheOnQuit;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 454,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.ClearCacheOnQuit = value);"
+        },
+        {
+          "path": "OpenUtau/Views/MainWindow.axaml.cs",
+          "line": 2079,
+          "source_sha256": "96b45698da0e71325804e524eccf8f60193f5cad842dcdd8d6b8f4d1dc57b66d",
+          "snippet": "if (Preferences.Default.ClearCacheOnQuit) {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:014",
+      "field": "PreRender",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 180,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L180",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/PlaybackManager.cs",
+          "line": 677,
+          "source_sha256": "2e10b1de9b5c17cb294ce3a3ad7e5497d0d031a14824bf02df4a492447174811",
+          "snippet": "if (Util.Preferences.Default.PreRender) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 201,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "PreRender = Preferences.Default.PreRender;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 316,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "preRender => Preferences.Default.PreRender = preRender);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:015",
+      "field": "NumRenderThreads",
+      "type": "int",
+      "upstream_initializer_or_language_default": "2",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 181,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L181",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Classic/ClassicRenderer.cs",
+          "line": 72,
+          "source_sha256": "78dcd928448b09b9721fe06e376c8ad898fa0b3600f194a15eb3447a02712d24",
+          "snippet": "MaxDegreeOfParallelism = Preferences.Default.NumRenderThreads"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 205,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "NumRenderThreads = Preferences.Default.NumRenderThreads;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 424,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "index => Preferences.Default.NumRenderThreads = index);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:016",
+      "field": "DefaultRenderer",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 182,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L182",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Render/Renderers.cs",
+          "line": 49,
+          "source_sha256": "88f2ea694ae65a39303a8c23864b0bd2a3a54a76a349a4980121597733aa2573",
+          "snippet": "if (singerType == USingerType.Classic && classicRenderers.Contains(Preferences.Default.DefaultRenderer)) {"
+        },
+        {
+          "path": "OpenUtau.Core/Render/Renderers.cs",
+          "line": 50,
+          "source_sha256": "88f2ea694ae65a39303a8c23864b0bd2a3a54a76a349a4980121597733aa2573",
+          "snippet": "return Preferences.Default.DefaultRenderer;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 203,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DefaultRenderer = String.IsNullOrEmpty(Preferences.Default.DefaultRenderer) ?"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 204,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DefaultRendererOptions[0] : Preferences.Default.DefaultRenderer;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 426,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "index => Preferences.Default.DefaultRenderer = index);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:017",
+      "field": "WorldlineR",
+      "type": "int",
+      "upstream_initializer_or_language_default": "0",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 183,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L183",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:018",
+      "field": "OnnxRunner",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 184,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L184",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 207,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "OnnxRunner = String.IsNullOrEmpty(Preferences.Default.OnnxRunner) ?"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 208,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "OnnxRunnerOptions[0] : Preferences.Default.OnnxRunner;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 428,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "index => Preferences.Default.OnnxRunner = index);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:019",
+      "field": "OnnxGpu",
+      "type": "int",
+      "upstream_initializer_or_language_default": "0",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 185,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L185",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 211,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "? OnnxGpuOptions.FirstOrDefault(x => x.deviceId == Preferences.Default.OnnxGpu, OnnxGpuOptions[0])"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 430,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "gpu => Preferences.Default.OnnxGpu = gpu.deviceId);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:020",
+      "field": "MergePhrasesSec",
+      "type": "float",
+      "upstream_initializer_or_language_default": "0",
+      "category": "render_or_segmentation",
+      "role_and_boundary": "可能改变预测输入、分句或请求；沿用具体控制行，非默认执行未全验证。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 186,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L186",
+      "bound_core_field_status": "absent_in_complete_bound_core_type",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Pipeline/PhraseSource.cs",
+          "line": 498,
+          "source_sha256": "6f0fefa514ad924329f8aad924e98973b2f4c7bf09ff0f7e6ddca90317e24c90",
+          "snippet": "float maxMergeMs = Preferences.Default.MergePhrasesSec * 1000;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 214,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.MergePhrasesSec == 0"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 216,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": ": Preferences.Default.MergePhrasesSec.ToString()));"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 438,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.MergePhrasesSec = item == \"Auto\" ? 0 : float.Parse(item);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:021",
+      "field": "GameBackend",
+      "type": "string",
+      "upstream_initializer_or_language_default": "\"onnx\"",
+      "category": "observation_backend",
+      "role_and_boundary": "GAME观测推理后端；不能作歌声渲染音色参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 191,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L191",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 219,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "GameBackend = Preferences.Default.GameBackend switch {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 444,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "backend => Preferences.Default.GameBackend = backend == \"GGML\" ? \"ggml\" : \"onnx\");"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:022",
+      "field": "DiffSingerDepth",
+      "type": "double",
+      "upstream_initializer_or_language_default": "1.0",
+      "category": "render_or_segmentation",
+      "role_and_boundary": "可能改变预测输入、分句或请求；沿用具体控制行，非默认执行未全验证。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 192,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L192",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs",
+          "line": 122,
+          "source_sha256": "f9a5509d922ee71e670e8be04994132923773b4fbf0de97d8b30432d47d26119",
+          "snippet": "depth = Math.Min(Preferences.Default.DiffSingerDepth, maxDepth);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 223,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DiffSingerDepth = Preferences.Default.DiffSingerDepth * 100;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 462,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.DiffSingerDepth = value / 100);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C40.02"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:023",
+      "field": "DiffSingerSteps",
+      "type": "int",
+      "upstream_initializer_or_language_default": "20",
+      "category": "render_or_segmentation",
+      "role_and_boundary": "可能改变预测输入、分句或请求；沿用具体控制行，非默认执行未全验证。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 193,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L193",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs",
+          "line": 116,
+          "source_sha256": "f9a5509d922ee71e670e8be04994132923773b4fbf0de97d8b30432d47d26119",
+          "snippet": "int steps = Preferences.Default.DiffSingerSteps;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 224,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DiffSingerSteps = Preferences.Default.DiffSingerSteps;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 456,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.DiffSingerSteps = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C40.01"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:024",
+      "field": "DiffSingerStepsVariance",
+      "type": "int",
+      "upstream_initializer_or_language_default": "20",
+      "category": "render_or_segmentation",
+      "role_and_boundary": "可能改变预测输入、分句或请求；沿用具体控制行，非默认执行未全验证。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 194,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L194",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerVariance.cs",
+          "line": 244,
+          "source_sha256": "b90a90a3cb3c3ecf6972d1b232d5a2b0ff6057655407a820ced440c0fa7cea22",
+          "snippet": "var steps = Preferences.Default.DiffSingerStepsVariance;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 225,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DiffSingerStepsVariance = Preferences.Default.DiffSingerStepsVariance;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 458,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.DiffSingerStepsVariance = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C40.03"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:025",
+      "field": "DiffSingerStepsPitch",
+      "type": "int",
+      "upstream_initializer_or_language_default": "10",
+      "category": "render_or_segmentation",
+      "role_and_boundary": "可能改变预测输入、分句或请求；沿用具体控制行，非默认执行未全验证。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 195,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L195",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerPitch.cs",
+          "line": 290,
+          "source_sha256": "0f09e907d04a8cff9b2379afcfd2a90dc730a48bdbcb5ffce64dbcebd71319e7",
+          "snippet": "var steps = Preferences.Default.DiffSingerStepsPitch;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 226,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DiffSingerStepsPitch = Preferences.Default.DiffSingerStepsPitch;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 460,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.DiffSingerStepsPitch = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C40.04"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:026",
+      "field": "DiffSingerTensorCache",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 196,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L196",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerBasePhonemizer.cs",
+          "line": 428,
+          "source_sha256": "e512fcc680b3ef5781189329c8da4e3be8c6d6859e70867d2efdc766bff568ed",
+          "snippet": "var linguisticCache = Preferences.Default.DiffSingerTensorCache"
+        },
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerBasePhonemizer.cs",
+          "line": 466,
+          "source_sha256": "e512fcc680b3ef5781189329c8da4e3be8c6d6859e70867d2efdc766bff568ed",
+          "snippet": "var durationCache = Preferences.Default.DiffSingerTensorCache"
+        },
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerPitch.cs",
+          "line": 162,
+          "source_sha256": "0f09e907d04a8cff9b2379afcfd2a90dc730a48bdbcb5ffce64dbcebd71319e7",
+          "snippet": "var linguisticCache = Preferences.Default.DiffSingerTensorCache"
+        },
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs",
+          "line": 465,
+          "source_sha256": "f9a5509d922ee71e670e8be04994132923773b4fbf0de97d8b30432d47d26119",
+          "snippet": "var acousticCache = Preferences.Default.DiffSingerTensorCache"
+        },
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs",
+          "line": 505,
+          "source_sha256": "f9a5509d922ee71e670e8be04994132923773b4fbf0de97d8b30432d47d26119",
+          "snippet": "var vocoderCache = Preferences.Default.DiffSingerTensorCache"
+        },
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs",
+          "line": 598,
+          "source_sha256": "f9a5509d922ee71e670e8be04994132923773b4fbf0de97d8b30432d47d26119",
+          "snippet": "if (!Preferences.Default.DiffSingerTensorCache) {"
+        },
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerVariance.cs",
+          "line": 173,
+          "source_sha256": "b90a90a3cb3c3ecf6972d1b232d5a2b0ff6057655407a820ced440c0fa7cea22",
+          "snippet": "var linguisticCache = Preferences.Default.DiffSingerTensorCache"
+        },
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerVariance.cs",
+          "line": 267,
+          "source_sha256": "b90a90a3cb3c3ecf6972d1b232d5a2b0ff6057655407a820ced440c0fa7cea22",
+          "snippet": "if (Preferences.Default.DiffSingerTensorCache &&"
+        },
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerVariance.cs",
+          "line": 278,
+          "source_sha256": "b90a90a3cb3c3ecf6972d1b232d5a2b0ff6057655407a820ced440c0fa7cea22",
+          "snippet": "var resultCache = Preferences.Default.DiffSingerTensorCache"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 227,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DiffSingerTensorCache = Preferences.Default.DiffSingerTensorCache;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 464,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.DiffSingerTensorCache = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C41.01"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:027",
+      "field": "DiffSingerVarianceLocalPitchPatch",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "render_or_segmentation",
+      "role_and_boundary": "可能改变预测输入、分句或请求；沿用具体控制行，非默认执行未全验证。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 197,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L197",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerVariance.cs",
+          "line": 268,
+          "source_sha256": "b90a90a3cb3c3ecf6972d1b232d5a2b0ff6057655407a820ced440c0fa7cea22",
+          "snippet": "Preferences.Default.DiffSingerVarianceLocalPitchPatch) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 228,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DiffSingerVarianceLocalPitchPatch = Preferences.Default.DiffSingerVarianceLocalPitchPatch;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 466,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.DiffSingerVarianceLocalPitchPatch = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C41.02"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:028",
+      "field": "DiffSingerLangCodeHide",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 198,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L198",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 229,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DiffSingerLangCodeHide = Preferences.Default.DiffSingerLangCodeHide;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 468,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.DiffSingerLangCodeHide = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:029",
+      "field": "DiffSingerMergeNearbyPhrases",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "render_or_segmentation",
+      "role_and_boundary": "可能改变预测输入、分句或请求；沿用具体控制行，非默认执行未全验证。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 204,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L204",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/DiffSinger/DiffSingerRenderer.cs",
+          "line": 98,
+          "source_sha256": "f9a5509d922ee71e670e8be04994132923773b4fbf0de97d8b30432d47d26119",
+          "snippet": "return Preferences.Default.DiffSingerMergeNearbyPhrases"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 258,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "MergeNearbyPhrases = Preferences.Default.DiffSingerMergeNearbyPhrases;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 263,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "if (Preferences.Default.DiffSingerMergeNearbyPhrases == merge) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 266,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.DiffSingerMergeNearbyPhrases = merge;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C41.03"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:030",
+      "field": "Metronome",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 205,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L205",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/PlaybackManager.cs",
+          "line": 250,
+          "source_sha256": "2e10b1de9b5c17cb294ce3a3ad7e5497d0d031a14824bf02df4a492447174811",
+          "snippet": "metronomeEngine.SetEnabled(Preferences.Default.Metronome);"
+        },
+        {
+          "path": "OpenUtau.Core/PlaybackManager.cs",
+          "line": 296,
+          "source_sha256": "2e10b1de9b5c17cb294ce3a3ad7e5497d0d031a14824bf02df4a492447174811",
+          "snippet": "Preferences.Default.Metronome = value;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C46.24"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:031",
+      "field": "SkipRenderingMutedTracks",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "render_or_segmentation",
+      "role_and_boundary": "可能改变预测输入、分句或请求；沿用具体控制行，非默认执行未全验证。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 206,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L206",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Render/RenderEngine.cs",
+          "line": 292,
+          "source_sha256": "cd78a297c7f26beeba50c8b7fce93a7bbced48b231c74761c91259ef7b0260fa",
+          "snippet": ".Where(part => !Preferences.Default.SkipRenderingMutedTracks || !project.tracks[part.trackNo].Muted)"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 230,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "SkipRenderingMutedTracks = Preferences.Default.SkipRenderingMutedTracks;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 470,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "skipRenderingMutedTracks => Preferences.Default.SkipRenderingMutedTracks = skipRenderingMutedTracks);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C42.10"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:032",
+      "field": "Language",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 207,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L207",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Ustx/USinger.cs",
+          "line": 280,
+          "source_sha256": "71c9c9b8aabd6a23cf364c6b17001eed69dc9e948deff3cdec8129fbd0ecdb54",
+          "snippet": "language = Preferences.Default.Language;"
+        },
+        {
+          "path": "OpenUtau/App.axaml.cs",
+          "line": 77,
+          "source_sha256": "79972bc228d0f54266d53b4821353b0d529a144e542b28156e33e24dbd774c74",
+          "snippet": "string prefLang = Core.Util.Preferences.Default.Language;"
+        },
+        {
+          "path": "OpenUtau/App.axaml.cs",
+          "line": 83,
+          "source_sha256": "79972bc228d0f54266d53b4821353b0d529a144e542b28156e33e24dbd774c74",
+          "snippet": "Core.Util.Preferences.Default.Language = sysLang;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 193,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Language = string.IsNullOrEmpty(Preferences.Default.Language)"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 195,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": ": CultureInfo.GetCultureInfo(Preferences.Default.Language);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 321,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.Language = lang?.Name ?? string.Empty;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 323,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "App.SetLanguage(Preferences.Default.Language);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:033",
+      "field": "SortingOrder",
+      "type": "string?",
+      "upstream_initializer_or_language_default": "null",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 208,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L208",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Ustx/USinger.cs",
+          "line": 278,
+          "source_sha256": "71c9c9b8aabd6a23cf364c6b17001eed69dc9e948deff3cdec8129fbd0ecdb54",
+          "snippet": "string language = Preferences.Default.SortingOrder;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 198,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "SortingOrder = Preferences.Default.SortingOrder == null ? Language"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 199,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": ": string.IsNullOrEmpty(Preferences.Default.SortingOrder) ? CultureInfo.InvariantCulture"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 200,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": ": CultureInfo.GetCultureInfo(Preferences.Default.SortingOrder);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 329,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.SortingOrder = so?.Name ?? null;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:034",
+      "field": "RecentFiles",
+      "type": "List<string>",
+      "upstream_initializer_or_language_default": "new List<string>()",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 209,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L209",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/MainWindowViewModel.cs",
+          "line": 113,
+          "source_sha256": "0e5c6670e048e7ec5f0a3d4cc960b1064e512942799da60a2a657490ad3c3777",
+          "snippet": "RecentFiles.AddRange(Preferences.Default.RecentFiles"
+        },
+        {
+          "path": "OpenUtau/ViewModels/MainWindowViewModel.cs",
+          "line": 336,
+          "source_sha256": "0e5c6670e048e7ec5f0a3d4cc960b1064e512942799da60a2a657490ad3c3777",
+          "snippet": "openRecentMenuItems.AddRange(Preferences.Default.RecentFiles.Select(file => new MenuItemViewModel() {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:035",
+      "field": "SkipUpdate",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 210,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L210",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:036",
+      "field": "AdditionalSingerPath",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 211,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L211",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 513,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.AdditionalSingerPath = path;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:037",
+      "field": "InstallToAdditionalSingersPath",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 212,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L212",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 186,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "InstallToAdditionalSingersPath = Preferences.Default.InstallToAdditionalSingersPath;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 310,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "additionalSingersPath => Preferences.Default.InstallToAdditionalSingersPath = additionalSingersPath);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:038",
+      "field": "LoadDeepFolderSinger",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 213,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L213",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 187,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "LoadDeepFolders = Preferences.Default.LoadDeepFolderSinger;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 314,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "loadDeepFolders => Preferences.Default.LoadDeepFolderSinger = loadDeepFolders);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:039",
+      "field": "PreferCommaSeparator",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 214,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L214",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:040",
+      "field": "ResamplerLogging",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 215,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L215",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:041",
+      "field": "RecentSingers",
+      "type": "List<string>",
+      "upstream_initializer_or_language_default": "new List<string>()",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 216,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L216",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 255,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "Preferences.Default.RecentSingers.Remove(singer.Id);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 256,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "Preferences.Default.RecentSingers.Insert(0, singer.Id);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 257,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "if (Preferences.Default.RecentSingers.Count > 16) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 258,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "Preferences.Default.RecentSingers.RemoveRange("
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 259,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "16, Preferences.Default.RecentSingers.Count - 16);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:042",
+      "field": "FavoriteSingers",
+      "type": "List<string>",
+      "upstream_initializer_or_language_default": "new List<string>()",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 217,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L217",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Ustx/USinger.cs",
+          "line": 252,
+          "source_sha256": "71c9c9b8aabd6a23cf364c6b17001eed69dc9e948deff3cdec8129fbd0ecdb54",
+          "snippet": "get => Preferences.Default.FavoriteSingers.Contains(Id);"
+        },
+        {
+          "path": "OpenUtau.Core/Ustx/USinger.cs",
+          "line": 255,
+          "source_sha256": "71c9c9b8aabd6a23cf364c6b17001eed69dc9e948deff3cdec8129fbd0ecdb54",
+          "snippet": "if (!Preferences.Default.FavoriteSingers.Contains(Id)) {"
+        },
+        {
+          "path": "OpenUtau.Core/Ustx/USinger.cs",
+          "line": 256,
+          "source_sha256": "71c9c9b8aabd6a23cf364c6b17001eed69dc9e948deff3cdec8129fbd0ecdb54",
+          "snippet": "Preferences.Default.FavoriteSingers.Add(Id);"
+        },
+        {
+          "path": "OpenUtau.Core/Ustx/USinger.cs",
+          "line": 259,
+          "source_sha256": "71c9c9b8aabd6a23cf364c6b17001eed69dc9e948deff3cdec8129fbd0ecdb54",
+          "snippet": "Preferences.Default.FavoriteSingers.Remove(Id);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:043",
+      "field": "SingerPhonemizers",
+      "type": "Dictionary<string, string>",
+      "upstream_initializer_or_language_default": "new Dictionary<string, string>()",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 218,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L218",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 92,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "Preferences.Default.SingerPhonemizers[Singer.Id] = name;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 232,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "Preferences.Default.SingerPhonemizers.TryGetValue(selectedSinger.Id, out var phonemizerName) &&"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:044",
+      "field": "RecentPhonemizers",
+      "type": "List<string>",
+      "upstream_initializer_or_language_default": "new List<string>()",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 219,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L219",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 94,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "Preferences.Default.RecentPhonemizers.Remove(name);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 95,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "Preferences.Default.RecentPhonemizers.Insert(0, name);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 96,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "while (Preferences.Default.RecentPhonemizers.Count > 8) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 97,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "Preferences.Default.RecentPhonemizers.RemoveRange("
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 98,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "8, Preferences.Default.RecentPhonemizers.Count - 8);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TrackHeaderViewModel.cs",
+          "line": 306,
+          "source_sha256": "a7f297ffe93684a313b16ad7639ebf8f7e13b9a6a2af8112594ab0d7f20a581f",
+          "snippet": "items.AddRange(Preferences.Default.RecentPhonemizers"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:045",
+      "field": "AudioBackEnd",
+      "type": "uint",
+      "upstream_initializer_or_language_default": "0",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 220,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L220",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 179,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "AudioBackEnd = Preferences.Default.AudioBackEnd;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 294,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "index => Preferences.Default.AudioBackEnd = index);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:046",
+      "field": "UseSystemDefaultAudioDevice",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 221,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L221",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 32,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 56,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 68,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 77,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 108,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 118,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 128,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 150,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/NAudioOutput.cs",
+          "line": 172,
+          "source_sha256": "40fc6308b03756d73891ec21578bb65e58e40207cd6d0544ad10cb520cc4027b",
+          "snippet": "if (Preferences.Default.UseSystemDefaultAudioDevice) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 178,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "UseSystemDefaultDevice = Preferences.Default.UseSystemDefaultAudioDevice;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 276,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "useDefault => Preferences.Default.UseSystemDefaultAudioDevice = useDefault);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C46.27"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:047",
+      "field": "PlayPosMarkerMargin",
+      "type": "double",
+      "upstream_initializer_or_language_default": "0.9",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 222,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L222",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 1312,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "double rightMargin = Preferences.Default.PlayPosMarkerMargin * Bounds.Width;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 1322,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "double leftMargin = (1 - Preferences.Default.PlayPosMarkerMargin) * Bounds.Width;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 181,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "PlayPosMarkerMargin = Preferences.Default.PlayPosMarkerMargin;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 300,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "playPosMarkerMargin => Preferences.Default.PlayPosMarkerMargin = playPosMarkerMargin);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TracksViewModel.cs",
+          "line": 585,
+          "source_sha256": "53edc8cfc801db110ff73ec7e5d51432424dc13957a31e4b9e3b0862916159a0",
+          "snippet": "double rightMargin = Preferences.Default.PlayPosMarkerMargin * Bounds.Width;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TracksViewModel.cs",
+          "line": 595,
+          "source_sha256": "53edc8cfc801db110ff73ec7e5d51432424dc13957a31e4b9e3b0862916159a0",
+          "snippet": "double leftMargin = (1 - Preferences.Default.PlayPosMarkerMargin) * Bounds.Width;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:048",
+      "field": "MetronomeVolume",
+      "type": "int",
+      "upstream_initializer_or_language_default": "60",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 223,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L223",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/PlaybackManager.cs",
+          "line": 335,
+          "source_sha256": "2e10b1de9b5c17cb294ce3a3ad7e5497d0d031a14824bf02df4a492447174811",
+          "snippet": "return MathF.Sqrt(Math.Clamp(Preferences.Default.MetronomeVolume / 100f, 0f, 1f));"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 182,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "MetronomeVolume = Preferences.Default.MetronomeVolume;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 302,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "metronomeVolume => Preferences.Default.MetronomeVolume = metronomeVolume);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C46.25"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:049",
+      "field": "MetronomeHighFrequency",
+      "type": "int",
+      "upstream_initializer_or_language_default": "2200",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 224,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L224",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/PlaybackManager.cs",
+          "line": 319,
+          "source_sha256": "2e10b1de9b5c17cb294ce3a3ad7e5497d0d031a14824bf02df4a492447174811",
+          "snippet": "CreateMetronomePreviewTone(Preferences.Default.MetronomeHighFrequency, TimeSpan.Zero),"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 183,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "MetronomeHighFrequency = Preferences.Default.MetronomeHighFrequency;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 304,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "metronomeHighFrequency => Preferences.Default.MetronomeHighFrequency = metronomeHighFrequency);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C46.26"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:050",
+      "field": "MetronomeLowFrequency",
+      "type": "int",
+      "upstream_initializer_or_language_default": "1320",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 225,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L225",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/PlaybackManager.cs",
+          "line": 320,
+          "source_sha256": "2e10b1de9b5c17cb294ce3a3ad7e5497d0d031a14824bf02df4a492447174811",
+          "snippet": "CreateMetronomePreviewTone(Preferences.Default.MetronomeLowFrequency, TimeSpan.FromMilliseconds(300)),"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 184,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "MetronomeLowFrequency = Preferences.Default.MetronomeLowFrequency;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 306,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "metronomeLowFrequency => Preferences.Default.MetronomeLowFrequency = metronomeLowFrequency);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:051",
+      "field": "LockStartTime",
+      "type": "int",
+      "upstream_initializer_or_language_default": "0",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 226,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L226",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 1200,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "if (!setPlayPosTick.pause || Preferences.Default.LockStartTime == 1) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 64,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool LockStartTime0 { get => Preferences.Default.LockStartTime == 0 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 65,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool LockStartTime1 { get => Preferences.Default.LockStartTime == 1 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 66,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool LockStartTime2 { get => Preferences.Default.LockStartTime == 2 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PlaybackViewModel.cs",
+          "line": 55,
+          "source_sha256": "f02624e7733eaa217ce8f184fe05b8275cfdaeae2fc515ca318d89da0a41297b",
+          "snippet": "var lockStartTime = Convert.ToBoolean(Preferences.Default.LockStartTime);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 185,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "LockStartTime = Preferences.Default.LockStartTime;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 308,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "lockStartTime => Preferences.Default.LockStartTime = lockStartTime);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TracksViewModel.cs",
+          "line": 546,
+          "source_sha256": "53edc8cfc801db110ff73ec7e5d51432424dc13957a31e4b9e3b0862916159a0",
+          "snippet": "if (!setPlayPosTick.pause || Preferences.Default.LockStartTime == 1) {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:052",
+      "field": "PlaybackAutoScroll",
+      "type": "int",
+      "upstream_initializer_or_language_default": "2",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 227,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L227",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 1292,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "var autoScrollPreference = Convert.ToBoolean(Preferences.Default.PlaybackAutoScroll);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 1304,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "var pageScroll = Preferences.Default.PlaybackAutoScroll == 2;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 67,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool PlaybackAutoScroll0 { get => Preferences.Default.PlaybackAutoScroll == 0 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 68,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool PlaybackAutoScroll1 { get => Preferences.Default.PlaybackAutoScroll == 1 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 69,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool PlaybackAutoScroll2 { get => Preferences.Default.PlaybackAutoScroll == 2 ? true : false; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 180,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "PlaybackAutoScroll = Preferences.Default.PlaybackAutoScroll;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 298,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "autoScroll => Preferences.Default.PlaybackAutoScroll = autoScroll);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TracksViewModel.cs",
+          "line": 565,
+          "source_sha256": "53edc8cfc801db110ff73ec7e5d51432424dc13957a31e4b9e3b0862916159a0",
+          "snippet": "var autoScrollPreference = Convert.ToBoolean(Preferences.Default.PlaybackAutoScroll);"
+        },
+        {
+          "path": "OpenUtau/ViewModels/TracksViewModel.cs",
+          "line": 577,
+          "source_sha256": "53edc8cfc801db110ff73ec7e5d51432424dc13957a31e4b9e3b0862916159a0",
+          "snippet": "var pageScroll = Preferences.Default.PlaybackAutoScroll == 2;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:053",
+      "field": "ReverseLogOrder",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 228,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L228",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:054",
+      "field": "ShowPortrait",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 229,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L229",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 576,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "if (singer == null || string.IsNullOrEmpty(singer.Portrait) || !Preferences.Default.ShowPortrait) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 57,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool ShowPortrait { get => Preferences.Default.ShowPortrait; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 234,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "ShowPortrait = Preferences.Default.ShowPortrait;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 358,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.ShowPortrait = showPortrait;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:055",
+      "field": "ShowIcon",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 230,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L230",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 564,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "if (singer != null && singer.AvatarData != null && Preferences.Default.ShowIcon) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 58,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool ShowIcon { get => Preferences.Default.ShowIcon; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 235,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "ShowIcon = Preferences.Default.ShowIcon;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 365,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.ShowIcon = showIcon;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:056",
+      "field": "ShowGhostNotes",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 231,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L231",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 59,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool ShowGhostNotes { get => Preferences.Default.ShowGhostNotes; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 236,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "ShowGhostNotes = Preferences.Default.ShowGhostNotes;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 372,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.ShowGhostNotes = showGhostNotes;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:057",
+      "field": "NoteHoverGlow",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 232,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L232",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 237,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "NoteHoverGlow = Preferences.Default.NoteHoverGlow;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 379,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.NoteHoverGlow = noteHoverGlow;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:058",
+      "field": "ReduceAnimations",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 233,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L233",
+      "bound_core_field_status": "absent_in_complete_bound_core_type",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 238,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "ReduceAnimations = Preferences.Default.ReduceAnimations;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 296,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "reduceAnimations => Preferences.Default.ReduceAnimations = reduceAnimations);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:059",
+      "field": "ShowPlaybackNoteHighlight",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 234,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L234",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 320,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowPlaybackNoteHighlight = Preferences.Default.ShowPlaybackNoteHighlight;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 362,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowPlaybackNoteHighlight = Preferences.Default.ShowPlaybackNoteHighlight;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 239,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "ShowPlaybackNoteHighlight = Preferences.Default.ShowPlaybackNoteHighlight;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 386,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.ShowPlaybackNoteHighlight = showPlaybackNoteHighlight;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:060",
+      "field": "ShowPlaybackNoteBounce",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 235,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L235",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 321,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowPlaybackNoteBounce = Preferences.Default.ShowPlaybackNoteBounce;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 365,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowPlaybackNoteBounce = Preferences.Default.ShowPlaybackNoteBounce;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 240,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "ShowPlaybackNoteBounce = Preferences.Default.ShowPlaybackNoteBounce;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 393,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.ShowPlaybackNoteBounce = showPlaybackNoteBounce;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:061",
+      "field": "EditTool",
+      "type": "EditTool",
+      "upstream_initializer_or_language_default": "new EditTool()",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 236,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L236",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 81,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public EditTool EditTool { get; set; } = Preferences.Default.EditTool;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 82,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "[Reactive] public partial int ToolIndex { get; set; } = Preferences.Default.EditTool.BaseTool;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 83,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "[Reactive] public partial int PenToolIndex { get; set; } = Preferences.Default.EditTool.PenToolVariation;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 84,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "[Reactive] public partial bool PitchOverwrite { get; set; } = Preferences.Default.EditTool.OverwritePitch;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 130,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": ".Subscribe(val => { EditTool.OverwritePitch = val; Preferences.Default.EditTool.OverwritePitch = val; Preferences.Save(); });"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C48.09"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:062",
+      "field": "PlayTone",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "playback_only",
+      "role_and_boundary": "监听/节拍/预览或播放边界；不自动写入导出或模型发声参数。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 237,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L237",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/PlaybackManager.cs",
+          "line": 343,
+          "source_sha256": "2e10b1de9b5c17cb294ce3a3ad7e5497d0d031a14824bf02df4a492447174811",
+          "snippet": "if (!Core.Util.Preferences.Default.PlayTone) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 229,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "PlayTone = Preferences.Default.PlayTone;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 232,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.PlayTone = playTone;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:063",
+      "field": "RealTimePitchGeneration",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 239,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L239",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:064",
+      "field": "RealTimePitchMode",
+      "type": "int",
+      "upstream_initializer_or_language_default": "(int)LivePitchMode.Off",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 240,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L240",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 243,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "} else if (Preferences.Default.RealTimePitchMode == (int)LivePitchMode.Normal) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 254,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "} else if (Preferences.Default.RealTimePitchMode == (int)LivePitchMode.Fast) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 1333,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "var mode = (LivePitchMode)Preferences.Default.RealTimePitchMode;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 1343,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.RealTimePitchMode = (int)mode;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C48.10"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:065",
+      "field": "ShowVibrato",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 241,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L241",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 274,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowVibrato = Preferences.Default.ShowVibrato;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 277,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.ShowVibrato = showVibrato;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:066",
+      "field": "ShowPitch",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 242,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L242",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 280,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowPitch = Preferences.Default.ShowPitch;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 283,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.ShowPitch = showPitch;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:067",
+      "field": "ShowFinalPitch",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 243,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L243",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 286,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowFinalPitch = Preferences.Default.ShowFinalPitch;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 289,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.ShowFinalPitch = showFinalPitch;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:068",
+      "field": "ShowWaveform",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 244,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L244",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 292,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowWaveform = Preferences.Default.ShowWaveform;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 295,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.ShowWaveform = showWaveform;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:069",
+      "field": "ShowPhoneme",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 245,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L245",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 298,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowPhoneme = Preferences.Default.ShowPhoneme;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 301,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.ShowPhoneme = showPhoneme;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:070",
+      "field": "ShowExpressions",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 246,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L246",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 304,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowExpressions = Preferences.Default.ShowExpressions;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 311,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.ShowExpressions = showExpressions;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:071",
+      "field": "ShowPhonemizerTags",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 247,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L247",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 73,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "get => Preferences.Default.ShowPhonemizerTags;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 75,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "Preferences.Default.ShowPhonemizerTags = value;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:072",
+      "field": "ShowNoteParams",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 248,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L248",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 314,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "ShowNoteParams = Preferences.Default.ShowNoteParams;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/NotesViewModel.cs",
+          "line": 317,
+          "source_sha256": "60e56d1344766ea38de9b4944e0e1bcc384228340725d02264e673b4d9153477",
+          "snippet": "Preferences.Default.ShowNoteParams = showNoteParams;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:073",
+      "field": "DefaultResamplers",
+      "type": "Dictionary<string, string>",
+      "upstream_initializer_or_language_default": "new Dictionary<string, string>()",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 249,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L249",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Ustx/UTrack.cs",
+          "line": 38,
+          "source_sha256": "8348af566126103dd90a6395aac162e8f63b24eac6d3480eead4ac1533f953b9",
+          "snippet": "if (!Util.Preferences.Default.DefaultResamplers.TryGetValue(renderer, out resampler)) {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:074",
+      "field": "DefaultWavtools",
+      "type": "Dictionary<string, string>",
+      "upstream_initializer_or_language_default": "new Dictionary<string, string>()",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 250,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L250",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Ustx/UTrack.cs",
+          "line": 47,
+          "source_sha256": "8348af566126103dd90a6395aac162e8f63b24eac6d3480eead4ac1533f953b9",
+          "snippet": "if (!Util.Preferences.Default.DefaultWavtools.TryGetValue(renderer, out wavtool)) {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:075",
+      "field": "LyricHelper",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 251,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L251",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 416,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.LyricHelper = option?.klass?.Name ?? string.Empty;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:076",
+      "field": "LyricsHelperBrackets",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 252,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L252",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/LyricBoxViewModel.cs",
+          "line": 72,
+          "source_sha256": "ce879e74fd83e4cbee7962998f6e5eca5a3662ffd65d633508057dea0a285f22",
+          "snippet": "if (Core.Util.Preferences.Default.LyricsHelperBrackets) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 248,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "LyricsHelperBrackets = Preferences.Default.LyricsHelperBrackets;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 420,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "brackets => Preferences.Default.LyricsHelperBrackets = brackets);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:077",
+      "field": "OtoEditor",
+      "type": "int",
+      "upstream_initializer_or_language_default": "0",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 253,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L253",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 249,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "OtoEditor = Preferences.Default.OtoEditor;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 422,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "index => Preferences.Default.OtoEditor = index);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:078",
+      "field": "VLabelerPath",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 254,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L254",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 129,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "public string VLabelerPath => Preferences.Default.VLabelerPath;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 519,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.VLabelerPath = path;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:079",
+      "field": "SetParamPath",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 255,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L255",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 130,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "public string SetParamPath => Preferences.Default.SetParamPath;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 525,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.SetParamPath = path;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:080",
+      "field": "Beta",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 256,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L256",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:081",
+      "field": "Channel",
+      "type": "string",
+      "upstream_initializer_or_language_default": "\"stable\"",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 260,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L260",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 242,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Channel = Preferences.Default.Channel switch {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 405,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.Channel = channel switch {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:082",
+      "field": "RememberMid",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "false",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 261,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L261",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Util/Preferences.cs",
+          "line": 68,
+          "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+          "snippet": "if(Preferences.Default.RememberMid){"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 250,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "RememberMid = Preferences.Default.RememberMid;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 446,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.RememberMid = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:083",
+      "field": "RememberUst",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 262,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L262",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Util/Preferences.cs",
+          "line": 73,
+          "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+          "snippet": "if(Preferences.Default.RememberUst){"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 251,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "RememberUst = Preferences.Default.RememberUst;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 448,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.RememberUst = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:084",
+      "field": "RememberVsqx",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 263,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L263",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Util/Preferences.cs",
+          "line": 78,
+          "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+          "snippet": "if(Preferences.Default.RememberVsqx){"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 252,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "RememberVsqx = Preferences.Default.RememberVsqx;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 450,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.RememberVsqx = value);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:085",
+      "field": "WinePath",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 264,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L264",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Classic/ExeResampler.cs",
+          "line": 71,
+          "source_sha256": "69e4b62bac55ea65c34dfd3e61369b568a8cdebdda1a25beb3f354c3f5a8ac74",
+          "snippet": "winePath = Preferences.Default.WinePath;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 149,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "public string WinePath => Preferences.Default.WinePath;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 531,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.WinePath = path;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:086",
+      "field": "UseWayland",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "Environment.GetEnvironmentVariable(\"WAYLAND_DISPLAY\") != null\n                                         || Environment.GetEnvironmentVariable(\"XDG_SESSION_TYPE\") == \"wayland\"",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 265,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L265",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 255,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Wayland = Preferences.Default.UseWayland;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 312,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "wayland => Preferences.Default.UseWayland = wayland);"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:087",
+      "field": "DefaultSnapCurve",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 267,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L267",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 253,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DefaultSnapCurve = Preferences.Default.DefaultSnapCurve;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 452,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "value => Preferences.Default.DefaultSnapCurve = value);"
+        },
+        {
+          "path": "OpenUtau/Views/NoteEditStates.cs",
+          "line": 973,
+          "source_sha256": "7ede4b25ed202c5380789f08d0ef78e11dee26e34b289e046be03bf9577569eb",
+          "snippet": "if (Preferences.Default.DefaultSnapCurve) {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C48.06"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:088",
+      "field": "PhoneticAssistant",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 268,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L268",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:089",
+      "field": "RecentOpenSingerDirectory",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 269,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L269",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 92,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "var path = await OpenFile(window, titleKey, Preferences.Default.RecentOpenSingerDirectory, types);"
+        },
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 95,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "Preferences.Default.RecentOpenSingerDirectory = dir;"
+        },
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 201,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "var dir = await OpenFolder(window, titleKey, Preferences.Default.RecentOpenSingerDirectory);"
+        },
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 203,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "Preferences.Default.RecentOpenSingerDirectory = dir;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:090",
+      "field": "RecentOpenProjectDirectory",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 270,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L270",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 103,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "var path = await OpenFile(window, titleKey, Preferences.Default.RecentOpenProjectDirectory, types);"
+        },
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 106,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "Preferences.Default.RecentOpenProjectDirectory = dir;"
+        },
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 171,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "var result = await OpenFiles(window, titleKey, Preferences.Default.RecentOpenProjectDirectory, types);"
+        },
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 175,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "Preferences.Default.RecentOpenProjectDirectory = dir;"
+        },
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 232,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "var path = await SaveFile(window, titleKey, Preferences.Default.RecentOpenProjectDirectory,"
+        },
+        {
+          "path": "OpenUtau/FilePicker.cs",
+          "line": 236,
+          "source_sha256": "c2b9fba19589ea42b32f9a40b0efb84e4526e0c869c3f46319abaa7a01372f7f",
+          "snippet": "Preferences.Default.RecentOpenProjectDirectory = dir;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:091",
+      "field": "LockUnselectedNotesPitch",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 271,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L271",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 54,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool LockPitchPoints { get => Preferences.Default.LockUnselectedNotesPitch; }"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C48.08"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:092",
+      "field": "LockUnselectedNotesVibrato",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 272,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L272",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 55,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool LockVibrato { get => Preferences.Default.LockUnselectedNotesVibrato; }"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C48.08"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:093",
+      "field": "LockUnselectedNotesExpressions",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 273,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L273",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 56,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool LockExpressions { get => Preferences.Default.LockUnselectedNotesExpressions; }"
+        },
+        {
+          "path": "OpenUtau/Views/NoteEditStates.cs",
+          "line": 816,
+          "source_sha256": "7ede4b25ed202c5380789f08d0ef78e11dee26e34b289e046be03bf9577569eb",
+          "snippet": "if (Preferences.Default.LockUnselectedNotesExpressions && notesVm.Selection.Count > 0 && !notesVm.Selection.Contains(hit.phoneme.Parent)) {"
+        },
+        {
+          "path": "OpenUtau/Views/NoteEditStates.cs",
+          "line": 932,
+          "source_sha256": "7ede4b25ed202c5380789f08d0ef78e11dee26e34b289e046be03bf9577569eb",
+          "snippet": "if (Preferences.Default.LockUnselectedNotesExpressions && notesVm.Selection.Count > 0 && !notesVm.Selection.Contains(hit.phoneme.Parent)) {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C48.07"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:094",
+      "field": "LyricLivePreview",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 274,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L274",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C48.11"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:095",
+      "field": "LyricApplySelectionOnly",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "editing_driver_or_scope",
+      "role_and_boundary": "编辑行为/范围候选；命令真正写入的字段单列，无reader时保留unknown。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 275,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L275",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C48.11"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:096",
+      "field": "VoicebankPublishUseIgnore",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 276,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L276",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:097",
+      "field": "VoicebankPublishIgnores",
+      "type": "string",
+      "upstream_initializer_or_language_default": "C# raw string literal; exact contents bound by source SHA",
+      "category": "resource_or_runtime",
+      "role_and_boundary": "资源选择/安装/缓存/执行环境可影响所用实现或复现；不是连续听感剂量。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 277,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L277",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:098",
+      "field": "RecoveryPath",
+      "type": "string",
+      "upstream_initializer_or_language_default": "string.Empty",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 310,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L310",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau.Core/Format/USTx.cs",
+          "line": 117,
+          "source_sha256": "f3faf48f35723c37c1c45efb0fc55dec83c8460a61789c8a05696ce3098cb33d",
+          "snippet": "Preferences.Default.RecoveryPath = string.Empty;"
+        },
+        {
+          "path": "OpenUtau.Core/Format/USTx.cs",
+          "line": 132,
+          "source_sha256": "f3faf48f35723c37c1c45efb0fc55dec83c8460a61789c8a05696ce3098cb33d",
+          "snippet": "Preferences.Default.RecoveryPath = filePath;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/MainWindowViewModel.cs",
+          "line": 170,
+          "source_sha256": "0e5c6670e048e7ec5f0a3d4cc960b1064e512942799da60a2a657490ad3c3777",
+          "snippet": "var recPath = Preferences.Default.RecoveryPath;"
+        },
+        {
+          "path": "OpenUtau/Views/MainWindow.axaml.cs",
+          "line": 2086,
+          "source_sha256": "96b45698da0e71325804e524eccf8f60193f5cad842dcdd8d6b8f4d1dc57b66d",
+          "snippet": "Preferences.Default.RecoveryPath = string.Empty;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:099",
+      "field": "DetachPianoRoll",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "display_or_session",
+      "role_and_boundary": "显示/会话意图；已读引用单列。未穷尽整个App所有reader，不据名称证明零声学影响。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 311,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L311",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 70,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool PianoRollDetached { get => Preferences.Default.DetachPianoRoll; }"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PianoRollViewModel.cs",
+          "line": 71,
+          "source_sha256": "f58eeb02566a11779ef676f086f0f5c1ccab401ff8212e945373391665197cb1",
+          "snippet": "public bool HideMenuItemVisible => !Preferences.Default.DetachPianoRoll;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 241,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "DetachPianoRoll = Preferences.Default.DetachPianoRoll;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/PreferencesViewModel.cs",
+          "line": 400,
+          "source_sha256": "46e29ec06cc39e99d1e333189aaa7844349e9af43a3b7b3127d49d5140969054",
+          "snippet": "Preferences.Default.DetachPianoRoll = detachPianoRoll;"
+        },
+        {
+          "path": "OpenUtau/Views/MainWindow.axaml.cs",
+          "line": 1425,
+          "source_sha256": "96b45698da0e71325804e524eccf8f60193f5cad842dcdd8d6b8f4d1dc57b66d",
+          "snippet": "if (Preferences.Default.DetachPianoRoll) {"
+        },
+        {
+          "path": "OpenUtau/Views/MainWindow.axaml.cs",
+          "line": 1456,
+          "source_sha256": "96b45698da0e71325804e524eccf8f60193f5cad842dcdd8d6b8f4d1dc57b66d",
+          "snippet": "if (Preferences.Default.DetachPianoRoll) {"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:100",
+      "field": "MixFxApplyOnExportMixdown",
+      "type": "bool",
+      "upstream_initializer_or_language_default": "true",
+      "category": "declared_but_no_checked_export_reader",
+      "role_and_boundary": "UI可保存，但已核查mixdown固定applyMixFx=true；不能当有效出口开关。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 317,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L317",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/MixFxViewModel.cs",
+          "line": 135,
+          "source_sha256": "dab0273bf488ea3cae4077304ff88cb99080f612ee7935d5be97818a24a80738",
+          "snippet": "ApplyOnExportMixdown = Preferences.Default.MixFxApplyOnExportMixdown;"
+        },
+        {
+          "path": "OpenUtau/ViewModels/MixFxViewModel.cs",
+          "line": 336,
+          "source_sha256": "dab0273bf488ea3cae4077304ff88cb99080f612ee7935d5be97818a24a80738",
+          "snippet": "Preferences.Default.MixFxApplyOnExportMixdown = ApplyOnExportMixdown;"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [
+        "PARAM:C46.01"
+      ],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:101",
+      "field": "MixFxUserPresets",
+      "type": "List<MixFxUserPreset>",
+      "upstream_initializer_or_language_default": "new List<MixFxUserPreset>()",
+      "category": "fx_preset_library",
+      "role_and_boundary": "命名完整FX快照库；选用后写track.MixFx，库本身不作为独立DSP通道。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 318,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L318",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [
+        {
+          "path": "OpenUtau/ViewModels/MixFxViewModel.cs",
+          "line": 108,
+          "source_sha256": "dab0273bf488ea3cae4077304ff88cb99080f612ee7935d5be97818a24a80738",
+          "snippet": "foreach (var p in Preferences.Default.MixFxUserPresets ?? new List<Preferences.MixFxUserPreset>()) {"
+        },
+        {
+          "path": "OpenUtau/ViewModels/MixFxViewModel.cs",
+          "line": 288,
+          "source_sha256": "dab0273bf488ea3cae4077304ff88cb99080f612ee7935d5be97818a24a80738",
+          "snippet": "Preferences.Default.MixFxUserPresets = UserPresets"
+        }
+      ],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:102",
+      "field": "Theme",
+      "type": "int?",
+      "upstream_initializer_or_language_default": "null",
+      "category": "legacy_migration",
+      "role_and_boundary": "旧字段迁移至ThemeName/AudioBackEnd；不当成并列当前旋钮。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 322,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L322",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    },
+    {
+      "id": "PREF:103",
+      "field": "PreferPortAudio",
+      "type": "bool?",
+      "upstream_initializer_or_language_default": "false",
+      "category": "legacy_migration",
+      "role_and_boundary": "旧字段迁移至ThemeName/AudioBackEnd；不当成并列当前旋钮。",
+      "declaration_path": "OpenUtau.Core/Util/Preferences.cs",
+      "declaration_line": 323,
+      "source_sha256": "7ff81042efadaee78062ae426c786876070e5f44dd2180522c29fbb67cfb66c5",
+      "source_url": "https://github.com/openutau/OpenUtau/blob/5c3c83bbeced96718e85e4a96d127de3287cd14b/OpenUtau.Core/Util/Preferences.cs#L323",
+      "bound_core_field_status": "present_not_reader_execution",
+      "checked_reference_sites": [],
+      "reference_role": "lexical_reference_not_read_write_or_branch_execution_proof",
+      "control_refs": [],
+      "live_value": "not_read",
+      "auditory_effect_validated": false
+    }
+  ],
+  "nested_properties": [
+    {
+      "field": "WindowSize.Width",
+      "upstream_default": "1200",
+      "source_path": "OpenUtau.Core/Util/WindowSize.cs",
+      "source_line": 3,
+      "source_sha256": "23a9f94a3cd666177cb8a352a293a269e55b177ee8c3cf70ad25fe3e6338f2c1",
+      "bound_core_property_status": "present_not_executed",
+      "role": "window_state",
+      "live_value": "not_read"
+    },
+    {
+      "field": "WindowSize.Height",
+      "upstream_default": "650",
+      "source_path": "OpenUtau.Core/Util/WindowSize.cs",
+      "source_line": 4,
+      "source_sha256": "23a9f94a3cd666177cb8a352a293a269e55b177ee8c3cf70ad25fe3e6338f2c1",
+      "bound_core_property_status": "present_not_executed",
+      "role": "window_state",
+      "live_value": "not_read"
+    },
+    {
+      "field": "WindowSize.PositionX",
+      "upstream_default": "null",
+      "source_path": "OpenUtau.Core/Util/WindowSize.cs",
+      "source_line": 5,
+      "source_sha256": "23a9f94a3cd666177cb8a352a293a269e55b177ee8c3cf70ad25fe3e6338f2c1",
+      "bound_core_property_status": "present_not_executed",
+      "role": "window_state",
+      "live_value": "not_read"
+    },
+    {
+      "field": "WindowSize.PositionY",
+      "upstream_default": "null",
+      "source_path": "OpenUtau.Core/Util/WindowSize.cs",
+      "source_line": 6,
+      "source_sha256": "23a9f94a3cd666177cb8a352a293a269e55b177ee8c3cf70ad25fe3e6338f2c1",
+      "bound_core_property_status": "present_not_executed",
+      "role": "window_state",
+      "live_value": "not_read"
+    },
+    {
+      "field": "WindowSize.State",
+      "upstream_default": "0",
+      "source_path": "OpenUtau.Core/Util/WindowSize.cs",
+      "source_line": 7,
+      "source_sha256": "23a9f94a3cd666177cb8a352a293a269e55b177ee8c3cf70ad25fe3e6338f2c1",
+      "bound_core_property_status": "present_not_executed",
+      "role": "window_state",
+      "live_value": "not_read"
+    },
+    {
+      "field": "EditTool.BaseTool",
+      "upstream_default": "1",
+      "source_path": "OpenUtau.Core/Util/EditTool.cs",
+      "source_line": 22,
+      "source_sha256": "db3bf860a455eea69ad622b3705a78414b019be4411e0247d92f13bb838f8481",
+      "bound_core_property_status": "present_not_executed",
+      "role": "editor_driver",
+      "live_value": "not_read"
+    },
+    {
+      "field": "EditTool.PenToolVariation",
+      "upstream_default": "0",
+      "source_path": "OpenUtau.Core/Util/EditTool.cs",
+      "source_line": 23,
+      "source_sha256": "db3bf860a455eea69ad622b3705a78414b019be4411e0247d92f13bb838f8481",
+      "bound_core_property_status": "present_not_executed",
+      "role": "editor_driver",
+      "live_value": "not_read"
+    },
+    {
+      "field": "EditTool.OverwritePitch",
+      "upstream_default": "false",
+      "source_path": "OpenUtau.Core/Util/EditTool.cs",
+      "source_line": 24,
+      "source_sha256": "db3bf860a455eea69ad622b3705a78414b019be4411e0247d92f13bb838f8481",
+      "bound_core_property_status": "present_not_executed",
+      "role": "editor_driver",
+      "live_value": "not_read"
+    }
+  ],
+  "category_counts": {
+    "display_or_session": 44,
+    "resource_or_runtime": 22,
+    "playback_only": 11,
+    "render_or_segmentation": 8,
+    "observation_backend": 1,
+    "editing_driver_or_scope": 13,
+    "declared_but_no_checked_export_reader": 1,
+    "fx_preset_library": 1,
+    "legacy_migration": 2
+  },
+  "local_core_sha256": "855a4cc7ef730c68b2853903b0dbadc24e5cfb0ba9d02a9d6a4d16688fb8f8d7",
+  "metadata_sha256": "8ffd021471ec504b3955deea7140735822208586dfcb390690247190bfb12a9b",
+  "all_consumers_or_plugins_enumerated": false,
+  "live_preferences_read": false,
+  "no_new_audio_or_labels": true
+}

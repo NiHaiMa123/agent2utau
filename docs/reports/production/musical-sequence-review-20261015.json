@@ -1,0 +1,59 @@
+{
+  "record_id": "RESP:MUSICAL-SEQUENCE-REVIEW-20261015",
+  "record_type": "technical_process_and_discrimination_contract_not_auditory_response",
+  "status": "musical_sequence_review_implemented_quality_unverified",
+  "report": {
+    "path": "docs/reports/production/musical-sequence-review-20261015.md",
+    "sha256": "b96e5220302add837c7d5995a039210e614742045b2958a08ab43958751e14f9"
+  },
+  "tests": {
+    "passed": 208,
+    "failed": 0,
+    "receipt": {
+      "path": "runs/review/skill-musical-sequence-20261015/tests-final.xml",
+      "sha256": "0b66697114094261ab2939a5b368212a1716f98cf27374adc078dea4cdd78986"
+    }
+  },
+  "regression": {
+    "path": "runs/review/skill-musical-sequence-20261015/yuai-v02-regression-final-summary.json",
+    "sha256": "c3646ad778212df31eee357012bc84d6ce82a435f8ee0f886b67f45df7648d31"
+  },
+  "review": {
+    "path": "runs/review/skill-musical-sequence-20261015/yuai-v02-regression-final/review.json",
+    "sha256": "dd270e6d1ed6030dd033a2f673bf6c5601b06540ba319d203a454ebd0c31f354"
+  },
+  "skill_sync": {
+    "path": "runs/review/skill-musical-sequence-20261015/skill-sync-receipt.json",
+    "sha256": "a9e7d2d453a8d672ccd3ead5314693c42e036fa9f4bb059566f786e67d434471"
+  },
+  "skill_validation": {
+    "path": "runs/review/skill-musical-sequence-20261015/skill-validation.json",
+    "sha256": "c8f84bf5ffbd73f8df467c8ab85ba773d58654dbbe8ad7af248e5b640d20c527"
+  },
+  "protection": {
+    "path": "runs/review/skill-musical-sequence-20261015/protection.json",
+    "sha256": "601486bb2efd4896983cda052b3aa72737ac3e16cefbcc2be5c0ad543d603c0a"
+  },
+  "version": {
+    "path": "runs/review/skill-musical-sequence-20261015/version-final.json",
+    "sha256": "0bdb1361257cabb9b03c672013f2d302cb7dea55a3f37227a268f81eb13db7bb"
+  },
+  "technical_execution_complete": true,
+  "workflow_review_complete": false,
+  "musical_quality": "unverified",
+  "listening": "unknown",
+  "transfer": "unverified",
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "new_model_inference": 0,
+  "new_singing_audio": 0,
+  "new_auditory_feedback": 0,
+  "project_updated": false,
+  "skill_updated": true,
+  "production_use_limit": "Workflow and evaluation implementation only; no phonation dose recipe, no automatic quality pass, no copied author targets",
+  "generalized_response_rules": [],
+  "repository_gate": {
+    "path": "runs/review/skill-musical-sequence-20261015/gate.json",
+    "sha256": "5bd0f539b2eb8bc3feb55ed07c57100d6e159e64589bb892b81a237d155efe51"
+  }
+}

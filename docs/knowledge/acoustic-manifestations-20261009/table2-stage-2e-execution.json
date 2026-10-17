@@ -1,0 +1,1209 @@
+{
+  "schema_version": 1,
+  "stage": "2E-execution",
+  "date": "2026-10-11",
+  "protocol_id": "T2D-SHFC-PATHS-01",
+  "protocol_version": 1,
+  "status": "technical_execution_complete_pending_human_listening",
+  "stage_2E_complete": false,
+  "authorization": {
+    "user_text": "可以，继续下一步",
+    "approved_scope": "冻结协议16套实验对照，技术检查后人工试听；原歌曲、既有音频及Skill保持"
+  },
+  "baseline": {
+    "stage": "2E-execution",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/snapshot-manifest.json",
+    "sha256": "01dffada2ee989a45e6e48f79dbd5ada8dd67d0bc8c475dd54f2a14945e47c46",
+    "run": "runs/experiments/table2-shfc-paths-20261011",
+    "test_run": "runs/test-results/table2-2e-execution-20261011"
+  },
+  "actual_execution": {
+    "new_native_record_pairs": 4,
+    "technical_native_cache_waveforms": 4,
+    "fresh_seeded_variance_calls": 8,
+    "seeded_acoustic_vocoder_waveforms": 16,
+    "unique_first_repeat_variants": 8,
+    "effect_replications": 0,
+    "F0_detector_inferences": 16,
+    "delivery_PCM_files": 72,
+    "FLOAT_diagnostic_files": 16,
+    "new_feedback": 0,
+    "generic_rules": 0
+  },
+  "gains": {
+    "vocal": 1.5,
+    "backing": 0.7
+  },
+  "conditions": [
+    {
+      "condition_id": "current-word-225",
+      "word": 225,
+      "native_identity": {
+        "real_phones": 20,
+        "padded_segments": 22,
+        "total_frames": 421,
+        "target_phone_indices": [
+          8,
+          9
+        ],
+        "complete_phone_clock_exact": true,
+        "native_float32_frame_ms": 11.609977722167969,
+        "sample_period_ms": 11.609977324263038,
+        "vocabulary_token_semantics_revalidated": false,
+        "current_native_execution": false
+      },
+      "actual_Q5_sampling": {
+        "changed_frames": 32,
+        "sampled_peak_cents": -400.0,
+        "sampled_support_s": [
+          183.74102192,
+          184.100931238
+        ],
+        "scope": "local IL mathematical reconstruction, not new installed export"
+      },
+      "native_isolation": {
+        "upstream_intervention": "SHFC",
+        "peak_shift_cents": -400,
+        "changed_native_inputs": [
+          "f0",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "changed_variance_inputs": [
+          "pitch"
+        ],
+        "changed_frames": 32,
+        "actual_changed_support_s": [
+          183.74102192,
+          184.100931238
+        ],
+        "manual_controls_exact": true,
+        "linguistic_conditions_exact": true,
+        "vocoder_F0_exact": true,
+        "native_arithmetic_exact": true
+      },
+      "original_A_fresh_PCM_exact": true,
+      "repeat_exact": true,
+      "new_clipping_frames": 0,
+      "PCM_clock": {
+        "origin_s": 182.02274517822266,
+        "samples": 215552,
+        "backing_start_sample": 8027204,
+        "backing_grid_rounding_s": 2.1261686640627886e-05
+      },
+      "requested_focus_s": [
+        182.80208333333334,
+        184.925
+      ],
+      "focus_complete": true,
+      "focus_role": "requested_focus",
+      "target_in_full_file_s": [
+        1.5793381551106904,
+        1.7887131551106847,
+        2.1022548217773362
+      ],
+      "vowel_window": [
+        183.81145833333335,
+        184.125
+      ],
+      "vowel_comparisons": {
+        "S-A": {
+          "pcm_difference": {
+            "samples": 13827,
+            "rms": 0.0657914317030619,
+            "peak": 0.29804420471191406,
+            "dbfs": -23.636613254280313,
+            "zero_energy": false
+          },
+          "level_ratio_db": -0.40905993222715753,
+          "mel_difference_rms": 1.75104167106057,
+          "mean_removed_mel_shape_difference_rms": 1.6946206918679,
+          "F0": {
+            "FCPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -16.062311853518292,
+                "median": 0.16675461962046628,
+                "max": 45.45132931552261
+              },
+              "abs_cents_p50": 1.083191567241331,
+              "max_abs_cents": 45.45132931552261
+            },
+            "RMVPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -40.19049716230878,
+                "median": 0.07899339143748577,
+                "max": 54.41725810515251
+              },
+              "abs_cents_p50": 1.2634282411748314,
+              "max_abs_cents": 54.41725810515251
+            }
+          },
+          "detector_median_direction_disagreement": false,
+          "naturalness_or_break_cause": "unknown"
+        },
+        "D-A": {
+          "pcm_difference": {
+            "samples": 13827,
+            "rms": 0.04918490040553807,
+            "peak": 0.22061169147491455,
+            "dbfs": -26.163364073531614,
+            "zero_energy": false
+          },
+          "level_ratio_db": -0.1259791838903852,
+          "mel_difference_rms": 1.6225842295634207,
+          "mean_removed_mel_shape_difference_rms": 1.572825943421496,
+          "F0": {
+            "FCPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -9.401923709895623,
+                "median": 0.3807500372740961,
+                "max": 28.883166596016004
+              },
+              "abs_cents_p50": 1.4668004022888794,
+              "max_abs_cents": 28.883166596016004
+            },
+            "RMVPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -7.421435277448518,
+                "median": -0.2866542591046996,
+                "max": 36.213237580126645
+              },
+              "abs_cents_p50": 1.0717805090773176,
+              "max_abs_cents": 36.213237580126645
+            }
+          },
+          "detector_median_direction_disagreement": true,
+          "naturalness_or_break_cause": "unknown"
+        },
+        "P-A": {
+          "pcm_difference": {
+            "samples": 13827,
+            "rms": 0.062417107429781966,
+            "peak": 0.286283016204834,
+            "dbfs": -24.09392723068132,
+            "zero_energy": false
+          },
+          "level_ratio_db": -0.3826327927979156,
+          "mel_difference_rms": 0.5086898636126453,
+          "mean_removed_mel_shape_difference_rms": 0.3609336548746193,
+          "F0": {
+            "FCPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -8.13385169065184,
+                "median": -0.30044574560558657,
+                "max": 5.8639665236201495
+              },
+              "abs_cents_p50": 0.6212889268564,
+              "max_abs_cents": 8.13385169065184
+            },
+            "RMVPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -6.293746839872527,
+                "median": 0.415189756636982,
+                "max": 6.617075378318033
+              },
+              "abs_cents_p50": 0.6182529626357455,
+              "max_abs_cents": 6.617075378318033
+            }
+          },
+          "detector_median_direction_disagreement": true,
+          "naturalness_or_break_cause": "unknown"
+        },
+        "S-D": {
+          "pcm_difference": {
+            "samples": 13827,
+            "rms": 0.053072502156802155,
+            "peak": 0.29743731021881104,
+            "dbfs": -25.502608732705117,
+            "zero_energy": false
+          },
+          "level_ratio_db": -0.283080748336772,
+          "mel_difference_rms": 0.46413156214393936,
+          "mean_removed_mel_shape_difference_rms": 0.31361377296533055,
+          "F0": {
+            "FCPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -18.899831765225173,
+                "median": 0.27236912323971846,
+                "max": 16.568162719506724
+              },
+              "abs_cents_p50": 0.43084714958484127,
+              "max_abs_cents": 18.899831765225173
+            },
+            "RMVPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -36.14502631919676,
+                "median": 0.33133078956255546,
+                "max": 18.20402052502572
+              },
+              "abs_cents_p50": 0.5087402106917429,
+              "max_abs_cents": 36.14502631919676
+            }
+          },
+          "detector_median_direction_disagreement": false,
+          "naturalness_or_break_cause": "unknown"
+        },
+        "S-P": {
+          "pcm_difference": {
+            "samples": 13827,
+            "rms": 0.052880705159622836,
+            "peak": 0.3458911180496216,
+            "dbfs": -25.53405524409009,
+            "zero_energy": false
+          },
+          "level_ratio_db": -0.026427139429241728,
+          "mel_difference_rms": 1.8073520816148048,
+          "mean_removed_mel_shape_difference_rms": 1.7414749515665435,
+          "F0": {
+            "FCPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -8.16651627523754,
+                "median": 0.2970299436004012,
+                "max": 39.587362791902336
+              },
+              "abs_cents_p50": 1.5242992958610204,
+              "max_abs_cents": 39.587362791902336
+            },
+            "RMVPE": {
+              "window_frames": 32,
+              "valid_pair_frames": 32,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 32,
+              "voiced_variant_frames": 32,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 32,
+                "min": -34.42784571436141,
+                "median": -0.18541834334385718,
+                "max": 47.800182726834386
+              },
+              "abs_cents_p50": 1.4633929693124048,
+              "max_abs_cents": 47.800182726834386
+            }
+          },
+          "detector_median_direction_disagreement": true,
+          "naturalness_or_break_cause": "unknown"
+        }
+      },
+      "auditory_status": "pending"
+    },
+    {
+      "condition_id": "current-word-214",
+      "word": 214,
+      "native_identity": {
+        "real_phones": 21,
+        "padded_segments": 23,
+        "total_frames": 594,
+        "target_phone_indices": [
+          3,
+          4
+        ],
+        "complete_phone_clock_exact": true,
+        "native_float32_frame_ms": 11.609977722167969,
+        "sample_period_ms": 11.609977324263038,
+        "vocabulary_token_semantics_revalidated": false,
+        "current_native_execution": false
+      },
+      "actual_Q5_sampling": {
+        "changed_frames": 33,
+        "sampled_peak_cents": -400.0,
+        "sampled_support_s": [
+          175.96832203533336,
+          176.33984133133333
+        ],
+        "scope": "local IL mathematical reconstruction, not new installed export"
+      },
+      "native_isolation": {
+        "upstream_intervention": "SHFC",
+        "peak_shift_cents": -400,
+        "changed_native_inputs": [
+          "f0",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "changed_variance_inputs": [
+          "pitch"
+        ],
+        "changed_frames": 33,
+        "actual_changed_support_s": [
+          175.96832203533336,
+          176.33984133133333
+        ],
+        "manual_controls_exact": true,
+        "linguistic_conditions_exact": true,
+        "vocoder_F0_exact": true,
+        "native_arithmetic_exact": true
+      },
+      "original_A_fresh_PCM_exact": true,
+      "repeat_exact": true,
+      "new_clipping_frames": 0,
+      "PCM_clock": {
+        "origin_s": 175.190453511556,
+        "samples": 304128,
+        "backing_start_sample": 7725899,
+        "backing_grid_rounding_s": 3.183231456205249e-09
+      },
+      "requested_focus_s": [
+        175.09895833333334,
+        177.15833333333336
+      ],
+      "focus_complete": false,
+      "focus_role": "whole_phrase_fallback_no_zero_padding",
+      "target_in_full_file_s": [
+        0.7085048217773533,
+        0.8512131551106847,
+        1.1678798217773476
+      ],
+      "vowel_window": [
+        176.04166666666669,
+        176.35833333333335
+      ],
+      "vowel_comparisons": {
+        "S-A": {
+          "pcm_difference": {
+            "samples": 13965,
+            "rms": 0.07461994599897778,
+            "peak": 0.3394441604614258,
+            "dbfs": -22.542901391713084,
+            "zero_energy": false
+          },
+          "level_ratio_db": 0.8820117329728899,
+          "mel_difference_rms": 1.9710275357035283,
+          "mean_removed_mel_shape_difference_rms": 1.9475698829004744,
+          "F0": {
+            "FCPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -13.537161287422707,
+                "median": -0.1694081120301447,
+                "max": 36.87049504235527
+              },
+              "abs_cents_p50": 1.3273852153063095,
+              "max_abs_cents": 36.87049504235527
+            },
+            "RMVPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -28.54561972563325,
+                "median": -0.12811731634851162,
+                "max": 38.264849248351034
+              },
+              "abs_cents_p50": 0.7243086099207579,
+              "max_abs_cents": 38.264849248351034
+            }
+          },
+          "detector_median_direction_disagreement": false,
+          "naturalness_or_break_cause": "unknown"
+        },
+        "D-A": {
+          "pcm_difference": {
+            "samples": 13965,
+            "rms": 0.06116375193074744,
+            "peak": 0.32271528244018555,
+            "dbfs": -24.27011763561877,
+            "zero_energy": false
+          },
+          "level_ratio_db": 1.0910667830182426,
+          "mel_difference_rms": 1.9961653254479144,
+          "mean_removed_mel_shape_difference_rms": 1.9604997116517051,
+          "F0": {
+            "FCPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -9.5958340067408,
+                "median": 0.30672883609413876,
+                "max": 32.14301360130059
+              },
+              "abs_cents_p50": 1.7984525350424558,
+              "max_abs_cents": 32.14301360130059
+            },
+            "RMVPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -8.552797295927594,
+                "median": 0.19396559032711772,
+                "max": 28.342404055643154
+              },
+              "abs_cents_p50": 1.347536990398419,
+              "max_abs_cents": 28.342404055643154
+            }
+          },
+          "detector_median_direction_disagreement": false,
+          "naturalness_or_break_cause": "unknown"
+        },
+        "P-A": {
+          "pcm_difference": {
+            "samples": 13965,
+            "rms": 0.046166954536009795,
+            "peak": 0.2143852710723877,
+            "dbfs": -26.713375466234822,
+            "zero_energy": false
+          },
+          "level_ratio_db": -0.29585380845122294,
+          "mel_difference_rms": 0.5383275524693875,
+          "mean_removed_mel_shape_difference_rms": 0.4804551911532169,
+          "F0": {
+            "FCPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -8.179123596208829,
+                "median": 0.0074292643794144865,
+                "max": 5.873043219221515
+              },
+              "abs_cents_p50": 0.798715186049999,
+              "max_abs_cents": 8.179123596208829
+            },
+            "RMVPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -17.25297003432144,
+                "median": -0.08930415991411954,
+                "max": 2.225381976460267
+              },
+              "abs_cents_p50": 0.3708404026535133,
+              "max_abs_cents": 17.25297003432144
+            }
+          },
+          "detector_median_direction_disagreement": true,
+          "naturalness_or_break_cause": "unknown"
+        },
+        "S-D": {
+          "pcm_difference": {
+            "samples": 13965,
+            "rms": 0.042868840961490295,
+            "peak": 0.2466946840286255,
+            "dbfs": -27.35716516572563,
+            "zero_energy": false
+          },
+          "level_ratio_db": -0.20905505004535385,
+          "mel_difference_rms": 0.6748269676906781,
+          "mean_removed_mel_shape_difference_rms": 0.4454078498367368,
+          "F0": {
+            "FCPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -9.781804131568549,
+                "median": 0.03156909294988207,
+                "max": 4.727481441054965
+              },
+              "abs_cents_p50": 0.7488972347742948,
+              "max_abs_cents": 9.781804131568549
+            },
+            "RMVPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -22.645592212835496,
+                "median": 0.20026635793263595,
+                "max": 9.92244519270814
+              },
+              "abs_cents_p50": 0.6612729887204898,
+              "max_abs_cents": 22.645592212835496
+            }
+          },
+          "detector_median_direction_disagreement": false,
+          "naturalness_or_break_cause": "unknown"
+        },
+        "S-P": {
+          "pcm_difference": {
+            "samples": 13965,
+            "rms": 0.04717993682621949,
+            "peak": 0.2715862989425659,
+            "dbfs": -26.52485289937839,
+            "zero_energy": false
+          },
+          "level_ratio_db": 1.1778655414241126,
+          "mel_difference_rms": 1.792903962019509,
+          "mean_removed_mel_shape_difference_rms": 1.7839294078891104,
+          "F0": {
+            "FCPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -6.103788293763833,
+                "median": -0.5379242905428484,
+                "max": 30.99745182313396
+              },
+              "abs_cents_p50": 0.9681232980804474,
+              "max_abs_cents": 30.99745182313396
+            },
+            "RMVPE": {
+              "window_frames": 31,
+              "valid_pair_frames": 31,
+              "valid_pair_fraction": 1.0,
+              "voiced_A_frames": 31,
+              "voiced_variant_frames": 31,
+              "status": "limited_detector_observation",
+              "true_F0_fixed": "unknown",
+              "cents": {
+                "n": 31,
+                "min": -13.709470550063354,
+                "median": 0.14187486149198011,
+                "max": 38.70624256656316
+              },
+              "abs_cents_p50": 0.9184998346777347,
+              "max_abs_cents": 38.70624256656316
+            }
+          },
+          "detector_median_direction_disagreement": true,
+          "naturalness_or_break_cause": "unknown"
+        }
+      },
+      "auditory_status": "pending"
+    }
+  ],
+  "listener_pairs": [
+    {
+      "condition_id": "current-word-225",
+      "order": 1,
+      "direction": "S-A",
+      "codes": [
+        "K3",
+        "K1"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-01-K3-K1.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-01-K3-K1.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 2,
+      "direction": "A-S",
+      "codes": [
+        "K1",
+        "K3"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-02-K1-K3.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-02-K1-K3.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 3,
+      "direction": "D-A",
+      "codes": [
+        "K2",
+        "K1"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-03-K2-K1.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-03-K2-K1.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 4,
+      "direction": "A-D",
+      "codes": [
+        "K1",
+        "K2"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-04-K1-K2.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-04-K1-K2.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 5,
+      "direction": "P-A",
+      "codes": [
+        "K4",
+        "K1"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-05-K4-K1.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-05-K4-K1.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 6,
+      "direction": "A-P",
+      "codes": [
+        "K1",
+        "K4"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-06-K1-K4.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-06-K1-K4.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 7,
+      "direction": "S-D",
+      "codes": [
+        "K3",
+        "K2"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-07-K3-K2.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-07-K3-K2.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 8,
+      "direction": "D-S",
+      "codes": [
+        "K2",
+        "K3"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-08-K2-K3.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-08-K2-K3.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 9,
+      "direction": "S-P",
+      "codes": [
+        "K3",
+        "K4"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-09-K3-K4.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-09-K3-K4.wav"
+    },
+    {
+      "condition_id": "current-word-225",
+      "order": 10,
+      "direction": "P-S",
+      "codes": [
+        "K4",
+        "K3"
+      ],
+      "segment_samples": 93621,
+      "gap_samples": 26460,
+      "second_start_s": 2.7229251700680273,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-225-10-K4-K3.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-225-10-K4-K3.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 1,
+      "direction": "S-A",
+      "codes": [
+        "K2",
+        "K3"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-01-K2-K3.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-01-K2-K3.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 2,
+      "direction": "A-S",
+      "codes": [
+        "K3",
+        "K2"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-02-K3-K2.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-02-K3-K2.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 3,
+      "direction": "D-A",
+      "codes": [
+        "K4",
+        "K3"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-03-K4-K3.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-03-K4-K3.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 4,
+      "direction": "A-D",
+      "codes": [
+        "K3",
+        "K4"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-04-K3-K4.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-04-K3-K4.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 5,
+      "direction": "P-A",
+      "codes": [
+        "K1",
+        "K3"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-05-K1-K3.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-05-K1-K3.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 6,
+      "direction": "A-P",
+      "codes": [
+        "K3",
+        "K1"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-06-K3-K1.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-06-K3-K1.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 7,
+      "direction": "S-D",
+      "codes": [
+        "K2",
+        "K4"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-07-K2-K4.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-07-K2-K4.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 8,
+      "direction": "D-S",
+      "codes": [
+        "K4",
+        "K2"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-08-K4-K2.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-08-K4-K2.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 9,
+      "direction": "S-P",
+      "codes": [
+        "K2",
+        "K1"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-09-K2-K1.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-09-K2-K1.wav"
+    },
+    {
+      "condition_id": "current-word-214",
+      "order": 10,
+      "direction": "P-S",
+      "codes": [
+        "K1",
+        "K2"
+      ],
+      "segment_samples": 304128,
+      "gap_samples": 26460,
+      "second_start_s": 7.496326530612245,
+      "vocal": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-10-K1-K2.wav",
+      "mix": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/mix/current-word-214-10-K1-K2.wav"
+    }
+  ],
+  "proofs": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/preparation.json",
+      "sha256": "082643b76c880373da8fc96d2dfa2402b4746bba5a6110aa8ac45609ffacc060"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/native-build-bindings.json",
+      "sha256": "69f08400882ad0740db193d08f8bb1d1a36c262b6bdb3cc5e693217bf645fe96"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/native-acquisition.json",
+      "sha256": "f22a5c9ef5491f6ab0d8733766dff6aa6e10535ffec7a73138021c569b6109c6"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/native-current-check.json",
+      "sha256": "49a848d6d544cc72f287c3070866fe7adf4385091264bee03907584d96f99034"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/execution-start.json",
+      "sha256": "af55d15c27a5994264049cbb7fa11e85c94006c7fdfcd2ebf0e64f7b79bf3fd1"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/model-adapters.json",
+      "sha256": "0f5c8af184888bb1488bc7696c0e8d6b0f3c73cab6de329e4e04e2b4ec0d2fe3"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/prepared-input-checks.json",
+      "sha256": "9189e2fd2c8579ee3efb5487bce35249c2fb1c9ac1b8b22fa64e9b65b197393c"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/raw-execution.json",
+      "sha256": "85029abc7654d69658542c333a497d5d9bf2ef422e80ad4d99965e5b1f80e59b"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/dynamics-preparation.json",
+      "sha256": "ac6f1edc2a82f384df43f99560db9e4b647c7f02f18917ddbcf38e5bbab0de88"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/dynamics-build-bindings.json",
+      "sha256": "46b6b25c19bc5984b2094fa8bcf907d2df961e9b9bc63d10966d3c1a3ba149cc"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/dynamics-execution.json",
+      "sha256": "0522a040e3c1c0e4b7eb561b01c4a65905d36d28d14566463e9ab8b16500b27e"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/raw-independent-check.json",
+      "sha256": "1886a1815939bf59f811ab6a36df9053f8174edd8765db4a9f8b43281523dec5"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/pcm-packaging.json",
+      "sha256": "6517c3a8d5dfbf975de42240dc8ee5b45eb305fb1527cf8cdac6a68c90e1c7b5"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/observations-start.json",
+      "sha256": "7174e214dea25cf0c10afbed81ae26c7d9781ec5da3e3f73551d018e6ca37397"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/observations.json",
+      "sha256": "478f09c02624514c0907e21809259bb11b5de55f65f8857f8864d879a47e12ff"
+    },
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/technical-delivery-check.json",
+      "sha256": "95bcabf39255e274b8dbc5912846dd9c2cc9138a001c35c68bf306695bde9301"
+    }
+  ],
+  "implementation": [
+    {
+      "path": "research/table2-confirmation/freeze_stage_2e_execution.py",
+      "sha256": "ddd6930e3f18cdc47ade6f27dc497555c6a55cea41bd5067febcc849299b228f"
+    },
+    {
+      "path": "research/table2-confirmation/prepare_stage_2e_execution.py",
+      "sha256": "7d38331aa7180c0e929ca23cf25d9ea9f9e1edc628720c22464805905946834a"
+    },
+    {
+      "path": "research/table2-confirmation/NativeBatch.cs",
+      "sha256": "11eb20104c3fc00d5ab382e769a1bd5cfaedd8403d0a4ad201665b7a89c6d0ea"
+    },
+    {
+      "path": "research/table2-confirmation/acquire_stage_2e_native.py",
+      "sha256": "bf66552e4e7a1c5f8173b894079d848d118ead2e1eccf9767afc9cd53d06c49f"
+    },
+    {
+      "path": "research/table2-confirmation/check_stage_2e_current_native.py",
+      "sha256": "5775e602157bd4347a4d597c8ae9e34fc54061204401883fe208ba4174e6486a"
+    },
+    {
+      "path": "research/table2-confirmation/execute_stage_2e_paths.py",
+      "sha256": "d9f992100e7f4f5f0c64cd6e16c96aa68882164403bb3dcdf8f0c5ee63a2666c"
+    },
+    {
+      "path": "research/table2-confirmation/prepare_stage_2e_dynamics.py",
+      "sha256": "c3c2a619522087be3743622845e3222a4890fcf5e80187617d316c0aed660960"
+    },
+    {
+      "path": "research/table2-confirmation/apply_stage_2e_dynamics.py",
+      "sha256": "7215828b2365d39066e3516194cfa858646ee1a2648cc9572d5f7c2ff89e9293"
+    },
+    {
+      "path": "research/table2-confirmation/shfc_pcm_checks.py",
+      "sha256": "db47174e5443fe84d5437618eb38b5048a3a7c1587431152677e97102d01aaf3"
+    },
+    {
+      "path": "research/table2-confirmation/check_stage_2e_raw.py",
+      "sha256": "0713bbd4009ec2da0f8679bacb60b44ef97ee9cbc15bcc846c0e6b182fc59b8e"
+    },
+    {
+      "path": "research/table2-confirmation/package_stage_2e_pcm.py",
+      "sha256": "30a9b0ca2e36f45dc75331430cf3d87a59bba1398ead2216c1e1198f1fce6340"
+    },
+    {
+      "path": "research/table2-confirmation/observe_stage_2e_paths.py",
+      "sha256": "4984b1c1a38ee71501b901a0f8c8c5820fbb52130e2f0f8c8e0a0fc5a6eacd9b"
+    },
+    {
+      "path": "research/table2-confirmation/check_stage_2e_delivery.py",
+      "sha256": "a56318f90939409f7505e110bc55bb06b08962f434a42fbc859ccbaff11a10b0"
+    },
+    {
+      "path": "research/table2-confirmation/build_stage_2e_execution.py",
+      "sha256": "48fcf6429012d2ce449a3e07289168783667bcc162786a060196a8191f8ea992"
+    }
+  ],
+  "independent_gate": {
+    "status": "passed_pending_human_listening",
+    "eligible_for_listening": true,
+    "snapshots_preserved": 20,
+    "production_skill_project_preserved": 79,
+    "protected_inputs_preserved": 67,
+    "old_2A_unique_paths_preserved": 1079,
+    "current_song_run_files_preserved": 567,
+    "current_song_manifest": {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/completion_manifest.json",
+      "sha256": "de83bf0482337772018a2f3b3170184136a4bcbdc9a77334bafecf196e33fea4"
+    },
+    "original_sources_preserved": 36,
+    "runtime47_exact": true,
+    "delivery_audio": 72,
+    "FLOAT_diagnostics": 16,
+    "encoded_two_order_pair_files_checked": 40,
+    "context_checks": [
+      {
+        "condition_id": "current-word-225",
+        "PCM_24_fixed_gain_and_mix_rebuilt": true,
+        "encoded_focus_slices_exact": true,
+        "focus_complete": true,
+        "focus_role": "requested_focus"
+      },
+      {
+        "condition_id": "current-word-214",
+        "PCM_24_fixed_gain_and_mix_rebuilt": true,
+        "encoded_focus_slices_exact": true,
+        "focus_complete": false,
+        "focus_role": "whole_phrase_fallback_no_zero_padding"
+      }
+    ],
+    "old_C_new_S_fresh_inputs_predictions_raw_PCM_exact": true,
+    "old_C_read_bindings": [
+      {
+        "role": "ONSET:sealed_manifest",
+        "path": "runs/lastpage_shfc_onset_probe_20261008/fresh/B_raw.wav",
+        "expected_sha256": "1903c5455d09b9730a85c583c9ba9a6022845bbaa00b4b12187bd591e224adcd",
+        "actual_sha256": "1903c5455d09b9730a85c583c9ba9a6022845bbaa00b4b12187bd591e224adcd",
+        "status": "verified"
+      },
+      {
+        "role": "ONSET:sealed_manifest",
+        "path": "runs/lastpage_shfc_onset_probe_20261008/fresh/B_inputs.npz",
+        "expected_sha256": "36ba255cfb706ab939a7df27557c6aaa3eb377e655221923ebe77491ff408b54",
+        "actual_sha256": "36ba255cfb706ab939a7df27557c6aaa3eb377e655221923ebe77491ff408b54",
+        "status": "verified"
+      },
+      {
+        "role": "ONSET:sealed_manifest",
+        "path": "runs/lastpage_shfc_onset_probe_20261008/fresh/B_prediction.npz",
+        "expected_sha256": "437bbfc54a00063768e283808e8f9a20511d5e6afe457bc6abb479b64545cc3e",
+        "actual_sha256": "437bbfc54a00063768e283808e8f9a20511d5e6afe457bc6abb479b64545cc3e",
+        "status": "verified"
+      }
+    ],
+    "immutable_native_preflight_and_audit_guard": [
+      {
+        "entry": "build_stage_2e_native.py",
+        "refused": true
+      },
+      {
+        "entry": "verify_stage_2e_native.py",
+        "refused": true
+      }
+    ],
+    "source_unknown_preserved": true,
+    "agent_heard": false,
+    "new_feedback": 0,
+    "generic_rules": 0,
+    "measurement_validated_upgrades": false,
+    "auditory_status": "pending",
+    "independent_effect_replications": 0
+  },
+  "measurements_scope": {
+    "windows": 53,
+    "complete_real_phones": 41,
+    "F0": "voiced finite positive common frames; incomplete/conflicting evidence unknown; no detector truth calibration",
+    "level": "RMS/peak and 30/50ms centered 5ms-hop proxies, not perceived loudness",
+    "spectral": "mel and per-frame mean-removed shape proxies, not formant/register/break cause",
+    "measurement_validated_upgrades": false
+  },
+  "history": {
+    "old_C_new_S_fresh_inputs_predictions_raw_PCM_exact": true,
+    "old_C_label_scope": "C-B local usable; no transfer to new S-A comparison",
+    "accepted_C_preserved": true,
+    "guo_SHFC_and_BREC_dose_expansion_stopped": true,
+    "old_negative_and_unknown_feedback_preserved": true
+  },
+  "scope": {
+    "single_agent": true,
+    "CI_manual_only": true,
+    "published_song_edited": false,
+    "existing_audio_edited": false,
+    "Skill_edited": false,
+    "model_or_install_edited": false,
+    "D_or_P_native_USTX_created": false,
+    "heldout_conditions": 0,
+    "agent_heard": false,
+    "auditory_status": "pending",
+    "stage_2F_to_2H_executed": false
+  },
+  "listening": {
+    "index": "runs/experiments/table2-shfc-paths-20261011/delivery/listening.md",
+    "condition_pages": [
+      "runs/experiments/table2-shfc-paths-20261011/delivery/word225.md",
+      "runs/experiments/table2-shfc-paths-20261011/delivery/word214.md"
+    ],
+    "anonymous_codes": "frozen v1 mapping; actual device/blinding unknown, not double blind",
+    "feedback_scope": "可感知差别/方向与可用性/字头咬字破音/响度与邻字；无反馈维持pending"
+  }
+}

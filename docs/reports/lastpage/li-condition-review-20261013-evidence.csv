@@ -1,0 +1,12 @@
+﻿id,factor,verbatim,limited_reading,remaining_boundary
+RESP:LASTPAGE-VOICE-BASELINE-01,normal75/bright25 only,还是虚，没有退化,this own candidate remained virtual; no regression reported,does not exclude all other speaker mixtures
+RESP:LASTPAGE-CONDITIONED-VOIC-01,own five-word VOIC increases,还是不行,not accepted,not evidence for more VOIC or universal channel inefficacy
+RESP:LASTPAGE-AUTHOR-PITCH-ABLATION-01,author PITD and relative note.pitch neutralization,都比我们的实,A/P/N/PN all more solid than old own,notes.tone/music stages/clocks retained; absolute music trajectory not excluded
+RESP:LASTPAGE-AUTHOR-VOICE-SWAP-01,own speaker on author conditions,B比原版好点，但还是不如A,"B somewhat better than old own, below A",voice contribution supported; no unique cause
+RESP:LASTPAGE-AUTHOR-CONTROL-NEUTRAL-01,author grouped manual controls removed,很接近a了,C very close to A,no isolated TENC/BREC/VOIC verdict; C-F direct rank absent
+RESP:LASTPAGE-AUTHOR-INTERACTION-01,fourth speaker/control corner,D比B好一点点，很细微，比c差很多,"D slightly above B, far below C",speaker/control interaction conditional; no transitive F rank
+RESP:LASTPAGE-OWN-BRIGHT-CUTE-01,bright40/cute60 on own conditions,比白烁的更实，但是就有那种前顶的感觉，声音挤得很细很尖,more solid than author but forward/squeezed/thin/sharp,adverse example; cannot map to one tension cause
+RESP:LASTPAGE-OWN-CONTROL-NEUTRAL-01,grouped manual controls neutralized under E voice,还有每轮的记录到表里了吗？以及更好了，但是比如像里字，白烁的是有发力强度区分的，渐强到减弱。就是发声的强弱安排也需要有层次,better and author li staged strength requested,"working comparator, not all adverse traits resolved or fully solid"
+RESP:LASTPAGE-OWN-LI-VOIC-STAGES-01,one VOIC stage gesture on F,不行,not acceptable,rejection dimensions unspecified; no escalation
+RESP:LASTPAGE-OWN-LI-DYN-LAYERS-01,DYN stage gesture on F raw,里字不够实，强度也不够大,li insufficient solidity/strength,output envelope failed current target; not an all-DYN verdict
+RESP:LASTPAGE-OWN-LI-TENC-STAGES-01,TENC stage gesture on F,和f没什么区别,no meaningful perceived difference from F,finite dose negative; no escalation or universal verdict

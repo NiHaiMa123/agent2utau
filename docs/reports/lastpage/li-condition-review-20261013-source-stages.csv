@@ -1,0 +1,7 @@
+﻿detector,source_stage,start_s,end_s,GAME_tone,voiced_frames,MIDI_median,MIDI_min,MIDI_max,scope
+fcpe,0,212.96999883919955,213.1399988409877,65.9585189819336,17,65.91694438725644,65.71518115314184,67.04121852149791,"sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+fcpe,1,213.1399988409877,213.52999882668257,67.96519470214844,40,67.89893020817772,66.38480829051655,68.13390487433946,"sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+fcpe,2,213.52999882668257,213.72565775224683,66.00711822509766,19,66.05480577095025,65.83290483058362,66.27011576189274,"sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+rmvpe,0,212.96999883919955,213.1399988409877,65.9585189819336,17,65.88807061140842,65.73414355353702,66.97998651117051,"sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+rmvpe,1,213.1399988409877,213.52999882668257,67.96519470214844,40,67.8747597217624,66.3756249155592,68.14967580530845,"sealed source detector observation, not newly measured F0 or exact musical boundary truth"
+rmvpe,2,213.52999882668257,213.72565775224683,66.00711822509766,19,66.06615389747856,65.79865293739698,66.25206244987848,"sealed source detector observation, not newly measured F0 or exact musical boundary truth"

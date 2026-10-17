@@ -1,0 +1,105 @@
+{
+  "status": "passed_partial_human_feedback",
+  "date": "2026-10-11",
+  "source_seals": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+      "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+    },
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/completion-manifest.json",
+      "sha256": "4800a9b8270d2da1edfbeb629834d0b5841cae9f7dd041d2344a15215046d25c"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/completion-manifest.json",
+      "sha256": "4e20e662350519ecb5103b6a36079ea2b06706f8083648ec7993cc14c01dbafc"
+    },
+    {
+      "path": "runs/research/table2-word225-pa-feedback-20261011/completion-manifest.json",
+      "sha256": "0f45f5fc8690cb771faaed562741b50edbf25e958ee09767828348eb1bdad4fc"
+    },
+    {
+      "path": "runs/research/table2-word225-sd-feedback-20261011/completion-manifest.json",
+      "sha256": "f6ddc9ae692fabe7f01adc5ffbfdbf4f67a16d3add7531f80fc1ea7a795b2714"
+    },
+    {
+      "path": "runs/research/table2-word225-sp-feedback-20261011/completion-manifest.json",
+      "sha256": "860719f2d97111bef140fe230e382c89f7ad72f218e754b5338b55a1972a3134"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-mix-feedback-20261011/completion-manifest.json",
+      "sha256": "df12cde46a0a0ddeffeea414c3a6e35ff693005ac97773e70ecfc90b144a83e2"
+    }
+  ],
+  "sealed_experiment_files_SHA": 484,
+  "sealed_experiment_documents_SHA": 4,
+  "previous_feedback_files_SHA": 168,
+  "previous_feedback_documents_SHA": 24,
+  "production_skill_project_SHA": 79,
+  "protected_inputs_SHA": 67,
+  "presented_pair_audio_SHA": 2,
+  "snapshot_files_SHA": 30,
+  "current_markdown_links_checked": 207,
+  "feedback": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-vocal-scope-review-20261011.json",
+    "sha256": "94a273144fc01ce39fffa2a262a71452e8496f32d286cec06333f5f175cebfe8"
+  },
+  "report": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-vocal-scope-review-20261011.md",
+    "sha256": "3a3a48acdd1cb49a3663916a8290570ac20494c028b6d1ee81bfc85a8cb66c3b"
+  },
+  "current_entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "2bcc566901e8a185bd4e711b4ccb44c7097c015c53764f970cc85c4072784f5c"
+    },
+    {
+      "path": "README.md",
+      "sha256": "76d066a9b2827f8cb606f44a1889fb204f17693ed8a8e2f4b5a7f46ffa79375c"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "b8b39cd405412470a8c92000890c3ad3147822b2c93eaef903bc236caf13dd5e"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "4407363b9426a09c5c81e2eb62f0b6d20dfbe1c53558506f542abe765fc509e1"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "f5adf3fb0aa415cf7dfd66758096ab7fb121eec36d329572493f8d7a38567f7b"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "b71546bbaa68715773db11c0c4d2e8189db559c2aed7ee1dcd1648a3590879e1"
+    }
+  ],
+  "worktree_gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 550
+  },
+  "worktree_gate_log": {
+    "path": "runs/research/table2-vocal-scope-review-20261011/worktree-gate.txt",
+    "sha256": "d8e9ee8d57b7bf4039d70287ae60951393ac9bd231fc4238825a396bf27b65df"
+  },
+  "this_record_new_feedback": 1,
+  "cumulative_new_feedback": 9,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "stage_2E_complete": false,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "CI_manual_only": true
+}

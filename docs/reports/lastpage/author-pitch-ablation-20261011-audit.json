@@ -1,0 +1,47 @@
+{
+  "status": "passed_with_explicit_auditory_gaps",
+  "new_waveforms": 16,
+  "native_cached_contexts": 12,
+  "F0_calls": 16,
+  "new_feedback": 0,
+  "protected_references": 1099,
+  "native": {
+    "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/native-independent-check.json",
+    "sha256": "e48df6507999bea32f82dd7978269f10f61200384246e2bd0db7ca1458198eac"
+  },
+  "fresh": {
+    "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/fresh-independent-check.json",
+    "sha256": "94f490139ad8adbef4d1955d7ca7fb8698591c39b08d01be31695af8d0a43931"
+  },
+  "delivery": {
+    "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/delivery-independent-check.json",
+    "sha256": "9e48c696c389e2e1aa93c8b1cd7fbbd8f5b427ac0338a2dfed6a5536964503de"
+  },
+  "source_scripts": [
+    {
+      "path": "research/table2-confirmation/lastpage_author_pitch_ablation_20261011.py",
+      "sha256": "4fdcdc7d9cd49a5668d0c4c0c7e9bd17d95be0366cdd6e957fa2ba8fcbab99d2"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_author_pitch_ablation_20261011.py",
+      "sha256": "e21888a545873c591b1532314663ef54fa5058ed8dc70f630ad71a8458a32640"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_author_pitch_ablation_20261011.py",
+      "sha256": "dcc45189576ac9476c87b39d61f663ab65ce2a182fefe084249ec619628f666e"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_author_pitch_delivery_20261011.py",
+      "sha256": "f032585a4bbc58f70994ae44ea2e1c7382fb0bceeca3db61d7e3b5352fb5a0de"
+    }
+  ],
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 612}",
+  "local_contract_tests": 47,
+  "contract_log": {
+    "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/logs/contracts.log",
+    "sha256": "43628898bad13eef79f10ec9be515dda43d974d9906266542ae99f28c04d8474"
+  },
+  "originals_song_audio_Skill_preserved": true,
+  "agent_heard": false,
+  "measurement_validated": false
+}

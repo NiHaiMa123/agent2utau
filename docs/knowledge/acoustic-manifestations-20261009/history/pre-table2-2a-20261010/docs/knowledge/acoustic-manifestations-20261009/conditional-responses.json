@@ -1,0 +1,5912 @@
+{
+  "schema_version": 2,
+  "date": "2026-10-09",
+  "scope": "existing_condition_response_evidence_not_recipe_or_skill",
+  "no_new_synthesis": true,
+  "no_parameter_or_skill_change": true,
+  "common_context": {
+    "song": "最后一页",
+    "singer": "YousaV1.65c",
+    "speaker_both_stages": {
+      "Normal": 0.75,
+      "Classic": 0.25
+    },
+    "sample_rate_Hz": 44100,
+    "hop_samples": 512,
+    "frame_ms": 11.609977324263038,
+    "seed_variance": 11,
+    "seed_acoustic": 101,
+    "fixed_gain": {
+      "vocal": 1.5,
+      "backing": 0.7
+    },
+    "normalization": false,
+    "compressor": false,
+    "agent_audio_perception": false,
+    "runtime_binding_scope": "Existing frozen cohort runtime hashes; not a new runtime or waveform verification"
+  },
+  "runtime_hash_bindings": {
+    "external-resource/OpenUtau/OpenUtau.Core.dll": "855a4cc7ef730c68b2853903b0dbadc24e5cfb0ba9d02a9d6a4d16688fb8f8d7",
+    "external-resource/OpenUtau/Microsoft.ML.OnnxRuntime.dll": "7db3d45ad570da12c05c1d1460fb85e3b4b680a71bdea65af5dd7e972d59ddbb",
+    "external-resource/OpenUtau/onnxruntime.dll": "e7eedec6a6f26dc39dc948276a75ef6d2bee3fff944d874ceed0bbd3b97bff40",
+    "external-resource/OpenUtau/prefs.json": "37151abdb5a724e3fac154fc1804bfacbfc6bc2281fd4db09ff26a83300b22bc",
+    "external-resource/OpenUtau/a2u-shfcprobe-20261008.dll": "6df11ccfe4b1fd4b3aabd5fd2c76f54f2ddd3405d92fc1bc528cda8fbb8797f1",
+    "external-resource/OpenUtau/a2u-shfcprobe-20261008.deps.json": "eb83cd25126036bb5ed2c5c28e298ffa9c97b2c5776990f82732057ac1a999de",
+    "external-resource/OpenUtau/a2u-shfcprobe-20261008.runtimeconfig.json": "d44456e801512388fbfee409aeb60e9021a568881d941bdec4038ef9045e5bc1",
+    "external-resource/OpenUtau/a2u-levelprobe-v15.dll": "7a2a10f7d9b10029ed3420869376f9459bde1c213a0fb3c857deabf04475ce40",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/character.yaml": "fc3335a4c5f6304cad20f1b03bb7db18e280e881a5e049478811433aaca4ca99",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsconfig.yaml": "72d5197ba188ad24596b7d9b6652b6e65a0a919e4841f45e598946c37ef53d06",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsconfig.yaml": "cd7de0034887aaef1ad15082884be18e6bdbd88a2312f5ab0e5672172511c46c",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsdict-ja.yaml": "193612e18ef3503b85d5c86e93008f98cad11cb0b244e34f92acba65767d80d4",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsdict-ko.yaml": "7e47ab6fa66cba553d6b3c26ab352f9c7f227e489239042c15506316bda640cc",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsdict-zh.yaml": "04734af1885f075da4d379f9dcd11d629ae46350dd83f36f1ca5c9adcc8fcbc4",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/dsdict.yaml": "fa61e140c0953f95b1b08f733a41e11444be51323d94257491531b7ea2afb328",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/dsconfig.yaml": "7626b1b0d2799b4cb89067a9458c19963a55a7100ccdf68709e0f650b526bc65",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/dsconfig.yaml": "5f3a02f3b3a580c6b5600880ca6ea0bde77ddd2be2b81e863b7ed98772c8551b",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/dsdict.yaml": "48a9d8c49e08316877797250e71258599ea31ef7baf769bb729f2170e4f229f9",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvocoder/vocoder.yaml": "a9dde1db7ed047c74247df89cb3676f0210ac60cd0776afad71d4bcf7b77ab2e",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Bright.emb": "dc40eeebd34a18b0d44d9ee887052d7d37d472eec6cbd13dd3acde30951f7832",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Classic.emb": "dde42450f7d38653aa520c9883e74473abe5105ea069cddcbe6ebadd2abbecb4",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Cute.emb": "5ffaef1e7d0366c70511eb493695afc992ab277b26f1145ac5fb929ec8e62a04",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Normal.emb": "9fa01d6ab16c67d52a520ab1a0c5cf9f293d093ef5c1be8c08ba94d926cd61e6",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/Yousa_Whisper.emb": "124ecc4622f34dc909810853a05a0bc9726b45e34aa56057b5cf97294ac5100a",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Bright.emb": "3d4c831298aecf634fbc4e8990ecb606bd21f4a337adda003a5df20cc27b877c",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Classic.emb": "fa13bb4294606510cdaa15d87b7004d1737c8d122420b2b06c6d44d061409456",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Cute.emb": "5249e2244503a56f905f332f03e7df27ea3301662feabc07cc725bef6ecbf414",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Normal.emb": "330535583ea3369de0dbd38eafdf3d8075f4df50eeaddadff76cfd9d1324d46c",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/Yousa_Whisper.emb": "095cf47f4d02378f5b01a807a476c68158e10a62e54daeebfa85cbc6411b0e7f",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Bright.emb": "de167edc98bcd247685d89610044e8a986d9ec169820ae7798062c0fa28f3d12",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Classic.emb": "92947602e9a8a9e0e4ad3d1b6a21cfae3bc288af562b2aa2fe17e1602510b255",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Cute.emb": "3d6571656196c5fbd5eae9bc5ff3f95744ae0980c43a97ef3159e154542e75b3",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Normal.emb": "f22e47a2a86853093c8744c1e81d7e46d0a3ecd6bbbbf82a2bead24aa603d72a",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/Yousa_Whisper.emb": "1ab5f98a001ccc3b8598debfc85ede3af33516532b506615dceb0251ec8c75d4",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/0818_no_shuffle.onnx": "a8fdc96710113a5faefef9cc8d418d786ff8b7a4b36ebfc10cf30f7c6b87fe74",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/0923_dpv2_nogru.dur.onnx": "b66ebbdb96d4464bd854470d08be2fe97c6821d5ed16fe411163ae588f41ccb0",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsdur/0923_dpv2_nogru.linguistic.onnx": "3492f41e9f3fcb6e2446498aadf0c11d1e5144055e5614517de75f656a6151cc",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/0801_variance.linguistic.onnx": "4892ff20d9728b51c235d0912abae0473077de7043d4bff3684caf79fb0773e9",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dspitch/0801_variance.pitch.onnx": "eaf9c8ce9270701fb7563b2dac43d475769f3fe69d5ea83000dedeab81f79656",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvariance/0801_variance.variance.onnx": "d68eb67d23be30f5ab7aba245f55a674413b120d25848bffd8bf67c5edb5c457",
+    "external-resource/OpenUtau/Singers/YousaV1.65c/dsvocoder/yousa_vocoder_FT_1002_pc_nsf_wm.onnx": "00ce253d8f616bb9ed8d219648aa8d37ff29b46888c99db6046b733e8f1fc16c"
+  },
+  "responses": [
+    {
+      "id": "RESP-001",
+      "experiment_group": "EXP-TENC-CANCEL",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-225",
+        "word": 225,
+        "context": 22,
+        "phoneme": "zh/ao",
+        "tone": 71,
+        "vowel_s": [
+          183.81145833333335,
+          184.125
+        ],
+        "label": "reported_false_forward",
+        "vowel_duration_ms": 313.5416666666515,
+        "native_phones": [
+          {
+            "phoneme": "zh/b",
+            "start_ms": 183602.08333333334,
+            "end_ms": 183811.45833333334,
+            "tone": 71
+          },
+          {
+            "phoneme": "zh/ao",
+            "start_ms": 183811.45833333334,
+            "end_ms": 184125,
+            "tone": 71
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 27,
+              "min": -48.26377868652344,
+              "median": -46.006961822509766,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 27,
+              "min": -50.55093002319336,
+              "median": -43.3055419921875,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 27,
+              "min": -0.6327570080757141,
+              "median": 1.7553541660308838,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 16,
+              "min": -47.588382720947266,
+              "median": -44.805870056152344,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 16,
+              "min": -43.38410949707031,
+              "median": -43.313751220703125,
+              "max": -41.82840347290039
+            },
+            "final_tension": {
+              "n": 16,
+              "min": 1.5273346900939941,
+              "median": 1.8506109714508057,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -48.26377868652344,
+              "median": -46.776145935058594,
+              "max": -44.996402740478516
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -49.57579040527344,
+              "median": -42.05855178833008,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 1.221807837486267,
+              "median": 1.7000912427902222,
+              "max": 2.196211576461792
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 6,
+              "min": -48.12172317504883,
+              "median": -48.06998825073242,
+              "max": -47.63417053222656
+            },
+            "final_voicing": {
+              "n": 6,
+              "min": -50.55093002319336,
+              "median": -43.609649658203125,
+              "max": -42.97685623168945
+            },
+            "final_tension": {
+              "n": 6,
+              "min": -0.6327570080757141,
+              "median": 0.26376205682754517,
+              "max": 1.2622413635253906
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-225",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C13"
+      ],
+      "atomic_ids": [
+        "ACO:S1",
+        "ACO:S2",
+        "EVT:R3",
+        "PER:S1"
+      ],
+      "evidence_ids": [
+        "EVID:01"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "TENC",
+        "original_UI_peak": 14,
+        "new_UI_peak": 0,
+        "model_peak_delta": -0.7,
+        "support_s": [
+          183.82145833333334,
+          184.113
+        ],
+        "native_changed_frames": 24,
+        "operation": "取消原有有限偏移，不能视作任意新TENC曲线"
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "PCM_vowel_metrics": {
+          "ao_RMS_A": 0.07909410908361234,
+          "ao_RMS_B": 0.08084762004506214,
+          "ao_level_change_db": 0.19046202700468523,
+          "ao_wave_delta_rms": 0.012491927781860883,
+          "whole_phrase_wave_delta_rms": 0.003169174886195201
+        },
+        "actual_dual_F0": {
+          "fcpe": {
+            "comparable_frames": 31,
+            "A_median_Hz": 494.3291015625,
+            "B_median_Hz": 494.30572509765625,
+            "AB_abs_cents_p50": 0.21895447373390198,
+            "AB_abs_cents_p95": 0.6486258506774902,
+            "AB_abs_cents_max": 1.5574619770050049,
+            "repeat_f0_exact": true
+          },
+          "rmvpe": {
+            "comparable_frames": 31,
+            "A_median_Hz": 494.9289245605469,
+            "B_median_Hz": 494.997802734375,
+            "AB_abs_cents_p50": 0.1904984712600708,
+            "AB_abs_cents_p95": 0.5411263108253479,
+            "AB_abs_cents_max": 1.3968297243118286,
+            "repeat_f0_exact": true
+          }
+        }
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run",
+        "measured_response": "observed",
+        "auditory_outcome": "no_perceived_difference",
+        "specific_side_effect": "unknown",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "没啥区别",
+        "scope": "该次交付的局部对照",
+        "agent_listened": false
+      },
+      "usage_boundary": "不采用B；只否定该TENC取消在本条件下的可感知改善，不推广至整个通道。",
+      "report": "docs/lastpage-tenc-controlled-probe-20261008.md",
+      "prior_run": "runs/lastpage_tenc_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+        "project_B": "95a2620016db3ae1fe0434d8c27a2127daf43391d57bdd93dcf38e89af002897",
+        "delivered_audio": {
+          "runs/lastpage_tenc_probe_20261008/delivery/A_B_mix.wav": "4e0c8cd5219e9517b073c4fccc2ebcc5485348c259a7366b3af34943a6f485bb",
+          "runs/lastpage_tenc_probe_20261008/delivery/A_B_vocal.wav": "1ae835f2e0f75414a377f7f2d833313f8d79bed80e23394c00a0512475689cfb",
+          "runs/lastpage_tenc_probe_20261008/delivery/A_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+          "runs/lastpage_tenc_probe_20261008/delivery/A_repeat_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+          "runs/lastpage_tenc_probe_20261008/delivery/A_repeat_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+          "runs/lastpage_tenc_probe_20261008/delivery/A_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+          "runs/lastpage_tenc_probe_20261008/delivery/B_mix.wav": "e5f3fc5b5db6cf966165b5df9ca12f4fe324660b4b62556094af3f92c6172a90",
+          "runs/lastpage_tenc_probe_20261008/delivery/B_vocal.wav": "beb989a5816f52718ebb5537e1339794df90c6b19cb399b0e034422b906544d2"
+        }
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "R3"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "R3": [
+          "EVT:R3"
+        ]
+      },
+      "legacy_control_ids": [
+        "C13"
+      ],
+      "legacy_evidence_ids": [
+        "E1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-002",
+      "experiment_group": "EXP-SHFC-BAO",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-225",
+        "word": 225,
+        "context": 22,
+        "phoneme": "zh/ao",
+        "tone": 71,
+        "vowel_s": [
+          183.81145833333335,
+          184.125
+        ],
+        "label": "reported_false_forward",
+        "vowel_duration_ms": 313.5416666666515,
+        "native_phones": [
+          {
+            "phoneme": "zh/b",
+            "start_ms": 183602.08333333334,
+            "end_ms": 183811.45833333334,
+            "tone": 71
+          },
+          {
+            "phoneme": "zh/ao",
+            "start_ms": 183811.45833333334,
+            "end_ms": 184125,
+            "tone": 71
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 27,
+              "min": -48.26377868652344,
+              "median": -46.006961822509766,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 27,
+              "min": -50.55093002319336,
+              "median": -43.3055419921875,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 27,
+              "min": -0.6327570080757141,
+              "median": 1.7553541660308838,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 16,
+              "min": -47.588382720947266,
+              "median": -44.805870056152344,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 16,
+              "min": -43.38410949707031,
+              "median": -43.313751220703125,
+              "max": -41.82840347290039
+            },
+            "final_tension": {
+              "n": 16,
+              "min": 1.5273346900939941,
+              "median": 1.8506109714508057,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -48.26377868652344,
+              "median": -46.776145935058594,
+              "max": -44.996402740478516
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -49.57579040527344,
+              "median": -42.05855178833008,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 1.221807837486267,
+              "median": 1.7000912427902222,
+              "max": 2.196211576461792
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 6,
+              "min": -48.12172317504883,
+              "median": -48.06998825073242,
+              "max": -47.63417053222656
+            },
+            "final_voicing": {
+              "n": 6,
+              "min": -50.55093002319336,
+              "median": -43.609649658203125,
+              "max": -42.97685623168945
+            },
+            "final_tension": {
+              "n": 6,
+              "min": -0.6327570080757141,
+              "median": 0.26376205682754517,
+              "max": 1.2622413635253906
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-225",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C14",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:S1",
+        "ACO:S2",
+        "EVT:R3",
+        "EVT:S6",
+        "EVT:T4",
+        "PER:S1"
+      ],
+      "evidence_ids": [
+        "EVID:02"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "SHFC",
+        "peak_cents": -400,
+        "support_s": [
+          183.82145833333334,
+          184.113
+        ],
+        "attack_ms": 55,
+        "release_ms": 55,
+        "attack_end_s": 183.87645833333335,
+        "release_start_s": 184.058,
+        "legal_range_cents": [
+          -1200,
+          1200
+        ],
+        "native_changed_frames": 24
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "PCM_vowel_metrics": {
+          "ao_RMS_A": 0.07909410908361234,
+          "ao_RMS_B": 0.0780696638945116,
+          "ao_level_change_db": -0.11323657751002195,
+          "ao_wave_delta_rms": 0.053325432620712675,
+          "whole_phrase_wave_delta_rms": 0.015254711779434056
+        },
+        "variance_prediction_response": {
+          "breathiness_pred": {
+            "changed_frames": 421,
+            "changed_outside_selected_support": 395,
+            "max_abs_change": 17.19768524169922,
+            "ao_A_median": -45.6469612121582,
+            "ao_B_median": -47.156463623046875
+          },
+          "voicing_pred": {
+            "changed_frames": 378,
+            "changed_outside_selected_support": 352,
+            "max_abs_change": 8.526054382324219,
+            "ao_A_median": -43.3055419921875,
+            "ao_B_median": -43.33905029296875
+          },
+          "tension_pred": {
+            "changed_frames": 421,
+            "changed_outside_selected_support": 395,
+            "max_abs_change": 3.6615028381347656,
+            "ao_A_median": 1.130515456199646,
+            "ao_B_median": 2.779456853866577
+          }
+        },
+        "first_65ms_F0_B_minus_A": {
+          "fcpe": {
+            "abs_cents_p50": 8.19366841415912,
+            "abs_cents_p95": 38.812991743340284,
+            "abs_cents_max": 44.49816118696282
+          },
+          "rmvpe": {
+            "abs_cents_p50": 6.2399648809503345,
+            "abs_cents_p95": 35.3749214094938,
+            "abs_cents_max": 40.384036432718645
+          }
+        },
+        "no_full_scale_or_feature_clipping": "previous_read_only_audit; not a voice_break_classifier"
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run",
+        "measured_response": "observed",
+        "auditory_outcome": "benefit_with_side_effect",
+        "specific_side_effect": "reported_voice_break_at_bao_onset",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "更实了，但是有破音的情况；抱的字头",
+        "scope": "该次交付的局部对照",
+        "agent_listened": false,
+        "verbatim_is_multiple_user_messages_joined": true
+      },
+      "usage_boundary": "不采用该B；证实完整条件路径可改变实感并带副作用，未隔离是哪条下游预测造成。",
+      "report": "docs/lastpage-shfc-controlled-probe-20261008.md",
+      "prior_run": "runs/lastpage_shfc_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+        "project_B": "41c9bfcc909c0a19d49ba472e79abf7a3ed8c3abc36687ce915f187b9e368ceb",
+        "delivered_audio": {
+          "runs/lastpage_shfc_probe_20261008/delivery/A_B_mix.wav": "7d5c768a6bd42fb6ec88e1b218a856c6028e1f1186db429cf20d01fe093b7aee",
+          "runs/lastpage_shfc_probe_20261008/delivery/A_B_vocal.wav": "87bc398f61d0ce6d60e2d8e325bf83f4dd8bd9055993fb596f15adf5a60bad96",
+          "runs/lastpage_shfc_probe_20261008/delivery/A_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+          "runs/lastpage_shfc_probe_20261008/delivery/A_repeat_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+          "runs/lastpage_shfc_probe_20261008/delivery/A_repeat_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+          "runs/lastpage_shfc_probe_20261008/delivery/A_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+          "runs/lastpage_shfc_probe_20261008/delivery/B_mix.wav": "a8ecbfadab264664dce5966542b67bd55d3569ed62cc34362dcefb8c2cfd327e",
+          "runs/lastpage_shfc_probe_20261008/delivery/B_vocal.wav": "e6095f707c59e9b12c9e7998cef6d8750d8c0284600d2e398d789eceb6139541"
+        }
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "S6",
+        "R3",
+        "T4"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "S6": [
+          "EVT:S6"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "T4": [
+          "EVT:T4"
+        ]
+      },
+      "legacy_control_ids": [
+        "C14",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E2"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-003",
+      "experiment_group": "EXP-SHFC-BAO-ONSET",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-225",
+        "word": 225,
+        "context": 22,
+        "phoneme": "zh/ao",
+        "tone": 71,
+        "vowel_s": [
+          183.81145833333335,
+          184.125
+        ],
+        "label": "reported_false_forward",
+        "vowel_duration_ms": 313.5416666666515,
+        "native_phones": [
+          {
+            "phoneme": "zh/b",
+            "start_ms": 183602.08333333334,
+            "end_ms": 183811.45833333334,
+            "tone": 71
+          },
+          {
+            "phoneme": "zh/ao",
+            "start_ms": 183811.45833333334,
+            "end_ms": 184125,
+            "tone": 71
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 27,
+              "min": -48.26377868652344,
+              "median": -46.006961822509766,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 27,
+              "min": -50.55093002319336,
+              "median": -43.3055419921875,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 27,
+              "min": -0.6327570080757141,
+              "median": 1.7553541660308838,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 16,
+              "min": -47.588382720947266,
+              "median": -44.805870056152344,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 16,
+              "min": -43.38410949707031,
+              "median": -43.313751220703125,
+              "max": -41.82840347290039
+            },
+            "final_tension": {
+              "n": 16,
+              "min": 1.5273346900939941,
+              "median": 1.8506109714508057,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -48.26377868652344,
+              "median": -46.776145935058594,
+              "max": -44.996402740478516
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -49.57579040527344,
+              "median": -42.05855178833008,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 1.221807837486267,
+              "median": 1.7000912427902222,
+              "max": 2.196211576461792
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 6,
+              "min": -48.12172317504883,
+              "median": -48.06998825073242,
+              "max": -47.63417053222656
+            },
+            "final_voicing": {
+              "n": 6,
+              "min": -50.55093002319336,
+              "median": -43.609649658203125,
+              "max": -42.97685623168945
+            },
+            "final_tension": {
+              "n": 6,
+              "min": -0.6327570080757141,
+              "median": 0.26376205682754517,
+              "max": 1.2622413635253906
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-225",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown",
+        "tested_variant": "同一word225：对照为旧SHFC B，干预为新C；基底状态字段是原v02的描述，不能冒充B状态。"
+      },
+      "control_ids": [
+        "CTRL:C14",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:L5",
+        "EVT:L4",
+        "EVT:R3",
+        "EVT:S6",
+        "EVT:T3",
+        "EVT:T4",
+        "PER:T3"
+      ],
+      "evidence_ids": [
+        "EVID:03"
+      ],
+      "comparison_direction": "C-B; F0/windows also retain explicitly named A-B/A-C",
+      "intervention": {
+        "channel": "SHFC entrance geometry",
+        "peak_cents": -400,
+        "previous_support_s": [
+          183.82145833333334,
+          184.113
+        ],
+        "support_s": [
+          183.73145833333334,
+          184.113
+        ],
+        "attack_ms_from_to": [
+          55,
+          145
+        ],
+        "preparation_before_vowel_ms": 80,
+        "start_advance_from_B_ms": 90,
+        "same_arrival_s": 183.87645833333335,
+        "same_release_start_s": 184.058,
+        "platform_and_exit_exact": true,
+        "causal_factor_scope": "时长与提前准备一起改变，不能分别归因"
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "window_responses": [
+          {
+            "name": "b_last_55ms",
+            "interval_s": [
+              183.75645833333334,
+              183.81145833333335
+            ],
+            "mel_frames": 5,
+            "adjacent_frame_level_removed_mel_shape_RMS": {
+              "A": 0.6504201813279917,
+              "B": 0.5461711528466207,
+              "C": 0.7299469672629003
+            },
+            "F0": {
+              "fcpe": {
+                "all_three_comparable_frames": 2,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 62.587641369248765,
+                    "abs_cents_p95": 70.23417013327094,
+                    "abs_cents_max": 71.08378444038452
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 63.93227537589692,
+                    "abs_cents_p95": 76.41243829124257,
+                    "abs_cents_max": 77.7991230596143
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 5.370704612581612,
+                    "abs_cents_p95": 6.580875218565035,
+                    "abs_cents_max": 6.71533861922986
+                  }
+                }
+              },
+              "rmvpe": {
+                "all_three_comparable_frames": 2,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 59.963860446360016,
+                    "abs_cents_p95": 61.15273437670904,
+                    "abs_cents_max": 61.28483148008116
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 67.88008919489977,
+                    "abs_cents_p95": 75.60023266962084,
+                    "abs_cents_max": 76.45802638903429
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 7.916228748539522,
+                    "abs_cents_p95": 14.447498292911618,
+                    "abs_cents_max": 15.173194908952963
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "ao_first_65ms",
+            "interval_s": [
+              183.81145833333335,
+              183.87645833333335
+            ],
+            "mel_frames": 5,
+            "adjacent_frame_level_removed_mel_shape_RMS": {
+              "A": 0.38542284518022996,
+              "B": 0.6660774231109452,
+              "C": 0.5886959757534862
+            },
+            "F0": {
+              "fcpe": {
+                "all_three_comparable_frames": 6,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 8.19366841415912,
+                    "abs_cents_p95": 38.812991743340284,
+                    "abs_cents_max": 44.49816118696282
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 2.604901138053803,
+                    "abs_cents_p95": 21.550415553652428,
+                    "abs_cents_max": 26.15783762167603
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 5.770772820676558,
+                    "abs_cents_p95": 17.262576189687895,
+                    "abs_cents_max": 18.34032356528685
+                  }
+                }
+              },
+              "rmvpe": {
+                "all_three_comparable_frames": 6,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 6.2399648809503345,
+                    "abs_cents_p95": 35.3749214094938,
+                    "abs_cents_max": 40.384036432718645
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 1.950102824929775,
+                    "abs_cents_p95": 21.19604140244712,
+                    "abs_cents_max": 26.4101149947132
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 6.333449034635326,
+                    "abs_cents_p95": 14.588797145129375,
+                    "abs_cents_max": 14.793755714170693
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "ao_plateau",
+            "interval_s": [
+              183.87645833333335,
+              184.058
+            ],
+            "mel_frames": 16,
+            "adjacent_frame_level_removed_mel_shape_RMS": {
+              "A": 0.256128077578964,
+              "B": 0.28535392208974036,
+              "C": 0.25966252235429976
+            },
+            "F0": {
+              "fcpe": {
+                "all_three_comparable_frames": 18,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 0.5212697954389285,
+                    "abs_cents_p95": 3.502206951905261,
+                    "abs_cents_max": 4.706929316024009
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 0.6139276163567693,
+                    "abs_cents_p95": 3.052905461127678,
+                    "abs_cents_max": 3.517813188304876
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 0.38195929034305576,
+                    "abs_cents_p95": 1.68095709929736,
+                    "abs_cents_max": 4.130700140585029
+                  }
+                }
+              },
+              "rmvpe": {
+                "all_three_comparable_frames": 18,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 0.945320895781945,
+                    "abs_cents_p95": 3.1757945037264523,
+                    "abs_cents_max": 4.002470390897483
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 0.7120810581906327,
+                    "abs_cents_p95": 3.128594147472628,
+                    "abs_cents_max": 4.057475554285047
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 0.1865462764297302,
+                    "abs_cents_p95": 1.1263168807967916,
+                    "abs_cents_max": 1.7336830317395053
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "ao_exit",
+            "interval_s": [
+              184.058,
+              184.125
+            ],
+            "mel_frames": 6,
+            "adjacent_frame_level_removed_mel_shape_RMS": {
+              "A": 0.41114263546077523,
+              "B": 0.6906118313453367,
+              "C": 0.68793604845278
+            },
+            "F0": {
+              "fcpe": {
+                "all_three_comparable_frames": 7,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 4.650433302039744,
+                    "abs_cents_p95": 11.280947080265909,
+                    "abs_cents_max": 12.459248419488846
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 4.665738385633569,
+                    "abs_cents_p95": 11.268635193251333,
+                    "abs_cents_max": 12.588567959908856
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 0.23867018955080105,
+                    "abs_cents_p95": 0.33659532032842376,
+                    "abs_cents_max": 0.34278521769518105
+                  }
+                }
+              },
+              "rmvpe": {
+                "all_three_comparable_frames": 7,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 6.530030774803962,
+                    "abs_cents_p95": 25.29198468202192,
+                    "abs_cents_max": 32.85704132592133
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 6.1461132784543775,
+                    "abs_cents_p95": 24.740884299265662,
+                    "abs_cents_max": 32.31179442938755
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 0.383917496349674,
+                    "abs_cents_p95": 0.7383593979150381,
+                    "abs_cents_max": 0.8211218985069563
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "ao_complete",
+            "interval_s": [
+              183.81145833333335,
+              184.125
+            ],
+            "mel_frames": 27,
+            "adjacent_frame_level_removed_mel_shape_RMS": {
+              "A": 0.3224104194900151,
+              "B": 0.48620958943144343,
+              "C": 0.45749498309951364
+            },
+            "F0": {
+              "fcpe": {
+                "all_three_comparable_frames": 31,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 2.4565886340974306,
+                    "abs_cents_p95": 17.10836591598077,
+                    "abs_cents_max": 44.49816118696282
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 0.9270347495583827,
+                    "abs_cents_p95": 10.388680015479656,
+                    "abs_cents_max": 26.15783762167603
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 0.34278521769518105,
+                    "abs_cents_p95": 10.009339903129538,
+                    "abs_cents_max": 18.34032356528685
+                  }
+                }
+              },
+              "rmvpe": {
+                "all_three_comparable_frames": 31,
+                "differences": {
+                  "A_B": {
+                    "abs_cents_p50": 1.7079806673590727,
+                    "abs_cents_p95": 26.602308832870303,
+                    "abs_cents_max": 40.384036432718645
+                  },
+                  "A_C": {
+                    "abs_cents_p50": 1.3052628435570774,
+                    "abs_cents_p95": 16.742771161847266,
+                    "abs_cents_max": 32.31179442938755
+                  },
+                  "B_C": {
+                    "abs_cents_p50": 0.30160650392946314,
+                    "abs_cents_p95": 11.715397232530057,
+                    "abs_cents_max": 14.793755714170693
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "neighbor_RMS_C_minus_B": [
+          {
+            "phoneme": "AP",
+            "support_s": [
+              182.115625,
+              182.2854166666667
+            ],
+            "B_C_rms_change_db": -0.003778004427350883
+          },
+          {
+            "phoneme": "SP",
+            "support_s": [
+              182.2854166666667,
+              182.3416666666667
+            ],
+            "B_C_rms_change_db": -0.0055766017104913026
+          },
+          {
+            "phoneme": "zh/x",
+            "support_s": [
+              182.3416666666667,
+              182.5
+            ],
+            "B_C_rms_change_db": -0.0077047775660957895
+          },
+          {
+            "phoneme": "zh/iang",
+            "support_s": [
+              182.5,
+              182.80208333333334
+            ],
+            "B_C_rms_change_db": -0.008870417426885576
+          },
+          {
+            "phoneme": "zh/b",
+            "support_s": [
+              182.80208333333334,
+              182.8947916666667
+            ],
+            "B_C_rms_change_db": -0.017322669902513323
+          },
+          {
+            "phoneme": "zh/a",
+            "support_s": [
+              182.8947916666667,
+              183.27708333333334
+            ],
+            "B_C_rms_change_db": -0.03556305261441913
+          },
+          {
+            "phoneme": "zh/n",
+            "support_s": [
+              183.27708333333334,
+              183.346875
+            ],
+            "B_C_rms_change_db": -0.13759561230252104
+          },
+          {
+            "phoneme": "zh/i",
+            "support_s": [
+              183.346875,
+              183.60208333333335
+            ],
+            "B_C_rms_change_db": -0.10610357156634916
+          },
+          {
+            "phoneme": "zh/b",
+            "support_s": [
+              183.60208333333335,
+              183.81145833333335
+            ],
+            "B_C_rms_change_db": -5.3255272536460465
+          },
+          {
+            "phoneme": "zh/ao",
+            "support_s": [
+              183.81145833333335,
+              184.125
+            ],
+            "B_C_rms_change_db": -0.2958347455469828
+          },
+          {
+            "phoneme": "zh/j",
+            "support_s": [
+              184.125,
+              184.21770833333335
+            ],
+            "B_C_rms_change_db": -0.26682081912432803
+          },
+          {
+            "phoneme": "zh/in",
+            "support_s": [
+              184.21770833333335,
+              184.34479166666668
+            ],
+            "B_C_rms_change_db": -0.052931616224856134
+          },
+          {
+            "phoneme": "zh/sh",
+            "support_s": [
+              184.34479166666668,
+              184.484375
+            ],
+            "B_C_rms_change_db": -0.40269854064196314
+          },
+          {
+            "phoneme": "zh/en",
+            "support_s": [
+              184.484375,
+              184.75104166666668
+            ],
+            "B_C_rms_change_db": -0.048094079237435146
+          },
+          {
+            "phoneme": "zh/t",
+            "support_s": [
+              184.75104166666668,
+              184.8791666666667
+            ],
+            "B_C_rms_change_db": -0.028455802296372644
+          },
+          {
+            "phoneme": "zh/i",
+            "support_s": [
+              184.8791666666667,
+              185.403125
+            ],
+            "B_C_rms_change_db": -0.006126043651749232
+          },
+          {
+            "phoneme": "zh/l",
+            "support_s": [
+              185.403125,
+              185.49583333333334
+            ],
+            "B_C_rms_change_db": -0.0009483365219133664
+          },
+          {
+            "phoneme": "zh/i",
+            "support_s": [
+              185.49583333333334,
+              186.0979166666667
+            ],
+            "B_C_rms_change_db": -0.00030259997215355126
+          },
+          {
+            "phoneme": "zh/m",
+            "support_s": [
+              186.0979166666667,
+              186.33020833333333
+            ],
+            "B_C_rms_change_db": -8.584365814418658e-06
+          },
+          {
+            "phoneme": "zh/ian",
+            "support_s": [
+              186.33020833333333,
+              186.8104166666667
+            ],
+            "B_C_rms_change_db": -2.3321164029318913e-06
+          }
+        ]
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run; B explicitly reused sealed audio, fresh original A/repeat/C",
+        "measured_response": "observed",
+        "auditory_outcome": "local_accepted",
+        "specific_side_effect": "fine_grained_break_and_articulation_labels_unknown",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "可以",
+        "scope": "该次交付的局部对照",
+        "agent_listened": false
+      },
+      "usage_boundary": "用户仅接受该抱C的局部对照；保持其已接受状态，不复制145ms到其它字或整曲。",
+      "report": "docs/lastpage-shfc-onset-probe-20261008.md",
+      "prior_run": "runs/lastpage_shfc_onset_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A_original": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+        "project_B_comparator": "41c9bfcc909c0a19d49ba472e79abf7a3ed8c3abc36687ce915f187b9e368ceb",
+        "project_C": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816",
+        "delivered_audio": {
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/A_C_mix.wav": "dab76f465a5df6db477eb504252f74c3794225534caf0c7c0fd96d80922360a8",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/A_C_vocal.wav": "369954d1f8cdd70c71d95b5e2488ba4ab07327eede298febf8f31f1f450be4dc",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/A_mix.wav": "a939525e816dd6f90f720758c5f9f0ae30be13689c4caa917dad7c07080f1aa0",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/A_vocal.wav": "86306bb7bda577b3711a61bca3addc7516b1bbd29c00ffd1b35a5640a8ebe7f1",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/B_C_mix.wav": "053e2469b6bd5870fe885f349c42a7fae29f92b6f401956ed1ee46e972ae1600",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/B_C_vocal.wav": "f5a393d43d8d3bcc11fc388015bfa6e1ddd3282c6612109585b1ad6292d7e35a",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/B_mix.wav": "a8ecbfadab264664dce5966542b67bd55d3569ed62cc34362dcefb8c2cfd327e",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/B_vocal.wav": "e6095f707c59e9b12c9e7998cef6d8750d8c0284600d2e398d789eceb6139541",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/C_mix.wav": "3e743b367d0fe19258e5d60b08135a8f30554d71bc58deceed5b54bee0565535",
+          "runs/lastpage_shfc_onset_probe_20261008/delivery/C_vocal.wav": "22cfa70255761240e98087a9779d6df9511de7c4a92b287f3f751c920e9ec229"
+        }
+      },
+      "legacy_atomic_ids": [
+        "S6",
+        "R3",
+        "T3",
+        "T4",
+        "L4"
+      ],
+      "entity_reference_candidates": {
+        "S6": [
+          "EVT:S6"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "T3": [
+          "EVT:T3",
+          "PER:T3"
+        ],
+        "T4": [
+          "EVT:T4"
+        ],
+        "L4": [
+          "EVT:L4",
+          "ACO:L5"
+        ]
+      },
+      "legacy_control_ids": [
+        "C14",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E3"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-004",
+      "experiment_group": "EXP-SHFC-GUO",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-112",
+        "word": 112,
+        "context": 11,
+        "phoneme": "zh/uo",
+        "tone": 64,
+        "vowel_s": [
+          86.90833333333335,
+          87.25625
+        ],
+        "label": "reported_false_forward",
+        "vowel_duration_ms": 347.91666666664867,
+        "native_phones": [
+          {
+            "phoneme": "zh/g",
+            "start_ms": 86757.29166666667,
+            "end_ms": 86908.33333333334,
+            "tone": 64
+          },
+          {
+            "phoneme": "zh/uo",
+            "start_ms": 86908.33333333334,
+            "end_ms": 87256.25,
+            "tone": 64
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 30,
+              "min": -54.900936126708984,
+              "median": -52.697181701660156,
+              "max": -51.715667724609375
+            },
+            "final_voicing": {
+              "n": 30,
+              "min": -53.51157760620117,
+              "median": -46.75360107421875,
+              "max": -46.454315185546875
+            },
+            "final_tension": {
+              "n": 30,
+              "min": -0.3990612030029297,
+              "median": 0.46084466576576233,
+              "max": 0.6354839205741882
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 30,
+              "min": 62.90290069580078,
+              "median": 64.00700378417969,
+              "max": 64.23999786376953
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 30,
+              "min": 62.90290069580078,
+              "median": 64.00700378417969,
+              "max": 64.23999786376953
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 18,
+              "min": -53.793087005615234,
+              "median": -52.6517333984375,
+              "max": -52.00760269165039
+            },
+            "final_voicing": {
+              "n": 18,
+              "min": -46.95769119262695,
+              "median": -46.6380615234375,
+              "max": -46.454315185546875
+            },
+            "final_tension": {
+              "n": 18,
+              "min": 0.29295018315315247,
+              "median": 0.5526925325393677,
+              "max": 0.6354839205741882
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 18,
+              "min": 63.74165725708008,
+              "median": 64.12000274658203,
+              "max": 64.23999786376953
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 18,
+              "min": 63.74165725708008,
+              "median": 64.12000274658203,
+              "max": 64.23999786376953
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 6,
+              "min": -54.900936126708984,
+              "median": -53.796775817871094,
+              "max": -52.7255859375
+            },
+            "final_voicing": {
+              "n": 6,
+              "min": -53.51157760620117,
+              "median": -47.28003692626953,
+              "max": -46.596923828125
+            },
+            "final_tension": {
+              "n": 6,
+              "min": -0.3990612030029297,
+              "median": 0.04098493605852127,
+              "max": 0.4191237986087799
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 6,
+              "min": 62.90290069580078,
+              "median": 63.133079528808594,
+              "max": 63.57573699951172
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 6,
+              "min": 62.90290069580078,
+              "median": 63.133079528808594,
+              "max": 63.57573699951172
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -52.7256965637207,
+              "median": -52.146759033203125,
+              "max": -51.715667724609375
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -50.985809326171875,
+              "median": -47.9996223449707,
+              "max": -47.24232864379883
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 0.10255280882120132,
+              "median": 0.2118082046508789,
+              "max": 0.21572363376617432
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 64.0,
+              "median": 64.0,
+              "max": 64.03399658203125
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 64.0,
+              "median": 64.0,
+              "max": 64.03399658203125
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-112",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C14",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S2",
+        "EVT:L2",
+        "EVT:R3",
+        "EVT:T3",
+        "EVT:T5",
+        "PER:L1",
+        "PER:S1",
+        "PER:T3"
+      ],
+      "evidence_ids": [
+        "EVID:04"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "SHFC",
+        "peak_cents": -200,
+        "support_s": [
+          86.82833333333333,
+          87.24125
+        ],
+        "attack_ms": 160,
+        "release_ms": 70,
+        "attack_end_s": 86.98833333333334,
+        "release_start_s": 87.17125,
+        "fixed_native_median_F0_Hz": 329.76088,
+        "manual_BREC_VOIC_TENC_deltas_in_uo": [
+          0,
+          0,
+          0
+        ]
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "phones": [
+          {
+            "phone": "zh/g",
+            "support_s": [
+              86.75729166666667,
+              86.90833333333335
+            ],
+            "AB_level_change_db": 1.692775232344633,
+            "F0": {
+              "fcpe": {
+                "comparable_frames": 15,
+                "abs_cents_p50": 11.400090191266761,
+                "abs_cents_p95": 56.742625147820604,
+                "abs_cents_max": 59.2645059039877
+              },
+              "rmvpe": {
+                "comparable_frames": 13,
+                "abs_cents_p50": 18.993812102876603,
+                "abs_cents_p95": 45.988827044123695,
+                "abs_cents_max": 61.782061089448504
+              }
+            },
+            "mel_shape_AB_RMS": 0.18025283772350748
+          },
+          {
+            "phone": "zh/uo",
+            "support_s": [
+              86.90833333333335,
+              87.25625
+            ],
+            "AB_level_change_db": 0.09011530070353521,
+            "F0": {
+              "fcpe": {
+                "comparable_frames": 35,
+                "abs_cents_p50": 1.1405021075223098,
+                "abs_cents_p95": 7.150982618853215,
+                "abs_cents_max": 15.840342094402228
+              },
+              "rmvpe": {
+                "comparable_frames": 35,
+                "abs_cents_p50": 1.1633810444968082,
+                "abs_cents_p95": 6.8431380316665456,
+                "abs_cents_max": 15.911340867743446
+              }
+            },
+            "mel_shape_AB_RMS": 1.3927615785809224
+          },
+          {
+            "phone": "zh/zh",
+            "support_s": [
+              87.25625,
+              87.37291666666667
+            ],
+            "AB_level_change_db": -1.9897700409332644,
+            "F0": {
+              "fcpe": {
+                "comparable_frames": 5,
+                "abs_cents_p50": 26.8501659521698,
+                "abs_cents_p95": 91.03783015485347,
+                "abs_cents_max": 91.45656524224967
+              },
+              "rmvpe": {
+                "comparable_frames": 5,
+                "abs_cents_p50": 55.419720238175294,
+                "abs_cents_p95": 144.5388559755909,
+                "abs_cents_max": 160.45240219999823
+              }
+            },
+            "mel_shape_AB_RMS": 0.21887631579042185
+          },
+          {
+            "phone": "zh/e",
+            "support_s": [
+              87.37291666666667,
+              87.58125
+            ],
+            "AB_level_change_db": 0.07479040625097778,
+            "F0": {
+              "fcpe": {
+                "comparable_frames": 21,
+                "abs_cents_p50": 0.4021397007056317,
+                "abs_cents_p95": 1.6021366590889154,
+                "abs_cents_max": 1.6755334322282787
+              },
+              "rmvpe": {
+                "comparable_frames": 21,
+                "abs_cents_p50": 0.3444751481128995,
+                "abs_cents_p95": 1.6965656515218444,
+                "abs_cents_max": 2.8391953197773394
+              }
+            },
+            "mel_shape_AB_RMS": 0.07594296325182637
+          },
+          {
+            "phone": "zh/e",
+            "support_s": [
+              88.88125,
+              89.40520833333335
+            ],
+            "AB_level_change_db": -0.00042912949515394925,
+            "F0": {
+              "fcpe": {
+                "comparable_frames": 52,
+                "abs_cents_p50": 0.005708907842635773,
+                "abs_cents_p95": 0.01768280454715362,
+                "abs_cents_max": 0.021810531014830978
+              },
+              "rmvpe": {
+                "comparable_frames": 52,
+                "abs_cents_p50": 0.013547276085072248,
+                "abs_cents_p95": 0.045005124751322435,
+                "abs_cents_max": 0.056111971742831356
+              }
+            },
+            "mel_shape_AB_RMS": 3.794841673716153e-05
+          }
+        ],
+        "reported_30ms_min_change_db": -4.2,
+        "reported_2_to_5kHz_uo_change_db": -4.032,
+        "rounded_proxy_source": "docs/lastpage-guo-register-probe-20261008.md, feedback section"
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run",
+        "measured_response": "observed",
+        "auditory_outcome": "no_benefit_with_side_effect",
+        "specific_side_effect": "reported_loudness_drop",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "果字没啥区别，这的咬字好像也没啥区别，而且引入新的问题，响度下降",
+        "scope": "该次交付的局部对照",
+        "agent_listened": false
+      },
+      "usage_boundary": "不采用果B；停止该路线及增益掩盖。保留原已接受抱C，均值近似相同不能否认听觉响度反馈。",
+      "report": "docs/lastpage-guo-register-probe-20261008.md",
+      "prior_run": "runs/lastpage_guo_register_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816",
+        "project_B": "48319f957129fa341cbf324158a8becf27e8ff2319fa195f5e6015f723797f16",
+        "delivered_audio": {
+          "runs/lastpage_guo_register_probe_20261008/delivery/A_B_mix.wav": "2d940c24b7675802b47fb1220b8707f19c686daf31198eae57b7172a87a08a5a",
+          "runs/lastpage_guo_register_probe_20261008/delivery/A_B_vocal.wav": "ef61337e87d1a6bbe961ad7a0f92b10ab1536560330c47369185e730735a14d4",
+          "runs/lastpage_guo_register_probe_20261008/delivery/A_mix.wav": "dc8c8865af4cefb56ea305bfe60cac7377e24801a32b5fc3ec47dddd6b0a1726",
+          "runs/lastpage_guo_register_probe_20261008/delivery/A_repeat_mix.wav": "dc8c8865af4cefb56ea305bfe60cac7377e24801a32b5fc3ec47dddd6b0a1726",
+          "runs/lastpage_guo_register_probe_20261008/delivery/A_repeat_vocal.wav": "5926316820eb4b8c6ccd0f601122dd05396c9dd75effbcf9c73938ce33f97759",
+          "runs/lastpage_guo_register_probe_20261008/delivery/A_vocal.wav": "5926316820eb4b8c6ccd0f601122dd05396c9dd75effbcf9c73938ce33f97759",
+          "runs/lastpage_guo_register_probe_20261008/delivery/B_mix.wav": "7f2e3a3ba298053c9356485d4464fd4a91fabbd5ca7560780fbde692c0e0cf87",
+          "runs/lastpage_guo_register_probe_20261008/delivery/B_vocal.wav": "efeef65adf5827b219c7707142e16df026182d8bbc29b3138b78064b83a4f01c"
+        }
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "R3",
+        "L1",
+        "L2",
+        "T3",
+        "T5"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ],
+        "T3": [
+          "EVT:T3",
+          "PER:T3"
+        ],
+        "T5": [
+          "EVT:T5"
+        ]
+      },
+      "legacy_control_ids": [
+        "C14",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E4"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-005",
+      "experiment_group": "EXP-BREC-COHORT",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-112",
+        "word": 112,
+        "context": 11,
+        "phoneme": "zh/uo",
+        "tone": 64,
+        "vowel_s": [
+          86.90833333333335,
+          87.25625
+        ],
+        "label": "reported_false_forward",
+        "vowel_duration_ms": 347.91666666664867,
+        "native_phones": [
+          {
+            "phoneme": "zh/g",
+            "start_ms": 86757.29166666667,
+            "end_ms": 86908.33333333334,
+            "tone": 64
+          },
+          {
+            "phoneme": "zh/uo",
+            "start_ms": 86908.33333333334,
+            "end_ms": 87256.25,
+            "tone": 64
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 30,
+              "min": -54.900936126708984,
+              "median": -52.697181701660156,
+              "max": -51.715667724609375
+            },
+            "final_voicing": {
+              "n": 30,
+              "min": -53.51157760620117,
+              "median": -46.75360107421875,
+              "max": -46.454315185546875
+            },
+            "final_tension": {
+              "n": 30,
+              "min": -0.3990612030029297,
+              "median": 0.46084466576576233,
+              "max": 0.6354839205741882
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 30,
+              "min": 62.90290069580078,
+              "median": 64.00700378417969,
+              "max": 64.23999786376953
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 30,
+              "min": 62.90290069580078,
+              "median": 64.00700378417969,
+              "max": 64.23999786376953
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 18,
+              "min": -53.793087005615234,
+              "median": -52.6517333984375,
+              "max": -52.00760269165039
+            },
+            "final_voicing": {
+              "n": 18,
+              "min": -46.95769119262695,
+              "median": -46.6380615234375,
+              "max": -46.454315185546875
+            },
+            "final_tension": {
+              "n": 18,
+              "min": 0.29295018315315247,
+              "median": 0.5526925325393677,
+              "max": 0.6354839205741882
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 18,
+              "min": 63.74165725708008,
+              "median": 64.12000274658203,
+              "max": 64.23999786376953
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 18,
+              "min": 63.74165725708008,
+              "median": 64.12000274658203,
+              "max": 64.23999786376953
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 6,
+              "min": -54.900936126708984,
+              "median": -53.796775817871094,
+              "max": -52.7255859375
+            },
+            "final_voicing": {
+              "n": 6,
+              "min": -53.51157760620117,
+              "median": -47.28003692626953,
+              "max": -46.596923828125
+            },
+            "final_tension": {
+              "n": 6,
+              "min": -0.3990612030029297,
+              "median": 0.04098493605852127,
+              "max": 0.4191237986087799
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 6,
+              "min": 62.90290069580078,
+              "median": 63.133079528808594,
+              "max": 63.57573699951172
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 6,
+              "min": 62.90290069580078,
+              "median": 63.133079528808594,
+              "max": 63.57573699951172
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -52.7256965637207,
+              "median": -52.146759033203125,
+              "max": -51.715667724609375
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -50.985809326171875,
+              "median": -47.9996223449707,
+              "max": -47.24232864379883
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 0.10255280882120132,
+              "median": 0.2118082046508789,
+              "max": 0.21572363376617432
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 64.0,
+              "median": 64.0,
+              "max": 64.03399658203125
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 64.0,
+              "median": 64.0,
+              "max": 64.03399658203125
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-112",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C12",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "evidence_ids": [
+        "EVID:07"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "additional BREC",
+        "peak_UI_delta": -10,
+        "model_peak_delta_nominal": -1.2,
+        "Q5_anchors_s": [
+          86.91833333333335,
+          86.99833333333335,
+          87.17625,
+          87.24624999999999
+        ],
+        "attack_ms": 80,
+        "release_ms": 70,
+        "compiled_baseline_UI_values": [
+          0
+        ],
+        "only_brec_curve_changed": true,
+        "variance_inputs_and_predictions": "unchanged; fresh recomputation verified exact"
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "input_delta_min": -1.2000007629394531,
+        "input_delta_max": 0.0,
+        "nucleus_RMS_change_db": 0.018149736102635927,
+        "short_window_energy": {
+          "30": {
+            "min_change_db": -0.023092089654277004,
+            "median_change_db": 0.01636510028218119,
+            "max_change_db": 0.05765283170874369,
+            "core_min_change_db": -0.023092089654277004,
+            "core_median_change_db": 0.02901217134761147,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          },
+          "50": {
+            "min_change_db": -0.012941245621490793,
+            "median_change_db": 0.015916601472262926,
+            "max_change_db": 0.056115916647421216,
+            "core_min_change_db": -0.010789464692919637,
+            "core_median_change_db": 0.025529501707817204,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          }
+        },
+        "spectral_band_power_proxy_B_minus_A_db": {
+          "0_500Hz": 0.024480696717769722,
+          "500_2000Hz": 0.033730359863618775,
+          "2000_5000Hz": -0.7034996836345784,
+          "5000_22051.0Hz": -1.2033815585314596
+        },
+        "actual_dual_F0": {
+          "fcpe": {
+            "comparable_frames": 35,
+            "abs_cents_p50": 0.1011714598829262,
+            "abs_cents_p95": 0.6155937146326725,
+            "abs_cents_max": 0.9545996055982662
+          },
+          "rmvpe": {
+            "comparable_frames": 35,
+            "abs_cents_p50": 0.1586688860904761,
+            "abs_cents_p95": 0.6542476089654496,
+            "abs_cents_max": 0.7672320621510509
+          }
+        },
+        "mel_response": {
+          "frames": 30,
+          "log_mel_rms": 0.10697078663898313,
+          "level_removed_log_mel_rms": 0.06259524631599357,
+          "mean_log_mel_change": -0.07987381021181743,
+          "formant_truth": false,
+          "perceived_improvement": false,
+          "historical_perceived_improvement_field_is_not_listener_truth": true
+        },
+        "phone_level_proxies": [
+          {
+            "phone": "AP",
+            "interval_s": [
+              86.05104166666668,
+              86.240625
+            ],
+            "RMS_B_minus_A_db": 2.9970001513390798e-05
+          },
+          {
+            "phone": "SP",
+            "interval_s": [
+              86.240625,
+              86.290625
+            ],
+            "RMS_B_minus_A_db": -0.0016444445152075104
+          },
+          {
+            "phone": "zh/r",
+            "interval_s": [
+              86.290625,
+              86.340625
+            ],
+            "RMS_B_minus_A_db": -0.0008092060331534867
+          },
+          {
+            "phone": "zh/u",
+            "interval_s": [
+              86.340625,
+              86.75729166666667
+            ],
+            "RMS_B_minus_A_db": 3.251858389674567e-05
+          },
+          {
+            "phone": "zh/g",
+            "interval_s": [
+              86.75729166666667,
+              86.90833333333335
+            ],
+            "RMS_B_minus_A_db": -0.037774134270193827
+          },
+          {
+            "phone": "zh/uo",
+            "interval_s": [
+              86.90833333333335,
+              87.25625
+            ],
+            "RMS_B_minus_A_db": 0.018149736102635927
+          },
+          {
+            "phone": "zh/zh",
+            "interval_s": [
+              87.25625,
+              87.37291666666667
+            ],
+            "RMS_B_minus_A_db": -0.013588212692241086
+          },
+          {
+            "phone": "zh/e",
+            "interval_s": [
+              87.37291666666667,
+              87.58125
+            ],
+            "RMS_B_minus_A_db": 0.0030159701470893197
+          },
+          {
+            "phone": "zh/sh",
+            "interval_s": [
+              87.58125,
+              87.80104166666668
+            ],
+            "RMS_B_minus_A_db": -0.0005543388484028355
+          },
+          {
+            "phone": "zh/ir",
+            "interval_s": [
+              87.80104166666668,
+              88.09270833333335
+            ],
+            "RMS_B_minus_A_db": 7.960984976662644e-05
+          },
+          {
+            "phone": "zh/z",
+            "interval_s": [
+              88.09270833333335,
+              88.23333333333335
+            ],
+            "RMS_B_minus_A_db": -5.44524871557428e-05
+          },
+          {
+            "phone": "zh/ui",
+            "interval_s": [
+              88.23333333333335,
+              88.43020833333334
+            ],
+            "RMS_B_minus_A_db": 5.294308991210528e-07
+          },
+          {
+            "phone": "zh/h",
+            "interval_s": [
+              88.43020833333334,
+              88.5
+            ],
+            "RMS_B_minus_A_db": -1.0005845751948073e-06
+          },
+          {
+            "phone": "zh/ou",
+            "interval_s": [
+              88.5,
+              88.78854166666667
+            ],
+            "RMS_B_minus_A_db": 1.731716430697361e-06
+          }
+        ]
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run; original native 5tick encoding",
+        "measured_response": "observed",
+        "auditory_outcome": "no_perceived_difference",
+        "specific_side_effect": "not_separately_labeled",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "全部没区别。",
+        "scope": "六组已分开试听后的整体回报；原始反馈逐条件绑定，不补造细分副作用标签",
+        "agent_listened": false
+      },
+      "usage_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "prior_run": "runs/lastpage_brec_cohort_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+        "project_B": "43d32643d55e8399f43dcea3866088fe3b76928d92226774c9aff2883326b432",
+        "delivered_audio": {
+          "A": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+            "sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e"
+          },
+          "B": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+            "sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63"
+          }
+        }
+      },
+      "repeat_checks": {
+        "native_DYN_unity_exact": true,
+        "A_prior_wave_and_repeat_exact": true,
+        "same_gain_vocal_and_mix": true
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "legacy_control_ids": [
+        "C12",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E7"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-006",
+      "experiment_group": "EXP-BREC-COHORT",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-124",
+        "word": 124,
+        "context": 12,
+        "phoneme": "zh/ir",
+        "tone": 66,
+        "vowel_s": [
+          92.96041666666667,
+          93.64895833333334
+        ],
+        "label": "reported_solid",
+        "vowel_duration_ms": 688.5416666666657,
+        "native_phones": [
+          {
+            "phoneme": "zh/zh",
+            "start_ms": 92820.83333333334,
+            "end_ms": 92960.41666666667,
+            "tone": 66
+          },
+          {
+            "phoneme": "zh/ir",
+            "start_ms": 92960.41666666667,
+            "end_ms": 93648.95833333334,
+            "tone": 66
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 59,
+              "min": -56.72998046875,
+              "median": -54.45356369018555,
+              "max": -37.55039596557617
+            },
+            "final_voicing": {
+              "n": 59,
+              "min": -56.94784927368164,
+              "median": -47.2449951171875,
+              "max": -44.60756301879883
+            },
+            "final_tension": {
+              "n": 59,
+              "min": -1.9537385702133179,
+              "median": -1.3026256561279297,
+              "max": -0.5832273960113525
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 59,
+              "min": 64.0,
+              "median": 66.01971435546875,
+              "max": 67.09258270263672
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 59,
+              "min": 64.0,
+              "median": 66.01971435546875,
+              "max": 67.09258270263672
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 36,
+              "min": -56.72998046875,
+              "median": -54.66073989868164,
+              "max": -54.15800857543945
+            },
+            "final_voicing": {
+              "n": 36,
+              "min": -47.91152572631836,
+              "median": -45.50316619873047,
+              "max": -44.60756301879883
+            },
+            "final_tension": {
+              "n": 36,
+              "min": -1.4964529275894165,
+              "median": -1.3094043731689453,
+              "max": -1.1518031358718872
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 36,
+              "min": 64.44020080566406,
+              "median": 66.05799865722656,
+              "max": 66.26000213623047
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 36,
+              "min": 64.44020080566406,
+              "median": 66.05799865722656,
+              "max": 66.26000213623047
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -55.023990631103516,
+              "median": -48.269039154052734,
+              "max": -37.55039596557617
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -52.66557693481445,
+              "median": -48.2177619934082,
+              "max": -47.82307052612305
+            },
+            "final_tension": {
+              "n": 5,
+              "min": -0.9659444689750671,
+              "median": -0.7403900623321533,
+              "max": -0.5832273960113525
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 66.57344055175781,
+              "median": 66.91834259033203,
+              "max": 67.09258270263672
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 66.57344055175781,
+              "median": 66.91834259033203,
+              "max": 67.09258270263672
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -51.60234451293945,
+              "median": -47.4686279296875,
+              "max": -43.59608840942383
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -56.94784927368164,
+              "median": -51.50510787963867,
+              "max": -50.41946029663086
+            },
+            "final_tension": {
+              "n": 5,
+              "min": -1.9537385702133179,
+              "median": -1.6847940683364868,
+              "max": -1.5306771993637085
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 64.0,
+              "median": 64.02799987792969,
+              "max": 64.19000244140625
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 64.0,
+              "median": 64.02799987792969,
+              "max": 64.19000244140625
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-124",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C12",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "evidence_ids": [
+        "EVID:07"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "additional BREC",
+        "peak_UI_delta": -10,
+        "model_peak_delta_nominal": -1.2,
+        "Q5_anchors_s": [
+          92.97041666666668,
+          93.05041666666668,
+          93.56895833333334,
+          93.63895833333333
+        ],
+        "attack_ms": 80,
+        "release_ms": 70,
+        "compiled_baseline_UI_values": [
+          0
+        ],
+        "only_brec_curve_changed": true,
+        "variance_inputs_and_predictions": "unchanged; fresh recomputation verified exact"
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "input_delta_min": -1.2000007629394531,
+        "input_delta_max": 0.0,
+        "nucleus_RMS_change_db": 0.02729975870725454,
+        "short_window_energy": {
+          "30": {
+            "min_change_db": -0.04808142250463021,
+            "median_change_db": 0.024911826753051258,
+            "max_change_db": 0.08382675889726343,
+            "core_min_change_db": -0.0209827846175088,
+            "core_median_change_db": 0.032029854195210206,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          },
+          "50": {
+            "min_change_db": -0.034250629475454986,
+            "median_change_db": 0.02421187546490522,
+            "max_change_db": 0.08104333478608794,
+            "core_min_change_db": -0.012975564396764838,
+            "core_median_change_db": 0.03315720695158575,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          }
+        },
+        "spectral_band_power_proxy_B_minus_A_db": {
+          "0_500Hz": 0.03591319869066328,
+          "500_2000Hz": 0.06099317310114479,
+          "2000_5000Hz": 0.049049049434588265,
+          "5000_22051.0Hz": -0.9397508396124349
+        },
+        "actual_dual_F0": {
+          "fcpe": {
+            "comparable_frames": 68,
+            "abs_cents_p50": 0.12954265049896363,
+            "abs_cents_p95": 0.6343302345478665,
+            "abs_cents_max": 3.2014761756909276
+          },
+          "rmvpe": {
+            "comparable_frames": 68,
+            "abs_cents_p50": 0.08490264289004232,
+            "abs_cents_p95": 0.2697378580896023,
+            "abs_cents_max": 2.435712793424596
+          }
+        },
+        "mel_response": {
+          "frames": 59,
+          "log_mel_rms": 0.10139232386005653,
+          "level_removed_log_mel_rms": 0.07599413223221606,
+          "mean_log_mel_change": -0.06310542868608135,
+          "formant_truth": false,
+          "perceived_improvement": false,
+          "historical_perceived_improvement_field_is_not_listener_truth": true
+        },
+        "phone_level_proxies": [
+          {
+            "phone": "zh/i",
+            "interval_s": [
+              91.88125,
+              92.14791666666667
+            ],
+            "RMS_B_minus_A_db": -1.833014699315072e-05
+          },
+          {
+            "phone": "zh/k",
+            "interval_s": [
+              92.14791666666667,
+              92.321875
+            ],
+            "RMS_B_minus_A_db": 8.681915245034588e-05
+          },
+          {
+            "phone": "zh/ai",
+            "interval_s": [
+              92.321875,
+              92.82083333333334
+            ],
+            "RMS_B_minus_A_db": 0.0008431688402410487
+          },
+          {
+            "phone": "zh/zh",
+            "interval_s": [
+              92.82083333333334,
+              92.96041666666667
+            ],
+            "RMS_B_minus_A_db": -0.014954512875849701
+          },
+          {
+            "phone": "zh/ir",
+            "interval_s": [
+              92.96041666666667,
+              93.64895833333334
+            ],
+            "RMS_B_minus_A_db": 0.02729975870725454
+          },
+          {
+            "phone": "zh/q",
+            "interval_s": [
+              93.64895833333334,
+              93.809375
+            ],
+            "RMS_B_minus_A_db": 0.00933440661413698
+          },
+          {
+            "phone": "zh/ian",
+            "interval_s": [
+              93.809375,
+              93.98958333333334
+            ],
+            "RMS_B_minus_A_db": 0.0036409032085522597
+          }
+        ]
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run; original native 5tick encoding",
+        "measured_response": "observed",
+        "auditory_outcome": "no_perceived_difference",
+        "specific_side_effect": "not_separately_labeled",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "全部没区别。",
+        "scope": "六组已分开试听后的整体回报；原始反馈逐条件绑定，不补造细分副作用标签",
+        "agent_listened": false
+      },
+      "usage_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "prior_run": "runs/lastpage_brec_cohort_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+        "project_B": "656291fc86ef25157921c7aeedd2dc4ef7320b90bd7259a754bd6f4ffd5b424f",
+        "delivered_audio": {
+          "A": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+            "sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec"
+          },
+          "B": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+            "sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35"
+          }
+        }
+      },
+      "repeat_checks": {
+        "native_DYN_unity_exact": true,
+        "A_prior_wave_and_repeat_exact": true,
+        "same_gain_vocal_and_mix": true
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "legacy_control_ids": [
+        "C12",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E7"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-007",
+      "experiment_group": "EXP-BREC-COHORT",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-214",
+        "word": 214,
+        "context": 21,
+        "phoneme": "zh/ir",
+        "tone": 69,
+        "vowel_s": [
+          176.04166666666669,
+          176.35833333333335
+        ],
+        "label": "reported_solid",
+        "vowel_duration_ms": 316.6666666666629,
+        "native_phones": [
+          {
+            "phoneme": "zh/zh",
+            "start_ms": 175898.95833333334,
+            "end_ms": 176041.6666666667,
+            "tone": 69
+          },
+          {
+            "phoneme": "zh/ir",
+            "start_ms": 176041.6666666667,
+            "end_ms": 176358.33333333334,
+            "tone": 69
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 27,
+              "min": -56.51520919799805,
+              "median": -54.11952590942383,
+              "max": -30.238195419311523
+            },
+            "final_voicing": {
+              "n": 27,
+              "min": -48.364559173583984,
+              "median": -42.27656555175781,
+              "max": -35.45612716674805
+            },
+            "final_tension": {
+              "n": 27,
+              "min": -0.5503722429275513,
+              "median": 1.0087323188781738,
+              "max": 1.1216484308242798
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 27,
+              "min": 67.20221710205078,
+              "median": 68.6435775756836,
+              "max": 69.31400299072266
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 27,
+              "min": 67.20221710205078,
+              "median": 68.6435775756836,
+              "max": 69.31400299072266
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 17,
+              "min": -56.159698486328125,
+              "median": -54.11952590942383,
+              "max": -52.4548225402832
+            },
+            "final_voicing": {
+              "n": 17,
+              "min": -43.1911735534668,
+              "median": -42.27656555175781,
+              "max": -39.44200134277344
+            },
+            "final_tension": {
+              "n": 17,
+              "min": 0.9877492189407349,
+              "median": 1.0173444747924805,
+              "max": 1.1216484308242798
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 17,
+              "min": 67.27215576171875,
+              "median": 68.6435775756836,
+              "max": 69.31400299072266
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 17,
+              "min": 67.27215576171875,
+              "median": 68.6435775756836,
+              "max": 69.31400299072266
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -51.4910774230957,
+              "median": -41.01613998413086,
+              "max": -30.238195419311523
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -41.21831130981445,
+              "median": -36.987483978271484,
+              "max": -35.45612716674805
+            },
+            "final_tension": {
+              "n": 5,
+              "min": -0.5503722429275513,
+              "median": -0.12186262011528015,
+              "max": 0.6718220710754395
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 67.20221710205078,
+              "median": 67.22357940673828,
+              "max": 67.25614929199219
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 67.20221710205078,
+              "median": 67.22357940673828,
+              "max": 67.25614929199219
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -56.51520919799805,
+              "median": -55.651397705078125,
+              "max": -54.690704345703125
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -48.364559173583984,
+              "median": -46.48006820678711,
+              "max": -44.00175857543945
+            },
+            "final_tension": {
+              "n": 5,
+              "min": -0.1694573014974594,
+              "median": 0.3982381522655487,
+              "max": 0.8614562749862671
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 69.0,
+              "median": 69.00399780273438,
+              "max": 69.21800231933594
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 69.0,
+              "median": 69.00399780273438,
+              "max": 69.21800231933594
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-214",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C12",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "evidence_ids": [
+        "EVID:07"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "additional BREC",
+        "peak_UI_delta": -10,
+        "model_peak_delta_nominal": -1.2,
+        "Q5_anchors_s": [
+          176.05166666666668,
+          176.1316666666667,
+          176.27833333333334,
+          176.34833333333336
+        ],
+        "attack_ms": 80,
+        "release_ms": 70,
+        "compiled_baseline_UI_values": [
+          0
+        ],
+        "only_brec_curve_changed": true,
+        "variance_inputs_and_predictions": "unchanged; fresh recomputation verified exact"
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "input_delta_min": -1.2000007629394531,
+        "input_delta_max": 0.0,
+        "nucleus_RMS_change_db": -0.023209347625279264,
+        "short_window_energy": {
+          "30": {
+            "min_change_db": -0.07274670310684783,
+            "median_change_db": -0.020319645016964927,
+            "max_change_db": 0.014482890873715348,
+            "core_min_change_db": -0.07274670310684783,
+            "core_median_change_db": -0.030558700256717586,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          },
+          "50": {
+            "min_change_db": -0.06509362566733756,
+            "median_change_db": -0.01989818062486748,
+            "max_change_db": 0.007147295851769542,
+            "core_min_change_db": -0.06509362566733756,
+            "core_median_change_db": -0.028884269782798455,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          }
+        },
+        "spectral_band_power_proxy_B_minus_A_db": {
+          "0_500Hz": 0.011448827861050767,
+          "500_2000Hz": 0.04882591724425744,
+          "2000_5000Hz": -0.3204774058406604,
+          "5000_22051.0Hz": -0.4982469891703214
+        },
+        "actual_dual_F0": {
+          "fcpe": {
+            "comparable_frames": 32,
+            "abs_cents_p50": 0.07864768063172295,
+            "abs_cents_p95": 0.49640093499726123,
+            "abs_cents_max": 1.424630119689667
+          },
+          "rmvpe": {
+            "comparable_frames": 32,
+            "abs_cents_p50": 0.030540360425379214,
+            "abs_cents_p95": 0.21933278532994024,
+            "abs_cents_max": 1.048713142860698
+          }
+        },
+        "mel_response": {
+          "frames": 27,
+          "log_mel_rms": 0.06546680760041305,
+          "level_removed_log_mel_rms": 0.03578968325976583,
+          "mean_log_mel_change": -0.049441334825974924,
+          "formant_truth": false,
+          "perceived_improvement": false,
+          "historical_perceived_improvement_field_is_not_listener_truth": true
+        },
+        "phone_level_proxies": [
+          {
+            "phone": "AP",
+            "interval_s": [
+              175.28333333333333,
+              175.5135416666667
+            ],
+            "RMS_B_minus_A_db": 7.585332539861156e-07
+          },
+          {
+            "phone": "SP",
+            "interval_s": [
+              175.5135416666667,
+              175.6135416666667
+            ],
+            "RMS_B_minus_A_db": 0.0007835939941074344
+          },
+          {
+            "phone": "zh/ai",
+            "interval_s": [
+              175.6135416666667,
+              175.89895833333335
+            ],
+            "RMS_B_minus_A_db": 0.00043478839125299373
+          },
+          {
+            "phone": "zh/zh",
+            "interval_s": [
+              175.89895833333335,
+              176.04166666666669
+            ],
+            "RMS_B_minus_A_db": -0.003508416195952435
+          },
+          {
+            "phone": "zh/ir",
+            "interval_s": [
+              176.04166666666669,
+              176.35833333333335
+            ],
+            "RMS_B_minus_A_db": -0.023209347625279264
+          },
+          {
+            "phone": "zh/n",
+            "interval_s": [
+              176.35833333333335,
+              176.46041666666667
+            ],
+            "RMS_B_minus_A_db": -0.008341209098034597
+          },
+          {
+            "phone": "zh/eng",
+            "interval_s": [
+              176.46041666666667,
+              176.93958333333333
+            ],
+            "RMS_B_minus_A_db": 0.001998375152044929
+          },
+          {
+            "phone": "SP",
+            "interval_s": [
+              176.93958333333333,
+              177.146875
+            ],
+            "RMS_B_minus_A_db": 0.0007893483691248093
+          },
+          {
+            "phone": "zh/z",
+            "interval_s": [
+              177.146875,
+              177.31979166666667
+            ],
+            "RMS_B_minus_A_db": -1.7193292684680728e-05
+          },
+          {
+            "phone": "zh/ai",
+            "interval_s": [
+              177.31979166666667,
+              177.575
+            ],
+            "RMS_B_minus_A_db": -2.0869596895067843e-06
+          },
+          {
+            "phone": "zh/h",
+            "interval_s": [
+              177.575,
+              177.71458333333334
+            ],
+            "RMS_B_minus_A_db": -4.768812765121311e-06
+          }
+        ]
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run; original native 5tick encoding",
+        "measured_response": "observed",
+        "auditory_outcome": "no_perceived_difference",
+        "specific_side_effect": "not_separately_labeled",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "全部没区别。",
+        "scope": "六组已分开试听后的整体回报；原始反馈逐条件绑定，不补造细分副作用标签",
+        "agent_listened": false
+      },
+      "usage_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "prior_run": "runs/lastpage_brec_cohort_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+        "project_B": "b19128ca3deb48020d91d7244485ae0dc13151d80047382574dab7e9caa00404",
+        "delivered_audio": {
+          "A": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+            "sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f"
+          },
+          "B": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+            "sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70"
+          }
+        }
+      },
+      "repeat_checks": {
+        "native_DYN_unity_exact": true,
+        "A_prior_wave_and_repeat_exact": true,
+        "same_gain_vocal_and_mix": true
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "legacy_control_ids": [
+        "C12",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E7"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-008",
+      "experiment_group": "EXP-BREC-COHORT",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-225",
+        "word": 225,
+        "context": 22,
+        "phoneme": "zh/ao",
+        "tone": 71,
+        "vowel_s": [
+          183.81145833333335,
+          184.125
+        ],
+        "label": "reported_false_forward",
+        "vowel_duration_ms": 313.5416666666515,
+        "native_phones": [
+          {
+            "phoneme": "zh/b",
+            "start_ms": 183602.08333333334,
+            "end_ms": 183811.45833333334,
+            "tone": 71
+          },
+          {
+            "phoneme": "zh/ao",
+            "start_ms": 183811.45833333334,
+            "end_ms": 184125,
+            "tone": 71
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 27,
+              "min": -48.26377868652344,
+              "median": -46.006961822509766,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 27,
+              "min": -50.55093002319336,
+              "median": -43.3055419921875,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 27,
+              "min": -0.6327570080757141,
+              "median": 1.7553541660308838,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 16,
+              "min": -47.588382720947266,
+              "median": -44.805870056152344,
+              "max": -43.92350769042969
+            },
+            "final_voicing": {
+              "n": 16,
+              "min": -43.38410949707031,
+              "median": -43.313751220703125,
+              "max": -41.82840347290039
+            },
+            "final_tension": {
+              "n": 16,
+              "min": 1.5273346900939941,
+              "median": 1.8506109714508057,
+              "max": 2.249692916870117
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -48.26377868652344,
+              "median": -46.776145935058594,
+              "max": -44.996402740478516
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -49.57579040527344,
+              "median": -42.05855178833008,
+              "max": -41.09660339355469
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 1.221807837486267,
+              "median": 1.7000912427902222,
+              "max": 2.196211576461792
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 6,
+              "min": -48.12172317504883,
+              "median": -48.06998825073242,
+              "max": -47.63417053222656
+            },
+            "final_voicing": {
+              "n": 6,
+              "min": -50.55093002319336,
+              "median": -43.609649658203125,
+              "max": -42.97685623168945
+            },
+            "final_tension": {
+              "n": 6,
+              "min": -0.6327570080757141,
+              "median": 0.26376205682754517,
+              "max": 1.2622413635253906
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-225",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C12",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "evidence_ids": [
+        "EVID:07"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "additional BREC",
+        "peak_UI_delta": -10,
+        "model_peak_delta_nominal": -1.2,
+        "Q5_anchors_s": [
+          183.82145833333334,
+          183.90145833333335,
+          184.045,
+          184.115
+        ],
+        "attack_ms": 80,
+        "release_ms": 70,
+        "compiled_baseline_UI_values": [
+          -3,
+          -2,
+          -1,
+          0
+        ],
+        "only_brec_curve_changed": true,
+        "variance_inputs_and_predictions": "unchanged; fresh recomputation verified exact"
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "input_delta_min": -1.2000007629394531,
+        "input_delta_max": 0.0,
+        "nucleus_RMS_change_db": 0.020016245958995427,
+        "short_window_energy": {
+          "30": {
+            "min_change_db": -0.01396125871491094,
+            "median_change_db": 0.01814108817606197,
+            "max_change_db": 0.05357653161101794,
+            "core_min_change_db": -0.0023741821916729577,
+            "core_median_change_db": 0.02742815994175629,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          },
+          "50": {
+            "min_change_db": -0.004463355453015794,
+            "median_change_db": 0.016861513656387217,
+            "max_change_db": 0.049917331523616326,
+            "core_min_change_db": 0.0018423794827420181,
+            "core_median_change_db": 0.02589791775278627,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          }
+        },
+        "spectral_band_power_proxy_B_minus_A_db": {
+          "0_500Hz": -0.04843178540003031,
+          "500_2000Hz": 0.043125009001366496,
+          "2000_5000Hz": -0.7520626653857854,
+          "5000_22051.0Hz": -1.123435344825295
+        },
+        "actual_dual_F0": {
+          "fcpe": {
+            "comparable_frames": 31,
+            "abs_cents_p50": 0.11214591389628999,
+            "abs_cents_p95": 0.2645837778914213,
+            "abs_cents_max": 0.4756296006508355
+          },
+          "rmvpe": {
+            "comparable_frames": 31,
+            "abs_cents_p50": 0.13684121138570185,
+            "abs_cents_p95": 0.32300120212858746,
+            "abs_cents_max": 0.3639733379225096
+          }
+        },
+        "mel_response": {
+          "frames": 27,
+          "log_mel_rms": 0.08968011497650195,
+          "level_removed_log_mel_rms": 0.037741784034990344,
+          "mean_log_mel_change": -0.0714074689205046,
+          "formant_truth": false,
+          "perceived_improvement": false,
+          "historical_perceived_improvement_field_is_not_listener_truth": true
+        },
+        "phone_level_proxies": [
+          {
+            "phone": "zh/b",
+            "interval_s": [
+              182.80208333333334,
+              182.8947916666667
+            ],
+            "RMS_B_minus_A_db": 5.005038822503138e-06
+          },
+          {
+            "phone": "zh/a",
+            "interval_s": [
+              182.8947916666667,
+              183.27708333333334
+            ],
+            "RMS_B_minus_A_db": 3.1251113838948186e-06
+          },
+          {
+            "phone": "zh/n",
+            "interval_s": [
+              183.27708333333334,
+              183.346875
+            ],
+            "RMS_B_minus_A_db": 0.0003609473639443195
+          },
+          {
+            "phone": "zh/i",
+            "interval_s": [
+              183.346875,
+              183.60208333333335
+            ],
+            "RMS_B_minus_A_db": -0.0003515661523323388
+          },
+          {
+            "phone": "zh/b",
+            "interval_s": [
+              183.60208333333335,
+              183.81145833333335
+            ],
+            "RMS_B_minus_A_db": 0.022814478908273372
+          },
+          {
+            "phone": "zh/ao",
+            "interval_s": [
+              183.81145833333335,
+              184.125
+            ],
+            "RMS_B_minus_A_db": 0.020016245958995427
+          },
+          {
+            "phone": "zh/j",
+            "interval_s": [
+              184.125,
+              184.21770833333335
+            ],
+            "RMS_B_minus_A_db": -0.013812687950462532
+          },
+          {
+            "phone": "zh/in",
+            "interval_s": [
+              184.21770833333335,
+              184.34479166666668
+            ],
+            "RMS_B_minus_A_db": -0.004472166549483347
+          },
+          {
+            "phone": "zh/sh",
+            "interval_s": [
+              184.34479166666668,
+              184.484375
+            ],
+            "RMS_B_minus_A_db": -0.0009349741040907134
+          },
+          {
+            "phone": "zh/en",
+            "interval_s": [
+              184.484375,
+              184.75104166666668
+            ],
+            "RMS_B_minus_A_db": 0.0006405760085108625
+          },
+          {
+            "phone": "zh/t",
+            "interval_s": [
+              184.75104166666668,
+              184.8791666666667
+            ],
+            "RMS_B_minus_A_db": -0.00013930246139182145
+          },
+          {
+            "phone": "zh/i",
+            "interval_s": [
+              184.8791666666667,
+              185.403125
+            ],
+            "RMS_B_minus_A_db": -1.78579504037657e-05
+          },
+          {
+            "phone": "zh/l",
+            "interval_s": [
+              185.403125,
+              185.49583333333334
+            ],
+            "RMS_B_minus_A_db": -2.614450398397139e-06
+          }
+        ]
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run; original native 5tick encoding",
+        "measured_response": "observed",
+        "auditory_outcome": "no_perceived_difference",
+        "specific_side_effect": "not_separately_labeled",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "全部没区别。",
+        "scope": "六组已分开试听后的整体回报；原始反馈逐条件绑定，不补造细分副作用标签",
+        "agent_listened": false
+      },
+      "usage_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "prior_run": "runs/lastpage_brec_cohort_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+        "project_B": "e4ae06eb70205c1fafa263949d2779f2e82ff6f5f16a8a5d740581b342baf79c",
+        "delivered_audio": {
+          "A": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+            "sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c"
+          },
+          "B": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+            "sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72"
+          }
+        }
+      },
+      "repeat_checks": {
+        "native_DYN_unity_exact": true,
+        "A_prior_wave_and_repeat_exact": true,
+        "same_gain_vocal_and_mix": true
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "legacy_control_ids": [
+        "C12",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E7"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-009",
+      "experiment_group": "EXP-BREC-COHORT",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "current-word-247",
+        "word": 247,
+        "context": 25,
+        "phoneme": "zh/uo",
+        "tone": 64,
+        "vowel_s": [
+          196.65104166666669,
+          196.94791666666669
+        ],
+        "label": "local_usable",
+        "vowel_duration_ms": 296.875,
+        "native_phones": [
+          {
+            "phoneme": "zh/g",
+            "start_ms": 196523.95833333334,
+            "end_ms": 196651.0416666667,
+            "tone": 64
+          },
+          {
+            "phoneme": "zh/uo",
+            "start_ms": 196651.0416666667,
+            "end_ms": 196947.9166666667,
+            "tone": 64
+          }
+        ],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 25,
+              "min": -57.22172927856445,
+              "median": -53.619720458984375,
+              "max": -48.94929885864258
+            },
+            "final_voicing": {
+              "n": 25,
+              "min": -50.514739990234375,
+              "median": -45.02401351928711,
+              "max": -43.00816345214844
+            },
+            "final_tension": {
+              "n": 25,
+              "min": -0.27392008900642395,
+              "median": 0.8670989871025085,
+              "max": 1.0375102758407593
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 25,
+              "min": 62.92587661743164,
+              "median": 64.00399780273438,
+              "max": 64.2699966430664
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 25,
+              "min": 62.92587661743164,
+              "median": 64.00399780273438,
+              "max": 64.2699966430664
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 15,
+              "min": -55.80859375,
+              "median": -53.619720458984375,
+              "max": -52.306976318359375
+            },
+            "final_voicing": {
+              "n": 15,
+              "min": -46.61784744262695,
+              "median": -45.02401351928711,
+              "max": -44.6381721496582
+            },
+            "final_tension": {
+              "n": 15,
+              "min": 0.6972405314445496,
+              "median": 0.9053553938865662,
+              "max": 1.0375102758407593
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 15,
+              "min": 63.76274108886719,
+              "median": 64.11199951171875,
+              "max": 64.2699966430664
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 15,
+              "min": 63.76274108886719,
+              "median": 64.11199951171875,
+              "max": 64.2699966430664
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -57.22172927856445,
+              "median": -56.561431884765625,
+              "max": -48.94929885864258
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -44.85765075683594,
+              "median": -43.51043701171875,
+              "max": -43.00816345214844
+            },
+            "final_tension": {
+              "n": 5,
+              "min": -0.27392008900642395,
+              "median": 0.2595643997192383,
+              "max": 0.5983685255050659
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 62.92587661743164,
+              "median": 63.19158172607422,
+              "max": 63.580718994140625
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 62.92587661743164,
+              "median": 63.19158172607422,
+              "max": 63.580718994140625
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -54.290374755859375,
+              "median": -53.00400924682617,
+              "max": -51.73974609375
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -50.514739990234375,
+              "median": -47.79795455932617,
+              "max": -47.10663986206055
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 0.296301007270813,
+              "median": 0.6411239504814148,
+              "max": 0.8670989871025085
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 64.0,
+              "median": 64.0,
+              "max": 64.05599975585938
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 64.0,
+              "median": 64.0,
+              "max": 64.05599975585938
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-247",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C12",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "evidence_ids": [
+        "EVID:07"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "additional BREC",
+        "peak_UI_delta": -10,
+        "model_peak_delta_nominal": -1.2,
+        "Q5_anchors_s": [
+          196.66104166666668,
+          196.7410416666667,
+          196.86791666666667,
+          196.9379166666667
+        ],
+        "attack_ms": 80,
+        "release_ms": 70,
+        "compiled_baseline_UI_values": [
+          0
+        ],
+        "only_brec_curve_changed": true,
+        "variance_inputs_and_predictions": "unchanged; fresh recomputation verified exact"
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "input_delta_min": -1.2000007629394531,
+        "input_delta_max": 0.0,
+        "nucleus_RMS_change_db": 0.006421968241113518,
+        "short_window_energy": {
+          "30": {
+            "min_change_db": -0.026883489148978867,
+            "median_change_db": 0.0030660061052856236,
+            "max_change_db": 0.05901563410938593,
+            "core_min_change_db": -0.026883489148978867,
+            "core_median_change_db": 0.003201639532385059,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          },
+          "50": {
+            "min_change_db": -0.01925235390514146,
+            "median_change_db": 0.002614987591694984,
+            "max_change_db": 0.04030093870835927,
+            "core_min_change_db": -0.01925235390514146,
+            "core_median_change_db": 0.0046502245469906,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          }
+        },
+        "spectral_band_power_proxy_B_minus_A_db": {
+          "0_500Hz": 0.011990654229955572,
+          "500_2000Hz": 0.005087512864520484,
+          "2000_5000Hz": -0.44194792004616373,
+          "5000_22051.0Hz": -0.9623079079916503
+        },
+        "actual_dual_F0": {
+          "fcpe": {
+            "comparable_frames": 30,
+            "abs_cents_p50": 0.07719049291722382,
+            "abs_cents_p95": 0.217978473595754,
+            "abs_cents_max": 0.2346958654807461
+          },
+          "rmvpe": {
+            "comparable_frames": 30,
+            "abs_cents_p50": 0.11239390430068202,
+            "abs_cents_p95": 0.3264714274489456,
+            "abs_cents_max": 0.3536388234013502
+          }
+        },
+        "mel_response": {
+          "frames": 25,
+          "log_mel_rms": 0.09085134379506975,
+          "level_removed_log_mel_rms": 0.05187328965181941,
+          "mean_log_mel_change": -0.0671276342868805,
+          "formant_truth": false,
+          "perceived_improvement": false,
+          "historical_perceived_improvement_field_is_not_listener_truth": true
+        },
+        "phone_level_proxies": [
+          {
+            "phone": "AP",
+            "interval_s": [
+              195.83541666666667,
+              196.01458333333335
+            ],
+            "RMS_B_minus_A_db": -5.5388139557521754e-05
+          },
+          {
+            "phone": "SP",
+            "interval_s": [
+              196.01458333333335,
+              196.10625
+            ],
+            "RMS_B_minus_A_db": 0.00011241390456007139
+          },
+          {
+            "phone": "zh/r",
+            "interval_s": [
+              196.10625,
+              196.19895833333334
+            ],
+            "RMS_B_minus_A_db": -0.00020832550338667488
+          },
+          {
+            "phone": "zh/u",
+            "interval_s": [
+              196.19895833333334,
+              196.52395833333335
+            ],
+            "RMS_B_minus_A_db": 0.00046538392031791886
+          },
+          {
+            "phone": "zh/g",
+            "interval_s": [
+              196.52395833333335,
+              196.65104166666669
+            ],
+            "RMS_B_minus_A_db": 0.0004340174733599156
+          },
+          {
+            "phone": "zh/uo",
+            "interval_s": [
+              196.65104166666669,
+              196.94791666666669
+            ],
+            "RMS_B_minus_A_db": 0.006421968241113518
+          },
+          {
+            "phone": "zh/zh",
+            "interval_s": [
+              196.94791666666669,
+              197.05520833333335
+            ],
+            "RMS_B_minus_A_db": 0.0013161190322001914
+          },
+          {
+            "phone": "zh/e",
+            "interval_s": [
+              197.05520833333335,
+              197.27083333333334
+            ],
+            "RMS_B_minus_A_db": 0.002463359230766571
+          },
+          {
+            "phone": "zh/sh",
+            "interval_s": [
+              197.27083333333334,
+              197.4875
+            ],
+            "RMS_B_minus_A_db": -0.0002114699494342176
+          },
+          {
+            "phone": "zh/ir",
+            "interval_s": [
+              197.4875,
+              197.771875
+            ],
+            "RMS_B_minus_A_db": -1.579291611975009e-05
+          },
+          {
+            "phone": "zh/z",
+            "interval_s": [
+              197.771875,
+              197.91458333333335
+            ],
+            "RMS_B_minus_A_db": -6.133408522401851e-05
+          },
+          {
+            "phone": "zh/ui",
+            "interval_s": [
+              197.91458333333335,
+              198.1
+            ],
+            "RMS_B_minus_A_db": -3.348126693225595e-06
+          },
+          {
+            "phone": "zh/h",
+            "interval_s": [
+              198.1,
+              198.1697916666667
+            ],
+            "RMS_B_minus_A_db": 7.846712435366499e-08
+          },
+          {
+            "phone": "zh/ou",
+            "interval_s": [
+              198.1697916666667,
+              198.4822916666667
+            ],
+            "RMS_B_minus_A_db": -1.2783255627368817e-06
+          }
+        ]
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run; original native 5tick encoding",
+        "measured_response": "observed",
+        "auditory_outcome": "no_perceived_difference",
+        "specific_side_effect": "not_separately_labeled",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "全部没区别。",
+        "scope": "六组已分开试听后的整体回报；原始反馈逐条件绑定，不补造细分副作用标签",
+        "agent_listened": false
+      },
+      "usage_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "prior_run": "runs/lastpage_brec_cohort_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "a17d4bebdd3c5951f2b10138777a8fee8925ab5beb6bb70705342d1b6ba466af",
+        "project_B": "141b8f4a344deaa588675e00759c8a91904ccf6eabec7c6c73ecbdca4bb8ac50",
+        "delivered_audio": {
+          "A": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+            "sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d"
+          },
+          "B": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+            "sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808"
+          }
+        }
+      },
+      "repeat_checks": {
+        "native_DYN_unity_exact": true,
+        "A_prior_wave_and_repeat_exact": true,
+        "same_gain_vocal_and_mix": true
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "legacy_control_ids": [
+        "C12",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E7"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "RESP-010",
+      "experiment_group": "EXP-BREC-COHORT",
+      "type": "controlled_intervention",
+      "condition": {
+        "id": "accepted-bao-C",
+        "word": 225,
+        "context": 22,
+        "phoneme": "zh/ao",
+        "tone": 71,
+        "vowel_s": [
+          183.81145833333335,
+          184.125
+        ],
+        "label": "local_usable",
+        "vowel_duration_ms": 313.5416666666515,
+        "native_phones": [],
+        "baseline_actual_state": {
+          "whole_uo_or_vowel": {
+            "final_breathiness": {
+              "n": 27,
+              "min": -52.41501998901367,
+              "median": -50.29880142211914,
+              "max": -42.47358322143555
+            },
+            "final_voicing": {
+              "n": 27,
+              "min": -52.878108978271484,
+              "median": -43.96592712402344,
+              "max": -41.77299880981445
+            },
+            "final_tension": {
+              "n": 27,
+              "min": -0.33983540534973145,
+              "median": 2.8419439792633057,
+              "max": 3.14827561378479
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 27,
+              "min": 71.0,
+              "median": 71.03599548339844,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 27,
+              "min": 67.0,
+              "median": 67.22799682617188,
+              "max": 71.0
+            }
+          },
+          "core20_80": {
+            "final_breathiness": {
+              "n": 16,
+              "min": -52.41501998901367,
+              "median": -50.690216064453125,
+              "max": -48.72175598144531
+            },
+            "final_voicing": {
+              "n": 16,
+              "min": -44.85948181152344,
+              "median": -44.22827911376953,
+              "max": -43.39161682128906
+            },
+            "final_tension": {
+              "n": 16,
+              "min": 2.5027334690093994,
+              "median": 2.9134387969970703,
+              "max": 3.14827561378479
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 16,
+              "min": 71.0,
+              "median": 71.16699981689453,
+              "max": 71.27999877929688
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 16,
+              "min": 67.0,
+              "median": 67.16699981689453,
+              "max": 67.27999877929688
+            }
+          },
+          "onset60ms": {
+            "final_breathiness": {
+              "n": 5,
+              "min": -51.24473571777344,
+              "median": -48.56698989868164,
+              "max": -42.47358322143555
+            },
+            "final_voicing": {
+              "n": 5,
+              "min": -44.59933853149414,
+              "median": -42.44314956665039,
+              "max": -41.77299880981445
+            },
+            "final_tension": {
+              "n": 5,
+              "min": 2.2204642295837402,
+              "median": 2.7311737537384033,
+              "max": 3.146796464920044
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 5,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.0
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 5,
+              "min": 67.00399780273438,
+              "median": 67.26799774169922,
+              "max": 68.11599731445312
+            }
+          },
+          "tail60ms": {
+            "final_breathiness": {
+              "n": 6,
+              "min": -48.5177001953125,
+              "median": -45.55585479736328,
+              "max": -44.265174865722656
+            },
+            "final_voicing": {
+              "n": 6,
+              "min": -52.878108978271484,
+              "median": -43.25873947143555,
+              "max": -42.37449264526367
+            },
+            "final_tension": {
+              "n": 6,
+              "min": -0.33983540534973145,
+              "median": 0.8083282709121704,
+              "max": 2.1266415119171143
+            },
+            "vocoder_target_pitch_MIDI": {
+              "n": 6,
+              "min": 71.0,
+              "median": 71.0,
+              "max": 71.04199981689453
+            },
+            "acoustic_condition_pitch_MIDI": {
+              "n": 6,
+              "min": 67.14800262451172,
+              "median": 70.12200164794922,
+              "max": 71.0
+            }
+          }
+        },
+        "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/accepted-bao-C",
+        "source_unknown_changed": false,
+        "physiological_register_classification": "unknown",
+        "formant_truth": "unknown"
+      },
+      "control_ids": [
+        "CTRL:C12",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "evidence_ids": [
+        "EVID:07"
+      ],
+      "comparison_direction": "B-A",
+      "intervention": {
+        "channel": "additional BREC",
+        "peak_UI_delta": -10,
+        "model_peak_delta_nominal": -1.2,
+        "Q5_anchors_s": [
+          183.82145833333334,
+          183.90145833333335,
+          184.045,
+          184.115
+        ],
+        "attack_ms": 80,
+        "release_ms": 70,
+        "compiled_baseline_UI_values": [
+          -3,
+          -2,
+          -1,
+          0
+        ],
+        "only_brec_curve_changed": true,
+        "variance_inputs_and_predictions": "unchanged; fresh recomputation verified exact"
+      },
+      "frozen_inputs": [
+        "note/pitch与原生音素时钟",
+        "两阶段speaker与模型/随机种子",
+        "未选人工发声通道",
+        "vocoder目标F0输入",
+        "原生DYN与固定增益",
+        "伴奏"
+      ],
+      "allowed_downstream_response": "SHFC可改变variance预测与acoustic/vocoder输出；人工TENC/BREC只改变对应模型输入。实际PCM F0另测。",
+      "measured": {
+        "input_delta_min": -1.2000007629394531,
+        "input_delta_max": 0.0,
+        "nucleus_RMS_change_db": -0.010840743921370688,
+        "short_window_energy": {
+          "30": {
+            "min_change_db": -0.05965178939857907,
+            "median_change_db": -0.010984343311314149,
+            "max_change_db": 0.047887849112346004,
+            "core_min_change_db": -0.05965178939857907,
+            "core_median_change_db": -0.017325821887297366,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          },
+          "50": {
+            "min_change_db": -0.05320359202016789,
+            "median_change_db": -0.010881296158679277,
+            "max_change_db": 0.0336412103503001,
+            "core_min_change_db": -0.05320359202016789,
+            "core_median_change_db": -0.02076968253726008,
+            "window_step_s": 0.004988662131519274,
+            "not_perceptual_loudness": true
+          }
+        },
+        "spectral_band_power_proxy_B_minus_A_db": {
+          "0_500Hz": 0.049071001963906964,
+          "500_2000Hz": -0.024716333649451284,
+          "2000_5000Hz": -0.15232367863317411,
+          "5000_22051.0Hz": -0.36274742306509394
+        },
+        "actual_dual_F0": {
+          "fcpe": {
+            "comparable_frames": 31,
+            "abs_cents_p50": 0.1505351788712299,
+            "abs_cents_p95": 0.3750587493003873,
+            "abs_cents_max": 0.4451627280197755
+          },
+          "rmvpe": {
+            "comparable_frames": 31,
+            "abs_cents_p50": 0.07491595124250232,
+            "abs_cents_p95": 0.2237955756461548,
+            "abs_cents_max": 0.2866105575869882
+          }
+        },
+        "mel_response": {
+          "frames": 27,
+          "log_mel_rms": 0.06905150314473037,
+          "level_removed_log_mel_rms": 0.038619352537690936,
+          "mean_log_mel_change": -0.049747117760556715,
+          "formant_truth": false,
+          "perceived_improvement": false,
+          "historical_perceived_improvement_field_is_not_listener_truth": true
+        },
+        "phone_level_proxies": [
+          {
+            "phone": "zh/b",
+            "interval_s": [
+              182.80208333333334,
+              182.8947916666667
+            ],
+            "RMS_B_minus_A_db": -1.1568737576794774e-05
+          },
+          {
+            "phone": "zh/a",
+            "interval_s": [
+              182.8947916666667,
+              183.27708333333334
+            ],
+            "RMS_B_minus_A_db": 2.738971801363732e-06
+          },
+          {
+            "phone": "zh/n",
+            "interval_s": [
+              183.27708333333334,
+              183.346875
+            ],
+            "RMS_B_minus_A_db": 0.00014820863263054207
+          },
+          {
+            "phone": "zh/i",
+            "interval_s": [
+              183.346875,
+              183.60208333333335
+            ],
+            "RMS_B_minus_A_db": -0.00012740550464585
+          },
+          {
+            "phone": "zh/b",
+            "interval_s": [
+              183.60208333333335,
+              183.81145833333335
+            ],
+            "RMS_B_minus_A_db": 0.0005267815462133285
+          },
+          {
+            "phone": "zh/ao",
+            "interval_s": [
+              183.81145833333335,
+              184.125
+            ],
+            "RMS_B_minus_A_db": -0.010840743921370688
+          },
+          {
+            "phone": "zh/j",
+            "interval_s": [
+              184.125,
+              184.21770833333335
+            ],
+            "RMS_B_minus_A_db": 0.002503224100152579
+          },
+          {
+            "phone": "zh/in",
+            "interval_s": [
+              184.21770833333335,
+              184.34479166666668
+            ],
+            "RMS_B_minus_A_db": 0.0023829991017620955
+          },
+          {
+            "phone": "zh/sh",
+            "interval_s": [
+              184.34479166666668,
+              184.484375
+            ],
+            "RMS_B_minus_A_db": -0.0005570287173028987
+          },
+          {
+            "phone": "zh/en",
+            "interval_s": [
+              184.484375,
+              184.75104166666668
+            ],
+            "RMS_B_minus_A_db": 0.0005130121307317381
+          },
+          {
+            "phone": "zh/t",
+            "interval_s": [
+              184.75104166666668,
+              184.8791666666667
+            ],
+            "RMS_B_minus_A_db": -0.00014043196026847227
+          },
+          {
+            "phone": "zh/i",
+            "interval_s": [
+              184.8791666666667,
+              185.403125
+            ],
+            "RMS_B_minus_A_db": -1.9752504726966436e-05
+          },
+          {
+            "phone": "zh/l",
+            "interval_s": [
+              185.403125,
+              185.49583333333334
+            ],
+            "RMS_B_minus_A_db": 1.729789985915886e-06
+          }
+        ]
+      },
+      "status": {
+        "input_isolation": "verified_in_prior_run; original native 5tick encoding",
+        "measured_response": "observed",
+        "auditory_outcome": "no_perceived_difference",
+        "specific_side_effect": "not_separately_labeled",
+        "whole_song_acceptance": "unknown",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "user_feedback": {
+        "verbatim": "全部没区别。",
+        "scope": "六组已分开试听后的整体回报；原始反馈逐条件绑定，不补造细分副作用标签",
+        "agent_listened": false
+      },
+      "usage_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "prior_run": "runs/lastpage_brec_cohort_probe_20261008",
+      "runtime_group": "yousa-lastpage-frozen-v02",
+      "bindings": {
+        "project_A": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816",
+        "project_B": "3abd598094c178e5c7dd5f2d6f9edd9a4a4fc22ffc00ac2f55c9b64dc2876177",
+        "delivered_audio": {
+          "A": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+            "sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f"
+          },
+          "B": {
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+            "sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2"
+          }
+        }
+      },
+      "repeat_checks": {
+        "native_DYN_unity_exact": true,
+        "A_prior_wave_and_repeat_exact": true,
+        "same_gain_vocal_and_mix": true
+      },
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "legacy_control_ids": [
+        "C12",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E7"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-001",
+      "type": "cross_context_association",
+      "evidence_ids": [
+        "EVID:05"
+      ],
+      "control_ids": [
+        "CTRL:C11",
+        "CTRL:C12",
+        "CTRL:C13",
+        "CTRL:C01",
+        "CTRL:C41"
+      ],
+      "atomic_ids": [
+        "ACO:S1",
+        "ACO:S2",
+        "ACO:S3",
+        "EVT:R3",
+        "EVT:T4",
+        "PER:S1"
+      ],
+      "conditions": [
+        {
+          "id": "current-word-112",
+          "word": 112,
+          "context": 11,
+          "phoneme": "zh/uo",
+          "tone": 64,
+          "vowel_s": [
+            86.90833333333335,
+            87.25625
+          ],
+          "label": "reported_false_forward",
+          "vowel_duration_ms": 347.91666666664867,
+          "native_phones": [
+            {
+              "phoneme": "zh/g",
+              "start_ms": 86757.29166666667,
+              "end_ms": 86908.33333333334,
+              "tone": 64
+            },
+            {
+              "phoneme": "zh/uo",
+              "start_ms": 86908.33333333334,
+              "end_ms": 87256.25,
+              "tone": 64
+            }
+          ],
+          "baseline_actual_state": {
+            "whole_uo_or_vowel": {
+              "final_breathiness": {
+                "n": 30,
+                "min": -54.900936126708984,
+                "median": -52.697181701660156,
+                "max": -51.715667724609375
+              },
+              "final_voicing": {
+                "n": 30,
+                "min": -53.51157760620117,
+                "median": -46.75360107421875,
+                "max": -46.454315185546875
+              },
+              "final_tension": {
+                "n": 30,
+                "min": -0.3990612030029297,
+                "median": 0.46084466576576233,
+                "max": 0.6354839205741882
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 30,
+                "min": 62.90290069580078,
+                "median": 64.00700378417969,
+                "max": 64.23999786376953
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 30,
+                "min": 62.90290069580078,
+                "median": 64.00700378417969,
+                "max": 64.23999786376953
+              }
+            },
+            "core20_80": {
+              "final_breathiness": {
+                "n": 18,
+                "min": -53.793087005615234,
+                "median": -52.6517333984375,
+                "max": -52.00760269165039
+              },
+              "final_voicing": {
+                "n": 18,
+                "min": -46.95769119262695,
+                "median": -46.6380615234375,
+                "max": -46.454315185546875
+              },
+              "final_tension": {
+                "n": 18,
+                "min": 0.29295018315315247,
+                "median": 0.5526925325393677,
+                "max": 0.6354839205741882
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 18,
+                "min": 63.74165725708008,
+                "median": 64.12000274658203,
+                "max": 64.23999786376953
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 18,
+                "min": 63.74165725708008,
+                "median": 64.12000274658203,
+                "max": 64.23999786376953
+              }
+            },
+            "onset60ms": {
+              "final_breathiness": {
+                "n": 6,
+                "min": -54.900936126708984,
+                "median": -53.796775817871094,
+                "max": -52.7255859375
+              },
+              "final_voicing": {
+                "n": 6,
+                "min": -53.51157760620117,
+                "median": -47.28003692626953,
+                "max": -46.596923828125
+              },
+              "final_tension": {
+                "n": 6,
+                "min": -0.3990612030029297,
+                "median": 0.04098493605852127,
+                "max": 0.4191237986087799
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 6,
+                "min": 62.90290069580078,
+                "median": 63.133079528808594,
+                "max": 63.57573699951172
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 6,
+                "min": 62.90290069580078,
+                "median": 63.133079528808594,
+                "max": 63.57573699951172
+              }
+            },
+            "tail60ms": {
+              "final_breathiness": {
+                "n": 5,
+                "min": -52.7256965637207,
+                "median": -52.146759033203125,
+                "max": -51.715667724609375
+              },
+              "final_voicing": {
+                "n": 5,
+                "min": -50.985809326171875,
+                "median": -47.9996223449707,
+                "max": -47.24232864379883
+              },
+              "final_tension": {
+                "n": 5,
+                "min": 0.10255280882120132,
+                "median": 0.2118082046508789,
+                "max": 0.21572363376617432
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 5,
+                "min": 64.0,
+                "median": 64.0,
+                "max": 64.03399658203125
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 5,
+                "min": 64.0,
+                "median": 64.0,
+                "max": 64.03399658203125
+              }
+            }
+          },
+          "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-112",
+          "source_unknown_changed": false,
+          "physiological_register_classification": "unknown",
+          "formant_truth": "unknown"
+        },
+        {
+          "id": "current-word-247",
+          "word": 247,
+          "context": 25,
+          "phoneme": "zh/uo",
+          "tone": 64,
+          "vowel_s": [
+            196.65104166666669,
+            196.94791666666669
+          ],
+          "label": "local_usable",
+          "vowel_duration_ms": 296.875,
+          "native_phones": [
+            {
+              "phoneme": "zh/g",
+              "start_ms": 196523.95833333334,
+              "end_ms": 196651.0416666667,
+              "tone": 64
+            },
+            {
+              "phoneme": "zh/uo",
+              "start_ms": 196651.0416666667,
+              "end_ms": 196947.9166666667,
+              "tone": 64
+            }
+          ],
+          "baseline_actual_state": {
+            "whole_uo_or_vowel": {
+              "final_breathiness": {
+                "n": 25,
+                "min": -57.22172927856445,
+                "median": -53.619720458984375,
+                "max": -48.94929885864258
+              },
+              "final_voicing": {
+                "n": 25,
+                "min": -50.514739990234375,
+                "median": -45.02401351928711,
+                "max": -43.00816345214844
+              },
+              "final_tension": {
+                "n": 25,
+                "min": -0.27392008900642395,
+                "median": 0.8670989871025085,
+                "max": 1.0375102758407593
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 25,
+                "min": 62.92587661743164,
+                "median": 64.00399780273438,
+                "max": 64.2699966430664
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 25,
+                "min": 62.92587661743164,
+                "median": 64.00399780273438,
+                "max": 64.2699966430664
+              }
+            },
+            "core20_80": {
+              "final_breathiness": {
+                "n": 15,
+                "min": -55.80859375,
+                "median": -53.619720458984375,
+                "max": -52.306976318359375
+              },
+              "final_voicing": {
+                "n": 15,
+                "min": -46.61784744262695,
+                "median": -45.02401351928711,
+                "max": -44.6381721496582
+              },
+              "final_tension": {
+                "n": 15,
+                "min": 0.6972405314445496,
+                "median": 0.9053553938865662,
+                "max": 1.0375102758407593
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 15,
+                "min": 63.76274108886719,
+                "median": 64.11199951171875,
+                "max": 64.2699966430664
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 15,
+                "min": 63.76274108886719,
+                "median": 64.11199951171875,
+                "max": 64.2699966430664
+              }
+            },
+            "onset60ms": {
+              "final_breathiness": {
+                "n": 5,
+                "min": -57.22172927856445,
+                "median": -56.561431884765625,
+                "max": -48.94929885864258
+              },
+              "final_voicing": {
+                "n": 5,
+                "min": -44.85765075683594,
+                "median": -43.51043701171875,
+                "max": -43.00816345214844
+              },
+              "final_tension": {
+                "n": 5,
+                "min": -0.27392008900642395,
+                "median": 0.2595643997192383,
+                "max": 0.5983685255050659
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 5,
+                "min": 62.92587661743164,
+                "median": 63.19158172607422,
+                "max": 63.580718994140625
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 5,
+                "min": 62.92587661743164,
+                "median": 63.19158172607422,
+                "max": 63.580718994140625
+              }
+            },
+            "tail60ms": {
+              "final_breathiness": {
+                "n": 5,
+                "min": -54.290374755859375,
+                "median": -53.00400924682617,
+                "max": -51.73974609375
+              },
+              "final_voicing": {
+                "n": 5,
+                "min": -50.514739990234375,
+                "median": -47.79795455932617,
+                "max": -47.10663986206055
+              },
+              "final_tension": {
+                "n": 5,
+                "min": 0.296301007270813,
+                "median": 0.6411239504814148,
+                "max": 0.8670989871025085
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 5,
+                "min": 64.0,
+                "median": 64.0,
+                "max": 64.05599975585938
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 5,
+                "min": 64.0,
+                "median": 64.0,
+                "max": 64.05599975585938
+              }
+            }
+          },
+          "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-247",
+          "source_unknown_changed": false,
+          "physiological_register_classification": "unknown",
+          "formant_truth": "unknown"
+        }
+      ],
+      "comparison_direction": "3:17可用果 minus 1:27问题果",
+      "state_differences": {
+        "whole_uo_or_vowel": {
+          "final_voicing": 1.7295875549316406,
+          "final_breathiness": -0.9225387573242188,
+          "final_tension": 0.4062543213367462,
+          "acoustic_condition_pitch_MIDI": -0.0030059814453125,
+          "vocoder_target_pitch_MIDI": -0.0030059814453125
+        },
+        "core20_80": {
+          "final_voicing": 1.6140480041503906,
+          "final_breathiness": -0.967987060546875,
+          "final_tension": 0.3526628613471985,
+          "acoustic_condition_pitch_MIDI": -0.00800323486328125,
+          "vocoder_target_pitch_MIDI": -0.00800323486328125
+        },
+        "onset60ms": {
+          "final_voicing": 3.7695999145507812,
+          "final_breathiness": -2.7646560668945312,
+          "final_tension": 0.218579463660717,
+          "acoustic_condition_pitch_MIDI": 0.058502197265625,
+          "vocoder_target_pitch_MIDI": 0.058502197265625
+        }
+      },
+      "listening": "1:27偏假/顶；3:17用户“中间这个可以”",
+      "conclusion": "同uo/E4跨上下文关联：核VOIC +1.6140、BREC -.9680、TENC +.3527；不能隔离因果或拟合通过阈值。",
+      "status": {
+        "isolated_parameter_causality": "unestablished",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "report": "docs/lastpage-guo-positive-comparison-20261008.md",
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "R3",
+        "T4"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "T4": [
+          "EVT:T4"
+        ]
+      },
+      "legacy_control_ids": [
+        "C11",
+        "C12",
+        "C13",
+        "C01",
+        "C41"
+      ],
+      "legacy_evidence_ids": [
+        "E5"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "OBS-002",
+      "type": "downstream_association_of_SHFC_intervention",
+      "evidence_ids": [
+        "EVID:06"
+      ],
+      "control_ids": [
+        "CTRL:C11",
+        "CTRL:C12",
+        "CTRL:C13",
+        "CTRL:C14"
+      ],
+      "atomic_ids": [
+        "ACO:S1",
+        "ACO:S2",
+        "ACO:S3",
+        "EVT:R3",
+        "PER:S1"
+      ],
+      "conditions": [
+        {
+          "id": "current-word-225",
+          "word": 225,
+          "context": 22,
+          "phoneme": "zh/ao",
+          "tone": 71,
+          "vowel_s": [
+            183.81145833333335,
+            184.125
+          ],
+          "label": "reported_false_forward",
+          "vowel_duration_ms": 313.5416666666515,
+          "native_phones": [
+            {
+              "phoneme": "zh/b",
+              "start_ms": 183602.08333333334,
+              "end_ms": 183811.45833333334,
+              "tone": 71
+            },
+            {
+              "phoneme": "zh/ao",
+              "start_ms": 183811.45833333334,
+              "end_ms": 184125,
+              "tone": 71
+            }
+          ],
+          "baseline_actual_state": {
+            "whole_uo_or_vowel": {
+              "final_breathiness": {
+                "n": 27,
+                "min": -48.26377868652344,
+                "median": -46.006961822509766,
+                "max": -43.92350769042969
+              },
+              "final_voicing": {
+                "n": 27,
+                "min": -50.55093002319336,
+                "median": -43.3055419921875,
+                "max": -41.09660339355469
+              },
+              "final_tension": {
+                "n": 27,
+                "min": -0.6327570080757141,
+                "median": 1.7553541660308838,
+                "max": 2.249692916870117
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 27,
+                "min": 71.0,
+                "median": 71.03599548339844,
+                "max": 71.27999877929688
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 27,
+                "min": 71.0,
+                "median": 71.03599548339844,
+                "max": 71.27999877929688
+              }
+            },
+            "core20_80": {
+              "final_breathiness": {
+                "n": 16,
+                "min": -47.588382720947266,
+                "median": -44.805870056152344,
+                "max": -43.92350769042969
+              },
+              "final_voicing": {
+                "n": 16,
+                "min": -43.38410949707031,
+                "median": -43.313751220703125,
+                "max": -41.82840347290039
+              },
+              "final_tension": {
+                "n": 16,
+                "min": 1.5273346900939941,
+                "median": 1.8506109714508057,
+                "max": 2.249692916870117
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 16,
+                "min": 71.0,
+                "median": 71.16699981689453,
+                "max": 71.27999877929688
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 16,
+                "min": 71.0,
+                "median": 71.16699981689453,
+                "max": 71.27999877929688
+              }
+            },
+            "onset60ms": {
+              "final_breathiness": {
+                "n": 5,
+                "min": -48.26377868652344,
+                "median": -46.776145935058594,
+                "max": -44.996402740478516
+              },
+              "final_voicing": {
+                "n": 5,
+                "min": -49.57579040527344,
+                "median": -42.05855178833008,
+                "max": -41.09660339355469
+              },
+              "final_tension": {
+                "n": 5,
+                "min": 1.221807837486267,
+                "median": 1.7000912427902222,
+                "max": 2.196211576461792
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 5,
+                "min": 71.0,
+                "median": 71.0,
+                "max": 71.0
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 5,
+                "min": 71.0,
+                "median": 71.0,
+                "max": 71.0
+              }
+            },
+            "tail60ms": {
+              "final_breathiness": {
+                "n": 6,
+                "min": -48.12172317504883,
+                "median": -48.06998825073242,
+                "max": -47.63417053222656
+              },
+              "final_voicing": {
+                "n": 6,
+                "min": -50.55093002319336,
+                "median": -43.609649658203125,
+                "max": -42.97685623168945
+              },
+              "final_tension": {
+                "n": 6,
+                "min": -0.6327570080757141,
+                "median": 0.26376205682754517,
+                "max": 1.2622413635253906
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 6,
+                "min": 71.0,
+                "median": 71.0,
+                "max": 71.04199981689453
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 6,
+                "min": 71.0,
+                "median": 71.0,
+                "max": 71.04199981689453
+              }
+            }
+          },
+          "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/current-word-225",
+          "source_unknown_changed": false,
+          "physiological_register_classification": "unknown",
+          "formant_truth": "unknown"
+        },
+        {
+          "id": "accepted-bao-C",
+          "word": 225,
+          "context": 22,
+          "phoneme": "zh/ao",
+          "tone": 71,
+          "vowel_s": [
+            183.81145833333335,
+            184.125
+          ],
+          "label": "local_usable",
+          "vowel_duration_ms": 313.5416666666515,
+          "native_phones": [],
+          "baseline_actual_state": {
+            "whole_uo_or_vowel": {
+              "final_breathiness": {
+                "n": 27,
+                "min": -52.41501998901367,
+                "median": -50.29880142211914,
+                "max": -42.47358322143555
+              },
+              "final_voicing": {
+                "n": 27,
+                "min": -52.878108978271484,
+                "median": -43.96592712402344,
+                "max": -41.77299880981445
+              },
+              "final_tension": {
+                "n": 27,
+                "min": -0.33983540534973145,
+                "median": 2.8419439792633057,
+                "max": 3.14827561378479
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 27,
+                "min": 71.0,
+                "median": 71.03599548339844,
+                "max": 71.27999877929688
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 27,
+                "min": 67.0,
+                "median": 67.22799682617188,
+                "max": 71.0
+              }
+            },
+            "core20_80": {
+              "final_breathiness": {
+                "n": 16,
+                "min": -52.41501998901367,
+                "median": -50.690216064453125,
+                "max": -48.72175598144531
+              },
+              "final_voicing": {
+                "n": 16,
+                "min": -44.85948181152344,
+                "median": -44.22827911376953,
+                "max": -43.39161682128906
+              },
+              "final_tension": {
+                "n": 16,
+                "min": 2.5027334690093994,
+                "median": 2.9134387969970703,
+                "max": 3.14827561378479
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 16,
+                "min": 71.0,
+                "median": 71.16699981689453,
+                "max": 71.27999877929688
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 16,
+                "min": 67.0,
+                "median": 67.16699981689453,
+                "max": 67.27999877929688
+              }
+            },
+            "onset60ms": {
+              "final_breathiness": {
+                "n": 5,
+                "min": -51.24473571777344,
+                "median": -48.56698989868164,
+                "max": -42.47358322143555
+              },
+              "final_voicing": {
+                "n": 5,
+                "min": -44.59933853149414,
+                "median": -42.44314956665039,
+                "max": -41.77299880981445
+              },
+              "final_tension": {
+                "n": 5,
+                "min": 2.2204642295837402,
+                "median": 2.7311737537384033,
+                "max": 3.146796464920044
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 5,
+                "min": 71.0,
+                "median": 71.0,
+                "max": 71.0
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 5,
+                "min": 67.00399780273438,
+                "median": 67.26799774169922,
+                "max": 68.11599731445312
+              }
+            },
+            "tail60ms": {
+              "final_breathiness": {
+                "n": 6,
+                "min": -48.5177001953125,
+                "median": -45.55585479736328,
+                "max": -44.265174865722656
+              },
+              "final_voicing": {
+                "n": 6,
+                "min": -52.878108978271484,
+                "median": -43.25873947143555,
+                "max": -42.37449264526367
+              },
+              "final_tension": {
+                "n": 6,
+                "min": -0.33983540534973145,
+                "median": 0.8083282709121704,
+                "max": 2.1266415119171143
+              },
+              "vocoder_target_pitch_MIDI": {
+                "n": 6,
+                "min": 71.0,
+                "median": 71.0,
+                "max": 71.04199981689453
+              },
+              "acoustic_condition_pitch_MIDI": {
+                "n": 6,
+                "min": 67.14800262451172,
+                "median": 70.12200164794922,
+                "max": 71.0
+              }
+            }
+          },
+          "condition_source": "runs/lastpage_cross_condition_study_20261008/study.json#known_labels/accepted-bao-C",
+          "source_unknown_changed": false,
+          "physiological_register_classification": "unknown",
+          "formant_truth": "unknown"
+        }
+      ],
+      "comparison_direction": "已接受抱C minus 原问题抱",
+      "state_differences": {
+        "whole_uo_or_vowel": {
+          "final_voicing": -0.6603851318359375,
+          "final_breathiness": -4.291839599609375,
+          "final_tension": 1.0865898132324219,
+          "acoustic_condition_pitch_MIDI": -3.8079986572265625,
+          "vocoder_target_pitch_MIDI": 0.0
+        },
+        "core20_80": {
+          "final_voicing": -0.9145278930664062,
+          "final_breathiness": -5.884346008300781,
+          "final_tension": 1.0628278255462646,
+          "acoustic_condition_pitch_MIDI": -4.0,
+          "vocoder_target_pitch_MIDI": 0.0
+        },
+        "onset60ms": {
+          "final_voicing": -0.3845977783203125,
+          "final_breathiness": -1.7908439636230469,
+          "final_tension": 1.0310825109481812,
+          "acoustic_condition_pitch_MIDI": -3.7320022583007812,
+          "vocoder_target_pitch_MIDI": 0.0
+        }
+      },
+      "listening": "原抱偏假/顶；C局部可用",
+      "conclusion": "核VOIC -.9145、BREC -5.8843、TENC +1.0628；整体SHFC下游关联不是独立VOIC/BREC/TENC因果检验。",
+      "status": {
+        "isolated_parameter_causality": "unestablished",
+        "held_out_generalization": "unvalidated",
+        "generic_skill_rule": "not_adopted"
+      },
+      "report": "docs/lastpage-cross-condition-study-20261008.md",
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "R3"
+      ],
+      "entity_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ]
+      },
+      "legacy_control_ids": [
+        "C11",
+        "C12",
+        "C13",
+        "C14"
+      ],
+      "legacy_evidence_ids": [
+        "E6"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    }
+  ],
+  "audits": [
+    {
+      "id": "AUD-001",
+      "evidence_ids": [
+        "EVID:08"
+      ],
+      "control_ids": [
+        "CTRL:C23",
+        "CTRL:C24"
+      ],
+      "atomic_ids": [
+        "ACO:R1",
+        "ACO:T2",
+        "EVT:R3",
+        "EVT:T1",
+        "EVT:T3",
+        "EVT:T5",
+        "PER:T3"
+      ],
+      "finding": "g/uo词表与语言ID4匹配；HFA相对原生元音入口差+.303ms，原生元音比HFA短13.665ms。uo整体token。",
+      "boundary": "没有明确大错位证据；HFA不是演唱自然时长真值，不直接拆uo或缩g。",
+      "report": "docs/lastpage-guo-phoneme-audit-20261008.md",
+      "legacy_atomic_ids": [
+        "T1",
+        "T2",
+        "T3",
+        "T5",
+        "R1",
+        "R3"
+      ],
+      "entity_reference_candidates": {
+        "T1": [
+          "EVT:T1"
+        ],
+        "T2": [
+          "ACO:T2"
+        ],
+        "T3": [
+          "EVT:T3",
+          "PER:T3"
+        ],
+        "T5": [
+          "EVT:T5"
+        ],
+        "R1": [
+          "ACO:R1"
+        ],
+        "R3": [
+          "EVT:R3"
+        ]
+      },
+      "legacy_control_ids": [
+        "C23",
+        "C24"
+      ],
+      "legacy_evidence_ids": [
+        "E8"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "id": "AUD-002",
+      "evidence_ids": [
+        "EVID:09"
+      ],
+      "control_ids": [
+        "CTRL:C36",
+        "CTRL:C47"
+      ],
+      "atomic_ids": [
+        "EVT:R3",
+        "EVT:T4"
+      ],
+      "finding": "1tick BREC草稿与原生5tick读取不符，约.072最大输入差被拒绝；修正5tick后18套有效。SHFC -4存储值是-4c，先被拒绝后更正原意-400c。",
+      "boundary": "只证明单位/采样/合法范围与实际输入必须核查；不是自然度或听觉效果检验。",
+      "report": "docs/lastpage-brec-cohort-probe-20261008.md",
+      "legacy_atomic_ids": [
+        "T4",
+        "R3"
+      ],
+      "entity_reference_candidates": {
+        "T4": [
+          "EVT:T4"
+        ],
+        "R3": [
+          "EVT:R3"
+        ]
+      },
+      "legacy_control_ids": [
+        "C36",
+        "C47"
+      ],
+      "legacy_evidence_ids": [
+        "E9"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    }
+  ],
+  "coverage": [
+    {
+      "control_id": "CTRL:C01",
+      "control": "音符中心 tone、tuning、全曲移调",
+      "current_support": "通用音符；实际读取依引擎",
+      "response_ids": "",
+      "observation_ids": "OBS-001",
+      "audit_ids": "",
+      "evidence_status": "有关联，没有该参数独立听觉因果验证",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C01"
+    },
+    {
+      "control_id": "CTRL:C02",
+      "control": "音符 pitch 点X/Y、插值形状、snap_first",
+      "current_support": "通用音高基底",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C02"
+    },
+    {
+      "control_id": "CTRL:C03",
+      "control": "PITD",
+      "current_support": "当前DiffSinger支持",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C03"
+    },
+    {
+      "control_id": "CTRL:C04",
+      "control": "vibrato length",
+      "current_support": "当前结构存在；生产函数可另实现",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C04"
+    },
+    {
+      "control_id": "CTRL:C05",
+      "control": "vibrato period",
+      "current_support": "当前结构存在",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C05"
+    },
+    {
+      "control_id": "CTRL:C06",
+      "control": "vibrato depth",
+      "current_support": "当前结构存在",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C06"
+    },
+    {
+      "control_id": "CTRL:C07",
+      "control": "vibrato in/out",
+      "current_support": "当前结构存在",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C07"
+    },
+    {
+      "control_id": "CTRL:C08",
+      "control": "vibrato shift/drift",
+      "current_support": "当前结构存在",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C08"
+    },
+    {
+      "control_id": "CTRL:C09",
+      "control": "vibrato vol_link",
+      "current_support": "新上游明确支持；本机功能未审定",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C09"
+    },
+    {
+      "control_id": "CTRL:C10",
+      "control": "DYN",
+      "current_support": "当前支持，已核对原生乘法",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "纯增益数学响应明确；仍缺强弱意图、感知响度/频谱及掩蔽条件的听觉验收",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C10"
+    },
+    {
+      "control_id": "CTRL:C11",
+      "control": "VOIC",
+      "current_support": "Yousa启用；本曲合法范围自定义0～200",
+      "response_ids": "",
+      "observation_ids": "OBS-001;OBS-002",
+      "audit_ids": "",
+      "evidence_status": "有关联，没有该参数独立听觉因果验证",
+      "remaining_gap": "抱/果方向相反；缺独立VOIC实验，不统一提高或降低",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C11"
+    },
+    {
+      "control_id": "CTRL:C12",
+      "control": "BREC",
+      "current_support": "Yousa启用",
+      "response_ids": "RESP-005;RESP-006;RESP-007;RESP-008;RESP-009;RESP-010",
+      "observation_ids": "OBS-001;OBS-002",
+      "audit_ids": "",
+      "evidence_status": "有局部受控听觉结果，未泛化",
+      "remaining_gap": "仅-10/单函数族/本声库曲目六条件，尚无可感知正例及剂量响应边界",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C12"
+    },
+    {
+      "control_id": "CTRL:C13",
+      "control": "TENC",
+      "current_support": "Yousa启用",
+      "response_ids": "RESP-001",
+      "observation_ids": "OBS-001;OBS-002",
+      "audit_ids": "",
+      "evidence_status": "有局部受控听觉结果，未泛化",
+      "remaining_gap": "只有抱取消+14的无差别结果；其它剂量/时序/元音未知",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C13"
+    },
+    {
+      "control_id": "CTRL:C14",
+      "control": "SHFC",
+      "current_support": "当前pitch-controllable vocoder支持",
+      "response_ids": "RESP-002;RESP-003;RESP-004",
+      "observation_ids": "OBS-002",
+      "audit_ids": "",
+      "evidence_status": "有局部受控听觉结果，未泛化",
+      "remaining_gap": "抱可用且果失败；时序、音程剂量及跨元音/跨音区/跨曲迁移边界未知",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C14"
+    },
+    {
+      "control_id": "CTRL:C15",
+      "control": "GENC",
+      "current_support": "Yousa use_key_shift_embed=true；当前基底0",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C15"
+    },
+    {
+      "control_id": "CTRL:C16",
+      "control": "VELC",
+      "current_support": "Yousa use_speed_embed=true；当前实际1",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C16"
+    },
+    {
+      "control_id": "CTRL:C17",
+      "control": "ENE",
+      "current_support": "引擎建议项；本机use_energy_embed/predict_energy=false",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "当前声库禁用，先确认模型支持；不能把UI曲线当有效干预",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C17"
+    },
+    {
+      "control_id": "CTRL:C18",
+      "control": "falsetto embedding / prediction",
+      "current_support": "本机use_falsetto_embed/predict_falsetto=false",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "当前声库禁用，先确认模型支持；不能把UI曲线当有效干预",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C18"
+    },
+    {
+      "control_id": "CTRL:C19",
+      "control": "CLR、speaker/subbank",
+      "current_support": "当前支持；按音素index与名称映射",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C19"
+    },
+    {
+      "control_id": "CTRL:C20",
+      "control": "cl01…clNN声线曲线",
+      "current_support": "当前五色Bright/Cute/Normal/Whisper/Classic",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C20"
+    },
+    {
+      "control_id": "CTRL:C21",
+      "control": "PEXP、生成/重生成pitch、retake",
+      "current_support": "本机pitch模型use_expr=true，人工画线流程不依赖它",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C21"
+    },
+    {
+      "control_id": "CTRL:C22",
+      "control": "音符/part position、duration、tempos",
+      "current_support": "当前支持",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C22"
+    },
+    {
+      "control_id": "CTRL:C23",
+      "control": "歌词、语言、多音字、phonetic hint、phoneme override",
+      "current_support": "当前Chinese phonemizer、字典/词表支持",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "AUD-001",
+      "evidence_status": "有技术审计，没有受控听觉响应",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C23"
+    },
+    {
+      "control_id": "CTRL:C24",
+      "control": "音素offset/时长、延音+、AP/SP、分组/分句",
+      "current_support": "当前支持；部分符号需phonemizer验证",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "AUD-001",
+      "evidence_status": "有技术审计，没有受控听觉响应",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C24"
+    },
+    {
+      "control_id": "CTRL:C25",
+      "control": "VEL声母速度",
+      "current_support": "通用默认项；本次核对的DiffSingerBase未读consonantStretchRatio",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C25"
+    },
+    {
+      "control_id": "CTRL:C26",
+      "control": "VOL/ATK/DEC",
+      "current_support": "Classic支持；DiffSinger不支持音素包络",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C26"
+    },
+    {
+      "control_id": "CTRL:C27",
+      "control": "preutterDelta、overlapDelta、attackTimeDelta、releaseTimeDelta",
+      "current_support": "主要采样声库；DiffSinger supportsPhonemeEnvelope=false",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C27"
+    },
+    {
+      "control_id": "CTRL:C28",
+      "control": "oto Offset/Consonant/Cutoff/Preutter/Overlap、alias、frq",
+      "current_support": "采样声库编辑与配置",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C28"
+    },
+    {
+      "control_id": "CTRL:C29",
+      "control": "ALT、SHFT",
+      "current_support": "Classic及对应音素器；VOICEVOX/ENUNU也有自己的路径",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C29"
+    },
+    {
+      "control_id": "CTRL:C30",
+      "control": "ENG、renderer、resampler、wavtool",
+      "current_support": "各引擎/采样库",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C30"
+    },
+    {
+      "control_id": "CTRL:C31",
+      "control": "GEN(g)、BRE(B)、LPF(H)、NORM(P)",
+      "current_support": "取决于resampler；DiffSinger不读取这些flags",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C31"
+    },
+    {
+      "control_id": "CTRL:C32",
+      "control": "MOD、MOD+",
+      "current_support": "Classic/Worldline读取路径",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C32"
+    },
+    {
+      "control_id": "CTRL:C33",
+      "control": "DIR",
+      "current_support": "Classic/Worldline及VOICEVOX的不同分支",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C33"
+    },
+    {
+      "control_id": "CTRL:C34",
+      "control": "CLRY、XSY",
+      "current_support": "新上游Classic/Worldline支持；本机未审定",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C34"
+    },
+    {
+      "control_id": "CTRL:C35",
+      "control": "GRWC、Hifisampler粗糙效果",
+      "current_support": "新上游Hifisampler；当前DiffSinger不支持",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C35"
+    },
+    {
+      "control_id": "CTRL:C36",
+      "control": "自定义flags与表达声明、默认值、范围、类型、track覆盖",
+      "current_support": "开放扩展，需引擎实现",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "AUD-002",
+      "evidence_status": "有技术审计，没有受控听觉响应",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C36"
+    },
+    {
+      "control_id": "CTRL:C37",
+      "control": "VOICEVOX VOLC、SMOC、REPM、style",
+      "current_support": "官方VOICEVOX renderer，当前不使用",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C37"
+    },
+    {
+      "control_id": "CTRL:C38",
+      "control": "ENUNU styles/custom expressions、Vogen/Worldline声学控制",
+      "current_support": "非当前路线",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C38"
+    },
+    {
+      "control_id": "CTRL:C39",
+      "control": "声库、speaker embeddings、duration/pitch/variance/acoustic模型、vocoder、字典/subbank配置",
+      "current_support": "本机已哈希绑定；换资源需验证匹配",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C39"
+    },
+    {
+      "control_id": "CTRL:C40",
+      "control": "DiffSinger steps/depth、pitch/variance步骤、speedup、随机输入/seed",
+      "current_support": "当前模型连续加速/variable-depth；seed在诊断接口控制",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C40"
+    },
+    {
+      "control_id": "CTRL:C41",
+      "control": "完整短语上下文、AP/SP、合并/拆分、padding、渲染缓存",
+      "current_support": "通用依赖；新上游有merge/local-patch偏好",
+      "response_ids": "",
+      "observation_ids": "OBS-001",
+      "audit_ids": "",
+      "evidence_status": "有关联，没有该参数独立听觉因果验证",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C41"
+    },
+    {
+      "control_id": "CTRL:C42",
+      "control": "track volume、pan、mute/solo、导入伴奏位置/音量、多轨",
+      "current_support": "当前支持，具体pan law依实现",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C42"
+    },
+    {
+      "control_id": "CTRL:C43",
+      "control": "MixFx EQ总/模块开关、lowDb/midFreq/midDb/highDb、preset",
+      "current_support": "新上游实现；当前安装未确认有该UI/路径",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C43"
+    },
+    {
+      "control_id": "CTRL:C44",
+      "control": "MixFx压缩 threshold/ratio/makeup、preset、开关",
+      "current_support": "新上游实现；本机未确认",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C44"
+    },
+    {
+      "control_id": "CTRL:C45",
+      "control": "MixFx混响 size/damp/wet/pre-delay、preset、开关",
+      "current_support": "新上游实现；本机未确认",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C45"
+    },
+    {
+      "control_id": "CTRL:C46",
+      "control": "导出格式/采样率/位深、声道、重采样、播放/监听增益",
+      "current_support": "依版本/导出接口/外部监听",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "机制/支持边界已列；当前无第二层受控听觉数据",
+      "remaining_gap": "需在实际支持引擎/版本和明确条件下检验；现有机制不能直接变成听觉配方",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C46"
+    },
+    {
+      "control_id": "CTRL:C47",
+      "control": "表达图、RPIT/PITO、曲线插值/函数时间形状/量化",
+      "current_support": "新上游有graph/masked curves；本机本流程用显式Agent函数",
+      "response_ids": "RESP-002;RESP-003;RESP-004;RESP-005;RESP-006;RESP-007;RESP-008;RESP-009;RESP-010",
+      "observation_ids": "",
+      "audit_ids": "AUD-002",
+      "evidence_status": "仅SHFC进入几何与BREC编码/时序；其余功能未验证",
+      "remaining_gap": "145ms和前80ms同时变化；缺各自分离作用，不能成为全局默认",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C47"
+    },
+    {
+      "control_id": "CTRL:C48",
+      "control": "key/拍号、snap/grid、预设、显示、轨名/颜色、UI偏好",
+      "current_support": "通用及版本差异",
+      "response_ids": "",
+      "observation_ids": "",
+      "audit_ids": "",
+      "evidence_status": "显示/编辑入口，排除为独立声学原因",
+      "remaining_gap": "无需假设可听效果；若操作改变音符等实际输入，归入对应控制",
+      "automatic_recipe_allowed": "否",
+      "legacy_control_id": "C48"
+    }
+  ],
+  "counts": {
+    "controlled_condition_records": 10,
+    "experiment_groups": 5,
+    "observational_pairs": 2,
+    "technical_audits": 2,
+    "control_families": 48
+  },
+  "unknown_and_negative_evidence_retained": true,
+  "generalization_validated": false,
+  "causal_scope": "Selected external intervention has a response; SHFC downstream mediators and physiological causes remain unidentified.",
+  "formal_reference_migration": {
+    "date": "2026-10-10",
+    "source_sha256": "950a7c5f4f04506991988d7033b2a0105d48ee6ddc1055b86f3eef9847117821",
+    "evidence_values_and_feedback_unchanged": true,
+    "old_ids_preserved_in_legacy_fields": true,
+    "no_new_causal_validation": true
+  }
+}

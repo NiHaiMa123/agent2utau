@@ -1,0 +1,331 @@
+{
+  "status": "author_control_neutral_delivered_pending_listening",
+  "protocol": {
+    "id": "LASTPAGE-AUTHOR-CONTROL-NEUTRAL-01",
+    "status": "frozen_before_execution",
+    "authorization": "ongoing explicit user request for author-copy gradual factor research, after new A>B>own preference feedback",
+    "trigger": {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/feedback/voice-feedback.json",
+      "sha256": "458a290075d44366afb44559d40b623003a6de163349db756cbabeb0c60e4955"
+    },
+    "A": {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/score/A.ustx",
+      "sha256": "810f60e5c2b909df1e34477e41add35e224cbdcf1f605c60abca0b7f5e5592c8"
+    },
+    "C": {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/score/C.ustx",
+      "sha256": "377097c86119c45d3b51501c70563a939c272536b633bb60f018c834628b9e31"
+    },
+    "neutral_UI": {
+      "tenc": 0,
+      "brec": 0,
+      "voic": 100,
+      "shfc": 0
+    },
+    "actual_A_coverage": [
+      {
+        "context": 0,
+        "SHFC_nonzero_frames": 0,
+        "nonzero_manual_frames": {
+          "breathiness": 292,
+          "voicing": 378,
+          "tension": 338
+        }
+      },
+      {
+        "context": 1,
+        "SHFC_nonzero_frames": 0,
+        "nonzero_manual_frames": {
+          "breathiness": 303,
+          "voicing": 303,
+          "tension": 303
+        }
+      }
+    ],
+    "purpose": "test whether authored manual phonation-control group is required for author-context relative advantage",
+    "fixed": [
+      "author full note/PITD/tuning/pitch/vibrato",
+      "phone clock/CLR",
+      "author two-stage speaker",
+      "DYN unity/gain1.5",
+      "seeds11/101"
+    ],
+    "permitted_changes": [
+      "three manual deltas/final acoustic channels",
+      "mel/wave"
+    ],
+    "grouping": "written four curves neutralized across full part; selected two phrases have SHFC0 already, so real three-channel group only, variance conditions/predictions must remain exact",
+    "budget": {
+      "new_candidate": 1,
+      "new_native_cached_contexts": 3,
+      "reused_A_native_contexts": 2,
+      "new_seeded_waveforms": 8,
+      "independent_contexts": 2,
+      "new_F0_calls": 4,
+      "reused_A_F0_arrays": 4
+    },
+    "model_adapters": [
+      {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/fresh/models/variance.onnx",
+        "sha256": "66907055efe5570e56be7271c023d844b805954485922e89ddd448f8fdd13622"
+      },
+      {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/fresh/models/acoustic.onnx",
+        "sha256": "7ff8bbc72177aa4386eaba7a86f24579e3c4a0c8d78d826a20c347aac3fe891c"
+      }
+    ],
+    "alternatives_not_selected": [
+      "copy own controls onto different author clock",
+      "neutralize speaker and controls jointly",
+      "increase rejected doses or normalize level"
+    ],
+    "expected": "A-C indicates combined manual-group effect only; if response supported then split active channels in a later frozen contrast, no individual causal attribution now",
+    "stops": [
+      "unexpected phone/pitch/speaker/variance change in selected contexts",
+      "A/repeat mismatch",
+      "nonfinite or file clipping",
+      "no new factor until feedback"
+    ],
+    "adoption": false,
+    "author_research_only": true,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "voice_feedback": {
+    "verbatim": "B比原版好点，但还是不如A",
+    "submissions": 1,
+    "response_record": "RESP:LASTPAGE-AUTHOR-VOICE-SWAP-01",
+    "audio": {
+      "A": {
+        "path": "runs/experiments/lastpage-author-voice-swap-20261011/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "B": {
+        "path": "runs/experiments/lastpage-author-voice-swap-20261011/delivery/B_two_phrases.wav",
+        "sha256": "4d805db44415f5ebe7ee1eaa5578fba108fefdc3a849885171be3d0fd1f354f5"
+      },
+      "own_original_comparator": {
+        "path": "runs/experiments/lastpage-author-voice-swap-20261011/delivery/own_original_comparator.wav",
+        "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+      }
+    },
+    "interpretation": "A preferred to speaker-swap B; B slightly better than own original comparator",
+    "original_referent": "own_original_comparator: contextual inference from three labeled delivered files, not explicitly renamed by user",
+    "perceived_axis": "overall better in ongoing solidity comparison; explicit separate solidity/articulation/level dimensions unknown",
+    "relative_order": [
+      "A",
+      "B",
+      "own_original_comparator"
+    ],
+    "unique_physiological_cause": "unknown",
+    "new_word_labels": 0,
+    "side_effects_and_absolute_acceptance": "unknown",
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-AUTHOR-CONTROL-NEUTRAL-01",
+    "comparison": "C-A",
+    "perception": "PER:S1",
+    "changed_control_refs": [
+      "PARAM:C11.01",
+      "PARAM:C12.01",
+      "PARAM:C13.01"
+    ],
+    "written_SHFC_neutral_ref": "PARAM:C14.01",
+    "SHFC_active_intervention_frames": 0,
+    "scope": "three-active-manual-channel grouped neutralization, not independent-channel attribution",
+    "prior_feedback": {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/evaluation/voice-feedback-supplement.json",
+      "sha256": "c8a7839ecb61872631685ebe0851043c74b444be1ce253fd30da31470f45fd19"
+    },
+    "candidate_feedback": "pending",
+    "adoption": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "native": {
+    "status": "passed",
+    "rows": [
+      {
+        "context": 0,
+        "frames": 399,
+        "nonzero_manual_frames_removed": {
+          "breathiness": 292,
+          "voicing": 378,
+          "tension": 338
+        },
+        "native_variance_feeds_and_predictions_exact": true,
+        "phones_full_pitch_CLR_both_speakers_exact": true,
+        "actual_SHFC_intervened_frames": 0,
+        "changed_acoustic_inputs": [
+          "breathiness",
+          "voicing",
+          "tension"
+        ]
+      },
+      {
+        "context": 1,
+        "frames": 303,
+        "nonzero_manual_frames_removed": {
+          "breathiness": 303,
+          "voicing": 303,
+          "tension": 303
+        },
+        "native_variance_feeds_and_predictions_exact": true,
+        "phones_full_pitch_CLR_both_speakers_exact": true,
+        "actual_SHFC_intervened_frames": 0,
+        "changed_acoustic_inputs": [
+          "breathiness",
+          "voicing",
+          "tension"
+        ]
+      }
+    ],
+    "checker": {
+      "path": "research/table2-confirmation/check_lastpage_author_control_neutral_20261011.py",
+      "sha256": "ddd6332853188c544f29864b31870ecab3c57f93316dcfc15c7fe8ad64ab727b"
+    },
+    "measurement_validated": false
+  },
+  "fresh": {
+    "status": "passed",
+    "rows": [
+      {
+        "context": 0,
+        "variant": "A",
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 40,
+          "tension": 0
+        },
+        "repeat_exact": true,
+        "A_reproduced_previous_reference": true
+      },
+      {
+        "context": 0,
+        "variant": "C",
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        },
+        "repeat_exact": true,
+        "A_reproduced_previous_reference": false
+      },
+      {
+        "context": 1,
+        "variant": "A",
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 45,
+          "tension": 0
+        },
+        "repeat_exact": true,
+        "A_reproduced_previous_reference": true
+      },
+      {
+        "context": 1,
+        "variant": "C",
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        },
+        "repeat_exact": true,
+        "A_reproduced_previous_reference": false
+      }
+    ],
+    "checker": {
+      "path": "research/table2-confirmation/check_lastpage_author_control_neutral_20261011.py",
+      "sha256": "ddd6332853188c544f29864b31870ecab3c57f93316dcfc15c7fe8ad64ab727b"
+    },
+    "waveforms": 8,
+    "A_reproduced_previous_reference": true,
+    "variance_predictions_exact": true,
+    "only_three_manual_final_channels_changed": true,
+    "measurement_validated": false
+  },
+  "delivery": {
+    "outputs": {
+      "A": {
+        "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "C": {
+        "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/C_two_phrases.wav",
+        "sha256": "994737dd7cbadd1942ce66bd5667efb2b6629ed522e3a2081da0f8584bba2886"
+      },
+      "own_original_comparator": {
+        "path": "runs/experiments/lastpage-author-control-neutral-20261011/delivery/own_original_comparator.wav",
+        "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+      }
+    },
+    "contexts": [
+      {
+        "context": 0,
+        "variant": "A",
+        "wave_start_s": 212.32676303536553,
+        "samples": 204288,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-control-neutral-20261011/evaluation/PCM-contexts/context0-A.wav",
+          "sha256": "d735c3f4eadda1484f66aa15735a3a278b5d713f6ecf50e35f8f5eee7df666c8"
+        }
+      },
+      {
+        "context": 1,
+        "variant": "A",
+        "wave_start_s": 216.8714058925084,
+        "samples": 155136,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-control-neutral-20261011/evaluation/PCM-contexts/context1-A.wav",
+          "sha256": "66a3cabd76ce51e2f2075b1bcb009580f9a06fcbf122c8c7f629bf62edcc7055"
+        }
+      },
+      {
+        "context": 0,
+        "variant": "C",
+        "wave_start_s": 212.32676303536553,
+        "samples": 204288,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-control-neutral-20261011/evaluation/PCM-contexts/context0-C.wav",
+          "sha256": "b0e837492a87b3cf0577352ca639146dde753ed293c04db1b288895f68e76008"
+        }
+      },
+      {
+        "context": 1,
+        "variant": "C",
+        "wave_start_s": 216.8714058925084,
+        "samples": 155136,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-control-neutral-20261011/evaluation/PCM-contexts/context1-C.wav",
+          "sha256": "8192fd7223db76a2f3a7d3eeaf65f0e6811ad7095a884ec7c29365c35ceb9760"
+        }
+      }
+    ],
+    "preview_s": [
+      212,
+      220.5
+    ],
+    "samples": 374850,
+    "sample_rate": 44100,
+    "fixed_gain": 1.5,
+    "subtype": "PCM_24",
+    "DYN": "author absent curve/default0dB unity",
+    "A_PCM_and_WAV_bytes_exact_previous": true,
+    "own_comparator_unchanged": true,
+    "normalization_compression_BGM": false,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "observations": {
+    "path": "runs/experiments/lastpage-author-control-neutral-20261011/observations/results.json",
+    "sha256": "068a0fcd1701a8c977508ca21906e1665e85456a09b151d5c409cdee6e1f09c3"
+  },
+  "table_source": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.csv",
+    "sha256": "3e58bf397ed323c09210b76595d81acaeed67c7483695cb9ebb515446f04d678"
+  },
+  "agent_heard": false
+}

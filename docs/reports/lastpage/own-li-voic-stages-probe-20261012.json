@@ -1,0 +1,658 @@
+{
+  "status": "knowledge_integrated_G_delivered_pending_listening",
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-OWN-LI-VOIC-STAGES-01",
+    "status": "rendered_checked_pending_human_listening",
+    "comparison": "G-F",
+    "intervention": "one li277 finite VOIC development/recovery, existing5tick UI100→106→102→100",
+    "table1_refs": [
+      "PER:S1",
+      "EVT:L2",
+      "ACO:L1",
+      "PARAM:C11.01"
+    ],
+    "protocol": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/design/protocol.json",
+      "sha256": "7810d7d5b350c5d89f680613dd037b880400310c6276f4f023b814ed43963d6b"
+    },
+    "knowledge_receipt": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/evaluation/knowledge_receipt.json",
+      "sha256": "fddf389886290195b6237b8e7f64c8e27ed3541afd268fe25a632147c5c72101"
+    },
+    "target_word": 277,
+    "affected_context": 28,
+    "control_context": 29,
+    "independent_affected_contexts": 1,
+    "review_words": [
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284
+    ],
+    "new_variance_calls": 2,
+    "new_acoustic_vocoder_waveforms": 2,
+    "native_cached_technical_contexts": 2,
+    "sealed_F_reused": true,
+    "changed_native_VOIC_frames": 35,
+    "max_feature_delta": 0.7200000286102295,
+    "variance_predictions_exact_F": true,
+    "only_final_voicing_changed": true,
+    "repeat_exact": true,
+    "feature_clipping": 0,
+    "new_F0_calls": 2,
+    "reused_F_F0_bindings": 6,
+    "word_rows": [
+      {
+        "word": 270,
+        "char": "想",
+        "context": 28,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 1.7665389317579393e-07,
+        "FCPE_abs_cents_p50": 0.0011750455290438792,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 271,
+        "char": "把",
+        "context": 28,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": -3.260902473477591e-07,
+        "FCPE_abs_cents_p50": 0.0006709684909006514,
+        "RMVPE_abs_cents_p50": 0.0005010354131207034,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 272,
+        "char": "你",
+        "context": 28,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": -5.08050179847728e-08,
+        "FCPE_abs_cents_p50": 0.0009388376792037584,
+        "RMVPE_abs_cents_p50": 0.0005283275272790405,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 273,
+        "char": "抱",
+        "context": 28,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 4.825974415771467e-07,
+        "FCPE_abs_cents_p50": 0.0005345846818297583,
+        "RMVPE_abs_cents_p50": 0.0005271989343137972,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 274,
+        "char": "进",
+        "context": 28,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": -5.843107007331461e-08,
+        "FCPE_abs_cents_p50": 0.00019095420576527262,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 275,
+        "char": "身",
+        "context": 28,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 9.43629618849154e-08,
+        "FCPE_abs_cents_p50": 0.0010662612724782227,
+        "RMVPE_abs_cents_p50": 0.0005359390988812826,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 276,
+        "char": "体",
+        "context": 28,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": -5.75173217313052e-06,
+        "FCPE_abs_cents_p50": 0.0006079310224351448,
+        "RMVPE_abs_cents_p50": 0.0005660166978506467,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 277,
+        "char": "里",
+        "context": 28,
+        "manual_action": "VOIC-staged+6peak",
+        "vowel_RMS_change_db": 0.11620098765013077,
+        "FCPE_abs_cents_p50": 0.0262086928698816,
+        "RMVPE_abs_cents_p50": 0.010435923447893427,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 278,
+        "char": "面",
+        "context": 28,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 0.00012594907969163416,
+        "FCPE_abs_cents_p50": 0.0009916136749573588,
+        "RMVPE_abs_cents_p50": 0.0005722195067930777,
+        "auditory_status": "pending"
+      },
+      {
+        "word": 279,
+        "char": "不",
+        "context": 29,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_status": "real phones PCM retained, no new acceptance"
+      },
+      {
+        "word": 280,
+        "char": "敢",
+        "context": 29,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_status": "real phones PCM retained, no new acceptance"
+      },
+      {
+        "word": 281,
+        "char": "让",
+        "context": 29,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_status": "real phones PCM retained, no new acceptance"
+      },
+      {
+        "word": 282,
+        "char": "你",
+        "context": 29,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_status": "real phones PCM retained, no new acceptance"
+      },
+      {
+        "word": 283,
+        "char": "看",
+        "context": 29,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_status": "real phones PCM retained, no new acceptance"
+      },
+      {
+        "word": 284,
+        "char": "见",
+        "context": 29,
+        "manual_action": "keep F",
+        "vowel_RMS_change_db": 0.0,
+        "FCPE_abs_cents_p50": 0.0,
+        "RMVPE_abs_cents_p50": 0.0,
+        "auditory_status": "real phones PCM retained, no new acceptance"
+      }
+    ],
+    "phase_rows": [
+      {
+        "phase": "li_entry",
+        "start_s": 212.9572916666667,
+        "end_s": 213.06229166666665,
+        "F_RMS_dbfs": -16.22161886202639,
+        "G_RMS_dbfs": -16.220831123966107,
+        "G_minus_F_db": 0.0007877380602849054,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_build",
+        "start_s": 213.06229166666665,
+        "end_s": 213.22429499999998,
+        "F_RMS_dbfs": -18.71278479136983,
+        "G_RMS_dbfs": -18.55539316801013,
+        "G_minus_F_db": 0.15739162335969992,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_recover",
+        "start_s": 213.22429499999998,
+        "end_s": 213.4152083333333,
+        "F_RMS_dbfs": -20.277354875058762,
+        "G_RMS_dbfs": -20.008680126033056,
+        "G_minus_F_db": 0.2686747490257067,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_release",
+        "start_s": 213.4152083333333,
+        "end_s": 213.53020833333332,
+        "F_RMS_dbfs": -20.424917524951162,
+        "G_RMS_dbfs": -20.358764950593677,
+        "G_minus_F_db": 0.06615257435748495,
+        "auditory_force": "unknown"
+      },
+      {
+        "phase": "li_descending",
+        "start_s": 213.53020833333332,
+        "end_s": 213.58541666666667,
+        "F_RMS_dbfs": -22.86582425648385,
+        "G_RMS_dbfs": -22.85894304821352,
+        "G_minus_F_db": 0.006881208270330586,
+        "auditory_force": "unknown"
+      }
+    ],
+    "outputs": {
+      "candidate_preview": {
+        "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/delivery/G_two_phrases.wav",
+        "sha256": "a0feb1cdece0f0ca97b82c4fc2e7ff9504acd8a9e37238881107d322582a9a06"
+      },
+      "original_preview": {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+        "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "candidate_full": {
+        "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/delivery/lastpage_own_li_voic_G_vocal.wav",
+        "sha256": "60ae05fc93f3c7abf6b3689b8176ac0c2ecbbb1c30a38d884620f35314f70b6c"
+      },
+      "candidate_project": {
+        "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/delivery/lastpage_own_li_voic_G.ustx",
+        "sha256": "a9e34f7ef5425c7cbb62cbcb5def72a58937a7e85a44d31bc38ef7bef53cc660"
+      }
+    },
+    "response_limit": "Only mild relative middle-stage level change; absolute stage RMS still declines from stronger attack. Planned input crescendo is not proven audible force crescendo.",
+    "new_feedback_count": 0,
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "knowledge_integration": {
+    "status": "explicit_knowledge_context_and_compile_gate_implemented",
+    "CLI": "knowledge-context",
+    "production_entry": "compile-functions schema2",
+    "requirements": [
+      "source SHA and exact record content",
+      "one use/reject/extrapolate/unknown decision per retrieved ID",
+      "condition-match/rationale/limitations"
+    ],
+    "validation_limit": "presence, provenance and decision coverage only; Agent still judges relevance and musical choices",
+    "schema1": "rejected before native/filesystem output; explicit migration needed; sealed legacy inputs unchanged",
+    "registry_snapshot": "context freezes catalogue selection; future active catalogue updates do not rewrite old receipts",
+    "no_automatic_recipe_selection": true,
+    "Skill_unchanged": true,
+    "tests_passed": 164,
+    "test_report": {
+      "path": "runs/test-results/knowledge-integration-20261012/full-suite.xml",
+      "sha256": "69f930d15c86e5c66a2a15a5116433224be6c1f451af6ad442713a0943c9e934"
+    },
+    "CLI_context_exact_research_context": true,
+    "this_run_retrieved_ID_count": 8,
+    "receipt": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/evaluation/knowledge_receipt.json",
+      "sha256": "fddf389886290195b6237b8e7f64c8e27ed3541afd268fe25a632147c5c72101"
+    },
+    "sources": [
+      {
+        "path": "src/agent2utau/knowledge.py",
+        "sha256": "fcab80dce552c0017de23fcfb0a06a3c997b85eb512dd31d56eb8f253302be9f"
+      },
+      {
+        "path": "src/agent2utau/workflow.py",
+        "sha256": "cc29ab198a3a2b40e8bc34ed7a16cfbd1703f66cbec49883e35e971014eca212"
+      },
+      {
+        "path": "src/agent2utau/cli.py",
+        "sha256": "9d02fcbcc989d811f26fbf1593d751d03339feb5ef1d9a053eeca326e31a5b3e"
+      },
+      {
+        "path": "tests/contracts/test_knowledge_context.py",
+        "sha256": "f02ea37996e252a3c4e855a77a9995e18a6170a6e0e6292450287438995a9296"
+      },
+      {
+        "path": "tests/contracts/test_workflow.py",
+        "sha256": "0f9972820927388a21e88fe1d76e0ff06f341d26a62180b7c8d35a00bc0afbc0"
+      },
+      {
+        "path": "docs/workflow.md",
+        "sha256": "460ee137886ea84c5f6e7fa5d1c563992ab4f4e76816666c4251c109f8c8ad42"
+      },
+      {
+        "path": "docs/guides/knowledge-use-in-production.md",
+        "sha256": "763455688ee0937c03fa6f29c0516a1e200c524f65d5bd93d6fcd84870762a11"
+      }
+    ],
+    "authorized_before_snapshots": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/design/authorized-integration-change.json",
+      "sha256": "f241d285a9b2e3a6d3ffa9d2c631800b59e06f161f1d760d327cb6fa3cb8c2b7"
+    }
+  },
+  "table1_refs": [
+    "PER:S1",
+    "EVT:L2",
+    "ACO:L1",
+    "PARAM:C11.01"
+  ],
+  "execution": {
+    "rows": [
+      {
+        "context": 28,
+        "variant": "G",
+        "frames": 421,
+        "samples": 215552,
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        },
+        "wave_start_s": 209.42170350933333,
+        "raw_peak": 0.3728444278240204
+      },
+      {
+        "context": 28,
+        "variant": "G_repeat",
+        "frames": 421,
+        "samples": 215552,
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 0,
+          "tension": 0
+        },
+        "wave_start_s": 209.42170350933333,
+        "raw_peak": 0.3728444278240204
+      }
+    ],
+    "variance_calls": 2,
+    "acoustic_vocoder_waveforms": 2,
+    "sealed_F_reused": true,
+    "measurement_validated": false
+  },
+  "delivery": {
+    "outputs": {
+      "candidate_preview": {
+        "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/delivery/G_two_phrases.wav",
+        "sha256": "a0feb1cdece0f0ca97b82c4fc2e7ff9504acd8a9e37238881107d322582a9a06"
+      },
+      "original_preview": {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+        "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "candidate_full": {
+        "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/delivery/lastpage_own_li_voic_G_vocal.wav",
+        "sha256": "60ae05fc93f3c7abf6b3689b8176ac0c2ecbbb1c30a38d884620f35314f70b6c"
+      },
+      "candidate_project": {
+        "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/delivery/lastpage_own_li_voic_G.ustx",
+        "sha256": "a9e34f7ef5425c7cbb62cbcb5def72a58937a7e85a44d31bc38ef7bef53cc660"
+      }
+    },
+    "peak": 0.6807056218385696,
+    "fixed_gain": 1.5,
+    "subtype": "PCM_24",
+    "rate": 44100,
+    "samples": 10829952,
+    "duration_s": 245.57714285714286,
+    "outside_context28_contribution_exact": true,
+    "accepted_bao_C_PCM_exact": true,
+    "native_DYN_preserved": true,
+    "F_reconstruction_and_reverse_G_assembly_exact": true,
+    "preview_exact": true,
+    "overlap": {
+      "context29_isolated_inputs_wave_exact": true,
+      "context29_all_real_phones_and_kan_PCM_exact": true,
+      "shared_padding_changed_samples": 432,
+      "first_real_phone_s": 214.31354166666668,
+      "shared_change_s": [
+        214.2206575963719,
+        214.30698412698413
+      ],
+      "cause_scope": "Original89ms context28 tail/context29 head overlap; no context29 independent change or retiming"
+    },
+    "F_and_author_sealed_reused": true,
+    "no_normalization_compression_or_BGM": true,
+    "agent_heard": false
+  },
+  "phase_rows": [
+    {
+      "phase": "li_entry",
+      "start_s": 212.9572916666667,
+      "end_s": 213.06229166666665,
+      "F_RMS_dbfs": -16.22161886202639,
+      "G_RMS_dbfs": -16.220831123966107,
+      "G_minus_F_db": 0.0007877380602849054,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_build",
+      "start_s": 213.06229166666665,
+      "end_s": 213.22429499999998,
+      "F_RMS_dbfs": -18.71278479136983,
+      "G_RMS_dbfs": -18.55539316801013,
+      "G_minus_F_db": 0.15739162335969992,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_recover",
+      "start_s": 213.22429499999998,
+      "end_s": 213.4152083333333,
+      "F_RMS_dbfs": -20.277354875058762,
+      "G_RMS_dbfs": -20.008680126033056,
+      "G_minus_F_db": 0.2686747490257067,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_release",
+      "start_s": 213.4152083333333,
+      "end_s": 213.53020833333332,
+      "F_RMS_dbfs": -20.424917524951162,
+      "G_RMS_dbfs": -20.358764950593677,
+      "G_minus_F_db": 0.06615257435748495,
+      "auditory_force": "unknown"
+    },
+    {
+      "phase": "li_descending",
+      "start_s": 213.53020833333332,
+      "end_s": 213.58541666666667,
+      "F_RMS_dbfs": -22.86582425648385,
+      "G_RMS_dbfs": -22.85894304821352,
+      "G_minus_F_db": 0.006881208270330586,
+      "auditory_force": "unknown"
+    }
+  ],
+  "word_rows": [
+    {
+      "word": 270,
+      "char": "想",
+      "context": 28,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 1.7665389317579393e-07,
+      "FCPE_abs_cents_p50": 0.0011750455290438792,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 271,
+      "char": "把",
+      "context": 28,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": -3.260902473477591e-07,
+      "FCPE_abs_cents_p50": 0.0006709684909006514,
+      "RMVPE_abs_cents_p50": 0.0005010354131207034,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 272,
+      "char": "你",
+      "context": 28,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": -5.08050179847728e-08,
+      "FCPE_abs_cents_p50": 0.0009388376792037584,
+      "RMVPE_abs_cents_p50": 0.0005283275272790405,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 273,
+      "char": "抱",
+      "context": 28,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 4.825974415771467e-07,
+      "FCPE_abs_cents_p50": 0.0005345846818297583,
+      "RMVPE_abs_cents_p50": 0.0005271989343137972,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 274,
+      "char": "进",
+      "context": 28,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": -5.843107007331461e-08,
+      "FCPE_abs_cents_p50": 0.00019095420576527262,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 275,
+      "char": "身",
+      "context": 28,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 9.43629618849154e-08,
+      "FCPE_abs_cents_p50": 0.0010662612724782227,
+      "RMVPE_abs_cents_p50": 0.0005359390988812826,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 276,
+      "char": "体",
+      "context": 28,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": -5.75173217313052e-06,
+      "FCPE_abs_cents_p50": 0.0006079310224351448,
+      "RMVPE_abs_cents_p50": 0.0005660166978506467,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 277,
+      "char": "里",
+      "context": 28,
+      "manual_action": "VOIC-staged+6peak",
+      "vowel_RMS_change_db": 0.11620098765013077,
+      "FCPE_abs_cents_p50": 0.0262086928698816,
+      "RMVPE_abs_cents_p50": 0.010435923447893427,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 278,
+      "char": "面",
+      "context": 28,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 0.00012594907969163416,
+      "FCPE_abs_cents_p50": 0.0009916136749573588,
+      "RMVPE_abs_cents_p50": 0.0005722195067930777,
+      "auditory_status": "pending"
+    },
+    {
+      "word": 279,
+      "char": "不",
+      "context": 29,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_status": "real phones PCM retained, no new acceptance"
+    },
+    {
+      "word": 280,
+      "char": "敢",
+      "context": 29,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_status": "real phones PCM retained, no new acceptance"
+    },
+    {
+      "word": 281,
+      "char": "让",
+      "context": 29,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_status": "real phones PCM retained, no new acceptance"
+    },
+    {
+      "word": 282,
+      "char": "你",
+      "context": 29,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_status": "real phones PCM retained, no new acceptance"
+    },
+    {
+      "word": 283,
+      "char": "看",
+      "context": 29,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_status": "real phones PCM retained, no new acceptance"
+    },
+    {
+      "word": 284,
+      "char": "见",
+      "context": 29,
+      "manual_action": "keep F",
+      "vowel_RMS_change_db": 0.0,
+      "FCPE_abs_cents_p50": 0.0,
+      "RMVPE_abs_cents_p50": 0.0,
+      "auditory_status": "real phones PCM retained, no new acceptance"
+    }
+  ],
+  "checks": {
+    "native": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/evaluation/native-independent-check.json",
+      "sha256": "60aa6d12ddea9a6ac79160fa9284d84023b56371a1adf8d9109d733347fd308a"
+    },
+    "fresh": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/evaluation/fresh-independent-check.json",
+      "sha256": "ad09f1371d53d5ebc7ea516a5d68a40a5f0353cfbc4f19a0d777bd96bd8fe126"
+    },
+    "delivery": {
+      "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/evaluation/delivery-independent-check.json",
+      "sha256": "d85f388368ed880cb13b44a0aeaeea35ead2c823ace2ec24e76f07e0091e9245"
+    }
+  },
+  "observations": {
+    "path": "runs/experiments/lastpage-own-li-voic-stages-20261012/observations/results.json",
+    "sha256": "5af3edb1cc6c5be93e5eda049fe125df9cd4c99fb73157019274e0cee0340ec8"
+  },
+  "finite_expectation": "Input stage shape verified; absolute RMS did not reverse into a crescendo. Auditory force, coloration and acceptance pending.",
+  "repairs": [
+    "initial pytest temp parent missing:15 setup errors; original JUnit retained, proper parent and rerun15/all164 passed",
+    "observer code generation quote/indent syntax failures rejected before any F0 calls; corrected generator, budget2 unchanged"
+  ],
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

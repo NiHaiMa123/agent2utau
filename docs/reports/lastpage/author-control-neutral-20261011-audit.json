@@ -1,0 +1,48 @@
+{
+  "status": "passed_with_explicit_group_attribution_and_auditory_gaps",
+  "new_feedback_submissions": 1,
+  "new_word_labels": 0,
+  "new_waveforms": 8,
+  "new_native_cached_contexts": 3,
+  "SHFC_active_intervened_frames": 0,
+  "new_F0_calls": 4,
+  "reused_A_F0_arrays": 4,
+  "protected_references": 1458,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 632}",
+  "checks": [
+    {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/evaluation/native-independent-check.json",
+      "sha256": "804111509d9b6c11faf7bdea9b01a4631da456d8f6d98100f71f7fec93308399"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/evaluation/fresh-independent-check.json",
+      "sha256": "06d4559fb4245449a0c933db0b10c2acb8c29739ff885fb6ebc5a1bf550a49bc"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-control-neutral-20261011/evaluation/delivery-independent-check.json",
+      "sha256": "0f84284ff2972d845074f9835e7636c459a2b01ae2dda730dfa873a80ddcd7d4"
+    }
+  ],
+  "sources": [
+    {
+      "path": "research/table2-confirmation/lastpage_author_control_neutral_20261011.py",
+      "sha256": "13d7f1cdc8253b37ec5068b3a474db88a3f7c8fd7eb3b72e6efa7424f560c7b8"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_author_control_neutral_20261011.py",
+      "sha256": "ddd6332853188c544f29864b31870ecab3c57f93316dcfc15c7fe8ad64ab727b"
+    },
+    {
+      "path": "research/table2-confirmation/finish_lastpage_author_control_neutral_20261011.py",
+      "sha256": "805819d613dc5d69fa66f6b69141d6b57eda398a61c1fa632d278e85f7c94c49"
+    },
+    {
+      "path": "research/table2-confirmation/check_lastpage_author_control_delivery_20261011.py",
+      "sha256": "4b9ac74ba9e66bf62e9d85824fc2340aa4ba88f72781c297bae50e60b8bfa679"
+    }
+  ],
+  "group_only_not_single_channel_cause": true,
+  "originals_preserved": true,
+  "agent_heard": false,
+  "measurement_validated": false
+}

@@ -1,0 +1,67 @@
+{
+  "status": "passed_partial_human_feedback",
+  "date": "2026-10-11",
+  "sealed_experiment_files_SHA": 484,
+  "sealed_experiment_documents_SHA": 4,
+  "previous_feedback_files_SHA": 27,
+  "previous_feedback_documents_SHA": 6,
+  "production_skill_project_SHA": 79,
+  "protected_inputs_SHA": 67,
+  "presented_pair_audio_SHA": 2,
+  "snapshot_files_SHA": 12,
+  "current_markdown_links_checked": 208,
+  "feedback": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-word225-sa-feedback-20261011.json",
+    "sha256": "4ca0c92a7f3e9ebdb20ceab1c98905d5c2fec60c00fe8461a1c115f55aaff0e5"
+  },
+  "report": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-stage-2e-word225-sa-feedback-20261011.md",
+    "sha256": "3f405c3e259386e4c92b333e666c97b45cf88b659d3c50594330200aa6083850"
+  },
+  "current_entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "7006f61137fcccd97e9201e50a071155260f321115df3a3b90931416bab3e866"
+    },
+    {
+      "path": "README.md",
+      "sha256": "9c8c5f43a354e7ad0d3f8c6311fb630e5b7ecde52133f273d0e8047e2ed12352"
+    },
+    {
+      "path": "plan.md",
+      "sha256": "ebea47507b6b26045732b0ad369a3d3fb08ffb126b579b86ac4fd7c0edc5ee5e"
+    },
+    {
+      "path": "plan-table2.md",
+      "sha256": "6484a41985135e76bdae96f245041b6824026e7c57a09e92826e4ee6921c2c84"
+    },
+    {
+      "path": "research/table2-confirmation/README.md",
+      "sha256": "ce546f762c28986aaf3c53d8392a8cef6edd7f64b347b722bb624eab545da2a5"
+    },
+    {
+      "path": "docs/knowledge/acoustic-manifestations-20261009/README.md",
+      "sha256": "796d0d342e0a1efcdc408b4d8c7c40b9a7bd753be612e437b79412518d400de5"
+    }
+  ],
+  "worktree_gate": {
+    "audio_payloads": 0,
+    "author_projects": 3,
+    "zip_members": 5,
+    "skill_links": 102,
+    "checks": "passed",
+    "worktree_files": 524
+  },
+  "worktree_gate_log": {
+    "path": "runs/research/table2-word225-sa-feedback-20261011/worktree-gate.txt",
+    "sha256": "7e4bbbc60b86e2ede3b33cd9ba0f4197139ee718aa753876a872688ecf1102d6"
+  },
+  "this_record_new_feedback": 1,
+  "cumulative_new_feedback": 3,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "stage_2E_complete": false,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "CI_manual_only": true
+}

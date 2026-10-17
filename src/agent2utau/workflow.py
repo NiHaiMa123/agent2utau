@@ -51,11 +51,13 @@ def observe_source(source, out, cfg, steps, seed=11, asr_model='large-v3-turbo')
     binding['files']={str(p.relative_to(out)):sha256(p) for p in out.rglob('*') if p.is_file()};write_json(out/'manifest.json',binding)
     return dict(status='completed',out=str(out),source_only=True,expression_generated=False)
 
-def compile_functions(plan_path, out, cfg):
+def compile_functions(plan_path, out, cfg, review_contract=None):
     """Compile explicit absolute functions, preserving caller-owned note connections."""
     plan_path=Path(plan_path).resolve();plan=json.loads(plan_path.read_text(encoding='utf8'))
-    if set(plan)!={'schema_version','project','source_audio','input_hashes','scope','phrases'} or plan['schema_version']!=1 or plan['scope']!='whole_song':
-        raise ValueError('Use the documented complete whole-song function plan')
+    if set(plan)!={'schema_version','project','source_audio','input_hashes','scope','phrases','knowledge_context'} or plan['schema_version']!=2 or plan['scope']!='whole_song':
+        raise ValueError('Use schema2 whole-song plan with SHA-bound knowledge_context; schema1 requires migration')
+    from .knowledge import check_plan_knowledge
+    knowledge_packet,knowledge_receipt=check_plan_knowledge(plan,plan_path)
     def resolve(p):
         p=Path(p);return (plan_path.parent/p).resolve() if not p.is_absolute() else p.resolve()
     project=resolve(plan['project']);source=resolve(plan['source_audio']);bindings={resolve(p):h for p,h in plan['input_hashes'].items()}
@@ -63,7 +65,27 @@ def compile_functions(plan_path, out, cfg):
     for p,h in bindings.items():
         if p.is_relative_to(REPO_ROOT/'research') or p.is_relative_to(REPO_ROOT/'.local-archive'): raise ValueError('Research/archive is not a production compiler input')
         if sha256(p)!=h: raise ValueError(f'Changed input: {p}')
+    from .evaluation.execution_review import bound, exact, ledger_check, read, ref, build_inventory, review_execution
+    contract = None
+    if review_contract is not None:
+        contract_path=Path(review_contract).resolve();contract=read(contract_path)
+        version=contract.get('schema_version')
+        keys={'schema_version','inventory','ledger','reviews'}
+        if version==2:keys|={'intent_lock','musical_critique'}
+        exact(contract,keys,'production review contract')
+        if version not in {1,2}:raise ValueError('Unsupported production review contract')
+        inv_path=bound(contract['inventory'],contract_path.parent)
+        ledger_path=bound(contract['ledger'],contract_path.parent)
+        inventory=read(inv_path)
+        if bound(inventory['bindings']['project'],inv_path.parent)!=project:
+            raise ValueError('Forward inventory targets another score')
+        if version==2:
+            from .evaluation.musical_review import validate_lock
+            validate_lock(bound(contract['intent_lock'],contract_path.parent),inv_path,plan_path)
+        _,problems,_=ledger_check(ledger_path,inv_path,plan_path)
+        if problems:raise ValueError('Execution review contract coverage failed: '+str(problems))
     out=Path(out).resolve();out.mkdir(parents=True,exist_ok=False);doc=copy.deepcopy(load_ustx(project))
+    write_json(out/'knowledge_context.json',knowledge_packet);write_json(out/'knowledge_receipt.json',knowledge_receipt)
     for part in doc.get('voice_parts',[]):
         part['curves']=[c for c in part.get('curves',[]) if c['abbr']!='pitd']
         for note in part['notes']:
@@ -106,5 +128,26 @@ def compile_functions(plan_path, out, cfg):
     afterphones=export('export-phonemes',out/'project.ustx',out/'phones.json')
     def geometry(parts): return [{**p,'phrases':[{k:v for k,v in ph.items() if k!='final_cents'} for ph in p['phrases']]} for p in parts]
     if geometry(phones['parts'])!=geometry(afterphones['parts']): raise ValueError('Native note/phone geometry changed')
-    report=dict(status='completed',stage='native_checked',project=str(out/'project.ustx'),plan_sha256=sha256(plan_path),native_max_error_c=error,local_checks=checks,audio_rendered=False,naturalness_accepted=False,source_or_author_curve_inherited=False,files={str(p.relative_to(out)):sha256(p) for p in out.rglob('*') if p.is_file()})
+    # Shared review is part of production, including the old schema2 path.
+    # Native mocks/missing resources remain static-only; no forged environment.
+    ou=Path(cfg.get('openutau_dir',''))
+    singer=doc.get('tracks',[{}])[0].get('singer',cfg.get('default_singer','')) if doc.get('tracks') else ''
+    paths=dict(core_sha256=ou/'OpenUtau.Core.dll',bridge_sha256=ou/'a2u-bridge.exe',singer_config_sha256=ou/'Singers'/singer/'dsconfig.yaml')
+    environment={k:sha256(p) if p.is_file() else None for k,p in paths.items()}
+    environment['singer_id']=singer or None
+    write_json(out/'native_provenance.json',dict(schema_version=1,project_sha256=sha256(out/'project.ustx'),pitch_sha256=sha256(out/'pitch.json'),phonemes_sha256=sha256(out/'phones.json'),environment=environment))
+    if contract is None:
+        inv_path=out/'review-inventory.json'
+        build_inventory(out/'project.ustx',inv_path,out/'pitch.json',out/'phones.json',out/'native_provenance.json')
+        ledger_path=None;review_path=None
+    else:
+        review_path=bound(contract['reviews'],contract_path.parent) if contract['reviews'] else None
+    intent_lock=bound(contract['intent_lock'],contract_path.parent) if contract and contract['schema_version']==2 else None
+    critique=bound(contract['musical_critique'],contract_path.parent) if contract and contract['schema_version']==2 and contract['musical_critique'] else None
+    review=review_execution(out/'project.ustx',inv_path,out/'execution-review',out/'pitch.json',out/'phones.json',out/'native_provenance.json',ledger_path,plan_path,review_path,intent_lock=intent_lock,musical_critique=critique)
+    report=dict(status='execution_reviewed' if review['production_execution_complete'] else 'candidate_review_incomplete',stage='native_checked',project=str(out/'project.ustx'),plan_sha256=sha256(plan_path),native_max_error_c=error,local_checks=checks,audio_rendered=False,naturalness_accepted=False,
+                source_audit=review['reference_sources'],production_execution_complete=review['production_execution_complete'],execution_review=str(out/'execution-review/review.json'),
+                technical_execution_complete=review['technical_execution_complete'],workflow_review_complete=review['workflow_review_complete'],musical_quality='unverified',
+                compatibility='schema2 technical replay supported; contract v1 is legacy candidate only; v2 binds pre-plan intent and separate critique/calibration',files={str(p.relative_to(out)):sha256(p) for p in out.rglob('*') if p.is_file()})
+    report['knowledge_receipt']=str(out/'knowledge_receipt.json')
     write_json(out/'compile_report.json',report);return report

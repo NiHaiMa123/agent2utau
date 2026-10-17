@@ -1,0 +1,82 @@
+{
+  "record_id": "RESP:YUAI-NEWSKILL-SOURCE-ONLY-V02-20261015",
+  "record_type": "production_execution_and_audio_proxy_not_auditory_response",
+  "status": "yuai_newskill_v02_delivered_pending_listening",
+  "report": {
+    "path": "docs/reports/yuai/new-skill-source-only-v02-20261015.md",
+    "sha256": "157db2928c735e7ed1b517d3c19105dec78cf027dffcf2264e658880e6694776"
+  },
+  "project": {
+    "path": "projects/latest/yuai_newskill_source_only_v02.ustx",
+    "sha256": "4e8270d9ee0695a6c77a6a5c8bdb52932d7194a10198cc321b69aeafab48863a"
+  },
+  "source_scope": {
+    "path": "runs/production/yuai-skill-source-only-20261015/source-allowlist.json",
+    "sha256": "6d8f200d3d195c78d5d62c2130892c4ae236437bc431b3f5c8940fb801ff36ff"
+  },
+  "knowledge_scope": {
+    "path": "runs/production/yuai-skill-source-only-20261015/design/knowledge-scope.json",
+    "sha256": "afdca8ced7159bcdc8e2104b4e72a2f9d0fdb04085aa4855b3c1a666467574be"
+  },
+  "inventory": {
+    "path": "runs/production/yuai-skill-source-only-20261015/design/inventory-v2.json",
+    "sha256": "899a324df5a3c4e159360f79d3530bd01d72545ca71f7298cebbd31cdeec7828"
+  },
+  "forward_ledger": {
+    "path": "runs/production/yuai-skill-source-only-20261015/design/ledger-v2.json",
+    "sha256": "c1a148e561d2bff336ca56387e6a3613fa3349e318a8924efd5fc1bab6d4802b"
+  },
+  "function_plan": {
+    "path": "runs/production/yuai-skill-source-only-20261015/design/functions-v2.json",
+    "sha256": "ef41f70f1aa37e6cb808ff986112939c84111360f874fdd1c7c186955f0e4c07"
+  },
+  "review": {
+    "path": "runs/production/yuai-skill-source-only-20261015/review-final-v2/review.json",
+    "sha256": "2a85699735aee0e3bc7873352d47799a66b2ca7ae8b4a92a709cf7c974185980"
+  },
+  "access_evidence": {
+    "path": "runs/production/yuai-skill-source-only-20261015/visual-review/actual-access-complete.json",
+    "sha256": "7a9f34b56e5559d6fdd192ed233bbd6450c5d1a607d2b360316e1eaf533ba131"
+  },
+  "native_input_and_waveform": {
+    "path": "runs/production/yuai-skill-source-only-20261015/audio-check-v2/native-input-and-waveform.json",
+    "sha256": "65e6127b0decc66882dff619f5e2d7657518b8a2c04de50dbffd650cdaf5c5e5"
+  },
+  "audio_F0": {
+    "path": "runs/production/yuai-skill-source-only-20261015/audio-check-v2/output-f0-observations.json",
+    "sha256": "abb9f9b62553e04b7b0ae0b78885785dbd84258c96745eba383ecfe2ae85208b"
+  },
+  "delivery": {
+    "path": "runs/production/yuai-skill-source-only-20261015/delivery/manifest.json",
+    "sha256": "ada6d6d930903c70c4ee42870df168c48a230837f9c5ac022c0a289131a2a94d"
+  },
+  "final_gate": {
+    "path": "runs/production/yuai-skill-source-only-20261015/delivery/final-gate.json",
+    "sha256": "8a5e1570dce79d7ef69d569e779cd42645e8fab40fff49884ec1cb68006ddabc"
+  },
+  "counts": {
+    "vowels": 371,
+    "required_stages": 771,
+    "decisions": 400,
+    "physical_images": 126,
+    "byte_data_identical_current_iteration_reused": 26,
+    "actual_final_images_opened": 100,
+    "completed_unit_reviews": 371,
+    "phrases": 49,
+    "notes": 446,
+    "musical_strategy_revisions": 1
+  },
+  "measurement_validated": false,
+  "listening": "unknown",
+  "feedback_count": 0,
+  "transfer": "unverified",
+  "generalized_response_rules": [],
+  "limits": [
+    "No author or historical production input used; original-side allowlist reused only.",
+    "Current song redevelopment, not an unseen-song trial.",
+    "Actual image access is Agent attestation, not human hearing.",
+    "Audio F0/envelope is limited proxy; no naturalness or emotion certification.",
+    "Complete independent raw-vocoder-to-DYN/splice/device gain reconstruction not done.",
+    "Full author ZIP gate omitted to respect no-author/history access boundary; task-scoped gate only."
+  ]
+}

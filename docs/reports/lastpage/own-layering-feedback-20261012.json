@@ -1,0 +1,103 @@
+{
+  "status": "own_F_feedback_closed_layering_design_frozen",
+  "feedback": {
+    "verbatim": "还有每轮的记录到表里了吗？以及更好了，但是比如像里字，白烁的是有发力强度区分的，渐强到减弱。就是发声的强弱安排也需要有层次",
+    "submissions": 1,
+    "date": "2026-10-12",
+    "response_record": "RESP:LASTPAGE-OWN-CONTROL-NEUTRAL-01",
+    "candidate": {
+      "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+      "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+    },
+    "baseline": {
+      "path": "runs/experiments/lastpage-own-bright-cute-20261012/delivery/E_two_phrases.wav",
+      "sha256": "a70e4bbbe1398f735087695a81004b4476077fe66e04d005657edd6f3295f0ea"
+    },
+    "author_reference": {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+      "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+    },
+    "aggregate_finding": "F better than E inferred from immediately preceding labelled delivery; precise dimensions/magnitude unspecified",
+    "candidate_accepted_or_solid_retained_or_adverse_terms_resolved": "unknown: better does not specify complete acceptance or individual prior adjectives",
+    "user_named_focus": {
+      "word": 277,
+      "char": "里",
+      "author_heard_arrangement": "发力强度区分，渐强到减弱",
+      "request": "own phonation strength needs staged development",
+      "scope": "musical/phonation intention; no measured author envelope or per-word blanket labels"
+    },
+    "new_individual_word_quality_labels": 0,
+    "break_articulation_level_kan": "unknown",
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-OWN-CONTROL-NEUTRAL-01",
+    "append_only_feedback": true,
+    "feedback": {
+      "verbatim": "还有每轮的记录到表里了吗？以及更好了，但是比如像里字，白烁的是有发力强度区分的，渐强到减弱。就是发声的强弱安排也需要有层次",
+      "submissions": 1,
+      "date": "2026-10-12",
+      "response_record": "RESP:LASTPAGE-OWN-CONTROL-NEUTRAL-01",
+      "candidate": {
+        "path": "runs/experiments/lastpage-own-control-neutral-20261012/delivery/F_two_phrases.wav",
+        "sha256": "5184f7e3e4201a8ea0a4b83a19cb16d2e630350a1108fd4723d26a76ba6159d0"
+      },
+      "baseline": {
+        "path": "runs/experiments/lastpage-own-bright-cute-20261012/delivery/E_two_phrases.wav",
+        "sha256": "a70e4bbbe1398f735087695a81004b4476077fe66e04d005657edd6f3295f0ea"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "aggregate_finding": "F better than E inferred from immediately preceding labelled delivery; precise dimensions/magnitude unspecified",
+      "candidate_accepted_or_solid_retained_or_adverse_terms_resolved": "unknown: better does not specify complete acceptance or individual prior adjectives",
+      "user_named_focus": {
+        "word": 277,
+        "char": "里",
+        "author_heard_arrangement": "发力强度区分，渐强到减弱",
+        "request": "own phonation strength needs staged development",
+        "scope": "musical/phonation intention; no measured author envelope or per-word blanket labels"
+      },
+      "new_individual_word_quality_labels": 0,
+      "break_articulation_level_kan": "unknown",
+      "adoption": false,
+      "agent_heard": false,
+      "measurement_validated": false
+    },
+    "prior_report": {
+      "path": "docs/reports/lastpage/own-control-neutral-probe-20261012.json",
+      "sha256": "3c1ea874907db758d7974320bd1b56453230ab5ac91076673e12fb2edf1d57ea"
+    },
+    "table1_refs": [
+      "PER:S1",
+      "PARAM:C11.01",
+      "PARAM:C12.01",
+      "PARAM:C13.01"
+    ],
+    "layering_related_entities_candidates": [
+      "EVT:L2",
+      "ACO:L1"
+    ],
+    "layering_not_a_measured_entity_label": true,
+    "adoption": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "review": {
+    "path": "runs/research/lastpage-own-layering-feedback-20261012/evaluation/own-li-stage-review.json",
+    "sha256": "26f97ff827962230969f2f1e449ea24b6421bdfcf7ed0eb56dd22b9fc891bd4f"
+  },
+  "next_protocol": {
+    "path": "runs/research/lastpage-own-layering-feedback-20261012/design/next-li-voic-stage-protocol.json",
+    "sha256": "3b15726faffaf2cf2a728244464b1c6a9113cffe5126f3b18e9a2c216a5f0410"
+  },
+  "new_models": 0,
+  "new_waveforms": 0,
+  "new_PCM_NPZ_reads": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "learned_method_constraints_for_current_task",
+  "rows": [
+    {
+      "id": "LEARNED:VOICE-BASELINE-CONDITION",
+      "kind": "derived_method_constraint_not_new_response",
+      "source": {
+        "path": "docs/reports/yuai/learned-conditions-carryover-20261016.md",
+        "sha256": "5b4d4b71494f59c51ded5eabde2fe93038b1189a3c5d5471fe4caf528804fd74"
+      },
+      "feedback_sources": [
+        {
+          "path": "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+          "sha256": "382b47d28630cd478f3d24d0e55209aeaa33ad9e75ed83a898ebaaf28c2331df"
+        }
+      ],
+      "table1_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "ACO:L1",
+        "ACO:T2"
+      ],
+      "source_record": {
+        "original_response_id": "RESP:LASTPAGE-CONDITIONED-VOIC-01",
+        "method_constraint": "Baseline/speaker and conditioned VOIC candidates did not resolve the target; current speaker and predicted features require explicit evaluation, not assumed firmness.",
+        "historical_target_or_dose_transferred": false,
+        "general_rule_validated": false,
+        "measurement_validated": false
+      },
+      "scope": "Public learned constraints only; no raw historic production payload read"
+    },
+    {
+      "id": "LEARNED:VOIC-STAGE-NEGATIVE",
+      "kind": "derived_method_constraint_not_new_response",
+      "source": {
+        "path": "docs/reports/yuai/learned-conditions-carryover-20261016.md",
+        "sha256": "5b4d4b71494f59c51ded5eabde2fe93038b1189a3c5d5471fe4caf528804fd74"
+      },
+      "feedback_sources": [
+        {
+          "path": "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+          "sha256": "382b47d28630cd478f3d24d0e55209aeaa33ad9e75ed83a898ebaaf28c2331df"
+        }
+      ],
+      "table1_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "ACO:L1",
+        "ACO:T2"
+      ],
+      "source_record": {
+        "original_response_id": "RESP:LASTPAGE-OWN-LI-VOIC-STAGES-01",
+        "method_constraint": "The old staged VOIC candidate was rejected; no blanket claim that all VOIC is ineffective and no automatic dose escalation.",
+        "historical_target_or_dose_transferred": false,
+        "general_rule_validated": false,
+        "measurement_validated": false
+      },
+      "scope": "Public learned constraints only; no raw historic production payload read"
+    },
+    {
+      "id": "LEARNED:DYN-TEXTURE-SEPARATION",
+      "kind": "derived_method_constraint_not_new_response",
+      "source": {
+        "path": "docs/reports/yuai/learned-conditions-carryover-20261016.md",
+        "sha256": "5b4d4b71494f59c51ded5eabde2fe93038b1189a3c5d5471fe4caf528804fd74"
+      },
+      "feedback_sources": [
+        {
+          "path": "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+          "sha256": "382b47d28630cd478f3d24d0e55209aeaa33ad9e75ed83a898ebaaf28c2331df"
+        }
+      ],
+      "table1_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "ACO:L1",
+        "ACO:T2"
+      ],
+      "source_record": {
+        "original_response_id": "RESP:LASTPAGE-OWN-LI-DYN-LAYERS-01",
+        "method_constraint": "The named vowel still lacked solidity/strength after that output-layer candidate; gain is not evidence of a new phonation texture.",
+        "historical_target_or_dose_transferred": false,
+        "general_rule_validated": false,
+        "measurement_validated": false
+      },
+      "scope": "Public learned constraints only; no raw historic production payload read"
+    },
+    {
+      "id": "LEARNED:TENC-STAGE-NEGATIVE",
+      "kind": "derived_method_constraint_not_new_response",
+      "source": {
+        "path": "docs/reports/yuai/learned-conditions-carryover-20261016.md",
+        "sha256": "5b4d4b71494f59c51ded5eabde2fe93038b1189a3c5d5471fe4caf528804fd74"
+      },
+      "feedback_sources": [
+        {
+          "path": "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+          "sha256": "382b47d28630cd478f3d24d0e55209aeaa33ad9e75ed83a898ebaaf28c2331df"
+        }
+      ],
+      "table1_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "ACO:L1",
+        "ACO:T2"
+      ],
+      "source_record": {
+        "original_response_id": "RESP:LASTPAGE-OWN-LI-TENC-STAGES-01",
+        "method_constraint": "No meaningful difference versus F for the finite TENC candidate. Do not equate a tension gesture with heard force development.",
+        "historical_target_or_dose_transferred": false,
+        "general_rule_validated": false,
+        "measurement_validated": false
+      },
+      "scope": "Public learned constraints only; no raw historic production payload read"
+    },
+    {
+      "id": "LEARNED:MUSICAL-ENTRY-CHECK",
+      "kind": "derived_method_constraint_not_new_response",
+      "source": {
+        "path": "docs/reports/yuai/learned-conditions-carryover-20261016.md",
+        "sha256": "5b4d4b71494f59c51ded5eabde2fe93038b1189a3c5d5471fe4caf528804fd74"
+      },
+      "feedback_sources": [
+        {
+          "path": "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+          "sha256": "382b47d28630cd478f3d24d0e55209aeaa33ad9e75ed83a898ebaaf28c2331df"
+        }
+      ],
+      "table1_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "ACO:L1",
+        "ACO:T2"
+      ],
+      "source_record": {
+        "original_response_id": "RESP:LASTPAGE-OWN-LI-ENTRY-PITCH-01",
+        "method_constraint": "J was locally explicitly accepted after source-supported entry-stage redesign. Check missing musical stages first; pitch change also rebuilds predicted features. No all-vowel low-entry recipe; withdrawn transition complaint stays withdrawn, texture mechanism unknown.",
+        "historical_target_or_dose_transferred": false,
+        "general_rule_validated": false,
+        "measurement_validated": false
+      },
+      "scope": "Public learned constraints only; no raw historic production payload read"
+    },
+    {
+      "id": "LEARNED:WHOLE-SONG-OUTPUT-RECHECK",
+      "kind": "derived_method_constraint_not_new_response",
+      "source": {
+        "path": "docs/reports/yuai/learned-conditions-carryover-20261016.md",
+        "sha256": "5b4d4b71494f59c51ded5eabde2fe93038b1189a3c5d5471fe4caf528804fd74"
+      },
+      "feedback_sources": [
+        {
+          "path": "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+          "sha256": "382b47d28630cd478f3d24d0e55209aeaa33ad9e75ed83a898ebaaf28c2331df"
+        }
+      ],
+      "table1_refs": [
+        "PER:S1",
+        "ACO:P1",
+        "ACO:L1",
+        "ACO:T2"
+      ],
+      "source_record": {
+        "original_response_id": "RESP:LASTPAGE-V03-DYN-RECOVERY-01",
+        "method_constraint": "Three output-envelope regions later accepted, full song unknown. Recheck current full output after pitch/phonation changes; repair chosen loudness shape separately from regenerated solidity/strength/texture.",
+        "historical_target_or_dose_transferred": false,
+        "general_rule_validated": false,
+        "measurement_validated": false
+      },
+      "scope": "Public learned constraints only; no raw historic production payload read"
+    }
+  ],
+  "source_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+    "sha256": "382b47d28630cd478f3d24d0e55209aeaa33ad9e75ed83a898ebaaf28c2331df"
+  },
+  "report": {
+    "path": "docs/reports/yuai/learned-conditions-carryover-20261016.md",
+    "sha256": "5b4d4b71494f59c51ded5eabde2fe93038b1189a3c5d5471fe4caf528804fd74"
+  },
+  "not_new_independent_experiments": true
+}

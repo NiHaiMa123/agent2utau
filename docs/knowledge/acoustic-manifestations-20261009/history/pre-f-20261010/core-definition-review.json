@@ -1,0 +1,477 @@
+{
+  "schema_version": 1,
+  "stage": "B",
+  "status": "reviewed_with_explicit_gaps",
+  "no_new_synthesis": true,
+  "scientific_completeness_validated": false,
+  "rows": [
+    {
+      "legacy_id": "P1",
+      "working_definition": "周期信号的基频及相对音乐目标的差；另存感知音高",
+      "boundary": "无周期不补F0；感知音高不等于物理基频",
+      "claim_refs": [
+        "CLAIM:018"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "估计器质量掩码、音乐目标身份及PER:P1需D/E确认",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "P2",
+      "working_definition": "在明确时间尺度分离的F0中心走势",
+      "boundary": "趋势与颤音分离依滤波/模型选择，不是天然唯一分解",
+      "claim_refs": [
+        "CLAIM:018"
+      ],
+      "source_review_status": "engineering_definition_proposal",
+      "remaining_gap": "截止频率、边界与未知段方法待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "P3",
+      "working_definition": "两个有身份音乐目标之间的F0连接及到达时序",
+      "boundary": "转音、换音、八度误检与音符基底跳变分开",
+      "claim_refs": [
+        "CLAIM:018"
+      ],
+      "source_review_status": "engineering_definition_proposal",
+      "remaining_gap": "音乐身份与允许连接范围需人工上下文；D/E待验",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "P4",
+      "working_definition": "可定位周期/准周期的F0调制，记录速率、深度、相位和包络",
+      "boundary": "快慢调制不是好坏；F0颤音不包办AM及谱形颤动",
+      "claim_refs": [
+        "CLAIM:015",
+        "CLAIM:025"
+      ],
+      "source_review_status": "research_scope_checked",
+      "remaining_gap": "速率/深度算法、非平稳周期及跨通道时序待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "P5",
+      "working_definition": "扣除声明中心/调制模型后的帧级F0残差；周期jitter独立记录",
+      "boundary": "残差不是jitter；octave error不是生理不规则",
+      "claim_refs": [
+        "CLAIM:001",
+        "CLAIM:003"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "循环定位及残差分解两套协议待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "L1",
+      "working_definition": "数字电平、校准声压级、响度模型输出与主观强弱分别记录",
+      "boundary": "RMS/dBFS、dB SPL、LKFS、phon/sone不可互换",
+      "claim_refs": [
+        "CLAIM:009",
+        "CLAIM:010",
+        "CLAIM:022",
+        "CLAIM:023",
+        "CLAIM:029"
+      ],
+      "source_review_status": "source_distinctions_checked",
+      "remaining_gap": "回放校准、局部窗口和本机实现合规待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "L2",
+      "working_definition": "明确频带/窗/参考的幅度或电平包络随时间变化",
+      "boundary": "元音发声包络不等于混音总包络；渐强意图另记",
+      "claim_refs": [
+        "CLAIM:009",
+        "CLAIM:025"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "归一、窗长、相位延迟及乐句事件定义待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "L3",
+      "working_definition": "包络的周期/准周期调制；记录频率、幅度及跨F0关系",
+      "boundary": "AM不等于周期shimmer；FM经源滤波也可能出现AM",
+      "claim_refs": [
+        "CLAIM:002",
+        "CLAIM:025"
+      ],
+      "source_review_status": "source_distinctions_checked",
+      "remaining_gap": "AM去趋势/倍频、shimmer周期方法待D；ACO:L5为新增候选",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "L4",
+      "working_definition": "局部短时幅度/频带能量突变及发生阶段",
+      "boundary": "自然爆破、瞬态噪声、增益跳变、削波均可能，但原因另判",
+      "claim_refs": [
+        "CLAIM:009",
+        "CLAIM:026",
+        "CLAIM:030"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "瞬态窗、变化阈值及候选原因排除待D/E",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "S1",
+      "working_definition": "周期成分/噪声的可定义声学指标；支撑感另存感知",
+      "boundary": "模型VOIC、HNR、接触商和实感不同",
+      "claim_refs": [
+        "CLAIM:004",
+        "CLAIM:008",
+        "CLAIM:016"
+      ],
+      "source_review_status": "source_distinctions_checked",
+      "remaining_gap": "HNR/CPP算法和有效域待D；支撑感不能给单阈值",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "S2",
+      "working_definition": "声明取样/校正条件的谐波幅度或分段声源谱形",
+      "boundary": "原始输出谱受声道/噪声影响，不直接等于声门源谱",
+      "claim_refs": [
+        "CLAIM:011",
+        "CLAIM:012"
+      ],
+      "source_review_status": "source_distinctions_checked",
+      "remaining_gap": "逆滤波可靠性、高F0与跨元音校正待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "S3",
+      "working_definition": "明确分离模型下周期与非周期成分的相对量",
+      "boundary": "神经breathiness feature不是输出NHR；辅音噪声不算元音漏气真值",
+      "claim_refs": [
+        "CLAIM:004",
+        "CLAIM:013"
+      ],
+      "source_review_status": "source_distinctions_checked",
+      "remaining_gap": "噪声提取与有效段验证待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "S4",
+      "working_definition": "非周期部分的频谱与时间结构，保留来源未明",
+      "boundary": "气声、摩擦音和分离残留不能只靠高频能量区分",
+      "claim_refs": [
+        "CLAIM:013",
+        "CLAIM:019"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "非周期分解、频带和类型归属待D/E",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "S5",
+      "working_definition": "与主周期关系明确的次谐波/多周期组织",
+      "boundary": "多个歌手或伴奏的独立F0不是同源次谐波；粗糙感另存",
+      "claim_refs": [
+        "CLAIM:014",
+        "CLAIM:017"
+      ],
+      "source_review_status": "research_scope_checked",
+      "remaining_gap": "检测器、复音排除及subharmonic比例协议待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "S6",
+      "working_definition": "声学周期支撑中断/再起事件；破音词另存候选",
+      "boundary": "清辅音/停顿、检测失败和主动不规则不自动异常",
+      "claim_refs": [
+        "CLAIM:021",
+        "CLAIM:017"
+      ],
+      "source_review_status": "source_distinctions_checked",
+      "remaining_gap": "官方voice breaks测量不等于本曲有效检测器",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "R1",
+      "working_definition": "分别记录实际声道共振、输出谱包络峰和模型极点的频率",
+      "boundary": "三种对象可能偏离；不能用LPC直接证实舌根/喉位",
+      "claim_refs": [
+        "CLAIM:005",
+        "CLAIM:006",
+        "CLAIM:020"
+      ],
+      "source_review_status": "source_distinctions_checked",
+      "remaining_gap": "高F0可识别性、峰/极点跟踪及无生理真值限制待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "R2",
+      "working_definition": "共振/模型极点带宽与谱谷/反共振分别记录",
+      "boundary": "峰宽不等于谷深；原始谱变化也可能来自声源",
+      "claim_refs": [
+        "CLAIM:005",
+        "CLAIM:011",
+        "CLAIM:020"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "带宽与零点估计独立定义，鼻通道证据待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "R3",
+      "working_definition": "同身份元音/过渡阶段内的谱包络、峰或极点时间连续性",
+      "boundary": "自然双元音/协同发音不等于漂移；峰跳也可能估计失败",
+      "claim_refs": [
+        "CLAIM:006",
+        "CLAIM:007",
+        "CLAIM:020"
+      ],
+      "source_review_status": "engineering_relation_with_source_limits",
+      "remaining_gap": "对象追踪、匹配及同声线条件待D/E；无自动异常阈值",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "R4",
+      "working_definition": "鼻化候选谱结构与鼻/堵感知分栏",
+      "boundary": "口鼻耦合可有共振及反共振；单个鼻峰不唯一诊断",
+      "claim_refs": [
+        "CLAIM:019",
+        "CLAIM:020"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "鼻声知觉与生理推断需独立证据；本模型暂无验证",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "T1",
+      "working_definition": "声学事件相对于显式音乐/词/音素参考的时差",
+      "boundary": "ASR/HFA/谱面不是彼此真值；发声起点与note onset不同",
+      "claim_refs": [
+        "CLAIM:026"
+      ],
+      "source_review_status": "engineering_clock_definition",
+      "remaining_gap": "参考身份、offset、时钟转换与误差需D/C",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "T2",
+      "working_definition": "明确边界之间的音符/音素/元音核持续时间",
+      "boundary": "音符长不保证元音核长；模型时长不等于实际声学边界",
+      "claim_refs": [
+        "CLAIM:026"
+      ],
+      "source_review_status": "engineering_clock_definition",
+      "remaining_gap": "边界检测及延音/跨note计数待D",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "T3",
+      "working_definition": "声母爆破/摩擦/有声段及对比线索；咬字清晰度另存",
+      "boundary": "辅音能量大不一定更清楚；声学时序不等于识字率",
+      "claim_refs": [
+        "CLAIM:019",
+        "CLAIM:026",
+        "CLAIM:027"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "中文音素条件与感知识别任务待D/E",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "T4",
+      "working_definition": "声母释放、周期声/噪声与元音包络建立的先后及间隔",
+      "boundary": "VOT适用塞音的特定事件；不能统称所有起声协调",
+      "claim_refs": [
+        "CLAIM:026",
+        "CLAIM:019"
+      ],
+      "source_review_status": "source_distinctions_checked",
+      "remaining_gap": "中文声母与非塞音入口协议待D；无通用理想ms",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "T5",
+      "working_definition": "相邻音素声学特征的过渡时间及连续/重叠关系",
+      "boundary": "断连感可来自音高、周期、包络或剪辑；不是只看音素边界",
+      "claim_refs": [
+        "CLAIM:019",
+        "CLAIM:020",
+        "CLAIM:026"
+      ],
+      "source_review_status": "engineering_relation_with_source_limits",
+      "remaining_gap": "自然协同发音与异常漂移的对照待D/E",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "T6",
+      "working_definition": "持续发声结束/再起及包络释放；词尾音素独立",
+      "boundary": "自然收声、辅音尾与拼接突然截断不同",
+      "claim_refs": [
+        "CLAIM:019",
+        "CLAIM:009"
+      ],
+      "source_review_status": "engineering_relation_with_source_limits",
+      "remaining_gap": "释放事件时刻及尾音身份待D/E",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "T7",
+      "working_definition": "非唱呼吸噪声与静音/低能量间隔分别记录",
+      "boundary": "AP/SP工程符号不证明真实呼吸；无波形也不证明无准备动作",
+      "claim_refs": [
+        "CLAIM:019"
+      ],
+      "source_review_status": "engineering_event_definition",
+      "remaining_gap": "呼吸来源/边界与休止定义待D/E",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "X1",
+      "working_definition": "数字样本过载/非线性与其他失真分栏，查sample peak及true peak",
+      "boundary": "没有满幅样本不排除间采样峰、前级失真或字头破音感",
+      "claim_refs": [
+        "CLAIM:030"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "true-peak实现/滤波验证及非线性归因待D/C",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "X2",
+      "working_definition": "波形边界不连续、重复结构、谱异常等现象分开记录",
+      "boundary": "听感电子/金属感不自动证明缓存、拼接或模型故障",
+      "claim_refs": [
+        "CLAIM:008",
+        "CLAIM:030"
+      ],
+      "source_review_status": "engineering_artifact_candidates",
+      "remaining_gap": "伪影类型定义/来源归因与重现证据待D/E",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "X3",
+      "working_definition": "声部电平比例与目标识别受遮蔽的感知结果分栏",
+      "boundary": "同RMS不等于同可懂度；多说话者实验不直接给伴奏阈值",
+      "claim_refs": [
+        "CLAIM:027",
+        "CLAIM:029"
+      ],
+      "source_review_status": "partial_component_support",
+      "remaining_gap": "当前歌曲混音的频带/时间/听者协议待D/E",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "X4",
+      "working_definition": "通道相位/相关、混响响应与远近/宽度感知分栏",
+      "boundary": "单声道电平不够解释空间；房间RT方法不自动适用未知合成混音",
+      "claim_refs": [
+        "CLAIM:028",
+        "CLAIM:029"
+      ],
+      "source_review_status": "scope_only_partial",
+      "remaining_gap": "已知IR与盲估计分开，空间听觉/算法资料仍缺",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    },
+    {
+      "legacy_id": "X5",
+      "working_definition": "采样率、位深、编码/带限是格式/处理上下文；声学后果另记",
+      "boundary": "格式标签不是听感好坏维度；缺频也可能来自源/滤波",
+      "claim_refs": [
+        "CLAIM:030",
+        "CLAIM:011"
+      ],
+      "source_review_status": "engineering_metadata_definition",
+      "remaining_gap": "量化/混叠/编解码方法资料仍缺；需C/D核对",
+      "definition_reviewed": true,
+      "measurement_validated": false,
+      "current_engine_effect": "not_established",
+      "status": "reviewed_with_explicit_gaps"
+    }
+  ]
+}

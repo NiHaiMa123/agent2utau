@@ -1,0 +1,2937 @@
+{
+  "stage": "2C",
+  "date": "2026-10-10",
+  "status": "record_review_complete_with_explicit_gaps",
+  "baseline": {
+    "manifest_path": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2c-20261010/snapshot-manifest.json",
+    "manifest_sha256": "341b12f40a9883cc7af654a45c0984f535f26294920cbf1d7246120611d6d4fe"
+  },
+  "rows": [
+    {
+      "record_id": "RESP-001",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-001:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-001",
+        "primary_comparison_id": "RESP-001:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "tension"
+          ],
+          "changed_variance_inputs": [],
+          "finite_support": {
+            "changed_frames": 24,
+            "actual_support_s": [
+              183.833901744,
+              184.100931238
+            ]
+          },
+          "manual_check": {
+            "changed_frames": 24,
+            "actual_support_s": [
+              183.833901744,
+              184.100931238
+            ]
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "tension"
+          ],
+          "changed_predictions": [],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            },
+            "voicing": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            },
+            "tension": {
+              "min": -0.7000000476837158,
+              "max": 0.0,
+              "changed_frames": 24
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured/PCM_vowel_metrics",
+            "source": {
+              "path": "runs/lastpage_tenc_probe_20261008/delivery_check.json",
+              "sha256": "e4893137db651fc64c6e98fc49d716f2e4a2953630d371a3cc8daf4563355e3e",
+              "pointer": "/metrics"
+            },
+            "scalar_leaves_equal": 5,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/actual_dual_F0",
+            "source": {
+              "path": "runs/lastpage_tenc_probe_20261008/actual_dual_f0.json",
+              "sha256": "005fcbb06e20893c096202af764cf7e88a2c712b55efd5c74009d092cc26cdfe",
+              "pointer": "/summary"
+            },
+            "scalar_leaves_equal": 14,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-225",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:RESP-001",
+        "source": {
+          "path": "runs/lastpage_tenc_feedback_20261008/user_feedback.json",
+          "sha256": "77e143f1a0491779544945a2e39a9a637c8e3aac7a9c60fc592c6b60d88a59ef"
+        },
+        "original_text": "没啥区别",
+        "outcome": "no_perceived_difference",
+        "audio_SHA_bindings": [
+          {
+            "role": "actual_listener_comparison",
+            "path": "runs/lastpage_tenc_probe_20261008/delivery/A_B_mix.wav",
+            "expected_sha256": "4e0c8cd5219e9517b073c4fccc2ebcc5485348c259a7366b3af34943a6f485bb",
+            "actual_sha256": "4e0c8cd5219e9517b073c4fccc2ebcc5485348c259a7366b3af34943a6f485bb",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "不采用B；只否定该TENC取消在本条件下的可感知改善，不推广至整个通道。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-002",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-002:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-002",
+        "primary_comparison_id": "RESP-002:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness",
+            "f0",
+            "tension",
+            "voicing"
+          ],
+          "changed_variance_inputs": [
+            "pitch"
+          ],
+          "finite_support": {
+            "changed_frames": 24,
+            "actual_support_s": [
+              183.833901744,
+              184.100931238
+            ]
+          },
+          "manual_check": {
+            "changed_manual_channels": [],
+            "sampled_peak_cents": -400.0
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness",
+            "f0",
+            "tension",
+            "voicing"
+          ],
+          "changed_predictions": [
+            "breathiness_pred",
+            "tension_pred",
+            "voicing_pred"
+          ],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -5.330558776855469,
+              "max": 17.19768524169922,
+              "changed_frames": 421
+            },
+            "voicing": {
+              "min": -6.165626525878906,
+              "max": 8.526054382324219,
+              "changed_frames": 378
+            },
+            "tension": {
+              "min": -3.0866215229034424,
+              "max": 3.6615028381347656,
+              "changed_frames": 421
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured/PCM_vowel_metrics",
+            "source": {
+              "path": "runs/lastpage_shfc_probe_20261008/delivery_check.json",
+              "sha256": "59fc09d461e4fe75b0d07808f5fe00024aa801c38a2d73aec83a29a29882c5f1",
+              "pointer": "/metrics"
+            },
+            "scalar_leaves_equal": 5,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/variance_prediction_response",
+            "source": {
+              "path": "runs/lastpage_shfc_probe_20261008/prediction_response.json",
+              "sha256": "9da5d71a3fdff615f0123b3e7b94b1d54d3f928d8b1a301e0f180c4d288e8af3",
+              "pointer": "/rows"
+            },
+            "scalar_leaves_equal": 15,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/first_65ms_F0_B_minus_A/fcpe",
+            "source": {
+              "path": "runs/lastpage_shfc_onset_probe_20261008/onset_response.json",
+              "sha256": "09446d594b135dcd9770b9a20ddc4e1a6e7a4bb1eb8f31cfaeff4ef9f2fcfe1c",
+              "pointer": "/windows/1/F0/fcpe/differences/A_B"
+            },
+            "scalar_leaves_equal": 3,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/first_65ms_F0_B_minus_A/rmvpe",
+            "source": {
+              "path": "runs/lastpage_shfc_onset_probe_20261008/onset_response.json",
+              "sha256": "09446d594b135dcd9770b9a20ddc4e1a6e7a4bb1eb8f31cfaeff4ef9f2fcfe1c",
+              "pointer": "/windows/1/F0/rmvpe/differences/A_B"
+            },
+            "scalar_leaves_equal": 3,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-225",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:RESP-002",
+        "source": {
+          "path": "runs/lastpage_shfc_artifact_audit_20261008/feedback.json",
+          "sha256": "9d61b4534731c7af025812b27064fbcbe95f5276aa5e58e2832ac877088b3dea"
+        },
+        "original_text": "更实了，但是有破音的情况",
+        "outcome": "benefit_with_side_effect",
+        "audio_SHA_bindings": [
+          {
+            "role": "actual_listener_comparison",
+            "path": "runs/lastpage_shfc_probe_20261008/delivery/A_B_vocal.wav",
+            "expected_sha256": "87bc398f61d0ce6d60e2d8e325bf83f4dd8bd9055993fb596f15adf5a60bad96",
+            "actual_sha256": "87bc398f61d0ce6d60e2d8e325bf83f4dd8bd9055993fb596f15adf5a60bad96",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "不采用该B；证实完整条件路径可改变实感并带副作用，未隔离是哪条下游预测造成。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-003",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-003:C-B",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-003",
+        "primary_comparison_id": "RESP-003:C-B",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness",
+            "f0",
+            "tension",
+            "voicing"
+          ],
+          "changed_variance_inputs": [
+            "pitch"
+          ],
+          "finite_support": {
+            "changed_frames": 32,
+            "actual_support_s": [
+              183.74102192,
+              184.100931238
+            ]
+          },
+          "manual_check": {
+            "changed_manual_channels": [],
+            "sampled_peak_cents": -400.0
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false,
+          "primary_C_minus_B": {
+            "changed_native_inputs": [
+              "breathiness",
+              "f0",
+              "tension",
+              "voicing"
+            ],
+            "changed_variance_inputs": [
+              "pitch"
+            ],
+            "finite_support": {
+              "changed_frames": 12,
+              "actual_support_s": [
+                183.74102192,
+                183.86873167800002
+              ]
+            },
+            "manual_check": {
+              "changed_manual_channels": [],
+              "sampled_peak_cents": -400.0
+            },
+            "native_arithmetic_exact": true,
+            "vocoder_F0_exact": true,
+            "cache_verified_flags_from_historical_export": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "current_cache_or_engine_execution_verified": false
+          }
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness",
+            "f0",
+            "tension",
+            "voicing"
+          ],
+          "changed_predictions": [
+            "breathiness_pred",
+            "tension_pred",
+            "voicing_pred"
+          ],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -11.081317901611328,
+              "max": 5.790195465087891,
+              "changed_frames": 421
+            },
+            "voicing": {
+              "min": -6.106361389160156,
+              "max": 13.895545959472656,
+              "changed_frames": 374
+            },
+            "tension": {
+              "min": -5.602034568786621,
+              "max": 4.309540748596191,
+              "changed_frames": 421
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false,
+          "primary_C_minus_B": {
+            "changed_final_inputs": [
+              "breathiness",
+              "f0",
+              "tension",
+              "voicing"
+            ],
+            "changed_predictions": [
+              "breathiness_pred",
+              "tension_pred",
+              "voicing_pred"
+            ],
+            "original_B_waveform_reused": true,
+            "B_repeat_not_newly_executed": true
+          }
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured/window_responses",
+            "source": {
+              "path": "runs/lastpage_shfc_onset_probe_20261008/onset_response.json",
+              "sha256": "09446d594b135dcd9770b9a20ddc4e1a6e7a4bb1eb8f31cfaeff4ef9f2fcfe1c",
+              "pointer": "/windows"
+            },
+            "scalar_leaves_equal": 135,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/neighbor_RMS_C_minus_B",
+            "source": {
+              "path": "runs/lastpage_shfc_onset_probe_20261008/neighbor_response.json",
+              "sha256": "ae84a3d4b803900433042859d491dc60cb06b81676939e19aaf1af1d06dbd164",
+              "pointer": ""
+            },
+            "scalar_leaves_equal": 80,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-225",
+          "variant": "original_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:RESP-003",
+        "source": {
+          "path": "runs/lastpage_shfc_onset_feedback_20261008/feedback.json",
+          "sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78"
+        },
+        "original_text": "可以",
+        "outcome": "local_accepted",
+        "audio_SHA_bindings": [
+          {
+            "role": "actual_listener_comparison",
+            "path": "runs/lastpage_shfc_onset_probe_20261008/delivery/B_C_vocal.wav",
+            "expected_sha256": "f5a393d43d8d3bcc11fc388015bfa6e1ddd3282c6612109585b1ad6292d7e35a",
+            "actual_sha256": "f5a393d43d8d3bcc11fc388015bfa6e1ddd3282c6612109585b1ad6292d7e35a",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "用户仅接受该抱C的局部对照；保持其已接受状态，不复制145ms到其它字或整曲。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-004",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-004:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-004",
+        "primary_comparison_id": "RESP-004:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness",
+            "f0",
+            "tension",
+            "voicing"
+          ],
+          "changed_variance_inputs": [
+            "pitch"
+          ],
+          "finite_support": {
+            "changed_frames": 35,
+            "actual_support_s": [
+              86.84052017066666,
+              87.23525942266667
+            ]
+          },
+          "manual_check": {
+            "changed_manual_channels": [],
+            "sampled_peak_cents": -200.0
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness",
+            "f0",
+            "tension",
+            "voicing"
+          ],
+          "changed_predictions": [
+            "breathiness_pred",
+            "tension_pred",
+            "voicing_pred"
+          ],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -3.091785430908203,
+              "max": 1.5796546936035156,
+              "changed_frames": 374
+            },
+            "voicing": {
+              "min": -4.966705322265625,
+              "max": 2.246673583984375,
+              "changed_frames": 352
+            },
+            "tension": {
+              "min": -2.5578293800354004,
+              "max": 0.29013729095458984,
+              "changed_frames": 381
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured/phones/0",
+            "source": {
+              "path": "runs/lastpage_guo_register_probe_20261008/phone_response.json",
+              "sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909",
+              "pointer": "/phones/4"
+            },
+            "scalar_leaves_equal": 13,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/phones/1",
+            "source": {
+              "path": "runs/lastpage_guo_register_probe_20261008/phone_response.json",
+              "sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909",
+              "pointer": "/phones/5"
+            },
+            "scalar_leaves_equal": 13,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/phones/2",
+            "source": {
+              "path": "runs/lastpage_guo_register_probe_20261008/phone_response.json",
+              "sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909",
+              "pointer": "/phones/6"
+            },
+            "scalar_leaves_equal": 13,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/phones/3",
+            "source": {
+              "path": "runs/lastpage_guo_register_probe_20261008/phone_response.json",
+              "sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909",
+              "pointer": "/phones/7"
+            },
+            "scalar_leaves_equal": 13,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/phones/4",
+            "source": {
+              "path": "runs/lastpage_guo_register_probe_20261008/phone_response.json",
+              "sha256": "357bf7dbe200d44e99417550f8e490e135aac2e095234349bd880031ceda5909",
+              "pointer": "/phones/15"
+            },
+            "scalar_leaves_equal": 13,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          },
+          {
+            "record_pointer": "/measured/reported_*",
+            "source": {
+              "path": "docs/lastpage-guo-register-probe-20261008.md",
+              "sha256": "8dd41449a48c962f1c2d4a571653c1cffede21e64734d451ba25693732de4d98"
+            },
+            "status": "rounded_report_proxy_matched; no_precise_listener_location_or_PCM_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-112",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:RESP-004",
+        "source": {
+          "path": "runs/lastpage_guo_feedback_20261008/feedback.json",
+          "sha256": "b785f9256619d54a990a6680bbaaba77a2c603ca12bab2c7c770d8cca2f2bb39"
+        },
+        "original_text": "果字没啥区别，这的咬字好像也没啥区别，而且引入新的问题，响度下降",
+        "outcome": "no_benefit_with_side_effect",
+        "audio_SHA_bindings": [
+          {
+            "role": "actual_listener_comparison",
+            "path": "runs/lastpage_guo_register_probe_20261008/delivery/A_B_vocal.wav",
+            "expected_sha256": "ef61337e87d1a6bbe961ad7a0f92b10ab1536560330c47369185e730735a14d4",
+            "actual_sha256": "ef61337e87d1a6bbe961ad7a0f92b10ab1536560330c47369185e730735a14d4",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "不采用果B；停止该路线及增益掩盖。保留原已接受抱C，均值近似相同不能否认听觉响度反馈。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-005",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-005:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-005",
+        "primary_comparison_id": "RESP-005:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness"
+          ],
+          "changed_variance_inputs": [],
+          "finite_support": {
+            "changed_frames": 26,
+            "actual_support_s": [
+              86.93339999466667,
+              87.22364944466668
+            ]
+          },
+          "manual_check": {
+            "changed_frames": 26,
+            "actual_support_s": [
+              86.93339999466667,
+              87.22364944466668
+            ]
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness"
+          ],
+          "changed_predictions": [],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -1.2000007629394531,
+              "max": 0.0,
+              "changed_frames": 26
+            },
+            "voicing": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            },
+            "tension": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured",
+            "source": {
+              "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+              "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+              "pointer": "/conditions/0"
+            },
+            "scalar_leaves_equal": 91,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-112",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:BREC-cohort",
+        "source": {
+          "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+          "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+        },
+        "original_text": "全部没区别。",
+        "outcome": "no_perceived_difference",
+        "audio_SHA_bindings": [
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+            "expected_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "actual_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+            "expected_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "actual_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+            "expected_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "actual_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+            "expected_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "actual_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+            "expected_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "actual_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+            "expected_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "actual_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+            "expected_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "actual_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+            "expected_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "actual_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+            "expected_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "actual_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+            "expected_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "actual_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+            "expected_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "actual_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+            "expected_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "actual_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-006",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-006:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-006",
+        "primary_comparison_id": "RESP-006:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness"
+          ],
+          "changed_variance_inputs": [],
+          "finite_support": {
+            "changed_frames": 56,
+            "actual_support_s": [
+              92.98788419733334,
+              93.62643298733335
+            ]
+          },
+          "manual_check": {
+            "changed_frames": 56,
+            "actual_support_s": [
+              92.98788419733334,
+              93.62643298733335
+            ]
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness"
+          ],
+          "changed_predictions": [],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -1.2000007629394531,
+              "max": 0.0,
+              "changed_frames": 56
+            },
+            "voicing": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            },
+            "tension": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured",
+            "source": {
+              "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+              "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+              "pointer": "/conditions/4"
+            },
+            "scalar_leaves_equal": 63,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-124",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:BREC-cohort",
+        "source": {
+          "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+          "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+        },
+        "original_text": "全部没区别。",
+        "outcome": "no_perceived_difference",
+        "audio_SHA_bindings": [
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+            "expected_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "actual_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+            "expected_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "actual_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+            "expected_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "actual_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+            "expected_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "actual_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+            "expected_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "actual_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+            "expected_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "actual_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+            "expected_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "actual_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+            "expected_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "actual_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+            "expected_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "actual_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+            "expected_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "actual_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+            "expected_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "actual_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+            "expected_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "actual_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-007",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-007:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-007",
+        "primary_comparison_id": "RESP-007:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness"
+          ],
+          "changed_variance_inputs": [],
+          "finite_support": {
+            "changed_frames": 23,
+            "actual_support_s": [
+              176.07281183733335,
+              176.32823135333334
+            ]
+          },
+          "manual_check": {
+            "changed_frames": 23,
+            "actual_support_s": [
+              176.07281183733335,
+              176.32823135333334
+            ]
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness"
+          ],
+          "changed_predictions": [],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -1.2000007629394531,
+              "max": 0.0,
+              "changed_frames": 23
+            },
+            "voicing": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            },
+            "tension": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured",
+            "source": {
+              "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+              "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+              "pointer": "/conditions/5"
+            },
+            "scalar_leaves_equal": 79,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-214",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:BREC-cohort",
+        "source": {
+          "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+          "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+        },
+        "original_text": "全部没区别。",
+        "outcome": "no_perceived_difference",
+        "audio_SHA_bindings": [
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+            "expected_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "actual_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+            "expected_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "actual_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+            "expected_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "actual_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+            "expected_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "actual_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+            "expected_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "actual_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+            "expected_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "actual_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+            "expected_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "actual_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+            "expected_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "actual_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+            "expected_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "actual_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+            "expected_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "actual_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+            "expected_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "actual_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+            "expected_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "actual_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-008",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-008:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-008",
+        "primary_comparison_id": "RESP-008:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness"
+          ],
+          "changed_variance_inputs": [],
+          "finite_support": {
+            "changed_frames": 23,
+            "actual_support_s": [
+              183.845511722,
+              184.100931238
+            ]
+          },
+          "manual_check": {
+            "changed_frames": 23,
+            "actual_support_s": [
+              183.845511722,
+              184.100931238
+            ]
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness"
+          ],
+          "changed_predictions": [],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -1.2000007629394531,
+              "max": 0.0,
+              "changed_frames": 23
+            },
+            "voicing": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            },
+            "tension": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured",
+            "source": {
+              "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+              "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+              "pointer": "/conditions/1"
+            },
+            "scalar_leaves_equal": 87,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-225",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:BREC-cohort",
+        "source": {
+          "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+          "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+        },
+        "original_text": "全部没区别。",
+        "outcome": "no_perceived_difference",
+        "audio_SHA_bindings": [
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+            "expected_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "actual_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+            "expected_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "actual_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+            "expected_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "actual_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+            "expected_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "actual_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+            "expected_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "actual_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+            "expected_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "actual_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+            "expected_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "actual_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+            "expected_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "actual_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+            "expected_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "actual_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+            "expected_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "actual_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+            "expected_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "actual_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+            "expected_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "actual_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-009",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-009:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-009",
+        "primary_comparison_id": "RESP-009:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness"
+          ],
+          "changed_variance_inputs": [],
+          "finite_support": {
+            "changed_frames": 22,
+            "actual_support_s": [
+              196.68294506066667,
+              196.9267545986667
+            ]
+          },
+          "manual_check": {
+            "changed_frames": 22,
+            "actual_support_s": [
+              196.68294506066667,
+              196.9267545986667
+            ]
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness"
+          ],
+          "changed_predictions": [],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -1.2000007629394531,
+              "max": 0.0,
+              "changed_frames": 22
+            },
+            "voicing": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            },
+            "tension": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured",
+            "source": {
+              "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+              "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+              "pointer": "/conditions/2"
+            },
+            "scalar_leaves_equal": 91,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "current-word-247",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:BREC-cohort",
+        "source": {
+          "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+          "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+        },
+        "original_text": "全部没区别。",
+        "outcome": "no_perceived_difference",
+        "audio_SHA_bindings": [
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+            "expected_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "actual_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+            "expected_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "actual_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+            "expected_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "actual_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+            "expected_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "actual_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+            "expected_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "actual_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+            "expected_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "actual_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+            "expected_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "actual_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+            "expected_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "actual_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+            "expected_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "actual_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+            "expected_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "actual_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+            "expected_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "actual_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+            "expected_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "actual_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "RESP-010",
+      "record_kind": "response",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "RESP-010:B-A",
+      "input_review": "native_and_fresh_input_math_rechecked",
+      "input_proof": {
+        "record_id": "RESP-010",
+        "primary_comparison_id": "RESP-010:B-A",
+        "native_check": {
+          "changed_native_inputs": [
+            "breathiness"
+          ],
+          "changed_variance_inputs": [],
+          "finite_support": {
+            "changed_frames": 23,
+            "actual_support_s": [
+              183.845511722,
+              184.100931238
+            ]
+          },
+          "manual_check": {
+            "changed_frames": 23,
+            "actual_support_s": [
+              183.845511722,
+              184.100931238
+            ]
+          },
+          "native_arithmetic_exact": true,
+          "vocoder_F0_exact": true,
+          "cache_verified_flags_from_historical_export": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "current_cache_or_engine_execution_verified": false
+        },
+        "fresh_check": {
+          "changed_final_inputs": [
+            "breathiness"
+          ],
+          "changed_predictions": [],
+          "final_float32_arithmetic_exact": true,
+          "repeat_input_and_prediction_exact": true,
+          "clipping_counts_A": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "clipping_counts_intervention": {
+            "breathiness": 0,
+            "voicing": 0,
+            "tension": 0
+          },
+          "final_channel_delta_stats": {
+            "breathiness": {
+              "min": -1.2000007629394531,
+              "max": 0.0,
+              "changed_frames": 23
+            },
+            "voicing": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            },
+            "tension": {
+              "min": 0.0,
+              "max": 0.0,
+              "changed_frames": 0
+            }
+          },
+          "current_model_or_waveform_repeat_execution": false,
+          "speaker_tensor_and_acoustic_noise_exact": true,
+          "speaker_embedding_contents_or_current_install_revalidated": false
+        },
+        "source_metric_checks": [
+          {
+            "record_pointer": "/measured",
+            "source": {
+              "path": "runs/lastpage_brec_cohort_probe_20261008/response_analysis.json",
+              "sha256": "f6f5ca852c02e0ceeedf3ae94fba702a9ba59a2372b6d518a34d7a3e838c56b7",
+              "pointer": "/conditions/3"
+            },
+            "scalar_leaves_equal": 87,
+            "status": "historical_value_source_matched; no_PCM_or_detector_remeasurement"
+          }
+        ],
+        "baseline_state_source": {
+          "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+          "condition_id": "accepted-bao-C",
+          "variant": "case_A",
+          "scalar_leaves_equal": 80
+        },
+        "historical_wave_repeat": {
+          "reported_max_abs": 0.0,
+          "newly_PCM_checked": false
+        },
+        "no_current_native_cache_reexecution": true,
+        "no_new_model_or_PCM_execution": true
+      },
+      "metric_review": "historical_value_source_matched; PCM_mel_F0_not_remeasured",
+      "feedback": {
+        "group_id": "FB:BREC-cohort",
+        "source": {
+          "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+          "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+        },
+        "original_text": "全部没区别。",
+        "outcome": "no_perceived_difference",
+        "audio_SHA_bindings": [
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+            "expected_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "actual_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+            "expected_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "actual_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+            "expected_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "actual_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+            "expected_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "actual_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+            "expected_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "actual_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+            "expected_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "actual_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+            "expected_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "actual_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+            "expected_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "actual_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+            "expected_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "actual_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+            "expected_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "actual_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+            "status": "verified"
+          },
+          {
+            "role": "listener_A",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+            "expected_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "actual_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+            "status": "verified"
+          },
+          {
+            "role": "listener_B",
+            "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+            "expected_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "actual_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+            "status": "verified"
+          }
+        ],
+        "new_feedback": false,
+        "device_blinding_timestamp": "unknown",
+        "listener_scope": "original_local_comparison"
+      },
+      "confirmed": [
+        "declared_external_input_and_downstream_path_within_loaded_sealed_inputs",
+        "original_numeric_values_and_comparison_direction_traceable",
+        "original_user_feedback_and_local_adoption_scope"
+      ],
+      "partial": [
+        "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated",
+        "historical_runtime_and_wave_determinism_not_current_execution"
+      ],
+      "unknown": [
+        "unique_causal_mediator",
+        "unreported_fine_grained_side_effects",
+        "whole_phrase_or_song_acceptance",
+        "held_out_or_cross_song_generalization",
+        "current_external_models_and_real_device_gain"
+      ],
+      "use_boundary": "本剂量/时间形状无可感知区别，不采用B；原标签及已接受抱C保持。不能否定整个BREC通道或自动加剂量。",
+      "numerical_response_is_listener_improvement": false,
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "OBS-001",
+      "record_kind": "observation",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "OBS-001:word247-word112",
+      "input_review": "stored_state_summary_and_pair_arithmetic_rechecked; no_independent_intervention",
+      "metric_review": {
+        "source": "runs/lastpage_cross_condition_study_20261008/study.json#/pair_differences/guo_cross_context",
+        "scalar_leaves_equal": 15
+      },
+      "feedback": {
+        "direct_listener_comparison": false,
+        "label_evidence": "word247_middle_clip_local_usable"
+      },
+      "confirmed": [
+        "original_pair_identity_and_state_difference_direction",
+        "local_label_origin"
+      ],
+      "partial": [
+        "state_association_with_context_and_joint_intervention_confound"
+      ],
+      "unknown": [
+        "isolated_VOIC_BREC_TENC_mediation",
+        "held_out_or_general_rule"
+      ],
+      "use_boundary": "同uo/E4跨上下文关联：核VOIC +1.6140、BREC -.9680、TENC +.3527；不能隔离因果或拟合通过阈值。",
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "OBS-002",
+      "record_kind": "observation",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "OBS-002:accepted_C-original_A",
+      "input_review": "stored_state_summary_and_pair_arithmetic_rechecked; no_independent_intervention",
+      "metric_review": {
+        "source": "runs/lastpage_cross_condition_study_20261008/study.json#/pair_differences/bao_same_context_SHFC",
+        "scalar_leaves_equal": 15
+      },
+      "feedback": {
+        "direct_listener_comparison": false,
+        "label_evidence": "C_local_accepted_in_RESP-003_C-B; no_direct_C-A_listening"
+      },
+      "confirmed": [
+        "original_pair_identity_and_state_difference_direction",
+        "local_label_origin"
+      ],
+      "partial": [
+        "state_association_with_context_and_joint_intervention_confound"
+      ],
+      "unknown": [
+        "isolated_VOIC_BREC_TENC_mediation",
+        "held_out_or_general_rule"
+      ],
+      "use_boundary": "核VOIC -.9145、BREC -5.8843、TENC +1.0628；整体SHFC下游关联不是独立VOIC/BREC/TENC因果检验。",
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "AUD-001",
+      "record_kind": "technical_audit",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "AUD-001:HFA_observation-native_g_uo",
+      "input_review": "bound_historical_identity_or_rejection_correction_record",
+      "metric_review": "unit_clock_mapping_and_valid_version_role; not_auditory_effect",
+      "feedback": "not_applicable",
+      "confirmed": [
+        "original_technical_finding_and_rejected_version_exclusion"
+      ],
+      "partial": [
+        "historical_source_scope; current_device_or_external_model_not_reexecuted"
+      ],
+      "unknown": [
+        "auditory_naturalness_or_unique_cause"
+      ],
+      "use_boundary": "没有明确大错位证据；HFA不是演唱自然时长真值，不直接拆uo或缩g。",
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    },
+    {
+      "record_id": "AUD-002",
+      "record_kind": "technical_audit",
+      "status": "record_review_complete_with_explicit_gaps",
+      "comparison_id": "AUD-002:SHFC_400c_intended-SHFC_4c_rejected",
+      "input_review": "bound_historical_identity_or_rejection_correction_record",
+      "metric_review": "unit_clock_mapping_and_valid_version_role; not_auditory_effect",
+      "feedback": "not_applicable",
+      "confirmed": [
+        "original_technical_finding_and_rejected_version_exclusion"
+      ],
+      "partial": [
+        "historical_source_scope; current_device_or_external_model_not_reexecuted"
+      ],
+      "unknown": [
+        "auditory_naturalness_or_unique_cause"
+      ],
+      "use_boundary": "只证明单位/采样/合法范围与实际输入必须核查；不是自然度或听觉效果检验。",
+      "general_rule_validated": false,
+      "record_content_or_original_feedback_changed": false
+    }
+  ],
+  "status_lists": {
+    "confirmed": [
+      {
+        "record_id": "RESP-001",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-001",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-001",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "declared_external_input_and_downstream_path_within_loaded_sealed_inputs"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "original_numeric_values_and_comparison_direction_traceable"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "original_user_feedback_and_local_adoption_scope"
+      },
+      {
+        "record_id": "OBS-001",
+        "scope": "original_pair_identity_and_state_difference_direction"
+      },
+      {
+        "record_id": "OBS-001",
+        "scope": "local_label_origin"
+      },
+      {
+        "record_id": "OBS-002",
+        "scope": "original_pair_identity_and_state_difference_direction"
+      },
+      {
+        "record_id": "OBS-002",
+        "scope": "local_label_origin"
+      },
+      {
+        "record_id": "AUD-001",
+        "scope": "original_technical_finding_and_rejected_version_exclusion"
+      },
+      {
+        "record_id": "AUD-002",
+        "scope": "original_technical_finding_and_rejected_version_exclusion"
+      }
+    ],
+    "partial": [
+      {
+        "record_id": "RESP-001",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-001",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "historical_PCM_mel_F0_metrics_source_confirmed_but_not_remeasured_or_detector_validated"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "historical_runtime_and_wave_determinism_not_current_execution"
+      },
+      {
+        "record_id": "OBS-001",
+        "scope": "state_association_with_context_and_joint_intervention_confound"
+      },
+      {
+        "record_id": "OBS-002",
+        "scope": "state_association_with_context_and_joint_intervention_confound"
+      },
+      {
+        "record_id": "AUD-001",
+        "scope": "historical_source_scope; current_device_or_external_model_not_reexecuted"
+      },
+      {
+        "record_id": "AUD-002",
+        "scope": "historical_source_scope; current_device_or_external_model_not_reexecuted"
+      }
+    ],
+    "unknown": [
+      {
+        "record_id": "RESP-001",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-001",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-001",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-001",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-001",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-002",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-003",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-004",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-005",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-006",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-007",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-008",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-009",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "unique_causal_mediator"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "unreported_fine_grained_side_effects"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "whole_phrase_or_song_acceptance"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "held_out_or_cross_song_generalization"
+      },
+      {
+        "record_id": "RESP-010",
+        "scope": "current_external_models_and_real_device_gain"
+      },
+      {
+        "record_id": "OBS-001",
+        "scope": "isolated_VOIC_BREC_TENC_mediation"
+      },
+      {
+        "record_id": "OBS-001",
+        "scope": "held_out_or_general_rule"
+      },
+      {
+        "record_id": "OBS-002",
+        "scope": "isolated_VOIC_BREC_TENC_mediation"
+      },
+      {
+        "record_id": "OBS-002",
+        "scope": "held_out_or_general_rule"
+      },
+      {
+        "record_id": "AUD-001",
+        "scope": "auditory_naturalness_or_unique_cause"
+      },
+      {
+        "record_id": "AUD-002",
+        "scope": "auditory_naturalness_or_unique_cause"
+      }
+    ]
+  },
+  "counts": {
+    "records": 14,
+    "intervention_records": 10,
+    "designs": 5,
+    "observations": 2,
+    "technical_audits": 2,
+    "input_prediction_arrays_read": 60,
+    "read_bound_files": 129,
+    "metric_scalar_leaves_source_matched": 823,
+    "new_synthesis": 0,
+    "new_PCM_or_detector_measurements": 0,
+    "new_feedback": 0,
+    "general_rules_validated": 0
+  },
+  "independent_input_proof": {
+    "path": "runs/research/table2-2c-record-confirmation-20261010/input-rechecks.json",
+    "sha256": "3ab511617084856770a19e27d730c5f19a3b996bb4de0c3297a3cbdd51190bf4"
+  },
+  "feedback_groups": [
+    {
+      "feedback_group_id": "FB:RESP-001",
+      "source": {
+        "path": "runs/lastpage_tenc_feedback_20261008/user_feedback.json",
+        "sha256": "77e143f1a0491779544945a2e39a9a637c8e3aac7a9c60fc592c6b60d88a59ef"
+      },
+      "original_text": "没啥区别",
+      "separate_location_messages": [],
+      "submission_timestamp": "unknown",
+      "device": "unknown",
+      "blinding": "unknown",
+      "task_protocol": "unknown",
+      "agent_listened": false,
+      "record_ids": [
+        "RESP-001"
+      ],
+      "audio_bindings": [
+        {
+          "role": "actual_listener_comparison",
+          "path": "runs/lastpage_tenc_probe_20261008/delivery/A_B_mix.wav",
+          "expected_sha256": "4e0c8cd5219e9517b073c4fccc2ebcc5485348c259a7366b3af34943a6f485bb",
+          "actual_sha256": "4e0c8cd5219e9517b073c4fccc2ebcc5485348c259a7366b3af34943a6f485bb",
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "feedback_group_id": "FB:RESP-002",
+      "source": {
+        "path": "runs/lastpage_shfc_artifact_audit_20261008/feedback.json",
+        "sha256": "9d61b4534731c7af025812b27064fbcbe95f5276aa5e58e2832ac877088b3dea"
+      },
+      "original_text": "更实了，但是有破音的情况",
+      "separate_location_messages": [
+        "开头",
+        "抱的字头"
+      ],
+      "submission_timestamp": "unknown",
+      "device": "unknown",
+      "blinding": "unknown",
+      "task_protocol": "unknown",
+      "agent_listened": false,
+      "record_ids": [
+        "RESP-002"
+      ],
+      "audio_bindings": [
+        {
+          "role": "actual_listener_comparison",
+          "path": "runs/lastpage_shfc_probe_20261008/delivery/A_B_vocal.wav",
+          "expected_sha256": "87bc398f61d0ce6d60e2d8e325bf83f4dd8bd9055993fb596f15adf5a60bad96",
+          "actual_sha256": "87bc398f61d0ce6d60e2d8e325bf83f4dd8bd9055993fb596f15adf5a60bad96",
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "feedback_group_id": "FB:RESP-003",
+      "source": {
+        "path": "runs/lastpage_shfc_onset_feedback_20261008/feedback.json",
+        "sha256": "38c84e7bd7de92a4ad06071df2b575aa8eb2959462ab1d6e3488470e17fbcd78"
+      },
+      "original_text": "可以",
+      "separate_location_messages": [],
+      "submission_timestamp": "unknown",
+      "device": "unknown",
+      "blinding": "unknown",
+      "task_protocol": "unknown",
+      "agent_listened": false,
+      "record_ids": [
+        "RESP-003"
+      ],
+      "audio_bindings": [
+        {
+          "role": "actual_listener_comparison",
+          "path": "runs/lastpage_shfc_onset_probe_20261008/delivery/B_C_vocal.wav",
+          "expected_sha256": "f5a393d43d8d3bcc11fc388015bfa6e1ddd3282c6612109585b1ad6292d7e35a",
+          "actual_sha256": "f5a393d43d8d3bcc11fc388015bfa6e1ddd3282c6612109585b1ad6292d7e35a",
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "feedback_group_id": "FB:RESP-004",
+      "source": {
+        "path": "runs/lastpage_guo_feedback_20261008/feedback.json",
+        "sha256": "b785f9256619d54a990a6680bbaaba77a2c603ca12bab2c7c770d8cca2f2bb39"
+      },
+      "original_text": "果字没啥区别，这的咬字好像也没啥区别，而且引入新的问题，响度下降",
+      "separate_location_messages": [],
+      "submission_timestamp": "unknown",
+      "device": "unknown",
+      "blinding": "unknown",
+      "task_protocol": "unknown",
+      "agent_listened": false,
+      "record_ids": [
+        "RESP-004"
+      ],
+      "audio_bindings": [
+        {
+          "role": "actual_listener_comparison",
+          "path": "runs/lastpage_guo_register_probe_20261008/delivery/A_B_vocal.wav",
+          "expected_sha256": "ef61337e87d1a6bbe961ad7a0f92b10ab1536560330c47369185e730735a14d4",
+          "actual_sha256": "ef61337e87d1a6bbe961ad7a0f92b10ab1536560330c47369185e730735a14d4",
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "feedback_group_id": "FB:BREC-cohort",
+      "source": {
+        "path": "runs/lastpage_brec_cohort_feedback_20261008/feedback.json",
+        "sha256": "1610a97a9775185a4f77e6199a86826c21fd7605720940ee72a2c348a7a56dfd"
+      },
+      "original_text": "全部没区别。",
+      "separate_location_messages": [],
+      "submission_timestamp": "unknown",
+      "device": "unknown",
+      "blinding": "unknown",
+      "task_protocol": "unknown",
+      "agent_listened": false,
+      "record_ids": [
+        "RESP-005",
+        "RESP-006",
+        "RESP-007",
+        "RESP-008",
+        "RESP-009",
+        "RESP-010"
+      ],
+      "audio_bindings": [
+        {
+          "role": "listener_A",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/A_vocal.wav",
+          "expected_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+          "actual_sha256": "8783f65c88018191a488ef90c3bb88c96cbc2039c7de12f1aba7c0220057a40e",
+          "status": "verified"
+        },
+        {
+          "role": "listener_B",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-112/B_vocal.wav",
+          "expected_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+          "actual_sha256": "0650c823651946258baa68e6f116c5fac5e04c4f254e8034fcdcd20290313f63",
+          "status": "verified"
+        },
+        {
+          "role": "listener_A",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/A_vocal.wav",
+          "expected_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+          "actual_sha256": "d998d166d8d9932aad743f6de17a9e508cca9fda5471fc4b009f9352775c6fec",
+          "status": "verified"
+        },
+        {
+          "role": "listener_B",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-124/B_vocal.wav",
+          "expected_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+          "actual_sha256": "416e500add99d0240030857bccd5d6d9111c9a1be70c954ff1b84eaff92e1b35",
+          "status": "verified"
+        },
+        {
+          "role": "listener_A",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/A_vocal.wav",
+          "expected_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+          "actual_sha256": "30a1cdc23ecfdf01ae7af0c62ad98a731d4d8722c595b4b482ccb7ace7e75e4f",
+          "status": "verified"
+        },
+        {
+          "role": "listener_B",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-214/B_vocal.wav",
+          "expected_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+          "actual_sha256": "16687117d3f95bdbb4091e4fe592994d16d87acfc489e45bee629e47f11bfc70",
+          "status": "verified"
+        },
+        {
+          "role": "listener_A",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/A_vocal.wav",
+          "expected_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+          "actual_sha256": "36a4ff3b23ca1d862c9ebcfb7c43b577b7ac3b545995a79284d68d8cec7d169c",
+          "status": "verified"
+        },
+        {
+          "role": "listener_B",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-225/B_vocal.wav",
+          "expected_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+          "actual_sha256": "a83228c3d6ac98f78ab66d35b6a5dc8186b2e112db3d13180815fafe65d7de72",
+          "status": "verified"
+        },
+        {
+          "role": "listener_A",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/A_vocal.wav",
+          "expected_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+          "actual_sha256": "f4886bbd7873f8c88279a70c24e7b18d605700e75e84522438f17f8fc1ae806d",
+          "status": "verified"
+        },
+        {
+          "role": "listener_B",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/current-word-247/B_vocal.wav",
+          "expected_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+          "actual_sha256": "a8820129d21d321cb8e5b8113f8998e9008dfc39140d2703455440c70888d808",
+          "status": "verified"
+        },
+        {
+          "role": "listener_A",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/A_vocal.wav",
+          "expected_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+          "actual_sha256": "5543e32c6bd6e86d7ad283906da04c13d53c7f5c5612cdf7234aa690e297255f",
+          "status": "verified"
+        },
+        {
+          "role": "listener_B",
+          "path": "runs/lastpage_brec_cohort_probe_20261008/delivery/accepted-bao-C/B_vocal.wav",
+          "expected_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+          "actual_sha256": "5baa3e84b8b4541dfddb3924bcbbadcbca39c100912bb93e8a045becf0ece9e2",
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "feedback_group_id": "FB:OBS-001",
+      "source": {
+        "path": "runs/lastpage_guo_positive_comparison_20261008/feedback.json",
+        "sha256": "bb404ab7d3c94a1c3a0bcaffe05c8bea000fe60c4f85941df9cdfd8f26e4474e"
+      },
+      "original_text": "中间这个可以",
+      "record_ids": [
+        "OBS-001"
+      ],
+      "audio_bindings": {
+        "playlist_sha256": "298c3638df3f747e84ff87024137d316b8a8b0f8181b556c4698b2d905161917",
+        "accepted_clip": {
+          "word": 247,
+          "original_interval_s": [
+            195.55104308390023,
+            197.85104308390024
+          ],
+          "playback_uo_onset_s": 4.0,
+          "native_tone": 64,
+          "perceptual_label": "unknown",
+          "file_sha256": "7087ff1a1086502d2e83381f8de873b0a8b8a5ef5973e99db37d02265a772aa3"
+        }
+      },
+      "submission_timestamp": "unknown",
+      "device": "unknown",
+      "blinding": "unknown",
+      "task_protocol": "unknown",
+      "agent_listened": false,
+      "conflicting_legacy_field": {
+        "pointer": "accepted_clip/perceptual_label",
+        "value": "unknown",
+        "interpretation": "word247 local usable only",
+        "boundary": "legacy_unknown_retained; user_text_supports_word247_local_usable_only; word295_unknown"
+      }
+    }
+  ],
+  "semantic_boundaries": [
+    "numeric_response_not_auditory_improvement",
+    "fixed_vocoder_input_not_fixed_measured_F0",
+    "no_file_clipping_not_no_voice_break",
+    "C_local_accepted_not_full_song",
+    "BREC6_share1_feedback_not6_independent_replies",
+    "same_seed_repeat_not_generalization",
+    "OBS2_C_A_association_uses_C_B_label_not_direct_C_A_listening"
+  ],
+  "next_stage": "2D_not_executed; protocol_and_scope_before_new_causal_render_or_listening"
+}

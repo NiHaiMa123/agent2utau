@@ -1,0 +1,2695 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-09",
+  "stage": "D",
+  "status": "protocol_review_complete_with_explicit_gaps",
+  "original_rows_covered": 31,
+  "A_entities_covered": 47,
+  "B_extra_candidates": 3,
+  "protocol_count": 50,
+  "rows": [
+    {
+      "id": "MEAS:D01",
+      "candidate_entity_id": "ACO:P1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "P1"
+      ],
+      "name": "输出F0与参照偏差",
+      "observation_object": "PCM周期的估计F0；工程目标单列",
+      "input_requirements": "同SHA纯人声、FCPE/RMVPE版本/模型/重采样/时钟及音乐参照",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "按各模型原生hop；同元音稳态区；统计覆盖率与有效样本数",
+      "method_or_formula": "m=69+12log2(f/440)；e=1200log2(f/ref)。先按各时钟匹配，禁止跨无声插值；双估计一致仅是交叉线索",
+      "units": "Hz/cents/有效帧比例",
+      "quality_mask": "两模型voiced且f有限>0；范围/八度冲突/混音泄漏另标；一致阈值尚未校准",
+      "unknown_or_refusal": "无声、参照未知、分离伪影、检测冲突/共享偏差→unknown，不能填0c",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:018"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/analysis/f0.py",
+          "anchor": "def extract_f0(",
+          "line": 27,
+          "sha256": "b46b741e17030fc439799dc5a450fa1bf136954792063253f5a6a7dcd18eed21",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        },
+        {
+          "path": "src/agent2utau/analysis/rmvpe.py",
+          "anchor": "def infer_rmvpe(",
+          "line": 20,
+          "sha256": "ec5e21061beaedce0552d31828b4dc2514afa26b5b95fd5c0946b8cfd99643fe",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:01"
+      ],
+      "technical_validation_scope": [
+        "Unit conversion only; no FCPE/RMVPE execution, voiced mask accuracy or reference identity truth"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需绑定模型后用已知频率/噪声/八度/高音测试估计偏差；本轮只验单位"
+    },
+    {
+      "id": "MEAS:D02",
+      "candidate_entity_id": "EVT:P2",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "P2"
+      ],
+      "name": "慢趋势",
+      "observation_object": "指定支持内的F0中心走势",
+      "input_requirements": "已掩码F0或明确标native输入；音乐阶段与尺度",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "现有shape_features支持>=0.15s/8样本、相邻gap<=0.04s；并非通用趋势带宽",
+      "method_or_formula": "当前OLS y=a(t-t0)+b、残差；a为c/s。直线只描述区间中心，若用平滑须另冻结cutoff/边界",
+      "units": "cents/s、cents、s",
+      "quality_mask": "有限递增时钟/连续可信有声区，分段而非桥过mask",
+      "unknown_or_refusal": "短段/变速调制/拐弯使趋势与周期不可唯一分离→尺度依赖或unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:018"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/features.py",
+          "anchor": "def shape_features(",
+          "line": 29,
+          "sha256": "c8a4b4bdfb6d1aa28f859676ccc013721e0c0f3d1abe414250d8974a2542a652",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:02"
+      ],
+      "technical_validation_scope": [
+        "OLS straight-line primitive only; frame residual not cycle jitter or a validated nonperiodic decomposition"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "已知直线与变速周期数组；不能以去趋势残差证明自然或平直异常"
+    },
+    {
+      "id": "MEAS:D03",
+      "candidate_entity_id": "EVT:P3",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "P3"
+      ],
+      "name": "换音事件",
+      "observation_object": "从起始中心到目的中心的轨迹及相位关系",
+      "input_requirements": "有声F0、起止音符身份、目的音乐中心、phone边界",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "整个过渡并含两侧稳定支持；hop使用F0原生值；窗口候选由事件显式给出",
+      "method_or_formula": "音程差、相对目的误差、首次进入声明容差且保持声明时长的到达点；相邻c/s差另记，非连续导数真值",
+      "units": "cents/s、cents、ms",
+      "quality_mask": "两侧参照/保持时长有效；边界uncertainty传播",
+      "unknown_or_refusal": "目的身份不明/无稳定支撑/故意倚音未标→不判早晚、过冲异常",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:018"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需有意滑音/换音用户标签与到达容差冻结；目前方法候选"
+    },
+    {
+      "id": "MEAS:D04",
+      "candidate_entity_id": "ACO:P4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "P4"
+      ],
+      "name": "F0周期调制",
+      "observation_object": "有声中心周围的慢周期运动",
+      "input_requirements": "可靠F0及明确native/PCM角色、阶段支持",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "现有8样本/150ms/gap40ms门禁；3–12Hz/6c为代码候选范围；至少2个完整cycle",
+      "method_or_formula": "线性去趋势后prominence找交替极值；peak-valley-peak rate=1/(tc-ta)，depth用两peak均值减valley（峰谷幅度）；不是±depth",
+      "units": "Hz、峰谷cents、相位/非对称比例",
+      "quality_mask": "掩码连续；记录边沿半波、各周期幅度/速率而非只均值",
+      "unknown_or_refusal": "范围外、少周期或趋势混叠→未检出/unknown；不等于没有颤音",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:09"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:015",
+        "CLAIM:025"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/features.py",
+          "anchor": "def shape_features(",
+          "line": 29,
+          "sha256": "c8a4b4bdfb6d1aa28f859676ccc013721e0c0f3d1abe414250d8974a2542a652",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:03",
+        "DVAL:04"
+      ],
+      "technical_validation_scope": [
+        "Known F0 curve values only; no extractor accuracy, fast-changing vibrato performance or perceived vibrato truth",
+        "Input validation and explicitly supplied region masks; no real phone classification or audible boundary truth"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "现有5Hz定深数组与排序反例有有限组件验证；变深变速、实测F0误差与听到的颤音仍未验证"
+    },
+    {
+      "id": "MEAS:D05",
+      "candidate_entity_id": "ACO:P5",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "P5"
+      ],
+      "name": "帧级非周期F0残差",
+      "observation_object": "声明趋势/周期模型以外的帧残差",
+      "input_requirements": "已掩码F0、趋势/调制估计、检测质量",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "与原F0相同hop；指定稳态段；分解带宽候选未冻结",
+      "method_or_formula": "r=y-trend-modulation，记录分位跨度/RMS与时序；现有shape residual仅减直线，仍含周期，不能叫纯非周期残差",
+      "units": "cents、cents/s",
+      "quality_mask": "排除估计跳八度/缺帧；对多种合理趋势报告敏感性",
+      "unknown_or_refusal": "未分离周期/估计器误差→不可解释为声带jitter或异常",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:001",
+        "CLAIM:003"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/features.py",
+          "anchor": "def shape_features(",
+          "line": 29,
+          "sha256": "c8a4b4bdfb6d1aa28f859676ccc013721e0c0f3d1abe414250d8974a2542a652",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:02"
+      ],
+      "technical_validation_scope": [
+        "OLS straight-line primitive only; frame residual not cycle jitter or a validated nonperiodic decomposition"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需要独立误差对照与分解验证；目前只有输入折线残差代理"
+    },
+    {
+      "id": "MEAS:D06",
+      "candidate_entity_id": "ACO:L1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "L1"
+      ],
+      "name": "数字电平",
+      "observation_object": "逐通道PCM幅度/功率",
+      "input_requirements": "未归一的PCM、FS标定、通道/增益/编码、窗口身份",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选中心矩形30/50ms、hop10ms；半开[t-w/2,t+w/2)，取样量化规则/实际样本数需冻结；完整窗不足不补零；整段另报",
+      "method_or_formula": "RMS=sqrt(mean(x²))；dBFS=20log10(RMS/FS)；sample peak=max|x|。逐通道与合成功率分开，零RMS保存null+zero标记",
+      "units": "FS、dBFS、峰值",
+      "quality_mask": "有限/非空、同步通道；不先平均LR抹掉反相信号",
+      "unknown_or_refusal": "未知增益/FS不能报可比dBFS；零能量不产生有限dB；不是Pa或感知响度",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:05"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:009",
+        "CLAIM:010",
+        "CLAIM:022",
+        "CLAIM:023",
+        "CLAIM:029"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/wavcheck.py",
+          "anchor": "def analyze_wav(",
+          "line": 12,
+          "sha256": "39698dbacf9d53fa1896d159b3dcd86231fc3f0f04af07150eec162485731df7",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        },
+        {
+          "path": "src/agent2utau/analysis/onsets.py",
+          "anchor": "def frame_rms(",
+          "line": 24,
+          "sha256": "815b746508c5e3a7a881806a280328ee6267b54ac2ba82619dc9f1b98b94ea13",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:07"
+      ],
+      "technical_validation_scope": [
+        "Existing frame_rms uses forward window at frame time, not centered window. Numerical levels only, no new audio; no loudness or phonation test"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "数组验固定gain功率和窗口；wavcheck均值mono/格式限制需单列"
+    },
+    {
+      "id": "MEAS:D07",
+      "candidate_entity_id": "EVT:L2",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "L2"
+      ],
+      "name": "非周期强弱包络",
+      "observation_object": "PCM短时电平走势及持续区间",
+      "input_requirements": "L1电平与phase/phone身份；保留原增益",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选30/50ms矩形窗、10ms hop；两窗并报敏感性；字头/腹/尾不混平均",
+      "method_or_formula": "短时RMS→dBFS轨迹/起尾斜率；窗覆盖边界要注明。周期AM与噪声波动另分析，不自动全部叫强弱意图",
+      "units": "dBFS、dB/s、ms",
+      "quality_mask": "非零有效窗、全窗覆盖；稀疏或边界窗单标",
+      "unknown_or_refusal": "短事件被窗涂抹/底噪/混音遮盖→unknown，不判漏底/呼吸支撑",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:009",
+        "CLAIM:025"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [
+        "DVAL:07"
+      ],
+      "technical_validation_scope": [
+        "Existing frame_rms uses forward window at frame time, not centered window. Numerical levels only, no new audio; no loudness or phonation test"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮已知增益台阶数组比较窗涂抹；真实标签需E/试听"
+    },
+    {
+      "id": "MEAS:D08",
+      "candidate_entity_id": "ACO:L3",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "L3"
+      ],
+      "name": "振幅周期调制",
+      "observation_object": "包络中周期性幅度变化",
+      "input_requirements": "PCM或明确标数值包络、F0调制轨迹",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选10ms hop包络；报告RMS窗传递效应；至少3周期且远低于包络Nyquist",
+      "method_or_formula": "在声明线性幅度域A(t)去趋势，周期峰谷/相位；m=(Amax-Amin)/(Amax+Amin)。dB域结果单列；与F0调制关系不推生理耦合",
+      "units": "Hz、调制指数、相位",
+      "quality_mask": "有效声段、非零均值、谱共振/元音变化另标",
+      "unknown_or_refusal": "F0运动经滤波也能造成AM；原因未隔离，低于窗口分辨率→unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:002",
+        "CLAIM:025"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [
+        "DVAL:08"
+      ],
+      "technical_validation_scope": [
+        "Definition algebra only; no PCM envelope extraction or general AM detector validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "数值包络调制公式可验；未实现通用PCM AM检测"
+    },
+    {
+      "id": "MEAS:D09",
+      "candidate_entity_id": "EVT:L4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "L4"
+      ],
+      "name": "瞬态电平事件",
+      "observation_object": "局部能量变化和波形接缝分别观察",
+      "input_requirements": "逐通道PCM、明确接口时间、两侧身份",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选边界±30ms并30/50ms电平；逐sample跳变另列",
+      "method_or_formula": "Δ=20log10(RMSafter/RMSbefore)；同时记录x[k]-x[k-1]。电平台阶不等于采样值不连续，30ms下降不等于确切破音位置",
+      "units": "dB、FS/sample、ms",
+      "quality_mask": "两侧均非零/足够窗；接口时基误差和辅音特征保留",
+      "unknown_or_refusal": "未知自然波形斜率/辅音瞬态→只候选，不设通用click阈值",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:009",
+        "CLAIM:026",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [
+        "DVAL:07"
+      ],
+      "technical_validation_scope": [
+        "Existing frame_rms uses forward window at frame time, not centered window. Numerical levels only, no new audio; no loudness or phonation test"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "已知包络台阶与边界数组；需用户位置和对照确认可感知事件"
+    },
+    {
+      "id": "MEAS:D10",
+      "candidate_entity_id": "ACO:S1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "S1"
+      ],
+      "name": "周期性声学支撑代理",
+      "observation_object": "PCM可重复周期结构而非模型VOIC",
+      "input_requirements": "纯人声稳定元音、算法/参数与F0质量",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选至少5周期并固定窗；CPP/CPPS各自分析窗/平滑参数完整记录",
+      "method_or_formula": "HNR相关分析或CPP相对cepstral回归基线；voiced覆盖只作检测输出。当前模型voicing(-96,0)是条件特征，不能作测量真值",
+      "units": "HNR/CPP dB、voiced覆盖",
+      "quality_mask": "准周期稳定元音；辅音/混音/增益门禁分开",
+      "unknown_or_refusal": "强非周期/低SNR/参数敏感→unknown；不能映射“有芯/有力/实”唯一值",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:03",
+        "DSRC:04"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:004",
+        "CLAIM:008",
+        "CLAIM:016"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "HNR/CPPS官方组件已读，仓库通用检测未实现/未验证"
+    },
+    {
+      "id": "MEAS:D11",
+      "candidate_entity_id": "ACO:S2",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "S2"
+      ],
+      "name": "输出谐波谱形",
+      "observation_object": "输出谐波幅度/斜率，校正声源谱另列",
+      "input_requirements": "可靠F0、同元音/音区纯人声、滤波/增益记录",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选稳态>=5周期；Hann窗/hop显式记录；频带/谐波号固定",
+      "method_or_formula": "各k*f0邻域估计Hk；H1-H2或对数频率回归斜率。原始H1-H2与经formant校正H1*-H2*分栏，不能无共振信息计算后者",
+      "units": "dB、dB/oct",
+      "quality_mask": "足够谐波、窗泄漏/频率误差/共振变化另标",
+      "unknown_or_refusal": "高F0采样稀疏、F1接H1、未知EQ→不推声源闭合/张力",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "CLAIM:011",
+        "CLAIM:012"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:011",
+        "CLAIM:012"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "继承CLAIM:011/012方法范围；当前只有输出谱/原生mel代理"
+    },
+    {
+      "id": "MEAS:D12",
+      "candidate_entity_id": "ACO:S3",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "S3",
+        "X5"
+      ],
+      "name": "非周期噪声估计",
+      "observation_object": "特定分解算法的非周期成分",
+      "input_requirements": "稳定元音PCM、准周期假设/算法与参数",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "随选HNR分析窗；跨phone不混；固定周期数/floor/门限",
+      "method_or_formula": "准周期时HNR=10log10(周期功率/噪声功率)；其它残差需独立命名。模型BREC/aperiodicity输出不是同一真值",
+      "units": "dB或算法比例",
+      "quality_mask": "足够周期/稳定F0、噪声底和辅音摩擦排除",
+      "unknown_or_refusal": "强非周期或多声部不能唯一声源噪声分解；不把气声label等于HNR",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:03",
+        "CLAIM:004"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:004",
+        "CLAIM:011",
+        "CLAIM:013",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "官方HNR适用性已读，混合/高音误差待验证"
+    },
+    {
+      "id": "MEAS:D13",
+      "candidate_entity_id": "ACO:S4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "S4",
+        "X5"
+      ],
+      "name": "噪声谱形",
+      "observation_object": "已声明噪声/残差分量的频带分布",
+      "input_requirements": "S3分解或明确无声摩擦/呼吸片段、PCM/通道",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选20/40ms Hann、10ms hop；频带冻结；足够带宽",
+      "method_or_formula": "PSD积分频带能量/谱重心；分解未可靠时只称整PCM频带能量，不称声源噪声谱",
+      "units": "Hz、dB或相对能量",
+      "quality_mask": "分量可识别；相同采样率/窗/谱归一规则",
+      "unknown_or_refusal": "EQ、源泄漏/辅音混入、无可辨分量→不能单判气声/齿音",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:011",
+        "CLAIM:013",
+        "CLAIM:019",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "频带算法候选，现有局部报告不等于通用分解验证"
+    },
+    {
+      "id": "MEAS:D14",
+      "candidate_entity_id": "ACO:S5",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "S5"
+      ],
+      "name": "多周期/次谐波结构",
+      "observation_object": "相对基准周期的重复组织/低阶分量",
+      "input_requirements": "纯人声PCM、独立基准F0、足够周期",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选8–20周期并时频两看；频率分辨率不足不强行检峰",
+      "method_or_formula": "检查f0/n分量、跨周期相似性和交替模式；侧带、缺基频及两独立F0另候选解释，单谱峰不能决定",
+      "units": "Hz、周期倍数、相对dB",
+      "quality_mask": "排除八度估计错误/拍频/伴奏/窗口泄漏",
+      "unknown_or_refusal": "基准不明/多声源不可分→unknown；不是听感粗糙或生理假声检测",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "CLAIM:014",
+        "CLAIM:017"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:014",
+        "CLAIM:017"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "CLAIM:014/017仍摘要层；需要已知周期倍化与独立声源对照"
+    },
+    {
+      "id": "MEAS:D15",
+      "candidate_entity_id": "ACO:S7",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "P5"
+      ],
+      "name": "周期级jitter",
+      "observation_object": "有效相邻声周期时长扰动",
+      "input_requirements": "持续稳定元音PCM与可信pulse时刻；完整period floor/ceiling/factor",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "长持续元音；按有效cycle及有效pair计数，不拿10ms F0帧作周期",
+      "method_or_formula": "T_i=tpulse[i+1]-tpulse[i]；有效相邻|T_i-T_i+1|均值/按官方筛选的有效T均值；筛掉间隔不得跨缺失接成邻接",
+      "units": "秒、%",
+      "quality_mask": "脉冲可定位、充分有效周期；合法周期/比值集合分别保存",
+      "unknown_or_refusal": "滑音/颤音/强非周期/高F0脉冲不稳→unknown，不移植临床阈值",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:01"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:001",
+        "CLAIM:003"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "官方公式/筛选已读；仓库没有pulse jitter实现"
+    },
+    {
+      "id": "MEAS:D16",
+      "candidate_entity_id": "ACO:T2",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T2"
+      ],
+      "name": "音素时长",
+      "observation_object": "标签边界之间的持续时间，输入/声学两层",
+      "input_requirements": "native phone clock或声学注释；词表/语言/身份与SHA",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "逐phone/元音核/韵尾半开区间；各边界uncertainty",
+      "method_or_formula": "duration=end-start；native duration是输入计划，HFA duration是估计；支持到帧量化与actual boundary差另报",
+      "units": "ms、ticks、模型帧",
+      "quality_mask": "身份matched且start<end；timebase显式可逆",
+      "unknown_or_refusal": "边界不明/字典类未知→unknown；时长短不等于吞字/承载不足",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:026"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/independent.py",
+          "anchor": "def validate_native(",
+          "line": 26,
+          "sha256": "4dd3bc8e701d7c6d6d31479417ba15c642823359927b97c1cc615109c16d61f4",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:06"
+      ],
+      "technical_validation_scope": [
+        "Score tempo conversion only; no PCM offset, model latency, HFA boundary or perceived timing truth"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "现有native几何/TempoMap契约有测试；真实声学边界无全局真值"
+    },
+    {
+      "id": "MEAS:D17",
+      "candidate_entity_id": "ACO:R1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "R1"
+      ],
+      "name": "声道共振位置候选",
+      "observation_object": "输出峰/模型pole/声道共振分开",
+      "input_requirements": "稳定元音纯人声PCM、F0、声道/算法配置与不确定性",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "Praat候选effective25ms、实际Gaussian50ms、hop6.25ms；ceiling/poles不当通用固定",
+      "method_or_formula": "Burg LPC pole估计与声学峰对照；输出宽谱峰先存R5。高F0谐波稀疏时不据LPC自动填F1/F2，也不反推口腔形状",
+      "units": "Hz、置信区间",
+      "quality_mask": "元音/高低音分层；跨合理ceiling/order稳定及足够频率信息",
+      "unknown_or_refusal": "F0高于低共振/峰随谐波锁定/方法分歧→resonance unknown，不从谱图补造",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:06",
+        "DSRC:07"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:005",
+        "CLAIM:006",
+        "CLAIM:020"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "Burg参数/UNSW对象边界已读；无高F0真值验证"
+    },
+    {
+      "id": "MEAS:D18",
+      "candidate_entity_id": "ACO:R2",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "R2"
+      ],
+      "name": "共振带宽候选",
+      "observation_object": "已识别共振峰的宽度",
+      "input_requirements": "R1可靠性与已知声源/滤波条件",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "稳态同R1；窗分辨率和F0间距均需记录",
+      "method_or_formula": "指定峰两侧-3dB宽度或LPC pole半径带宽（方法不能混称）；若缺半功率交点只报谱峰宽度未定",
+      "units": "Hz",
+      "quality_mask": "共振身份/分辨率足够，参数稳定",
+      "unknown_or_refusal": "只有少数谐波/重叠峰/边界低于底噪→unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:06",
+        "DSRC:07"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:005",
+        "CLAIM:011",
+        "CLAIM:020"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需已知传递函数与密/稀疏激励对照；当前方法候选"
+    },
+    {
+      "id": "MEAS:D19",
+      "candidate_entity_id": "ACO:R4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "R4"
+      ],
+      "name": "鼻耦合相关谱线索",
+      "observation_object": "候选鼻化谱型而非鼻感",
+      "input_requirements": "同元音/音区PCM、鼻辅音上下文、可靠谱",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "稳定核与鼻邻接分层；窗同R5并记录多尺度",
+      "method_or_formula": "联合候选峰/凹陷/带宽关系；每线索单列；不从单一窄凹陷宣布鼻腔耦合",
+      "units": "Hz、dB、关系标签",
+      "quality_mask": "排除EQ/干涉/谐波稀疏及正常鼻韵尾",
+      "unknown_or_refusal": "缺独立鼻化参照或候选不一致→unknown；PER:R4另需试听",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "CLAIM:020"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:019",
+        "CLAIM:020"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "鼻化通用检测未实现，需进一步原始资料和标注"
+    },
+    {
+      "id": "MEAS:D20",
+      "candidate_entity_id": "ACO:R5",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "R2",
+        "X5"
+      ],
+      "name": "输出谱包络",
+      "observation_object": "输出能量形状；保留代理的算法单位",
+      "input_requirements": "PCM或原生log-mel，明确对象/频轴/增益/窗/mel base",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "PCM候选20/40ms Hann、10ms hop；原生mel按模型hop/frame clock，现有spectral_response选[start,end]闭区间，不静默转半开",
+      "method_or_formula": "PCM带能量/平滑log谱；原生Δmel逐帧减bin均值后RMS只去共同log偏移，不等于移除所有听感电平或声源影响",
+      "units": "dB/Hz或native log-mel单位（不能混）",
+      "quality_mask": "同频轴/形状/时钟/mel base；元音/音区/窗口一致",
+      "unknown_or_refusal": "跨模型bin/base、不同输出链→不可直接对比；不是formant真值",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:005",
+        "CLAIM:011",
+        "CLAIM:020",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/controlled_probe.py",
+          "anchor": "def spectral_response(",
+          "line": 170,
+          "sha256": "9175f52ad706ca42b35fafe4ca11334b4fbffbeaff2ba9bcf061c055b4740910",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:05"
+      ],
+      "technical_validation_scope": [
+        "Arithmetic of bound log-mel proxy only; not dBFS, formant truth, acoustic waveform level removal or improvement"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "spectral_response已有均匀level与shape数组验证；PCM谱法待验证"
+    },
+    {
+      "id": "MEAS:D21",
+      "candidate_entity_id": "ACO:R6",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "R2"
+      ],
+      "name": "反共振候选",
+      "observation_object": "可能的传递零点；输出凹陷先归R5",
+      "input_requirements": "宽带/独立source-filter证据及可靠谱；声部/相位记录",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "稳定段、多窗/多激励；所需带宽未冻结",
+      "method_or_formula": "声明深度/位置/带宽的输出notch只观测；只有排除source缺能量与混合抵消后才给anti-resonance解释",
+      "units": "Hz、dB",
+      "quality_mask": "足够激励覆盖该频带、无相位取消混淆",
+      "unknown_or_refusal": "只有最终PCM→多数情况成因unknown，LPC poles不能证明零点",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:07"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:005",
+        "CLAIM:011",
+        "CLAIM:020"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需要已知零点传递函数与实际独立证据；未实现"
+    },
+    {
+      "id": "MEAS:D22",
+      "candidate_entity_id": "ACO:X1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X1"
+      ],
+      "name": "削波/过载观测",
+      "observation_object": "数字rails/超限与true peak分开",
+      "input_requirements": "逐通道原PCM/编码整数rails、float FS、输出链",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "逐sample计数/连续rail长度；true peak按已验证重建器独立估计",
+      "method_or_formula": "sample peak与rail比例；已知clip前后数组隔离验证。wavcheck>=0.999只是近满幅告警且先mono，不等于确证剪裁；true peak不能由sample peak代替",
+      "units": "FS、次数、连续samples、dBTP候选",
+      "quality_mask": "保留通道；禁止downmix先抹峰；float/int编码正确",
+      "unknown_or_refusal": "没有clip前真值不能证明非线性原因；无rail也不排除听到破音",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:10"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/wavcheck.py",
+          "anchor": "def analyze_wav(",
+          "line": 12,
+          "sha256": "39698dbacf9d53fa1896d159b3dcd86231fc3f0f04af07150eec162485731df7",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:09"
+      ],
+      "technical_validation_scope": [
+        "Known algebraic clip/seam only; does not execute wavcheck, prove true peak, or establish click/破音 thresholds"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "clip数学数组可验；ITU true-peak组件已读，标准实现未验"
+    },
+    {
+      "id": "MEAS:D23",
+      "candidate_entity_id": "ACO:X2",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X2"
+      ],
+      "name": "采样接缝观测",
+      "observation_object": "PCM边界值/斜率变化",
+      "input_requirements": "逐通道PCM、实际组装边界及相邻源片段",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "逐sample边界并候选±5/30ms；记录交叉淡化范围",
+      "method_or_formula": "Δx=x[k]-x[k-1]及两侧局部差分分布；同源拼接/已知阶跃作对照。自然高频也有大Δx，不用统一阈值判click",
+      "units": "FS/sample、ms",
+      "quality_mask": "边界SHA/offset明确；无重采样/裁剪错位",
+      "unknown_or_refusal": "边界未知、辅音瞬态或上游滤波→仅候选，听感click需独立标签",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:008",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [
+        "DVAL:09"
+      ],
+      "technical_validation_scope": [
+        "Known algebraic clip/seam only; does not execute wavcheck, prove true peak, or establish click/破音 thresholds"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "已知数组边界验证；歌曲可听伪影未建立检测性能"
+    },
+    {
+      "id": "MEAS:D24",
+      "candidate_entity_id": "ACO:X3",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X3"
+      ],
+      "name": "声部电平关系",
+      "observation_object": "同步stem的时频功率关系",
+      "input_requirements": "同源时轴未归一vocal/backing stems、固定gain/延迟/通道",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选30/50ms与频带，合成PCM另报交叉项",
+      "method_or_formula": "20log10(RMSv/RMSb)或分带功率差；混音能量含2E[v*b]，不能从两个RMS简单相加推总电平",
+      "units": "dB、交叉功率",
+      "quality_mask": "样本同步、两分量有效；零分母标特殊值",
+      "unknown_or_refusal": "只给mix或分离泄漏→未知真实stem比；不等于掩蔽/清晰度",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:027",
+        "CLAIM:029"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需同电平异谱/混音用户标签；数值关系不能替代听觉"
+    },
+    {
+      "id": "MEAS:D25",
+      "candidate_entity_id": "ACO:X4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X4"
+      ],
+      "name": "左右通道关系",
+      "observation_object": "LR功率/互相关及mono兼容",
+      "input_requirements": "原立体声PCM、明确声道/增益及同步",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选50/200ms；逐频带/延迟范围冻结",
+      "method_or_formula": "ρ=E[(L-meanL)(R-meanR)]/(σLσR)、LR电平差及(L+R)/2的能量；lagged crosscorr另列，零方差→null",
+      "units": "相关系数、dB、ms",
+      "quality_mask": "保留LR，检测mono/零能量/独立通道延迟",
+      "unknown_or_refusal": "单声道不适用；相关低/负不能自动判空间坏或相位错误",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:028",
+        "CLAIM:029"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [
+        "DVAL:10"
+      ],
+      "technical_validation_scope": [
+        "Channel/downmix identity only; no perceived spatial quality or playback device validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "反相/同相数组验证对象区别；空间感仍需试听"
+    },
+    {
+      "id": "MEAS:D26",
+      "candidate_entity_id": "ACO:X6",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X2"
+      ],
+      "name": "重复纹理观测",
+      "observation_object": "跨帧/样本重复与可能的周期纹理",
+      "input_requirements": "PCM/时频轨迹、hop/缓存/组装边界及合法音乐重复",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选跨2–10个模型hop及乐句区；lag与支持显式",
+      "method_or_formula": "精确array相等片段或归一lag相似度；区别自然周期/乐句重复与相同数组复用，不能单凭相似称数码成因",
+      "units": "lag samples/ms、相似度、重复段长度",
+      "quality_mask": "排除常量/静音、合法周期、codec影响",
+      "unknown_or_refusal": "无上游数组 provenance→病因unknown；相似不证明缓存错误",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:008",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需已知复制对照与人耳重复纹理标签；未建通用检测器"
+    },
+    {
+      "id": "MEAS:D27",
+      "candidate_entity_id": "ACO:X7",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X4"
+      ],
+      "name": "衰减/混响关系候选",
+      "observation_object": "系统冲激响应或受限尾声衰减代理",
+      "input_requirements": "若估RT需已知IR/噪声底；dry/wet stems另绑定",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "IR完整衰减支持；尾声窗不能把后续发声算reverb",
+      "method_or_formula": "IR倒积分能量曲线与指定拟合区间/外推；歌曲尾声只报观察衰减，不当ISO房间RT测量",
+      "units": "dB/s、s",
+      "quality_mask": "激励/IR/系统条件明确；噪声底和截断排除",
+      "unknown_or_refusal": "仅最终歌声/未知dry→混响时长与近远感unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "CLAIM:028"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:028",
+        "CLAIM:029"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "CLAIM:028仅标准范围；ISO完整参数算法待读/实现未验"
+    },
+    {
+      "id": "MEAS:D28",
+      "candidate_entity_id": "EVT:S4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "S4"
+      ],
+      "name": "噪声出现阶段",
+      "observation_object": "候选噪声/摩擦/呼吸相对phone的时位",
+      "input_requirements": "S3/S4量与声学阶段标注、native clock单列",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "字头/核/尾区间与uncertainty；20/40ms窗口边界效应",
+      "method_or_formula": "在可靠事件区间标开始/持续/结束及相对元音时差；不将AP标签自动译成实际吸气",
+      "units": "ms、phase标签",
+      "quality_mask": "phone身份/噪声对象可识别；边界覆窗单标",
+      "unknown_or_refusal": "分离伪影或辅音/气声不可分→来源unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:013",
+        "CLAIM:019"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需已标摩擦/呼吸/气声边界，方法候选"
+    },
+    {
+      "id": "MEAS:D29",
+      "candidate_entity_id": "EVT:S6",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "S6"
+      ],
+      "name": "发声中断/恢复",
+      "observation_object": "可靠周期建立/失去及上下文关系",
+      "input_requirements": "PCM、可靠周期/检测质量、预期唱区和phone",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "内部唱区；检测hop与gap精度，排除前后静音/AP/SP",
+      "method_or_formula": "voiced mask内部gap长度与恢复时刻仅检测候选；Praat pulse break公式限选定floor/持续元音，不套歌唱病理阈值",
+      "units": "ms、次数、覆盖比例",
+      "quality_mask": "结合电平/谱和两个F0，避免单检测失败当断声",
+      "unknown_or_refusal": "辅音清化/合法停顿/估计冲突→unknown；声区翻转和破音病因不自动得出",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:08"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:017",
+        "CLAIM:021"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "官方声断定义已读，真实破音标签与边界验证未完成"
+    },
+    {
+      "id": "MEAS:D30",
+      "candidate_entity_id": "EVT:R3",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "R3"
+      ],
+      "name": "字内谱过渡",
+      "observation_object": "输出谱轨迹或可靠共振轨迹随时间",
+      "input_requirements": "R5或已可靠R1/R2、元音身份/双元音运动与阶段",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "整个元音含两端；声明窗/hop、延迟与平滑",
+      "method_or_formula": "谱bin/带能量差及轨迹斜率；有可靠formant才记Fi(t)；不同元音正常过渡不自动视为异常漂移",
+      "units": "log谱单位/s、Hz/s、ms",
+      "quality_mask": "相同freq axis/增益；pitch-source变化与声道变化分开",
+      "unknown_or_refusal": "仅log-mel变化→声道共振解释unknown；不能标口型错",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:006",
+        "CLAIM:007",
+        "CLAIM:020"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需同字跨上下文、元音运动观测与标签；方法候选"
+    },
+    {
+      "id": "MEAS:D31",
+      "candidate_entity_id": "EVT:T1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T1"
+      ],
+      "name": "整体落点关系",
+      "observation_object": "多时钟/多种起点之间的关系",
+      "input_requirements": "score/native/PCM/delivery/source映射、拍点/词/phone身份",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "逐事件；边界给区间不确定性；不把相邻帧当无限精确",
+      "method_or_formula": "Δ=t_observed-t_reference；score tick分段TempoMap；裁剪/延迟/重采样offset链另列；HFA alignment只是估计",
+      "units": "ticks、ms、拍比例",
+      "quality_mask": "SHA/identity/offset齐全；参照音乐身份明确",
+      "unknown_or_refusal": "只有用户大约秒数/无同一时轴→定位区间，不报精确落点误差",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:026"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/openutau/ustx.py",
+          "anchor": "class TempoMap:",
+          "line": 63,
+          "sha256": "b172ccbfa353da4154ffd406c0d07a4082988a9eb959385bdf649e7833f2306a",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:06"
+      ],
+      "technical_validation_scope": [
+        "Score tempo conversion only; no PCM offset, model latency, HFA boundary or perceived timing truth"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "TempoMap/native契约已测；各PCM/观测时轴延迟仍需绑定"
+    },
+    {
+      "id": "MEAS:D32",
+      "candidate_entity_id": "EVT:T3",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T3"
+      ],
+      "name": "辅音动作",
+      "observation_object": "辅音类别内的爆破/摩擦/闭塞与周期建立",
+      "input_requirements": "纯人声PCM、语言/辅音类、人工/可靠声学标注",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "类别对应起止；候选5–20ms短谱+上下文，不统一一个元音窗",
+      "method_or_formula": "塞音VOT=t_voicing-t_release；摩擦记录持续/带能量；鼻/近音另协议；native phone start不是爆破release",
+      "units": "ms、Hz、dB",
+      "quality_mask": "先确认类别与可见release；英文stop资料不泛化中文全部辅音",
+      "unknown_or_refusal": "无release/混音/模型不对应真实爆破→VOT不适用或unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "CLAIM:026"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:019",
+        "CLAIM:026",
+        "CLAIM:027"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "CLAIM:026仅英文摘要；中文/非塞音与实际标注尚缺"
+    },
+    {
+      "id": "MEAS:D33",
+      "candidate_entity_id": "EVT:T4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T4"
+      ],
+      "name": "起声协调关系",
+      "observation_object": "增益建立、周期建立、辅音/元音边界的相对时序",
+      "input_requirements": "独立L2/周期/声学边界，输入条件进入函数另列",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "入口前后候选80–200ms，窗口/hop记录并给uncertainty",
+      "method_or_formula": "分别记t_energy,t_periodicity,t_release,t_vowel及差；SHFC进入55/145ms是输入条件设计量，不是实测起声或VOT",
+      "units": "ms、dB/s、phase",
+      "quality_mask": "周期可靠/电平门限冻结，排除窗延迟",
+      "unknown_or_refusal": "只有envelope attack或native控制函数→声学起声unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:019",
+        "CLAIM:026"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需已标入口与可感知字头事件；不从算法缓进入声明完全无破音"
+    },
+    {
+      "id": "MEAS:D34",
+      "candidate_entity_id": "EVT:T5",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T5"
+      ],
+      "name": "跨音素衔接关系",
+      "observation_object": "边界上的时钟/电平/音高/谱连续性分别观察",
+      "input_requirements": "两侧身份、PCM、native clocks、各通道观察",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "边界候选±30/80ms并两侧稳态；跨元音谱差不直接设阈值",
+      "method_or_formula": "gap/overlap、F0中心差、L2差与R5谱差向量；分别报告，不压成自然度总分",
+      "units": "ms、cents、dB、谱单位",
+      "quality_mask": "每通道自身mask/uncertainty，缺项保留unknown",
+      "unknown_or_refusal": "数学连续不等于声线连贯，正常元音换型不等于断层",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:019",
+        "CLAIM:020",
+        "CLAIM:026"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/features.py",
+          "anchor": "def boundary_candidates(",
+          "line": 65,
+          "sha256": "c8a4b4bdfb6d1aa28f859676ccc013721e0c0f3d1abe414250d8974a2542a652",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [
+        "DVAL:04"
+      ],
+      "technical_validation_scope": [
+        "Input validation and explicitly supplied region masks; no real phone classification or audible boundary truth"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需same-vowel续音/跨元音/邻字标签覆盖，E另审"
+    },
+    {
+      "id": "MEAS:D35",
+      "candidate_entity_id": "EVT:T6",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T6"
+      ],
+      "name": "释放/收声关系",
+      "observation_object": "周期结束、电平衰减与音素尾部的相对顺序",
+      "input_requirements": "PCM、韵尾身份、周期和电平轨迹",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "声明字尾至后音段，窗延迟与混响尾分开",
+      "method_or_formula": "t_periodicity_end,t_energy_end,t_coda_end及差；native release/包络不等于实际喉音收声",
+      "units": "ms、dB/s",
+      "quality_mask": "保留尾声、干湿、后续辅音；零能量窗特殊处理",
+      "unknown_or_refusal": "混响遮尾/无可靠韵尾→不判硬切或吞尾",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:009",
+        "CLAIM:019"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需弱收/硬切/正常尾标签，方法候选"
+    },
+    {
+      "id": "MEAS:D36",
+      "candidate_entity_id": "EVT:T7",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T7"
+      ],
+      "name": "呼吸声事件",
+      "observation_object": "可能的吸气/呼气声音及其时位",
+      "input_requirements": "PCM、词/phone上下文、可靠标签；AP元数据另列",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "整个候选呼吸区+两侧；S4短谱与局部电平",
+      "method_or_formula": "事件起止/带能量/连续性；单噪声片段不能区分吸气、摩擦、分离残差",
+      "units": "ms、dBFS、事件标签",
+      "quality_mask": "排除伴奏泄漏/齿擦音；保留呼吸方向未知",
+      "unknown_or_refusal": "只有AP符号或静音→实际呼吸unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:019"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需有标签呼吸/无声停顿/摩擦对照；未实现"
+    },
+    {
+      "id": "MEAS:D37",
+      "candidate_entity_id": "EVT:T8",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T6"
+      ],
+      "name": "韵尾身份事件",
+      "observation_object": "韵尾音素存在与声学支持",
+      "input_requirements": "歌词/语言/音素映射、声学边界与听懂标签",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "尾部phone/音节和后字语境；不能只看整元音RMS",
+      "method_or_formula": "native是否含预期coda与PCM是否有对应声学事件分开；鼻尾/闭塞/弱化按类记录",
+      "units": "类别、ms、presence/unknown",
+      "quality_mask": "字典正确、延音/续音关系明确；音节粒度与token粒度分开",
+      "unknown_or_refusal": "uo整体token不代表没有内部动作；无音素声学证据不判吞字",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:009",
+        "CLAIM:019"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "需语言专项与人工标注，不凭工程文件填存在声音"
+    },
+    {
+      "id": "MEAS:D38",
+      "candidate_entity_id": "EVT:T9",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T7"
+      ],
+      "name": "间隙/静音组织",
+      "observation_object": "唱段之间空隙与音乐/语义参照",
+      "input_requirements": "note/phone输入空隙、PCM电平/周期及语境",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "逐gap与句级支持；0.9s voiced_blocks门限是代码分组，不是普遍断句规则",
+      "method_or_formula": "前后事件间gap/overlap；静音按声明noise-floor门限定义。onsets.py以RMS+F0合并block且<0.6s过滤，另记录遗漏",
+      "units": "ms、拍比例、结构标签",
+      "quality_mask": "区分无声辅音/尾混响/呼吸与真正低能量",
+      "unknown_or_refusal": "未知底噪/分离泄漏/语义参照→句读组织unknown",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:019"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/analysis/onsets.py",
+          "anchor": "def voiced_blocks(",
+          "line": 39,
+          "sha256": "815b746508c5e3a7a881806a280328ee6267b54ac2ba82619dc9f1b98b94ea13",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "现有block只作观测辅助，音乐断句意图需Agent/听者"
+    },
+    {
+      "id": "MEAS:D39",
+      "candidate_entity_id": "META:X5",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X5"
+      ],
+      "name": "格式/输出链元数据",
+      "observation_object": "编码、采样率、通道与每次变换",
+      "input_requirements": "最终文件header/编码及source→render→mix→delivery映射",
+      "stage_and_clock": "metadata and conversion chain",
+      "window_hop_and_support": "文件级/每转换节点；PCM样本时轴另记",
+      "method_or_formula": "登记container/subtype/sr/channels、重采样算法/版本/增益/裁剪SHA；metadata不推出低保真或编码伪影听感",
+      "units": "Hz、bit、channels、线性gain/dB",
+      "quality_mask": "显式文件/资源SHA；float/int和container分开",
+      "unknown_or_refusal": "缺转换历史→未知历史处理；wavcheck不支持PCM24不能填已查",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:011",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [
+        {
+          "path": "src/agent2utau/evaluation/wavcheck.py",
+          "anchor": "def analyze_wav(",
+          "line": 12,
+          "sha256": "39698dbacf9d53fa1896d159b3dcd86231fc3f0f04af07150eec162485731df7",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        },
+        {
+          "path": "src/agent2utau/audio/mix.py",
+          "anchor": "def mix(",
+          "line": 6,
+          "sha256": "313d1d905aa12523dc3614d0b0ff839e5726426e8dd59d5d8b1862d52b0eb8af",
+          "role": "existing_component_only_not_full_protocol_or_all_inputs"
+        }
+      ],
+      "implementation_status": "selected_component_source_reviewed",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "C已核对导出读取链；D不新导出，实际文件元数据仍限已有绑定"
+    },
+    {
+      "id": "MEAS:D40",
+      "candidate_entity_id": "PER:L1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "L1"
+      ],
+      "name": "感知响度",
+      "observation_object": "听者在呈现条件下感到的大/小",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "BS.1770是节目响度估计；K加权/通道功率/400ms块75%重叠及绝对-70/相对-10门禁，不等于字头30msRMS或个人听感。ISO复杂响度算法尚未完整读取。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:10",
+        "CLAIM:022",
+        "CLAIM:023"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:009",
+        "CLAIM:010",
+        "CLAIM:022",
+        "CLAIM:023",
+        "CLAIM:029"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D41",
+      "candidate_entity_id": "PER:R4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "R4"
+      ],
+      "name": "鼻感",
+      "observation_object": "听者所说鼻/堵等标签",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "需保留原词/上下文/比较；R4谱型候选不是充分必要映射。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:019",
+        "CLAIM:020"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D42",
+      "candidate_entity_id": "PER:S1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "S1"
+      ],
+      "name": "支撑/实的听感",
+      "observation_object": "有芯、偏实、偏假的主观关系",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "模型VOIC、HNR、RMS及共振均不能代替该标签；现有抱/果反馈范围保持。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:004",
+        "CLAIM:008",
+        "CLAIM:016"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D43",
+      "candidate_entity_id": "PER:T3",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "T3"
+      ],
+      "name": "语音清晰/可懂度",
+      "observation_object": "听到的辅音清楚与词识别",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "词识别正确率若采用需冻结文本/盲听人数/混音；ASR/HFA不能充当听者正确率。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:019",
+        "CLAIM:026",
+        "CLAIM:027"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D44",
+      "candidate_entity_id": "PER:X1",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X1"
+      ],
+      "name": "破音/失真听感",
+      "observation_object": "听者报告的破/顶/裂",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "sample rail阴性不能否定反馈；报告位置、程度及比较对象，病因另未知。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D45",
+      "candidate_entity_id": "PER:X2",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X2"
+      ],
+      "name": "数码/拼接质地听感",
+      "observation_object": "被听到的click/机械/重复纹理",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "听觉标签不自动证明编码器、缓存或拼接原因。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:008",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D46",
+      "candidate_entity_id": "PER:X3",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X3"
+      ],
+      "name": "掩蔽/平衡听感",
+      "observation_object": "听者在mix中对目标声部可辨认与平衡的感受",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "stem比和频带能量不是掩蔽阈值；纯人声/mix分开呈现。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "CLAIM:027"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:027",
+        "CLAIM:029"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D47",
+      "candidate_entity_id": "PER:X4",
+      "entity_proposal_status": "A_proposal_not_formally_migrated",
+      "legacy_ids": [
+        "X4"
+      ],
+      "name": "空间/距离听感",
+      "observation_object": "听者所说近远、宽窄、空间",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "呈现设备/耳机/房间/增益绑定；LR相关或reverb参数不等于感知空间真值。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [
+        "CLAIM:028",
+        "CLAIM:029"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D48",
+      "candidate_entity_id": "PER:P1",
+      "entity_proposal_status": "B_open_candidate",
+      "legacy_ids": [
+        "P1"
+      ],
+      "name": "感知音高（B候选）",
+      "observation_object": "听到的高低/音程身份",
+      "input_requirements": "已有反馈须绑定音频/对照/时间轴与原话；新的任务需冻结呈现/盲法/问题/设备/顺序",
+      "stage_and_clock": "listening/delivery clock with source binding",
+      "window_hop_and_support": "标签范围可为字头/腹/尾/词/乐句；听者约秒数保留uncertainty，不强造精确hop",
+      "method_or_formula": "可靠F0与听到音高分别记录，缺基频/多声部不能用单检测器代替听者。",
+      "units": "原文/有序评分/识别率（须任务定义）",
+      "quality_mask": "确认比较对象/音频版本/听者/问题及呈现；单次标签不推广全部上下文",
+      "unknown_or_refusal": "未听/未提细分属性/无法绑定→unknown；“可以”不补写完全无破音，“没区别”不证明参数全无效",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "CLAIM:018"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:018"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "listening_record_protocol_only",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "本轮无新试听；E回核已有反馈，新的因果听测按表2冻结方案"
+    },
+    {
+      "id": "MEAS:D49",
+      "candidate_entity_id": "ACO:L5",
+      "entity_proposal_status": "B_open_candidate",
+      "legacy_ids": [
+        "L3",
+        "L4"
+      ],
+      "name": "周期级shimmer（B候选）",
+      "observation_object": "有效相邻周期幅度扰动",
+      "input_requirements": "持续元音PCM与可靠pulse/每周期幅度及筛选规则",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "长稳定元音周期级；不是30/50ms RMS包络",
+      "method_or_formula": "相邻周期幅度绝对差均值/有效周期幅度均值；dB变体另定义；period/amplitude筛选与计数必须保存",
+      "units": "%/dB",
+      "quality_mask": "可靠周期对应且增益固定；漂移、F0/滤波造成幅度变化需排除",
+      "unknown_or_refusal": "周期不可靠/非稳态/强AM→unknown；禁止套临床病理阈值",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [
+        "DSRC:02"
+      ],
+      "inherited_B_component_refs": [
+        "CLAIM:002",
+        "CLAIM:009",
+        "CLAIM:025",
+        "CLAIM:026",
+        "CLAIM:030"
+      ],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "官方定义已读，脉冲/幅度实现与歌唱验证未完成"
+    },
+    {
+      "id": "MEAS:D50",
+      "candidate_entity_id": "CAND:MULTI_F0",
+      "entity_proposal_status": "B_open_candidate",
+      "legacy_ids": [],
+      "name": "复音/拍频（B开放候选）",
+      "observation_object": "多个独立周期源、差频包络与其它调制的区别",
+      "input_requirements": "独立声源/纯stem或受控多源真值、PCM及足够分辨率",
+      "stage_and_clock": "output PCM clock unless explicitly tagged native/score/model; all offsets separately bound",
+      "window_hop_and_support": "候选支持至少数个差频周期；频率近时须足够长窗，不桥过非平稳段",
+      "method_or_formula": "两稳定频率差|f1-f2|只是理想拍频候选；单F0检测、次谐波峰或AM侧带都不能唯一判复音",
+      "units": "Hz、源数候选、ms",
+      "quality_mask": "排除伴奏/侧带/周期倍化/缺基频及单声源调制",
+      "unknown_or_refusal": "最终mix不能唯一源分解→unknown；无新正式维度ID，E/F再决定去向",
+      "reference_and_uncertainty": "Explicit identity/reference/version/offset required; report interval uncertainty and quality-mask coverage. No default identity mapping from source to score/native/PCM/delivery.",
+      "parameter_status": "Protocol design proposals distinguished from frozen current code constants; no perceptual/clinical pass thresholds",
+      "source_refs": [],
+      "inherited_B_component_refs": [],
+      "source_role": "authored_protocol; cited components retain original read status and do not validate the whole protocol",
+      "implementation_refs": [],
+      "implementation_status": "method_candidate_not_implemented_here",
+      "technical_validation_refs": [],
+      "technical_validation_scope": [
+        "no_new_algorithm_accuracy_validation"
+      ],
+      "measurement_defined": "protocol_defined_with_gaps",
+      "measurement_validated": false,
+      "real_audio_accuracy": "not_validated_in_D",
+      "existing_labels_role": "existing_scope_retained_no_new_labels",
+      "auditory_label_status": "no_new_listening",
+      "remaining_gap": "须独立多源与AM/次谐波反例，不把谱峰计数当源数"
+    }
+  ],
+  "legacy_links": [
+    {
+      "legacy_id": "P1",
+      "protocol_refs": [
+        "MEAS:D01",
+        "MEAS:D48"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "P2",
+      "protocol_refs": [
+        "MEAS:D02"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "P3",
+      "protocol_refs": [
+        "MEAS:D03"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "P4",
+      "protocol_refs": [
+        "MEAS:D04"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "P5",
+      "protocol_refs": [
+        "MEAS:D05",
+        "MEAS:D15"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "L1",
+      "protocol_refs": [
+        "MEAS:D06",
+        "MEAS:D40"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "L2",
+      "protocol_refs": [
+        "MEAS:D07"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "L3",
+      "protocol_refs": [
+        "MEAS:D08",
+        "MEAS:D49"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "L4",
+      "protocol_refs": [
+        "MEAS:D09",
+        "MEAS:D49"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "S1",
+      "protocol_refs": [
+        "MEAS:D10",
+        "MEAS:D42"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "S2",
+      "protocol_refs": [
+        "MEAS:D11"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "S3",
+      "protocol_refs": [
+        "MEAS:D12"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "S4",
+      "protocol_refs": [
+        "MEAS:D13",
+        "MEAS:D28"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "S5",
+      "protocol_refs": [
+        "MEAS:D14"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "S6",
+      "protocol_refs": [
+        "MEAS:D29"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "R1",
+      "protocol_refs": [
+        "MEAS:D17"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "R2",
+      "protocol_refs": [
+        "MEAS:D18",
+        "MEAS:D20",
+        "MEAS:D21"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "R3",
+      "protocol_refs": [
+        "MEAS:D30"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "R4",
+      "protocol_refs": [
+        "MEAS:D19",
+        "MEAS:D41"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "T1",
+      "protocol_refs": [
+        "MEAS:D31"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "T2",
+      "protocol_refs": [
+        "MEAS:D16"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "T3",
+      "protocol_refs": [
+        "MEAS:D32",
+        "MEAS:D43"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "T4",
+      "protocol_refs": [
+        "MEAS:D33"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "T5",
+      "protocol_refs": [
+        "MEAS:D34"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "T6",
+      "protocol_refs": [
+        "MEAS:D35",
+        "MEAS:D37"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "T7",
+      "protocol_refs": [
+        "MEAS:D36",
+        "MEAS:D38"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "X1",
+      "protocol_refs": [
+        "MEAS:D22",
+        "MEAS:D44"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "X2",
+      "protocol_refs": [
+        "MEAS:D23",
+        "MEAS:D26",
+        "MEAS:D45"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "X3",
+      "protocol_refs": [
+        "MEAS:D24",
+        "MEAS:D46"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "X4",
+      "protocol_refs": [
+        "MEAS:D25",
+        "MEAS:D27",
+        "MEAS:D47"
+      ],
+      "all_associated_methods_validated": false
+    },
+    {
+      "legacy_id": "X5",
+      "protocol_refs": [
+        "MEAS:D12",
+        "MEAS:D13",
+        "MEAS:D20",
+        "MEAS:D39"
+      ],
+      "all_associated_methods_validated": false
+    }
+  ],
+  "extra_candidates": [
+    {
+      "candidate_entity_id": "PER:P1",
+      "proposal_status": "B_open_candidate"
+    },
+    {
+      "candidate_entity_id": "ACO:L5",
+      "proposal_status": "B_open_candidate"
+    },
+    {
+      "candidate_entity_id": "CAND:MULTI_F0",
+      "proposal_status": "B_open_candidate"
+    }
+  ],
+  "counts_by_namespace": {
+    "ACO": 24,
+    "EVT": 15,
+    "META": 1,
+    "PER": 9,
+    "CAND": 1
+  },
+  "implementation_bindings": [
+    {
+      "path": "src/agent2utau/evaluation/features.py",
+      "sha256": "c8a4b4bdfb6d1aa28f859676ccc013721e0c0f3d1abe414250d8974a2542a652"
+    },
+    {
+      "path": "src/agent2utau/evaluation/independent.py",
+      "sha256": "4dd3bc8e701d7c6d6d31479417ba15c642823359927b97c1cc615109c16d61f4"
+    },
+    {
+      "path": "src/agent2utau/evaluation/controlled_probe.py",
+      "sha256": "9175f52ad706ca42b35fafe4ca11334b4fbffbeaff2ba9bcf061c055b4740910"
+    },
+    {
+      "path": "src/agent2utau/evaluation/wavcheck.py",
+      "sha256": "39698dbacf9d53fa1896d159b3dcd86231fc3f0f04af07150eec162485731df7"
+    },
+    {
+      "path": "src/agent2utau/analysis/f0.py",
+      "sha256": "b46b741e17030fc439799dc5a450fa1bf136954792063253f5a6a7dcd18eed21"
+    },
+    {
+      "path": "src/agent2utau/analysis/rmvpe.py",
+      "sha256": "ec5e21061beaedce0552d31828b4dc2514afa26b5b95fd5c0946b8cfd99643fe"
+    },
+    {
+      "path": "src/agent2utau/analysis/onsets.py",
+      "sha256": "815b746508c5e3a7a881806a280328ee6267b54ac2ba82619dc9f1b98b94ea13"
+    },
+    {
+      "path": "src/agent2utau/openutau/ustx.py",
+      "sha256": "b172ccbfa353da4154ffd406c0d07a4082988a9eb959385bdf649e7833f2306a"
+    },
+    {
+      "path": "src/agent2utau/audio/mix.py",
+      "sha256": "313d1d905aa12523dc3614d0b0ff839e5726426e8dd59d5d8b1862d52b0eb8af"
+    },
+    {
+      "path": "tests/contracts/test_independent_evaluation.py",
+      "sha256": "73240fa9655a787e1634e028e3b2bbf2c7a5b009c4bf9389c0b58d8a8876050c"
+    },
+    {
+      "path": "tests/contracts/test_controlled_probe.py",
+      "sha256": "66110e994c9668bc3f6eeb60a7190756d3b170134b87905ca2d321e068d07e1d"
+    },
+    {
+      "path": "research/table1-confirmation/verify_stage_d_arrays.py",
+      "sha256": "ba3112290a9d167344c86f512f1a3066f68a64eb1d854a959498c669d3848213"
+    }
+  ],
+  "component_source_entries": 10,
+  "numerical_verification": {
+    "path": "runs/research/table1-d-measurements-20261009/observations/array-checks.json",
+    "sha256": "6a1148fcc8ea25bfe3b26f0f1a38736507762e4793a17d43ebbd485291312a8f",
+    "status": "finite_array_checks_passed",
+    "cases": [
+      {
+        "id": "DVAL:01",
+        "candidate_entities": [
+          "ACO:P1"
+        ],
+        "input_spec": "Hz=[440,880]; positive finite values only",
+        "truth": {
+          "midi": [
+            69,
+            81
+          ],
+          "difference_cents": 1200
+        },
+        "observed": {
+          "midi": [
+            69.0,
+            81.0
+          ],
+          "difference_cents": 1200.0
+        },
+        "technical_check": "passed",
+        "validation_scope": "Unit conversion only; no FCPE/RMVPE execution, voiced mask accuracy or reference identity truth",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:02",
+        "candidate_entities": [
+          "EVT:P2",
+          "ACO:P5"
+        ],
+        "input_spec": "t=arange(0,2,0.005); y=6000 or 6000+20*t",
+        "truth": {
+          "linear_slope_c_per_s": 20,
+          "residual": 0
+        },
+        "observed": {
+          "platform": "platform",
+          "drift": {
+            "samples": 400,
+            "duration_s": 1.995,
+            "status": "evaluated",
+            "morphology": "drift",
+            "trend_c_per_s": 19.999999999998362,
+            "residual_range_c": 3.637978807091713e-12,
+            "raw_range_c": 39.899999999999636,
+            "extrema": [],
+            "cycles": [],
+            "amplitude_ratios": [],
+            "rate_changes_hz": [],
+            "entry_range_c": 9.094947017729282e-13,
+            "exit_range_c": 9.094947017729282e-13,
+            "leading_partial_s": null,
+            "trailing_partial_s": null,
+            "limitations": [
+              "linear detrend is descriptive",
+              "extrema are candidates, not perceived vibrato",
+              "no naturalness label"
+            ]
+          }
+        },
+        "technical_check": "passed",
+        "validation_scope": "OLS straight-line primitive only; frame residual not cycle jitter or a validated nonperiodic decomposition",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:03",
+        "candidate_entities": [
+          "ACO:P4"
+        ],
+        "input_spec": "y=6000+20*sin(2*pi*5*t); same values sorted as negative control",
+        "truth": {
+          "rate_hz": 5,
+          "half_depth_cents": 20,
+          "peak_to_trough_cents": 40
+        },
+        "observed": {
+          "median_rate_hz": 5.0,
+          "median_peak_to_trough_cents": 40.0,
+          "cycles": 9,
+          "sorted_cycles": 0
+        },
+        "technical_check": "passed",
+        "validation_scope": "Known F0 curve values only; no extractor accuracy, fast-changing vibrato performance or perceived vibrato truth",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:04",
+        "candidate_entities": [
+          "ACO:P4",
+          "EVT:T5"
+        ],
+        "input_spec": "short/NaN/100ms-gap curves; declared SP then vowel with known jumps",
+        "truth": {
+          "invalid_cases_unknown": 3,
+          "SP_internal_excluded": 2
+        },
+        "observed": {
+          "invalid_reasons": [
+            "short_support",
+            "invalid_samples",
+            "nonmonotonic_or_missing_samples"
+          ],
+          "boundary": {
+            "status": "evaluated",
+            "findings": [
+              {
+                "index": 2,
+                "time_range": [
+                  0.005,
+                  0.015
+                ],
+                "code": "non_singing_transition_risk",
+                "jump_c": 500.0,
+                "slope_change_c_per_s": 160000.0
+              },
+              {
+                "index": 3,
+                "time_range": [
+                  0.01,
+                  0.02
+                ],
+                "code": "non_singing_transition_risk",
+                "jump_c": 0.0,
+                "slope_change_c_per_s": 100000.00000000001
+              }
+            ],
+            "excluded_non_singing": 2,
+            "unknown_region": 0
+          }
+        },
+        "technical_check": "passed",
+        "validation_scope": "Input validation and explicitly supplied region masks; no real phone classification or audible boundary truth",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:05",
+        "candidate_entities": [
+          "ACO:R5"
+        ],
+        "input_spec": "native log-mel constant +2 vs bins +[0,1,2]",
+        "truth": {
+          "common_log_offset_shape_rms": 0,
+          "nonuniform_shape_rms": 0.816496580927726
+        },
+        "observed": {
+          "level": {
+            "frames": 4,
+            "log_mel_rms": 2.0,
+            "level_removed_log_mel_rms": 0.0,
+            "mean_log_mel_change": 2.0,
+            "formant_truth": false,
+            "perceived_improvement": false
+          },
+          "shape": {
+            "frames": 4,
+            "log_mel_rms": 1.2909944487358056,
+            "level_removed_log_mel_rms": 0.816496580927726,
+            "mean_log_mel_change": 1.0,
+            "formant_truth": false,
+            "perceived_improvement": false
+          }
+        },
+        "technical_check": "passed",
+        "validation_scope": "Arithmetic of bound log-mel proxy only; not dBFS, formant truth, acoustic waveform level removal or improvement",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:06",
+        "candidate_entities": [
+          "EVT:T1",
+          "ACO:T2"
+        ],
+        "input_spec": "480PPQ; 120BPM to tick480, then60BPM",
+        "truth": {
+          "milliseconds": [
+            0,
+            500,
+            1500
+          ]
+        },
+        "observed": {
+          "milliseconds": [
+            0.0,
+            500.0,
+            1500.0
+          ]
+        },
+        "technical_check": "passed",
+        "validation_scope": "Score tempo conversion only; no PCM offset, model latency, HFA boundary or perceived timing truth",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:07",
+        "candidate_entities": [
+          "ACO:L1",
+          "EVT:L2",
+          "EVT:L4"
+        ],
+        "input_spec": "numeric level array .1 first500 then .2 next500; sr clock1000; forward30/50sample windows",
+        "truth": {
+          "steady_change_db": 6.020599913279624,
+          "boundary_window30": 0.14142135623730953,
+          "boundary_window50": 0.16733200530681513
+        },
+        "observed": {
+          "rms30": [
+            0.09999999999999894,
+            0.14142135623730903,
+            0.19999999999999787
+          ],
+          "rms50": [
+            0.09999999999999894,
+            0.1673320053068149,
+            0.19999999999999787
+          ],
+          "steady_change_db": 6.020599913279624
+        },
+        "technical_check": "passed",
+        "validation_scope": "Existing frame_rms uses forward window at frame time, not centered window. Numerical levels only, no new audio; no loudness or phonation test",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:08",
+        "candidate_entities": [
+          "ACO:L3"
+        ],
+        "input_spec": "numeric envelope 1+.2*sin(2*pi*5*t)",
+        "truth": {
+          "linear_modulation_index": 0.2
+        },
+        "observed": {
+          "linear_modulation_index": 0.19999999999999996
+        },
+        "technical_check": "passed",
+        "validation_scope": "Definition algebra only; no PCM envelope extraction or general AM detector validation",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:09",
+        "candidate_entities": [
+          "ACO:X1",
+          "ACO:X2"
+        ],
+        "input_spec": "known clip before/after and .1→.3 sample-array seam",
+        "truth": {
+          "changed_clip_samples": 2,
+          "seam_delta": 0.2
+        },
+        "observed": {
+          "clipped": [
+            -0.5,
+            -1.0,
+            0.0,
+            1.0,
+            0.5
+          ],
+          "seam_delta": 0.19999999999999998
+        },
+        "technical_check": "passed",
+        "validation_scope": "Known algebraic clip/seam only; does not execute wavcheck, prove true peak, or establish click/破音 thresholds",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      },
+      {
+        "id": "DVAL:10",
+        "candidate_entities": [
+          "ACO:X4"
+        ],
+        "input_spec": "numeric LR arrays [1,-1] repeated; R=-L",
+        "truth": {
+          "correlation": -1,
+          "channel_RMS": 1,
+          "arithmetic_mono_RMS": 0
+        },
+        "observed": {
+          "correlation": -0.9999999999999998,
+          "mono_rms": 0.0
+        },
+        "technical_check": "passed",
+        "validation_scope": "Channel/downmix identity only; no perceived spatial quality or playback device validation",
+        "real_audio_accuracy_validated": false,
+        "auditory_effect_validated": false
+      }
+    ],
+    "versions": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "soundfile": "0.14.0"
+    }
+  },
+  "all_measurement_methods_validated": false,
+  "all_real_audio_estimators_validated": false,
+  "no_new_audio_or_synthesis": true,
+  "no_models_or_native_execution": true,
+  "no_project_skill_or_production_change": true,
+  "no_new_auditory_labels": true,
+  "stages_E_F": "not_executed",
+  "formal_id_migration": "proposed_not_applied"
+}

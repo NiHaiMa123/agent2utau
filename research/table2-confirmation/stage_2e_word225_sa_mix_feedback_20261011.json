@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-11",
+  "run_name": "table2-word225-sa-mix-feedback-20261011",
+  "document_name": "table2-stage-2e-word225-sa-mix-feedback-20261011",
+  "previous_feedback_runs": ["table2-word225-feedback-20261011", "table2-word214-feedback-20261011", "table2-word225-sa-feedback-20261011", "table2-word225-da-feedback-20261011", "table2-word225-pa-feedback-20261011", "table2-word225-sd-feedback-20261011", "table2-word225-sp-feedback-20261011"],
+  "presented_pairs": [
+    {"condition_id": "current-word-225", "order": 1, "direction": "S-A", "codes": ["K3", "K1"], "role": "mix"},
+    {"condition_id": "current-word-225", "order": 2, "direction": "A-S", "codes": ["K1", "K3"], "role": "mix"}
+  ],
+  "record": {
+    "feedback_id": "T2E-W225-SA-MIX-20261011",
+    "user_message_verbatim": "和不加伴奏没区别，字头不影响",
+    "message_source": "human user replying to mixed 01 K3→K1 and 02 K1→K3 with the same backing and fixed gains in current chat",
+    "condition_id": "current-word-225",
+    "lyric": "抱",
+    "comparison": "S-A",
+    "delivery_role": "mix",
+    "feedback_scope": "aggregate mixed-pair listening compared with preceding mono vocal S/A feedback; not a statement that K3 and K1 themselves are indistinguishable",
+    "per_order_results": "not separately stated",
+    "actual_listened_set": "not separately enumerated",
+    "mixed_vs_vocal_result": "reported unchanged listening impression",
+    "onset_result": "reported not affected by accompaniment in current S/A presentation",
+    "contrast_result": "preceding S/A power/softness distinction remains by the user's aggregate unchanged comparison; no fresh dimension-by-dimension restatement",
+    "vocal_reference": "runs/research/table2-word225-sa-feedback-20261011/feedback.json",
+    "break_result": "not separately restated; original mono vocal S/A no-break feedback is preserved, with mixed vs vocal unchanged as an aggregate reference rather than a newly invented independent no-break label",
+    "no_difference_relation": "with backing versus without backing for this S/A presentation",
+    "no_difference_does_not_relabel_S_vs_A": true,
+    "power_relations_preserved": "S>D>A and S>P>A in the preceding focal vocal comparisons; D/P relative power remains unknown",
+    "preferred_version": "original four-version K3 preference preserved; no new absolute mixed-audio acceptance inferred",
+    "inference_boundary": "At fixed vocal1.5/backing0.7 in this clip, accompaniment did not alter the reported S/A impression or affect the onset; no universal masking, loudness, physiological or whole-song claim",
+    "unreported_auditory_dimensions": ["subjective_loudness", "objective_loudness", "body", "naturalness", "absolute_usability"],
+    "listening_metadata": {"device": "unknown", "player": "unknown", "volume": "unknown", "actual_order": "unknown", "repetitions": "unknown", "both_order_completion": "unknown", "blinding": "unknown"},
+    "paired_comparison_groups_with_explicit_feedback": 5,
+    "word225_vocal_comparison_groups_with_explicit_feedback": 5,
+    "word225_mixed_comparison_groups_with_explicit_feedback": 1,
+    "word214_vocal_comparison_groups_with_explicit_feedback": 0,
+    "word214_mixed_comparison_groups_with_explicit_feedback": 0,
+    "frozen_main_comparison_groups": 10,
+    "remaining_gaps": ["word225 mixed D-A/P-A/S-D/S-P", "unreported dimensions and order-specific results", "word214 fixed pairs/mix not explicitly rated; independent four-version negative preserved without expanded validation"],
+    "word214_status": "no perceptible difference reported; no expanded validation",
+    "cumulative_new_feedback": 8
+  },
+  "current_status": "2E当前状态partial_human_feedback_recorded：2026-10-11累计8条本批反馈；抱五组纯人声关系S>D>A及S>P>A、原K3偏好保持，D/P相对力量感unknown。新增S/A混音原话“和不加伴奏没区别，字头不影响”：仅本组加伴奏前后听感一致、字头不受影响，不把“没区别”误写为K3/K1无差别。抱人声5/5组、混音1/5组获合并描述，S/A原人声无破音反馈保留且本次混音未逐项复述；其余四组混音/未报细项/顺序/设备仍缺。只四版“没区别”及不扩大验证保持，固定成对/混音无单独反馈。2E整体未完成，measurement_validated仍false，通用规律0。下一步已有抱K2/K1混音，不加新波形/候选，原歌曲/既有音频/Skill不改，单Agent、CI仅手动，2F–2H未执行。",
+  "entry_replacements": [
+    ["抱五组成对人声力量感/破音反馈及只未感知差别已绑定", "抱五组成对人声及首组S/A混音反馈、只未感知差别已绑定"],
+    ["抱五组成对人声细分反馈及只未感知差别已绑定", "抱五组成对人声及首组S/A混音反馈、只未感知差别已绑定"],
+    ["抱局部偏好及五组成对人声细分反馈、只未感知差别已绑定", "抱局部偏好及五组人声/首组混音反馈、只未感知差别已绑定"],
+    ["抱五组成对人声细分反馈及原跨呈现S>D力量感、只214未感知差别已记录；下一组已有抱K3/K1混音，未报细项与顺序/设备仍有缺口，只不扩大验证", "抱五组成对人声及S/A混音前后不变/字头不受影响、只214未感知差别已记录；下一组已有抱K2/K1混音，其余混音及未报细项与顺序/设备仍缺，只不扩大验证"]
+  ],
+  "report_text": "# 2E抱225 S/A混音复核反馈\n\n2026-10-11。partial_human_feedback_recorded，2E整体未完成。\n\n用户在混音01 K3→K1、02 K1→K3交付后回报：**和不加伴奏没区别，字头不影响**。此处“没区别”明确关联当前加伴奏/不加伴奏的呈现，不能改写为K3/K1本身无差别，也不能覆盖原K3更有力量、K1更柔的反馈。记录为当前S/A混音相对纯人声听感一致，字头不受伴奏影响。\n\n原纯人声S/A两者无破音反馈保持；本条没有逐项重述破音或响度，按整体“与人声一致”引用，不补造新独立无破音标签。两个顺序未分别评价，实际听过集合、设备、播放器、音量、重复、盲听程度unknown。伴奏影响边界仅本组现有片段与固定人声1.5/伴奏0.7，不能宣称其它组合、全曲或所有响度下无掩蔽。\n\n混音是原封存立体声PCM24，各路径用同一伴奏、增益、裁切/时间布局，没有本轮归一化、压缩、增益补偿或重渲染。音频绑定必须指向mix目录的两通道文件，不能复用vocal目录的SHA。旧录入器按原字节保留，本轮v2录入器明确区分vocal/mix角色和通道数。\n\n累计8条新反馈；抱五组人声反馈已收齐且细项/顺序/设备有缺口，混音当前1/5组；D/A、P/A、S/D、S/P混音仍待明确反馈。局部力量感S>D>A及S>P>A保持，D/P相对力量感unknown。只214独立四版“没区别”与停止扩大验证保持，固定成对与混音未获单独评价。2E整体未完成，measurement_validated仍false，2F–2H未执行。下一步已有抱K2/K1混音，不新增候选、剂量、条件或模型执行。\n\n本轮新模型调用/波形0，原歌曲/既有音频/Skill/安装不改。实验484文件/4报告、七份旧反馈run/21报告、79生产/Skill/工程及67保护输入SHA重查；6入口与21份旧反馈报告更新前原字节另存，旧反馈不改写。"
+}

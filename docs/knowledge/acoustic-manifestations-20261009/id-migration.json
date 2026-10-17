@@ -1,0 +1,921 @@
+{
+  "schema_version": 2,
+  "date": "2026-10-10",
+  "status": "applied_schema_migration_with_explicit_gaps",
+  "old_id_semantics_preserved": true,
+  "baseline_binding": "stage_f_baseline_binding.json",
+  "namespaces": {
+    "dimension": {
+      "P1": {
+        "legacy": "legacy_dimension:P1",
+        "targets": [
+          "ACO:P1",
+          "PER:P1"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "P2": {
+        "legacy": "legacy_dimension:P2",
+        "targets": [
+          "EVT:P2"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "P3": {
+        "legacy": "legacy_dimension:P3",
+        "targets": [
+          "EVT:P3"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "P4": {
+        "legacy": "legacy_dimension:P4",
+        "targets": [
+          "ACO:P4"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "P5": {
+        "legacy": "legacy_dimension:P5",
+        "targets": [
+          "ACO:P5",
+          "ACO:S7"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "L1": {
+        "legacy": "legacy_dimension:L1",
+        "targets": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "L2": {
+        "legacy": "legacy_dimension:L2",
+        "targets": [
+          "EVT:L2"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "L3": {
+        "legacy": "legacy_dimension:L3",
+        "targets": [
+          "ACO:L3",
+          "ACO:L5"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "L4": {
+        "legacy": "legacy_dimension:L4",
+        "targets": [
+          "EVT:L4",
+          "ACO:L5"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "S1": {
+        "legacy": "legacy_dimension:S1",
+        "targets": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "S2": {
+        "legacy": "legacy_dimension:S2",
+        "targets": [
+          "ACO:S2"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "S3": {
+        "legacy": "legacy_dimension:S3",
+        "targets": [
+          "ACO:S3"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "S4": {
+        "legacy": "legacy_dimension:S4",
+        "targets": [
+          "ACO:S4",
+          "EVT:S4"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "S5": {
+        "legacy": "legacy_dimension:S5",
+        "targets": [
+          "ACO:S5"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "S6": {
+        "legacy": "legacy_dimension:S6",
+        "targets": [
+          "EVT:S6"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "R1": {
+        "legacy": "legacy_dimension:R1",
+        "targets": [
+          "ACO:R1"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "R2": {
+        "legacy": "legacy_dimension:R2",
+        "targets": [
+          "ACO:R2",
+          "ACO:R6",
+          "ACO:R5"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "R3": {
+        "legacy": "legacy_dimension:R3",
+        "targets": [
+          "EVT:R3"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "R4": {
+        "legacy": "legacy_dimension:R4",
+        "targets": [
+          "ACO:R4",
+          "PER:R4"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "T1": {
+        "legacy": "legacy_dimension:T1",
+        "targets": [
+          "EVT:T1"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "T2": {
+        "legacy": "legacy_dimension:T2",
+        "targets": [
+          "ACO:T2"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "T3": {
+        "legacy": "legacy_dimension:T3",
+        "targets": [
+          "EVT:T3",
+          "PER:T3"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "T4": {
+        "legacy": "legacy_dimension:T4",
+        "targets": [
+          "EVT:T4"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "T5": {
+        "legacy": "legacy_dimension:T5",
+        "targets": [
+          "EVT:T5"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "T6": {
+        "legacy": "legacy_dimension:T6",
+        "targets": [
+          "EVT:T6",
+          "EVT:T8"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "T7": {
+        "legacy": "legacy_dimension:T7",
+        "targets": [
+          "EVT:T7",
+          "EVT:T9"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "X1": {
+        "legacy": "legacy_dimension:X1",
+        "targets": [
+          "ACO:X1",
+          "PER:X1"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "X2": {
+        "legacy": "legacy_dimension:X2",
+        "targets": [
+          "ACO:X2",
+          "ACO:X6",
+          "PER:X2"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "X3": {
+        "legacy": "legacy_dimension:X3",
+        "targets": [
+          "ACO:X3",
+          "PER:X3"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "X4": {
+        "legacy": "legacy_dimension:X4",
+        "targets": [
+          "ACO:X4",
+          "ACO:X7",
+          "PER:X4"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      },
+      "X5": {
+        "legacy": "legacy_dimension:X5",
+        "targets": [
+          "ACO:R5",
+          "ACO:S3",
+          "ACO:S4",
+          "META:X5"
+        ],
+        "status": "applied_schema_split_not_new_observation"
+      }
+    },
+    "source": {
+      "S1": "SRC:01",
+      "S2": "SRC:02",
+      "S3": "SRC:03",
+      "S4": "SRC:04",
+      "S5": "SRC:05",
+      "S6": "SRC:06",
+      "S7": "SRC:07",
+      "S8": "SRC:08",
+      "S9": "SRC:09",
+      "S10": "SRC:10",
+      "S11": "SRC:11"
+    },
+    "code_mechanism": {
+      "M1": "CODE:01",
+      "M2": "CODE:02",
+      "M3": "CODE:03",
+      "M4": "CODE:04",
+      "M5": "CODE:05",
+      "M6": "CODE:06",
+      "M7": "CODE:07",
+      "M8": "CODE:08",
+      "M9": "CODE:09",
+      "M10": "CODE:10",
+      "M11": "CODE:11",
+      "M12": "CODE:12",
+      "M13": "CODE:13"
+    },
+    "project_evidence": {
+      "E1": "EVID:01",
+      "E2": "EVID:02",
+      "E3": "EVID:03",
+      "E4": "EVID:04",
+      "E5": "EVID:05",
+      "E6": "EVID:06",
+      "E7": "EVID:07",
+      "E8": "EVID:08",
+      "E9": "EVID:09"
+    },
+    "control_family": {
+      "C01": "CTRL:C01",
+      "C02": "CTRL:C02",
+      "C03": "CTRL:C03",
+      "C04": "CTRL:C04",
+      "C05": "CTRL:C05",
+      "C06": "CTRL:C06",
+      "C07": "CTRL:C07",
+      "C08": "CTRL:C08",
+      "C09": "CTRL:C09",
+      "C10": "CTRL:C10",
+      "C11": "CTRL:C11",
+      "C12": "CTRL:C12",
+      "C13": "CTRL:C13",
+      "C14": "CTRL:C14",
+      "C15": "CTRL:C15",
+      "C16": "CTRL:C16",
+      "C17": "CTRL:C17",
+      "C18": "CTRL:C18",
+      "C19": "CTRL:C19",
+      "C20": "CTRL:C20",
+      "C21": "CTRL:C21",
+      "C22": "CTRL:C22",
+      "C23": "CTRL:C23",
+      "C24": "CTRL:C24",
+      "C25": "CTRL:C25",
+      "C26": "CTRL:C26",
+      "C27": "CTRL:C27",
+      "C28": "CTRL:C28",
+      "C29": "CTRL:C29",
+      "C30": "CTRL:C30",
+      "C31": "CTRL:C31",
+      "C32": "CTRL:C32",
+      "C33": "CTRL:C33",
+      "C34": "CTRL:C34",
+      "C35": "CTRL:C35",
+      "C36": "CTRL:C36",
+      "C37": "CTRL:C37",
+      "C38": "CTRL:C38",
+      "C39": "CTRL:C39",
+      "C40": "CTRL:C40",
+      "C41": "CTRL:C41",
+      "C42": "CTRL:C42",
+      "C43": "CTRL:C43",
+      "C44": "CTRL:C44",
+      "C45": "CTRL:C45",
+      "C46": "CTRL:C46",
+      "C47": "CTRL:C47",
+      "C48": "CTRL:C48"
+    }
+  },
+  "second_layer_links": [
+    {
+      "record_id": "RESP-001",
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "R3"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "R3": [
+          "EVT:R3"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:S1",
+        "ACO:S2",
+        "EVT:R3",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-002",
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "S6",
+        "R3",
+        "T4"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "S6": [
+          "EVT:S6"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "T4": [
+          "EVT:T4"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:S1",
+        "ACO:S2",
+        "EVT:R3",
+        "EVT:S6",
+        "EVT:T4",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-003",
+      "legacy_atomic_ids": [
+        "S6",
+        "R3",
+        "T3",
+        "T4",
+        "L4"
+      ],
+      "canonical_reference_candidates": {
+        "S6": [
+          "EVT:S6"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "T3": [
+          "EVT:T3",
+          "PER:T3"
+        ],
+        "T4": [
+          "EVT:T4"
+        ],
+        "L4": [
+          "EVT:L4",
+          "ACO:L5"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:L5",
+        "EVT:L4",
+        "EVT:R3",
+        "EVT:S6",
+        "EVT:T3",
+        "EVT:T4",
+        "PER:T3"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-004",
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "R3",
+        "L1",
+        "L2",
+        "T3",
+        "T5"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ],
+        "T3": [
+          "EVT:T3",
+          "PER:T3"
+        ],
+        "T5": [
+          "EVT:T5"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S2",
+        "EVT:L2",
+        "EVT:R3",
+        "EVT:T3",
+        "EVT:T5",
+        "PER:L1",
+        "PER:S1",
+        "PER:T3"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-005",
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-006",
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-007",
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-008",
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-009",
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "RESP-010",
+      "legacy_atomic_ids": [
+        "S1",
+        "S3",
+        "R3",
+        "L1",
+        "L2"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "L1": [
+          "ACO:L1",
+          "PER:L1"
+        ],
+        "L2": [
+          "EVT:L2"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:L1",
+        "ACO:S1",
+        "ACO:S3",
+        "EVT:L2",
+        "EVT:R3",
+        "PER:L1",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "OBS-001",
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "R3",
+        "T4"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ],
+        "T4": [
+          "EVT:T4"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:S1",
+        "ACO:S2",
+        "ACO:S3",
+        "EVT:R3",
+        "EVT:T4",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "OBS-002",
+      "legacy_atomic_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "R3"
+      ],
+      "canonical_reference_candidates": {
+        "S1": [
+          "ACO:S1",
+          "PER:S1"
+        ],
+        "S2": [
+          "ACO:S2"
+        ],
+        "S3": [
+          "ACO:S3"
+        ],
+        "R3": [
+          "EVT:R3"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:S1",
+        "ACO:S2",
+        "ACO:S3",
+        "EVT:R3",
+        "PER:S1"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "AUD-001",
+      "legacy_atomic_ids": [
+        "T1",
+        "T2",
+        "T3",
+        "T5",
+        "R1",
+        "R3"
+      ],
+      "canonical_reference_candidates": {
+        "T1": [
+          "EVT:T1"
+        ],
+        "T2": [
+          "ACO:T2"
+        ],
+        "T3": [
+          "EVT:T3",
+          "PER:T3"
+        ],
+        "T5": [
+          "EVT:T5"
+        ],
+        "R1": [
+          "ACO:R1"
+        ],
+        "R3": [
+          "EVT:R3"
+        ]
+      },
+      "canonical_entity_refs": [
+        "ACO:R1",
+        "ACO:T2",
+        "EVT:R3",
+        "EVT:T1",
+        "EVT:T3",
+        "EVT:T5",
+        "PER:T3"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    },
+    {
+      "record_id": "AUD-002",
+      "legacy_atomic_ids": [
+        "T4",
+        "R3"
+      ],
+      "canonical_reference_candidates": {
+        "T4": [
+          "EVT:T4"
+        ],
+        "R3": [
+          "EVT:R3"
+        ]
+      },
+      "canonical_entity_refs": [
+        "EVT:R3",
+        "EVT:T4"
+      ],
+      "reference_role": "schema_translation_candidates; not assertion each entity was observed or validated"
+    }
+  ],
+  "formal_entity_ids": [
+    "ACO:L1",
+    "ACO:L3",
+    "ACO:L5",
+    "ACO:P1",
+    "ACO:P4",
+    "ACO:P5",
+    "ACO:R1",
+    "ACO:R2",
+    "ACO:R4",
+    "ACO:R5",
+    "ACO:R6",
+    "ACO:S1",
+    "ACO:S2",
+    "ACO:S3",
+    "ACO:S4",
+    "ACO:S5",
+    "ACO:S7",
+    "ACO:T2",
+    "ACO:X1",
+    "ACO:X2",
+    "ACO:X3",
+    "ACO:X4",
+    "ACO:X6",
+    "ACO:X7",
+    "EVT:L2",
+    "EVT:L4",
+    "EVT:P2",
+    "EVT:P3",
+    "EVT:R3",
+    "EVT:S4",
+    "EVT:S6",
+    "EVT:T1",
+    "EVT:T3",
+    "EVT:T4",
+    "EVT:T5",
+    "EVT:T6",
+    "EVT:T7",
+    "EVT:T8",
+    "EVT:T9",
+    "META:X5",
+    "PER:L1",
+    "PER:P1",
+    "PER:R4",
+    "PER:S1",
+    "PER:T3",
+    "PER:X1",
+    "PER:X2",
+    "PER:X3",
+    "PER:X4"
+  ],
+  "open_candidates": [
+    {
+      "id": "CAND:MULTI_F0",
+      "protocol_ref": "MEAS:D50",
+      "status": "open_not_promoted_to_formal_atomic_entity",
+      "reason": "Independent source count, subharmonics/AM and enhanced harmonic melody remain distinct/unknown; CTX:SOURCE_RELATION records hypotheses"
+    }
+  ],
+  "original_proposal_issue": "A read atoms instead of atomic_ids; original14 candidate mappings were empty. Actual14 references translated here; historical proposal retained.",
+  "rule": "Typed references and split candidates only; no upgrade of measured/label/causal facts"
+}

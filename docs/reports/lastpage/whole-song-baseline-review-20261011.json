@@ -1,0 +1,434 @@
+{
+  "status": "whole_song_baseline_audited_and_delivered_pending_listening",
+  "counts": {
+    "words": 318,
+    "lyric_lines": 38,
+    "native_contexts": 34,
+    "notes": 412,
+    "sung_entries": 332,
+    "breath_or_silence_notes": 80,
+    "source_unknown_words": [
+      106
+    ],
+    "entry_families": {
+      "short_direct": 118,
+      "bearing_then_push": 51,
+      "continuous_velocity": 163
+    },
+    "body_families": {
+      "finite_return": 276,
+      "variable_periodic": 52
+    },
+    "historical_control_actions": {
+      "tenc": 98,
+      "voic": 104,
+      "brec": 57,
+      "dyn": 1
+    }
+  },
+  "project_difference": [
+    "/expressions/shfc/max",
+    "/expressions/shfc/min",
+    "/voice_parts/22/curves/length"
+  ],
+  "source_bindings": [
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/input.mp3",
+      "sha256": "c0bec9f31f3133611e900b70bb5f06b388f89fa22a6876e49c59015524df2338"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/source.wav",
+      "sha256": "7d7b491c4077e2795bf56ab0914fec0907eda00b129054e51bd4487056469cd9"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/input_binding.json",
+      "sha256": "4ffdd1c5a6e8d8fab21a24a6a9205c85399c9b26bae181f32582bbd9100acf75"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/separation.json",
+      "sha256": "3f3fd65a39d0923e4b7951041ba7e5fbf43939bafadfaa68010700aaca0af115"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/source_observations.json",
+      "sha256": "d03fa8ccb49c3733783e51faf20ffbfbe20bc75f1b6b5aa0fa9ab46d976c4078"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/fresh_game.json",
+      "sha256": "d743b604e44e4a9c9528a3a620aa3f3d52044e21ef4d00fb79544015a4427cdc"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/fcpe.npz",
+      "sha256": "0d20181b14116eda6f1f5730584049ee07d738ed0d74c4098744d36fe6475199"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/rmvpe.npz",
+      "sha256": "bc46ccf666e93dec7b5509acd1fc80e7c786237781b8d6d9d98580229cb24df7"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/lyric_scaffold.json",
+      "sha256": "a300140620963d0e04d7e94b6a32417729a05656a515f6e637d56eb835516347"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/chosen_score.json",
+      "sha256": "908477ad630f4589690cd50f9433b9e7e7fbaa91351b85bc19a1176ade5e6aaf"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/note_bindings.json",
+      "sha256": "87ef4ffa4bbe7a2e975f27bb4730b40f1990069f079e63124e150ebb2cbb21cd"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/baseline_phones.json",
+      "sha256": "f023e027bc123a21e57f9f948722a1b37e6937c5d52eebd45580bdd04a2cb54f"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/baseline_pitch.json",
+      "sha256": "318bde820f6c6da74ec69fccb723ee2657c94d0663aadc19edb5f055c825c5f3"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/fresh_score.ustx",
+      "sha256": "e36c0d636c275b355effadc208a166b00f54b89532ceebfdf7b63d7860ef177b"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/fresh_center.ustx",
+      "sha256": "78c17e3c9e76b2cdeb99b628daefe5f14edd33dd11ef9c1269f197ac4e666420"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/center_pitch.json",
+      "sha256": "ed234ca8eb809829471529828e786ce24c6627e8cf359a74ceecbbd9bd8eede4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/agent_function_plans.json",
+      "sha256": "885d68cc4537534df0def215634272a1faabf0b0d912b28175806e7136b7ef2d"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/agent_word_decisions.json",
+      "sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/agent_word_decisions.json",
+      "sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/whole_song_loudness_decisions.json",
+      "sha256": "41a3d4a242efdf58b6ad284a4149b19aa345486f1cd36ec4dfb0ab313a52bae4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/note_bindings.json",
+      "sha256": "87ef4ffa4bbe7a2e975f27bb4730b40f1990069f079e63124e150ebb2cbb21cd"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/final_phones.json",
+      "sha256": "93b6cff357c5470acce060eb0abd1e863ca0f38ea913d91ddf70a6d26c8a557e"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_function_validation.json",
+      "sha256": "8f203ca78329aefb34b10abed40732198ede41c2d6dabb1051b7986ab12eeee4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/residual_gain_choices.json",
+      "sha256": "ee721f5c7533b7df1c391ab5ac105b3b24bc5dc40b4059b6ce4ae59c76a58888"
+    },
+    {
+      "path": "runs/lastpage_cross_condition_study_20261008/study.json",
+      "sha256": "31722a1cfa88d5a36db52a712c8a3301c0ee7b2f87f95db2eddb7a32fe81a4b0"
+    },
+    {
+      "path": "runs/research/table2-listening-cycle-closure-20261011/completion-manifest.json",
+      "sha256": "954a32d74b631323d1a9843f2b7c3df1a6dedfc569d3a47af0c6a4e91a713fc2"
+    }
+  ],
+  "version_plan": {
+    "path": "runs/production/lastpage-accepted-baseline-20261011/design/expression-plan.json",
+    "sha256": "626e144e7b37782706aa2a63c7ef316b34a55c88eee87025603ef63442e52109"
+  },
+  "audio": {
+    "path": "runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline_vocal.wav",
+    "sha256": "99b82a0c2a0d7a5489602328b4f2bc8b573a0c35a3362d1bc2fb8ebb50cb23e4"
+  },
+  "project": {
+    "path": "runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline.ustx",
+    "sha256": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816"
+  },
+  "assembly": {
+    "sample_rate": 44100,
+    "samples": 10829952,
+    "duration_s": 245.57714285714286,
+    "channels": 1,
+    "subtype": "PCM_24",
+    "reused_complete_contexts": 34,
+    "new_model_inferences": 0,
+    "musical_parameter_changes": 0,
+    "baseline_raw_exact": true,
+    "baseline_PCM_exact": true,
+    "reverse_assembly_exact": true,
+    "accepted_C_focus_PCM_exact": true,
+    "focus_s": [
+      181.8,
+      187.2
+    ],
+    "actual_changed_sample_span": [
+      8027203,
+      8242755
+    ],
+    "changed_contribution_support_s": [
+      182.02274376417233,
+      186.91054421768706
+    ],
+    "unchanged_outside_phrase22_float_and_PCM": true,
+    "fixed_vocal_gain": 1.5,
+    "peak_before_quantization": 0.6613756120204926,
+    "fullscale_PCM_samples": 0,
+    "quantization_max_abs": 1.1897611784661422e-07,
+    "native_DYN_checks": [
+      {
+        "context": 0,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 1,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 2,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 3,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 4,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 5,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 6,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 7,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 8,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.4125375747680664
+      },
+      {
+        "context": 9,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 10,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 11,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 12,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 13,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 14,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 15,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 16,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 17,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 18,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 19,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 20,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 21,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 22,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 23,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 24,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 25,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 26,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 27,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 28,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 29,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 30,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 31,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 32,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      },
+      {
+        "context": 33,
+        "exact_raw_times_native_DYN": true,
+        "native_gain_min": 1.0,
+        "native_gain_max": 1.0
+      }
+    ],
+    "project_bytes_exact": true,
+    "source_audio_decodes": 0,
+    "author_array_reads": 0,
+    "detector_or_mel_reads": 0,
+    "own_audio_arrays_and_PCM_read": true,
+    "agent_heard": false,
+    "full_song_quality": "pending",
+    "measurement_validated": false
+  },
+  "source_unknowns_retained": true,
+  "historical_function_format": "34 explicit center_nodes/entries/finite/periodic/controls plans; not schema1 executable input",
+  "historical_copy_stage_vs_v02_metadata_differences": [
+    {
+      "file": "separation.json",
+      "historical_reuse_sha256": "55dc1bac5ceb38f9a263c5b89f2815ca62c06b8c5ae71695979b813aa9be9dd9",
+      "current_sealed_v02_sha256": "3f3fd65a39d0923e4b7951041ba7e5fbf43939bafadfaa68010700aaca0af115"
+    },
+    {
+      "file": "fresh_center.ustx",
+      "historical_reuse_sha256": "a4ec9d8bfd39a32c5419b980d58fdbc9be98270cb5351adecf1cc9607f92ebec",
+      "current_sealed_v02_sha256": "78c17e3c9e76b2cdeb99b628daefe5f14edd33dd11ef9c1269f197ac4e666420"
+    },
+    {
+      "file": "agent_function_plans.json",
+      "historical_reuse_sha256": "6128e5f0926395c2a655c22fb3fc75dd3761f52064bca257961e898fe9d52e6f",
+      "current_sealed_v02_sha256": "885d68cc4537534df0def215634272a1faabf0b0d912b28175806e7136b7ef2d"
+    },
+    {
+      "file": "agent_word_decisions.json",
+      "historical_reuse_sha256": "a08f3e6efea66853f921210f4d871c6a7e0db8862d6480fb9e712c4b852d0611",
+      "current_sealed_v02_sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+    }
+  ],
+  "preflight_failure": "Initial check wrongly treated original copy-stage register as final v02 metadata; four versions explicitly distinguished; current sealed SHA and core source SHA retained",
+  "historical_prediction_caveat": "v02 word state summaries not accepted-C phrase22 state; whole phrase22 uses sealed logical C",
+  "historical_DYN_caveat": "word89 finite +3dB output envelope remains in v02 native DYN; no new gain correction",
+  "listening_cycle": "previous cycle closed; this full-song delivery awaits new version-specific feedback",
+  "no_new_universal_rule": true,
+  "source_lyric_listening_verified": false,
+  "table1_update": "318 word/stage slots linked to existing descriptions; unreported quality unknown",
+  "table2_update": "34 explicit reuse records; no new intervention or new user response",
+  "next": "whole-song vocal feedback -> bind word/stage/neighbor; select one correction batch before any new synthesis"
+}

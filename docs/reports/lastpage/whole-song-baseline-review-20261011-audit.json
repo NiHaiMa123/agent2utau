@@ -1,0 +1,33 @@
+{
+  "status": "passed_with_explicit_listening_and_measurement_gaps",
+  "protected_files": 789,
+  "closure_files_and_docs": 18,
+  "source_bindings": 27,
+  "identities_and_word_phrase_ledgers": true,
+  "baseline_and_accepted_C_PCM_exact": true,
+  "no_old_file_mutation": true,
+  "no_historical_script_execution": true,
+  "model_execution": 0,
+  "new_user_feedback": 0,
+  "new_audio_deliveries": 1,
+  "copied_project_bytes_exact": true,
+  "author_array_reads": 0,
+  "source_unknowns_preserved": [
+    106
+  ],
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 576}",
+  "script": {
+    "path": "research/table2-confirmation/assemble_lastpage_accepted_baseline_20261011.py",
+    "sha256": "9d3dd6769bbd85a1fee89137d488ce28a80a6478c3ad9e9955fb123c3a6ccf27"
+  },
+  "outputs": [
+    {
+      "path": "runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline_vocal.wav",
+      "sha256": "99b82a0c2a0d7a5489602328b4f2bc8b573a0c35a3362d1bc2fb8ebb50cb23e4"
+    },
+    {
+      "path": "runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline.ustx",
+      "sha256": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816"
+    }
+  ]
+}

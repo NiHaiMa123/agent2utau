@@ -1,0 +1,42 @@
+{
+  "status": "passed_with_cause_and_auditory_gaps",
+  "reply_count": 1,
+  "individual_new_labels": 0,
+  "rejected_response": "RESP:LASTPAGE-CONDITIONED-VOIC-01",
+  "existing_conditions_reviewed": 15,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "new_array_audio_decodes": 0,
+  "old_artifact_refs_unchanged": 1083,
+  "source_bindings": [
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/agent_word_decisions.json",
+      "sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    {
+      "path": "docs/reports/lastpage/li-kan-author-reference-20261011.json",
+      "sha256": "04efe1047165e73226a6249815c70545929e426e31a48780d528ec32c888bf19"
+    },
+    {
+      "path": "docs/reports/lastpage/voice-baseline-feedback-20261011.json",
+      "sha256": "e68b7b3c0c279baf8ff7095bc8343dd58dfa8e5796016e203d331329f366eec9"
+    },
+    {
+      "path": "docs/reports/lastpage/conditioned-voicing-probe-20261011.json",
+      "sha256": "7f4ed106d4a2aea46eda59f0a80bd69bf8aaca65b950eaaefcce38dc87498096"
+    }
+  ],
+  "script": {
+    "path": "research/table2-confirmation/close_lastpage_conditioned_voicing_20261011.py",
+    "sha256": "5532c790d0ce6fdc0a0ca45b11b491ed6d146a906717a51e8dea60526f0daf1d"
+  },
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 604}",
+  "sealed_pending_reports_not_rewritten": true,
+  "measurement_validated": false,
+  "agent_heard": false,
+  "csv_json_condition_rows_exact": 15
+}

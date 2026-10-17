@@ -1,0 +1,32 @@
+{
+  "record_id": "RESP:YUAI-PHRASE-HANDDRAW-PAUSE-20261017",
+  "record_type": "technical_process_and_scoped_candidate_not_audio_acceptance",
+  "report": {
+    "path": "docs/reports/yuai/phrase-handdraw-source-only-20261017.md",
+    "sha256": "51bb131fc27c3e5ac824f64b15480ce7f55c9bccd3e1f512b6a47305d84d4654"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-phrase-handdraw-20261016\\pause-checkpoint.json",
+    "sha256": "b2d34f6d3930bbfef2d8454c5be0526b803ce906b3f7da17d84fbaa9524ac7ee"
+  },
+  "status": "paused_by_user_after_s14",
+  "completed_phrases": 14,
+  "total_phrases": 53,
+  "completed_current_vowels": 133,
+  "whole_song_complete": false,
+  "skill_updated": false,
+  "production_code_modified": false,
+  "new_agent_hearing": false,
+  "new_user_feedback": false,
+  "musical_quality": "unverified",
+  "phonation": "unvalidated",
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "generalized_response_rules": [],
+  "known_process_gaps": [
+    "s01 exposed-candidate format revision/context unknown",
+    "s01-s06 previously filtered last-node intentions require assembly tail review; retained current candidate geometry actually reviewed",
+    "s09 first range contrast conflated note-identity release with ornament; strengthened separate deep-entry checks",
+    "s14 ji/yi source word boundary interpretive"
+  ]
+}

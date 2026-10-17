@@ -1,0 +1,7 @@
+{
+  "stage": "2E-prep",
+  "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-prep-20261010/snapshot-manifest.json",
+  "sha256": "d91c1534929913c95e3cc61eeb40593ec5a664284c87e6221616d58dee7d858a",
+  "run": "runs/research/table2-2e-interface-prep-20261010",
+  "test_run": "runs/test-results/table2-2e-prep-20261010"
+}

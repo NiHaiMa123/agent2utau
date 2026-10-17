@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent2utau:table2:record-v3",
+  "title": "Table2 record_v3 extension",
+  "type": "object",
+  "required": [
+    "record_version",
+    "record_kind",
+    "comparison_id",
+    "comparisons",
+    "variants",
+    "table1_refs",
+    "condition_context",
+    "control_layers",
+    "metric_bindings",
+    "feedback_group_id",
+    "state_timeline",
+    "historical_binding_ref",
+    "record_confirmation"
+  ],
+  "properties": {
+    "record_version": {
+      "const": 3
+    },
+    "record_kind": {
+      "enum": [
+        "response",
+        "observation",
+        "technical_audit"
+      ]
+    },
+    "comparison_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "comparisons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "comparison_id",
+          "kind",
+          "reference_variant",
+          "intervention_variant",
+          "direction",
+          "operation",
+          "listener_evidence"
+        ],
+        "properties": {
+          "listener_evidence": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "variant_id",
+          "logical_label",
+          "state_origin"
+        ]
+      }
+    },
+    "table1_refs": {
+      "type": "object"
+    },
+    "condition_context": {
+      "type": "object"
+    },
+    "control_layers": {
+      "type": "object"
+    },
+    "metric_bindings": {
+      "type": "array"
+    },
+    "feedback_group_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state_timeline": {
+      "type": "array",
+      "minItems": 1
+    },
+    "historical_binding_ref": {
+      "type": "string"
+    },
+    "record_confirmation": {
+      "enum": [
+        "schema_revised_with_explicit_gaps; 2C_not_executed",
+        "record_review_complete_with_explicit_gaps; no_new_model_or_PCM_measurement"
+      ]
+    },
+    "confirmation_ref": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "status": "own_bright_cute_feedback_closed_control_neutral_design_frozen",
+  "feedback": {
+    "verbatim": "比白烁的更实，但是就有那种前顶的感觉，声音挤得很细很尖",
+    "date": "2026-10-12",
+    "submissions": 1,
+    "record_id": "RESP:LASTPAGE-OWN-BRIGHT-CUTE-01",
+    "candidate": {
+      "path": "runs/experiments/lastpage-own-bright-cute-20261012/delivery/E_two_phrases.wav",
+      "sha256": "a70e4bbbe1398f735087695a81004b4476077fe66e04d005657edd6f3295f0ea"
+    },
+    "author_reference": {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+      "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+    },
+    "own_A_presented": {
+      "path": "runs/experiments/lastpage-own-bright-cute-20261012/delivery/A_two_phrases.wav",
+      "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+    },
+    "referent": "E inferred from immediately preceding labelled E/A/author delivery",
+    "explicit_comparison": {
+      "dimension": "solidity",
+      "relation": "E > separate author A"
+    },
+    "candidate_descriptions": [
+      "前顶",
+      "挤",
+      "很细",
+      "很尖"
+    ],
+    "description_scope": "aggregate two-phrase sample, precise words/time/intensity scale unknown",
+    "E_versus_own_A_direct_relation": "unknown: not explicitly compared in this reply",
+    "perceived_loudness_pitch_break_articulation_connection_kan_labels": "unknown: not stated",
+    "overall_preference_or_acceptance": "unknown: greater solidity plus adverse descriptions is not overall acceptance",
+    "individual_word_labels_added": 0,
+    "adoption": false,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-OWN-BRIGHT-CUTE-01",
+    "append_only_feedback": true,
+    "feedback": {
+      "verbatim": "比白烁的更实，但是就有那种前顶的感觉，声音挤得很细很尖",
+      "date": "2026-10-12",
+      "submissions": 1,
+      "record_id": "RESP:LASTPAGE-OWN-BRIGHT-CUTE-01",
+      "candidate": {
+        "path": "runs/experiments/lastpage-own-bright-cute-20261012/delivery/E_two_phrases.wav",
+        "sha256": "a70e4bbbe1398f735087695a81004b4476077fe66e04d005657edd6f3295f0ea"
+      },
+      "author_reference": {
+        "path": "runs/experiments/lastpage-author-interaction-20261012/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "own_A_presented": {
+        "path": "runs/experiments/lastpage-own-bright-cute-20261012/delivery/A_two_phrases.wav",
+        "sha256": "60190c872f9a9502232c03975b211a8892fd93fffcf746eb41a53fcf4ae6993b"
+      },
+      "referent": "E inferred from immediately preceding labelled E/A/author delivery",
+      "explicit_comparison": {
+        "dimension": "solidity",
+        "relation": "E > separate author A"
+      },
+      "candidate_descriptions": [
+        "前顶",
+        "挤",
+        "很细",
+        "很尖"
+      ],
+      "description_scope": "aggregate two-phrase sample, precise words/time/intensity scale unknown",
+      "E_versus_own_A_direct_relation": "unknown: not explicitly compared in this reply",
+      "perceived_loudness_pitch_break_articulation_connection_kan_labels": "unknown: not stated",
+      "overall_preference_or_acceptance": "unknown: greater solidity plus adverse descriptions is not overall acceptance",
+      "individual_word_labels_added": 0,
+      "adoption": false,
+      "agent_heard": false,
+      "measurement_validated": false
+    },
+    "table1_refs": {
+      "perception": "PER:S1",
+      "controls": [
+        "PARAM:C20.01",
+        "PARAM:C20.02",
+        "PARAM:C20.03",
+        "PARAM:C20.04",
+        "PARAM:C20.05",
+        "PARAM:C11.01",
+        "PARAM:C12.01",
+        "PARAM:C13.01"
+      ],
+      "unmapped_raw_listener_descriptions": [
+        "前顶",
+        "挤",
+        "很细",
+        "很尖"
+      ],
+      "raw_terms_not_forced_to_formant_HNR_F0_nasality_or_spatial_entities": true
+    },
+    "prior_report": {
+      "path": "docs/reports/lastpage/own-bright-cute-probe-20261012.json",
+      "sha256": "e570733f4c56860e13b9297540cfbf4b021f6fb82400d367648f4ecf5a2ed7ac"
+    },
+    "adoption": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "control_review": {
+    "path": "runs/research/lastpage-own-bright-cute-feedback-20261012/evaluation/control-review.json",
+    "sha256": "5d4ffcc72f89b0a91b724bf2a5e5aa4b13214268d6818ed07d92eb1d7f97cff8"
+  },
+  "next_protocol": {
+    "path": "runs/research/lastpage-own-bright-cute-feedback-20261012/design/next-own-control-neutral-protocol.json",
+    "sha256": "80d6ebc288c83ca9fd333b376a662f76f9bcdeaae5ddd501b08a250d2417f2cd"
+  },
+  "new_models": 0,
+  "new_waveforms": 0,
+  "new_PCM_NPZ_reads": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

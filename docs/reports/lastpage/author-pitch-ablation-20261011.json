@@ -1,0 +1,539 @@
+{
+  "status": "author_pitch_ablation_delivered_pending_listening",
+  "protocol": {
+    "id": "LASTPAGE-AUTHOR-PITCH-ABLATION-01",
+    "status": "frozen_before_execution",
+    "user_authorization": "这一段你复制白烁的项目，然后逐步更改内容，比如音高线，pitch这些，看下是什么影响的",
+    "source": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/score/baishuo-main-part2-current165c.ustx",
+      "sha256": "810f60e5c2b909df1e34477e41add35e224cbdcf1f605c60abca0b7f5e5592c8"
+    },
+    "original": {
+      "path": "research/baishuo/projects/最后一页-有参by白烁.ustx",
+      "sha256": "5b064bb96262cf579b13ff7ab28e302e75d641ff4152a9b0e5c33306d7184c2b"
+    },
+    "scores": {
+      "A": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/score/A.ustx",
+        "sha256": "810f60e5c2b909df1e34477e41add35e224cbdcf1f605c60abca0b7f5e5592c8"
+      },
+      "P": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/score/P.ustx",
+        "sha256": "3749698feadb48eade91eb9599cfd16ff6b03e0bebb88b8605a9329476dfadf7"
+      },
+      "N": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/score/N.ustx",
+        "sha256": "08694028c48c99b25fd8700376e1fe2cabfa231c3611019ef76d4e4e9bd1cffb"
+      },
+      "PN": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/score/PN.ustx",
+        "sha256": "71cd9dddae243ddf3d1cb9330a3e17f04db915ae99df7393c637f575b5102f8f"
+      }
+    },
+    "phrases": [
+      "想把你抱进身体里面",
+      "不敢让你看见"
+    ],
+    "contexts": [
+      0,
+      1
+    ],
+    "variants": {
+      "A": "author current165c copy, all authored pitch/control intact",
+      "P": "PITD ys=0 on unchanged xs; note.pitch retained",
+      "N": "note.pitch point y=0 and snap_first=false; x/shape/PITD retained",
+      "PN": "both preceding interventions"
+    },
+    "comparisons": [
+      "P-A",
+      "N-A",
+      "PN-P",
+      "PN-N"
+    ],
+    "fixed": [
+      "notes tone/tuning/lyrics/durations/positions",
+      "all non-pitch curves/expressions",
+      "phonemizer/phone clock",
+      "both stage speaker",
+      "DYN",
+      "track gain/pan",
+      "variance11/acoustic101"
+    ],
+    "permitted_dependencies": [
+      "native before/final pitch",
+      "variance pitch",
+      "all three predicted/final features",
+      "acoustic f0/mel",
+      "vocoder f0/wave"
+    ],
+    "note_pitch_definition": "Neutralizes relative offsets and automatic previous-note snapping; native note transitions still exist. Not equivalent to a fixed absolute tone.",
+    "extent": "Keep complete original 42-note main part and its 3 native phrases for identity/context. Neutralizations span that part; seeded research/listening covers only first two phrases. Third native phrase is technical only.",
+    "budget": {
+      "score_versions": 4,
+      "native_cached_contexts": 12,
+      "seeded_variance_calls": 16,
+      "seeded_acoustic_vocoder_waveforms": 16,
+      "independent_contexts": 2,
+      "repeats_per_version_context": 2
+    },
+    "previous_reference": {
+      "path": "runs/research/lastpage-li-kan-author-reference-20261011/delivery/baishuo_current165c_reference_vocal.wav",
+      "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+    },
+    "historical_singer": "yousaV1.56 unavailable; use same current165c as previous reference",
+    "seed_caveat": "Previous liked reference used native cached randomness/PCM16 export. New A is fresh fixed11/101 and PCM24, not claimed equal. Confirm new A solidity before interpreting factors.",
+    "listening": "Full two phrases, separately; first check A vs liked reference, then P/N/PN vs new A. Assess solidity, pitch/melody, articulation/break/level. Missing feedback unknown.",
+    "no_production_adoption": true,
+    "author_arrays_for_research_only": true,
+    "agent_heard": false,
+    "measurement_validated": false,
+    "general_rule_validated": false,
+    "stops": [
+      "identity/dependency/repeat failure",
+      "nonfinite or file clipping",
+      "no adaptive extra versions before feedback"
+    ]
+  },
+  "native": {
+    "status": "passed",
+    "rows": [
+      {
+        "context": 0,
+        "native_5tick_frames": 498,
+        "model_frames": 399,
+        "phone_clock_and_both_stage_speaker_exact": true,
+        "PITD_and_note_pitch_separated": true,
+        "variants": [
+          {
+            "variant": "A",
+            "changed_native_acoustic": [],
+            "changed_variance": [],
+            "final_pitch_changed_frames": 0,
+            "max_final_pitch_delta_cents": 0.0
+          },
+          {
+            "variant": "P",
+            "changed_native_acoustic": [
+              "f0",
+              "breathiness",
+              "voicing",
+              "tension"
+            ],
+            "changed_variance": [
+              "pitch"
+            ],
+            "final_pitch_changed_frames": 488,
+            "max_final_pitch_delta_cents": 361.0
+          },
+          {
+            "variant": "N",
+            "changed_native_acoustic": [
+              "f0",
+              "breathiness",
+              "voicing",
+              "tension"
+            ],
+            "changed_variance": [
+              "pitch"
+            ],
+            "final_pitch_changed_frames": 123,
+            "max_final_pitch_delta_cents": 696.4375
+          },
+          {
+            "variant": "PN",
+            "changed_native_acoustic": [
+              "f0",
+              "breathiness",
+              "voicing",
+              "tension"
+            ],
+            "changed_variance": [
+              "pitch"
+            ],
+            "final_pitch_changed_frames": 489,
+            "max_final_pitch_delta_cents": 496.00146484375
+          }
+        ]
+      },
+      {
+        "context": 1,
+        "native_5tick_frames": 373,
+        "model_frames": 303,
+        "phone_clock_and_both_stage_speaker_exact": true,
+        "PITD_and_note_pitch_separated": true,
+        "variants": [
+          {
+            "variant": "A",
+            "changed_native_acoustic": [],
+            "changed_variance": [],
+            "final_pitch_changed_frames": 0,
+            "max_final_pitch_delta_cents": 0.0
+          },
+          {
+            "variant": "P",
+            "changed_native_acoustic": [
+              "f0",
+              "breathiness",
+              "voicing",
+              "tension"
+            ],
+            "changed_variance": [
+              "pitch"
+            ],
+            "final_pitch_changed_frames": 363,
+            "max_final_pitch_delta_cents": 835.0
+          },
+          {
+            "variant": "N",
+            "changed_native_acoustic": [
+              "f0",
+              "breathiness",
+              "voicing",
+              "tension"
+            ],
+            "changed_variance": [
+              "pitch"
+            ],
+            "final_pitch_changed_frames": 70,
+            "max_final_pitch_delta_cents": 895.41943359375
+          },
+          {
+            "variant": "PN",
+            "changed_native_acoustic": [
+              "f0",
+              "breathiness",
+              "voicing",
+              "tension"
+            ],
+            "changed_variance": [
+              "pitch"
+            ],
+            "final_pitch_changed_frames": 364,
+            "max_final_pitch_delta_cents": 706.0
+          }
+        ]
+      }
+    ],
+    "checker": {
+      "path": "research/table2-confirmation/check_lastpage_author_pitch_ablation_20261011.py",
+      "sha256": "e21888a545873c591b1532314663ef54fa5058ed8dc70f630ad71a8458a32640"
+    },
+    "protocol": {
+      "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/design/protocol.json",
+      "sha256": "225947cd9232eab1379872228bc6c4240b60704581977e3f10af65cfe0537c0b"
+    },
+    "measurement_validated": false
+  },
+  "fresh": {
+    "status": "passed",
+    "rows": [
+      {
+        "context": 0,
+        "variant": "A",
+        "changed_fresh_acoustic_inputs": [],
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 40,
+          "tension": 0
+        },
+        "repeat_inputs_predictions_mel_vocoder_PCM_exact": true,
+        "raw_peak": 0.3150409758090973
+      },
+      {
+        "context": 0,
+        "variant": "P",
+        "changed_fresh_acoustic_inputs": [
+          "f0",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 41,
+          "tension": 0
+        },
+        "repeat_inputs_predictions_mel_vocoder_PCM_exact": true,
+        "raw_peak": 0.31897395849227905
+      },
+      {
+        "context": 0,
+        "variant": "N",
+        "changed_fresh_acoustic_inputs": [
+          "f0",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 35,
+          "tension": 0
+        },
+        "repeat_inputs_predictions_mel_vocoder_PCM_exact": true,
+        "raw_peak": 0.3809720575809479
+      },
+      {
+        "context": 0,
+        "variant": "PN",
+        "changed_fresh_acoustic_inputs": [
+          "f0",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 36,
+          "tension": 0
+        },
+        "repeat_inputs_predictions_mel_vocoder_PCM_exact": true,
+        "raw_peak": 0.35682228207588196
+      },
+      {
+        "context": 1,
+        "variant": "A",
+        "changed_fresh_acoustic_inputs": [],
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 45,
+          "tension": 0
+        },
+        "repeat_inputs_predictions_mel_vocoder_PCM_exact": true,
+        "raw_peak": 0.3710575997829437
+      },
+      {
+        "context": 1,
+        "variant": "P",
+        "changed_fresh_acoustic_inputs": [
+          "f0",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 42,
+          "tension": 0
+        },
+        "repeat_inputs_predictions_mel_vocoder_PCM_exact": true,
+        "raw_peak": 0.38841405510902405
+      },
+      {
+        "context": 1,
+        "variant": "N",
+        "changed_fresh_acoustic_inputs": [
+          "f0",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 41,
+          "tension": 0
+        },
+        "repeat_inputs_predictions_mel_vocoder_PCM_exact": true,
+        "raw_peak": 0.4666532874107361
+      },
+      {
+        "context": 1,
+        "variant": "PN",
+        "changed_fresh_acoustic_inputs": [
+          "f0",
+          "breathiness",
+          "voicing",
+          "tension"
+        ],
+        "feature_clipping": {
+          "breathiness": 0,
+          "voicing": 41,
+          "tension": 0
+        },
+        "repeat_inputs_predictions_mel_vocoder_PCM_exact": true,
+        "raw_peak": 0.41842538118362427
+      }
+    ],
+    "checker": {
+      "path": "research/table2-confirmation/check_lastpage_author_pitch_ablation_20261011.py",
+      "sha256": "e21888a545873c591b1532314663ef54fa5058ed8dc70f630ad71a8458a32640"
+    },
+    "actual_waveforms": 16,
+    "independent_contexts": 2,
+    "measurement_validated": false
+  },
+  "delivery": {
+    "outputs": {
+      "A": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/A_two_phrases.wav",
+        "sha256": "4eedf24d737ff8b7de0b86bc7aa28070c7c7f7170f8578ea409c01bcde33d68b"
+      },
+      "P": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/P_two_phrases.wav",
+        "sha256": "65ef3a0a1dca80176acf4425d496f58a7188f5922192f63326bad0a6cd09d569"
+      },
+      "N": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/N_two_phrases.wav",
+        "sha256": "9757196dcb76ebd2cb99ef054a0f30f56a4969b196cecc23390f44cd80e28905"
+      },
+      "PN": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/PN_two_phrases.wav",
+        "sha256": "85b79ad8cb5a7ee820a3b65d28ca92e9967a2f413d81a052e879056c6c34666e"
+      },
+      "previous_liked_reference": {
+        "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/delivery/previous_liked_author_reference.wav",
+        "sha256": "4cb223d1ee2762878a987fb0de11c7605cb99fb847bc24e0eddccb122ff5d77d"
+      }
+    },
+    "contexts": [
+      {
+        "context": 0,
+        "variant": "A",
+        "wave_start_s": 212.32676303536553,
+        "samples": 204288,
+        "end_s": 216.95914398774647,
+        "phone_end_s": 216.85714285714286,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/PCM-contexts/context0-A.wav",
+          "sha256": "d735c3f4eadda1484f66aa15735a3a278b5d713f6ecf50e35f8f5eee7df666c8"
+        }
+      },
+      {
+        "context": 1,
+        "variant": "A",
+        "wave_start_s": 216.8714058925084,
+        "samples": 155136,
+        "end_s": 220.3892290217601,
+        "phone_end_s": 220.28571428571428,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/PCM-contexts/context1-A.wav",
+          "sha256": "66a3cabd76ce51e2f2075b1bcb009580f9a06fcbf122c8c7f629bf62edcc7055"
+        }
+      },
+      {
+        "context": 0,
+        "variant": "P",
+        "wave_start_s": 212.32676303536553,
+        "samples": 204288,
+        "end_s": 216.95914398774647,
+        "phone_end_s": 216.85714285714286,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/PCM-contexts/context0-P.wav",
+          "sha256": "a1409a3987d948b28ec5c5d823c0cc01de47a8ef6ecb313efc1aac8e394f3f1d"
+        }
+      },
+      {
+        "context": 1,
+        "variant": "P",
+        "wave_start_s": 216.8714058925084,
+        "samples": 155136,
+        "end_s": 220.3892290217601,
+        "phone_end_s": 220.28571428571428,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/PCM-contexts/context1-P.wav",
+          "sha256": "7d8e80580a3fb9b43fc42a6e0ac26c174264449d70f005dc41bd2ce7982703f4"
+        }
+      },
+      {
+        "context": 0,
+        "variant": "N",
+        "wave_start_s": 212.32676303536553,
+        "samples": 204288,
+        "end_s": 216.95914398774647,
+        "phone_end_s": 216.85714285714286,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/PCM-contexts/context0-N.wav",
+          "sha256": "3db5257f9ad516f1f98f9b988ff3fb8aa5d6968349e77d80fa15c6db696cad2c"
+        }
+      },
+      {
+        "context": 1,
+        "variant": "N",
+        "wave_start_s": 216.8714058925084,
+        "samples": 155136,
+        "end_s": 220.3892290217601,
+        "phone_end_s": 220.28571428571428,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/PCM-contexts/context1-N.wav",
+          "sha256": "1019b465de9b5dfccebba97acb7b9638bb1934d10b28d2c479126e116c3b0b8e"
+        }
+      },
+      {
+        "context": 0,
+        "variant": "PN",
+        "wave_start_s": 212.32676303536553,
+        "samples": 204288,
+        "end_s": 216.95914398774647,
+        "phone_end_s": 216.85714285714286,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/PCM-contexts/context0-PN.wav",
+          "sha256": "c88d15fc116c8f670cd8b5dea44e15231f2298a83a88ba3f9d2fa5a4f52e2195"
+        }
+      },
+      {
+        "context": 1,
+        "variant": "PN",
+        "wave_start_s": 216.8714058925084,
+        "samples": 155136,
+        "end_s": 220.3892290217601,
+        "phone_end_s": 220.28571428571428,
+        "PCM": {
+          "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/evaluation/PCM-contexts/context1-PN.wav",
+          "sha256": "8bfc6e7adc91ae70d058c0700b12bd3e581bf2656de9bb680ac45638160d1c02"
+        }
+      }
+    ],
+    "preview_s": [
+      212,
+      220.5
+    ],
+    "sample_rate": 44100,
+    "samples": 374850,
+    "subtype": "PCM_24",
+    "fixed_gain": 1.5,
+    "dynamics": "No authored DYN curve, declared default0 dB; unity envelope on fresh raw waveform. No normalization/compression.",
+    "clock": "Each native position_ms minus 8 float32 frame periods; round origin to 44100 grid, sum tails in float64.",
+    "preview_tail": "Extends prior 220.35 end to 220.50 to include complete second phrase release; third native phrase deliberately excluded.",
+    "previous_reference_unchanged": true,
+    "agent_heard": false,
+    "measurement_validated": false
+  },
+  "observations": {
+    "path": "runs/experiments/lastpage-author-pitch-ablation-20261011/observations/results.json",
+    "sha256": "9c4b8e1c06f6deef6c354bb43e49b35b6ddd9fc8408f05739d44ce00a69edad3"
+  },
+  "table2_supplement": {
+    "record_id": "RESP:LASTPAGE-AUTHOR-PITCH-ABLATION-01",
+    "scope": "two author-copy development contexts, not own-song repair or holdout",
+    "comparisons": [
+      "P-A",
+      "N-A",
+      "PN-P",
+      "PN-N"
+    ],
+    "changed": [
+      "PARAM:C03.01",
+      "PARAM:C02.02",
+      "PARAM:C02.04"
+    ],
+    "retained": [
+      "PARAM:C01.01"
+    ],
+    "perception": "PER:S1",
+    "candidate_feedback": "pending",
+    "new_feedback_count": 0,
+    "author_numeric_inputs_for_research_only": true,
+    "adoption": false,
+    "measurement_validated": false,
+    "general_rule_validated": false
+  },
+  "source": {
+    "path": "research/table2-confirmation/finish_lastpage_author_pitch_ablation_20261011.py",
+    "sha256": "dcc45189576ac9476c87b39d61f663ab65ce2a182fefe084249ec619628f666e"
+  },
+  "table_source": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/control-details.csv",
+    "sha256": "3e58bf397ed323c09210b76595d81acaeed67c7483695cb9ebb515446f04d678"
+  },
+  "agent_heard": false
+}

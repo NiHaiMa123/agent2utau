@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "feedback_id": "T2E-W214-NODIFF-20261011",
+  "status": "partial_human_feedback_recorded",
+  "stage_2E_complete": false,
+  "record_created_utc": "2026-10-11T07:21:33.729683+00:00",
+  "user_message_verbatim": "没区别",
+  "user_message_timestamp": "unknown",
+  "message_source": "human user replying to four embedded 只 full-context mono vocal files in current chat",
+  "condition_id": "current-word-214",
+  "lyric": "只",
+  "presented_audio": [
+    {
+      "code": "K1",
+      "research_path": "P",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/full/vocal/current-word-214-K1.wav",
+      "sha256": "71c65105e9033a943af12fca0d8ff42d02bf3d7a88ce6862b51b054914f023c1",
+      "samples": 304128,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.42629528045654297,
+      "max_encoding_error": 1.189691829495132e-07
+    },
+    {
+      "code": "K2",
+      "research_path": "S",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/full/vocal/current-word-214-K2.wav",
+      "sha256": "05f45c1212d539d99fb3509cc447a07216a6e61ef48de83009d7e18abc31b476",
+      "samples": 304128,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.4658299684524536,
+      "max_encoding_error": 1.1897418517037295e-07
+    },
+    {
+      "code": "K3",
+      "research_path": "A",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/full/vocal/current-word-214-K3.wav",
+      "sha256": "7e5783a9e06c6eb11a18355357a2f40177813dcfc3db9b1a26c2cfd9f7cc9d65",
+      "samples": 304128,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.4923917055130005,
+      "max_encoding_error": 1.1897463991772383e-07
+    },
+    {
+      "code": "K4",
+      "research_path": "D",
+      "path": "runs/experiments/table2-shfc-paths-20261011/delivery/full/vocal/current-word-214-K4.wav",
+      "sha256": "913f5bd89b0cf416ac7dc71109311db3432ca3dba65a92bb57d2e51452004c31",
+      "samples": 304128,
+      "channels": 1,
+      "subtype": "PCM_24",
+      "peak": 0.5146839618682861,
+      "max_encoding_error": 1.1897054719156586e-07
+    }
+  ],
+  "auditory_result": "no_perceptible_difference_reported",
+  "preferred_code": null,
+  "preference_status": "no preference reported",
+  "feedback_scope": "four presented full-context mono vocals; not explicit fixed-pair or mixed-audio feedback",
+  "actual_listened_set": "not separately enumerated",
+  "pairwise_discrimination_results": "not separately enumerated",
+  "auditory_details": {
+    "onset": "unknown",
+    "break_or_crack": "unknown",
+    "loudness": "unknown",
+    "diction": "unknown",
+    "body": "unknown",
+    "naturalness": "unknown",
+    "absolute_usability": "unknown"
+  },
+  "listening_metadata": {
+    "device": "unknown",
+    "player": "unknown",
+    "volume": "unknown",
+    "actual_order": "unknown",
+    "repetitions": "unknown",
+    "complete_four_file_listening": "unknown",
+    "blinding": "unknown"
+  },
+  "inference_boundary": "Limited negative at this condition/dose/presentation; not waveform equality, a zero component effect, physiological cause or universal SHFC ineffectiveness",
+  "stopping_action": "No expanded word214 dose/time-shape/condition/seed or new candidate under frozen protocol",
+  "preserved_word225_feedback": {
+    "path": "runs/research/table2-word225-feedback-20261011/feedback.json",
+    "sha256": "1274aafa16b423052d7f52884b0caf8dcfda4ba69e5bb78a792a114d2a864ca3"
+  },
+  "cumulative_new_feedback": 2,
+  "this_record_new_feedback": 1,
+  "remaining_gaps": [
+    "specific auditory dimensions",
+    "explicit fixed-pair feedback",
+    "mixed-audio feedback"
+  ],
+  "experiment_seal": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+    "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+  },
+  "prior_feedback_seal": {
+    "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+    "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+  },
+  "packaging": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/pcm-packaging.json",
+    "sha256": "6517c3a8d5dfbf975de42240dc8ee5b45eb305fb1527cf8cdac6a68c90e1c7b5"
+  },
+  "protocol": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/validation-protocols/shfc-path-separation-v1.json",
+    "sha256": "4881bc6730c76190b661bdc9673495ca19e97176e4abc20c3c04e3f2841220ff"
+  },
+  "pre_update_snapshot": {
+    "path": "runs/research/table2-word214-feedback-20261011/before/snapshot-manifest.json",
+    "sha256": "5e527fcac11f8de2b45a9bbaa07c7bb44367d26d5530ae2e3e28e7f038964a86"
+  },
+  "protected_baseline": {
+    "stage": "2E-execution",
+    "manifest": "docs/knowledge/acoustic-manifestations-20261009/history/pre-table2-2e-execution-20261011/snapshot-manifest.json",
+    "sha256": "01dffada2ee989a45e6e48f79dbd5ada8dd67d0bc8c475dd54f2a14945e47c46",
+    "run": "runs/experiments/table2-shfc-paths-20261011",
+    "test_run": "runs/test-results/table2-2e-execution-20261011"
+  },
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "production_song_changed": false,
+  "skill_changed": false,
+  "automatic_expansion": false,
+  "recorder": {
+    "path": "research/table2-confirmation/record_stage_2e_word214_feedback.py",
+    "sha256": "9e9c6f3a83bf623c909b12927cacd4a8384dad0bd79fa0972fa3d94c39435e53"
+  }
+}

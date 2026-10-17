@@ -1,0 +1,300 @@
+{
+  "status": "existing_audio_listening_pending",
+  "date": "2026-10-11",
+  "user_sequence_instruction": "那先把不需要新生成歌曲的试听循环完成了，做完后再接着一首一首更新",
+  "active_scope": "complete the bounded existing-vocal listening cycle first, then prepare one-song-at-a-time updates",
+  "queue": [
+    {
+      "id": "Q01",
+      "condition_id": "current-word-214",
+      "source_pair_order": 1,
+      "direction": "S-A",
+      "codes": [
+        "K2",
+        "K3"
+      ],
+      "audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-01-K2-K3.wav",
+        "sha256": "5b822ff0a2d88a05b3e86f2e9da1db27297f361440d6a8f36c9dd0839d82137d",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.4923917055130005,
+        "max_encoding_error": 1.1897463991772383e-07
+      },
+      "reverse_audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-02-K3-K2.wav",
+        "sha256": "3e754f4992509eff69716306ec9d7c6c199d03df0f8df691e503337e444e7900"
+      },
+      "second_start_s": 7.496326530612245,
+      "first_vowel_approx_s": [
+        0.85,
+        1.17
+      ],
+      "second_vowel_approx_s": [
+        8.346326530612245,
+        8.666326530612245
+      ],
+      "auditory_feedback_status": "pending",
+      "actual_playback_or_order": "unknown",
+      "feedback_fields": [
+        "difference_or_no_difference_or_uncertain",
+        "first_or_second_more_powerful_if_any",
+        "voice_break_articulation_or_neighbor_change_if_reported"
+      ],
+      "new_independent_context": false
+    },
+    {
+      "id": "Q02",
+      "condition_id": "current-word-214",
+      "source_pair_order": 4,
+      "direction": "A-D",
+      "codes": [
+        "K3",
+        "K4"
+      ],
+      "audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-04-K3-K4.wav",
+        "sha256": "b49bad8b88b005793781b7a6a8cfd646981201ad7bd74fd9d5b2ecc99bf8cda3",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.5146839618682861,
+        "max_encoding_error": 1.1897463991772383e-07
+      },
+      "reverse_audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-03-K4-K3.wav",
+        "sha256": "45b77d29a398d37e8d0d1c4d0a9e67aae4a176b40d8f9c18667bba06b2aecc64"
+      },
+      "second_start_s": 7.496326530612245,
+      "first_vowel_approx_s": [
+        0.85,
+        1.17
+      ],
+      "second_vowel_approx_s": [
+        8.346326530612245,
+        8.666326530612245
+      ],
+      "auditory_feedback_status": "pending",
+      "actual_playback_or_order": "unknown",
+      "feedback_fields": [
+        "difference_or_no_difference_or_uncertain",
+        "first_or_second_more_powerful_if_any",
+        "voice_break_articulation_or_neighbor_change_if_reported"
+      ],
+      "new_independent_context": false
+    },
+    {
+      "id": "Q03",
+      "condition_id": "current-word-214",
+      "source_pair_order": 5,
+      "direction": "P-A",
+      "codes": [
+        "K1",
+        "K3"
+      ],
+      "audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-05-K1-K3.wav",
+        "sha256": "ac75b243380e54e82acf8472acfa02b6b00e8929d6e876e0f435dff166451562",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.4923917055130005,
+        "max_encoding_error": 1.1897463991772383e-07
+      },
+      "reverse_audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-06-K3-K1.wav",
+        "sha256": "85d5976d51e8920fe064651c27fe2ef5dd6a33bbcf7c9765ff39ad1b1231ea82"
+      },
+      "second_start_s": 7.496326530612245,
+      "first_vowel_approx_s": [
+        0.85,
+        1.17
+      ],
+      "second_vowel_approx_s": [
+        8.346326530612245,
+        8.666326530612245
+      ],
+      "auditory_feedback_status": "pending",
+      "actual_playback_or_order": "unknown",
+      "feedback_fields": [
+        "difference_or_no_difference_or_uncertain",
+        "first_or_second_more_powerful_if_any",
+        "voice_break_articulation_or_neighbor_change_if_reported"
+      ],
+      "new_independent_context": false
+    },
+    {
+      "id": "Q04",
+      "condition_id": "current-word-214",
+      "source_pair_order": 8,
+      "direction": "D-S",
+      "codes": [
+        "K4",
+        "K2"
+      ],
+      "audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-08-K4-K2.wav",
+        "sha256": "1236fb73b91b8253fd291256b29ce13044f92cb3e6c346e7bb411175dfe628df",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.5146839618682861,
+        "max_encoding_error": 1.1897418517037295e-07
+      },
+      "reverse_audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-07-K2-K4.wav",
+        "sha256": "00e0ee449e34f9eedab5fc858370b3422dc1709e7d7e55c596a6e3029020f4f9"
+      },
+      "second_start_s": 7.496326530612245,
+      "first_vowel_approx_s": [
+        0.85,
+        1.17
+      ],
+      "second_vowel_approx_s": [
+        8.346326530612245,
+        8.666326530612245
+      ],
+      "auditory_feedback_status": "pending",
+      "actual_playback_or_order": "unknown",
+      "feedback_fields": [
+        "difference_or_no_difference_or_uncertain",
+        "first_or_second_more_powerful_if_any",
+        "voice_break_articulation_or_neighbor_change_if_reported"
+      ],
+      "new_independent_context": false
+    },
+    {
+      "id": "Q05",
+      "condition_id": "current-word-214",
+      "source_pair_order": 9,
+      "direction": "S-P",
+      "codes": [
+        "K2",
+        "K1"
+      ],
+      "audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-09-K2-K1.wav",
+        "sha256": "be96ade816ef85f8dfa3aeee41a5de02a0bbefedce9e89e1fba5ebf17f6dc653",
+        "samples": 634716,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "peak": 0.4658299684524536,
+        "max_encoding_error": 1.1897418517037295e-07
+      },
+      "reverse_audio": {
+        "path": "runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-10-K1-K2.wav",
+        "sha256": "6307e2ad7a533f7cf778f7a2358b0d52122bd3a45360a46fefd0cd9bdb7a3ce8"
+      },
+      "second_start_s": 7.496326530612245,
+      "first_vowel_approx_s": [
+        0.85,
+        1.17
+      ],
+      "second_vowel_approx_s": [
+        8.346326530612245,
+        8.666326530612245
+      ],
+      "auditory_feedback_status": "pending",
+      "actual_playback_or_order": "unknown",
+      "feedback_fields": [
+        "difference_or_no_difference_or_uncertain",
+        "first_or_second_more_powerful_if_any",
+        "voice_break_articulation_or_neighbor_change_if_reported"
+      ],
+      "new_independent_context": false
+    }
+  ],
+  "queue_pairs": 5,
+  "selected_presentations": 5,
+  "reverse_order_optional": true,
+  "source_condition_historical_feedback": {
+    "path": "runs/research/table2-word214-feedback-20261011/feedback.json",
+    "sha256": "f252123e5a0a206dfd2ea39c01044b2ff8ccb5722617f9c7c228731581d09564"
+  },
+  "source_historical_no_difference_preserved": true,
+  "completed_word225_five_groups": "preserve existing feedback without retest or new questions",
+  "historical_closed_loops": [
+    "TENC cancellation no perceived difference",
+    "same-bao aggregate no difference",
+    "bao onset-C local accepted",
+    "guo SHFC rejected",
+    "six-condition BREC no difference",
+    "guo original clip partial label"
+  ],
+  "cancelled_scope": [
+    "remaining BGM/mix relationship listening"
+  ],
+  "closure_rule": "record these five existing paired vocal comparisons including no difference/uncertain; consolidate current vocal-cycle evidence with explicit gaps; no escalation in dose/versions/conditions",
+  "unreported_fields": "retain unknown, do not require exhaustive new labels, equipment details, reverse-order ratings, author comparison, all 318 words or every table entity for closure",
+  "ordering_after_closure": "review existing songs and choose first song, baseline and music purpose; versioned generation/listening/correction/evidence feedback per song, sample relevant manifestations and protect neighbors; new song-specific scope to be concrete before execution",
+  "future_permission_scope": "user authorizes sequencing to one-song-at-a-time updates after closure; current song/project, interventions and batch not selected; no automatic replay of sealed scripts or new rendering now",
+  "pending_sampling_design": "earlier 24+48/384 scenario deferred, not an immediate required rendering/listening budget",
+  "holdout_clarification": "baseline familiarity alone does not certify or disqualify every future task; audit whether relevant feedback was used to select rules and separate phrase/song groups for the intended inference",
+  "package": {
+    "path": "runs/experiments/table2-shfc-paths-20261011/pcm-packaging.json",
+    "sha256": "6517c3a8d5dfbf975de42240dc8ee5b45eb305fb1527cf8cdac6a68c90e1c7b5"
+  },
+  "previous_seal": {
+    "path": "runs/research/table2-exposure-coverage-20261011/completion-manifest.json",
+    "sha256": "dea20d1c8d034210a233a8a9d89cada814aaf0ecc410cd1bd61d85f7aa2c5bbe"
+  },
+  "source_seals": [
+    {
+      "path": "runs/experiments/table2-shfc-paths-20261011/completion-manifest.json",
+      "sha256": "c3e55742a78a1c57bab2fa34943a2379bab5d16e6ebb1b57aa7cf15db9fddf85"
+    },
+    {
+      "path": "runs/research/table2-word225-feedback-20261011/completion-manifest.json",
+      "sha256": "7d8ccdc2edd0d421bd3e6681eeb36bac3af91ce6a5f10dc492abb8aafd5f0af2"
+    },
+    {
+      "path": "runs/research/table2-word214-feedback-20261011/completion-manifest.json",
+      "sha256": "2ea67f368c8a53fa867c0b37828938a106ef3758a2fd11b6db9f1a72923eb78f"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-feedback-20261011/completion-manifest.json",
+      "sha256": "4800a9b8270d2da1edfbeb629834d0b5841cae9f7dd041d2344a15215046d25c"
+    },
+    {
+      "path": "runs/research/table2-word225-da-feedback-20261011/completion-manifest.json",
+      "sha256": "4e20e662350519ecb5103b6a36079ea2b06706f8083648ec7993cc14c01dbafc"
+    },
+    {
+      "path": "runs/research/table2-word225-pa-feedback-20261011/completion-manifest.json",
+      "sha256": "0f45f5fc8690cb771faaed562741b50edbf25e958ee09767828348eb1bdad4fc"
+    },
+    {
+      "path": "runs/research/table2-word225-sd-feedback-20261011/completion-manifest.json",
+      "sha256": "f6ddc9ae692fabe7f01adc5ffbfdbf4f67a16d3add7531f80fc1ea7a795b2714"
+    },
+    {
+      "path": "runs/research/table2-word225-sp-feedback-20261011/completion-manifest.json",
+      "sha256": "860719f2d97111bef140fe230e382c89f7ad72f218e754b5338b55a1972a3134"
+    },
+    {
+      "path": "runs/research/table2-word225-sa-mix-feedback-20261011/completion-manifest.json",
+      "sha256": "df12cde46a0a0ddeffeea414c3a6e35ff693005ac97773e70ecfc90b144a83e2"
+    },
+    {
+      "path": "runs/research/table2-vocal-scope-review-20261011/completion-manifest.json",
+      "sha256": "87ef085b6c16982660b3df4cd4b4912de81101b9a9eadc6d2671bb92a73ff2bb"
+    }
+  ],
+  "generator": {
+    "path": "research/table2-confirmation/prepare_existing_vocal_listening_queue.py",
+    "sha256": "1ac39da1001a2304f5d28c8cae5e5ec765381aee6f9d1e48730b069120d8eda2"
+  },
+  "new_audio_or_derivative_files": 0,
+  "new_waveforms": 0,
+  "new_model_calls": 0,
+  "audio_or_array_decodes": 0,
+  "new_feedback": 0,
+  "loop_complete": false,
+  "stage_2E_fully_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "song_or_skill_changed": false,
+  "single_agent": true,
+  "CI_manual_only": true
+}

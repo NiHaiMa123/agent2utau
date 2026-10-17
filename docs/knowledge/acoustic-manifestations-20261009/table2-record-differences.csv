@@ -1,0 +1,8 @@
+﻿id,records,kind,finding,action
+T2A:F01,"[""RESP-003""]",comparison_scope,C-B听觉/能量与A-C F0、原A基底并存；JSON已有说明，但未统一拆成comparison_id/版本字段。,2B拆分比较与状态来源；2A不改旧值，不补B基底。
+T2A:F02,"[""RESP-005"", ""RESP-006"", ""RESP-007"", ""RESP-008"", ""RESP-009"", ""RESP-010"", ""AUD-002""]",valid_input_version,有效工程/原生输入/新预测在cohort显式_grid5目录；不带该后缀的旧目录含拒绝草稿。,2A绑定具体有效路径；2B将版本/失败角色作为字段，保留旧manifest。
+T2A:F03,"[""RESP-001"", ""RESP-002"", ""RESP-003"", ""RESP-004"", ""RESP-005"", ""RESP-006"", ""RESP-007"", ""RESP-008"", ""RESP-009"", ""RESP-010""]",runtime_scope,共享47项runtime来自BREC冻结清单。TENC的frozen_dependencies是不同范围；不能套用相同runtime_group视为逐实验运行证明。,按五设计关联各自历史清单，逐项比较共有/新增/不同值；当前模型/安装未重查，未运行。
+T2A:F04,"[""RESP-001"", ""RESP-002"", ""OBS-001"", ""AUD-001""]",source_registry_coverage,原36来源未单独列TENC反馈、SHFC字头反馈及果接受/音素审计JSON；原报告有引用，2A补明确来源绑定。,补索引，不改原报告/原36来源审计或既有反馈。
+T2A:F05,"[""RESP-005"", ""RESP-006"", ""RESP-007"", ""RESP-008"", ""RESP-009"", ""RESP-010""]",verbatim_punctuation,派生user_feedback.verbatim省略原反馈JSON末尾中文句号；文字内容一致，原“全部没区别。”精确保留在2A反馈来源字段。,2B保留原文与展示摘要各自来源；2A不静默修改冻结的派生JSON。
+T2A:F06,"[""RESP-001"", ""RESP-002"", ""RESP-003"", ""RESP-004"", ""RESP-005"", ""RESP-006"", ""RESP-007"", ""RESP-008"", ""RESP-009"", ""RESP-010""]",feedback_metadata_gap,历史反馈未完整记录精确提交时间、设备/监听、盲法及逐项任务；日期目录或文件mtime不能补成这些事实。,保持unknown；2C限定已有听觉结论，新的冻结试听另外记录。
+T2A:F07,"[""RESP-004""]",audit_locator_correction,2A预冻结附加候选误用native_isolation.json文件名，该路径不存在；实际相关记录为封存manifest内preservation_check.json及fresh核查。,冻结原错误条目不改；补真实来源与locator勘误。这不是原实验文件丢失或隔离失败证据。
