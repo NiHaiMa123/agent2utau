@@ -1,5 +1,7 @@
 # agent2utau
 
+2026-10-17当前制作 `yuai_phrase_handdraw_source_only_paused_by_user_after_s14`：使用新Skill逐句重制雨爱，按用户“做完这句先暂停，我看下效果”完成s14后暂停。s01–s14共133元音的画线/实际图审/成声及输入核验完成，s15及后续未启动，整曲53句尚未完成。现按用户澄清补交[从第一句开始的前十四句连续试听及预览工程](docs/reports/yuai/phrase-handdraw-first14-preview-20261017.md)，制作继续暂停；严格缺口、失败修订、时钟不确定与试听入口见[本轮制作记录](docs/reports/yuai/phrase-handdraw-source-only-20261017.md)。禁止作者/历史制作载荷，仅沿用原曲侧观测及公开条件经验；Skill40资源与既有v03工程SHA保持。单Agent、CI未运行，听感均待确认；等待用户反馈/恢复指示。
+
 2026-10-16 雨爱 source-only 最新 Skill 重制 `yuai_source_only_latest_skill_delivered_pending_listening`：按用户边界只用源 FLAC、分离人声、GAME 音符事件与双 F0 观测，不用历史制作 run/白烁文件，按最新逐句流程重制整曲。54 段/137 原生乐句/405 音符、361 元音；逐句冻结意图（计划前）→ 函数设计 → 编译读回 ≤0.49996c → 逐字图审 357/361。前向账本 361 决策（hold185/center109/oscillation40/finite_return27），发声路径与结构提示如实记录。新 260.5s 人声+伴奏候选已交付。技术/agent_attested；4 个 10ms 微元音单元未通过保留，技术完成false，整曲听感unknown。单Agent、CI仅手动。见[报告](docs/reports/yuai/source-only-latest-skill-20261016.md)。下一步接本版试听反馈，不自动扫参。
 
 2026-10-16当前流程更新 `phrase_by_phrase_skill_workflow_updated`：按用户要求改为一个完整音乐句观察/逐字构思/前置意图/画线/原生与主体及跨字图审/成声检查做完，再推进下一句；保存逐句进度，试听状态独立，不逐句等人工批准。整曲最终只组装已审阅目标；独立入口/主体/退出主张拆检，不让一个入口代表全句。7份Skill资源更新并同步安装，40文件一致/124引用/结构核查通过；当前工具仍无逐句先后自动门禁。雨爱工程、音频、旧锁与receipt保持，本轮不继续歌曲。见[逐句流程更新](docs/reports/production/skill-phrase-workflow-20261016.md)。单Agent、CI仅手动。下一制作任务按新流程逐句执行，旧通过不倒填。

@@ -2,6 +2,8 @@
 
 ## Codex与当前计划
 
+- 2026-10-17当前制作 `yuai_phrase_handdraw_source_only_paused_by_user_after_s14`：使用新Skill逐句重制雨爱，按用户“做完这句先暂停，我看下效果”完成s14后暂停。s01–s14共133元音的画线/实际图审/成声及输入核验完成，s15及后续未启动，整曲53句尚未完成。现按用户澄清补交[从第一句开始的前十四句连续试听及预览工程](docs/reports/yuai/phrase-handdraw-first14-preview-20261017.md)，制作继续暂停；严格缺口、失败修订、时钟不确定与试听入口见[本轮制作记录](docs/reports/yuai/phrase-handdraw-source-only-20261017.md)。禁止作者/历史制作载荷，仅沿用原曲侧观测及公开条件经验；Skill40资源与既有v03工程SHA保持。单Agent、CI未运行，听感均待确认；等待用户反馈/恢复指示。
+
 - 2026-10-16当前流程更新 `phrase_by_phrase_skill_workflow_updated`：按用户要求改为一个完整音乐句观察/逐字构思/前置意图/画线/原生与主体及跨字图审/成声检查做完，再推进下一句；保存逐句进度，试听状态独立，不逐句等人工批准。整曲最终只组装已审阅目标；独立入口/主体/退出主张拆检，不让一个入口代表全句。7份Skill资源更新并同步安装，40文件一致/124引用/结构核查通过；当前工具仍无逐句先后自动门禁。雨爱工程、音频、旧锁与receipt保持，本轮不继续歌曲。见[逐句流程更新](docs/reports/production/skill-phrase-workflow-20261016.md)。单Agent、CI仅手动。下一制作任务按新流程逐句执行，旧通过不倒填。
 
 - 2026-10-16续项完成：状态 `yuai_G_whole_candidate_delivered_pending_listening_with_process_gap`。Skill已补直接检索表1/表2与后续阴性/反馈、词/核映射，39份安装一致、117链接及9本机测试通过。当前源独立G方向全曲53句/371元音/382阶段，61组原生成声与两阶段实际输入核对、371/371实际图审完成，新260.48秒纯人声及v03候选工程已交付。技术完成；s13冻结到达检查失败保留，严格流程false，末将/虹深回探及2:46短吸偏低电平列试听重点，整曲听感unknown。只取公开经验，无作者/历史制作载荷，未启用CI，单Agent。见[整曲候选报告](docs/reports/yuai/source-intent-G-whole-candidate-20261016.md)。下一步接本版整曲反馈，不自动扫参。
