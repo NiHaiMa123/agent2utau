@@ -1,0 +1,33 @@
+{
+  "record_id": "METHOD:PHONATION-SENTENCE-MIDPOINT-COMPARISON-20261017",
+  "record_type": "existing_midpoint_vs_endpoint_pending_comparison",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-midpoint-comparison-20261017.md",
+    "sha256": "21b43365f586734220c912bb8ffb3171370f761a539882724d73f55f7b388a6d"
+  },
+  "feedback_id": "AUD:PHONATION-SENTENCE-A-MORE-VIRTUAL-20261017",
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-midpoint-20261017\\delivery.json",
+    "sha256": "afd2289a1d41150726f982a0f412aef5e3c2fcb6005b0f4e2d7b9aa15b93bd85"
+  },
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-midpoint-20261017\\protocol.json",
+    "sha256": "46bf873199e129c89628eba7cb1bd1203d1ff8b4fd247694a4b26609d5239241"
+  },
+  "partial_feedback": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-midpoint-20261017\\coarse-partial-ratings.json",
+    "sha256": "ffb482430ef7428f973f6651bfffcabc1e1008af558b4ff54262cd848ea810af"
+  },
+  "partial_feedback_validation": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-midpoint-20261017\\coarse-partial-validation.json",
+    "sha256": "4715ccc25713e55176db3ad1c3968baa9d7df4a3654dabd26438412b38ed31be"
+  },
+  "new_render_count": 0,
+  "known_label": "A more virtual than C",
+  "B_C_label": null,
+  "preference": null,
+  "perceptual_scale_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "song_changed": false
+}

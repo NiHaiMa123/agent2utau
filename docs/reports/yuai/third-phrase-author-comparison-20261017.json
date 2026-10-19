@@ -1,0 +1,52 @@
+{
+  "record_id": "RESP:YUAI-S03-AUTHOR-READONLY-COMPARISON-20261017",
+  "record_type": "current_third_reference_condition_comparison_after_native_negative",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-author-comparison-20261017.md",
+    "sha256": "cd2a3d2a8896019435919362ff467551882684573878efcabe0bcf3131633be3"
+  },
+  "feedback_id": "AUD:YUAI-S03-F-NATIVE-STILL-UNSATISFACTORY-20261017",
+  "current": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "86b2dfc0c5be1eec310dc165ba7c3894dc468e72f2b58246189e29642e688fc2"
+  },
+  "author": {
+    "path": "E:\\project\\agent2utau\\research\\baishuo\\projects\\雨爱-有参by白烁.ustx",
+    "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce"
+  },
+  "written": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-s03-author-comparison-20261017\\written-comparison.json",
+    "sha256": "a7ef96e734d2fa3655eb80b5fb91d93cf61dbafd7c49ec4155d6413d40392d48"
+  },
+  "actual": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-s03-author-comparison-20261017\\own-actual-feature-comparison.json",
+    "sha256": "a1efc4ef287e7a931e9f3c8115fb4aaeb2e85a4bc8715ae454b1806bfed5cbe5"
+  },
+  "conditions": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-s03-author-comparison-20261017\\conditions.json",
+    "sha256": "758c341a62d946fe6286b43e82f139b49f6b87a14395857e24569ee8117bf680"
+  },
+  "actual_view_review": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-s03-author-comparison-20261017\\actual-view-review.json",
+    "sha256": "e74084fe65ce720cd4c18c07952054aed30f86dc57b621e29f2dc60b65deaf2a"
+  },
+  "view_correction": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-s03-author-comparison-20261017\\view-correction.json",
+    "sha256": "b25bf61b8d3ed86447408ff2eada50137741f221b6e8a97eaddb9ef790fd3df2"
+  },
+  "matched_notes": 31,
+  "third_notes": 8,
+  "own_common_phone_near_register_pairs": 3,
+  "author_harmony_second_half_present": true,
+  "author_historical_voice_available": false,
+  "project_changed": false,
+  "skill_changed": false,
+  "new_model_execution": 0,
+  "new_audio": 0,
+  "third_hearing_goal_met": false,
+  "single_acoustic_cause": "unknown",
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "author_curve_transfer": false,
+  "CI": false
+}

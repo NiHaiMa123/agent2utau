@@ -1,0 +1,38 @@
+{
+  "record_id": "METHOD:PHONATION-EXISTING-LABEL-AUDIT-20261017",
+  "record_type": "known_label_development_axis_audit_with_timbre_confound",
+  "report": {
+    "path": "docs/reports/production/phonation-existing-label-audit-20261017.md",
+    "sha256": "400296813b961ea44f1fb540ee0bb4a96fddbede59af56a6722d54350c0166cf"
+  },
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-existing-label-audit-20261017\\protocol.json",
+    "sha256": "65b46e57c80fb46fcdd4372485889a82369b4c3f4954508eb082336369605f5e"
+  },
+  "measurement_recheck": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-existing-label-audit-20261017\\measurement-recheck.json",
+    "sha256": "56ef4b48372aa93e0880b3d045c336ed477ec12114fd05aa93b576d3786960d2"
+  },
+  "pair_results": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-existing-label-audit-20261017\\pair-results.json",
+    "sha256": "b45d44ed5fdaad33d5704bb37bf7a01bf6e92823ea74d7db5d263fa33c73baed"
+  },
+  "filter_check": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-existing-label-audit-20261017\\filter-confound-check.json",
+    "sha256": "4eea54c3c0d51a8ccf15dff31afb58b308c1c8413a28033ec8ffce6fea7761f1"
+  },
+  "direction_congruent_pairs": 4,
+  "explicit_firmness_pairs": 4,
+  "independent_firmness_contexts": 1,
+  "shared_endpoint": "C",
+  "endpoint_has_lowered_voice_impression": true,
+  "perceptual_accuracy": null,
+  "timbre_specificity_validated": false,
+  "discriminability_threshold": null,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false,
+  "new_audio": 0,
+  "new_model_execution": 0,
+  "song_changed": false
+}

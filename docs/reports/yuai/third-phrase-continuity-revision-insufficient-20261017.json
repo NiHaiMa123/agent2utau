@@ -1,0 +1,21 @@
+{
+  "record_id": "AUD:YUAI-S03-VOIC-REVISION-INSUFFICIENT-20261017",
+  "record_type": "goal_not_reached_feedback",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-continuity-revision-insufficient-20261017.md",
+    "sha256": "0fe9b57d689f46e4f7a3b619c4a6244b24f4b198c73b2467bfac0bd4db923992"
+  },
+  "feedback": "还是不够",
+  "current_project_sha256": "e4c64b5f3637ef4bd4bcbe2b347fe76d0e94e95ce59961dc5883a16f0dd888d9",
+  "exact_played_audio": "not supplied",
+  "goal": "Previously reported third phrase airier/close-sounding and inconsistent with first2",
+  "result": "VOIC-only revision not sufficient; degree of change not specified",
+  "candidate_record": "RESP:YUAI-S03-CONTINUITY-VOIC-REVISION-20261017",
+  "candidate_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first3-continuity-20261017\\first3-after.wav",
+    "sha256": "ff0404b6922c0f80687293db45a3ab25ee98eb703d818429e568aefc684acc89"
+  },
+  "continuity_accepted": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

@@ -1,0 +1,32 @@
+{
+  "record_id": "AUD:YUAI-S03-P-TENTATIVE-BETTER-VIEW-REQUEST-20261018",
+  "record_type": "tentative_overall_improvement_and_same_project_writeback_request",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-P-tentative-feedback-20261018.md",
+    "sha256": "949f1819b277d07b7d7a109be096a88bf4ee175a4ccef7104cad9b153628a2bb"
+  },
+  "feedback": "好像好点，你改下项目，我看下",
+  "source_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\packet.json",
+    "sha256": "c699cca15a29342b90b744dfa9258d554a314eadaab15062c852a827766d9f88"
+  },
+  "primary_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\current-then-P-context.wav",
+    "sha256": "4ca6ec3b41f24a2313692df087b9d5f3175a3aa98019a6f8e56884350c49da32"
+  },
+  "selected_P": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\P-context-levelmatched.wav",
+    "sha256": "d355111c01aa41578f6cedbe2749af7b6ce5d19bb06c412c3c34019d155e1646"
+  },
+  "binding_basis": "Immediate reply to current→P only primary audition; no separately supplied playback hash",
+  "overall_improvement": "tentative",
+  "firmness": null,
+  "darkness": null,
+  "lowered_voice_impression": null,
+  "continuous_consistency": null,
+  "final_accepted": false,
+  "Q_rated": false,
+  "project_writeback_authorized": true,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

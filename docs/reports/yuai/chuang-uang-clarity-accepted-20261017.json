@@ -1,0 +1,20 @@
+{
+  "record_id": "AUD:YUAI-CHUANG-UANG-CLARITY-ACCEPTED-20261017",
+  "record_type": "local_pronunciation_acceptance",
+  "report": {
+    "path": "docs/reports/yuai/chuang-uang-clarity-accepted-20261017.md",
+    "sha256": "2be14080512f51b4424290b9f4e99f4f4689e46ecc2ea577d727d438e73d7dd7"
+  },
+  "feedback": "之前的第一句窗字发音修好了",
+  "current_project_sha256": "e4c64b5f3637ef4bd4bcbe2b347fe76d0e94e95ce59961dc5883a16f0dd888d9",
+  "exact_played_audio": "not supplied",
+  "accepted": "Current first-phrase 窗 pronunciation repaired",
+  "limited_to": "Pronunciation only; not whole phrase phonation/full-song acceptance or universal compound-vowel recipe",
+  "candidate_record": "RESP:YUAI-CHUANG-UANG-CLARITY-CANDIDATE-20261017",
+  "candidate_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-chuang-clarity-20261017\\first-phrase-clarity.wav",
+    "sha256": "f4b7bfa26742356e721a9d1f676da0e9782a4cb6af75ef5526c40463269a6bc6"
+  },
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

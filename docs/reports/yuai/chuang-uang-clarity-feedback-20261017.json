@@ -1,0 +1,20 @@
+{
+  "record_id": "AUD:YUAI-CHUANG-UANG-UNCLEAR-20261017",
+  "record_type": "user_feedback_with_correction",
+  "report": {
+    "path": "docs/reports/yuai/chuang-uang-clarity-feedback-20261017.md",
+    "sha256": "ca05473df5f2042c9a91508d59702173a4bb4d7c3854ce7fdf501f93bf178c92"
+  },
+  "feedback": [
+    "窗字读音不够清晰",
+    "字头ch不清楚",
+    "说错了是后面uang"
+  ],
+  "active_location": "uang",
+  "withdrawn_location": "ch",
+  "candidate_project_sha256": "e4804f0e61e361b599e78c665a4a981921e84d464a69da1ef5f688cbb585dfdb",
+  "audio_binding": "not supplied",
+  "existing_r03_solidity_acceptance": "retained within its phonation scope",
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

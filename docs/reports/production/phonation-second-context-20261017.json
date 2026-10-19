@@ -1,0 +1,56 @@
+{
+  "record_id": "RESP:PHONATION-SECOND-CONTEXT-GHI-20261017",
+  "record_type": "prospective_same_song_different_phrase_condition_check",
+  "report": {
+    "path": "docs/reports/production/phonation-second-context-20261017.md",
+    "sha256": "32f714a30b42d33c1aeded95625f7923a1e1be1f2808fd155820bdda30f67889"
+  },
+  "first_context_feedback": "AUD:PHONATION-SENTENCE-CF-LESS-LOWERED-C-FIRMER-20261017",
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\protocol.json",
+    "sha256": "ec574c1148b170636829dd7244c5e1144d22f6c878a9780e76bdf34429829c60"
+  },
+  "identity": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\identity.json",
+    "sha256": "6275835a9f6fcd7b42354cf83b9b112ccd86f038d127c340df5c972f87a12c25"
+  },
+  "audit": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\input-audit.json",
+    "sha256": "0c75fc3a33d567d4191606f48d58fb6c7294eb78b96989b0578979ac2e211639"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\delivery.json",
+    "sha256": "75443d59957484c8523f02f0f92f1adac7ce1287bbe579097b52dd38cb856e8b"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\validation.json",
+    "sha256": "3a6886bd027c8a7b8b320c9bff3385c463d57842354f28febebc6345ba5be2eb"
+  },
+  "predictions": [
+    {
+      "pair": [
+        "G",
+        "H"
+      ],
+      "firmer": "G",
+      "more_lowered_voice_impression": "G",
+      "human_result": null
+    },
+    {
+      "pair": [
+        "G",
+        "I"
+      ],
+      "firmer": "G",
+      "more_lowered_voice_impression": "G",
+      "human_result": null
+    }
+  ],
+  "H_I_prediction": null,
+  "previous_acceptance_carried": false,
+  "new_song_or_independent_blind_holdout": false,
+  "perceptual_scale_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "song_changed": false
+}

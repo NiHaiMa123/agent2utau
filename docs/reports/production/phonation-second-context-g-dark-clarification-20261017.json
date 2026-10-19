@@ -1,0 +1,40 @@
+{
+  "record_id": "AUD:PHONATION-SECOND-CONTEXT-G-DARK-CLARIFIED-20261017",
+  "record_type": "followup_clarification_of_same_GHI_listening",
+  "report": {
+    "path": "docs/reports/production/phonation-second-context-g-dark-clarification-20261017.md",
+    "sha256": "4c45b4c2301b369e5eedbb7f6e111733bdf422ccba367dacd304dac594f3da74"
+  },
+  "feedback": "就是暗，感觉压低声音，不够清亮。实感就是之前有记录的实和虚应该能找到例子",
+  "previous_feedback": {
+    "path": "E:\\project\\agent2utau\\docs\\reports\\production\\phonation-second-context-hi-preferred-feedback-20261017.json",
+    "sha256": "763c529ad11be83620ad4b555065ef960af370d09f97fef8b2ff38545afdf9c8"
+  },
+  "question": "你说 H、I 都好于 G，G 主要差在哪里？实感和“压低声音唱”的感觉分别怎样？",
+  "source_protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\protocol.json",
+    "sha256": "ec574c1148b170636829dd7244c5e1144d22f6c878a9780e76bdf34429829c60"
+  },
+  "source_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\G-H-I.wav",
+    "sha256": "8bcea553b6cbba8fc1bd88e3df036bb1723f96a6ccf20e8e818fbfdaeaae42c8"
+  },
+  "G_descriptors": [
+    "暗",
+    "感觉压低声音",
+    "不够清亮"
+  ],
+  "comparative_basis": "G-specific reply to why H/I better than G; reduced lowered-voice impression inferred contextually, not separately rated per pair",
+  "relative_firmness": null,
+  "existing_anchor_ids": [
+    "AUD:PHONATION-SENTENCE-A-MORE-VIRTUAL-20261017",
+    "AUD:PHONATION-SENTENCE-BC-VIRTUALITY-C-VOICE-20261017",
+    "AUD:PHONATION-SENTENCE-D-LESS-LOWERED-MORE-VIRTUAL-20261017",
+    "AUD:PHONATION-SENTENCE-CF-LESS-LOWERED-C-FIRMER-20261017"
+  ],
+  "independent_listening_event_increment": 0,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false,
+  "song_changed": false
+}

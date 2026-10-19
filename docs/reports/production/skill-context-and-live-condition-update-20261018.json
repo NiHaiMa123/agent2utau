@@ -1,0 +1,69 @@
+{
+  "record_id": "RESP:SKILL-CONTEXT-LIVE-CONDITION-UPDATE-20261018",
+  "record_type": "five_skill_resource_update_for_context_order_and_live_playback_conditions",
+  "report": {
+    "path": "docs/reports/production/skill-context-and-live-condition-update-20261018.md",
+    "sha256": "1571214bbde78397dd177776ed2548c659593b8efc8a6e7ef3b24040f8fe41fa"
+  },
+  "user_request": "那现在返回去看看skill要更新吗",
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\skill-context-and-live-condition-20261018\\knowledge_context.json",
+    "sha256": "b7d8dd733dc088a24ae01bd2cdd5363f1bb65f14330998ea0ecd38339eda5dba"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\skill-context-and-live-condition-20261018\\update-intent.json",
+    "sha256": "ccffc415728cdd07858ff4be59ad4b7c83c2ea98b481e5f0a16914eb6d311b06"
+  },
+  "changed_files": [
+    {
+      "path": "E:\\project\\agent2utau\\skills\\singing-expression-editor\\SKILL.md",
+      "before_sha256": "e7e85b4325521f44c0c203faf3f70e97e12b449c69db4ef7777c0ec47b696db1",
+      "after_sha256": "f5529d5e95525a02b1c297c5c3241d60d0033d840e23fd2df17aaf3d79965075"
+    },
+    {
+      "path": "E:\\project\\agent2utau\\skills\\singing-expression-editor\\references\\phrase-by-phrase-workflow.md",
+      "before_sha256": "1ddf584fedf6521f38c07647b5dc71017df4d92faf245fd06afc214d59212718",
+      "after_sha256": "7f25bac901c4189084e44716c6418406c798b59a135060bdd45e9eb596d46036"
+    },
+    {
+      "path": "E:\\project\\agent2utau\\skills\\singing-expression-editor\\references\\ap-sp-placement.md",
+      "before_sha256": "caa3f8e18edeca18050545f9614af807445dd694189b9cc15299edc72fb6cc42",
+      "after_sha256": "5fabbbe370dd2577e5a09dfe0d08b6eccfbe1c4a8832e7d1c732d04d9c40f089"
+    },
+    {
+      "path": "E:\\project\\agent2utau\\skills\\singing-expression-editor\\references\\voice-baseline-and-stability.md",
+      "before_sha256": "61d8e854cd3747a60f35133a11ad542ca9d8493f1d18b2d0f89c41ee83333582",
+      "after_sha256": "8af5429aaa7479478a8dae6c6051f142df92ad10e1bfb02f1a2669d3c547bfdb"
+    },
+    {
+      "path": "E:\\project\\agent2utau\\skills\\singing-expression-editor\\references\\planning-and-evaluation.md",
+      "before_sha256": "fa42d281886fc99edde8bd5ba7477d18ee5d6ef7dcb05dff2addb00f2ecaa930",
+      "after_sha256": "11d801e7e36285609dec8265f383eed28f80f87aa3bc8417f2d61c571130fb9e"
+    }
+  ],
+  "local_validation": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\skill-context-and-live-condition-20261018\\local-validation.json",
+    "sha256": "27ffa72fe80d26af4b37c654c3deb3cca14728c82af9febbdcf9083a2d1a6ce7"
+  },
+  "sync": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\skill-context-and-live-condition-20261018\\installed-sync.json",
+    "sha256": "7194ecdeccbdd9b00dc4f4eb0acbf1b5c31e843a695e395c3b9b5fafccc970e7"
+  },
+  "manual_scenarios": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\skill-context-and-live-condition-20261018\\manual-scenario-review.json",
+    "sha256": "c75a84fbcaaa9c714a453d3602912458832d038dce9242d20a337856da2461e5"
+  },
+  "skill_resources": 40,
+  "installed_all_exact": true,
+  "local_links": 128,
+  "knowledge_contracts_passed": 9,
+  "song_or_audio_changed": false,
+  "new_model_runs": 0,
+  "new_audio": 0,
+  "new_hearing_labels": 0,
+  "automatic_enforcement_added": false,
+  "independent_forward_test": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "CI": false
+}

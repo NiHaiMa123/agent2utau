@@ -1,0 +1,41 @@
+{
+  "record_id": "AUD:PHONATION-SENTENCE-D-LESS-LOWERED-MORE-VIRTUAL-20261017",
+  "record_type": "two_dimension_local_response",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-d-less-lowered-more-virtual-20261017.md",
+    "sha256": "ecdfabe12a3b8c46197c53bdad45d2ac20e7842c368e98d0d6c8721c045fd99a"
+  },
+  "feedback": "减轻，但是更虚",
+  "source_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\packet.json",
+    "sha256": "f740397489dc1ef27e527bc4354e3d7aceece5593a06f41fbd63ec5e2bd327e0"
+  },
+  "audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\C-then-D.wav",
+    "sha256": "5561f238d225b01b2db92f47c9fe7776c8deb963bf8f547c9f9d1380b3fe8f86"
+  },
+  "C": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\C-RMSmatched.wav",
+    "sha256": "61caecca5d7f223d856c003d15e186eaa22e55a731663af72e4c45b477b7a915"
+  },
+  "D": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\D-RMSmatched.wav",
+    "sha256": "560b454d97182f8d4b28ba1747dbc8234f2a4621c799ab4beebd9a37bbbf99de"
+  },
+  "binding_basis": "Immediate reply to C→D and explicit questions about D; no independently supplied hash",
+  "relative_virtuality": {
+    "more_virtual": "D",
+    "less_virtual": "C"
+  },
+  "lowered_voice_impression": {
+    "less": "D",
+    "more": "C",
+    "completely_resolved": null
+  },
+  "preference": null,
+  "absolute_adequacy": null,
+  "unique_physiological_cause": null,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false
+}

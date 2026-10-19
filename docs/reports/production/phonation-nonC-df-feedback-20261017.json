@@ -1,0 +1,74 @@
+{
+  "record_id": "AUD:PHONATION-NONC-DF-F-FIRMER-D-DARK-20261017",
+  "record_type": "direct_nonC_pair_relative_firmness_darkness_and_preference",
+  "report": {
+    "path": "docs/reports/production/phonation-nonC-df-feedback-20261017.md",
+    "sha256": "ff35dc82b0bf4d6c1ebd69eb30f1dcf1823d6c499d30473ac8a113313d1eaf97"
+  },
+  "submissions": [
+    {
+      "order": 1,
+      "text": "f更实"
+    },
+    {
+      "order": 2,
+      "text": "D暗。F好很多"
+    }
+  ],
+  "independent_listening_events": 1,
+  "source_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-nonC-evidence-20261017\\packet.json",
+    "sha256": "3a1ec3f5f2f02afb6c68bff4c3e5af14051e6833c1b2904111f61574ee5105f1"
+  },
+  "source_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-nonC-evidence-20261017\\D-then-F.wav",
+    "sha256": "0cf1b39fc482a63e4a00085e19bc0ba2758459ae23330484e2a56d493f0e6d0f"
+  },
+  "clips": [
+    {
+      "id": "D",
+      "audio": {
+        "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\D-RMSmatched.wav",
+        "sha256": "560b454d97182f8d4b28ba1747dbc8234f2a4621c799ab4beebd9a37bbbf99de"
+      },
+      "samples": 238083,
+      "sr": 44100,
+      "rms_dbfs": -30.373606754745232,
+      "peak": 0.11740469932556152
+    },
+    {
+      "id": "F",
+      "audio": {
+        "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\F-RMSmatched.wav",
+        "sha256": "0681a90381d3f6cf6080abeea86f53ccf101b5010dc2a15db9f4f8f93c675bc1"
+      },
+      "samples": 238083,
+      "sr": 44100,
+      "rms_dbfs": -30.373606794734734,
+      "peak": 0.11382484436035156
+    }
+  ],
+  "binding_basis": "Two consecutive replies to the immediately preceding D→F delivery; no user-supplied playback hash.",
+  "relative_firmness": {
+    "more": "F",
+    "less": "D"
+  },
+  "relative_darkness": {
+    "more": "D",
+    "less": "F",
+    "basis": "Direct answer to which is darker; no absolute brightness score"
+  },
+  "overall_preference": {
+    "preferred": "F",
+    "over": "D",
+    "raw_strength": "好很多",
+    "numeric_strength": null
+  },
+  "lowered_voice_impression": null,
+  "naturalness": null,
+  "absolute_acceptance": null,
+  "per_word_ratings": null,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false
+}

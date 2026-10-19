@@ -1,0 +1,33 @@
+{
+  "record_id": "RESP:PHONATION-SENTENCE-VOIC-ISOLATION-F-20261017",
+  "record_type": "orthogonal_single_factor_after_similar_midpoint",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-voic-isolation-20261017.md",
+    "sha256": "7da1a63406a40c0c58f767b4c3154be695afeb02e8ad519bf6fbdc02381875e9"
+  },
+  "feedback_id": "AUD:PHONATION-SENTENCE-DE-OVERALL-SIMILAR-20261017",
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\protocol.json",
+    "sha256": "5473e6562b121b8974f6ede739d9a617ba656ed69f4a00c19c5efd877e16a175"
+  },
+  "input_audit": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\input-audit.json",
+    "sha256": "6f7f3a8267fb68f6d368c2c479efb47a88326dcbfd932aa63a1d7a82b8ceb729"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\delivery.json",
+    "sha256": "c3f683caf5640c3b105e0ee6f8c6976acc3cf14774cb6836e2e3b33d91551d46"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\validation.json",
+    "sha256": "af7bf660d134f4728fa25c253c848d4bd6c202f16ed20d93a9eca31fe0d2e707"
+  },
+  "new_candidate": "F",
+  "changed_control": "Remove C VOIC only, keep negative BREC",
+  "C_F_virtuality": null,
+  "C_F_lowered_voice_impression": null,
+  "perceptual_scale_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "song_changed": false
+}

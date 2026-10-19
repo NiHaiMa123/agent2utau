@@ -1,0 +1,26 @@
+{
+  "record_id": "AUD:YUAI-S03-Q-REJECTED-CONTEXT-QUESTION-20261018",
+  "record_type": "native_Q_rejection_and_user_context_hypothesis",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-Q-rejected-context-question-20261018.md",
+    "sha256": "910fca360196d338c3b80264b3272182c1cc2bcc6d18fb35fcd5cbbfa607c4e9"
+  },
+  "feedback": "不行，我严重怀疑是模型预测的问题，这个模型是不是在不同上下文下会产生不同的效果",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "b6ed6831050d528786b5d90e026b821efab7ba195db12e7783a640ab6770d878"
+  },
+  "Q_native_delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-Q-writeback-after-R-rejection-20261018\\same-file-receipt.json",
+    "sha256": "db1d6d9a898d83de6c3e1f76280ef9bc0480392deb6d63da81c7b052a4d6ca65"
+  },
+  "overall_accepted": false,
+  "context_cause": "user_hypothesis_unverified",
+  "firmness": null,
+  "airiness": null,
+  "darkness": null,
+  "proximity": null,
+  "cross_phrase_state": null,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

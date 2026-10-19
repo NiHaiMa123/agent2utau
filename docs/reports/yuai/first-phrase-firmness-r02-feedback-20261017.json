@@ -1,0 +1,14 @@
+{
+  "record_id": "AUD:YUAI-FIRST-PHRASE-R02-MORE-SOLID-20261017",
+  "record_type": "user_feedback_and_scope",
+  "report": {
+    "path": "docs/reports/yuai/first-phrase-firmness-r02-feedback-20261017.md",
+    "sha256": "a9de542e5bf622941ae78f75b89c5af5ed8af110c8ffc24ad0444fc7919e2335"
+  },
+  "feedback": "再实一点，还有你是不是用了白烁的音高线",
+  "candidate_sha256": "495de310de63cb671523eb3d3ee398de6a8adf7ede36409f8b7795759954ef3f",
+  "audio_binding": "unspecified",
+  "adoption": "Requests a little more solidity; no explicit acceptance, ranking or no-side-effect label",
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

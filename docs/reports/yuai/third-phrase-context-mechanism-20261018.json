@@ -1,0 +1,44 @@
+{
+  "record_id": "RESP:YUAI-S03-CONTEXT-ENCODER-DIAGNOSTIC-20261018",
+  "record_type": "actual_current_model_context_structure_and_deterministic_linguistic_diagnostic",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-context-mechanism-20261018.md",
+    "sha256": "a10aa47424f56ca372cd1660688a98b53ede78f9cae2c2b56f8f35ce6ab1e35e"
+  },
+  "feedback_id": "AUD:YUAI-S03-Q-REJECTED-CONTEXT-QUESTION-20261018",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "b6ed6831050d528786b5d90e026b821efab7ba195db12e7783a640ab6770d878"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-context-mechanism-20261018\\knowledge_context.json",
+    "sha256": "9ca6dd7a29d1a6fb05e910f4e362e7ffd6c166c3caf99da47e39d36b47dc56da"
+  },
+  "structure": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-context-mechanism-20261018\\actual-model-structure.json",
+    "sha256": "bf99a7b03707b3715817e5413a7a914cd989f2bcf64943185dfcc3caa2d1c00f"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-context-mechanism-20261018\\probe-intent-before-inference.json",
+    "sha256": "6115c67cc4d8c7a55e948b04bf3469002683e507afad3d003a5bdd19c6eb1e58"
+  },
+  "diagnostic": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-context-mechanism-20261018\\context-encoder-diagnostic.json",
+    "sha256": "74f30e87ff0caef0527c7fbe94476830890cdf117fd40d4e5e9af76e7ce09219"
+  },
+  "linguistic_context_sensitive_observed": true,
+  "central_tokens_durations_languages_exact": true,
+  "repeat_exact": true,
+  "new_linguistic_inference_calls": 6,
+  "variance_model_runs": 0,
+  "acoustic_model_runs": 0,
+  "new_audio": 0,
+  "project_changed": false,
+  "Skill_changed": false,
+  "context_cause_of_proximity": "unverified",
+  "Q_accepted": false,
+  "hearing_labels_added": 0,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "CI": false
+}

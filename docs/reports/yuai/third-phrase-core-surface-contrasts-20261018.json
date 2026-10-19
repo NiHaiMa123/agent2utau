@@ -1,0 +1,62 @@
+{
+  "record_id": "RESP:YUAI-S03-CORE-SURFACE-PQ-20261018",
+  "record_type": "two_preregistered_whole_phrase_core_surface_conditions",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-core-surface-contrasts-20261018.md",
+    "sha256": "2e3cf8eb8fd5d2dcf6883019d31bdd40a0285c2d53e7619d224b473727132463"
+  },
+  "current_project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "86b2dfc0c5be1eec310dc165ba7c3894dc468e72f2b58246189e29642e688fc2"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\control-intent.json",
+    "sha256": "74fe1f9ccb7f04972ceb89e02eac21dde5b0180927903eb6aa19b0eb4016a87e"
+  },
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\protocol.json",
+    "sha256": "2764bcb9f86abcb9f5b485bb9fd89a8cd05aecdd1979335305e4590ed0bd5bb5"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\knowledge_context.json",
+    "sha256": "15bf64e559f83576fe86f585298e3583a1735307eb115a216b9f646fe9f41f20"
+  },
+  "supplemental_CF": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\knowledge-CF-supplement.json",
+    "sha256": "fb8f284d89ae541ac87df6a09e4e654eedea9aa89468c0c5da8035eddcaf815f"
+  },
+  "native": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\native-delivery.json",
+    "sha256": "36985ec74b36bc6962c49fdc76e0aa2509e5a67100f24b4230af8ee60590968e"
+  },
+  "listening": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\listening-delivery.json",
+    "sha256": "1c8825961a0f33904cd3162062c04cf37e11d881ce66b77541b9cd91327cec11"
+  },
+  "paired_descriptive_acoustics": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\paired-acoustic-comparison.json",
+    "sha256": "2e7d35da6f4beab96b274b8a833c7fbc237503b0d66cfa90b72785f9ccb02285"
+  },
+  "pending_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\packet.json",
+    "sha256": "c699cca15a29342b90b744dfa9258d554a314eadaab15062c852a827766d9f88"
+  },
+  "pending_ratings": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\ratings-pending.json",
+    "sha256": "3e28fee2e3e21f115ecc150d249c06bb5a9561d92e6c02a80f37a671de023cd0"
+  },
+  "new_conditions": 2,
+  "actual_current_pitch_and_phone_identity_held": true,
+  "first2_and_fourth_actual_inputs_and_PCM_exact": true,
+  "technical_local_checks_pass": true,
+  "workflow_review_complete": false,
+  "hearing": "pending",
+  "hypothesis_direction_hit": null,
+  "adopted": false,
+  "current_project_changed": false,
+  "Skill_changed": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "new_song_transfer": "unverified",
+  "CI": false
+}

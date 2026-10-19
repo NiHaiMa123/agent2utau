@@ -1,0 +1,37 @@
+{
+  "record_id": "RESP:YUAI-S03-R-NATIVE-WRITEBACK-20261018",
+  "record_type": "same_working_project_frame_voice_R_writeback_with_matched_native_gain",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-R-native-writeback-20261018.md",
+    "sha256": "a6875f5f679ad43f2f326657c5d025160e793113891ee1609e7782d6c58e3dfa"
+  },
+  "feedback_id": "AUD:YUAI-SAME-PROJECT-REVIEW-WORKFLOW-20261018",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "f1a78827d58f551c3f052d68d3efb4f202be8e2bff614b78a4ab2eb418ffd126"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-R-writeback-20261018\\same-file-receipt.json",
+    "sha256": "36ea1a2d60b8ef6f5294e72dbf850f30bb87e21b21cc7bfec3be88d8b1486035"
+  },
+  "gain": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-R-writeback-20261018\\gain-plan.json",
+    "sha256": "433862d4673b61a21b05dafe7ca61aa9cde9fd69ca85e4d02a868ce06f4af0b9"
+  },
+  "native_checks": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-R-writeback-20261018\\native-check.json",
+    "sha256": "ea17608962da1029c6cf72e2c996edd4c7e4aa60fb7022fe8f87c102e32b74ed"
+  },
+  "new_audio_F0": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-R-writeback-20261018\\new-audio-F0-bindings.json",
+    "sha256": "5d9bf39505d351d6c654384bc7872293634c197b235d69649a6ceeef21cb2205"
+  },
+  "technical_local_checks_pass": true,
+  "workflow_review_complete": false,
+  "user_accepted": false,
+  "hearing": "pending",
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "Skill_changed": false,
+  "CI": false
+}

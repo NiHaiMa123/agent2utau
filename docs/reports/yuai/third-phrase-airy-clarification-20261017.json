@@ -1,0 +1,13 @@
+{
+  "record_id": "AUD:YUAI-S03-AIRIER-CLARIFICATION-20261017",
+  "record_type": "feedback_clarification",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-airy-clarification-20261017.md",
+    "sha256": "f17a6c4fa3e46b52c794fd7cebd8954211b50e760810e3e400e2d6cfe78eff42"
+  },
+  "feedback": "更虚、气声更多",
+  "applies_to": "Current third phrase cross-phrase discontinuity",
+  "exact_audio_binding": "not supplied",
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

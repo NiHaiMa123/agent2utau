@@ -1,0 +1,42 @@
+{
+  "record_id": "RESP:YUAI-FIRST3-APSP-PROVENANCE-RECHECK-20261018",
+  "record_type": "current_first3_pitch_and_APSP_provenance_readonly_recheck",
+  "report": {
+    "path": "docs/reports/yuai/first3-apsp-provenance-recheck-20261018.md",
+    "sha256": "4cebe53039363046f48b8913437f7a2d3e09db99478ea9b4fff4efcb9bfe985d"
+  },
+  "user_feedback": "好像好了，你有没有直接用白烁的曲线？还是都是自己生成的",
+  "tentative_improvement_referent": "unresolved_audio_or_remap_dialog",
+  "full_accepted": false,
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "91b5289bd11c5c7728507ae9f4fbabaaad5cedf4c12f0dc1276113ebd880b675"
+  },
+  "target_source": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first3-apsp-context-20261018\\pitch-compile-spec.json",
+    "sha256": "2ed19d4e20244e70d0749fe3a38286268b18faae18ae85928bf8919706e76db2"
+  },
+  "own_time_label_plan": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first3-apsp-context-20261018\\label-plan.json",
+    "sha256": "2bb22d8376311059092eea344d5b75bf37eb43114051962e521880c1845c64f2"
+  },
+  "readback": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first3-apsp-context-20261018\\pitch-readback-check.json",
+    "sha256": "0bdb42664de54e7f7e49100af04f0c336187869d352ae9a355c83aa0eba883ee"
+  },
+  "implementation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first3-apsp-context-20261018\\encode.py",
+    "sha256": "00b3561402eb91d5facd2e4e0393eb6caadf6f95024f92da96499ba47a512061"
+  },
+  "direct_author_target_curves_used": false,
+  "all_pitch_newly_redrawn_this_round": false,
+  "prior_R_reference_frame_mixture": "historically_used_then_withdrawn_not_in_current_own_track",
+  "reference_tracks_present": true,
+  "current_project_changed": false,
+  "new_model_runs": 0,
+  "new_audio": 0,
+  "Skill_changed": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "CI": false
+}

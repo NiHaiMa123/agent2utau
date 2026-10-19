@@ -1,0 +1,15 @@
+{
+  "record_id": "AUD:YUAI-FIRST-PHRASE-THIN-20261017",
+  "record_type": "user_feedback",
+  "report": {
+    "path": "docs/reports/yuai/first-phrase-firmness-feedback-20261017.md",
+    "sha256": "bedb8e64a78ea1c1b414c4c188e17fbe018dc21c27a887435570890d2de7082a"
+  },
+  "user_feedback": "第一句，有点虚",
+  "full_request": "接下来都在这个ustx文件里面改。先不看白烁的音高线，现在处理第一句，有点虚，你看下skill里是怎么控制的？然后尝试修改，改好后我在这个文件里查看",
+  "project_sha256": "16c15af64eb2bdf96c773bf2ab957a49027f9216a6ebc80a24fcf166b1edb17a",
+  "audio_binding": "unspecified by user",
+  "scope": "Our first phrase only",
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

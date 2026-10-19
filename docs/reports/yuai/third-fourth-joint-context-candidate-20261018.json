@@ -1,0 +1,71 @@
+{
+  "record_id": "RESP:YUAI-S03S04-JOINT-CONTEXT-CANDIDATE-20261018",
+  "record_type": "same_project_own_joint_model_context_candidate",
+  "report": {
+    "path": "docs/reports/yuai/third-fourth-joint-context-candidate-20261018.md",
+    "sha256": "a62bc6a0102bff3c7e58646251271789243f69aff651f8b2dee9f078f95bd241"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "7085c10bc4a5a7107a562352eecb3e870986f505864fbd5b70280a34c97c5979"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\knowledge_context.json",
+    "sha256": "e63f2ad90822a6fdfbc94bbabd879120d1224abdd47bb760c3fdaf618f56aa94"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\intent-before-context-plan.json",
+    "sha256": "27f085c09a2cb1959da858552cd39fae7607b00a0e0a8041c77a2ef2f0b6730b"
+  },
+  "context_plan": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\context-plan.json",
+    "sha256": "1312adf05a18a7c5039ac41b71352c528c00499285c73d3079c7161316e50b2d"
+  },
+  "native": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\phone-clock-audit.json",
+    "sha256": "b12de3205ba2c924c7c5d5914d949cf1245d629bddac086c3074e69d8b9b915c"
+  },
+  "pitch": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\pitch-readback.json",
+    "sha256": "f61e4043711a16e1ac66240a7608f563c48ba85a50747327c44878859f0ad307"
+  },
+  "actual_inputs": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\actual-input-and-PCM-audit.json",
+    "sha256": "42de2075755594323d57e02d67f52d74e2cb1fdae69d40818d929c79daae11d0"
+  },
+  "F0": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\output-F0-observation.json",
+    "sha256": "e1cc567c032d22f613cedb0a165df65f557e39682d97fc77205a65560c3d91dc"
+  },
+  "visual": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\actual-visual-review.json",
+    "sha256": "2858cdc2fd9eb46f76d3fee32ecfbebe2c4ed81d3c50d45de178c77943b9cc75"
+  },
+  "writeback": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\same-file-receipt.json",
+    "sha256": "58f8fc29e2757fffe90b1f2baf816c0202ca3401c40003cacdba2a9088f755c2"
+  },
+  "added_SP": 1,
+  "selected_contexts": [
+    2,
+    1
+  ],
+  "whole_contexts": [
+    18,
+    17
+  ],
+  "all151_old_notes_and_nonPITD_curves_exact": true,
+  "all16_other_native_pitch_arrays_exact": true,
+  "first2_inputs_and_PCM_exact": true,
+  "s03_s04_recomputed": true,
+  "new_musical_pitch_design": false,
+  "author_numeric_payload_used_for_generation": false,
+  "strict_common_noise_causal_proof": false,
+  "technical_scoped_checks_pass": true,
+  "workflow_review_complete": false,
+  "hearing": "pending",
+  "user_accepted": false,
+  "measurement_validated": false,
+  "Skill_changed": false,
+  "CI": false
+}

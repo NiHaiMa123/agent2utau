@@ -1,0 +1,19 @@
+{
+  "record_id": "AUD:YUAI-S03-XIAYULE-AIRY-20261018",
+  "record_type": "local_phonation_feedback",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-xiayule-airy-feedback-20261018.md",
+    "sha256": "f00557e967ddc12f3db73f499e4d150e7671e9ca0ad01cff731e26dab9efadfe"
+  },
+  "user_feedback": "下雨了，这三个字有点虚了，你看下",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "56169ed3629049203be021384d1cf4e5ce93a3e7a24a398a5b55322db2f17f69"
+  },
+  "scope": "下雨了 first three sung words of s03",
+  "firmness": "a little airy/insufficient body",
+  "other_axes": "unknown",
+  "AP_or_fourth_acceptance": "not provided",
+  "cause": "unknown",
+  "measurement_validated": false
+}

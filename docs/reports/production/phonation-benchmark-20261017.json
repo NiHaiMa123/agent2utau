@@ -1,0 +1,51 @@
+{
+  "record_id": "METHOD:PHONATION-BENCHMARK-20261017",
+  "record_type": "finite_engineering_benchmark_and_pending_perceptual_calibration",
+  "report": {
+    "path": "docs/reports/production/phonation-benchmark-20261017.md",
+    "sha256": "267e743c624e8427321c67c1a0ad6d1da2219450d553faf914e73dfc949a54ba"
+  },
+  "algorithm": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-benchmark-20261017\\algorithm-v2-freeze.json",
+    "sha256": "ee521ac35f50d846852d140124c16d03aae4daafa5634425fa858da92ad5bb44"
+  },
+  "summary": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-benchmark-20261017\\bank-summary.json",
+    "sha256": "ec3e07e9ac4501b6ca2a277ad37921d179239df1115a395de5c32de3ff573b7c"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-benchmark-20261017\\final-validation.json",
+    "sha256": "8cddf67ac97206f994bb428503dd4c60c4d9244532761a983b37c578a708502c"
+  },
+  "sample_catalog": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-benchmark-20261017\\sample-catalog.json",
+    "sha256": "8d369aa094f8ea12d3aae6a9dbac0d4aae194f9b7ad8ca83df58590dd6075fd6"
+  },
+  "listening": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-benchmark-20261017\\listening-final-lineage.json",
+    "sha256": "4e3c6e6ad803f0566eef3e454f00ef8b3552037aa3c091f18630a9a4392000ef"
+  },
+  "native_inputs": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-benchmark-20261017\\native-audit.json",
+    "sha256": "f58b08d498c019b704c87102a24bc6eb1adc290b0a04c6508065b3c842e2bb72"
+  },
+  "implementation": {
+    "path": "src/agent2utau/evaluation/phonation.py",
+    "sha256": "bddb3d76f68b127bd0cb1a3fc6e9cffc3e311ca287ce6e96295a9a07b7148d68"
+  },
+  "calibration_implementation": {
+    "path": "src/agent2utau/evaluation/phonation_calibration.py",
+    "sha256": "4112cae98d3ad23d50542087fa7bcd0f14484c2e478754ae4ce32da14a37f61e"
+  },
+  "mathematical_cases": 324,
+  "native_vowels": 84,
+  "engineering_steady_order_passes": 36,
+  "human_labels": 0,
+  "perceptual_scale_validated": false,
+  "independent_new_song_validation": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "song_changed": false,
+  "hearing_pass": null,
+  "automatic_repair": false
+}

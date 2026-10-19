@@ -1,0 +1,22 @@
+{
+  "record_id": "AUD:YUAI-S03-LE-POST-BREATH-TREMBLE-20261018",
+  "record_type": "local_breath_artifact_feedback",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-le-breath-feedback-20261018.md",
+    "sha256": "7839d17f51fa161e4b7de9c339c17db8cb659105a6482d0ed748e76fc0459792"
+  },
+  "user_feedback": "下雨了，这个了后面有颤抖的喘气声",
+  "project_at_feedback": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "c46d36407c0d34d9e9254445258400b96be4eb4950f386cea88636c8620f91fa"
+  },
+  "range": "Third phrase after 了 before next 雨",
+  "AP_support_ms": [
+    28200,
+    28522.916666666668
+  ],
+  "AP_cause": "unconfirmed",
+  "other_axes": "unknown",
+  "fourth_candidate_not_evaluated": true,
+  "measurement_validated": false
+}

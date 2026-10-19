@@ -1,0 +1,44 @@
+{
+  "record_id": "RESP:YUAI-XIAYULE-AUTHOR-FOCUSED-RECHECK-20261018",
+  "record_type": "read_only_current_three_word_author_comparison",
+  "report": {
+    "path": "docs/reports/yuai/xiayule-author-focused-recheck-20261018.md",
+    "sha256": "7f850f3aa367c86ba112dd0c8caa8c6a832f03c01e2740bdd87b4b9359510d6a"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "0b3611e7f18f1d25a33d7bf5384e937017d4c1257004a5c012b357624057d224"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-xiayule-author-recheck-20261018\\knowledge_context.json",
+    "sha256": "5a298ba42c06b120328e190ff3d62239d8e8f93f4460a64f15b1d3ad1e920e53"
+  },
+  "comparison": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-xiayule-author-recheck-20261018\\three-word-comparison.json",
+    "sha256": "e09ed36124de8310bbe8d73e9a404d35a8d9961f5c44cf46d3d5672675ae672a"
+  },
+  "visual": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-xiayule-author-recheck-20261018\\actual-view-review.json",
+    "sha256": "8832c3258695c451be997bda75484415acfa8f2c3b0534839f0dda7ee576711f"
+  },
+  "current_candidate_rejected": true,
+  "reference_BREC0_VOIC114": true,
+  "voice_and_context_remain_different": true,
+  "le_vowel_durations_s": [
+    0.4770833333333293,
+    0.5968750000000007
+  ],
+  "le_middle_half_ranges_c": [
+    135.0,
+    68.86359999999786
+  ],
+  "author_predictions_PCM": "unknown",
+  "unique_audible_cause": "unverified",
+  "author_numeric_transfer": false,
+  "new_model_execution": 0,
+  "new_audio": 0,
+  "song_changed": false,
+  "Skill_changed": false,
+  "measurement_validated": false,
+  "CI": false
+}

@@ -21,6 +21,7 @@ demo/
 *.npz
 *.npy
 *.onnx
+*.ustx
 *.pth
 *.pt
 *.ckpt
@@ -38,3 +39,5 @@ configs/local.yaml
 external/
 models/
 data/
+projects/
+*.ustx

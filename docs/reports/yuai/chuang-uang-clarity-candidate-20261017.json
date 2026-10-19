@@ -1,0 +1,22 @@
+{
+  "record_id": "RESP:YUAI-CHUANG-UANG-CLARITY-CANDIDATE-20261017",
+  "record_type": "phonetic_candidate_not_audio_acceptance",
+  "report": {
+    "path": "docs/reports/yuai/chuang-uang-clarity-candidate-20261017.md",
+    "sha256": "c7657892f7bf0b1ab7883094400bb6a1a56a95f625a8cb9e6d7419693e0a3825"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-chuang-clarity-20261017\\delivery-receipt.json",
+    "sha256": "00ee9f1409ce0de117d5debb683f9324348fc1f0abe86cd722b9c87c4cdd34b2"
+  },
+  "project_sha256": "bdce0ae1b81bbdc4907af9d84b835d6aa352650e898d6977fa2216d91d77b8ce",
+  "intervention": "First word uang -> u/ang, outer timing/pitch and manual phonation controls preserved",
+  "scope": "first phrase, target word 窗",
+  "user_correction": "ch withdrawn; uang active",
+  "old_solidity_acceptance": "retained only for r03",
+  "new_clarity": "pending",
+  "new_phonation": "pending due new phonetic predictions",
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

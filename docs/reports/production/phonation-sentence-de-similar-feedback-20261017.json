@@ -1,0 +1,40 @@
+{
+  "record_id": "AUD:PHONATION-SENTENCE-DE-OVERALL-SIMILAR-20261017",
+  "record_type": "overall_similarity_without_separate_axis_labels",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-de-similar-feedback-20261017.md",
+    "sha256": "c115d0920579e1804d85a21e77134ef179d4a48faa1e338c460f26f66f23bf6f"
+  },
+  "feedback": "差不多",
+  "source_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-midpoint-20261017\\packet.json",
+    "sha256": "4f391e20bcaac5a7ffbfad06aaff6a3a90218930f834f2dff0f81c87dce6a6f6"
+  },
+  "audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-midpoint-20261017\\D-then-E.wav",
+    "sha256": "5b99c695ead8d3bf0f67920460cc9555b40e8b57d200d51ae0923fbcc8221230"
+  },
+  "clips": {
+    "D": {
+      "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\D-RMSmatched.wav",
+      "sha256": "560b454d97182f8d4b28ba1747dbc8234f2a4621c799ab4beebd9a37bbbf99de"
+    },
+    "E": {
+      "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-midpoint-20261017\\E-RMSmatched.wav",
+      "sha256": "261d8d4beedad8dd10cbebdce39086d6c0c46c6a0e23a6528338db2d93e83887"
+    }
+  },
+  "binding_basis": "Immediate reply to D→E inline and two-axis question; no independently supplied playback hash",
+  "overall_similarity": "reported",
+  "separate_virtuality_label": null,
+  "separate_lowered_voice_label": null,
+  "preference": null,
+  "exact_equivalence": false,
+  "actual_input_response": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\D-E-readonly-response-check.json",
+    "sha256": "4d4447ded8eb8ef0e6e7fe33016f2d464de6878754ce7d63627b483b7b3a9e8f"
+  },
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false
+}

@@ -1,0 +1,65 @@
+{
+  "record_id": "RESP:YUAI-S03-FRAME-VOICE-R-20261018",
+  "record_type": "routing_selection_correction_and_single_composite_frame_voice_condition",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-frame-voice-contrast-20261018.md",
+    "sha256": "11ff170c4e64ec4f941ffb1f9ec7e7c84fb255e7cc2a43d1c7b6295b5bba8cd1"
+  },
+  "routing": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\routing-receipt.json",
+    "sha256": "a79996a1aad86e68595f73fdbd5230bd27b57ddd212b9767794c5604683442f4"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "81798b0e41a1940b0f256aebaf0c788c42ac9b743ff4bc71febadfe0cd81af7b"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\intent-before-numeric-candidate.json",
+    "sha256": "ff4e1b2ed865ec468089a43ab1d313e2819316de8f5c349730fdf12f8eb1764c"
+  },
+  "plan": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\candidate-plan.json",
+    "sha256": "4d787272343f20f3866f99595fb527e551659c36814e8b742e3a0e9451081c59"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\knowledge_context.json",
+    "sha256": "22c19d17bf83ff15647184723935f650e14549d6a9803148268adc713b3b696d"
+  },
+  "actual_inputs": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\input-and-PCM-audit.json",
+    "sha256": "c5bc97706301a2a6adc53d33a0a7934848761c139244fc3f45d561263bcb62ce"
+  },
+  "listening": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\listening-delivery.json",
+    "sha256": "9b8e77a7b8a84cdaa935d2efcca9493f4f4540af10528681173d1b452a66cdb0"
+  },
+  "delivery_verification": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\delivery-verification.json",
+    "sha256": "455eee83eb2659513f9e7d2ceba898e0678ef2ae20843baef4c92c0e6d50c13a"
+  },
+  "descriptive_acoustics": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\paired-acoustic-comparison.json",
+    "sha256": "3e432d04545091f49d3c6ecb979bcf153e983a89f2289a01fca7c1fd0467a203"
+  },
+  "pending_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\packet.json",
+    "sha256": "3b98ae8b288b25218016ce470fdcfc473b6d5463d6c05ad86ad2246e08df6597"
+  },
+  "new_research_conditions": 1,
+  "native_model_context_held": true,
+  "pitch_and_phones_and_manual_controls_held": true,
+  "neighbor_inputs_and_PCM_exact": true,
+  "selected_speaker_actual_two_stage_verified": true,
+  "predictions_rebuilt": true,
+  "working_project_musical_content_held": true,
+  "working_project_changed": "two mute scalars only",
+  "R_adopted": false,
+  "hearing": "pending",
+  "technical_local_checks_pass": true,
+  "workflow_review_complete": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "new_song_transfer": "unverified",
+  "Skill_changed": false,
+  "CI": false
+}

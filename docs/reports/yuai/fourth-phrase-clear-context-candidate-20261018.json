@@ -1,0 +1,70 @@
+{
+  "record_id": "RESP:YUAI-S04-CLEAR-CONTEXT-CANDIDATE-20261018",
+  "record_type": "same_project_fourth_phonation_context_candidate",
+  "report": {
+    "path": "docs/reports/yuai/fourth-phrase-clear-context-candidate-20261018.md",
+    "sha256": "14df1d06932803c71f6a57e52cf6fbd7105fb3c099adc8325e753ea6db0c20b1"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "c46d36407c0d34d9e9254445258400b96be4eb4950f386cea88636c8620f91fa"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\knowledge_context.json",
+    "sha256": "1e206fbd51aa1f0ef9067e1eeeb31d21ed1c608dc8a85785a1875c98aa405911"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\intent-before-context-plan.json",
+    "sha256": "80c5f400a96658532f1166ad823ccaa506df67cecc96d8d761f687e91792b1c1"
+  },
+  "context": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\context-plan.json",
+    "sha256": "75fdf19522fed6477562928baaa8b8d97960acbc915e1732c34235e2f435caca"
+  },
+  "new_predictions": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\fresh-prediction-review.json",
+    "sha256": "1314f4e4d5f352279d46f94b32fafba9b037176b8eb60cca51e4331d900cdaee"
+  },
+  "actual_inputs": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\actual-input-and-PCM-audit.json",
+    "sha256": "75c7f1eb15cfad1ba7faf0cd8b38b5cdf31d964ac8e15f0b6812f92d54674d19"
+  },
+  "phone_clock": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\phone-clock-audit.json",
+    "sha256": "ff43187d088a9eb58994cd82aa640a7f8af8d98ed32bb15398e618a5dc1c245b"
+  },
+  "pitch": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\pitch-readback.json",
+    "sha256": "57fbcf467fa39210a60715830c796b2a2469bf4de93e8ef7be095400c6753152"
+  },
+  "F0": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\output-F0-observation.json",
+    "sha256": "c23f009d9e3b2ebed4626f64fb06f8fc90db26d74cd752c36ab44e76a67fb4dd"
+  },
+  "visual": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\actual-visual-review.json",
+    "sha256": "5fd8fb0bedbf0b04ff0155f472e0a8e810abe0e64b8bb51e3fa3f094c174258e"
+  },
+  "writeback": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-clear-context-20261018\\same-file-receipt.json",
+    "sha256": "4be6843812ee566caf7454c84ff771ab3a276c48a1deb879483031e0e15ec4d6"
+  },
+  "new_pitch_design": false,
+  "own_target_retained_reencoded": true,
+  "author_payload_used_for_design": false,
+  "added_AP": 2,
+  "added_SP": 1,
+  "fourth_BREC_withdrawn": true,
+  "voice_VOIC_TENC_DYN_stored_curves_exact": true,
+  "first3_inputs_and_predictions_exact": true,
+  "old_first3_PCM_exact": false,
+  "other17_pitch_arrays_exact": true,
+  "technical_scoped_checks_pass": true,
+  "workflow_review_complete": false,
+  "hearing": "pending",
+  "user_accepted": false,
+  "brightness_causal_rule": "unverified",
+  "measurement_validated": false,
+  "Skill_changed": false,
+  "CI": false
+}

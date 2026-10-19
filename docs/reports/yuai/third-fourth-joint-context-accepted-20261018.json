@@ -1,0 +1,32 @@
+{
+  "record_id": "AUD:YUAI-S03S04-JOINT-CONTEXT-LOCAL-ACCEPTED-20261018",
+  "record_type": "local_combination_delivery_acceptance",
+  "report": {
+    "path": "docs/reports/yuai/third-fourth-joint-context-accepted-20261018.md",
+    "sha256": "8774eb80b89de325a0e64f9316ce6c3a8b9fdab3cb2177a07f084d30b1a72a0e"
+  },
+  "user_feedback": "可以了，然后看下需不需要返回去修改skill",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "7085c10bc4a5a7107a562352eecb3e870986f505864fbd5b70280a34c97c5979"
+  },
+  "candidate": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\same-file-receipt.json",
+    "sha256": "58f8fc29e2757fffe90b1f2baf816c0202ca3401c40003cacdba2a9088f755c2"
+  },
+  "native_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03s04-joint-context-20261018\\third-fourth-project.wav",
+    "sha256": "b799ad356cb1a2a422e9cfcf345f7b3c4b9f7da95fd76f27999418f1e1561e9a"
+  },
+  "binding_basis": "Immediate response to current same-project joint-context candidate; live playback/mapping not separately observed",
+  "accepted_scope": "Current local s03+s04 joint-context delivery as complete existing condition combination",
+  "local_delivery_accepted": true,
+  "per_vowel_or_per_axis_labels": "not provided",
+  "whole_song_accepted": false,
+  "causal_grouping_mechanism_validated": false,
+  "prior_BREC_rejection_retained": true,
+  "old_receipts_not_rewritten": true,
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

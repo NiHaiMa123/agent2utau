@@ -1,0 +1,19 @@
+{
+  "record_id": "RESP:YUAI-FIRST-PHRASE-VOIC-CANDIDATE-R03-20261017",
+  "record_type": "scoped_candidate_and_provenance_not_perceptual_acceptance",
+  "report": {
+    "path": "docs/reports/yuai/first-phrase-firmness-r03-20261017.md",
+    "sha256": "6c1ade5bea92dfc66c799af0c3443e637414df4809d7a0b7589e41a5108be62a"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first-phrase-firmness-r03-20261017\\delivery-receipt.json",
+    "sha256": "30947d412537bb0dda7a6b432dc184d43cb5db7d4124926f9a0a216682bc0c66"
+  },
+  "project_sha256": "e4804f0e61e361b599e78c665a4a981921e84d464a69da1ef5f688cbb585dfdb",
+  "scope": "Same USTX; only first phrase finite VOIC+5 over r02",
+  "pitch_provenance": "11144 PITD points and22 actual native lines equal pre-author-import independent preview",
+  "feedback": "pending",
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

@@ -1,0 +1,48 @@
+{
+  "record_id": "METHOD:PHONATION-NONC-EVIDENCE-AND-LISTENING-20261017",
+  "record_type": "public_feedback_coverage_and_one_existing_PCM_pair_pending",
+  "report": {
+    "path": "docs/reports/production/phonation-nonC-evidence-and-listening-20261017.md",
+    "sha256": "ebaadf9405b12db014bfcf5bbac824c000d1be40b2163e065a09059e585bcef1"
+  },
+  "search": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-nonC-evidence-20261017\\search-coverage.json",
+    "sha256": "f57c8799ca08b072f90339a0d202a2a5d70a4dd672224eaa535c9642567d5561"
+  },
+  "public_JSON_files": 96,
+  "feedback_field_hits": 73,
+  "hits_are_independent_samples": false,
+  "existing_experience_ids": [
+    "RESP:LASTPAGE-OWN-BRIGHT-CUTE-01",
+    "RESP:LASTPAGE-OWN-LI-ENTRY-PITCH-01"
+  ],
+  "current_nonC_two_axis_label_found": false,
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-nonC-evidence-20261017\\protocol.json",
+    "sha256": "69976c1d24e92d1540652f06a105603507cf1cb07aee122f0b00318ab4303c6f"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-nonC-evidence-20261017\\delivery.json",
+    "sha256": "eb8425a56b14905a72537af67cf9d16aed4e9d8f412cd394e4ffc98d684862f4"
+  },
+  "listening_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-nonC-evidence-20261017\\packet.json",
+    "sha256": "3a1ec3f5f2f02afb6c68bff4c3e5af14051e6833c1b2904111f61574ee5105f1"
+  },
+  "pair": [
+    "D",
+    "F"
+  ],
+  "human_firmness": null,
+  "human_darkness": null,
+  "human_lowered_voice_impression": null,
+  "new_human_feedback": 0,
+  "new_synthesis": 0,
+  "new_F0_model_execution": 0,
+  "source_PCM_unchanged": true,
+  "skill_changed": false,
+  "song_changed": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false
+}

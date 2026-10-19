@@ -1,0 +1,33 @@
+{
+  "record_id": "RESP:PHONATION-SENTENCE-BREC-MIDPOINT-E-20261017",
+  "record_type": "single_intermediate_with_two_dimension_feedback_pending",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-brec-midpoint-20261017.md",
+    "sha256": "fe4be02da294d29624d053d2eb81945ef377572475662e1de0408d9ed0804473"
+  },
+  "feedback_id": "AUD:PHONATION-SENTENCE-D-LESS-LOWERED-MORE-VIRTUAL-20261017",
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-midpoint-20261017\\protocol.json",
+    "sha256": "74b08ed6e7995144afa706c789c01e2c8d5bebaae71bd77ab4cbaf61f2e01d2a"
+  },
+  "input_audit": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-midpoint-20261017\\input-audit.json",
+    "sha256": "1065e75a35cf595743ff7e19805c1eaecb5009f28aed782782d64d4ca173006f"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-midpoint-20261017\\delivery.json",
+    "sha256": "3f45fcccc632ff6bf8f82c450fd8a969ef5b45a5771e2cfdbdfd7b9c6f1a07b8"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-midpoint-20261017\\validation.json",
+    "sha256": "2913a1074e09f06e2b47940e4829af79df27cddfc0e60e4d6885d1f6f4ac2fdc"
+  },
+  "changed_control": "BREC: rounded half C stored nodes, nominal-40",
+  "exact_half_sampled_identity": false,
+  "E_virtuality": null,
+  "E_lowered_voice_impression": null,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false,
+  "song_changed": false
+}

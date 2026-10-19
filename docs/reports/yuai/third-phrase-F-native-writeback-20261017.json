@@ -1,0 +1,57 @@
+{
+  "record_id": "RESP:YUAI-S03-F-NATIVE-WRITEBACK-20261017",
+  "record_type": "accepted_own_condition_native_writeback_with_output_gain",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-F-native-writeback-20261017.md",
+    "sha256": "73c9feb0d094bf8d5bbcc8c0d20f004f61b11a1a9673e684c854326173537c6a"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "86b2dfc0c5be1eec310dc165ba7c3894dc468e72f2b58246189e29642e688fc2"
+  },
+  "feedback_id": "AUD:YUAI-S03-CURRENT-PROJECT-AIRY-S04-OK-20261017",
+  "source_F": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\F.ustx",
+    "sha256": "3cfa2d6deee890d6443737df3e394ce796003d45f550f8d473036369dce4368f"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\knowledge_context.json",
+    "sha256": "18b193d31da2c592aa003e3b71ea3eb896b30bedc96532c18b07ed100b18840a"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\intent.json",
+    "sha256": "9c7cbde4fbf94819050906ecbe25c92fbd1e2b800d56d8fbc628d75ece15c350"
+  },
+  "native_inputs": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\revision2\\F-equivalence.json",
+    "sha256": "2f92a3130d9aee4e3d6b62b329eb57ce64f3a334e2c429a3b0885d4869444d58"
+  },
+  "preservation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\revision2\\input-preservation.json",
+    "sha256": "ffe73094581e589ae09e6b6bdd4ddf28b71a9eee30f972b2800fd314a2043973"
+  },
+  "waveform": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\revision2\\waveform-check.json",
+    "sha256": "f00017d784bd1de987c9e1f563ac0a364cd0fc2390a53748fc918662e2421d14"
+  },
+  "old_F_waveform_comparison": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\revision2\\F-waveform-proximity.json",
+    "sha256": "ff539dbe566828c0901b39b2c657b574c0ce10841658a807b82084c8ffd10db2"
+  },
+  "observations": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\revision2\\output-observations.json",
+    "sha256": "93d5f3a1818373c6227014effb5213c05a50bc00715a9281d1e1b1464d7a5bb7"
+  },
+  "receipt": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\same-file-receipt.json",
+    "sha256": "18e2e9708f4138db1678324baad1787c7fb1a76fa88cb4fd834b62cf42a9df94"
+  },
+  "specific_native_checks_pass": true,
+  "workflow_review_complete": false,
+  "new_project_hearing": "pending",
+  "fourth_user_result": "no problem",
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "skill_changed": false,
+  "CI": false
+}

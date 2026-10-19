@@ -1,0 +1,49 @@
+{
+  "record_id": "AUD:PHONATION-CONTEXT-F-BASICALLY-CONSISTENT-20261017",
+  "record_type": "scoped_positive_cross_phrase_firmness_consistency_feedback",
+  "report": {
+    "path": "docs/reports/production/phonation-context-F-confirmed-20261017.md",
+    "sha256": "d36b1772e830a18b996e571cd3c3c49f4329f7ed8926466d522c6c812d57ed00"
+  },
+  "feedback": "后面的更好，基本一致",
+  "source_protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\listening-protocol.json",
+    "sha256": "6a6d025df61ce34eced8996344a159e71811f7f72e9145b5000b1c22586be0ae"
+  },
+  "source_delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\listening-delivery.json",
+    "sha256": "cefeefe471beefdca8dbfb9b1447d56183993da8514142b48e8f42c505b94e4d"
+  },
+  "heard_sequence_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\current-then-F-context.wav",
+    "sha256": "1a86c3bf383efdfa55bd771c340412545a89ccb378698f08ccf8f07c9b8b0d2e"
+  },
+  "confirmed_context_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\first3-F-context-diagnostic.wav",
+    "sha256": "ef8c401fc734a1d600122602ab183edef82bb32c89d78af12c4c27bdd0ce6af2"
+  },
+  "comparison_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-breath-surface-20261017\\first3-after.wav",
+    "sha256": "f26b60ff24c1b260d350a4bd283c58141bd68db7a5e52c856474e2263db1aab5"
+  },
+  "binding_basis": "Immediate response to current first3→F-context delivery and explicit cross-phrase firmness-consistency question; no independent played-file SHA supplied.",
+  "preference": {
+    "preferred": "F-context diagnostic",
+    "over": "current first3"
+  },
+  "third_to_first2_firmness_consistency": "basically consistent",
+  "scope": "This three-phrase rendered context with unchanged first2 and fixed-gain F third only",
+  "first2_PCM_held": true,
+  "third_fixed_gain": 2.294489954334292,
+  "third_gain_db": 7.213723212400581,
+  "gain_and_phonation_cause_isolated": false,
+  "independent_listening_events": 1,
+  "per_vowel_firmness_labels": null,
+  "darkness_label": null,
+  "loudness_label": null,
+  "absolute_project_adoption": null,
+  "whole_song_acceptance": false,
+  "perceptual_scale_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

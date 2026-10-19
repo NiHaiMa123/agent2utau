@@ -1,0 +1,14 @@
+{
+  "record_id": "AUD:PHONATION-ISOLATED-SAMPLES-INSUFFICIENT-20261017",
+  "record_type": "sample_discriminability_feedback_and_coarse_phrase_request",
+  "report": {
+    "path": "docs/reports/production/phonation-isolated-sample-feedback-20261017.md",
+    "sha256": "d0c2f7ff2a7dcdb36d401c11b68f8afb349b83ce147ec4cbe37bae54efc3ce29"
+  },
+  "feedback": "你这个单音基本听不出啊，你需要做一个句子的吧，还有先区别调大一点，一堆听着没区别的，先区分开，然后再细调",
+  "pair_ids": "not specified",
+  "played_audio_sha256": "not specified",
+  "perceptual_scale_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

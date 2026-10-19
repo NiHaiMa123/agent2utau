@@ -1,0 +1,25 @@
+{
+  "record_id": "RESP:YUAI-THIRD-PHRASE-REDRAW-20261017",
+  "record_type": "source_based_phrase_candidate_pending_listening",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-redraw-20261017.md",
+    "sha256": "d1630d85601d6aa18efe3cc4f1a043a1f90a9c47d7c4bb5527e60c29007c8b30"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-redraw-20261017\\same-file-receipt.json",
+    "sha256": "89283c09149cfd8254aa0cb14c88f11bce0555f959ac073f323688d4a659456e"
+  },
+  "scope": "Third musical phrase 下雨了雨陪我哭泣 only,26.58–31.65s",
+  "project_sha256": "e57b00b21c9091349b23fd40a3ae4078df076cd02a3963f629c988298318da3b",
+  "intent_before_functions": true,
+  "units": 8,
+  "gestures": 24,
+  "actual_visual_review": 8,
+  "technical_execution_complete": true,
+  "workflow_review_complete": false,
+  "phonation": "unvalidated in current phrase",
+  "listening": "pending",
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

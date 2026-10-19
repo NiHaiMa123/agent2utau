@@ -1,0 +1,72 @@
+{
+  "record_id": "RESP:YUAI-S04-SKILL-REDRAW-CANDIDATE-20261017",
+  "record_type": "same_project_fourth_phrase_independent_redraw_candidate",
+  "report": {
+    "path": "docs/reports/yuai/fourth-phrase-redraw-20261017.md",
+    "sha256": "fe34371e281bd1c3a54923574210a63bf632c3558f9962d1369f2ff66f49c33e"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "8578fc7f091cb0ddd9afb2654d510ac78ae6290d4120dd1f78fd696120f84a52"
+  },
+  "source_observations": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-redraw-20261017\\source-observations.json",
+    "sha256": "5fe499d5d0b80b1b4b561caa6986befd73e9517f93388b9a42226f375190288a"
+  },
+  "intent_lock": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-redraw-20261017\\intent-lock.json",
+    "sha256": "a1fa7784210a7555a4cdda96df2d958d5448d1bae0e4a4f4d3089cc5e9a5ee84"
+  },
+  "functions": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-redraw-20261017\\functions.json",
+    "sha256": "cd3b8b50137e2e64e5ccec871fdf249e972e740a51c824eb56b0f1301f5a2e7b"
+  },
+  "final_review": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-redraw-20261017\\final-review\\review.json",
+    "sha256": "0e91b0c0f6583ae2555245551b7468cdedf85019651cef3ba6bc25e31fca23fb"
+  },
+  "input_audit": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-redraw-20261017\\input-audit-r1.json",
+    "sha256": "2cd857cd04daa902f981882bba7e5102121d79d29c6544b40653508ba25b3829"
+  },
+  "full_check": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-redraw-20261017\\full-check.json",
+    "sha256": "4876e185205a0a0d3201c5cac3bd9f72ce4084963d75954bc87e3b892f881487"
+  },
+  "output_observation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-redraw-20261017\\output-F0-observation.json",
+    "sha256": "db475d1eb3f5188a409a4eb0c7e15254b028e927fbdccd1671645b3a346c2d73"
+  },
+  "audio": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s04-redraw-20261017\\audio-delivery.json",
+    "sha256": "5b7d3bb9fc716da7fd6ff0bd15fed0c279324aafec17b3c2565ca78f51b41a1a"
+  },
+  "phrase_id": "s04",
+  "notes": [
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "vowels": 9,
+  "independent_stage_actions": 27,
+  "sparse_center_nodes": 80,
+  "complete_actual_views": 9,
+  "technical_execution_complete": true,
+  "workflow_review_complete": false,
+  "musical_discrimination_gap": [
+    "w1-arrival"
+  ],
+  "hearing_result": null,
+  "first3_project_held": true,
+  "opaque_reference_payload_held": true,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "skill_changed": false,
+  "CI": false
+}

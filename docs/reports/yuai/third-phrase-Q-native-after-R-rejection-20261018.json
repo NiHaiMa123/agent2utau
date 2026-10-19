@@ -1,0 +1,47 @@
+{
+  "record_id": "RESP:YUAI-S03-Q-NATIVE-AFTER-R-REJECTION-20261018",
+  "record_type": "previously_frozen_Q_native_candidate_after_rejected_R_proximity_state",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-Q-native-after-R-rejection-20261018.md",
+    "sha256": "3b702ec2e3eee61cbfd08f592a0f479629b3a88cf6abbc4219238fb138b2b5fe"
+  },
+  "feedback_id": "AUD:YUAI-S03-R-REJECTED-PROXIMITY-STATE-20261018",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "b6ed6831050d528786b5d90e026b821efab7ba195db12e7783a640ab6770d878"
+  },
+  "source_Q": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-core-surface-20261018\\Q-full.ustx",
+    "sha256": "11b8939f8ef774290adec3ddd4f8dc5ba7399b72a1329ca15dae8a206c10d59f"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-Q-writeback-after-R-rejection-20261018\\same-file-receipt.json",
+    "sha256": "db1d6d9a898d83de6c3e1f76280ef9bc0480392deb6d63da81c7b052a4d6ca65"
+  },
+  "gain": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-Q-writeback-after-R-rejection-20261018\\gain-plan.json",
+    "sha256": "981af1065e72e55bfd71ebf52e8342399a710d498b3f7afac515f4c9ec537142"
+  },
+  "native_checks": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-Q-writeback-after-R-rejection-20261018\\native-check.json",
+    "sha256": "3e420968444e0be039f3e6c33d6bc5b3c4494acaa25ecd291d43fd73d71dacf6"
+  },
+  "new_audio_F0": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-Q-writeback-after-R-rejection-20261018\\new-audio-F0-bindings.json",
+    "sha256": "e89ee81cad0229e011f6cdb1f94c2cab598cee0c0ab4b2c42870f8df8a135d4c"
+  },
+  "technical_local_checks_pass": true,
+  "workflow_review_complete": false,
+  "user_accepted": false,
+  "hearing": "pending",
+  "proximity_improved": null,
+  "continuous_state_accepted": null,
+  "R_rejected": true,
+  "R_to_Q_is_single_factor": false,
+  "P_to_Q_BREC_only": true,
+  "model_context_changed": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "Skill_changed": false,
+  "CI": false
+}

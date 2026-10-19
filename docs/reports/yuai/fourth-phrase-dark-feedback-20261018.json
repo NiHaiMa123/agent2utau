@@ -1,0 +1,22 @@
+{
+  "record_id": "AUD:YUAI-S04-DARK-LOWERED-NOT-CLEAR-20261018",
+  "record_type": "current_phrase_negative_feedback",
+  "report": {
+    "path": "docs/reports/yuai/fourth-phrase-dark-feedback-20261018.md",
+    "sha256": "42d98771833c9ae05bbf6be820fbb89b387b52fb0ce1cff6e2af121407c5168f"
+  },
+  "user_feedback": "第四句太暗了，压低声音，不够清亮。你继续重新用skill生成一遍",
+  "project_at_feedback": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "91b5289bd11c5c7728507ae9f4fbabaaad5cedf4c12f0dc1276113ebd880b675"
+  },
+  "feedback_axes": {
+    "timbre": "too dark / not sufficiently clear-bright",
+    "other": "sounds as if singing with lowered voice",
+    "firmness": "unknown",
+    "loudness": "unknown"
+  },
+  "live_memory_and_mapping": "unknown",
+  "old_fourth_acceptance_not_deleted": true,
+  "measurement_validated": false
+}

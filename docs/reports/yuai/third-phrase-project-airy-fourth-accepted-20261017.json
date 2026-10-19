@@ -1,0 +1,25 @@
+{
+  "record_id": "AUD:YUAI-S03-CURRENT-PROJECT-AIRY-S04-OK-20261017",
+  "record_type": "explicit_playback_identity_and_scoped_feedback",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-project-airy-fourth-accepted-20261017.md",
+    "sha256": "2f8ad746faf694eadc8251262e835fa347d08be6b235f43d7826c1cda364ab1f"
+  },
+  "feedback": [
+    "第四句没问题，就是第三句还是有区别",
+    "OpenUtau 当前工程",
+    "更虚、气声更多"
+  ],
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "8578fc7f091cb0ddd9afb2654d510ac78ae6290d4120dd1f78fd696120f84a52"
+  },
+  "played_cache_sha256": null,
+  "fourth_local_result": "no problem",
+  "third_relative_result": "airier/more breathy than first2",
+  "previous_F_continuity_acceptance_retained": true,
+  "previous_F_not_in_project": true,
+  "strict_fourth_discrimination_gap_retained": true,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

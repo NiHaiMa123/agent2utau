@@ -1,0 +1,57 @@
+{
+  "record_id": "RESP:YUAI-S03-XIAYULE-BREC-CANDIDATE-20261018",
+  "record_type": "same_project_three_vowel_breath_surface_candidate",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-xiayule-brec-candidate-20261018.md",
+    "sha256": "f4b8503bcd34198ba3a2dafd926faa4706000038845ad5414447837dd4e82f41"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "0b3611e7f18f1d25a33d7bf5384e937017d4c1257004a5c012b357624057d224"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-xiayule-brec-20261018\\knowledge_context.json",
+    "sha256": "b7374b7704b65e677d10afa5aeb5d3c97e2e10b81d7497b00c79f4251f2a87c5"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-xiayule-brec-20261018\\intent-before-control.json",
+    "sha256": "33496b4eb22fd445458be86198345d1cba5c46715a08d0a5e30b432c900b1484"
+  },
+  "prediction": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-xiayule-brec-20261018\\current-prediction-review.json",
+    "sha256": "cace122e2719f3a8e365fe98627fadbd8bf0d80c54ec352b7040b9024870ca68"
+  },
+  "plan": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-xiayule-brec-20261018\\control-plan.json",
+    "sha256": "6d8681643eae2fc024d8f8fdd9dd6d9dbd1e48a5379a86f3b374ad065819328a"
+  },
+  "native_audit": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-xiayule-brec-20261018\\actual-input-and-output-audit.json",
+    "sha256": "377c6b7c500d6fb564eb8c3abcf73b1bc27e6c6149e95a275ff1d81539db9ad7"
+  },
+  "F0": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-xiayule-brec-20261018\\output-F0-observation.json",
+    "sha256": "816d56836027ae6d94ca0f642ff8ccd699849e0cd8f99a6402014db400a17e77"
+  },
+  "visual": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-xiayule-brec-20261018\\visual-review.json",
+    "sha256": "13c7d53a9cd1484b108efb09c27e46e6e74f04e02d472dcd821bbeba6a8f7def"
+  },
+  "writeback": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-xiayule-brec-20261018\\same-file-receipt.json",
+    "sha256": "9893014aaf86c95ca9864d32b778f7b1122ec6e5edbfefc50538ba062629c098"
+  },
+  "only_BREC_changed": true,
+  "added_nonvowel_frames": 0,
+  "all151_notes_and18_native_pitch_phone_exact": true,
+  "VOIC_TENC_DYN_speaker_held": true,
+  "first2_and_fourth_inputs_PCM_exact": true,
+  "AP_DYN_held": true,
+  "causal_firmness_claim": false,
+  "measurement_validated": false,
+  "workflow_review_complete": false,
+  "hearing": "pending",
+  "user_accepted": false,
+  "Skill_changed": false,
+  "CI": false
+}

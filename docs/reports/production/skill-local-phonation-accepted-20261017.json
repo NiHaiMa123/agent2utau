@@ -1,0 +1,32 @@
+{
+  "record_id": "UPDATE:SKILL-LOCAL-PHONATION-ACCEPTED-20261017",
+  "record_type": "method_refinement_not_new_audio",
+  "report": {
+    "path": "docs/reports/production/skill-local-phonation-accepted-20261017.md",
+    "sha256": "4c3ece19744ef9d056105809b5d5ed2bbfb8b00a9ffa9f6d446306bcc3b95190"
+  },
+  "accepted_response_id": "AUD:YUAI-FIRST-PHRASE-R03-ACCEPTED-20261017",
+  "changed_skill_resources": [
+    {
+      "path": "skills/singing-expression-editor/references/phonation-continuity.md",
+      "sha256": "c9728d917aafb5f6f97c4c21215e3512c4ac01e7fd25579d6b6fbdf86d34b3d9"
+    }
+  ],
+  "validation": {
+    "resource_count": 40,
+    "installed_exact": true,
+    "links": 124,
+    "changed": [
+      "references/phonation-continuity.md"
+    ],
+    "protected_unchanged": 23,
+    "knowledge_receipt": "passed",
+    "accepted_scope": "first phrase only"
+  },
+  "knowledge_contract_tests_passed": 9,
+  "new_audio": 0,
+  "song_changed": false,
+  "prior_reports_receipts_refreshed": false,
+  "general_rule_validated": false,
+  "measurement_validated": false
+}

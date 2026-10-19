@@ -1,0 +1,25 @@
+{
+  "record_id": "AUD:YUAI-S03-F-NATIVE-STILL-UNSATISFACTORY-20261017",
+  "record_type": "native_writeback_not_accepted_reference_comparison_authorized",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-F-writeback-not-accepted-20261017.md",
+    "sha256": "742a1bb94e68d3eb1fe912f078fe3a8a099aaf83746d1d08a44dd33a0c6d46c4"
+  },
+  "feedback": "还是不行，这次你看下白烁的进行对比",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "86b2dfc0c5be1eec310dc165ba7c3894dc468e72f2b58246189e29642e688fc2"
+  },
+  "delivered_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-F-writeback-20261017\\revision2\\first4-project.wav",
+    "sha256": "0759bae3f3cad96946511968f3dcd33c9d294803b15897b5c1faf3640a372926"
+  },
+  "exact_playback_branch": null,
+  "third_goal_met": false,
+  "latest_separate_axis_ratings": null,
+  "prior_F_diagnostic_positive_retained": true,
+  "fourth_local_positive_retained": true,
+  "reference_read_authorized": true,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

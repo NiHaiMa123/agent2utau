@@ -1,0 +1,49 @@
+{
+  "record_id": "RESP:YUAI-S03-LE-BREATH-ENVELOPE-CANDIDATE-20261018",
+  "record_type": "same_project_AP_local_native_gain_candidate",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-le-breath-envelope-candidate-20261018.md",
+    "sha256": "44ca9db62cd2d006e22269ae758f1c36754f3ede70a15d6fe4837bf7ac004240"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "56169ed3629049203be021384d1cf4e5ce93a3e7a24a398a5b55322db2f17f69"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-le-breath-envelope-20261018\\knowledge_context.json",
+    "sha256": "15eaed12d01f0388f27f5c65beb63bae24da37b6e2545a6ce6f2d50b953b4b45"
+  },
+  "intent": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-le-breath-envelope-20261018\\intent-before-envelope.json",
+    "sha256": "94ecbde6ab858cc0fed8a31c1be61b7245463919e0e333cc26ef5e836080dde9"
+  },
+  "envelope": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-le-breath-envelope-20261018\\envelope-plan.json",
+    "sha256": "6b5e91a5dbb303d1dd1bdb364844d660602f6c2667b87589e4a9847343c3ead3"
+  },
+  "native_output": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-le-breath-envelope-20261018\\native-output-audit.json",
+    "sha256": "cc66a9dad0b20a8e4937d2e2b501578bfd96d41bca3fa603669afda0f7c30808"
+  },
+  "visual": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-le-breath-envelope-20261018\\visual-review.json",
+    "sha256": "2445ba85f71807ef4206c28e76c3d377871e537fa6d588ae7ed036c957bb1510"
+  },
+  "writeback": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-le-breath-envelope-20261018\\same-file-receipt.json",
+    "sha256": "7a406017ba03320986ad1a79b721d7f323114056dd870d907bcf2331369a904a"
+  },
+  "actual_plateau_delta_db": -24.163688505845812,
+  "predeclared_amplitude_precision_pass": false,
+  "only_DYN_storage_changed": true,
+  "all151_notes_all18_native_pitch_phone_arrays_exact": true,
+  "all_first4_model_inputs_predictions_speakers_exact": true,
+  "non_AP_PCM_exact": false,
+  "hearing": "pending",
+  "intrinsic_tremble_cause": "unknown",
+  "intrinsic_texture_repaired": false,
+  "measurement_validated": false,
+  "workflow_review_complete": false,
+  "Skill_changed": false,
+  "CI": false
+}

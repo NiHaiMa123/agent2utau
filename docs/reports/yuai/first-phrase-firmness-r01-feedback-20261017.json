@@ -1,0 +1,14 @@
+{
+  "record_id": "AUD:YUAI-FIRST-PHRASE-R01-STILL-THIN-20261017",
+  "record_type": "user_feedback",
+  "report": {
+    "path": "docs/reports/yuai/first-phrase-firmness-r01-feedback-20261017.md",
+    "sha256": "8964ad70920f87ef43e7e4ba7c30c53f5eede9c90f05103df74a8b88b908b634"
+  },
+  "user_feedback": "还是不够实",
+  "project_sha256": "3dc6c4699c9dea1973cc695d5ef0035bc00c677f132b8f91fd7daff73295b8f8",
+  "audio_binding": "user playback file unspecified",
+  "adoption": "R01 not accepted as sufficiently solid; direction/ranking unknown",
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

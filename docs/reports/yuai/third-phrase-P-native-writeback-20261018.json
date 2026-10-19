@@ -1,0 +1,41 @@
+{
+  "record_id": "RESP:YUAI-S03-P-NATIVE-WRITEBACK-20261018",
+  "record_type": "user_selected_tentatively_better_P_same_project_writeback",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-P-native-writeback-20261018.md",
+    "sha256": "7a4fc8049b1ba1ea514b0f6e2d41551ac26ecd00d36d85428bee29bc813f3e51"
+  },
+  "feedback_id": "AUD:YUAI-S03-P-TENTATIVE-BETTER-VIEW-REQUEST-20261018",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "04f68c4d463f82eb8aad0def31549c554d227987ec3ba6e60e29af862f4db1f4"
+  },
+  "gain": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-P-writeback-20261018\\gain-plan.json",
+    "sha256": "d3621ce7f18bdb16cdbfba75eff18c15587cf4cdb56af512100ea9b7b5a155d9"
+  },
+  "checks": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-P-writeback-20261018\\native-check.json",
+    "sha256": "1c4b6aff559d35ad1f56cbea0494a25e94b8395183854c9444399424329d12a5"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-P-writeback-20261018\\same-file-receipt.json",
+    "sha256": "975543cd36dbec914c04897b4dd47c89e58800dfce4255cf5e9be59739ae53ce"
+  },
+  "new_F0": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-P-writeback-20261018\\new-audio-F0-bindings.json",
+    "sha256": "eb08f6fd0501dfc0a9c62e0c01b4bcfc1938aeaadc92b7b75399d43e65f8181c"
+  },
+  "native_P_inputs_exact": true,
+  "neighbor_PCM_exact": true,
+  "technical_local_checks_pass": true,
+  "workflow_review_complete": false,
+  "subjective_improvement": "tentative",
+  "new_native_project_hearing": "pending",
+  "final_accepted": false,
+  "Q_adopted": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "Skill_changed": false,
+  "CI": false
+}

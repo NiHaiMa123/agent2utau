@@ -1,0 +1,32 @@
+{
+  "record_id": "METHOD:PHONATION-SECOND-CONTEXT-PREFERENCE-REVIEW-20261017",
+  "record_type": "preference_axis_review_with_existing_anchor_retrieval",
+  "report": {
+    "path": "docs/reports/production/phonation-second-context-preference-review-20261017.md",
+    "sha256": "63e1b82d59c249efc5e10368700649a4ad2e9db10cf797dfc940f6bcb936fc4a"
+  },
+  "feedback_id": "AUD:PHONATION-SECOND-CONTEXT-G-DARK-CLARIFIED-20261017",
+  "preference_id": "AUD:PHONATION-SECOND-CONTEXT-HI-SIMILAR-PREFERRED-G-20261017",
+  "anchor_ids": [
+    "AUD:PHONATION-SENTENCE-A-MORE-VIRTUAL-20261017",
+    "AUD:PHONATION-SENTENCE-BC-VIRTUALITY-C-VOICE-20261017",
+    "AUD:PHONATION-SENTENCE-D-LESS-LOWERED-MORE-VIRTUAL-20261017",
+    "AUD:PHONATION-SENTENCE-CF-LESS-LOWERED-C-FIRMER-20261017"
+  ],
+  "anchors": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-second-context-preference-20261017\\existing-firmness-anchors.json",
+    "sha256": "1f6d1f3936191824b24224fd300b7c1a8d7938fdf5eb4713fef849d3db468d37"
+  },
+  "prediction_review": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-second-context-preference-20261017\\prediction-review-after-clarification.json",
+    "sha256": "f4aced5628c4783f0ca68236cd1eccfbfb65721ff54fbff4e04ae14162001dd5"
+  },
+  "contextually_supported_lowered_voice_directions": 2,
+  "unknown_firmness_directions": 2,
+  "new_audio": 0,
+  "new_native_or_model_execution": 0,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false,
+  "song_changed": false
+}

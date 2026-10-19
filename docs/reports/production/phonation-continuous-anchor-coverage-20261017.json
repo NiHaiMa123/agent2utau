@@ -1,0 +1,57 @@
+{
+  "record_id": "METHOD:PHONATION-CONTINUOUS-ANCHOR-COVERAGE-20261017",
+  "record_type": "continuous_first3_coverage_and_existing_F_context_diagnostic_pending",
+  "report": {
+    "path": "docs/reports/production/phonation-continuous-anchor-coverage-20261017.md",
+    "sha256": "48e3ca4065c0987ac4fb82ea5017b0056dd75a7079b8594fdb7a5edac6c2f837"
+  },
+  "analysis_protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\protocol.json",
+    "sha256": "841359290469137adb79268411730a1120add64de61aa7b8ed7d1f74d6e59397"
+  },
+  "measurement_recheck": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\measurement-recheck.json",
+    "sha256": "a3e1ea606f2f01c885511d78c82cfb8b95860a3777109550c1a5702f8831e16d"
+  },
+  "native_time_map": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\native-and-time-map.json",
+    "sha256": "fcefb5e15b9b8cf783ad7a52e20e2e5aaea164153cf574739d971eced0232d4e"
+  },
+  "coverage": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\coverage-by-vowel.json",
+    "sha256": "27942ab10b6e7bcfc352949700d0ffca6bc6ee0d8112164ceeaf5b34d146dc80"
+  },
+  "same_phrase_axis_responses": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\same-phrase-anchor-responses.json",
+    "sha256": "4d2b825e10af4d46a933af174266f02e783c999abe3315cfc7a9e7b47083ed1d"
+  },
+  "cross_phrase_reference_coverage_s03": {
+    "comparable": 2,
+    "total": 8
+  },
+  "same_phrase_D_F_coverage_s03": {
+    "D": 8,
+    "F": 8,
+    "total": 8
+  },
+  "coverage_types_merged": false,
+  "new_measurements_are_old_v2_exact": true,
+  "listening_protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\listening-protocol.json",
+    "sha256": "6a6d025df61ce34eced8996344a159e71811f7f72e9145b5000b1c22586be0ae"
+  },
+  "listening_delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuous-anchor-coverage-20261017\\listening-delivery.json",
+    "sha256": "cefeefe471beefdca8dbfb9b1447d56183993da8514142b48e8f42c505b94e4d"
+  },
+  "new_derived_audio": 2,
+  "new_synthesis": 0,
+  "new_F0_model_execution": 0,
+  "new_human_feedback": 0,
+  "hearing_consistency": null,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false,
+  "song_changed": false,
+  "skill_changed": false
+}

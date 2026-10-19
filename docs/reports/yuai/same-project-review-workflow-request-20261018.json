@@ -1,0 +1,30 @@
+{
+  "record_id": "AUD:YUAI-SAME-PROJECT-REVIEW-WORKFLOW-20261018",
+  "record_type": "same_working_project_review_preference_and_R_writeback_request",
+  "report": {
+    "path": "docs/reports/yuai/same-project-review-workflow-request-20261018.md",
+    "sha256": "9cc818ae028d86eab67be69a173d4ac06857fd4d68748260fe55c31f478b2c23"
+  },
+  "feedback": "你都在项目里修改，我在opentuau里查看",
+  "working_project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "81798b0e41a1940b0f256aebaf0c788c42ac9b743ff4bc71febadfe0cd81af7b"
+  },
+  "source_R": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\R-full.ustx",
+    "sha256": "f59b45c452cd2cd39677df2bacb612466e988113995a3dcd0e2e2d2a5ae39b1f"
+  },
+  "preceding_primary_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\yuai-s03-frame-voice-contrast-20261018\\current-then-R-context.wav",
+    "sha256": "f5d6a29f0851ca8b6c317f39907fa4e77af8ad22becf364a62b984d5a6ef4be7"
+  },
+  "review_in_current_OpenUtau_project": true,
+  "writeback_authorized": true,
+  "R_accepted": false,
+  "firmness": null,
+  "airiness": null,
+  "darkness": null,
+  "continuous_consistency": null,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

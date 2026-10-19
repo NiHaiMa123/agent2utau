@@ -1,0 +1,84 @@
+{
+  "record_id": "RESP:YUAI-FIRST4-FULL-PARAMETER-AUDIT-20261018",
+  "record_type": "read_only_full_parameter_current_reference_original_audit_with_corrections",
+  "report": {
+    "path": "docs/reports/yuai/first4-full-parameter-audit-20261018.md",
+    "sha256": "8cec1b0b7086dbcc2a5893b518e78ac6807dde957e155299e71a4607d26874a5"
+  },
+  "feedback_id": "AUD:YUAI-S03-P-STILL-PROBLEM-FULL-AUDIT-20261018",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "04f68c4d463f82eb8aad0def31549c554d227987ec3ba6e60e29af862f4db1f4"
+  },
+  "original_author": {
+    "path": "E:\\project\\agent2utau\\research\\baishuo\\projects\\雨爱-有参by白烁.ustx",
+    "sha256": "01b08438ad3c8636b195c4adfcad9ea677796bc48ea65c4a99cc9dc2e0eb76ce"
+  },
+  "parameter_csv": {
+    "path": "E:\\project\\agent2utau\\docs\\reports\\yuai\\first4-full-parameter-audit-20261018.csv",
+    "sha256": "9b5063cdeffd6c412ee81e518bc3b2a4c9134431431a456ac69a9a0ecad9bb48"
+  },
+  "word_csv": {
+    "path": "E:\\project\\agent2utau\\docs\\reports\\yuai\\first4-word-audit-20261018.csv",
+    "sha256": "e82ad1c424326524595606e356bcc9f9a2ffff07635e9d88c7983ac6f50eb45f"
+  },
+  "all_parameters": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\all-parameter-audit.json",
+    "sha256": "75c6be42363375c4f48f69d3121a18d815690c6b5f46e28779604e7a4bca9d0a"
+  },
+  "actual_speaker_context_cache": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\speaker-context-cache-audit.json",
+    "sha256": "2db4b305ca42cf5b326beafd397ab7956ced9f6195e65859e94c83a1030cad17"
+  },
+  "actual_P_feature_inventory": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\current-P-actual-feature-audit.json",
+    "sha256": "d9246bac2904520e315bd2937e51df8b554c0c4bed98e0fa0c80976404e1a993"
+  },
+  "same_window_qi": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\current-P-qi-same-25ms-window.json",
+    "sha256": "bd4b74569adb11298509059f90427c12cfb5d463e909aabc0ad1c22e31e481d4"
+  },
+  "playback": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\playback-audit.json",
+    "sha256": "6d2a238d5b26e5c92a7a3a0293984dfb42b2808870dbb4b99694c54c42b8f806"
+  },
+  "filesystem_original_normalization": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\filesystem-and-original-normalization.json",
+    "sha256": "56cd35a90f6c0c3fc7f4f7f2ea37be43239c2db014cf22d551bb917c02004d88"
+  },
+  "corrections": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\correction-ledger.json",
+    "sha256": "a8434b6452a88036b642a39506e4c89417f669ab505309c4b579eafada95fe8c"
+  },
+  "actual_views": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\actual-view-review.json",
+    "sha256": "f9edbe432eac583d139b1eacc898553c5d44966a30bd9f6254205bdae853bef7"
+  },
+  "native_full_states": {
+    "own": {
+      "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\own-cached-parameters.json",
+      "sha256": "a4e5303565fdc292f23462ea7850d4ac8325b5e8ae47c2f179a97e4a0b2468d4"
+    },
+    "reference-main": {
+      "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\reference-main-cached-parameters.json",
+      "sha256": "239a1e82bf540c0bda31cfe07a8d8ea4198e3fc85daa2b573fdfeef4e6e50a31"
+    },
+    "reference-harmony": {
+      "path": "E:\\project\\agent2utau\\runs\\review\\yuai-first4-full-parameter-audit-20261018\\reference-harmony-cached-parameters.json",
+      "sha256": "5cca67fffcc9449d031f23a5ac631d2d4ac1806b920901567673bca6c3d6208f"
+    }
+  },
+  "temporary_helpers_removed": true,
+  "new_audio": 0,
+  "new_acoustic_vocoder_render_or_variance_Process_calls": 0,
+  "phonemizer_native_execution": "performed; exact cache/inference call count not asserted",
+  "song_changed": false,
+  "Skill_changed": false,
+  "third_goal_met": false,
+  "actual_live_playback_source": "unknown; saved configuration explicitly audited",
+  "author_reference_prediction": "unknown: matching existing linguistic cache absent; no inference fallback",
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "generalized_response_rules": [],
+  "CI": false
+}

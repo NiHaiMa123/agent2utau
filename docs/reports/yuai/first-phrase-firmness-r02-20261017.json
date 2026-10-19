@@ -1,0 +1,20 @@
+{
+  "record_id": "RESP:YUAI-FIRST-PHRASE-VOIC-CANDIDATE-R02-20261017",
+  "record_type": "scoped_candidate_not_audio_acceptance",
+  "report": {
+    "path": "docs/reports/yuai/first-phrase-firmness-r02-20261017.md",
+    "sha256": "814accc4b5ce5373f1280dea1f5e3eb117684a70c037fb5baea5c08a5d8bf5bf"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first-phrase-firmness-r02-20261017\\delivery-receipt.json",
+    "sha256": "6f61bf92a7042fc8c69e94e65f6a47f6338a584afc749943daeaf469e9487ab5"
+  },
+  "scope": "Only first phrase in same project",
+  "project_sha256": "495de310de63cb671523eb3d3ee398de6a8adf7ede36409f8b7795759954ef3f",
+  "intervention": "Finite vowel-interior VOIC support based on current speaker-dependent predictions; controls and pitch otherwise exact",
+  "previous_candidate": "r01 remains not sufficiently solid per user; ranking unknown",
+  "candidate_feedback": "pending",
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

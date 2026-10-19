@@ -1,0 +1,34 @@
+{
+  "record_id": "RESP:PHONATION-SENTENCE-C-D-BREC-ISOLATION-20261017",
+  "record_type": "single_factor_full_phrase_candidate_pending_two_dimension_feedback",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-brec-isolation-20261017.md",
+    "sha256": "6e60735cef6df607170d43b562bde8b0023313db07d91b492c6e7110524de01b"
+  },
+  "feedback_id": "AUD:PHONATION-SENTENCE-BC-VIRTUALITY-C-VOICE-20261017",
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\protocol.json",
+    "sha256": "d1035eb88778673d505a68c9cbdfa840027d8e996a5503e1d144d641d84572c2"
+  },
+  "input_audit": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\input-audit.json",
+    "sha256": "78c39c923fe334e470543e8a8c634a3bf518dc8471a53bec8ace50283367fad9"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\delivery.json",
+    "sha256": "1b06277fd5e185a90f1c3ebac0ff71d4b0a5b8f2faceb806b5cac9a02ef31a70"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-brec-isolation-20261017\\validation.json",
+    "sha256": "5ab0dfe8e6f75e85f91b240e2d896ea98906bba284fa4e919ff8c7f5c6dc1a17"
+  },
+  "new_candidate": "D",
+  "changed_control": "BREC only: C negative envelope removed",
+  "C_D_virtuality": null,
+  "C_D_lowered_voice_impression": null,
+  "unique_cause": null,
+  "perceptual_scale_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "song_changed": false
+}

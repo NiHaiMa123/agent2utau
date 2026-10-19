@@ -1,0 +1,21 @@
+{
+  "record_id": "RESP:YUAI-S03-CONTINUITY-VOIC-REVISION-20261017",
+  "record_type": "current_phrase_revision_pending_listening",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-continuity-revision-20261017.md",
+    "sha256": "aba7ce2205bbe55dd7fdf75db3eef6b958fd961fe1ce94881ac118ecc89558e3"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first3-continuity-20261017\\same-file-receipt.json",
+    "sha256": "69c07947426e30a8574fcc12503d9ea9a8a0a7f424eb9e05e54047b196079467"
+  },
+  "scope": "Current own third phrase VOIC only; current first2 continuity reference preserved",
+  "rejected_prior_candidate": "Third phrase airier/closer and inconsistent per user",
+  "intervention": "Finite VOIC support from current predictions; pitch/phones/speaker/BREC/TENC/DYN preserved",
+  "technical_execution_complete": true,
+  "workflow_review_complete": false,
+  "listening": "pending",
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

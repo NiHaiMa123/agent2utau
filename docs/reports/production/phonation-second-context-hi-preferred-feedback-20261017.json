@@ -1,0 +1,64 @@
+{
+  "record_id": "AUD:PHONATION-SECOND-CONTEXT-HI-SIMILAR-PREFERRED-G-20261017",
+  "record_type": "overall_preference_and_similarity_without_axis_directions",
+  "report": {
+    "path": "docs/reports/production/phonation-second-context-hi-preferred-feedback-20261017.md",
+    "sha256": "9c9bbd68222b4c321e46060c59e77321ff50434bd73ee8b84142f87ae0f396a2"
+  },
+  "feedback": "h和I差不多，好于g",
+  "source_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\packet.json",
+    "sha256": "ec99bb2e82f1ab291f47cdfe70ba294b43278559d5e1937c4b6211549a24f604"
+  },
+  "source_protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\protocol.json",
+    "sha256": "ec574c1148b170636829dd7244c5e1144d22f6c878a9780e76bdf34429829c60"
+  },
+  "audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\G-H-I.wav",
+    "sha256": "8bcea553b6cbba8fc1bd88e3df036bb1723f96a6ccf20e8e818fbfdaeaae42c8"
+  },
+  "clips": {
+    "G": {
+      "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\G-RMSmatched.wav",
+      "sha256": "2d66f474b598e923930e29a828e9b2fe8743316e348727ff52981bfae2ce9783"
+    },
+    "H": {
+      "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\H-RMSmatched.wav",
+      "sha256": "39967a7fadb87aa360fd1e6e9c4d96aece30ca0cd05453702f566584c10ec313"
+    },
+    "I": {
+      "path": "E:\\project\\agent2utau\\runs\\research\\phonation-second-context-20261017\\I-RMSmatched.wav",
+      "sha256": "d7d4ec9aa767cb5ab9609d29f516cd66ff17afb39e01b895661b2b12cc6d15bb"
+    }
+  },
+  "binding_basis": "Immediate reply to G→H→I inline; no independent playback hash supplied",
+  "overall_preference": [
+    {
+      "preferred": "H",
+      "over": "G"
+    },
+    {
+      "preferred": "I",
+      "over": "G"
+    }
+  ],
+  "overall_similarity": [
+    {
+      "pair": [
+        "H",
+        "I"
+      ],
+      "relation": "approximately similar"
+    }
+  ],
+  "preference_H_over_I": null,
+  "virtuality_directions": null,
+  "lowered_voice_directions": null,
+  "naturalness_scores": null,
+  "absolute_acceptance": null,
+  "independent_feedback_events": 1,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false
+}

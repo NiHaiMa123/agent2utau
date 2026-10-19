@@ -1,0 +1,21 @@
+{
+  "record_id": "RESP:YUAI-FIRST-PHRASE-SPEAKER-CANDIDATE-20261017",
+  "record_type": "scoped_candidate_technical_not_perceptual_acceptance",
+  "report": {
+    "path": "docs/reports/yuai/first-phrase-firmness-candidate-20261017.md",
+    "sha256": "75f0bdbc27e09ecbcecaf2c2f5035043dd6a4ef4ecc66d637674f623ad61b763"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-first-phrase-firmness-20261017\\delivery-receipt.json",
+    "sha256": "0426315bd58bc0a69bf68f78ef941d0acaf15867fc51061cc57a54817ec2282f"
+  },
+  "project_sha256": "3dc6c4699c9dea1973cc695d5ef0035bc00c677f132b8f91fd7daff73295b8f8",
+  "scope": "first phrase only, same requested comparison USTX",
+  "singer": "YousaV1.65b",
+  "intervention": "Minority Classic blend; all other note/control/track fields preserved",
+  "user_feedback": "pending",
+  "agent_heard": false,
+  "whole_song_complete": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

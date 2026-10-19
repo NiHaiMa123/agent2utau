@@ -1,0 +1,48 @@
+{
+  "record_id": "AUD:PHONATION-SENTENCE-BC-VIRTUALITY-C-VOICE-20261017",
+  "record_type": "relative_virtuality_with_separate_voice_character_observation",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-bc-virtuality-c-voice-feedback-20261017.md",
+    "sha256": "219f61032a9fa6299a3784816d75e9a793c3a1a876fd9514c1b751e0a862d537"
+  },
+  "feedback": "b更虚，但是c感觉像是压低声音唱的",
+  "source_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-midpoint-20261017\\packet.json",
+    "sha256": "ec6118e5569331c1d500d64b9e76ce3e2c9a9459d33e1f256852bae62b18ec45"
+  },
+  "audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-midpoint-20261017\\B-then-C.wav",
+    "sha256": "7c47fd3b38890c1b07faa8976cda1aa041251036f1b8236bf63729e873e5fbb8"
+  },
+  "clips": {
+    "B": {
+      "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\B-RMSmatched.wav",
+      "sha256": "a052bb33b7b1388100a5dc82811079cc399dfe74d1cf4c662578bb9f412de5a1"
+    },
+    "C": {
+      "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\C-RMSmatched.wav",
+      "sha256": "61caecca5d7f223d856c003d15e186eaa22e55a731663af72e4c45b477b7a915"
+    }
+  },
+  "binding_basis": "Immediate preceding B→C inline; no separately supplied audio SHA",
+  "perceptual_relation": {
+    "axis": "relative_virtuality",
+    "more_virtual": "B",
+    "less_virtual": "C"
+  },
+  "qualitative_observations": [
+    {
+      "clip": "C",
+      "raw": "感觉像是压低声音唱的",
+      "kind": "heard_voice_character",
+      "physical_mechanism": null
+    }
+  ],
+  "A_B_order": null,
+  "preference": null,
+  "absolute_firmness_adequacy": null,
+  "naturalness_score": null,
+  "perceptual_scale_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

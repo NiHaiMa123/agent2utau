@@ -1,0 +1,55 @@
+{
+  "record_id": "UPDATE:SKILL-PHONETIC-CONTINUITY-FEEDBACK-20261017",
+  "record_type": "conditional_method_refinement_not_new_audio",
+  "report": {
+    "path": "docs/reports/production/skill-phonetic-continuity-feedback-20261017.md",
+    "sha256": "50422f5a07c63058a51219f4cbcc5f4b028dab45835d7bb1fa57a29c975c066d"
+  },
+  "feedback_ids": [
+    "AUD:YUAI-CHUANG-UANG-CLARITY-ACCEPTED-20261017",
+    "AUD:YUAI-S03-VOIC-REVISION-INSUFFICIENT-20261017"
+  ],
+  "changed_skill_resources": [
+    {
+      "path": "skills/singing-expression-editor/SKILL.md",
+      "sha256": "e7e85b4325521f44c0c203faf3f70e97e12b449c69db4ef7777c0ec47b696db1"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/phonation-continuity.md",
+      "sha256": "9129374957cc326776e3bf14b7c7310ca4bc00d433b6a81516a98e7cf89b1471"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/phrase-by-phrase-workflow.md",
+      "sha256": "1ddf584fedf6521f38c07647b5dc71017df4d92faf245fd06afc214d59212718"
+    },
+    {
+      "path": "skills/singing-expression-editor/references/vowel-support-and-language.md",
+      "sha256": "d3d94497dcc63c84c16e87edf48a9000892472c0288a873c1af652628be6a6cf"
+    }
+  ],
+  "validation": {
+    "changed": [
+      "SKILL.md",
+      "references/phonation-continuity.md",
+      "references/phrase-by-phrase-workflow.md",
+      "references/vowel-support-and-language.md"
+    ],
+    "resource_count": 40,
+    "installed_exact": true,
+    "skill_links": 125,
+    "quick_validate": "repo and installed passed",
+    "protected_unchanged": 213,
+    "knowledge_receipt": "passed",
+    "knowledge_contract_tests_passed": 9,
+    "new_song_audio": 0,
+    "CI": false,
+    "scope": "Structural/link/knowledge interface verification; no automatic hearing/phonation discrimination or future execution-order gate added"
+  },
+  "accepted_scope": "Current 窗 pronunciation only",
+  "third_phrase": "Still insufficient; no automatic dose increase or acceptance",
+  "new_audio": 0,
+  "song_changed": false,
+  "automatic_execution_order_or_hearing_gate_added": false,
+  "general_rule_validated": false,
+  "measurement_validated": false
+}

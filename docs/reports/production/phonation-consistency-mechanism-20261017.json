@@ -1,0 +1,47 @@
+{
+  "record_id": "METHOD:PHONATION-CONSISTENCY-PROXY-20261017",
+  "record_type": "read_only_conditioned_acoustic_mechanism_with_perceptual_gaps",
+  "report": {
+    "path": "docs/reports/production/phonation-consistency-mechanism-20261017.md",
+    "sha256": "82e2c02fcd93b00e23af05961aa980b1706d7d8698a3beec89182cdfd86cd55c"
+  },
+  "implementation": {
+    "path": "src/agent2utau/evaluation/phonation.py",
+    "sha256": "b63565ca0d5f8d2924f29aa24017ec2dfc0eb7d930e17b25b437759ee5b4b8b3"
+  },
+  "result": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuity-mechanism-20261017\\evaluation-final\\result.json",
+    "sha256": "222eb3bfcca4761f6ddb705c7beafb54c5c8e6e070ebc34c590043582e7111db"
+  },
+  "summary": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\phonation-continuity-mechanism-20261017\\observation-summary.json",
+    "sha256": "f6d4c10bd7c3b7996125c16ed9d02be46923eeeafbe24151bada60451e6f84ae"
+  },
+  "validation": {
+    "changed_skill_files": [
+      "references/phonation-continuity.md",
+      "references/project-tools.md"
+    ],
+    "skill_files": 40,
+    "installed_exact": true,
+    "skill_links": 125,
+    "quick_validate": "repo and installed passed",
+    "tests_passed": 49,
+    "protected_unchanged": 23,
+    "song_or_audio_changed": false,
+    "new_voice_synthesis": 0,
+    "new_F0_observations": 4,
+    "CI": false,
+    "blind_heldout_perceptual_validation": false
+  },
+  "scope": "23 current own first3 vowels /22 reliable bodies /8of8third measured but2of8 comparable",
+  "current_reference_coverage": 0.25,
+  "perceptual_scale_validated": false,
+  "independent_heldout": false,
+  "hearing_pass": null,
+  "automatic_repair": false,
+  "new_voice_audio": 0,
+  "song_changed": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

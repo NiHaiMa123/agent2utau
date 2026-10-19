@@ -1,0 +1,36 @@
+{
+  "record_id": "AUD:YUAI-S03-R-REJECTED-PROXIMITY-STATE-20261018",
+  "record_type": "native_R_rejection_with_proximity_and_cross_phrase_state_clarification",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-R-rejected-proximity-clarification-20261018.md",
+    "sha256": "17164f3596418e5583b47277f7ebdaa0eb5e48ae5a8f97a4b6211f51b191ccf5"
+  },
+  "feedback_events": [
+    "不行",
+    "更贴耳，和前两句感觉不是同一个状态唱出来的"
+  ],
+  "binding_basis": "Immediate response to same-project R writeback, then explicit clarification; not independently observed live UI",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "f1a78827d58f551c3f052d68d3efb4f202be8e2bff614b78a4ab2eb418ffd126"
+  },
+  "R_delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-R-writeback-20261018\\same-file-receipt.json",
+    "sha256": "36ea1a2d60b8ef6f5294e72dbf850f30bb87e21b21cc7bfec3be88d8b1486035"
+  },
+  "R_native_audio": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-R-writeback-20261018\\third-project.wav",
+    "sha256": "74940eef794c9aedcda54251bcfdfd52119ea777cbf85130b6a47138543a4da6"
+  },
+  "overall_accepted": false,
+  "third_more_proximate_than_first2": true,
+  "cross_phrase_singing_state_consistent": false,
+  "R_vs_P_proximity": null,
+  "firmness": null,
+  "airiness": null,
+  "darkness": null,
+  "pressed_impression": null,
+  "loudness": null,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

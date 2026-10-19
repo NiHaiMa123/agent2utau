@@ -1,0 +1,52 @@
+{
+  "record_id": "RESP:YUAI-APSP-NATIVE-CONTEXT-LINK-20261018",
+  "record_type": "first4_explicit_APSP_coverage_and_native_reference_label_ablation",
+  "report": {
+    "path": "docs/reports/yuai/apsp-context-link-audit-20261018.md",
+    "sha256": "3d7efb3d2e23e3a90014b2e4809634005326cb0c6c3df24fd2cc4fb084e318da"
+  },
+  "user_question": "我发现白烁的项目中间的空白基本都被ap和sp铺满，是不是这个原因",
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "b6ed6831050d528786b5d90e026b821efab7ba195db12e7783a640ab6770d878"
+  },
+  "knowledge": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-apsp-context-link-20261018\\knowledge_context.json",
+    "sha256": "e3277856ba1538190d9917887976af6de9fe61589024b2e41858d82fc558aa54"
+  },
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-apsp-context-link-20261018\\protocol-before-label-removal.json",
+    "sha256": "b253d3996fd2fc0a71a4ca572eaa75ea327da272bcdd372cda6aebcd81cb5b03"
+  },
+  "label_removal": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-apsp-context-link-20261018\\removal-plan.json",
+    "sha256": "bd7e23e6fb70400ee93d6fac3dc4fb8771505e620e4354aed2491fd1790dcbc6"
+  },
+  "gap_audit": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-apsp-context-link-20261018\\paired-first4-score-gaps.json",
+    "sha256": "1931e9595f8066cdd406af287ac5317e8f493f193c55d59b1077d38799b8fc8a"
+  },
+  "native_result": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-apsp-context-link-20261018\\native-context-removal-result.json",
+    "sha256": "eb436834a3b203fb96b5af5e3ba92d06f7d4134160e91d417dabab0f3037a6d7"
+  },
+  "before_first4_native_count": 3,
+  "after_first4_native_count": 7,
+  "removed_AP": 7,
+  "removed_SP": 3,
+  "EP_kept": true,
+  "remaining_note_fields_and_curves_exact": true,
+  "sung_phone_symbols_exact_words": 31,
+  "phone_geometry_held": false,
+  "max_phone_boundary_change_ms": 35.41666666666788,
+  "APSP_causes_context_grouping_difference_current_reference": true,
+  "APSP_causes_perceptual_problem": "unverified",
+  "native_phonemizer_executed": true,
+  "new_variance_acoustic_vocoder_runs": 0,
+  "new_audio": 0,
+  "project_changed": false,
+  "Skill_changed": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "CI": false
+}

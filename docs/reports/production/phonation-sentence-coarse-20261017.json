@@ -1,0 +1,33 @@
+{
+  "record_id": "METHOD:PHONATION-SENTENCE-COARSE-20261017",
+  "record_type": "whole_phrase_coarse_discrimination_pending_human_ordering",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-coarse-20261017.md",
+    "sha256": "df1079b21e0334aa2655ce1c17c6c869579996dad5b0299aaf7e859ff3eedfca"
+  },
+  "feedback_id": "AUD:PHONATION-ISOLATED-SAMPLES-INSUFFICIENT-20261017",
+  "protocol": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\protocol.json",
+    "sha256": "d6d7d9727b89a06b9f6eedf6dd18f90945fb9c2842cfda3e89de24b4be739b53"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\validation.json",
+    "sha256": "ca9650f23593c912b8b67f84203ab68a5ff54bd570c63abd8cb235dcd398916e"
+  },
+  "delivery": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\delivery.json",
+    "sha256": "18c58921b329654a7c1e924edb1ac36e3966a32fd086e45f99081031916720ff"
+  },
+  "observations": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\observations.json",
+    "sha256": "c59daa8262a2a7614c3deffd7c1eedf729c5976806309a57a8d71396157dbccb"
+  },
+  "candidate_count": 3,
+  "primary_comparisons": 1,
+  "heard_discriminability": "pending",
+  "human_labels": 0,
+  "perceptual_scale_validated": false,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "song_changed": false
+}

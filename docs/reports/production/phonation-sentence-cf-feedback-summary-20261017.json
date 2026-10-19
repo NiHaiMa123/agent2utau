@@ -1,0 +1,42 @@
+{
+  "record_id": "AUD:PHONATION-SENTENCE-CF-LESS-LOWERED-C-FIRMER-20261017",
+  "record_type": "two_dimension_local_response_and_trial_consolidation",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-cf-feedback-summary-20261017.md",
+    "sha256": "3f379915cafad3f89a1cfe48efab4ada13a0dc2519a79df4a5d383c9b9064970"
+  },
+  "feedback": "减轻，c更实",
+  "source_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\packet.json",
+    "sha256": "7e99cf3b440175f14c8a9715737a5ecc76a70bf26ce674879d686ee212a4ab76"
+  },
+  "audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\C-then-F.wav",
+    "sha256": "722828bc3ec21c1edc09882e70c36980aa123f045817ae42c322b979a2794d3b"
+  },
+  "C": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\C-RMSmatched.wav",
+    "sha256": "61caecca5d7f223d856c003d15e186eaa22e55a731663af72e4c45b477b7a915"
+  },
+  "F": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-voic-isolation-20261017\\F-RMSmatched.wav",
+    "sha256": "0681a90381d3f6cf6080abeea86f53ccf101b5010dc2a15db9f4f8f93c675bc1"
+  },
+  "binding_basis": "Immediate response to C→F and explicit questions about F; no independently supplied hash",
+  "relative_firmness": {
+    "more": "C",
+    "less": "F"
+  },
+  "lowered_voice_impression": {
+    "less": "F",
+    "more": "C",
+    "fully_resolved": null
+  },
+  "preference": null,
+  "absolute_adequacy": null,
+  "D_F_order": null,
+  "interaction": null,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false
+}

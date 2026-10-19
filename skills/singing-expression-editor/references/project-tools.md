@@ -12,6 +12,8 @@
 | CLI `review-inventory` / `review-execution` / `review-delivery` | 独立原生身份/实际动作/图像覆盖、事前意图对照及分层状态；见[执行契约](production-execution-review.md)。compile-functions contract v2接同一API；v1/无契约只交技术候选 |
 | `expression/context_actions.py` / `curve_components.py` / `enveloped_landmarks.py` | 显式schema3音素锚点和分层有限/周期动作；与helper包络定义不同，不静默换参数 |
 | Skill `scripts/compile_control_overlay.py` | 按当前音素锚点叠加Agent所选TENC/BREC/VOIC/DYN并恢复基底，不自动设计发声 |
+| `python -m agent2utau.evaluation.phonation` | 只读显式绑定的纯人声/双F0/实际phone，输出周期性/频谱分轴、覆盖和跨版变化，v2无合并虚实分；不作听觉通过/自动调参，见虚实连续性页及项目`docs/guides/phonation-consistency-evaluation.md` |
+| `python -m agent2utau.evaluation.phonation_calibration` | 核验测试样本/PCM/A-B次序SHA、条件分区和分轴听觉记录；未评保持pending，仅标签出处核验，不拟合阈值或自动调歌 |
 | Skill `scripts/sparse_contour.py` | Agent自有节点的note.pitch转换；研究线重建只用于研究，不接入独立生成 |
 | `expression/rhythm.py` | 当前音乐/音素时钟冲突观测；不自动改谱或源unknown |
 | bridge / CLI原生导出与render-project | 实际pitch、phones、variance/acoustic输入与渲染；需当前版本、模型、缓存和speaker绑定 |

@@ -1,0 +1,28 @@
+{
+  "record_id": "RESP:YUAI-S03-BREC-SURFACE-CANDIDATE-20261017",
+  "record_type": "single_channel_current_phrase_candidate_pending_listening",
+  "report": {
+    "path": "docs/reports/yuai/third-phrase-breath-surface-candidate-20261017.md",
+    "sha256": "8c3c66b613d9fb21e59f8247cf25c82e347b51b6b16d1dfe6600f31bfff7a1c4"
+  },
+  "validation": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\yuai-s03-breath-surface-20261017\\same-file-receipt.json",
+    "sha256": "a07abe7407714c82cbd7aa9daf15c4e1725c1153f51e8ca08d5a7df3be14d244"
+  },
+  "scope": "Current own third phrase breathiness only; preserve first2 and new s03 contour/core",
+  "intervention": "Vowel-contained BREC finite surface reduction; unchanged VOIC/TENC/DYN/speaker/pitch",
+  "old_negatives_retained": [
+    "RESP-005",
+    "RESP-006",
+    "RESP-007",
+    "RESP-008",
+    "RESP-009",
+    "RESP-010"
+  ],
+  "technical_execution_complete": true,
+  "workflow_review_complete": false,
+  "listening": "pending",
+  "agent_heard": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

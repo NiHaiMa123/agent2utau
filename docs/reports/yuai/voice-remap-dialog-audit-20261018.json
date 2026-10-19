@@ -1,0 +1,31 @@
+{
+  "record_id": "RESP:YUAI-VOICE-REMAP-DIALOG-AUDIT-20261018",
+  "record_type": "static_user_UI_remap_screenshot_and_installed_handler_readonly_audit",
+  "report": {
+    "path": "docs/reports/yuai/voice-remap-dialog-audit-20261018.md",
+    "sha256": "a424b8cc2a49e3c84333b8fa108cd404bafdc498891897c23e227d32a036f104"
+  },
+  "user_question": "每次打开弹音色重映射，都点好，会不会有影响",
+  "user_clarification": "我们的轨道也会弹",
+  "audit": {
+    "path": "E:\\project\\agent2utau\\runs\\review\\yuai-voice-remap-dialog-20261018\\disk-and-handler-audit.json",
+    "sha256": "adc8bd4778323ecfe5e5e0e05d96783ee84ba6dafd0454c449d96961e74b6d0e"
+  },
+  "project": {
+    "path": "E:\\project\\agent2utau\\projects\\latest\\yuai_first14_single_track_baishuo_comparison.ustx",
+    "sha256": "91b5289bd11c5c7728507ae9f4fbabaaad5cedf4c12f0dc1276113ebd880b675"
+  },
+  "screenshot_track": "白烁 · 完整主唱",
+  "reference_empty_ene_misclassified_as_imported_vocal_mode": true,
+  "current_reference_selected_cl01_already_exists": true,
+  "own_UI_condition_verified": false,
+  "own_CLR_changed_proven": false,
+  "old_feedback_preserved_with_live_condition_uncertainty": true,
+  "project_changed": false,
+  "Skill_changed": false,
+  "new_audio": 0,
+  "new_model_runs": 0,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "CI": false
+}

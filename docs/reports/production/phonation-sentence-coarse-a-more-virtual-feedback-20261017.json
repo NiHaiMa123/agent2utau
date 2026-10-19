@@ -1,0 +1,49 @@
+{
+  "record_id": "AUD:PHONATION-SENTENCE-A-MORE-VIRTUAL-20261017",
+  "record_type": "partial_relative_virtuality_label",
+  "report": {
+    "path": "docs/reports/production/phonation-sentence-coarse-a-more-virtual-feedback-20261017.md",
+    "sha256": "e5fa17601de6ae579bccb7e45f4ab2b3076011dd97368ccb59706f37edeb5faf"
+  },
+  "feedback": "a更虚",
+  "comparison_id": "wide01",
+  "heard_sequence": [
+    "A",
+    "C"
+  ],
+  "source_packet": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\packet.json",
+    "sha256": "8b1c11464ab03ce193f78fff47051f577ab3cd1d9f53822dbfa7c9936674b148"
+  },
+  "source_catalog": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\catalog.json",
+    "sha256": "7db740c8f14c363a33758914abe596aed2f5ed5dab50770a93ee020d2b0c3ad5"
+  },
+  "audio": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\A-then-C.wav",
+    "sha256": "951f8a01eb8c2f4827a1abeb32cad8c5fb01be75f40db633da016486eac9e1f3"
+  },
+  "clip_A": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\A-RMSmatched.wav",
+    "sha256": "7dd817ac4186c1cf63d716b1a42f9ae2f4133ab10c1a0f112040f4526884aa29"
+  },
+  "clip_C": {
+    "path": "E:\\project\\agent2utau\\runs\\research\\phonation-sentence-coarse-20261017\\C-RMSmatched.wav",
+    "sha256": "61caecca5d7f223d856c003d15e186eaa22e55a731663af72e4c45b477b7a915"
+  },
+  "binding_basis": "Reply to immediately preceding A-then-C inline delivery; not separately supplied by hash",
+  "perceptual_relation": {
+    "dimension": "relative_virtuality",
+    "more_virtual": "A",
+    "less_virtual": "C"
+  },
+  "preference": null,
+  "absolute_firmness": null,
+  "airiness": null,
+  "loudness": null,
+  "naturalness": null,
+  "per_word_labels": null,
+  "measurement_validated": false,
+  "general_rule_validated": false,
+  "perceptual_scale_validated": false
+}
