@@ -39,5 +39,7 @@ configs/local.yaml
 external/
 models/
 data/
-projects/
+/projects/
 *.ustx
+# Author originals are byte-preserved evidence: keep them tracked (see docs/guides/repository-layout.md).
+!research/baishuo/projects/*.ustx
