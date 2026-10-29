@@ -1867,3 +1867,30 @@ note-level vibrato/phoneme fields -> renderPhrases=0, silent part.
   for a zero-expression reference; confirms expression is the
   differentiator, not the renderer.
 - Verdict bound in runs/huahai_j7/listening_verdict.json.
+
+## L7 Round J J7B — event geometry and boundary ownership
+
+- New bounded path: `src/agent2utau/expression/lowdof.py` and
+  `tools/l7j7b_rules.py`. J7A artifacts remain frozen.
+- Body evidence now fails closed on low coverage, dispersion or a core more
+  than 100c from the written note. Constant/linear/monotonic-three-knot
+  models share one coordinate system; short-note windows stay inside notes.
+- Every note boundary has explicit departure/arrival/settle PITD anchors;
+  structural interval motion is owned by target-note `pitch.data`. Same-tick
+  controls use declared priority and unrelated equal-priority conflicts fail.
+- Cross-extractor-matched onset/ornament/portamento/vibrato events receive
+  baseline/extremum/settle geometry. Most Huahai note cores were correctly
+  rejected as temporally incompatible with the written note rather than
+  clipped from multi-semitone offsets; this leaves conservative score-centred
+  bodies where SOURCE-to-score note assignment is unresolved.
+- Five YousaV1.65c/dpV2 renders pass frozen machine gates: score identity
+  true; post-arrival/core offsets within 120c/100c; no sustained >200c run;
+  zero unexplained voiced-island-local >300c jumps; FCPE/RMVPE render p95
+  difference 4.7-13.0c. J7A's measured arrival defects are removed (`you`
+  post-arrival +1.3c, `de` +0.9c in the vibrato phrase).
+- Important limitation before listening: the phrase labelled vibrato had no
+  dual-extractor-supported vibrato event, so its B candidate tests structural
+  transitions rather than adaptive vibrato. Machine PASS is not a naturalness
+  verdict.
+- Listening project: `runs/huahai_j7b/agent2utau_J7B_all_ABC.ustx`, with
+  track 0=A0 neutral, track 1=B J7B, track 2=C committed human reference.

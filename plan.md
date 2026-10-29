@@ -1950,6 +1950,59 @@ J7A_FAIL_EVIDENCE
 J7A_FAIL_STRATEGY
 ```
 
+J7A is closed as `J7A_FAIL_IMPLEMENTATION` after human listening. Its sparse
+part-level PITD anchored note cores but left transition ownership and arrival
+unconstrained, producing sustained entry errors such as `you=-203c` and
+`de=+588c`. The neutral A reference was also correctly rejected as perceptually
+flat; it remains a zero-expression diagnostic only.
+
+### Phase J7B — READY_FOR_LISTENING: event geometry and boundary ownership correction
+
+J7B is a new reviewer-authorized bounded trial, not a threshold-tuning rerun of
+J7A. Keep the same five phrase note sets and timing so the listening comparison
+changes expression representation only.
+
+The implementation must:
+
+1. reject note-core evidence that is unstable, poorly covered or incompatible
+   with the written note instead of clipping a multi-semitone mismatch;
+2. fit constant, linear and monotonic three-knot body models in one consistent
+   coordinate system, selecting the simplest adequately supported model;
+3. keep every body knot inside its note and use duration-safe windows for short
+   notes;
+4. give every contiguous note boundary explicit departure and arrival anchors;
+5. use one owner for the structural interval transition (`pitch.data`) while
+   PITD carries only intonation offsets and separately evidenced local events;
+6. compile only cross-extractor-supported onset, ornament, portamento and
+   vibrato events, with explicit baseline/settle anchors;
+7. merge same-tick controls by declared ownership priority rather than append
+   order;
+8. fail machine review on unexplained post-arrival pitch displacement, sustained
+   core displacement, voiced-island-local extreme jumps, score-identity change
+   or unsupported event topology.
+
+Freeze before rendering:
+
+```text
+post-arrival median absolute displacement <= 120 cents
+stable-core median absolute displacement <= 100 cents
+no unexplained sustained displacement > 200 cents for >= 100 ms
+no voiced-island-local frame jump > 300 cents outside a declared transition
+```
+
+Comparison set:
+
+```text
+A0 = neutral zero-expression diagnostic
+B  = J7B event-geometry candidate
+C  = committed human-authored phrase reference
+```
+
+J7B authorizes one implementation, one unit-test pass, one five-phrase
+generation, one real render per phrase, one diagnostic evaluation and one
+combined listening project, then STOP. Runtime/wiring fixes may make that single
+run executable but do not authorize parameter search.
+
 ### Human singing plausibility connection
 
 Round J is the calibration precursor for the planned human-singing plausibility gate.
