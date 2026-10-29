@@ -1,0 +1,1551 @@
+[
+ {
+  "part_index": 0,
+  "support_s": [
+   18.5875,
+   21.551041666666666
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平1",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "勒",
+    -183
+   ],
+   [
+    "纹",
+    -369
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 1,
+  "support_s": [
+   21.738541666666666,
+   24.780208333333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平2"
+  ],
+  "bad_notes": [
+   [
+    "我",
+    -559
+   ],
+   [
+    "唇",
+    -347
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 2,
+  "support_s": [
+   25.017708333333335,
+   27.970833333333335
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平2",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "忆",
+    -108
+   ],
+   [
+    "痕",
+    -285
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 3,
+  "support_s": [
+   28.226041666666667,
+   30.772916666666667
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平1",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "树",
+    -538
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 4,
+  "support_s": [
+   31.509375000000002,
+   34.51979166666667
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "盛",
+    -266
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 5,
+  "support_s": [
+   34.71666666666667,
+   37.76875
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平2"
+  ],
+  "bad_notes": [
+   [
+    "住",
+    -558
+   ],
+   [
+    "了",
+    -184
+   ],
+   [
+    "昏",
+    -329
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 6,
+  "support_s": [
+   37.984375,
+   40.96875
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平2",
+   "长字未展开2"
+  ],
+  "bad_notes": [
+   [
+    "夜",
+    -196
+   ],
+   [
+    "剩",
+    -335
+   ],
+   [
+    "人",
+    -305
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 2
+ },
+ {
+  "part_index": 7,
+  "support_s": [
+   41.21979166666667,
+   43.771875
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "清",
+    -461
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 8,
+  "support_s": [
+   44.471875,
+   47.49270833333333
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏4音",
+   "字腹压平2",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "间",
+    -142
+   ],
+   [
+    "的",
+    -116
+   ],
+   [
+    "仇",
+    113
+   ],
+   [
+    "恨",
+    -326
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 9,
+  "support_s": [
+   47.710416666666674,
+   50.746875
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "源不确定1音"
+  ],
+  "bad_notes": [
+   [
+    "远",
+    -436
+   ],
+   [
+    "却",
+    -128
+   ],
+   [
+    "分",
+    -354
+   ]
+  ],
+  "uncertain": [
+   [
+    "无",
+    5698,
+    6397,
+    5719
+   ]
+  ],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 0,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 10,
+  "support_s": [
+   50.91875,
+   53.97083333333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平1",
+   "长字未展开3"
+  ],
+  "bad_notes": [
+   [
+    "未",
+    -216
+   ],
+   [
+    "疼",
+    -321
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 3
+ },
+ {
+  "part_index": 11,
+  "support_s": [
+   54.12500000000001,
+   56.94791666666667
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "的",
+    -529
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 12,
+  "support_s": [
+   57.42187500000001,
+   60.458333333333336
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "春",
+    -321
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 13,
+  "support_s": [
+   60.66875000000001,
+   63.66875000000001
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平1"
+  ],
+  "bad_notes": [
+   [
+    "过",
+    -582
+   ],
+   [
+    "稳",
+    -324
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.7681924319662493,
+  "flattened": 1,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 14,
+  "support_s": [
+   63.91250000000001,
+   66.896875
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平1",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "的",
+    -287
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 15,
+  "support_s": [
+   67.19270833333334,
+   68.90104166666667
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2"
+  ],
+  "bad_notes": [
+   [
+    "年",
+    -491
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.7194161080061786,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 16,
+  "support_s": [
+   69.66145833333334,
+   72.78645833333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平2"
+  ],
+  "bad_notes": [
+   [
+    "圈",
+    -303
+   ],
+   [
+    "圈",
+    335
+   ],
+   [
+    "年",
+    -187
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 17,
+  "support_s": [
+   72.8625,
+   77.44583333333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平1",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "心",
+    -332
+   ],
+   [
+    "存",
+    211
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 18,
+  "support_s": [
+   77.69166666666668,
+   82.28541666666668
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏4音",
+   "字腹压平5",
+   "长字未展开2"
+  ],
+  "bad_notes": [
+   [
+    "密",
+    -200
+   ],
+   [
+    "麻",
+    -174
+   ],
+   [
+    "我",
+    -493
+   ],
+   [
+    "自",
+    -141
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.928427220617057,
+  "flattened": 5,
+  "long_uncovered": 2
+ },
+ {
+  "part_index": 19,
+  "support_s": [
+   82.609375,
+   85.77083333333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "源不确定2音",
+   "字腹压平3",
+   "轮廓脱形r=0.15"
+  ],
+  "bad_notes": [
+   [
+    "改",
+    -137
+   ],
+   [
+    "次",
+    -852
+   ],
+   [
+    "离",
+    -216
+   ]
+  ],
+  "uncertain": [
+   [
+    "一",
+    6600,
+    6133,
+    6554
+   ],
+   [
+    "次",
+    6579,
+    5696,
+    6895
+   ]
+  ],
+  "tiny": [],
+  "contour_r": 0.14555471373935613,
+  "flattened": 3,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 20,
+  "support_s": [
+   85.79895833333335,
+   90.35104166666667
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏4音",
+   "字腹压平4",
+   "极短字1承"
+  ],
+  "bad_notes": [
+   [
+    "承",
+    1131
+   ],
+   [
+    "幻",
+    -291
+   ],
+   [
+    "过",
+    -171
+   ],
+   [
+    "恒",
+    178
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [
+   "承"
+  ],
+  "contour_r": NaN,
+  "flattened": 4,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 21,
+  "support_s": [
+   90.65,
+   96.86354166666668
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平4"
+  ],
+  "bad_notes": [
+   [
+    "从",
+    -503
+   ],
+   [
+    "陪",
+    -245
+   ],
+   [
+    "剧",
+    -282
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 4,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 22,
+  "support_s": [
+   106.06770833333334,
+   109.07291666666667
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平3",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "勒",
+    -163
+   ],
+   [
+    "纹",
+    -319
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 3,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 23,
+  "support_s": [
+   109.31250000000001,
+   112.36979166666667
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏4音",
+   "字腹压平2",
+   "轮廓脱形r=0.59",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "印",
+    -136
+   ],
+   [
+    "我",
+    -479
+   ],
+   [
+    "的",
+    -172
+   ],
+   [
+    "唇",
+    -345
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.5888949912904999,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 24,
+  "support_s": [
+   112.55833333333334,
+   115.54270833333334
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2"
+  ],
+  "bad_notes": [
+   [
+    "痕",
+    -272
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 25,
+  "support_s": [
+   115.82604166666667,
+   118.55000000000001
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "树",
+    -493
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 26,
+  "support_s": [
+   119.05625000000002,
+   122.15000000000002
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平3",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "去",
+    -170
+   ],
+   [
+    "的",
+    -127
+   ],
+   [
+    "盛",
+    -298
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 3,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 27,
+  "support_s": [
+   122.29687500000001,
+   125.14583333333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平1"
+  ],
+  "bad_notes": [
+   [
+    "却",
+    -168
+   ],
+   [
+    "住",
+    -500
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 28,
+  "support_s": [
+   125.54166666666667,
+   128.54687500000003
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平3",
+   "长字未展开2"
+  ],
+  "bad_notes": [
+   [
+    "夜",
+    -166
+   ],
+   [
+    "剩",
+    -322
+   ],
+   [
+    "人",
+    -290
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.8292075134598971,
+  "flattened": 3,
+  "long_uncovered": 2
+ },
+ {
+  "part_index": 29,
+  "support_s": [
+   128.790625,
+   130.44166666666666
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平1",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "清",
+    -473
+   ],
+   [
+    "晨",
+    227
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 30,
+  "support_s": [
+   132.04166666666669,
+   135.14583333333334
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "源不确定1音",
+   "字腹压平3",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "恨",
+    -366
+   ]
+  ],
+  "uncertain": [
+   [
+    "仇",
+    6195,
+    6219,
+    5998
+   ]
+  ],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 3,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 31,
+  "support_s": [
+   135.30833333333334,
+   138.35
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音"
+  ],
+  "bad_notes": [
+   [
+    "是",
+    507
+   ],
+   [
+    "远",
+    -540
+   ],
+   [
+    "分",
+    -381
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.7577483732966032,
+  "flattened": 0,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 32,
+  "support_s": [
+   138.48020833333334,
+   141.54791666666668
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平2",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "未",
+    -212
+   ],
+   [
+    "疼",
+    -361
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 33,
+  "support_s": [
+   141.68645833333335,
+   144.3479166666667
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平1",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "的",
+    -500
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.6924390284663595,
+  "flattened": 1,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 34,
+  "support_s": [
+   144.9729166666667,
+   147.946875
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平3",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "荒",
+    109
+   ],
+   [
+    "的",
+    -215
+   ],
+   [
+    "春",
+    -360
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 3,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 35,
+  "support_s": [
+   148.22395833333334,
+   151.14583333333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平2"
+  ],
+  "bad_notes": [
+   [
+    "倒",
+    -167
+   ],
+   [
+    "的",
+    -222
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 36,
+  "support_s": [
+   151.4822916666667,
+   154.55
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2"
+  ],
+  "bad_notes": [
+   [
+    "的",
+    -393
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 37,
+  "support_s": [
+   154.74479166666669,
+   156.74479166666669
+  ],
+  "level": "P1",
+  "tags": [
+   "旋律偏1音",
+   "字腹压平2"
+  ],
+  "bad_notes": [
+   [
+    "年",
+    -429
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.7265185224945133,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 38,
+  "support_s": [
+   157.15,
+   160.31145833333335
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平3"
+  ],
+  "bad_notes": [
+   [
+    "圈",
+    -268
+   ],
+   [
+    "年",
+    -124
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 3,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 39,
+  "support_s": [
+   160.375,
+   165.01041666666669
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平3",
+   "长字未展开2"
+  ],
+  "bad_notes": [
+   [
+    "认",
+    -260
+   ],
+   [
+    "心",
+    -245
+   ],
+   [
+    "存",
+    243
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 3,
+  "long_uncovered": 2
+ },
+ {
+  "part_index": 40,
+  "support_s": [
+   165.25729166666667,
+   169.86666666666667
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏4音",
+   "字腹压平4",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "麻",
+    -119
+   ],
+   [
+    "是",
+    904
+   ],
+   [
+    "我",
+    -467
+   ],
+   [
+    "自",
+    -238
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 4,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 41,
+  "support_s": [
+   170.1375,
+   172.99166666666667
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏4音",
+   "字腹压平2",
+   "轮廓脱形r=0.34"
+  ],
+  "bad_notes": [
+   [
+    "修",
+    433
+   ],
+   [
+    "一",
+    134
+   ],
+   [
+    "次",
+    -354
+   ],
+   [
+    "离",
+    -137
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": 0.34412793844077055,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 42,
+  "support_s": [
+   173.3729166666667,
+   177.9822916666667
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏4音",
+   "字腹压平4",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "承",
+    -278
+   ],
+   [
+    "幻",
+    -278
+   ],
+   [
+    "过",
+    -116
+   ],
+   [
+    "恒",
+    220
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 4,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 43,
+  "support_s": [
+   178.20625,
+   184.46145833333335
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏5音",
+   "字腹压平4"
+  ],
+  "bad_notes": [
+   [
+    "惜",
+    -145
+   ],
+   [
+    "从",
+    -582
+   ],
+   [
+    "我",
+    -176
+   ],
+   [
+    "演",
+    180
+   ],
+   [
+    "剧",
+    -291
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 4,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 44,
+  "support_s": [
+   206.5979166666667,
+   209.0041666666667
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平1",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "圈",
+    -294
+   ],
+   [
+    "圈",
+    275
+   ],
+   [
+    "年",
+    -116
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 45,
+  "support_s": [
+   209.85000000000002,
+   213.66770833333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平2",
+   "极短字2我真",
+   "长字未展开2"
+  ],
+  "bad_notes": [
+   [
+    "心",
+    -261
+   ],
+   [
+    "存",
+    325
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [
+   "我",
+   "真"
+  ],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 2
+ },
+ {
+  "part_index": 46,
+  "support_s": [
+   214.65000000000003,
+   218.44687500000003
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平1",
+   "极短字2密密",
+   "长字未展开2"
+  ],
+  "bad_notes": [
+   [
+    "是",
+    112
+   ],
+   [
+    "我",
+    -448
+   ],
+   [
+    "自",
+    -201
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [
+   "密",
+   "密"
+  ],
+  "contour_r": NaN,
+  "flattened": 1,
+  "long_uncovered": 2
+ },
+ {
+  "part_index": 47,
+  "support_s": [
+   219.65000000000003,
+   221.99375000000003
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平1",
+   "极短字2修改",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "次",
+    333
+   ],
+   [
+    "离",
+    -187
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [
+   "修",
+   "改"
+  ],
+  "contour_r": 0.7171737365186452,
+  "flattened": 1,
+  "long_uncovered": 1
+ },
+ {
+  "part_index": 48,
+  "support_s": [
+   222.65000000000003,
+   226.63437500000003
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏2音",
+   "字腹压平2",
+   "极短字1我"
+  ],
+  "bad_notes": [
+   [
+    "幻",
+    -268
+   ],
+   [
+    "恒",
+    250
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [
+   "我"
+  ],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 49,
+  "support_s": [
+   227.65104166666669,
+   232.50520833333334
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏5音",
+   "字腹压平3",
+   "极短字2可惜"
+  ],
+  "bad_notes": [
+   [
+    "陪",
+    -240
+   ],
+   [
+    "我",
+    -157
+   ],
+   [
+    "演",
+    200
+   ],
+   [
+    "剧",
+    -246
+   ],
+   [
+    "本",
+    218
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [
+   "可",
+   "惜"
+  ],
+  "contour_r": NaN,
+  "flattened": 3,
+  "long_uncovered": 0
+ },
+ {
+  "part_index": 50,
+  "support_s": [
+   234.15000000000003,
+   242.67083333333335
+  ],
+  "level": "P0",
+  "tags": [
+   "旋律偏3音",
+   "字腹压平2",
+   "极短字2可惜",
+   "长字未展开1"
+  ],
+  "bad_notes": [
+   [
+    "我",
+    -454
+   ],
+   [
+    "演",
+    163
+   ],
+   [
+    "这",
+    654
+   ]
+  ],
+  "uncertain": [],
+  "tiny": [
+   "可",
+   "惜"
+  ],
+  "contour_r": NaN,
+  "flattened": 2,
+  "long_uncovered": 1
+ }
+]

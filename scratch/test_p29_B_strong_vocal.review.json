@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "review_contract_version": 2,
+  "project": {
+    "path": "E:\\project\\agent2utau\\scratch\\test_p29_B_strong.ustx",
+    "sha256": "fb3774bcf332f492daf9703e0bac855631caef0e66eff54269a09526e0cb228b"
+  },
+  "execution_review": null,
+  "execution_status": "fail",
+  "technical_execution_complete": false,
+  "workflow_review_complete": false,
+  "musical_quality": "unverified",
+  "missing": "Musical process/calibration incomplete or legacy receipt; candidate only",
+  "audio": {
+    "status": "pass",
+    "file": {
+      "path": "E:\\project\\agent2utau\\scratch\\test_p29_B_strong_vocal.wav",
+      "sha256": "f782b9e1627b0c7293b4c2906e0841698eb0261cff298c3ca2564583f1253c9c"
+    },
+    "sample_rate": 44100,
+    "samples": 8847350,
+    "peak": 0.838592529296875,
+    "scope": "Audio byte identity/finite/peak only; model inputs, alignment and perceived effect not certified"
+  },
+  "listening": "unknown",
+  "transfer": "unknown",
+  "candidate_delivery_allowed": true,
+  "production_execution_complete": false
+}

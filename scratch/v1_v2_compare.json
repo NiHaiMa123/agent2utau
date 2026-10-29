@@ -1,0 +1,74 @@
+[
+ {
+  "tag": "v1",
+  "notes": 596,
+  "sung": 537,
+  "breath": 59,
+  "tiny": 34,
+  "dev_med": 31.3,
+  "dev_p90": 311.7,
+  "dev_over50": 216,
+  "dev_over100": 174,
+  "dev_n": 503,
+  "src_body_med": 223.0,
+  "components": 349,
+  "zero_slope": 934,
+  "nodes": 1248,
+  "peak_top": [
+   [
+    52.0,
+    181
+   ],
+   [
+    -52.0,
+    115
+   ],
+   [
+    -32.0,
+    14
+   ],
+   [
+    32.0,
+    14
+   ]
+  ],
+  "peak52": 296,
+  "peak32": 28
+ },
+ {
+  "tag": "v2",
+  "notes": 619,
+  "sung": 554,
+  "breath": 65,
+  "tiny": 30,
+  "dev_med": 15.7,
+  "dev_p90": 57.4,
+  "dev_over50": 57,
+  "dev_over100": 9,
+  "dev_n": 447,
+  "src_body_med": 232.3,
+  "components": 408,
+  "zero_slope": 3902,
+  "nodes": 13989,
+  "peak_top": [
+   [
+    -250.0,
+    40
+   ],
+   [
+    250.0,
+    23
+   ],
+   [
+    -180.6,
+    2
+   ],
+   [
+    -117.7,
+    2
+   ]
+  ],
+  "peak52": 0,
+  "peak32": 0
+ }
+]
