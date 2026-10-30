@@ -3,12 +3,21 @@
 from agent2utau.alignment.canonical import apply_canonical
 
 
-def test_a_wrong_character_is_corrected_to_the_published_text():
+def test_a_wrong_character_is_listed_for_review_and_not_applied():
+    """The published wording is a candidate, not a fact about the recording."""
     corrected, report = apply_canonical(["是有缘却无份"], ["是有缘却无分"])
-    assert corrected == ["是有缘却无分"]
+    assert corrected == ["是有缘却无份"]
     assert len(report.substitutions) == 1
     assert report.substitutions[0]["from"] == "份"
     assert report.substitutions[0]["to"] == "分"
+    assert report.substitutions[0]["status"] == "pending_review"
+    assert report.substitutions[0]["requires_review"] is True
+
+
+def test_an_approved_substitution_can_be_applied_explicitly():
+    corrected, report = apply_canonical(["是有缘却无份"], ["是有缘却无分"], apply=True)
+    assert corrected == ["是有缘却无分"]
+    assert report.substitutions[0]["status"] == "applied"
 
 
 def test_an_unchanged_song_reports_no_substitution():

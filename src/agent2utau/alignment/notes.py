@@ -80,17 +80,23 @@ def normalize_notes(raw: Sequence[dict]) -> list[NoteEvent]:
 
 
 def note_anomalies(notes: Sequence[NoteEvent]) -> list[dict]:
-    """Clock anomalies that must never be silently accepted.
+    """Clock anomalies, split by severity.
 
-    * ``non_positive_duration`` - a note that rounds to zero or fewer ticks.
-    * ``overlap`` - two consecutive notes that share ticks.
-    * ``gap`` - a hole in the covered timeline (informational, not an error).
+    * ``non_positive_duration`` (hard) - a note that rounds to zero or fewer
+      ticks; such a note cannot exist in a score.
+    * ``overlap`` (hard) - two consecutive notes that share ticks.
+    * ``gap`` (info) - a hole in the covered timeline.  A silence between two
+      sung notes is normal in a recording, so it is reported, never blocked.
+
+    The quantized clock, the original clock and the USTX read-back all use the
+    same criterion: gaps and overlaps are measured on quantized boundaries.
     """
     problems: list[dict] = []
     for i, note in enumerate(notes):
         if note.duration_tick <= 0:
             problems.append({
                 "kind": "non_positive_duration",
+                "severity": "hard",
                 "note_id": note.note_id,
                 "index": note.index,
                 "start_s": round(note.start, 4),
@@ -102,6 +108,7 @@ def note_anomalies(notes: Sequence[NoteEvent]) -> list[dict]:
             if nxt.start_tick < note.end_tick:
                 problems.append({
                     "kind": "overlap",
+                    "severity": "hard",
                     "note_id": note.note_id,
                     "next_note_id": nxt.note_id,
                     "overlap_tick": note.end_tick - nxt.start_tick,
@@ -109,6 +116,7 @@ def note_anomalies(notes: Sequence[NoteEvent]) -> list[dict]:
             elif nxt.start_tick > note.end_tick:
                 problems.append({
                     "kind": "gap",
+                    "severity": "info",
                     "note_id": note.note_id,
                     "next_note_id": nxt.note_id,
                     "gap_tick": nxt.start_tick - note.end_tick,

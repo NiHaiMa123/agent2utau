@@ -26,14 +26,36 @@ steal a note from a neighbouring syllable.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import json
 import math
 from typing import Sequence
 
 from .lyrics import Syllable
 from .notes import NoteEvent
-from .observations import Observation
+from .observations import LEVEL_WEIGHTS, Observation
 
 SCHEMA_VERSION = 1
+
+#: An extender may not cross a real gap.  Verified with the real Core: a '+'
+#: that does not touch its character produces "Unrecognized phoneme" and is
+#: left out of the phrase.
+MAX_EXTENDER_GAP_TICKS = 1
+
+
+def _illegal_sustains(spans: dict[str, tuple[int, int]],
+                       sung: Sequence[NoteEvent]) -> list[str]:
+    """Note ids of sustains that would cross a gap (or a rest) in a candidate."""
+    from .baseline import MAX_EXTENDER_GAP_TICKS as limit
+    illegal: list[str] = []
+    for span in spans.values():
+        for index in range(span[0] + 1, span[1] + 1):
+            previous = sung[index - 1]
+            current = sung[index]
+            gap = current.start - previous.end
+            gap_ticks = int(round(gap * 960.0))
+            if gap_ticks > limit or current.index != previous.index + 1:
+                illegal.append(current.note_id)
+    return illegal
 
 
 @dataclass(frozen=True)
@@ -88,6 +110,17 @@ class MappingConfig:
     alternatives_per_syllable: int = 4
     """How many distinct assignments are kept per syllable for margin checks."""
 
+    line_tolerance_s: float = 0.6
+    """How far outside its lyric line a syllable may reach for a note.
+
+    A note that starts far outside the line's observed interval would be a
+    cross-line mapping without evidence, and is rejected.
+    """
+
+    min_line_anchor_ratio: float = 0.5
+    """A line with fewer anchored syllables than this is flagged
+    ``review_required``: its musical boundary is not established."""
+
 
 @dataclass
 class SyllableEvidence:
@@ -97,6 +130,8 @@ class SyllableEvidence:
     anchor_s: float | None = None
     anchor_source: str = "none"
     anchor_method: str = "none"
+    anchor_level: str = "missing"
+    anchor_weight: float = 0.0
     expected_dur_s: float | None = None
 
     def as_dict(self) -> dict:
@@ -105,6 +140,8 @@ class SyllableEvidence:
             "anchor_s": None if self.anchor_s is None else round(self.anchor_s, 4),
             "anchor_source": self.anchor_source,
             "anchor_method": self.anchor_method,
+            "anchor_level": self.anchor_level,
+            "anchor_weight": self.anchor_weight,
             "expected_dur_s": None if self.expected_dur_s is None else round(self.expected_dur_s, 4),
         }
 
@@ -125,16 +162,14 @@ def build_evidence(
         item = SyllableEvidence(syllable_id=syllable.syllable_id)
         hfa_obs = (hfa or {}).get(syllable.syllable_id)
         asr_obs = (asr or {}).get(syllable.syllable_id)
-        if hfa_obs is not None:
-            item.anchor_s = hfa_obs.start
-            item.anchor_source = "hfa"
-            item.anchor_method = hfa_obs.method
-            item.expected_dur_s = max(0.0, hfa_obs.end - hfa_obs.start)
-        elif asr_obs is not None:
-            item.anchor_s = asr_obs.start
-            item.anchor_source = "asr"
-            item.anchor_method = asr_obs.method
-            item.expected_dur_s = max(0.0, asr_obs.end - asr_obs.start)
+        observation = hfa_obs or asr_obs
+        if observation is not None:
+            item.anchor_s = observation.start
+            item.anchor_source = observation.source
+            item.anchor_method = observation.method
+            item.anchor_level = getattr(observation, "level", "exact_text")
+            item.anchor_weight = LEVEL_WEIGHTS.get(item.anchor_level, 0.35)
+            item.expected_dur_s = max(0.0, observation.end - observation.start)
         evidence[syllable.syllable_id] = item
     return evidence
 
@@ -172,7 +207,10 @@ def _assign_cost(
             return float("inf")
     cost = config.melisma_cost * (count - 1)
     if evidence.anchor_s is not None:
-        cost += abs(evidence.anchor_s - notes[first].start) / config.time_scale_s
+        # A weak observation (residual / positional) must not be able to pull
+        # a syllable far away: the smaller the weight, the steeper the scale.
+        scale = config.time_scale_s * max(evidence.anchor_weight, 0.05)
+        cost += abs(evidence.anchor_s - notes[first].start) / scale
     if (evidence.expected_dur_s is not None
             and evidence.expected_dur_s >= config.min_expected_dur_s):
         actual = sum(notes[i].dur for i in range(first, first + count))
@@ -185,19 +223,30 @@ class _Tables:
     """Suffix/prefix cost tables over (syllable index, note index)."""
 
     def __init__(self, syllables: Sequence[Syllable], notes: Sequence[NoteEvent],
-                 evidence: dict[str, SyllableEvidence], config: MappingConfig):
+                 evidence: dict[str, SyllableEvidence], config: MappingConfig,
+                 lines: dict[int, dict] | None = None):
         self.syllables = syllables
         self.all_notes = notes
         self.raw_index = [n.index for n in notes if n.voiced]
         self.notes = [n for n in notes if n.voiced]
         self.evidence = evidence
         self.config = config
+        self.lines = lines or {}
         self.n_syl = len(syllables)
         self.n_notes = len(self.notes)
         self.suffix: list[list[float]] = []
         self.prefix: list[list[float]] = []
         self.back: list[list[tuple]] = []
         self._build()
+
+    def _line_allowed(self, syllable_index: int, note_start: float) -> bool:
+        """A note may only be taken from the syllable's own lyric line."""
+        line = self.lines.get(self.syllables[syllable_index].line_index)
+        if not line or not line.get("interval_s") or line["interval_s"][0] is None:
+            return True
+        start, end = line["interval_s"]
+        tolerance = self.config.line_tolerance_s
+        return (start - tolerance) <= note_start <= (end + tolerance)
 
     def transitions(self, i: int, j: int) -> list[tuple[str, float, int]]:
         """All transitions out of state (i, j) as (kind, cost, next_note_index)."""
@@ -209,6 +258,8 @@ class _Tables:
         max_melisma = min(cfg.max_melisma, self.n_notes - j)
         for count in range(1, max_melisma + 1):
             cost = _assign_cost(ev, self.notes, j, count, cfg, self.raw_index)
+            if math.isfinite(cost) and not self._line_allowed(i, self.notes[j].start):
+                cost = float("inf")
             out.append(("assign", cost, j + count))
         out.append(("unresolved", cfg.unresolved_cost, j))
         return out
@@ -265,14 +316,16 @@ class _Tables:
         unresolved: list[str] = []
         cursor: list[int] = []
         while i < self.n_syl:
-            cursor.append(j)
             move = self.back[i][j]
             if move is None:
                 break
             kind, _cost, nxt = move
             if kind == "skip":
+                # a skipped note belongs to no syllable; the cursor of the
+                # syllable itself does not move
                 j = nxt
                 continue
+            cursor.append(j)
             if kind == "unresolved":
                 unresolved.append(self.syllables[i].syllable_id)
                 i += 1
@@ -336,6 +389,43 @@ def _local_paths(
     return results
 
 
+def line_intervals(
+    syllables: Sequence[Syllable],
+    evidence: dict[str, SyllableEvidence],
+    config: MappingConfig,
+) -> dict[int, dict]:
+    """Auditable time interval and anchor coverage per lyric line.
+
+    A line is only a musical boundary when its syllables carry enough time
+    evidence; otherwise it is flagged ``review_required`` instead of being
+    treated as a hard edge.
+    """
+    by_line: dict[int, list[Syllable]] = {}
+    for syllable in syllables:
+        by_line.setdefault(syllable.line_index, []).append(syllable)
+    out: dict[int, dict] = {}
+    for line_index, line in by_line.items():
+        anchors = [evidence[s.syllable_id] for s in line]
+        timed = [a for a in anchors if a.anchor_s is not None]
+        ratio = len(timed) / max(1, len(line))
+        if timed:
+            start = min(a.anchor_s for a in timed)
+            end = max(a.anchor_s + (a.expected_dur_s or 0.0) for a in timed)
+        else:
+            start = end = None
+        out[line_index] = {
+            "line_index": line_index,
+            "syllable_ids": [s.syllable_id for s in line],
+            "syllable_count": len(line),
+            "anchored_count": len(timed),
+            "anchor_ratio": round(ratio, 4),
+            "interval_s": [None if start is None else round(start, 4),
+                           None if end is None else round(end, 4)],
+            "review_required": ratio < config.min_line_anchor_ratio,
+        }
+    return out
+
+
 def map_syllables_to_notes(
     syllables: Sequence[Syllable],
     notes: Sequence[NoteEvent],
@@ -349,7 +439,8 @@ def map_syllables_to_notes(
     sung = [n for n in notes if n.voiced]
     if not sung:
         raise ValueError("No voiced GAME notes to map")
-    tables = _Tables(syllables, sung, evidence, config)
+    lines = line_intervals(syllables, evidence, config)
+    tables = _Tables(syllables, sung, evidence, config, lines=lines)
     best = tables.best_assignment()
     best_total = tables.best_total()
 
@@ -414,38 +505,75 @@ def map_syllables_to_notes(
         local = _local_paths(tables, start, end, j_start, j_end, limit, config.max_paths)
         options: list[dict] = []
         seen_keys: set[str] = set()
+        window_syllable_ids = [s.syllable_id for s in syllables[start:end + 1]]
         for total, spans, unresolved in sorted(local, key=lambda item: item[0]):
             if not math.isfinite(total):
+                continue
+            # a candidate may only use syllables and notes of its own window
+            if any(sid not in window_syllable_ids for sid in spans):
+                continue
+            if any(a < j_start or a >= j_end for span in spans.values()
+                   for a in range(span[0], span[1] + 1)):
                 continue
             key = "|".join(f"{sid}:{s[0]}-{s[1]}" for sid, s in sorted(spans.items()))
             key += "#" + ",".join(sorted(unresolved))
             if key in seen_keys:
                 continue
             seen_keys.add(key)
+            illegal = _illegal_sustains(spans, sung)
             options.append({
                 "candidate_id": f"map:{song_id}:{window_id}:option{len(options) + 1}",
                 "window_id": window_id,
-                "syllable_ids": [s.syllable_id for s in syllables[start:end + 1]],
+                "syllable_ids": window_syllable_ids,
                 "assignment": {
                     sid: [sung[a].note_id for a in range(sp[0], sp[1] + 1)]
                     for sid, sp in spans.items()
                 },
                 "unresolved_syllable_ids": sorted(unresolved),
                 "total_cost": round(total, 4),
+                "legal": not illegal,
+                "reason_code": "illegal_sustain_gap" if illegal else "dp_monotonic_optimum",
+                "illegal_sustain_note_ids": illegal,
             })
             if len(options) >= config.max_options:
                 break
-        candidates.extend(options)
+        legal_options = [o for o in options if o["legal"]]
+        best_in_window = {
+            sid: list(range(span[0], span[1] + 1))
+            for sid, span in best.spans.items()
+            if sid in window_syllable_ids
+        }
+        best_key = json.dumps({k: [sung[i].note_id for i in v] for k, v in sorted(best_in_window.items())},
+                              ensure_ascii=False)
+        alternatives = [o for o in legal_options
+                        if json.dumps(o["assignment"], ensure_ascii=False, sort_keys=True) != best_key]
+        if not legal_options:
+            decision = "no_valid_candidate"
+        elif not alternatives:
+            decision = "no_agent_decision_needed"
+        else:
+            decision = "agent_choice"
+        candidates.extend(alternatives)
         window_records.append({
             "window_id": window_id,
-            "syllable_ids": [s.syllable_id for s in syllables[start:end + 1]],
+            "syllable_ids": window_syllable_ids,
             "text": "".join(s.text for s in syllables[start:end + 1]),
-            "option_count": len(options),
+            "option_count": len(legal_options),
+            "alternative_count": len(alternatives),
+            "decision": decision,
             "note_budget": [j_start, j_end],
+            "lines": sorted({s.line_index for s in syllables[start:end + 1]}),
         })
 
     mapping_rows: list[dict] = []
     unresolved_rows: list[dict] = []
+    review_syllables: set[str] = set()
+    for window in window_records:
+        if window.get("decision") == "no_valid_candidate":
+            review_syllables.update(window["syllable_ids"])
+    for line in lines.values():
+        if line.get("review_required"):
+            review_syllables.update(line["syllable_ids"])
     for syllable in syllables:
         sid = syllable.syllable_id
         ev = evidence[sid]
@@ -474,6 +602,7 @@ def map_syllables_to_notes(
         margin = None
         if len(options) >= 2:
             margin = round(options[1][0] - options[0][0], 4)
+        illegal_sustains = _illegal_sustains({sid: span}, sung)
         mapping_rows.append({
             "syllable_id": sid,
             "text": syllable.text,
@@ -484,6 +613,8 @@ def map_syllables_to_notes(
             "sustain_note_ids": note_ids[1:],
             "reason_code": "dp_monotonic_optimum",
             "margin": margin,
+            "review_required": sid in review_syllables,
+            "illegal_sustain_note_ids": illegal_sustains,
             "evidence": ev.as_dict(),
         })
 
@@ -505,6 +636,7 @@ def map_syllables_to_notes(
         "mapping": mapping_rows,
         "candidates": candidates,
         "windows": window_records,
+        "lines": [lines[key] for key in sorted(lines)],
         "unresolved": unresolved_rows,
         "coverage": coverage,
         "config": {
@@ -522,13 +654,13 @@ def map_syllables_to_notes(
     }
 
 
-def mapping_to_ustx_notes(mapping: dict, notes: Sequence[NoteEvent]) -> list[dict]:
-    """Turn the chosen mapping into USTX-ready note rows.
+def mapping_to_ustx_rows(mapping: dict, notes: Sequence[NoteEvent],
+                         line_index: dict[str, int] | None = None) -> list[dict]:
+    """Turn the chosen mapping into rows the baseline builder can use.
 
     A syllable's first note carries the character; every further note of the
-    same syllable becomes a ``+`` sustain block that must touch the previous
-    note.  Notes that no syllable owns are dropped here but stay visible in
-    ``notes_normalized.json`` as observations.
+    same syllable becomes a ``+`` sustain block.  Notes that no syllable owns
+    stay visible in ``notes_normalized.json`` as observations.
     """
     by_id = {n.note_id: n for n in notes}
     rows: list[dict] = []
@@ -536,17 +668,27 @@ def mapping_to_ustx_notes(mapping: dict, notes: Sequence[NoteEvent]) -> list[dic
         if row["status"] != "mapped":
             continue
         note_ids = row["note_ids"]
+        notes_by_id: dict[str, dict] = {}
         for index, note_id in enumerate(note_ids):
             note = by_id[note_id]
+            notes_by_id[note_id] = {
+                "start": note.start,
+                "end": note.end,
+                "dur": note.dur,
+                "tone": note.tone,
+            }
             rows.append({
                 "note_id": note_id,
                 "syllable_id": row["syllable_id"],
+                "syllable_text": row["text"],
                 "lyric": row["text"] if index == 0 else "+",
                 "start": note.start,
                 "end": note.end,
                 "dur": note.dur,
                 "tone": note.tone,
                 "is_sustain": index > 0,
+                "line_index": (line_index or {}).get(row["syllable_id"], row["line_index"]),
+                "notes_by_id": notes_by_id,
             })
     rows.sort(key=lambda r: (r["start"], r["note_id"]))
     return rows

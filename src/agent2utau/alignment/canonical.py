@@ -118,8 +118,17 @@ def align_sequences(canonical: Sequence[Character], recording: Sequence[Characte
 def apply_canonical(
     recording_lines: Sequence[str],
     canonical_lines: Sequence[str],
+    *,
+    apply: bool = False,
 ) -> tuple[list[str], AlignmentReport]:
-    """Return the recording's phrasing with canonical characters applied."""
+    """Compare the recorded text with the published text.
+
+    ``apply`` defaults to **False**: the published lyric is a candidate
+    source, not a fact about the recording.  The report then lists the
+    characters that differ as *pending review* and the recorded text is left
+    untouched - swapping a word for the internet's wording without checking
+    the recording would replace a fact with a guess.
+    """
     canonical = _characters(canonical_lines)
     recording = _characters(recording_lines)
     pairs = align_sequences(canonical, recording)
@@ -138,13 +147,18 @@ def apply_canonical(
         unit = recording_char.unit_index
         position = recording_char.position_in_unit
         original = corrected[unit][position]
-        corrected[unit][position] = canonical_char.text
+        if apply:
+            corrected[unit][position] = canonical_char.text
         substitutions.append({
             "unit_index": unit,
             "position": position,
             "from": original,
             "to": canonical_char.text,
             "canonical_line_index": canonical_char.unit_index,
+            "status": "applied" if apply else "pending_review",
+            "requires_review": not apply,
+            "detail": "published wording differs from the recorded wording; a human must "
+                      "confirm which one was sung before it replaces the locked text",
         })
 
     recording_only: list[dict] = []

@@ -23,7 +23,13 @@ TIMESTEP = 0.01  # seconds per frame at the model's frame axis
 
 
 class GameOnnx:
-    def __init__(self, model_dir: str | Path, providers=None):
+    def __init__(self, model_dir: str | Path, providers=None, intra_op_num_threads: int | None = None):
+        """Open the official GAME onnx package.
+
+        ``intra_op_num_threads`` only exists for the reproducibility study
+        (plan.md P1.1-E).  The default keeps the production behaviour: the
+        session uses ONNX Runtime's own thread configuration.
+        """
         import onnxruntime as ort
         d = Path(model_dir)
         self.config = json.loads((d / "config.json").read_text(
@@ -32,9 +38,14 @@ class GameOnnx:
         self.sr = int(self.config.get("samplerate", 44100))
         self.languages = self.config.get("languages") or {}
         self.loop = bool(self.config.get("loop", True))
+        options = None
+        if intra_op_num_threads is not None:
+            options = ort.SessionOptions()
+            options.intra_op_num_threads = intra_op_num_threads
+            options.inter_op_num_threads = 1
         self.sessions = {
-            name: ort.InferenceSession(str(d / f"{name}.onnx"),
-                                       providers=providers)
+            name: ort.InferenceSession(str(d / f"{name}.onnx"), providers=providers,
+                                       sess_options=options)
             for name in ("encoder", "segmenter", "bd2dur", "estimator")}
 
     def _lang_id(self, code: str | None) -> np.ndarray | None:

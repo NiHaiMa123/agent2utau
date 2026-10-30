@@ -25,6 +25,10 @@ def build_parser():
     align.add_argument('--song-id',default='')
     align.add_argument('--baseline',type=Path)
     align.add_argument('--baseline-name')
+    align.add_argument('--allow-incomplete',action='store_true',
+                       help='Diagnostics only: report incomplete results without failing the process')
+    align.add_argument('--diagnostic-only',action='store_true',
+                       help='Mark the run as diagnostic; never publish it as a finished baseline')
     freeze=commands.add_parser('freeze-musical-intent',help='[archived line] Freeze source-based musical brief before numeric plan exists')
     for name in ['brief','inventory','plan','out']:freeze.add_argument('--'+name,type=Path,required=True)
     inventory=commands.add_parser('review-inventory',help='[archived line] Enumerate actual native vowels before reading decisions')
@@ -83,8 +87,12 @@ def main(argv=None):
             result=observe_source(args.source,args.out,cfg,args.steps.split(','),args.seed,args.asr_model)
         elif args.command=='align-lyrics':
             from .alignment.pipeline import run_alignment
+            from .alignment.status import exit_code
             result=run_alignment(args.lyrics,args.game,args.out,hfa_path=args.hfa,asr_path=args.asr,
-                                  song_id=args.song_id,baseline_ustx=args.baseline,baseline_name=args.baseline_name)
+                                  song_id=args.song_id,baseline_ustx=args.baseline,baseline_name=args.baseline_name,
+                                  diagnostic_only=args.diagnostic_only)
+            result['exit_code']=exit_code(result['status'],allow_incomplete=args.allow_incomplete)
+            result['exit_code_note']=('valid=0, invalid=2, incomplete=3 (or 0 with --allow-incomplete)')
         elif args.command=='compile-functions':
             from .workflow import compile_functions
             result=compile_functions(args.plan,args.out,cfg,args.review_contract)
@@ -110,6 +118,8 @@ def main(argv=None):
                 result['delivery_reviews']=receipts
                 result['status']='rendered_workflow_reviewed' if receipts and all(r['workflow_review_complete'] for r in receipts) else 'rendered_technical_candidate' if receipts and all(r['technical_execution_complete'] for r in receipts) else 'rendered_candidate_review_incomplete'
         emit(result)
+        if isinstance(result, dict) and 'exit_code' in result:
+            return int(result['exit_code'])
         return 1 if result.get('ok') is False or result.get('status')=='failed' else 0
     except Exception as e:
         emit(exception_payload(e));return 1

@@ -213,7 +213,9 @@ def build_song(song_id: str, cfg: dict, environment: dict, created_at: str) -> d
     canonical_path = CANONICAL_DIR / f"{song_id}.json"
     if canonical_path.is_file():
         canonical_doc = json.loads(canonical_path.read_text(encoding="utf-8"))
-        lines, canonical_report = apply_canonical(lines, canonical_doc["lines"])
+        # The published lyric is a *candidate* source: differences are listed
+        # for review, the recorded wording stays locked until a human decides.
+        lines, canonical_report = apply_canonical(lines, canonical_doc["lines"], apply=False)
         canonical_provenance = {
             "path": str(canonical_path),
             "sha256": sha256_file(canonical_path),
@@ -224,16 +226,18 @@ def build_song(song_id: str, cfg: dict, environment: dict, created_at: str) -> d
             "credit": canonical_doc.get("credit"),
             "line_count": len(canonical_doc["lines"]),
             "character_count": sum(len(line) for line in canonical_doc["lines"]),
+            "policy": "published text is a candidate source; differences are pending review and "
+                      "never replace the recorded wording automatically",
         }
         write_json(song_dir / "lyrics_canonical_diff.json", canonical_report.as_dict())
 
     verification = cfg["verification"]
     verification_note = cfg["verification_note"]
     if canonical_provenance:
-        verification = "public-canonical-lyrics"
+        verification = "recorded-text-verified-against-published-candidate"
         verification_note = (
-            "公开权威歌词为正文字符来源（多源交叉一致）；录音自身的分句与重复以录音为准。"
-            f"原始来源 {cfg['lyrics_source']} 仅提供录音分句与 ASR 粗时间提示。"
+            "录音分句与已锁定正文为准；公开歌词只作为候选来源，差异条目为待复核，不自动改写锁定歌词。"
+            f" 原始分句来源 {cfg['lyrics_source']}。"
         )
 
     locked_doc = build_locked_lyrics_document(

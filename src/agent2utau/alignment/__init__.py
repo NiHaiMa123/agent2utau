@@ -32,8 +32,16 @@ from .candidates import (
     MappingConfig,
     SyllableEvidence,
     build_evidence,
+    line_intervals,
     map_syllables_to_notes,
-    mapping_to_ustx_notes,
+    mapping_to_ustx_rows,
+)
+from .status import (
+    STATUS_INCOMPLETE,
+    STATUS_INVALID,
+    STATUS_VALID,
+    classify,
+    exit_code,
 )
 from .validator import validate_locked_lyrics, validate_mapping, validate_ustx_rows
 
@@ -56,8 +64,14 @@ __all__ = [
     "MappingConfig",
     "SyllableEvidence",
     "build_evidence",
+    "line_intervals",
     "map_syllables_to_notes",
-    "mapping_to_ustx_notes",
+    "mapping_to_ustx_rows",
+    "STATUS_VALID",
+    "STATUS_INCOMPLETE",
+    "STATUS_INVALID",
+    "classify",
+    "exit_code",
     "validate_locked_lyrics",
     "validate_mapping",
     "validate_ustx_rows",

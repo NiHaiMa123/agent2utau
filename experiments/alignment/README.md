@@ -9,6 +9,7 @@
 - `scripts/check_phones_structure.py — 读取音素/单元结构`
 - `data/test_polyphones.json、data/test_modified_phones.json — 上述探针的导出数据`
 - `phoneme-alignment-p0p1-20261031/ — plan.md P0+P1 的执行记录：锁定歌词（syllable_id）、GAME 归一化（note_id）、确定性字—音符映射与窗口候选、22 个小样本、baseline 工程（无人工 PITD）。生产代码在 `src/agent2utau/alignment/`，契约在 `schemas/alignment_evidence_v1.schema.json`，报告见该目录 `reports/`。
+- `phoneme-alignment-p1.1-20261031/ — plan.md「五点五、P1.1」的修复记录：valid/incomplete/invalid 状态机与退出码、非法 `+` 延音不再静默丢弃（附有限候选）、句区间硬约束与窗口可达性、HFA/ASR 证据分级、公开歌词改为待复核候选、GAME 复现性调查（根因层面）、41 个历史删除文件的逐项查证与字节不变归档。报告见该目录 `reports/`，归档映射见 `docs/archive/legacy-scratch/MANIFEST.json`。**本轮停在 P2 之前。**
 
 ---
 

@@ -4,7 +4,7 @@ from agent2utau.alignment import (
     MappingConfig,
     build_evidence,
     map_syllables_to_notes,
-    mapping_to_ustx_notes,
+    mapping_to_ustx_rows,
     normalize_notes,
     parse_locked_lyrics,
     validate_mapping,
@@ -110,7 +110,7 @@ def test_window_size_stays_between_five_and_fifteen_characters():
 
 def test_ustx_rows_keep_sustain_blocks_touching_their_note():
     _, _, mapping = map_lines(["年轮"], [raw(0.0, 0.5), raw(0.5, 0.5)])
-    rows = mapping_to_ustx_notes(mapping, normalize_notes([raw(0.0, 0.5), raw(0.5, 0.5)]))
+    rows = mapping_to_ustx_rows(mapping, normalize_notes([raw(0.0, 0.5), raw(0.5, 0.5)]))
     assert [row["lyric"] for row in rows] == ["年", "轮"]
     assert validate_ustx_rows(rows) == []
 

@@ -26,6 +26,18 @@ def sec_to_tick(sec: float) -> int:
     return int(round(sec * 1000.0 / (60000.0 / (BPM_FIXED * RESOLUTION))))
 
 
+def to_ustx_tone(tone: float) -> int:
+    """The tone a source event gets in the score.
+
+    The production builder truncates the fractional MIDI value of a GAME
+    event (``int(tone)``); it does not round.  The helper exists so that a
+    verification step compares against exactly the value the builder wrote
+    instead of guessing a second rule.  Changing the rule itself would move
+    every existing score, so it stays as it is.
+    """
+    return int(tone)
+
+
 def _note(n: dict, part_start_sec: float) -> dict:
     # Quantize boundaries on ONE absolute tick grid. Rounding duration
     # independently creates 1-tick overlaps; OpenUtau marks those notes
@@ -36,7 +48,7 @@ def _note(n: dict, part_start_sec: float) -> dict:
     return {
         "position": start,
         "duration": max(1, end - start),
-        "tone": int(n["tone"]),
+        "tone": to_ustx_tone(n["tone"]),
         "lyric": n["lyric"],
         "pitch": {"data": [
             {"x": -40, "y": 0, "shape": "io"},

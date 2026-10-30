@@ -36,7 +36,7 @@ def sha256_file(path: str | Path) -> str:
 
 @dataclass(frozen=True)
 class Observation:
-    """One observed character with a time window."""
+    """One observed character with a time window and a match level."""
 
     text: str
     start: float
@@ -45,10 +45,36 @@ class Observation:
     detail: str = ""
     method: str = "sequence"
     """How the observation was tied to its syllable: ``sequence`` (text
-    alignment) or ``positional`` (same index, text differs)."""
+    alignment), ``residual`` (second pass on the leftovers), ``positional``
+    (same index) or ``token`` (the source provided the token id itself)."""
+
+    level: str = "exact_text"
+    """``exact_token`` | ``exact_text`` | ``residual_text`` | ``positional`` |
+    ``missing``.  Only the exact levels may be trusted like a ground truth."""
+
+    match_span: tuple[int, int] | None = None
+    """Range in the observation sequence that was matched."""
+
+    same_line: bool | None = None
+    """Whether the observation provably belongs to the same lyric line."""
 
     def as_dict(self) -> dict:
         return asdict(self)
+
+
+#: How much a match level may pull the mapping.  Weak evidence must never
+#: push a syllable far away from where the singer actually put it.
+LEVEL_WEIGHTS = {
+    "exact_token": 1.0,
+    "exact_text": 1.0,
+    "residual_text": 0.35,
+    "positional": 0.25,
+    "missing": 0.0,
+}
+
+#: A weak observation that would move a syllable further than this is not
+#: allowed to drive the assignment at all.
+WEAK_MAX_DISPLACEMENT_S = 0.5
 
 
 def load_asr_observations(path: str | Path) -> list[Observation]:
@@ -132,13 +158,20 @@ def match_observations(
 ) -> tuple[dict[str, Observation], list[dict]]:
     """Match observed characters onto locked syllables by sequence alignment.
 
-    Returns (syllable_id -> observation, report).  A syllable without a match
-    simply has no observation; it is never given a guessed time.
+    Returns (syllable_id -> observation, report).  Every match carries a
+    level:
 
-    When the observation count equals the syllable count, the remaining
-    syllables fall back to the same index.  That keeps the *time* evidence of
-    a line whose text differs (for example an ASR error the lock corrected)
-    while the report records exactly which syllables used the fallback.
+    * ``exact_token`` - the source provided the token and the text is equal,
+    * ``exact_text``  - the text alignment matched,
+    * ``residual_text`` - matched in a second pass over the leftovers,
+    * ``positional``  - paired by index, text may differ (weak),
+    * ``missing``     - no observation at all.
+
+    A syllable without a match simply has no observation; it is never given a
+    guessed time.  When the observation count equals the syllable count, the
+    remaining syllables are paired with the remaining observations *in order* -
+    an absolute index would drift as soon as one pair was consumed by the
+    sequence matcher.  Such pairs stay weak and are reported as such.
     """
     obs_text = [o.text for o in observations]
     syl_text = [s.text for s in syllables]
@@ -149,12 +182,25 @@ def match_observations(
         for k in range(block.size):
             observation = observations[block.a + k]
             syllable = syllables[block.b + k]
-            matched[syllable.syllable_id] = observation
-    used = {id(o) for o in matched.values()}
+            level = "exact_token" if observation.method == "token" else "exact_text"
+            matched[syllable.syllable_id] = Observation(
+                text=observation.text,
+                start=observation.start,
+                end=observation.end,
+                source=observation.source,
+                detail=observation.detail,
+                method=observation.method,
+                level=level,
+                match_span=(block.a + k, block.a + k),
+                same_line=observation.same_line,
+            )
+    used = {id(o) for o in observations if any(
+        o.text == m.text and o.start == m.start and o.end == m.end for m in matched.values())}
     for syllable in syllables:
         if syllable.syllable_id not in matched:
             report.append({
                 "kind": "observation_missing",
+                "level": "missing",
                 "syllable_id": syllable.syllable_id,
                 "text": syllable.text,
                 "line_index": syllable.line_index,
@@ -174,9 +220,14 @@ def match_observations(
                     source=observation.source,
                     detail=observation.detail,
                     method="positional",
+                    level="positional",
+                    match_span=None,
+                    same_line=observation.same_line,
                 )
+                used.add(id(observation))
                 report.append({
                     "kind": "observation_positional_fallback",
+                    "level": "positional",
                     "syllable_id": syllable.syllable_id,
                     "text": syllable.text,
                     "observed_text": observation.text,
@@ -196,9 +247,14 @@ def match_observations(
                         source=observation.source,
                         detail=observation.detail,
                         method="residual",
+                        level="residual_text",
+                        match_span=(block.a + k, block.a + k),
+                        same_line=observation.same_line,
                     )
+                    used.add(id(observation))
                     report.append({
                         "kind": "observation_residual_match",
+                        "level": "residual_text",
                         "syllable_id": syllable.syllable_id,
                         "text": syllable.text,
                         "observed_text": observation.text,
@@ -207,6 +263,7 @@ def match_observations(
         if id(observation) not in used:
             report.append({
                 "kind": "observation_unused",
+                "level": "missing",
                 "text": observation.text,
                 "start_s": round(observation.start, 4),
                 "source": observation.source,
