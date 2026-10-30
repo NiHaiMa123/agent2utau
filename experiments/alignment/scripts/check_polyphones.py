@@ -18,10 +18,10 @@ test_seg = [{
     ]
 }]
 
-test_ustx = Path("scratch/test_polyphones.ustx")
+test_ustx = Path("experiments/alignment/data/test_polyphones.ustx")
 build_project("test_polyphones", test_seg, test_ustx)
 
-out_phones = Path("scratch/test_polyphones.json")
+out_phones = Path("experiments/alignment/data/test_polyphones.json")
 res = run_bridge(cfg, [
     "export-phonemes",
     "--project", str(test_ustx.resolve()),

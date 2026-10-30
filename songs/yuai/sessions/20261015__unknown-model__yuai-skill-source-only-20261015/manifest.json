@@ -9,8 +9,12 @@
   "model_evidence": [],
   "status": "historical_unverified",
   "listening_status": "unknown",
-  "original_paths": [],
+  "original_paths": [
+    "runs/production/yuai-skill-source-only-20261015"
+  ],
   "artifacts": [
+    "docs/reports/yuai/new-skill-source-only-v02-20261015.json",
+    "docs/reports/yuai/v02-two-pass-failure-record-20261015.json",
     "songs/yuai/sessions/20261015__unknown-model__yuai-skill-source-only-20261015/manifest.json",
     "songs/yuai/sessions/20261015__unknown-model__yuai-skill-source-only-20261015/reports/new-skill-source-only-v02-20261015.json",
     "songs/yuai/sessions/20261015__unknown-model__yuai-skill-source-only-20261015/reports/new-skill-source-only-v02-20261015.md"
@@ -18,5 +22,7 @@
   "related_reports": [
     "songs/yuai/sessions/20261015__unknown-model__yuai-skill-source-only-20261015/reports/new-skill-source-only-v02-20261015.md"
   ],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）",
+  "session_kind": "production",
+  "local_run_files": 3648
 }

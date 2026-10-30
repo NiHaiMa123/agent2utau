@@ -1,6 +1,6 @@
 # P按用户请求写回同一USTX
 
-用户“好像好点，你改下项目，我看下”，指向紧前现版→P主对照。记录[初步改善/查看请求](../../../reports/legacy/third-phrase-P-tentative-feedback-20261018.md)，不扩为更实、未变暗或最终跨句接受，Q仍未评价/采用。
+用户“好像好点，你改下项目，我看下”，指向紧前现版→P主对照。记录[初步改善/查看请求](../../../songs/yuai/reports/legacy/third-phrase-P-tentative-feedback-20261018.md)，不扩为更实、未变暗或最终跨句接受，Q仍未评价/采用。
 
 当前同一 `projects/latest/yuai_first14_single_track_baishuo_comparison.ustx` 已原位更新，SHA `04f68c4d463f82eb8aad0def31549c554d227987ec3ba6e60e29af862f4db1f4`。仅第三句采用P有限元音VOIC；BREC仍为本句现有处理，pitch、phones、声线、TENC、全部138音符与其他字段保持。参考载荷曲线块外原字节保持，不读取作者曲线作目标。
 

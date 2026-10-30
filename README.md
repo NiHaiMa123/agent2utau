@@ -1,5 +1,15 @@
 # agent2utau
 
+> **导航**
+> - 歌曲制作：[songs/](songs/README.md)（[年轮](songs/nianlun/) · [雨爱](songs/yuai/) · [最后一页](songs/lastpage/) · [花海](songs/huahai/)）
+> - 基准测试：[benchmarks/](benchmarks/model-comparisons/20261030-lyrics-alignment/)
+> - 方法实验：[experiments/](experiments/)
+> - 通用代码：`src/agent2utau/`（CLI 与独立评价）、`bridge/`（原生桥）、`skills/`（制作 Skill）、`tests/`（自动测试）
+> - 文档与规范：[docs/README.md](docs/README.md) · [目录规范](docs/guides/repository-layout.md) · [工作流](docs/workflow.md)
+> - 本机产物（**仅本机，不随 Git 发布**）：`runs/`、`projects/latest/*.ustx`、`data/`、`models/`、`external/`、`demo/` ——
+>   本文与各 README 里指向这些路径的链接，在 GitHub 上打不开属正常；可在本机按原路径访问。
+> - 目录整理的盘点与验收记录：[migration/20261030-reorganization/](migration/20261030-reorganization/)
+
 2026-10-18用户“可以了”已记录为当前第三/四句共同上下文局部完整组合接受，非分轴/逐元音/整曲或分段因果证明，旧BREC否决保留。Skill窄改3页：列每段全部前后唱字/token/边界；VOIC/BREC否决后回查条件；逐句设计与共同预测范围分开、复查所有受影响邻句。40安装精确、129引用和9本机知识契约通过，手工情境非独立前测。见[回填记录](docs/reports/production/skill-joint-context-accepted-update-20261018.md)。工程/音频/旧收据SHA保持，无新模型/自动CI、单Agent，第五句/s15以后未启动。
 
 2026-10-18按用户下一步，在同一USTX自己31.9–32.5秒间隙仅加1SP，第三/四句共同预测：2→1/全18→17。151旧note及非PITD曲线保持，自有目标新基底重编码<.501c，区外16pitch/127旧note phone及前两句输入PCM精确；两句phone最多变12.5ms，17元音图审/双F0和真实输入完成。第三/四句RMS−.322/+1.697dB，无补增益；非参考曲线/精确分段复刻，形状随机影响保留，听感pending。见[共同上下文候选](docs/reports/yuai/third-fourth-joint-context-candidate-20261018.md)。需重载并连听两句，Skill40保持、单Agent/CI未运行，第五句/s15以后未启动。
@@ -80,7 +90,7 @@
 
 2026-10-17当前同一USTX已交付窗字uang清晰度候选：用户更正ch→uang，ch增强方向撤回且未执行。窗显式ch/u/ang，u55.2ms/ang249ms；ch及其他261个phone原时钟、22短句pitch和全部人工发声控制保持，“天”一项offset仅恢复原边界。新phone已重建预测成声，清晰度及新条件下的实感待听，不将r03接受倒填。见[候选记录](songs/yuai/sessions/20261017__unknown-model__yuai-chuang-clarity-20261017/reports/chuang-uang-clarity-candidate-20261017.md)。白烁轨保持，Skill未改、单Agent、CI未运行；s02–s14保持候选，s15以后继续暂停。
 
-2026-10-17用户“可以了”已追加为第一句r03当前发声组合的局部接受；见[接受记录](experiments/misc/reports/first-phrase-firmness-r03-accepted-20261017.md)。Skill仅细化换声线后逐元音预测/有限支撑、模型帧边界与head-padding时钟核查，不写固定配比/剂量；40资源安装一致、124引用与9知识契约测试通过，见[回填报告](docs/reports/production/skill-local-phonation-accepted-20261017.md)。当前同一USTX及音频保持，接受不扩大到独立因素/其它句/整曲，旧阴性与旧收据保留；s02–s14保持候选、s15以后暂停，单Agent、CI未运行。
+2026-10-17用户“可以了”已追加为第一句r03当前发声组合的局部接受；见[接受记录](songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/reports/first-phrase-firmness-r03-accepted-20261017.md)。Skill仅细化换声线后逐元音预测/有限支撑、模型帧边界与head-padding时钟核查，不写固定配比/剂量；40资源安装一致、124引用与9知识契约测试通过，见[回填报告](docs/reports/production/skill-local-phonation-accepted-20261017.md)。当前同一USTX及音频保持，接受不扩大到独立因素/其它句/整曲，旧阴性与旧收据保留；s02–s14保持候选、s15以后暂停，单Agent、CI未运行。
 
 2026-10-17第一句r03已原位写回：按“再实一点”将现有元音VOIC包络各加5，最大199/声明200不扩，实际元音外新增0帧、pitch/phones/speaker及其他输入保持，成声已核查、听感待确认。已针对作者线疑问核对我们11144 PITD点及22原生最终音高与导入参考前独立预览精确；不称所有snap_first连接点存储字节相同，未用白烁曲线作设计。见[r03与来源核查](songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/reports/first-phrase-firmness-r03-20261017.md)。同一工作USTX继续沿用，s02–s14不改、s15以后暂停，Skill/CI不改、单Agent。
 

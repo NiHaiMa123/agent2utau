@@ -9,7 +9,9 @@
   "model_evidence": [],
   "status": "historical_unverified",
   "listening_status": "unknown",
-  "original_paths": [],
+  "original_paths": [
+    "runs/review/yuai-track-comparison-20261017"
+  ],
   "artifacts": [
     "songs/yuai/sessions/20261017__unknown-model__yuai-track-comparison-20261017/manifest.json",
     "songs/yuai/sessions/20261017__unknown-model__yuai-track-comparison-20261017/reports/first14-single-track-comparison-20261017.md"
@@ -17,5 +19,7 @@
   "related_reports": [
     "songs/yuai/sessions/20261017__unknown-model__yuai-track-comparison-20261017/reports/first14-single-track-comparison-20261017.md"
   ],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）",
+  "session_kind": "legacy",
+  "local_run_files": 20
 }

@@ -13,6 +13,8 @@
     "runs/production/nianlun-v3-20261029"
   ],
   "artifacts": [
+    "songs/nianlun/README.md",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/v3_stage0_bind.py",
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/manifest.json",
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/reports/final_render.log",
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/reports/nianlun-FINAL-delivery-20261029.md",
@@ -260,6 +262,7 @@
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v9_timbre_grid.py"
   ],
   "related_reports": [
+    "songs/nianlun/README.md",
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/reports/nianlun-FINAL-delivery-20261029.md",
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/reports/nianlun-final-20261029.md",
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/reports/nianlun-intelligibility-20261029.md",
@@ -270,5 +273,7 @@
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/reports/nianlun-v3-remake-20261029.md",
     "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/reports/nianlun-v6-baishuo-style-pitch-20261029.md"
   ],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）",
+  "session_kind": "production",
+  "local_run_files": 1121
 }

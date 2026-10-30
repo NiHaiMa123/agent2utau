@@ -9,11 +9,15 @@
   "model_evidence": [],
   "status": "historical_unverified",
   "listening_status": "unknown",
-  "original_paths": [],
+  "original_paths": [
+    "runs/production/yuai-s04-redraw-20261017"
+  ],
   "artifacts": [
     "songs/yuai/sessions/20261017__unknown-model__yuai-s04-redraw-20261017/manifest.json",
     "songs/yuai/sessions/20261017__unknown-model__yuai-s04-redraw-20261017/reports/fourth-phrase-redraw-20261017.json"
   ],
   "related_reports": [],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）",
+  "session_kind": "production",
+  "local_run_files": 221
 }

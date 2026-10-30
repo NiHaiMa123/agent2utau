@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-p = Path("scratch/test_polyphones.json")
+p = Path("experiments/alignment/data/test_polyphones.json")
 data = json.loads(p.read_text(encoding="utf-8"))
 print("Keys:", data.keys())
 print("Part 0 keys:", data["parts"][0].keys())

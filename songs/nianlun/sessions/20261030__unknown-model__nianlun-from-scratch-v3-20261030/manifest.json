@@ -13,6 +13,8 @@
     "runs/production/nianlun-from-scratch-v3-20261030"
   ],
   "artifacts": [
+    "songs/nianlun/README.md",
+    "songs/nianlun/sessions/20261030__unknown-model__nianlun-from-scratch-v3-20261030/manifest.json",
     "songs/nianlun/sessions/20261030__unknown-model__nianlun-from-scratch-v3-20261030/reports/nianlun-from-scratch-v3-20261030.md",
     "songs/nianlun/sessions/20261030__unknown-model__nianlun-from-scratch-v3-20261030/scripts/balance_v3_mix.py",
     "songs/nianlun/sessions/20261030__unknown-model__nianlun-from-scratch-v3-20261030/scripts/bisect_v3_dyn.py",
@@ -41,7 +43,10 @@
     "songs/nianlun/sessions/20261030__unknown-model__nianlun-from-scratch-v3-20261030/scripts/v3_review_observations.json"
   ],
   "related_reports": [
+    "songs/nianlun/README.md",
     "songs/nianlun/sessions/20261030__unknown-model__nianlun-from-scratch-v3-20261030/reports/nianlun-from-scratch-v3-20261030.md"
   ],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）",
+  "session_kind": "production",
+  "local_run_files": 3781
 }

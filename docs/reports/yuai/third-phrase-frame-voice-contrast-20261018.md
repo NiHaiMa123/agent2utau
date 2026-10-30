@@ -1,6 +1,6 @@
 # 第三句：播放选择修正与声线R对照
 
-2026-10-18，按用户在[前四句完整参数审计](../../20261018__unknown-model__yuai-first4-full-parameter-audit-20261018/reports/first4-full-parameter-audit-20261018.md)后的“继续”执行。采用 singing-expression-editor 的声线基底/连续性流程，单Agent；未改Skill或启用CI，未启动第五句/s15以后。旧P的初步改善与“还是有问题”并存，旧严格音乐流程缺口不升级。
+2026-10-18，按用户在[前四句完整参数审计](first4-full-parameter-audit-20261018.md)后的“继续”执行。采用 singing-expression-editor 的声线基底/连续性流程，单Agent；未改Skill或启用CI，未启动第五句/s15以后。旧P的初步改善与“还是有问题”并存，旧严格音乐流程缺口不升级。
 
 ## 当前同一工程只修正保存的播放选择
 

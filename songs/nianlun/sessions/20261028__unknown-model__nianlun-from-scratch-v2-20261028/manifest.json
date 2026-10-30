@@ -13,6 +13,10 @@
     "runs/production/nianlun-from-scratch-v2-20261028"
   ],
   "artifacts": [
+    "songs/nianlun/README.md",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-20261028/scripts/build_nianlun_v2_plan.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-20261028/scripts/build_nianlun_v2_score.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-20261028/scripts/compare_v1_v2.py",
     "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/manifest.json",
     "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/reports/nianlun-from-scratch-v2-20261028.md",
     "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/reports/raw_inv_nianlun_v2.json",
@@ -41,10 +45,32 @@
     "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/probe_lyrics.py",
     "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/probe_ustx.py",
     "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/render_and_review_nianlun_v2.py",
-    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/v3_stage0_bind.py"
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/v3_stage0_bind.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v14_final.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v24_asr_chunked.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v24_asr_fixed.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v24_asr_global.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v24_asr_layers.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v24_final_checks.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v24_final_verification.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v24_per_phrase_asr.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3_asr_local.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3_asr_roundtrip.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3_check_onset.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3_compare_design.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3_compare_fair.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3_diag_why.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3_stage9_verify.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3_verify_render.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3h_verify.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v3k_check.py",
+    "songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v4_check_consonant.py"
   ],
   "related_reports": [
+    "songs/nianlun/README.md",
     "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/reports/nianlun-from-scratch-v2-20261028.md"
   ],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）",
+  "session_kind": "production",
+  "local_run_files": 2342
 }

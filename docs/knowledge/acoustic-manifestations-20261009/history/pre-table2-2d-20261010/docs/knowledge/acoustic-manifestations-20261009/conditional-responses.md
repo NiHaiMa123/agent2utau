@@ -113,17 +113,17 @@ AUD-001记录g→uo词表/语言正确及入口约+.303ms差，缺明显大错�
 
 | 记录 | 旧维度ID | 分层实体引用候选 | 来源 |
 |---|---|---|---|
-| RESP-001 | S1, S2, R3 | ACO:S1, ACO:S2, EVT:R3, PER:S1 | [原报告](../../lastpage-tenc-controlled-probe-20261008.md) |
-| RESP-002 | S1, S2, S6, R3, T4 | ACO:S1, ACO:S2, EVT:R3, EVT:S6, EVT:T4, PER:S1 | [原报告](../../lastpage-shfc-controlled-probe-20261008.md) |
-| RESP-003 | S6, R3, T3, T4, L4 | ACO:L5, EVT:L4, EVT:R3, EVT:S6, EVT:T3, EVT:T4, PER:T3 | [原报告](../../lastpage-shfc-onset-probe-20261008.md) |
-| RESP-004 | S1, S2, R3, L1, L2, T3, T5 | ACO:L1, ACO:S1, ACO:S2, EVT:L2, EVT:R3, EVT:T3, EVT:T5, PER:L1, PER:S1, PER:T3 | [原报告](../../lastpage-guo-register-probe-20261008.md) |
-| RESP-005 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../lastpage-brec-cohort-probe-20261008.md) |
-| RESP-006 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../lastpage-brec-cohort-probe-20261008.md) |
-| RESP-007 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../lastpage-brec-cohort-probe-20261008.md) |
-| RESP-008 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../lastpage-brec-cohort-probe-20261008.md) |
-| RESP-009 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../lastpage-brec-cohort-probe-20261008.md) |
-| RESP-010 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../lastpage-brec-cohort-probe-20261008.md) |
-| OBS-001 | S1, S2, S3, R3, T4 | ACO:S1, ACO:S2, ACO:S3, EVT:R3, EVT:T4, PER:S1 | [原报告](../../lastpage-guo-positive-comparison-20261008.md) |
-| OBS-002 | S1, S2, S3, R3 | ACO:S1, ACO:S2, ACO:S3, EVT:R3, PER:S1 | [原报告](../../lastpage-cross-condition-study-20261008.md) |
-| AUD-001 | T1, T2, T3, T5, R1, R3 | ACO:R1, ACO:T2, EVT:R3, EVT:T1, EVT:T3, EVT:T5, PER:T3 | [原报告](../../lastpage-guo-phoneme-audit-20261008.md) |
-| AUD-002 | T4, R3 | EVT:R3, EVT:T4 | [原报告](../../lastpage-brec-cohort-probe-20261008.md) |
+| RESP-001 | S1, S2, R3 | ACO:S1, ACO:S2, EVT:R3, PER:S1 | [原报告](../../../docs/lastpage-tenc-controlled-probe-20261008.md) |
+| RESP-002 | S1, S2, S6, R3, T4 | ACO:S1, ACO:S2, EVT:R3, EVT:S6, EVT:T4, PER:S1 | [原报告](../../../docs/lastpage-shfc-controlled-probe-20261008.md) |
+| RESP-003 | S6, R3, T3, T4, L4 | ACO:L5, EVT:L4, EVT:R3, EVT:S6, EVT:T3, EVT:T4, PER:T3 | [原报告](../../../docs/lastpage-shfc-onset-probe-20261008.md) |
+| RESP-004 | S1, S2, R3, L1, L2, T3, T5 | ACO:L1, ACO:S1, ACO:S2, EVT:L2, EVT:R3, EVT:T3, EVT:T5, PER:L1, PER:S1, PER:T3 | [原报告](../../../docs/lastpage-guo-register-probe-20261008.md) |
+| RESP-005 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../../docs/lastpage-brec-cohort-probe-20261008.md) |
+| RESP-006 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../../docs/lastpage-brec-cohort-probe-20261008.md) |
+| RESP-007 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../../docs/lastpage-brec-cohort-probe-20261008.md) |
+| RESP-008 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../../docs/lastpage-brec-cohort-probe-20261008.md) |
+| RESP-009 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../../docs/lastpage-brec-cohort-probe-20261008.md) |
+| RESP-010 | S1, S3, R3, L1, L2 | ACO:L1, ACO:S1, ACO:S3, EVT:L2, EVT:R3, PER:L1, PER:S1 | [原报告](../../../docs/lastpage-brec-cohort-probe-20261008.md) |
+| OBS-001 | S1, S2, S3, R3, T4 | ACO:S1, ACO:S2, ACO:S3, EVT:R3, EVT:T4, PER:S1 | [原报告](../../../docs/lastpage-guo-positive-comparison-20261008.md) |
+| OBS-002 | S1, S2, S3, R3 | ACO:S1, ACO:S2, ACO:S3, EVT:R3, PER:S1 | [原报告](../../../docs/lastpage-cross-condition-study-20261008.md) |
+| AUD-001 | T1, T2, T3, T5, R1, R3 | ACO:R1, ACO:T2, EVT:R3, EVT:T1, EVT:T3, EVT:T5, PER:T3 | [原报告](../../../docs/lastpage-guo-phoneme-audit-20261008.md) |
+| AUD-002 | T4, R3 | EVT:R3, EVT:T4 | [原报告](../../../docs/lastpage-brec-cohort-probe-20261008.md) |

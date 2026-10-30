@@ -9,8 +9,31 @@
   "model_evidence": [],
   "status": "historical_unverified",
   "listening_status": "unknown",
-  "original_paths": [],
+  "original_paths": [
+    "runs/experiments/lastpage-author-control-neutral-20261011"
+  ],
   "artifacts": [
+    "docs/knowledge/acoustic-manifestations-20261009/table2-DYN-delivery-index-20261012.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-DYN-feedback-index-20261012.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-J-accepted-index-20261013.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-TENC-delivery-index-20261012.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-TENC-feedback-index-20261013.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-entry-pitch-delivery-index-20261013.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-entry-pitch-feedback-index-20261013.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-layering-delivery-index-20261012.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-layering-feedback-index-20261012.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-li-condition-review-index-20261013.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-supplement-index-20261012.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-texture-listening-index-20261013.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-v03-volume-feedback-index-20261014.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-accepted-index-20261014.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-v04-DYN-delivery-index-20261014.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-whole-song-v03-index-20261014.json",
+    "docs/knowledge/acoustic-manifestations-20261009/table2-whole-song-v03-source-audited-index-20261014.json",
+    "docs/reports/lastpage/author-control-neutral-20261011.json",
+    "docs/reports/lastpage/author-controls-feedback-20261012.json",
+    "docs/reports/lastpage/author-interaction-20261012.json",
+    "docs/reports/lastpage/li-texture-listening-20261013.json",
     "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/manifest.json",
     "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-control-neutral-20261011-audit.json",
     "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-control-neutral-20261011.json",
@@ -18,11 +41,14 @@
     "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-controls-feedback-20261012-audit.json",
     "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-controls-feedback-20261012.json",
     "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/li-texture-listening-20261013.json",
-    "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/li-texture-listening-20261013.md"
+    "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/li-texture-listening-20261013.md",
+    "songs/lastpage/sessions/20261013__unknown-model__lastpage-texture-listening-preparation-20261013/reports/li-texture-listening-20261013-audit.json"
   ],
   "related_reports": [
     "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-control-neutral-20261011.md",
     "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/li-texture-listening-20261013.md"
   ],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）",
+  "session_kind": "production",
+  "local_run_files": 111
 }

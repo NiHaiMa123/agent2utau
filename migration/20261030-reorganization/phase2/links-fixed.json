@@ -1,0 +1,20 @@
+{
+ "fixed": [
+  [
+   "songs/lastpage/reports/legacy/conditioned-voicing-feedback-20261011.md",
+   "../../../../experiments/misc/reports/conditioned-voicing-feedback-20261011-audit.json",
+   "../../sessions/20261011__unknown-model__lastpage-conditioned-voicing-20261011/reports/conditioned-voicing-feedback-20261011-audit.json"
+  ],
+  [
+   "songs/lastpage/sessions/20261011__unknown-model__lastpage-accepted-baseline-20261011/reports/whole-song-baseline-review-20261011.md",
+   "../../../../../experiments/misc/reports/whole-song-baseline-review-20261011-phrases.csv",
+   "whole-song-baseline-review-20261011-phrases.csv"
+  ],
+  [
+   "songs/lastpage/sessions/20261011__unknown-model__lastpage-li-kan-author-reference-20261011/reports/li-kan-author-reference-20261011.md",
+   "../../../../../experiments/misc/reports/li-kan-author-reference-20261011-audit.json",
+   "li-kan-author-reference-20261011-audit.json"
+  ]
+ ],
+ "unresolved": []
+}

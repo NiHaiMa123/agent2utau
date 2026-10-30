@@ -15,3 +15,14 @@
 原始报告是有版本和绑定的证据，不因为目录整理改写历史结论。已有稳定入口及封存报告作为明确的历史例外保留原路径；新方法文档放`guides`、新报告放`reports`、新知识包放`knowledge`，不要继续把新文件平铺在本目录。
 
 这里只保存可审查的说明和聚合证据。完整数组、音频、图册、日志、模型输入与运行输出放ignored `runs`；只提交必要的文本说明、有限聚合值和SHA，避免复制封存run。
+
+## 新增入口（2026-10-30 整理后）
+
+- 歌曲制作索引与交付索引：`../songs/README.md`（各歌 `README.md` + `releases/README.md`）
+- 方法实验：`../experiments/`
+- 跨模型对照：`../benchmarks/model-comparisons/20261030-lyrics-alignment/`
+- 长期目录规范（替代旧的 runs/ 与 projects/ 单一入口说法）：`guides/repository-layout.md`
+- 整理迁移的盘点/映射/验收：`../migration/20261030-reorganization/`
+
+注意：`docs/reports/` 下部分公开文档被 `docs/knowledge` 知识包按**路径+SHA**绑定，
+必须留在该目录，不能因为"按歌曲集中"而搬动；各歌曲 README 里已单独列出这些保留原位的文档。

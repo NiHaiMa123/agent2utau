@@ -7,16 +7,22 @@
   "primary_model": "unknown-model",
   "models": [],
   "model_evidence": [],
-  "status": "historical_unverified",
+  "status": "legacy_reference_only",
   "listening_status": "unknown",
-  "original_paths": [],
+  "original_paths": [
+    "runs/production/yuai-s03-le-breath-envelope-20261018"
+  ],
   "artifacts": [
+    "docs/reports/yuai/third-phrase-le-breath-envelope-candidate-20261018.md",
     "songs/yuai/sessions/20261018__unknown-model__yuai-s03-le-breath-envelope-20261018/manifest.json",
     "songs/yuai/sessions/20261018__unknown-model__yuai-s03-le-breath-envelope-20261018/reports/third-phrase-le-breath-envelope-candidate-20261018.json",
     "songs/yuai/sessions/20261018__unknown-model__yuai-s03-le-breath-envelope-20261018/reports/third-phrase-le-breath-envelope-candidate-20261018.md"
   ],
   "related_reports": [
+    "docs/reports/yuai/third-phrase-le-breath-envelope-candidate-20261018.md",
     "songs/yuai/sessions/20261018__unknown-model__yuai-s03-le-breath-envelope-20261018/reports/third-phrase-le-breath-envelope-candidate-20261018.md"
   ],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "本 session 无独立脚本/报告产物；其真实记录因被 docs/knowledge 知识包按路径+SHA 绑定而保留在 docs/reports/ 下（见 artifacts）。按整理计划不强行搬动，只做索引标注。",
+  "session_kind": "revision",
+  "local_run_files": 44
 }

@@ -35,4 +35,4 @@
 
 基础桥的参考渲染成功，但诊断命令缺失；失败日志保留。用已安装独立诊断桥导出同项目/缓存实际输入，没有重渲染或覆盖安装。两阶段speaker、预测+实际增量=裁剪后输入、缓存键、符号身份、输出/保护SHA及仓库门禁核对；新参考听感待评。
 
-[完整JSON](../../../../../docs/reports/lastpage/li-kan-author-reference-20261011.json)、[比较CSV](../../../reports/legacy/li-kan-author-reference-20261011-comparison.csv)、[审计](../../../../../experiments/misc/reports/li-kan-author-reference-20261011-audit.json)。
+[完整JSON](../../../../../docs/reports/lastpage/li-kan-author-reference-20261011.json)、[比较CSV](../../../reports/legacy/li-kan-author-reference-20261011-comparison.csv)、[审计](li-kan-author-reference-20261011-audit.json)。

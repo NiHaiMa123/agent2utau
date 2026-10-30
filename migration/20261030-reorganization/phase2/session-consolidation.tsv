@@ -1,0 +1,13 @@
+old_path	new_path	action	reason	sha_before	sha_after	references_checked	status
+scratch/check_polyphones.py	experiments/alignment/scripts/check_polyphones.py	git-mv	合成多音字诊断（歌词为测试串，非任何歌曲），与歌曲无关			path string updated	moved
+scratch/read_test_polyphones.py	experiments/alignment/scripts/read_test_polyphones.py	git-mv	读取上述合成诊断的音素导出，与歌曲无关			path string updated	moved
+scratch/check_phones_structure.py	experiments/alignment/scripts/check_phones_structure.py	git-mv	读取上述合成诊断的音素结构，与歌曲无关			path string updated	moved
+scratch/test_polyphones.json	experiments/alignment/data/test_polyphones.json	git-mv	合成多音字诊断的音素导出数据			path string updated	moved
+scratch/test_modified_phones.json	experiments/alignment/data/test_modified_phones.json	git-mv	合成多音字诊断的改写音素导出数据			path string updated	moved
+scratch/test_compile_phrase0.py	songs/lastpage/sessions/20261027__unknown-model__zuihouyiye-from-scratch-20261027/scripts/test_compile_phrase0.py	git-mv	依赖 test_skill_pitch（属最后一页 zuihouyiye-from-scratch-20261027），随依赖同址			path string updated	moved
+scratch/test_compile_phrase0_full.py	songs/lastpage/sessions/20261027__unknown-model__zuihouyiye-from-scratch-20261027/scripts/test_compile_phrase0_full.py	git-mv	依赖 test_skill_pitch（属最后一页 zuihouyiye-from-scratch-20261027），随依赖同址			path string updated	moved
+experiments/misc/reports/conditioned-voicing-feedback-20261011-audit.json	songs/lastpage/sessions/20261011__unknown-model__lastpage-conditioned-voicing-20261011/reports/conditioned-voicing-feedback-20261011-audit.json	git-mv	phase-1 归入通用 experiments/misc 过粗；正文显示它是该歌的一次局部审计/修订			no reference	moved
+experiments/misc/reports/li-kan-author-reference-20261011-audit.json	songs/lastpage/sessions/20261011__unknown-model__lastpage-li-kan-author-reference-20261011/reports/li-kan-author-reference-20261011-audit.json	git-mv	phase-1 归入通用 experiments/misc 过粗；正文显示它是该歌的一次局部审计/修订			no reference	moved
+experiments/misc/reports/whole-song-baseline-review-20261011-phrases.csv	songs/lastpage/sessions/20261011__unknown-model__lastpage-accepted-baseline-20261011/reports/whole-song-baseline-review-20261011-phrases.csv	git-mv	phase-1 归入通用 experiments/misc 过粗；正文显示它是该歌的一次局部审计/修订			no reference	moved
+experiments/misc/reports/first-phrase-firmness-r03-accepted-20261017.md	songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/reports/first-phrase-firmness-r03-accepted-20261017.md	git-mv	phase-1 归入通用 experiments/misc 过粗；正文显示它是该歌的一次局部审计/修订			no reference	moved
+experiments/misc/reports/directory-reorganization-20261009.json	docs/reports/maintenance/directory-reorganization-20261009.json	git-mv	phase-1 归入通用 experiments/misc 过粗；正文显示它是该歌的一次局部审计/修订			no reference	moved

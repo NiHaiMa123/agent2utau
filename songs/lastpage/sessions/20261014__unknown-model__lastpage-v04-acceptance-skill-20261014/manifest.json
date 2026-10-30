@@ -9,11 +9,15 @@
   "model_evidence": [],
   "status": "historical_unverified",
   "listening_status": "unknown",
-  "original_paths": [],
+  "original_paths": [
+    "runs/research/lastpage-v04-acceptance-skill-20261014"
+  ],
   "artifacts": [
     "songs/lastpage/sessions/20261014__unknown-model__lastpage-v04-acceptance-skill-20261014/manifest.json",
     "songs/lastpage/sessions/20261014__unknown-model__lastpage-v04-acceptance-skill-20261014/reports/v04-DYN-acceptance-and-skill-20261014-audit.json"
   ],
   "related_reports": [],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）",
+  "session_kind": "legacy",
+  "local_run_files": 23
 }

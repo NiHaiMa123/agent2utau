@@ -1,90 +1,120 @@
 # 目录边界与各环节文件存放规范
 
-更新：2026-10-09。生产、测试、研究、知识文档、发布工程和本机产物分开；目录分类不改变当前唯一制作流程。
+更新：**2026-10-30（第二轮整理后）**。本文是**长期规范**；`PROJECT_REORGANIZATION_PLAN_20261030.md` 是一次性收尾任务书，`migration/20261030-reorganization/` 下的验收报告是时间点记录，二者都保留作历史证据，不作为日常规范。
+
+## 0. 一句话
+
+生产内核仍在 `src`／`bridge`／`skills`；**可提交的歌曲制作脚本、报告与索引在 `songs/`**；大型音频、USTX 工程、模型和原始 run 仍在本机被忽略的旧路径；自动测试在 `tests/`，方法实验在 `experiments/`，跨模型比较在 `benchmarks/`。
 
 ## 1. 顶层职责
 
 | 目录/文件 | 保存什么 | 不放什么 | Git |
 |---|---|---|---|
-| 根目录README、AGENTS、plan、plan-table2 | 项目入口、Codex约定和当前/后续专项计划 | 重复计划、音频、实验输出 | 提交 |
-| src/agent2utau/ | 通用生产Python代码与独立评价实现 | test文件、固定歌曲脚本、作者控制数组 | 提交 |
-| bridge/OuBridge/ | 真实OpenUtau原生桥接C#源码与项目文件 | 歌曲输出、测试fixture | 提交源码；bin/obj忽略 |
-| skills/singing-expression-editor/ | 通用Codex制作Skill、参考方法、函数工具 | 具体歌曲参数/文件路径配置 | 提交，修改另按Skill维护要求 |
-| tests/ | unit、contracts、skills自动测试 | 生产入口、真实录音、作者数组、声库模型 | 提交代码；临时数据不提交 |
-| tools/repository/ | 仓库门禁、研究原件打包等维护工具 | 已完成歌曲制作脚本、试听实验 | 提交 |
-| configs/ | 通用默认值、USTX模板、声库配置示例 | 模型权重、机器绝对路径进入公共配置 | 提交通用文件；local.yaml忽略 |
-| schemas/ | 程序可读契约，例如运行state schema | 单次执行state/观测/日志 | 提交 |
-| research/ | 只读作者资源、研究索引、历史实现记录 | 默认生产配方、运行输出/音频/模型 | 提交允许的原件/文本，不自动用于生成 |
-| docs/guides/ | 使用说明、组织约定与方法文档 | 实验PCM、模型输入数组 | 提交 |
-| docs/knowledge/<包名>/ | 表1/表2、CSV/JSON知识清单、摘要与来源审计 | 未标角色的作者数组、完整run副本 | 提交必要文本/聚合数据 |
-| docs/reports/<主题>/ | 新可读实验、评价、维护报告 | 可直接运行的旧曲脚本、二进制产物 | 提交必要报告/有限聚合结果 |
-| projects/latest/ | 用户指定保留/发布的USTX | 测试谱面、实验B/C、音频、模型 | 仅工程 |
-| data/ | 本机导入资料，例如原录音、歌词工作副本 | 默认制作规则、通用配置 | 整目录忽略 |
-| models/ | 本机权重、配套YAML/manifest | 代码/知识表 | 整目录忽略 |
-| external/ | 本机外部工具/依赖/HFA模型 | 项目生产代码的默认维护位置 | 整目录忽略 |
-| runs/ | 按角色分类的输入绑定、执行/研究/试听/测试/构建产物 | 自动当作新任务输入的缓存 | 整目录忽略 |
-| demo/、.local-archive/ | 已有本机试听与旧路线归档 | 新工作默认入口 | 忽略，原路径保留 |
+| 根目录 README、AGENTS、plan、plan-table2 | 项目入口、协作约定与专项计划 | 重复计划、音频、实验输出 | 提交 |
+| src/agent2utau/ | 通用生产 Python 代码与**独立评价实现** | 歌曲脚本、作者控制数组 | 提交 |
+| bridge/OuBridge/ | OpenUtau 原生桥接 C# 源码 | 歌曲输出、测试 fixture | 提交源码；bin/obj 忽略 |
+| skills/singing-expression-editor/ | 通用制作 Skill、参考方法、函数工具 | 具体歌曲参数/路径配置 | 提交 |
+| tests/ | unit、contracts、skills 自动测试 | 生产入口、真实录音、作者数组 | 提交 |
+| tools/ | 仓库门禁等维护工具；会话脚手架 | 已完成歌曲制作脚本 | 提交 |
+| configs/、schemas/ | 通用默认值、USTX 模板、可读契约 | 模型权重、机器绝对路径 | 提交（local.yaml 忽略） |
+| **songs/** | **每首歌的制作索引、session 脚本/报告、交付索引** | 大音频、模型、原始 run 缓存 | 提交（workspace 忽略） |
+| **experiments/** | 跨歌曲可复用或有对照协议的方法实验 | 某首歌的局部修订/试唱 | 提交 |
+| **benchmarks/** | 跨模型同题对照的协议与小型结果 | 整曲大文件、原始日志 | 提交（local 忽略） |
+| **migration/** | 目录迁移的盘点表、映射表、验收记录 | 生产资产 | 提交 |
+| research/ | 只读作者资源、表1/表2复核、历史实现记录 | 默认生产配方、运行输出 | 提交允许的原件/文本 |
+| docs/guides/ | 使用说明、**本规范**、方法文档 | 实验 PCM、模型输入数组 | 提交 |
+| docs/knowledge/<包名>/ | 表1/表2、CSV/JSON 知识清单与来源审计 | 未标角色的作者数组 | 提交必要文本 |
+| docs/reports/<主题>/ | 公共研究、维护报告、**被知识契约绑定的公开文档** | 可直接运行的旧曲脚本 | 提交 |
+| projects/latest/ | 用户指定保留/发布的 USTX | 测试谱面、音频、模型 | 仅本机 |
+| runs/ | 本机 run：观测、设计、编译、渲染、评测、交付 | 当作新任务输入的缓存 | 整目录忽略 |
+| data/、models/、external/、demo/、.local-archive/ | 本机资料、权重、依赖、试听、旧路线归档 | 新工作默认入口 | 整目录忽略 |
 
-已有`docs/workflow.md`、`docs/evaluation-v0.md`及封存历史报告保留原路径；新内容按上述类别保存。已有`bridge/out*`及`bin/obj`是ignored构建产物，保留已部署/绑定路径，不重新部署或搬动本机安装。表格资料本次移动至`docs/knowledge`，历史脚本移动至`research/implementation-records`，迁移关系显式记录。
-
-## 2. 生产代码按环节划分
-
-| 环节 | 通用代码 | 主要输入/输出 |
-|---|---|---|
-| 配置与资源 | resources/、configs/ | 通用配置＋本机覆盖，doctor资源状态 |
-| 原曲解码/分离 | audio/decode.py、audio/separate.py | 显式原曲→解码/分离文件＋来源SHA |
-| 原曲观测 | transcription/、analysis/、workflow.observe_source | GAME、双F0、ASR/歌词观察；HFA显式外部执行 |
-| 音乐/歌词/谱面判断 | Codex＋Skill、openutau/build.py/ustx.py | Agent自选身份、音符、音素和unknown，生成工作USTX |
-| 显式表达设计 | expression/＋Skill scripts/ | 独立函数/动作/发声计划；预测基底与人工增量分开 |
-| 原生编译/读取 | workflow.compile_functions、openutau/bridge.py、bridge/OuBridge | 编译USTX、pitch/phones、读回/隔离结果 |
-| 当前依赖渲染 | openutau/bridge.py、真实Core/声库 | variance/acoustic/vocoder实际输入与波形 |
-| 固定增益混音 | audio/mix.py | 指定声/伴奏增益，输出PCM，拒绝削波 |
-| 独立评价/反馈 | evaluation/＋Codex/用户 | 显式输入/SHA的形态测量、风险、unknown和用户反馈 |
-| 发布 | projects/latest/＋tools/repository/ | 被指定保留的USTX、报告、索引检查；不发布音频/模型 |
-
-`evaluation`是供实际工程使用的通用只读功能，所以仍在生产包；验证它的测试在`tests/contracts`。不把生产评价器误移到测试目录。生产模块不得导入`tests`或固定歌曲研究实现。
-
-## 3. 本机运行目录与阶段文件
-
-新任务按目的选择`runs/production/<run-id>`、`runs/experiments/<run-id>`、`runs/research/<run-id>`、`runs/test-results/<run-id>`、`runs/native-tests/<run-id>`或`runs/build/<构建名>`。运行ID包含主题/日期/唯一标识，每次使用新目录；旧封存run不搬动、不重写。
-
-建议阶段子目录如下，它是文件组织约定，**不是已经新增的自动编排API**。现有CLI只写调用者提供的`--out`；相对路径计划须按实际文件位置准备，不能因目录名称推断已执行。
+## 2. 歌曲制作：songs/ 的结构与规则
 
 ```text
-<run-id>/
-  manifest.json          # 原曲/工程/工具/模型/版本与输入绑定
-  inputs/                # 显式选择的输入副本、歌词、HFA输入
-  observations/          # 解码/分离/GAME/F0/ASR/HFA观测
-  score/                 # Agent自有工作谱面、原生音素/时钟
-  design/                # 函数/控制计划、目的、备选、unknown
-  compiled/              # 原生写入工程、编译与读回报告
-  native/                # 当前预测/实际输入/渲染、依赖核查
-  mix/                   # 固定增益音频、拼接与峰值检查
-  evaluation/            # 独立结果、图册和unknown
-  delivery/              # 交付USTX/独立A/B文件及SHA
-  feedback/              # 用户原话、比较对象、音频绑定
-  logs/                  # 命令、失败、重试；不覆盖失败证据
+songs/<song>/
+  README.md                  # 中文歌名 + 主制作/局部修订/历史记录/交付 四类索引
+  assets/                    # 歌词与来源信息（非媒体）
+  sessions/<日期>__<模型>__<run-id>/
+      manifest.json           # 该次制作的索引（见第 5 节）
+      scripts/                # 本次特有代码
+      reports/                # 本次制作/审查小报告
+      feedback/               # 用户试听反馈及其限定范围
+      workspace/              # 忽略：原始 run 数据/波形/工程
+  reports/legacy/            # 无法定位到具体 session 的历史报告
+  releases/README.md         # 交付索引（本机路径 + 逐条确认状态）
 ```
 
-测试默认使用pytest `tmp_path`，不写生产run或发布工程；受限环境需指定临时目录时，TEMP/TMP与pytest `--basetemp`使用全新的`runs/test-results/<run-id>`，禁止指向已有任务/封存目录。真实声库测试若以后新增，再显式使用native-tests。一般研究产物不进入Git；需要可复查的结论时，提取有限摘要与SHA到对应知识包/报告，原始数组和波形仍留run。
+- `<song>` 用 `nianlun`／`yuai`／`lastpage`／`huahai`，README 写中文歌名。
+- **session 命名**（仅新任务强制）：`<YYYYMMDD-HHMM>__<model-slug>__<run-id>`，模型 slug 取 `gpt-6.1-sol`／`gemini-4`／`minimax-m3.1f`／`deepseek-v4.1f`／`gemini-3.8-flash`。
+- **交付物命名**（仅新任务强制）：`<song>__<YYYYMMDD-HHMM>__<model-slug>__<version>__<role>.<ext>`，role 取 `project`／`vocal`／`mix`／`report`。
+- 历史上写 `unknown-model` 的 session **保持原样**：没有原始日志或 manifest 就不追溯模型归属，不按 Git 作者猜。
+- 一次制作里的改版（调参、试听候选、单句修改）放该 session 的 `revisions/` 或 `reports/`，**不要**每个日期/每次反馈都新开一个 session。
+- 跨歌曲可复用的实验归 `experiments/`；只有报告、没有脚本产出的历史资料放 `reports/legacy` 或标 `legacy/reference-only`。
+
+## 3. 本机 run 与 session 的关系
+
+原始 run 仍可物理写在被忽略的 `runs/production/<run-id>/`（或 `experiments/`、`research/`），此时 session 负责**索引**它：`manifest.json` 的 `original_run_path` 指向真实目录。
+只有在**无引用风险**（没有硬编码绝对路径、OpenUtau 工程/缓存引用、正在使用）时才把 run 目录搬进 session 的 `workspace/`；搬动前后核对文件清单与哈希。`projects/latest`、`demo/`、`models/`、`external/`、声库安装目录不搬。
 
 ## 4. 文件类型与角色
 
 | 类型 | 位置 |
 |---|---|
-| .py/.cs通用逻辑 | src、bridge；Skill通用数学脚本仍在Skill目录 |
-| test_*.py及测试辅助 | tests的相应类别；不放src/tools/research活动入口 |
-| .yaml通用默认/模板 | configs；模型配套文件随本机模型，绝对路径配置仅local.yaml |
-| .json/.csv知识与规则 | docs/knowledge，必须标来源、证据层级、unknown和版本 |
-| .json运行state/实际输入/.npy/.npz | runs，不能因是文本JSON就提交完整run输出 |
-| .txt/.lab歌词与音素对齐输入 | 本机data或run的inputs；经审查的合成测试资料才放tests/fixtures |
-| .jsonl/.log执行与事件记录 | run的evaluation/feedback/logs；可读结论提取至docs/reports |
-| .png/.svg/.pdf检查图册 | 运行检查图册放runs/evaluation；独立说明用的少量静态插图可随docs/guides/assets管理 |
-| .md方法/计划/实验报告 | 根目录计划、docs/guides方法、docs/reports报告；Skill方法随Skill |
-| .ustx Agent工作/候选 | runs/production或experiments；只有指定发布版进入projects/latest |
-| .ustx作者原件及授权ZIP | research/baishuo，逐字节只读、SHA核对、无媒体成员 |
-| .wav/.mp3/.flac等音频 | 本机data、runs或已有demo，所有目录均禁止上传Git |
-| .onnx/.pt/.pth等权重 | 本机models/external/安装声库；不提交Git |
-| .exe/.dll、构建/测试缓存 | 本机构建目录/安装目录和ignored缓存；不提交Git |
+| .py/.cs 通用逻辑 | src、bridge、tools；Skill 通用数学脚本仍在 Skill 目录 |
+| test_*.py 及测试辅助 | tests 的相应类别；**仅当有受控输入、断言、可重复 pass/fail**；临时 probe 不因名字带 test 就进 tests |
+| .yaml 通用默认/模板 | configs；绝对路径配置仅 local.yaml |
+| .json/.csv 知识与规则 | docs/knowledge，必须标来源、证据层级、unknown 和版本 |
+| .json 运行 state/实际输入/.npy/.npz | runs 或 session 的 workspace，不能因是文本 JSON 就提交完整 run 输出 |
+| .jsonl/.log 执行与事件记录 | run 的 evaluation/feedback/logs；可读结论提取至 docs/reports 或 session/reports |
+| .md 方法/计划/报告 | 根目录计划、docs/guides、docs/reports、songs/*/sessions/*/reports |
+| .ustx Agent 工作/候选 | runs/ 或 session workspace；只有指定发布版进入 projects/latest 或 releases 索引 |
+| .ustx 作者原件及授权 ZIP | research/baishuo，逐字节只读、SHA 核对 |
+| .wav/.mp3/.flac 音频 | 本机 data/runs/demo，**所有目录均禁止上传 Git** |
+| .onnx/.pt 等权重 | 本机 models/external/安装声库；不提交 |
 
-每个文件的角色以来源/绑定为准，不能只看扩展名。制作预期、数学检查、实际测量和听觉反馈分开，不因目录“evaluation”或“delivery”就认为质量通过。
+每个文件的角色以来源/绑定为准，不能只看扩展名。**技术测试通过 ≠ 用户听感接受**；交付状态必须写明是"已确认"还是"未确认"。
+
+## 5. manifest 字段（新任务强制；历史不追溯重建）
+
+```json
+{
+  "song_id": "nianlun",
+  "run_id": "<run-id>",
+  "session_id": "<YYYYMMDD-HHMM>__<model-slug>__<run-id>",
+  "started_at": "2026-10-30T09:00:00+08:00",
+  "produced_at": "2026-10-30T13:30:00+08:00",
+  "primary_model": "minimax-m3.1f",
+  "models_with_roles": [{"model": "minimax-m3.1f", "role": "画线与复检"}],
+  "model_evidence": ["原始执行日志路径或用户明确指定"],
+  "version": "v3",
+  "original_run_path": "runs/production/<run-id>",
+  "output_artifacts": [{"path": "…", "kind": "ustx|wav|md", "local_only": true}],
+  "status": "candidate|accepted|rejected|historical_unverified",
+  "listening_status": "unknown|partial|confirmed",
+  "related_reports": ["…"]
+}
+```
+
+`produced_at` 用该次制作的**产生时间**（含时区），不得用推送时间冒充。多模型协作要在 `models_with_roles` 写清每人角色，未知不硬归一人。
+
+## 6. 受保护区域（不参与"按歌曲集中"的移动规则）
+
+- `research/baishuo/**`：作者原件、授权 ZIP、manifest，逐字节只读，SHA 核对。
+- `docs/knowledge/**`：知识包快照与固定 SHA 基线。**历史快照的失效相对链接只登记、不重写**；链接修复放在可编辑的导航页。
+- 被 `docs/knowledge` 知识包**按路径+SHA 绑定**的公开文档必须留在 `docs/reports/` 下，否则 `src/agent2utau/knowledge.py` 的公开文档契约拒绝加载。
+- `docs/reports/<主题>/` 下被知识契约绑定的文件同理。
+
+## 7. 测试、实验、评测的边界
+
+- `tests/unit`、`tests/contracts`、`tests/skills` 保留；只有具备受控输入、断言、可重复 pass/fail 的脚本才进 tests。
+- 生产评价实现留在 `src/agent2utau/evaluation`（供实际工程使用的通用只读功能），**不挪到 tests**。
+- `experiments/` 放方法实验与对照；某首歌的局部修订留在该歌 session。
+- `benchmarks/model-comparisons/<日期>-<主题>/` 放跨模型同题对照：`protocol.md`（输入 SHA、任务范围、模型配置/思考档位、工具权限、预算、输出路径、时间轴误差口径、盲评/人工反馈口径）、`results/`（小型对照记录）、`local/`（忽略的原始输出与音频）。没有新数据就只提供模板，**不填假的误差、成本或成功率**。
+
+## 8. 其它约定（沿用）
+
+- `docs/workflow.md`、`docs/evaluation-v0.md` 与封存历史报告保留原路径。
+- `bridge/out*` 与 `bin/obj` 是 ignored 构建产物，保留已部署/绑定路径，不重新部署或搬动本机安装。
+- 测试默认用 pytest `tmp_path`；需要真实路径时用全新的 `runs/test-results/<run-id>`，禁止指向已有任务/封存目录。
+- 仓库发布门禁：`python tools/repository/check_repository.py --worktree`（暂存后再跑一次不带 `--worktree` 的 indexed 模式）。

@@ -12,4 +12,4 @@
 
 下一项先核对原声源与当前实际音高阶段/音素条件，再决定有依据的有限设计。本轮仅反馈与既有条件复核，新控制设计/原生导出/模型执行/数组或音频解码/新波形均0。表1PER:S1、PARAM:C11.01与表2RESP:LASTPAGE-CONDITIONED-VOIC-01绑定该否定结果；原标签、源unknown106及未知病因保持。Agent未听，单Agent、CI仅手动。
 
-详见[15字条件台账](conditioned-voicing-feedback-20261011-conditions.csv)、[JSON](../../../../docs/reports/lastpage/conditioned-voicing-feedback-20261011.json)、[审计](../../../../experiments/misc/reports/conditioned-voicing-feedback-20261011-audit.json)。
+详见[15字条件台账](conditioned-voicing-feedback-20261011-conditions.csv)、[JSON](../../../../docs/reports/lastpage/conditioned-voicing-feedback-20261011.json)、[审计](../../sessions/20261011__unknown-model__lastpage-conditioned-voicing-20261011/reports/conditioned-voicing-feedback-20261011-audit.json)。

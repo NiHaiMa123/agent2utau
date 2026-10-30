@@ -1,8 +1,8 @@
 # R贴耳/状态否决后，在同一工程落实既有Q对照
 
-用户对R说“不行”，随后澄清“更贴耳，和前两句感觉不是同一个状态唱出来的”；[反馈原话与范围](../../../reports/legacy/third-phrase-R-rejected-proximity-clarification-20261018.md)已追加，不自动记为更虚、气声更多、变暗或尖挤。R当前组合未通过，不能推成speaker整体无效或P获接受。磁盘身份精确于R发布文件，实时UI未读取；反馈来自用户在OpenUtau查看，不假称外置PCM试听标签。
+用户对R说“不行”，随后澄清“更贴耳，和前两句感觉不是同一个状态唱出来的”；[反馈原话与范围](../../../songs/yuai/reports/legacy/third-phrase-R-rejected-proximity-clarification-20261018.md)已追加，不自动记为更虚、气声更多、变暗或尖挤。R当前组合未通过，不能推成speaker整体无效或P获接受。磁盘身份精确于R发布文件，实时UI未读取；反馈来自用户在OpenUtau查看，不假称外置PCM试听标签。
 
-当前同一 `projects/latest/yuai_first14_single_track_baishuo_comparison.ustx` 已写Q，新SHA `b6ed6831050d528786b5d90e026b821efab7ba195db12e7783a640ab6770d878`。先撤回R局部Bright/Classic切换，恢复与第一句相同的Normal65/Classic35帧声线，CLR/时长speaker仍Normal；采用[此前已冻结/生成的Q](../../20261018__unknown-model__yuai-s03-core-surface-20261018/reports/third-phrase-core-surface-contrasts-20261018.md)，保留第三句P有声支撑，撤回第三句强负BREC，回到同条件模型自己的气声预测。不是把最终breathiness设为0，不是把其它字或句改气来匹配第三句。
+当前同一 `projects/latest/yuai_first14_single_track_baishuo_comparison.ustx` 已写Q，新SHA `b6ed6831050d528786b5d90e026b821efab7ba195db12e7783a640ab6770d878`。先撤回R局部Bright/Classic切换，恢复与第一句相同的Normal65/Classic35帧声线，CLR/时长speaker仍Normal；采用[此前已冻结/生成的Q](third-phrase-core-surface-contrasts-20261018.md)，保留第三句P有声支撑，撤回第三句强负BREC，回到同条件模型自己的气声预测。不是把最终breathiness设为0，不是把其它字或句改气来匹配第三句。
 
 这是已有未评条件的有限因素检查，不增加新剂量或扫描。相对P，Q只撤回第三句BREC；相对刚否决的R，还含撤回R声线，故**R→Q不是单因素**。预期只作待检验问题：强气声表面抑制是否参与过分贴耳/剥离质感，撤回后是否影响实感；不宣称贴耳由BREC造成或Q一定更好。当前P本身也未最终接受，前两句/第四句的原有反馈保留。
 

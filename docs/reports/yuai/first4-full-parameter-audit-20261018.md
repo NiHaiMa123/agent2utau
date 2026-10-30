@@ -63,7 +63,7 @@ CLR还参与音素时长模型的按phone声色选择；clNN主要是后续pitch
 
 ## 3. 各参数逐项的实际路径
 
-本次覆盖当前36项表达声明、原件31项，逐项清单见[完整参数CSV](../../../reports/legacy/first4-full-parameter-audit-20261018.csv)。其中当前原生副本加载34项，16项被DiffSinger声明支持，18项不在本引擎支持集中；另2项是空的masked声明。**支持不等于非默认执行，也不等于当前模型启用了该分支。**
+本次覆盖当前36项表达声明、原件31项，逐项清单见[完整参数CSV](../../../songs/yuai/reports/legacy/first4-full-parameter-audit-20261018.csv)。其中当前原生副本加载34项，16项被DiffSinger声明支持，18项不在本引擎支持集中；另2项是空的masked声明。**支持不等于非默认执行，也不等于当前模型启用了该分支。**
 
 |参数/字段|实际作用与单位|本次关键边界|
 |---|---|---|
@@ -179,7 +179,7 @@ CLR还参与音素时长模型的按phone声色选择；clNN主要是后续pitch
 
 ![同一当前工程时钟的原生最终线](../../../../../runs/review/yuai-first4-full-parameter-audit-20261018/first4-native-contours.png)
 
-图中仅显示唱音符范围，AP/SP/EP载频单独记录，不冒充唱字音高。没有时间伸缩、幅度归一或把参考目标转写到我们的工程。[逐字31项CSV](../../../reports/legacy/first4-word-audit-20261018.csv)包括两边真实phone、时长、内置vibrato和控制范围；固定中段诊断不冒称音乐到达或稳态核真值。
+图中仅显示唱音符范围，AP/SP/EP载频单独记录，不冒充唱字音高。没有时间伸缩、幅度归一或把参考目标转写到我们的工程。[逐字31项CSV](../../../songs/yuai/reports/legacy/first4-word-audit-20261018.csv)包括两边真实phone、时长、内置vibrato和控制范围；固定中段诊断不冒称音乐到达或稳态核真值。
 
 ## 7. 和声、轨道增益和模型状态的边界
 
@@ -201,8 +201,8 @@ CLR还参与音素时长模型的按phone声色选择；clNN主要是后续pitch
 
 ## 9. 可复核材料与保持状态
 
-- [36项参数清单](../../../reports/legacy/first4-full-parameter-audit-20261018.csv)：文件声明、原生加载、renderer支持、是否有曲线/音素表达、机制来源及限制。
-- [31字清单](../../../reports/legacy/first4-word-audit-20261018.csv)：当前与参考原生时钟、音素、音高及控制。
+- [36项参数清单](../../../songs/yuai/reports/legacy/first4-full-parameter-audit-20261018.csv)：文件声明、原生加载、renderer支持、是否有曲线/音素表达、机制来源及限制。
+- [31字清单](../../../songs/yuai/reports/legacy/first4-word-audit-20261018.csv)：当前与参考原生时钟、音素、音高及控制。
 - 本轮run：`runs/review/yuai-first4-full-parameter-audit-20261018`。包含三角色完整原生导出、运行时参数、两个模型空间的embedding、既有缓存读取状态、词/句/播放解析、图册、所有失败/中间前缀证据和最终保护核验。
 - 只读诊断程序独立编译，未替换生产桥接；临时DLL运行后已删除。首先遗漏namespace的诊断构建失败和依赖构建尚未结束就尝试运行的失败均保留，最终执行使用完成构建的版本。没有通过更改声库配置、阈值或模型参数使检查通过。
 - 当前工程、作者原件、已有两份试听及Skill40份SHA保持。该run没有新WAV，未调用声学/声码器渲染或variance Process；音素器原生计算/缓存过程确已执行，不把模型加载/音素器活动误计为“完全没执行任何模型”。本机门禁通过情况另列，自动CI未运行。

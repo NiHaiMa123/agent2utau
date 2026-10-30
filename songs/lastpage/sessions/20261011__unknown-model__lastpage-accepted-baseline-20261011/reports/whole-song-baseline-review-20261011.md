@@ -26,4 +26,4 @@
 
 - [完整接受C人声](../../../../../runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline_vocal.wav)
 - [完整工作工程副本](../../../../../runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline.ustx)
-- [318字账本](../../../reports/legacy/whole-song-baseline-review-20261011-words.csv)、[34句账本](../../../../../experiments/misc/reports/whole-song-baseline-review-20261011-phrases.csv)、[JSON](whole-song-baseline-review-20261011.json)、[审计](whole-song-baseline-review-20261011-audit.json)。原试听收口报告与反馈不改写。
+- [318字账本](../../../reports/legacy/whole-song-baseline-review-20261011-words.csv)、[34句账本](whole-song-baseline-review-20261011-phrases.csv)、[JSON](whole-song-baseline-review-20261011.json)、[审计](whole-song-baseline-review-20261011-audit.json)。原试听收口报告与反馈不改写。

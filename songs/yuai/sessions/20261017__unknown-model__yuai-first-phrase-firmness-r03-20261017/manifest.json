@@ -9,7 +9,9 @@
   "model_evidence": [],
   "status": "historical_unverified",
   "listening_status": "unknown",
-  "original_paths": [],
+  "original_paths": [
+    "runs/production/yuai-first-phrase-firmness-r03-20261017"
+  ],
   "artifacts": [
     "songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/manifest.json",
     "songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/reports/first-phrase-firmness-r03-20261017.json",
@@ -19,5 +21,7 @@
   "related_reports": [
     "songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/reports/first-phrase-firmness-r03-20261017.md"
   ],
-  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+  "note": "本次制作中的局部改版（revision），证据与产物见 artifacts/original_paths。",
+  "session_kind": "revision",
+  "local_run_files": 27
 }

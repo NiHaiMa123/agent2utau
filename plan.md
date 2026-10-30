@@ -80,7 +80,7 @@
 
 2026-10-17当前同一USTX已交付窗字uang清晰度候选：用户更正ch→uang，ch增强方向撤回且未执行。窗显式ch/u/ang，u55.2ms/ang249ms；ch及其他261个phone原时钟、22短句pitch和全部人工发声控制保持，“天”一项offset仅恢复原边界。新phone已重建预测成声，清晰度及新条件下的实感待听，不将r03接受倒填。见[候选记录](songs/yuai/sessions/20261017__unknown-model__yuai-chuang-clarity-20261017/reports/chuang-uang-clarity-candidate-20261017.md)。白烁轨保持，Skill未改、单Agent、CI未运行；s02–s14保持候选，s15以后继续暂停。
 
-2026-10-17用户“可以了”已追加为第一句r03当前发声组合的局部接受；见[接受记录](experiments/misc/reports/first-phrase-firmness-r03-accepted-20261017.md)。Skill仅细化换声线后逐元音预测/有限支撑、模型帧边界与head-padding时钟核查，不写固定配比/剂量；40资源安装一致、124引用与9知识契约测试通过，见[回填报告](docs/reports/production/skill-local-phonation-accepted-20261017.md)。当前同一USTX及音频保持，接受不扩大到独立因素/其它句/整曲，旧阴性与旧收据保留；s02–s14保持候选、s15以后暂停，单Agent、CI未运行。
+2026-10-17用户“可以了”已追加为第一句r03当前发声组合的局部接受；见[接受记录](songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/reports/first-phrase-firmness-r03-accepted-20261017.md)。Skill仅细化换声线后逐元音预测/有限支撑、模型帧边界与head-padding时钟核查，不写固定配比/剂量；40资源安装一致、124引用与9知识契约测试通过，见[回填报告](docs/reports/production/skill-local-phonation-accepted-20261017.md)。当前同一USTX及音频保持，接受不扩大到独立因素/其它句/整曲，旧阴性与旧收据保留；s02–s14保持候选、s15以后暂停，单Agent、CI未运行。
 
 2026-10-17第一句r03已原位写回：按“再实一点”将现有元音VOIC包络各加5，最大199/声明200不扩，实际元音外新增0帧、pitch/phones/speaker及其他输入保持，成声已核查、听感待确认。已针对作者线疑问核对我们11144 PITD点及22原生最终音高与导入参考前独立预览精确；不称所有snap_first连接点存储字节相同，未用白烁曲线作设计。见[r03与来源核查](songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/reports/first-phrase-firmness-r03-20261017.md)。同一工作USTX继续沿用，s02–s14不改、s15以后暂停，Skill/CI不改、单Agent。
 
