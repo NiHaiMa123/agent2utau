@@ -37,7 +37,7 @@
     "export_phonemes": "ok on the v3 年轮 copy (51 parts / 761 phones) and on three new baseline samples",
     "roundtrip": "ok on the v3 年轮 copy (650 notes in/out, lyrics_match=true)",
     "render_project": "ok on a baseline sample (vocal wav rendered, delivery review = candidate only)",
-    "observe_source": "see run command-inventory/observe-nianlun",
+    "observe_source": "ok on 年轮 (separate+asr+game, 5m09s, status=completed); the produced GAME events are NOT reproducible - same source/stems/model hashes/seed gave 469 vs 467 notes, so the note file must be pinned by SHA and reused",
     "patch_writeback": "not attempted (belongs to P2)"
   },
   "coverage": {
@@ -51,7 +51,8 @@
   "open_questions": [
     "三首歌的锁定歌词都未经用户逐字确认（verification 非 user-confirmed），需要用户拍板",
     "年轮 4 个、雨爱 5 个字因 GAME 快唱段过切分判为 unresolved",
-    "最后一页 1 个延音音符因 160 ms 间隙无法成链，baseline 已丢弃并登记"
+    "最后一页 1 个延音音符因 160 ms 间隙无法成链，baseline 已丢弃并登记",
+    "GAME 音符事件在同一输入下不可复现（469 vs 467），后续必须按 SHA 固定复用音符文件"
   ],
   "related_reports": [
     "experiments/alignment/phoneme-alignment-p0p1-20261031/reports/phoneme-alignment-p0p1-20261031.md"

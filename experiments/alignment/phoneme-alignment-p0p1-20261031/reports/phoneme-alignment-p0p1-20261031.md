@@ -15,7 +15,7 @@ run-id：`phoneme-alignment-p0p1-20261031` ｜ 本机 run：`runs/production/pho
 | 命令 | 实测结果 |
 |---|---|
 | `agent2utau doctor` | OpenUtau **0.1.570.9011**，Core/bridge 就绪，声库 **YousaV1.65c**，phonemizer `DiffSingerChinesePhonemizer`，dsconfig 44100/hop 512，GPU RTX 5080 |
-| `agent2utau observe-source` | 见 §1.6（年轮实跑 separate+asr+game） |
+| `agent2utau observe-source` | 年轮原曲实跑 separate+asr+game **成功**（分离 5 分 09 秒，`status=completed`、`source_only=true`、`expression_generated=false`），产出 request/separation/asr/game/manifest + 人声与伴奏分离件；**但复跑不重现，见 §3.7** |
 | `agent2utau export-phonemes` | 在 v3 年轮工程副本上：**51 part / 761 phone，ok=true**；在新建 baseline 样本上同样 ok |
 | `agent2utau roundtrip` | 副本：**notes 650→650，phrases 51，lyrics_match=true，ok=true** |
 | `agent2utau render-project` | baseline 样本渲染成功（5.17 MB wav，peak 0.273），交付审查结论为 `candidate only`（无执行审查合同，符合预期） |
@@ -99,6 +99,7 @@ run-id：`phoneme-alignment-p0p1-20261031` ｜ 本机 run：`runs/production/pho
 4. **多音字只在最后一页命中**，年轮与雨爱的原唱韵律中未出现一字多读；样本覆盖因此只有 1 个多音字样本。
 5. **未做音素层面的任何验证**：本轮没有调用声库 phonemizer 生成 baseline 音素，也没有 patch 写回；P2 之前不存在"音素已对齐"的说法。
 6. **听感完全未验证**：`musical_quality=unverified`、`listening=unknown`。本轮只产出结构化证据，不产出可听交付物。
+7. **GAME 不可复现（实测）**：同一原曲（`source_sha256` 相同）、**逐字节相同的 source.wav 与两个分离件**、**五个 GAME onnx 模型哈希全部相同**、`seed=11` 相同的情况下，两次 `observe-source` 得到的音符事件不同（469 vs 467，前 17 个事件一致后分叉）。推断是 ONNX Runtime 多线程执行的浮点非确定性在 D3PM 分割循环里放大了边界决策差异。**后果：GAME 音符事件必须按 SHA256 固定复用，不能在后续轮次里重新生成**；本轮的 `observations_manifest.json` 已经这样绑定。
 
 ## 4. 产物与命令
 
