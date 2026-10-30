@@ -52,7 +52,14 @@ def observe_source(source, out, cfg, steps, seed=11, asr_model='large-v3-turbo')
     return dict(status='completed',out=str(out),source_only=True,expression_generated=False)
 
 def compile_functions(plan_path, out, cfg, review_contract=None):
-    """Compile explicit absolute functions, preserving caller-owned note connections."""
+    """Compile explicit absolute functions, preserving caller-owned note connections.
+
+    Status: **archived line (2026-10-31)**.  This is the old explicit
+    expression compiler (Agent draws PITD -> plan -> compile -> execution
+    review).  It is *not* the new phoneme aligner: the current main line is
+    ``agent2utau align-lyrics`` plus ``src/agent2utau/alignment/``.
+    Kept for reproducible old experiments; see docs/archive/README.md.
+    """
     plan_path=Path(plan_path).resolve();plan=json.loads(plan_path.read_text(encoding='utf8'))
     if set(plan)!={'schema_version','project','source_audio','input_hashes','scope','phrases','knowledge_context'} or plan['schema_version']!=2 or plan['scope']!='whole_song':
         raise ValueError('Use schema2 whole-song plan with SHA-bound knowledge_context; schema1 requires migration')

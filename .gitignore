@@ -1,4 +1,5 @@
 runs/
+scratch/
 .local-archive/
 demo/
 *.wav

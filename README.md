@@ -55,4 +55,10 @@ agent2utau render-project --project "<验证后的谱面.ustx>" --out "<音频>"
 
 歌曲：[年轮](songs/nianlun/) · [最后一页](songs/lastpage/) · [雨爱](songs/yuai/) · [花海](songs/huahai/)；历史制作与模型归属保持，新的 session 记录日期与执行 AI。2026-10-30 的 [目录整理记录](migration/20261030-reorganization/) 不重跑。
 
+## 已废止的入口（历史线，保留不复用）
+
+2026-10-31 起，下列入口属于旧的"Agent 逐句画 PITD"表达线，**保留只为旧实验可复现与历史查证**，不再是执行指令，也不继续扩写：
+`singing-expression-editor` Skill、`agent2utau compile-functions` / `freeze-musical-intent` / `review-inventory` / `review-execution` / `review-delivery` / `knowledge-context`、`src/agent2utau/expression/`、表1/表2 知识包（`docs/knowledge/`、`src/agent2utau/knowledge.py`）、`research/` 下的历史实现记录。
+完整清单与各自的替代物见 [废止索引](docs/archive/README.md)；旧计划原文见 [docs/archive/legacy-plans/](docs/archive/legacy-plans/)。
+
 **待定事项**：是否人工或 Agent 调 VOIC/BREC/TENC/DYN/PEXP；是否引入现成的自动混音/母带项目。先以默认模型演唱与透明固定混音建立听感基线。
