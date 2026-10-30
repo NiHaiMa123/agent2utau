@@ -26,15 +26,27 @@ run-id：`phoneme-alignment-p0p1-20261031` ｜ 本机 run：`runs/production/pho
 
 每首歌按出现顺序给每个唱字分配 `syllable_id`（`s0001…`），重复字各自独立 id 并带 `occurrence` 计数，`repeated` 标记哪些字在歌里出现过多次。
 
-| 歌曲 | 来源 | 验证状态 | 行 × 字 |
+**歌词正文以公开权威歌词为准，ASR 只提供录音分句与时间提示。** 三首歌都是公开发行曲，取多源逐字比对一致的版本：
+
+| 歌曲 | 权威歌词来源 | 校验方式 | 行 × 字 |
 |---|---|---|---|
-| 年轮 | `runs/production/nianlun-v3-20261029/lyrics.json`（百度百科词条为底本，修正 9 处 ASR 错字） | `baidu-baike-canon-corrected` | 51 × 349 |
-| 最后一页 | `runs/lastpage_fresh_source_20261007/lyric_scaffold.json` | `asr-corrected` | 38 × 318 |
-| 雨爱 | `runs/production/yuai-from-source-20261014/observations/lyric-judgement.json` | `asr-corrected` | 60 × 371 |
+| 年轮 | 百度百科《年轮》词条（张碧晨版）＋搜狗百科交叉 | 检索通道取得渲染文本，逐字转写并与第二来源比对 | 49 × 349 |
+| 最后一页 | 百度百科《最后一页》词条＋Musixmatch／爱曲谱交叉 | 同上 | 42 × 318 |
+| 雨爱 | 快懂百科《雨爱》词条＋搜狗百科／中文百科交叉 | 同上 | 69 × 385 |
 
-**重要限制：三首歌都没有"用户逐字确认"的歌词文件。** 年轮是百科权威版+Agent 纠错，最后一页与雨爱是 ASR+Agent 词义纠正（其 `identity_verified_by_listening=false`，雨爱英文名 "Rainie Love" 仍属词义推断）。`verification` 字段如实记录，未冒称 `user-confirmed`。**这是下一轮需要用户拍板的第一件事。**
+**公开歌词只定"唱了哪些字"，录音定"怎么分句、重复几次"**：`apply_canonical()` 用全局编辑距离（Needleman-Wunsch，CJK 参与对齐）把权威歌词映射回录音自身的分句，只替换字、不改分句结构；英文单词不参与对齐——写出来是 "Rainie Love"，唱出来是 3 个音节（Rai/nie/Love），音节数只能由录音与 HFA 决定。
 
-同时确认：年轮 from-scratch 线的 `hfa_summary.json` 里仍是**未修正的 ASR 错字**（16 句与锁定歌词不同），因此锁定歌词没有沿用该文本；其时间观测仍可用。
+实测校正结果（`lyrics_canonical_diff.json`）：
+
+| 歌曲 | 权威字数 vs 录音字数 | 逐字相同 | 被纠正的字 | 未被唱到的公开句 | 保留录音的英文 |
+|---|---|---|---|---|---|
+| 年轮 | 349 / 349 | 347 | **2 处**（"有缘却无**份**"→"有缘却无**分**"） | 0 | 0 |
+| 最后一页 | 318 / 318 | **318（全同）** | 0 | 0 | 0 |
+| 雨爱 | 385 / 385 | 365 | 0 | 0 | 20 字（Rai/nie/Love ×2） |
+
+最后一页的"318 字全同"是对此前 ASR＋Agent 纠词结果的**反向验证**：那份文本与公开歌词逐字一致。权威歌词正文不进入 Git（版权），只在本机 run 目录保存文本与出处，仓库里只留 URL、检索时间、文本哈希与差异计数。
+
+**仍需用户拍板的是分句**：公开歌词按发行版分行，录音按演唱分行，两者不完全相同（年轮公开 49 行 / 录音 51 句）。本轮以录音分句为准。
 
 ### 1.3 GAME 归一化（`notes_normalized.json`）
 
@@ -93,7 +105,7 @@ run-id：`phoneme-alignment-p0p1-20261031` ｜ 本机 run：`runs/production/pho
 
 ## 3. 已知问题与限制（不得视为已解决）
 
-1. **歌词未经用户逐字确认**（三首都不是）。年轮用了百科权威版，最后一页/雨爱是 ASR+Agent 纠正。下一轮建议由用户确认后再冻结。
+1. **歌词分句仍以录音为准，未逐句经用户确认。** 正文字符已改用公开权威歌词（年轮纠正 2 字；最后一页 318 字与公开歌词全同），但公开歌词按发行版分行、录音按演唱分行（年轮公开 49 行 / 录音 51 句），本轮以录音分句为准；若用户要求按发行版分行，需要重跑映射。
 2. **GAME 在快唱段过切分**：年轮 400 个 voiced 音符对应 349 个字，多出的音符只能部分被连音吸收，剩下 4 个字判为 unresolved；雨爱同类情况 5 个。
 3. **最后一页有 1 个 `+` 延音块因 160 ms 间隙无法成链**（`n0060`），baseline 已丢弃该音符并在异常清单登记（映射本身仍然成立）。
 4. **多音字只在最后一页命中**，年轮与雨爱的原唱韵律中未出现一字多读；样本覆盖因此只有 1 个多音字样本。
@@ -108,12 +120,14 @@ run-id：`phoneme-alignment-p0p1-20261031` ｜ 本机 run：`runs/production/pho
 observations_manifest.json（每首歌一份，在 <song>/ 下）
 <song>/lyrics_locked.json  <song>/notes_normalized.json  <song>/mapping.v1.json
 <song>/anomalies.json      <song>/baseline.ustx         <song>/observations_manifest.json
+<song>/lyrics_canonical_diff.json   公开歌词与录音分句的逐字差异
+canonical_lyrics/<song>.json        公开权威歌词正文＋出处（版权原因不入 Git）
 samples/index.json  samples/<song>/<sample>.ustx  samples/<song>/<sample>.phones.json
 command-inventory/（doctor 探针副本、export-phonemes、roundtrip、render、observe-source 实跑）
 run_summary.json  environment.json
 ```
 
-提交到仓库：`src/agent2utau/alignment/`（lyrics、notes、observations、candidates、validator、baseline、pipeline）、`schemas/alignment_evidence_v1.schema.json`、`tests/unit/test_alignment_{lyrics,notes,mapping}.py`、`tests/contracts/test_alignment_evidence.py`、`experiments/alignment/phoneme-alignment-p0p1-20261031/`（scripts + reports + manifest）。
+提交到仓库：`src/agent2utau/alignment/`（lyrics、notes、observations、candidates、canonical、validator、baseline、pipeline）、`schemas/alignment_evidence_v1.schema.json`、`tests/unit/test_alignment_{lyrics,notes,mapping,canonical}.py`、`tests/contracts/test_alignment_evidence.py`、`experiments/alignment/phoneme-alignment-p0p1-20261031/`（scripts + reports + manifest）。
 
 复现命令：
 
@@ -127,7 +141,7 @@ python experiments/alignment/phoneme-alignment-p0p1-20261031/scripts/build_p0_sa
 
 ## 5. 下一轮最小任务（P2）
 
-1. 用户确认三首歌的锁定歌词文本（当前 `verification` 不是 user-confirmed）。
+1. 用户确认三首歌的**分句**是否采用公开歌词的发行版分行（当前采用录音分句）。
 2. 用本轮 baseline.ustx 真实调用声库 `export-phonemes`，建立 `phoneme_baseline.json`（P2 第 1 项）。
 3. 把 HFA 观测与原生预测做 A/B/C 分类，只对 B 类生成带 id 的局部候选。
 4. 任何写回前先在真实 Core 上核实 `phoneme_overrides` 的 offset/duration 语义（**不要凭 YAML 字段名猜**）。

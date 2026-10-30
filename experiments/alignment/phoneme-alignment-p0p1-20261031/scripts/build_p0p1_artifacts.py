@@ -36,6 +36,7 @@ from agent2utau.alignment import (  # noqa: E402
     match_observations,
     sha256_file,
 )
+from agent2utau.alignment.canonical import apply_canonical  # noqa: E402
 from agent2utau.alignment.candidates import build_evidence, map_syllables_to_notes  # noqa: E402
 from agent2utau.alignment.notes import build_notes_document  # noqa: E402
 from agent2utau.alignment.pipeline import run_alignment, write_json  # noqa: E402
@@ -46,6 +47,7 @@ from agent2utau.alignment.validator import (  # noqa: E402
 
 RUN_ID = "phoneme-alignment-p0p1-20261031"
 RUN_DIR = REPO_ROOT / "runs" / "production" / RUN_ID
+CANONICAL_DIR = RUN_DIR / "canonical_lyrics"
 
 SONGS = {
     "nianlun": {
@@ -204,14 +206,51 @@ def build_song(song_id: str, cfg: dict, environment: dict, created_at: str) -> d
     song_dir.mkdir(parents=True, exist_ok=True)
     lines, line_meta = load_song_lines(song_id, cfg)
 
+    # The published lyric is the authority for the characters; the recording
+    # keeps its own phrasing and repetitions.
+    canonical_provenance = None
+    canonical_report = None
+    canonical_path = CANONICAL_DIR / f"{song_id}.json"
+    if canonical_path.is_file():
+        canonical_doc = json.loads(canonical_path.read_text(encoding="utf-8"))
+        lines, canonical_report = apply_canonical(lines, canonical_doc["lines"])
+        canonical_provenance = {
+            "path": str(canonical_path),
+            "sha256": sha256_file(canonical_path),
+            "primary_source": canonical_doc.get("primary_source"),
+            "cross_check_sources": canonical_doc.get("cross_check_sources"),
+            "retrieved_at": canonical_doc.get("retrieved_at"),
+            "performer": canonical_doc.get("performer"),
+            "credit": canonical_doc.get("credit"),
+            "line_count": len(canonical_doc["lines"]),
+            "character_count": sum(len(line) for line in canonical_doc["lines"]),
+        }
+        write_json(song_dir / "lyrics_canonical_diff.json", canonical_report.as_dict())
+
+    verification = cfg["verification"]
+    verification_note = cfg["verification_note"]
+    if canonical_provenance:
+        verification = "public-canonical-lyrics"
+        verification_note = (
+            "公开权威歌词为正文字符来源（多源交叉一致）；录音自身的分句与重复以录音为准。"
+            f"原始来源 {cfg['lyrics_source']} 仅提供录音分句与 ASR 粗时间提示。"
+        )
+
     locked_doc = build_locked_lyrics_document(
         song_id, lines,
-        verification=cfg["verification"],
+        verification=verification,
         source=cfg["lyrics_source"],
         extra={
-            "verification_note": cfg["verification_note"],
+            "verification_note": verification_note,
             "source_sha256": sha256_file(REPO_ROOT / cfg["lyrics_source"]),
             "line_meta": line_meta,
+            "canonical_lyrics": canonical_provenance,
+            "canonical_diff": None if canonical_report is None else {
+                "aligned_equal": canonical_report.aligned_equal,
+                "substitutions": len(canonical_report.substitutions),
+                "recording_only": len(canonical_report.recording_only),
+                "canonical_only": len(canonical_report.canonical_only),
+            },
         })
     lyrics_path = song_dir / "lyrics_locked.json"
     write_json(lyrics_path, locked_doc)
@@ -273,8 +312,9 @@ def build_song(song_id: str, cfg: dict, environment: dict, created_at: str) -> d
                 "path": str(lyrics_path.relative_to(REPO_ROOT)),
                 "sha256": sha256_file(lyrics_path),
                 "role": "locked lyrics",
-                "verification": cfg["verification"],
-                "verification_note": cfg["verification_note"],
+                "verification": verification,
+                "verification_note": verification_note,
+                "canonical_lyrics": canonical_provenance,
             },
             "game": {
                 "path": cfg["game"],

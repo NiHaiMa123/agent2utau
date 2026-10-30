@@ -14,11 +14,12 @@
   "scope": "plan.md P0 + P1（锁定身份与确定性字—音符映射）；不含 P2 音素基线、patch 写回与跨模型评测",
   "original_run_path": "runs/production/phoneme-alignment-p0p1-20261031",
   "output_artifacts": [
-    { "path": "src/agent2utau/alignment/", "kind": "py", "local_only": false, "role": "锁定歌词、GAME 归一化、观测匹配、确定性映射、baseline、硬约束校验" },
+    { "path": "src/agent2utau/alignment/", "kind": "py", "local_only": false, "role": "锁定歌词、GAME 归一化、观测匹配、公开歌词校正、确定性映射、baseline、硬约束校验" },
     { "path": "schemas/alignment_evidence_v1.schema.json", "kind": "json", "local_only": false, "role": "P0/P1 证据契约" },
     { "path": "tests/unit/test_alignment_lyrics.py", "kind": "py", "local_only": false, "role": "歌词与 syllable id 单测" },
     { "path": "tests/unit/test_alignment_notes.py", "kind": "py", "local_only": false, "role": "GAME 归一化与时钟异常单测" },
     { "path": "tests/unit/test_alignment_mapping.py", "kind": "py", "local_only": false, "role": "映射单调性、unresolved、候选与硬约束单测" },
+    { "path": "tests/unit/test_alignment_canonical.py", "kind": "py", "local_only": false, "role": "公开歌词与录音分句对齐单测" },
     { "path": "tests/contracts/test_alignment_evidence.py", "kind": "py", "local_only": false, "role": "mapping.v1 对 schema 的契约测试" },
     { "path": "experiments/alignment/phoneme-alignment-p0p1-20261031/scripts/build_p0p1_artifacts.py", "kind": "py", "local_only": false, "role": "三首歌 P0/P1 产物生成脚本" },
     { "path": "experiments/alignment/phoneme-alignment-p0p1-20261031/scripts/build_p0_samples.py", "kind": "py", "local_only": false, "role": "P0 小样本选择与切分脚本" },
@@ -28,6 +29,8 @@
     { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/mapping.v1.json", "kind": "json", "local_only": true, "role": "确定性映射与窗口候选" },
     { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/anomalies.json", "kind": "json", "local_only": true, "role": "异常清单" },
     { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/observations_manifest.json", "kind": "json", "local_only": true, "role": "输入 SHA、时钟原点、模型 hash" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/lyrics_canonical_diff.json", "kind": "json", "local_only": true, "role": "公开权威歌词与录音分句的逐字差异" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/canonical_lyrics/<song>.json", "kind": "json", "local_only": true, "role": "公开权威歌词正文与出处（版权原因不入 Git，只留 URL、检索时间与哈希）" },
     { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/baseline.ustx", "kind": "ustx", "local_only": true, "role": "baseline 工程（无人工 PITD）" },
     { "path": "runs/production/phoneme-alignment-p0p1-20261031/samples/index.json", "kind": "json", "local_only": true, "role": "22 个小样本索引，覆盖 8 类场景" },
     { "path": "runs/production/phoneme-alignment-p0p1-20261031/command-inventory/", "kind": "wav", "local_only": true, "role": "真实命令实测留档（export-phonemes/roundtrip/render/observe-source）" }
@@ -41,15 +44,21 @@
     "patch_writeback": "not attempted (belongs to P2)"
   },
   "coverage": {
-    "nianlun": { "syllables": 349, "mapped": 345, "unresolved": 4, "notes_assigned": "391/400", "windows": 15, "candidates": 71 },
-    "lastpage": { "syllables": 318, "mapped": 318, "unresolved": 0, "notes_assigned": "368/368", "windows": 6, "candidates": 46 },
-    "yuai": { "syllables": 371, "mapped": 366, "unresolved": 5, "notes_assigned": "413/425", "windows": 7, "candidates": 6 }
+    "nianlun": { "syllables": 349, "mapped": 345, "unresolved": 4, "notes_assigned": "391/400", "windows": 15, "candidates": 71, "lyrics_source": "public-canonical-lyrics", "lyrics_corrections": 2 },
+    "lastpage": { "syllables": 318, "mapped": 318, "unresolved": 0, "notes_assigned": "368/368", "windows": 6, "candidates": 46, "lyrics_source": "public-canonical-lyrics", "lyrics_corrections": 0 },
+    "yuai": { "syllables": 371, "mapped": 366, "unresolved": 5, "notes_assigned": "413/425", "windows": 7, "candidates": 6, "lyrics_source": "public-canonical-lyrics", "lyrics_corrections": 0 }
+  },
+  "lyrics_sources": {
+    "nianlun": "https://baike.baidu.com/item/%E5%B9%B4%E8%BD%AE/17740222 (cross-checked with 搜狗百科)",
+    "lastpage": "https://baike.baidu.com/item/%E6%9C%80%E5%90%8E%E4%B8%80%E9%A1%B5 (cross-checked with Musixmatch, 爱曲谱)",
+    "yuai": "https://www.baike.com/wikiid/5142274443710227692 (cross-checked with 搜狗百科, 中文百科)",
+    "note": "歌词正文只存本机 run 目录（版权），仓库仅记录 URL、检索时间、文本 SHA 与差异计数"
   },
   "status": "candidate",
   "listening_status": "unknown",
   "musical_quality": "unverified",
   "open_questions": [
-    "三首歌的锁定歌词都未经用户逐字确认（verification 非 user-confirmed），需要用户拍板",
+    "公开歌词按发行版分行、录音按演唱分行（年轮公开 49 行 / 录音 51 句），本轮以录音分句为准，待用户确认",
     "年轮 4 个、雨爱 5 个字因 GAME 快唱段过切分判为 unresolved",
     "最后一页 1 个延音音符因 160 ms 间隙无法成链，baseline 已丢弃并登记",
     "GAME 音符事件在同一输入下不可复现（469 vs 467），后续必须按 SHA 固定复用音符文件"
