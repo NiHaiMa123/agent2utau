@@ -33,8 +33,8 @@
 ote_id）、确定性字—音符映射（mapping.v1.json）与 baseline 工程
 属于跨歌曲流程实验，记录在 [experiments/alignment/phoneme-alignment-p0p1-20261031/](../../../experiments/alignment/phoneme-alignment-p0p1-20261031/)，
 本机产物在 
-uns/production/phoneme-alignment-p0p1-20261031/nianlun/。歌词未经用户逐字确认（verification 非 user-confirmed），
-未做音素写回（属 P2），听感未验证。
+uns/production/phoneme-alignment-p0p1-20261031/nianlun/。歌词正文已改用公开权威歌词（多源交叉一致）并逐字校正录音（年轮 2 字），
+分句仍以录音为准；未做音素写回（属 P2），听感未验证。
 
 ## 交付索引
 
