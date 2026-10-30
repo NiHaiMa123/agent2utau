@@ -7,7 +7,7 @@
     "started_date": "2026-10-13",
     "completed_date": "2026-10-14",
     "acceptance_authorization": {
-      "path": "docs/reports/lastpage/own-J-acceptance-and-whole-song-authorization-20261013.json",
+      "path": "songs/lastpage/sessions/20261013__unknown-model__lastpage-own-li-entry-pitch-20261013/reports/own-J-acceptance-and-whole-song-authorization-20261013.json",
       "sha256": "27617ce5d4c5f46e983212d42fb4b353e5c8b28af157f17f9d20ade1925fbf0f"
     },
     "table1_refs": [

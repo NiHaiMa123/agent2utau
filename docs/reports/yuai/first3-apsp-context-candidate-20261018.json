@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-FIRST3-APSP-CONTEXT-CANDIDATE-20261018",
   "record_type": "same_project_first3_own_timed_APSP_native_context_candidate",
   "report": {
-    "path": "docs/reports/yuai/first3-apsp-context-candidate-20261018.md",
+    "path": "songs/yuai/sessions/20261018__unknown-model__yuai-first3-apsp-context-20261018/reports/first3-apsp-context-candidate-20261018.md",
     "sha256": "1f4b6f38a16e46bca3d27484234141aec3b284f0a1da5b3176b0b55c3fc3ecb0"
   },
   "user_request": "修改项目，看下我们的前三句修改的效果",

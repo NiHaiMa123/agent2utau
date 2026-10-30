@@ -1,0 +1,57 @@
+{
+  "status": "passed_with_perceptual_scale_and_transfer_gaps",
+  "feedback_submissions": 1,
+  "new_relations": 2,
+  "reviewed_relationships": 5,
+  "new_word_labels": 0,
+  "new_models": 0,
+  "new_waveforms": 0,
+  "new_PCM_NPZ_reads": 0,
+  "source_bindings": [
+    {
+      "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-pitch-ablation-20261011/reports/author-pitch-feedback-20261011.json",
+      "sha256": "f93be06fc57ff20b9fb1784f1133c4170a56dedc8392fdf1834406250c28493f"
+    },
+    {
+      "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-voice-swap-20261011/reports/author-voice-feedback-20261011.json",
+      "sha256": "c8a7839ecb61872631685ebe0851043c74b444be1ce253fd30da31470f45fd19"
+    },
+    {
+      "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-controls-feedback-20261012.json",
+      "sha256": "253088e263f580b599ad72b0998c9531081c083ee7fe810295294bc9ad80caae"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/evaluation/native-independent-check.json",
+      "sha256": "9e9045ecb6401cb4f7bdfd7a1b0123dcb26af614aebd0257512d8528fb7295f3"
+    },
+    {
+      "path": "runs/experiments/lastpage-author-interaction-20261012/evaluation/fresh-independent-check.json",
+      "sha256": "e2d8bfedb1078c208b204556814177c2639716267bb8b1dc725369f5f16da9eb"
+    },
+    {
+      "path": "runs/research/lastpage-author-controls-feedback-20261012/evaluation/music-timing-review.json",
+      "sha256": "6ed2761802d906fff0f5f0cf4ea0319c9a96f363865132650c47cbf6195a1e4a"
+    },
+    {
+      "path": "runs/production/lastpage-accepted-baseline-20261011/delivery/lastpage_accepted_C_baseline.ustx",
+      "sha256": "45d2b34e8086ad5f12f4c701d91672b3cc12eadffda2ab9d9e405dfb2fb71816"
+    },
+    {
+      "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-li-kan-author-reference-20261011/reports/li-kan-author-reference-20261011.json",
+      "sha256": "04efe1047165e73226a6249815c70545929e426e31a48780d528ec32c888bf19"
+    }
+  ],
+  "next_protocol": {
+    "path": "runs/research/lastpage-author-interaction-feedback-20261012/design/next-own-voice-protocol.json",
+    "sha256": "c9813bc05a9b97793412283fbec312e23018e1e10f47e00d788b7fc62b254cc1"
+  },
+  "source": {
+    "path": "research/table2-confirmation/close_lastpage_author_interaction_20261012.py",
+    "sha256": "1ebcdffbde5fee780fde625d51bf82b3b114a3a5907291a2babc045579d6538b"
+  },
+  "CSV_JSON_exact": true,
+  "protected_references": 1677,
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 650}",
+  "agent_heard": false,
+  "measurement_validated": false
+}

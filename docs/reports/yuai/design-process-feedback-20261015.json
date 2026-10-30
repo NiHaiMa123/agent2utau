@@ -2,11 +2,11 @@
   "record_id": "RESP:YUAI-DESIGN-PROCESS-FEEDBACK-20261015",
   "record_type": "user_negative_feedback_and_readonly_process_audit",
   "parent_record": {
-    "path": "docs/reports/yuai/from-source-production-record-20261015.json",
+    "path": "songs/yuai/sessions/20261014__unknown-model__yuai-from-source-20261014/reports/from-source-production-record-20261015.json",
     "sha256": "206ff2a8284e483d8e13538fd1956d2030e86fc2241a30ad34e4d447662f1bbb"
   },
   "report": {
-    "path": "docs/reports/yuai/design-process-rejection-20261015.md",
+    "path": "songs/yuai/sessions/20261015__unknown-model__yuai-process-feedback-20261015/reports/design-process-rejection-20261015.md",
     "sha256": "579e8e07041581209acf96bd6728d8865e2df2a3304866e9757b632b341e6621"
   },
   "feedback_source": {

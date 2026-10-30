@@ -1,6 +1,6 @@
 # 最后一页实现记录 · 2026-10-07
 
-这里保留六份`lastpage_fresh_*_20261007.py`和`lastpage_loudness_skill_v02_20261007.py`。它们从原`tools/`目录搬来，**脚本内容与SHA保持不变**；移动关系见[目录迁移记录](../../../docs/reports/maintenance/directory-reorganization-20261009.json)。
+这里保留六份`lastpage_fresh_*_20261007.py`和`lastpage_loudness_skill_v02_20261007.py`。它们从原`tools/`目录搬来，**脚本内容与SHA保持不变**；移动关系见[目录迁移记录](../../../experiments/misc/reports/directory-reorganization-20261009.json)。
 
 文件包含固定歌曲、当时的函数参数、绝对路径、旧run/工具路径及执行检查，是历史实现证据，不是可直接运行的生产入口。本次没有修写其中旧路径、导入或参数，也没有重跑。这些旧路径应按迁移清单定位原字节进行研究核对，不能用清单自动改变新曲输入或重放历史方案。
 

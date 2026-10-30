@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-FIRST4-FULL-PARAMETER-AUDIT-20261018",
   "record_type": "read_only_full_parameter_current_reference_original_audit_with_corrections",
   "report": {
-    "path": "docs/reports/yuai/first4-full-parameter-audit-20261018.md",
+    "path": "songs/yuai/sessions/20261018__unknown-model__yuai-first4-full-parameter-audit-20261018/reports/first4-full-parameter-audit-20261018.md",
     "sha256": "8cec1b0b7086dbcc2a5893b518e78ac6807dde957e155299e71a4607d26874a5"
   },
   "feedback_id": "AUD:YUAI-S03-P-STILL-PROBLEM-FULL-AUDIT-20261018",

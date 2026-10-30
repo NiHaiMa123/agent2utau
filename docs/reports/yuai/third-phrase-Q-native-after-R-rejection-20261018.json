@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-S03-Q-NATIVE-AFTER-R-REJECTION-20261018",
   "record_type": "previously_frozen_Q_native_candidate_after_rejected_R_proximity_state",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-Q-native-after-R-rejection-20261018.md",
+    "path": "songs/yuai/sessions/20261018__unknown-model__yuai-s03-Q-writeback-after-R-rejection-20261018/reports/third-phrase-Q-native-after-R-rejection-20261018.md",
     "sha256": "3b702ec2e3eee61cbfd08f592a0f479629b3a88cf6abbc4219238fb138b2b5fe"
   },
   "feedback_id": "AUD:YUAI-S03-R-REJECTED-PROXIMITY-STATE-20261018",

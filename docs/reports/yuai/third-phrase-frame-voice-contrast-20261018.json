@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-S03-FRAME-VOICE-R-20261018",
   "record_type": "routing_selection_correction_and_single_composite_frame_voice_condition",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-frame-voice-contrast-20261018.md",
+    "path": "songs/yuai/sessions/20261018__unknown-model__yuai-s03-frame-voice-contrast-20261018/reports/third-phrase-frame-voice-contrast-20261018.md",
     "sha256": "11ff170c4e64ec4f941ffb1f9ec7e7c84fb255e7cc2a43d1c7b6295b5bba8cd1"
   },
   "routing": {

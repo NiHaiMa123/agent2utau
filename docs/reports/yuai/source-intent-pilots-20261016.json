@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-SOURCE-INTENT-G-RELATIVE-20261016",
   "record_type": "current_song_relative_preference_and_process_correction",
   "report": {
-    "path": "docs/reports/yuai/source-intent-pilots-20261016.md",
+    "path": "songs/yuai/sessions/20261015__unknown-model__yuai-intent-source-only-20261015/reports/source-intent-pilots-20261016.md",
     "sha256": "58952691ed01c1c7ff1caae5c4547ce15f21a4dda034b7b54e09f98f7746c583"
   },
   "feedback": {

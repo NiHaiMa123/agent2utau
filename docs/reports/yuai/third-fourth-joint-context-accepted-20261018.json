@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-S03S04-JOINT-CONTEXT-LOCAL-ACCEPTED-20261018",
   "record_type": "local_combination_delivery_acceptance",
   "report": {
-    "path": "docs/reports/yuai/third-fourth-joint-context-accepted-20261018.md",
+    "path": "songs/yuai/reports/legacy/third-fourth-joint-context-accepted-20261018.md",
     "sha256": "8774eb80b89de325a0e64f9316ce6c3a8b9fdab3cb2177a07f084d30b1a72a0e"
   },
   "user_feedback": "可以了，然后看下需不需要返回去修改skill",

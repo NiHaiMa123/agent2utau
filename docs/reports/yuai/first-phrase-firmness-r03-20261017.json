@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-FIRST-PHRASE-VOIC-CANDIDATE-R03-20261017",
   "record_type": "scoped_candidate_and_provenance_not_perceptual_acceptance",
   "report": {
-    "path": "docs/reports/yuai/first-phrase-firmness-r03-20261017.md",
+    "path": "songs/yuai/sessions/20261017__unknown-model__yuai-first-phrase-firmness-r03-20261017/reports/first-phrase-firmness-r03-20261017.md",
     "sha256": "6c1ade5bea92dfc66c799af0c3443e637414df4809d7a0b7589e41a5108be62a"
   },
   "validation": {

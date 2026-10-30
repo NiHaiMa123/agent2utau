@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-S03-P-STILL-PROBLEM-FULL-AUDIT-20261018",
   "record_type": "residual_problem_and_full_parameter_reference_audit_request",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-P-still-problem-full-audit-request-20261018.md",
+    "path": "songs/yuai/reports/legacy/third-phrase-P-still-problem-full-audit-request-20261018.md",
     "sha256": "88bbf325d59d689a3022f1fcc96eb39f1bd08e0e7e47cde41696d5a486a5044f"
   },
   "feedback": "还是有问题，再全面解析下各参数，以及白烁的这几句",

@@ -43,3 +43,11 @@ data/
 *.ustx
 # Author originals are byte-preserved evidence: keep them tracked (see docs/guides/repository-layout.md).
 !research/baishuo/projects/*.ustx
+# 2026-10-30 分类整理：新 session 的原始 run 数据、benchmark 的本地原始结果、实验大输出不入库；
+# scripts/reports/feedback/manifest 仍可跟踪（见 PROJECT_REORGANIZATION_PLAN_20261030.md）。
+songs/*/sessions/*/workspace/
+songs/*/releases/*.wav
+benchmarks/**/local/
+experiments/**/workspace/
+experiments/**/outputs/
+migration/**/*.tmp

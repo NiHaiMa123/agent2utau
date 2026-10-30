@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-S03-CROSS-PHRASE-DISCONTINUITY-20261017",
   "record_type": "user_feedback",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-continuity-feedback-20261017.md",
+    "path": "songs/yuai/reports/legacy/third-phrase-continuity-feedback-20261017.md",
     "sha256": "15068df13ac0dcb12d013493eb2d6e04f168528e4ce3394a84582f018f6b9525"
   },
   "feedback": "第一句和第二句基本是一致的，但是第三句就区别很大，像是一个人在不同歌曲上唱出来的，突然很贴耳，虚实也和前两句不一致",

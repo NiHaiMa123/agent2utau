@@ -8,9 +8,9 @@
 
 同一句“下雨了，雨陪我哭泣”，中间停0.8秒。C直接保留上轮已听PCM；新D用一个固定整句衰减匹配C整体RMS，没有逐字压平强弱、EQ、压缩或BGM。RMS相同不保证感知响度完全相同。
 
-![先C后D](E:/project/agent2utau/runs/research/phonation-sentence-brec-isolation-20261017/C-then-D.wav)
+![先C后D](../../../runs/research/phonation-sentence-brec-isolation-20261017/C-then-D.wav)
 
-[反向D后C](E:/project/agent2utau/runs/research/phonation-sentence-brec-isolation-20261017/D-then-C.wav) · [D单独](E:/project/agent2utau/runs/research/phonation-sentence-brec-isolation-20261017/D-RMSmatched.wav)。先分别判断D的“压低声音唱”感觉是否变化，以及C/D的相对虚实；不要求同时作最佳版本或整句接受判断。
+[反向D后C](../../../runs/research/phonation-sentence-brec-isolation-20261017/D-then-C.wav) · [D单独](../../../runs/research/phonation-sentence-brec-isolation-20261017/D-RMSmatched.wav)。先分别判断D的“压低声音唱”感觉是否变化，以及C/D的相对虚实；不要求同时作最佳版本或整句接受判断。
 
 ## 实际核验
 

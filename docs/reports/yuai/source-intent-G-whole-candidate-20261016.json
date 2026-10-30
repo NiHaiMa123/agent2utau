@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-G-WHOLE-CANDIDATE-20261016",
   "record_type": "current_source_only_whole_candidate_technical_record",
   "report": {
-    "path": "docs/reports/yuai/source-intent-G-whole-candidate-20261016.md",
+    "path": "songs/yuai/sessions/20261015__unknown-model__yuai-intent-source-only-20261015/reports/source-intent-G-whole-candidate-20261016.md",
     "sha256": "bb2a71c45ead754bd4ff81d0c8d1f5121f1711c78bce7f480896108f65febdb8"
   },
   "delivery": {

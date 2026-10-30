@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-S03-CONTEXT-ENCODER-DIAGNOSTIC-20261018",
   "record_type": "actual_current_model_context_structure_and_deterministic_linguistic_diagnostic",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-context-mechanism-20261018.md",
+    "path": "songs/yuai/sessions/20261018__unknown-model__yuai-s03-context-mechanism-20261018/reports/third-phrase-context-mechanism-20261018.md",
     "sha256": "a10aa47424f56ca372cd1660688a98b53ede78f9cae2c2b56f8f35ce6ab1e35e"
   },
   "feedback_id": "AUD:YUAI-S03-Q-REJECTED-CONTEXT-QUESTION-20261018",

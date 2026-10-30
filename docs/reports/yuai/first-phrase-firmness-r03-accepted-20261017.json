@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-FIRST-PHRASE-R03-ACCEPTED-20261017",
   "record_type": "scoped_user_acceptance",
   "report": {
-    "path": "docs/reports/yuai/first-phrase-firmness-r03-accepted-20261017.md",
+    "path": "experiments/misc/reports/first-phrase-firmness-r03-accepted-20261017.md",
     "sha256": "3fd7d0164f9fac9c15b46033718dc19cce239b7be29476ccc1e6884359570a2c"
   },
   "accepted_candidate_record": "RESP:YUAI-FIRST-PHRASE-VOIC-CANDIDATE-R03-20261017",

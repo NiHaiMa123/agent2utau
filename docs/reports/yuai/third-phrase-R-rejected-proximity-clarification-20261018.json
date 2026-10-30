@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-S03-R-REJECTED-PROXIMITY-STATE-20261018",
   "record_type": "native_R_rejection_with_proximity_and_cross_phrase_state_clarification",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-R-rejected-proximity-clarification-20261018.md",
+    "path": "songs/yuai/reports/legacy/third-phrase-R-rejected-proximity-clarification-20261018.md",
     "sha256": "17164f3596418e5583b47277f7ebdaa0eb5e48ae5a8f97a4b6211f51b191ccf5"
   },
   "feedback_events": [

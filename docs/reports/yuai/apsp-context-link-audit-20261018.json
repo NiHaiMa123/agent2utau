@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-APSP-NATIVE-CONTEXT-LINK-20261018",
   "record_type": "first4_explicit_APSP_coverage_and_native_reference_label_ablation",
   "report": {
-    "path": "docs/reports/yuai/apsp-context-link-audit-20261018.md",
+    "path": "songs/yuai/sessions/20261018__unknown-model__yuai-apsp-context-link-20261018/reports/apsp-context-link-audit-20261018.md",
     "sha256": "3d7efb3d2e23e3a90014b2e4809634005326cb0c6c3df24fd2cc4fb084e318da"
   },
   "user_question": "我发现白烁的项目中间的空白基本都被ap和sp铺满，是不是这个原因",

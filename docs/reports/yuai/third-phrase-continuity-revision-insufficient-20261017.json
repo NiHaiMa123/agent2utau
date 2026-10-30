@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-S03-VOIC-REVISION-INSUFFICIENT-20261017",
   "record_type": "goal_not_reached_feedback",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-continuity-revision-insufficient-20261017.md",
+    "path": "songs/yuai/reports/legacy/third-phrase-continuity-revision-insufficient-20261017.md",
     "sha256": "0fe9b57d689f46e4f7a3b619c4a6244b24f4b198c73b2467bfac0bd4db923992"
   },
   "feedback": "还是不够",

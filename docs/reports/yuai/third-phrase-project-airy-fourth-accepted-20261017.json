@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-S03-CURRENT-PROJECT-AIRY-S04-OK-20261017",
   "record_type": "explicit_playback_identity_and_scoped_feedback",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-project-airy-fourth-accepted-20261017.md",
+    "path": "songs/yuai/reports/legacy/third-phrase-project-airy-fourth-accepted-20261017.md",
     "sha256": "2f8ad746faf694eadc8251262e835fa347d08be6b235f43d7826c1cda364ab1f"
   },
   "feedback": [

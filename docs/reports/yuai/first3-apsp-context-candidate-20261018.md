@@ -29,7 +29,7 @@
 
 只在两个新上下文的支撑内按新before-PITD重编码PITD，1tick存储/整数音分量化。新原生实际网格与目标最大误差约0.499374/0.499920音分；第四句及后续17段完整pitch数组精确保持，116个范围外原音符的phone几何精确。原138音符的所有字段，包括主音、note.pitch、vibrato、发音提示/overrides与声线属性均精确，曲线重编码和新标签以外的字段保持。
 
-![前三句实际原生音高与AP/SP](E:/project/agent2utau/runs/production/yuai-first3-apsp-context-20261018/first3-native-pitch-and-labels-v2.png)
+![前三句实际原生音高与AP/SP](../../../../../runs/production/yuai-first3-apsp-context-20261018/first3-native-pitch-and-labels-v2.png)
 
 该全图已实际打开：新唱音线与旧目标重叠，新增载频只连接非唱空隙，原“你”之前的大幅准备仍属于原目标。首图范围截掉原极值，v2仅扩大显示范围后实际复看，源数据/工程未因图审改变。旧严格音乐流程缺口不升级，不把这次目标保持当成新音乐设计/逐字重新接受。
 
@@ -47,6 +47,6 @@
 
 候选已经写入用户指定同一文件，OpenUtau需重新加载该文件读取磁盘更新；我们主唱开启，参考主唱/和声静音，参考载荷和其他轨道原字节保持。供用户在该工程中查看前三句；不另发新发布工程代替当前文件。第四句已有局部接受及内容保持，不扩大至本轮前三句。
 
-备份、SHA知识接入、前置意图、自己时钟标签计划、初始/最终原生导出、音高编译/读回、phone变化、模型实际输入、音频/双F0、实际图审与原位收据在`runs/production/yuai-first3-apsp-context-20261018`。[新前三句原生音频](E:/project/agent2utau/runs/production/yuai-first3-apsp-context-20261018/first3-project.wav)为核查材料，当前USTX本身包含相同音乐/控制条件。
+备份、SHA知识接入、前置意图、自己时钟标签计划、初始/最终原生导出、音高编译/读回、phone变化、模型实际输入、音频/双F0、实际图审与原位收据在`runs/production/yuai-first3-apsp-context-20261018`。[新前三句原生音频](../../../../../runs/production/yuai-first3-apsp-context-20261018/first3-project.wav)为核查材料，当前USTX本身包含相同音乐/控制条件。
 
 Skill40及安装一致，作者原件与旧Q产物SHA保持，单Agent、自动CI未运行，第五句/s15以后未启动。下一步接本工程前三句状态、贴耳感与气口反馈；不自动继续加标签、改剂量或恢复后续制作。

@@ -54,7 +54,7 @@
       "measurement_validated": false
     },
     "prior_report": {
-      "path": "docs/reports/lastpage/author-control-neutral-20261011.json",
+      "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-control-neutral-20261011.json",
       "sha256": "a481ed9395c3c5098ab15065d4e67b42bd9a0562d038f0ec94faea25dff8f5db"
     },
     "table1_refs": [

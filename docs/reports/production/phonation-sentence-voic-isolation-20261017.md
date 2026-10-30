@@ -8,9 +8,9 @@
 
 仍是“下雨了，雨陪我哭泣”，停顿0.8秒。C直接沿用上轮PCM；F新成声，以一次固定整句衰减匹配C整体RMS，保留逐字强弱。没有EQ、压缩、逐字归一或BGM，RMS相同不保证感知响度完全相同。
 
-![先C后F](E:/project/agent2utau/runs/research/phonation-sentence-voic-isolation-20261017/C-then-F.wav)
+![先C后F](../../../runs/research/phonation-sentence-voic-isolation-20261017/C-then-F.wav)
 
-[反向F后C](E:/project/agent2utau/runs/research/phonation-sentence-voic-isolation-20261017/F-then-C.wav) · [F单独](E:/project/agent2utau/runs/research/phonation-sentence-voic-isolation-20261017/F-RMSmatched.wav)。分别描述F的虚实和“压低声音唱”感觉；不预设撤回VOIC会改善、F可用或存在唯一病因。
+[反向F后C](../../../runs/research/phonation-sentence-voic-isolation-20261017/F-then-C.wav) · [F单独](../../../runs/research/phonation-sentence-voic-isolation-20261017/F-RMSmatched.wav)。分别描述F的虚实和“压低声音唱”感觉；不预设撤回VOIC会改善、F可用或存在唯一病因。
 
 ## 实际核验
 

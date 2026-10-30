@@ -1,6 +1,6 @@
 # R写入同一工程供OpenUtau查看
 
-用户“你都在项目里修改，我在opentuau里查看”，明确要求修订直接在同一工作工程落地。已将紧前[声线R](third-phrase-frame-voice-contrast-20261018.md)写回 `projects/latest/yuai_first14_single_track_baishuo_comparison.ustx`，新SHA `f1a78827d58f551c3f052d68d3efb4f202be8e2bff614b78a4ab2eb418ffd126`。这是查看候选的授权，不是R听感接受或虚实改善；[工作方式记录](same-project-review-workflow-request-20261018.md)已单独保存。
+用户“你都在项目里修改，我在opentuau里查看”，明确要求修订直接在同一工作工程落地。已将紧前[声线R](../../20261018__unknown-model__yuai-s03-frame-voice-contrast-20261018/reports/third-phrase-frame-voice-contrast-20261018.md)写回 `projects/latest/yuai_first14_single_track_baishuo_comparison.ustx`，新SHA `f1a78827d58f551c3f052d68d3efb4f202be8e2bff614b78a4ab2eb418ffd126`。这是查看候选的授权，不是R听感接受或虚实改善；[工作方式记录](../../../reports/legacy/same-project-review-workflow-request-20261018.md)已单独保存。
 
 仅第三句采用Bright41/Classic59帧声线曲线cl01/cl05；CLR/时长speaker保持Normal，音高线、263音素几何、138音符、模型分组、VOIC/BREC/TENC及参考轨载荷保持。我们主唱开启、参考主唱/和声静音的播放设置保持；前两句和已接受第四句实际输入、预测和PCM精确于R研究基底。曲线块外原字节保持。
 

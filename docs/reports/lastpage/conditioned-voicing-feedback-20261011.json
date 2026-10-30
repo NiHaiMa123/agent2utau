@@ -30,7 +30,7 @@
     "record_id": "RESP:LASTPAGE-CONDITIONED-VOIC-01",
     "append_only_feedback": true,
     "sealed_delivery_report": {
-      "path": "docs/reports/lastpage/conditioned-voicing-probe-20261011.json",
+      "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-conditioned-voicing-20261011/reports/conditioned-voicing-probe-20261011.json",
       "sha256": "7f4ed106d4a2aea46eda59f0a80bd69bf8aaca65b950eaaefcce38dc87498096"
     },
     "feedback": {

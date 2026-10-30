@@ -31,7 +31,7 @@
     "record_id": "RESP:LASTPAGE-VOICE-BASELINE-01",
     "append_only_feedback": true,
     "prior_report": {
-      "path": "docs/reports/lastpage/voice-baseline-probe-20261011.json",
+      "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-voice-baseline-20261011/reports/voice-baseline-probe-20261011.json",
       "sha256": "c0f6dc34ce0b468aadbc096fcc064d0c0f8adddc632ee9080e809d40a0215d1e"
     },
     "feedback": {

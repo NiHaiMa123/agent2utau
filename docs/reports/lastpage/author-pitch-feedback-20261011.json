@@ -47,7 +47,7 @@
     "Two seen author contexts and repeated waves are not independent holdout evidence or a universal tuning rule."
   ],
   "prior_frozen_report": {
-    "path": "docs/reports/lastpage/author-pitch-ablation-20261011.json",
+    "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-pitch-ablation-20261011/reports/author-pitch-ablation-20261011.json",
     "sha256": "dff1306571635e157703988026e5977a130b66dfeb2b392fd46cf622c53c19fc"
   },
   "perception": "PER:S1",

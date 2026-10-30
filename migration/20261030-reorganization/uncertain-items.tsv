@@ -1,0 +1,8 @@
+old_path	reason	risk	status
+scratch/check_phones_structure.py	正文/目录无法确证歌曲归属，按计划登记 uncertain 并保留原址	low	kept-in-place
+scratch/check_polyphones.py	正文/目录无法确证歌曲归属，按计划登记 uncertain 并保留原址	low	kept-in-place
+scratch/read_test_polyphones.py	正文/目录无法确证歌曲归属，按计划登记 uncertain 并保留原址	low	kept-in-place
+scratch/test_compile_phrase0.py	正文/目录无法确证歌曲归属，按计划登记 uncertain 并保留原址	low	kept-in-place
+scratch/test_compile_phrase0_full.py	正文/目录无法确证歌曲归属，按计划登记 uncertain 并保留原址	low	kept-in-place
+scratch/test_modified_phones.json	正文/目录无法确证歌曲归属，按计划登记 uncertain 并保留原址	low	kept-in-place
+scratch/test_polyphones.json	正文/目录无法确证歌曲归属，按计划登记 uncertain 并保留原址	low	kept-in-place

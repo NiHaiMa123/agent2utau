@@ -8,9 +8,9 @@
 
 每版约3.73秒，两处停顿0.8秒，合计约12.8秒。三版按整句RMS匹配，原始声音另存；每版只用一个固定衰减，不逐字归一、不EQ/压缩或加BGM。RMS匹配不保证感知响度完全相同。
 
-![G后H后I](E:/project/agent2utau/runs/research/phonation-second-context-20261017/G-H-I.wav)
+![G后H后I](../../../runs/research/phonation-second-context-20261017/G-H-I.wav)
 
-[单独比较G→H](E:/project/agent2utau/runs/research/phonation-second-context-20261017/G-then-H.wav) · [单独比较G→I](E:/project/agent2utau/runs/research/phonation-second-context-20261017/G-then-I.wav)。分别描述实感和“压低声音唱”感，不要求最佳版投票；无法区分也直接保留。
+[单独比较G→H](../../../runs/research/phonation-second-context-20261017/G-then-H.wav) · [单独比较G→I](../../../runs/research/phonation-second-context-20261017/G-then-I.wav)。分别描述实感和“压低声音唱”感，不要求最佳版投票；无法区分也直接保留。
 
 | 版本 | VOIC峰/平台 | BREC峰/平台 | 与G比较的唯一控制差异 |
 |---|---:|---:|---|

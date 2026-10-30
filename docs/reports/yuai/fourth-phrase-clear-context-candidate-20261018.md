@@ -28,6 +28,6 @@
 
 OpenUtau需重载同一个USTX后试听第四句；我们的主唱开启、参考主唱/和声仍静音，参考内容及自己notes/curves块外原字节保持。不另建发布文件替换用户工作流。
 
-本轮run `runs/production/yuai-s04-clear-context-20261018` 保存改前工程、知识/意图/上下文计划、两次原生成声、实际输入、图审、双F0、失败及差异记录和原位收据。[新第四句核查音频](E:/project/agent2utau/runs/production/yuai-s04-clear-context-20261018/fourth-project.wav)与[新前四句连续核查](E:/project/agent2utau/runs/production/yuai-s04-clear-context-20261018/first4-project.wav)均原增益、无BGM。当前是可查看的新候选，不能宣布暗度已修好或重新获得接受。
+本轮run `runs/production/yuai-s04-clear-context-20261018` 保存改前工程、知识/意图/上下文计划、两次原生成声、实际输入、图审、双F0、失败及差异记录和原位收据。[新第四句核查音频](../../../../../runs/production/yuai-s04-clear-context-20261018/fourth-project.wav)与[新前四句连续核查](../../../../../runs/production/yuai-s04-clear-context-20261018/first4-project.wav)均原增益、无BGM。当前是可查看的新候选，不能宣布暗度已修好或重新获得接受。
 
 Skill40文件及安装保持，旧制作/试听/收据SHA保持，单Agent，自动CI未运行。下一步只接第四句清亮/压低感和虚实反馈，不自动加档、套整曲或继续第五句。

@@ -50,7 +50,7 @@
       "finding": "all four author variants more solid than own",
       "magnitude": "no inter-version ranking",
       "source": {
-        "path": "docs/reports/lastpage/author-pitch-feedback-20261011.json",
+        "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-pitch-ablation-20261011/reports/author-pitch-feedback-20261011.json",
         "sha256": "f93be06fc57ff20b9fb1784f1133c4170a56dedc8392fdf1834406250c28493f"
       }
     },
@@ -60,7 +60,7 @@
       "finding": "B worse than A; B slightly better than own by contextual referent",
       "magnitude": "not numerically graded",
       "source": {
-        "path": "docs/reports/lastpage/author-voice-feedback-20261011.json",
+        "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-voice-swap-20261011/reports/author-voice-feedback-20261011.json",
         "sha256": "c8a7839ecb61872631685ebe0851043c74b444be1ce253fd30da31470f45fd19"
       }
     },
@@ -70,7 +70,7 @@
       "finding": "C very close to A",
       "magnitude": "close, not identical or graded interval",
       "source": {
-        "path": "docs/reports/lastpage/author-controls-feedback-20261012.json",
+        "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-controls-feedback-20261012.json",
         "sha256": "253088e263f580b599ad72b0998c9531081c083ee7fe810295294bc9ad80caae"
       }
     },
@@ -152,7 +152,7 @@
       "measurement_validated": false
     },
     "prior_report": {
-      "path": "docs/reports/lastpage/author-interaction-20261012.json",
+      "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-author-interaction-20261012/reports/author-interaction-20261012.json",
       "sha256": "276a14ec50e742b7c030422449bbc8abeb8eda8346d9c17bd854c408a9e5fbb2"
     },
     "table1_refs": [

@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-S03-BREC-SURFACE-CANDIDATE-20261017",
   "record_type": "single_channel_current_phrase_candidate_pending_listening",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-breath-surface-candidate-20261017.md",
+    "path": "songs/yuai/sessions/20261017__unknown-model__yuai-s03-breath-surface-20261017/reports/third-phrase-breath-surface-candidate-20261017.md",
     "sha256": "8c3c66b613d9fb21e59f8247cf25c82e347b51b6b16d1dfe6600f31bfff7a1c4"
   },
   "validation": {

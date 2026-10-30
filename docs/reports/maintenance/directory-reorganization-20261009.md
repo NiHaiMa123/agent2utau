@@ -1,6 +1,6 @@
 # 目录整理与验证 · 2026-10-09
 
-此次只调整代码/测试/研究记录/知识文档的存放和维护引用，不生成音频或推进表1/表2确认。当前目录规则见[规范](../../guides/repository-layout.md)，项目入口见[README](../../../README.md)。
+此次只调整代码/测试/研究记录/知识文档的存放和维护引用，不生成音频或推进表1/表2确认。当前目录规则见[规范](../../../../docs/guides/repository-layout.md)，项目入口见[README](../../../../README.md)。
 
 ## 已完成的移动
 
@@ -13,7 +13,7 @@
 | tools中七份最后一页实现脚本 | research/implementation-records/lastpage-20261007/ | 原字节/SHA保持，不重跑、不修写历史路径 |
 | docs/acoustic-manifestations-20261009/的12份资料 | docs/knowledge/acoustic-manifestations-20261009/ | CSV/结构化知识与来源审计字节保持；README相对链接及资料包位置审计更新 |
 
-所有移动先检查源/目标绝对路径均在工作区、目标不存在，再用同一PowerShell执行。逐文件移动关系、前后SHA与保护核查见[迁移清单](directory-reorganization-20261009.json)。旧历史manifest原文不动，涉及搬迁脚本的核对须显式采用清单查找对应字节；它不授权重放脚本或自动修改新曲输入。
+所有移动先检查源/目标绝对路径均在工作区、目标不存在，再用同一PowerShell执行。逐文件移动关系、前后SHA与保护核查见[迁移清单](../../../../experiments/misc/reports/directory-reorganization-20261009.json)。旧历史manifest原文不动，涉及搬迁脚本的核对须显式采用清单查找对应字节；它不授权重放脚本或自动修改新曲输入。
 
 ## 未移动的固定资源
 

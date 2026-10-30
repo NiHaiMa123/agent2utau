@@ -34,7 +34,7 @@ def prepare():
         files=rows,audio_info=info,game_events=len(notes),game_producer_model_binding='unknown in bare raw-event file; reused as explicitly authorized source observation',
         reused_only_source_audio_separation_GAME=True,old_score_expression_voice_predictions_audio_ASR_HFA_F0_read=False,
         author_data_read=False,source_clock_and_original_key_retained=True,single_agent=True,automatic_CI=False))
-    catalogue=ROOT/'docs/reports/yuai/from-source-20261014-knowledge-scope.json'
+    catalogue=ROOT/'songs/yuai/reports/legacy/from-source-20261014-knowledge-scope.json'
     active=load(ROOT/'docs/knowledge/acoustic-manifestations-20261009/active-knowledge-sources.json')
     save(catalogue,dict(table1=active['table1'],parameters=active['parameters'],response_indices=[],response_packets=[]))
     from agent2utau.knowledge import collect_context,validate_context

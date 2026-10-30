@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-SAME-PROJECT-REVIEW-WORKFLOW-20261018",
   "record_type": "same_working_project_review_preference_and_R_writeback_request",
   "report": {
-    "path": "docs/reports/yuai/same-project-review-workflow-request-20261018.md",
+    "path": "songs/yuai/reports/legacy/same-project-review-workflow-request-20261018.md",
     "sha256": "9cc818ae028d86eab67be69a173d4ac06857fd4d68748260fe55c31f478b2c23"
   },
   "feedback": "你都在项目里修改，我在opentuau里查看",

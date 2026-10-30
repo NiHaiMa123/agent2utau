@@ -20,23 +20,23 @@
 
 ### Q01：K2→K3
 
-![Q01 只人声](E:/project/agent2utau/runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-01-K2-K3.wav)
+![Q01 只人声](../../../runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-01-K2-K3.wav)
 
 ### Q02：K3→K4
 
-![Q02 只人声](E:/project/agent2utau/runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-04-K3-K4.wav)
+![Q02 只人声](../../../runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-04-K3-K4.wav)
 
 ### Q03：K1→K3
 
-![Q03 只人声](E:/project/agent2utau/runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-05-K1-K3.wav)
+![Q03 只人声](../../../runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-05-K1-K3.wav)
 
 ### Q04：K4→K2
 
-![Q04 只人声](E:/project/agent2utau/runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-08-K4-K2.wav)
+![Q04 只人声](../../../runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-08-K4-K2.wav)
 
 ### Q05：K2→K1
 
-![Q05 只人声](E:/project/agent2utau/runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-09-K2-K1.wav)
+![Q05 只人声](../../../runs/experiments/table2-shfc-paths-20261011/delivery/pairs/vocal/current-word-214-09-K2-K1.wav)
 
 ## 收口与逐首推进
 

@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-VOICE-REMAP-DIALOG-AUDIT-20261018",
   "record_type": "static_user_UI_remap_screenshot_and_installed_handler_readonly_audit",
   "report": {
-    "path": "docs/reports/yuai/voice-remap-dialog-audit-20261018.md",
+    "path": "songs/yuai/sessions/20261018__unknown-model__yuai-voice-remap-dialog-20261018/reports/voice-remap-dialog-audit-20261018.md",
     "sha256": "a424b8cc2a49e3c84333b8fa108cd404bafdc498891897c23e227d32a036f104"
   },
   "user_question": "每次打开弹音色重映射，都点好，会不会有影响",

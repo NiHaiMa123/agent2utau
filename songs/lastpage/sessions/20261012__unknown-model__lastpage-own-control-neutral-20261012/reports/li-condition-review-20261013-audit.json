@@ -1,0 +1,78 @@
+{
+  "status": "passed_with_explicit_source_pitch_cause_and_native_execution_gaps",
+  "source": {
+    "path": "research/table2-confirmation/review_lastpage_li_conditions_20261013.py",
+    "sha256": "fd374df6d8e75779e967d7cb4be7578e9d124ea3990ad3c8ddd77f415500afba"
+  },
+  "protected_references": 2302,
+  "source_bindings": [
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/source_and_own_design_reuse.json",
+      "sha256": "e997f68554066bb1d3d87b30a79c8f74e455500b1bfa7d9e4f7912bfba5b550c"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/source_observations.json",
+      "sha256": "d03fa8ccb49c3733783e51faf20ffbfbe20bc75f1b6b5aa0fa9ab46d976c4078"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/fcpe.npz",
+      "sha256": "0d20181b14116eda6f1f5730584049ee07d738ed0d74c4098744d36fe6475199"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/rmvpe.npz",
+      "sha256": "bc46ccf666e93dec7b5509acd1fc80e7c786237781b8d6d9d98580229cb24df7"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/native_word_geometry.json",
+      "sha256": "cb3c70c44c5678fd85720aa1d8e1278af882c22f55fb5b102f3d9d8b9383c8a3"
+    },
+    {
+      "path": "runs/lastpage_loudness_skill_v02_20261007/agent_word_decisions.json",
+      "sha256": "433e8c07eb06ef7160a4e34e467b2a052107f909f47378394ae251f6695477a4"
+    },
+    {
+      "path": "runs/experiments/lastpage-own-control-neutral-20261012/native-inputs/F-pitch.json",
+      "sha256": "5836fce08561f8934c5c0648fdb6a3e5d2f2d7df52ab8a4eadff78939731237c"
+    },
+    {
+      "path": "runs/experiments/lastpage-own-control-neutral-20261012/score/lastpage_own_control_neutral_F.ustx",
+      "sha256": "7050e7f3a89f211157d803dd281b82a8fc9c6d9acc46ee050d3f4358d2769e59"
+    },
+    {
+      "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-controls-feedback-20261012.json",
+      "sha256": "253088e263f580b599ad72b0998c9531081c083ee7fe810295294bc9ad80caae"
+    }
+  ],
+  "existing_response_series": 11,
+  "matched_words": 15,
+  "source_F0_arrays_read": 2,
+  "derived_source_stage_rows": 6,
+  "new_feedback": 0,
+  "new_response_series": 0,
+  "new_audio_decodes": 0,
+  "new_F0_detector_calls": 0,
+  "new_native_calls": 0,
+  "new_models": 0,
+  "new_waveforms": 0,
+  "author_arrays_read": 0,
+  "old_index_rows_exact": true,
+  "old_source_F0_SHA_and_word_stats_verified": true,
+  "knowledge_ID_count": 19,
+  "next_protocol": {
+    "path": "runs/research/lastpage-li-condition-review-20261013/design/next-li-entry-pitch-protocol.json",
+    "sha256": "f365283896603b4148b757ada4af2ebaa79074e8ebf2a69a8a9578a90e81d0cb"
+  },
+  "current_index": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/table2-li-condition-review-index-20261013.json",
+    "sha256": "c11c8d917e4b8030bf399b9e9f75c78481c6bcb0809327e68a66c861eaffd587"
+  },
+  "current_registry": {
+    "path": "docs/knowledge/acoustic-manifestations-20261009/active-knowledge-sources.json",
+    "sha256": "a3bc0158e1178391f43462baea33dcfb7968733dcb995ae24699c41de799a1b8"
+  },
+  "gate": "{\"audio_payloads\": 0, \"author_projects\": 3, \"zip_members\": 5, \"skill_links\": 102, \"checks\": \"passed\", \"worktree_files\": 764}",
+  "agent_heard": false,
+  "adoption": false,
+  "measurement_validated": false,
+  "general_rule_validated": false
+}

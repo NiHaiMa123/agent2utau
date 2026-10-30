@@ -36,6 +36,6 @@
 
 当前结果目录 `runs/review/phonation-continuity-mechanism-20261017/evaluation-final`：result.json含逐窗/阶段和参考明细，words.csv可逐字查看，report.md列覆盖。图表位于同run的phonation-overview.png，观察摘要、manifest/知识/方法冻结、F0数组及验证记录也在本run。
 
-![当前逐元音观测](E:/project/agent2utau/runs/review/phonation-continuity-mechanism-20261017/phonation-overview.png)
+![当前逐元音观测](../../../runs/review/phonation-continuity-mechanism-20261017/phonation-overview.png)
 
 Skill仅更新虚实连续性页与工具入口页，说明何时调用、条件/覆盖、如何与用户反馈分开使用及禁止直接映射剂量；40资源安装一致、125引用及仓库/安装quick_validate通过。23份保护文件SHA保持，含全部当前USTX/auto-save、连续音频/收据和原逐句进度。没有自动门禁宣布音乐通过；s15以后继续暂停。

@@ -1,6 +1,6 @@
 # 韵母发音接受与跨句虚实未达标：Skill回填
 
-用户反馈“还是不够。还有之前的第一句窗字发音修好了，你看下skill有需要修改的吗”。本轮分别追加[窗字发音局部接受](../yuai/chuang-uang-clarity-accepted-20261017.md)和[第三句VOIC修订未达标](../yuai/third-phrase-continuity-revision-insufficient-20261017.md)，显式登记公开知识来源，再生成本轮SHA绑定上下文及逐ID决策。旧记录/收据/上下文不刷新。
+用户反馈“还是不够。还有之前的第一句窗字发音修好了，你看下skill有需要修改的吗”。本轮分别追加[窗字发音局部接受](../../../songs/yuai/reports/legacy/chuang-uang-clarity-accepted-20261017.md)和[第三句VOIC修订未达标](../../../songs/yuai/reports/legacy/third-phrase-continuity-revision-insufficient-20261017.md)，显式登记公开知识来源，再生成本轮SHA绑定上下文及逐ID决策。旧记录/收据/上下文不刷新。
 
 ## 反馈范围
 

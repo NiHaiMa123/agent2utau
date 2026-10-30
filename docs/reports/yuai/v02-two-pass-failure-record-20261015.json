@@ -3,11 +3,11 @@
   "record_type": "user_negative_feedback_and_two_pass_process_audit",
   "status": "yuai_v02_two_pass_failure_analysis_complete",
   "report": {
-    "path": "docs/reports/yuai/v02-two-pass-failure-analysis-20261015.md",
+    "path": "songs/yuai/sessions/20261015__unknown-model__yuai-v02-two-pass-audit-20261015/reports/v02-two-pass-failure-analysis-20261015.md",
     "sha256": "29ca6278bcabaed571db70ad4cb56a9c7a0a795dd8de3fca2f3a000d259f7fd0"
   },
   "phase1": {
-    "path": "docs/reports/yuai/v02-two-pass-phase1-before-reference-20261015.md",
+    "path": "songs/yuai/sessions/20261015__unknown-model__yuai-v02-two-pass-audit-20261015/reports/v02-two-pass-phase1-before-reference-20261015.md",
     "sha256": "5859079f8f2068029408d507ae007465f2a584702455176d5764abc0767ee92a"
   },
   "frozen_sequence": {

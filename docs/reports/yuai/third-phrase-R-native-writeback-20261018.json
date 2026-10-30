@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-S03-R-NATIVE-WRITEBACK-20261018",
   "record_type": "same_working_project_frame_voice_R_writeback_with_matched_native_gain",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-R-native-writeback-20261018.md",
+    "path": "songs/yuai/sessions/20261018__unknown-model__yuai-s03-R-writeback-20261018/reports/third-phrase-R-native-writeback-20261018.md",
     "sha256": "a6875f5f679ad43f2f326657c5d025160e793113891ee1609e7782d6c58e3dfa"
   },
   "feedback_id": "AUD:YUAI-SAME-PROJECT-REVIEW-WORKFLOW-20261018",

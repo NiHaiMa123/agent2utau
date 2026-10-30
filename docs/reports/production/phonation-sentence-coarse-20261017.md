@@ -8,9 +8,9 @@
 
 句子：“下雨了，雨陪我哭泣”。先交付A→C两个完整端点，停顿0.8秒；约11.6秒。B中间档已生成，留作后续定位，不把三档全部变成必须完成的问卷。
 
-![整句A后C](E:/project/agent2utau/runs/research/phonation-sentence-coarse-20261017/A-then-C.wav)
+![整句A后C](../../../runs/research/phonation-sentence-coarse-20261017/A-then-C.wav)
 
-[A单独](E:/project/agent2utau/runs/research/phonation-sentence-coarse-20261017/A-RMSmatched.wav) · [C单独](E:/project/agent2utau/runs/research/phonation-sentence-coarse-20261017/C-RMSmatched.wav) · [反向C后A](E:/project/agent2utau/runs/research/phonation-sentence-coarse-20261017/C-then-A.wav) · [含B中间档](E:/project/agent2utau/runs/research/phonation-sentence-coarse-20261017/A-B-C.wav)。
+[A单独](../../../runs/research/phonation-sentence-coarse-20261017/A-RMSmatched.wav) · [C单独](../../../runs/research/phonation-sentence-coarse-20261017/C-RMSmatched.wav) · [反向C后A](../../../runs/research/phonation-sentence-coarse-20261017/C-then-A.wav) · [含B中间档](../../../runs/research/phonation-sentence-coarse-20261017/A-B-C.wav)。
 
 首轮只需要判断能否明确区分，以及哪一端气声更多/更实；不是优劣投票，也不要求接受其作为歌曲成品。A的“气声端”、C的“实声端”都是设计意图，尚无人工排序标签。没有调用音频感知工具，不能由数值响应宣布已可听辨或完全无破音。
 

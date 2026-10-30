@@ -15,9 +15,9 @@ P存储增量按8元音为64/52/80/64/44/58/68/80，对应平台约5.28–9.6模
 
 主试听约44.75秒：**先现版的前四句，停0.8秒，再P的前四句**。第三句各自只做一次固定整句RMS匹配，保留字内强弱；前两句与第四句逐样本精确，便于判断演唱状态。P匹配增益约0.64861，Q约0.65851，RMS不等于感知响度；不是逐字归一化。原始同增益原生版本另存，DYN未因匹配而改写，试听文件与工作工程的身份分别绑定。
 
-![先现版后P，完整连续语境](E:/project/agent2utau/runs/research/yuai-s03-core-surface-20261018/current-then-P-context.wav)
+![先现版后P，完整连续语境](../../../../../runs/research/yuai-s03-core-surface-20261018/current-then-P-context.wav)
 
-[P单独连续版](E:/project/agent2utau/runs/research/yuai-s03-core-surface-20261018/P-context-levelmatched.wav) · [Q单独连续版](E:/project/agent2utau/runs/research/yuai-s03-core-surface-20261018/Q-context-levelmatched.wav) · [P→Q完整第三句表面对照](E:/project/agent2utau/runs/research/yuai-s03-core-surface-20261018/P-then-Q-third.wav)。优先接主对照的实感、暗/压低感和跨句一致性，不一次要求评价全部细分标签；未听项保持pending。
+[P单独连续版](../../../../../runs/research/yuai-s03-core-surface-20261018/P-context-levelmatched.wav) · [Q单独连续版](../../../../../runs/research/yuai-s03-core-surface-20261018/Q-context-levelmatched.wav) · [P→Q完整第三句表面对照](../../../../../runs/research/yuai-s03-core-surface-20261018/P-then-Q-third.wav)。优先接主对照的实感、暗/压低感和跨句一致性，不一次要求评价全部细分标签；未听项保持pending。
 
 ## 当前技术检查
 

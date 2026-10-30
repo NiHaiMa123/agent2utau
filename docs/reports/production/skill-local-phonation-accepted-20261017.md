@@ -4,7 +4,7 @@
 
 ## 已接受的范围
 
-新增[局部接受报告](../yuai/first-phrase-firmness-r03-accepted-20261017.md)及同名JSON，当前知识ID为 `AUD:YUAI-FIRST-PHRASE-R03-ACCEPTED-20261017`，active-knowledge-sources已显式登记。绑定当前第一句r03工程SHA、可用候选音频和原生检查，注明用户没有指定实际播放音频SHA。
+新增[局部接受报告](../../../experiments/misc/reports/first-phrase-firmness-r03-accepted-20261017.md)及同名JSON，当前知识ID为 `AUD:YUAI-FIRST-PHRASE-R03-ACCEPTED-20261017`，active-knowledge-sources已显式登记。绑定当前第一句r03工程SHA、可用候选音频和原生检查，注明用户没有指定实际播放音频SHA。
 
 接受仅指“窗外的天气”当前发声组合可用，既不隔离Classic/VOIC各自贡献，也不新增“完全无尖挤、自然度、磨砂、整曲通过”等细分标签。r01“还是不够实”、r02“再实一点”和更早不同条件的VOIC阴性均保留，不刷新旧报告、锁、计划或receipt。measurement_validated及general_rule_validated仍false。
 

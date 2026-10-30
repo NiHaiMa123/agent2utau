@@ -47,7 +47,7 @@
         "sha256": "7050e7f3a89f211157d803dd281b82a8fc9c6d9acc46ee050d3f4358d2769e59"
       },
       {
-        "path": "docs/reports/lastpage/author-controls-feedback-20261012.json",
+        "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-controls-feedback-20261012.json",
         "sha256": "253088e263f580b599ad72b0998c9531081c083ee7fe810295294bc9ad80caae"
       }
     ],
@@ -60,12 +60,12 @@
         "limited_reading": "this own candidate remained virtual; no regression reported",
         "remaining_boundary": "does not exclude all other speaker mixtures",
         "source": {
-          "path": "docs/reports/lastpage/voice-baseline-probe-20261011.json",
+          "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-voice-baseline-20261011/reports/voice-baseline-probe-20261011.json",
           "sha256": "c0f6dc34ce0b468aadbc096fcc064d0c0f8adddc632ee9080e809d40a0215d1e"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/voice-baseline-feedback-20261011.json",
+            "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-li-kan-author-reference-20261011/reports/voice-baseline-feedback-20261011.json",
             "sha256": "e68b7b3c0c279baf8ff7095bc8343dd58dfa8e5796016e203d331329f366eec9"
           }
         ]
@@ -78,12 +78,12 @@
         "limited_reading": "not accepted",
         "remaining_boundary": "not evidence for more VOIC or universal channel inefficacy",
         "source": {
-          "path": "docs/reports/lastpage/conditioned-voicing-probe-20261011.json",
+          "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-conditioned-voicing-20261011/reports/conditioned-voicing-probe-20261011.json",
           "sha256": "7f4ed106d4a2aea46eda59f0a80bd69bf8aaca65b950eaaefcce38dc87498096"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/conditioned-voicing-feedback-20261011.json",
+            "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-li-kan-author-reference-20261011/reports/conditioned-voicing-feedback-20261011.json",
             "sha256": "0e5a56359afc6d1c08f7ca29d5aa19b6dab393d71ee6cdb9b564aefd4b9a644c"
           }
         ]
@@ -96,12 +96,12 @@
         "limited_reading": "A/P/N/PN all more solid than old own",
         "remaining_boundary": "notes.tone/music stages/clocks retained; absolute music trajectory not excluded",
         "source": {
-          "path": "docs/reports/lastpage/author-pitch-ablation-20261011.json",
+          "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-pitch-ablation-20261011/reports/author-pitch-ablation-20261011.json",
           "sha256": "dff1306571635e157703988026e5977a130b66dfeb2b392fd46cf622c53c19fc"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/author-pitch-feedback-20261011.json",
+            "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-pitch-ablation-20261011/reports/author-pitch-feedback-20261011.json",
             "sha256": "f93be06fc57ff20b9fb1784f1133c4170a56dedc8392fdf1834406250c28493f"
           }
         ]
@@ -114,12 +114,12 @@
         "limited_reading": "B somewhat better than old own, below A",
         "remaining_boundary": "voice contribution supported; no unique cause",
         "source": {
-          "path": "docs/reports/lastpage/author-voice-swap-20261011.json",
+          "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-voice-swap-20261011/reports/author-voice-swap-20261011.json",
           "sha256": "22ef1c976dd5fb3d10882fb9e299aef064056990db4fc2cb1002fee637503242"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/author-voice-feedback-20261011.json",
+            "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-voice-swap-20261011/reports/author-voice-feedback-20261011.json",
             "sha256": "c8a7839ecb61872631685ebe0851043c74b444be1ce253fd30da31470f45fd19"
           }
         ]
@@ -132,12 +132,12 @@
         "limited_reading": "C very close to A",
         "remaining_boundary": "no isolated TENC/BREC/VOIC verdict; C-F direct rank absent",
         "source": {
-          "path": "docs/reports/lastpage/author-control-neutral-20261011.json",
+          "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-control-neutral-20261011.json",
           "sha256": "a481ed9395c3c5098ab15065d4e67b42bd9a0562d038f0ec94faea25dff8f5db"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/author-controls-feedback-20261012.json",
+            "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-controls-feedback-20261012.json",
             "sha256": "253088e263f580b599ad72b0998c9531081c083ee7fe810295294bc9ad80caae"
           }
         ]
@@ -150,12 +150,12 @@
         "limited_reading": "D slightly above B, far below C",
         "remaining_boundary": "speaker/control interaction conditional; no transitive F rank",
         "source": {
-          "path": "docs/reports/lastpage/author-interaction-20261012.json",
+          "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-author-interaction-20261012/reports/author-interaction-20261012.json",
           "sha256": "276a14ec50e742b7c030422449bbc8abeb8eda8346d9c17bd854c408a9e5fbb2"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/author-interaction-feedback-20261012.json",
+            "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-author-interaction-20261012/reports/author-interaction-feedback-20261012.json",
             "sha256": "b187d762597cc98ea7fb599296eb03178e1782fea4c41389f5dfc8e906729602"
           }
         ]
@@ -168,12 +168,12 @@
         "limited_reading": "more solid than author but forward/squeezed/thin/sharp",
         "remaining_boundary": "adverse example; cannot map to one tension cause",
         "source": {
-          "path": "docs/reports/lastpage/own-bright-cute-probe-20261012.json",
+          "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-bright-cute-20261012/reports/own-bright-cute-probe-20261012.json",
           "sha256": "e570733f4c56860e13b9297540cfbf4b021f6fb82400d367648f4ecf5a2ed7ac"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/own-bright-cute-feedback-20261012.json",
+            "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-bright-cute-20261012/reports/own-bright-cute-feedback-20261012.json",
             "sha256": "595bf6d35f498d1482a03043ee63b2ba641cc573327e69fd0a009952e2cf0295"
           }
         ]
@@ -186,12 +186,12 @@
         "limited_reading": "better and author li staged strength requested",
         "remaining_boundary": "working comparator, not all adverse traits resolved or fully solid",
         "source": {
-          "path": "docs/reports/lastpage/own-control-neutral-probe-20261012.json",
+          "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-control-neutral-20261012/reports/own-control-neutral-probe-20261012.json",
           "sha256": "3c1ea874907db758d7974320bd1b56453230ab5ac91076673e12fb2edf1d57ea"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/own-layering-feedback-20261012.json",
+            "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-control-neutral-20261012/reports/own-layering-feedback-20261012.json",
             "sha256": "83e7a96011e674b14ee6b7eca3fee8be5875b6b8521492e4cc069dc67990e55f"
           }
         ]
@@ -204,12 +204,12 @@
         "limited_reading": "not acceptable",
         "remaining_boundary": "rejection dimensions unspecified; no escalation",
         "source": {
-          "path": "docs/reports/lastpage/own-li-voic-stages-probe-20261012.json",
+          "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-li-voic-stages-20261012/reports/own-li-voic-stages-probe-20261012.json",
           "sha256": "cce735b7779cf63e4d9b4371e241bae40a60b9ee26f44625c8744e549aa0c244"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/own-li-voic-feedback-20261012.json",
+            "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-li-voic-stages-20261012/reports/own-li-voic-feedback-20261012.json",
             "sha256": "08f23739c3911a01b54c0477f23bd5192b39aebcaca0fb9043d5c83ddacea36b"
           }
         ]
@@ -222,12 +222,12 @@
         "limited_reading": "li insufficient solidity/strength",
         "remaining_boundary": "output envelope failed current target; not an all-DYN verdict",
         "source": {
-          "path": "docs/reports/lastpage/own-li-DYN-probe-20261012.json",
+          "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-li-dyn-20261012/reports/own-li-DYN-probe-20261012.json",
           "sha256": "1ca98f143084b883d1ff6b7bba4b64c27c9b996c25ed2b7c534fdd2e3b2f92a2"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/own-li-DYN-feedback-20261012.json",
+            "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-li-dyn-20261012/reports/own-li-DYN-feedback-20261012.json",
             "sha256": "fdfbf77da0eb4045cd1ec4600586a787aacccd2a07e52797382f03b3aea90dc3"
           }
         ]
@@ -240,12 +240,12 @@
         "limited_reading": "no meaningful perceived difference from F",
         "remaining_boundary": "finite dose negative; no escalation or universal verdict",
         "source": {
-          "path": "docs/reports/lastpage/own-li-TENC-stages-probe-20261012.json",
+          "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-li-tenc-stages-20261012/reports/own-li-TENC-stages-probe-20261012.json",
           "sha256": "4918b540af4ca681ad91dbd0a2e0a339a6dbf3bcfbc648f915de44c6ccaec111"
         },
         "feedback_sources": [
           {
-            "path": "docs/reports/lastpage/own-li-TENC-feedback-20261013.json",
+            "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-li-tenc-stages-20261012/reports/own-li-TENC-feedback-20261013.json",
             "sha256": "b24f0ed747333d879d8a99f19f89d8451cec876f23ab56b0d7b87328d92ab35b"
           }
         ]

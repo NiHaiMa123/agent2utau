@@ -19,7 +19,7 @@
 
 本轮当前第三句F组合撤回了旧VOIC支撑，明显压低模型breathiness，再用DYN恢复整句电平。这个组合在旧对照里相对偏好更好，连续诊断也有“基本一致”反馈；本次原生写回仍被否决，不把旧正例抹除，也不将局部组合继续视作现版已校准。
 
-![前四句控制对照](E:/project/agent2utau/runs/review/yuai-s03-author-comparison-20261017/controls-first4.png)
+![前四句控制对照](../../../../../runs/review/yuai-s03-author-comparison-20261017/controls-first4.png)
 
 ## 2. 当前自身的同元音检查：减气声没有维持同样有声核心
 
@@ -46,7 +46,7 @@
 
 研究图用各自第一唱字起点作显示零点，保留真实秒数，没有拉伸时长或拟合作者数组。作者线为书面note.pitch+PITD诊断重建，当前为真实原生最终线；不冒称两者都是历史声学F0。初版图画出了作者AP/SP/EP载频，修正版将其遮罩，旧图与勘误保留。第四句末“清”有内置vibrato，未重建而留缺口；第三句八字无此内置vibrato，书面诊断完整。
 
-![第三句主唱与独立和声](E:/project/agent2utau/runs/review/yuai-s03-author-comparison-20261017/third-phrase-main-and-harmony.png)
+![第三句主唱与独立和声](../../../../../runs/review/yuai-s03-author-comparison-20261017/third-phrase-main-and-harmony.png)
 
 ## 4. 和声：后半句另有一层，不能混成主唱实感
 

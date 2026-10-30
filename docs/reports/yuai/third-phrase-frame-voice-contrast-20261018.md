@@ -1,6 +1,6 @@
 # 第三句：播放选择修正与声线R对照
 
-2026-10-18，按用户在[前四句完整参数审计](first4-full-parameter-audit-20261018.md)后的“继续”执行。采用 singing-expression-editor 的声线基底/连续性流程，单Agent；未改Skill或启用CI，未启动第五句/s15以后。旧P的初步改善与“还是有问题”并存，旧严格音乐流程缺口不升级。
+2026-10-18，按用户在[前四句完整参数审计](../../20261018__unknown-model__yuai-first4-full-parameter-audit-20261018/reports/first4-full-parameter-audit-20261018.md)后的“继续”执行。采用 singing-expression-editor 的声线基底/连续性流程，单Agent；未改Skill或启用CI，未启动第五句/s15以后。旧P的初步改善与“还是有问题”并存，旧严格音乐流程缺口不升级。
 
 ## 当前同一工程只修正保存的播放选择
 
@@ -20,9 +20,9 @@ CLR仍为本工程逐phone的Normal，时长模型speaker及原有音素时序�
 
 主试听约44.75秒：**先现版P的前四句，停0.8秒，再R的前四句**，仅第三句不同。R原始第三句RMS比P高约1.66862dB；主试听对整个第三句只乘一次固定0.82521847，保留字内强弱，匹配误差约-0.0000000dB。未逐字归一化、EQ/压缩或混伴奏。R研究USTX仍为原生同增益/DYN5，不能把R匹配音频冒称其未经处理的工程声音；若后续采用需单独落实并核查增益条件。
 
-![现版P→声线R：完整连续语境](E:/project/agent2utau/runs/research/yuai-s03-frame-voice-contrast-20261018/current-then-R-context.wav)
+![现版P→声线R：完整连续语境](../../../../../runs/research/yuai-s03-frame-voice-contrast-20261018/current-then-R-context.wav)
 
-[P→R完整第三句，电平匹配](E:/project/agent2utau/runs/research/yuai-s03-frame-voice-contrast-20261018/current-then-R-third.wav) · [P→R完整第三句，原始同增益](E:/project/agent2utau/runs/research/yuai-s03-frame-voice-contrast-20261018/current-then-R-raw-third.wav) · [R单独连续版，电平匹配](E:/project/agent2utau/runs/research/yuai-s03-frame-voice-contrast-20261018/R-matched-context.wav)。两类对照和顺序PCM均逐样本核验，第一二句/第四句保持，无削波。
+[P→R完整第三句，电平匹配](../../../../../runs/research/yuai-s03-frame-voice-contrast-20261018/current-then-R-third.wav) · [P→R完整第三句，原始同增益](../../../../../runs/research/yuai-s03-frame-voice-contrast-20261018/current-then-R-raw-third.wav) · [R单独连续版，电平匹配](../../../../../runs/research/yuai-s03-frame-voice-contrast-20261018/R-matched-context.wav)。两类对照和顺序PCM均逐样本核验，第一二句/第四句保持，无削波。
 
 新R匹配PCM的FCPE/RMVPE已重新提取；P复用与当前第三句PCM字节精确对应的既有双F0，未伪装新推理。两版各8/8元音有可靠主体，逐字共同可靠主体覆盖8/8。声学代理仅作描述，不由预测VOIC、周期性或谱倾斜宣布更实/更清亮。没有音频感知工具，Agent没有听过本组。
 

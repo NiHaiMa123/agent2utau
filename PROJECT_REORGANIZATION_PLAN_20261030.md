@@ -10,7 +10,7 @@
 
 AGENTS.md 记录 2026-10-29 本机约有 runs/ 72.6 GB、external/ 1.96 GB、models/ 870 MB、bridge/ 766 MB、projects/ 114 MB、demo/ 55 MB。**这些本机 ignored 内容在 GitHub 无法直接看到，执行时必须实地盘点。**
 
-现有规范先读：docs/guides/repository-layout.md、docs/reports/maintenance/directory-reorganization-20261009.md、docs/workflow.md、AGENTS.md、README.md、.gitignore、.gitattributes、tools/repository/check_repository.py。
+现有规范先读：docs/guides/repository-layout.md、songs/lastpage/reports/legacy/directory-reorganization-20261009.md、docs/workflow.md、AGENTS.md、README.md、.gitignore、.gitattributes、tools/repository/check_repository.py。
 
 **特别注意：** 当前 .gitignore 排除 /projects/、runs/、demo/、data/、models/、external/、音频、*.ustx。research/baishuo/projects/*.ustx 是特殊放行的作者原件，禁止误动。projects/latest 在 Git 中没有跟踪文件，不能因此断言本机没有。
 
@@ -129,9 +129,9 @@ yuai__20261018-time-unknown__unknown-model__F__report.md
 
 逐一扫描 378 个**已跟踪**条目的文件正文、导入、输出目录、run-id、报告链接，再分类；另盘点 scratch/ 下被忽略的音频。
 
-- 如 scratch/audit_nianlun_*.py、scratch/build_nianlun_*.py、scratch/v3_stage*.py、scratch/v20_pitd.py、scratch/v24_asr_*.py、scratch/v25_*.py 等，应依据代码引用的实际制作 run，分别放 songs/nianlun/sessions/<run>/scripts/；小型被跟踪的 JSON/日志应留在合理的 tracked 子目录或保留 legacy，**不能因搬到 ignored 的 workspace/ 就悄悄从 Git 消失**。
+- 如 scratch/audit_nianlun_*.py、scratch/build_nianlun_*.py、scratch/v3_stage*.py、songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v20_pitd.py、scratch/v24_asr_*.py、scratch/v25_*.py 等，应依据代码引用的实际制作 run，分别放 songs/nianlun/sessions/<run>/scripts/；小型被跟踪的 JSON/日志应留在合理的 tracked 子目录或保留 legacy，**不能因搬到 ignored 的 workspace/ 就悄悄从 Git 消失**。
 - 历史脚本不改算法、不重跑。为迁移后的活动脚本修复 repo-root 或相对路径引用；历史冻结脚本记录原工作目录和 E:\project\agent2utau 等原始路径，必要时提供兼容入口。
-- scratch/_tmp.py、scratch/asr_segments.txt、scratch/raw_inv_*.json、scratch/bs_*.py 等先查实际内容；不明者登记 uncertain。根目录 pelican-bicycle.html 也先查内容，不强塞某首歌。
+- songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/_tmp.py、songs/nianlun/reports/legacy/asr_segments.txt、scratch/raw_inv_*.json、scratch/bs_*.py 等先查实际内容；不明者登记 uncertain。根目录 pelican-bicycle.html 也先查内容，不强塞某首歌。
 
 ### 4.2 docs/reports/ —— 歌曲报告集中
 

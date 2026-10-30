@@ -29,7 +29,7 @@ def q5(u):return u*u*u*(10+u*(-15+6*u))
 def build():
     from agent2utau.knowledge import collect_context,validate_context
     old=load(RUN/'design/knowledge_context.json');entity=['ACO:L1','EVT:L2','PER:S1'];params=['PARAM:C01.01','PARAM:C02.02','PARAM:C03.01','PARAM:C10.01','PARAM:C11.01','PARAM:C12.01','PARAM:C13.01','PARAM:C14.01','PARAM:C19.01','PARAM:C20.01','PARAM:C20.03']
-    packet=collect_context(entity,params,[],absence_reason='User excludes author/history; source-only independent current production; general field definitions only.',catalogue_path=ROOT/'docs/reports/yuai/from-source-20261014-knowledge-scope.json')
+    packet=collect_context(entity,params,[],absence_reason='User excludes author/history; source-only independent current production; general field definitions only.',catalogue_path=ROOT/'songs/yuai/reports/legacy/from-source-20261014-knowledge-scope.json')
     decisions=[dict(id=r['id'],decision='use',reason='Use generic current parameter definition/consumer contract; musical values chosen independently.',condition_match='Current source-only Yuai production; speaker CLR plus cl01/cl03 and output DYN explicitly included.',limitations='No historical response/recipe/dose admitted; technical definitions do not establish naturalness.') for r in packet['records']]
     save(RUN/'design/knowledge_context-v2.json',packet);save(RUN/'design/knowledge-decisions-v2.json',decisions);save(RUN/'evaluation/knowledge-receipt-v2.json',validate_context(packet,decisions))
     doc=yaml.safe_load((RUN/'compiled/project.ustx').read_text(encoding='utf8'));words=load(RUN/'design/native-word-decisions.json');ledger={w['word']:w for w in load(RUN/'design/word-ledger.json')};events=[];perword=[]

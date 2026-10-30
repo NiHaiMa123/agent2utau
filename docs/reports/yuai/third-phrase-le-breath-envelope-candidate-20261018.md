@@ -20,6 +20,6 @@
 
 ## 查看与后续
 
-重载同一USTX后，听第三句约27.8–28.7秒的“了→雨”。[第三句核查音频](E:/project/agent2utau/runs/production/yuai-s03-le-breath-envelope-20261018/third-project.wav)及[前四句连续核查](E:/project/agent2utau/runs/production/yuai-s03-le-breath-envelope-20261018/first4-project.wav)按当前原生条件保留，没有整句音量匹配。当前是呼吸突出程度减弱候选，非“颤抖生成机制修复”或听觉接受；如果用户仍定位在更早的e尾或其它时间，保留本次阴性并按准确局部重新判断，不自动压低所有气口。
+重载同一USTX后，听第三句约27.8–28.7秒的“了→雨”。[第三句核查音频](../../../../../runs/production/yuai-s03-le-breath-envelope-20261018/third-project.wav)及[前四句连续核查](../../../../../runs/production/yuai-s03-le-breath-envelope-20261018/first4-project.wav)按当前原生条件保留，没有整句音量匹配。当前是呼吸突出程度减弱候选，非“颤抖生成机制修复”或听觉接受；如果用户仍定位在更早的e尾或其它时间，保留本次阴性并按准确局部重新判断，不自动压低所有气口。
 
 本轮run `runs/production/yuai-s03-le-breath-envelope-20261018` 保存反馈/知识/意图/有限包络/原生导出与实际输入、波形图审、首轮失败和量化诊断、原位收据。Skill40及安装保持，旧工程/音频/收据SHA保持，单Agent/CI未运行。第五句/s15以后未启动。

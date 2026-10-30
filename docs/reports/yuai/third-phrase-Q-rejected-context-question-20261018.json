@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-S03-Q-REJECTED-CONTEXT-QUESTION-20261018",
   "record_type": "native_Q_rejection_and_user_context_hypothesis",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-Q-rejected-context-question-20261018.md",
+    "path": "songs/yuai/reports/legacy/third-phrase-Q-rejected-context-question-20261018.md",
     "sha256": "910fca360196d338c3b80264b3272182c1cc2bcc6d18fb35fcd5cbbfa607c4e9"
   },
   "feedback": "不行，我严重怀疑是模型预测的问题，这个模型是不是在不同上下文下会产生不同的效果",

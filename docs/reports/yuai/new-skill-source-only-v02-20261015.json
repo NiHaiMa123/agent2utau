@@ -3,7 +3,7 @@
   "record_type": "production_execution_and_audio_proxy_not_auditory_response",
   "status": "yuai_newskill_v02_delivered_pending_listening",
   "report": {
-    "path": "docs/reports/yuai/new-skill-source-only-v02-20261015.md",
+    "path": "songs/yuai/sessions/20261015__unknown-model__yuai-skill-source-only-20261015/reports/new-skill-source-only-v02-20261015.md",
     "sha256": "157db2928c735e7ed1b517d3c19105dec78cf027dffcf2264e658880e6694776"
   },
   "project": {

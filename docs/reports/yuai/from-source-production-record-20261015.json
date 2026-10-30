@@ -17,7 +17,7 @@
     "source_or_author_curve_inherited": false,
     "author_or_historical_production_data_used": false,
     "history_free_registry": {
-      "path": "docs/reports/yuai/from-source-20261014-knowledge-scope.json",
+      "path": "songs/yuai/reports/legacy/from-source-20261014-knowledge-scope.json",
       "sha256": "afdca8ced7159bcdc8e2104b4e72a2f9d0fdb04085aa4855b3c1a666467574be"
     }
   },
@@ -44,7 +44,7 @@
     "sha256": "70b807808b771d077a53590d00efa96f619be468813610d8f60b8b3ecac1115d"
   },
   "report": {
-    "path": "docs/reports/yuai/from-source-completed-20261015.md",
+    "path": "songs/yuai/sessions/20261014__unknown-model__yuai-from-source-20261014/reports/from-source-completed-20261015.md",
     "sha256": "145464caaea35a1f11ab123eca373a080bd9ea8283c2461bb3b66e129324b320"
   },
   "outputs": {

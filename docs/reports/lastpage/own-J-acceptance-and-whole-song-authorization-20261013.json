@@ -19,7 +19,7 @@
       },
       "acceptance_scope": "J two-phrase preview; accepted as reference for a new whole-song application",
       "prior_correction": {
-        "path": "docs/reports/lastpage/li-texture-listening-20261013.json",
+        "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/li-texture-listening-20261013.json",
         "sha256": "280dca3615a82a2db774e9dd88484839fb4ae2e3dd8d20bb02b24f0a64abe182"
       },
       "prior_qualitative_observations_retained": true,

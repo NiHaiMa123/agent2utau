@@ -35,7 +35,7 @@
     "measurement_validated": false
   },
   "prior_report": {
-    "path": "docs/reports/lastpage/author-voice-swap-20261011.json",
+    "path": "songs/lastpage/sessions/20261011__unknown-model__lastpage-author-voice-swap-20261011/reports/author-voice-swap-20261011.json",
     "sha256": "22ef1c976dd5fb3d10882fb9e299aef064056990db4fc2cb1002fee637503242"
   },
   "table1_refs": [

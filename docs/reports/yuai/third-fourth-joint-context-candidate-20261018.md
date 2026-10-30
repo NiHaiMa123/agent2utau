@@ -32,6 +32,6 @@ Native默认缓存/随机策略，序列形状改变；即使同种子也不是�
 
 在同一工程听“下雨了”约26.7–28.0秒，并连续听到第四句约38.13秒；第四句也重新成声，需要同时判断清亮、实感和是否压低。工程仍为我们主唱开启、参考主唱/和声静音，参考原字节保持。
 
-[新第三/四句连续核查](E:/project/agent2utau/runs/production/yuai-s03s04-joint-context-20261018/third-fourth-project.wav)与[改前相同窗口](E:/project/agent2utau/runs/production/yuai-s03s04-joint-context-20261018/third-fourth-before.wav)是同一原生增益条件，未做整句RMS匹配；[新前四句连续核查](E:/project/agent2utau/runs/production/yuai-s03s04-joint-context-20261018/first4-project.wav)保留前两句原PCM作邻接。Agent没有听音能力，听感pending。
+[新第三/四句连续核查](../../../../../runs/production/yuai-s03s04-joint-context-20261018/third-fourth-project.wav)与[改前相同窗口](../../../../../runs/production/yuai-s03s04-joint-context-20261018/third-fourth-before.wav)是同一原生增益条件，未做整句RMS匹配；[新前四句连续核查](../../../../../runs/production/yuai-s03s04-joint-context-20261018/first4-project.wav)保留前两句原PCM作邻接。Agent没有听音能力，听感pending。
 
 技术局部核查通过；严格音乐流程/听觉仍未通过，不用本轮保持目标覆盖升级旧首“不”消融缺口或任何已否决候选。run `runs/production/yuai-s03s04-joint-context-20261018`保留改前实物、意图/知识、标签计划、原生/输入/PCM、17元音图审、双F0和原位收据。Skill40及安装一致保持、旧run/作者研究/音频/收据SHA保持，单Agent/CI未运行，第五句/s15以后未启动。下一步接本项整句反馈，不自动换声线、追加剂量或拆改第四句。

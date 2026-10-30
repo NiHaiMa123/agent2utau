@@ -31,7 +31,7 @@ def main():
     check([feedback['candidate'],feedback['author_reference'],feedback['own_A_presented']]);save(RUN/'feedback/feedback.json',feedback)
     inputs=[PRIOR/'score/lastpage_own_bright_cute_E.ustx',PRIOR/'native-inputs/E/phrase_000.json',PRIOR/'native-inputs/E/phrase_001.json',
         PRIOR/'observations/results.json',PRIOR/'evaluation/fresh-independent-check.json',
-        ROOT/'docs/reports/lastpage/author-controls-feedback-20261012.json',ROOT/'docs/reports/lastpage/author-interaction-feedback-20261012.json',
+        ROOT/'songs/lastpage/sessions/20261011__unknown-model__lastpage-author-control-neutral-20261011/reports/author-controls-feedback-20261012.json',ROOT/'songs/lastpage/sessions/20261012__unknown-model__lastpage-author-interaction-20261012/reports/author-interaction-feedback-20261012.json',
         ROOT/'docs/knowledge/acoustic-manifestations-20261009/atomic-manifestations.csv',
         ROOT/'docs/knowledge/acoustic-manifestations-20261009/control-details.csv']
     bindings=[ref(p) for p in inputs];doc=yaml.safe_load(inputs[0].read_text(encoding='utf-8-sig'));obs=load(inputs[3]);control=[]

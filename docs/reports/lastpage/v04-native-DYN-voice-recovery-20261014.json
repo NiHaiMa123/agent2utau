@@ -12,7 +12,7 @@
       "PARAM:C10.01"
     ],
     "user_feedback_source": {
-      "path": "docs/reports/lastpage/v03-voice-volume-feedback-20261014.json",
+      "path": "songs/lastpage/sessions/20261013__unknown-model__lastpage-skill-whole-song-20261013/reports/v03-voice-volume-feedback-20261014.json",
       "sha256": "467a01ffe7ee6ca28970a9c94a0a1d255f0eebfaada95c9a1c0aa6a38cf326f8"
     },
     "feedback_submissions": 1,

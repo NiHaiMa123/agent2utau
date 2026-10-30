@@ -1,0 +1,123 @@
+# 年轮翻唱 最终版（2026-10-29）
+
+对象：`runs/production/nianlun-v3-20261029`
+素材：`E:\data\music\年轮 - 张碧晨.flac`（274.5s，SHA `5f851d3a…`）
+交付：`demo/nianlun_v3/nianlun_final_mix.mp3`、`nianlun_final_vocal.mp3`
+
+---
+
+## 一、最终技术验收
+
+| 项目 | 要求 | 实测 | 结果 |
+|---|---|---|---|
+| **native 读回误差** | < 0.501c | **0.0000c**（38414 帧全部） | **通过** |
+| 编译 native_max_error | < 0.501c | 0.500000c | 通过 |
+| 满幅样本（削波） | 0 | **0** | 通过 |
+| 混音峰值 | < 1.0 | 0.9500 | 通过 |
+| 逐元音图审覆盖 | 349/349 | **6/349 实际打开** | **未完成** |
+| 听感验证 | 人耳 | **未验证** | **未完成** |
+
+> 读回误差之所以是 0.0000c：最终工程直接使用连续 PITD（5-tick 原生网格），
+> 且 PITD 覆盖了原生帧的全部 tick 范围（含 43 个 part 的负 tick lead 帧，最小 -245）。
+
+---
+
+## 二、本轮解决的关键缺陷（全部来自图审）
+
+| 版本 | 图审发现 | 根因 | 修正 |
+|---|---|---|---|
+| v11 | 18.75s 垂直暴跌 56→50.8（-520c，5 个半音） | 极端段在 12ms 网格内瞬移成悬崖 | 极端段改为有起有落的平滑段 + 斜率限幅 |
+| v12 | 仍 V 形下陷 57→51.4（-560c） | 按分位数统计拟合，导致**每字都深挖**；白烁 p1=-513c 是极少数点 | 按音乐判断收敛：普通字 22~95c，大跳最多 150c |
+| v13 | 3 个半音下探；音符边界相邻偏移反向→\|dy\|≈450c | 每个音符起止偏移独立设计，跨音符不连续 | 音符两端偏移强制为 0 |
+| v14 | 形状合格，但**编译后**仍有 141 处 >200c 跳变 | 编译器按原生短语独立编码 PITD，短语边界重新对齐 before_pitd | 用连续 PITD 覆盖编译结果 |
+| final | 边界连续，但读回 13c | PITD 只从 tick 0 开始，未覆盖原生 lead 帧（负 tick） | 扩展到 [-245, duration]，并按原生采样相位对齐 |
+
+**核心教训**：统计拟合不能替代音乐判断。白烁的 P1=-513c 若理解为"每个字都下探 5 个半音"，
+就会得到音乐上错误的曲线；它实际是极少数点的手调结果。
+
+---
+
+## 三、最终曲线形态（vs 白烁）
+
+| 指标 | 白烁 雨爱 | 本版 年轮 |
+|---|---|---|
+| PITD 点数 | 15763 | 38450 |
+| p50 | -5c | +0c |
+| p99 | +410c | +113c |
+| \|y\|>200 占比 | 8.78% | 0.69% |
+| 逐点 \|dy\| 中位 | 11c | 3c |
+| 逐点 \|dy\| 最大 | 1346c | 41c |
+| \|dy\|>200 步数 | 256 | **0** |
+
+> 本版比白烁**更平滑、更克制**。这是有意的取舍：宁可保守，也不要悬崖和深 V。
+> 代价是极端表情（±300c 以上的手调）比白烁少。
+
+---
+
+## 四、音频指标
+
+| 版本 | 动态 IQR | 峰值 | rms | 满幅 |
+|---|---|---|---|---|
+| 原唱 | 8.7 dB | 0.775 | 0.1098 | 0 |
+| v2（用户否决） | 7.7 dB | 1.000 | 0.1000 | 0 |
+| **最终版** | **10.2 dB** | 1.000 | 0.1364 | **0** |
+
+---
+
+## 五、工程与谱面
+
+- 349 字 / 51 句，最短字 **0.20s**，**0 个 <100ms 碎字**（v2 有 34 个）
+- 歌词 51/51 全部正确（修正 ASR 9 处错字：寒夜/清晨/世间/有缘却无份/笨/丛生/倒也过/数着/自尊）
+- 曲线层：pitd / cl01 / cl05 / dyn / voic / brec / tenc
+- 音色：`cl01=50 (Bright) + cl05=50 (Classic)`，由 5 个候选的谱形距离实测选出
+  （4.69dB，其余 7.2~10.2dB）
+- 发声层：dyn/voic/brec 各 51 条、tenc 42 条，逐句由源 RMS 与谐波性代理驱动
+
+---
+
+## 六、图审记录（6 个单元，实际打开）
+
+| 版本 | 图 | 结论 | 具体观察 |
+|---|---|---|---|
+| v11 | p0:f0:v0 | fail | 18.75s 垂直暴跌 -520c |
+| v12 | p0:f0:v0 | fail | V 形下陷 -560c |
+| v13 | p0:f0:v0 | fail | 3 半音下探 + 边界 450c 跳变 |
+| v14 | p0:f0:v0 | keep | 起音轻微下探后平滑进入平台，跨音符连续斜坡 |
+| final | p0:f0:v0 | keep | 同上，无尖角 |
+| final | p18:f0:v3「麻」 | keep | 79.5–81.3s：音符间为连续斜坡，字腹有自然起伏；
+大跳（密 65→麻 57）在约 50–70ms 内平滑完成，符合清晰落音范围 |
+
+**未完成**：其余 343 个单元未打开，不计覆盖。
+
+---
+
+## 七、诚实的边界
+
+1. **听感完全未验证**。我没有音频感知工具，`musical_quality = unverified`。
+2. **逐元音图审 6/349**，远未达到目标要求的"覆盖完整"。这是本版最大的未完成项。
+3. **本版比白烁更保守**（p99 +113 vs +410，\|y\|>200 0.69% vs 8.78%）。
+   听感上可能显得"起伏不够"或"不够有表情"。这是为了消除悬崖所做的取舍。
+4. **音色按谱形距离选**，不等于听觉最优。谱形相似 ≠ 像泠鸢。
+5. **ASR 反向识别未复测最终版**（v6 时 bigram-recall 73.8%，原唱 79.5%）。
+6. 复用了用户授权的观测（分离/GAME/双F0/ASR）。
+
+---
+
+## 八、复现
+
+```
+songs/yuai/reports/legacy/bs_pitd.py              白烁 PITD 结构（499 音符/15763 点）
+songs/yuai/reports/legacy/bs_profile.py           字内位置分档
+songs/yuai/reports/legacy/bs_extremes.py          极端值形态
+songs/yuai/reports/legacy/bs_big_where.py         大值位置归因（结论：无结构规律）
+songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v14_pitd.py             生成连续 PITD（两端为 0，无悬崖）
+songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v15_regrid.py           重采样到 5-tick 原生网格
+songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v15_compile_plan.py     构造编译计划
+  agent2utau compile-functions  -> native_max_error 0.5c
+songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v15_assemble.py         音色层 + 发声层
+songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v15_final_pitd.py       连续 PITD 覆盖编译结果
+songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v15_extend.py           扩展到原生 tick 全域（含负 tick）
+songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v15_phase.py            对齐原生采样相位
+songs/nianlun/sessions/20261029__unknown-model__nianlun-v3-20261029/scripts/v15_authoritative.py    权威读回验证 -> 0.0000c
+  agent2utau render-project
+```

@@ -8,9 +8,9 @@
 
 仍是“下雨了，雨陪我哭泣”，**先B，停0.8秒，再C**，约11.6秒。直接复用同批已生成并逐项核查的整句RMS匹配版本，PCM精确拼接；没有新增声学模型执行、控制、工程、音高或音素改动，没有新增益/归一化。B只指零人工增量参照，听觉位置尚未知，不预设它必然居中。
 
-![先B后C](E:/project/agent2utau/runs/research/phonation-sentence-midpoint-20261017/B-then-C.wav)
+![先B后C](../../../runs/research/phonation-sentence-midpoint-20261017/B-then-C.wav)
 
-[反向C后B](E:/project/agent2utau/runs/research/phonation-sentence-midpoint-20261017/C-then-B.wav)。先判断B/C还是否能区分、哪端更虚，听不出允许直接记录。暂不要求最佳版本或所有发声维度的问卷，不生成更多近似候选。
+[反向C后B](../../../runs/research/phonation-sentence-midpoint-20261017/C-then-B.wav)。先判断B/C还是否能区分、哪端更虚，听不出允许直接记录。暂不要求最佳版本或所有发声维度的问卷，不生成更多近似候选。
 
 ## 实际核验与状态
 

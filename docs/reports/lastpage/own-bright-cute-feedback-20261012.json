@@ -98,7 +98,7 @@
       "raw_terms_not_forced_to_formant_HNR_F0_nasality_or_spatial_entities": true
     },
     "prior_report": {
-      "path": "docs/reports/lastpage/own-bright-cute-probe-20261012.json",
+      "path": "songs/lastpage/sessions/20261012__unknown-model__lastpage-own-bright-cute-20261012/reports/own-bright-cute-probe-20261012.json",
       "sha256": "e570733f4c56860e13b9297540cfbf4b021f6fb82400d367648f4ecf5a2ed7ac"
     },
     "adoption": false,

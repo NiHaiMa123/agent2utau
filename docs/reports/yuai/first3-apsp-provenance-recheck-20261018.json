@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-FIRST3-APSP-PROVENANCE-RECHECK-20261018",
   "record_type": "current_first3_pitch_and_APSP_provenance_readonly_recheck",
   "report": {
-    "path": "docs/reports/yuai/first3-apsp-provenance-recheck-20261018.md",
+    "path": "songs/yuai/reports/legacy/first3-apsp-provenance-recheck-20261018.md",
     "sha256": "4cebe53039363046f48b8913437f7a2d3e09db99478ea9b4fff4efcb9bfe985d"
   },
   "user_feedback": "好像好了，你有没有直接用白烁的曲线？还是都是自己生成的",

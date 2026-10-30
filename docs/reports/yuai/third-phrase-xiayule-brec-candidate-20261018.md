@@ -20,6 +20,6 @@
 
 ## 查看
 
-候选已写回 `projects/latest/yuai_first14_single_track_baishuo_comparison.ustx`，需在OpenUtau重载同一个工程，听约26.7–28.0秒的“下雨了”，兼听后面的气口与连句。[第三句核查音频](E:/project/agent2utau/runs/production/yuai-s03-xiayule-brec-20261018/third-project.wav)和[前四句连续核查](E:/project/agent2utau/runs/production/yuai-s03-xiayule-brec-20261018/first4-project.wav)均原生原增益。
+候选已写回 `projects/latest/yuai_first14_single_track_baishuo_comparison.ustx`，需在OpenUtau重载同一个工程，听约26.7–28.0秒的“下雨了”，兼听后面的气口与连句。[第三句核查音频](../../../../../runs/production/yuai-s03-xiayule-brec-20261018/third-project.wav)和[前四句连续核查](../../../../../runs/production/yuai-s03-xiayule-brec-20261018/first4-project.wav)均原生原增益。
 
 本轮run `runs/production/yuai-s03-xiayule-brec-20261018` 保存当前反馈、SHA知识/前置意图、预测审阅、有限包络、实际原生/输入、音频/双F0、图审和原位收据。Skill40及安装保持、旧run/音频/收据SHA保持，单Agent/CI未运行，第五句/s15以后未启动。下一步接本次实感以及是否变暗/压低的反馈，不自动复制到整曲。

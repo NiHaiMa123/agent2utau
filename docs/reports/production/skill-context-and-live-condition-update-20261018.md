@@ -6,7 +6,7 @@
 
 现有Skill已要求逐句设计、AP/SP后重导音素/before-PITD与两阶段预测、分轴反馈及原生speaker核查。此次执行仍先在旧上下文里反复调声线/人工控制，未将呼吸/计算上下文作为发声校准的前置条件；加载时的CLR映射与导入曲线映射也未被纳入现场试听身份。缺口是决策落点和条件核对，不能再写一套“多减气声/多加实”配方。
 
-本次来源：[AP/SP原生结构消融](../yuai/apsp-context-link-audit-20261018.md)、[当前语言编码上下文检验](../yuai/third-phrase-context-mechanism-20261018.md)、[前三句AP/SP候选](../yuai/first3-apsp-context-candidate-20261018.md)、[实际App重映射处理器核查](../yuai/voice-remap-dialog-audit-20261018.md)、[当前目标来源复核](../yuai/first3-apsp-provenance-recheck-20261018.md)。都按原有证据范围使用：分段改变/编码依赖不证明声音好，“好像好了”的对象仍未澄清，现场我们轨道重映射内容仍unknown。此次不新造试听标签或倒填接受。
+本次来源：[AP/SP原生结构消融](../yuai/apsp-context-link-audit-20261018.md)、[当前语言编码上下文检验](../yuai/third-phrase-context-mechanism-20261018.md)、[前三句AP/SP候选](../yuai/first3-apsp-context-candidate-20261018.md)、[实际App重映射处理器核查](../yuai/voice-remap-dialog-audit-20261018.md)、[当前目标来源复核](../../../songs/yuai/reports/legacy/first3-apsp-provenance-recheck-20261018.md)。都按原有证据范围使用：分段改变/编码依赖不证明声音好，“好像好了”的对象仍未澄清，现场我们轨道重映射内容仍unknown。此次不新造试听标签或倒填接受。
 
 ## 五份实际修改
 

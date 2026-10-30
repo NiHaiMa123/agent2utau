@@ -40,7 +40,7 @@
 
 原生VOIC对照在21种元音/音区上周期性代理均上升，但同时RMS约增加3dB；BREC对照周期性代理均下降，高频平坦度的方向却有条件差异。它们证明输出响应和混杂存在，不证明听见更实/更虚。下图已实际打开检查，逐条件原数值在`native-factor-responses.csv/json`。
 
-![原生因素响应](E:/project/agent2utau/runs/research/phonation-benchmark-20261017/native-factor-responses.png)
+![原生因素响应](../../../runs/research/phonation-benchmark-20261017/native-factor-responses.png)
 
 使用相同已有前三句PCM回归v2：23元音中21个有足够主体（更严掩码会减少覆盖）；第三句仍8/8可测，只有e/i的2/8可比，覆盖25%。没有将新孤立元音或旋钮响应当成人工接受的连唱参考。已暴露A/B与当前“第一二句相对一致、第三句仍有差距”仅归开发语境；具体播放SHA未知部分保持未知，没有补造数值评分。
 
@@ -50,6 +50,6 @@
 
 ## 使用入口与剩余工作
 
-[原始测试页](E:/project/agent2utau/runs/research/phonation-benchmark-20261017/listening.html)；[主体RMS匹配诊断页](E:/project/agent2utau/runs/research/phonation-benchmark-20261017/levelmatched-listening.html)。从少量开发对照开始，可下载未完成JSON，暂不要求本轮完成试听。两套页面分开作答，分别评价实感、气声、贴耳、音量、自然度与声色；没区别/不确定均为有效回答。
+[原始测试页](../../../runs/research/phonation-benchmark-20261017/listening.html)；[主体RMS匹配诊断页](../../../runs/research/phonation-benchmark-20261017/levelmatched-listening.html)。从少量开发对照开始，可下载未完成JSON，暂不要求本轮完成试听。两套页面分开作答，分别评价实感、气声、贴耳、音量、自然度与声色；没区别/不确定均为有效回答。
 
 后续JSON按[机制指南](../../guides/phonation-consistency-evaluation.md#测试样本与试听标签)通过`evaluation.phonation_calibration`核验后追加公开反馈，再按有实际标签的条件判断能否建立刻度。留出听觉标签应在开发规则冻结后另收，已看结果的条件不重新命名为未见验证。只有孤立元音结果还不足以证明跨句身份；之后仍须真实连续上下文验证。当前未开始试听校准，也未恢复歌曲修改。

@@ -1,0 +1,50 @@
+{
+  "song_id": "nianlun",
+  "run_id": "nianlun-from-scratch-v2-20261028",
+  "session_id": "20261028__unknown-model__nianlun-from-scratch-v2-20261028",
+  "produced_date": "20261028",
+  "produced_time": null,
+  "primary_model": "unknown-model",
+  "models": [],
+  "model_evidence": [],
+  "status": "historical_unverified",
+  "listening_status": "unknown",
+  "original_paths": [
+    "runs/production/nianlun-from-scratch-v2-20261028"
+  ],
+  "artifacts": [
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/manifest.json",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/reports/nianlun-from-scratch-v2-20261028.md",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/reports/raw_inv_nianlun_v2.json",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/reports/v1_v2_compare.json",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/reports/v2_review_observations.json",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/build_nianlun_v2_design.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_audio.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_clock.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_design.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_engine.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_f0_compare.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_game.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_layers.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_notes.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_quant.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_render.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_v2.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/diag_vowel.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/f0_render.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/make_nianlun_v2_critique.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/make_nianlun_v2_reviews.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/mix_nianlun_v2.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/probe_asr.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/probe_f0.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/probe_hfa.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/probe_lyrics.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/probe_ustx.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/render_and_review_nianlun_v2.py",
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/scripts/v3_stage0_bind.py"
+  ],
+  "related_reports": [
+    "songs/nianlun/sessions/20261028__unknown-model__nianlun-from-scratch-v2-20261028/reports/nianlun-from-scratch-v2-20261028.md"
+  ],
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+}

@@ -1,0 +1,23 @@
+{
+  "song_id": "yuai",
+  "run_id": "yuai-first3-continuity-20261017",
+  "session_id": "20261017__unknown-model__yuai-first3-continuity-20261017",
+  "produced_date": "20261017",
+  "produced_time": null,
+  "primary_model": "unknown-model",
+  "models": [],
+  "model_evidence": [],
+  "status": "historical_unverified",
+  "listening_status": "unknown",
+  "original_paths": [],
+  "artifacts": [
+    "songs/yuai/sessions/20261017__unknown-model__yuai-first3-continuity-20261017/manifest.json",
+    "songs/yuai/sessions/20261017__unknown-model__yuai-first3-continuity-20261017/reports/third-phrase-continuity-revision-20261017.json",
+    "songs/yuai/sessions/20261017__unknown-model__yuai-first3-continuity-20261017/reports/third-phrase-continuity-revision-20261017.md",
+    "songs/yuai/sessions/20261017__unknown-model__yuai-first3-continuity-20261017/reports/third-phrase-continuity-revision-insufficient-20261017.json"
+  ],
+  "related_reports": [
+    "songs/yuai/sessions/20261017__unknown-model__yuai-first3-continuity-20261017/reports/third-phrase-continuity-revision-20261017.md"
+  ],
+  "note": "历史 session：模型归属无原始证据，按计划记 unknown-model；local run 目录因含硬编码绝对路径与 OpenUtau 工程引用，暂留原址（deferred）"
+}

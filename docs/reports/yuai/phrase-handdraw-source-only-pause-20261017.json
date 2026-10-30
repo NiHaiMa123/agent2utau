@@ -2,7 +2,7 @@
   "record_id": "RESP:YUAI-PHRASE-HANDDRAW-PAUSE-20261017",
   "record_type": "technical_process_and_scoped_candidate_not_audio_acceptance",
   "report": {
-    "path": "docs/reports/yuai/phrase-handdraw-source-only-20261017.md",
+    "path": "songs/yuai/sessions/20261016__unknown-model__yuai-phrase-handdraw-20261016/reports/phrase-handdraw-source-only-20261017.md",
     "sha256": "51bb131fc27c3e5ac824f64b15480ce7f55c9bccd3e1f512b6a47305d84d4654"
   },
   "validation": {

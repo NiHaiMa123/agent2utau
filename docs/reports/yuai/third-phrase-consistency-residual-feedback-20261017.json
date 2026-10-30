@@ -2,7 +2,7 @@
   "record_id": "AUD:YUAI-S03-CONSISTENCY-RESIDUAL-20261017",
   "record_type": "residual_goal_and_evaluation_request",
   "report": {
-    "path": "docs/reports/yuai/third-phrase-consistency-residual-feedback-20261017.md",
+    "path": "songs/yuai/reports/legacy/third-phrase-consistency-residual-feedback-20261017.md",
     "sha256": "3598bc252ce17ef97a173028e4d910d8fe0b9086c78ac070d25a25c0a592ff13"
   },
   "feedback": "需要构建有一个虚实程度的判断机制，衡量出虚实的一致性。现在一致性还差一点",
