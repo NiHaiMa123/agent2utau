@@ -43,6 +43,15 @@
 | [`20261014__unknown-model__lastpage-v04-acceptance-skill-20261014`](sessions/20261014__unknown-model__lastpage-v04-acceptance-skill-20261014/) | 20261014 | unknown-model | `runs/research/lastpage-v04-acceptance-skill-20261014` | 23 | 1 |
 | [`20261014__unknown-model__lastpage-whole-song-v03-delivery-audit-20261014`](sessions/20261014__unknown-model__lastpage-whole-song-v03-delivery-audit-20261014/) | 20261014 | unknown-model | `runs/research/lastpage-whole-song-v03-delivery-audit-20261014` | 14 | 0 |
 
+## 跨歌曲流程：对齐 P0/P1（2026-10-31）
+
+本歌的锁定歌词（syllable_id）、GAME 归一化（
+ote_id）、确定性字—音符映射（mapping.v1.json）与 baseline 工程
+属于跨歌曲流程实验，记录在 [experiments/alignment/phoneme-alignment-p0p1-20261031/](../../../experiments/alignment/phoneme-alignment-p0p1-20261031/)，
+本机产物在 
+uns/production/phoneme-alignment-p0p1-20261031/lastpage/。歌词未经用户逐字确认（verification 非 user-confirmed），
+未做音素写回（属 P2），听感未验证。
+
 ## 交付索引
 
 见 [`releases/README.md`](releases/README.md)：本机候选交付物与逐条确认状态。

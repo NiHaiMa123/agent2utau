@@ -27,6 +27,15 @@
 | [`20261030-2350__deepseek-v4.1f__nianlun-autopitch-fix-20261030`](sessions/20261030-2350__deepseek-v4.1f__nianlun-autopitch-fix-20261030/) | 20261030 | deepseek-v4.1f | 自动音高跑调修复：4 变体对照，逐音符 22.0c→1.1c | 是（新增候选，未改 v3 原件） |
 | [`20261031-0045__grok-4.7__nianlun-autopitch-consonant-hold`](sessions/20261031-0045__grok-4.7__nianlun-autopitch-consonant-hold/) | 20261031 | grok-4.7 | 功能版自动音高：下一字声母上按住当前音高 | 是（新增候选，未改功能版原件和 v3） |
 
+## 跨歌曲流程：对齐 P0/P1（2026-10-31）
+
+本歌的锁定歌词（syllable_id）、GAME 归一化（
+ote_id）、确定性字—音符映射（mapping.v1.json）与 baseline 工程
+属于跨歌曲流程实验，记录在 [experiments/alignment/phoneme-alignment-p0p1-20261031/](../../../experiments/alignment/phoneme-alignment-p0p1-20261031/)，
+本机产物在 
+uns/production/phoneme-alignment-p0p1-20261031/nianlun/。歌词未经用户逐字确认（verification 非 user-confirmed），
+未做音素写回（属 P2），听感未验证。
+
 ## 交付索引
 
 见 [`releases/README.md`](releases/README.md)：本机候选交付物与逐条确认状态。

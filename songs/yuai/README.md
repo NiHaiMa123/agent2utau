@@ -59,6 +59,15 @@
 | [`20261018__unknown-model__yuai-voice-remap-dialog-20261018`](sessions/20261018__unknown-model__yuai-voice-remap-dialog-20261018/) | 20261018 | unknown-model | `runs/review/yuai-voice-remap-dialog-20261018` | 38 | 0 |
 | [`20261018__unknown-model__yuai-xiayule-author-recheck-20261018`](sessions/20261018__unknown-model__yuai-xiayule-author-recheck-20261018/) | 20261018 | unknown-model | `runs/review/yuai-xiayule-author-recheck-20261018` | 13 | 0 |
 
+## 跨歌曲流程：对齐 P0/P1（2026-10-31）
+
+本歌的锁定歌词（syllable_id）、GAME 归一化（
+ote_id）、确定性字—音符映射（mapping.v1.json）与 baseline 工程
+属于跨歌曲流程实验，记录在 [experiments/alignment/phoneme-alignment-p0p1-20261031/](../../../experiments/alignment/phoneme-alignment-p0p1-20261031/)，
+本机产物在 
+uns/production/phoneme-alignment-p0p1-20261031/yuai/。歌词未经用户逐字确认（verification 非 user-confirmed），
+未做音素写回（属 P2），听感未验证。
+
 ## 交付索引
 
 见 [`releases/README.md`](releases/README.md)：本机候选交付物与逐条确认状态。

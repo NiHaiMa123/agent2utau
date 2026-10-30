@@ -16,6 +16,15 @@ def build_parser():
     compile=commands.add_parser('compile-functions',help='Compile a complete explicit Agent function plan')
     compile.add_argument('--plan',type=Path,required=True);compile.add_argument('--out',type=Path,required=True)
     compile.add_argument('--review-contract',type=Path,help='Version2: inventory/ledger/reviews/intent_lock/musical_critique; version1 is legacy candidate')
+    align=commands.add_parser('align-lyrics',help='Locked lyrics + GAME notes -> normalized notes and deterministic mapping')
+    align.add_argument('--lyrics',type=Path,required=True)
+    align.add_argument('--game',type=Path,required=True)
+    align.add_argument('--out',type=Path,required=True)
+    align.add_argument('--hfa',type=Path)
+    align.add_argument('--asr',type=Path)
+    align.add_argument('--song-id',default='')
+    align.add_argument('--baseline',type=Path)
+    align.add_argument('--baseline-name')
     freeze=commands.add_parser('freeze-musical-intent',help='Freeze source-based musical brief before numeric plan exists')
     for name in ['brief','inventory','plan','out']:freeze.add_argument('--'+name,type=Path,required=True)
     inventory=commands.add_parser('review-inventory',help='Enumerate actual native vowels before reading decisions')
@@ -72,6 +81,10 @@ def main(argv=None):
         elif args.command=='observe-source':
             from .workflow import observe_source
             result=observe_source(args.source,args.out,cfg,args.steps.split(','),args.seed,args.asr_model)
+        elif args.command=='align-lyrics':
+            from .alignment.pipeline import run_alignment
+            result=run_alignment(args.lyrics,args.game,args.out,hfa_path=args.hfa,asr_path=args.asr,
+                                  song_id=args.song_id,baseline_ustx=args.baseline,baseline_name=args.baseline_name)
         elif args.command=='compile-functions':
             from .workflow import compile_functions
             result=compile_functions(args.plan,args.out,cfg,args.review_contract)

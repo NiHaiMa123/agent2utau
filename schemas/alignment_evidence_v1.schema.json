@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/NiHaiMa123/agent2utau/schemas/alignment_evidence_v1.schema.json",
+  "title": "Alignment evidence v1",
+  "description": "Contract for the P0/P1 alignment artifacts: the deterministic syllable-to-note mapping and the code-generated window candidates. Written documents must keep every syllable: a syllable without a defensible assignment is 'unresolved' and must not be counted as a success.",
+  "type": "object",
+  "required": ["schema_version", "song_id", "mapping", "candidates", "unresolved", "coverage"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {"const": 1},
+    "song_id": {"type": "string", "minLength": 1},
+    "total_cost": {"type": "number"},
+    "clock": {
+      "type": "object",
+      "required": ["origin", "bpm", "resolution"],
+      "properties": {
+        "origin": {"type": "string"},
+        "bpm": {"type": "number", "exclusiveMinimum": 0},
+        "resolution": {"type": "integer", "minimum": 1},
+        "tick_rate_per_s": {"type": "number", "exclusiveMinimum": 0},
+        "note": {"type": "string"}
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "lyrics": {"$ref": "#/definitions/fileBinding"},
+        "game": {"$ref": "#/definitions/fileBinding"},
+        "hfa": {"oneOf": [{"$ref": "#/definitions/fileBinding"}, {"type": "null"}]},
+        "asr": {"oneOf": [{"$ref": "#/definitions/fileBinding"}, {"type": "null"}]}
+      }
+    },
+    "mapping": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["syllable_id", "text", "status", "note_ids", "reason_code"],
+        "properties": {
+          "syllable_id": {"type": "string", "pattern": "^s[0-9]{4}$"},
+          "text": {"type": "string", "minLength": 1},
+          "line_index": {"type": "integer", "minimum": 0},
+          "occurrence": {"type": "integer", "minimum": 1},
+          "status": {"enum": ["mapped", "unresolved"]},
+          "note_ids": {
+            "type": "array",
+            "items": {"type": "string", "pattern": "^n[0-9]{4}$"}
+          },
+          "sustain_note_ids": {
+            "type": "array",
+            "items": {"type": "string", "pattern": "^n[0-9]{4}$"}
+          },
+          "reason_code": {"type": "string", "minLength": 1},
+          "margin": {"type": ["number", "null"]},
+          "evidence": {
+            "type": "object",
+            "required": ["syllable_id", "anchor_source"],
+            "properties": {
+              "syllable_id": {"type": "string"},
+              "anchor_s": {"type": ["number", "null"]},
+              "anchor_source": {"enum": ["hfa", "asr", "none"]},
+              "expected_dur_s": {"type": ["number", "null"]}
+            }
+          }
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["candidate_id", "window_id", "syllable_ids", "assignment", "total_cost"],
+        "properties": {
+          "candidate_id": {"type": "string", "minLength": 1},
+          "window_id": {"type": "string", "minLength": 1},
+          "syllable_ids": {"type": "array", "items": {"type": "string"}},
+          "assignment": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {"type": "string", "pattern": "^n[0-9]{4}$"}
+            }
+          },
+          "unresolved_syllable_ids": {"type": "array", "items": {"type": "string"}},
+          "total_cost": {"type": "number"}
+        }
+      }
+    },
+    "windows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["window_id", "syllable_ids", "text", "option_count"],
+        "properties": {
+          "window_id": {"type": "string", "minLength": 1},
+          "syllable_ids": {"type": "array", "items": {"type": "string"}},
+          "text": {"type": "string"},
+          "option_count": {"type": "integer", "minimum": 0},
+          "note_budget": {"type": "array", "items": {"type": "integer"}}
+        }
+      }
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["syllable_id", "reason_code"],
+        "properties": {
+          "syllable_id": {"type": "string"},
+          "text": {"type": "string"},
+          "reason_code": {"type": "string", "minLength": 1},
+          "detail": {"type": "string"}
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["syllable_total", "syllable_mapped", "syllable_unresolved", "coverage_ratio"],
+      "properties": {
+        "syllable_total": {"type": "integer", "minimum": 0},
+        "syllable_mapped": {"type": "integer", "minimum": 0},
+        "syllable_unresolved": {"type": "integer", "minimum": 0},
+        "coverage_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+        "success_ratio_excluding_unresolved": {"type": "number", "minimum": 0, "maximum": 1},
+        "voiced_note_total": {"type": "integer", "minimum": 0},
+        "voiced_note_assigned": {"type": "integer", "minimum": 0},
+        "voiced_note_unassigned": {"type": "integer", "minimum": 0}
+      }
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "max_melisma": {"type": "integer", "minimum": 1},
+        "time_scale_s": {"type": "number", "exclusiveMinimum": 0},
+        "duration_scale_s": {"type": "number", "exclusiveMinimum": 0},
+        "melisma_cost": {"type": "number", "minimum": 0},
+        "skip_cost": {"type": "number", "minimum": 0},
+        "unresolved_cost": {"type": "number", "minimum": 0},
+        "ambiguity_margin": {"type": "number", "minimum": 0},
+        "window_min": {"type": "integer", "minimum": 1},
+        "window_max": {"type": "integer", "minimum": 1}
+      }
+    }
+  },
+  "definitions": {
+    "fileBinding": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

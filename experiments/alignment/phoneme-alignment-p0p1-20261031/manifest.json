@@ -1,0 +1,59 @@
+{
+  "song_id": "cross-song",
+  "song_ids": ["nianlun", "lastpage", "yuai"],
+  "run_id": "phoneme-alignment-p0p1-20261031",
+  "session_id": "20261031-0130__minimax-m3.1f__phoneme-alignment-p0p1-20261031",
+  "started_at": "2026-10-31T01:30:00+08:00",
+  "produced_at": "2026-10-31T03:10:00+08:00",
+  "primary_model": "minimax-m3.1f",
+  "models_with_roles": [
+    { "model": "minimax-m3.1f", "role": "P0/P1 实现与执行：盘点命令、固定输入、实现 alignment 模块与确定性映射、生成样本与报告" }
+  ],
+  "model_evidence": ["本会话由 MiniMax-M3.1-Flash 单 Agent 执行；子 Agent 仅做只读资料盘点"],
+  "version": "p0p1",
+  "scope": "plan.md P0 + P1（锁定身份与确定性字—音符映射）；不含 P2 音素基线、patch 写回与跨模型评测",
+  "original_run_path": "runs/production/phoneme-alignment-p0p1-20261031",
+  "output_artifacts": [
+    { "path": "src/agent2utau/alignment/", "kind": "py", "local_only": false, "role": "锁定歌词、GAME 归一化、观测匹配、确定性映射、baseline、硬约束校验" },
+    { "path": "schemas/alignment_evidence_v1.schema.json", "kind": "json", "local_only": false, "role": "P0/P1 证据契约" },
+    { "path": "tests/unit/test_alignment_lyrics.py", "kind": "py", "local_only": false, "role": "歌词与 syllable id 单测" },
+    { "path": "tests/unit/test_alignment_notes.py", "kind": "py", "local_only": false, "role": "GAME 归一化与时钟异常单测" },
+    { "path": "tests/unit/test_alignment_mapping.py", "kind": "py", "local_only": false, "role": "映射单调性、unresolved、候选与硬约束单测" },
+    { "path": "tests/contracts/test_alignment_evidence.py", "kind": "py", "local_only": false, "role": "mapping.v1 对 schema 的契约测试" },
+    { "path": "experiments/alignment/phoneme-alignment-p0p1-20261031/scripts/build_p0p1_artifacts.py", "kind": "py", "local_only": false, "role": "三首歌 P0/P1 产物生成脚本" },
+    { "path": "experiments/alignment/phoneme-alignment-p0p1-20261031/scripts/build_p0_samples.py", "kind": "py", "local_only": false, "role": "P0 小样本选择与切分脚本" },
+    { "path": "experiments/alignment/phoneme-alignment-p0p1-20261031/reports/phoneme-alignment-p0p1-20261031.md", "kind": "md", "local_only": false, "role": "P0/P1 实施报告" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/lyrics_locked.json", "kind": "json", "local_only": true, "role": "锁定歌词与 syllable id" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/notes_normalized.json", "kind": "json", "local_only": true, "role": "GAME 归一化音符与 tick" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/mapping.v1.json", "kind": "json", "local_only": true, "role": "确定性映射与窗口候选" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/anomalies.json", "kind": "json", "local_only": true, "role": "异常清单" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/observations_manifest.json", "kind": "json", "local_only": true, "role": "输入 SHA、时钟原点、模型 hash" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/<song>/baseline.ustx", "kind": "ustx", "local_only": true, "role": "baseline 工程（无人工 PITD）" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/samples/index.json", "kind": "json", "local_only": true, "role": "22 个小样本索引，覆盖 8 类场景" },
+    { "path": "runs/production/phoneme-alignment-p0p1-20261031/command-inventory/", "kind": "wav", "local_only": true, "role": "真实命令实测留档（export-phonemes/roundtrip/render/observe-source）" }
+  ],
+  "native_verification": {
+    "doctor": "ok (OpenUtau 0.1.570.9011, YousaV1.65c)",
+    "export_phonemes": "ok on the v3 年轮 copy (51 parts / 761 phones) and on three new baseline samples",
+    "roundtrip": "ok on the v3 年轮 copy (650 notes in/out, lyrics_match=true)",
+    "render_project": "ok on a baseline sample (vocal wav rendered, delivery review = candidate only)",
+    "observe_source": "see run command-inventory/observe-nianlun",
+    "patch_writeback": "not attempted (belongs to P2)"
+  },
+  "coverage": {
+    "nianlun": { "syllables": 349, "mapped": 345, "unresolved": 4, "notes_assigned": "391/400", "windows": 15, "candidates": 71 },
+    "lastpage": { "syllables": 318, "mapped": 318, "unresolved": 0, "notes_assigned": "368/368", "windows": 6, "candidates": 46 },
+    "yuai": { "syllables": 371, "mapped": 366, "unresolved": 5, "notes_assigned": "413/425", "windows": 7, "candidates": 6 }
+  },
+  "status": "candidate",
+  "listening_status": "unknown",
+  "musical_quality": "unverified",
+  "open_questions": [
+    "三首歌的锁定歌词都未经用户逐字确认（verification 非 user-confirmed），需要用户拍板",
+    "年轮 4 个、雨爱 5 个字因 GAME 快唱段过切分判为 unresolved",
+    "最后一页 1 个延音音符因 160 ms 间隙无法成链，baseline 已丢弃并登记"
+  ],
+  "related_reports": [
+    "experiments/alignment/phoneme-alignment-p0p1-20261031/reports/phoneme-alignment-p0p1-20261031.md"
+  ]
+}
