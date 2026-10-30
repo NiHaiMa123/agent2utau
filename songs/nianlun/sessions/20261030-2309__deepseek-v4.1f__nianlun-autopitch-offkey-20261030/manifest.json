@@ -1,0 +1,64 @@
+{
+  "song_id": "nianlun",
+  "run_id": "nianlun-autopitch-offkey-20261030",
+  "session_id": "20261030-2309__deepseek-v4.1f__nianlun-autopitch-offkey-20261030",
+  "started_at": "2026-10-30T22:59:20+08:00",
+  "produced_at": "2026-10-30T23:20:00+08:00",
+  "primary_model": "deepseek-v4.1f",
+  "models_with_roles": [
+    { "model": "deepseek-v4.1f", "role": "只读数值诊断与归因（报告与诊断脚本）" }
+  ],
+  "model_evidence": ["用户在本会话指定 deepseek-v4.1f 执行；本轮由该模型单 Agent 完成诊断"],
+  "version": "diagnosis-only",
+  "original_run_path": "runs/production/nianlun-from-scratch-v3-20261030",
+  "output_artifacts": [
+    {
+      "path": "songs/nianlun/sessions/20261030-2309__deepseek-v4.1f__nianlun-autopitch-offkey-20261030/reports/nianlun-autopitch-offkey-diagnosis-20261030.md",
+      "kind": "md",
+      "local_only": false
+    },
+    {
+      "path": "scratch/nianlun_v3_rebuild_audio/step1_vocal_vocal.wav",
+      "kind": "wav",
+      "local_only": true
+    },
+    {
+      "path": "scratch/nianlun_v3_rebuild_audio/final_vocal_vocal.wav",
+      "kind": "wav",
+      "local_only": true
+    }
+  ],
+  "diagnosed_objects": [
+    "scratch/nianlun_v3_rebuild（22:26-22:43 自动音高重建：autopitch.json / baseline_*.ustx / phones.json）",
+    "scratch/nianlun_v3_rebuild_audio（step1 仅音高版 / final 最终版 / 混音）",
+    "scratch/nianlun_func_dspitch（22:07-22:12 功能版自动音高，用作复核）"
+  ],
+  "status": "historical_unverified",
+  "listening_status": "unknown",
+  "findings_summary": {
+    "excluded_render_fault": "渲染人声 vs 设计线逐帧中位 +0.2c，仅 3.3% 帧 >50c",
+    "excluded_pitd_write_fault": "18027 个 PITD 点按官方公式重算，误差 0.00c（中位/p95/max 全 0）",
+    "excluded_score_rebuild_fault": "重建谱面与 v3 逐音符完全一致（51 part / 650 note，0 差异）",
+    "root_cause": "自动音高把谱面 12 平均律 tone 当旋律唯一来源；原唱是滑音密集唱法（100ms 内移动中位 54c、p90 221c），谱面 100ms 内移动中位 0c",
+    "error_decomposition_rms_cents": {
+      "score_vs_source": 86.7,
+      "prediction_vs_score": 69.3,
+      "render_vs_prediction": 30.6,
+      "render_vs_source": 102.0
+    },
+    "frame_level_vs_source": {
+      "v3_handdrawn": { "median_abs_c": 3.7, "p90_c": 18.1, "over_100c_pct": 1.3 },
+      "autopitch": { "median_abs_c": 49.3, "p90_c": 182.5, "over_100c_pct": 26.0 }
+    },
+    "mechanisms": [
+      "M1 export-autopitch 未导出 result.voiced，静音/padding 帧被写入 PITD：1.4% 越界点 + 7.5% 落在 AP/SP 休止块，65 个 AP/SP 音符预测偏离中位 +18.3c / p90 182c",
+      "M2 模型帧长 11.46ms，最短音符仅 5 帧；20 个 |预测-本音|>200c 的音符中 9 个（45%）预测值落在相邻音符音高 120c 内；80-200ms 音符 |err| 中位 52-68c，200-350ms 仅 23c",
+      "M3 '+' 延长块 tone 取源分段中位，236 个中 230 个与前一音符不同、128 个差 >=3 半音（最大 9）。v3 不读 tone 画线故无害，自动音高会把这条不存在的跳进唱出来"
+    ]
+  },
+  "related_reports": [
+    "songs/nianlun/sessions/20261030__unknown-model__nianlun-from-scratch-v3-20261030/reports/nianlun-from-scratch-v3-20261030.md",
+    "songs/nianlun/sessions/20261030-2309__deepseek-v4.1f__nianlun-autopitch-offkey-20261030/reports/nianlun-autopitch-offkey-diagnosis-20261030.md"
+  ],
+  "note": "只读诊断：未改工程/音频/谱面/plan/ledger，未重新渲染，未新增模型推理。所有数字均由本机同一 F0 检测器与同一音符窗口测得；listening=unknown，不声称听感已解决。"
+}

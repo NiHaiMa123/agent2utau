@@ -51,3 +51,7 @@ benchmarks/**/local/
 experiments/**/workspace/
 experiments/**/outputs/
 migration/**/*.tmp
+# 2026-10-30 临时 bridge 发布副本（a2u-bridge 单文件 exe/pdb，单份约 140MB）：
+# 属本机构建产物，按 repository-layout「二进制载荷不入库」处理；源码仍在 bridge/OuBridge。
+scratch/bridge_pub*/
+scratch/bridge_publish*/

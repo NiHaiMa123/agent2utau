@@ -110,6 +110,7 @@ namespace Agent2Utau.Bridge {
                     case "export-pitch": result = ExportPitch(Req(opt, "project"), Req(opt, "out")); break;
                     case "export-phonemes": result = ExportPhonemes(Req(opt, "project"), Req(opt, "out")); break;
                     case "export-variance": result = ExportVariance(Req(opt, "project"), Req(opt, "out")); break;
+                    case "export-autopitch": result = ExportAutoPitch(Req(opt, "project"), Req(opt, "out")); break;
                     case "export-render-probe":
                         result = RenderProbe.Export(LoadProject(Req(opt, "project")), Req(opt, "out"), Req(opt, "indices"));
                         break;
@@ -357,6 +358,53 @@ namespace Agent2Utau.Bridge {
                 stage = "raw variance predictor before user expression deltas; not measured audio", phrases,
             }));
             return new Dictionary<string, object> { ["output"] = dest, ["phrase_count"] = phrases.Count };
+        }
+
+        // Exports the renderer's own pitch-predictor result (OpenUtau's own
+        // "load rendered pitch" path) so external tooling can reproduce or
+        // verify it without re-implementing the DiffSinger pitch contract.
+        static Dictionary<string, object> ExportAutoPitch(string path, string output) {
+            var project = LoadProject(path);
+            var parts = project.parts.OfType<UVoicePart>().ToArray();
+            if (parts.Length == 0 || parts.Any(p => !p.PhonemesUpToDate ||
+                    p.renderPhrases.Count == 0 || p.notes.Any(n => n.Error) ||
+                    p.phonemes.Any(ph => ph.Error))) {
+                throw new InvalidOperationException("Cannot export autopitch from invalid parts.");
+            }
+            var phrases = new List<object>();
+            foreach (var part in parts) {
+                var renderer = project.tracks[part.trackNo].RendererSettings.Renderer
+                    ?? throw new InvalidOperationException("Track has no renderer.");
+                var diffSinger = renderer as OpenUtau.Core.DiffSinger.DiffSingerRenderer
+                    ?? throw new InvalidOperationException("Track renderer is not DiffSinger.");
+                foreach (var ph in part.renderPhrases) {
+                    var result = diffSinger.LoadRenderedPitch(ph)
+                        ?? throw new InvalidOperationException("Pitch predictor returned no result.");
+                    if (result.tones == null || result.ticks == null ||
+                            result.tones.Length != result.ticks.Length) {
+                        throw new InvalidOperationException("Invalid pitch result arrays.");
+                    }
+                    if (result.tones.Any(x => !float.IsFinite(x))) {
+                        throw new InvalidOperationException("Non-finite pitch values.");
+                    }
+                    phrases.Add(new {
+                        part_position = part.position, track_no = part.trackNo, ph.position,
+                        ticks = result.ticks, tones = result.tones,
+                        retake_mask = result.retakeMask,
+                    });
+                }
+            }
+            var dest = Path.GetFullPath(output);
+            Directory.CreateDirectory(Path.GetDirectoryName(dest));
+            File.WriteAllText(dest, JsonSerializer.Serialize(new {
+                schema_version = 1, project = Path.GetFullPath(path),
+                units = "ticks relative to phrase position; tones in MIDI scale semitones",
+                stage = "OpenUtau DiffSinger pitch predictor output (renderer's own LoadRenderedPitch)",
+                phrases,
+            }));
+            return new Dictionary<string, object> {
+                ["output"] = dest, ["phrase_count"] = phrases.Count,
+            };
         }
 
         static Dictionary<string, object> Inspect(string path) {

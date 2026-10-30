@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "review_contract_version": 2,
+  "project": {
+    "path": "E:\\project\\agent2utau\\scratch\\nianlun_v3_rebuild_audio\\probe\\tenc_0.ustx",
+    "sha256": "bd4cf36c136a0648b1498eb07a7ec009a3aa84d557a0abe3b9a0ff29e0e89d0e"
+  },
+  "execution_review": null,
+  "execution_status": "fail",
+  "technical_execution_complete": false,
+  "workflow_review_complete": false,
+  "musical_quality": "unverified",
+  "missing": "Musical process/calibration incomplete or legacy receipt; candidate only",
+  "audio": {
+    "status": "pass",
+    "file": {
+      "path": "E:\\project\\agent2utau\\scratch\\nianlun_v3_rebuild_audio\\probe\\tenc_0_vocal.wav",
+      "sha256": "598f72ceff74687a2eba4fa68dacbdbe252c1d6cae05ee869a8807d02da27230"
+    },
+    "sample_rate": 44100,
+    "samples": 4000002,
+    "peak": 0.36102294921875,
+    "scope": "Audio byte identity/finite/peak only; model inputs, alignment and perceived effect not certified"
+  },
+  "listening": "unknown",
+  "transfer": "unknown",
+  "candidate_delivery_allowed": true,
+  "production_execution_complete": false
+}

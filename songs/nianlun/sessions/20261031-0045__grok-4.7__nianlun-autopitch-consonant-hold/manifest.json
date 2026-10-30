@@ -1,0 +1,55 @@
+{
+  "song_id": "nianlun",
+  "run_id": "nianlun-autopitch-consonant-hold-20261031",
+  "session_id": "20261031-0045__grok-4.7__nianlun-autopitch-consonant-hold",
+  "started_at": "2026-10-31T00:45:00+08:00",
+  "produced_at": "2026-10-31T01:05:00+08:00",
+  "primary_model": "grok-4.7",
+  "models_with_roles": [
+    { "model": "grok-4.7", "role": "定位声母提前滑音并按住该段音高" }
+  ],
+  "model_evidence": ["本会话由 Grok 4.7 单 Agent 执行"],
+  "version": "consonant-hold",
+  "original_run_path": "runs/experiments/nianlun-autopitch-consonant-hold-20261031",
+  "base_score": "runs/nianlun_functional_20260929/nianlun_functional.ustx",
+  "output_artifacts": [
+    {
+      "path": "runs/experiments/nianlun-autopitch-consonant-hold-20261031/nianlun_functional_held.ustx",
+      "kind": "ustx",
+      "local_only": true,
+      "role": "功能版谱面，仅替换 PITD：下一字声母上按住当前音高"
+    },
+    {
+      "path": "runs/experiments/nianlun-autopitch-consonant-hold-20261031/hold_stats.json",
+      "kind": "json",
+      "local_only": true,
+      "role": "按住前后的音分统计"
+    },
+    {
+      "path": "runs/experiments/nianlun-autopitch-consonant-hold-20261031/vocal_vocal.wav",
+      "kind": "wav",
+      "local_only": true,
+      "role": "按住后的人声"
+    },
+    {
+      "path": "runs/experiments/nianlun-autopitch-consonant-hold-20261031/nianlun_functional_held_mix.wav",
+      "kind": "wav",
+      "local_only": true,
+      "role": "人声加伴奏"
+    },
+    {
+      "path": "runs/experiments/nianlun-autopitch-consonant-hold-20261031/nianlun_functional_held_mix.mp3",
+      "kind": "mp3",
+      "local_only": true,
+      "role": "混音试听"
+    },
+    {
+      "path": "songs/nianlun/sessions/20261031-0045__grok-4.7__nianlun-autopitch-consonant-hold/reports/nianlun-autopitch-consonant-hold-20261031.md",
+      "kind": "md",
+      "local_only": false
+    }
+  ],
+  "status": "candidate",
+  "listening_status": "unknown",
+  "musical_quality": "unverified"
+}

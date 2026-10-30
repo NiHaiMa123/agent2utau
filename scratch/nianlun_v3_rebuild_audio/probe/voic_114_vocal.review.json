@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "review_contract_version": 2,
+  "project": {
+    "path": "E:\\project\\agent2utau\\scratch\\nianlun_v3_rebuild_audio\\probe\\voic_114.ustx",
+    "sha256": "8d819cfc06d09acd2d499dc757f2ebdc0867f93fff1461a712c8d9954b706441"
+  },
+  "execution_review": null,
+  "execution_status": "fail",
+  "technical_execution_complete": false,
+  "workflow_review_complete": false,
+  "musical_quality": "unverified",
+  "missing": "Musical process/calibration incomplete or legacy receipt; candidate only",
+  "audio": {
+    "status": "pass",
+    "file": {
+      "path": "E:\\project\\agent2utau\\scratch\\nianlun_v3_rebuild_audio\\probe\\voic_114_vocal.wav",
+      "sha256": "cc3844fe36cedfd41e5b03070b5e1fa382aa4a3b1d7872f4a546de73b90d4f5b"
+    },
+    "sample_rate": 44100,
+    "samples": 4000002,
+    "peak": 0.41461181640625,
+    "scope": "Audio byte identity/finite/peak only; model inputs, alignment and perceived effect not certified"
+  },
+  "listening": "unknown",
+  "transfer": "unknown",
+  "candidate_delivery_allowed": true,
+  "production_execution_complete": false
+}

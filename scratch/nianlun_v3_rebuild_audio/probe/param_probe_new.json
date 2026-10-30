@@ -1,0 +1,96 @@
+{
+ "part_index": 20,
+ "purpose": "新基线(dspitch音高+DYN=0)下重新标定发声层剂量-响应",
+ "results": {
+  "voic": {
+   "rows": [
+    {
+     "hnr_db": 9.411,
+     "centroid_hz": 3009.7,
+     "rms_db": -26.486,
+     "level": 90
+    },
+    {
+     "hnr_db": 9.327,
+     "centroid_hz": 2883.2,
+     "rms_db": -25.466,
+     "level": 114
+    },
+    {
+     "hnr_db": 9.479,
+     "centroid_hz": 2753.4,
+     "rms_db": -24.54,
+     "level": 138
+    }
+   ],
+   "levels": [
+    90,
+    114,
+    138
+   ],
+   "hnr_db_per_unit": 0.001417,
+   "centroid_hz_per_unit": -5.3396,
+   "rms_db_per_unit": 0.040542
+  },
+  "brec": {
+   "rows": [
+    {
+     "hnr_db": 9.462,
+     "centroid_hz": 2655.2,
+     "rms_db": -25.553,
+     "level": -20
+    },
+    {
+     "hnr_db": 9.417,
+     "centroid_hz": 3013.1,
+     "rms_db": -25.289,
+     "level": 0
+    },
+    {
+     "hnr_db": 9.406,
+     "centroid_hz": 3028.4,
+     "rms_db": -25.129,
+     "level": 20
+    }
+   ],
+   "levels": [
+    -20,
+    0,
+    20
+   ],
+   "hnr_db_per_unit": -0.0014,
+   "centroid_hz_per_unit": 9.33,
+   "rms_db_per_unit": 0.0106
+  },
+  "tenc": {
+   "rows": [
+    {
+     "hnr_db": 9.716,
+     "centroid_hz": 2865.5,
+     "rms_db": -25.421,
+     "level": -20
+    },
+    {
+     "hnr_db": 9.623,
+     "centroid_hz": 2885.3,
+     "rms_db": -25.472,
+     "level": 0
+    },
+    {
+     "hnr_db": 9.17,
+     "centroid_hz": 2961.6,
+     "rms_db": -25.407,
+     "level": 20
+    }
+   ],
+   "levels": [
+    -20,
+    0,
+    20
+   ],
+   "hnr_db_per_unit": -0.01365,
+   "centroid_hz_per_unit": 2.4025,
+   "rms_db_per_unit": 0.00035
+  }
+ }
+}

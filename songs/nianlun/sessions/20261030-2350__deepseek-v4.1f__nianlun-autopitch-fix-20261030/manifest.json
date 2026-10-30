@@ -1,0 +1,56 @@
+{
+  "song_id": "nianlun",
+  "run_id": "nianlun-autopitch-fix-20261030",
+  "session_id": "20261030-2350__deepseek-v4.1f__nianlun-autopitch-fix-20261030",
+  "started_at": "2026-10-30T23:20:00+08:00",
+  "produced_at": "2026-10-30T23:50:00+08:00",
+  "primary_model": "deepseek-v4.1f",
+  "models_with_roles": [
+    { "model": "deepseek-v4.1f", "role": "谱面变体构造、渲染、逐音符判据与归因" }
+  ],
+  "model_evidence": ["用户在本会话指定由当前 Agent 执行；本轮由 deepseek-v4.1f 单 Agent 完成"],
+  "version": "autopitch-fix",
+  "original_run_path": "runs/experiments/nianlun-autopitch-fix-20261030",
+  "base_score": "scratch/nianlun_v3_rebuild/baseline_no_pitch_no_dyn.ustx (v3 谱面，650 note，与 v3 compiled 逐音符一致)",
+  "output_artifacts": [
+    { "path": "runs/experiments/nianlun-autopitch-fix-20261030/A_v3score_autopitch_vocal.wav", "kind": "wav", "local_only": true, "role": "基线：v3 谱面 + 模型自动预测" },
+    { "path": "runs/experiments/nianlun-autopitch-fix-20261030/B_plusmerge_vocal.wav", "kind": "wav", "local_only": true, "role": "失败变体：合并 + 块" },
+    { "path": "runs/experiments/nianlun-autopitch-fix-20261030/C_plusmerge_short_vocal.wav", "kind": "wav", "local_only": true, "role": "失败变体：合并 + 块 + 短音补齐" },
+    { "path": "runs/experiments/nianlun-autopitch-fix-20261030/D_vocal.wav", "kind": "wav", "local_only": true, "role": "修复候选：预测线 + 逐音符残差偏置" },
+    { "path": "runs/experiments/nianlun-autopitch-fix-20261030/D_autopitch_residual.ustx", "kind": "ustx", "local_only": true, "role": "修复候选工程" },
+    { "path": "songs/nianlun/sessions/20261030-2350__deepseek-v4.1f__nianlun-autopitch-fix-20261030/reports/nianlun-autopitch-fix-20261030.md", "kind": "md", "local_only": false }
+  ],
+  "status": "candidate",
+  "listening_status": "unknown",
+  "findings": {
+    "correction_of_previous_round": [
+      "上一轮称自动音高信息不足、达不到手工水平：错误。预测器对其输入谱面的复现精度为 0.9c（p90 4.8c）",
+      "上一轮称 + 块音高错误、应合并：错误。+ 块 tone 对源偏差 16.4c 优于唱字 22.1c；跳进与真实音高变化 r=0.920；合并后误差 22.0c→88.4c"
+    ],
+    "user_premise_confirmed": "最后一页自动音高确实没问题：其自动音高 16.5c 与手工版 27.4c 同级，相对谱面仅损失 +1.2c；年轮相对谱面仅损失 +0.6c",
+    "real_difference": "两首歌的差异在谱面本身：年轮谱面 vs 原唱 20.4c、+ 块占 36%、最短唱字 80ms；最后一页 15.3c、8%、165ms",
+    "per_note_vs_source_cents": {
+      "A_baseline_autopitch": { "median_abs": 22.0, "p90": 84.6, "over_100c_pct": 8.0 },
+      "B_plusmerge": { "median_abs": 88.4, "p90": 536.1, "over_100c_pct": 47.1 },
+      "C_plusmerge_short": { "median_abs": 88.8, "p90": 535.5, "over_100c_pct": 47.5 },
+      "D_residual_fix": { "median_abs": 1.1, "p90": 14.5, "over_100c_pct": 1.6 },
+      "v3_handdrawn_ref": { "median_abs": 14.1, "p90": 131.0, "over_100c_pct": 14.5 }
+    },
+    "further_numerical_facts": [
+      "自动音高把音高画成台阶：帧间变化中位 0.8c；原唱 9.4c。单音符准、音符间是硬台阶，这是“蹦”的听感来源",
+      "D 的第一版把偏置只写两端点(x0,x1)，被下一音符覆盖成斜坡，仅改善 3.8%；改为平台(x0,x1-1)后达 1.1c",
+      "逐音符中位判据对音符内滑音形状不敏感，形状仍需图审（本轮未做）"
+    ],
+    "unresolved": [
+      "listening=unknown、musical_quality=unverified，未验证听感",
+      "D 使用原唱 F0 逐音符中位，本质仍是照参考原唱调，与 v3 手工同源；若不允许用原唱参考则不适用",
+      "12 个音符源 F0 覆盖不足(<2 帧)未加偏置",
+      "未测 DiffSingerStepsPitch 的影响（本次结论不依赖采样步数）"
+    ]
+  },
+  "related_reports": [
+    "songs/nianlun/sessions/20261030-2309__deepseek-v4.1f__nianlun-autopitch-offkey-20261030/reports/nianlun-autopitch-offkey-diagnosis-20261030.md",
+    "songs/nianlun/sessions/20261030-2350__deepseek-v4.1f__nianlun-autopitch-fix-20261030/reports/nianlun-autopitch-fix-20261030.md"
+  ],
+  "note": "本 session 只新增 runs/experiments 下的本机产物与 songs 下的脚本/报告；未改动 v3 原工程、原渲染音频与谱面。判断口径为逐音符中位 F0 对原唱双检测器一致迹线。"
+}

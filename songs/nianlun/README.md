@@ -17,6 +17,16 @@
 | [`20261029__unknown-model__nianlun-v3-20261029`](sessions/20261029__unknown-model__nianlun-v3-20261029/) | 20261029 | unknown-model | `runs/production/nianlun-v3-20261029` | 1121 | 244 |
 | [`20261030__unknown-model__nianlun-from-scratch-v3-20261030`](sessions/20261030__unknown-model__nianlun-from-scratch-v3-20261030/) | 20261030 | unknown-model | `runs/production/nianlun-from-scratch-v3-20261030` | 3781 | 26 |
 
+## 局部修订与试验（Revision / Investigation Session）
+
+针对既有制作的只读诊断或局部修订；不产生新的整曲候选。
+
+| session | 日期 | 模型 | 主题 | 是否改动工程/音频 |
+|---|---|---|---|---|
+| [`20261030-2309__deepseek-v4.1f__nianlun-autopitch-offkey-20261030`](sessions/20261030-2309__deepseek-v4.1f__nianlun-autopitch-offkey-20261030/) | 20261030 | deepseek-v4.1f | 自动音高（DiffSinger dspitch）跑调归因 | 否（只读诊断） |
+| [`20261030-2350__deepseek-v4.1f__nianlun-autopitch-fix-20261030`](sessions/20261030-2350__deepseek-v4.1f__nianlun-autopitch-fix-20261030/) | 20261030 | deepseek-v4.1f | 自动音高跑调修复：4 变体对照，逐音符 22.0c→1.1c | 是（新增候选，未改 v3 原件） |
+| [`20261031-0045__grok-4.7__nianlun-autopitch-consonant-hold`](sessions/20261031-0045__grok-4.7__nianlun-autopitch-consonant-hold/) | 20261031 | grok-4.7 | 功能版自动音高：下一字声母上按住当前音高 | 是（新增候选，未改功能版原件和 v3） |
+
 ## 交付索引
 
 见 [`releases/README.md`](releases/README.md)：本机候选交付物与逐条确认状态。
