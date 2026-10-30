@@ -1,0 +1,746 @@
+[
+  {
+    "group": "00_m2-原曲源",
+    "role": "原唱源",
+    "mp3": "00_m2-原曲源\\原唱源.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\m2-nianlun\\audio\\original.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "00_m2-原曲源",
+    "role": "原唱单声道",
+    "mp3": "00_m2-原曲源\\原唱单声道.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\m2-nianlun\\audio\\mono.wav",
+    "dur": 274.5,
+    "mb": 24.2
+  },
+  {
+    "group": "00_m2-原曲源",
+    "role": "原唱分离伴奏",
+    "mp3": "00_m2-原曲源\\原唱分离伴奏.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\m2-nianlun\\audio\\original_(Instrumental)_UVR-MDX-NET-Voc_FT.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "00_m2-原曲源",
+    "role": "原唱分离人声",
+    "mp3": "00_m2-原曲源\\原唱分离人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\m2-nianlun\\audio\\original_(Vocals)_UVR-MDX-NET-Voc_FT.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "01_review_combined-0920",
+    "role": "styleB 人声",
+    "mp3": "01_review_combined-0920\\styleB_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\review_combined\\nianlun_styleB_vocal.wav",
+    "dur": 242.7,
+    "mb": 21.4
+  },
+  {
+    "group": "01_review_combined-0920",
+    "role": "f0pitd 人声",
+    "mp3": "01_review_combined-0920\\f0pitd_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\review_combined\\nianlun_f0pitd_vocal.wav",
+    "dur": 242.7,
+    "mb": 21.4
+  },
+  {
+    "group": "01_review_combined-0920",
+    "role": "f0pitd 人声(最终)",
+    "mp3": "01_review_combined-0920\\f0pitd_人声(最终).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\review_combined\\nianlun_f0pitd_vocal_vocal.wav",
+    "dur": 242.7,
+    "mb": 21.4
+  },
+  {
+    "group": "02_功能版-0929",
+    "role": "人声",
+    "mp3": "02_功能版-0929\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_baseline_backup_20260929_211320\\nianlun_vocal.wav",
+    "dur": 242.7,
+    "mb": 42.8
+  },
+  {
+    "group": "02_功能版-0929",
+    "role": "人声",
+    "mp3": "02_功能版-0929\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_functional_20260929\\nianlun_vocal.wav",
+    "dur": 242.7,
+    "mb": 42.8
+  },
+  {
+    "group": "02_功能版-0929",
+    "role": "整曲混音",
+    "mp3": "02_功能版-0929\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_baseline_backup_20260929_211320\\nianlun_full_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "02_功能版-0929",
+    "role": "整曲混音",
+    "mp3": "02_功能版-0929\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_functional_20260929\\nianlun_full_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "02_功能版-0929",
+    "role": "伴奏",
+    "mp3": "02_功能版-0929\\伴奏.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_baseline_backup_20260929_211320\\accompaniment.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "02_功能版-0929",
+    "role": "伴奏",
+    "mp3": "02_功能版-0929\\伴奏.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_functional_20260929\\accompaniment.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "03_highnote_v2-0929",
+    "role": "人声",
+    "mp3": "03_highnote_v2-0929\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v2_20260929\\vocal.wav",
+    "dur": 242.7,
+    "mb": 42.8
+  },
+  {
+    "group": "03_highnote_v2-0929",
+    "role": "整曲混音",
+    "mp3": "03_highnote_v2-0929\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v2_20260929\\nianlun_highnote_v2_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "03_highnote_v2-0929",
+    "role": "对照同增益混音",
+    "mp3": "03_highnote_v2-0929\\对照同增益混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v2_20260929\\baseline_same_gain_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "03_highnote_v2-0929",
+    "role": "伴奏",
+    "mp3": "03_highnote_v2-0929\\伴奏.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v2_20260929\\accompaniment.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "04_highnote_v3-0929",
+    "role": "人声",
+    "mp3": "04_highnote_v3-0929\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v3_20260929\\vocal.wav",
+    "dur": 242.7,
+    "mb": 42.8
+  },
+  {
+    "group": "04_highnote_v3-0929",
+    "role": "整曲混音",
+    "mp3": "04_highnote_v3-0929\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v3_20260929\\nianlun_highnote_v3_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "04_highnote_v3-0929",
+    "role": "对照同增益混音",
+    "mp3": "04_highnote_v3-0929\\对照同增益混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v3_20260929\\baseline_same_gain_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "04_highnote_v3-0929",
+    "role": "伴奏",
+    "mp3": "04_highnote_v3-0929\\伴奏.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v3_20260929\\accompaniment.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "04_highnote_v3-0929",
+    "role": "人声(电平校正)",
+    "mp3": "04_highnote_v3-0929\\人声(电平校正).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v3_20260929\\vocal_leveled.wav",
+    "dur": 242.7,
+    "mb": 64.2
+  },
+  {
+    "group": "04_highnote_v3-0929",
+    "role": "整曲混音(平衡)",
+    "mp3": "04_highnote_v3-0929\\整曲混音(平衡).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v3_20260929\\nianlun_v3_balanced_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "04_highnote_v3-0929",
+    "role": "整曲混音(未平衡)",
+    "mp3": "04_highnote_v3-0929\\整曲混音(未平衡).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_highnote_v3_20260929\\nianlun_v3_unleveled_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "05_presence_v4-0929",
+    "role": "人声",
+    "mp3": "05_presence_v4-0929\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_v4_20260929\\vocal.wav",
+    "dur": 242.7,
+    "mb": 42.8
+  },
+  {
+    "group": "05_presence_v4-0929",
+    "role": "人声(完成版)",
+    "mp3": "05_presence_v4-0929\\人声(完成版).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_v4_20260929\\vocal_finished.wav",
+    "dur": 242.7,
+    "mb": 64.2
+  },
+  {
+    "group": "05_presence_v4-0929",
+    "role": "整曲混音",
+    "mp3": "05_presence_v4-0929\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_v4_20260929\\nianlun_presence_v4_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "06_presence_v5-0929",
+    "role": "人声",
+    "mp3": "06_presence_v5-0929\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_full_v5_20260929\\vocal.wav",
+    "dur": 242.7,
+    "mb": 42.8
+  },
+  {
+    "group": "06_presence_v5-0929",
+    "role": "人声(完成版)",
+    "mp3": "06_presence_v5-0929\\人声(完成版).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_full_v5_20260929\\vocal_finished.wav",
+    "dur": 242.7,
+    "mb": 64.2
+  },
+  {
+    "group": "06_presence_v5-0929",
+    "role": "整曲混音",
+    "mp3": "06_presence_v5-0929\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_full_v5_20260929\\nianlun_presence_full_v5_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "07_presence_v6-0929",
+    "role": "人声",
+    "mp3": "07_presence_v6-0929\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_local_v6_20260929\\vocal.wav",
+    "dur": 242.7,
+    "mb": 42.8
+  },
+  {
+    "group": "07_presence_v6-0929",
+    "role": "人声(完成版)",
+    "mp3": "07_presence_v6-0929\\人声(完成版).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_local_v6_20260929\\vocal_finished.wav",
+    "dur": 242.7,
+    "mb": 64.2
+  },
+  {
+    "group": "07_presence_v6-0929",
+    "role": "整曲混音",
+    "mp3": "07_presence_v6-0929\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\nianlun_presence_local_v6_20260929\\nianlun_presence_local_v6_mix.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "22_from-scratch_v1-1028",
+    "role": "人声",
+    "mp3": "22_from-scratch_v1-1028\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-20261028\\observation\\source.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "21_from-scratch_v2-1028",
+    "role": "人声",
+    "mp3": "21_from-scratch_v2-1028\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v2-20261028\\observation\\source.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "20_from-scratch_v3-1030",
+    "role": "人声",
+    "mp3": "20_from-scratch_v3-1030\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v3-20261030\\observation\\source.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "22_from-scratch_v1-1028",
+    "role": "人声",
+    "mp3": "22_from-scratch_v1-1028\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-20261028\\observation\\stems\\source_(other)_vocals_mel_band_roformer.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "21_from-scratch_v2-1028",
+    "role": "人声",
+    "mp3": "21_from-scratch_v2-1028\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v2-20261028\\observation\\stems\\source_(other)_vocals_mel_band_roformer.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "20_from-scratch_v3-1030",
+    "role": "人声",
+    "mp3": "20_from-scratch_v3-1030\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v3-20261030\\observation\\stems\\source_(other)_vocals_mel_band_roformer.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "instrumental 人声",
+    "mp3": "30_逐句迭代-1029\\instrumental_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\inputs\\stems\\instrumental.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "22_from-scratch_v1-1028",
+    "role": "人声",
+    "mp3": "22_from-scratch_v1-1028\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-20261028\\observation\\stems\\source_(vocals)_vocals_mel_band_roformer.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "21_from-scratch_v2-1028",
+    "role": "人声",
+    "mp3": "21_from-scratch_v2-1028\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v2-20261028\\observation\\stems\\source_(vocals)_vocals_mel_band_roformer.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "20_from-scratch_v3-1030",
+    "role": "人声",
+    "mp3": "20_from-scratch_v3-1030\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v3-20261030\\observation\\stems\\source_(vocals)_vocals_mel_band_roformer.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocals 人声",
+    "mp3": "30_逐句迭代-1029\\vocals_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\inputs\\stems\\vocals.wav",
+    "dur": 274.5,
+    "mb": 48.4
+  },
+  {
+    "group": "22_from-scratch_v1-1028",
+    "role": "人声",
+    "mp3": "22_from-scratch_v1-1028\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-20261028\\render\\vocal_vocal.wav",
+    "dur": 242.8,
+    "mb": 21.4
+  },
+  {
+    "group": "22_from-scratch_v1-1028",
+    "role": "整曲混音",
+    "mp3": "22_from-scratch_v1-1028\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-20261028\\render\\nianlun_lingyuan_cover_mix.wav",
+    "dur": 274.5,
+    "mb": 72.6
+  },
+  {
+    "group": "21_from-scratch_v2-1028",
+    "role": "人声",
+    "mp3": "21_from-scratch_v2-1028\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v2-20261028\\render\\vocal_vocal.wav",
+    "dur": 243.0,
+    "mb": 21.4
+  },
+  {
+    "group": "21_from-scratch_v2-1028",
+    "role": "整曲混音",
+    "mp3": "21_from-scratch_v2-1028\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v2-20261028\\render\\nianlun_lingyuan_cover_mix_v2.wav",
+    "dur": 274.5,
+    "mb": 72.6
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v3_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v3_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v3_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v3d_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v3d_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v3d_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v3e_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v3e_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v3e_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v3f_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v3f_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v3f_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v3_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v3_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v3_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v3_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v3_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v3_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v3h_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v3h_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v3h_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v3k_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v3k_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v3k_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029/音色测试",
+    "role": "Bright_vocal",
+    "mp3": "30_逐句迭代-1029\\音色测试\\Bright_vocal.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\_clr_test\\Bright_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029/音色测试",
+    "role": "Normal_vocal",
+    "mp3": "30_逐句迭代-1029\\音色测试\\Normal_vocal.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\_clr_test\\Normal_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029/音色测试",
+    "role": "Whisper_vocal",
+    "mp3": "30_逐句迭代-1029\\音色测试\\Whisper_vocal.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\_clr_test\\Whisper_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v6_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v6_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v6_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v6_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v6_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v6_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v6_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v6_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v6_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v9_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v9_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v9_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v10_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v10_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v10_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v10_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v10_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v10_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v10_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v10_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v10_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v11_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v11_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v11_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v12_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v12_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v12_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v13_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v13_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v13_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v13_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v13_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v13_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v13_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v13_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v13_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v14_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v14_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v14_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v14_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v14_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v14_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v14_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v14_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v14_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_final_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_final_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_final_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_final_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_final_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_final_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_final_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_final_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_final_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v18_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v18_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v18_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v19_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v19_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v19_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v20_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v20_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v20_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v20_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v20_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v20_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v20_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v20_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v20_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v21_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v21_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v21_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v21_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v21_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v21_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v21_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v21_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v21_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v22_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v22_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v22_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v22_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v22_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v22_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v22_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v22_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v22_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "vocal_v23_vocal 人声",
+    "mp3": "30_逐句迭代-1029\\vocal_v23_vocal_人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\vocal_v23_vocal.wav",
+    "dur": 243.2,
+    "mb": 21.4
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v23_mix 整曲混音",
+    "mp3": "30_逐句迭代-1029\\nianlun_v23_mix_整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v23_mix.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "30_逐句迭代-1029",
+    "role": "nianlun_v23_vocal_matched 人声(电平匹配)",
+    "mp3": "30_逐句迭代-1029\\nianlun_v23_vocal_matched_人声(电平匹配).mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-v3-20261029\\render\\nianlun_v23_vocal_matched.wav",
+    "dur": 274.5,
+    "mb": 36.3
+  },
+  {
+    "group": "20_from-scratch_v3-1030",
+    "role": "人声",
+    "mp3": "20_from-scratch_v3-1030\\人声.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v3-20261030\\render\\vocal_vocal.wav",
+    "dur": 243.0,
+    "mb": 21.4
+  },
+  {
+    "group": "20_from-scratch_v3-1030",
+    "role": "整曲混音",
+    "mp3": "20_from-scratch_v3-1030\\整曲混音.mp3",
+    "wav": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-v3-20261030\\render\\nianlun_lingyuan_cover_mix_v3.wav",
+    "dur": 274.5,
+    "mb": 72.6
+  }
+]

@@ -5,3 +5,5 @@ research/baishuo/projects/*.ustx -text whitespace=cr-at-eol
 research/implementation-records/**/*.py -text whitespace=cr-at-eol
 docs/knowledge/** -text whitespace=cr-at-eol
 docs/lastpage-*-20261008.md -text whitespace=cr-at-eol
+# Byte-identical archive of the tracked scratch files that were untracked (P1.1-F).
+docs/archive/legacy-scratch/** -text whitespace=cr-at-eol

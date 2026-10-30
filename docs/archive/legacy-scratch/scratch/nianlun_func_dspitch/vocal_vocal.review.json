@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "review_contract_version": 2,
+  "project": {
+    "path": "E:\\project\\agent2utau\\scratch\\nianlun_func_dspitch\\nianlun_functional_dspitch.ustx",
+    "sha256": "7b14711a51130638a71cab239b890ecb3416537e5f169874addeed25eea1bfd2"
+  },
+  "execution_review": null,
+  "execution_status": "fail",
+  "technical_execution_complete": false,
+  "workflow_review_complete": false,
+  "musical_quality": "unverified",
+  "missing": "Musical process/calibration incomplete or legacy receipt; candidate only",
+  "audio": {
+    "status": "pass",
+    "file": {
+      "path": "E:\\project\\agent2utau\\scratch\\nianlun_func_dspitch\\vocal_vocal.wav",
+      "sha256": "036328f33e9cb357e8957fddf624a9b582b367b1a5ef858d6499318deb2a84cc"
+    },
+    "sample_rate": 44100,
+    "samples": 10705005,
+    "peak": 0.386474609375,
+    "scope": "Audio byte identity/finite/peak only; model inputs, alignment and perceived effect not certified"
+  },
+  "listening": "unknown",
+  "transfer": "unknown",
+  "candidate_delivery_allowed": true,
+  "production_execution_complete": false
+}

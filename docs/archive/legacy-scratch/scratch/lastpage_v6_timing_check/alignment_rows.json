@@ -1,0 +1,3211 @@
+{
+  "scale": 0.9702662149140803,
+  "offset": 1.7566481262041345,
+  "r2": 0.9971768882795072,
+  "rows": [
+    {
+      "i": 0,
+      "lyric": "SP",
+      "ours_start": 14.042,
+      "game_start": 14.29,
+      "resid_ms": -1090.8,
+      "dur": 0.241,
+      "tone": 59
+    },
+    {
+      "i": 1,
+      "lyric": "雨",
+      "ours_start": 14.282,
+      "game_start": 14.69,
+      "resid_ms": -924.3,
+      "dur": 0.393,
+      "tone": 59
+    },
+    {
+      "i": 2,
+      "lyric": "停",
+      "ours_start": 14.675,
+      "game_start": 15.14,
+      "resid_ms": -855.3,
+      "dur": 0.451,
+      "tone": 64
+    },
+    {
+      "i": 3,
+      "lyric": "滞",
+      "ours_start": 15.126,
+      "game_start": 15.55,
+      "resid_ms": -882.9,
+      "dur": 0.407,
+      "tone": 66
+    },
+    {
+      "i": 4,
+      "lyric": "天",
+      "ours_start": 15.533,
+      "game_start": 15.96,
+      "resid_ms": -868.1,
+      "dur": 0.42,
+      "tone": 66
+    },
+    {
+      "i": 5,
+      "lyric": "空",
+      "ours_start": 15.953,
+      "game_start": 16.41,
+      "resid_ms": -825.4,
+      "dur": 0.453,
+      "tone": 68
+    },
+    {
+      "i": 6,
+      "lyric": "之",
+      "ours_start": 16.406,
+      "game_start": 16.82,
+      "resid_ms": -855.1,
+      "dur": 0.405,
+      "tone": 61
+    },
+    {
+      "i": 7,
+      "lyric": "间",
+      "ours_start": 16.811,
+      "game_start": 17.66,
+      "resid_ms": -408.2,
+      "dur": 0.628,
+      "tone": 66
+    },
+    {
+      "i": 8,
+      "lyric": "AP",
+      "ours_start": 17.41,
+      "game_start": 18.07,
+      "resid_ms": -579.4,
+      "dur": 0.241,
+      "tone": 59
+    },
+    {
+      "i": 9,
+      "lyric": "像",
+      "ours_start": 17.651,
+      "game_start": 18.52,
+      "resid_ms": -362.9,
+      "dur": 0.406,
+      "tone": 59
+    },
+    {
+      "i": 10,
+      "lyric": "泪",
+      "ours_start": 18.057,
+      "game_start": 18.91,
+      "resid_ms": -367.0,
+      "dur": 0.455,
+      "tone": 64
+    },
+    {
+      "i": 11,
+      "lyric": "在",
+      "ours_start": 18.512,
+      "game_start": 19.37,
+      "resid_ms": -348.7,
+      "dur": 0.383,
+      "tone": 66
+    },
+    {
+      "i": 12,
+      "lyric": "眼",
+      "ours_start": 18.896,
+      "game_start": 19.78,
+      "resid_ms": -310.6,
+      "dur": 0.46,
+      "tone": 66
+    },
+    {
+      "i": 13,
+      "lyric": "眶",
+      "ours_start": 19.356,
+      "game_start": 20.21,
+      "resid_ms": -327.4,
+      "dur": 0.42,
+      "tone": 68
+    },
+    {
+      "i": 14,
+      "lyric": "盘",
+      "ours_start": 19.776,
+      "game_start": 20.37,
+      "resid_ms": -574.7,
+      "dur": 0.429,
+      "tone": 59
+    },
+    {
+      "i": 15,
+      "lyric": "旋",
+      "ours_start": 20.205,
+      "game_start": 21.11,
+      "resid_ms": -251.1,
+      "dur": 0.165,
+      "tone": 63
+    },
+    {
+      "i": 16,
+      "lyric": "SP",
+      "ours_start": 20.87,
+      "game_start": 21.51,
+      "resid_ms": -495.9,
+      "dur": 0.241,
+      "tone": 59
+    },
+    {
+      "i": 17,
+      "lyric": "这",
+      "ours_start": 21.11,
+      "game_start": 21.97,
+      "resid_ms": -269.4,
+      "dur": 0.405,
+      "tone": 59
+    },
+    {
+      "i": 18,
+      "lyric": "也",
+      "ours_start": 21.516,
+      "game_start": 22.4,
+      "resid_ms": -232.5,
+      "dur": 0.451,
+      "tone": 64
+    },
+    {
+      "i": 19,
+      "lyric": "许",
+      "ours_start": 21.967,
+      "game_start": 22.81,
+      "resid_ms": -260.2,
+      "dur": 0.432,
+      "tone": 63
+    },
+    {
+      "i": 20,
+      "lyric": "是",
+      "ours_start": 22.399,
+      "game_start": 23.24,
+      "resid_ms": -249.6,
+      "dur": 0.403,
+      "tone": 61
+    },
+    {
+      "i": 21,
+      "lyric": "最",
+      "ours_start": 22.802,
+      "game_start": 23.71,
+      "resid_ms": -170.7,
+      "dur": 0.422,
+      "tone": 63
+    },
+    {
+      "i": 22,
+      "lyric": "后",
+      "ours_start": 23.224,
+      "game_start": 24.53,
+      "resid_ms": 239.9,
+      "dur": 0.476,
+      "tone": 64
+    },
+    {
+      "i": 23,
+      "lyric": "一",
+      "ours_start": 23.7,
+      "game_start": 24.94,
+      "resid_ms": 188.0,
+      "dur": 0.835,
+      "tone": 63
+    },
+    {
+      "i": 24,
+      "lyric": "次",
+      "ours_start": 24.535,
+      "game_start": 25.45,
+      "resid_ms": -112.5,
+      "dur": 0.404,
+      "tone": 64
+    },
+    {
+      "i": 25,
+      "lyric": "见",
+      "ours_start": 24.94,
+      "game_start": 27.96,
+      "resid_ms": 2005.3,
+      "dur": 0.444,
+      "tone": 68
+    },
+    {
+      "i": 26,
+      "lyric": "面",
+      "ours_start": 25.383,
+      "game_start": 28.39,
+      "resid_ms": 2004.8,
+      "dur": 1.149,
+      "tone": 68
+    },
+    {
+      "i": 27,
+      "lyric": "AP",
+      "ours_start": 27.707,
+      "game_start": 28.82,
+      "resid_ms": 179.9,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 28,
+      "lyric": "沿",
+      "ours_start": 27.947,
+      "game_start": 29.21,
+      "resid_ms": 337.4,
+      "dur": 0.442,
+      "tone": 59
+    },
+    {
+      "i": 29,
+      "lyric": "途",
+      "ours_start": 28.389,
+      "game_start": 29.64,
+      "resid_ms": 338.9,
+      "dur": 0.426,
+      "tone": 64
+    },
+    {
+      "i": 30,
+      "lyric": "经",
+      "ours_start": 28.815,
+      "game_start": 30.08,
+      "resid_ms": 365.5,
+      "dur": 0.384,
+      "tone": 66
+    },
+    {
+      "i": 31,
+      "lyric": "过",
+      "ours_start": 29.199,
+      "game_start": 30.19,
+      "resid_ms": 102.6,
+      "dur": 0.429,
+      "tone": 66
+    },
+    {
+      "i": 32,
+      "lyric": "的",
+      "ours_start": 29.628,
+      "game_start": 30.57,
+      "resid_ms": 66.2,
+      "dur": 0.443,
+      "tone": 68
+    },
+    {
+      "i": 33,
+      "lyric": "从",
+      "ours_start": 30.071,
+      "game_start": 31.39,
+      "resid_ms": 456.6,
+      "dur": 0.497,
+      "tone": 61
+    },
+    {
+      "i": 34,
+      "lyric": "前",
+      "ours_start": 30.568,
+      "game_start": 31.77,
+      "resid_ms": 354.5,
+      "dur": 0.63,
+      "tone": 66
+    },
+    {
+      "i": 35,
+      "lyric": "SP",
+      "ours_start": 31.087,
+      "game_start": 32.22,
+      "resid_ms": 300.2,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 36,
+      "lyric": "还",
+      "ours_start": 31.327,
+      "game_start": 32.64,
+      "resid_ms": 487.7,
+      "dur": 0.443,
+      "tone": 59
+    },
+    {
+      "i": 37,
+      "lyric": "来",
+      "ours_start": 31.77,
+      "game_start": 33.08,
+      "resid_ms": 498.2,
+      "dur": 0.441,
+      "tone": 64
+    },
+    {
+      "i": 38,
+      "lyric": "不",
+      "ours_start": 32.21,
+      "game_start": 33.53,
+      "resid_ms": 520.7,
+      "dur": 0.418,
+      "tone": 66
+    },
+    {
+      "i": 39,
+      "lyric": "及",
+      "ours_start": 32.628,
+      "game_start": 33.72,
+      "resid_ms": 305.4,
+      "dur": 0.441,
+      "tone": 68
+    },
+    {
+      "i": 40,
+      "lyric": "再",
+      "ours_start": 33.069,
+      "game_start": 34.04,
+      "resid_ms": 197.9,
+      "dur": 0.453,
+      "tone": 66
+    },
+    {
+      "i": 41,
+      "lyric": "重",
+      "ours_start": 33.522,
+      "game_start": 35.67,
+      "resid_ms": 1388.2,
+      "dur": 0.226,
+      "tone": 66
+    },
+    {
+      "i": 42,
+      "lyric": "演",
+      "ours_start": 34.024,
+      "game_start": 36.06,
+      "resid_ms": 1291.1,
+      "dur": 0.686,
+      "tone": 64
+    },
+    {
+      "i": 43,
+      "lyric": "AP",
+      "ours_start": 35.409,
+      "game_start": 36.46,
+      "resid_ms": 346.8,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 44,
+      "lyric": "拥",
+      "ours_start": 35.649,
+      "game_start": 36.88,
+      "resid_ms": 534.4,
+      "dur": 0.401,
+      "tone": 59
+    },
+    {
+      "i": 45,
+      "lyric": "抱",
+      "ours_start": 36.05,
+      "game_start": 37.02,
+      "resid_ms": 285.3,
+      "dur": 0.409,
+      "tone": 59
+    },
+    {
+      "i": 46,
+      "lyric": "早",
+      "ours_start": 36.459,
+      "game_start": 37.43,
+      "resid_ms": 298.1,
+      "dur": 0.408,
+      "tone": 63
+    },
+    {
+      "i": 47,
+      "lyric": "已",
+      "ours_start": 36.868,
+      "game_start": 38.18,
+      "resid_ms": 651.9,
+      "dur": 0.232,
+      "tone": 63
+    },
+    {
+      "i": 48,
+      "lyric": "悄",
+      "ours_start": 37.421,
+      "game_start": 38.62,
+      "resid_ms": 555.2,
+      "dur": 0.747,
+      "tone": 63
+    },
+    {
+      "i": 49,
+      "lyric": "悄",
+      "ours_start": 38.168,
+      "game_start": 38.98,
+      "resid_ms": 190.5,
+      "dur": 0.45,
+      "tone": 64
+    },
+    {
+      "i": 50,
+      "lyric": "冷",
+      "ours_start": 38.618,
+      "game_start": 39.48,
+      "resid_ms": 253.9,
+      "dur": 0.386,
+      "tone": 66
+    },
+    {
+      "i": 51,
+      "lyric": "却",
+      "ours_start": 39.476,
+      "game_start": 42.03,
+      "resid_ms": 1971.1,
+      "dur": 1.001,
+      "tone": 64
+    },
+    {
+      "i": 52,
+      "lyric": "AP",
+      "ours_start": 41.785,
+      "game_start": 42.47,
+      "resid_ms": 170.4,
+      "dur": 0.24,
+      "tone": 64
+    },
+    {
+      "i": 53,
+      "lyric": "海",
+      "ours_start": 42.025,
+      "game_start": 42.78,
+      "resid_ms": 247.9,
+      "dur": 0.394,
+      "tone": 64
+    },
+    {
+      "i": 54,
+      "lyric": "潮",
+      "ours_start": 42.419,
+      "game_start": 43.57,
+      "resid_ms": 655.9,
+      "dur": 0.364,
+      "tone": 63
+    },
+    {
+      "i": 55,
+      "lyric": "声",
+      "ours_start": 42.782,
+      "game_start": 43.76,
+      "resid_ms": 493.1,
+      "dur": 0.976,
+      "tone": 64
+    },
+    {
+      "i": 56,
+      "lyric": "淹",
+      "ours_start": 43.758,
+      "game_start": 44.23,
+      "resid_ms": 16.1,
+      "dur": 0.436,
+      "tone": 63
+    },
+    {
+      "i": 57,
+      "lyric": "没",
+      "ours_start": 44.195,
+      "game_start": 44.48,
+      "resid_ms": -157.4,
+      "dur": 0.27,
+      "tone": 64
+    },
+    {
+      "i": 58,
+      "lyric": "了",
+      "ours_start": 44.465,
+      "game_start": 45.11,
+      "resid_ms": 210.9,
+      "dur": 0.639,
+      "tone": 66
+    },
+    {
+      "i": 59,
+      "lyric": "离",
+      "ours_start": 45.103,
+      "game_start": 45.23,
+      "resid_ms": -288.7,
+      "dur": 0.429,
+      "tone": 63
+    },
+    {
+      "i": 60,
+      "lyric": "别",
+      "ours_start": 45.532,
+      "game_start": 45.54,
+      "resid_ms": -395.1,
+      "dur": 0.466,
+      "tone": 61
+    },
+    {
+      "i": 61,
+      "lyric": "时",
+      "ours_start": 45.998,
+      "game_start": 46.0,
+      "resid_ms": -386.9,
+      "dur": 0.788,
+      "tone": 59
+    },
+    {
+      "i": 62,
+      "lyric": "的",
+      "ours_start": 46.785,
+      "game_start": 46.8,
+      "resid_ms": -351.0,
+      "dur": 0.42,
+      "tone": 56
+    },
+    {
+      "i": 63,
+      "lyric": "黄",
+      "ours_start": 47.205,
+      "game_start": 47.22,
+      "resid_ms": -338.3,
+      "dur": 0.498,
+      "tone": 63
+    },
+    {
+      "i": 64,
+      "lyric": "昏",
+      "ours_start": 47.703,
+      "game_start": 47.72,
+      "resid_ms": -321.4,
+      "dur": 0.747,
+      "tone": 64
+    },
+    {
+      "i": 65,
+      "lyric": "AP",
+      "ours_start": 48.715,
+      "game_start": 48.96,
+      "resid_ms": -62.8,
+      "dur": 0.241,
+      "tone": 64
+    },
+    {
+      "i": 66,
+      "lyric": "只",
+      "ours_start": 48.955,
+      "game_start": 49.34,
+      "resid_ms": 83.8,
+      "dur": 0.333,
+      "tone": 64
+    },
+    {
+      "i": 67,
+      "lyric": "留",
+      "ours_start": 49.289,
+      "game_start": 49.63,
+      "resid_ms": 50.3,
+      "dur": 0.341,
+      "tone": 63
+    },
+    {
+      "i": 68,
+      "lyric": "下",
+      "ours_start": 49.629,
+      "game_start": 50.63,
+      "resid_ms": 719.8,
+      "dur": 0.998,
+      "tone": 64
+    },
+    {
+      "i": 69,
+      "lyric": "不",
+      "ours_start": 50.627,
+      "game_start": 51.06,
+      "resid_ms": 181.6,
+      "dur": 0.429,
+      "tone": 64
+    },
+    {
+      "i": 70,
+      "lyric": "舍",
+      "ours_start": 51.056,
+      "game_start": 51.47,
+      "resid_ms": 175.2,
+      "dur": 0.408,
+      "tone": 63
+    },
+    {
+      "i": 71,
+      "lyric": "的",
+      "ours_start": 51.465,
+      "game_start": 52.35,
+      "resid_ms": 659.0,
+      "dur": 0.895,
+      "tone": 61
+    },
+    {
+      "i": 72,
+      "lyric": "体",
+      "ours_start": 52.359,
+      "game_start": 52.81,
+      "resid_ms": 250.8,
+      "dur": 0.442,
+      "tone": 63
+    },
+    {
+      "i": 73,
+      "lyric": "温",
+      "ours_start": 52.801,
+      "game_start": 55.79,
+      "resid_ms": 2802.3,
+      "dur": 1.15,
+      "tone": 64
+    },
+    {
+      "i": 74,
+      "lyric": "AP",
+      "ours_start": 55.54,
+      "game_start": 56.21,
+      "resid_ms": 565.2,
+      "dur": 0.24,
+      "tone": 64
+    },
+    {
+      "i": 75,
+      "lyric": "星",
+      "ours_start": 55.779,
+      "game_start": 56.52,
+      "resid_ms": 642.7,
+      "dur": 0.404,
+      "tone": 64
+    },
+    {
+      "i": 76,
+      "lyric": "空",
+      "ours_start": 56.183,
+      "game_start": 57.49,
+      "resid_ms": 1220.6,
+      "dur": 0.327,
+      "tone": 63
+    },
+    {
+      "i": 77,
+      "lyric": "下",
+      "ours_start": 56.51,
+      "game_start": 57.9,
+      "resid_ms": 1313.2,
+      "dur": 0.978,
+      "tone": 64
+    },
+    {
+      "i": 78,
+      "lyric": "拥",
+      "ours_start": 57.489,
+      "game_start": 58.18,
+      "resid_ms": 644.2,
+      "dur": 0.391,
+      "tone": 63
+    },
+    {
+      "i": 79,
+      "lyric": "抱",
+      "ours_start": 57.879,
+      "game_start": 58.76,
+      "resid_ms": 845.2,
+      "dur": 0.292,
+      "tone": 64
+    },
+    {
+      "i": 80,
+      "lyric": "着",
+      "ours_start": 58.171,
+      "game_start": 59.22,
+      "resid_ms": 1022.2,
+      "dur": 0.582,
+      "tone": 66
+    },
+    {
+      "i": 81,
+      "lyric": "快",
+      "ours_start": 58.753,
+      "game_start": 59.65,
+      "resid_ms": 887.2,
+      "dur": 0.465,
+      "tone": 63
+    },
+    {
+      "i": 82,
+      "lyric": "凋",
+      "ours_start": 59.218,
+      "game_start": 60.47,
+      "resid_ms": 1256.4,
+      "dur": 0.428,
+      "tone": 61
+    },
+    {
+      "i": 83,
+      "lyric": "零",
+      "ours_start": 59.646,
+      "game_start": 60.91,
+      "resid_ms": 1281.0,
+      "dur": 0.825,
+      "tone": 59
+    },
+    {
+      "i": 84,
+      "lyric": "的",
+      "ours_start": 60.471,
+      "game_start": 61.36,
+      "resid_ms": 930.5,
+      "dur": 0.42,
+      "tone": 56
+    },
+    {
+      "i": 85,
+      "lyric": "温",
+      "ours_start": 60.891,
+      "game_start": 62.21,
+      "resid_ms": 1373.2,
+      "dur": 0.461,
+      "tone": 66
+    },
+    {
+      "i": 86,
+      "lyric": "存",
+      "ours_start": 61.352,
+      "game_start": 62.65,
+      "resid_ms": 1365.5,
+      "dur": 0.375,
+      "tone": 64
+    },
+    {
+      "i": 87,
+      "lyric": "AP",
+      "ours_start": 61.951,
+      "game_start": 63.07,
+      "resid_ms": 1204.3,
+      "dur": 0.24,
+      "tone": 64
+    },
+    {
+      "i": 88,
+      "lyric": "爱",
+      "ours_start": 62.191,
+      "game_start": 63.92,
+      "resid_ms": 1821.9,
+      "dur": 0.452,
+      "tone": 64
+    },
+    {
+      "i": 89,
+      "lyric": "只",
+      "ours_start": 62.643,
+      "game_start": 64.37,
+      "resid_ms": 1833.2,
+      "dur": 0.419,
+      "tone": 69
+    },
+    {
+      "i": 90,
+      "lyric": "能",
+      "ours_start": 63.061,
+      "game_start": 64.8,
+      "resid_ms": 1856.9,
+      "dur": 0.861,
+      "tone": 68
+    },
+    {
+      "i": 91,
+      "lyric": "在",
+      "ours_start": 63.923,
+      "game_start": 65.63,
+      "resid_ms": 1851.1,
+      "dur": 0.439,
+      "tone": 64
+    },
+    {
+      "i": 92,
+      "lyric": "回",
+      "ours_start": 64.361,
+      "game_start": 66.05,
+      "resid_ms": 1845.6,
+      "dur": 0.431,
+      "tone": 69
+    },
+    {
+      "i": 93,
+      "lyric": "忆",
+      "ours_start": 64.793,
+      "game_start": 66.53,
+      "resid_ms": 1907.2,
+      "dur": 0.835,
+      "tone": 68
+    },
+    {
+      "i": 94,
+      "lyric": "里",
+      "ours_start": 65.628,
+      "game_start": 72.62,
+      "resid_ms": 7186.6,
+      "dur": 0.418,
+      "tone": 64
+    },
+    {
+      "i": 95,
+      "lyric": "完",
+      "ours_start": 66.046,
+      "game_start": 73.09,
+      "resid_ms": 7251.3,
+      "dur": 0.476,
+      "tone": 66
+    },
+    {
+      "i": 96,
+      "lyric": "整",
+      "ours_start": 66.522,
+      "game_start": 73.63,
+      "resid_ms": 7329.4,
+      "dur": 2.707,
+      "tone": 68
+    },
+    {
+      "i": 97,
+      "lyric": "AP",
+      "ours_start": 72.376,
+      "game_start": 73.76,
+      "resid_ms": 1779.3,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 98,
+      "lyric": "想",
+      "ours_start": 72.616,
+      "game_start": 74.06,
+      "resid_ms": 1846.9,
+      "dur": 0.477,
+      "tone": 59
+    },
+    {
+      "i": 99,
+      "lyric": "把",
+      "ours_start": 73.093,
+      "game_start": 74.51,
+      "resid_ms": 1834.0,
+      "dur": 0.52,
+      "tone": 64
+    },
+    {
+      "i": 100,
+      "lyric": "你",
+      "ours_start": 73.612,
+      "game_start": 74.78,
+      "resid_ms": 1599.6,
+      "dur": 0.441,
+      "tone": 71
+    },
+    {
+      "i": 101,
+      "lyric": "抱",
+      "ours_start": 74.053,
+      "game_start": 75.19,
+      "resid_ms": 1582.1,
+      "dur": 0.37,
+      "tone": 71
+    },
+    {
+      "i": 102,
+      "lyric": "紧",
+      "ours_start": 74.423,
+      "game_start": 75.4,
+      "resid_ms": 1433.3,
+      "dur": 0.351,
+      "tone": 68
+    },
+    {
+      "i": 103,
+      "lyric": "身",
+      "ours_start": 74.774,
+      "game_start": 75.81,
+      "resid_ms": 1502.7,
+      "dur": 0.42,
+      "tone": 71
+    },
+    {
+      "i": 104,
+      "lyric": "体",
+      "ours_start": 75.194,
+      "game_start": 75.98,
+      "resid_ms": 1265.4,
+      "dur": 0.229,
+      "tone": 71
+    },
+    {
+      "i": 105,
+      "lyric": "里",
+      "ours_start": 75.797,
+      "game_start": 76.38,
+      "resid_ms": 1080.2,
+      "dur": 0.583,
+      "tone": 68
+    },
+    {
+      "i": 106,
+      "lyric": "面",
+      "ours_start": 76.631,
+      "game_start": 76.64,
+      "resid_ms": 530.6,
+      "dur": 0.515,
+      "tone": 66
+    },
+    {
+      "i": 107,
+      "lyric": "AP",
+      "ours_start": 77.265,
+      "game_start": 77.52,
+      "resid_ms": 796.1,
+      "dur": 0.241,
+      "tone": 71
+    },
+    {
+      "i": 108,
+      "lyric": "不",
+      "ours_start": 77.505,
+      "game_start": 77.92,
+      "resid_ms": 962.7,
+      "dur": 0.404,
+      "tone": 71
+    },
+    {
+      "i": 109,
+      "lyric": "敢",
+      "ours_start": 77.909,
+      "game_start": 78.17,
+      "resid_ms": 820.5,
+      "dur": 0.258,
+      "tone": 68
+    },
+    {
+      "i": 110,
+      "lyric": "让",
+      "ours_start": 78.168,
+      "game_start": 78.58,
+      "resid_ms": 979.9,
+      "dur": 0.407,
+      "tone": 71
+    },
+    {
+      "i": 111,
+      "lyric": "你",
+      "ours_start": 78.575,
+      "game_start": 79.21,
+      "resid_ms": 1214.7,
+      "dur": 0.208,
+      "tone": 71
+    },
+    {
+      "i": 112,
+      "lyric": "看",
+      "ours_start": 79.201,
+      "game_start": 79.39,
+      "resid_ms": 787.3,
+      "dur": 0.6,
+      "tone": 66
+    },
+    {
+      "i": 113,
+      "lyric": "见",
+      "ours_start": 80.083,
+      "game_start": 79.8,
+      "resid_ms": 341.2,
+      "dur": 0.421,
+      "tone": 64
+    },
+    {
+      "i": 114,
+      "lyric": "AP",
+      "ours_start": 80.665,
+      "game_start": 80.09,
+      "resid_ms": 67.2,
+      "dur": 0.241,
+      "tone": 71
+    },
+    {
+      "i": 115,
+      "lyric": "嘴",
+      "ours_start": 80.905,
+      "game_start": 80.91,
+      "resid_ms": 653.8,
+      "dur": 0.404,
+      "tone": 71
+    },
+    {
+      "i": 116,
+      "lyric": "角",
+      "ours_start": 81.309,
+      "game_start": 81.34,
+      "resid_ms": 691.6,
+      "dur": 0.27,
+      "tone": 68
+    },
+    {
+      "i": 117,
+      "lyric": "那",
+      "ours_start": 81.579,
+      "game_start": 81.59,
+      "resid_ms": 679.8,
+      "dur": 0.406,
+      "tone": 71
+    },
+    {
+      "i": 118,
+      "lyric": "颗",
+      "ours_start": 81.985,
+      "game_start": 81.98,
+      "resid_ms": 675.7,
+      "dur": 0.652,
+      "tone": 73
+    },
+    {
+      "i": 119,
+      "lyric": "没[m ei]",
+      "ours_start": 82.638,
+      "game_start": 82.45,
+      "resid_ms": 513.0,
+      "dur": 0.347,
+      "tone": 64
+    },
+    {
+      "i": 120,
+      "lyric": "落",
+      "ours_start": 82.984,
+      "game_start": 82.65,
+      "resid_ms": 376.4,
+      "dur": 0.324,
+      "tone": 66
+    },
+    {
+      "i": 121,
+      "lyric": "下",
+      "ours_start": 83.308,
+      "game_start": 83.06,
+      "resid_ms": 472.1,
+      "dur": 0.405,
+      "tone": 68
+    },
+    {
+      "i": 122,
+      "lyric": "的",
+      "ours_start": 83.714,
+      "game_start": 83.31,
+      "resid_ms": 328.9,
+      "dur": 0.26,
+      "tone": 71
+    },
+    {
+      "i": 123,
+      "lyric": "泪",
+      "ours_start": 84.32,
+      "game_start": 83.72,
+      "resid_ms": 150.7,
+      "dur": 1.661,
+      "tone": 68
+    },
+    {
+      "i": 124,
+      "lyric": "AP",
+      "ours_start": 86.2,
+      "game_start": 83.95,
+      "resid_ms": -1443.6,
+      "dur": 0.241,
+      "tone": 59
+    },
+    {
+      "i": 125,
+      "lyric": "如",
+      "ours_start": 86.441,
+      "game_start": 84.33,
+      "resid_ms": -1297.1,
+      "dur": 0.474,
+      "tone": 59
+    },
+    {
+      "i": 126,
+      "lyric": "果",
+      "ours_start": 86.915,
+      "game_start": 86.28,
+      "resid_ms": 193.1,
+      "dur": 0.45,
+      "tone": 64
+    },
+    {
+      "i": 127,
+      "lyric": "这",
+      "ours_start": 87.365,
+      "game_start": 86.54,
+      "resid_ms": 16.4,
+      "dur": 0.444,
+      "tone": 71
+    },
+    {
+      "i": 128,
+      "lyric": "是",
+      "ours_start": 87.808,
+      "game_start": 86.97,
+      "resid_ms": 15.9,
+      "dur": 0.38,
+      "tone": 71
+    },
+    {
+      "i": 129,
+      "lyric": "最",
+      "ours_start": 88.189,
+      "game_start": 87.38,
+      "resid_ms": 57.0,
+      "dur": 0.316,
+      "tone": 68
+    },
+    {
+      "i": 130,
+      "lyric": "后",
+      "ours_start": 88.504,
+      "game_start": 87.81,
+      "resid_ms": 180.7,
+      "dur": 0.372,
+      "tone": 71
+    },
+    {
+      "i": 131,
+      "lyric": "的",
+      "ours_start": 88.876,
+      "game_start": 88.23,
+      "resid_ms": 239.9,
+      "dur": 0.615,
+      "tone": 73
+    },
+    {
+      "i": 132,
+      "lyric": "一",
+      "ours_start": 89.491,
+      "game_start": 88.51,
+      "resid_ms": -76.4,
+      "dur": 0.636,
+      "tone": 68
+    },
+    {
+      "i": 133,
+      "lyric": "页",
+      "ours_start": 90.375,
+      "game_start": 88.89,
+      "resid_ms": -554.5,
+      "dur": 0.454,
+      "tone": 66
+    },
+    {
+      "i": 134,
+      "lyric": "AP",
+      "ours_start": 90.956,
+      "game_start": 89.51,
+      "resid_ms": -498.4,
+      "dur": 0.241,
+      "tone": 71
+    },
+    {
+      "i": 135,
+      "lyric": "在",
+      "ours_start": 91.197,
+      "game_start": 89.69,
+      "resid_ms": -551.9,
+      "dur": 0.426,
+      "tone": 71
+    },
+    {
+      "i": 136,
+      "lyric": "你",
+      "ours_start": 91.623,
+      "game_start": 90.14,
+      "resid_ms": -515.3,
+      "dur": 0.256,
+      "tone": 68
+    },
+    {
+      "i": 137,
+      "lyric": "离",
+      "ours_start": 91.879,
+      "game_start": 90.4,
+      "resid_ms": -503.9,
+      "dur": 0.441,
+      "tone": 71
+    },
+    {
+      "i": 138,
+      "lyric": "开",
+      "ours_start": 92.32,
+      "game_start": 91.21,
+      "resid_ms": -121.4,
+      "dur": 0.639,
+      "tone": 73
+    },
+    {
+      "i": 139,
+      "lyric": "之",
+      "ours_start": 92.958,
+      "game_start": 91.64,
+      "resid_ms": -311.0,
+      "dur": 0.551,
+      "tone": 66
+    },
+    {
+      "i": 140,
+      "lyric": "前",
+      "ours_start": 93.805,
+      "game_start": 91.89,
+      "resid_ms": -882.7,
+      "dur": 0.422,
+      "tone": 64
+    },
+    {
+      "i": 141,
+      "lyric": "AP",
+      "ours_start": 94.377,
+      "game_start": 92.33,
+      "resid_ms": -997.5,
+      "dur": 0.24,
+      "tone": 71
+    },
+    {
+      "i": 142,
+      "lyric": "能",
+      "ours_start": 94.617,
+      "game_start": 92.97,
+      "resid_ms": -590.0,
+      "dur": 0.405,
+      "tone": 71
+    },
+    {
+      "i": 143,
+      "lyric": "否",
+      "ours_start": 95.022,
+      "game_start": 93.16,
+      "resid_ms": -793.2,
+      "dur": 0.294,
+      "tone": 69
+    },
+    {
+      "i": 144,
+      "lyric": "让",
+      "ours_start": 95.316,
+      "game_start": 93.51,
+      "resid_ms": -728.2,
+      "dur": 0.405,
+      "tone": 68
+    },
+    {
+      "i": 145,
+      "lyric": "我",
+      "ours_start": 95.721,
+      "game_start": 93.81,
+      "resid_ms": -821.3,
+      "dur": 0.592,
+      "tone": 64
+    },
+    {
+      "i": 146,
+      "lyric": "把",
+      "ours_start": 96.312,
+      "game_start": 94.62,
+      "resid_ms": -585.4,
+      "dur": 0.39,
+      "tone": 59
+    },
+    {
+      "i": 147,
+      "lyric": "故",
+      "ours_start": 96.702,
+      "game_start": 95.05,
+      "resid_ms": -533.4,
+      "dur": 0.4,
+      "tone": 69
+    },
+    {
+      "i": 148,
+      "lyric": "事",
+      "ours_start": 97.102,
+      "game_start": 95.3,
+      "resid_ms": -671.5,
+      "dur": 0.533,
+      "tone": 68
+    },
+    {
+      "i": 149,
+      "lyric": "重",
+      "ours_start": 97.635,
+      "game_start": 95.73,
+      "resid_ms": -759.0,
+      "dur": 0.429,
+      "tone": 64
+    },
+    {
+      "i": 150,
+      "lyric": "写",
+      "ours_start": 98.065,
+      "game_start": 96.33,
+      "resid_ms": -575.4,
+      "dur": 2.418,
+      "tone": 64
+    },
+    {
+      "i": 151,
+      "lyric": "SP",
+      "ours_start": 127.367,
+      "game_start": 96.74,
+      "resid_ms": -28596.2,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 152,
+      "lyric": "雨",
+      "ours_start": 127.606,
+      "game_start": 97.11,
+      "resid_ms": -28458.7,
+      "dur": 0.437,
+      "tone": 59
+    },
+    {
+      "i": 153,
+      "lyric": "停",
+      "ours_start": 128.044,
+      "game_start": 97.64,
+      "resid_ms": -28353.2,
+      "dur": 0.441,
+      "tone": 64
+    },
+    {
+      "i": 154,
+      "lyric": "滞",
+      "ours_start": 128.484,
+      "game_start": 98.07,
+      "resid_ms": -28350.7,
+      "dur": 0.407,
+      "tone": 66
+    },
+    {
+      "i": 155,
+      "lyric": "天",
+      "ours_start": 128.892,
+      "game_start": 98.31,
+      "resid_ms": -28505.9,
+      "dur": 0.454,
+      "tone": 66
+    },
+    {
+      "i": 156,
+      "lyric": "空",
+      "ours_start": 129.346,
+      "game_start": 127.6,
+      "resid_ms": 343.5,
+      "dur": 0.451,
+      "tone": 68
+    },
+    {
+      "i": 157,
+      "lyric": "之",
+      "ours_start": 129.797,
+      "game_start": 128.05,
+      "resid_ms": 355.8,
+      "dur": 0.395,
+      "tone": 61
+    },
+    {
+      "i": 158,
+      "lyric": "间",
+      "ours_start": 130.192,
+      "game_start": 128.5,
+      "resid_ms": 422.8,
+      "dur": 0.908,
+      "tone": 66
+    },
+    {
+      "i": 159,
+      "lyric": "AP",
+      "ours_start": 130.815,
+      "game_start": 128.9,
+      "resid_ms": 218.4,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 160,
+      "lyric": "像",
+      "ours_start": 131.054,
+      "game_start": 129.34,
+      "resid_ms": 425.9,
+      "dur": 0.43,
+      "tone": 59
+    },
+    {
+      "i": 161,
+      "lyric": "泪",
+      "ours_start": 131.484,
+      "game_start": 129.81,
+      "resid_ms": 478.5,
+      "dur": 0.454,
+      "tone": 64
+    },
+    {
+      "i": 162,
+      "lyric": "在",
+      "ours_start": 131.939,
+      "game_start": 130.2,
+      "resid_ms": 427.8,
+      "dur": 0.373,
+      "tone": 66
+    },
+    {
+      "i": 163,
+      "lyric": "眼",
+      "ours_start": 132.311,
+      "game_start": 130.42,
+      "resid_ms": 286.0,
+      "dur": 0.473,
+      "tone": 66
+    },
+    {
+      "i": 164,
+      "lyric": "眶",
+      "ours_start": 132.784,
+      "game_start": 131.06,
+      "resid_ms": 467.2,
+      "dur": 0.444,
+      "tone": 68
+    },
+    {
+      "i": 165,
+      "lyric": "盘",
+      "ours_start": 133.228,
+      "game_start": 131.49,
+      "resid_ms": 466.6,
+      "dur": 0.428,
+      "tone": 59
+    },
+    {
+      "i": 166,
+      "lyric": "旋",
+      "ours_start": 133.656,
+      "game_start": 131.94,
+      "resid_ms": 501.2,
+      "dur": 0.242,
+      "tone": 63
+    },
+    {
+      "i": 167,
+      "lyric": "SP",
+      "ours_start": 134.246,
+      "game_start": 132.33,
+      "resid_ms": 319.2,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 168,
+      "lyric": "这",
+      "ours_start": 134.485,
+      "game_start": 132.79,
+      "resid_ms": 546.7,
+      "dur": 0.409,
+      "tone": 59
+    },
+    {
+      "i": 169,
+      "lyric": "也",
+      "ours_start": 134.895,
+      "game_start": 133.22,
+      "resid_ms": 579.5,
+      "dur": 0.487,
+      "tone": 64
+    },
+    {
+      "i": 170,
+      "lyric": "许",
+      "ours_start": 135.382,
+      "game_start": 133.65,
+      "resid_ms": 536.5,
+      "dur": 0.394,
+      "tone": 63
+    },
+    {
+      "i": 171,
+      "lyric": "是",
+      "ours_start": 135.776,
+      "game_start": 133.82,
+      "resid_ms": 324.4,
+      "dur": 0.453,
+      "tone": 61
+    },
+    {
+      "i": 172,
+      "lyric": "最",
+      "ours_start": 136.229,
+      "game_start": 134.49,
+      "resid_ms": 554.8,
+      "dur": 0.439,
+      "tone": 63
+    },
+    {
+      "i": 173,
+      "lyric": "后",
+      "ours_start": 136.668,
+      "game_start": 134.89,
+      "resid_ms": 529.3,
+      "dur": 0.432,
+      "tone": 64
+    },
+    {
+      "i": 174,
+      "lyric": "一",
+      "ours_start": 137.1,
+      "game_start": 135.38,
+      "resid_ms": 599.9,
+      "dur": 0.42,
+      "tone": 63
+    },
+    {
+      "i": 175,
+      "lyric": "次",
+      "ours_start": 137.934,
+      "game_start": 135.79,
+      "resid_ms": 200.3,
+      "dur": 0.419,
+      "tone": 64
+    },
+    {
+      "i": 176,
+      "lyric": "见",
+      "ours_start": 138.353,
+      "game_start": 135.87,
+      "resid_ms": -126.0,
+      "dur": 0.172,
+      "tone": 66
+    },
+    {
+      "i": 177,
+      "lyric": "面",
+      "ours_start": 138.807,
+      "game_start": 136.23,
+      "resid_ms": -206.7,
+      "dur": 1.173,
+      "tone": 68
+    },
+    {
+      "i": 178,
+      "lyric": "AP",
+      "ours_start": 141.096,
+      "game_start": 136.67,
+      "resid_ms": -1987.2,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 179,
+      "lyric": "沿",
+      "ours_start": 141.335,
+      "game_start": 137.1,
+      "resid_ms": -1789.6,
+      "dur": 0.463,
+      "tone": 59
+    },
+    {
+      "i": 180,
+      "lyric": "途",
+      "ours_start": 141.798,
+      "game_start": 137.94,
+      "resid_ms": -1398.4,
+      "dur": 0.417,
+      "tone": 64
+    },
+    {
+      "i": 181,
+      "lyric": "经",
+      "ours_start": 142.215,
+      "game_start": 138.36,
+      "resid_ms": -1382.7,
+      "dur": 0.395,
+      "tone": 66
+    },
+    {
+      "i": 182,
+      "lyric": "过",
+      "ours_start": 142.609,
+      "game_start": 138.53,
+      "resid_ms": -1595.7,
+      "dur": 0.454,
+      "tone": 66
+    },
+    {
+      "i": 183,
+      "lyric": "的",
+      "ours_start": 143.064,
+      "game_start": 138.82,
+      "resid_ms": -1746.4,
+      "dur": 0.464,
+      "tone": 68
+    },
+    {
+      "i": 184,
+      "lyric": "从",
+      "ours_start": 143.527,
+      "game_start": 141.37,
+      "resid_ms": 353.9,
+      "dur": 0.429,
+      "tone": 61
+    },
+    {
+      "i": 185,
+      "lyric": "前",
+      "ours_start": 143.956,
+      "game_start": 141.81,
+      "resid_ms": 377.5,
+      "dur": 0.675,
+      "tone": 66
+    },
+    {
+      "i": 186,
+      "lyric": "SP",
+      "ours_start": 144.51,
+      "game_start": 142.23,
+      "resid_ms": 259.8,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 187,
+      "lyric": "还",
+      "ours_start": 144.75,
+      "game_start": 142.62,
+      "resid_ms": 417.3,
+      "dur": 0.473,
+      "tone": 59
+    },
+    {
+      "i": 188,
+      "lyric": "来",
+      "ours_start": 145.223,
+      "game_start": 143.07,
+      "resid_ms": 408.5,
+      "dur": 0.429,
+      "tone": 64
+    },
+    {
+      "i": 189,
+      "lyric": "不",
+      "ours_start": 145.652,
+      "game_start": 143.53,
+      "resid_ms": 452.1,
+      "dur": 0.406,
+      "tone": 66
+    },
+    {
+      "i": 190,
+      "lyric": "及",
+      "ours_start": 146.058,
+      "game_start": 143.96,
+      "resid_ms": 487.9,
+      "dur": 0.429,
+      "tone": 68
+    },
+    {
+      "i": 191,
+      "lyric": "再",
+      "ours_start": 146.488,
+      "game_start": 144.16,
+      "resid_ms": 271.5,
+      "dur": 0.407,
+      "tone": 66
+    },
+    {
+      "i": 192,
+      "lyric": "重",
+      "ours_start": 146.895,
+      "game_start": 144.82,
+      "resid_ms": 536.3,
+      "dur": 0.3,
+      "tone": 66
+    },
+    {
+      "i": 193,
+      "lyric": "演",
+      "ours_start": 147.396,
+      "game_start": 145.23,
+      "resid_ms": 460.2,
+      "dur": 0.989,
+      "tone": 64
+    },
+    {
+      "i": 194,
+      "lyric": "AP",
+      "ours_start": 148.848,
+      "game_start": 145.66,
+      "resid_ms": -518.8,
+      "dur": 0.241,
+      "tone": 59
+    },
+    {
+      "i": 195,
+      "lyric": "拥",
+      "ours_start": 149.089,
+      "game_start": 146.06,
+      "resid_ms": -352.2,
+      "dur": 0.383,
+      "tone": 59
+    },
+    {
+      "i": 196,
+      "lyric": "抱",
+      "ours_start": 149.472,
+      "game_start": 146.19,
+      "resid_ms": -594.2,
+      "dur": 0.428,
+      "tone": 59
+    },
+    {
+      "i": 197,
+      "lyric": "早",
+      "ours_start": 149.9,
+      "game_start": 146.49,
+      "resid_ms": -709.6,
+      "dur": 0.397,
+      "tone": 63
+    },
+    {
+      "i": 198,
+      "lyric": "已",
+      "ours_start": 150.297,
+      "game_start": 146.9,
+      "resid_ms": -684.6,
+      "dur": 0.46,
+      "tone": 63
+    },
+    {
+      "i": 199,
+      "lyric": "悄",
+      "ours_start": 150.757,
+      "game_start": 147.2,
+      "resid_ms": -831.4,
+      "dur": 0.839,
+      "tone": 63
+    },
+    {
+      "i": 200,
+      "lyric": "悄",
+      "ours_start": 151.596,
+      "game_start": 147.42,
+      "resid_ms": -1425.0,
+      "dur": 0.417,
+      "tone": 64
+    },
+    {
+      "i": 201,
+      "lyric": "冷",
+      "ours_start": 152.012,
+      "game_start": 149.09,
+      "resid_ms": -159.2,
+      "dur": 0.5,
+      "tone": 66
+    },
+    {
+      "i": 202,
+      "lyric": "却",
+      "ours_start": 152.512,
+      "game_start": 149.47,
+      "resid_ms": -264.4,
+      "dur": 1.302,
+      "tone": 64
+    },
+    {
+      "i": 203,
+      "lyric": "AP",
+      "ours_start": 155.229,
+      "game_start": 149.9,
+      "resid_ms": -2470.3,
+      "dur": 0.24,
+      "tone": 64
+    },
+    {
+      "i": 204,
+      "lyric": "海",
+      "ours_start": 155.469,
+      "game_start": 150.31,
+      "resid_ms": -2292.7,
+      "dur": 0.391,
+      "tone": 64
+    },
+    {
+      "i": 205,
+      "lyric": "潮",
+      "ours_start": 155.859,
+      "game_start": 150.76,
+      "resid_ms": -2221.7,
+      "dur": 0.34,
+      "tone": 63
+    },
+    {
+      "i": 206,
+      "lyric": "声",
+      "ours_start": 156.199,
+      "game_start": 151.6,
+      "resid_ms": -1711.2,
+      "dur": 0.991,
+      "tone": 64
+    },
+    {
+      "i": 207,
+      "lyric": "淹",
+      "ours_start": 157.19,
+      "game_start": 152.02,
+      "resid_ms": -2252.4,
+      "dur": 0.391,
+      "tone": 63
+    },
+    {
+      "i": 208,
+      "lyric": "没",
+      "ours_start": 157.58,
+      "game_start": 152.52,
+      "resid_ms": -2131.4,
+      "dur": 0.292,
+      "tone": 64
+    },
+    {
+      "i": 209,
+      "lyric": "了",
+      "ours_start": 157.872,
+      "game_start": 155.47,
+      "resid_ms": 535.6,
+      "dur": 0.616,
+      "tone": 66
+    },
+    {
+      "i": 210,
+      "lyric": "离",
+      "ours_start": 158.488,
+      "game_start": 155.92,
+      "resid_ms": 388.3,
+      "dur": 0.395,
+      "tone": 63
+    },
+    {
+      "i": 211,
+      "lyric": "别",
+      "ours_start": 158.882,
+      "game_start": 156.21,
+      "resid_ms": 295.2,
+      "dur": 0.499,
+      "tone": 61
+    },
+    {
+      "i": 212,
+      "lyric": "时",
+      "ours_start": 159.381,
+      "game_start": 157.22,
+      "resid_ms": 821.1,
+      "dur": 0.835,
+      "tone": 59
+    },
+    {
+      "i": 213,
+      "lyric": "的",
+      "ours_start": 160.217,
+      "game_start": 157.64,
+      "resid_ms": 430.5,
+      "dur": 0.385,
+      "tone": 56
+    },
+    {
+      "i": 214,
+      "lyric": "黄",
+      "ours_start": 160.602,
+      "game_start": 157.87,
+      "resid_ms": 286.6,
+      "dur": 0.465,
+      "tone": 63
+    },
+    {
+      "i": 215,
+      "lyric": "昏",
+      "ours_start": 161.067,
+      "game_start": 158.49,
+      "resid_ms": 455.8,
+      "dur": 0.698,
+      "tone": 64
+    },
+    {
+      "i": 216,
+      "lyric": "AP",
+      "ours_start": 162.094,
+      "game_start": 158.89,
+      "resid_ms": -140.7,
+      "dur": 0.24,
+      "tone": 64
+    },
+    {
+      "i": 217,
+      "lyric": "只",
+      "ours_start": 162.333,
+      "game_start": 159.38,
+      "resid_ms": 116.8,
+      "dur": 0.333,
+      "tone": 64
+    },
+    {
+      "i": 218,
+      "lyric": "留",
+      "ours_start": 162.667,
+      "game_start": 160.23,
+      "resid_ms": 643.4,
+      "dur": 0.34,
+      "tone": 63
+    },
+    {
+      "i": 219,
+      "lyric": "下",
+      "ours_start": 163.006,
+      "game_start": 160.6,
+      "resid_ms": 683.9,
+      "dur": 0.999,
+      "tone": 64
+    },
+    {
+      "i": 220,
+      "lyric": "不",
+      "ours_start": 164.005,
+      "game_start": 161.07,
+      "resid_ms": 184.6,
+      "dur": 0.452,
+      "tone": 64
+    },
+    {
+      "i": 221,
+      "lyric": "舍",
+      "ours_start": 164.457,
+      "game_start": 162.33,
+      "resid_ms": 1006.0,
+      "dur": 0.201,
+      "tone": 63
+    },
+    {
+      "i": 222,
+      "lyric": "的",
+      "ours_start": 164.875,
+      "game_start": 162.76,
+      "resid_ms": 1030.7,
+      "dur": 0.873,
+      "tone": 61
+    },
+    {
+      "i": 223,
+      "lyric": "体",
+      "ours_start": 165.748,
+      "game_start": 163.01,
+      "resid_ms": 433.7,
+      "dur": 0.455,
+      "tone": 63
+    },
+    {
+      "i": 224,
+      "lyric": "温",
+      "ours_start": 166.203,
+      "game_start": 164.01,
+      "resid_ms": 992.1,
+      "dur": 1.334,
+      "tone": 64
+    },
+    {
+      "i": 225,
+      "lyric": "AP",
+      "ours_start": 168.964,
+      "game_start": 164.46,
+      "resid_ms": -1236.3,
+      "dur": 0.241,
+      "tone": 64
+    },
+    {
+      "i": 226,
+      "lyric": "星",
+      "ours_start": 169.204,
+      "game_start": 164.65,
+      "resid_ms": -1279.7,
+      "dur": 0.391,
+      "tone": 64
+    },
+    {
+      "i": 227,
+      "lyric": "空",
+      "ours_start": 169.595,
+      "game_start": 164.88,
+      "resid_ms": -1428.7,
+      "dur": 0.328,
+      "tone": 63
+    },
+    {
+      "i": 228,
+      "lyric": "下",
+      "ours_start": 169.923,
+      "game_start": 165.75,
+      "resid_ms": -877.1,
+      "dur": 0.943,
+      "tone": 64
+    },
+    {
+      "i": 229,
+      "lyric": "拥",
+      "ours_start": 170.866,
+      "game_start": 166.2,
+      "resid_ms": -1341.8,
+      "dur": 0.426,
+      "tone": 63
+    },
+    {
+      "i": 230,
+      "lyric": "抱",
+      "ours_start": 171.292,
+      "game_start": 169.22,
+      "resid_ms": 1264.8,
+      "dur": 0.304,
+      "tone": 64
+    },
+    {
+      "i": 231,
+      "lyric": "着",
+      "ours_start": 171.596,
+      "game_start": 169.63,
+      "resid_ms": 1379.7,
+      "dur": 0.569,
+      "tone": 66
+    },
+    {
+      "i": 232,
+      "lyric": "快",
+      "ours_start": 172.165,
+      "game_start": 169.93,
+      "resid_ms": 1127.9,
+      "dur": 0.453,
+      "tone": 63
+    },
+    {
+      "i": 233,
+      "lyric": "凋",
+      "ours_start": 172.618,
+      "game_start": 170.87,
+      "resid_ms": 1628.2,
+      "dur": 0.429,
+      "tone": 61
+    },
+    {
+      "i": 234,
+      "lyric": "零",
+      "ours_start": 173.047,
+      "game_start": 171.31,
+      "resid_ms": 1651.8,
+      "dur": 0.444,
+      "tone": 59
+    },
+    {
+      "i": 235,
+      "lyric": "的",
+      "ours_start": 173.904,
+      "game_start": 171.59,
+      "resid_ms": 1100.0,
+      "dur": 0.407,
+      "tone": 59
+    },
+    {
+      "i": 236,
+      "lyric": "温",
+      "ours_start": 174.311,
+      "game_start": 172.24,
+      "resid_ms": 1354.8,
+      "dur": 0.466,
+      "tone": 66
+    },
+    {
+      "i": 237,
+      "lyric": "存",
+      "ours_start": 174.777,
+      "game_start": 172.62,
+      "resid_ms": 1283.1,
+      "dur": 0.361,
+      "tone": 64
+    },
+    {
+      "i": 238,
+      "lyric": "AP",
+      "ours_start": 175.374,
+      "game_start": 173.06,
+      "resid_ms": 1143.9,
+      "dur": 0.241,
+      "tone": 64
+    },
+    {
+      "i": 239,
+      "lyric": "爱",
+      "ours_start": 175.615,
+      "game_start": 173.91,
+      "resid_ms": 1760.5,
+      "dur": 0.428,
+      "tone": 64
+    },
+    {
+      "i": 240,
+      "lyric": "只",
+      "ours_start": 176.043,
+      "game_start": 174.32,
+      "resid_ms": 1755.1,
+      "dur": 0.419,
+      "tone": 69
+    },
+    {
+      "i": 241,
+      "lyric": "能",
+      "ours_start": 176.461,
+      "game_start": 174.78,
+      "resid_ms": 1808.8,
+      "dur": 0.479,
+      "tone": 68
+    },
+    {
+      "i": 242,
+      "lyric": "在",
+      "ours_start": 177.323,
+      "game_start": 175.62,
+      "resid_ms": 1812.9,
+      "dur": 0.392,
+      "tone": 64
+    },
+    {
+      "i": 243,
+      "lyric": "回",
+      "ours_start": 177.715,
+      "game_start": 176.05,
+      "resid_ms": 1862.9,
+      "dur": 0.478,
+      "tone": 69
+    },
+    {
+      "i": 244,
+      "lyric": "忆",
+      "ours_start": 178.193,
+      "game_start": 176.47,
+      "resid_ms": 1819.0,
+      "dur": 0.466,
+      "tone": 68
+    },
+    {
+      "i": 245,
+      "lyric": "里",
+      "ours_start": 179.051,
+      "game_start": 177.32,
+      "resid_ms": 1836.2,
+      "dur": 0.405,
+      "tone": 64
+    },
+    {
+      "i": 246,
+      "lyric": "完",
+      "ours_start": 179.456,
+      "game_start": 177.72,
+      "resid_ms": 1843.0,
+      "dur": 0.452,
+      "tone": 66
+    },
+    {
+      "i": 247,
+      "lyric": "整",
+      "ours_start": 179.908,
+      "game_start": 178.18,
+      "resid_ms": 1864.4,
+      "dur": 2.082,
+      "tone": 68
+    },
+    {
+      "i": 248,
+      "lyric": "AP",
+      "ours_start": 182.257,
+      "game_start": 179.06,
+      "resid_ms": 465.3,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 249,
+      "lyric": "想",
+      "ours_start": 182.497,
+      "game_start": 179.46,
+      "resid_ms": 632.8,
+      "dur": 0.396,
+      "tone": 59
+    },
+    {
+      "i": 250,
+      "lyric": "把",
+      "ours_start": 182.893,
+      "game_start": 179.91,
+      "resid_ms": 698.7,
+      "dur": 0.452,
+      "tone": 64
+    },
+    {
+      "i": 251,
+      "lyric": "你",
+      "ours_start": 183.345,
+      "game_start": 180.1,
+      "resid_ms": 450.1,
+      "dur": 0.465,
+      "tone": 71
+    },
+    {
+      "i": 252,
+      "lyric": "抱",
+      "ours_start": 183.809,
+      "game_start": 181.98,
+      "resid_ms": 1879.3,
+      "dur": 0.346,
+      "tone": 71
+    },
+    {
+      "i": 253,
+      "lyric": "紧",
+      "ours_start": 184.155,
+      "game_start": 182.5,
+      "resid_ms": 2063.8,
+      "dur": 0.327,
+      "tone": 68
+    },
+    {
+      "i": 254,
+      "lyric": "身",
+      "ours_start": 184.482,
+      "game_start": 182.9,
+      "resid_ms": 2146.4,
+      "dur": 0.397,
+      "tone": 71
+    },
+    {
+      "i": 255,
+      "lyric": "体",
+      "ours_start": 184.879,
+      "game_start": 183.35,
+      "resid_ms": 2211.3,
+      "dur": 0.233,
+      "tone": 71
+    },
+    {
+      "i": 256,
+      "lyric": "里",
+      "ours_start": 185.494,
+      "game_start": 183.82,
+      "resid_ms": 2085.0,
+      "dur": 0.618,
+      "tone": 68
+    },
+    {
+      "i": 257,
+      "lyric": "面",
+      "ours_start": 186.329,
+      "game_start": 184.23,
+      "resid_ms": 1684.5,
+      "dur": 0.491,
+      "tone": 66
+    },
+    {
+      "i": 258,
+      "lyric": "AP",
+      "ours_start": 186.953,
+      "game_start": 184.49,
+      "resid_ms": 1339.1,
+      "dur": 0.241,
+      "tone": 71
+    },
+    {
+      "i": 259,
+      "lyric": "不",
+      "ours_start": 187.194,
+      "game_start": 184.89,
+      "resid_ms": 1505.6,
+      "dur": 0.417,
+      "tone": 71
+    },
+    {
+      "i": 260,
+      "lyric": "敢",
+      "ours_start": 187.61,
+      "game_start": 185.04,
+      "resid_ms": 1251.3,
+      "dur": 0.282,
+      "tone": 68
+    },
+    {
+      "i": 261,
+      "lyric": "让",
+      "ours_start": 187.893,
+      "game_start": 185.42,
+      "resid_ms": 1357.4,
+      "dur": 0.417,
+      "tone": 71
+    },
+    {
+      "i": 262,
+      "lyric": "你",
+      "ours_start": 188.309,
+      "game_start": 186.11,
+      "resid_ms": 1643.1,
+      "dur": 0.628,
+      "tone": 73
+    },
+    {
+      "i": 263,
+      "lyric": "看",
+      "ours_start": 188.938,
+      "game_start": 186.34,
+      "resid_ms": 1263.7,
+      "dur": 0.583,
+      "tone": 66
+    },
+    {
+      "i": 264,
+      "lyric": "见",
+      "ours_start": 189.795,
+      "game_start": 187.2,
+      "resid_ms": 1291.9,
+      "dur": 0.468,
+      "tone": 64
+    },
+    {
+      "i": 265,
+      "lyric": "AP",
+      "ours_start": 190.403,
+      "game_start": 187.62,
+      "resid_ms": 1121.6,
+      "dur": 0.24,
+      "tone": 71
+    },
+    {
+      "i": 266,
+      "lyric": "嘴",
+      "ours_start": 190.643,
+      "game_start": 187.89,
+      "resid_ms": 1159.2,
+      "dur": 0.404,
+      "tone": 71
+    },
+    {
+      "i": 267,
+      "lyric": "角",
+      "ours_start": 191.047,
+      "game_start": 188.31,
+      "resid_ms": 1187.0,
+      "dur": 0.27,
+      "tone": 68
+    },
+    {
+      "i": 268,
+      "lyric": "那",
+      "ours_start": 191.317,
+      "game_start": 188.95,
+      "resid_ms": 1565.3,
+      "dur": 0.419,
+      "tone": 71
+    },
+    {
+      "i": 269,
+      "lyric": "颗",
+      "ours_start": 191.735,
+      "game_start": 189.52,
+      "resid_ms": 1729.0,
+      "dur": 0.629,
+      "tone": 73
+    },
+    {
+      "i": 270,
+      "lyric": "没[m ei]",
+      "ours_start": 192.365,
+      "game_start": 189.8,
+      "resid_ms": 1398.5,
+      "dur": 0.349,
+      "tone": 64
+    },
+    {
+      "i": 271,
+      "lyric": "落",
+      "ours_start": 192.714,
+      "game_start": 190.65,
+      "resid_ms": 1909.9,
+      "dur": 0.321,
+      "tone": 66
+    },
+    {
+      "i": 272,
+      "lyric": "下",
+      "ours_start": 193.034,
+      "game_start": 191.08,
+      "resid_ms": 2028.6,
+      "dur": 0.386,
+      "tone": 68
+    },
+    {
+      "i": 273,
+      "lyric": "的",
+      "ours_start": 193.421,
+      "game_start": 191.32,
+      "resid_ms": 1893.7,
+      "dur": 0.625,
+      "tone": 71
+    },
+    {
+      "i": 274,
+      "lyric": "泪",
+      "ours_start": 194.046,
+      "game_start": 191.74,
+      "resid_ms": 1707.2,
+      "dur": 1.664,
+      "tone": 68
+    },
+    {
+      "i": 275,
+      "lyric": "AP",
+      "ours_start": 195.965,
+      "game_start": 192.18,
+      "resid_ms": 285.5,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 276,
+      "lyric": "如",
+      "ours_start": 196.204,
+      "game_start": 192.38,
+      "resid_ms": 253.1,
+      "dur": 0.442,
+      "tone": 59
+    },
+    {
+      "i": 277,
+      "lyric": "果",
+      "ours_start": 196.646,
+      "game_start": 192.78,
+      "resid_ms": 224.5,
+      "dur": 0.403,
+      "tone": 64
+    },
+    {
+      "i": 278,
+      "lyric": "这",
+      "ours_start": 197.049,
+      "game_start": 193.04,
+      "resid_ms": 93.4,
+      "dur": 0.442,
+      "tone": 71
+    },
+    {
+      "i": 279,
+      "lyric": "是",
+      "ours_start": 197.491,
+      "game_start": 193.42,
+      "resid_ms": 44.9,
+      "dur": 0.369,
+      "tone": 71
+    },
+    {
+      "i": 280,
+      "lyric": "最",
+      "ours_start": 197.859,
+      "game_start": 193.68,
+      "resid_ms": -52.9,
+      "dur": 0.316,
+      "tone": 68
+    },
+    {
+      "i": 281,
+      "lyric": "后",
+      "ours_start": 198.175,
+      "game_start": 194.05,
+      "resid_ms": 10.8,
+      "dur": 0.407,
+      "tone": 71
+    },
+    {
+      "i": 282,
+      "lyric": "的",
+      "ours_start": 198.582,
+      "game_start": 196.19,
+      "resid_ms": 1755.7,
+      "dur": 0.604,
+      "tone": 73
+    },
+    {
+      "i": 283,
+      "lyric": "一",
+      "ours_start": 199.186,
+      "game_start": 196.65,
+      "resid_ms": 1629.5,
+      "dur": 0.62,
+      "tone": 68
+    },
+    {
+      "i": 284,
+      "lyric": "页",
+      "ours_start": 200.047,
+      "game_start": 197.06,
+      "resid_ms": 1204.6,
+      "dur": 0.477,
+      "tone": 66
+    },
+    {
+      "i": 285,
+      "lyric": "AP",
+      "ours_start": 200.654,
+      "game_start": 197.5,
+      "resid_ms": 1055.4,
+      "dur": 0.241,
+      "tone": 71
+    },
+    {
+      "i": 286,
+      "lyric": "在",
+      "ours_start": 200.895,
+      "game_start": 197.91,
+      "resid_ms": 1231.9,
+      "dur": 0.43,
+      "tone": 71
+    },
+    {
+      "i": 287,
+      "lyric": "你",
+      "ours_start": 201.325,
+      "game_start": 198.18,
+      "resid_ms": 1084.5,
+      "dur": 0.243,
+      "tone": 68
+    },
+    {
+      "i": 288,
+      "lyric": "离",
+      "ours_start": 201.568,
+      "game_start": 198.58,
+      "resid_ms": 1249.0,
+      "dur": 0.408,
+      "tone": 71
+    },
+    {
+      "i": 289,
+      "lyric": "开",
+      "ours_start": 201.976,
+      "game_start": 199.18,
+      "resid_ms": 1452.8,
+      "dur": 0.625,
+      "tone": 73
+    },
+    {
+      "i": 290,
+      "lyric": "之",
+      "ours_start": 202.601,
+      "game_start": 199.38,
+      "resid_ms": 1046.4,
+      "dur": 0.566,
+      "tone": 66
+    },
+    {
+      "i": 291,
+      "lyric": "前",
+      "ours_start": 203.472,
+      "game_start": 199.8,
+      "resid_ms": 621.5,
+      "dur": 0.421,
+      "tone": 64
+    },
+    {
+      "i": 292,
+      "lyric": "AP",
+      "ours_start": 204.124,
+      "game_start": 200.05,
+      "resid_ms": 238.8,
+      "dur": 0.24,
+      "tone": 71
+    },
+    {
+      "i": 293,
+      "lyric": "能",
+      "ours_start": 204.364,
+      "game_start": 200.9,
+      "resid_ms": 856.3,
+      "dur": 0.397,
+      "tone": 71
+    },
+    {
+      "i": 294,
+      "lyric": "否",
+      "ours_start": 204.76,
+      "game_start": 201.32,
+      "resid_ms": 891.2,
+      "dur": 0.266,
+      "tone": 69
+    },
+    {
+      "i": 295,
+      "lyric": "让",
+      "ours_start": 205.026,
+      "game_start": 201.57,
+      "resid_ms": 883.5,
+      "dur": 0.406,
+      "tone": 68
+    },
+    {
+      "i": 296,
+      "lyric": "我",
+      "ours_start": 205.432,
+      "game_start": 201.99,
+      "resid_ms": 909.3,
+      "dur": 0.281,
+      "tone": 64
+    },
+    {
+      "i": 297,
+      "lyric": "把",
+      "ours_start": 206.06,
+      "game_start": 202.6,
+      "resid_ms": 909.9,
+      "dur": 0.377,
+      "tone": 59
+    },
+    {
+      "i": 298,
+      "lyric": "故",
+      "ours_start": 206.438,
+      "game_start": 202.8,
+      "resid_ms": 744.0,
+      "dur": 0.364,
+      "tone": 69
+    },
+    {
+      "i": 299,
+      "lyric": "事",
+      "ours_start": 206.801,
+      "game_start": 203.16,
+      "resid_ms": 751.3,
+      "dur": 0.536,
+      "tone": 68
+    },
+    {
+      "i": 300,
+      "lyric": "重",
+      "ours_start": 207.338,
+      "game_start": 203.47,
+      "resid_ms": 540.8,
+      "dur": 0.463,
+      "tone": 64
+    },
+    {
+      "i": 301,
+      "lyric": "写",
+      "ours_start": 207.8,
+      "game_start": 204.37,
+      "resid_ms": 992.0,
+      "dur": 2.15,
+      "tone": 64
+    },
+    {
+      "i": 302,
+      "lyric": "AP",
+      "ours_start": 209.7,
+      "game_start": 204.77,
+      "resid_ms": -451.5,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 303,
+      "lyric": "想",
+      "ours_start": 209.94,
+      "game_start": 205.02,
+      "resid_ms": -433.9,
+      "dur": 0.382,
+      "tone": 59
+    },
+    {
+      "i": 304,
+      "lyric": "把",
+      "ours_start": 210.322,
+      "game_start": 205.43,
+      "resid_ms": -394.9,
+      "dur": 0.479,
+      "tone": 64
+    },
+    {
+      "i": 305,
+      "lyric": "你",
+      "ours_start": 210.801,
+      "game_start": 206.07,
+      "resid_ms": -219.8,
+      "dur": 0.415,
+      "tone": 71
+    },
+    {
+      "i": 306,
+      "lyric": "抱",
+      "ours_start": 211.216,
+      "game_start": 206.48,
+      "resid_ms": -212.0,
+      "dur": 0.356,
+      "tone": 71
+    },
+    {
+      "i": 307,
+      "lyric": "紧",
+      "ours_start": 211.572,
+      "game_start": 206.81,
+      "resid_ms": -227.7,
+      "dur": 0.376,
+      "tone": 68
+    },
+    {
+      "i": 308,
+      "lyric": "身",
+      "ours_start": 211.948,
+      "game_start": 207.36,
+      "resid_ms": -42.6,
+      "dur": 0.417,
+      "tone": 71
+    },
+    {
+      "i": 309,
+      "lyric": "体",
+      "ours_start": 212.365,
+      "game_start": 207.81,
+      "resid_ms": 3.2,
+      "dur": 0.226,
+      "tone": 71
+    },
+    {
+      "i": 310,
+      "lyric": "里",
+      "ours_start": 212.957,
+      "game_start": 209.94,
+      "resid_ms": 1558.1,
+      "dur": 0.586,
+      "tone": 68
+    },
+    {
+      "i": 311,
+      "lyric": "面",
+      "ours_start": 213.795,
+      "game_start": 210.33,
+      "resid_ms": 1135.5,
+      "dur": 0.421,
+      "tone": 66
+    },
+    {
+      "i": 312,
+      "lyric": "AP",
+      "ours_start": 214.411,
+      "game_start": 210.82,
+      "resid_ms": 1027.2,
+      "dur": 0.241,
+      "tone": 71
+    },
+    {
+      "i": 313,
+      "lyric": "不",
+      "ours_start": 214.652,
+      "game_start": 211.22,
+      "resid_ms": 1193.7,
+      "dur": 0.394,
+      "tone": 71
+    },
+    {
+      "i": 314,
+      "lyric": "敢",
+      "ours_start": 215.046,
+      "game_start": 211.67,
+      "resid_ms": 1261.6,
+      "dur": 0.293,
+      "tone": 68
+    },
+    {
+      "i": 315,
+      "lyric": "让",
+      "ours_start": 215.339,
+      "game_start": 211.95,
+      "resid_ms": 1257.6,
+      "dur": 0.381,
+      "tone": 71
+    },
+    {
+      "i": 316,
+      "lyric": "你",
+      "ours_start": 215.72,
+      "game_start": 212.37,
+      "resid_ms": 1307.7,
+      "dur": 0.603,
+      "tone": 73
+    },
+    {
+      "i": 317,
+      "lyric": "看",
+      "ours_start": 216.323,
+      "game_start": 212.54,
+      "resid_ms": 892.5,
+      "dur": 0.608,
+      "tone": 66
+    },
+    {
+      "i": 318,
+      "lyric": "见",
+      "ours_start": 217.218,
+      "game_start": 212.97,
+      "resid_ms": 454.3,
+      "dur": 0.445,
+      "tone": 64
+    },
+    {
+      "i": 319,
+      "lyric": "AP",
+      "ours_start": 217.84,
+      "game_start": 213.14,
+      "resid_ms": 21.0,
+      "dur": 0.241,
+      "tone": 71
+    },
+    {
+      "i": 320,
+      "lyric": "嘴",
+      "ours_start": 218.08,
+      "game_start": 213.53,
+      "resid_ms": 177.5,
+      "dur": 0.416,
+      "tone": 71
+    },
+    {
+      "i": 321,
+      "lyric": "角",
+      "ours_start": 218.496,
+      "game_start": 213.8,
+      "resid_ms": 44.2,
+      "dur": 0.257,
+      "tone": 68
+    },
+    {
+      "i": 322,
+      "lyric": "那",
+      "ours_start": 218.753,
+      "game_start": 214.66,
+      "resid_ms": 654.6,
+      "dur": 0.407,
+      "tone": 71
+    },
+    {
+      "i": 323,
+      "lyric": "颗",
+      "ours_start": 219.16,
+      "game_start": 215.06,
+      "resid_ms": 659.4,
+      "dur": 0.635,
+      "tone": 73
+    },
+    {
+      "i": 324,
+      "lyric": "没[m ei]",
+      "ours_start": 219.796,
+      "game_start": 215.34,
+      "resid_ms": 322.9,
+      "dur": 0.352,
+      "tone": 64
+    },
+    {
+      "i": 325,
+      "lyric": "落",
+      "ours_start": 220.148,
+      "game_start": 215.73,
+      "resid_ms": 371.3,
+      "dur": 0.322,
+      "tone": 66
+    },
+    {
+      "i": 326,
+      "lyric": "下",
+      "ours_start": 220.47,
+      "game_start": 216.32,
+      "resid_ms": 649.0,
+      "dur": 0.395,
+      "tone": 68
+    },
+    {
+      "i": 327,
+      "lyric": "的",
+      "ours_start": 220.865,
+      "game_start": 216.95,
+      "resid_ms": 895.9,
+      "dur": 0.653,
+      "tone": 71
+    },
+    {
+      "i": 328,
+      "lyric": "泪",
+      "ours_start": 221.518,
+      "game_start": 217.22,
+      "resid_ms": 532.2,
+      "dur": 1.615,
+      "tone": 68
+    },
+    {
+      "i": 329,
+      "lyric": "AP",
+      "ours_start": 223.43,
+      "game_start": 218.08,
+      "resid_ms": -463.4,
+      "dur": 0.24,
+      "tone": 59
+    },
+    {
+      "i": 330,
+      "lyric": "如",
+      "ours_start": 223.67,
+      "game_start": 218.51,
+      "resid_ms": -265.9,
+      "dur": 0.451,
+      "tone": 59
+    },
+    {
+      "i": 331,
+      "lyric": "果",
+      "ours_start": 224.121,
+      "game_start": 218.76,
+      "resid_ms": -453.5,
+      "dur": 0.544,
+      "tone": 64
+    },
+    {
+      "i": 332,
+      "lyric": "这",
+      "ours_start": 224.665,
+      "game_start": 219.17,
+      "resid_ms": -571.1,
+      "dur": 0.651,
+      "tone": 71
+    },
+    {
+      "i": 333,
+      "lyric": "是",
+      "ours_start": 225.316,
+      "game_start": 219.63,
+      "resid_ms": -742.8,
+      "dur": 0.427,
+      "tone": 71
+    },
+    {
+      "i": 334,
+      "lyric": "最",
+      "ours_start": 225.743,
+      "game_start": 219.81,
+      "resid_ms": -977.2,
+      "dur": 0.306,
+      "tone": 68
+    },
+    {
+      "i": 335,
+      "lyric": "后",
+      "ours_start": 226.049,
+      "game_start": 220.22,
+      "resid_ms": -864.3,
+      "dur": 0.416,
+      "tone": 71
+    },
+    {
+      "i": 336,
+      "lyric": "的",
+      "ours_start": 226.465,
+      "game_start": 220.48,
+      "resid_ms": -1007.6,
+      "dur": 0.618,
+      "tone": 73
+    },
+    {
+      "i": 337,
+      "lyric": "一",
+      "ours_start": 227.082,
+      "game_start": 220.87,
+      "resid_ms": -1216.9,
+      "dur": 0.627,
+      "tone": 68
+    },
+    {
+      "i": 338,
+      "lyric": "页",
+      "ours_start": 227.953,
+      "game_start": 221.16,
+      "resid_ms": -1771.9,
+      "dur": 0.443,
+      "tone": 66
+    },
+    {
+      "i": 339,
+      "lyric": "AP",
+      "ours_start": 228.533,
+      "game_start": 221.52,
+      "resid_ms": -1974.8,
+      "dur": 0.241,
+      "tone": 71
+    },
+    {
+      "i": 340,
+      "lyric": "在",
+      "ours_start": 228.774,
+      "game_start": 223.53,
+      "resid_ms": -198.3,
+      "dur": 0.407,
+      "tone": 71
+    },
+    {
+      "i": 341,
+      "lyric": "你",
+      "ours_start": 229.181,
+      "game_start": 223.71,
+      "resid_ms": -413.5,
+      "dur": 0.266,
+      "tone": 68
+    },
+    {
+      "i": 342,
+      "lyric": "离",
+      "ours_start": 229.447,
+      "game_start": 224.13,
+      "resid_ms": -251.2,
+      "dur": 0.418,
+      "tone": 71
+    },
+    {
+      "i": 343,
+      "lyric": "开",
+      "ours_start": 229.865,
+      "game_start": 224.67,
+      "resid_ms": -116.5,
+      "dur": 0.627,
+      "tone": 73
+    },
+    {
+      "i": 344,
+      "lyric": "之",
+      "ours_start": 230.492,
+      "game_start": 225.33,
+      "resid_ms": -64.9,
+      "dur": 0.573,
+      "tone": 66
+    },
+    {
+      "i": 345,
+      "lyric": "前",
+      "ours_start": 231.374,
+      "game_start": 225.8,
+      "resid_ms": -451.0,
+      "dur": 0.422,
+      "tone": 64
+    },
+    {
+      "i": 346,
+      "lyric": "AP",
+      "ours_start": 231.967,
+      "game_start": 226.06,
+      "resid_ms": -766.1,
+      "dur": 0.24,
+      "tone": 71
+    },
+    {
+      "i": 347,
+      "lyric": "能",
+      "ours_start": 232.206,
+      "game_start": 226.47,
+      "resid_ms": -588.5,
+      "dur": 0.404,
+      "tone": 71
+    },
+    {
+      "i": 348,
+      "lyric": "否",
+      "ours_start": 232.61,
+      "game_start": 227.08,
+      "resid_ms": -370.7,
+      "dur": 0.281,
+      "tone": 69
+    },
+    {
+      "i": 349,
+      "lyric": "让",
+      "ours_start": 232.892,
+      "game_start": 227.73,
+      "resid_ms": 6.4,
+      "dur": 0.408,
+      "tone": 68
+    },
+    {
+      "i": 350,
+      "lyric": "我",
+      "ours_start": 233.3,
+      "game_start": 227.95,
+      "resid_ms": -169.8,
+      "dur": 0.279,
+      "tone": 64
+    },
+    {
+      "i": 351,
+      "lyric": "把",
+      "ours_start": 233.911,
+      "game_start": 228.78,
+      "resid_ms": 67.0,
+      "dur": 0.395,
+      "tone": 59
+    },
+    {
+      "i": 352,
+      "lyric": "故",
+      "ours_start": 234.306,
+      "game_start": 229.19,
+      "resid_ms": 93.9,
+      "dur": 0.372,
+      "tone": 69
+    },
+    {
+      "i": 353,
+      "lyric": "事",
+      "ours_start": 234.678,
+      "game_start": 229.45,
+      "resid_ms": -6.9,
+      "dur": 0.558,
+      "tone": 68
+    },
+    {
+      "i": 354,
+      "lyric": "重",
+      "ours_start": 235.236,
+      "game_start": 229.87,
+      "resid_ms": -128.6,
+      "dur": 0.452,
+      "tone": 64
+    },
+    {
+      "i": 355,
+      "lyric": "写",
+      "ours_start": 235.689,
+      "game_start": 230.5,
+      "resid_ms": 62.7,
+      "dur": 2.382,
+      "tone": 64
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "review_contract_version": 2,
+  "project": {
+    "path": "E:\\project\\agent2utau\\scratch\\lastpage_v6_dspitch_v5\\project_dspitch_v5.ustx",
+    "sha256": "1e8d306166766e2e3b8221515288c0af9a2df0d3faa2ec62d79c3ec34bb0d86c"
+  },
+  "execution_review": null,
+  "execution_status": "fail",
+  "technical_execution_complete": false,
+  "workflow_review_complete": false,
+  "musical_quality": "unverified",
+  "missing": "Musical process/calibration incomplete or legacy receipt; candidate only",
+  "audio": {
+    "status": "pass",
+    "file": {
+      "path": "E:\\project\\agent2utau\\scratch\\lastpage_v6_dspitch_v5\\vocal_vocal.wav",
+      "sha256": "c89486f46a827fb83a4d561a80064f9be64ee387a63d4aa155e575982f582a41"
+    },
+    "sample_rate": 44100,
+    "samples": 10503137,
+    "peak": 0.999969482421875,
+    "scope": "Audio byte identity/finite/peak only; model inputs, alignment and perceived effect not certified"
+  },
+  "listening": "unknown",
+  "transfer": "unknown",
+  "candidate_delivery_allowed": true,
+  "production_execution_complete": false
+}

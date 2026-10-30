@@ -1,0 +1,17 @@
+{
+  "method": "按人声有声区间比 RMS; 伴奏降 headroom, 人声同步抬以保持相对关系",
+  "voiced_range_s": [
+    18.45,
+    242.8
+  ],
+  "source_vocal_db": -18.31,
+  "source_accomp_db": -17.29,
+  "source_balance_db": -1.03,
+  "final_vocal_db": -22.87,
+  "vocal_gain_db": 0.56,
+  "accomp_gain_db": -4.0,
+  "result_balance_db": -1.03,
+  "balance_error_db": 0.0,
+  "mix_peak": 0.8294,
+  "note": "DYN=0; 音高=dspitch 官方预测; 发声层按新基线 dose-response 重标定"
+}

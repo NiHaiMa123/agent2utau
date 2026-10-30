@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "review_contract_version": 2,
+  "project": {
+    "path": "E:\\project\\agent2utau\\scratch\\nianlun_v3_rebuild_audio\\probe\\brec_0.ustx",
+    "sha256": "9fe1bdb73d162a9404e7f978e5fe8c92eadb3fd00f6f80a080292019825359e2"
+  },
+  "execution_review": null,
+  "execution_status": "fail",
+  "technical_execution_complete": false,
+  "workflow_review_complete": false,
+  "musical_quality": "unverified",
+  "missing": "Musical process/calibration incomplete or legacy receipt; candidate only",
+  "audio": {
+    "status": "pass",
+    "file": {
+      "path": "E:\\project\\agent2utau\\scratch\\nianlun_v3_rebuild_audio\\probe\\brec_0_vocal.wav",
+      "sha256": "da109a61527f15449cae8308e90e8ad7d8a4a669a815c8c37cf1c29f2e665291"
+    },
+    "sample_rate": 44100,
+    "samples": 4000002,
+    "peak": 0.36358642578125,
+    "scope": "Audio byte identity/finite/peak only; model inputs, alignment and perceived effect not certified"
+  },
+  "listening": "unknown",
+  "transfer": "unknown",
+  "candidate_delivery_allowed": true,
+  "production_execution_complete": false
+}
