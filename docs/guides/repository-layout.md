@@ -1,6 +1,6 @@
 # 目录边界与各环节文件存放规范
 
-更新：**2026-10-30（第二轮整理后）**。本文是**长期规范**；`PROJECT_REORGANIZATION_PLAN_20261030.md` 是一次性收尾任务书，`migration/20261030-reorganization/` 下的验收报告是时间点记录，二者都保留作历史证据，不作为日常规范。
+更新：**2026-10-31（自动音高新路线）**。本文是**长期规范**；当前执行计划为 [根目录 plan.md](../../plan.md)。旧表1/表2及旧目录整理计划已归档到 [docs/archive/legacy-plans/](../archive/legacy-plans/)，不再执行；历史迁移的验收文件继续保留。
 
 ## 0. 一句话
 
@@ -10,8 +10,8 @@
 
 | 目录/文件 | 保存什么 | 不放什么 | Git |
 |---|---|---|---|
-| 根目录 README、AGENTS、plan、plan-table2 | 项目入口、协作约定与专项计划 | 重复计划、音频、实验输出 | 提交 |
-| src/agent2utau/ | 通用生产 Python 代码与**独立评价实现** | 歌曲脚本、作者控制数组 | 提交 |
+| 根目录 README、AGENTS、plan | 当前执行入口；旧 plan-table2 和目录整理计划根路径仅用于兼容跳转 | 旧音高路线、新实验音频 | 提交 |
+| src/agent2utau/ | 通用生产、原生适配与独立评价；`alignment/` 为**待新增**模块 | 歌曲脚本、作者控制数组 | 提交 |
 | bridge/OuBridge/ | OpenUtau 原生桥接 C# 源码 | 歌曲输出、测试 fixture | 提交源码；bin/obj 忽略 |
 | skills/singing-expression-editor/ | 通用制作 Skill、参考方法、函数工具 | 具体歌曲参数/路径配置 | 提交 |
 | tests/ | unit、contracts、skills 自动测试 | 生产入口、真实录音、作者数组 | 提交 |
@@ -23,6 +23,7 @@
 | **migration/** | 目录迁移的盘点表、映射表、验收记录 | 生产资产 | 提交 |
 | research/ | 只读作者资源、表1/表2复核、历史实现记录 | 默认生产配方、运行输出 | 提交允许的原件/文本 |
 | docs/guides/ | 使用说明、**本规范**、方法文档 | 实验 PCM、模型输入数组 | 提交 |
+| docs/archive/ | 废弃计划与旧 README/AGENTS 原文快照，只读 | 当前执行任务 | 提交 |
 | docs/knowledge/<包名>/ | 表1/表2、CSV/JSON 知识清单与来源审计 | 未标角色的作者数组 | 提交必要文本 |
 | docs/reports/<主题>/ | 公共研究、维护报告、**被知识契约绑定的公开文档** | 可直接运行的旧曲脚本 | 提交 |
 | projects/latest/ | 用户指定保留/发布的 USTX | 测试谱面、音频、模型 | 仅本机 |

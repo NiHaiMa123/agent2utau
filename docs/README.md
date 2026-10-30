@@ -1,28 +1,15 @@
-# 文档与知识资料
+# 文档导航（2026-10-31）
 
-| 分类 | 位置与入口 |
+**现行主线**：[当前 plan](../plan.md) · [制作流程](workflow.md) · [长期目录规范](guides/repository-layout.md) · [README](../README.md)。新的任务是歌词/GAME 音符映射、原生音素与时间修正、DiffSinger 自动音高；旧手工 PITD 路线不再默认执行。
+
+| 类型 | 入口 |
 |---|---|
-| 当前计划 | 根目录[plan.md](../plan.md)与[表2专项计划](../plan-table2.md)，不复制到文档目录 |
-| 制作流程/已有接口 | [workflow.md](workflow.md)、[evaluation-v0.md](evaluation-v0.md)；保留已被Skill和其它文档引用的入口路径 |
-| 本轮授权复检补全 | [要求](skill-execution-review-requirements.md)、[实际结果](skill-execution-review-results.md)；这两份根层文件是用户指定路径例外 |
-| 目录与文件规范 | [guides/repository-layout.md](guides/repository-layout.md) |
-| 知识与结构化清单 | [knowledge/acoustic-manifestations-20261009](knowledge/acoustic-manifestations-20261009/README.md)，表1、表2、CSV/JSON和审计包同目录 |
-| 新可读报告 | `reports/<主题>/`；本次[目录迁移报告](reports/maintenance/directory-reorganization-20261009.md)在`reports/maintenance/` |
-| 历史评价结果 | [evaluation-v0-findings.md](evaluation-v0-findings.md)、[evaluation-v0-next-step.md](evaluation-v0-next-step.md) |
-| 历史计划审查/路线清理 | [plan-feasibility-review-20261008.md](plan-feasibility-review-20261008.md)、[repository-cleanup.md](repository-cleanup.md) |
-| 封存实验报告 | 本目录原`lastpage-*-20261008.md`；原路径/字节/SHA保留，原始报告互引不改；入口由[表2](knowledge/acoustic-manifestations-20261009/conditional-responses.md)索引 |
+| **废弃计划原文** | [旧表1/表2和目录整理计划](archive/legacy-plans/) |
+| **旧入口原文** | [旧 README / AGENTS](archive/legacy-guidance/) |
+| 现有歌曲 session 和交付 | [songs/README.md](../songs/README.md) |
+| 跨模型歌词时间轴测试 | [benchmarks/model-comparisons/20261030-lyrics-alignment/](../benchmarks/model-comparisons/20261030-lyrics-alignment/) |
+| 原有表达知识/报告 | [knowledge/](knowledge/) · [reports/](reports/) |
+| 独立评价 v0 | [evaluation-v0.md](evaluation-v0.md) |
+| 2026-10-30 目录整理证据 | [migration/20261030-reorganization/](../migration/20261030-reorganization/) |
 
-原始报告是有版本和绑定的证据，不因为目录整理改写历史结论。已有稳定入口及封存报告作为明确的历史例外保留原路径；新方法文档放`guides`、新报告放`reports`、新知识包放`knowledge`，不要继续把新文件平铺在本目录。
-
-这里只保存可审查的说明和聚合证据。完整数组、音频、图册、日志、模型输入与运行输出放ignored `runs`；只提交必要的文本说明、有限聚合值和SHA，避免复制封存run。
-
-## 新增入口（2026-10-30 整理后）
-
-- 歌曲制作索引与交付索引：`../songs/README.md`（各歌 `README.md` + `releases/README.md`）
-- 方法实验：`../experiments/`
-- 跨模型对照：`../benchmarks/model-comparisons/20261030-lyrics-alignment/`
-- 长期目录规范（替代旧的 runs/ 与 projects/ 单一入口说法）：`guides/repository-layout.md`
-- 整理迁移的盘点/映射/验收：`../migration/20261030-reorganization/`
-
-注意：`docs/reports/` 下部分公开文档被 `docs/knowledge` 知识包按**路径+SHA**绑定，
-必须留在该目录，不能因为"按歌曲集中"而搬动；各歌曲 README 里已单独列出这些保留原位的文档。
+历史知识和报告部分按路径+SHA 绑定，不因新技术路线重排历史目录。新对齐代码/测试按当前 plan 渐进创建，旧记录仍可只读查阅。
