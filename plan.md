@@ -1,10 +1,10 @@
 # agent2utau 当前实施计划：自动音高 + 稳定音素对齐
 
-更新：2026-10-31（P1.1 交付复核后）。**这是目前唯一的执行计划，目标是让 MiniMax / DeepSeek 稳定完成歌词、音符、音素时间修正。当前执行阶段：P1.2 定向修复；完成局部门禁后，允许另开独立 run 进行 P2 短句试点，不必等待整首歌全部 unresolved 由人工清零。**
+更新：2026-10-31（P1.2 静态审查后）。**这是目前唯一的执行计划。当前唯一执行任务：P1.2.1 小补丁，修复局部放行门禁的四个漏洞并重算 16 个样本；通过后下一轮直接进入 P2 原生音素短句试点，不再为整曲 unresolved 反复重做 P1。**
 
-> **已完成阶段与审查事实：**截至仓库 `02628796e714874cd049f3d4598d69a99f6802ca`，MiniMax 已完成 P0/P1 初版与 P1.1 的 A～G 代码/报告，包括状态机、非法延音探针、观测分级、GAME 稳定性调查、三首歌回归及 40 个 scratch 历史文件的原字节归档。P1.1 报告称本机 **336 passed**；该数量不是独立质量验收。三首歌均仍是 `incomplete`：年轮 343/349 字（6 unresolved，11 个 voiced GAME 音符未归属）、最后一页 318/318 字（`n0060` 不能合法写为 `+`，工程缺此音符）、雨爱 366/371 字（5 unresolved，12 个 voiced GAME 音符未归属）。**映射覆盖不等于音符时间准确，也不等于音素可用。**报告：[P1.1 修复记录](experiments/alignment/phoneme-alignment-p1.1-20261031/reports/phoneme-alignment-p1.1-20261031.md)，[证据目录](experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/)。
+> **P1.2 已提交（不是待做任务）：**截至 `3b467b2a4d950ee51f18fa6d160cc5ac6961baec`，MiniMax 完成 P1.2-A～G 的代码与报告，报告本机 **362 passed**、三个整曲仍 `incomplete`：年轮 344/349（5 unresolved、11 个未归属 voiced note）；最后一页 318/318（1 个未归属 voiced note，`n0060` 已归给「淹」并写入谱面，但仍是**待确认的音乐决策**）；雨爱 366/371（5 unresolved、18 个未归属 voiced note）。原 `local_gate.json` 声称 16 个短句中 14 个放行，但**该放行结果含已证实的误放行**，不得作为 P2 输入。P1.2 报告：[P1.2 修复记录](experiments/alignment/phoneme-alignment-p1.2-20261031/reports/phoneme-alignment-p1.2-20261031.md)，[冻结证据](experiments/alignment/phoneme-alignment-p1.2-20261031/evidence/)。
 >
-> **当前范围锁：仅执行新增「P1.2」的代码/验证任务。**P1.1 为历史实施记录，不再按其旧提示词重新跑一遍。P1.2 达到本计划的局部门禁后，**可以在下一个独立任务**选择 10～20 条安全短句开始 P2 原生音素试点；`n0060` 等未决句必须继续隔离，不能混入 `valid` 样本。
+> **本轮范围锁：只完成新增「P1.2.1：局部门禁小补丁」**。保留 P0/P1/P1.1/P1.2 记录，不重新做映射、GAME、取整 A/B、PITD 或混音。重新审核 16 个短句并提交可审计报告后停止；下一轮才进入 P2。**局部放行 ≠ 整曲 valid ≠ 音素已经验证。**
 
 ## 一、目标、优先级与已知事实
 
@@ -14,7 +14,7 @@
 |---|---|---|
 | 人声分离 | 沿用现有分离工具，保留原伴奏 | 需要记录源偏移、分离质量 |
 | GAME | 产生音符事件（时间、tone、voiced） | 不是歌词字界，也不是逐帧 F0 |
-| 歌词/音符/音素 | **当前 P1.2 定向修复**：行为正确性、合法候选、真实 USTX 时间校验、未分配音符审计；通过局部验收后开启 P2 短句试点 | P1.1 已交付，三首歌仍 incomplete；**音素 patch 尚未实现** |
+| 歌词/音符/音素 | **当前 P1.2.1 门禁小补丁**：修正邻字上下文、验证缺失 fail-closed、集中未决事项、USTX 校验失败纳入状态；再正式开放 P2 短句试点 | P1.2 已提交但 14/16 放行包含误放行；**音素 patch 尚未实现** |
 | 音高 | 用泠鸢 DiffSinger 自动 pitch，保留正确 MIDI tone；不默认画 PITD | 需要检查旧人工曲线没有叠加 |
 | VOIC/BREC/TENC/DYN/PEXP/CLR | 暂用声库默认预测，不默认让 Agent 改 | 以后只做单因素 A/B 实验 |
 | 混音 | 先原伴奏 + 人声固定增益，确认无削波/错位 | 全自动混音/母带待定 |
@@ -172,7 +172,7 @@ Agent 按 5～15 字窗口选择 candidate_id，或 unresolved
 
 **交付报告必须包含：**涉及的代码文件、修复前后每首歌的字/音符覆盖、所有未解字与 note ID、映射到 USTX 的逐 note 核对、候选窗口异常、HFA 可靠性分布、测试命令/实际输出、运行环境、固定输入和新产物 hash、历史删除清单、真实原生执行边界。没有运行的测试标未执行；没有音频聆听则 `listening=unknown`。执行完成即停止，**不自动开始 P2**。
 
-## 五点六、P1.2：行为正确性与可进入 P2 的短句门禁（**下一轮唯一执行阶段**）
+## 五点六、P1.2：已实施历史计划（2026-10-31 交付，原任务合同留档）
 
 **范围与前置：**这一轮只做少量确定性修补、真实测例与证据产出，禁止新的全曲重构、批量改谱、重新跑 GAME、盲目调参数或继续堆报告。以 P1.1 的 `02628796` 代码、`experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/` 与原输入 SHA 作为只读对照；修复写入新 run/session `phoneme-alignment-p1.2-<日期>`，不要覆盖 P0/P1 或 P1.1。**当前三首歌 incomplete 是已知状态，不要求 P1.2 自动解决全部 11 个 unresolved 字或 `n0060`。**
 
@@ -239,9 +239,55 @@ Agent 按 5～15 字窗口选择 candidate_id，或 unresolved
 
 **通过定义：**A～E 缺陷被针对性回归覆盖且没有新的非法映射；未归属 voiced note 全部显式登记（允许待审）；有一批局部门禁严格通过且可回查的短句。若有阻断也可如实结束 P1.2、列出 blocker，**不要制造通过结果或清空 unresolved**。完成后立即停止，不自动执行 P2。
 
-## 六、P2：P1.2 局部放行后的核心工作——音素分配与时间修正
+## 五点七、P1.2.1：局部门禁小补丁（**下一轮唯一执行任务，不扩成 P1.3**）
 
-**核心原则：原生预测先行，有限修改优先。P2 可先在 P1.2 局部放行的 10～20 个短句上试点，并不要求三首整曲达到 valid。**须完整保留冻结输入与邻句，只编辑通过门禁的目标范围；未授权的 `n0060` 等问题继续 blocked。P2 试点验收后，才考虑逐句扩大到整曲。
+**审查基线：**`3b467b2a`；涉及 `src/agent2utau/alignment/{gate.py,pipeline.py,baseline.py}` 和 `experiments/alignment/phoneme-alignment-p1.2-20261031/scripts/build_local_gate.py`。P1.2 已实现候选约束、USTX ledger、未归属音符台账及取整 F0 比较，本轮**不重复实现 A～E**。仅修下列门禁缺口，重新评估原 16 个样本；原始 16 段清单和 SHA 永不覆盖。
+
+### P1.2.1-A｜相邻上下文必须是真正的片段外唱字（P0）
+
+**已证实：**当前 `gate.evaluate_segment()` 的 `context = [syllables[0], syllables[-1]]` 只是**目标段内的首尾字**，而非相邻唱字。P1.2 将 `yuai-short_vowel`（`s0027～s0030`）判为 `ready_for_p2_native_baseline`，但其真正的左邻 `s0026「我」` 是 `unresolved`；这是实证误放行。
+
+- [ ] 使用完整 `mapping["mapping"]` 中**稳定歌词序号**按顺序查找 `s[first-1]`、`s[last+1]`，首尾确实越界则写 `boundary`；不能仅通过 ID 字符串加减，也不能假设首尾字在同一句。将目标段 `target_syllable_ids` 与实际 `context_syllable_ids` 分开，并在 JSON 里列出真实相邻 ID 和其状态。
+- [ ] 同时检查相邻唱字的 `unresolved/review_required`、非法延音与尚未审核的 voiced note；特别是目标段时间边缘与相邻音素共享上下文时，不能只凭段内 note 的 min/max 起止时间放行。对于需要更宽邻接时钟的 phonemizer 可以保留受控上下文窗口，但不得改变目标段 note 分配。
+- [ ] 实例回归：`yuai-short_vowel` **修复后必须变成 blocked**，阻断项包含 `context_unresolved_syllable: s0026`；没有相邻字、正常相邻字、相邻字有未决/未分配音符分别测试。原 14/16 不能再当作新结果。
+
+### P1.2.1-B｜缺少真实校验记录必须 fail-closed（P0）
+
+**已证实：**`evaluate_segment()` 只遍历存在的 `verification_notes`，缺失、空列表、`present=false` 的目标 note 并未逐一检查；旧单测甚至以 `verification_notes=[]` 断言放行。
+
+- [ ] 每个 target note 和被门禁要求的 context note 都要有 **恰好一条** USTX 校验记录，字段齐全（`note_id`、`present=true`、目标/实际起点 tick、时长、tone、lyric、part/索引等）；找不到、重复、字段缺失、验证状态未知均 `blocked`，不得凭目标 JSON 自称齐全。禁止将 `verification_notes=[]` 用作放行测试的“干净数据”。
+- [ ] 对每条记录强制校验 `actual_start_tick`、`actual_duration_tick`、`actual_tone`、`actual_lyric` 与目标 ledger 的对应值；即使一个单独生成的 `verification_notes` 发生缺失，也不能沿用其它报告中的 `one_to_one`。不合法的 `+`、错位、重字/漏字都阻断。
+- [ ] 新增失败注入测试：0 条验证记录、遗漏 1 个音、`present=false`、缺失必要字段、同 ID 两条记录、错误 lyric、全局校验 `one_to_one=false`、起止 tick 不匹配。构造完整的合法验证数据，证明**正常片段依旧能够放行**；不要把全部片段一律标 blocked 来刷安全门禁。
+
+### P1.2.1-C｜未决事项统一落盘，所有调用入口共享（P0）
+
+**已证实：**P1.2 的 `PENDING_NOTE_DECISIONS` 在 `gate.py` 中默认为空，由 `build_local_gate.py` 临时注入 `lastpage:n0060`；`nianlun`「份/分」又依赖一个新 run 下可能不存在的 `canonical_lyrics` 文件（缺失直接返回 `[]`）。换调用入口就可能误放行。
+
+- [ ] 创建**单一版本化** `pending_decisions.json`（或等价明确 Schema）作为项目状态来源，至少列出 `lastpage:n0060`（已经可写入 USTX，但音乐上是否属于「淹」尚待确认）和 `nianlun` 两处「份/分」对应的真实 `syllable_id`，以及状态、理由、影响范围、来源/授权人、时间和输入 SHA；发布前必须从原始 diff 得到实际 ID，**不能猜位置**。
+- [ ] 所有 `gate.evaluate_segment()` 调用方通过**明确参数传入同一 pending 清单**，统一使用可检验路径与 SHA；禁止保留隐式可变模块全局字典作为唯一来源。无清单或清单不匹配 frozen 输入时，对于 P2 生产放行**fail closed**，诊断模式可输出 blocked 清单与明确错误码；不要把“找不到文件”解释成“没有未决事项”。合法已核实的空清单可作为显式 `[]`，但也必须有来源/哈希与测试。
+- [ ] 当目标段或其**真实上下文**触及未决的 note / syllable 时 blocked；若未决 note 未归任何字，则按 note 时间窗/邻近字与片段关系阻断，防止通过“摘掉 note 归属”绕过待确认决策。清单用于放行，**不要自动批准或自动改词、改音符**。
+- [ ] 测试在 CLI/脚本/直接调用 gate 时产生**相同判定**；对缺清单、失配 SHA、空但已授权清单、`n0060`、`份/分` 分别测试。
+
+### P1.2.1-D｜USTX 校验失败必须反馈到整曲状态与局部门禁（P0）
+
+**已证实：**`pipeline.run_alignment()` 虽计算 `verification=verify_ustx_notes(...)`，但 `hard_problems` 未包含 `verification.one_to_one=false` 的全部错误。 `ledger` 只核对 builder 的 YAML 账本，不等于真实 OpenUtau Core 音素可用。
+
+- [ ] 将 unexpected missing/extra note、时钟偏移、时长变化、tone/lyric 不一致、非法延音、part/顺序异常转成稳定错误码并并入 `hard_problems`，按 `status=invalid` / exit code 2 失败；**已明确列入 `unresolved_notes`、诊断 USTX 有意排除的非法 note** 仍只能是 `incomplete`，不能因预期缺失错误升级为 invalid 或伪称 valid。
+- [ ] `baseline_ustx` 路径缺失或没有运行校验时，状态不得假定 `valid`；区分诊断输出与要求验收的生产模式。局部门禁必须要求 `baseline_verification` 对应同一 USTX/输入 hash，并提供 `verification_passed`，不能仅因有文件就算验收。
+- [ ] 加入故障注入：篡改生产 USTX 的整体 part position/音符 duration/lyric 后，整曲 `invalid` 且局部 blocked；已知 `n0060` `pending` 的片段仍 blocked，非相关干净段保持可放行。**纯 YAML 级核对与原生 Core 导出须分开命名**，不能将 P1.2.1 宣称为 P2 的 native phoneme 验证。
+
+### P1.2.1-E｜重新计算原 16 个短句并交付可供 P2 使用的清单（必须）
+
+- [ ] 读取 P1.2 冻结输入，**不改 GAME/HFA、现有歌词、映射/取整、未归属分类**；在新 `runs/production/phoneme-alignment-p1.2.1-<日期>/` 写重新计算的 `local_gate.json`、`pending_decisions.json` 引用/哈希、`baseline_verification` 摘要和 per-segment 阻断详情。原 16 个 segment_id、目标 ID 不变，新增真实 context、`verification_complete`、`pending_decisions_sha256`、放行证据摘要与 blocked_reason；允许 ready 数量自然变化，**不得硬凑回 14**。
+- [ ] 至少验证 `yuai-short_vowel` 从 ready → blocked（`s0026`）；`lastpage-pending-n0060` 仍 blocked；保留 `yuai-melisma` 未归属音符阻断。报告旧/新 ready、blocked 计数及逐段差异，测试代码与实际输出一致。
+- [ ] `pytest`（包括完整合法路径与失败注入）、CLI 退出码、`tools/repository/check_repository.py`：只报**实际运行**的数字；若本机可用 OpenUtau 可做有限 inspect 辅助，但本轮不开展音素 patch、渲染、试听。报告注明 `native_phoneme_export=false`、`listening=unknown`。
+- [ ] 只提交必要代码、测试及 **一份短报告和必要文本证据**；不重构目录、不删除旧 run、不覆盖原 SHA 归档、不启动多 Agent 或无关 CI。补丁完成后**立即停止**。下一轮 P2 只拿新清单 `ready_for_p2_native_baseline` 的片段执行原生音素导出。
+
+**完成条件：**四个漏洞均有失败注入回归且能证明真实合法片段通过；16 个样本全部重新判定且版本/输入 SHA 固定，尤其 `yuai-short_vowel` 明确被阻断。任何已知异常仍不能被放行。**不要求整首歌 valid，也不要求本轮解决 30 个未归属音符或取整决策。**
+
+## 六、P2：P1.2.1 修正门禁后立即开始的原生音素短句试点
+
+**核心原则：原生预测先行，有限修改优先。P2 只能使用 P1.2.1 新出具、真实验证记录完整的局部放行清单，不可直接沿用 P1.2 旧的「14/16 ready」。**优先用其中若干无争议句做第一批真实 `export-phonemes` / Core roundtrip，成功后再扩展到清单中其它可用句。整曲 `incomplete` 不阻断局部试验；未决 `n0060`、歌词替换及音符/声库上下文未验证处一律 blocked。只改目标音素边界，禁止为通过门禁而改 MIDI、歌词、默认音高或旧制作文件。
 
 1. 使用映射结果建无人工 PITD 的 `baseline.ustx`，调用当前泠鸢声库 `agent2utau export-phonemes --project ... --out ...`。读取真实 token、phoneme index、与唱字/音符关联、时序。多音字/组合韵母采用声库当前 phonemizer 的符号与词典；若不支持，标 unsupported，禁止模型发明 token。
 2. HFA 按锁定歌词得到的“原唱观测”与原生“合成默认预测”对照。将问题分 A（原生正确、不修改）、B（局部音素边界/字头/元音核确实异常，可提出有限修正）、C（歌词/谱面/声库支持冲突，回到 P1 或人工检查）。
@@ -316,12 +362,12 @@ Agent 的输出只能包含白名单操作、已存在的 note/字/phoneme/candi
 
 ## 十、MiniMax 执行顺序与交付格式
 
-**P0/P1 与 P1.1 代码及报告已完成，整曲仍 incomplete**。**下一轮只执行 P1.2（A～G）**：弱观测权重的行为性修复、候选枚举合法性/预算、USTX note 身份和绝对时钟验证、未分配 voiced GAME note 审计、tone 截断与四舍五入的隔离对照、10～20 个短句局部门禁清单。测试和证据写独立 P1.2 run，完成即停止。**再下一轮**才是 P2 短句试点：真实声库 phoneme baseline、小片段 patch 与 native 往返；与 `n0060` 等未决问题无关的可靠短句可先推进，但不能把局部 success 宣传为整曲 valid。之后才开展 P3/P4 的 MiniMax、DeepSeek 结构化决策与跨模型基准；整曲听感验证通过后再讨论 P5。
+**P0/P1、P1.1、P1.2 均已交付代码和报告；目前整曲仍 incomplete，P1.2 的 14/16 局部放行数存在已知错误。****下一轮只做 P1.2.1（五点七 A～E，小补丁）**：真实相邻字上下文、完整 USTX 验证记录的 fail-closed、版本化未决清单、校验错误并入整体状态，以及同一批 16 个短句重算。不得因为总测试通过就跳过已知误放行；完成后停止。**其后直接进入 P2**：从新放行清单选择少量片段，运行真实泠鸢 DiffSinger phoneme baseline → 局部 patch → Core 再导出/roundtrip → 渲染试听。未决 `n0060` 等仍隔离，不要求先修整曲所有 unresolved；P3/P4 随后开展，P5 最后。
 
 每轮提供：修改文件清单、运行命令和环境、输入/输出 SHA、真实测试结果、未完成的字 ID、是否经过原生 roundtrip、试听状态、下一轮最小任务。**不删除原件、不迁移旧 session、不启动未授权 CI、不自动多 Agent。**
 
 复制给执行 Agent 的起始提示：
 
-> 读取根目录 plan.md，**本轮仅执行「五点六、P1.2」A～G，不要重新执行 P0/P1/P1.1，也不要提前做 P2 patch**。先以行为测试修复 `_assign_cost` 的低置信度 HFA/ASR 锚点惩罚方向，并分开统计 HFA/ASR、初始缺失与最终匹配；再修合法候选的搜索顺序/预算，定点复核最后一页 w02，不能把预算耗尽称为数学无解。改 `verify_ustx_notes` 为按稳定 note ID 校验 USTX 的绝对起点、时长、终点、歌词、tone、part；登记年轮 11、雨爱 12 个未归属 voiced note 的来源和状态。隔离对照 `int(tone)` 与 `round(tone)`，用原曲 F0/短句试听核实，不自动改生产取整策略。最后选择 10～20 条没有跨句/延音/未归属等阻断的短句出具 `local_gate`，为**下一轮** P2 原生音素试点准备。用冻结 SHA 和真实测试记录前后差异，修复失败也必须如实记录；不画 PITD、不改声线/混音、不删除旧资料。提交 P1.2 报告后停止。
+> 读取根目录 `plan.md`，**仅执行「五点七、P1.2.1」A～E 门禁小补丁**。不要重做 P0/P1/P1.1/P1.2，不做新的全曲对齐、GAME/取整实验或 P2 音素 patch。先修 `gate.py`：真实片段外相邻字，不是首尾字本身；`yuai-short_vowel` 前邻 `s0026` unresolved 必须让它从 ready 变为 blocked；要求所有目标/上下文 note 都有完整且唯一的 `present=true` USTX 身份/起止时钟/歌词/音高验证记录，缺失一条直接 blocked，正常数据仍可放行。再把 `lastpage:n0060` 和 `nianlun`「份/分」的真实 ID 写入统一版本化 pending 清单，所有入口读同一 SHA，文件缺失/不匹配时 fail-closed；不得靠实验脚本临时注入全局字典。最后把 `verify_ustx_notes` 的非预期失败纳入 `pipeline` 的 invalid/exit 2，明确区分已知 unresolved 导致的 incomplete。用 P1.2 冻结输入在新 run **重新计算原 16 个片段**，提交 old/new diff、逐项失败注入测试、真实命令结果、一份短报告和必要证据。**完成立即停止；下一轮才做 P2 真正的 OpenUtau 原生音素导出与试听。**
 
 历史原计划： [旧表1](docs/archive/legacy-plans/plan-table1-pre-autopitch-20261031.md)、[旧表2](docs/archive/legacy-plans/plan-table2-pre-autopitch-20261031.md)、[上轮目录整理](docs/archive/legacy-plans/PROJECT_REORGANIZATION_PLAN_20261030.md)。
