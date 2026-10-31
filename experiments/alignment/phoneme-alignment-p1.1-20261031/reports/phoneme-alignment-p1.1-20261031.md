@@ -197,6 +197,8 @@ OpenUtau 0.1.570.9011 ｜ 声库 YousaV1.65c（DiffSinger，DiffSingerChinesePho
 
 冻结输入：年轮 game `64420f088857…` / hfa `772dc07e4a92…`；最后一页 game `cf42217c5b87…` / hfa `3777ec0e988f…`；雨爱 game `af10c93395bb…` / hfa 观测 `f10dc00238e8…`。
 
+**证据已归档入库**：`experiments/alignment/<session>/evidence/` 是本轮与 P0/P1 首轮 run 的**逐字节副本**（各 19 个 JSON，共约 3.6 MB），含锁定歌词、归一化音符、映射、异常清单、逐 note 核对表、样本索引与原生音素导出、GAME 复现性实验结果；每个目录的 `MANIFEST.json` 记录 run 内对应路径、SHA256 与一致性检查（提交后复核 38/38 与清单 SHA 一致）。音频、USTX 工程与第三方歌词正文转写仍只在��机。
+
 ### 8.4 所有未解字与 note ID
 
 - 年轮未解字：`s0069`、`s0296`、`s0305`、`s0315`、`s0320`、`s0330`
