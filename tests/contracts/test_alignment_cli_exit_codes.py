@@ -108,14 +108,24 @@ def test_an_unresolved_character_is_incomplete(tmp_path):
 
 
 def test_an_illegal_extender_is_incomplete_and_is_not_dropped_silently(tmp_path):
+    """The gapped note cannot be assigned, so it must be registered, not lost."""
     lyrics = write_lyrics(tmp_path / "lyrics.json", ["声"])
     game = write_game(tmp_path / "game.json", [note(0.0, 0.63), note(0.79, 0.19)])
-    code, payload = run_cli(lyrics, game, tmp_path / "out",
+    hfa = write_hfa(tmp_path / "hfa.json", [
+        {"text": "声", "start": 0.0, "end": 0.63, "source": "hfa", "detail": "p00:声"},
+    ])
+    code, payload = run_cli(lyrics, game, tmp_path / "out", "--hfa", str(hfa),
                             "--baseline", str(tmp_path / "baseline.ustx"))
     assert code == 3
     assert payload["status"] == "incomplete"
-    assert payload["unresolved_note_ids"] == ["n0002"]
-    assert payload["baseline"]["candidates"]
+    assert payload["unassigned_voiced_notes"] == ["n0002"]
+    registered = json.loads((tmp_path / "out" / "unassigned_voiced_notes.json").read_text(encoding="utf-8"))
+    assert registered["count"] == 1
+    row = registered["notes"][0]
+    assert row["note_id"] == "n0002"
+    assert row["classification"]
+    assert row["reason_code"]
+    assert row["candidates"]
 
 
 def test_diagnostics_may_be_requested_explicitly(tmp_path):

@@ -1,0 +1,537 @@
+{
+  "schema_version": 1,
+  "question": "do the window decisions depend on the search budget?",
+  "songs": {
+    "nianlun": {
+      "runs": [
+        {
+          "label": "default",
+          "max_paths": 60,
+          "max_options": 8,
+          "windows": [
+            {
+              "window_id": "w01",
+              "decision": "legal_alternatives_available",
+              "option_count": 18,
+              "alternative_count": 17,
+              "search_complete": true,
+              "text": "印在我的嘴"
+            },
+            {
+              "window_id": "w02",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "涩的吻痕是"
+            },
+            {
+              "window_id": "w03",
+              "decision": "legal_alternatives_available",
+              "option_count": 19,
+              "alternative_count": 18,
+              "search_complete": true,
+              "text": "是树根春去"
+            },
+            {
+              "window_id": "w04",
+              "decision": "legal_alternatives_available",
+              "option_count": 7,
+              "alternative_count": 6,
+              "search_complete": true,
+              "text": "清晨世间最"
+            },
+            {
+              "window_id": "w05",
+              "decision": "legal_alternatives_available",
+              "option_count": 35,
+              "alternative_count": 34,
+              "search_complete": true,
+              "text": "是树根春去"
+            },
+            {
+              "window_id": "w06",
+              "decision": "legal_alternatives_available",
+              "option_count": 14,
+              "alternative_count": 13,
+              "search_complete": true,
+              "text": "从未心疼我"
+            },
+            {
+              "window_id": "w07",
+              "decision": "legal_alternatives_available",
+              "option_count": 12,
+              "alternative_count": 11,
+              "search_complete": true,
+              "text": "生的青春倒"
+            },
+            {
+              "window_id": "w08",
+              "decision": "legal_alternatives_available",
+              "option_count": 8,
+              "alternative_count": 7,
+              "search_complete": true,
+              "text": "自尊修改一"
+            },
+            {
+              "window_id": "w09",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "密密麻麻是"
+            },
+            {
+              "window_id": "w10",
+              "decision": "legal_alternatives_available",
+              "option_count": 22,
+              "alternative_count": 21,
+              "search_complete": true,
+              "text": "修改一次次"
+            },
+            {
+              "window_id": "w11",
+              "decision": "legal_alternatives_available",
+              "option_count": 5,
+              "alternative_count": 4,
+              "search_complete": true,
+              "text": "承认曾幻想"
+            },
+            {
+              "window_id": "w12",
+              "decision": "legal_alternatives_available",
+              "option_count": 39,
+              "alternative_count": 38,
+              "search_complete": true,
+              "text": "演这剧本"
+            },
+            {
+              "window_id": "w13",
+              "decision": "legal_alternatives_available",
+              "option_count": 2,
+              "alternative_count": 1,
+              "search_complete": true,
+              "text": "本"
+            }
+          ],
+          "coverage": {
+            "syllable_total": 349,
+            "syllable_mapped": 344,
+            "syllable_unresolved": 5,
+            "coverage_ratio": 0.985673,
+            "success_ratio_excluding_unresolved": 0.985673,
+            "voiced_note_total": 400,
+            "voiced_note_assigned": 389,
+            "voiced_note_unassigned": 11
+          }
+        },
+        {
+          "label": "large",
+          "max_paths": 600,
+          "max_options": 40,
+          "windows": [
+            {
+              "window_id": "w01",
+              "decision": "legal_alternatives_available",
+              "option_count": 18,
+              "alternative_count": 17,
+              "search_complete": true,
+              "text": "印在我的嘴"
+            },
+            {
+              "window_id": "w02",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "涩的吻痕是"
+            },
+            {
+              "window_id": "w03",
+              "decision": "legal_alternatives_available",
+              "option_count": 19,
+              "alternative_count": 18,
+              "search_complete": true,
+              "text": "是树根春去"
+            },
+            {
+              "window_id": "w04",
+              "decision": "legal_alternatives_available",
+              "option_count": 7,
+              "alternative_count": 6,
+              "search_complete": true,
+              "text": "清晨世间最"
+            },
+            {
+              "window_id": "w05",
+              "decision": "legal_alternatives_available",
+              "option_count": 35,
+              "alternative_count": 34,
+              "search_complete": true,
+              "text": "是树根春去"
+            },
+            {
+              "window_id": "w06",
+              "decision": "legal_alternatives_available",
+              "option_count": 14,
+              "alternative_count": 13,
+              "search_complete": true,
+              "text": "从未心疼我"
+            },
+            {
+              "window_id": "w07",
+              "decision": "legal_alternatives_available",
+              "option_count": 12,
+              "alternative_count": 11,
+              "search_complete": true,
+              "text": "生的青春倒"
+            },
+            {
+              "window_id": "w08",
+              "decision": "legal_alternatives_available",
+              "option_count": 8,
+              "alternative_count": 7,
+              "search_complete": true,
+              "text": "自尊修改一"
+            },
+            {
+              "window_id": "w09",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "密密麻麻是"
+            },
+            {
+              "window_id": "w10",
+              "decision": "legal_alternatives_available",
+              "option_count": 22,
+              "alternative_count": 21,
+              "search_complete": true,
+              "text": "修改一次次"
+            },
+            {
+              "window_id": "w11",
+              "decision": "legal_alternatives_available",
+              "option_count": 5,
+              "alternative_count": 4,
+              "search_complete": true,
+              "text": "承认曾幻想"
+            },
+            {
+              "window_id": "w12",
+              "decision": "legal_alternatives_available",
+              "option_count": 39,
+              "alternative_count": 38,
+              "search_complete": true,
+              "text": "演这剧本"
+            },
+            {
+              "window_id": "w13",
+              "decision": "legal_alternatives_available",
+              "option_count": 2,
+              "alternative_count": 1,
+              "search_complete": true,
+              "text": "本"
+            }
+          ],
+          "coverage": {
+            "syllable_total": 349,
+            "syllable_mapped": 344,
+            "syllable_unresolved": 5,
+            "coverage_ratio": 0.985673,
+            "success_ratio_excluding_unresolved": 0.985673,
+            "voiced_note_total": 400,
+            "voiced_note_assigned": 389,
+            "voiced_note_unassigned": 11
+          }
+        }
+      ],
+      "changed_windows": [],
+      "stable": true,
+      "decision_stable": true,
+      "option_count_stable": true,
+      "note": "a decision that depends on the budget would be reported as search_budget_exhausted; a growing option count only means the delivered list was capped",
+      "decision_counts_default": {
+        "legal_alternatives_available": 13
+      },
+      "decision_counts_large": {
+        "legal_alternatives_available": 13
+      }
+    },
+    "lastpage": {
+      "runs": [
+        {
+          "label": "default",
+          "max_paths": 60,
+          "max_options": 8,
+          "windows": [
+            {
+              "window_id": "w01",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "早已悄悄冷"
+            },
+            {
+              "window_id": "w02",
+              "decision": "legal_alternatives_available",
+              "option_count": 8,
+              "alternative_count": 7,
+              "search_complete": true,
+              "text": "冷却海潮声"
+            },
+            {
+              "window_id": "w03",
+              "decision": "legal_alternatives_available",
+              "option_count": 13,
+              "alternative_count": 12,
+              "search_complete": true,
+              "text": "体里面不敢"
+            }
+          ],
+          "coverage": {
+            "syllable_total": 318,
+            "syllable_mapped": 318,
+            "syllable_unresolved": 0,
+            "coverage_ratio": 1.0,
+            "success_ratio_excluding_unresolved": 1.0,
+            "voiced_note_total": 368,
+            "voiced_note_assigned": 366,
+            "voiced_note_unassigned": 2
+          }
+        },
+        {
+          "label": "large",
+          "max_paths": 600,
+          "max_options": 40,
+          "windows": [
+            {
+              "window_id": "w01",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "早已悄悄冷"
+            },
+            {
+              "window_id": "w02",
+              "decision": "legal_alternatives_available",
+              "option_count": 8,
+              "alternative_count": 7,
+              "search_complete": true,
+              "text": "冷却海潮声"
+            },
+            {
+              "window_id": "w03",
+              "decision": "legal_alternatives_available",
+              "option_count": 13,
+              "alternative_count": 12,
+              "search_complete": true,
+              "text": "体里面不敢"
+            }
+          ],
+          "coverage": {
+            "syllable_total": 318,
+            "syllable_mapped": 318,
+            "syllable_unresolved": 0,
+            "coverage_ratio": 1.0,
+            "success_ratio_excluding_unresolved": 1.0,
+            "voiced_note_total": 368,
+            "voiced_note_assigned": 366,
+            "voiced_note_unassigned": 2
+          }
+        }
+      ],
+      "changed_windows": [],
+      "stable": true,
+      "decision_stable": true,
+      "option_count_stable": true,
+      "note": "a decision that depends on the budget would be reported as search_budget_exhausted; a growing option count only means the delivered list was capped",
+      "decision_counts_default": {
+        "legal_alternatives_available": 3
+      },
+      "decision_counts_large": {
+        "legal_alternatives_available": 3
+      }
+    },
+    "yuai": {
+      "runs": [
+        {
+          "label": "default",
+          "max_paths": 60,
+          "max_options": 8,
+          "windows": [
+            {
+              "window_id": "w01",
+              "decision": "legal_alternatives_available",
+              "option_count": 6,
+              "alternative_count": 5,
+              "search_complete": true,
+              "text": "陪我哭泣看"
+            },
+            {
+              "window_id": "w02",
+              "decision": "legal_alternatives_available",
+              "option_count": 4,
+              "alternative_count": 3,
+              "search_complete": true,
+              "text": "弃听雨的声"
+            },
+            {
+              "window_id": "w03",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "音一滴滴清"
+            },
+            {
+              "window_id": "w04",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "停让想念继"
+            },
+            {
+              "window_id": "w05",
+              "decision": "legal_alternatives_available",
+              "option_count": 11,
+              "alternative_count": 11,
+              "search_complete": true,
+              "text": "我勇气的Rai"
+            },
+            {
+              "window_id": "w06",
+              "decision": "legal_alternatives_available",
+              "option_count": 3,
+              "alternative_count": 2,
+              "search_complete": true,
+              "text": "弃听雨的声"
+            },
+            {
+              "window_id": "w07",
+              "decision": "legal_alternatives_available",
+              "option_count": 6,
+              "alternative_count": 5,
+              "search_complete": true,
+              "text": "想念继续让"
+            },
+            {
+              "window_id": "w08",
+              "decision": "legal_alternatives_available",
+              "option_count": 14,
+              "alternative_count": 13,
+              "search_complete": true,
+              "text": "续我相信我"
+            }
+          ],
+          "coverage": {
+            "syllable_total": 371,
+            "syllable_mapped": 366,
+            "syllable_unresolved": 5,
+            "coverage_ratio": 0.986523,
+            "success_ratio_excluding_unresolved": 0.986523,
+            "voiced_note_total": 425,
+            "voiced_note_assigned": 407,
+            "voiced_note_unassigned": 18
+          }
+        },
+        {
+          "label": "large",
+          "max_paths": 600,
+          "max_options": 40,
+          "windows": [
+            {
+              "window_id": "w01",
+              "decision": "legal_alternatives_available",
+              "option_count": 6,
+              "alternative_count": 5,
+              "search_complete": true,
+              "text": "陪我哭泣看"
+            },
+            {
+              "window_id": "w02",
+              "decision": "legal_alternatives_available",
+              "option_count": 4,
+              "alternative_count": 3,
+              "search_complete": true,
+              "text": "弃听雨的声"
+            },
+            {
+              "window_id": "w03",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "音一滴滴清"
+            },
+            {
+              "window_id": "w04",
+              "decision": "legal_alternatives_available",
+              "option_count": 9,
+              "alternative_count": 8,
+              "search_complete": true,
+              "text": "停让想念继"
+            },
+            {
+              "window_id": "w05",
+              "decision": "legal_alternatives_available",
+              "option_count": 11,
+              "alternative_count": 11,
+              "search_complete": true,
+              "text": "我勇气的Rai"
+            },
+            {
+              "window_id": "w06",
+              "decision": "legal_alternatives_available",
+              "option_count": 3,
+              "alternative_count": 2,
+              "search_complete": true,
+              "text": "弃听雨的声"
+            },
+            {
+              "window_id": "w07",
+              "decision": "legal_alternatives_available",
+              "option_count": 6,
+              "alternative_count": 5,
+              "search_complete": true,
+              "text": "想念继续让"
+            },
+            {
+              "window_id": "w08",
+              "decision": "legal_alternatives_available",
+              "option_count": 14,
+              "alternative_count": 13,
+              "search_complete": true,
+              "text": "续我相信我"
+            }
+          ],
+          "coverage": {
+            "syllable_total": 371,
+            "syllable_mapped": 366,
+            "syllable_unresolved": 5,
+            "coverage_ratio": 0.986523,
+            "success_ratio_excluding_unresolved": 0.986523,
+            "voiced_note_total": 425,
+            "voiced_note_assigned": 407,
+            "voiced_note_unassigned": 18
+          }
+        }
+      ],
+      "changed_windows": [],
+      "stable": true,
+      "decision_stable": true,
+      "option_count_stable": true,
+      "note": "a decision that depends on the budget would be reported as search_budget_exhausted; a growing option count only means the delivered list was capped",
+      "decision_counts_default": {
+        "legal_alternatives_available": 8
+      },
+      "decision_counts_large": {
+        "legal_alternatives_available": 8
+      }
+    }
+  }
+}

@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "song_id": "nianlun",
+  "count": 11,
+  "classification_counts": {
+    "candidate_melisma": 2,
+    "rest_or_nonlead": 9
+  },
+  "unreviewed_count": 11,
+  "notes": [
+    {
+      "note_id": "n0384",
+      "index": 383,
+      "start_s": 198.89,
+      "end_s": 199.06,
+      "dur_s": 0.17,
+      "tone": 67.8655,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0383",
+        "rest": true,
+        "end_s": 198.89
+      },
+      "next_note": {
+        "note_id": "n0385",
+        "rest": false,
+        "start_s": 199.06
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0384:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0384",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0385",
+      "index": 384,
+      "start_s": 199.06,
+      "end_s": 199.17,
+      "dur_s": 0.11,
+      "tone": 67.8932,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0384",
+        "rest": false,
+        "end_s": 199.06
+      },
+      "next_note": {
+        "note_id": "n0386",
+        "rest": true,
+        "start_s": 206.69
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0385:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0385",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0392",
+      "index": 391,
+      "start_s": 209.26,
+      "end_s": 209.61,
+      "dur_s": 0.35,
+      "tone": 65.9806,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0391 of syllable s0293 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0391",
+        "rest": false,
+        "end_s": 209.26
+      },
+      "next_note": {
+        "note_id": "n0393",
+        "rest": false,
+        "start_s": 209.61
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0293",
+        "text": "轮"
+      },
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0392:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0392 to syllable s0293 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0392:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0392",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0403",
+      "index": 402,
+      "start_s": 214.13,
+      "end_s": 214.5,
+      "dur_s": 0.37,
+      "tone": 57.4618,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0402",
+        "rest": true,
+        "end_s": 214.13
+      },
+      "next_note": {
+        "note_id": "n0404",
+        "rest": false,
+        "start_s": 214.5
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0403:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0403",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0416",
+      "index": 415,
+      "start_s": 218.44,
+      "end_s": 218.53,
+      "dur_s": 0.09,
+      "tone": 65.9969,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0415",
+        "rest": false,
+        "end_s": 218.44
+      },
+      "next_note": {
+        "note_id": "n0417",
+        "rest": true,
+        "start_s": 218.53
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0311",
+        "text": "尊"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "尊",
+          "start_s": 217.6344,
+          "end_s": 218.4491,
+          "level": "exact_text"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0416:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0416 to syllable s0311 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0416:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0416",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0418",
+      "index": 417,
+      "start_s": 218.97,
+      "end_s": 219.32,
+      "dur_s": 0.35,
+      "tone": 62.4513,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0417",
+        "rest": true,
+        "end_s": 218.97
+      },
+      "next_note": {
+        "note_id": "n0419",
+        "rest": false,
+        "start_s": 219.32
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0418:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0418",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0427",
+      "index": 426,
+      "start_s": 222.23,
+      "end_s": 222.62,
+      "dur_s": 0.39,
+      "tone": 66.0642,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0426",
+        "rest": true,
+        "end_s": 222.23
+      },
+      "next_note": {
+        "note_id": "n0428",
+        "rest": false,
+        "start_s": 222.62
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0427:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0427",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0438",
+      "index": 437,
+      "start_s": 227.07,
+      "end_s": 227.47,
+      "dur_s": 0.4,
+      "tone": 57.0888,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0437",
+        "rest": true,
+        "end_s": 227.07
+      },
+      "next_note": {
+        "note_id": "n0439",
+        "rest": false,
+        "start_s": 227.47
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0438:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0438",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0450",
+      "index": 449,
+      "start_s": 233.53,
+      "end_s": 233.94,
+      "dur_s": 0.41,
+      "tone": 58.3475,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0449",
+        "rest": true,
+        "end_s": 233.53
+      },
+      "next_note": {
+        "note_id": "n0451",
+        "rest": false,
+        "start_s": 233.94
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0450:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0450",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0465",
+      "index": 464,
+      "start_s": 239.61,
+      "end_s": 239.97,
+      "dur_s": 0.36,
+      "tone": 64.021,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0464 of syllable s0348 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0464",
+        "rest": false,
+        "end_s": 239.61
+      },
+      "next_note": {
+        "note_id": "n0466",
+        "rest": false,
+        "start_s": 239.97
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0348",
+        "text": "剧"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "剧",
+          "start_s": 238.8192,
+          "end_s": 240.1763,
+          "level": "exact_text"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0465:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0465 to syllable s0348 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0465:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0465",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0466",
+      "index": 465,
+      "start_s": 239.97,
+      "end_s": 240.17,
+      "dur_s": 0.2,
+      "tone": 62.1389,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0465",
+        "rest": false,
+        "end_s": 239.97
+      },
+      "next_note": {
+        "note_id": "n0467",
+        "rest": true,
+        "start_s": 240.17
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "剧",
+          "start_s": 238.8192,
+          "end_s": 240.1763,
+          "level": "exact_text"
+        },
+        {
+          "source": "hfa",
+          "text": "本",
+          "start_s": 240.1763,
+          "end_s": 242.6723,
+          "level": "exact_text"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0466:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0466",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    }
+  ]
+}

@@ -32,7 +32,8 @@ from typing import Sequence
 
 from .lyrics import Syllable
 from .notes import NoteEvent
-from .observations import LEVEL_WEIGHTS, Observation
+from .observations import EXACT_LEVELS, LEVEL_WEIGHTS, Observation
+from ..openutau.build import sec_to_tick
 
 SCHEMA_VERSION = 1
 
@@ -70,7 +71,23 @@ class MappingConfig:
     """Maximum number of consecutive notes one syllable may own."""
 
     time_scale_s: float = 0.35
-    """Anchor error that costs 1.0."""
+    """Anchor error that costs 1.0 (for a fully trusted observation)."""
+
+    residual_cap: float = 3.0
+    """Upper bound of the time residual cost.
+
+    The residual is *robust*: a very wrong observation costs a bounded
+    amount instead of dominating every other term.
+    """
+
+    trust_max_residual_s: float = 1.0
+    """A weak observation farther away than this does not discriminate at all.
+
+    Below the window a weak observation may still tilt the choice slightly;
+    above it, the observation is treated as "not observed" and only reported
+    as a review signal.  A weak observation must never act as a hard
+    distance constraint.
+    """
 
     duration_scale_s: float = 0.5
     """Duration error that costs 1.0."""
@@ -81,6 +98,14 @@ class MappingConfig:
 
     min_expected_dur_s: float = 0.08
     """Observations shorter than this are treated as unreliable and ignored."""
+
+    unconfirmed_note_penalty: float = 0.6
+    """Cost of attaching a note that no vocal observation covers.
+
+    The penalty only applies when the song has vocal coverage information at
+    all; a note that no singer covered is not simply attached to the next
+    syllable to make the coverage look complete.
+    """
 
     melisma_cost: float = 0.35
     """Cost of every extra note a syllable owns."""
@@ -133,6 +158,10 @@ class SyllableEvidence:
     anchor_level: str = "missing"
     anchor_weight: float = 0.0
     expected_dur_s: float | None = None
+    trust: str = "missing"
+    """``trusted`` | ``weak`` | ``conflict`` | ``missing``."""
+
+    review_signals: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict:
         return {
@@ -142,6 +171,8 @@ class SyllableEvidence:
             "anchor_method": self.anchor_method,
             "anchor_level": self.anchor_level,
             "anchor_weight": self.anchor_weight,
+            "trust": self.trust,
+            "review_signals": list(self.review_signals),
             "expected_dur_s": None if self.expected_dur_s is None else round(self.expected_dur_s, 4),
         }
 
@@ -156,6 +187,10 @@ def build_evidence(
     HFA is a singer-side observation and wins over ASR, which is a rough
     speech-side guess.  A syllable with neither stays unanchored and is
     mapped by monotonicity alone.
+
+    Trust is decided per observation, not by the weight alone: an observation
+    that provably belongs to another line, or that is claimed by two
+    syllables at once, is a *review signal* and stops discriminating.
     """
     evidence: dict[str, SyllableEvidence] = {}
     for syllable in syllables:
@@ -170,7 +205,29 @@ def build_evidence(
             item.anchor_level = getattr(observation, "level", "exact_text")
             item.anchor_weight = LEVEL_WEIGHTS.get(item.anchor_level, 0.35)
             item.expected_dur_s = max(0.0, observation.end - observation.start)
+            item.trust = "trusted" if item.anchor_level in EXACT_LEVELS else "weak"
+            if observation.same_line is False:
+                item.trust = "conflict"
+                item.anchor_weight = 0.0
+                item.review_signals.append("observation_line_mismatch")
         evidence[syllable.syllable_id] = item
+
+    # an observation claimed by two syllables is a conflict, not a fact
+    by_time: dict[tuple[str, int], list[str]] = {}
+    for syllable in syllables:
+        item = evidence[syllable.syllable_id]
+        if item.anchor_s is None:
+            continue
+        key = (item.anchor_source, int(round(item.anchor_s * 1000)))
+        by_time.setdefault(key, []).append(syllable.syllable_id)
+    for key, ids in by_time.items():
+        if len(ids) < 2:
+            continue
+        for syllable_id in ids:
+            item = evidence[syllable_id]
+            item.trust = "conflict"
+            item.anchor_weight = 0.0
+            item.review_signals.append("observation_shared_with_other_syllable")
     return evidence
 
 
@@ -194,28 +251,58 @@ def _assign_cost(
     count: int,
     config: MappingConfig,
     raw_index: Sequence[int],
+    confirmed_note_ids: set[str] | None = None,
 ) -> float:
     """Cost of giving ``count`` notes starting at ``first`` to one syllable.
 
-    ``inf`` means the assignment is illegal: a syllable may only own notes
-    that follow each other in the original event list.  A rest between two
-    notes breaks the sustain chain, so the syllable cannot jump over it.
+    Three things are kept apart here:
+
+    * **physical feasibility** - the notes must follow each other in the
+      original event list and may not be separated by a rest or by a real gap.
+      A violation is not a cost, it is an *illegal* assignment (``inf``).
+    * **confidence** - how much an observation may tilt the choice.  A
+      trusted observation pays a robust, bounded residual cost; a weak one
+      pays only a fraction of it, and pays nothing at all once it is outside
+      the trust window.  A weak observation therefore can never pull a
+      syllable further away than a trusted one would.
+    * **vocal confirmation** - a note that no vocal observation covers is
+      probably not sung; attaching it to a syllable costs extra instead of
+      quietly improving the coverage.
     """
     indices = raw_index[first:first + count]
     for position in range(1, len(indices)):
         if indices[position] != indices[position - 1] + 1:
             return float("inf")
+        left = notes[first + position - 1]
+        right = notes[first + position]
+        gap_ticks = int(sec_to_tick(right.start)) - int(sec_to_tick(left.end))
+        if gap_ticks > MAX_EXTENDER_GAP_TICKS:
+            # a real gap: the extender cannot be written as a '+' block
+            return float("inf")
+
     cost = config.melisma_cost * (count - 1)
+    if confirmed_note_ids is not None:
+        for index in range(first, first + count):
+            if notes[index].note_id not in confirmed_note_ids:
+                cost += config.unconfirmed_note_penalty
     if evidence.anchor_s is not None:
-        # A weak observation (residual / positional) must not be able to pull
-        # a syllable far away: the smaller the weight, the steeper the scale.
-        scale = config.time_scale_s * max(evidence.anchor_weight, 0.05)
-        cost += abs(evidence.anchor_s - notes[first].start) / scale
+        residual = abs(evidence.anchor_s - notes[first].start)
+        if evidence.anchor_level in EXACT_LEVELS:
+            cost += min(residual / config.time_scale_s, config.residual_cap)
+        elif residual <= config.trust_max_residual_s:
+            cost += evidence.anchor_weight * min(residual / config.time_scale_s,
+                                                 config.residual_cap)
+        # else: outside the trust window the weak observation does not
+        # discriminate; it is reported as a review signal instead
     if (evidence.expected_dur_s is not None
             and evidence.expected_dur_s >= config.min_expected_dur_s):
         actual = sum(notes[i].dur for i in range(first, first + count))
-        cost += min(abs(evidence.expected_dur_s - actual) / config.duration_scale_s,
-                    config.duration_cap)
+        error = abs(evidence.expected_dur_s - actual)
+        if evidence.anchor_level in EXACT_LEVELS:
+            cost += min(error / config.duration_scale_s, config.duration_cap)
+        else:
+            cost += evidence.anchor_weight * min(error / config.duration_scale_s,
+                                                 config.duration_cap)
     return cost
 
 
@@ -224,7 +311,8 @@ class _Tables:
 
     def __init__(self, syllables: Sequence[Syllable], notes: Sequence[NoteEvent],
                  evidence: dict[str, SyllableEvidence], config: MappingConfig,
-                 lines: dict[int, dict] | None = None):
+                 lines: dict[int, dict] | None = None,
+                 confirmed_note_ids: set[str] | None = None):
         self.syllables = syllables
         self.all_notes = notes
         self.raw_index = [n.index for n in notes if n.voiced]
@@ -232,6 +320,7 @@ class _Tables:
         self.evidence = evidence
         self.config = config
         self.lines = lines or {}
+        self.confirmed_note_ids = confirmed_note_ids
         self.n_syl = len(syllables)
         self.n_notes = len(self.notes)
         self.suffix: list[list[float]] = []
@@ -257,7 +346,8 @@ class _Tables:
         ev = self.evidence[self.syllables[i].syllable_id]
         max_melisma = min(cfg.max_melisma, self.n_notes - j)
         for count in range(1, max_melisma + 1):
-            cost = _assign_cost(ev, self.notes, j, count, cfg, self.raw_index)
+            cost = _assign_cost(ev, self.notes, j, count, cfg, self.raw_index,
+                                 self.confirmed_note_ids)
             if math.isfinite(cost) and not self._line_allowed(i, self.notes[j].start):
                 cost = float("inf")
             out.append(("assign", cost, j + count))
@@ -345,18 +435,22 @@ def _local_paths(
     j_end: int,
     limit: float,
     max_paths: int,
-) -> list[tuple[float, dict[str, tuple[int, int]], list[str]]]:
+) -> tuple[list[tuple[float, dict[str, tuple[int, int]], list[str]]], bool]:
     """Enumerate alternative assignments inside one window.
 
     The window keeps the note budget of the global optimum: the same notes in
     ``[j_start, j_end)`` must be distributed over the same syllables.  Every
     returned path carries its exact total cost, computed from the prefix and
     suffix tables - never an invented number.
+
+    Returns (paths, search_complete).  ``search_complete`` is False when the
+    enumeration stopped at ``max_paths``; then the absence of a legal option
+    only means "not found within the budget", never "proven impossible".
     """
     results: list[tuple[float, dict[str, tuple[int, int]], list[str]]] = []
     base_cost = tables.prefix[start_syl][j_start]
     if base_cost == float("inf"):
-        return results
+        return results, True
 
     def walk(i: int, j: int, acc: float, spans: dict[str, tuple[int, int]],
              unresolved: list[str]):
@@ -372,6 +466,9 @@ def _local_paths(
         if acc + tables.suffix[i][j] > limit:
             return
         for kind, cost, nxt in tables.transitions(i, j):
+            if not math.isfinite(cost):
+                # an illegal transition (rest or gap inside a sustain chain)
+                continue
             new_acc = acc + cost
             if kind == "assign":
                 sid = tables.syllables[i].syllable_id
@@ -386,7 +483,7 @@ def _local_paths(
                 walk(i, nxt, new_acc, spans, unresolved)
 
     walk(start_syl, j_start, base_cost, {}, [])
-    return results
+    return results, len(results) < max_paths
 
 
 def line_intervals(
@@ -433,6 +530,7 @@ def map_syllables_to_notes(
     config: MappingConfig | None = None,
     *,
     song_id: str = "song",
+    confirmed_note_ids: set[str] | None = None,
 ) -> dict:
     """Build the ``mapping.v1`` document for one song."""
     config = config or MappingConfig()
@@ -440,7 +538,8 @@ def map_syllables_to_notes(
     if not sung:
         raise ValueError("No voiced GAME notes to map")
     lines = line_intervals(syllables, evidence, config)
-    tables = _Tables(syllables, sung, evidence, config, lines=lines)
+    tables = _Tables(syllables, sung, evidence, config, lines=lines,
+                     confirmed_note_ids=confirmed_note_ids)
     best = tables.best_assignment()
     best_total = tables.best_total()
 
@@ -502,7 +601,8 @@ def map_syllables_to_notes(
         if j_end < j_start:
             j_end = j_start
         limit = best_total + config.window_cost_limit
-        local = _local_paths(tables, start, end, j_start, j_end, limit, config.max_paths)
+        local, search_complete = _local_paths(tables, start, end, j_start, j_end,
+                                              limit, config.max_paths)
         options: list[dict] = []
         seen_keys: set[str] = set()
         window_syllable_ids = [s.syllable_id for s in syllables[start:end + 1]]
@@ -535,8 +635,6 @@ def map_syllables_to_notes(
                 "reason_code": "illegal_sustain_gap" if illegal else "dp_monotonic_optimum",
                 "illegal_sustain_note_ids": illegal,
             })
-            if len(options) >= config.max_options:
-                break
         legal_options = [o for o in options if o["legal"]]
         best_in_window = {
             sid: list(range(span[0], span[1] + 1))
@@ -547,20 +645,26 @@ def map_syllables_to_notes(
                               ensure_ascii=False)
         alternatives = [o for o in legal_options
                         if json.dumps(o["assignment"], ensure_ascii=False, sort_keys=True) != best_key]
-        if not legal_options:
-            decision = "no_valid_candidate"
-        elif not alternatives:
-            decision = "no_agent_decision_needed"
+        if alternatives:
+            decision = "legal_alternatives_available"
+        elif legal_options and search_complete:
+            decision = "only_baseline"
+        elif legal_options:
+            decision = "search_budget_exhausted"
+        elif search_complete:
+            decision = "no_legal_solution_proven"
         else:
-            decision = "agent_choice"
-        candidates.extend(alternatives)
+            decision = "search_budget_exhausted"
+        candidates.extend(alternatives[:config.max_options])
         window_records.append({
             "window_id": window_id,
             "syllable_ids": window_syllable_ids,
             "text": "".join(s.text for s in syllables[start:end + 1]),
             "option_count": len(legal_options),
             "alternative_count": len(alternatives),
+            "listed_option_count": min(len(alternatives), config.max_options),
             "decision": decision,
+            "search_complete": search_complete,
             "note_budget": [j_start, j_end],
             "lines": sorted({s.line_index for s in syllables[start:end + 1]}),
         })
@@ -569,8 +673,15 @@ def map_syllables_to_notes(
     unresolved_rows: list[dict] = []
     review_syllables: set[str] = set()
     for window in window_records:
-        if window.get("decision") == "no_valid_candidate":
+        if window.get("decision") in ("no_legal_solution_proven", "search_budget_exhausted"):
             review_syllables.update(window["syllable_ids"])
+    # overlapping windows could propose conflicting write-backs
+    for previous, current in zip(window_records, window_records[1:]):
+        shared = set(previous["syllable_ids"]) & set(current["syllable_ids"])
+        if shared:
+            current["overlaps_with"] = previous["window_id"]
+            current["overlapping_syllable_ids"] = sorted(shared)
+            review_syllables.update(shared)
     for line in lines.values():
         if line.get("review_required"):
             review_syllables.update(line["syllable_ids"])

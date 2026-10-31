@@ -1,0 +1,73 @@
+{
+  "reference": "experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/yuai/mapping.v1.json",
+  "reference_sha256": "6e328709ebc4f3114f3c467b1046ecabdb71617118d36e9d162ca31b927a8a99",
+  "changed_syllable_count": 5,
+  "changed": [
+    {
+      "syllable_id": "s0058",
+      "text": "弃",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0077",
+        "n0078"
+      ],
+      "after_note_ids": [
+        "n0077"
+      ]
+    },
+    {
+      "syllable_id": "s0063",
+      "text": "音",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0083",
+        "n0084"
+      ],
+      "after_note_ids": [
+        "n0083"
+      ]
+    },
+    {
+      "syllable_id": "s0104",
+      "text": "我",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0133",
+        "n0134"
+      ],
+      "after_note_ids": [
+        "n0133"
+      ]
+    },
+    {
+      "syllable_id": "s0221",
+      "text": "弃",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0291",
+        "n0292"
+      ],
+      "after_note_ids": [
+        "n0291"
+      ]
+    },
+    {
+      "syllable_id": "s0271",
+      "text": "Rai",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0351",
+        "n0352",
+        "n0353"
+      ],
+      "after_note_ids": [
+        "n0351"
+      ]
+    }
+  ]
+}

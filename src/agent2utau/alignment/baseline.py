@@ -198,86 +198,159 @@ def build_baseline_ustx(
     report["unresolved_notes"] = unresolved_notes
     report["candidates"] = candidates
     report["segments"] = segments
+    report["ledger"] = build_ledger(segments)
     return report
+
+
+def build_ledger(segments: Sequence[dict]) -> list[dict]:
+    """Sidecar ledger of every note the builder wrote.
+
+    The USTX does not keep note ids, so the identity is rebuilt from the
+    construction order: part ``i`` holds segment ``i`` and its notes in the
+    order the builder writes them.  The ledger records what each note must
+    look like - absolute start tick, end tick, duration, tone, lyric - and
+    flags the builder's authorised +/-1 tick touch-up separately, so an
+    adjustment is visible instead of silently accepted.
+    """
+    ledger: list[dict] = []
+    for part_index, segment in enumerate(segments):
+        anchor = sec_to_tick(segment["part_start_sec"])
+        entries: list[dict] = []
+        for note_index, note in enumerate(segment["notes"]):
+            start_tick = sec_to_tick(note["start"])
+            end_tick = sec_to_tick(note["end"])
+            position = start_tick - anchor
+            entries.append({
+                "part_index": part_index,
+                "note_index": note_index,
+                "note_id": note.get("note_id"),
+                "syllable_id": note.get("syllable_id"),
+                "lyric": note["lyric"],
+                "tone": to_ustx_tone(note["tone"]),
+                "source_tone": round(float(note["tone"]), 4),
+                "start_s": round(note["start"], 6),
+                "end_s": round(note["end"], 6),
+                "absolute_start_tick": start_tick,
+                "absolute_end_tick": end_tick,
+                "position": position,
+                "duration": max(1, end_tick - start_tick),
+                "adjusted_by_builder": False,
+            })
+        for left, right in zip(entries, entries[1:]):
+            gap = right["position"] - left["position"] - left["duration"]
+            if abs(gap) <= 1:
+                left["duration"] = right["position"] - left["position"]
+                left["adjusted_by_builder"] = True
+                left["builder_adjustment_tick"] = int(gap)
+        ledger.append({"part_index": part_index, "notes": entries})
+    return ledger
 
 
 def verify_ustx_notes(
     ustx_path: str | Path,
-    rows: Sequence[dict],
-    part_lines: Sequence[int] | None = None,
+    ledger: Sequence[dict],
+    *,
+    allowed_tick_deviation: int = 1,
 ) -> dict:
-    """Compare the mapped notes with the notes that are really in the USTX.
+    """Compare the written USTX with the ledger, note by note.
 
-    The comparison is per voice part (the parts follow the lyric lines), so a
-    note that could not be represented does not shift the notes behind it.
-    ``part_lines`` tells which lyric line each part holds; without it the
-    parts are matched to the lines by order, which only holds when every line
-    produced a part.
+    The comparison is by position (part, note index), so two identical ``+``
+    blocks cannot be swapped unnoticed.  Absolute ticks come from
+    ``voice_parts[].position + notes[].position``.
     """
     project = yaml.safe_load(Path(ustx_path).read_text(encoding="utf-8"))
     parts = project.get("voice_parts", [])
-    by_line: dict[int, list[dict]] = {}
-    for row in rows:
-        by_line.setdefault(row["line_index"], []).append(row)
-    line_order = list(part_lines) if part_lines is not None else sorted(by_line)
-
-    rows_out: list[dict] = []
-    missing: list[str] = []
+    rows: list[dict] = []
+    shifted: list[str] = []
+    duration_changed: list[str] = []
     retuned: list[str] = []
     lyric_mismatch: list[str] = []
+    missing: list[str] = []
     extra = 0
-    for part_index, line_index in enumerate(line_order):
-        expected = by_line.get(line_index, [])
-        actual = parts[part_index]["notes"] if part_index < len(parts) else []
-        matcher = difflib.SequenceMatcher(
-            a=[row["lyric"] for row in expected],
-            b=[note["lyric"] for note in actual], autojunk=False)
-        matched_expected: set[int] = set()
-        matched_actual: set[int] = set()
-        for block in matcher.get_matching_blocks():
-            for k in range(block.size):
-                want = expected[block.a + k]
-                got = actual[block.b + k]
-                matched_expected.add(block.a + k)
-                matched_actual.add(block.b + k)
-                expected_tone = to_ustx_tone(want["tone"])
-                rows_out.append({
-                    "note_id": want["note_id"],
-                    "syllable_id": want["syllable_id"],
-                    "part": part_index,
-                    "expected_lyric": want["lyric"],
-                    "expected_tone": expected_tone,
-                    "actual_lyric": got["lyric"],
-                    "actual_tone": got["tone"],
-                    "present": True,
-                    "tone_matches": got["tone"] == expected_tone,
-                })
-                if got["tone"] != expected_tone:
-                    retuned.append(want["note_id"])
-        for index, want in enumerate(expected):
-            if index in matched_expected:
-                continue
-            missing.append(want["note_id"])
-            rows_out.append({
+    adjustments: list[dict] = []
+    illegal_extenders: list[str] = []
+    monotonicity_errors: list[str] = []
+
+    for part in ledger:
+        part_index = part["part_index"]
+        actual_notes = parts[part_index]["notes"] if part_index < len(parts) else []
+        part_position = parts[part_index]["position"] if part_index < len(parts) else 0
+        if len(actual_notes) > len(part["notes"]):
+            extra += len(actual_notes) - len(part["notes"])
+        previous_lyric = None
+        for index, want in enumerate(part["notes"]):
+            got = actual_notes[index] if index < len(actual_notes) else None
+            expected_start = want["absolute_start_tick"]
+            expected_duration = want["duration"]
+            row = {
                 "note_id": want["note_id"],
                 "syllable_id": want["syllable_id"],
-                "part": part_index,
+                "part_index": part_index,
+                "note_index": index,
                 "expected_lyric": want["lyric"],
-                "expected_tone": to_ustx_tone(want["tone"]),
-                "actual_lyric": None,
-                "actual_tone": None,
-                "present": False,
-                "tone_matches": False,
+                "expected_tone": want["tone"],
+                "expected_start_tick": expected_start,
+                "expected_duration_tick": expected_duration,
+                "adjusted_by_builder": want["adjusted_by_builder"],
+            }
+            if got is None:
+                missing.append(want["note_id"])
+                row.update({"present": False, "actual_start_tick": None, "actual_duration_tick": None,
+                            "actual_tone": None, "actual_lyric": None})
+                rows.append(row)
+                previous_lyric = want["lyric"]
+                continue
+            actual_start = int(part_position) + int(got["position"])
+            actual_duration = int(got["duration"])
+            row.update({
+                "present": True,
+                "actual_start_tick": actual_start,
+                "actual_duration_tick": actual_duration,
+                "actual_tone": got["tone"],
+                "actual_lyric": got["lyric"],
             })
-        extra += len(actual) - len(matched_actual)
+            deviation = actual_start - expected_start
+            row["start_deviation_tick"] = deviation
+            if abs(deviation) > allowed_tick_deviation:
+                shifted.append(want["note_id"])
+            if actual_duration != expected_duration:
+                duration_changed.append(want["note_id"])
+            if got["tone"] != want["tone"]:
+                retuned.append(want["note_id"])
+            if got["lyric"] != want["lyric"]:
+                lyric_mismatch.append(want["note_id"])
+            if want["adjusted_by_builder"]:
+                adjustments.append({
+                    "note_id": want["note_id"],
+                    "tick": want.get("builder_adjustment_tick"),
+                    "detail": "the builder closed a one-tick gap between two notes",
+                })
+            if want["lyric"] == "+" and index == 0:
+                # a '+' that opens a part has no owner: the Core rejects it
+                # ("Unrecognized phoneme \"+\"", the part gets no phrase).
+                # A '+' after another '+' is legal and continues the syllable.
+                illegal_extenders.append(want["note_id"])
+            previous_lyric = got["lyric"]
+            rows.append(row)
+        for left, right in zip(actual_notes, actual_notes[1:]):
+            if int(right["position"]) < int(left["position"]):
+                monotonicity_errors.append(f"part {part_index}")
+
     return {
         "ustx": str(ustx_path),
-        "expected_note_count": len(rows),
+        "expected_note_count": sum(len(part["notes"]) for part in ledger),
         "actual_note_count": sum(len(p["notes"]) for p in parts),
-        "one_to_one": not missing and extra == 0 and not retuned and not lyric_mismatch,
+        "one_to_one": (not missing and extra == 0 and not shifted and not duration_changed
+                       and not retuned and not lyric_mismatch and not illegal_extenders
+                       and not monotonicity_errors),
         "missing_note_ids": missing,
         "extra_note_count": extra,
+        "shifted_note_ids": shifted,
+        "duration_changed_note_ids": duration_changed,
         "retuned_note_ids": retuned,
         "lyric_mismatch_note_ids": lyric_mismatch,
-        "notes": rows_out,
+        "illegal_extender_note_ids": illegal_extenders,
+        "monotonicity_errors": monotonicity_errors,
+        "builder_adjustments": adjustments,
+        "notes": rows,
     }

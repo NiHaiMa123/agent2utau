@@ -65,10 +65,15 @@ def test_every_window_states_its_decision():
         ambiguity_margin=10.0,
     )
     for window in mapping["windows"]:
-        assert window["decision"] in ("agent_choice", "no_valid_candidate",
-                                      "no_agent_decision_needed")
-        if window["decision"] == "no_valid_candidate":
+        assert window["decision"] in ("legal_alternatives_available",
+                                      "only_baseline",
+                                      "no_legal_solution_proven",
+                                      "search_budget_exhausted")
+        if window["decision"] == "no_legal_solution_proven":
             assert window["option_count"] == 0
+            assert window["search_complete"] is True
+        if window["decision"] == "search_budget_exhausted":
+            assert window["search_complete"] is False
 
 
 def test_candidates_never_take_notes_outside_their_window():
@@ -102,7 +107,7 @@ def test_a_window_without_a_valid_option_marks_its_syllables_for_review():
         ambiguity_margin=10.0,
     )
     for window in mapping["windows"]:
-        if window["decision"] == "no_valid_candidate":
+        if window["decision"] in ("no_legal_solution_proven", "search_budget_exhausted"):
             for row in mapping["mapping"]:
                 if row["syllable_id"] in window["syllable_ids"]:
                     assert row.get("review_required") is True

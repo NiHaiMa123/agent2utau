@@ -1,0 +1,2977 @@
+{
+  "schema_version": 1,
+  "song_id": "yuai",
+  "source": "runs/production/yuai-from-source-20261014/observations/HFA.json",
+  "source_sha256": "3687e07844b2dd36deff8474fb4192f0180bcc568427774b6b0b867ca64651c6",
+  "note": "token-joined HFA words of 雨爱; times are the original recording",
+  "observations": [
+    {
+      "text": "窗",
+      "start": 16.49153286732784,
+      "end": 16.99097487486409,
+      "source": "hfa",
+      "detail": "w0000",
+      "method": "token"
+    },
+    {
+      "text": "外",
+      "start": 16.99097487486409,
+      "end": 17.360753941265635,
+      "source": "hfa",
+      "detail": "w0001",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 17.360753941265635,
+      "end": 18.045986430888274,
+      "source": "hfa",
+      "detail": "w0002",
+      "method": "token"
+    },
+    {
+      "text": "天",
+      "start": 18.045986430888274,
+      "end": 18.648201591509,
+      "source": "hfa",
+      "detail": "w0003",
+      "method": "token"
+    },
+    {
+      "text": "气",
+      "start": 18.648201591509,
+      "end": 19.998321995464853,
+      "source": "hfa",
+      "detail": "w0004",
+      "method": "token"
+    },
+    {
+      "text": "就",
+      "start": 20.972839513765713,
+      "end": 21.27377646742494,
+      "source": "hfa",
+      "detail": "w0005",
+      "method": "token"
+    },
+    {
+      "text": "像",
+      "start": 21.27377646742494,
+      "end": 21.538648955330018,
+      "source": "hfa",
+      "detail": "w0006",
+      "method": "token"
+    },
+    {
+      "text": "是",
+      "start": 21.538648955330018,
+      "end": 22.45978332251378,
+      "source": "hfa",
+      "detail": "w0007",
+      "method": "token"
+    },
+    {
+      "text": "你",
+      "start": 23.132657381953024,
+      "end": 23.341053250544196,
+      "source": "hfa",
+      "detail": "w0008",
+      "method": "token"
+    },
+    {
+      "text": "多",
+      "start": 23.341053250544196,
+      "end": 23.5741128213065,
+      "source": "hfa",
+      "detail": "w0009",
+      "method": "token"
+    },
+    {
+      "text": "变",
+      "start": 23.5741128213065,
+      "end": 23.75824463392331,
+      "source": "hfa",
+      "detail": "w0010",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 23.75824463392331,
+      "end": 24.035656026896437,
+      "source": "hfa",
+      "detail": "w0011",
+      "method": "token"
+    },
+    {
+      "text": "表",
+      "start": 24.035656026896437,
+      "end": 24.43016558865571,
+      "source": "hfa",
+      "detail": "w0012",
+      "method": "token"
+    },
+    {
+      "text": "情",
+      "start": 24.43016558865571,
+      "end": 25.186056486722293,
+      "source": "hfa",
+      "detail": "w0013",
+      "method": "token"
+    },
+    {
+      "text": "下",
+      "start": 26.57721332247295,
+      "end": 27.04133722646977,
+      "source": "hfa",
+      "detail": "w0014",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 27.04133722646977,
+      "end": 27.377907485010404,
+      "source": "hfa",
+      "detail": "w0015",
+      "method": "token"
+    },
+    {
+      "text": "了",
+      "start": 27.377907485010404,
+      "end": 27.796591802930077,
+      "source": "hfa",
+      "detail": "w0016",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 28.54006216641727,
+      "end": 28.909757004130185,
+      "source": "hfa",
+      "detail": "w0017",
+      "method": "token"
+    },
+    {
+      "text": "陪",
+      "start": 28.909757004130185,
+      "end": 29.30491387192084,
+      "source": "hfa",
+      "detail": "w0018",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 29.30491387192084,
+      "end": 29.988008347422628,
+      "source": "hfa",
+      "detail": "w0019",
+      "method": "token"
+    },
+    {
+      "text": "哭",
+      "start": 29.988008347422628,
+      "end": 30.54727125673878,
+      "source": "hfa",
+      "detail": "w0020",
+      "method": "token"
+    },
+    {
+      "text": "泣",
+      "start": 30.54727125673878,
+      "end": 31.976507936507936,
+      "source": "hfa",
+      "detail": "w0021",
+      "method": "token"
+    },
+    {
+      "text": "看",
+      "start": 32.98567714007804,
+      "end": 33.36905955238948,
+      "source": "hfa",
+      "detail": "w0022",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 33.36905955238948,
+      "end": 33.60153396135014,
+      "source": "hfa",
+      "detail": "w0023",
+      "method": "token"
+    },
+    {
+      "text": "清",
+      "start": 33.60153396135014,
+      "end": 34.62321363219869,
+      "source": "hfa",
+      "detail": "w0024",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 35.12246794425982,
+      "end": 35.295540473747685,
+      "source": "hfa",
+      "detail": "w0025",
+      "method": "token"
+    },
+    {
+      "text": "也",
+      "start": 35.295540473747685,
+      "end": 35.548613640056445,
+      "source": "hfa",
+      "detail": "w0026",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 35.548613640056445,
+      "end": 35.78126819809548,
+      "source": "hfa",
+      "detail": "w0027",
+      "method": "token"
+    },
+    {
+      "text": "想",
+      "start": 35.78126819809548,
+      "end": 36.36272429693313,
+      "source": "hfa",
+      "detail": "w0028",
+      "method": "token"
+    },
+    {
+      "text": "看",
+      "start": 36.36272429693313,
+      "end": 37.118773674218836,
+      "source": "hfa",
+      "detail": "w0029",
+      "method": "token"
+    },
+    {
+      "text": "清",
+      "start": 37.118773674218836,
+      "end": 38.3,
+      "source": "hfa",
+      "detail": "w0030",
+      "method": "token"
+    },
+    {
+      "text": "离",
+      "start": 38.63959246300246,
+      "end": 39.03439334687733,
+      "source": "hfa",
+      "detail": "w0031",
+      "method": "token"
+    },
+    {
+      "text": "开",
+      "start": 39.03439334687733,
+      "end": 39.45229816843323,
+      "source": "hfa",
+      "detail": "w0032",
+      "method": "token"
+    },
+    {
+      "text": "你",
+      "start": 39.45229816843323,
+      "end": 39.77678779359848,
+      "source": "hfa",
+      "detail": "w0033",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 39.77678779359848,
+      "end": 40.252062095936196,
+      "source": "hfa",
+      "detail": "w0034",
+      "method": "token"
+    },
+    {
+      "text": "安",
+      "start": 40.252062095936196,
+      "end": 40.54139899567412,
+      "source": "hfa",
+      "detail": "w0035",
+      "method": "token"
+    },
+    {
+      "text": "静",
+      "start": 40.54139899567412,
+      "end": 40.939116999654274,
+      "source": "hfa",
+      "detail": "w0036",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 40.939116999654274,
+      "end": 41.08902610104101,
+      "source": "hfa",
+      "detail": "w0037",
+      "method": "token"
+    },
+    {
+      "text": "抽",
+      "start": 41.08902610104101,
+      "end": 41.693263161933885,
+      "source": "hfa",
+      "detail": "w0038",
+      "method": "token"
+    },
+    {
+      "text": "离",
+      "start": 41.693263161933885,
+      "end": 42.13478483463902,
+      "source": "hfa",
+      "detail": "w0039",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 42.402371298688344,
+      "end": 42.77322939156946,
+      "source": "hfa",
+      "detail": "w0040",
+      "method": "token"
+    },
+    {
+      "text": "忍",
+      "start": 42.77322939156946,
+      "end": 43.15564330535681,
+      "source": "hfa",
+      "detail": "w0041",
+      "method": "token"
+    },
+    {
+      "text": "揭",
+      "start": 43.15564330535681,
+      "end": 43.48034678504581,
+      "source": "hfa",
+      "detail": "w0042",
+      "method": "token"
+    },
+    {
+      "text": "晓",
+      "start": 43.48034678504581,
+      "end": 43.90903717317819,
+      "source": "hfa",
+      "detail": "w0043",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 43.90903717317819,
+      "end": 44.09681572738959,
+      "source": "hfa",
+      "detail": "w0044",
+      "method": "token"
+    },
+    {
+      "text": "剧",
+      "start": 44.09681572738959,
+      "end": 44.606227566466046,
+      "source": "hfa",
+      "detail": "w0045",
+      "method": "token"
+    },
+    {
+      "text": "情",
+      "start": 44.606227566466046,
+      "end": 45.096326530612245,
+      "source": "hfa",
+      "detail": "w0046",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 45.42020976769411,
+      "end": 45.81531491856997,
+      "source": "hfa",
+      "detail": "w0047",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 45.81531491856997,
+      "end": 46.1736495912859,
+      "source": "hfa",
+      "detail": "w0048",
+      "method": "token"
+    },
+    {
+      "text": "泪",
+      "start": 46.1736495912859,
+      "end": 46.54453698121502,
+      "source": "hfa",
+      "detail": "w0049",
+      "method": "token"
+    },
+    {
+      "text": "流",
+      "start": 46.54453698121502,
+      "end": 46.90622885152597,
+      "source": "hfa",
+      "detail": "w0050",
+      "method": "token"
+    },
+    {
+      "text": "在",
+      "start": 46.90622885152597,
+      "end": 47.09122823079427,
+      "source": "hfa",
+      "detail": "w0051",
+      "method": "token"
+    },
+    {
+      "text": "心",
+      "start": 47.09122823079427,
+      "end": 47.63836738032819,
+      "source": "hfa",
+      "detail": "w0052",
+      "method": "token"
+    },
+    {
+      "text": "里",
+      "start": 47.63836738032819,
+      "end": 48.02021142072959,
+      "source": "hfa",
+      "detail": "w0053",
+      "method": "token"
+    },
+    {
+      "text": "学",
+      "start": 48.311884264610796,
+      "end": 49.10016965593611,
+      "source": "hfa",
+      "detail": "w0054",
+      "method": "token"
+    },
+    {
+      "text": "会",
+      "start": 49.10016965593611,
+      "end": 49.46018146194839,
+      "source": "hfa",
+      "detail": "w0055",
+      "method": "token"
+    },
+    {
+      "text": "放",
+      "start": 49.46018146194839,
+      "end": 49.86518129102227,
+      "source": "hfa",
+      "detail": "w0056",
+      "method": "token"
+    },
+    {
+      "text": "弃",
+      "start": 49.86518129102227,
+      "end": 50.98098826073195,
+      "source": "hfa",
+      "detail": "w0057",
+      "method": "token"
+    },
+    {
+      "text": "听",
+      "start": 51.23162285975588,
+      "end": 51.487242807747286,
+      "source": "hfa",
+      "detail": "w0058",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 51.487242807747286,
+      "end": 51.6369868287586,
+      "source": "hfa",
+      "detail": "w0059",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 51.6369868287586,
+      "end": 51.750706419306816,
+      "source": "hfa",
+      "detail": "w0060",
+      "method": "token"
+    },
+    {
+      "text": "声",
+      "start": 51.750706419306816,
+      "end": 52.182916437265824,
+      "source": "hfa",
+      "detail": "w0061",
+      "method": "token"
+    },
+    {
+      "text": "音",
+      "start": 52.182916437265824,
+      "end": 52.65931097017665,
+      "source": "hfa",
+      "detail": "w0062",
+      "method": "token"
+    },
+    {
+      "text": "一",
+      "start": 52.786605595179964,
+      "end": 52.94904322202514,
+      "source": "hfa",
+      "detail": "w0063",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 52.94904322202514,
+      "end": 53.12411417037722,
+      "source": "hfa",
+      "detail": "w0064",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 53.12411417037722,
+      "end": 53.27239262414357,
+      "source": "hfa",
+      "detail": "w0065",
+      "method": "token"
+    },
+    {
+      "text": "清",
+      "start": 53.27239262414357,
+      "end": 53.63231739623747,
+      "source": "hfa",
+      "detail": "w0066",
+      "method": "token"
+    },
+    {
+      "text": "晰",
+      "start": 53.63231739623747,
+      "end": 54.088253968253966,
+      "source": "hfa",
+      "detail": "w0067",
+      "method": "token"
+    },
+    {
+      "text": "你",
+      "start": 54.448347643724645,
+      "end": 54.64228570051474,
+      "source": "hfa",
+      "detail": "w0068",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 54.64228570051474,
+      "end": 54.78088894867843,
+      "source": "hfa",
+      "detail": "w0069",
+      "method": "token"
+    },
+    {
+      "text": "呼",
+      "start": 54.78088894867843,
+      "end": 55.129405142509476,
+      "source": "hfa",
+      "detail": "w0070",
+      "method": "token"
+    },
+    {
+      "text": "吸",
+      "start": 55.23377016755188,
+      "end": 55.329312650719466,
+      "source": "hfa",
+      "detail": "w0071",
+      "method": "token"
+    },
+    {
+      "text": "像",
+      "start": 55.329312650719466,
+      "end": 55.77111014835418,
+      "source": "hfa",
+      "detail": "w0072",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 55.77111014835418,
+      "end": 56.095732448776836,
+      "source": "hfa",
+      "detail": "w0073",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 56.095732448776836,
+      "end": 56.605034389193094,
+      "source": "hfa",
+      "detail": "w0074",
+      "method": "token"
+    },
+    {
+      "text": "渗",
+      "start": 56.605034389193094,
+      "end": 57.15316178025572,
+      "source": "hfa",
+      "detail": "w0075",
+      "method": "token"
+    },
+    {
+      "text": "入",
+      "start": 57.15316178025572,
+      "end": 57.407039730219076,
+      "source": "hfa",
+      "detail": "w0076",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 57.407039730219076,
+      "end": 57.79140068651056,
+      "source": "hfa",
+      "detail": "w0077",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 57.79140068651056,
+      "end": 58.254201861530746,
+      "source": "hfa",
+      "detail": "w0078",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 58.254201861530746,
+      "end": 58.4518955075011,
+      "source": "hfa",
+      "detail": "w0079",
+      "method": "token"
+    },
+    {
+      "text": "里",
+      "start": 58.4518955075011,
+      "end": 59.253464283845865,
+      "source": "hfa",
+      "detail": "w0080",
+      "method": "token"
+    },
+    {
+      "text": "真",
+      "start": 59.66035837567042,
+      "end": 59.99543238546843,
+      "source": "hfa",
+      "detail": "w0081",
+      "method": "token"
+    },
+    {
+      "text": "希",
+      "start": 59.99543238546843,
+      "end": 60.42387619537561,
+      "source": "hfa",
+      "detail": "w0082",
+      "method": "token"
+    },
+    {
+      "text": "望",
+      "start": 60.42387619537561,
+      "end": 60.80954456199594,
+      "source": "hfa",
+      "detail": "w0083",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 60.80954456199594,
+      "end": 61.203783785329115,
+      "source": "hfa",
+      "detail": "w0084",
+      "method": "token"
+    },
+    {
+      "text": "能",
+      "start": 61.203783785329115,
+      "end": 61.505765222475915,
+      "source": "hfa",
+      "detail": "w0085",
+      "method": "token"
+    },
+    {
+      "text": "下",
+      "start": 61.505765222475915,
+      "end": 61.90165373596745,
+      "source": "hfa",
+      "detail": "w0086",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 61.90165373596745,
+      "end": 62.5973616025237,
+      "source": "hfa",
+      "detail": "w0087",
+      "method": "token"
+    },
+    {
+      "text": "停",
+      "start": 62.5973616025237,
+      "end": 62.75,
+      "source": "hfa",
+      "detail": "w0088",
+      "method": "token"
+    },
+    {
+      "text": "让",
+      "start": 63.368926671519034,
+      "end": 63.714760041182814,
+      "source": "hfa",
+      "detail": "w0089",
+      "method": "token"
+    },
+    {
+      "text": "想",
+      "start": 63.714760041182814,
+      "end": 64.62369780378276,
+      "source": "hfa",
+      "detail": "w0090",
+      "method": "token"
+    },
+    {
+      "text": "念",
+      "start": 64.62369780378276,
+      "end": 65.33018802945575,
+      "source": "hfa",
+      "detail": "w0091",
+      "method": "token"
+    },
+    {
+      "text": "继",
+      "start": 65.33018802945575,
+      "end": 65.80608867948017,
+      "source": "hfa",
+      "detail": "w0092",
+      "method": "token"
+    },
+    {
+      "text": "续",
+      "start": 65.80608867948017,
+      "end": 66.16798185941043,
+      "source": "hfa",
+      "detail": "w0093",
+      "method": "token"
+    },
+    {
+      "text": "让",
+      "start": 66.3994797021083,
+      "end": 66.86242790948776,
+      "source": "hfa",
+      "detail": "w0094",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 66.86242790948776,
+      "end": 67.95478268456837,
+      "source": "hfa",
+      "detail": "w0095",
+      "method": "token"
+    },
+    {
+      "text": "变",
+      "start": 67.95478268456837,
+      "end": 68.28900399275108,
+      "source": "hfa",
+      "detail": "w0096",
+      "method": "token"
+    },
+    {
+      "text": "透",
+      "start": 68.28900399275108,
+      "end": 68.85952790396554,
+      "source": "hfa",
+      "detail": "w0097",
+      "method": "token"
+    },
+    {
+      "text": "明",
+      "start": 68.85952790396554,
+      "end": 69.18533266590836,
+      "source": "hfa",
+      "detail": "w0098",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 69.42954885020008,
+      "end": 69.64893207558698,
+      "source": "hfa",
+      "detail": "w0099",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 69.64893207558698,
+      "end": 69.7760224129121,
+      "source": "hfa",
+      "detail": "w0100",
+      "method": "token"
+    },
+    {
+      "text": "上",
+      "start": 69.7760224129121,
+      "end": 70.56509609611666,
+      "source": "hfa",
+      "detail": "w0101",
+      "method": "token"
+    },
+    {
+      "text": "给",
+      "start": 70.56509609611666,
+      "end": 70.93829370520282,
+      "source": "hfa",
+      "detail": "w0102",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 70.93829370520282,
+      "end": 71.42628513362132,
+      "source": "hfa",
+      "detail": "w0103",
+      "method": "token"
+    },
+    {
+      "text": "勇",
+      "start": 71.62404705644465,
+      "end": 71.98314472656942,
+      "source": "hfa",
+      "detail": "w0104",
+      "method": "token"
+    },
+    {
+      "text": "气",
+      "start": 71.98314472656942,
+      "end": 72.44566062909946,
+      "source": "hfa",
+      "detail": "w0105",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 72.44566062909946,
+      "end": 72.74990112321987,
+      "source": "hfa",
+      "detail": "w0106",
+      "method": "token"
+    },
+    {
+      "text": "Rai",
+      "start": 72.74990112321987,
+      "end": 72.87851189922584,
+      "source": "hfa",
+      "detail": "w0107",
+      "method": "token"
+    },
+    {
+      "text": "Love",
+      "start": 73.91084147533321,
+      "end": 75.3,
+      "source": "hfa",
+      "detail": "w0109",
+      "method": "token"
+    },
+    {
+      "text": "nie",
+      "start": 73.48019680620051,
+      "end": 73.91084147533321,
+      "source": "hfa",
+      "detail": "w0108",
+      "method": "token"
+    },
+    {
+      "text": "窗",
+      "start": 75.20673681626785,
+      "end": 75.42572676003384,
+      "source": "hfa",
+      "detail": "w0110",
+      "method": "token"
+    },
+    {
+      "text": "外",
+      "start": 75.42572676003384,
+      "end": 75.62108262146411,
+      "source": "hfa",
+      "detail": "w0111",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 75.62108262146411,
+      "end": 75.78590686080136,
+      "source": "hfa",
+      "detail": "w0112",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 75.78590686080136,
+      "end": 76.16906331267757,
+      "source": "hfa",
+      "detail": "w0113",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 76.16906331267757,
+      "end": 76.60944720279062,
+      "source": "hfa",
+      "detail": "w0114",
+      "method": "token"
+    },
+    {
+      "text": "一",
+      "start": 76.76228474277488,
+      "end": 76.96863171583941,
+      "source": "hfa",
+      "detail": "w0115",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 76.96863171583941,
+      "end": 77.12028052228378,
+      "source": "hfa",
+      "detail": "w0116",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 77.12028052228378,
+      "end": 77.30616225642682,
+      "source": "hfa",
+      "detail": "w0117",
+      "method": "token"
+    },
+    {
+      "text": "累",
+      "start": 77.30616225642682,
+      "end": 77.6641495197322,
+      "source": "hfa",
+      "detail": "w0118",
+      "method": "token"
+    },
+    {
+      "text": "积",
+      "start": 77.6641495197322,
+      "end": 78.22310469335439,
+      "source": "hfa",
+      "detail": "w0119",
+      "method": "token"
+    },
+    {
+      "text": "屋",
+      "start": 78.40993557780779,
+      "end": 78.61561081071018,
+      "source": "hfa",
+      "detail": "w0120",
+      "method": "token"
+    },
+    {
+      "text": "内",
+      "start": 78.61561081071018,
+      "end": 78.8016391243794,
+      "source": "hfa",
+      "detail": "w0121",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 78.8016391243794,
+      "end": 79.11811972490514,
+      "source": "hfa",
+      "detail": "w0122",
+      "method": "token"
+    },
+    {
+      "text": "湿",
+      "start": 79.11811972490514,
+      "end": 79.3483710213313,
+      "source": "hfa",
+      "detail": "w0123",
+      "method": "token"
+    },
+    {
+      "text": "气",
+      "start": 79.3483710213313,
+      "end": 79.70716191402097,
+      "source": "hfa",
+      "detail": "w0124",
+      "method": "token"
+    },
+    {
+      "text": "像",
+      "start": 79.70716191402097,
+      "end": 80.11358603894845,
+      "source": "hfa",
+      "detail": "w0125",
+      "method": "token"
+    },
+    {
+      "text": "储",
+      "start": 80.11358603894845,
+      "end": 80.64922765701536,
+      "source": "hfa",
+      "detail": "w0126",
+      "method": "token"
+    },
+    {
+      "text": "存",
+      "start": 80.64922765701536,
+      "end": 81.12518360423392,
+      "source": "hfa",
+      "detail": "w0127",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 81.12518360423392,
+      "end": 81.45011004770153,
+      "source": "hfa",
+      "detail": "w0128",
+      "method": "token"
+    },
+    {
+      "text": "你",
+      "start": 81.45011004770153,
+      "end": 81.79907178346802,
+      "source": "hfa",
+      "detail": "w0129",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 81.79907178346802,
+      "end": 82.91468262774063,
+      "source": "hfa",
+      "detail": "w0130",
+      "method": "token"
+    },
+    {
+      "text": "记",
+      "start": 82.91468262774063,
+      "end": 83.04238679401458,
+      "source": "hfa",
+      "detail": "w0131",
+      "method": "token"
+    },
+    {
+      "text": "忆",
+      "start": 83.04238679401458,
+      "end": 83.52865439071135,
+      "source": "hfa",
+      "detail": "w0132",
+      "method": "token"
+    },
+    {
+      "text": "真",
+      "start": 83.6921290356556,
+      "end": 83.99383323548332,
+      "source": "hfa",
+      "detail": "w0133",
+      "method": "token"
+    },
+    {
+      "text": "希",
+      "start": 83.99383323548332,
+      "end": 84.42343904862868,
+      "source": "hfa",
+      "detail": "w0134",
+      "method": "token"
+    },
+    {
+      "text": "望",
+      "start": 84.42343904862868,
+      "end": 84.78397277140023,
+      "source": "hfa",
+      "detail": "w0135",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 84.78397277140023,
+      "end": 85.1752337383521,
+      "source": "hfa",
+      "detail": "w0136",
+      "method": "token"
+    },
+    {
+      "text": "能",
+      "start": 85.1752337383521,
+      "end": 85.48931348216777,
+      "source": "hfa",
+      "detail": "w0137",
+      "method": "token"
+    },
+    {
+      "text": "下",
+      "start": 85.48931348216777,
+      "end": 85.89723764795835,
+      "source": "hfa",
+      "detail": "w0138",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 85.89723764795835,
+      "end": 86.58309137668739,
+      "source": "hfa",
+      "detail": "w0139",
+      "method": "token"
+    },
+    {
+      "text": "停",
+      "start": 86.58309137668739,
+      "end": 86.7,
+      "source": "hfa",
+      "detail": "w0140",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 87.408149372369,
+      "end": 87.83783977240392,
+      "source": "hfa",
+      "detail": "w0141",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 87.83783977240392,
+      "end": 88.92783017874305,
+      "source": "hfa",
+      "detail": "w0142",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 88.92783017874305,
+      "end": 89.29002131680512,
+      "source": "hfa",
+      "detail": "w0143",
+      "method": "token"
+    },
+    {
+      "text": "秘",
+      "start": 89.29002131680512,
+      "end": 89.83325329043157,
+      "source": "hfa",
+      "detail": "w0144",
+      "method": "token"
+    },
+    {
+      "text": "密",
+      "start": 89.83325329043157,
+      "end": 90.15002267573696,
+      "source": "hfa",
+      "detail": "w0145",
+      "method": "token"
+    },
+    {
+      "text": "能",
+      "start": 90.40414393522302,
+      "end": 90.83477102093687,
+      "source": "hfa",
+      "detail": "w0146",
+      "method": "token"
+    },
+    {
+      "text": "一",
+      "start": 90.83477102093687,
+      "end": 91.84419358095616,
+      "source": "hfa",
+      "detail": "w0147",
+      "method": "token"
+    },
+    {
+      "text": "直",
+      "start": 91.84419358095616,
+      "end": 92.26182740330427,
+      "source": "hfa",
+      "detail": "w0148",
+      "method": "token"
+    },
+    {
+      "text": "延",
+      "start": 92.26182740330427,
+      "end": 92.79417954702227,
+      "source": "hfa",
+      "detail": "w0149",
+      "method": "token"
+    },
+    {
+      "text": "续",
+      "start": 92.92201667197438,
+      "end": 93.20344671201815,
+      "source": "hfa",
+      "detail": "w0150",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 93.4334171526989,
+      "end": 93.58551194154217,
+      "source": "hfa",
+      "detail": "w0151",
+      "method": "token"
+    },
+    {
+      "text": "相",
+      "start": 93.58551194154217,
+      "end": 93.79483899927465,
+      "source": "hfa",
+      "detail": "w0152",
+      "method": "token"
+    },
+    {
+      "text": "信",
+      "start": 93.79483899927465,
+      "end": 94.53818736571574,
+      "source": "hfa",
+      "detail": "w0153",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 94.53818736571574,
+      "end": 94.87447884124964,
+      "source": "hfa",
+      "detail": "w0154",
+      "method": "token"
+    },
+    {
+      "text": "将",
+      "start": 94.87447884124964,
+      "end": 95.40662591531975,
+      "source": "hfa",
+      "detail": "w0155",
+      "method": "token"
+    },
+    {
+      "text": "会",
+      "start": 95.62863496066763,
+      "end": 95.98692618995027,
+      "source": "hfa",
+      "detail": "w0156",
+      "method": "token"
+    },
+    {
+      "text": "看",
+      "start": 95.98692618995027,
+      "end": 96.44005647395474,
+      "source": "hfa",
+      "detail": "w0157",
+      "method": "token"
+    },
+    {
+      "text": "到",
+      "start": 96.44005647395474,
+      "end": 96.7085854692524,
+      "source": "hfa",
+      "detail": "w0158",
+      "method": "token"
+    },
+    {
+      "text": "彩",
+      "start": 96.7085854692524,
+      "end": 97.48514955533605,
+      "source": "hfa",
+      "detail": "w0159",
+      "method": "token"
+    },
+    {
+      "text": "虹",
+      "start": 97.48514955533605,
+      "end": 98.27556799925374,
+      "source": "hfa",
+      "detail": "w0160",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 98.27556799925374,
+      "end": 98.91353277885455,
+      "source": "hfa",
+      "detail": "w0161",
+      "method": "token"
+    },
+    {
+      "text": "美",
+      "start": 98.91353277885455,
+      "end": 99.34490758744498,
+      "source": "hfa",
+      "detail": "w0162",
+      "method": "token"
+    },
+    {
+      "text": "丽",
+      "start": 99.34490758744498,
+      "end": 102.10792094224165,
+      "source": "hfa",
+      "detail": "w0163",
+      "method": "token"
+    },
+    {
+      "text": "冷",
+      "start": 124.54420163507093,
+      "end": 124.64926397509586,
+      "source": "hfa",
+      "detail": "w0164",
+      "method": "token"
+    },
+    {
+      "text": "冷",
+      "start": 124.64926397509586,
+      "end": 125.345998192266,
+      "source": "hfa",
+      "detail": "w0165",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 125.345998192266,
+      "end": 126.00655059849053,
+      "source": "hfa",
+      "detail": "w0166",
+      "method": "token"
+    },
+    {
+      "text": "空",
+      "start": 126.00655059849053,
+      "end": 126.57585834511823,
+      "source": "hfa",
+      "detail": "w0167",
+      "method": "token"
+    },
+    {
+      "text": "气",
+      "start": 126.57585834511823,
+      "end": 128.1211478563339,
+      "source": "hfa",
+      "detail": "w0168",
+      "method": "token"
+    },
+    {
+      "text": "很",
+      "start": 128.97857176021654,
+      "end": 129.31450658473838,
+      "source": "hfa",
+      "detail": "w0169",
+      "method": "token"
+    },
+    {
+      "text": "窒",
+      "start": 129.31450658473838,
+      "end": 129.57176226427765,
+      "source": "hfa",
+      "detail": "w0170",
+      "method": "token"
+    },
+    {
+      "text": "息",
+      "start": 129.57176226427765,
+      "end": 130.54802721088436,
+      "source": "hfa",
+      "detail": "w0171",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 131.24416516621906,
+      "end": 131.34852382080356,
+      "source": "hfa",
+      "detail": "w0172",
+      "method": "token"
+    },
+    {
+      "text": "无",
+      "start": 131.34852382080356,
+      "end": 131.69654567433054,
+      "source": "hfa",
+      "detail": "w0173",
+      "method": "token"
+    },
+    {
+      "text": "法",
+      "start": 131.69654567433054,
+      "end": 131.99846033066038,
+      "source": "hfa",
+      "detail": "w0174",
+      "method": "token"
+    },
+    {
+      "text": "呼",
+      "start": 131.99846033066038,
+      "end": 132.3927816769866,
+      "source": "hfa",
+      "detail": "w0175",
+      "method": "token"
+    },
+    {
+      "text": "吸",
+      "start": 132.3927816769866,
+      "end": 133.27562358155544,
+      "source": "hfa",
+      "detail": "w0176",
+      "method": "token"
+    },
+    {
+      "text": "一",
+      "start": 134.64687838738197,
+      "end": 135.06389201711366,
+      "source": "hfa",
+      "detail": "w0177",
+      "method": "token"
+    },
+    {
+      "text": "万",
+      "start": 135.06389201711366,
+      "end": 135.4238021840206,
+      "source": "hfa",
+      "detail": "w0178",
+      "method": "token"
+    },
+    {
+      "text": "颗",
+      "start": 135.4238021840206,
+      "end": 135.98267573696145,
+      "source": "hfa",
+      "detail": "w0179",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 136.52744048985767,
+      "end": 136.9336766124907,
+      "source": "hfa",
+      "detail": "w0180",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 136.9336766124907,
+      "end": 137.3283501167903,
+      "source": "hfa",
+      "detail": "w0181",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 137.3283501167903,
+      "end": 138.02413977382946,
+      "source": "hfa",
+      "detail": "w0182",
+      "method": "token"
+    },
+    {
+      "text": "距",
+      "start": 138.02413977382946,
+      "end": 138.55732822651768,
+      "source": "hfa",
+      "detail": "w0183",
+      "method": "token"
+    },
+    {
+      "text": "离",
+      "start": 138.55732822651768,
+      "end": 140.1157205395688,
+      "source": "hfa",
+      "detail": "w0184",
+      "method": "token"
+    },
+    {
+      "text": "很",
+      "start": 140.96121727231952,
+      "end": 141.26401681471845,
+      "source": "hfa",
+      "detail": "w0185",
+      "method": "token"
+    },
+    {
+      "text": "彻",
+      "start": 141.26401681471845,
+      "end": 141.54266499681538,
+      "source": "hfa",
+      "detail": "w0186",
+      "method": "token"
+    },
+    {
+      "text": "底",
+      "start": 141.54266499681538,
+      "end": 142.6003628117914,
+      "source": "hfa",
+      "detail": "w0187",
+      "method": "token"
+    },
+    {
+      "text": "让",
+      "start": 143.07533511812727,
+      "end": 143.31694452610148,
+      "source": "hfa",
+      "detail": "w0188",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 143.31694452610148,
+      "end": 143.46811231963488,
+      "source": "hfa",
+      "detail": "w0189",
+      "method": "token"
+    },
+    {
+      "text": "消",
+      "start": 143.46811231963488,
+      "end": 143.7712811684122,
+      "source": "hfa",
+      "detail": "w0190",
+      "method": "token"
+    },
+    {
+      "text": "失",
+      "start": 143.7712811684122,
+      "end": 144.39876643970172,
+      "source": "hfa",
+      "detail": "w0191",
+      "method": "token"
+    },
+    {
+      "text": "无",
+      "start": 144.39876643970172,
+      "end": 145.07058936415348,
+      "source": "hfa",
+      "detail": "w0192",
+      "method": "token"
+    },
+    {
+      "text": "息",
+      "start": 145.07058936415348,
+      "end": 146.12901581364156,
+      "source": "hfa",
+      "detail": "w0193",
+      "method": "token"
+    },
+    {
+      "text": "离",
+      "start": 146.63411984605852,
+      "end": 147.00462484364067,
+      "source": "hfa",
+      "detail": "w0194",
+      "method": "token"
+    },
+    {
+      "text": "开",
+      "start": 147.00462484364067,
+      "end": 147.44500657598448,
+      "source": "hfa",
+      "detail": "w0195",
+      "method": "token"
+    },
+    {
+      "text": "你",
+      "start": 147.44500657598448,
+      "end": 147.7469627449572,
+      "source": "hfa",
+      "detail": "w0196",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 147.7469627449572,
+      "end": 148.210456483456,
+      "source": "hfa",
+      "detail": "w0197",
+      "method": "token"
+    },
+    {
+      "text": "安",
+      "start": 148.210456483456,
+      "end": 148.51434278808213,
+      "source": "hfa",
+      "detail": "w0198",
+      "method": "token"
+    },
+    {
+      "text": "静",
+      "start": 148.51434278808213,
+      "end": 148.95394985034622,
+      "source": "hfa",
+      "detail": "w0199",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 148.95394985034622,
+      "end": 149.08018211347445,
+      "source": "hfa",
+      "detail": "w0200",
+      "method": "token"
+    },
+    {
+      "text": "抽",
+      "start": 149.08018211347445,
+      "end": 149.65136855352492,
+      "source": "hfa",
+      "detail": "w0201",
+      "method": "token"
+    },
+    {
+      "text": "离",
+      "start": 149.65136855352492,
+      "end": 150.0590022675737,
+      "source": "hfa",
+      "detail": "w0202",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 150.37184322140925,
+      "end": 150.74290255678483,
+      "source": "hfa",
+      "detail": "w0203",
+      "method": "token"
+    },
+    {
+      "text": "忍",
+      "start": 150.74290255678483,
+      "end": 151.15888623918806,
+      "source": "hfa",
+      "detail": "w0204",
+      "method": "token"
+    },
+    {
+      "text": "揭",
+      "start": 151.15888623918806,
+      "end": 151.47429562315648,
+      "source": "hfa",
+      "detail": "w0205",
+      "method": "token"
+    },
+    {
+      "text": "晓",
+      "start": 151.47429562315648,
+      "end": 151.9153056067296,
+      "source": "hfa",
+      "detail": "w0206",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 151.9153056067296,
+      "end": 152.0788377067237,
+      "source": "hfa",
+      "detail": "w0207",
+      "method": "token"
+    },
+    {
+      "text": "剧",
+      "start": 152.0788377067237,
+      "end": 152.5879789834228,
+      "source": "hfa",
+      "detail": "w0208",
+      "method": "token"
+    },
+    {
+      "text": "情",
+      "start": 152.5879789834228,
+      "end": 153.18069698757594,
+      "source": "hfa",
+      "detail": "w0209",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 153.4014773210106,
+      "end": 153.80786365725285,
+      "source": "hfa",
+      "detail": "w0210",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 153.80786365725285,
+      "end": 154.1790458094452,
+      "source": "hfa",
+      "detail": "w0211",
+      "method": "token"
+    },
+    {
+      "text": "泪",
+      "start": 154.1790458094452,
+      "end": 154.55094587702328,
+      "source": "hfa",
+      "detail": "w0212",
+      "method": "token"
+    },
+    {
+      "text": "流",
+      "start": 154.55094587702328,
+      "end": 154.9109685569988,
+      "source": "hfa",
+      "detail": "w0213",
+      "method": "token"
+    },
+    {
+      "text": "在",
+      "start": 154.9109685569988,
+      "end": 155.09567347744965,
+      "source": "hfa",
+      "detail": "w0214",
+      "method": "token"
+    },
+    {
+      "text": "心",
+      "start": 155.09567347744965,
+      "end": 155.64277257664133,
+      "source": "hfa",
+      "detail": "w0215",
+      "method": "token"
+    },
+    {
+      "text": "里",
+      "start": 155.64277257664133,
+      "end": 156.10493243141778,
+      "source": "hfa",
+      "detail": "w0216",
+      "method": "token"
+    },
+    {
+      "text": "学",
+      "start": 156.29185280797702,
+      "end": 157.04761830232582,
+      "source": "hfa",
+      "detail": "w0217",
+      "method": "token"
+    },
+    {
+      "text": "会",
+      "start": 157.04761830232582,
+      "end": 157.511732913599,
+      "source": "hfa",
+      "detail": "w0218",
+      "method": "token"
+    },
+    {
+      "text": "放",
+      "start": 157.511732913599,
+      "end": 157.88286481827024,
+      "source": "hfa",
+      "detail": "w0219",
+      "method": "token"
+    },
+    {
+      "text": "弃",
+      "start": 157.88286481827024,
+      "end": 159.0,
+      "source": "hfa",
+      "detail": "w0220",
+      "method": "token"
+    },
+    {
+      "text": "听",
+      "start": 162.2292299612309,
+      "end": 162.47407200023972,
+      "source": "hfa",
+      "detail": "w0221",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 162.47407200023972,
+      "end": 162.65747500015223,
+      "source": "hfa",
+      "detail": "w0222",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 162.65747500015223,
+      "end": 162.77561214295645,
+      "source": "hfa",
+      "detail": "w0223",
+      "method": "token"
+    },
+    {
+      "text": "声",
+      "start": 162.77561214295645,
+      "end": 163.1707938653163,
+      "source": "hfa",
+      "detail": "w0224",
+      "method": "token"
+    },
+    {
+      "text": "音",
+      "start": 163.1707938653163,
+      "end": 163.66905683625583,
+      "source": "hfa",
+      "detail": "w0225",
+      "method": "token"
+    },
+    {
+      "text": "一",
+      "start": 163.7848099256589,
+      "end": 163.98014328591137,
+      "source": "hfa",
+      "detail": "w0226",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 163.98014328591137,
+      "end": 164.13128643355944,
+      "source": "hfa",
+      "detail": "w0227",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 164.13128643355944,
+      "end": 164.29481811229334,
+      "source": "hfa",
+      "detail": "w0228",
+      "method": "token"
+    },
+    {
+      "text": "清",
+      "start": 164.29481811229334,
+      "end": 164.65453071300135,
+      "source": "hfa",
+      "detail": "w0229",
+      "method": "token"
+    },
+    {
+      "text": "晰",
+      "start": 164.65453071300135,
+      "end": 165.16798185941042,
+      "source": "hfa",
+      "detail": "w0230",
+      "method": "token"
+    },
+    {
+      "text": "你",
+      "start": 165.43455420842247,
+      "end": 165.65534473397565,
+      "source": "hfa",
+      "detail": "w0231",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 165.65534473397565,
+      "end": 165.78128132584413,
+      "source": "hfa",
+      "detail": "w0232",
+      "method": "token"
+    },
+    {
+      "text": "呼",
+      "start": 165.78128132584413,
+      "end": 166.12827742388458,
+      "source": "hfa",
+      "detail": "w0233",
+      "method": "token"
+    },
+    {
+      "text": "吸",
+      "start": 166.12827742388458,
+      "end": 166.3367442467099,
+      "source": "hfa",
+      "detail": "w0234",
+      "method": "token"
+    },
+    {
+      "text": "像",
+      "start": 166.3367442467099,
+      "end": 166.76990093724257,
+      "source": "hfa",
+      "detail": "w0235",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 166.76990093724257,
+      "end": 167.09553574265806,
+      "source": "hfa",
+      "detail": "w0236",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 167.09553574265806,
+      "end": 167.61662074930274,
+      "source": "hfa",
+      "detail": "w0237",
+      "method": "token"
+    },
+    {
+      "text": "渗",
+      "start": 167.61662074930274,
+      "end": 168.15106533854998,
+      "source": "hfa",
+      "detail": "w0238",
+      "method": "token"
+    },
+    {
+      "text": "入",
+      "start": 168.15106533854998,
+      "end": 168.41770979260642,
+      "source": "hfa",
+      "detail": "w0239",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 168.41770979260642,
+      "end": 168.800329610085,
+      "source": "hfa",
+      "detail": "w0240",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 168.800329610085,
+      "end": 169.24162205235487,
+      "source": "hfa",
+      "detail": "w0241",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 169.24162205235487,
+      "end": 169.4746640790563,
+      "source": "hfa",
+      "detail": "w0242",
+      "method": "token"
+    },
+    {
+      "text": "里",
+      "start": 169.4746640790563,
+      "end": 170.31120181405896,
+      "source": "hfa",
+      "detail": "w0243",
+      "method": "token"
+    },
+    {
+      "text": "真",
+      "start": 170.63489601827263,
+      "end": 170.98329808950965,
+      "source": "hfa",
+      "detail": "w0244",
+      "method": "token"
+    },
+    {
+      "text": "希",
+      "start": 170.98329808950965,
+      "end": 171.4109937679092,
+      "source": "hfa",
+      "detail": "w0245",
+      "method": "token"
+    },
+    {
+      "text": "望",
+      "start": 171.4109937679092,
+      "end": 171.77377382239516,
+      "source": "hfa",
+      "detail": "w0246",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 171.77377382239516,
+      "end": 172.1765557587985,
+      "source": "hfa",
+      "detail": "w0247",
+      "method": "token"
+    },
+    {
+      "text": "能",
+      "start": 172.1765557587985,
+      "end": 172.49217915299258,
+      "source": "hfa",
+      "detail": "w0248",
+      "method": "token"
+    },
+    {
+      "text": "下",
+      "start": 172.49217915299258,
+      "end": 172.87588719132265,
+      "source": "hfa",
+      "detail": "w0249",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 172.87588719132265,
+      "end": 173.60667944252896,
+      "source": "hfa",
+      "detail": "w0250",
+      "method": "token"
+    },
+    {
+      "text": "停",
+      "start": 173.60667944252896,
+      "end": 174.24484392871122,
+      "source": "hfa",
+      "detail": "w0251",
+      "method": "token"
+    },
+    {
+      "text": "让",
+      "start": 174.39191539738457,
+      "end": 174.73837891853316,
+      "source": "hfa",
+      "detail": "w0252",
+      "method": "token"
+    },
+    {
+      "text": "想",
+      "start": 174.73837891853316,
+      "end": 175.7846679144706,
+      "source": "hfa",
+      "detail": "w0253",
+      "method": "token"
+    },
+    {
+      "text": "念",
+      "start": 175.7846679144706,
+      "end": 176.31665021866087,
+      "source": "hfa",
+      "detail": "w0254",
+      "method": "token"
+    },
+    {
+      "text": "继",
+      "start": 176.31665021866087,
+      "end": 176.83894444541326,
+      "source": "hfa",
+      "detail": "w0255",
+      "method": "token"
+    },
+    {
+      "text": "续",
+      "start": 176.83894444541326,
+      "end": 177.23530140554556,
+      "source": "hfa",
+      "detail": "w0256",
+      "method": "token"
+    },
+    {
+      "text": "让",
+      "start": 177.421823990837,
+      "end": 177.8625145906548,
+      "source": "hfa",
+      "detail": "w0257",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 177.8625145906548,
+      "end": 178.95180416496433,
+      "source": "hfa",
+      "detail": "w0258",
+      "method": "token"
+    },
+    {
+      "text": "变",
+      "start": 178.95180416496433,
+      "end": 179.30204619418467,
+      "source": "hfa",
+      "detail": "w0259",
+      "method": "token"
+    },
+    {
+      "text": "透",
+      "start": 179.30204619418467,
+      "end": 179.87143486905262,
+      "source": "hfa",
+      "detail": "w0260",
+      "method": "token"
+    },
+    {
+      "text": "明",
+      "start": 179.87143486905262,
+      "end": 180.27677282510703,
+      "source": "hfa",
+      "detail": "w0261",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 180.4157175395386,
+      "end": 180.6375611831596,
+      "source": "hfa",
+      "detail": "w0262",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 180.6375611831596,
+      "end": 180.75128589586876,
+      "source": "hfa",
+      "detail": "w0263",
+      "method": "token"
+    },
+    {
+      "text": "上",
+      "start": 180.75128589586876,
+      "end": 181.56472223364037,
+      "source": "hfa",
+      "detail": "w0264",
+      "method": "token"
+    },
+    {
+      "text": "给",
+      "start": 181.56472223364037,
+      "end": 181.91275662376768,
+      "source": "hfa",
+      "detail": "w0265",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 181.91275662376768,
+      "end": 182.4132259087768,
+      "source": "hfa",
+      "detail": "w0266",
+      "method": "token"
+    },
+    {
+      "text": "勇",
+      "start": 182.65811190339173,
+      "end": 183.01582747392374,
+      "source": "hfa",
+      "detail": "w0267",
+      "method": "token"
+    },
+    {
+      "text": "气",
+      "start": 183.01582747392374,
+      "end": 183.44431519212097,
+      "source": "hfa",
+      "detail": "w0268",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 183.44431519212097,
+      "end": 183.77215700543118,
+      "source": "hfa",
+      "detail": "w0269",
+      "method": "token"
+    },
+    {
+      "text": "Rai",
+      "start": 183.77215700543118,
+      "end": 184.14432879277098,
+      "source": "hfa",
+      "detail": "w0270",
+      "method": "token"
+    },
+    {
+      "text": "Love",
+      "start": 184.7598325709475,
+      "end": 185.82794267996098,
+      "source": "hfa",
+      "detail": "w0272",
+      "method": "token"
+    },
+    {
+      "text": "nie",
+      "start": 184.51416685593102,
+      "end": 184.61831317996763,
+      "source": "hfa",
+      "detail": "w0271",
+      "method": "token"
+    },
+    {
+      "text": "窗",
+      "start": 186.2256601395034,
+      "end": 186.45783401575758,
+      "source": "hfa",
+      "detail": "w0273",
+      "method": "token"
+    },
+    {
+      "text": "外",
+      "start": 186.45783401575758,
+      "end": 186.52566943248652,
+      "source": "hfa",
+      "detail": "w0274",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 186.64204485523456,
+      "end": 186.80635024816812,
+      "source": "hfa",
+      "detail": "w0275",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 186.80635024816812,
+      "end": 187.16687709488295,
+      "source": "hfa",
+      "detail": "w0276",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 187.16687709488295,
+      "end": 187.52600547617524,
+      "source": "hfa",
+      "detail": "w0277",
+      "method": "token"
+    },
+    {
+      "text": "一",
+      "start": 187.65399200396203,
+      "end": 187.95638254156998,
+      "source": "hfa",
+      "detail": "w0278",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 187.95638254156998,
+      "end": 188.09294531720565,
+      "source": "hfa",
+      "detail": "w0279",
+      "method": "token"
+    },
+    {
+      "text": "滴",
+      "start": 188.09294531720565,
+      "end": 188.26787632741085,
+      "source": "hfa",
+      "detail": "w0280",
+      "method": "token"
+    },
+    {
+      "text": "累",
+      "start": 188.26787632741085,
+      "end": 188.64083975387538,
+      "source": "hfa",
+      "detail": "w0281",
+      "method": "token"
+    },
+    {
+      "text": "积",
+      "start": 188.64083975387538,
+      "end": 189.16426303854874,
+      "source": "hfa",
+      "detail": "w0282",
+      "method": "token"
+    },
+    {
+      "text": "屋",
+      "start": 189.4291531423971,
+      "end": 189.63679489827751,
+      "source": "hfa",
+      "detail": "w0283",
+      "method": "token"
+    },
+    {
+      "text": "内",
+      "start": 189.63679489827751,
+      "end": 189.8342911548571,
+      "source": "hfa",
+      "detail": "w0284",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 189.8342911548571,
+      "end": 190.13701445149186,
+      "source": "hfa",
+      "detail": "w0285",
+      "method": "token"
+    },
+    {
+      "text": "湿",
+      "start": 190.13701445149186,
+      "end": 190.35785865852893,
+      "source": "hfa",
+      "detail": "w0286",
+      "method": "token"
+    },
+    {
+      "text": "气",
+      "start": 190.35785865852893,
+      "end": 190.75241598133596,
+      "source": "hfa",
+      "detail": "w0287",
+      "method": "token"
+    },
+    {
+      "text": "像",
+      "start": 190.75241598133596,
+      "end": 191.16065050484102,
+      "source": "hfa",
+      "detail": "w0288",
+      "method": "token"
+    },
+    {
+      "text": "储",
+      "start": 191.16065050484102,
+      "end": 191.6814515191249,
+      "source": "hfa",
+      "detail": "w0289",
+      "method": "token"
+    },
+    {
+      "text": "存",
+      "start": 191.6814515191249,
+      "end": 192.14634247760384,
+      "source": "hfa",
+      "detail": "w0290",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 192.14634247760384,
+      "end": 192.47119565449063,
+      "source": "hfa",
+      "detail": "w0291",
+      "method": "token"
+    },
+    {
+      "text": "你",
+      "start": 192.47119565449063,
+      "end": 192.84231646116086,
+      "source": "hfa",
+      "detail": "w0292",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 192.84231646116086,
+      "end": 193.91103295047267,
+      "source": "hfa",
+      "detail": "w0293",
+      "method": "token"
+    },
+    {
+      "text": "记",
+      "start": 193.91103295047267,
+      "end": 194.15594506036666,
+      "source": "hfa",
+      "detail": "w0294",
+      "method": "token"
+    },
+    {
+      "text": "忆",
+      "start": 194.15594506036666,
+      "end": 194.53808849170363,
+      "source": "hfa",
+      "detail": "w0295",
+      "method": "token"
+    },
+    {
+      "text": "真",
+      "start": 194.67727247173283,
+      "end": 195.00107635498046,
+      "source": "hfa",
+      "detail": "w0296",
+      "method": "token"
+    },
+    {
+      "text": "希",
+      "start": 195.00107635498046,
+      "end": 195.44389334308858,
+      "source": "hfa",
+      "detail": "w0297",
+      "method": "token"
+    },
+    {
+      "text": "望",
+      "start": 195.44389334308858,
+      "end": 195.75881706774098,
+      "source": "hfa",
+      "detail": "w0298",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 195.75881706774098,
+      "end": 196.1847677155579,
+      "source": "hfa",
+      "detail": "w0299",
+      "method": "token"
+    },
+    {
+      "text": "能",
+      "start": 196.1847677155579,
+      "end": 196.48724170745365,
+      "source": "hfa",
+      "detail": "w0300",
+      "method": "token"
+    },
+    {
+      "text": "下",
+      "start": 196.48724170745365,
+      "end": 196.895846906303,
+      "source": "hfa",
+      "detail": "w0301",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 196.895846906303,
+      "end": 197.6246895500754,
+      "source": "hfa",
+      "detail": "w0302",
+      "method": "token"
+    },
+    {
+      "text": "停",
+      "start": 197.6246895500754,
+      "end": 198.13877551020408,
+      "source": "hfa",
+      "detail": "w0303",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 198.40601605646734,
+      "end": 198.86922587249825,
+      "source": "hfa",
+      "detail": "w0304",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 198.86922587249825,
+      "end": 199.97272183554514,
+      "source": "hfa",
+      "detail": "w0305",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 199.97272183554514,
+      "end": 200.29619751789673,
+      "source": "hfa",
+      "detail": "w0306",
+      "method": "token"
+    },
+    {
+      "text": "秘",
+      "start": 200.29619751789673,
+      "end": 200.86682533316062,
+      "source": "hfa",
+      "detail": "w0307",
+      "method": "token"
+    },
+    {
+      "text": "密",
+      "start": 200.86682533316062,
+      "end": 201.19274376417235,
+      "source": "hfa",
+      "detail": "w0308",
+      "method": "token"
+    },
+    {
+      "text": "能",
+      "start": 201.41326708700652,
+      "end": 201.76027030296066,
+      "source": "hfa",
+      "detail": "w0309",
+      "method": "token"
+    },
+    {
+      "text": "一",
+      "start": 201.76027030296066,
+      "end": 202.87462271052422,
+      "source": "hfa",
+      "detail": "w0310",
+      "method": "token"
+    },
+    {
+      "text": "直",
+      "start": 202.87462271052422,
+      "end": 203.25837904568974,
+      "source": "hfa",
+      "detail": "w0311",
+      "method": "token"
+    },
+    {
+      "text": "延",
+      "start": 203.25837904568974,
+      "end": 203.80311601201964,
+      "source": "hfa",
+      "detail": "w0312",
+      "method": "token"
+    },
+    {
+      "text": "续",
+      "start": 203.80311601201964,
+      "end": 204.26742172310412,
+      "source": "hfa",
+      "detail": "w0313",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 204.4300538813446,
+      "end": 204.58030842874055,
+      "source": "hfa",
+      "detail": "w0314",
+      "method": "token"
+    },
+    {
+      "text": "相",
+      "start": 204.58030842874055,
+      "end": 204.79092438808104,
+      "source": "hfa",
+      "detail": "w0315",
+      "method": "token"
+    },
+    {
+      "text": "信",
+      "start": 204.79092438808104,
+      "end": 205.53460505548247,
+      "source": "hfa",
+      "detail": "w0316",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 205.53460505548247,
+      "end": 205.89428484434444,
+      "source": "hfa",
+      "detail": "w0317",
+      "method": "token"
+    },
+    {
+      "text": "将",
+      "start": 205.89428484434444,
+      "end": 206.02203807303155,
+      "source": "hfa",
+      "detail": "w0318",
+      "method": "token"
+    },
+    {
+      "text": "会",
+      "start": 206.6369070105866,
+      "end": 207.0087549432335,
+      "source": "hfa",
+      "detail": "w0319",
+      "method": "token"
+    },
+    {
+      "text": "看",
+      "start": 207.0087549432335,
+      "end": 207.4379500327251,
+      "source": "hfa",
+      "detail": "w0320",
+      "method": "token"
+    },
+    {
+      "text": "到",
+      "start": 207.4379500327251,
+      "end": 207.7162614025713,
+      "source": "hfa",
+      "detail": "w0321",
+      "method": "token"
+    },
+    {
+      "text": "彩",
+      "start": 207.7162614025713,
+      "end": 208.48290789450647,
+      "source": "hfa",
+      "detail": "w0322",
+      "method": "token"
+    },
+    {
+      "text": "虹",
+      "start": 208.48290789450647,
+      "end": 209.28331096969225,
+      "source": "hfa",
+      "detail": "w0323",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 209.28331096969225,
+      "end": 209.9786824956016,
+      "source": "hfa",
+      "detail": "w0324",
+      "method": "token"
+    },
+    {
+      "text": "美",
+      "start": 209.9786824956016,
+      "end": 210.33965426663423,
+      "source": "hfa",
+      "detail": "w0325",
+      "method": "token"
+    },
+    {
+      "text": "丽",
+      "start": 210.33965426663423,
+      "end": 212.2,
+      "source": "hfa",
+      "detail": "w0326",
+      "method": "token"
+    },
+    {
+      "text": "屋",
+      "start": 213.43207449759487,
+      "end": 213.6517758196011,
+      "source": "hfa",
+      "detail": "w0327",
+      "method": "token"
+    },
+    {
+      "text": "内",
+      "start": 213.6517758196011,
+      "end": 213.82564972477437,
+      "source": "hfa",
+      "detail": "w0328",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 213.82564972477437,
+      "end": 214.13969991117378,
+      "source": "hfa",
+      "detail": "w0329",
+      "method": "token"
+    },
+    {
+      "text": "湿",
+      "start": 214.13969991117378,
+      "end": 214.37322713735153,
+      "source": "hfa",
+      "detail": "w0330",
+      "method": "token"
+    },
+    {
+      "text": "气",
+      "start": 214.37322713735153,
+      "end": 214.75502148063816,
+      "source": "hfa",
+      "detail": "w0331",
+      "method": "token"
+    },
+    {
+      "text": "像",
+      "start": 214.75502148063816,
+      "end": 215.1030055197026,
+      "source": "hfa",
+      "detail": "w0332",
+      "method": "token"
+    },
+    {
+      "text": "储",
+      "start": 215.1030055197026,
+      "end": 215.61460544473732,
+      "source": "hfa",
+      "detail": "w0333",
+      "method": "token"
+    },
+    {
+      "text": "存",
+      "start": 215.61460544473732,
+      "end": 216.11510373554532,
+      "source": "hfa",
+      "detail": "w0334",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 216.11510373554532,
+      "end": 216.4497000011349,
+      "source": "hfa",
+      "detail": "w0335",
+      "method": "token"
+    },
+    {
+      "text": "你",
+      "start": 216.4497000011349,
+      "end": 216.82397524009758,
+      "source": "hfa",
+      "detail": "w0336",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 216.82397524009758,
+      "end": 217.88045228348298,
+      "source": "hfa",
+      "detail": "w0337",
+      "method": "token"
+    },
+    {
+      "text": "记",
+      "start": 217.88045228348298,
+      "end": 218.1591033774655,
+      "source": "hfa",
+      "detail": "w0338",
+      "method": "token"
+    },
+    {
+      "text": "忆",
+      "start": 218.1591033774655,
+      "end": 218.48439909297053,
+      "source": "hfa",
+      "detail": "w0339",
+      "method": "token"
+    },
+    {
+      "text": "真",
+      "start": 218.65851235941153,
+      "end": 219.00557957430817,
+      "source": "hfa",
+      "detail": "w0340",
+      "method": "token"
+    },
+    {
+      "text": "希",
+      "start": 219.00557957430817,
+      "end": 219.41115970879727,
+      "source": "hfa",
+      "detail": "w0341",
+      "method": "token"
+    },
+    {
+      "text": "望",
+      "start": 219.41115970879727,
+      "end": 219.77193024754254,
+      "source": "hfa",
+      "detail": "w0342",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 219.77193024754254,
+      "end": 220.177596122759,
+      "source": "hfa",
+      "detail": "w0343",
+      "method": "token"
+    },
+    {
+      "text": "能",
+      "start": 220.177596122759,
+      "end": 220.4920503535022,
+      "source": "hfa",
+      "detail": "w0344",
+      "method": "token"
+    },
+    {
+      "text": "下",
+      "start": 220.4920503535022,
+      "end": 220.85086530118843,
+      "source": "hfa",
+      "detail": "w0345",
+      "method": "token"
+    },
+    {
+      "text": "不",
+      "start": 220.85086530118843,
+      "end": 221.57186837159588,
+      "source": "hfa",
+      "detail": "w0346",
+      "method": "token"
+    },
+    {
+      "text": "停",
+      "start": 221.57186837159588,
+      "end": 222.18790065739432,
+      "source": "hfa",
+      "detail": "w0347",
+      "method": "token"
+    },
+    {
+      "text": "雨",
+      "start": 222.3,
+      "end": 222.8789941638073,
+      "source": "hfa",
+      "detail": "w0348",
+      "method": "token"
+    },
+    {
+      "text": "爱",
+      "start": 222.8789941638073,
+      "end": 223.96854082449224,
+      "source": "hfa",
+      "detail": "w0349",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 223.96854082449224,
+      "end": 224.30787451010985,
+      "source": "hfa",
+      "detail": "w0350",
+      "method": "token"
+    },
+    {
+      "text": "秘",
+      "start": 224.30787451010985,
+      "end": 224.86478099641346,
+      "source": "hfa",
+      "detail": "w0351",
+      "method": "token"
+    },
+    {
+      "text": "密",
+      "start": 224.86478099641346,
+      "end": 225.16564400290147,
+      "source": "hfa",
+      "detail": "w0352",
+      "method": "token"
+    },
+    {
+      "text": "能",
+      "start": 225.4102924344329,
+      "end": 225.7709624217373,
+      "source": "hfa",
+      "detail": "w0353",
+      "method": "token"
+    },
+    {
+      "text": "一",
+      "start": 225.7709624217373,
+      "end": 226.86032284725823,
+      "source": "hfa",
+      "detail": "w0354",
+      "method": "token"
+    },
+    {
+      "text": "直",
+      "start": 226.86032284725823,
+      "end": 227.27991916544045,
+      "source": "hfa",
+      "detail": "w0355",
+      "method": "token"
+    },
+    {
+      "text": "延",
+      "start": 227.27991916544045,
+      "end": 227.8251191309196,
+      "source": "hfa",
+      "detail": "w0356",
+      "method": "token"
+    },
+    {
+      "text": "续",
+      "start": 227.8251191309196,
+      "end": 228.26683859619695,
+      "source": "hfa",
+      "detail": "w0357",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 228.406256456094,
+      "end": 228.5656095516006,
+      "source": "hfa",
+      "detail": "w0358",
+      "method": "token"
+    },
+    {
+      "text": "相",
+      "start": 228.5656095516006,
+      "end": 228.76290841031238,
+      "source": "hfa",
+      "detail": "w0359",
+      "method": "token"
+    },
+    {
+      "text": "信",
+      "start": 228.76290841031238,
+      "end": 229.53231117023634,
+      "source": "hfa",
+      "detail": "w0360",
+      "method": "token"
+    },
+    {
+      "text": "我",
+      "start": 229.53231117023634,
+      "end": 229.85591338972927,
+      "source": "hfa",
+      "detail": "w0361",
+      "method": "token"
+    },
+    {
+      "text": "将",
+      "start": 229.85591338972927,
+      "end": 229.9955145819009,
+      "source": "hfa",
+      "detail": "w0362",
+      "method": "token"
+    },
+    {
+      "text": "会",
+      "start": 230.62348844411423,
+      "end": 230.9830414822637,
+      "source": "hfa",
+      "detail": "w0363",
+      "method": "token"
+    },
+    {
+      "text": "看",
+      "start": 230.9830414822637,
+      "end": 231.42394281365705,
+      "source": "hfa",
+      "detail": "w0364",
+      "method": "token"
+    },
+    {
+      "text": "到",
+      "start": 231.42394281365705,
+      "end": 231.7036518102114,
+      "source": "hfa",
+      "detail": "w0365",
+      "method": "token"
+    },
+    {
+      "text": "彩",
+      "start": 231.7036518102114,
+      "end": 232.49164906473658,
+      "source": "hfa",
+      "detail": "w0366",
+      "method": "token"
+    },
+    {
+      "text": "虹",
+      "start": 232.49164906473658,
+      "end": 233.30551017242226,
+      "source": "hfa",
+      "detail": "w0367",
+      "method": "token"
+    },
+    {
+      "text": "的",
+      "start": 233.30551017242226,
+      "end": 233.94260029799275,
+      "source": "hfa",
+      "detail": "w0368",
+      "method": "token"
+    },
+    {
+      "text": "美",
+      "start": 233.94260029799275,
+      "end": 234.36113837659497,
+      "source": "hfa",
+      "detail": "w0369",
+      "method": "token"
+    },
+    {
+      "text": "丽",
+      "start": 234.36113837659497,
+      "end": 237.1838037246912,
+      "source": "hfa",
+      "detail": "w0370",
+      "method": "token"
+    }
+  ]
+}

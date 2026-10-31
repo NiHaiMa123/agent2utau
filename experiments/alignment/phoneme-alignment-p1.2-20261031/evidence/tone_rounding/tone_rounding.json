@@ -1,0 +1,407 @@
+{
+  "schema_version": 1,
+  "question": "truncate or round: which agrees with the original recording?",
+  "method": "GAME fractional MIDI vs FCPE/RMVPE F0 inside the same note window; base pitch only, no vibrato",
+  "songs": {
+    "nianlun": {
+      "voiced_note_count": 400,
+      "rules_differ_count": 143,
+      "rules_differ_ratio": 0.3575,
+      "fractional_part_histogram": {
+        "below_0.1": 169,
+        "0.1_to_0.4": 73,
+        "0.4_to_0.6": 17,
+        "0.6_to_0.9": 23,
+        "above_0.9": 118
+      },
+      "verdict_counts": {
+        "truncate_closer": 27,
+        "round_closer": 106,
+        "tie": 246,
+        "uncertain": 21
+      },
+      "sample_of_differing_notes": [
+        {
+          "index": 246,
+          "game_tone": 63.9518,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.7658805847168,
+          "f0_midi_rmvpe": 63.79358673095703,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 207,
+          "game_tone": 56.9286,
+          "truncate": 56,
+          "round": 57,
+          "f0_midi_fcpe": 56.733314514160156,
+          "f0_midi_rmvpe": 56.730003356933594,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 316,
+          "game_tone": 61.9598,
+          "truncate": 61,
+          "round": 62,
+          "f0_midi_fcpe": 61.97917938232422,
+          "f0_midi_rmvpe": 61.988365173339844,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 78,
+          "game_tone": 63.9322,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.77024841308594,
+          "f0_midi_rmvpe": 63.647254943847656,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 435,
+          "game_tone": 61.8365,
+          "truncate": 61,
+          "round": 62,
+          "f0_midi_fcpe": 61.59900665283203,
+          "f0_midi_rmvpe": 61.707923889160156,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 43,
+          "game_tone": 63.933,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 62.617218017578125,
+          "f0_midi_rmvpe": 63.010311126708984,
+          "verdict": "truncate_closer"
+        },
+        {
+          "index": 196,
+          "game_tone": 61.8911,
+          "truncate": 61,
+          "round": 62,
+          "f0_midi_fcpe": 61.878936767578125,
+          "f0_midi_rmvpe": 61.8642578125,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 211,
+          "game_tone": 61.9881,
+          "truncate": 61,
+          "round": 62,
+          "f0_midi_fcpe": 61.71604919433594,
+          "f0_midi_rmvpe": 61.74209976196289,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 404,
+          "game_tone": 65.9792,
+          "truncate": 65,
+          "round": 66,
+          "f0_midi_fcpe": 64.95524597167969,
+          "f0_midi_rmvpe": 65.04168701171875,
+          "verdict": "truncate_closer"
+        },
+        {
+          "index": 201,
+          "game_tone": 63.9308,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 62.667659759521484,
+          "f0_midi_rmvpe": 63.62064743041992,
+          "verdict": "uncertain"
+        },
+        {
+          "index": 153,
+          "game_tone": 56.907,
+          "truncate": 56,
+          "round": 57,
+          "f0_midi_fcpe": 56.670372009277344,
+          "f0_midi_rmvpe": 56.71306610107422,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 115,
+          "game_tone": 56.9777,
+          "truncate": 56,
+          "round": 57,
+          "f0_midi_fcpe": 56.92560577392578,
+          "f0_midi_rmvpe": 56.842796325683594,
+          "verdict": "round_closer"
+        }
+      ]
+    },
+    "lastpage": {
+      "voiced_note_count": 368,
+      "rules_differ_count": 144,
+      "rules_differ_ratio": 0.3913,
+      "fractional_part_histogram": {
+        "below_0.1": 171,
+        "0.1_to_0.4": 39,
+        "0.4_to_0.6": 21,
+        "0.6_to_0.9": 22,
+        "above_0.9": 115
+      },
+      "verdict_counts": {
+        "truncate_closer": 33,
+        "round_closer": 110,
+        "tie": 220,
+        "uncertain": 5
+      },
+      "sample_of_differing_notes": [
+        {
+          "index": 58,
+          "game_tone": 63.9827,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.918251037597656,
+          "f0_midi_rmvpe": 63.870811462402344,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 212,
+          "game_tone": 64.5946,
+          "truncate": 64,
+          "round": 65,
+          "f0_midi_fcpe": 64.53543090820312,
+          "f0_midi_rmvpe": 64.54936981201172,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 177,
+          "game_tone": 63.9796,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.82671356201172,
+          "f0_midi_rmvpe": 63.83852005004883,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 86,
+          "game_tone": 63.9221,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.899749755859375,
+          "f0_midi_rmvpe": 63.91054153442383,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 343,
+          "game_tone": 58.997,
+          "truncate": 58,
+          "round": 59,
+          "f0_midi_fcpe": 58.98381805419922,
+          "f0_midi_rmvpe": 59.02641296386719,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 159,
+          "game_tone": 65.9874,
+          "truncate": 65,
+          "round": 66,
+          "f0_midi_fcpe": 66.03501892089844,
+          "f0_midi_rmvpe": 66.02376556396484,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 265,
+          "game_tone": 58.9151,
+          "truncate": 58,
+          "round": 59,
+          "f0_midi_fcpe": 58.768211364746094,
+          "f0_midi_rmvpe": 58.78478240966797,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 256,
+          "game_tone": 63.9644,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.65997314453125,
+          "f0_midi_rmvpe": 63.65320587158203,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 191,
+          "game_tone": 63.9951,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.92864227294922,
+          "f0_midi_rmvpe": 63.91071319580078,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 109,
+          "game_tone": 69.9728,
+          "truncate": 69,
+          "round": 70,
+          "f0_midi_fcpe": 69.88778686523438,
+          "f0_midi_rmvpe": 69.9207992553711,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 64,
+          "game_tone": 63.5083,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.122894287109375,
+          "f0_midi_rmvpe": 63.26215362548828,
+          "verdict": "truncate_closer"
+        },
+        {
+          "index": 310,
+          "game_tone": 63.9751,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.9986686706543,
+          "f0_midi_rmvpe": 64.00315856933594,
+          "verdict": "round_closer"
+        }
+      ]
+    },
+    "yuai": {
+      "voiced_note_count": 425,
+      "rules_differ_count": 265,
+      "rules_differ_ratio": 0.6235,
+      "fractional_part_histogram": {
+        "below_0.1": 140,
+        "0.1_to_0.4": 13,
+        "0.4_to_0.6": 11,
+        "0.6_to_0.9": 46,
+        "above_0.9": 215
+      },
+      "verdict_counts": {
+        "truncate_closer": 41,
+        "round_closer": 207,
+        "tie": 153,
+        "uncertain": 24
+      },
+      "sample_of_differing_notes": [
+        {
+          "index": 159,
+          "game_tone": 71.9852,
+          "truncate": 71,
+          "round": 72,
+          "f0_midi_fcpe": 71.94519805908203,
+          "f0_midi_rmvpe": 71.94056701660156,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 394,
+          "game_tone": 63.8017,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.4608154296875,
+          "f0_midi_rmvpe": 63.322574615478516,
+          "verdict": "truncate_closer"
+        },
+        {
+          "index": 457,
+          "game_tone": 63.5381,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 62.27103042602539,
+          "f0_midi_rmvpe": 62.037479400634766,
+          "verdict": "truncate_closer"
+        },
+        {
+          "index": 320,
+          "game_tone": 68.9714,
+          "truncate": 68,
+          "round": 69,
+          "f0_midi_fcpe": 68.6268310546875,
+          "f0_midi_rmvpe": 68.57955169677734,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 425,
+          "game_tone": 67.9733,
+          "truncate": 67,
+          "round": 68,
+          "f0_midi_fcpe": 67.93795776367188,
+          "f0_midi_rmvpe": 67.93096923828125,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 347,
+          "game_tone": 63.9864,
+          "truncate": 63,
+          "round": 64,
+          "f0_midi_fcpe": 63.8389778137207,
+          "f0_midi_rmvpe": 63.8665771484375,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 373,
+          "game_tone": 71.8518,
+          "truncate": 71,
+          "round": 72,
+          "f0_midi_fcpe": 69.79212951660156,
+          "f0_midi_rmvpe": 71.88166809082031,
+          "verdict": "uncertain"
+        },
+        {
+          "index": 360,
+          "game_tone": 67.9943,
+          "truncate": 67,
+          "round": 68,
+          "f0_midi_fcpe": 68.00397491455078,
+          "f0_midi_rmvpe": 68.00456237792969,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 377,
+          "game_tone": 65.9461,
+          "truncate": 65,
+          "round": 66,
+          "f0_midi_fcpe": 65.9999771118164,
+          "f0_midi_rmvpe": 66.0384292602539,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 352,
+          "game_tone": 68.643,
+          "truncate": 68,
+          "round": 69,
+          "f0_midi_fcpe": 68.59089660644531,
+          "f0_midi_rmvpe": 68.62156677246094,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 128,
+          "game_tone": 67.9228,
+          "truncate": 67,
+          "round": 68,
+          "f0_midi_fcpe": 67.59725189208984,
+          "f0_midi_rmvpe": 67.69004821777344,
+          "verdict": "round_closer"
+        },
+        {
+          "index": 244,
+          "game_tone": 67.9885,
+          "truncate": 67,
+          "round": 68,
+          "f0_midi_fcpe": 67.9991226196289,
+          "f0_midi_rmvpe": 67.99079895019531,
+          "verdict": "round_closer"
+        }
+      ]
+    }
+  },
+  "totals": {
+    "notes": 1193,
+    "rules_differ": 552,
+    "truncate_closer": 101,
+    "round_closer": 423,
+    "tie": 619,
+    "uncertain": 50,
+    "octave_conflicts": 2,
+    "f0_disagree": 48
+  },
+  "recommendation": {
+    "conclusion": "round_is_better_supported",
+    "decided_notes": 1143,
+    "uncertain_notes": 50,
+    "note": "the F0 trackers are a reference, not a ground truth; where they disagree with each other or with GAME the note is counted as uncertain, and the production rule is not changed by this script"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "reference": "experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/lastpage/mapping.v1.json",
+  "reference_sha256": "337cbad57fe7f2ad4163050a7da4fac1826e1e9380dbc02ee2921ec19c8401d1",
+  "changed_syllable_count": 3,
+  "changed": [
+    {
+      "syllable_id": "s0049",
+      "text": "声",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0059",
+        "n0060"
+      ],
+      "after_note_ids": [
+        "n0059"
+      ]
+    },
+    {
+      "syllable_id": "s0050",
+      "text": "淹",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0061"
+      ],
+      "after_note_ids": [
+        "n0060",
+        "n0061"
+      ]
+    },
+    {
+      "syllable_id": "s0222",
+      "text": "整",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0283",
+        "n0284",
+        "n0285"
+      ],
+      "after_note_ids": [
+        "n0283",
+        "n0284"
+      ]
+    }
+  ]
+}

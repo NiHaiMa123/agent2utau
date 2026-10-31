@@ -72,6 +72,9 @@ LEVEL_WEIGHTS = {
     "missing": 0.0,
 }
 
+#: Levels that are treated as a trusted observation of the recording.
+EXACT_LEVELS = frozenset({"exact_token", "exact_text"})
+
 #: A weak observation that would move a syllable further than this is not
 #: allowed to drive the assignment at all.
 WEAK_MAX_DISPLACEMENT_S = 0.5
@@ -155,6 +158,7 @@ def match_observations(
     syllables: Sequence[Syllable],
     *,
     allow_positional_fallback: bool = True,
+    source: str = "observation",
 ) -> tuple[dict[str, Observation], list[dict]]:
     """Match observed characters onto locked syllables by sequence alignment.
 
@@ -167,11 +171,10 @@ def match_observations(
     * ``positional``  - paired by index, text may differ (weak),
     * ``missing``     - no observation at all.
 
-    A syllable without a match simply has no observation; it is never given a
-    guessed time.  When the observation count equals the syllable count, the
-    remaining syllables are paired with the remaining observations *in order* -
-    an absolute index would drift as soon as one pair was consumed by the
-    sequence matcher.  Such pairs stay weak and are reported as such.
+    The report rows carry the ``source`` of the matcher (``hfa`` / ``asr``)
+    and the stage, so the statistics can be grouped per source *and* per
+    stage instead of mixing "missing in the first pass" with "final anchor
+    distribution".
     """
     obs_text = [o.text for o in observations]
     syl_text = [s.text for s in syllables]
@@ -201,6 +204,7 @@ def match_observations(
             report.append({
                 "kind": "observation_missing",
                 "level": "missing",
+                "source": source,
                 "syllable_id": syllable.syllable_id,
                 "text": syllable.text,
                 "line_index": syllable.line_index,
@@ -228,6 +232,7 @@ def match_observations(
                 report.append({
                     "kind": "observation_positional_fallback",
                     "level": "positional",
+                    "source": source,
                     "syllable_id": syllable.syllable_id,
                     "text": syllable.text,
                     "observed_text": observation.text,
@@ -255,6 +260,7 @@ def match_observations(
                     report.append({
                         "kind": "observation_residual_match",
                         "level": "residual_text",
+                        "source": source,
                         "syllable_id": syllable.syllable_id,
                         "text": syllable.text,
                         "observed_text": observation.text,
@@ -264,11 +270,39 @@ def match_observations(
             report.append({
                 "kind": "observation_unused",
                 "level": "missing",
+                "source": source,
                 "text": observation.text,
                 "start_s": round(observation.start, 4),
                 "source": observation.source,
             })
     return matched, report
+
+
+def confirmed_note_ids(
+    notes,
+    observations: Sequence[Observation],
+    *,
+    min_overlap: float = 0.5,
+) -> set[str] | None:
+    """Notes that a trusted observation actually covers.
+
+    A note is confirmed when a trusted (exact) observation covers at least
+    ``min_overlap`` of its duration.  ``None`` is returned when the song has
+    no trusted observation at all - then there is no coverage information and
+    the absence of evidence must not be used against the notes.
+    """
+    trusted = [o for o in observations if getattr(o, "level", "exact_text") in EXACT_LEVELS]
+    if not trusted:
+        return None
+    confirmed: set[str] = set()
+    for note in notes:
+        duration = max(1e-9, note.end - note.start)
+        for observation in trusted:
+            overlap = min(note.end, observation.end) - max(note.start, observation.start)
+            if overlap > 0 and overlap / duration >= min_overlap:
+                confirmed.add(note.note_id)
+                break
+    return confirmed
 
 
 def build_observations_manifest(

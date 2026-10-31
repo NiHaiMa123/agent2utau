@@ -1,0 +1,113 @@
+{
+  "song_id": "yuai",
+  "clock_anomalies": [],
+  "clock_info": [
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0008",
+      "next_note_id": "n0009",
+      "gap_tick": 298,
+      "gap_s": 0.3104
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0014",
+      "next_note_id": "n0015",
+      "gap_tick": 317,
+      "gap_s": 0.3302
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0024",
+      "next_note_id": "n0025",
+      "gap_tick": 988,
+      "gap_s": 1.0292
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0029",
+      "next_note_id": "n0030",
+      "gap_tick": 182,
+      "gap_s": 0.1896
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0037",
+      "next_note_id": "n0038",
+      "gap_tick": 259,
+      "gap_s": 0.2698
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0207",
+      "next_note_id": "n0208",
+      "gap_tick": 14899,
+      "gap_s": 15.5198
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0208",
+      "next_note_id": "n0209",
+      "gap_tick": 2957,
+      "gap_s": 3.0802
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0214",
+      "next_note_id": "n0215",
+      "gap_tick": 1556,
+      "gap_s": 1.6208
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0222",
+      "next_note_id": "n0223",
+      "gap_tick": 144,
+      "gap_s": 0.15
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0235",
+      "next_note_id": "n0236",
+      "gap_tick": 902,
+      "gap_s": 0.9396
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0246",
+      "next_note_id": "n0247",
+      "gap_tick": 250,
+      "gap_s": 0.2604
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0292",
+      "next_note_id": "n0293",
+      "gap_tick": 48,
+      "gap_s": 0.05
+    }
+  ],
+  "observation_anomalies": [],
+  "observation_match_counts": {},
+  "observation_stage_counts": {},
+  "final_anchor_distribution": {
+    "hfa.exact_token": 371
+  },
+  "mapping_problems": [],
+  "ustx_problems": [],
+  "lyrics_problems": [],
+  "unresolved_notes": [],
+  "baseline_candidates": []
+}

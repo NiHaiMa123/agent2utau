@@ -1,0 +1,3414 @@
+{
+  "song_id": "lastpage",
+  "clock_anomalies": [],
+  "clock_info": [
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0027",
+      "next_note_id": "n0028",
+      "gap_tick": 1152,
+      "gap_s": 1.2
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0044",
+      "next_note_id": "n0045",
+      "gap_tick": 384,
+      "gap_s": 0.4
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0055",
+      "next_note_id": "n0056",
+      "gap_tick": 1238,
+      "gap_s": 1.2896
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0059",
+      "next_note_id": "n0060",
+      "gap_tick": 153,
+      "gap_s": 0.1594
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0070",
+      "next_note_id": "n0071",
+      "gap_tick": 10,
+      "gap_s": 0.0104
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0074",
+      "next_note_id": "n0075",
+      "gap_tick": 240,
+      "gap_s": 0.25
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0080",
+      "next_note_id": "n0081",
+      "gap_tick": 1258,
+      "gap_s": 1.3104
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0084",
+      "next_note_id": "n0085",
+      "gap_tick": 125,
+      "gap_s": 0.1302
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0106",
+      "next_note_id": "n0107",
+      "gap_tick": 3120,
+      "gap_s": 3.25
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0141",
+      "next_note_id": "n0142",
+      "gap_tick": 259,
+      "gap_s": 0.2698
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0174",
+      "next_note_id": "n0175",
+      "gap_tick": 9168,
+      "gap_s": 9.55
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0175",
+      "next_note_id": "n0176",
+      "gap_tick": 16473,
+      "gap_s": 17.1594
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0205",
+      "next_note_id": "n0206",
+      "gap_tick": 1123,
+      "gap_s": 1.1698
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0223",
+      "next_note_id": "n0224",
+      "gap_tick": 125,
+      "gap_s": 0.1302
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0232",
+      "next_note_id": "n0233",
+      "gap_tick": 1296,
+      "gap_s": 1.35
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0255",
+      "next_note_id": "n0256",
+      "gap_tick": 740,
+      "gap_s": 0.7708
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0267",
+      "next_note_id": "n0268",
+      "gap_tick": 134,
+      "gap_s": 0.1396
+    }
+  ],
+  "observation_anomalies": [
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0092",
+      "text": "进",
+      "line_index": 10
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0227",
+      "text": "进",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0275",
+      "text": "进",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0092",
+      "text": "进",
+      "observed_text": "紧"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0227",
+      "text": "进",
+      "observed_text": "紧"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0275",
+      "text": "进",
+      "observed_text": "紧"
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0001",
+      "text": "雨",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0003",
+      "text": "滞",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0007",
+      "text": "间",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0009",
+      "text": "泪",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0013",
+      "text": "盘",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0014",
+      "text": "旋",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0015",
+      "text": "这",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0017",
+      "text": "许",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0020",
+      "text": "后",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0023",
+      "text": "见",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0049",
+      "text": "声",
+      "line_index": 6
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0086",
+      "text": "完",
+      "line_index": 9
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0087",
+      "text": "整",
+      "line_index": 9
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0092",
+      "text": "进",
+      "line_index": 10
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0126",
+      "text": "前",
+      "line_index": 14
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0131",
+      "text": "把",
+      "line_index": 15
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0135",
+      "text": "写",
+      "line_index": 15
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0136",
+      "text": "雨",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0137",
+      "text": "停",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0138",
+      "text": "滞",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0139",
+      "text": "天",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0140",
+      "text": "空",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0141",
+      "text": "之",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0142",
+      "text": "间",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0143",
+      "text": "像",
+      "line_index": 17
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0144",
+      "text": "泪",
+      "line_index": 17
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0145",
+      "text": "在",
+      "line_index": 17
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0146",
+      "text": "眼",
+      "line_index": 17
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0147",
+      "text": "眶",
+      "line_index": 17
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0148",
+      "text": "盘",
+      "line_index": 17
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0149",
+      "text": "旋",
+      "line_index": 17
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0150",
+      "text": "这",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0151",
+      "text": "也",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0152",
+      "text": "许",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0153",
+      "text": "是",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0154",
+      "text": "最",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0155",
+      "text": "后",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0156",
+      "text": "一",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0157",
+      "text": "次",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0158",
+      "text": "见",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0159",
+      "text": "面",
+      "line_index": 18
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0160",
+      "text": "沿",
+      "line_index": 19
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0161",
+      "text": "途",
+      "line_index": 19
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0162",
+      "text": "经",
+      "line_index": 19
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0163",
+      "text": "过",
+      "line_index": 19
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0164",
+      "text": "的",
+      "line_index": 19
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0165",
+      "text": "从",
+      "line_index": 19
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0166",
+      "text": "前",
+      "line_index": 19
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0167",
+      "text": "还",
+      "line_index": 20
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0168",
+      "text": "来",
+      "line_index": 20
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0169",
+      "text": "不",
+      "line_index": 20
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0170",
+      "text": "及",
+      "line_index": 20
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0171",
+      "text": "再",
+      "line_index": 20
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0172",
+      "text": "重",
+      "line_index": 20
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0173",
+      "text": "演",
+      "line_index": 20
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0174",
+      "text": "拥",
+      "line_index": 21
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0175",
+      "text": "抱",
+      "line_index": 21
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0176",
+      "text": "早",
+      "line_index": 21
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0177",
+      "text": "已",
+      "line_index": 21
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0178",
+      "text": "悄",
+      "line_index": 21
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0179",
+      "text": "悄",
+      "line_index": 21
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0180",
+      "text": "冷",
+      "line_index": 21
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0181",
+      "text": "却",
+      "line_index": 21
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0182",
+      "text": "海",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0183",
+      "text": "潮",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0184",
+      "text": "声",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0185",
+      "text": "淹",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0186",
+      "text": "没",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0187",
+      "text": "了",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0188",
+      "text": "离",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0189",
+      "text": "别",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0190",
+      "text": "时",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0191",
+      "text": "的",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0192",
+      "text": "黄",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0193",
+      "text": "昏",
+      "line_index": 22
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0194",
+      "text": "只",
+      "line_index": 23
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0195",
+      "text": "留",
+      "line_index": 23
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0196",
+      "text": "下",
+      "line_index": 23
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0197",
+      "text": "不",
+      "line_index": 23
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0198",
+      "text": "舍",
+      "line_index": 23
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0199",
+      "text": "的",
+      "line_index": 23
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0200",
+      "text": "体",
+      "line_index": 23
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0201",
+      "text": "温",
+      "line_index": 23
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0202",
+      "text": "星",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0203",
+      "text": "空",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0204",
+      "text": "下",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0205",
+      "text": "拥",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0206",
+      "text": "抱",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0207",
+      "text": "着",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0208",
+      "text": "快",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0209",
+      "text": "凋",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0210",
+      "text": "零",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0211",
+      "text": "的",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0212",
+      "text": "温",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0213",
+      "text": "存",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0214",
+      "text": "爱",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0215",
+      "text": "只",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0216",
+      "text": "能",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0217",
+      "text": "在",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0218",
+      "text": "回",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0219",
+      "text": "忆",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0220",
+      "text": "里",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0221",
+      "text": "完",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0222",
+      "text": "整",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0223",
+      "text": "想",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0224",
+      "text": "把",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0225",
+      "text": "你",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0226",
+      "text": "抱",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0227",
+      "text": "进",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0228",
+      "text": "身",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0229",
+      "text": "体",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0230",
+      "text": "里",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0231",
+      "text": "面",
+      "line_index": 26
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0232",
+      "text": "不",
+      "line_index": 27
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0233",
+      "text": "敢",
+      "line_index": 27
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0234",
+      "text": "让",
+      "line_index": 27
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0235",
+      "text": "你",
+      "line_index": 27
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0236",
+      "text": "看",
+      "line_index": 27
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0237",
+      "text": "见",
+      "line_index": 27
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0238",
+      "text": "嘴",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0239",
+      "text": "角",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0240",
+      "text": "那",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0241",
+      "text": "颗",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0242",
+      "text": "没",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0243",
+      "text": "落",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0244",
+      "text": "下",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0245",
+      "text": "的",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0246",
+      "text": "泪",
+      "line_index": 28
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0247",
+      "text": "如",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0248",
+      "text": "果",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0249",
+      "text": "这",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0250",
+      "text": "是",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0251",
+      "text": "最",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0252",
+      "text": "后",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0253",
+      "text": "的",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0254",
+      "text": "一",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0255",
+      "text": "页",
+      "line_index": 29
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0256",
+      "text": "在",
+      "line_index": 30
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0257",
+      "text": "你",
+      "line_index": 30
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0258",
+      "text": "离",
+      "line_index": 30
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0259",
+      "text": "开",
+      "line_index": 30
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0260",
+      "text": "之",
+      "line_index": 30
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0261",
+      "text": "前",
+      "line_index": 30
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0262",
+      "text": "能",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0263",
+      "text": "否",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0264",
+      "text": "让",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0265",
+      "text": "我",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0266",
+      "text": "把",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0267",
+      "text": "故",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0268",
+      "text": "事",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0269",
+      "text": "重",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0270",
+      "text": "写",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0271",
+      "text": "想",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0272",
+      "text": "把",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0273",
+      "text": "你",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0274",
+      "text": "抱",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0275",
+      "text": "进",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0276",
+      "text": "身",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0277",
+      "text": "体",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0278",
+      "text": "里",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0279",
+      "text": "面",
+      "line_index": 32
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0280",
+      "text": "不",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0281",
+      "text": "敢",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0282",
+      "text": "让",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0283",
+      "text": "你",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0284",
+      "text": "看",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0285",
+      "text": "见",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0286",
+      "text": "嘴",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0287",
+      "text": "角",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0288",
+      "text": "那",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0289",
+      "text": "颗",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0290",
+      "text": "没",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0291",
+      "text": "落",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0292",
+      "text": "下",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0293",
+      "text": "的",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0294",
+      "text": "泪",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0295",
+      "text": "如",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0296",
+      "text": "果",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0297",
+      "text": "这",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0298",
+      "text": "是",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0299",
+      "text": "最",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0300",
+      "text": "后",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0301",
+      "text": "的",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0302",
+      "text": "一",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0303",
+      "text": "页",
+      "line_index": 35
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0304",
+      "text": "在",
+      "line_index": 36
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0305",
+      "text": "你",
+      "line_index": 36
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0306",
+      "text": "离",
+      "line_index": 36
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0307",
+      "text": "开",
+      "line_index": 36
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0308",
+      "text": "之",
+      "line_index": 36
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0309",
+      "text": "前",
+      "line_index": 36
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0310",
+      "text": "能",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0311",
+      "text": "否",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0312",
+      "text": "让",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0313",
+      "text": "我",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0314",
+      "text": "把",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0315",
+      "text": "故",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0316",
+      "text": "事",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0317",
+      "text": "重",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "asr",
+      "syllable_id": "s0318",
+      "text": "写",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0015",
+      "text": "这",
+      "observed_text": "这"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0020",
+      "text": "后",
+      "observed_text": "后"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0126",
+      "text": "前",
+      "observed_text": "前"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0131",
+      "text": "把",
+      "observed_text": "把"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0135",
+      "text": "写",
+      "observed_text": "写"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0137",
+      "text": "停",
+      "observed_text": "停"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0139",
+      "text": "天",
+      "observed_text": "天"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0141",
+      "text": "之",
+      "observed_text": "之"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0142",
+      "text": "间",
+      "observed_text": "间"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0143",
+      "text": "像",
+      "observed_text": "像"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0144",
+      "text": "泪",
+      "observed_text": "泪"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0145",
+      "text": "在",
+      "observed_text": "在"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0146",
+      "text": "眼",
+      "observed_text": "眼"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0147",
+      "text": "眶",
+      "observed_text": "眶"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0148",
+      "text": "盘",
+      "observed_text": "盘"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0149",
+      "text": "旋",
+      "observed_text": "旋"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0150",
+      "text": "这",
+      "observed_text": "这"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0151",
+      "text": "也",
+      "observed_text": "也"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0152",
+      "text": "许",
+      "observed_text": "许"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0153",
+      "text": "是",
+      "observed_text": "是"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0154",
+      "text": "最",
+      "observed_text": "最"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0155",
+      "text": "后",
+      "observed_text": "后"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0156",
+      "text": "一",
+      "observed_text": "一"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0157",
+      "text": "次",
+      "observed_text": "次"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0160",
+      "text": "沿",
+      "observed_text": "沿"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0161",
+      "text": "途",
+      "observed_text": "途"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0162",
+      "text": "经",
+      "observed_text": "经"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0163",
+      "text": "过",
+      "observed_text": "过"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0164",
+      "text": "的",
+      "observed_text": "的"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0165",
+      "text": "从",
+      "observed_text": "从"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0166",
+      "text": "前",
+      "observed_text": "前"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0167",
+      "text": "还",
+      "observed_text": "还"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0168",
+      "text": "来",
+      "observed_text": "来"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0169",
+      "text": "不",
+      "observed_text": "不"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0170",
+      "text": "及",
+      "observed_text": "及"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0171",
+      "text": "再",
+      "observed_text": "再"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0172",
+      "text": "重",
+      "observed_text": "重"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0173",
+      "text": "演",
+      "observed_text": "演"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0174",
+      "text": "拥",
+      "observed_text": "拥"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0175",
+      "text": "抱",
+      "observed_text": "抱"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0176",
+      "text": "早",
+      "observed_text": "早"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0177",
+      "text": "已",
+      "observed_text": "已"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0180",
+      "text": "冷",
+      "observed_text": "冷"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0181",
+      "text": "却",
+      "observed_text": "却"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0184",
+      "text": "声",
+      "observed_text": "声"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0185",
+      "text": "淹",
+      "observed_text": "淹"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0186",
+      "text": "没",
+      "observed_text": "没"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0187",
+      "text": "了",
+      "observed_text": "了"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0188",
+      "text": "离",
+      "observed_text": "离"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0189",
+      "text": "别",
+      "observed_text": "别"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0190",
+      "text": "时",
+      "observed_text": "时"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0191",
+      "text": "的",
+      "observed_text": "的"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0192",
+      "text": "黄",
+      "observed_text": "黄"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0193",
+      "text": "昏",
+      "observed_text": "昏"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0194",
+      "text": "只",
+      "observed_text": "只"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0197",
+      "text": "不",
+      "observed_text": "不"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0198",
+      "text": "舍",
+      "observed_text": "舍"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0199",
+      "text": "的",
+      "observed_text": "的"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0200",
+      "text": "体",
+      "observed_text": "体"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0201",
+      "text": "温",
+      "observed_text": "温"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0202",
+      "text": "星",
+      "observed_text": "星"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0203",
+      "text": "空",
+      "observed_text": "空"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0205",
+      "text": "拥",
+      "observed_text": "拥"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0206",
+      "text": "抱",
+      "observed_text": "抱"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0207",
+      "text": "着",
+      "observed_text": "着"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0208",
+      "text": "快",
+      "observed_text": "快"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0209",
+      "text": "凋",
+      "observed_text": "凋"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0210",
+      "text": "零",
+      "observed_text": "零"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0211",
+      "text": "的",
+      "observed_text": "的"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0212",
+      "text": "温",
+      "observed_text": "温"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0213",
+      "text": "存",
+      "observed_text": "存"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0214",
+      "text": "爱",
+      "observed_text": "爱"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0215",
+      "text": "只",
+      "observed_text": "只"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0216",
+      "text": "能",
+      "observed_text": "能"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0217",
+      "text": "在",
+      "observed_text": "在"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0220",
+      "text": "里",
+      "observed_text": "里"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0221",
+      "text": "完",
+      "observed_text": "完"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0222",
+      "text": "整",
+      "observed_text": "整"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0223",
+      "text": "想",
+      "observed_text": "想"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0224",
+      "text": "把",
+      "observed_text": "把"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0225",
+      "text": "你",
+      "observed_text": "你"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0226",
+      "text": "抱",
+      "observed_text": "抱"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0228",
+      "text": "身",
+      "observed_text": "身"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0230",
+      "text": "里",
+      "observed_text": "里"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0231",
+      "text": "面",
+      "observed_text": "面"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0232",
+      "text": "不",
+      "observed_text": "不"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0233",
+      "text": "敢",
+      "observed_text": "敢"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0236",
+      "text": "看",
+      "observed_text": "看"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0242",
+      "text": "没",
+      "observed_text": "没"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0243",
+      "text": "落",
+      "observed_text": "落"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0244",
+      "text": "下",
+      "observed_text": "下"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0245",
+      "text": "的",
+      "observed_text": "的"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0246",
+      "text": "泪",
+      "observed_text": "泪"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0247",
+      "text": "如",
+      "observed_text": "如"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0248",
+      "text": "果",
+      "observed_text": "果"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0249",
+      "text": "这",
+      "observed_text": "这"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0250",
+      "text": "是",
+      "observed_text": "是"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0251",
+      "text": "最",
+      "observed_text": "最"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0252",
+      "text": "后",
+      "observed_text": "后"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0253",
+      "text": "的",
+      "observed_text": "的"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0254",
+      "text": "一",
+      "observed_text": "一"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0256",
+      "text": "在",
+      "observed_text": "在"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0257",
+      "text": "你",
+      "observed_text": "你"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0258",
+      "text": "离",
+      "observed_text": "离"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0259",
+      "text": "开",
+      "observed_text": "开"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0260",
+      "text": "之",
+      "observed_text": "之"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0261",
+      "text": "前",
+      "observed_text": "前"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0262",
+      "text": "能",
+      "observed_text": "能"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0263",
+      "text": "否",
+      "observed_text": "否"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0264",
+      "text": "让",
+      "observed_text": "让"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0265",
+      "text": "我",
+      "observed_text": "我"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0266",
+      "text": "把",
+      "observed_text": "把"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0267",
+      "text": "故",
+      "observed_text": "故"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0268",
+      "text": "事",
+      "observed_text": "事"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0269",
+      "text": "重",
+      "observed_text": "重"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0270",
+      "text": "写",
+      "observed_text": "写"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0271",
+      "text": "想",
+      "observed_text": "想"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0272",
+      "text": "把",
+      "observed_text": "把"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0273",
+      "text": "你",
+      "observed_text": "你"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0274",
+      "text": "抱",
+      "observed_text": "抱"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0276",
+      "text": "身",
+      "observed_text": "身"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0277",
+      "text": "体",
+      "observed_text": "体"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0278",
+      "text": "里",
+      "observed_text": "里"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0279",
+      "text": "面",
+      "observed_text": "面"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0280",
+      "text": "不",
+      "observed_text": "不"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0282",
+      "text": "让",
+      "observed_text": "让"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0283",
+      "text": "你",
+      "observed_text": "你"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0284",
+      "text": "看",
+      "observed_text": "看"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0285",
+      "text": "见",
+      "observed_text": "见"
+    },
+    {
+      "kind": "observation_residual_match",
+      "level": "residual_text",
+      "source": "asr",
+      "syllable_id": "s0293",
+      "text": "的",
+      "observed_text": "的"
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "詞",
+      "start_s": 2.3
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "曲",
+      "start_s": 3.26
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "李",
+      "start_s": 3.26
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "宗",
+      "start_s": 3.26
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "盛",
+      "start_s": 3.26
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "詞",
+      "start_s": 3.54
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "曲",
+      "start_s": 5.0
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "李",
+      "start_s": 5.52
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "宗",
+      "start_s": 5.52
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "盛",
+      "start_s": 5.52
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "已",
+      "start_s": 13.5
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "止",
+      "start_s": 14.86
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "間",
+      "start_s": 16.52
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "淚",
+      "start_s": 17.8
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "盤",
+      "start_s": 19.54
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "雪",
+      "start_s": 19.96
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "這",
+      "start_s": 20.38
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "許",
+      "start_s": 21.7
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "後",
+      "start_s": 22.85
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "見",
+      "start_s": 24.6
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "上",
+      "start_s": 42.6
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "温",
+      "start_s": 65.76
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "存",
+      "start_s": 66.3
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "着",
+      "start_s": 74.28
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "着",
+      "start_s": 79.34
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "最",
+      "start_s": 80.34
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "佳",
+      "start_s": 81.14
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "那",
+      "start_s": 81.48
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "颗",
+      "start_s": 81.8
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "没",
+      "start_s": 82.26
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "落",
+      "start_s": 82.86
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "下",
+      "start_s": 83.14
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "的",
+      "start_s": 83.52
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "脸",
+      "start_s": 83.92
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "如",
+      "start_s": 86.2
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "果",
+      "start_s": 86.67
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "是",
+      "start_s": 87.44
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "最",
+      "start_s": 87.74
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "的",
+      "start_s": 88.72
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "爱",
+      "start_s": 89.06
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "你",
+      "start_s": 89.38
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "在",
+      "start_s": 89.92
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "你",
+      "start_s": 91.32
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "离",
+      "start_s": 91.76
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "开",
+      "start_s": 92.08
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "之",
+      "start_s": 92.64
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "能",
+      "start_s": 93.98
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "否",
+      "start_s": 94.84
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "让",
+      "start_s": 95.18
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "我",
+      "start_s": 95.48
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "故",
+      "start_s": 96.54
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "事",
+      "start_s": 96.88
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "重",
+      "start_s": 97.36
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "你",
+      "start_s": 127.32
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "着",
+      "start_s": 128.2
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "坑",
+      "start_s": 129.06
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "戒",
+      "start_s": 138.04
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "练",
+      "start_s": 138.6
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "长",
+      "start_s": 150.54
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "久",
+      "start_s": 151.04
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "还",
+      "start_s": 154.7
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "悄",
+      "start_s": 155.7
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "能",
+      "start_s": 162.56
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "像",
+      "start_s": 162.86
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "上",
+      "start_s": 169.76
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "怀",
+      "start_s": 177.5
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "疑",
+      "start_s": 178.06
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "紧",
+      "start_s": 184.04
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "子",
+      "start_s": 184.62
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "容",
+      "start_s": 187.76
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "易",
+      "start_s": 188.09
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "脑",
+      "start_s": 191.2
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "壳",
+      "start_s": 191.54
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "夜",
+      "start_s": 199.44
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "住",
+      "start_s": 211.4
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "该",
+      "start_s": 214.88
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "醉",
+      "start_s": 217.54
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "酒",
+      "start_s": 218.34
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "间",
+      "start_s": 230.66
+    },
+    {
+      "kind": "observation_unused",
+      "level": "missing",
+      "source": "asr",
+      "text": "现",
+      "start_s": 235.38
+    }
+  ],
+  "observation_match_counts": {
+    "hfa.observation_missing": 3,
+    "hfa.observation_positional_fallback": 3,
+    "asr.observation_missing": 200,
+    "asr.observation_residual_match": 130,
+    "asr.observation_unused": 80
+  },
+  "observation_stage_counts": {
+    "observation_missing": 203,
+    "observation_positional_fallback": 3,
+    "observation_residual_match": 130,
+    "observation_unused": 80
+  },
+  "final_anchor_distribution": {
+    "hfa.exact_text": 315,
+    "hfa.positional": 3
+  },
+  "mapping_problems": [],
+  "ustx_problems": [],
+  "lyrics_problems": [],
+  "unresolved_notes": [],
+  "baseline_candidates": []
+}

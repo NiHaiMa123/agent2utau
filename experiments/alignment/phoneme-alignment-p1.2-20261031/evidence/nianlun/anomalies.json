@@ -1,0 +1,257 @@
+{
+  "song_id": "nianlun",
+  "clock_anomalies": [],
+  "clock_info": [
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0009",
+      "next_note_id": "n0010",
+      "gap_tick": 230,
+      "gap_s": 0.2396
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0016",
+      "next_note_id": "n0017",
+      "gap_tick": 183,
+      "gap_s": 0.1906
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0036",
+      "next_note_id": "n0037",
+      "gap_tick": 307,
+      "gap_s": 0.3198
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0049",
+      "next_note_id": "n0050",
+      "gap_tick": 58,
+      "gap_s": 0.0604
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0067",
+      "next_note_id": "n0068",
+      "gap_tick": 327,
+      "gap_s": 0.3406
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0096",
+      "next_note_id": "n0097",
+      "gap_tick": 221,
+      "gap_s": 0.2302
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0128",
+      "next_note_id": "n0129",
+      "gap_tick": 404,
+      "gap_s": 0.4208
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0181",
+      "next_note_id": "n0182",
+      "gap_tick": 77,
+      "gap_s": 0.0802
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0197",
+      "next_note_id": "n0198",
+      "gap_tick": 8832,
+      "gap_s": 9.2
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0254",
+      "next_note_id": "n0255",
+      "gap_tick": 1152,
+      "gap_s": 1.2
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0287",
+      "next_note_id": "n0288",
+      "gap_tick": 10,
+      "gap_s": 0.0104
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0300",
+      "next_note_id": "n0301",
+      "gap_tick": 96,
+      "gap_s": 0.1
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0382",
+      "next_note_id": "n0383",
+      "gap_tick": 13757,
+      "gap_s": 14.3302
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0385",
+      "next_note_id": "n0386",
+      "gap_tick": 7219,
+      "gap_s": 7.5198
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0448",
+      "next_note_id": "n0449",
+      "gap_tick": 336,
+      "gap_s": 0.35
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0460",
+      "next_note_id": "n0461",
+      "gap_tick": 970,
+      "gap_s": 1.0104
+    },
+    {
+      "kind": "gap",
+      "severity": "info",
+      "note_id": "n0467",
+      "next_note_id": "n0468",
+      "gap_tick": 39,
+      "gap_s": 0.0406
+    }
+  ],
+  "observation_anomalies": [
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0055",
+      "text": "有",
+      "line_index": 9
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0056",
+      "text": "缘",
+      "line_index": 9
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0069",
+      "text": "笨",
+      "line_index": 11
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0199",
+      "text": "有",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0200",
+      "text": "缘",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "level": "missing",
+      "source": "hfa",
+      "syllable_id": "s0213",
+      "text": "笨",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0055",
+      "text": "有",
+      "observed_text": "永"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0056",
+      "text": "缘",
+      "observed_text": "远"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0069",
+      "text": "笨",
+      "observed_text": "恨"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0199",
+      "text": "有",
+      "observed_text": "永"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0200",
+      "text": "缘",
+      "observed_text": "远"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "level": "positional",
+      "source": "hfa",
+      "syllable_id": "s0213",
+      "text": "笨",
+      "observed_text": "恨"
+    }
+  ],
+  "observation_match_counts": {
+    "hfa.observation_missing": 6,
+    "hfa.observation_positional_fallback": 6
+  },
+  "observation_stage_counts": {
+    "observation_missing": 6,
+    "observation_positional_fallback": 6
+  },
+  "final_anchor_distribution": {
+    "hfa.exact_text": 343,
+    "hfa.positional": 6
+  },
+  "mapping_problems": [],
+  "ustx_problems": [],
+  "lyrics_problems": [],
+  "unresolved_notes": [],
+  "baseline_candidates": []
+}

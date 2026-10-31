@@ -1,0 +1,30 @@
+{
+  "reference": "experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/nianlun/mapping.v1.json",
+  "reference_sha256": "46fe51cfe44896b397c59ef190bfa7411db0c2caa51f25ce16989a5126631792",
+  "changed_syllable_count": 2,
+  "changed": [
+    {
+      "syllable_id": "s0069",
+      "text": "笨",
+      "before_status": "unresolved",
+      "after_status": "mapped",
+      "before_note_ids": [],
+      "after_note_ids": [
+        "n0095"
+      ]
+    },
+    {
+      "syllable_id": "s0293",
+      "text": "轮",
+      "before_status": "mapped",
+      "after_status": "mapped",
+      "before_note_ids": [
+        "n0391",
+        "n0392"
+      ],
+      "after_note_ids": [
+        "n0391"
+      ]
+    }
+  ]
+}
