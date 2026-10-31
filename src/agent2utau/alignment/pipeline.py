@@ -141,6 +141,9 @@ def run_alignment(
 
     baseline_report = None
     verification = None
+    verification_passed = None
+    verification_identity: dict = {}
+    hard_verification: list[str] = []
     if baseline_ustx:
         baseline_report = write_baseline_ustx(
             segments, baseline_ustx, name=baseline_name or f"{song_id}_baseline")
@@ -149,20 +152,51 @@ def run_alignment(
         baseline_report["candidates"] = candidates
         baseline_report["ledger"] = build_ledger(segments)
         verification = verify_ustx_notes(baseline_ustx, baseline_report["ledger"])
+        verification_passed = bool(verification.get("one_to_one"))
+        verification_identity = {
+            "ustx": str(baseline_ustx),
+            "ustx_sha256": sha256_file(baseline_ustx),
+            "lyrics_sha256": sha256_file(lyrics_path),
+            "notes_sha256": sha256_file(game_path),
+        }
         missing = set(verification["missing_note_ids"])
         reported = {row["note_id"] for row in unresolved_notes}
         if missing != reported:
             mapping_problems.append(
                 "baseline: notes missing from the USTX do not match the reported illegal extends "
                 f"(missing={sorted(missing)}, reported={sorted(reported)})")
+        # P1.2.1-D: a verification failure is a hard problem (invalid), unless
+        # the note is one of the documented, intentionally excluded ones.
+        for note_id in verification.get("missing_note_ids") or []:
+            if note_id not in reported:
+                hard_verification.append(f"verification:missing_note:{note_id}")
+        for note_id in verification.get("shifted_note_ids") or []:
+            hard_verification.append(f"verification:shifted_note:{note_id}")
+        for note_id in verification.get("duration_changed_note_ids") or []:
+            hard_verification.append(f"verification:duration_changed:{note_id}")
+        for note_id in verification.get("retuned_note_ids") or []:
+            hard_verification.append(f"verification:retuned_note:{note_id}")
+        for note_id in verification.get("lyric_mismatch_note_ids") or []:
+            hard_verification.append(f"verification:lyric_mismatch:{note_id}")
+        for note_id in verification.get("illegal_extender_note_ids") or []:
+            hard_verification.append(f"verification:illegal_extender:{note_id}")
+        if verification.get("extra_note_count"):
+            hard_verification.append("verification:extra_notes")
+        for problem in verification.get("monotonicity_errors") or []:
+            hard_verification.append(f"verification:monotonicity:{problem}")
 
-    hard_problems = list(lyrics_problems) + list(mapping_problems) + list(row_problems)
+    hard_problems = (list(lyrics_problems) + list(mapping_problems) + list(row_problems)
+                     + hard_verification)
     hard_problems += [f"clock: {r['kind']} {r.get('note_id', '')}".strip() for r in clock_hard]
 
     unresolved_syllables = [row["syllable_id"] for row in mapping["mapping"]
                             if row["status"] == "unresolved"]
     review_required = [row["syllable_id"] for row in mapping["mapping"]
                        if row.get("review_required")]
+    if baseline_ustx is None:
+        # no written project and no USTX verification: the run must not claim
+        # to be valid (P1.2.1-D)
+        review_required.append("no_ustx_verification")
     anchor_distribution: dict[str, int] = {}
     for row in mapping["mapping"]:
         ev = row.get("evidence", {})
@@ -209,6 +243,9 @@ def run_alignment(
             "mapping_problems": mapping_problems,
             "ustx_problems": row_problems,
             "lyrics_problems": lyrics_problems,
+            "verification_problems": hard_verification,
+            "verification_passed": verification_passed,
+            "verification_identity": verification_identity,
             "unresolved_notes": unresolved_notes,
             "baseline_candidates": candidates,
         }),
@@ -233,6 +270,8 @@ def run_alignment(
         "unassigned_voiced_notes": [row["note_id"] for row in unassigned],
         "baseline": baseline_report,
         "baseline_verification": verification,
+        "verification_passed": verification_passed,
+        "verification_identity": verification_identity,
         "hard_problems": hard_problems,
         "problems": hard_problems,
         "files": written,

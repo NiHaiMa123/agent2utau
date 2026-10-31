@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "run_id": "phoneme-alignment-p1.2.1-20261031",
+  "baseline_run": "phoneme-alignment-p1.2-20261031",
+  "created_at": "2026-10-31T09:40:00+08:00",
+  "policy": "the P1.2 frozen observations are reused unchanged; only the status rules and the local gate were hardened",
+  "batch_status": "incomplete",
+  "songs": [
+    {
+      "song_id": "nianlun",
+      "title": "年轮",
+      "status": "incomplete",
+      "coverage": {
+        "syllable_total": 349,
+        "syllable_mapped": 344,
+        "syllable_unresolved": 5,
+        "coverage_ratio": 0.985673,
+        "success_ratio_excluding_unresolved": 0.985673,
+        "voiced_note_total": 400,
+        "voiced_note_assigned": 389,
+        "voiced_note_unassigned": 11
+      },
+      "verification_passed": true,
+      "verification_identity": {
+        "ustx": "E:\\project\\agent2utau\\runs\\production\\phoneme-alignment-p1.2.1-20261031\\nianlun\\baseline.ustx",
+        "ustx_sha256": "633803f7da31c459cc856c37093f6aa1067aa1ea60586eed1afff93057e52205",
+        "lyrics_sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253",
+        "notes_sha256": "64420f088857b05de78e59c6ac32d53eb234ee260ce625647aeefec4cff1b6ba"
+      },
+      "unresolved_syllable_ids": [
+        "s0296",
+        "s0305",
+        "s0315",
+        "s0320",
+        "s0330"
+      ],
+      "unassigned_voiced_notes": [
+        "n0384",
+        "n0385",
+        "n0392",
+        "n0403",
+        "n0416",
+        "n0418",
+        "n0427",
+        "n0438",
+        "n0450",
+        "n0465",
+        "n0466"
+      ],
+      "mapping_changed_vs_p1_2": [],
+      "hard_problems": [],
+      "frozen_inputs": {
+        "lyrics_locked.json": {
+          "source": "runs/production/phoneme-alignment-p1.2-20261031/nianlun/lyrics_locked.json",
+          "sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253"
+        },
+        "hfa": {
+          "path": "runs/production/nianlun-from-scratch-20261028/hfa/hfa_summary.json",
+          "sha256": "772dc07e4a92561fda73876457e18e3af8ec63f5970832f53d40e595d5f8cd5d"
+        },
+        "game.json": {
+          "path": "runs/production/nianlun-from-scratch-20261028/observation/game.json",
+          "sha256": "64420f088857b05de78e59c6ac32d53eb234ee260ce625647aeefec4cff1b6ba"
+        }
+      }
+    },
+    {
+      "song_id": "lastpage",
+      "title": "最后一页",
+      "status": "incomplete",
+      "coverage": {
+        "syllable_total": 318,
+        "syllable_mapped": 318,
+        "syllable_unresolved": 0,
+        "coverage_ratio": 1.0,
+        "success_ratio_excluding_unresolved": 1.0,
+        "voiced_note_total": 368,
+        "voiced_note_assigned": 367,
+        "voiced_note_unassigned": 1
+      },
+      "verification_passed": true,
+      "verification_identity": {
+        "ustx": "E:\\project\\agent2utau\\runs\\production\\phoneme-alignment-p1.2.1-20261031\\lastpage\\baseline.ustx",
+        "ustx_sha256": "993e175bb800dd588a7282c3cf4870f6180bb72d31fdee3ae1b4a89f26318e24",
+        "lyrics_sha256": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665",
+        "notes_sha256": "cf42217c5b877f01208b156c6d75cafc4524f260ac9b8988caa56af61994e9bc"
+      },
+      "unresolved_syllable_ids": [],
+      "unassigned_voiced_notes": [
+        "n0285"
+      ],
+      "mapping_changed_vs_p1_2": [],
+      "hard_problems": [],
+      "frozen_inputs": {
+        "lyrics_locked.json": {
+          "source": "runs/production/phoneme-alignment-p1.2-20261031/lastpage/lyrics_locked.json",
+          "sha256": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665"
+        },
+        "hfa": {
+          "path": "runs/production/zuihouyiye-from-scratch-20261027/hfa/hfa_summary.json",
+          "sha256": "3777ec0e988fdb423761ca3d2db2fbbf92d97d4e52aef9fdfd3dff1849e12bb5"
+        },
+        "game.json": {
+          "path": "runs/production/zuihouyiye-from-scratch-20261027/observation/game.json",
+          "sha256": "cf42217c5b877f01208b156c6d75cafc4524f260ac9b8988caa56af61994e9bc"
+        },
+        "asr": {
+          "path": "runs/lastpage_fresh_source_20261007/fresh_asr.json",
+          "sha256": "2a5805dd3ef1fd99dd69a53d8a00af69d8a95761bc7e8d2cd5a86435d7b262ed"
+        }
+      }
+    },
+    {
+      "song_id": "yuai",
+      "title": "雨爱",
+      "status": "incomplete",
+      "coverage": {
+        "syllable_total": 371,
+        "syllable_mapped": 366,
+        "syllable_unresolved": 5,
+        "coverage_ratio": 0.986523,
+        "success_ratio_excluding_unresolved": 0.986523,
+        "voiced_note_total": 425,
+        "voiced_note_assigned": 407,
+        "voiced_note_unassigned": 18
+      },
+      "verification_passed": true,
+      "verification_identity": {
+        "ustx": "E:\\project\\agent2utau\\runs\\production\\phoneme-alignment-p1.2.1-20261031\\yuai\\baseline.ustx",
+        "ustx_sha256": "81b9e043ebd595715d53ab30623ad1e17dc45519f259d0676e4318ed853cd152",
+        "lyrics_sha256": "bcccbcf4439e3c8e0b457b12d2ca53d0b03042e4569abc8ebedd5a3f881f64b9",
+        "notes_sha256": "af10c93395bb45f6b16e7e24f88b3ad9739ce2d115bb81521536dcd579a9669c"
+      },
+      "unresolved_syllable_ids": [
+        "s0026",
+        "s0077",
+        "s0109",
+        "s0165",
+        "s0273"
+      ],
+      "unassigned_voiced_notes": [
+        "n0078",
+        "n0084",
+        "n0134",
+        "n0139",
+        "n0141",
+        "n0190",
+        "n0210",
+        "n0211",
+        "n0212",
+        "n0213",
+        "n0292",
+        "n0352",
+        "n0353",
+        "n0356",
+        "n0409",
+        "n0465",
+        "n0477",
+        "n0478"
+      ],
+      "mapping_changed_vs_p1_2": [],
+      "hard_problems": [],
+      "frozen_inputs": {
+        "lyrics_locked.json": {
+          "source": "runs/production/phoneme-alignment-p1.2-20261031/yuai/lyrics_locked.json",
+          "sha256": "bcccbcf4439e3c8e0b457b12d2ca53d0b03042e4569abc8ebedd5a3f881f64b9"
+        },
+        "hfa_observations.json": {
+          "source": "runs/production/phoneme-alignment-p1.2-20261031/yuai/hfa_observations.json",
+          "sha256": "f10dc00238e8f5c3a580edc72ef772384331cb91c68cfcabccdf1daf08315487"
+        },
+        "game.json": {
+          "path": "runs/production/yuai-from-source-20261014/inputs/game.json",
+          "sha256": "af10c93395bb45f6b16e7e24f88b3ad9739ce2d115bb81521536dcd579a9669c"
+        }
+      }
+    }
+  ]
+}

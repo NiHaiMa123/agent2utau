@@ -1,0 +1,1015 @@
+{
+  "schema_version": 1,
+  "song_id": "yuai",
+  "count": 18,
+  "classification_counts": {
+    "candidate_melisma": 10,
+    "needs_alignment": 2,
+    "probable_false_positive": 2,
+    "rest_or_nonlead": 4
+  },
+  "unreviewed_count": 18,
+  "notes": [
+    {
+      "note_id": "n0078",
+      "index": 77,
+      "start_s": 50.87,
+      "end_s": 51.33,
+      "dur_s": 0.46,
+      "tone": 71.1905,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0077 of syllable s0058 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0077",
+        "rest": false,
+        "end_s": 50.87
+      },
+      "next_note": {
+        "note_id": "n0079",
+        "rest": false,
+        "start_s": 51.33
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0058",
+        "text": "弃"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "弃",
+          "start_s": 49.8652,
+          "end_s": 50.981,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "听",
+          "start_s": 51.2316,
+          "end_s": 51.4872,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0078:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0078 to syllable s0058 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0078:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0078",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0084",
+      "index": 83,
+      "start_s": 52.6,
+      "end_s": 52.84,
+      "dur_s": 0.24,
+      "tone": 67.3976,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0083 of syllable s0063 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0083",
+        "rest": false,
+        "end_s": 52.6
+      },
+      "next_note": {
+        "note_id": "n0085",
+        "rest": false,
+        "start_s": 52.84
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0063",
+        "text": "音"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "音",
+          "start_s": 52.1829,
+          "end_s": 52.6593,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "一",
+          "start_s": 52.7866,
+          "end_s": 52.949,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "滴",
+          "start_s": 52.949,
+          "end_s": 53.1241,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0084:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0084 to syllable s0063 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0084:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0084",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0134",
+      "index": 133,
+      "start_s": 71.33,
+      "end_s": 71.74,
+      "dur_s": 0.41,
+      "tone": 63.2919,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0133 of syllable s0104 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0133",
+        "rest": false,
+        "end_s": 71.33
+      },
+      "next_note": {
+        "note_id": "n0135",
+        "rest": false,
+        "start_s": 71.74
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0104",
+        "text": "我"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "我",
+          "start_s": 70.9383,
+          "end_s": 71.4263,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "勇",
+          "start_s": 71.624,
+          "end_s": 71.9831,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0134:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0134 to syllable s0104 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0134:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0134",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0139",
+      "index": 138,
+      "start_s": 73.21,
+      "end_s": 73.6,
+      "dur_s": 0.39,
+      "tone": 70.9997,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0138 of syllable s0108 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0138",
+        "rest": false,
+        "end_s": 73.21
+      },
+      "next_note": {
+        "note_id": "n0140",
+        "rest": false,
+        "start_s": 73.6
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0108",
+        "text": "Rai"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "nie",
+          "start_s": 73.4802,
+          "end_s": 73.9108,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0139:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0139 to syllable s0108 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0139:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0139",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0141",
+      "index": 140,
+      "start_s": 73.98,
+      "end_s": 74.8,
+      "dur_s": 0.82,
+      "tone": 70.9697,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0140",
+        "rest": false,
+        "end_s": 73.98
+      },
+      "next_note": {
+        "note_id": "n0142",
+        "rest": true,
+        "start_s": 74.8
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0110",
+        "text": "nie"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "Love",
+          "start_s": 73.9108,
+          "end_s": 75.3,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "nie",
+          "start_s": 73.4802,
+          "end_s": 73.9108,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0141:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0141 to syllable s0110 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0141:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0141",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0190",
+      "index": 189,
+      "start_s": 93.17,
+      "end_s": 93.49,
+      "dur_s": 0.32,
+      "tone": 63.7617,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0189 of syllable s0151 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0189",
+        "rest": false,
+        "end_s": 93.17
+      },
+      "next_note": {
+        "note_id": "n0191",
+        "rest": false,
+        "start_s": 93.49
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0151",
+        "text": "续"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "续",
+          "start_s": 92.922,
+          "end_s": 93.2034,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "我",
+          "start_s": 93.4334,
+          "end_s": 93.5855,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "相",
+          "start_s": 93.5855,
+          "end_s": 93.7948,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0190:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0190 to syllable s0151 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0190:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0190",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0210",
+      "index": 209,
+      "start_s": 121.13,
+      "end_s": 121.2,
+      "dur_s": 0.07,
+      "tone": 78.9171,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0209",
+        "rest": true,
+        "end_s": 121.13
+      },
+      "next_note": {
+        "note_id": "n0211",
+        "rest": false,
+        "start_s": 121.2
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0210:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0210",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0211",
+      "index": 210,
+      "start_s": 121.2,
+      "end_s": 121.25,
+      "dur_s": 0.05,
+      "tone": 80.0015,
+      "classification": "probable_false_positive",
+      "reason_code": "no_vocal_evidence_short_note",
+      "detail": "no HFA/ASR observation covers this 0.05 s note",
+      "previous_note": {
+        "note_id": "n0210",
+        "rest": false,
+        "end_s": 121.2
+      },
+      "next_note": {
+        "note_id": "n0212",
+        "rest": false,
+        "start_s": 121.25
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0211:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0211",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0212",
+      "index": 211,
+      "start_s": 121.25,
+      "end_s": 121.32,
+      "dur_s": 0.07,
+      "tone": 80.9628,
+      "classification": "probable_false_positive",
+      "reason_code": "no_vocal_evidence_short_note",
+      "detail": "no HFA/ASR observation covers this 0.07 s note",
+      "previous_note": {
+        "note_id": "n0211",
+        "rest": false,
+        "end_s": 121.25
+      },
+      "next_note": {
+        "note_id": "n0213",
+        "rest": false,
+        "start_s": 121.32
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0212:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0212",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0213",
+      "index": 212,
+      "start_s": 121.32,
+      "end_s": 121.41,
+      "dur_s": 0.09,
+      "tone": 81.8973,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0212",
+        "rest": false,
+        "end_s": 121.32
+      },
+      "next_note": {
+        "note_id": "n0214",
+        "rest": true,
+        "start_s": 121.41
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0213:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0213",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0292",
+      "index": 291,
+      "start_s": 158.42,
+      "end_s": 161.86,
+      "dur_s": 3.44,
+      "tone": 70.9703,
+      "classification": "rest_or_nonlead",
+      "reason_code": "no_vocal_evidence_next_to_rest",
+      "detail": "the note touches a rest and no singing covers it",
+      "previous_note": {
+        "note_id": "n0291",
+        "rest": false,
+        "end_s": 158.42
+      },
+      "next_note": {
+        "note_id": "n0293",
+        "rest": true,
+        "start_s": 161.91
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0221",
+        "text": "弃"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "弃",
+          "start_s": 157.8829,
+          "end_s": 159.0,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0292:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0292 to syllable s0221 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0292:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0292",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0352",
+      "index": 351,
+      "start_s": 184.3,
+      "end_s": 184.62,
+      "dur_s": 0.32,
+      "tone": 71.0157,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0351 of syllable s0271 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0351",
+        "rest": false,
+        "end_s": 184.3
+      },
+      "next_note": {
+        "note_id": "n0353",
+        "rest": false,
+        "start_s": 184.62
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0271",
+        "text": "Rai"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "Love",
+          "start_s": 184.7598,
+          "end_s": 185.8279,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "nie",
+          "start_s": 184.5142,
+          "end_s": 184.6183,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0352:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0352 to syllable s0271 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0352:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0352",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0353",
+      "index": 352,
+      "start_s": 184.62,
+      "end_s": 184.75,
+      "dur_s": 0.13,
+      "tone": 68.643,
+      "classification": "needs_alignment",
+      "reason_code": "vocal_evidence_outside_own_line",
+      "detail": "a vocal observation covers this note but it lies outside the line of the nearest syllable",
+      "previous_note": {
+        "note_id": "n0352",
+        "rest": false,
+        "end_s": 184.62
+      },
+      "next_note": {
+        "note_id": "n0354",
+        "rest": false,
+        "start_s": 184.75
+      },
+      "neighbour_syllable": null,
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "Love",
+          "start_s": 184.7598,
+          "end_s": 185.8279,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "nie",
+          "start_s": 184.5142,
+          "end_s": 184.6183,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0353:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0353",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0356",
+      "index": 355,
+      "start_s": 185.77,
+      "end_s": 186.34,
+      "dur_s": 0.57,
+      "tone": 70.9962,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0355 of syllable s0272 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0355",
+        "rest": false,
+        "end_s": 185.77
+      },
+      "next_note": {
+        "note_id": "n0357",
+        "rest": false,
+        "start_s": 186.34
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0272",
+        "text": "Love"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "Love",
+          "start_s": 184.7598,
+          "end_s": 185.8279,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "窗",
+          "start_s": 186.2257,
+          "end_s": 186.4578,
+          "level": "exact_token"
+        },
+        {
+          "source": "hfa",
+          "text": "外",
+          "start_s": 186.4578,
+          "end_s": 186.5257,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0356:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0356 to syllable s0272 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0356:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0356",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0409",
+      "index": 408,
+      "start_s": 206.35,
+      "end_s": 206.72,
+      "dur_s": 0.37,
+      "tone": 63.9432,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0408 of syllable s0319 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0408",
+        "rest": false,
+        "end_s": 206.35
+      },
+      "next_note": {
+        "note_id": "n0410",
+        "rest": false,
+        "start_s": 206.72
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0319",
+        "text": "将"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "会",
+          "start_s": 206.6369,
+          "end_s": 207.0088,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0409:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0409 to syllable s0319 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0409:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0409",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0465",
+      "index": 464,
+      "start_s": 230.32,
+      "end_s": 230.71,
+      "dur_s": 0.39,
+      "tone": 64.0733,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0464 of syllable s0363 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0464",
+        "rest": false,
+        "end_s": 230.32
+      },
+      "next_note": {
+        "note_id": "n0466",
+        "rest": false,
+        "start_s": 230.71
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0363",
+        "text": "将"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "会",
+          "start_s": 230.6235,
+          "end_s": 230.983,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0465:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0465 to syllable s0363 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0465:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0465",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0477",
+      "index": 476,
+      "start_s": 235.2,
+      "end_s": 237.05,
+      "dur_s": 1.85,
+      "tone": 63.9929,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0476 of syllable s0371 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0476",
+        "rest": false,
+        "end_s": 235.2
+      },
+      "next_note": {
+        "note_id": "n0478",
+        "rest": false,
+        "start_s": 237.05
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0371",
+        "text": "丽"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "丽",
+          "start_s": 234.3611,
+          "end_s": 237.1838,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0477:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0477 to syllable s0371 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0477:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0477",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    },
+    {
+      "note_id": "n0478",
+      "index": 477,
+      "start_s": 237.05,
+      "end_s": 237.51,
+      "dur_s": 0.46,
+      "tone": 64.0681,
+      "classification": "needs_alignment",
+      "reason_code": "vocal_evidence_without_owner",
+      "detail": "a vocal observation covers this note but no syllable owns it",
+      "previous_note": {
+        "note_id": "n0477",
+        "rest": false,
+        "end_s": 237.05
+      },
+      "next_note": null,
+      "neighbour_syllable": null,
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "丽",
+          "start_s": 234.3611,
+          "end_s": 237.1838,
+          "level": "exact_token"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0478:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0478",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    }
+  ]
+}

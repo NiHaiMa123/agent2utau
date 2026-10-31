@@ -77,6 +77,23 @@ SESSIONS = {
             "window_budget/window_budget.json",
         ],
     },
+    "phoneme-alignment-p1.2.1-20261031": {
+        "run": "phoneme-alignment-p1.2.1-20261031",
+        "files": [
+            "nianlun/lyrics_locked.json", "nianlun/notes_normalized.json",
+            "nianlun/mapping.v1.json", "nianlun/anomalies.json",
+            "nianlun/baseline_verification.json", "nianlun/unassigned_voiced_notes.json",
+            "lastpage/lyrics_locked.json", "lastpage/notes_normalized.json",
+            "lastpage/mapping.v1.json", "lastpage/anomalies.json",
+            "lastpage/baseline_verification.json", "lastpage/unassigned_voiced_notes.json",
+            "yuai/lyrics_locked.json", "yuai/notes_normalized.json",
+            "yuai/mapping.v1.json", "yuai/anomalies.json",
+            "yuai/baseline_verification.json", "yuai/unassigned_voiced_notes.json",
+            "yuai/hfa_observations.json",
+            "run_summary.json",
+            "local_gate.json",
+        ],
+    },
 }
 
 SKIP = {

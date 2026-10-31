@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "version": "2026-10-31.1",
+  "description": "Single source of truth for the decisions only the user can settle. Every gate entry point (CLI, session scripts, direct library calls) must load this file and pass it explicitly; a missing or mismatched file fails closed for production release.",
+  "frozen_input_sha256": "b858062bebdae40d69ed42d3df26f34487f0faa8f67e7e373092d2d29dee6762",
+  "frozen_inputs": {
+    "nianlun": {
+      "lyrics_locked.json": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253",
+      "notes_normalized.json": "869f74b14630ed37d935b41b1f114fd07a329faf2be93622fc1595a8b2acaf74"
+    },
+    "lastpage": {
+      "lyrics_locked.json": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665",
+      "notes_normalized.json": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6"
+    },
+    "yuai": {
+      "lyrics_locked.json": "bcccbcf4439e3c8e0b457b12d2ca53d0b03042e4569abc8ebedd5a3f881f64b9",
+      "notes_normalized.json": "600db958510c84668ea0ed80a43c338a3a4788c01e416d99740cde56bbdfcb32"
+    }
+  },
+  "decisions": [
+    {
+      "decision_id": "lastpage:n0060",
+      "song_id": "lastpage",
+      "kind": "note",
+      "target_id": "n0060",
+      "note_id": "n0060",
+      "status": "pending",
+      "reason": "GAME 把「淹」的辅音段切成了独立事件（43.57-43.76 s），HFA 显示原唱「淹」从 43.607 s 起唱。该音现在可以写进 USTX（作为「淹」的连音），但它在音乐上是否属于「淹」仍待确认；合并、提前或丢弃都会改变演唱。",
+      "scope": "lastpage:s0049,s0050 及相邻短句",
+      "source": "runs/production/phoneme-alignment-p1.2-20261031/lastpage/mapping.v1.json 与 HFA 观测",
+      "authorized_by": "",
+      "decided_at": "",
+      "input_sha256": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6"
+    },
+    {
+      "decision_id": "nianlun:s0059",
+      "song_id": "nianlun",
+      "kind": "syllable",
+      "target_id": "s0059",
+      "syllable_id": "s0059",
+      "status": "pending",
+      "reason": "公开歌词写「是有缘却无分」，录音的字听感可能是「份」。该位置的 syllable_id 由原始 canonical diff（unit_index=9, position=5）推出，不是猜的；锁定正文目前存的是公开歌词的「分」，需要人确认录音实际唱的是哪个字。",
+      "scope": "nianlun:s0059 所在句及其相邻短句",
+      "source": "runs/production/phoneme-alignment-p0p1-20261031/nianlun/lyrics_canonical_diff.json（unit_index=9, position=5）",
+      "authorized_by": "",
+      "decided_at": "",
+      "input_sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253"
+    },
+    {
+      "decision_id": "nianlun:s0203",
+      "song_id": "nianlun",
+      "kind": "syllable",
+      "target_id": "s0203",
+      "syllable_id": "s0203",
+      "status": "pending",
+      "reason": "同 s0059：副歌重复处的「份/分」用字待人工确认（原始 diff unit_index=31, position=5）。",
+      "scope": "nianlun:s0203 所在句及其相邻短句",
+      "source": "runs/production/phoneme-alignment-p0p1-20261031/nianlun/lyrics_canonical_diff.json（unit_index=31, position=5）",
+      "authorized_by": "",
+      "decided_at": "",
+      "input_sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253"
+    }
+  ]
+}

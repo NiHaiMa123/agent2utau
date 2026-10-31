@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "song_id": "lastpage",
+  "count": 1,
+  "classification_counts": {
+    "candidate_melisma": 1
+  },
+  "unreviewed_count": 1,
+  "notes": [
+    {
+      "note_id": "n0285",
+      "index": 284,
+      "start_s": 181.98,
+      "end_s": 182.5,
+      "dur_s": 0.52,
+      "tone": 67.905,
+      "classification": "candidate_melisma",
+      "reason_code": "adjacent_to_syllable_note",
+      "detail": "the note follows n0284 of syllable s0222 with no gap; it may be another note of the same syllable and needs a decision",
+      "previous_note": {
+        "note_id": "n0284",
+        "rest": false,
+        "end_s": 181.98
+      },
+      "next_note": {
+        "note_id": "n0286",
+        "rest": false,
+        "start_s": 182.5
+      },
+      "neighbour_syllable": {
+        "syllable_id": "s0222",
+        "text": "整"
+      },
+      "vocal_evidence": [
+        {
+          "source": "hfa",
+          "text": "整",
+          "start_s": 179.7714,
+          "end_s": 181.9909,
+          "level": "exact_text"
+        },
+        {
+          "source": "hfa",
+          "text": "想",
+          "start_s": 182.42,
+          "end_s": 182.8248,
+          "level": "exact_text"
+        },
+        {
+          "source": "asr",
+          "text": "想",
+          "start_s": 181.66,
+          "end_s": 182.66,
+          "level": "residual_text"
+        }
+      ],
+      "reviewed": false,
+      "candidates": [
+        {
+          "candidate_id": "unassigned:n0285:merge_into_syllable",
+          "option": "merge_into_syllable",
+          "effect": "give n0285 to syllable s0222 as a sustain",
+          "changes": [
+            "note_count",
+            "syllable_length"
+          ],
+          "requires_authorization": true,
+          "status": "candidate"
+        },
+        {
+          "candidate_id": "unassigned:n0285:repeat_character",
+          "option": "repeat_character",
+          "effect": "write the character again for n0285",
+          "changes": [
+            "lyrics"
+          ],
+          "requires_authorization": true,
+          "status": "forbidden_without_human"
+        }
+      ]
+    }
+  ]
+}

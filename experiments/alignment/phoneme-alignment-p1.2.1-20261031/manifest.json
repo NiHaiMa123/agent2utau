@@ -1,0 +1,78 @@
+{
+  "song_id": "cross-song",
+  "song_ids": ["nianlun", "lastpage", "yuai"],
+  "run_id": "phoneme-alignment-p1.2.1-20261031",
+  "session_id": "20261031-0940__minimax-m3.1f__phoneme-alignment-p1.2.1-20261031",
+  "started_at": "2026-10-31T09:35:00+08:00",
+  "produced_at": "2026-10-31T11:55:00+08:00",
+  "primary_model": "minimax-m3.1f",
+  "models_with_roles": [
+    { "model": "minimax-m3.1f", "role": "P1.2.1 A~E 的实现、执行与报告" }
+  ],
+  "model_evidence": ["本会话由 MiniMax-M3.1-Flash 单 Agent 执行"],
+  "version": "p1.2.1",
+  "scope": "plan.md「五点七、P1.2.1」A~E：真实相邻上下文、fail-closed 的 USTX 校验、统一版本化的未决清单、校验失败反馈到整曲状态、重新计算 16 个短句。**不重复实现 P1.2 的 A~E，不启动 P2。**",
+  "original_run_path": "runs/production/phoneme-alignment-p1.2.1-20261031",
+  "baseline_run": "runs/production/phoneme-alignment-p1.2-20261031",
+  "baseline_commit": "3b467b2",
+  "output_artifacts": [
+    { "path": "src/agent2utau/alignment/pending.py", "kind": "py", "local_only": false, "role": "未决清单的加载、校验与 fail-closed 规则" },
+    { "path": "src/agent2utau/alignment/gate.py", "kind": "py", "local_only": false, "role": "真实相邻上下文、逐 note 校验完备性、显式未决清单" },
+    { "path": "src/agent2utau/alignment/pipeline.py", "kind": "py", "local_only": false, "role": "校验失败并入 hard_problems、verification_passed 与身份绑定" },
+    { "path": "experiments/alignment/pending_decisions.json", "kind": "json", "local_only": false, "role": "单一版本化的未决清单（n0060、s0059、s0203），所有入口共享" },
+    { "path": "tests/unit/test_alignment_gate.py", "kind": "py", "local_only": false, "role": "真实上下文与 fail-closed 校验的失败注入回归" },
+    { "path": "tests/unit/test_alignment_pipeline_state.py", "kind": "py", "local_only": false, "role": "整曲状态反馈与校验身份" },
+    { "path": "tests/contracts/test_alignment_pending_decisions.py", "kind": "py", "local_only": false, "role": "共享清单契约：缺清单、SHA 失配、空但已授权、n0060、份/分" },
+    { "path": "experiments/alignment/phoneme-alignment-p1.2.1-20261031/scripts/build_p1_2_1_artifacts.py", "kind": "py", "local_only": false, "role": "冻结输入的三歌重跑与映射一致性比对" },
+    { "path": "experiments/alignment/phoneme-alignment-p1.2.1-20261031/scripts/build_local_gate_p121.py", "kind": "py", "local_only": false, "role": "16 段局部门禁重算" },
+    { "path": "experiments/alignment/phoneme-alignment-p1.2.1-20261031/reports/phoneme-alignment-p1.2.1-20261031.md", "kind": "md", "local_only": false, "role": "P1.2.1 报告" },
+    { "path": "runs/production/phoneme-alignment-p1.2.1-20261031/", "kind": "json", "local_only": true, "role": "新 run：局部门禁、三歌状态与校验摘要" }
+  ],
+  "tests_observed": {
+    "pytest": "391 passed（新增 29 项：局部门禁 24 + 整曲状态反馈 4 + 共享清单契约 7 的重叠部分）",
+    "cli_exit_codes": "通过；无 baseline 的运行不再被判为 valid（incomplete / 3）",
+    "repository_gate": "passed（索引与 --worktree 双模式）",
+    "mapping_stability": "三首歌重跑后与 P1.2 逐 syllable_id → note_ids 比对，0 处变化"
+  },
+  "native_verified": {
+    "native_phoneme_export": false,
+    "note": "本轮是纯 YAML 账本核对，不是 OpenUtau 原生音素导出；沿用 P1.1/P1.2 的真实 Core 探针结论",
+    "patch_writeback": "未做（属 P2）",
+    "render": "未做"
+  },
+  "listening_status": "unknown",
+  "batch_status": "incomplete",
+  "batch_exit_code": 3,
+  "local_gate": {
+    "segments": 16,
+    "ready_for_p2_native_baseline": 13,
+    "blocked": 3,
+    "p1_2_ready_count": 14,
+    "changed_segments": ["yuai-short_vowel"],
+    "blocked_segments": ["yuai-short_vowel", "lastpage-pending-n0060", "yuai-melisma"]
+  },
+  "pending_decisions": {
+    "path": "experiments/alignment/pending_decisions.json",
+    "sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+    "frozen_input_sha256": "b858062bebdae40d69ed42d3df26f34487f0faa8f67e7e373092d2d29dee6762",
+    "items": ["lastpage:n0060", "nianlun:s0059", "nianlun:s0203"]
+  },
+  "coverage": {
+    "nianlun": { "syllables": 349, "mapped": 344, "unresolved": 5, "verification_passed": true, "hard_problems": 0 },
+    "lastpage": { "syllables": 318, "mapped": 318, "unresolved": 0, "verification_passed": true, "hard_problems": 0 },
+    "yuai": { "syllables": 371, "mapped": 366, "unresolved": 5, "verification_passed": true, "hard_problems": 0 }
+  },
+  "status": "candidate",
+  "musical_quality": "unverified",
+  "open_questions": [
+    "《最后一页》n0060 的归属（合并进「淹」/ 提前贴上前音 / 另行处理）",
+    "《年轮》s0059、s0203 的「份/分」用字",
+    "生产 tone 取整口径（证据支持四舍五入，生产规则未改）",
+    "分句是否改用发行版",
+    "30 个未归属 voiced 音符仍待人工逐条复核"
+  ],
+  "related_reports": [
+    "experiments/alignment/phoneme-alignment-p1.2.1-20261031/reports/phoneme-alignment-p1.2.1-20261031.md",
+    "experiments/alignment/phoneme-alignment-p1.2-20261031/reports/phoneme-alignment-p1.2-20261031.md"
+  ]
+}

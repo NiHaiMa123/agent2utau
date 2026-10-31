@@ -1,0 +1,1383 @@
+{
+  "schema_version": 1,
+  "run_id": "phoneme-alignment-p1.2.1-20261031",
+  "baseline_run": "phoneme-alignment-p1.2-20261031",
+  "note": "local release only - the songs themselves stay incomplete; the P1.2 segment ids and target syllables are unchanged, only the verdict may change",
+  "segment_count": 16,
+  "ready_count": 13,
+  "blocked_count": 3,
+  "blocker_counts": {
+    "context_unresolved_syllable": 1,
+    "pending_note_decision": 1,
+    "unassigned_voiced_note_in_window": 1
+  },
+  "p1_2_ready_count": 14,
+  "p1_2_blocked_count": 2,
+  "changed_segments": [
+    "yuai-short_vowel"
+  ],
+  "pending_decisions_path": "experiments/alignment/pending_decisions.json",
+  "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+  "pending_decisions_error": null,
+  "pending_decision_ids": [
+    "lastpage:n0060",
+    "nianlun:s0059",
+    "nianlun:s0203"
+  ],
+  "verification_note": "pure YAML ledger check against the written project; this is NOT a native OpenUtau phoneme export",
+  "native_phoneme_export": false,
+  "segments": [
+    {
+      "segment_id": "nianlun-line_boundary",
+      "song_id": "nianlun",
+      "scenario": "line_boundary",
+      "target_syllable_ids": [
+        "s0029",
+        "s0030",
+        "s0031",
+        "s0032",
+        "s0033"
+      ],
+      "context_syllable_ids": [
+        "s0028",
+        "s0034"
+      ],
+      "context_detail": {
+        "left": "s0028",
+        "right": "s0034",
+        "at_song_boundary": false,
+        "status": {
+          "s0028": {
+            "status": "mapped",
+            "text": "的",
+            "review_required": false,
+            "note_ids": [
+              "n0042"
+            ]
+          },
+          "s0034": {
+            "status": "mapped",
+            "text": "了",
+            "review_required": false,
+            "note_ids": [
+              "n0051"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0043",
+        "n0044",
+        "n0046",
+        "n0047",
+        "n0048",
+        "n0049"
+      ],
+      "context_note_ids": [
+        "n0042",
+        "n0051"
+      ],
+      "text": "茂盛却遮住",
+      "start_s": 33.71,
+      "end_s": 36.35,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            4,
+            5
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "df6802b8e80973cfc42998442eb2b4a5539de763c8ac940f8cf6e2a8d87bc78e",
+        "lyrics_sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253",
+        "notes_sha256": "869f74b14630ed37d935b41b1f114fd07a329faf2be93622fc1595a8b2acaf74"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 6,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 8
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "nianlun-repeated_char",
+      "song_id": "nianlun",
+      "scenario": "repeated_char",
+      "target_syllable_ids": [
+        "s0007",
+        "s0008",
+        "s0009",
+        "s0010",
+        "s0011"
+      ],
+      "context_syllable_ids": [
+        "s0006",
+        "s0012"
+      ],
+      "context_detail": {
+        "left": "s0006",
+        "right": "s0012",
+        "at_song_boundary": false,
+        "status": {
+          "s0006": {
+            "status": "mapped",
+            "text": "指",
+            "review_required": false,
+            "note_ids": [
+              "n0007"
+            ]
+          },
+          "s0012": {
+            "status": "mapped",
+            "text": "嘴",
+            "review_required": false,
+            "note_ids": [
+              "n0019"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0008",
+        "n0011",
+        "n0012",
+        "n0013",
+        "n0014",
+        "n0015",
+        "n0018"
+      ],
+      "context_note_ids": [
+        "n0007",
+        "n0019"
+      ],
+      "text": "纹印在我的",
+      "start_s": 21.18,
+      "end_s": 24.05,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            0,
+            1
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "df6802b8e80973cfc42998442eb2b4a5539de763c8ac940f8cf6e2a8d87bc78e",
+        "lyrics_sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253",
+        "notes_sha256": "869f74b14630ed37d935b41b1f114fd07a329faf2be93622fc1595a8b2acaf74"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 7,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 9
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "nianlun-short_vowel",
+      "song_id": "nianlun",
+      "scenario": "short_vowel",
+      "target_syllable_ids": [
+        "s0091",
+        "s0092",
+        "s0093",
+        "s0094",
+        "s0095"
+      ],
+      "context_syllable_ids": [
+        "s0090",
+        "s0096"
+      ],
+      "context_detail": {
+        "left": "s0090",
+        "right": "s0096",
+        "at_song_boundary": false,
+        "status": {
+          "s0090": {
+            "status": "mapped",
+            "text": "是",
+            "review_required": false,
+            "note_ids": [
+              "n0124"
+            ]
+          },
+          "s0096": {
+            "status": "mapped",
+            "text": "圈",
+            "review_required": false,
+            "note_ids": [
+              "n0133"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0125",
+        "n0126",
+        "n0127",
+        "n0128",
+        "n0130",
+        "n0131",
+        "n0132"
+      ],
+      "context_note_ids": [
+        "n0124",
+        "n0133"
+      ],
+      "text": "年轮数着一",
+      "start_s": 67.76,
+      "end_s": 71.03,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            15,
+            16
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "df6802b8e80973cfc42998442eb2b4a5539de763c8ac940f8cf6e2a8d87bc78e",
+        "lyrics_sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253",
+        "notes_sha256": "869f74b14630ed37d935b41b1f114fd07a329faf2be93622fc1595a8b2acaf74"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 7,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 9
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "nianlun-melisma",
+      "song_id": "nianlun",
+      "scenario": "melisma",
+      "target_syllable_ids": [
+        "s0067",
+        "s0068",
+        "s0069",
+        "s0070",
+        "s0071"
+      ],
+      "context_syllable_ids": [
+        "s0066",
+        "s0072"
+      ],
+      "context_detail": {
+        "left": "s0066",
+        "right": "s0072",
+        "at_song_boundary": false,
+        "status": {
+          "s0066": {
+            "status": "mapped",
+            "text": "疼",
+            "review_required": false,
+            "note_ids": [
+              "n0090"
+            ]
+          },
+          "s0072": {
+            "status": "mapped",
+            "text": "丛",
+            "review_required": false,
+            "note_ids": [
+              "n0101"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0092",
+        "n0093",
+        "n0094",
+        "n0095",
+        "n0098",
+        "n0099",
+        "n0100"
+      ],
+      "context_note_ids": [
+        "n0090",
+        "n0101"
+      ],
+      "text": "我的笨荒草",
+      "start_s": 54.35,
+      "end_s": 58.48,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            11,
+            12
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "df6802b8e80973cfc42998442eb2b4a5539de763c8ac940f8cf6e2a8d87bc78e",
+        "lyrics_sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253",
+        "notes_sha256": "869f74b14630ed37d935b41b1f114fd07a329faf2be93622fc1595a8b2acaf74"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 7,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 9
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "nianlun-rest_before",
+      "song_id": "nianlun",
+      "scenario": "rest_before",
+      "target_syllable_ids": [
+        "s0042",
+        "s0043",
+        "s0044",
+        "s0045",
+        "s0046"
+      ],
+      "context_syllable_ids": [
+        "s0041",
+        "s0047"
+      ],
+      "context_detail": {
+        "left": "s0041",
+        "right": "s0047",
+        "at_song_boundary": false,
+        "status": {
+          "s0041": {
+            "status": "mapped",
+            "text": "一",
+            "review_required": false,
+            "note_ids": [
+              "n0059"
+            ]
+          },
+          "s0047": {
+            "status": "mapped",
+            "text": "世",
+            "review_required": false,
+            "note_ids": [
+              "n0069"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0060",
+        "n0061",
+        "n0063",
+        "n0064",
+        "n0065",
+        "n0066",
+        "n0067"
+      ],
+      "context_note_ids": [
+        "n0059",
+        "n0069"
+      ],
+      "text": "个人等清晨",
+      "start_s": 40.26,
+      "end_s": 43.79,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            6,
+            7
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "df6802b8e80973cfc42998442eb2b4a5539de763c8ac940f8cf6e2a8d87bc78e",
+        "lyrics_sha256": "48feca876cc182e6525b3d567e31d2ac3d3527881c53d4c83447352d7b2b9253",
+        "notes_sha256": "869f74b14630ed37d935b41b1f114fd07a329faf2be93622fc1595a8b2acaf74"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 7,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 9
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "lastpage-early_attack",
+      "song_id": "lastpage",
+      "scenario": "early_attack",
+      "target_syllable_ids": [
+        "s0015",
+        "s0016",
+        "s0017",
+        "s0018",
+        "s0019"
+      ],
+      "context_syllable_ids": [
+        "s0014",
+        "s0020"
+      ],
+      "context_detail": {
+        "left": "s0014",
+        "right": "s0020",
+        "at_song_boundary": false,
+        "status": {
+          "s0014": {
+            "status": "mapped",
+            "text": "旋",
+            "review_required": false,
+            "note_ids": [
+              "n0015",
+              "n0016"
+            ]
+          },
+          "s0020": {
+            "status": "mapped",
+            "text": "后",
+            "review_required": false,
+            "note_ids": [
+              "n0023"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0018",
+        "n0019",
+        "n0020",
+        "n0021",
+        "n0022"
+      ],
+      "context_note_ids": [
+        "n0015",
+        "n0016",
+        "n0023"
+      ],
+      "text": "这也许是最",
+      "start_s": 21.11,
+      "end_s": 23.24,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "40a2348dbc37e04166c8bfcb3aa5807ed0f9abe901295b76729c7de79ed4f3cc",
+        "lyrics_sha256": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665",
+        "notes_sha256": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 5,
+        "context_syllable_count": 2,
+        "context_note_count": 3,
+        "verified_note_count": 8
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "lastpage-one_char_one_note",
+      "song_id": "lastpage",
+      "scenario": "one_char_one_note",
+      "target_syllable_ids": [
+        "s0001",
+        "s0002",
+        "s0003"
+      ],
+      "context_syllable_ids": [
+        "s0004"
+      ],
+      "context_detail": {
+        "left": null,
+        "right": "s0004",
+        "at_song_boundary": true,
+        "status": {
+          "s0004": {
+            "status": "mapped",
+            "text": "天",
+            "review_required": false,
+            "note_ids": [
+              "n0005"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0002",
+        "n0003",
+        "n0004"
+      ],
+      "context_note_ids": [
+        "n0005"
+      ],
+      "text": "雨停滞",
+      "start_s": 14.29,
+      "end_s": 15.55,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "40a2348dbc37e04166c8bfcb3aa5807ed0f9abe901295b76729c7de79ed4f3cc",
+        "lyrics_sha256": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665",
+        "notes_sha256": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 3,
+        "target_note_count": 3,
+        "context_syllable_count": 1,
+        "context_note_count": 1,
+        "verified_note_count": 4
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "lastpage-polyphone",
+      "song_id": "lastpage",
+      "scenario": "polyphone",
+      "target_syllable_ids": [
+        "s0105",
+        "s0106",
+        "s0107",
+        "s0108",
+        "s0109"
+      ],
+      "context_syllable_ids": [
+        "s0104",
+        "s0110"
+      ],
+      "context_detail": {
+        "left": "s0104",
+        "right": "s0110",
+        "at_song_boundary": false,
+        "status": {
+          "s0104": {
+            "status": "mapped",
+            "text": "角",
+            "review_required": false,
+            "note_ids": [
+              "n0132"
+            ]
+          },
+          "s0110": {
+            "status": "mapped",
+            "text": "的",
+            "review_required": false,
+            "note_ids": [
+              "n0139"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0133",
+        "n0134",
+        "n0135",
+        "n0136",
+        "n0137",
+        "n0138"
+      ],
+      "context_note_ids": [
+        "n0132",
+        "n0139"
+      ],
+      "text": "那颗没落下",
+      "start_s": 81.59,
+      "end_s": 83.72,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "40a2348dbc37e04166c8bfcb3aa5807ed0f9abe901295b76729c7de79ed4f3cc",
+        "lyrics_sha256": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665",
+        "notes_sha256": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 6,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 8
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "lastpage-line_boundary",
+      "song_id": "lastpage",
+      "scenario": "line_boundary",
+      "target_syllable_ids": [
+        "s0023",
+        "s0024",
+        "s0025",
+        "s0026",
+        "s0027"
+      ],
+      "context_syllable_ids": [
+        "s0022",
+        "s0028"
+      ],
+      "context_detail": {
+        "left": "s0022",
+        "right": "s0028",
+        "at_song_boundary": false,
+        "status": {
+          "s0022": {
+            "status": "mapped",
+            "text": "次",
+            "review_required": false,
+            "note_ids": [
+              "n0025"
+            ]
+          },
+          "s0028": {
+            "status": "mapped",
+            "text": "过",
+            "review_required": false,
+            "note_ids": [
+              "n0032"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0026",
+        "n0027",
+        "n0029",
+        "n0030",
+        "n0031"
+      ],
+      "context_note_ids": [
+        "n0025",
+        "n0032"
+      ],
+      "text": "见面沿途经",
+      "start_s": 24.94,
+      "end_s": 29.21,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            2,
+            3
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "40a2348dbc37e04166c8bfcb3aa5807ed0f9abe901295b76729c7de79ed4f3cc",
+        "lyrics_sha256": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665",
+        "notes_sha256": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 5,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 7
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "lastpage-repeated_char",
+      "song_id": "lastpage",
+      "scenario": "repeated_char",
+      "target_syllable_ids": [
+        "s0007",
+        "s0008",
+        "s0009",
+        "s0010",
+        "s0011"
+      ],
+      "context_syllable_ids": [
+        "s0006",
+        "s0012"
+      ],
+      "context_detail": {
+        "left": "s0006",
+        "right": "s0012",
+        "at_song_boundary": false,
+        "status": {
+          "s0006": {
+            "status": "mapped",
+            "text": "之",
+            "review_required": false,
+            "note_ids": [
+              "n0007"
+            ]
+          },
+          "s0012": {
+            "status": "mapped",
+            "text": "眶",
+            "review_required": false,
+            "note_ids": [
+              "n0013"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0008",
+        "n0009",
+        "n0010",
+        "n0011",
+        "n0012"
+      ],
+      "context_note_ids": [
+        "n0007",
+        "n0013"
+      ],
+      "text": "间像泪在眼",
+      "start_s": 16.82,
+      "end_s": 19.37,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            0,
+            1
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "40a2348dbc37e04166c8bfcb3aa5807ed0f9abe901295b76729c7de79ed4f3cc",
+        "lyrics_sha256": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665",
+        "notes_sha256": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 5,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 7
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "yuai-melisma",
+      "song_id": "yuai",
+      "scenario": "melisma",
+      "target_syllable_ids": [
+        "s0061",
+        "s0062",
+        "s0063",
+        "s0064",
+        "s0065"
+      ],
+      "context_syllable_ids": [
+        "s0060",
+        "s0066"
+      ],
+      "context_detail": {
+        "left": "s0060",
+        "right": "s0066",
+        "at_song_boundary": false,
+        "status": {
+          "s0060": {
+            "status": "mapped",
+            "text": "雨",
+            "review_required": false,
+            "note_ids": [
+              "n0080"
+            ]
+          },
+          "s0066": {
+            "status": "mapped",
+            "text": "滴",
+            "review_required": false,
+            "note_ids": [
+              "n0087"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0081",
+        "n0082",
+        "n0083",
+        "n0085",
+        "n0086"
+      ],
+      "context_note_ids": [
+        "n0080",
+        "n0087"
+      ],
+      "text": "的声音一滴",
+      "start_s": 51.68,
+      "end_s": 53.17,
+      "local_gate": "blocked",
+      "blocked_reason": "unassigned_voiced_note_in_window(n0084)",
+      "blocker_codes": [
+        "unassigned_voiced_note_in_window"
+      ],
+      "blockers": [
+        {
+          "code": "unassigned_voiced_note_in_window",
+          "note_id": "n0084",
+          "classification": "candidate_melisma",
+          "detail": "the note follows n0083 of syllable s0063 with no gap; it may be another note of the same syllable and needs a decision"
+        }
+      ],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            11,
+            12
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "352e38d3c89bc9205f6e064882fabea2395901e667977bfd06ea0d209ead9d5f",
+        "lyrics_sha256": "bcccbcf4439e3c8e0b457b12d2ca53d0b03042e4569abc8ebedd5a3f881f64b9",
+        "notes_sha256": "600db958510c84668ea0ed80a43c338a3a4788c01e416d99740cde56bbdfcb32"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 5,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 7
+      },
+      "p1_2_gate": "blocked",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "yuai-rest_before",
+      "song_id": "yuai",
+      "scenario": "rest_before",
+      "target_syllable_ids": [
+        "s0053",
+        "s0054",
+        "s0055",
+        "s0056",
+        "s0057"
+      ],
+      "context_syllable_ids": [
+        "s0052",
+        "s0058"
+      ],
+      "context_detail": {
+        "left": "s0052",
+        "right": "s0058",
+        "at_song_boundary": false,
+        "status": {
+          "s0052": {
+            "status": "mapped",
+            "text": "在",
+            "review_required": false,
+            "note_ids": [
+              "n0070"
+            ]
+          },
+          "s0058": {
+            "status": "mapped",
+            "text": "弃",
+            "review_required": false,
+            "note_ids": [
+              "n0077"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0071",
+        "n0072",
+        "n0074",
+        "n0075",
+        "n0076"
+      ],
+      "context_note_ids": [
+        "n0070",
+        "n0077"
+      ],
+      "text": "心里学会放",
+      "start_s": 47.23,
+      "end_s": 50.0,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            9,
+            10
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "352e38d3c89bc9205f6e064882fabea2395901e667977bfd06ea0d209ead9d5f",
+        "lyrics_sha256": "bcccbcf4439e3c8e0b457b12d2ca53d0b03042e4569abc8ebedd5a3f881f64b9",
+        "notes_sha256": "600db958510c84668ea0ed80a43c338a3a4788c01e416d99740cde56bbdfcb32"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 5,
+        "context_syllable_count": 2,
+        "context_note_count": 2,
+        "verified_note_count": 7
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "yuai-early_attack",
+      "song_id": "yuai",
+      "scenario": "early_attack",
+      "target_syllable_ids": [
+        "s0015",
+        "s0016",
+        "s0017",
+        "s0018",
+        "s0019"
+      ],
+      "context_syllable_ids": [
+        "s0014",
+        "s0020"
+      ],
+      "context_detail": {
+        "left": "s0014",
+        "right": "s0020",
+        "at_song_boundary": false,
+        "status": {
+          "s0014": {
+            "status": "mapped",
+            "text": "情",
+            "review_required": false,
+            "note_ids": [
+              "n0022",
+              "n0023"
+            ]
+          },
+          "s0020": {
+            "status": "mapped",
+            "text": "我",
+            "review_required": false,
+            "note_ids": [
+              "n0033",
+              "n0034"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0026",
+        "n0027",
+        "n0028",
+        "n0031",
+        "n0032"
+      ],
+      "context_note_ids": [
+        "n0022",
+        "n0023",
+        "n0033",
+        "n0034"
+      ],
+      "text": "下雨了雨陪",
+      "start_s": 26.75,
+      "end_s": 29.38,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [
+        {
+          "code": "cross_line_segment",
+          "lines": [
+            2,
+            3
+          ],
+          "detail": "the segment crosses a lyric line; the shared context of the two lines must be kept when editing"
+        }
+      ],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "352e38d3c89bc9205f6e064882fabea2395901e667977bfd06ea0d209ead9d5f",
+        "lyrics_sha256": "bcccbcf4439e3c8e0b457b12d2ca53d0b03042e4569abc8ebedd5a3f881f64b9",
+        "notes_sha256": "600db958510c84668ea0ed80a43c338a3a4788c01e416d99740cde56bbdfcb32"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 5,
+        "context_syllable_count": 2,
+        "context_note_count": 4,
+        "verified_note_count": 9
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "yuai-one_char_one_note",
+      "song_id": "yuai",
+      "scenario": "one_char_one_note",
+      "target_syllable_ids": [
+        "s0001",
+        "s0002",
+        "s0003"
+      ],
+      "context_syllable_ids": [
+        "s0004"
+      ],
+      "context_detail": {
+        "left": null,
+        "right": "s0004",
+        "at_song_boundary": true,
+        "status": {
+          "s0004": {
+            "status": "mapped",
+            "text": "天",
+            "review_required": false,
+            "note_ids": [
+              "n0006"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0002",
+        "n0003",
+        "n0004",
+        "n0005"
+      ],
+      "context_note_ids": [
+        "n0006"
+      ],
+      "text": "窗外的",
+      "start_s": 16.68,
+      "end_s": 18.17,
+      "local_gate": "ready_for_p2_native_baseline",
+      "blocked_reason": "",
+      "blocker_codes": [],
+      "blockers": [],
+      "cautions": [],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "352e38d3c89bc9205f6e064882fabea2395901e667977bfd06ea0d209ead9d5f",
+        "lyrics_sha256": "bcccbcf4439e3c8e0b457b12d2ca53d0b03042e4569abc8ebedd5a3f881f64b9",
+        "notes_sha256": "600db958510c84668ea0ed80a43c338a3a4788c01e416d99740cde56bbdfcb32"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 3,
+        "target_note_count": 4,
+        "context_syllable_count": 1,
+        "context_note_count": 1,
+        "verified_note_count": 5
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": false
+    },
+    {
+      "segment_id": "yuai-short_vowel",
+      "song_id": "yuai",
+      "scenario": "short_vowel",
+      "target_syllable_ids": [
+        "s0027",
+        "s0028",
+        "s0029",
+        "s0030"
+      ],
+      "context_syllable_ids": [
+        "s0026",
+        "s0031"
+      ],
+      "context_detail": {
+        "left": "s0026",
+        "right": "s0031",
+        "at_song_boundary": false,
+        "status": {
+          "s0026": {
+            "status": "unresolved",
+            "text": "我",
+            "review_required": false,
+            "note_ids": []
+          },
+          "s0031": {
+            "status": "mapped",
+            "text": "清",
+            "review_required": false,
+            "note_ids": [
+              "n0046"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0042",
+        "n0043",
+        "n0044",
+        "n0045"
+      ],
+      "context_note_ids": [
+        "n0046"
+      ],
+      "text": "也不想看",
+      "start_s": 35.39,
+      "end_s": 37.28,
+      "local_gate": "blocked",
+      "blocked_reason": "context_unresolved_syllable(s0026)",
+      "blocker_codes": [
+        "context_unresolved_syllable"
+      ],
+      "blockers": [
+        {
+          "code": "context_unresolved_syllable",
+          "syllable_id": "s0026",
+          "text": "我",
+          "detail": "the neighbouring syllable is unresolved; the segment shares its phoneme context"
+        }
+      ],
+      "cautions": [],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "352e38d3c89bc9205f6e064882fabea2395901e667977bfd06ea0d209ead9d5f",
+        "lyrics_sha256": "bcccbcf4439e3c8e0b457b12d2ca53d0b03042e4569abc8ebedd5a3f881f64b9",
+        "notes_sha256": "600db958510c84668ea0ed80a43c338a3a4788c01e416d99740cde56bbdfcb32"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 4,
+        "target_note_count": 4,
+        "context_syllable_count": 2,
+        "context_note_count": 1,
+        "verified_note_count": 5
+      },
+      "p1_2_gate": "ready_for_p2_native_baseline",
+      "gate_changed": true
+    },
+    {
+      "segment_id": "lastpage-pending-n0060",
+      "song_id": "lastpage",
+      "scenario": "pending_note_decision",
+      "target_syllable_ids": [
+        "s0048",
+        "s0049",
+        "s0050",
+        "s0051",
+        "s0052"
+      ],
+      "context_syllable_ids": [
+        "s0047",
+        "s0053"
+      ],
+      "context_detail": {
+        "left": "s0047",
+        "right": "s0053",
+        "at_song_boundary": false,
+        "status": {
+          "s0047": {
+            "status": "mapped",
+            "text": "海",
+            "review_required": false,
+            "note_ids": [
+              "n0057"
+            ]
+          },
+          "s0053": {
+            "status": "mapped",
+            "text": "离",
+            "review_required": false,
+            "note_ids": [
+              "n0064",
+              "n0065"
+            ]
+          }
+        }
+      },
+      "note_ids": [
+        "n0058",
+        "n0059",
+        "n0060",
+        "n0061",
+        "n0062",
+        "n0063"
+      ],
+      "context_note_ids": [
+        "n0057",
+        "n0064",
+        "n0065"
+      ],
+      "text": "潮声淹没了",
+      "start_s": 42.47,
+      "end_s": 45.11,
+      "local_gate": "blocked",
+      "blocked_reason": "pending_note_decision(n0060)",
+      "blocker_codes": [
+        "pending_note_decision"
+      ],
+      "blockers": [
+        {
+          "code": "pending_note_decision",
+          "decision_id": "lastpage:n0060",
+          "note_id": "n0060",
+          "detail": "GAME 把「淹」的辅音段切成了独立事件（43.57-43.76 s），HFA 显示原唱「淹」从 43.607 s 起唱。该音现在可以写进 USTX（作为「淹」的连音），但它在音乐上是否属于「淹」仍待确认；合并、提前或丢弃都会改变演唱。"
+        }
+      ],
+      "cautions": [],
+      "verification_complete": true,
+      "verification_identity": {
+        "ustx_sha256": "40a2348dbc37e04166c8bfcb3aa5807ed0f9abe901295b76729c7de79ed4f3cc",
+        "lyrics_sha256": "35c1495a386e8dc44dcb28d602a8eeb633fa94b7cc07ec3ec9a5c813d064a665",
+        "notes_sha256": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6"
+      },
+      "pending_decisions_sha256": "75499597375d0663229bfbdb6275f9a54bdbdc03155bbd39080c5da923530419",
+      "global_pending": [
+        "the MIDI rounding of the GAME tone (truncate vs round) is still open; the segment's tick and identity gate hold, but a note's tone may move by one semitone when the decision is made",
+        "the line breaks follow the recording, not the release edition"
+      ],
+      "release_evidence": {
+        "target_syllable_count": 5,
+        "target_note_count": 6,
+        "context_syllable_count": 2,
+        "context_note_count": 3,
+        "verified_note_count": 9
+      },
+      "p1_2_gate": "blocked",
+      "gate_changed": false
+    }
+  ]
+}
