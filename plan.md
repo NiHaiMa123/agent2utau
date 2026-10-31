@@ -1,10 +1,10 @@
 # agent2utau 当前实施计划：自动音高 + 稳定音素对齐
 
-更新：2026-10-31（P0/P1 代码审查后）。**这是目前唯一的执行计划，目标是让 MiniMax / DeepSeek 也能可靠完成歌词、音符、音素时间修正。当前执行阶段：P1.1 修复与门禁；通过后再启动 P2。**
+更新：2026-10-31（P1.1 交付复核后）。**这是目前唯一的执行计划，目标是让 MiniMax / DeepSeek 稳定完成歌词、音符、音素时间修正。当前执行阶段：P1.2 定向修复；完成局部门禁后，允许另开独立 run 进行 P2 短句试点，不必等待整首歌全部 unresolved 由人工清零。**
 
-> **最新真实基线：**仓库 main 截至审查版本 `9e5435a7ddac9c1af2ed3925abe692ba3703cf0c`，MiniMax 已提交 P0/P1 初版，包括 `src/agent2utau/alignment/`、`agent2utau align-lyrics`、Schema、单元/契约测试及三首歌的本机实验报告。**P0/P1 的代码存在不代表验收通过**：共 1,038 字，映射 1,029、unresolved 9；《最后一页》另有一处已映射的 `+` 音符在 baseline 构建时被丢弃。**这些数字是映射覆盖，不是人工正确率，也不是音素准确率。**报告：[P0/P1 实施记录](experiments/alignment/phoneme-alignment-p0p1-20261031/reports/phoneme-alignment-p0p1-20261031.md)。
+> **已完成阶段与审查事实：**截至仓库 `02628796e714874cd049f3d4598d69a99f6802ca`，MiniMax 已完成 P0/P1 初版与 P1.1 的 A～G 代码/报告，包括状态机、非法延音探针、观测分级、GAME 稳定性调查、三首歌回归及 40 个 scratch 历史文件的原字节归档。P1.1 报告称本机 **336 passed**；该数量不是独立质量验收。三首歌均仍是 `incomplete`：年轮 343/349 字（6 unresolved，11 个 voiced GAME 音符未归属）、最后一页 318/318 字（`n0060` 不能合法写为 `+`，工程缺此音符）、雨爱 366/371 字（5 unresolved，12 个 voiced GAME 音符未归属）。**映射覆盖不等于音符时间准确，也不等于音素可用。**报告：[P1.1 修复记录](experiments/alignment/phoneme-alignment-p1.1-20261031/reports/phoneme-alignment-p1.1-20261031.md)，[证据目录](experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/)。
 >
-> **给执行 Agent 的范围锁：下一轮只完成本文件新增的「P1.1」，不先做 P2 音素 patch、P3 模型调参、自动音高修订或混音。**P1.1 以有限修改、独立回归和完整失败记录为原则。
+> **当前范围锁：仅执行新增「P1.2」的代码/验证任务。**P1.1 为历史实施记录，不再按其旧提示词重新跑一遍。P1.2 达到本计划的局部门禁后，**可以在下一个独立任务**选择 10～20 条安全短句开始 P2 原生音素试点；`n0060` 等未决句必须继续隔离，不能混入 `valid` 样本。
 
 ## 一、目标、优先级与已知事实
 
@@ -14,7 +14,7 @@
 |---|---|---|
 | 人声分离 | 沿用现有分离工具，保留原伴奏 | 需要记录源偏移、分离质量 |
 | GAME | 产生音符事件（时间、tone、voiced） | 不是歌词字界，也不是逐帧 F0 |
-| 歌词/音符/音素 | **当前 P1.1 最高优先级**：修复 P0/P1 映射缺陷与失败门禁，之后才进入 P2/P3 | 已有 P0/P1 初版和三首歌统计，**音素 patch 尚未实现** |
+| 歌词/音符/音素 | **当前 P1.2 定向修复**：行为正确性、合法候选、真实 USTX 时间校验、未分配音符审计；通过局部验收后开启 P2 短句试点 | P1.1 已交付，三首歌仍 incomplete；**音素 patch 尚未实现** |
 | 音高 | 用泠鸢 DiffSinger 自动 pitch，保留正确 MIDI tone；不默认画 PITD | 需要检查旧人工曲线没有叠加 |
 | VOIC/BREC/TENC/DYN/PEXP/CLR | 暂用声库默认预测，不默认让 Agent 改 | 以后只做单因素 A/B 实验 |
 | 混音 | 先原伴奏 + 人声固定增益，确认无削波/错位 | 全自动混音/母带待定 |
@@ -58,7 +58,7 @@ Agent 按 5～15 字窗口选择 candidate_id，或 unresolved
 
 **已在 P0/P1 初版中新增：**
 - `src/agent2utau/alignment/` 中的 `lyrics.py`、`notes.py`、`observations.py`、`canonical.py`、`candidates.py`、`validator.py`、`baseline.py`、`pipeline.py`。
-- `schemas/alignment_evidence_v1.schema.json`、`tests/unit/test_alignment_{lyrics,notes,mapping,canonical}.py`、`tests/contracts/test_alignment_evidence.py`；以及 `agent2utau align-lyrics` 命令。这些是现有实现，仍须执行下文 P1.1 回归。
+- `schemas/alignment_evidence_v1.schema.json`、`tests/unit/test_alignment_{lyrics,notes,mapping,canonical}.py`、`tests/contracts/test_alignment_evidence.py`、`agent2utau align-lyrics` 命令。P1.1 又新增 `alignment/status.py`、CLI 退出码测试、baseline/line/observations 回归、三首歌的归档证据及历史文件清单。**现行待修缺陷见 P1.2，不再将 P1.1 重做为新任务。**
 
 **仍待创建（P2 起）：**
 - `src/agent2utau/alignment/phonemes.py`、`patch.py`，以及相应原生读回校验器。
@@ -91,7 +91,9 @@ Agent 按 5～15 字窗口选择 candidate_id，或 unresolved
 
 交付 `mapping.v1.json`：每字对应音符 ID、选择的候选、证据来源、未解问题；检查字符 100% 有去向（包括标记 unresolved），**绝不能把 unresolved 算成成功**。
 
-## 五点五、P1.1：修复当前 P0/P1 初版的缺陷（**下一轮唯一执行任务**）
+## 五点五、P1.1：历史交付与仍待处理事项（2026-10-31 已实施，保留原验收合同）
+
+**以下是 P1.1 执行前的历史审查基线，保留作为旧任务合同；请不要照此重复执行。最新结果及当前任务参见下方 P1.2。**
 
 **审查基线（2026-10-31）：** `experiments/alignment/phoneme-alignment-p0p1-20261031/` 报告记录：《年轮》345/349 字已映射、4 unresolved、391/400 voiced note 已归属；《最后一页》318/318 字、368/368 note 归属，但 baseline 实际只有 **367 note**；《雨爱》366/371 字、5 unresolved、413/425 note 已归属。总计 **9 unresolved 字**；实际字/音符身份、时间误差和演唱听感均**未独立验收**。本轮保留这些原始数据和失败记录作前后对照，不用“覆盖率更高”代替正确性。
 
@@ -170,9 +172,76 @@ Agent 按 5～15 字窗口选择 candidate_id，或 unresolved
 
 **交付报告必须包含：**涉及的代码文件、修复前后每首歌的字/音符覆盖、所有未解字与 note ID、映射到 USTX 的逐 note 核对、候选窗口异常、HFA 可靠性分布、测试命令/实际输出、运行环境、固定输入和新产物 hash、历史删除清单、真实原生执行边界。没有运行的测试标未执行；没有音频聆听则 `listening=unknown`。执行完成即停止，**不自动开始 P2**。
 
-## 六、P2：P1.1 验收后进行的核心工作——音素分配与时间修正
+## 五点六、P1.2：行为正确性与可进入 P2 的短句门禁（**下一轮唯一执行阶段**）
 
-**核心原则：原生预测先行，有限修改优先。**
+**范围与前置：**这一轮只做少量确定性修补、真实测例与证据产出，禁止新的全曲重构、批量改谱、重新跑 GAME、盲目调参数或继续堆报告。以 P1.1 的 `02628796` 代码、`experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/` 与原输入 SHA 作为只读对照；修复写入新 run/session `phoneme-alignment-p1.2-<日期>`，不要覆盖 P0/P1 或 P1.1。**当前三首歌 incomplete 是已知状态，不要求 P1.2 自动解决全部 11 个 unresolved 字或 `n0060`。**
+
+### P1.2-A｜修正“弱观测降权”的真实行为，而不只是权重数值（必须）
+
+**待验证/修复：** `src/agent2utau/alignment/candidates.py::_assign_cost` 目前使用 `abs(anchor_s - note.start) / (time_scale_s * anchor_weight)`，把 `anchor_weight` 从 1 降为 0.25，**相同误差惩罚反增为 4 倍**；`expected_dur_s` 时长惩罚还未按置信度一致处理。这可能使不可靠 HFA/ASR 证据比可靠证据**更强地推动 unresolved**，与“弱证据影响小”的目标不一致。
+
+- [ ] 将**观测置信度**与**匹配候选的物理可行性**分开：低置信度只应减轻/限制该观测对于最佳映射的影响，不应无根据地变成更强的绝对距离约束。可采用 `weight * robust_time_residual` + 相应加权时长项，或另一种有对照证明的数学设计；不得把 `weight=0` 意味着强罚或偷偷伪造时间。
+- [ ] 将过大时差、跨句、重复字等视为**独立的可信约束或复核信号**，不让弱观测靠自身不可信时间设定一个绝对硬边界。未观测的 syllable 以次序/句界/其它可靠信号作候选，必要时 unresolved。
+- [ ] **证据统计按来源与匹配阶段分组。**当前报告《最后一页》的 `203 observation_missing / 130 residual / 3 positional` 为汇总日志，可能混合 HFA/ASR、第一轮缺失与第二轮补配，**不能据此直接宣称 HFA 有 203 个最终缺锚**。逐条分解 `hfa.exact_text / hfa.positional / hfa.unmatched` 与 `asr.exact_text / asr.residual_text / asr.positional / asr.unmatched`；最终锚点分布从 `mapping[].evidence.anchor_source/anchor_level` 另行汇总，避免把初始匹配缺失算成最终失败。
+- [ ] 加入**反事实行为测试**：同一真实音符/歌词，给出正确的精确锚与明显错误的 positional/residual 锚；精确锚可影响选择，弱错误锚降权后不应反向拖走正确匹配或更容易制造 unresolved。用三首歌的冻结输入列出修复前后 `syllable_id → note_ids` 差异，不以 `assert weight<1` 代替决策验证。
+
+### P1.2-B｜让“无合法候选”有可审计含义（必须）
+
+**待验证/修复：** `candidates.py::_local_paths` 在枚举时受到 `max_paths`/深度优先遍历顺序限制，外层先按 `max_options` 收集并截断再过滤 `legal`；因此 `no_valid_candidate` 可能是“搜索预算内没找到”，不等于“数学上没有合法方案”。
+
+- [ ] 将**合法性判定前置到转移/枚举**（尤其 `+` 间隙、休止、句界及窗口 note budget），只对**合法候选**计数，或提供 bounded best-first / K-best 搜索；保持可确定复现、可限制复杂度，不做全曲指数暴搜。
+- [ ] 不可直接把“前 K 个候选均非法”标为 `no_valid_candidate`；区分 `no_legal_solution_proven`、`search_budget_exhausted`、`legal_alternatives_available`、`only_baseline` 等状态，**只有搜索能证明无解时才宣称无解**。预算耗尽时列 `review_required`，且整个窗口仍是 incomplete。
+- [ ] 复查 `_local_paths` 的前缀/后缀代价下界、窗口 cursor 和候选 `total_cost` 口径，确保所有候选内部满足同字多音、时序、句界规则，未被枚举顺序人为偏置；不得生成越界 ID 或让多个重叠窗口给出互相冲突的写回。
+- [ ] 用《最后一页》`w02`（`s0045–s0049`，含 `n0060`）做定点回归：打印“约束导致无解”还是“搜索预算不足”，验证 `max_options/max_paths` 扩大后的结论是否一致。**仍非法则保留 unresolved，不强行用延长、合并、重复歌词解决。**
+
+### P1.2-C｜真正检查 USTX 的 note ID、绝对时间和音高（必须）
+
+**待验证/修复：** `alignment/baseline.py::verify_ustx_notes` 目前通过歌词 `SequenceMatcher` 匹配，比较数量/歌词/`tone`，**没有检查音符 position 和 duration**。相邻或重复 `+` / 相同歌词容易被错配；`one_to_one=true` 不代表时间轴正确。谱面 builder 还可能在 ±1 tick 的间隙处调整前音时长。
+
+- [ ] 写出显式的 `note_id/syllable_id → (part_index, note_index, lyric, absolute_start_tick, end_tick, duration_tick, tone)` 构建账本；如 USTX 原生结构不保留 ID，使用建谱前后有稳定键的 sidecar（而非仅依赖重复歌词的文本匹配）重建身份。
+- [ ] 使用 `voice_parts[].position + notes[].position` 计算**绝对起点 tick**，逐一比较目标 `sec_to_tick(original.start/end)`，校验 `duration`、终点、音高、歌词、part 位置、单调性和所有 `+` 的合法前驱；把 builder 经授权的 ±1 tick 贴合改动单独记录成可审计差异，不要默默通过。
+- [ ] `one_to_one` 仅当身份、时钟、音高、歌词、数量**全部**满足定义才为 true；异常报告包含 `shifted_note_ids`、`duration_changed_note_ids`、`missing/extra/retuned` 和允许/非法的偏差，状态门禁据此判定。不能把“不完整但已记录缺失”当成全谱验证成功。
+- [ ] 加失败注入测试：note 开始时间错 1 拍、时长改变、part 整体漂移、两个相同 `+` 互换、一处重复歌词，必须能抓住；保留 `lastpage n0060` 的缺失记录，不能因新验证策略掩盖原错误。必要时调用真实 Core inspect/roundtrip，**不得把纯 YAML 对照说成原生验收**。
+
+### P1.2-D｜所有未归属 voiced GAME 音符必须有去向（必须）
+
+**现有数据：**年轮 400 voiced/389 assigned，**11 个未归属**；雨爱 425/413，**12 个未归属**；最后一页 368/368，然而 `n0060` 仍属已归属但不能合法写谱。P1.1 状态机直接检查 unresolved syllables/extends/review，而**未单独给每个 unassigned voiced note 建立有理由的去向记录**。
+
+- [ ] 以固定 GAME note IDs 导出 `unassigned_voiced_notes.json`：每条包含时间、时长、tone、前后字/休止/句界、可引用 HFA/ASR、分类和 reason_code。分类可用 `probable_false_positive` / `rest_or_nonlead` / `candidate_melisma` / `needs_alignment` / `unresolved`，不允许“因为 DP 跳过了就不算问题”。
+- [ ] 自动伪音符判定必须有**可核对的独立证据**与测试；没有证据的保持待审，不能默认删除，也不能为凑覆盖强塞给某个字。`unassigned` 不一定都是错误，更不能强制 100% 分配以掩盖 GAME 过切分。
+- [ ] 将未审的 voiced note 纳入生产状态门禁，并且**按 song/segment 分开**：整曲 `incomplete`，但未接触这些 note/不触及非法 `+` 的干净短句可独立判为可做 P2 试点的候选。决不把有漏音的整曲宣称 valid。
+- [ ] 分别对年轮 11、雨爱 12、最后一页 `n0060` 建清单并统计分类数、未解决数，不以覆盖率百分比替代逐 ID 证据。
+
+### P1.2-E｜基础 MIDI 音高取整：隔离 A/B，不自动全曲换规则（必须做调查）
+
+**已复核的冻结 GAME 数据：**目前 `openutau/build.py::to_ustx_tone()` 使用 `int(tone)` 截断；与 `round(tone)` 比较，年轮 **143/400（35.8%）**、最后一页 **144/368（39.1%）**、雨爱 **265/425（62.4%）** 的 voiced note 相差 1 个 MIDI 半音，合计 **552/1,193（46.3%）**。两种做法产生大量不同，**但这不是“取整必然错”的证据**。
+
+- [ ] 不直接改动已有 `to_ustx_tone()` 生产语义，不覆盖历史 USTX；在新实验脚本与短句副本中分别生成 `truncate`/ `round` 的 A/B（同一 GAME/HFA/音频、音符身份/起止时间，只有 tone 量化不同）。
+- [ ] 先核对 GAME `tone` 的真实定义与输出分布，特别是 0.99、0.01 附近的值；用可访问的原曲 F0（FCPE/RMVPE 等）**仅验证基础音高**，结合人耳和已知旋律判断 MIDI 半音差，不能复制原唱颤音或逐帧 pitch 曲线。
+- [ ] 报告至少按三首歌汇总：全部 1193 voiced 音符的取整差异分布、偏差方向、异常音区、随机抽样和高差异短句的人工/音频证据；若 FCPE/RMVPE 与 GAME 矛盾，要标 uncertain 并核查 octave/分离/失声，不直接任选一个当真值。
+- [ ] 给出“保持截断 / 改四舍五入 / 用带置信度纠错”的**证据导向建议**，但本轮不替用户决定生产策略；如暂无足够证据，明确结论 `undetermined`。自动音高仍由 DiffSinger 预测，P1.2 不画 PITD。
+
+### P1.2-F｜局部放行与 P2 试点样本选择（只建立门禁和清单，不在本轮启动 patch）
+
+- [ ] 选择 **10～20 个跨三首歌的短句**（约 5～15 字/段，包含普通句、连音、重复字、休止边界、短元音等），优先采用既有 `samples/` 与新 P1.2 结果；可适当选更长片段让前后音素上下文完整。
+- [ ] 每句输出 `segment_id`、所需 `syllable_id/note_id`、歌词/音符时间范围、前后上下文、输入 hash、`local_gate`（`ready_for_p2_native_baseline` 或 `blocked`）、以及明确的阻断理由。**局部放行 ≠ 整曲放行**。
+- [ ] 放行要求：片段内及边界上下文无未解唱字/未审核 voiced note/非法 `+`；歌词文字已核对、候选映射身份稳定、原声源 SHA 固定、note 真实 USTX tick/音高/时长一致，无跨句未知漂移。涉及全曲共享 voice part、上下文 phonemizer 影响时保留邻句，只把目标片段作为可编辑范围。
+- [ ] **P1.2 本轮停止于“样本与真实校验报告”。**下一轮 P2 试点才使用泠鸢当前声库 `export-phonemes` → 原生基线 → 选少量确有问题的边界 → schema patch → 真实 Core roundtrip/再导出/试听。P2 样本可以先没有人工问题修正，只验证原生时钟读取闭环；禁止给全部音符默认生成改写。
+- [ ] 用户尚未确认 `n0060`、“份/分”、发行版分句与生产 tone 取整口径；**这些决策继续 pending，不阻止与其无关的局部 P2 试点**，但涉及的句子一律 blocked。P2 不提前启动、也不作整曲可交付声明。
+
+### P1.2-G｜针对性回归、产物和停止条件
+
+- [ ] 新增能反证上述缺陷的自动测试，不只是 schema/已有 336 项回归：弱证据与强证据的**最终映射差异**、候选搜索预算变化、真实 USTX 时间/ID 故障注入、未归属 voiced note 的状态门禁、截断/四舍五入的 A/B 纯量化断言、局部门禁边界案例。
+- [ ] 跑现有 `pytest`、CLI 状态测试和 repository 检查；有条件时在 Windows 的真实 OpenUtau 上做短句 inspect/roundtrip。每条记录**执行环境、实际输出、失败案例**，没有执行不能写 passed。
+- [ ] 重新跑同一冻结三首歌并对比 P1.1：映射差异逐 `syllable_id → note_ids`、候选分布、`unresolved`、未归属 note 分类、非法 extend、起止 tick 偏差、`local_gate` 清单。不得仅凭未解字减少或总覆盖率上升认定改进。
+- [ ] 保留 `docs/archive/legacy-scratch/` 原 SHA 字节；归档清单表明原 40 个 scratch 文件的本地工作副本中 **28 个已与历史提交不同**，核查工作副本是否另有安全备份，不擅自覆盖这些更新后的本地工作件；不删除历史测试/歌曲/session、知识包。
+- [ ] 提交 `experiments/alignment/phoneme-alignment-p1.2-<日期>/` 的脚本、manifest、报告和必要的**合规文本证据**；有版权限制的完整歌词、原曲、wav/USTX 等继续留在本机并列路径+SHA。报告明确 `tests_observed`、`native_verified`、`listening_status`、`blocked_segments`，禁用“全部问题解决”这类无证据结论。
+
+**通过定义：**A～E 缺陷被针对性回归覆盖且没有新的非法映射；未归属 voiced note 全部显式登记（允许待审）；有一批局部门禁严格通过且可回查的短句。若有阻断也可如实结束 P1.2、列出 blocker，**不要制造通过结果或清空 unresolved**。完成后立即停止，不自动执行 P2。
+
+## 六、P2：P1.2 局部放行后的核心工作——音素分配与时间修正
+
+**核心原则：原生预测先行，有限修改优先。P2 可先在 P1.2 局部放行的 10～20 个短句上试点，并不要求三首整曲达到 valid。**须完整保留冻结输入与邻句，只编辑通过门禁的目标范围；未授权的 `n0060` 等问题继续 blocked。P2 试点验收后，才考虑逐句扩大到整曲。
 
 1. 使用映射结果建无人工 PITD 的 `baseline.ustx`，调用当前泠鸢声库 `agent2utau export-phonemes --project ... --out ...`。读取真实 token、phoneme index、与唱字/音符关联、时序。多音字/组合韵母采用声库当前 phonemizer 的符号与词典；若不支持，标 unsupported，禁止模型发明 token。
 2. HFA 按锁定歌词得到的“原唱观测”与原生“合成默认预测”对照。将问题分 A（原生正确、不修改）、B（局部音素边界/字头/元音核确实异常，可提出有限修正）、C（歌词/谱面/声库支持冲突，回到 P1 或人工检查）。
@@ -247,12 +316,12 @@ Agent 的输出只能包含白名单操作、已存在的 note/字/phoneme/candi
 
 ## 十、MiniMax 执行顺序与交付格式
 
-**P0 + P1 初版已完成、待验收**：MiniMax 已提交映射算法、Schema/测试与三首歌的报告；不能重复从零实现。**下一轮只执行 P1.1（A～G）**：修复错误退出码、静默丢延音、跨句与候选空窗、观测置信度、GAME 非确定性调查和历史删除核查；所有问题均须有回归证据与报告。**P1.1 通过后**再做 P2：真实声库 phoneme baseline、小片段 patch 与 native 往返；之后才是 P3/P4 的 MiniMax、DeepSeek 结构化决策和跨模型评测。最后完成一首“自动音高 + 默认发声 + 固定混音”连续试听，才讨论 P5。
+**P0/P1 与 P1.1 代码及报告已完成，整曲仍 incomplete**。**下一轮只执行 P1.2（A～G）**：弱观测权重的行为性修复、候选枚举合法性/预算、USTX note 身份和绝对时钟验证、未分配 voiced GAME note 审计、tone 截断与四舍五入的隔离对照、10～20 个短句局部门禁清单。测试和证据写独立 P1.2 run，完成即停止。**再下一轮**才是 P2 短句试点：真实声库 phoneme baseline、小片段 patch 与 native 往返；与 `n0060` 等未决问题无关的可靠短句可先推进，但不能把局部 success 宣传为整曲 valid。之后才开展 P3/P4 的 MiniMax、DeepSeek 结构化决策与跨模型基准；整曲听感验证通过后再讨论 P5。
 
 每轮提供：修改文件清单、运行命令和环境、输入/输出 SHA、真实测试结果、未完成的字 ID、是否经过原生 roundtrip、试听状态、下一轮最小任务。**不删除原件、不迁移旧 session、不启动未授权 CI、不自动多 Agent。**
 
 复制给执行 Agent 的起始提示：
 
-> 读取根目录 plan.md，**仅执行「五点五、P1.1」的 A～G 任务**，不重做已提交的 P0/P1，不提前进入 P2。先修 CLI 与批处理的错误状态/退出码、baseline 静默丢弃 + 音符的问题；再补分句/连音硬约束、空候选窗口、HFA/ASR 置信度和按位置回退问题。对 GAME 469 vs 467 只做固定输入下的可复现性调查，不自作结论；核查并保护前次删除的 41 个 Git 文件。使用《年轮》《最后一页》《雨爱》既有固定 SHA 观测重跑、测试非法情形和成功/失败状态，逐 note 核对实际 USTX；禁止覆盖旧工程、画 PITD、调整发声或混音。保留 unresolved 与所有原始证据，完成 P1.1 报告后立即停止。
+> 读取根目录 plan.md，**本轮仅执行「五点六、P1.2」A～G，不要重新执行 P0/P1/P1.1，也不要提前做 P2 patch**。先以行为测试修复 `_assign_cost` 的低置信度 HFA/ASR 锚点惩罚方向，并分开统计 HFA/ASR、初始缺失与最终匹配；再修合法候选的搜索顺序/预算，定点复核最后一页 w02，不能把预算耗尽称为数学无解。改 `verify_ustx_notes` 为按稳定 note ID 校验 USTX 的绝对起点、时长、终点、歌词、tone、part；登记年轮 11、雨爱 12 个未归属 voiced note 的来源和状态。隔离对照 `int(tone)` 与 `round(tone)`，用原曲 F0/短句试听核实，不自动改生产取整策略。最后选择 10～20 条没有跨句/延音/未归属等阻断的短句出具 `local_gate`，为**下一轮** P2 原生音素试点准备。用冻结 SHA 和真实测试记录前后差异，修复失败也必须如实记录；不画 PITD、不改声线/混音、不删除旧资料。提交 P1.2 报告后停止。
 
 历史原计划： [旧表1](docs/archive/legacy-plans/plan-table1-pre-autopitch-20261031.md)、[旧表2](docs/archive/legacy-plans/plan-table2-pre-autopitch-20261031.md)、[上轮目录整理](docs/archive/legacy-plans/PROJECT_REORGANIZATION_PLAN_20261030.md)。
