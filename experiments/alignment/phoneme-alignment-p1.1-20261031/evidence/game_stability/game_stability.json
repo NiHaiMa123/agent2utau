@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "question": "is the GAME note extraction reproducible with the same audio, models and seed?",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "onnxruntime_version": "1.30.0",
+    "available_providers": [
+      "AzureExecutionProvider",
+      "CPUExecutionProvider"
+    ],
+    "model_dir": "E:\\software\\OpenUtau-win-x64_dpV2\\OpenUtau-win-x64\\Dependencies\\game",
+    "model_sha256": {
+      "bd2dur.onnx": "6672d56b00f27a20e9bfaa92801c15e394bb520e49031d3ed2515b0a6cf27402",
+      "dur2bd.onnx": "49d10d1ea186e43c51fd2c51cedb01a3852d363f1c7056ae77df50f7e8dd0996",
+      "encoder.onnx": "fb00295abf8156806a3bf2477ccadc9dd6a8f464fa4ee1a65c85100ce17e36fe",
+      "estimator.onnx": "2662a01e24548dc3b9f8ebc081b26947873c01eeaa573c9d0a87e7bf2a43642b",
+      "segmenter.onnx": "49c20f890d02f8877be4b092fae3913ec969e9236cf0a91e661e8bf52465ffda"
+    },
+    "audio": {
+      "path": "E:\\project\\agent2utau\\runs\\production\\nianlun-from-scratch-20261028\\observation\\stems\\source_(vocals)_vocals_mel_band_roformer.wav",
+      "sha256": "3b44b9b199c4f589473e5e7d9ebca799d42b7f216a8cbb932ad46407d28919a1",
+      "sample_rate": 44100,
+      "duration_s": 274.504
+    },
+    "chunk_count": 18,
+    "chunk_boundaries_ms": [
+      [
+        18340.0,
+        21600.0
+      ],
+      [
+        21840.0,
+        23370.0
+      ],
+      [
+        23560.0,
+        30870.0
+      ],
+      [
+        31190.0,
+        36350.0
+      ],
+      [
+        36410.0,
+        43790.0
+      ],
+      [
+        44130.0,
+        56820.0
+      ],
+      [
+        57050.0,
+        68940.0
+      ],
+      [
+        69360.0,
+        90740.0
+      ],
+      [
+        90820.0,
+        96970.0
+      ],
+      [
+        106170.0,
+        130550.0
+      ],
+      [
+        131750.0,
+        144700.0
+      ],
+      [
+        144710.0,
+        149060.0
+      ],
+      [
+        149160.0,
+        184540.0
+      ],
+      [
+        198870.0,
+        199170.0
+      ],
+      [
+        206690.0,
+        232610.0
+      ],
+      [
+        232960.0,
+        237800.0
+      ],
+      [
+        238810.0,
+        240370.0
+      ],
+      [
+        240410.0,
+        242690.0
+      ]
+    ],
+    "seed": 11,
+    "note": "the port creates an rng (game_onnx.py) but never passes it to the model, so the seed cannot influence the sampling inside the segmenter graph"
+  },
+  "runs": {
+    "shared_session": [
+      {
+        "event_count": 468,
+        "signature": "af3dc21f7ddedf2320bba3615a8127b54d3d837ff7d9a9aa6211b630f6e0e2e5",
+        "duration_s": 23.01
+      },
+      {
+        "event_count": 474,
+        "signature": "0384ae58e9c5b6e8dfcf92b6c92158304d82b7c5b1dc086e3a425b0495fa38b2",
+        "duration_s": 22.92
+      },
+      {
+        "event_count": 470,
+        "signature": "7f6f6880c254784c230a69e08c6d5fb21a926baf25865abba69024100b2f9811",
+        "duration_s": 22.98
+      }
+    ],
+    "fresh_session": [
+      {
+        "event_count": 468,
+        "signature": "af3dc21f7ddedf2320bba3615a8127b54d3d837ff7d9a9aa6211b630f6e0e2e5",
+        "duration_s": 26.66
+      },
+      {
+        "event_count": 468,
+        "signature": "af3dc21f7ddedf2320bba3615a8127b54d3d837ff7d9a9aa6211b630f6e0e2e5",
+        "duration_s": 25.46
+      },
+      {
+        "event_count": 468,
+        "signature": "af3dc21f7ddedf2320bba3615a8127b54d3d837ff7d9a9aa6211b630f6e0e2e5",
+        "duration_s": 23.94
+      }
+    ],
+    "single_thread": [
+      {
+        "event_count": 468,
+        "signature": "0d3eea46c0e285aa9183e18043d255c65fb1a2fa04f9970cfb03d949ad5daeef",
+        "duration_s": 67.48
+      },
+      {
+        "event_count": 468,
+        "signature": "0d3eea46c0e285aa9183e18043d255c65fb1a2fa04f9970cfb03d949ad5daeef",
+        "duration_s": 67.38
+      },
+      {
+        "event_count": 468,
+        "signature": "0d3eea46c0e285aa9183e18043d255c65fb1a2fa04f9970cfb03d949ad5daeef",
+        "duration_s": 64.62
+      }
+    ]
+  },
+  "comparison": {
+    "shared_session": {
+      "runs": 3,
+      "distinct_signatures": 3,
+      "identical_across_runs": false,
+      "event_counts": [
+        468,
+        474,
+        470
+      ],
+      "signatures": [
+        "af3dc21f7ddedf2320bba3615a8127b54d3d837ff7d9a9aa6211b630f6e0e2e5",
+        "0384ae58e9c5b6e8dfcf92b6c92158304d82b7c5b1dc086e3a425b0495fa38b2",
+        "7f6f6880c254784c230a69e08c6d5fb21a926baf25865abba69024100b2f9811"
+      ],
+      "durations_s": [
+        23.01,
+        22.92,
+        22.98
+      ]
+    },
+    "fresh_session": {
+      "runs": 3,
+      "distinct_signatures": 1,
+      "identical_across_runs": true,
+      "event_counts": [
+        468,
+        468,
+        468
+      ],
+      "signatures": [
+        "af3dc21f7ddedf2320bba3615a8127b54d3d837ff7d9a9aa6211b630f6e0e2e5",
+        "af3dc21f7ddedf2320bba3615a8127b54d3d837ff7d9a9aa6211b630f6e0e2e5",
+        "af3dc21f7ddedf2320bba3615a8127b54d3d837ff7d9a9aa6211b630f6e0e2e5"
+      ],
+      "durations_s": [
+        26.66,
+        25.46,
+        23.94
+      ]
+    },
+    "single_thread": {
+      "runs": 3,
+      "distinct_signatures": 1,
+      "identical_across_runs": true,
+      "event_counts": [
+        468,
+        468,
+        468
+      ],
+      "signatures": [
+        "0d3eea46c0e285aa9183e18043d255c65fb1a2fa04f9970cfb03d949ad5daeef",
+        "0d3eea46c0e285aa9183e18043d255c65fb1a2fa04f9970cfb03d949ad5daeef",
+        "0d3eea46c0e285aa9183e18043d255c65fb1a2fa04f9970cfb03d949ad5daeef"
+      ],
+      "durations_s": [
+        67.48,
+        67.38,
+        64.62
+      ]
+    }
+  },
+  "divergences": {
+    "shared_session": [
+      {
+        "run": 1,
+        "first_divergence": {
+          "index": 14,
+          "left": {
+            "start": 23.56,
+            "dur": 0.07000000029802322,
+            "tone": 62.02242660522461,
+            "voiced": false
+          },
+          "right": {
+            "start": 23.56,
+            "dur": 0.07000000029802322,
+            "tone": 62.636749267578125,
+            "voiced": false
+          }
+        }
+      },
+      {
+        "run": 2,
+        "first_divergence": {
+          "index": 0,
+          "left": {
+            "start": 18.34,
+            "dur": 0.4599999785423279,
+            "tone": 55.69364547729492,
+            "voiced": false
+          },
+          "right": {
+            "start": 18.34,
+            "dur": 0.4599999785423279,
+            "tone": 55.68178176879883,
+            "voiced": false
+          }
+        }
+      }
+    ],
+    "fresh_session": [
+      {
+        "run": 1,
+        "first_divergence": null
+      },
+      {
+        "run": 2,
+        "first_divergence": null
+      }
+    ],
+    "single_thread": [
+      {
+        "run": 1,
+        "first_divergence": null
+      },
+      {
+        "run": 2,
+        "first_divergence": null
+      }
+    ]
+  },
+  "conclusion": {
+    "reproducible_with_same_seed": false,
+    "root_cause": "not_confirmed",
+    "confirmed_facts": [
+      "the same audio bytes, the same model hashes and the same seed were used in every run",
+      "the chunk boundaries were identical in every run",
+      "the port's rng (src/agent2utau/transcription/game_onnx.py) is created but never passed to the model, so the seed cannot control the segmenter's sampling"
+    ],
+    "not_confirmed": [
+      "whether the difference comes from ONNX Runtime's internal random operator, from multi-threaded reduction order, or from both"
+    ],
+    "downstream_rule": "the GAME JSON files are pinned by SHA256 and reused; a regression run never regenerates them"
+  }
+}

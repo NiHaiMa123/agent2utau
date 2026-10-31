@@ -1,42 +1,167 @@
 {
   "song_id": "cross-song",
-  "song_ids": ["nianlun", "lastpage", "yuai"],
+  "song_ids": [
+    "nianlun",
+    "lastpage",
+    "yuai"
+  ],
   "run_id": "phoneme-alignment-p1.1-20261031",
   "session_id": "20261031-0300__minimax-m3.1f__phoneme-alignment-p1.1-20261031",
   "started_at": "2026-10-31T02:20:00+08:00",
   "produced_at": "2026-10-31T04:05:00+08:00",
   "primary_model": "minimax-m3.1f",
   "models_with_roles": [
-    { "model": "minimax-m3.1f", "role": "P1.1 A~G 的实现、执行与报告；子 Agent 仅做只读资料盘点" }
+    {
+      "model": "minimax-m3.1f",
+      "role": "P1.1 A~G 的实现、执行与报告；子 Agent 仅做只读资料盘点"
+    }
   ],
-  "model_evidence": ["本会话由 MiniMax-M3.1-Flash 单 Agent 执行；子 Agent 仅做只读资料盘点"],
+  "model_evidence": [
+    "本会话由 MiniMax-M3.1-Flash 单 Agent 执行；子 Agent 仅做只读资料盘点"
+  ],
   "version": "p1.1",
   "scope": "plan.md「五点五、P1.1」A～G；不含 P2 音素基线、patch 写回、P3 模型调参、自动音高修订或混音",
   "original_run_path": "runs/production/phoneme-alignment-p1.1-20261031",
   "baseline_run": "runs/production/phoneme-alignment-p0p1-20261031",
   "output_artifacts": [
-    { "path": "src/agent2utau/alignment/status.py", "kind": "py", "local_only": false, "role": "valid/incomplete/invalid 状态机与退出码" },
-    { "path": "src/agent2utau/alignment/canonical.py", "kind": "py", "local_only": false, "role": "公开歌词 ↔ 录音分句对齐；默认只产出待复核 diff" },
-    { "path": "src/agent2utau/alignment/candidates.py", "kind": "py", "local_only": false, "role": "句区间硬约束、连音合法性、窗口可达性与候选分级" },
-    { "path": "src/agent2utau/alignment/baseline.py", "kind": "py", "local_only": false, "role": "非法延音登记与有限候选、逐 note 核对" },
-    { "path": "src/agent2utau/alignment/observations.py", "kind": "py", "local_only": false, "role": "观测匹配分级与 used 跟踪修复" },
-    { "path": "src/agent2utau/alignment/pipeline.py", "kind": "py", "local_only": false, "role": "状态聚合、时钟硬问题并入门禁" },
-    { "path": "src/agent2utau/openutau/build.py", "kind": "py", "local_only": false, "role": "新增 to_ustx_tone()：建谱与校验共用同一取整口径（行为不变）" },
-    { "path": "src/agent2utau/transcription/game_onnx.py", "kind": "py", "local_only": false, "role": "新增可选线程参数，仅供 P1.1-E 复现性实验；生产默认不变" },
-    { "path": "src/agent2utau/cli.py", "kind": "py", "local_only": false, "role": "align-lyrics 状态与退出码、--allow-incomplete/--diagnostic-only" },
-    { "path": "tests/unit/test_alignment_status.py", "kind": "py", "local_only": false, "role": "状态机与退出码单测" },
-    { "path": "tests/unit/test_alignment_baseline.py", "kind": "py", "local_only": false, "role": "非法延音不静默丢弃、候选集合、逐 note 核对单测" },
-    { "path": "tests/unit/test_alignment_observations.py", "kind": "py", "local_only": false, "role": "匹配分级与弱证据降权单测" },
-    { "path": "tests/unit/test_alignment_lines.py", "kind": "py", "local_only": false, "role": "跨句拒绝、句区间、窗口决策单测" },
-    { "path": "tests/contracts/test_alignment_cli_exit_codes.py", "kind": "py", "local_only": false, "role": "5 类故障注入 + 真实退出码" },
-    { "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/scripts/build_p1_1_artifacts.py", "kind": "py", "local_only": false, "role": "固定输入的新 run 回归与状态聚合" },
-    { "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/scripts/probe_game_reproducibility.py", "kind": "py", "local_only": false, "role": "GAME 复现性实验（3 配置 × 3 次）" },
-    { "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/scripts/probe_extender_gap.py", "kind": "py", "local_only": false, "role": "延音合法性真实 Core 探针" },
-    { "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/scripts/audit_deleted_files.py", "kind": "py", "local_only": false, "role": "历史删除逐项查证与字节不变归档" },
-    { "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/reports/phoneme-alignment-p1.1-20261031.md", "kind": "md", "local_only": false, "role": "P1.1 修复报告" },
-    { "path": "docs/archive/legacy-scratch/MANIFEST.json", "kind": "json", "local_only": false, "role": "41 个删除文件的原路径/blob/归档映射" },
-    { "path": "docs/archive/legacy-scratch/", "kind": "json", "local_only": false, "role": "40 份字节不变的 scratch 归档副本" },
-    { "path": "runs/production/phoneme-alignment-p1.1-20261031/", "kind": "json", "local_only": true, "role": "新 run：冻结输入、三首歌的映射/baseline/核对、复现性实验" }
+    {
+      "path": "src/agent2utau/alignment/status.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "valid/incomplete/invalid 状态机与退出码"
+    },
+    {
+      "path": "src/agent2utau/alignment/canonical.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "公开歌词 ↔ 录音分句对齐；默认只产出待复核 diff"
+    },
+    {
+      "path": "src/agent2utau/alignment/candidates.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "句区间硬约束、连音合法性、窗口可达性与候选分级"
+    },
+    {
+      "path": "src/agent2utau/alignment/baseline.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "非法延音登记与有限候选、逐 note 核对"
+    },
+    {
+      "path": "src/agent2utau/alignment/observations.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "观测匹配分级与 used 跟踪修复"
+    },
+    {
+      "path": "src/agent2utau/alignment/pipeline.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "状态聚合、时钟硬问题并入门禁"
+    },
+    {
+      "path": "src/agent2utau/openutau/build.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "新增 to_ustx_tone()：建谱与校验共用同一取整口径（行为不变）"
+    },
+    {
+      "path": "src/agent2utau/transcription/game_onnx.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "新增可选线程参数，仅供 P1.1-E 复现性实验；生产默认不变"
+    },
+    {
+      "path": "src/agent2utau/cli.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "align-lyrics 状态与退出码、--allow-incomplete/--diagnostic-only"
+    },
+    {
+      "path": "tests/unit/test_alignment_status.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "状态机与退出码单测"
+    },
+    {
+      "path": "tests/unit/test_alignment_baseline.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "非法延音不静默丢弃、候选集合、逐 note 核对单测"
+    },
+    {
+      "path": "tests/unit/test_alignment_observations.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "匹配分级与弱证据降权单测"
+    },
+    {
+      "path": "tests/unit/test_alignment_lines.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "跨句拒绝、句区间、窗口决策单测"
+    },
+    {
+      "path": "tests/contracts/test_alignment_cli_exit_codes.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "5 类故障注入 + 真实退出码"
+    },
+    {
+      "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/scripts/build_p1_1_artifacts.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "固定输入的新 run 回归与状态聚合"
+    },
+    {
+      "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/scripts/probe_game_reproducibility.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "GAME 复现性实验（3 配置 × 3 次）"
+    },
+    {
+      "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/scripts/probe_extender_gap.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "延音合法性真实 Core 探针"
+    },
+    {
+      "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/scripts/audit_deleted_files.py",
+      "kind": "py",
+      "local_only": false,
+      "role": "历史删除逐项查证与字节不变归档"
+    },
+    {
+      "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/reports/phoneme-alignment-p1.1-20261031.md",
+      "kind": "md",
+      "local_only": false,
+      "role": "P1.1 修复报告"
+    },
+    {
+      "path": "docs/archive/legacy-scratch/MANIFEST.json",
+      "kind": "json",
+      "local_only": false,
+      "role": "41 个删除文件的原路径/blob/归档映射"
+    },
+    {
+      "path": "docs/archive/legacy-scratch/",
+      "kind": "json",
+      "local_only": false,
+      "role": "40 份字节不变的 scratch 归档副本"
+    },
+    {
+      "path": "runs/production/phoneme-alignment-p1.1-20261031/",
+      "kind": "json",
+      "local_only": true,
+      "role": "新 run：冻结输入、三首歌的映射/baseline/核对、复现性实验"
+    },
+    {
+      "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/",
+      "kind": "json",
+      "local_only": false,
+      "role": "本轮 run 的纯 JSON 证据逐字节归档（歌词/归一化音符/映射/异常/逐 note 核对/复现性实验）"
+    }
   ],
   "native_verification": {
     "extender_legality_probes": "3 个探针用真实 Core（inspect-project）：贴合=合法；160 ms 间隙=非法（Unrecognized phoneme '+'，该音不进乐句）；另起 part=非法（无乐句）",
@@ -48,9 +173,36 @@
   "batch_status": "incomplete",
   "batch_exit_code": 3,
   "coverage": {
-    "nianlun": { "syllables": 349, "mapped": 343, "unresolved": 6, "notes_assigned": "389/400", "windows": 15, "candidates": 96, "ustx_one_to_one": true },
-    "lastpage": { "syllables": 318, "mapped": 318, "unresolved": 0, "unresolved_notes": ["n0060"], "notes_assigned": "368/368", "windows": 6, "candidates": 31, "ustx_one_to_one": false },
-    "yuai": { "syllables": 371, "mapped": 366, "unresolved": 5, "notes_assigned": "413/425", "windows": 7, "candidates": 44, "ustx_one_to_one": true }
+    "nianlun": {
+      "syllables": 349,
+      "mapped": 343,
+      "unresolved": 6,
+      "notes_assigned": "389/400",
+      "windows": 15,
+      "candidates": 96,
+      "ustx_one_to_one": true
+    },
+    "lastpage": {
+      "syllables": 318,
+      "mapped": 318,
+      "unresolved": 0,
+      "unresolved_notes": [
+        "n0060"
+      ],
+      "notes_assigned": "368/368",
+      "windows": 6,
+      "candidates": 31,
+      "ustx_one_to_one": false
+    },
+    "yuai": {
+      "syllables": 371,
+      "mapped": 366,
+      "unresolved": 5,
+      "notes_assigned": "413/425",
+      "windows": 7,
+      "candidates": 44,
+      "ustx_one_to_one": true
+    }
   },
   "game_stability": {
     "shared_session": "468/474/470 事件，签名各不相同（会话内随机状态推进）",
@@ -74,5 +226,9 @@
   "related_reports": [
     "experiments/alignment/phoneme-alignment-p1.1-20261031/reports/phoneme-alignment-p1.1-20261031.md",
     "experiments/alignment/phoneme-alignment-p0p1-20261031/reports/phoneme-alignment-p0p1-20261031.md"
-  ]
+  ],
+  "archived_evidence": {
+    "path": "experiments/alignment/phoneme-alignment-p1.1-20261031/evidence/",
+    "note": "run 目录留在本机；纯 JSON 证据按字节归档入库，MANIFEST 记录 SHA256 与一致性"
+  }
 }

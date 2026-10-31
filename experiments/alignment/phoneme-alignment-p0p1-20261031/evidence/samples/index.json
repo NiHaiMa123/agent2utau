@@ -1,0 +1,831 @@
+{
+  "schema_version": 1,
+  "run_id": "phoneme-alignment-p0p1-20261031",
+  "scenarios": [
+    "one_char_one_note",
+    "melisma",
+    "repeated_char",
+    "early_attack",
+    "short_vowel",
+    "rest_before",
+    "line_boundary",
+    "polyphone"
+  ],
+  "per_song": [
+    {
+      "song_id": "nianlun",
+      "sample_count": 7,
+      "sample_ids": [
+        "nianlun-one_char_one_note",
+        "nianlun-repeated_char",
+        "nianlun-early_attack",
+        "nianlun-line_boundary",
+        "nianlun-rest_before",
+        "nianlun-melisma",
+        "nianlun-short_vowel"
+      ]
+    },
+    {
+      "song_id": "lastpage",
+      "sample_count": 8,
+      "sample_ids": [
+        "lastpage-one_char_one_note",
+        "lastpage-repeated_char",
+        "lastpage-early_attack",
+        "lastpage-line_boundary",
+        "lastpage-melisma",
+        "lastpage-rest_before",
+        "lastpage-short_vowel",
+        "lastpage-polyphone"
+      ]
+    },
+    {
+      "song_id": "yuai",
+      "sample_count": 7,
+      "sample_ids": [
+        "yuai-one_char_one_note",
+        "yuai-repeated_char",
+        "yuai-early_attack",
+        "yuai-short_vowel",
+        "yuai-line_boundary",
+        "yuai-rest_before",
+        "yuai-melisma"
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "sample_id": "nianlun-one_char_one_note",
+      "song_id": "nianlun",
+      "scenario": "one_char_one_note",
+      "witness_syllable_id": "s0001",
+      "witness_text": "圆",
+      "syllable_ids": [
+        "s0001",
+        "s0002",
+        "s0003"
+      ],
+      "text": "圆圈勾",
+      "note_ids": [
+        "n0002",
+        "n0003",
+        "n0004"
+      ],
+      "start_s": 18.799999978542328,
+      "end_s": 19.94999995470047,
+      "note_count": 3,
+      "detail": {},
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\nianlun\\nianlun-one_char_one_note.ustx",
+      "baseline_sha256": "a4db308ad424d6689841b05be1d66b1f3938ace6f76ec3926924859a956fd20e",
+      "parts": 1,
+      "notes": 3,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "nianlun-repeated_char",
+      "song_id": "nianlun",
+      "scenario": "repeated_char",
+      "witness_syllable_id": "s0009",
+      "witness_text": "在",
+      "syllable_ids": [
+        "s0007",
+        "s0008",
+        "s0009",
+        "s0010",
+        "s0011"
+      ],
+      "text": "纹印在我的",
+      "note_ids": [
+        "n0008",
+        "n0011",
+        "n0012",
+        "n0013",
+        "n0014",
+        "n0015",
+        "n0018"
+      ],
+      "start_s": 21.179999943971634,
+      "end_s": 24.04999999463558,
+      "note_count": 7,
+      "detail": {
+        "occurrences_in_song": 2
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\nianlun\\nianlun-repeated_char.ustx",
+      "baseline_sha256": "9e0dc2bce872505df0fa3a187e6101e0800f4b4b350c7747df642e92e20644f6",
+      "parts": 2,
+      "notes": 7,
+      "sustain_notes": 2,
+      "anomalies": []
+    },
+    {
+      "sample_id": "nianlun-early_attack",
+      "song_id": "nianlun",
+      "scenario": "early_attack",
+      "witness_syllable_id": "s0017",
+      "witness_text": "涩",
+      "syllable_ids": [
+        "s0015",
+        "s0016",
+        "s0017",
+        "s0018",
+        "s0019"
+      ],
+      "text": "忆苦涩的吻",
+      "note_ids": [
+        "n0023",
+        "n0024",
+        "n0025",
+        "n0026",
+        "n0027",
+        "n0028"
+      ],
+      "start_s": 25.729999942183493,
+      "end_s": 27.579999906420706,
+      "note_count": 6,
+      "detail": {
+        "anchor_s": 26.2302,
+        "note_start_s": 26.39999992907047,
+        "lead_s": 0.1698
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\nianlun\\nianlun-early_attack.ustx",
+      "baseline_sha256": "0bc52a41fc41a498db8db38d045290eb46fdf7ad8cc6929eb22d18d76baec23e",
+      "parts": 1,
+      "notes": 6,
+      "sustain_notes": 1,
+      "anomalies": []
+    },
+    {
+      "sample_id": "nianlun-line_boundary",
+      "song_id": "nianlun",
+      "scenario": "line_boundary",
+      "witness_syllable_id": "s0031",
+      "witness_text": "却",
+      "syllable_ids": [
+        "s0029",
+        "s0030",
+        "s0031",
+        "s0032",
+        "s0033"
+      ],
+      "text": "茂盛却遮住",
+      "note_ids": [
+        "n0043",
+        "n0044",
+        "n0046",
+        "n0047",
+        "n0048",
+        "n0049"
+      ],
+      "start_s": 33.70999992132187,
+      "end_s": 36.34999984741211,
+      "note_count": 6,
+      "detail": {},
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\nianlun\\nianlun-line_boundary.ustx",
+      "baseline_sha256": "6b07251a2cb184d47ad58c5594eaaafad6ed7cf3dc4301f25abc95405fa86eb0",
+      "parts": 2,
+      "notes": 6,
+      "sustain_notes": 1,
+      "anomalies": []
+    },
+    {
+      "sample_id": "nianlun-rest_before",
+      "song_id": "nianlun",
+      "scenario": "rest_before",
+      "witness_syllable_id": "s0044",
+      "witness_text": "等",
+      "syllable_ids": [
+        "s0042",
+        "s0043",
+        "s0044",
+        "s0045",
+        "s0046"
+      ],
+      "text": "个人等清晨",
+      "note_ids": [
+        "n0060",
+        "n0061",
+        "n0063",
+        "n0064",
+        "n0065",
+        "n0066",
+        "n0067"
+      ],
+      "start_s": 40.25999984502792,
+      "end_s": 43.78999983131885,
+      "note_count": 7,
+      "detail": {
+        "previous_note_id": "n0062"
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\nianlun\\nianlun-rest_before.ustx",
+      "baseline_sha256": "7e76aa143dda0b0b07dbedd661a2f3ba8b624f890ca715f8f251ee97b7124f6a",
+      "parts": 2,
+      "notes": 7,
+      "sustain_notes": 2,
+      "anomalies": []
+    },
+    {
+      "sample_id": "nianlun-melisma",
+      "song_id": "nianlun",
+      "scenario": "melisma",
+      "witness_syllable_id": "s0069",
+      "witness_text": "笨",
+      "syllable_ids": [
+        "s0067",
+        "s0068",
+        "s0069",
+        "s0070",
+        "s0071"
+      ],
+      "text": "我的笨荒草",
+      "note_ids": [
+        "n0092",
+        "n0093",
+        "n0094",
+        "n0095",
+        "n0098",
+        "n0099",
+        "n0100"
+      ],
+      "start_s": 54.34999973058701,
+      "end_s": 58.47999996244907,
+      "note_count": 7,
+      "detail": {
+        "sustain_note_ids": [
+          "n0095"
+        ]
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\nianlun\\nianlun-melisma.ustx",
+      "baseline_sha256": "53b3312bf30f65699808c9ccd3b32203b4c2e7a2613322bf1fdb5eaaf5dfb3fa",
+      "parts": 2,
+      "notes": 7,
+      "sustain_notes": 2,
+      "anomalies": []
+    },
+    {
+      "sample_id": "nianlun-short_vowel",
+      "song_id": "nianlun",
+      "scenario": "short_vowel",
+      "witness_syllable_id": "s0093",
+      "witness_text": "数",
+      "syllable_ids": [
+        "s0091",
+        "s0092",
+        "s0093",
+        "s0094",
+        "s0095"
+      ],
+      "text": "年轮数着一",
+      "note_ids": [
+        "n0125",
+        "n0126",
+        "n0127",
+        "n0128",
+        "n0130",
+        "n0131",
+        "n0132"
+      ],
+      "start_s": 67.75999965071678,
+      "end_s": 71.02999995708466,
+      "note_count": 7,
+      "detail": {
+        "observed_dur_s": 0.2197
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\nianlun\\nianlun-short_vowel.ustx",
+      "baseline_sha256": "ef3cc61703914dba8aef0a54ea9ef53f58b1041353005f11df0d2e40bffa2038",
+      "parts": 2,
+      "notes": 7,
+      "sustain_notes": 2,
+      "anomalies": []
+    },
+    {
+      "sample_id": "lastpage-one_char_one_note",
+      "song_id": "lastpage",
+      "scenario": "one_char_one_note",
+      "witness_syllable_id": "s0001",
+      "witness_text": "雨",
+      "syllable_ids": [
+        "s0001",
+        "s0002",
+        "s0003"
+      ],
+      "text": "雨停滞",
+      "note_ids": [
+        "n0002",
+        "n0003",
+        "n0004"
+      ],
+      "start_s": 14.289999998211862,
+      "end_s": 15.549999958872796,
+      "note_count": 3,
+      "detail": {},
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\lastpage\\lastpage-one_char_one_note.ustx",
+      "baseline_sha256": "fe4125173cf29aecd2bf459deca65f3f0ae1da485ece999cc73880defe8653f4",
+      "parts": 1,
+      "notes": 3,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "lastpage-repeated_char",
+      "song_id": "lastpage",
+      "scenario": "repeated_char",
+      "witness_syllable_id": "s0009",
+      "witness_text": "泪",
+      "syllable_ids": [
+        "s0007",
+        "s0008",
+        "s0009",
+        "s0010",
+        "s0011"
+      ],
+      "text": "间像泪在眼",
+      "note_ids": [
+        "n0008",
+        "n0009",
+        "n0010",
+        "n0011",
+        "n0012"
+      ],
+      "start_s": 16.81999993979931,
+      "end_s": 19.36999986231327,
+      "note_count": 5,
+      "detail": {
+        "occurrences_in_song": 5
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\lastpage\\lastpage-repeated_char.ustx",
+      "baseline_sha256": "1cd8d9f75867a773178167e550df222132ef6821ac8c73871c56c5f5520d1045",
+      "parts": 2,
+      "notes": 5,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "lastpage-early_attack",
+      "song_id": "lastpage",
+      "scenario": "early_attack",
+      "witness_syllable_id": "s0017",
+      "witness_text": "许",
+      "syllable_ids": [
+        "s0015",
+        "s0016",
+        "s0017",
+        "s0018",
+        "s0019"
+      ],
+      "text": "这也许是最",
+      "note_ids": [
+        "n0018",
+        "n0019",
+        "n0020",
+        "n0021",
+        "n0022"
+      ],
+      "start_s": 21.10999981224537,
+      "end_s": 23.23999971807003,
+      "note_count": 5,
+      "detail": {
+        "anchor_s": 21.782,
+        "note_start_s": 21.96999976694584,
+        "lead_s": 0.188
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\lastpage\\lastpage-early_attack.ustx",
+      "baseline_sha256": "909af2d9d45f99fa469b3b49629988e15a9b6a805e36dcb2b42e184302153bd6",
+      "parts": 1,
+      "notes": 5,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "lastpage-line_boundary",
+      "song_id": "lastpage",
+      "scenario": "line_boundary",
+      "witness_syllable_id": "s0025",
+      "witness_text": "沿",
+      "syllable_ids": [
+        "s0023",
+        "s0024",
+        "s0025",
+        "s0026",
+        "s0027"
+      ],
+      "text": "见面沿途经",
+      "note_ids": [
+        "n0026",
+        "n0027",
+        "n0029",
+        "n0030",
+        "n0031"
+      ],
+      "start_s": 24.939999706149102,
+      "end_s": 29.209999935626982,
+      "note_count": 5,
+      "detail": {},
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\lastpage\\lastpage-line_boundary.ustx",
+      "baseline_sha256": "e48b2c5ba0780424d0161cc6d54c4fe809211842f77b826d547541c25576a5c0",
+      "parts": 2,
+      "notes": 5,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "lastpage-melisma",
+      "song_id": "lastpage",
+      "scenario": "melisma",
+      "witness_syllable_id": "s0037",
+      "witness_text": "重",
+      "syllable_ids": [
+        "s0035",
+        "s0036",
+        "s0037",
+        "s0038",
+        "s0039"
+      ],
+      "text": "及再重演拥",
+      "note_ids": [
+        "n0040",
+        "n0041",
+        "n0042",
+        "n0043",
+        "n0044",
+        "n0046"
+      ],
+      "start_s": 32.63999986827373,
+      "end_s": 36.05999995946884,
+      "note_count": 6,
+      "detail": {
+        "sustain_note_ids": [
+          "n0043"
+        ]
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\lastpage\\lastpage-melisma.ustx",
+      "baseline_sha256": "69a63a02c063b8db7278babe84f018e4ebcc309951af8365e34593829232983d",
+      "parts": 2,
+      "notes": 6,
+      "sustain_notes": 1,
+      "anomalies": []
+    },
+    {
+      "sample_id": "lastpage-rest_before",
+      "song_id": "lastpage",
+      "scenario": "rest_before",
+      "witness_syllable_id": "s0047",
+      "witness_text": "海",
+      "syllable_ids": [
+        "s0045",
+        "s0046",
+        "s0047",
+        "s0048",
+        "s0049"
+      ],
+      "text": "冷却海潮声",
+      "note_ids": [
+        "n0053",
+        "n0054",
+        "n0055",
+        "n0057",
+        "n0058",
+        "n0059",
+        "n0060"
+      ],
+      "start_s": 38.61999991714954,
+      "end_s": 43.759999997615814,
+      "note_count": 7,
+      "detail": {
+        "previous_note_id": "n0056"
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\lastpage\\lastpage-rest_before.ustx",
+      "baseline_sha256": "d73efa93fbf475a3ccbf7f326f19d0f5a59569ec89daa6780b78cd3d14b50036",
+      "parts": 2,
+      "notes": 6,
+      "sustain_notes": 1,
+      "anomalies": [
+        {
+          "kind": "sustain_note_dropped_gap",
+          "note_id": "n0060",
+          "syllable_id": "s0049",
+          "gap_s": 0.16,
+          "detail": "a '+' block may not cross a gap; the note stays in notes_normalized.json"
+        }
+      ]
+    },
+    {
+      "sample_id": "lastpage-short_vowel",
+      "song_id": "lastpage",
+      "scenario": "short_vowel",
+      "witness_syllable_id": "s0060",
+      "witness_text": "留",
+      "syllable_ids": [
+        "s0058",
+        "s0059",
+        "s0060",
+        "s0061",
+        "s0062"
+      ],
+      "text": "昏只留下不",
+      "note_ids": [
+        "n0070",
+        "n0072",
+        "n0073",
+        "n0074",
+        "n0076"
+      ],
+      "start_s": 47.71999990910292,
+      "end_s": 51.05999997645617,
+      "note_count": 5,
+      "detail": {
+        "observed_dur_s": 0.2302
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\lastpage\\lastpage-short_vowel.ustx",
+      "baseline_sha256": "0c6e6776e222b20c6d4dd343d78ddb3e5dac11bb4aef9daea16088f90f4e006a",
+      "parts": 2,
+      "notes": 5,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "lastpage-polyphone",
+      "song_id": "lastpage",
+      "scenario": "polyphone",
+      "witness_syllable_id": "s0107",
+      "witness_text": "没",
+      "syllable_ids": [
+        "s0105",
+        "s0106",
+        "s0107",
+        "s0108",
+        "s0109"
+      ],
+      "text": "那颗没落下",
+      "note_ids": [
+        "n0133",
+        "n0134",
+        "n0135",
+        "n0136",
+        "n0137",
+        "n0138"
+      ],
+      "start_s": 81.58999976873397,
+      "end_s": 83.71999973416328,
+      "note_count": 6,
+      "detail": {
+        "pinyin_marks": [
+          "mei",
+          "mo"
+        ]
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\lastpage\\lastpage-polyphone.ustx",
+      "baseline_sha256": "decb27cab3c6fbd2c0d1d788e9a349a391c1081cfade239141b30e4065399bb6",
+      "parts": 1,
+      "notes": 6,
+      "sustain_notes": 1,
+      "anomalies": []
+    },
+    {
+      "sample_id": "yuai-one_char_one_note",
+      "song_id": "yuai",
+      "scenario": "one_char_one_note",
+      "witness_syllable_id": "s0001",
+      "witness_text": "窗",
+      "syllable_ids": [
+        "s0001",
+        "s0002",
+        "s0003"
+      ],
+      "text": "窗外的",
+      "note_ids": [
+        "n0002",
+        "n0003",
+        "n0004",
+        "n0005"
+      ],
+      "start_s": 16.679999978542327,
+      "end_s": 18.169999943375586,
+      "note_count": 4,
+      "detail": {},
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\yuai\\yuai-one_char_one_note.ustx",
+      "baseline_sha256": "de3bf809dba61c20ba6e2d22bccc627bf9a460bc1fa86e1b27e9d4efa1731c5c",
+      "parts": 1,
+      "notes": 4,
+      "sustain_notes": 1,
+      "anomalies": []
+    },
+    {
+      "sample_id": "yuai-repeated_char",
+      "song_id": "yuai",
+      "scenario": "repeated_char",
+      "witness_syllable_id": "s0009",
+      "witness_text": "你",
+      "syllable_ids": [
+        "s0007",
+        "s0008",
+        "s0009",
+        "s0010",
+        "s0011"
+      ],
+      "text": "像是你多变",
+      "note_ids": [
+        "n0011",
+        "n0012",
+        "n0013",
+        "n0016",
+        "n0017",
+        "n0018"
+      ],
+      "start_s": 21.34999997973442,
+      "end_s": 23.79999997660518,
+      "note_count": 6,
+      "detail": {
+        "occurrences_in_song": 8
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\yuai\\yuai-repeated_char.ustx",
+      "baseline_sha256": "1c005f779b347ffc8770dcb1ed0019436119c09af93bc37ef21b2dfc95de6fd7",
+      "parts": 1,
+      "notes": 6,
+      "sustain_notes": 1,
+      "anomalies": []
+    },
+    {
+      "sample_id": "yuai-early_attack",
+      "song_id": "yuai",
+      "scenario": "early_attack",
+      "witness_syllable_id": "s0017",
+      "witness_text": "了",
+      "syllable_ids": [
+        "s0015",
+        "s0016",
+        "s0017",
+        "s0018",
+        "s0019"
+      ],
+      "text": "下雨了雨陪",
+      "note_ids": [
+        "n0026",
+        "n0027",
+        "n0028",
+        "n0031",
+        "n0032"
+      ],
+      "start_s": 26.749999978542327,
+      "end_s": 29.37999997854233,
+      "note_count": 5,
+      "detail": {
+        "anchor_s": 27.3779,
+        "note_start_s": 27.459999957084655,
+        "lead_s": 0.0821
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\yuai\\yuai-early_attack.ustx",
+      "baseline_sha256": "9ea1290e6d6740f5107ce52457d88a24acbb7fabe9232fedd34a8d0fb5e96c95",
+      "parts": 2,
+      "notes": 5,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "yuai-short_vowel",
+      "song_id": "yuai",
+      "scenario": "short_vowel",
+      "witness_syllable_id": "s0028",
+      "witness_text": "不",
+      "syllable_ids": [
+        "s0027",
+        "s0028",
+        "s0029",
+        "s0030"
+      ],
+      "text": "也不想看",
+      "note_ids": [
+        "n0042",
+        "n0043",
+        "n0044",
+        "n0045"
+      ],
+      "start_s": 35.38999989271164,
+      "end_s": 37.279999833703044,
+      "note_count": 4,
+      "detail": {
+        "observed_dur_s": 0.2327
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\yuai\\yuai-short_vowel.ustx",
+      "baseline_sha256": "96c488689373de1303dd3a7bff17234de23d6e853946f50044f3b0206992b193",
+      "parts": 1,
+      "notes": 4,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "yuai-line_boundary",
+      "song_id": "yuai",
+      "scenario": "line_boundary",
+      "witness_syllable_id": "s0041",
+      "witness_text": "不",
+      "syllable_ids": [
+        "s0039",
+        "s0040",
+        "s0041",
+        "s0042",
+        "s0043"
+      ],
+      "text": "抽离不忍揭",
+      "note_ids": [
+        "n0055",
+        "n0056",
+        "n0058",
+        "n0059",
+        "n0060"
+      ],
+      "start_s": 41.199999731183055,
+      "end_s": 43.61999968826771,
+      "note_count": 5,
+      "detail": {},
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\yuai\\yuai-line_boundary.ustx",
+      "baseline_sha256": "08a0a37e36e02102a8ce81e45b468ea1f6890bd43cf66c1cef14baf6bb59a6ac",
+      "parts": 2,
+      "notes": 5,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "yuai-rest_before",
+      "song_id": "yuai",
+      "scenario": "rest_before",
+      "witness_syllable_id": "s0055",
+      "witness_text": "学",
+      "syllable_ids": [
+        "s0053",
+        "s0054",
+        "s0055",
+        "s0056",
+        "s0057"
+      ],
+      "text": "心里学会放",
+      "note_ids": [
+        "n0071",
+        "n0072",
+        "n0074",
+        "n0075",
+        "n0076"
+      ],
+      "start_s": 47.22999961316586,
+      "end_s": 49.99999953448773,
+      "note_count": 5,
+      "detail": {
+        "previous_note_id": "n0073"
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\yuai\\yuai-rest_before.ustx",
+      "baseline_sha256": "c415c73decfaa38677927562cdf99ce0d7747aa8973aa095b2260411d8a16858",
+      "parts": 2,
+      "notes": 5,
+      "sustain_notes": 0,
+      "anomalies": []
+    },
+    {
+      "sample_id": "yuai-melisma",
+      "song_id": "yuai",
+      "scenario": "melisma",
+      "witness_syllable_id": "s0063",
+      "witness_text": "音",
+      "syllable_ids": [
+        "s0061",
+        "s0062",
+        "s0063",
+        "s0064",
+        "s0065"
+      ],
+      "text": "的声音一滴",
+      "note_ids": [
+        "n0081",
+        "n0082",
+        "n0083",
+        "n0084",
+        "n0085",
+        "n0086"
+      ],
+      "start_s": 51.67999951183796,
+      "end_s": 53.16999949157238,
+      "note_count": 6,
+      "detail": {
+        "sustain_note_ids": [
+          "n0084"
+        ]
+      },
+      "baseline_ustx": "runs\\production\\phoneme-alignment-p0p1-20261031\\samples\\yuai\\yuai-melisma.ustx",
+      "baseline_sha256": "1ebeba03c2bc3947e43b88f772e35e4d7b930c8335e27a55dc8fd59521315031",
+      "parts": 2,
+      "notes": 6,
+      "sustain_notes": 1,
+      "anomalies": []
+    }
+  ],
+  "covered_scenarios": [
+    "early_attack",
+    "line_boundary",
+    "melisma",
+    "one_char_one_note",
+    "polyphone",
+    "repeated_char",
+    "rest_before",
+    "short_vowel"
+  ],
+  "sample_count": 22
+}

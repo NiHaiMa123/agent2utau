@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "question": "one fresh GAME session per process - same result?",
+  "runs": [
+    {
+      "pid": 52984,
+      "event_count": 464,
+      "signature": "47c63787133eff6e9d8d9a4c16ff1632fe063e32927952c01c3bccd097001642",
+      "first_event": {
+        "start": 18.34,
+        "dur": 0.4599999785423279,
+        "tone": 55.69364547729492,
+        "voiced": false
+      }
+    },
+    {
+      "pid": 68180,
+      "event_count": 473,
+      "signature": "69b8cd3eea492928dff4d4b1a4a7a5edd9b63d085cd519ec35ae83e8ea83c8f0",
+      "first_event": {
+        "start": 18.34,
+        "dur": 0.4599999785423279,
+        "tone": 55.68178176879883,
+        "voiced": false
+      }
+    },
+    {
+      "pid": 70352,
+      "event_count": 469,
+      "signature": "c2fdd81f0879b61058e76518fec82d00917a5ac8f626c377e0d519ad986dc3b5",
+      "first_event": {
+        "start": 18.34,
+        "dur": 0.4599999785423279,
+        "tone": 55.69364547729492,
+        "voiced": false
+      }
+    }
+  ],
+  "identical_across_processes": false,
+  "event_counts": [
+    464,
+    473,
+    469
+  ]
+}

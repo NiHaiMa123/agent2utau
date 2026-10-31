@@ -7,3 +7,5 @@ docs/knowledge/** -text whitespace=cr-at-eol
 docs/lastpage-*-20261008.md -text whitespace=cr-at-eol
 # Byte-identical archive of the tracked scratch files that were untracked (P1.1-F).
 docs/archive/legacy-scratch/** -text whitespace=cr-at-eol
+# Archived run evidence keeps the bytes the manifest claims (P1.1-G).
+experiments/alignment/**/evidence/** -text whitespace=cr-at-eol

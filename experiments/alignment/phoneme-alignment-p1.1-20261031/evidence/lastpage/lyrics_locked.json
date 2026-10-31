@@ -1,0 +1,3430 @@
+{
+  "schema_version": 1,
+  "song_id": "lastpage",
+  "verification": "public-canonical-lyrics",
+  "source": "runs/lastpage_fresh_source_20261007/lyric_scaffold.json",
+  "line_count": 38,
+  "syllable_count": 318,
+  "lines": [
+    {
+      "line": 0,
+      "text": "雨停滞天空之间"
+    },
+    {
+      "line": 1,
+      "text": "像泪在眼眶盘旋"
+    },
+    {
+      "line": 2,
+      "text": "这也许是最后一次见面"
+    },
+    {
+      "line": 3,
+      "text": "沿途经过的从前"
+    },
+    {
+      "line": 4,
+      "text": "还来不及再重演"
+    },
+    {
+      "line": 5,
+      "text": "拥抱早已悄悄冷却"
+    },
+    {
+      "line": 6,
+      "text": "海潮声淹没了离别时的黄昏"
+    },
+    {
+      "line": 7,
+      "text": "只留下不舍的体温"
+    },
+    {
+      "line": 8,
+      "text": "星空下拥抱着快凋零的温存"
+    },
+    {
+      "line": 9,
+      "text": "爱只能在回忆里完整"
+    },
+    {
+      "line": 10,
+      "text": "想把你抱进身体里面"
+    },
+    {
+      "line": 11,
+      "text": "不敢让你看见"
+    },
+    {
+      "line": 12,
+      "text": "嘴角那颗没落下的泪"
+    },
+    {
+      "line": 13,
+      "text": "如果这是最后的一页"
+    },
+    {
+      "line": 14,
+      "text": "在你离开之前"
+    },
+    {
+      "line": 15,
+      "text": "能否让我把故事重写"
+    },
+    {
+      "line": 16,
+      "text": "雨停滞天空之间"
+    },
+    {
+      "line": 17,
+      "text": "像泪在眼眶盘旋"
+    },
+    {
+      "line": 18,
+      "text": "这也许是最后一次见面"
+    },
+    {
+      "line": 19,
+      "text": "沿途经过的从前"
+    },
+    {
+      "line": 20,
+      "text": "还来不及再重演"
+    },
+    {
+      "line": 21,
+      "text": "拥抱早已悄悄冷却"
+    },
+    {
+      "line": 22,
+      "text": "海潮声淹没了离别时的黄昏"
+    },
+    {
+      "line": 23,
+      "text": "只留下不舍的体温"
+    },
+    {
+      "line": 24,
+      "text": "星空下拥抱着快凋零的温存"
+    },
+    {
+      "line": 25,
+      "text": "爱只能在回忆里完整"
+    },
+    {
+      "line": 26,
+      "text": "想把你抱进身体里面"
+    },
+    {
+      "line": 27,
+      "text": "不敢让你看见"
+    },
+    {
+      "line": 28,
+      "text": "嘴角那颗没落下的泪"
+    },
+    {
+      "line": 29,
+      "text": "如果这是最后的一页"
+    },
+    {
+      "line": 30,
+      "text": "在你离开之前"
+    },
+    {
+      "line": 31,
+      "text": "能否让我把故事重写"
+    },
+    {
+      "line": 32,
+      "text": "想把你抱进身体里面"
+    },
+    {
+      "line": 33,
+      "text": "不敢让你看见"
+    },
+    {
+      "line": 34,
+      "text": "嘴角那颗没落下的泪"
+    },
+    {
+      "line": 35,
+      "text": "如果这是最后的一页"
+    },
+    {
+      "line": 36,
+      "text": "在你离开之前"
+    },
+    {
+      "line": 37,
+      "text": "能否让我把故事重写"
+    }
+  ],
+  "syllables": [
+    {
+      "syllable_id": "s0001",
+      "index": 0,
+      "text": "雨",
+      "line_index": 0,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0002",
+      "index": 1,
+      "text": "停",
+      "line_index": 0,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0003",
+      "index": 2,
+      "text": "滞",
+      "line_index": 0,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0004",
+      "index": 3,
+      "text": "天",
+      "line_index": 0,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0005",
+      "index": 4,
+      "text": "空",
+      "line_index": 0,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0006",
+      "index": 5,
+      "text": "之",
+      "line_index": 0,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0007",
+      "index": 6,
+      "text": "间",
+      "line_index": 0,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0008",
+      "index": 7,
+      "text": "像",
+      "line_index": 1,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0009",
+      "index": 8,
+      "text": "泪",
+      "line_index": 1,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0010",
+      "index": 9,
+      "text": "在",
+      "line_index": 1,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0011",
+      "index": 10,
+      "text": "眼",
+      "line_index": 1,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0012",
+      "index": 11,
+      "text": "眶",
+      "line_index": 1,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0013",
+      "index": 12,
+      "text": "盘",
+      "line_index": 1,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0014",
+      "index": 13,
+      "text": "旋",
+      "line_index": 1,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0015",
+      "index": 14,
+      "text": "这",
+      "line_index": 2,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0016",
+      "index": 15,
+      "text": "也",
+      "line_index": 2,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0017",
+      "index": 16,
+      "text": "许",
+      "line_index": 2,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0018",
+      "index": 17,
+      "text": "是",
+      "line_index": 2,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0019",
+      "index": 18,
+      "text": "最",
+      "line_index": 2,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0020",
+      "index": 19,
+      "text": "后",
+      "line_index": 2,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0021",
+      "index": 20,
+      "text": "一",
+      "line_index": 2,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0022",
+      "index": 21,
+      "text": "次",
+      "line_index": 2,
+      "char_index": 7,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0023",
+      "index": 22,
+      "text": "见",
+      "line_index": 2,
+      "char_index": 8,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0024",
+      "index": 23,
+      "text": "面",
+      "line_index": 2,
+      "char_index": 9,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0025",
+      "index": 24,
+      "text": "沿",
+      "line_index": 3,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0026",
+      "index": 25,
+      "text": "途",
+      "line_index": 3,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0027",
+      "index": 26,
+      "text": "经",
+      "line_index": 3,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0028",
+      "index": 27,
+      "text": "过",
+      "line_index": 3,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0029",
+      "index": 28,
+      "text": "的",
+      "line_index": 3,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0030",
+      "index": 29,
+      "text": "从",
+      "line_index": 3,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0031",
+      "index": 30,
+      "text": "前",
+      "line_index": 3,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0032",
+      "index": 31,
+      "text": "还",
+      "line_index": 4,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0033",
+      "index": 32,
+      "text": "来",
+      "line_index": 4,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0034",
+      "index": 33,
+      "text": "不",
+      "line_index": 4,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0035",
+      "index": 34,
+      "text": "及",
+      "line_index": 4,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0036",
+      "index": 35,
+      "text": "再",
+      "line_index": 4,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0037",
+      "index": 36,
+      "text": "重",
+      "line_index": 4,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0038",
+      "index": 37,
+      "text": "演",
+      "line_index": 4,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0039",
+      "index": 38,
+      "text": "拥",
+      "line_index": 5,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0040",
+      "index": 39,
+      "text": "抱",
+      "line_index": 5,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0041",
+      "index": 40,
+      "text": "早",
+      "line_index": 5,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0042",
+      "index": 41,
+      "text": "已",
+      "line_index": 5,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0043",
+      "index": 42,
+      "text": "悄",
+      "line_index": 5,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0044",
+      "index": 43,
+      "text": "悄",
+      "line_index": 5,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0045",
+      "index": 44,
+      "text": "冷",
+      "line_index": 5,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0046",
+      "index": 45,
+      "text": "却",
+      "line_index": 5,
+      "char_index": 7,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0047",
+      "index": 46,
+      "text": "海",
+      "line_index": 6,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0048",
+      "index": 47,
+      "text": "潮",
+      "line_index": 6,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0049",
+      "index": 48,
+      "text": "声",
+      "line_index": 6,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0050",
+      "index": 49,
+      "text": "淹",
+      "line_index": 6,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0051",
+      "index": 50,
+      "text": "没",
+      "line_index": 6,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0052",
+      "index": 51,
+      "text": "了",
+      "line_index": 6,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0053",
+      "index": 52,
+      "text": "离",
+      "line_index": 6,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0054",
+      "index": 53,
+      "text": "别",
+      "line_index": 6,
+      "char_index": 7,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0055",
+      "index": 54,
+      "text": "时",
+      "line_index": 6,
+      "char_index": 8,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0056",
+      "index": 55,
+      "text": "的",
+      "line_index": 6,
+      "char_index": 9,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0057",
+      "index": 56,
+      "text": "黄",
+      "line_index": 6,
+      "char_index": 10,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0058",
+      "index": 57,
+      "text": "昏",
+      "line_index": 6,
+      "char_index": 11,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0059",
+      "index": 58,
+      "text": "只",
+      "line_index": 7,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0060",
+      "index": 59,
+      "text": "留",
+      "line_index": 7,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0061",
+      "index": 60,
+      "text": "下",
+      "line_index": 7,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0062",
+      "index": 61,
+      "text": "不",
+      "line_index": 7,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0063",
+      "index": 62,
+      "text": "舍",
+      "line_index": 7,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0064",
+      "index": 63,
+      "text": "的",
+      "line_index": 7,
+      "char_index": 5,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0065",
+      "index": 64,
+      "text": "体",
+      "line_index": 7,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0066",
+      "index": 65,
+      "text": "温",
+      "line_index": 7,
+      "char_index": 7,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0067",
+      "index": 66,
+      "text": "星",
+      "line_index": 8,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0068",
+      "index": 67,
+      "text": "空",
+      "line_index": 8,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0069",
+      "index": 68,
+      "text": "下",
+      "line_index": 8,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0070",
+      "index": 69,
+      "text": "拥",
+      "line_index": 8,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0071",
+      "index": 70,
+      "text": "抱",
+      "line_index": 8,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0072",
+      "index": 71,
+      "text": "着",
+      "line_index": 8,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0073",
+      "index": 72,
+      "text": "快",
+      "line_index": 8,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0074",
+      "index": 73,
+      "text": "凋",
+      "line_index": 8,
+      "char_index": 7,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0075",
+      "index": 74,
+      "text": "零",
+      "line_index": 8,
+      "char_index": 8,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0076",
+      "index": 75,
+      "text": "的",
+      "line_index": 8,
+      "char_index": 9,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0077",
+      "index": 76,
+      "text": "温",
+      "line_index": 8,
+      "char_index": 10,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0078",
+      "index": 77,
+      "text": "存",
+      "line_index": 8,
+      "char_index": 11,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0079",
+      "index": 78,
+      "text": "爱",
+      "line_index": 9,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0080",
+      "index": 79,
+      "text": "只",
+      "line_index": 9,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0081",
+      "index": 80,
+      "text": "能",
+      "line_index": 9,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0082",
+      "index": 81,
+      "text": "在",
+      "line_index": 9,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0083",
+      "index": 82,
+      "text": "回",
+      "line_index": 9,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0084",
+      "index": 83,
+      "text": "忆",
+      "line_index": 9,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0085",
+      "index": 84,
+      "text": "里",
+      "line_index": 9,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0086",
+      "index": 85,
+      "text": "完",
+      "line_index": 9,
+      "char_index": 7,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0087",
+      "index": 86,
+      "text": "整",
+      "line_index": 9,
+      "char_index": 8,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0088",
+      "index": 87,
+      "text": "想",
+      "line_index": 10,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0089",
+      "index": 88,
+      "text": "把",
+      "line_index": 10,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0090",
+      "index": 89,
+      "text": "你",
+      "line_index": 10,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0091",
+      "index": 90,
+      "text": "抱",
+      "line_index": 10,
+      "char_index": 3,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0092",
+      "index": 91,
+      "text": "进",
+      "line_index": 10,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0093",
+      "index": 92,
+      "text": "身",
+      "line_index": 10,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0094",
+      "index": 93,
+      "text": "体",
+      "line_index": 10,
+      "char_index": 6,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0095",
+      "index": 94,
+      "text": "里",
+      "line_index": 10,
+      "char_index": 7,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0096",
+      "index": 95,
+      "text": "面",
+      "line_index": 10,
+      "char_index": 8,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0097",
+      "index": 96,
+      "text": "不",
+      "line_index": 11,
+      "char_index": 0,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0098",
+      "index": 97,
+      "text": "敢",
+      "line_index": 11,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0099",
+      "index": 98,
+      "text": "让",
+      "line_index": 11,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0100",
+      "index": 99,
+      "text": "你",
+      "line_index": 11,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0101",
+      "index": 100,
+      "text": "看",
+      "line_index": 11,
+      "char_index": 4,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0102",
+      "index": 101,
+      "text": "见",
+      "line_index": 11,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0103",
+      "index": 102,
+      "text": "嘴",
+      "line_index": 12,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0104",
+      "index": 103,
+      "text": "角",
+      "line_index": 12,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0105",
+      "index": 104,
+      "text": "那",
+      "line_index": 12,
+      "char_index": 2,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0106",
+      "index": 105,
+      "text": "颗",
+      "line_index": 12,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0107",
+      "index": 106,
+      "text": "没",
+      "line_index": 12,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0108",
+      "index": 107,
+      "text": "落",
+      "line_index": 12,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0109",
+      "index": 108,
+      "text": "下",
+      "line_index": 12,
+      "char_index": 6,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0110",
+      "index": 109,
+      "text": "的",
+      "line_index": 12,
+      "char_index": 7,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0111",
+      "index": 110,
+      "text": "泪",
+      "line_index": 12,
+      "char_index": 8,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0112",
+      "index": 111,
+      "text": "如",
+      "line_index": 13,
+      "char_index": 0,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0113",
+      "index": 112,
+      "text": "果",
+      "line_index": 13,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0114",
+      "index": 113,
+      "text": "这",
+      "line_index": 13,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0115",
+      "index": 114,
+      "text": "是",
+      "line_index": 13,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0116",
+      "index": 115,
+      "text": "最",
+      "line_index": 13,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0117",
+      "index": 116,
+      "text": "后",
+      "line_index": 13,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0118",
+      "index": 117,
+      "text": "的",
+      "line_index": 13,
+      "char_index": 6,
+      "occurrence": 6,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0119",
+      "index": 118,
+      "text": "一",
+      "line_index": 13,
+      "char_index": 7,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0120",
+      "index": 119,
+      "text": "页",
+      "line_index": 13,
+      "char_index": 8,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0121",
+      "index": 120,
+      "text": "在",
+      "line_index": 14,
+      "char_index": 0,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0122",
+      "index": 121,
+      "text": "你",
+      "line_index": 14,
+      "char_index": 1,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0123",
+      "index": 122,
+      "text": "离",
+      "line_index": 14,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0124",
+      "index": 123,
+      "text": "开",
+      "line_index": 14,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0125",
+      "index": 124,
+      "text": "之",
+      "line_index": 14,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0126",
+      "index": 125,
+      "text": "前",
+      "line_index": 14,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0127",
+      "index": 126,
+      "text": "能",
+      "line_index": 15,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0128",
+      "index": 127,
+      "text": "否",
+      "line_index": 15,
+      "char_index": 1,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0129",
+      "index": 128,
+      "text": "让",
+      "line_index": 15,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0130",
+      "index": 129,
+      "text": "我",
+      "line_index": 15,
+      "char_index": 3,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0131",
+      "index": 130,
+      "text": "把",
+      "line_index": 15,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0132",
+      "index": 131,
+      "text": "故",
+      "line_index": 15,
+      "char_index": 5,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0133",
+      "index": 132,
+      "text": "事",
+      "line_index": 15,
+      "char_index": 6,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0134",
+      "index": 133,
+      "text": "重",
+      "line_index": 15,
+      "char_index": 7,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0135",
+      "index": 134,
+      "text": "写",
+      "line_index": 15,
+      "char_index": 8,
+      "occurrence": 1,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0136",
+      "index": 135,
+      "text": "雨",
+      "line_index": 16,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0137",
+      "index": 136,
+      "text": "停",
+      "line_index": 16,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0138",
+      "index": 137,
+      "text": "滞",
+      "line_index": 16,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0139",
+      "index": 138,
+      "text": "天",
+      "line_index": 16,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0140",
+      "index": 139,
+      "text": "空",
+      "line_index": 16,
+      "char_index": 4,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0141",
+      "index": 140,
+      "text": "之",
+      "line_index": 16,
+      "char_index": 5,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0142",
+      "index": 141,
+      "text": "间",
+      "line_index": 16,
+      "char_index": 6,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0143",
+      "index": 142,
+      "text": "像",
+      "line_index": 17,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0144",
+      "index": 143,
+      "text": "泪",
+      "line_index": 17,
+      "char_index": 1,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0145",
+      "index": 144,
+      "text": "在",
+      "line_index": 17,
+      "char_index": 2,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0146",
+      "index": 145,
+      "text": "眼",
+      "line_index": 17,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0147",
+      "index": 146,
+      "text": "眶",
+      "line_index": 17,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0148",
+      "index": 147,
+      "text": "盘",
+      "line_index": 17,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0149",
+      "index": 148,
+      "text": "旋",
+      "line_index": 17,
+      "char_index": 6,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0150",
+      "index": 149,
+      "text": "这",
+      "line_index": 18,
+      "char_index": 0,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0151",
+      "index": 150,
+      "text": "也",
+      "line_index": 18,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0152",
+      "index": 151,
+      "text": "许",
+      "line_index": 18,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0153",
+      "index": 152,
+      "text": "是",
+      "line_index": 18,
+      "char_index": 3,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0154",
+      "index": 153,
+      "text": "最",
+      "line_index": 18,
+      "char_index": 4,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0155",
+      "index": 154,
+      "text": "后",
+      "line_index": 18,
+      "char_index": 5,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0156",
+      "index": 155,
+      "text": "一",
+      "line_index": 18,
+      "char_index": 6,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0157",
+      "index": 156,
+      "text": "次",
+      "line_index": 18,
+      "char_index": 7,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0158",
+      "index": 157,
+      "text": "见",
+      "line_index": 18,
+      "char_index": 8,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0159",
+      "index": 158,
+      "text": "面",
+      "line_index": 18,
+      "char_index": 9,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0160",
+      "index": 159,
+      "text": "沿",
+      "line_index": 19,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0161",
+      "index": 160,
+      "text": "途",
+      "line_index": 19,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0162",
+      "index": 161,
+      "text": "经",
+      "line_index": 19,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0163",
+      "index": 162,
+      "text": "过",
+      "line_index": 19,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0164",
+      "index": 163,
+      "text": "的",
+      "line_index": 19,
+      "char_index": 4,
+      "occurrence": 7,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0165",
+      "index": 164,
+      "text": "从",
+      "line_index": 19,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0166",
+      "index": 165,
+      "text": "前",
+      "line_index": 19,
+      "char_index": 6,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0167",
+      "index": 166,
+      "text": "还",
+      "line_index": 20,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0168",
+      "index": 167,
+      "text": "来",
+      "line_index": 20,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0169",
+      "index": 168,
+      "text": "不",
+      "line_index": 20,
+      "char_index": 2,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0170",
+      "index": 169,
+      "text": "及",
+      "line_index": 20,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0171",
+      "index": 170,
+      "text": "再",
+      "line_index": 20,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0172",
+      "index": 171,
+      "text": "重",
+      "line_index": 20,
+      "char_index": 5,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0173",
+      "index": 172,
+      "text": "演",
+      "line_index": 20,
+      "char_index": 6,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0174",
+      "index": 173,
+      "text": "拥",
+      "line_index": 21,
+      "char_index": 0,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0175",
+      "index": 174,
+      "text": "抱",
+      "line_index": 21,
+      "char_index": 1,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0176",
+      "index": 175,
+      "text": "早",
+      "line_index": 21,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0177",
+      "index": 176,
+      "text": "已",
+      "line_index": 21,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0178",
+      "index": 177,
+      "text": "悄",
+      "line_index": 21,
+      "char_index": 4,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0179",
+      "index": 178,
+      "text": "悄",
+      "line_index": 21,
+      "char_index": 5,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0180",
+      "index": 179,
+      "text": "冷",
+      "line_index": 21,
+      "char_index": 6,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0181",
+      "index": 180,
+      "text": "却",
+      "line_index": 21,
+      "char_index": 7,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0182",
+      "index": 181,
+      "text": "海",
+      "line_index": 22,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0183",
+      "index": 182,
+      "text": "潮",
+      "line_index": 22,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0184",
+      "index": 183,
+      "text": "声",
+      "line_index": 22,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0185",
+      "index": 184,
+      "text": "淹",
+      "line_index": 22,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0186",
+      "index": 185,
+      "text": "没",
+      "line_index": 22,
+      "char_index": 4,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0187",
+      "index": 186,
+      "text": "了",
+      "line_index": 22,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0188",
+      "index": 187,
+      "text": "离",
+      "line_index": 22,
+      "char_index": 6,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0189",
+      "index": 188,
+      "text": "别",
+      "line_index": 22,
+      "char_index": 7,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0190",
+      "index": 189,
+      "text": "时",
+      "line_index": 22,
+      "char_index": 8,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0191",
+      "index": 190,
+      "text": "的",
+      "line_index": 22,
+      "char_index": 9,
+      "occurrence": 8,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0192",
+      "index": 191,
+      "text": "黄",
+      "line_index": 22,
+      "char_index": 10,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0193",
+      "index": 192,
+      "text": "昏",
+      "line_index": 22,
+      "char_index": 11,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0194",
+      "index": 193,
+      "text": "只",
+      "line_index": 23,
+      "char_index": 0,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0195",
+      "index": 194,
+      "text": "留",
+      "line_index": 23,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0196",
+      "index": 195,
+      "text": "下",
+      "line_index": 23,
+      "char_index": 2,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0197",
+      "index": 196,
+      "text": "不",
+      "line_index": 23,
+      "char_index": 3,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0198",
+      "index": 197,
+      "text": "舍",
+      "line_index": 23,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0199",
+      "index": 198,
+      "text": "的",
+      "line_index": 23,
+      "char_index": 5,
+      "occurrence": 9,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0200",
+      "index": 199,
+      "text": "体",
+      "line_index": 23,
+      "char_index": 6,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0201",
+      "index": 200,
+      "text": "温",
+      "line_index": 23,
+      "char_index": 7,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0202",
+      "index": 201,
+      "text": "星",
+      "line_index": 24,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0203",
+      "index": 202,
+      "text": "空",
+      "line_index": 24,
+      "char_index": 1,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0204",
+      "index": 203,
+      "text": "下",
+      "line_index": 24,
+      "char_index": 2,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0205",
+      "index": 204,
+      "text": "拥",
+      "line_index": 24,
+      "char_index": 3,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0206",
+      "index": 205,
+      "text": "抱",
+      "line_index": 24,
+      "char_index": 4,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0207",
+      "index": 206,
+      "text": "着",
+      "line_index": 24,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0208",
+      "index": 207,
+      "text": "快",
+      "line_index": 24,
+      "char_index": 6,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0209",
+      "index": 208,
+      "text": "凋",
+      "line_index": 24,
+      "char_index": 7,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0210",
+      "index": 209,
+      "text": "零",
+      "line_index": 24,
+      "char_index": 8,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0211",
+      "index": 210,
+      "text": "的",
+      "line_index": 24,
+      "char_index": 9,
+      "occurrence": 10,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0212",
+      "index": 211,
+      "text": "温",
+      "line_index": 24,
+      "char_index": 10,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0213",
+      "index": 212,
+      "text": "存",
+      "line_index": 24,
+      "char_index": 11,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0214",
+      "index": 213,
+      "text": "爱",
+      "line_index": 25,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0215",
+      "index": 214,
+      "text": "只",
+      "line_index": 25,
+      "char_index": 1,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0216",
+      "index": 215,
+      "text": "能",
+      "line_index": 25,
+      "char_index": 2,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0217",
+      "index": 216,
+      "text": "在",
+      "line_index": 25,
+      "char_index": 3,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0218",
+      "index": 217,
+      "text": "回",
+      "line_index": 25,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0219",
+      "index": 218,
+      "text": "忆",
+      "line_index": 25,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0220",
+      "index": 219,
+      "text": "里",
+      "line_index": 25,
+      "char_index": 6,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0221",
+      "index": 220,
+      "text": "完",
+      "line_index": 25,
+      "char_index": 7,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0222",
+      "index": 221,
+      "text": "整",
+      "line_index": 25,
+      "char_index": 8,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0223",
+      "index": 222,
+      "text": "想",
+      "line_index": 26,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0224",
+      "index": 223,
+      "text": "把",
+      "line_index": 26,
+      "char_index": 1,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0225",
+      "index": 224,
+      "text": "你",
+      "line_index": 26,
+      "char_index": 2,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0226",
+      "index": 225,
+      "text": "抱",
+      "line_index": 26,
+      "char_index": 3,
+      "occurrence": 6,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0227",
+      "index": 226,
+      "text": "进",
+      "line_index": 26,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0228",
+      "index": 227,
+      "text": "身",
+      "line_index": 26,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0229",
+      "index": 228,
+      "text": "体",
+      "line_index": 26,
+      "char_index": 6,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0230",
+      "index": 229,
+      "text": "里",
+      "line_index": 26,
+      "char_index": 7,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0231",
+      "index": 230,
+      "text": "面",
+      "line_index": 26,
+      "char_index": 8,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0232",
+      "index": 231,
+      "text": "不",
+      "line_index": 27,
+      "char_index": 0,
+      "occurrence": 6,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0233",
+      "index": 232,
+      "text": "敢",
+      "line_index": 27,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0234",
+      "index": 233,
+      "text": "让",
+      "line_index": 27,
+      "char_index": 2,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0235",
+      "index": 234,
+      "text": "你",
+      "line_index": 27,
+      "char_index": 3,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0236",
+      "index": 235,
+      "text": "看",
+      "line_index": 27,
+      "char_index": 4,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0237",
+      "index": 236,
+      "text": "见",
+      "line_index": 27,
+      "char_index": 5,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0238",
+      "index": 237,
+      "text": "嘴",
+      "line_index": 28,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0239",
+      "index": 238,
+      "text": "角",
+      "line_index": 28,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0240",
+      "index": 239,
+      "text": "那",
+      "line_index": 28,
+      "char_index": 2,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0241",
+      "index": 240,
+      "text": "颗",
+      "line_index": 28,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0242",
+      "index": 241,
+      "text": "没",
+      "line_index": 28,
+      "char_index": 4,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0243",
+      "index": 242,
+      "text": "落",
+      "line_index": 28,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0244",
+      "index": 243,
+      "text": "下",
+      "line_index": 28,
+      "char_index": 6,
+      "occurrence": 6,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0245",
+      "index": 244,
+      "text": "的",
+      "line_index": 28,
+      "char_index": 7,
+      "occurrence": 11,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0246",
+      "index": 245,
+      "text": "泪",
+      "line_index": 28,
+      "char_index": 8,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0247",
+      "index": 246,
+      "text": "如",
+      "line_index": 29,
+      "char_index": 0,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0248",
+      "index": 247,
+      "text": "果",
+      "line_index": 29,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0249",
+      "index": 248,
+      "text": "这",
+      "line_index": 29,
+      "char_index": 2,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0250",
+      "index": 249,
+      "text": "是",
+      "line_index": 29,
+      "char_index": 3,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0251",
+      "index": 250,
+      "text": "最",
+      "line_index": 29,
+      "char_index": 4,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0252",
+      "index": 251,
+      "text": "后",
+      "line_index": 29,
+      "char_index": 5,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0253",
+      "index": 252,
+      "text": "的",
+      "line_index": 29,
+      "char_index": 6,
+      "occurrence": 12,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0254",
+      "index": 253,
+      "text": "一",
+      "line_index": 29,
+      "char_index": 7,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0255",
+      "index": 254,
+      "text": "页",
+      "line_index": 29,
+      "char_index": 8,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0256",
+      "index": 255,
+      "text": "在",
+      "line_index": 30,
+      "char_index": 0,
+      "occurrence": 6,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0257",
+      "index": 256,
+      "text": "你",
+      "line_index": 30,
+      "char_index": 1,
+      "occurrence": 6,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0258",
+      "index": 257,
+      "text": "离",
+      "line_index": 30,
+      "char_index": 2,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0259",
+      "index": 258,
+      "text": "开",
+      "line_index": 30,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0260",
+      "index": 259,
+      "text": "之",
+      "line_index": 30,
+      "char_index": 4,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0261",
+      "index": 260,
+      "text": "前",
+      "line_index": 30,
+      "char_index": 5,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0262",
+      "index": 261,
+      "text": "能",
+      "line_index": 31,
+      "char_index": 0,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0263",
+      "index": 262,
+      "text": "否",
+      "line_index": 31,
+      "char_index": 1,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0264",
+      "index": 263,
+      "text": "让",
+      "line_index": 31,
+      "char_index": 2,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0265",
+      "index": 264,
+      "text": "我",
+      "line_index": 31,
+      "char_index": 3,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0266",
+      "index": 265,
+      "text": "把",
+      "line_index": 31,
+      "char_index": 4,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0267",
+      "index": 266,
+      "text": "故",
+      "line_index": 31,
+      "char_index": 5,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0268",
+      "index": 267,
+      "text": "事",
+      "line_index": 31,
+      "char_index": 6,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0269",
+      "index": 268,
+      "text": "重",
+      "line_index": 31,
+      "char_index": 7,
+      "occurrence": 4,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0270",
+      "index": 269,
+      "text": "写",
+      "line_index": 31,
+      "char_index": 8,
+      "occurrence": 2,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0271",
+      "index": 270,
+      "text": "想",
+      "line_index": 32,
+      "char_index": 0,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0272",
+      "index": 271,
+      "text": "把",
+      "line_index": 32,
+      "char_index": 1,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0273",
+      "index": 272,
+      "text": "你",
+      "line_index": 32,
+      "char_index": 2,
+      "occurrence": 7,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0274",
+      "index": 273,
+      "text": "抱",
+      "line_index": 32,
+      "char_index": 3,
+      "occurrence": 7,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0275",
+      "index": 274,
+      "text": "进",
+      "line_index": 32,
+      "char_index": 4,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0276",
+      "index": 275,
+      "text": "身",
+      "line_index": 32,
+      "char_index": 5,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0277",
+      "index": 276,
+      "text": "体",
+      "line_index": 32,
+      "char_index": 6,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0278",
+      "index": 277,
+      "text": "里",
+      "line_index": 32,
+      "char_index": 7,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0279",
+      "index": 278,
+      "text": "面",
+      "line_index": 32,
+      "char_index": 8,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0280",
+      "index": 279,
+      "text": "不",
+      "line_index": 33,
+      "char_index": 0,
+      "occurrence": 7,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0281",
+      "index": 280,
+      "text": "敢",
+      "line_index": 33,
+      "char_index": 1,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0282",
+      "index": 281,
+      "text": "让",
+      "line_index": 33,
+      "char_index": 2,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0283",
+      "index": 282,
+      "text": "你",
+      "line_index": 33,
+      "char_index": 3,
+      "occurrence": 8,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0284",
+      "index": 283,
+      "text": "看",
+      "line_index": 33,
+      "char_index": 4,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0285",
+      "index": 284,
+      "text": "见",
+      "line_index": 33,
+      "char_index": 5,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0286",
+      "index": 285,
+      "text": "嘴",
+      "line_index": 34,
+      "char_index": 0,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0287",
+      "index": 286,
+      "text": "角",
+      "line_index": 34,
+      "char_index": 1,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0288",
+      "index": 287,
+      "text": "那",
+      "line_index": 34,
+      "char_index": 2,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0289",
+      "index": 288,
+      "text": "颗",
+      "line_index": 34,
+      "char_index": 3,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0290",
+      "index": 289,
+      "text": "没",
+      "line_index": 34,
+      "char_index": 4,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0291",
+      "index": 290,
+      "text": "落",
+      "line_index": 34,
+      "char_index": 5,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0292",
+      "index": 291,
+      "text": "下",
+      "line_index": 34,
+      "char_index": 6,
+      "occurrence": 7,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0293",
+      "index": 292,
+      "text": "的",
+      "line_index": 34,
+      "char_index": 7,
+      "occurrence": 13,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0294",
+      "index": 293,
+      "text": "泪",
+      "line_index": 34,
+      "char_index": 8,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0295",
+      "index": 294,
+      "text": "如",
+      "line_index": 35,
+      "char_index": 0,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0296",
+      "index": 295,
+      "text": "果",
+      "line_index": 35,
+      "char_index": 1,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0297",
+      "index": 296,
+      "text": "这",
+      "line_index": 35,
+      "char_index": 2,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0298",
+      "index": 297,
+      "text": "是",
+      "line_index": 35,
+      "char_index": 3,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0299",
+      "index": 298,
+      "text": "最",
+      "line_index": 35,
+      "char_index": 4,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0300",
+      "index": 299,
+      "text": "后",
+      "line_index": 35,
+      "char_index": 5,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0301",
+      "index": 300,
+      "text": "的",
+      "line_index": 35,
+      "char_index": 6,
+      "occurrence": 14,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0302",
+      "index": 301,
+      "text": "一",
+      "line_index": 35,
+      "char_index": 7,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0303",
+      "index": 302,
+      "text": "页",
+      "line_index": 35,
+      "char_index": 8,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0304",
+      "index": 303,
+      "text": "在",
+      "line_index": 36,
+      "char_index": 0,
+      "occurrence": 7,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0305",
+      "index": 304,
+      "text": "你",
+      "line_index": 36,
+      "char_index": 1,
+      "occurrence": 9,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0306",
+      "index": 305,
+      "text": "离",
+      "line_index": 36,
+      "char_index": 2,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0307",
+      "index": 306,
+      "text": "开",
+      "line_index": 36,
+      "char_index": 3,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0308",
+      "index": 307,
+      "text": "之",
+      "line_index": 36,
+      "char_index": 4,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0309",
+      "index": 308,
+      "text": "前",
+      "line_index": 36,
+      "char_index": 5,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0310",
+      "index": 309,
+      "text": "能",
+      "line_index": 37,
+      "char_index": 0,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0311",
+      "index": 310,
+      "text": "否",
+      "line_index": 37,
+      "char_index": 1,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0312",
+      "index": 311,
+      "text": "让",
+      "line_index": 37,
+      "char_index": 2,
+      "occurrence": 6,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0313",
+      "index": 312,
+      "text": "我",
+      "line_index": 37,
+      "char_index": 3,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0314",
+      "index": 313,
+      "text": "把",
+      "line_index": 37,
+      "char_index": 4,
+      "occurrence": 6,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0315",
+      "index": 314,
+      "text": "故",
+      "line_index": 37,
+      "char_index": 5,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0316",
+      "index": 315,
+      "text": "事",
+      "line_index": 37,
+      "char_index": 6,
+      "occurrence": 3,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0317",
+      "index": 316,
+      "text": "重",
+      "line_index": 37,
+      "char_index": 7,
+      "occurrence": 5,
+      "repeated": true
+    },
+    {
+      "syllable_id": "s0318",
+      "index": 317,
+      "text": "写",
+      "line_index": 37,
+      "char_index": 8,
+      "occurrence": 3,
+      "repeated": true
+    }
+  ],
+  "verification_note": "公开权威歌词为正文字符来源（多源交叉一致）；录音自身的分句与重复以录音为准。原始来源 runs/lastpage_fresh_source_20261007/lyric_scaffold.json 仅提供录音分句与 ASR 粗时间提示。",
+  "source_sha256": "f5e0259cd7028348deb7124f7673b1eef86193baceaa51f72c151cfb203ef553",
+  "line_meta": [
+    {
+      "line": 0,
+      "hanzi": "雨停滞天空之间",
+      "pinyin": "yu ting zhi tian kong zhi jian",
+      "slice": [
+        13.05,
+        17.709999999999997
+      ],
+      "asr_text": "已停止天空之間"
+    },
+    {
+      "line": 1,
+      "hanzi": "像泪在眼眶盘旋",
+      "pinyin": "xiang lei zai yan kuang pan xuan",
+      "slice": [
+        16.61,
+        21.029999999999998
+      ],
+      "asr_text": "像淚在眼眶盤雪"
+    },
+    {
+      "line": 2,
+      "hanzi": "这也许是最后一次见面",
+      "pinyin": "zhe ye xu shi zui hou yi ci jian mian",
+      "slice": [
+        19.93,
+        26.57
+      ],
+      "asr_text": "這也許是最後一次見面"
+    },
+    {
+      "line": 3,
+      "hanzi": "沿途经过的从前",
+      "pinyin": "yan tu jing guo de cong qian",
+      "slice": [
+        26.69,
+        31.45
+      ],
+      "asr_text": "沿途经过的从前"
+    },
+    {
+      "line": 4,
+      "hanzi": "还来不及再重演",
+      "pinyin": "hai lai bu ji zai chong yan",
+      "slice": [
+        30.35,
+        34.97
+      ],
+      "asr_text": "还来不及再重演"
+    },
+    {
+      "line": 5,
+      "hanzi": "拥抱早已悄悄冷却",
+      "pinyin": "yong bao zao yi qiao qiao leng que",
+      "slice": [
+        33.87,
+        40.49
+      ],
+      "asr_text": "拥抱早已悄悄冷却"
+    },
+    {
+      "line": 6,
+      "hanzi": "海潮声淹没了离别时的黄昏",
+      "pinyin": "hai chao sheng yan mo le li bie shi de huang hun",
+      "slice": [
+        40.769999999999996,
+        48.93
+      ],
+      "asr_text": "海潮上淹没了离别时的黄昏"
+    },
+    {
+      "line": 7,
+      "hanzi": "只留下不舍的体温",
+      "pinyin": "zhi liu xia bu she de ti wen",
+      "slice": [
+        47.83,
+        53.79
+      ],
+      "asr_text": "只留下不舍的体温"
+    },
+    {
+      "line": 8,
+      "hanzi": "星空下拥抱着快凋零的温存",
+      "pinyin": "xing kong xia yong bao zhe kuai diao ling de wen cun",
+      "slice": [
+        54.37,
+        62.17
+      ],
+      "asr_text": "星空下拥抱着快凋零的温存"
+    },
+    {
+      "line": 9,
+      "hanzi": "爱只能在回忆里完整",
+      "pinyin": "ai zhi neng zai hui yi li wan zheng",
+      "slice": [
+        61.07,
+        67.49000000000001
+      ],
+      "asr_text": "爱只能在回忆里温存"
+    },
+    {
+      "line": 10,
+      "hanzi": "想把你抱进身体里面",
+      "pinyin": "xiang ba ni bao jin shen ti li mian",
+      "slice": [
+        71.25,
+        77.67
+      ],
+      "asr_text": "想把你抱着身体里面"
+    },
+    {
+      "line": 11,
+      "hanzi": "不敢让你看见",
+      "pinyin": "bu gan rang ni kan jian",
+      "slice": [
+        76.57,
+        80.99000000000001
+      ],
+      "asr_text": "不敢让你看着"
+    },
+    {
+      "line": 12,
+      "hanzi": "嘴角那颗没落下的泪",
+      "pinyin": "zui jiao na ke mo luo xia de lei",
+      "slice": [
+        79.89,
+        85.49000000000001
+      ],
+      "asr_text": "最佳那颗没落下的脸"
+    },
+    {
+      "line": 13,
+      "hanzi": "如果这是最后的一页",
+      "pinyin": "ru guo zhe shi zui hou de yi ye",
+      "slice": [
+        85.75,
+        90.57000000000001
+      ],
+      "asr_text": "如果这是最后的爱你"
+    },
+    {
+      "line": 14,
+      "hanzi": "在你离开之前",
+      "pinyin": "zai ni li kai zhi qian",
+      "slice": [
+        89.47,
+        93.99000000000001
+      ],
+      "asr_text": "在你离开之前"
+    },
+    {
+      "line": 15,
+      "hanzi": "能否让我把故事重写",
+      "pinyin": "neng fou rang wo ba gu shi zhong xie",
+      "slice": [
+        93.53,
+        99.07000000000001
+      ],
+      "asr_text": "能否让我把故事重写"
+    },
+    {
+      "line": 16,
+      "hanzi": "雨停滞天空之间",
+      "pinyin": "yu ting zhi tian kong zhi jian",
+      "slice": [
+        126.89,
+        131.21
+      ],
+      "asr_text": "你停着天坑之间"
+    },
+    {
+      "line": 17,
+      "hanzi": "像泪在眼眶盘旋",
+      "pinyin": "xiang lei zai yan kuang pan xuan",
+      "slice": [
+        130.11,
+        134.51000000000002
+      ],
+      "asr_text": "像泪在眼眶盘旋"
+    },
+    {
+      "line": 18,
+      "hanzi": "这也许是最后一次见面",
+      "pinyin": "zhe ye xu shi zui hou yi ci jian mian",
+      "slice": [
+        133.41000000000003,
+        139.79
+      ],
+      "asr_text": "这也许是最后一次戒练"
+    },
+    {
+      "line": 19,
+      "hanzi": "沿途经过的从前",
+      "pinyin": "yan tu jing guo de cong qian",
+      "slice": [
+        140.11,
+        144.89000000000001
+      ],
+      "asr_text": "沿途经过的从前"
+    },
+    {
+      "line": 20,
+      "hanzi": "还来不及再重演",
+      "pinyin": "hai lai bu ji zai chong yan",
+      "slice": [
+        143.79000000000002,
+        148.39000000000001
+      ],
+      "asr_text": "还来不及再重演"
+    },
+    {
+      "line": 21,
+      "hanzi": "拥抱早已悄悄冷却",
+      "pinyin": "yong bao zao yi qiao qiao leng que",
+      "slice": [
+        147.29000000000002,
+        153.47
+      ],
+      "asr_text": "拥抱早已长久冷却"
+    },
+    {
+      "line": 22,
+      "hanzi": "海潮声淹没了离别时的黄昏",
+      "pinyin": "hai chao sheng yan mo le li bie shi de huang hun",
+      "slice": [
+        154.25,
+        162.17000000000002
+      ],
+      "asr_text": "还悄声淹没了离别时的黄昏"
+    },
+    {
+      "line": 23,
+      "hanzi": "只留下不舍的体温",
+      "pinyin": "zhi liu xia bu she de ti wen",
+      "slice": [
+        161.07000000000002,
+        167.29
+      ],
+      "asr_text": "只能像不舍的体温"
+    },
+    {
+      "line": 24,
+      "hanzi": "星空下拥抱着快凋零的温存",
+      "pinyin": "xing kong xia yong bao zhe kuai diao ling de wen cun",
+      "slice": [
+        167.89000000000001,
+        175.59
+      ],
+      "asr_text": "星空上拥抱着快凋零的温存"
+    },
+    {
+      "line": 25,
+      "hanzi": "爱只能在回忆里完整",
+      "pinyin": "ai zhi neng zai hui yi li wan zheng",
+      "slice": [
+        174.49,
+        180.87
+      ],
+      "asr_text": "爱只能在怀疑里完整"
+    },
+    {
+      "line": 26,
+      "hanzi": "想把你抱进身体里面",
+      "pinyin": "xiang ba ni bao jin shen ti li mian",
+      "slice": [
+        182.12,
+        187.33
+      ],
+      "asr_text": "想把你抱紧身子里面"
+    },
+    {
+      "line": 27,
+      "hanzi": "不敢让你看见",
+      "pinyin": "bu gan rang ni kan jian",
+      "slice": [
+        186.23000000000002,
+        190.73000000000002
+      ],
+      "asr_text": "不敢容易看见"
+    },
+    {
+      "line": 28,
+      "hanzi": "嘴角那颗没落下的泪",
+      "pinyin": "zui jiao na ke mo luo xia de lei",
+      "slice": [
+        189.63000000000002,
+        195.15
+      ],
+      "asr_text": "嘴角脑壳没落下的泪"
+    },
+    {
+      "line": 29,
+      "hanzi": "如果这是最后的一页",
+      "pinyin": "ru guo zhe shi zui hou de yi ye",
+      "slice": [
+        195.19,
+        200.93
+      ],
+      "asr_text": "如果这是最后的一夜"
+    },
+    {
+      "line": 30,
+      "hanzi": "在你离开之前",
+      "pinyin": "zai ni li kai zhi qian",
+      "slice": [
+        199.83,
+        204.23000000000002
+      ],
+      "asr_text": "在你离开之前"
+    },
+    {
+      "line": 31,
+      "hanzi": "能否让我把故事重写",
+      "pinyin": "neng fou rang wo ba gu shi zhong xie",
+      "slice": [
+        203.13000000000002,
+        208.85
+      ],
+      "asr_text": "能否让我把故事重写"
+    },
+    {
+      "line": 32,
+      "hanzi": "想把你抱进身体里面",
+      "pinyin": "xiang ba ni bao jin shen ti li mian",
+      "slice": [
+        209.49,
+        214.77
+      ],
+      "asr_text": "想把你抱住身体里面"
+    },
+    {
+      "line": 33,
+      "hanzi": "不敢让你看见",
+      "pinyin": "bu gan rang ni kan jian",
+      "slice": [
+        213.67000000000002,
+        218.19
+      ],
+      "asr_text": "不该让你看见"
+    },
+    {
+      "line": 34,
+      "hanzi": "嘴角那颗没落下的泪",
+      "pinyin": "zui jiao na ke mo luo xia de lei",
+      "slice": [
+        217.09,
+        222.59
+      ],
+      "asr_text": "醉酒那颗没落下的泪"
+    },
+    {
+      "line": 35,
+      "hanzi": "如果这是最后的一页",
+      "pinyin": "ru guo zhe shi zui hou de yi ye",
+      "slice": [
+        222.73000000000002,
+        228.87
+      ],
+      "asr_text": "如果这是最后的一页"
+    },
+    {
+      "line": 36,
+      "hanzi": "在你离开之前",
+      "pinyin": "zai ni li kai zhi qian",
+      "slice": [
+        227.77,
+        232.33
+      ],
+      "asr_text": "在你离开之间"
+    },
+    {
+      "line": 37,
+      "hanzi": "能否让我把故事重写",
+      "pinyin": "neng fou rang wo ba gu shi zhong xie",
+      "slice": [
+        231.23000000000002,
+        236.65
+      ],
+      "asr_text": "能否让我的故事重现"
+    }
+  ],
+  "canonical_lyrics": {
+    "path": "E:\\project\\agent2utau\\runs\\production\\phoneme-alignment-p0p1-20261031\\canonical_lyrics\\lastpage.json",
+    "sha256": "6381d3507435b19c92793f4b9f8c48b6784be682aa4f4b5f8cf3ebccc7497939",
+    "primary_source": "https://baike.baidu.com/item/%E6%9C%80%E5%90%8E%E4%B8%80%E9%A1%B5",
+    "cross_check_sources": [
+      "https://www.musixmatch.com/it/testo/%E6%B1%9F%E8%AA%9E%E6%99%A8/%E6%9C%80%E5%BE%8C%E4%B8%80%E9%A0%81/traduzione/cinese",
+      "https://m.2qupu.com/jita/20220605/24328.html"
+    ],
+    "retrieved_at": "2026-10-31T02:05:00+08:00",
+    "performer": "江语晨",
+    "credit": "作词：宋健彰（弹头） 作曲：詹宇豪",
+    "line_count": 42,
+    "character_count": 318
+  },
+  "canonical_diff": {
+    "aligned_equal": 318,
+    "substitutions": 0,
+    "recording_only": 0,
+    "canonical_only": 0
+  }
+}

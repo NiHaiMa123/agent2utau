@@ -1,0 +1,808 @@
+{
+  "song_id": "nianlun",
+  "clock_anomalies": [
+    {
+      "kind": "gap",
+      "note_id": "n0009",
+      "next_note_id": "n0010",
+      "gap_tick": 230,
+      "gap_s": 0.2396
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0016",
+      "next_note_id": "n0017",
+      "gap_tick": 183,
+      "gap_s": 0.1906
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0036",
+      "next_note_id": "n0037",
+      "gap_tick": 307,
+      "gap_s": 0.3198
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0049",
+      "next_note_id": "n0050",
+      "gap_tick": 58,
+      "gap_s": 0.0604
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0067",
+      "next_note_id": "n0068",
+      "gap_tick": 327,
+      "gap_s": 0.3406
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0096",
+      "next_note_id": "n0097",
+      "gap_tick": 221,
+      "gap_s": 0.2302
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0128",
+      "next_note_id": "n0129",
+      "gap_tick": 404,
+      "gap_s": 0.4208
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0181",
+      "next_note_id": "n0182",
+      "gap_tick": 77,
+      "gap_s": 0.0802
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0197",
+      "next_note_id": "n0198",
+      "gap_tick": 8832,
+      "gap_s": 9.2
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0254",
+      "next_note_id": "n0255",
+      "gap_tick": 1152,
+      "gap_s": 1.2
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0287",
+      "next_note_id": "n0288",
+      "gap_tick": 10,
+      "gap_s": 0.0104
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0300",
+      "next_note_id": "n0301",
+      "gap_tick": 96,
+      "gap_s": 0.1
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0382",
+      "next_note_id": "n0383",
+      "gap_tick": 13757,
+      "gap_s": 14.3302
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0385",
+      "next_note_id": "n0386",
+      "gap_tick": 7219,
+      "gap_s": 7.5198
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0448",
+      "next_note_id": "n0449",
+      "gap_tick": 336,
+      "gap_s": 0.35
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0460",
+      "next_note_id": "n0461",
+      "gap_tick": 970,
+      "gap_s": 1.0104
+    },
+    {
+      "kind": "gap",
+      "note_id": "n0467",
+      "next_note_id": "n0468",
+      "gap_tick": 39,
+      "gap_s": 0.0406
+    }
+  ],
+  "observation_anomalies": [
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0055",
+      "text": "有",
+      "line_index": 9
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0056",
+      "text": "缘",
+      "line_index": 9
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0069",
+      "text": "笨",
+      "line_index": 11
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0199",
+      "text": "有",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0200",
+      "text": "缘",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0213",
+      "text": "笨",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "syllable_id": "s0055",
+      "text": "有",
+      "observed_text": "永"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "syllable_id": "s0056",
+      "text": "缘",
+      "observed_text": "远"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "syllable_id": "s0069",
+      "text": "笨",
+      "observed_text": "恨"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "syllable_id": "s0199",
+      "text": "有",
+      "observed_text": "永"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "syllable_id": "s0200",
+      "text": "缘",
+      "observed_text": "远"
+    },
+    {
+      "kind": "observation_positional_fallback",
+      "syllable_id": "s0213",
+      "text": "笨",
+      "observed_text": "恨"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "永",
+      "start_s": 48.2268,
+      "source": "hfa"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "远",
+      "start_s": 48.4947,
+      "source": "hfa"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "恨",
+      "start_s": 55.3224,
+      "source": "hfa"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "永",
+      "start_s": 135.7888,
+      "source": "hfa"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "远",
+      "start_s": 136.1138,
+      "source": "hfa"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "恨",
+      "start_s": 143.0018,
+      "source": "hfa"
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0001",
+      "text": "圆",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0002",
+      "text": "圈",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0003",
+      "text": "勾",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0004",
+      "text": "勒",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0005",
+      "text": "成",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0006",
+      "text": "指",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0007",
+      "text": "纹",
+      "line_index": 0
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0008",
+      "text": "印",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0009",
+      "text": "在",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0010",
+      "text": "我",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0011",
+      "text": "的",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0012",
+      "text": "嘴",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0013",
+      "text": "唇",
+      "line_index": 1
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0014",
+      "text": "回",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0015",
+      "text": "忆",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0016",
+      "text": "苦",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0017",
+      "text": "涩",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0018",
+      "text": "的",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0019",
+      "text": "吻",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0020",
+      "text": "痕",
+      "line_index": 2
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0021",
+      "text": "是",
+      "line_index": 3
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0022",
+      "text": "树",
+      "line_index": 3
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0023",
+      "text": "根",
+      "line_index": 3
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0037",
+      "text": "寒",
+      "line_index": 6
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0038",
+      "text": "夜",
+      "line_index": 6
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0045",
+      "text": "清",
+      "line_index": 7
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0046",
+      "text": "晨",
+      "line_index": 7
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0047",
+      "text": "世",
+      "line_index": 8
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0055",
+      "text": "有",
+      "line_index": 9
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0056",
+      "text": "缘",
+      "line_index": 9
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0069",
+      "text": "笨",
+      "line_index": 11
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0072",
+      "text": "丛",
+      "line_index": 12
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0073",
+      "text": "生",
+      "line_index": 12
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0077",
+      "text": "倒",
+      "line_index": 13
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0078",
+      "text": "也",
+      "line_index": 13
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0090",
+      "text": "是",
+      "line_index": 15
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0092",
+      "text": "轮",
+      "line_index": 15
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0093",
+      "text": "数",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0094",
+      "text": "着",
+      "line_index": 16
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0164",
+      "text": "痕",
+      "line_index": 24
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0167",
+      "text": "根",
+      "line_index": 25
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0194",
+      "text": "毒",
+      "line_index": 30
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0199",
+      "text": "有",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0200",
+      "text": "缘",
+      "line_index": 31
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0213",
+      "text": "笨",
+      "line_index": 33
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0216",
+      "text": "丛",
+      "line_index": 34
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0234",
+      "text": "是",
+      "line_index": 37
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0260",
+      "text": "自",
+      "line_index": 40
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0261",
+      "text": "尊",
+      "line_index": 40
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0292",
+      "text": "年",
+      "line_index": 44
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0293",
+      "text": "轮",
+      "line_index": 44
+    },
+    {
+      "kind": "observation_missing",
+      "syllable_id": "s0347",
+      "text": "这",
+      "line_index": 50
+    },
+    {
+      "kind": "observation_residual_match",
+      "syllable_id": "s0078",
+      "text": "也",
+      "observed_text": "也"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "作",
+      "start_s": 29.28,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "曲",
+      "start_s": 29.34,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "李",
+      "start_s": 29.38,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "宗",
+      "start_s": 29.4,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "盛",
+      "start_s": 29.44,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "还",
+      "start_s": 37.7,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "也",
+      "start_s": 38.34,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "情",
+      "start_s": 41.54,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "侦",
+      "start_s": 42.18,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "时",
+      "start_s": 44.02,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "永",
+      "start_s": 48.04,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "远",
+      "start_s": 48.44,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "本",
+      "start_s": 55.02,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "从",
+      "start_s": 58.28,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "深",
+      "start_s": 58.56,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "到",
+      "start_s": 60.32,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "越",
+      "start_s": 61.1,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "十",
+      "start_s": 66.74,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "冷",
+      "start_s": 68.02,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "树",
+      "start_s": 68.76,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "舍",
+      "start_s": 70.0,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "恨",
+      "start_s": 114.9,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "干",
+      "start_s": 116.84,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "独",
+      "start_s": 133.2,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "永",
+      "start_s": 135.66,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "远",
+      "start_s": 136.04,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "本",
+      "start_s": 142.5,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "从",
+      "start_s": 145.82,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "十",
+      "start_s": 154.28,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "子",
+      "start_s": 168.3,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "孙",
+      "start_s": 168.8,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "眠",
+      "start_s": 207.84,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "了",
+      "start_s": 208.3,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "唱",
+      "start_s": 236.8,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "字",
+      "start_s": 272.98,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "幕",
+      "start_s": 273.06,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "志",
+      "start_s": 273.14,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "愿",
+      "start_s": 273.16,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "者",
+      "start_s": 273.26,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "杨",
+      "start_s": 273.3,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "茜",
+      "start_s": 273.34,
+      "source": "asr"
+    },
+    {
+      "kind": "observation_unused",
+      "text": "茜",
+      "start_s": 273.36,
+      "source": "asr"
+    }
+  ],
+  "mapping_problems": [],
+  "ustx_problems": [],
+  "lyrics_problems": [],
+  "baseline_anomalies": []
+}

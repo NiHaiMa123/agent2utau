@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "session": "phoneme-alignment-p1.1-20261031",
+  "run": "runs/production/phoneme-alignment-p1.1-20261031",
+  "note": "byte-identical copies of the run's text evidence; the run itself stays on this machine (media, USTX projects and the published-lyric transcription are deliberately not in Git)",
+  "file_count": 19,
+  "total_bytes": 2026726,
+  "files": [
+    {
+      "path": "nianlun/lyrics_locked.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/nianlun/lyrics_locked.json",
+      "sha256": "1995057425878945d5e6431b64d5ecd977d1ac6b61b9e9adb5fb49166c17f8f2",
+      "bytes": 80256,
+      "identical_to_run": true
+    },
+    {
+      "path": "nianlun/notes_normalized.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/nianlun/notes_normalized.json",
+      "sha256": "869f74b14630ed37d935b41b1f114fd07a329faf2be93622fc1595a8b2acaf74",
+      "bytes": 157044,
+      "identical_to_run": true
+    },
+    {
+      "path": "nianlun/mapping.v1.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/nianlun/mapping.v1.json",
+      "sha256": "46fe51cfe44896b397c59ef190bfa7411db0c2caa51f25ce16989a5126631792",
+      "bytes": 315581,
+      "identical_to_run": true
+    },
+    {
+      "path": "nianlun/anomalies.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/nianlun/anomalies.json",
+      "sha256": "766a33768d33defa1347cfbd9b4f4e558eb535e4c9f4253ab599613ca9acfdbc",
+      "bytes": 5247,
+      "identical_to_run": true
+    },
+    {
+      "path": "nianlun/baseline_verification.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/nianlun/baseline_verification.json",
+      "sha256": "258983fe3dee6683267da7b5ec4fc81d4608f5ebd4684fab6beb86461726f0d6",
+      "bytes": 101221,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/lyrics_locked.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/lastpage/lyrics_locked.json",
+      "sha256": "921ccf91c5d1e864f6f0b83865556c8451d0d20c9e000979559897b22f005761",
+      "bytes": 72820,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/notes_normalized.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/lastpage/notes_normalized.json",
+      "sha256": "e69f2487fbbc925d07606492f5bec6385c28311bb21ba210dc70b80373cb29a6",
+      "bytes": 137560,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/mapping.v1.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/lastpage/mapping.v1.json",
+      "sha256": "337cbad57fe7f2ad4163050a7da4fac1826e1e9380dbc02ee2921ec19c8401d1",
+      "bytes": 245291,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/anomalies.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/lastpage/anomalies.json",
+      "sha256": "387c0d47d8f405af37fe6be430a01e8952781011b63eed71bff70bc2291ec26e",
+      "bytes": 72335,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/baseline_verification.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/lastpage/baseline_verification.json",
+      "sha256": "aac540da5f4418163c98890cf3115bcbfdbecdbc6e1c291d8b8219e54c31ab76",
+      "bytes": 95742,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/lyrics_locked.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/yuai/lyrics_locked.json",
+      "sha256": "0098f7f99b5ae7184f7e2b515b569a5be01190b46b59ff9905e23e52524e31cf",
+      "bytes": 96433,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/notes_normalized.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/yuai/notes_normalized.json",
+      "sha256": "600db958510c84668ea0ed80a43c338a3a4788c01e416d99740cde56bbdfcb32",
+      "bytes": 159185,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/mapping.v1.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/yuai/mapping.v1.json",
+      "sha256": "6e328709ebc4f3114f3c467b1046ecabdb71617118d36e9d162ca31b927a8a99",
+      "bytes": 293886,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/anomalies.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/yuai/anomalies.json",
+      "sha256": "360cb721e504a9992c5a44c161f93f5681052a25d34dc571b11186896bca04b2",
+      "bytes": 2316,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/baseline_verification.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/yuai/baseline_verification.json",
+      "sha256": "5a15bec790c213a951027f04ab2ff338df4590c953a1056ec50b71bf20c5a0b4",
+      "bytes": 107465,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/hfa_observations.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/yuai/hfa_observations.json",
+      "sha256": "f10dc00238e8f5c3a580edc72ef772384331cb91c68cfcabccdf1daf08315487",
+      "bytes": 67346,
+      "identical_to_run": true
+    },
+    {
+      "path": "run_summary.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/run_summary.json",
+      "sha256": "817c82a5d6f0c2f0d6f8e3f8575396e305769a3ca3986d44ea78ad07607b720a",
+      "bytes": 8070,
+      "identical_to_run": true
+    },
+    {
+      "path": "game_stability/game_stability.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/game_stability/game_stability.json",
+      "sha256": "cf95d5fc23fae8283e65a97dbcb7acb4d605420dac49f13df221b988b4debcb8",
+      "bytes": 7801,
+      "identical_to_run": true
+    },
+    {
+      "path": "game_stability/cross_process.json",
+      "run_path": "runs/production/phoneme-alignment-p1.1-20261031/game_stability/cross_process.json",
+      "sha256": "b1e2ca8b290869d43e6a63136da0e53d7ddb0055e711f5f1f5ff1a14f58e36ab",
+      "bytes": 1127,
+      "identical_to_run": true
+    }
+  ]
+}

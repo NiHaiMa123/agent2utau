@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "session": "phoneme-alignment-p0p1-20261031",
+  "run": "runs/production/phoneme-alignment-p0p1-20261031",
+  "note": "byte-identical copies of the run's text evidence; the run itself stays on this machine (media, USTX projects and the published-lyric transcription are deliberately not in Git)",
+  "file_count": 19,
+  "total_bytes": 1635667,
+  "files": [
+    {
+      "path": "nianlun/lyrics_locked.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/nianlun/lyrics_locked.json",
+      "sha256": "b0439d747f6c70f9e0d3d056e50fe8bfd589a7108b72cbd12a6cf94a3c0d6002",
+      "bytes": 80256,
+      "identical_to_run": true
+    },
+    {
+      "path": "nianlun/notes_normalized.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/nianlun/notes_normalized.json",
+      "sha256": "de022516c517b9dbb4fa7880c4d84e7584ba15b4f93336494dd9330b4815340b",
+      "bytes": 156585,
+      "identical_to_run": true
+    },
+    {
+      "path": "nianlun/mapping.v1.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/nianlun/mapping.v1.json",
+      "sha256": "e2d3312ed8ac13213db139e544d9743db0cf8f33268c91a5fa4ea859561f5144",
+      "bytes": 222305,
+      "identical_to_run": true
+    },
+    {
+      "path": "nianlun/anomalies.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/nianlun/anomalies.json",
+      "sha256": "a3c804502c4d44ec9c9c24ee54a9c53f4a7c2a9695debaa9a4ba8be504014ef4",
+      "bytes": 17038,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/lyrics_locked.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/lastpage/lyrics_locked.json",
+      "sha256": "f5e0259cd7028348deb7124f7673b1eef86193baceaa51f72c151cfb203ef553",
+      "bytes": 72820,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/notes_normalized.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/lastpage/notes_normalized.json",
+      "sha256": "edb24906df2f053c35a0c0d69a4b3a59cfcfe88a0619340e7447a34fe2e12216",
+      "bytes": 137101,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/mapping.v1.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/lastpage/mapping.v1.json",
+      "sha256": "46109f7967d1a5d67b7baca26f6136b1a51a58c7f0beb5e100b098f16cfbf7da",
+      "bytes": 189428,
+      "identical_to_run": true
+    },
+    {
+      "path": "lastpage/anomalies.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/lastpage/anomalies.json",
+      "sha256": "5bcd07427fe6df4702738c0f28f0ddf3a0b88ffdb886bd1e57471121ccd7d04c",
+      "bytes": 74419,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/lyrics_locked.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/yuai/lyrics_locked.json",
+      "sha256": "2b4387cb080ea1fc24cc3e34703734378aa2a86d3a3ecddf876df3b8ad87833f",
+      "bytes": 96433,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/notes_normalized.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/yuai/notes_normalized.json",
+      "sha256": "194d1c0237dd9f8e361565e27b06669d94d0f5b43141ee085e4463f257b5fec8",
+      "bytes": 158861,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/mapping.v1.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/yuai/mapping.v1.json",
+      "sha256": "487c74753418b720fea8e78e92dec74a82284aa511456289fe9c42c11bd45c3e",
+      "bytes": 191144,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/anomalies.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/yuai/anomalies.json",
+      "sha256": "c7bb3d04d7f6abd984ccee66e7df2ad8faaeaad16a27062d7d08918bc30a2914",
+      "bytes": 1908,
+      "identical_to_run": true
+    },
+    {
+      "path": "yuai/hfa_observations.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/yuai/hfa_observations.json",
+      "sha256": "f10dc00238e8f5c3a580edc72ef772384331cb91c68cfcabccdf1daf08315487",
+      "bytes": 67346,
+      "identical_to_run": true
+    },
+    {
+      "path": "samples/index.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/samples/index.json",
+      "sha256": "5e04981fe8f8b5f9fd233251728426b8f140988e2fb5f2f0a59d17738c293522",
+      "bytes": 22386,
+      "identical_to_run": true
+    },
+    {
+      "path": "samples/nianlun/nianlun-melisma.phones.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/samples/nianlun/nianlun-melisma.phones.json",
+      "sha256": "8a1161af964ed4d315009432f6db5c7345a0cc55edb95770055c9a5a59ded11f",
+      "bytes": 19166,
+      "identical_to_run": true
+    },
+    {
+      "path": "samples/lastpage/lastpage-polyphone.phones.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/samples/lastpage/lastpage-polyphone.phones.json",
+      "sha256": "84493b29eeba69be8c8159c9f9953db48b56addcd0ce99f1c6925f77748458c6",
+      "bytes": 11833,
+      "identical_to_run": true
+    },
+    {
+      "path": "samples/yuai/yuai-one_char_one_note.phones.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/samples/yuai/yuai-one_char_one_note.phones.json",
+      "sha256": "6db0c070f8167896102555311162b14ade2fb1b6366b47ea628bf314fc2d1190",
+      "bytes": 8823,
+      "identical_to_run": true
+    },
+    {
+      "path": "command-inventory/observe-nianlun/game.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/command-inventory/observe-nianlun/game.json",
+      "sha256": "34452c9ea63a630681a33f909f935e4dde409b6835c22ed2ebdb63714616513c",
+      "bytes": 66368,
+      "identical_to_run": true
+    },
+    {
+      "path": "command-inventory/observe-nianlun/asr.json",
+      "run_path": "runs/production/phoneme-alignment-p0p1-20261031/command-inventory/observe-nianlun/asr.json",
+      "sha256": "06c77dbae7a5711c4d68a8d0c9e43b1ed7a77878b25811b1dfaf844703114edf",
+      "bytes": 41447,
+      "identical_to_run": true
+    }
+  ]
+}
